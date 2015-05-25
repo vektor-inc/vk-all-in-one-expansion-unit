@@ -1,0 +1,9 @@
+<?php
+/**
+ * BizVektor widgets.php
+ *
+ * @package BizVektor
+ * @version 1.6.0
+ */
+
+require vkExUnit_get_directory() . '/plugins/other_widget/widget-new-posts.php';

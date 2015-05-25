@@ -1,0 +1,40 @@
+@font-face {
+	font-family: 'vk_sns';
+	src:url('fonts/vk_sns.eot?-bq20cj');
+	src:url('fonts/vk_sns.eot?#iefix-bq20cj') format('embedded-opentype'),
+		url('fonts/vk_sns.woff?-bq20cj') format('woff'),
+		url('fonts/vk_sns.ttf?-bq20cj') format('truetype'),
+		url('fonts/vk_sns.svg?-bq20cj#vk_sns') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'vk_sns';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-vk_w_r_sns_twitter:before {
+	content: "\e600";
+}
+.icon-vk_w_r_sns_line:before {
+	content: "\e601";
+}
+.icon-vk_w_r_sns_hatena:before {
+	content: "\e602";
+}
+.icon-vk_w_r_sns_google:before {
+	content: "\e603";
+}
+.icon-vk_w_r_sns_fb:before {
+	content: "\e604";
+}
