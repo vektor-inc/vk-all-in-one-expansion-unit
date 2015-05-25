@@ -62,7 +62,7 @@ function vkExUnit_print_ogp() {
 		}
 	}
 	$vkExUnitOGP .= '<!-- [ /vkExUnitOGP ] -->'."\n";
-	if ( isset($options['ogpTagDisplay']) && $options['ogpTagDisplay'] == 'ogp_off' ) {
+	if ( isset($options['ogTagDisplay']) && $options['ogTagDisplay'] == 'ogp_off' ) {
 		$vkExUnitOGP = '';
 	}
 	$vkExUnitOGP = apply_filters('vkExUnitOGPCustom', $vkExUnitOGP );

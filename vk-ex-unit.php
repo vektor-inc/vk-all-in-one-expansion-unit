@@ -32,6 +32,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*-------------------------------------------*/
 /*	Add vkExUnit css
 /*-------------------------------------------*/
+/*	Chack use post top page
+/*-------------------------------------------*/
+/*	Chack post type info
+/*-------------------------------------------*/
 
 function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
@@ -98,6 +102,17 @@ function vkExUnit_add_setting_page(){ ?>
 add_action('wp_enqueue_scripts','vkExUnit_print_css');
 function vkExUnit_print_css(){
 	wp_enqueue_style('Biz_Vektor_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150525', 'all');
+}
+
+/*-------------------------------------------*/
+/*	Print theme_options js
+/*-------------------------------------------*/
+add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_sns_options_page', 'vkExUnit_admin_add_js');
+function vkExUnit_admin_add_js( $hook_suffix ) {
+	wp_enqueue_media();
+	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150525' );
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
 
 /*-------------------------------------------*/

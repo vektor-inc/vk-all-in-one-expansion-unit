@@ -35,7 +35,7 @@ $fbAppId = (isset($options['fbAppId'])) ? $options['fbAppId'] : '';
 /*-------------------------------------------*/
 add_action( 'admin_menu', 'vkExUnit_add_sns_menu' );
 function vkExUnit_add_sns_menu() {
-	$capability_required = 'activate_plugins';
+	$capability_required = 'edit_theme_options';
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',			// parent
 		'SNS setting',						// Name of page
@@ -83,19 +83,22 @@ function vkExUnit_sns_options_init() {
 add_action( 'admin_init', 'vkExUnit_sns_options_init' );
 
 function vkExUnit_get_sns_options() {
-	return get_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
+	$sns_options			= get_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
+	$sns_options_dafault	= vkExUnit_get_sns_options_default();
+	foreach ($sns_options_dafault as $key => $value) {
+		$sns_options[$key] = (isset($sns_options[$key])) ? $sns_options[$key] : $sns_options_dafault[$key];
+	}
+	return apply_filters( 'vkExUnit_sns_options', $sns_options );
 }
 
 function vkExUnit_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId' => '',
 		'ogTagDisplay' => 'ogp_on',
-		'ogTagDisplay' => 'ogp_on'
-
+		'ogImage' => ''
 	);
-	return apply_filters( 'vkExUnit_default_options', $default_options );
+	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
-
 
 /*-------------------------------------------*/
 /*	validate
@@ -104,8 +107,9 @@ function vkExUnit_get_sns_options_default() {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_sns_options_default();
 
-	$output['fbAppId']		 = $input['fbAppId'];
-	$output['ogTagDisplay'] = $input['ogTagDisplay'];
+	$output['fbAppId']			= $input['fbAppId'];
+	$output['ogTagDisplay']		= $input['ogTagDisplay'];
+	$output['ogImage']			= $input['ogImage'];
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }

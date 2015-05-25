@@ -3,7 +3,6 @@
 <?php
 	settings_fields( 'vkExUnit_sns_options_fields' );
 	$options = vkExUnit_get_sns_options();
-	$options_default = vkExUnit_get_sns_options_default();
 /*-------------------------------------------*/
 /*	SNS
 /*-------------------------------------------*/
@@ -17,15 +16,16 @@
 <td>
 <p><?php _e('If other plug-ins are used for the OGP, do not output the OGP using this plugin.', 'vkExUnit'); ?></p>
 <?php
+$ogTagDisplay = (isset($options['ogTagDisplay'])) ? $options['ogTagDisplay'] : 'ogp_on';
 $vkExUnit_ogpTags = array(
 	'ogp_on' 	=> __('Output OGP tags(default)', 'vkExUnit'),
 	'ogp_off' 	=> __('Do not output OGP tags', 'vkExUnit')
 	);
 foreach( $vkExUnit_ogpTags as $vkExUnit_ogpTagValue => $vkExUnit_ogpTagLavel) {
-	if ( $vkExUnit_ogpTagValue == $options['ogpTagDisplay'] ) { ?>
-	<label><input type="radio" name="vkExUnit_sns_options[ogpTagDisplay]" value="<?php echo $vkExUnit_ogpTagValue ?>" checked> <?php echo $vkExUnit_ogpTagLavel ?></label><br />
+	if ( $vkExUnit_ogpTagValue == $ogTagDisplay ) { ?>
+	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogpTagValue ?>" checked> <?php echo $vkExUnit_ogpTagLavel ?></label><br />
 	<?php } else { ?>
-	<label><input type="radio" name="vkExUnit_sns_options[ogpTagDisplay]" value="<?php echo $vkExUnit_ogpTagValue ?>"> <?php echo $vkExUnit_ogpTagLavel ?></label><br />
+	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogpTagValue ?>"> <?php echo $vkExUnit_ogpTagLavel ?></label><br />
 	<?php }
 } ?>
 </td>
@@ -40,12 +40,12 @@ foreach( $vkExUnit_ogpTags as $vkExUnit_ogpTagValue => $vkExUnit_ogpTagLavel) {
 </tr>
 <!-- OGP -->
 <tr>
-<th><?php _e('OGP default image', 'vkExUnit'); ?></th>
+<th><?php _e('OG default image', 'vkExUnit'); ?></th>
 <td><?php _e('If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vkExUnit'); ?><br />
 <?php _e('If a featured image is specified for the page, it takes precedence.', 'vkExUnit'); ?><br />
-<input type="text" name="vkExUnit_sns_options[ogpImage]" id="ogpImage" value="<?php echo esc_attr( $options['ogpImage'] ); ?>" /> 
-<button id="media_ogpImage" class="media_btn"><?php _e('Select an image', 'vkExUnit'); ?></button><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?>http://www.vektor-inc.co.jp/images/ogpImage.png</span><br />
+<input type="text" name="vkExUnit_sns_options[ogImage]" id="ogImage" value="<?php echo esc_attr( $options['ogImage'] ); ?>" /> 
+<button id="media_ogImage" class="media_btn button"><?php _e('Select an image', 'vkExUnit'); ?></button><br />
+<span><?php _e('ex) ', 'vkExUnit') ;?>http://www.vektor-inc.co.jp/images/ogImage.png</span><br />
 <?php _e('* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit'); ?>
 </td>
 </tr>
