@@ -112,7 +112,7 @@ function biz_vektor_sns_options_validate( $input ) {
 
 	$output['ogpImage'] = $input['ogpImage'];
 
-	$output['ogpTagDisplay'] = $input['ogpTagDisplay'];
+	$output['ogTagDisplay'] = $input['ogTagDisplay'];
 
 	$output['snsBtnsFront'] = $input['snsBtnsFront'];
 	$output['snsBtnsPage'] = $input['snsBtnsPage'];
@@ -212,7 +212,7 @@ function biz_vektor_ogp() {
 		}
 	}
 	$bizVektorOGP .= '<!-- [ /BizVektorOGP ] -->'."\n";
-	if ( isset($options['ogpTagDisplay']) && $options['ogpTagDisplay'] == 'ogp_off' ) {
+	if ( isset($options['ogTagDisplay']) && $options['ogTagDisplay'] == 'ogp_off' ) {
 		$bizVektorOGP = '';
 	}
 	$bizVektorOGP = apply_filters('bizVektorOGPCustom', $bizVektorOGP );

@@ -134,10 +134,10 @@ $biz_vektor_ogpTags = array(
 	'ogp_off' 	=> __('Do not output OGP tags using BizVektor', 'biz-vektor')
 	);
 foreach( $biz_vektor_ogpTags as $biz_vektor_ogpTagValue => $biz_vektor_ogpTagLavel) {
-	if ( $biz_vektor_ogpTagValue == $options['ogpTagDisplay'] ) { ?>
-	<label><input type="radio" name="biz_vektor_sns_options[ogpTagDisplay]" value="<?php echo $biz_vektor_ogpTagValue ?>" checked> <?php echo $biz_vektor_ogpTagLavel ?></label><br />
+	if ( $biz_vektor_ogpTagValue == $options['ogTagDisplay'] ) { ?>
+	<label><input type="radio" name="biz_vektor_sns_options[ogTagDisplay]" value="<?php echo $biz_vektor_ogpTagValue ?>" checked> <?php echo $biz_vektor_ogpTagLavel ?></label><br />
 	<?php } else { ?>
-	<label><input type="radio" name="biz_vektor_sns_options[ogpTagDisplay]" value="<?php echo $biz_vektor_ogpTagValue ?>"> <?php echo $biz_vektor_ogpTagLavel ?></label><br />
+	<label><input type="radio" name="biz_vektor_sns_options[ogTagDisplay]" value="<?php echo $biz_vektor_ogpTagValue ?>"> <?php echo $biz_vektor_ogpTagLavel ?></label><br />
 	<?php }
 } ?>
 </td>

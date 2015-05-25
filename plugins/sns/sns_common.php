@@ -1,7 +1,4 @@
 <?php
-// require vkExUnit_get_directory() . '/plugins/sns/module_fbPagePlugin.php';
-// require vkExUnit_get_directory() . '/plugins/sns/module_ogp.php';
-
 /*-------------------------------------------*/
 /*	Add facebook aprication id
 /*-------------------------------------------*/
@@ -41,16 +38,17 @@ function vkExUnit_add_sns_menu() {
 	$capability_required = 'activate_plugins';
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',			// parent
-		'SNS setting',					// Name of page
-		'SNS setting',					// Label in menu
-		$capability_required,			// Capability required　このメニューページを閲覧・使用するために最低限必要なユーザーレベルまたはユーザーの種類と権限。
+		'SNS setting',						// Name of page
+		'SNS setting',						// Label in menu
+		$capability_required,				// Capability required　このメニューページを閲覧・使用するために最低限必要なユーザーレベルまたはユーザーの種類と権限。
 		'vkExUnit_sns_options_page',		// ユニークなこのサブメニューページの識別子
 		'vkExUnit_add_sns_options_page'		// メニューページのコンテンツを出力する関数
 	);
 	if ( ! $custom_page ) return;
 }
 
-
+require vkExUnit_get_directory() . '/plugins/sns/module_fbPagePlugin.php';
+require vkExUnit_get_directory() . '/plugins/sns/module_og.php';
 
 /*-------------------------------------------*/
 /*	Add setting page
@@ -91,7 +89,8 @@ function vkExUnit_get_sns_options() {
 function vkExUnit_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId' => '',
-		'ogpTagDisplay' => 'ogp_on'
+		'ogTagDisplay' => 'ogp_on',
+		'ogTagDisplay' => 'ogp_on'
 
 	);
 	return apply_filters( 'vkExUnit_default_options', $default_options );
@@ -106,7 +105,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_sns_options_default();
 
 	$output['fbAppId']		 = $input['fbAppId'];
-	$output['ogpTagDisplay'] = $input['ogpTagDisplay'];
+	$output['ogTagDisplay'] = $input['ogTagDisplay'];
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }
