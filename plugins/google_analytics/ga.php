@@ -3,95 +3,71 @@
 /*	Add menu
 /*-------------------------------------------*/
 
-
-
-
 /*-------------------------------------------*/
 /*	Add menu
 /*-------------------------------------------*/
-function vk_add_ga_menu() {
-	$capability_required = vkExUnit_get_capability_required();
+function vkExUnit_add_ga_menu() {
+	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
 	$custom_page = add_submenu_page(
-		'vk_setting_page',			// parent
+		'vkExUnit_setting_page',			// parent
 		'GoogleAnalytics setting',	// Name of page
 		'GA setting',				// Label in menu
-		$capability_required,		// Capability required　このメニューページを閲覧・使用するために最低限必要なユーザーレベルまたはユーザーの種類と権限。
-		'vk_ga_options',			// ユニークなこのサブメニューページの識別子
-		'add_vk_ga_options'			// メニューページのコンテンツを出力する関数
+		$capability_required,		// Capability
+		'vkExUnit_ga_options_page',			// ユニークなこのサブメニューページの識別子
+		'vkExUnit_add_ga_options_page'			// メニューページのコンテンツを出力する関数
 	);
-	if ( ! $custom_page )
-	return;
+	if ( ! $custom_page ) return;
 }
-add_action( 'admin_menu', 'vk_add_ga_menu' );
+add_action( 'admin_menu', 'vkExUnit_add_ga_menu' );
 
 /*-------------------------------------------*/
 /*	Add setting page
 /*-------------------------------------------*/
 
-function add_vk_ga_options(){
+function vkExUnit_add_ga_options_page(){
 	require dirname( __FILE__ ) . '/ga_admin.php';
 }
 
-function biz_vektor_ga_options_init() {
-	if ( false === biz_vektor_get_ga_options() )
-		add_option( 'biz_vektor_ga_options', biz_vektor_get_ga_options_default() );
+/*-------------------------------------------*/
+/*	Options Init
+/*-------------------------------------------*/
+function vkExUnit_ga_options_init() {
+	if ( false === vkExUnit_get_ga_options() )
+		add_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() );
 
 	register_setting(
-		'biz_vektor_ga_options_fields', 	//  Immediately following form tag of edit page.
-		'biz_vektor_ga_options',			// name attr
-		'biz_vektor_ga_options_validate'
+		'vkExUnit_ga_options_fields', 	//  Immediately following form tag of edit page.
+		'vkExUnit_ga_options',			// name attr
+		'vkExUnit_ga_options_validate'
 	);
 }
-add_action( 'admin_init', 'biz_vektor_ga_options_init' );
+add_action( 'admin_init', 'vkExUnit_ga_options_init' );
 
-function biz_vektor_get_ga_options() {
-	return get_option( 'biz_vektor_ga_options', biz_vektor_get_ga_options_default() );
-}
-
-function biz_vektor_get_ga_options_default() {
-	$default_options = array(
-
-	);
-	return apply_filters( 'biz_vektor_default_options', $default_options );
-}
-
-
-/*-------------------------------------------*/
-/*	Set option default
-/*	$opstions_default = biz_vektor_get_ga_options_default(); に移行して順次廃止	// 0.11.0
-/*-------------------------------------------*/
-function biz_vektor_ga_options_default() {
-	global $biz_vektor_ga_options_default;
-	$biz_vektor_ga_options_default = array(
-		// 'pr1_title' => __('Rich theme options', 'biz-vektor'),
-	);
-}
-
-/*-------------------------------------------*/
-/*	Print option
-/*-------------------------------------------*/
-function biz_vektor_ga_options($optionLabel) {
-	$options = biz_vektor_get_ga_options();
-	if ( $options[$optionLabel] != false ) { // If !='' that 0 true
-		return $options[$optionLabel];
-	} else {
-		$options_default = biz_vektor_get_ga_options_default();
-		if (isset($options_default[$optionLabel]))
-		return $options_default[$optionLabel];
+function vkExUnit_get_ga_options() {
+	$options			= get_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() );
+	$options_dafault	= vkExUnit_get_ga_options_default();
+	foreach ($options_dafault as $key => $value) {
+		$options[$key] = (isset($options[$key])) ? $options[$key] : $options_dafault[$key];
 	}
+	return apply_filters( 'vkExUnit_ga_options', $options );
+}
+
+function vkExUnit_get_ga_options_default() {
+	$default_options = array(
+		'gaId' => '',
+		'gaType' => 'gaType_universal',
+	);
+	return apply_filters( 'vkExUnit_ga_options_default', $default_options );
 }
 
 /*-------------------------------------------*/
 /*	validate
 /*-------------------------------------------*/
-// function biz_vektor_ga_options_validate( $input ) {
-// 	$output = $defaults = biz_vektor_get_default_theme_options();
-
-function biz_vektor_ga_options_validate( $input ) {
-	$output = $defaults = biz_vektor_get_ga_options_default();
+function vkExUnit_ga_options_validate( $input ) {
+	$output = $defaults = vkExUnit_get_ga_options_default();
 
 	$paras = array(
-			'gaID',
+			'gaId',
 			'gaType',
 			);
 
@@ -99,25 +75,24 @@ function biz_vektor_ga_options_validate( $input ) {
 		$output[$value] = (isset($input[$value])) ? $input[$value] : '';
 	}
 
-	return apply_filters( 'biz_vektor_ga_options_validate', $output, $input, $defaults );
+	return apply_filters( 'vkExUnit_ga_options_validate', $output, $input, $defaults );
 }
-
 
 /*-------------------------------------------*/
 /*	GoogleAnalytics
 /*-------------------------------------------*/
-add_action('wp_head', 'biz_vektor_googleAnalytics', 10000 );
-function biz_vektor_googleAnalytics(){
-	$options = biz_vektor_get_ga_options();
-	$gaID = $options['gaID'];
-	$gaType = $options['gaType'];
-	if ($gaID) {
+add_action('wp_head', 'vkExUnit_googleAnalytics', 10000 );
+function vkExUnit_googleAnalytics(){
+	$options = vkExUnit_get_ga_options();
+	$gaId = esc_html($options['gaId']);
+	$gaType = esc_html($options['gaType']);
+	if ($gaId) {
 
 		if ((!$gaType) || ($gaType == 'gaType_normal') || ($gaType == 'gaType_both')){ ?>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-<?php echo $gaID ?>']);
+  _gaq.push(['_setAccount', 'UA-<?php echo $gaId ?>']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -138,7 +113,7 @@ function biz_vektor_googleAnalytics(){
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-<?php echo $gaID ?>', '<?php echo $domain ?>');
+ga('create', 'UA-<?php echo $gaId ?>', '<?php echo $domain ?>');
 ga('send', 'pageview');
 </script>
 <?php

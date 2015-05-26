@@ -12,20 +12,20 @@
 <!-- OGP hidden -->
 <table class="form-table">
 <tr>
-<th><?php _e('Do not output the OGP', 'biz-vkExUnit'); ?></th>
+<th><?php _e('Do not output the OG', 'vkExUnit'); ?></th>
 <td>
-<p><?php _e('If other plug-ins are used for the OGP, do not output the OGP using this plugin.', 'vkExUnit'); ?></p>
+<p><?php _e('If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vkExUnit'); ?></p>
 <?php
-$ogTagDisplay = (isset($options['ogTagDisplay'])) ? $options['ogTagDisplay'] : 'ogp_on';
-$vkExUnit_ogpTags = array(
-	'ogp_on' 	=> __('Output OGP tags(default)', 'vkExUnit'),
-	'ogp_off' 	=> __('Do not output OGP tags', 'vkExUnit')
+$ogTagDisplay = (isset($options['ogTagDisplay'])) ? $options['ogTagDisplay'] : 'og_on';
+$vkExUnit_ogTags = array(
+	'og_on' 	=> __('Output OG tags(default)', 'vkExUnit'),
+	'og_off' 	=> __('Do not output OG tags', 'vkExUnit')
 	);
-foreach( $vkExUnit_ogpTags as $vkExUnit_ogpTagValue => $vkExUnit_ogpTagLavel) {
-	if ( $vkExUnit_ogpTagValue == $ogTagDisplay ) { ?>
-	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogpTagValue ?>" checked> <?php echo $vkExUnit_ogpTagLavel ?></label><br />
+foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
+	if ( $vkExUnit_ogTagValue == $ogTagDisplay ) { ?>
+	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogTagValue ?>" checked> <?php echo $vkExUnit_ogTagLavel ?></label><br />
 	<?php } else { ?>
-	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogpTagValue ?>"> <?php echo $vkExUnit_ogpTagLavel ?></label><br />
+	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogTagValue ?>"> <?php echo $vkExUnit_ogTagLavel ?></label><br />
 	<?php }
 } ?>
 </td>

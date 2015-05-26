@@ -41,6 +41,10 @@ function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
 }
 
+function vkExUnit_get_name() {
+	$system_name = 'VK All in one Expansion Unit';
+	return $system_name;
+}
 function vkExUnit_get_short_name() {
 	$short_name = 'Vk';
 	return $short_name;
@@ -85,6 +89,7 @@ function vkExUnit_setting_menu_parent() {
 require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
 require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
 require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
+require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
 
 function vkExUnit_add_setting_page(){ ?>
 

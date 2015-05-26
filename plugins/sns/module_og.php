@@ -3,10 +3,12 @@
 /*-------------------------------------------*/
 /*	Add OGP
 /*-------------------------------------------*/
-// add_action('wp_head', 'vkExUnit_ogp' );
-function vkExUnit_print_ogp() {
+add_action('wp_head', 'vkExUnit_print_og' );
+function vkExUnit_print_og() {
 	$options = vkExUnit_get_sns_options();
-	//$ogpImage = $options['ogpImage'];
+	if ($options['ogTagDisplay'] == 'og_on') {
+
+	//$ogImage = $options['ogImage'];
 	//$fbAppId = $options['fbAppId'];
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
@@ -25,15 +27,15 @@ function vkExUnit_print_ogp() {
 	}
 	if (is_front_page() || is_home()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="website" />'."\n";
-		if ($options['ogpImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogpImage'].'" />'."\n";
+		if ($options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
 		}
 		$vkExUnitOGP .= '<meta property="og:title" content="'.get_bloginfo('name').'" />'."\n";
 		$vkExUnitOGP .= '<meta property="og:description" content="'.get_bloginfo('description').'" />'."\n";
 	} else if (is_category() || is_archive()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
-		if ($options['ogpImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogpImage'].'" />'."\n";
+		if ($options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
 		}
 	} else if (is_page() || is_single()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
@@ -42,8 +44,8 @@ function vkExUnit_print_ogp() {
 			$image_id = get_post_thumbnail_id();
 			$image_url = wp_get_attachment_image_src($image_id,'large', true);
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$image_url[0].'" />'."\n";
-		} else if ($options['ogpImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogpImage'].'" />'."\n";
+		} else if ($options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
 		}
 		// description
 		$metaExcerpt = $post->post_excerpt;
@@ -57,8 +59,8 @@ function vkExUnit_print_ogp() {
 		$vkExUnitOGP .= '<meta property="og:description" content="'.$metadescription.'" />'."\n";
 	} else {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
-		if ($options['ogpImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogpImage'].'" />'."\n";
+		if ($options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
 		}
 	}
 	$vkExUnitOGP .= '<!-- [ /vkExUnitOGP ] -->'."\n";
@@ -67,5 +69,5 @@ function vkExUnit_print_ogp() {
 	}
 	$vkExUnitOGP = apply_filters('vkExUnitOGPCustom', $vkExUnitOGP );
 	echo $vkExUnitOGP;
-	//} // function_exist
+	} // if ($options['ogTagDisplay'] == 'og_on')
 }

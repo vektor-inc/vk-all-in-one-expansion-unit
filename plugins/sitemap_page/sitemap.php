@@ -1,5 +1,4 @@
 <?php
-
 function vkExUnit_sitemap($atts) {
 
     extract(shortcode_atts(array(

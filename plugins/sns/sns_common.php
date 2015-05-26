@@ -12,7 +12,7 @@
 /*-------------------------------------------*/
 /*	Add facebook aprication id
 /*-------------------------------------------*/
-// add_action('wp_footer', 'exUnit_print_fbId_script');
+add_action('wp_footer', 'exUnit_print_fbId_script');
 function exUnit_print_fbId_script(){
 ?>
 <div id="fb-root"></div>
@@ -35,7 +35,7 @@ $fbAppId = (isset($options['fbAppId'])) ? $options['fbAppId'] : '';
 /*-------------------------------------------*/
 add_action( 'admin_menu', 'vkExUnit_add_sns_menu' );
 function vkExUnit_add_sns_menu() {
-	$capability_required = 'edit_theme_options';
+	$capability_required = add_filter( 'vkExUnit_sns_page_capability', vkExUnit_get_capability_required() );
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',			// parent
 		'SNS setting',						// Name of page
@@ -55,17 +55,10 @@ require vkExUnit_get_directory() . '/plugins/sns/module_og.php';
 /*-------------------------------------------*/
 
 function vkExUnit_add_sns_options_page(){
-	require dirname( __FILE__ ) . '/sns_setting_page.php';
+	require dirname( __FILE__ ) . '/sns_admin.php';
 	?>
 	<?php
 }
-
-
-function vkExUnit_sns_option_page_capability( $capability ) {
-	return 'edit_theme_options';
-}
-add_filter( 'option_page_capability_vkExUnit_options', 'vkExUnit_sns_option_page_capability' );
-
 
 /*-------------------------------------------*/
 /*	Options Init
@@ -83,18 +76,18 @@ function vkExUnit_sns_options_init() {
 add_action( 'admin_init', 'vkExUnit_sns_options_init' );
 
 function vkExUnit_get_sns_options() {
-	$sns_options			= get_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
-	$sns_options_dafault	= vkExUnit_get_sns_options_default();
-	foreach ($sns_options_dafault as $key => $value) {
-		$sns_options[$key] = (isset($sns_options[$key])) ? $sns_options[$key] : $sns_options_dafault[$key];
+	$options			= get_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
+	$options_dafault	= vkExUnit_get_sns_options_default();
+	foreach ($options_dafault as $key => $value) {
+		$options[$key] = (isset($options[$key])) ? $options[$key] : $options_dafault[$key];
 	}
-	return apply_filters( 'vkExUnit_sns_options', $sns_options );
+	return apply_filters( 'vkExUnit_sns_options', $options );
 }
 
 function vkExUnit_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId' => '',
-		'ogTagDisplay' => 'ogp_on',
+		'ogTagDisplay' => 'og_on',
 		'ogImage' => ''
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
