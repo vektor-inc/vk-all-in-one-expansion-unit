@@ -91,13 +91,8 @@ require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
 require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
 require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
 
-function vkExUnit_add_setting_page(){ ?>
-
-<h2>VK All in one Expansion Unit Settings.</h2>
-<ul>
-<li><a href="<?php echo admin_url();?>">SNS連携の設定</a></li>
-</ul>
-<?php 
+function vkExUnit_add_setting_page(){
+	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
 
 /*-------------------------------------------*/
@@ -176,6 +171,111 @@ function vkExUnit_get_post_type(){
 		$postType['url'] = home_url().'/?post_type='.$postType['slug'];
 	}
 
-	$postType = apply_filters('bvII_postType_custom',$postType);
+	$postType = apply_filters('vkExUnit_postType_custom',$postType);
 	return $postType;
+}
+/*-------------------------------------------*/
+/*	Head title
+/*-------------------------------------------*/
+function vkExUnit_wp_head_title($title){
+	global $wp_query;
+	$post = $wp_query->get_queried_object();
+	$sep = ' | ';
+	$sep = apply_filters( 'vkExUnit_wp_head_title', $sep );
+
+	if (is_front_page()) {
+		$title = get_bloginfo('name');
+	} else if ( is_home() && !is_front_page()) {
+		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo('name');
+	} else if ( is_archive() ) {
+		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo('name');
+	// Page
+	} else if (is_page()) {
+		// Sub Pages
+		if ( $post->post_parent ) {
+			if($post->ancestors){
+				foreach($post->ancestors as $post_anc_id){
+					$post_id = $post_anc_id;
+				}
+			} else {
+				$post_id = $post->ID;
+			}
+			$title = get_the_title()." | ".get_the_title($post_id)." | ".get_bloginfo('name');
+		// Not Sub Pages
+		} else {
+			$title = get_the_title()." | ".get_bloginfo('name');
+		}
+	} else if ( is_single() ){
+		$title = get_the_title().$sep.get_bloginfo('name');
+	}
+
+	// Add Page numner.
+	global $paged;
+	if ( $paged >= 2 ){
+		$title = '['.sprintf(__('Page of %s', 'bvII' ),$paged).'] '.$title;
+	}
+
+	$title = apply_filters( 'vkExUnit_wp_head_title', $title );
+
+	// Remove Tags(ex:<i>) & return
+	return strip_tags($title);
+}
+add_filter('wp_title','vkExUnit_wp_head_title');
+
+/*-------------------------------------------*/
+/*	Archive title
+/*-------------------------------------------*/
+
+function vkExUnit_get_the_archive_title(){
+   if ( is_category() ) {
+        $title = single_cat_title( '', false );
+    } elseif ( is_tag() ) {
+        $title = single_tag_title( '', false );
+    } elseif ( is_author() ) {
+        $title = sprintf( __( 'Author: %s' ), '<span class="vcard">' . get_the_author() . '</span>' );
+    } elseif ( is_year() ) {
+        $title = get_the_date( _x( 'Y', 'yearly archives date format', 'bvII' ) );
+    } elseif ( is_month() ) {
+        $title = get_the_date( _x( 'F Y', 'monthly archives date format', 'bvII' ) );
+    } elseif ( is_day() ) {
+        $title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'bvII' ) );
+    } elseif ( is_tax( 'post_format' ) ) {
+        if ( is_tax( 'post_format', 'post-format-aside' ) ) {
+            $title = _x( 'Asides', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) {
+            $title = _x( 'Galleries', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-image' ) ) {
+            $title = _x( 'Images', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-video' ) ) {
+            $title = _x( 'Videos', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-quote' ) ) {
+            $title = _x( 'Quotes', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-link' ) ) {
+            $title = _x( 'Links', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-status' ) ) {
+            $title = _x( 'Statuses', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-audio' ) ) {
+            $title = _x( 'Audio', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-chat' ) ) {
+            $title = _x( 'Chats', 'post format archive title' );
+        }
+    } elseif ( is_post_type_archive() ) {
+        $title = post_type_archive_title( '', false );
+    } elseif ( is_tax() ) {
+        $title = single_term_title( '', false );
+    } elseif ( is_home() && !is_front_page() ){
+    	$vkExUnit_page_for_posts = vkExUnit_get_page_for_posts();
+    	$title = $vkExUnit_page_for_posts['post_top_name'];
+    } else {
+        global $wp_query;
+		// get post type
+		$postType = $wp_query->query_vars['post_type'];
+		if ( $postType ) {
+			$pageTitle = get_post_type_object($postType)->labels->name;
+		} else {
+			$title = __( 'Archives' );
+		}
+    }
+
+    return apply_filters( 'vkExUnit_get_the_archive_title', $title );
 }

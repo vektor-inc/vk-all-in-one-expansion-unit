@@ -11,7 +11,7 @@ function vkExUnit_sitemap($atts) {
 	/*-------------------------------------------*/
 	/* pages
 	/*-------------------------------------------*/
-	$sitemap_html .= '<div class="col-md-6">';
+	$sitemap_html .= '<div class="col-md-6 sitemap-col">';
 	$sitemap_html .= '<ul class="link-list">';
 	$args = array(
 		'title_li' 	=> '',
@@ -27,7 +27,7 @@ function vkExUnit_sitemap($atts) {
 	/*-------------------------------------------*/
 	/* Posts & Custom posts
 	/*-------------------------------------------*/
-	$sitemap_html .= '<div class="col-md-6">';
+	$sitemap_html .= '<div class="col-md-6 sitemap-col">';
 
 	$page_for_posts = vkExUnit_get_page_for_posts();
 

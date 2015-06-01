@@ -49,6 +49,7 @@ function vkExUnit_add_sns_menu() {
 
 require vkExUnit_get_directory() . '/plugins/sns/module_fbPagePlugin.php';
 require vkExUnit_get_directory() . '/plugins/sns/module_og.php';
+require vkExUnit_get_directory() . '/plugins/sns/module_snsBtns.php';
 
 /*-------------------------------------------*/
 /*	Add setting page
