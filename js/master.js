@@ -15,7 +15,3 @@ function pagePluginReSize(){
 	// 	jQuery(this).children('span iframe.fb_ltr').css({"width":element});
 	// });
 }
-function snsWindowOpen(){
-	window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-	return false;
-}

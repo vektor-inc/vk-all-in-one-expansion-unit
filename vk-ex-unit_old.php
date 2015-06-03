@@ -1,13 +1,5 @@
 <?php
-/*
-Plugin Name: VK All in one Expansion Unit
-Plugin URI: http://vektor-inc.co.jp
-Description: 
-Version: 0.0.0.0
-Author: Vektor,Inc,
-Author URI: http://vektor-inc.co.jp
-License: GPL2
-*/
+
 /*
 Copyright 2015 Hidekazu Ishikawa ( email : kurudrive@gmail.com )
 

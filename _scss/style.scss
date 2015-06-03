@@ -20,10 +20,13 @@
   border: 4px solid #efefef;
 }
 
+.twitter-timeline iframe { margin-left:auto;margin-right:auto; }
+
+.vkContentAddSection { display:block; overflow:hidden; clear:both; padding-top:20px; }
+
 /*-------------------------------------------*/
 /*			.socialSet 0.2.0.0
 /*-------------------------------------------*/
-.socialSet	{ display:block; overflow:hidden; clear:both;padding-top:20px; }
 .socialSet ul { margin:0px;padding:0; }
 .socialSet ul li { display:block;float:left; overflow:visible; background:none; padding:0px; margin-right:10px; position:relative; }
 .socialSet ul li.sb_icon a {display:block; overflow:hidden;border:1px solid #ccc; background-color:#fff; padding: 3px 5px 0px; border-radius: 3px; line-height: 100%;color:#333;text-decoration: none; }
@@ -36,6 +39,8 @@
 .socialSet ul li.sb_icon.sb_google .icon_sns	{ color:#dd4b39; }
 .socialSet ul li.sb_icon.sb_line .icon_sns	{ color:#6ebd30; }
 .socialSet ul li.sb_pocket		{ margin-left:5px;}
+
+.relatedPosts { }
 
 /*-------------------------------------------*/
 /*			import icon

@@ -1,0 +1,175 @@
+<?php
+/*-------------------------------------------*/
+/*	Chack use post top page
+/*-------------------------------------------*/
+/*	Chack post type info
+/*-------------------------------------------*/
+/*	Head title
+/*-------------------------------------------*/
+/*	Archive title
+/*-------------------------------------------*/
+
+/*-------------------------------------------*/
+/*	Chack use post top page
+/*-------------------------------------------*/
+function vkExUnit_get_page_for_posts(){
+	// Get post top page by setting display page.
+	$page_for_posts['post_top_id'] = get_option('page_for_posts');
+
+	// Set use post top page flag.
+	$page_for_posts['post_top_use'] = ( isset($page_for_posts['post_top_id']) && $page_for_posts['post_top_id'] ) ? true : false ;
+
+	// When use post top page that get post top page name.
+	$page_for_posts['post_top_name'] = ( $page_for_posts['post_top_use'] ) ? get_the_title( $page_for_posts['post_top_id'] ) : '';
+
+	return $page_for_posts;
+}
+
+/*-------------------------------------------*/
+/*	Chack post type info
+/*-------------------------------------------*/
+function vkExUnit_get_post_type(){
+
+	$page_for_posts = vkExUnit_get_page_for_posts();
+
+	// Get post type slug
+	/*-------------------------------------------*/
+	$postType['slug'] = get_post_type();
+	if ( !$postType['slug'] ) {
+	  global $wp_query;
+	  if ($wp_query->query_vars['post_type']) {
+	      $postType['slug'] = $wp_query->query_vars['post_type'];
+	  } else {
+	  	// Case of tax archive and no posts
+		$taxonomy = get_queried_object()->taxonomy;
+		$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];	  	
+	  }
+	}
+
+	// Get post type name
+	/*-------------------------------------------*/
+	$post_type_object = get_post_type_object($postType['slug']);
+	if($post_type_object){
+		if ( $page_for_posts['post_top_use'] && $postType['slug'] == 'post' ){
+			$postType['name'] = esc_html( get_the_title($page_for_posts['post_top_id']) );
+		} else {
+			$postType['name'] = esc_html($post_type_object->labels->name);
+		}
+	}
+
+	// Get post type archive url
+	/*-------------------------------------------*/
+	if ( $page_for_posts['post_top_use'] && $postType['slug'] == 'post' ){
+		$postType['url'] = get_the_permalink($page_for_posts['post_top_id']);
+	} else {
+		$postType['url'] = home_url().'/?post_type='.$postType['slug'];
+	}
+
+	$postType = apply_filters('vkExUnit_postType_custom',$postType);
+	return $postType;
+}
+/*-------------------------------------------*/
+/*	Head title
+/*-------------------------------------------*/
+function vkExUnit_wp_head_title($title){
+	global $wp_query;
+	$post = $wp_query->get_queried_object();
+	$sep = ' | ';
+	$sep = apply_filters( 'vkExUnit_wp_head_title', $sep );
+
+	if (is_front_page()) {
+		$title = get_bloginfo('name');
+	} else if ( is_home() && !is_front_page()) {
+		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo('name');
+	} else if ( is_archive() ) {
+		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo('name');
+	// Page
+	} else if (is_page()) {
+		// Sub Pages
+		if ( $post->post_parent ) {
+			if($post->ancestors){
+				foreach($post->ancestors as $post_anc_id){
+					$post_id = $post_anc_id;
+				}
+			} else {
+				$post_id = $post->ID;
+			}
+			$title = get_the_title()." | ".get_the_title($post_id)." | ".get_bloginfo('name');
+		// Not Sub Pages
+		} else {
+			$title = get_the_title()." | ".get_bloginfo('name');
+		}
+	} else if ( is_single() ){
+		$title = get_the_title().$sep.get_bloginfo('name');
+	}
+
+	// Add Page numner.
+	global $paged;
+	if ( $paged >= 2 ){
+		$title = '['.sprintf(__('Page of %s', 'bvII' ),$paged).'] '.$title;
+	}
+
+	$title = apply_filters( 'vkExUnit_wp_head_title', $title );
+
+	// Remove Tags(ex:<i>) & return
+	return strip_tags($title);
+}
+add_filter('wp_title','vkExUnit_wp_head_title');
+
+/*-------------------------------------------*/
+/*	Archive title
+/*-------------------------------------------*/
+
+function vkExUnit_get_the_archive_title(){
+   if ( is_category() ) {
+        $title = single_cat_title( '', false );
+    } elseif ( is_tag() ) {
+        $title = single_tag_title( '', false );
+    } elseif ( is_author() ) {
+        $title = sprintf( __( 'Author: %s' ), '<span class="vcard">' . get_the_author() . '</span>' );
+    } elseif ( is_year() ) {
+        $title = get_the_date( _x( 'Y', 'yearly archives date format', 'bvII' ) );
+    } elseif ( is_month() ) {
+        $title = get_the_date( _x( 'F Y', 'monthly archives date format', 'bvII' ) );
+    } elseif ( is_day() ) {
+        $title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'bvII' ) );
+    } elseif ( is_tax( 'post_format' ) ) {
+        if ( is_tax( 'post_format', 'post-format-aside' ) ) {
+            $title = _x( 'Asides', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) {
+            $title = _x( 'Galleries', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-image' ) ) {
+            $title = _x( 'Images', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-video' ) ) {
+            $title = _x( 'Videos', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-quote' ) ) {
+            $title = _x( 'Quotes', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-link' ) ) {
+            $title = _x( 'Links', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-status' ) ) {
+            $title = _x( 'Statuses', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-audio' ) ) {
+            $title = _x( 'Audio', 'post format archive title' );
+        } elseif ( is_tax( 'post_format', 'post-format-chat' ) ) {
+            $title = _x( 'Chats', 'post format archive title' );
+        }
+    } elseif ( is_post_type_archive() ) {
+        $title = post_type_archive_title( '', false );
+    } elseif ( is_tax() ) {
+        $title = single_term_title( '', false );
+    } elseif ( is_home() && !is_front_page() ){
+    	$vkExUnit_page_for_posts = vkExUnit_get_page_for_posts();
+    	$title = $vkExUnit_page_for_posts['post_top_name'];
+    } else {
+        global $wp_query;
+		// get post type
+		$postType = $wp_query->query_vars['post_type'];
+		if ( $postType ) {
+			$pageTitle = get_post_type_object($postType)->labels->name;
+		} else {
+			$title = __( 'Archives' );
+		}
+    }
+
+    return apply_filters( 'vkExUnit_get_the_archive_title', $title );
+}

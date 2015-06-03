@@ -15,13 +15,10 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function widget($args, $instance) {
 		echo '<div class="widget">';
-		echo '<h3>';
+
 		if ( isset($instance['label']) && $instance['label'] ) {
-			echo $instance['label'];
-		} else {
-			echo 'Facebook Page Plugin';
+			echo '<h3>'.$instance['label'].'</h3>';
 		}
-		echo '</h3>';
 
 		$page_url 	= ( isset($instance['page_url']) && $instance['page_url'] ) ? $instance['page_url'] : '';
 		$height 	= ( isset($instance['height']) && $instance['height'] ) ? $instance['height'] : 200;

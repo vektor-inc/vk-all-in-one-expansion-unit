@@ -12,11 +12,13 @@
 /*-------------------------------------------*/
 .fb-like-box { text-align: center; background-color: #f9f9f9; margin: 0 auto; border: 4px solid #efefef; }
 
+a.twitter-timeline iframe { margin-left: auto; margin-right: auto; }
+
+.vkContentAddSection { display: block; overflow: hidden; clear: both; padding-top: 20px; }
+
 /*-------------------------------------------*/
 /*			.socialSet 0.2.0.0
 /*-------------------------------------------*/
-.socialSet { display: block; overflow: hidden; clear: both; padding-top: 20px; }
-
 .socialSet ul { margin: 0px; padding: 0; }
 
 .socialSet ul li { display: block; float: left; overflow: visible; background: none; padding: 0px; margin-right: 10px; position: relative; }
