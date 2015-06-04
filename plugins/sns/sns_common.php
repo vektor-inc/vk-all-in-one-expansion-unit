@@ -47,10 +47,10 @@ function vkExUnit_add_sns_menu() {
 	if ( ! $custom_page ) return;
 }
 
-require vkExUnit_get_directory() . '/plugins/sns/module_fbPagePlugin.php';
-require vkExUnit_get_directory() . '/plugins/sns/module_og.php';
-require vkExUnit_get_directory() . '/plugins/sns/module_snsBtns.php';
-require vkExUnit_get_directory() . '/plugins/sns/module_twitterCard.php';
+require vkExUnit_get_directory() . '/plugins/sns/function_fbPagePlugin.php';
+require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
+require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php';
+require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
 
 /*-------------------------------------------*/
 /*	Add setting page
