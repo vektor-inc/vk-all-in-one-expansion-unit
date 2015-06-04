@@ -5,11 +5,11 @@
 /*-------------------------------------------*/
 add_action('wp_head', 'vkExUnit_print_og' );
 function vkExUnit_print_og() {
-	$options = vkExUnit_get_sns_options();
-	if ($options['ogTagDisplay'] == 'og_on') {
+	global $vkExUnit_sns_options;
+	if ($vkExUnit_sns_options['ogTagDisplay'] == 'og_on') {
 
-	//$ogImage = $options['ogImage'];
-	//$fbAppId = $options['fbAppId'];
+	//$ogImage = $vkExUnit_sns_options['ogImage'];
+	//$fbAppId = $vkExUnit_sns_options['fbAppId'];
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
 	if (is_home() || is_front_page()) {
@@ -22,20 +22,20 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP = '<!-- [ vkExUnitOGP ] -->'."\n";
 	$vkExUnitOGP .= '<meta property="og:site_name" content="'.get_bloginfo('name').'" />'."\n";
 	$vkExUnitOGP .= '<meta property="og:url" content="'.$linkUrl.'" />'."\n";
-	if ($options['fbAppId']){
-		$vkExUnitOGP = $vkExUnitOGP.'<meta property="fb:app_id" content="'.$options['fbAppId'].'" />'."\n";
+	if ($vkExUnit_sns_options['fbAppId']){
+		$vkExUnitOGP = $vkExUnitOGP.'<meta property="fb:app_id" content="'.$vkExUnit_sns_options['fbAppId'].'" />'."\n";
 	}
 	if (is_front_page() || is_home()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="website" />'."\n";
-		if ($options['ogImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
+		if ($vkExUnit_sns_options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 		$vkExUnitOGP .= '<meta property="og:title" content="'.get_bloginfo('name').'" />'."\n";
 		$vkExUnitOGP .= '<meta property="og:description" content="'.get_bloginfo('description').'" />'."\n";
 	} else if (is_category() || is_archive()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
-		if ($options['ogImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
+		if ($vkExUnit_sns_options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	} else if (is_page() || is_single()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
@@ -44,8 +44,8 @@ function vkExUnit_print_og() {
 			$image_id = get_post_thumbnail_id();
 			$image_url = wp_get_attachment_image_src($image_id,'large', true);
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$image_url[0].'" />'."\n";
-		} else if ($options['ogImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
+		} else if ($vkExUnit_sns_options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 		// description
 		$metaExcerpt = $post->post_excerpt;
@@ -59,15 +59,15 @@ function vkExUnit_print_og() {
 		$vkExUnitOGP .= '<meta property="og:description" content="'.$metadescription.'" />'."\n";
 	} else {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
-		if ($options['ogImage']){
-			$vkExUnitOGP .= '<meta property="og:image" content="'.$options['ogImage'].'" />'."\n";
+		if ($vkExUnit_sns_options['ogImage']){
+			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	}
 	$vkExUnitOGP .= '<!-- [ /vkExUnitOGP ] -->'."\n";
-	if ( isset($options['ogTagDisplay']) && $options['ogTagDisplay'] == 'ogp_off' ) {
+	if ( isset($vkExUnit_sns_options['ogTagDisplay']) && $vkExUnit_sns_options['ogTagDisplay'] == 'ogp_off' ) {
 		$vkExUnitOGP = '';
 	}
 	$vkExUnitOGP = apply_filters('vkExUnitOGPCustom', $vkExUnitOGP );
 	echo $vkExUnitOGP;
-	} // if ($options['ogTagDisplay'] == 'og_on')
+	} // if ($vkExUnit_sns_options['ogTagDisplay'] == 'og_on')
 }

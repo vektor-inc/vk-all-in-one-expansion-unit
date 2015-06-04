@@ -82,13 +82,13 @@ function vkExUnit_setting_menu_parent() {
 /*-------------------------------------------*/
 /*	Load modules
 /*-------------------------------------------*/
-
+require vkExUnit_get_directory() . '/common_helpers.php';
 require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
 require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
 require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
 require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
 require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
-require vkExUnit_get_directory() . '/common_helpers.php';
+require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
 
 function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';

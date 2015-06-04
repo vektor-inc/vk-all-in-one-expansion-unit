@@ -107,3 +107,12 @@ function vkExUnit_sns_options_validate( $input ) {
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }
+
+/*-------------------------------------------*/
+/*	set global
+/*-------------------------------------------*/
+add_action('wp_head', 'vkExUnit_set_sns_options' );
+function vkExUnit_set_sns_options() {
+	global $vkExUnit_sns_options;
+	$vkExUnit_get_sns_options = vkExUnit_get_sns_options();
+}

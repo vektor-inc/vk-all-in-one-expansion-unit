@@ -31,7 +31,7 @@ function vkExUnit_add_relatedPosts($content){
 	if ( $tag_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
 		$relatedPostsHtml .= '<aside class="relatedPosts subSection vkContentAddSection">';
-		$relatedPostsHtml .= '<h4 class="subSection-title">'.__('Related posts','vkExUnit').'</h4>';
+		$relatedPostsHtml .= '<h3>'.__('Related posts','vkExUnit').'</h3>';
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ($tag_posts as $key => $post) {

@@ -6,6 +6,8 @@
 /*-------------------------------------------*/
 /*	Head title
 /*-------------------------------------------*/
+/*	Page description
+/*-------------------------------------------*/
 /*	Archive title
 /*-------------------------------------------*/
 
@@ -115,6 +117,67 @@ function vkExUnit_wp_head_title($title){
 	return strip_tags($title);
 }
 add_filter('wp_title','vkExUnit_wp_head_title');
+
+/*-------------------------------------------*/
+/*	Page description
+/*-------------------------------------------*/
+function vkExUnit_get_pageDescription() {
+	global $wp_query;
+	$post = $wp_query->get_queried_object();
+	if (is_home() || is_front_page() ) {
+		if ( isset($post->post_excerpt) && $post->post_excerpt ) {
+			$pageDescription = get_the_excerpt();
+		} else {
+			$pageDescription = get_bloginfo( 'description' );
+		}
+	} else if (is_category() || is_tax()) {
+		if ( ! $post->description ) {
+			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_cat_title()).get_bloginfo('name').' '.get_bloginfo('description');
+		} else {
+			$pageDescription = esc_html( $post->description );
+		}
+	} else if (is_tag()) {
+		$pageDescription = strip_tags(tag_description());
+		$pageDescription = str_replace(array("\r\n","\r","\n"), '', $pageDescription);  // delete br
+		if ( ! $pageDescription ) {
+			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_tag_title()).get_bloginfo('name').' '.get_bloginfo('description');
+		}
+	} else if (is_archive()) {
+		if (is_year()){
+			$description_date = get_the_date( _x( 'Y', 'yearly archives date format', 'vkExUnit' ) );
+			$pageDescription = sprintf(_x('Article of %s.','Yearly archive description', 'vkExUnit'), $description_date );
+			$pageDescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
+		} else if (is_month()){
+			$description_date = get_the_date( _x( 'F Y', 'monthly archives date format', 'vkExUnit' ) );
+			$pageDescription = sprintf(_x('Article of %s.','Archive description', 'vkExUnit'),$description_date );
+			$pageDescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
+		} else if (is_author()) {
+			$userObj = get_queried_object();
+			$pageDescription = sprintf(_x('Article of %s.','Archive description', 'vkExUnit'),esc_html($userObj->display_name) );
+			$pageDescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
+		} else {
+			$postType = get_post_type();
+			$pageDescription = sprintf(_x('Article of %s.','Archive description', 'vkExUnit'),esc_html(get_post_type_object($postType)->labels->name) );
+			$pageDescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
+		}
+	} else if (is_page() || is_single()) {
+		$metaExcerpt = $post->post_excerpt;
+		if ($metaExcerpt) {
+			$pageDescription = esc_html($post->post_excerpt);
+		} else {
+			$pageDescription = mb_substr( esc_html($post->post_content), 0, 240 ); // kill tags and trim 240 chara
+		}
+	} else {
+		$pageDescription = get_bloginfo('description');
+	}
+	global $paged;
+	if ( $paged != '0'){
+		$pageDescription = '['.sprintf(__('Page of %s', 'vkExUnit' ),$paged).'] '.$pageDescription;
+	}
+	$pageDescription = esc_html(apply_filters( 'vkExUnit_pageDescriptionCustom', $pageDescription ));
+	return $pageDescription;
+}
+
 
 /*-------------------------------------------*/
 /*	Archive title
