@@ -50,6 +50,7 @@ function vkExUnit_add_sns_menu() {
 require vkExUnit_get_directory() . '/plugins/sns/module_fbPagePlugin.php';
 require vkExUnit_get_directory() . '/plugins/sns/module_og.php';
 require vkExUnit_get_directory() . '/plugins/sns/module_snsBtns.php';
+require vkExUnit_get_directory() . '/plugins/sns/module_twitterCard.php';
 
 /*-------------------------------------------*/
 /*	Add setting page
@@ -90,7 +91,7 @@ function vkExUnit_get_sns_options_default() {
 		'fbAppId' => '',
 		'ogTagDisplay' => 'og_on',
 		'ogImage' => '',
-		'twitter' => '',
+		'twitterId' => '',
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -113,8 +114,8 @@ function vkExUnit_sns_options_validate( $input ) {
 /*-------------------------------------------*/
 /*	set global
 /*-------------------------------------------*/
-add_action('wp_head', 'vkExUnit_set_sns_options' );
+add_action('wp_head', 'vkExUnit_set_sns_options',1 );
 function vkExUnit_set_sns_options() {
 	global $vkExUnit_sns_options;
-	$vkExUnit_get_sns_options = vkExUnit_get_sns_options();
+	$vkExUnit_sns_options = vkExUnit_get_sns_options();
 }

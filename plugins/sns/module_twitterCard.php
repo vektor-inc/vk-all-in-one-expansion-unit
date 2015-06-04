@@ -1,5 +1,5 @@
 <?php
-	add_filter( 'wp_head', 'vkExUnit_add_twitterCard');
+add_filter( 'wp_head', 'vkExUnit_add_twitterCard',21);
 
 function vkExUnit_add_twitterCard(){
 global $vkExUnit_sns_options;
@@ -17,7 +17,7 @@ if ( ( is_single() || is_page() ) && has_post_thumbnail() ) {
 preg_match( '/https?:\/\/(.+?)\//i', admin_url(), $match );
 // image size
 if ( isset($vkExUnit_sns_options['twitterId']) && $vkExUnit_sns_options['twitterId'] && $card_image_url ) :?>
-<!-- twitter card -->
+<!-- [ <?php echo vkExUnit_get_name(); ?> twitter card ] -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:description" content="<?php echo vkExUnit_get_pageDescription(); ?>">
 <meta name="twitter:title" content="<?php echo vkExUnit_get_wp_head_title(); ?>">
@@ -25,6 +25,6 @@ if ( isset($vkExUnit_sns_options['twitterId']) && $vkExUnit_sns_options['twitter
 <meta name="twitter:image" content="<?php echo esc_url($card_image_url);?>">
 <meta name="twitter:domain" content="<?php echo $match[1] ?>">
 <meta name="twitter:site" content="@<?php echo $vkExUnit_sns_options['twitterId'];?>">
-<!-- /twitter card -->
+<!-- [ / <?php echo vkExUnit_get_name(); ?> twitter card ] -->
 <?php endif;
 }

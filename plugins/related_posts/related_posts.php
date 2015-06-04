@@ -6,7 +6,7 @@ function vkExUnit_add_relatedPosts($content){
 	/*-------------------------------------------*/
 	/*	Related posts
 	/*-------------------------------------------*/
-	if ( get_post_type() == 'post' ) :
+	if ( get_post_type() == 'post' && is_single() ) :
 	global $post;
 	// Get now post's tag(terms)
 	$relatedPostCount = 10;
@@ -52,9 +52,9 @@ function vkExUnit_add_relatedPosts($content){
 		} // foreach 
 		$relatedPostsHtml .= '</div>';
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
+		$content .= $relatedPostsHtml;
 	} // if ( $tag_posts )
 	} // if ( $terms )
-	$content .= apply_filters('widget_text',$relatedPostsHtml);
 	} // if ( $relatedPostCount ) {
 	endif;
 	wp_reset_postdata();
