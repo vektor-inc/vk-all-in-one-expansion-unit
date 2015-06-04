@@ -73,11 +73,11 @@ function vkExUnit_get_post_type(){
 /*-------------------------------------------*/
 /*	Head title
 /*-------------------------------------------*/
-function vkExUnit_wp_head_title($title){
+function vkExUnit_get_wp_head_title(){
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
 	$sep = ' | ';
-	$sep = apply_filters( 'vkExUnit_wp_head_title', $sep );
+	$sep = apply_filters( 'vkExUnit_get_wp_head_title', $sep );
 
 	if (is_front_page()) {
 		$title = get_bloginfo('name');
@@ -111,12 +111,12 @@ function vkExUnit_wp_head_title($title){
 		$title = '['.sprintf(__('Page of %s', 'bvII' ),$paged).'] '.$title;
 	}
 
-	$title = apply_filters( 'vkExUnit_wp_head_title', $title );
+	$title = apply_filters( 'vkExUnit_get_wp_head_title', $title );
 
 	// Remove Tags(ex:<i>) & return
 	return strip_tags($title);
 }
-add_filter('wp_title','vkExUnit_wp_head_title');
+add_filter('wp_title','vkExUnit_get_wp_head_title');
 
 /*-------------------------------------------*/
 /*	Page description

@@ -49,5 +49,9 @@ foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
 <?php _e('* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit'); ?>
 </td>
 </tr>
+<tr>
+<th><?php _e('twitter ID', 'vkExUnit'); ?></th>
+<td><input type="text" name="vkExUnit_sns_options[twitterId]" id="twitterId" value="<?php echo esc_attr( $options['twitterId'] ); ?>" /></td>
+</tr>
 </table>
 <?php submit_button(); ?>
