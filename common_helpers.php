@@ -73,7 +73,7 @@ function vkExUnit_get_post_type(){
 /*-------------------------------------------*/
 /*	Head title
 /*-------------------------------------------*/
-function vkExUnit_get_wp_head_title(){
+function vkExUnit_get_wp_head_title($title){
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
 	$sep = ' | ';
@@ -96,13 +96,23 @@ function vkExUnit_get_wp_head_title(){
 			} else {
 				$post_id = $post->ID;
 			}
-			$title = get_the_title()." | ".get_the_title($post_id)." | ".get_bloginfo('name');
+			$title = get_the_title().$sep.get_the_title($post_id).$sep.get_bloginfo('name');
 		// Not Sub Pages
 		} else {
-			$title = get_the_title()." | ".get_bloginfo('name');
+			$title = get_the_title().$sep.get_bloginfo('name');
 		}
-	} else if ( is_single() ){
+	} else if ( is_single() || is_attachment() ){
 		$title = get_the_title().$sep.get_bloginfo('name');
+
+	// Search
+	} else if ( is_search() ){
+		$title = sprintf(__('Search Results for : %s', 'vkExUnit'),get_search_query()).$sep.get_bloginfo('name');
+	// 404
+	} else if (is_404()){
+		$pageTitle = __('Not found', 'bvII').$sep.get_bloginfo('name');
+	// Other
+	} else {
+		$headTitle = get_bloginfo('name');
 	}
 
 	// Add Page numner.
@@ -132,7 +142,7 @@ function vkExUnit_get_pageDescription() {
 		}
 	} else if (is_category() || is_tax()) {
 		if ( ! $post->description ) {
-			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_cat_title()).get_bloginfo('name').' '.get_bloginfo('description');
+			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_cat_title('',false)).' '.get_bloginfo('name').' '.get_bloginfo('description');
 		} else {
 			$pageDescription = esc_html( $post->description );
 		}
@@ -140,7 +150,7 @@ function vkExUnit_get_pageDescription() {
 		$pageDescription = strip_tags(tag_description());
 		$pageDescription = str_replace(array("\r\n","\r","\n"), '', $pageDescription);  // delete br
 		if ( ! $pageDescription ) {
-			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_tag_title()).get_bloginfo('name').' '.get_bloginfo('description');
+			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_tag_title('',false)).' '.get_bloginfo('name').' '.get_bloginfo('description');
 		}
 	} else if (is_archive()) {
 		if (is_year()){
