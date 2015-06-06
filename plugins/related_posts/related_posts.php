@@ -43,7 +43,7 @@ function vkExUnit_add_relatedPosts($content){
 			$relatedPostsHtml .= '</a>';
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '<div class="media-body">';
-			$relatedPostsHtml .= '<h4 class="media-heading"><a href="'.get_the_permalink().'">'.get_the_title().'</a></h4>';
+			$relatedPostsHtml .= '<div class="media-heading"><a href="'.get_the_permalink().'">'.get_the_title().'</a></div>';
 			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;'.get_the_date().'</div>';   
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '</div>';
