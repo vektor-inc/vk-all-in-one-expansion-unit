@@ -73,7 +73,7 @@ function vkExUnit_get_post_type(){
 /*-------------------------------------------*/
 /*	Head title
 /*-------------------------------------------*/
-function vkExUnit_get_wp_head_title($title){
+function vkExUnit_get_wp_head_title(){
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
 	$sep = ' | ';
