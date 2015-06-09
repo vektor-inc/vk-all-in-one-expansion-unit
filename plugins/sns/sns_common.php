@@ -90,6 +90,7 @@ function vkExUnit_get_sns_options() {
 function vkExUnit_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId' => '',
+		'fbPageUrl' => '',
 		'ogTagDisplay' => 'og_on',
 		'ogImage' => '',
 		'twitterId' => '',
@@ -105,6 +106,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_sns_options_default();
 
 	$output['fbAppId']			= $input['fbAppId'];
+	$output['fbPageUrl']		= $input['fbPageUrl'];
 	$output['ogTagDisplay']		= $input['ogTagDisplay'];
 	$output['ogImage']			= $input['ogImage'];
 	$output['twitterId']		= $input['twitterId'];

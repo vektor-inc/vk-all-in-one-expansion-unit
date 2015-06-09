@@ -38,6 +38,10 @@ foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
 <?php _e('Please search for terms as [get Facebook application ID] If you do not know much about how to get application ID for Facebook.', 'vkExUnit'); ?>
 </td>
 </tr>
+<tr>
+<th><?php _e('facebook page URL', 'vkExUnit'); ?></th>
+<td><input type="text" name="vkExUnit_sns_options[fbPageUrl]" id="fbPageUrl" value="<?php echo esc_url( $options['fbPageUrl'] ); ?>" /></td>
+</tr>
 <!-- OGP -->
 <tr>
 <th><?php _e('OG default image', 'vkExUnit'); ?></th>
