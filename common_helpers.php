@@ -109,10 +109,10 @@ function vkExUnit_get_wp_head_title(){
 		$title = sprintf(__('Search Results for : %s', 'vkExUnit'),get_search_query()).$sep.get_bloginfo('name');
 	// 404
 	} else if (is_404()){
-		$pageTitle = __('Not found', 'bvII').$sep.get_bloginfo('name');
+		$title = __('Not found', 'bvII').$sep.get_bloginfo('name');
 	// Other
 	} else {
-		$headTitle = get_bloginfo('name');
+		$title = get_bloginfo('name');
 	}
 
 	// Add Page numner.
@@ -238,7 +238,7 @@ function vkExUnit_get_the_archive_title(){
 		// get post type
 		$postType = $wp_query->query_vars['post_type'];
 		if ( $postType ) {
-			$pageTitle = get_post_type_object($postType)->labels->name;
+			$title = get_post_type_object($postType)->labels->name;
 		} else {
 			$title = __( 'Archives' );
 		}

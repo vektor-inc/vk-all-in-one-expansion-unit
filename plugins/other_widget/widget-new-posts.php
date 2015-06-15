@@ -15,14 +15,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
-		echo '<div class="widget">';
-		echo '<h3 class="widget-title subSection-title">';
+		echo '<aside class="widget">';
+		echo '<h1 class="widget-title subSection-title">';
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo $instance['label'];
 		} else {
 			_e('Recent Posts', 'vkExUnit' );
 		}
-		echo '</h3>';
+		echo '</h1>';
 
 		$count 		= ( isset($instance['count']) && $instance['count'] ) ? $instance['count'] : 10;
 		$post_type 	= ( isset($instance['post_type']) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
@@ -53,7 +53,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 			<?php endwhile;
 		endif;
-		echo '</div>';
+		echo '</aside>';
 		wp_reset_postdata();
 		wp_reset_query();
 

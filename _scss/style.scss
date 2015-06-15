@@ -40,7 +40,9 @@
 .socialSet ul li.sb_icon.sb_line .icon_sns	{ color:#6ebd30; }
 .socialSet ul li.sb_pocket		{ margin-left:5px;}
 
-.relatedPosts { }
+.relatedPosts { 
+	h2 { margin-bottom:10px; }
+}
 
 .followSet { display:block; overflow:hidden;padding: 15px; background-color: #efefef;margin-top:20px;border:1px solid #f5f5f5; }
 .followSet h3.followSet_title { font-size:18px; background-color: #333; color:#fff;border:none;padding: 6px 10px 4px;
