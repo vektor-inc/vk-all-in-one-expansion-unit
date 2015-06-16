@@ -7,3 +7,4 @@
  */
 
 require vkExUnit_get_directory() . '/plugins/other_widget/widget-new-posts.php';
+require vkExUnit_get_directory() . '/plugins/other_widget/widget-profile.php';
