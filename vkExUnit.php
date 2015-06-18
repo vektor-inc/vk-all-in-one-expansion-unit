@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*-------------------------------------------*/
+/*	Load master setting page
+/*-------------------------------------------*/
 /*	Load modules
 /*-------------------------------------------*/
 /*	Add Parent menu
@@ -68,20 +70,36 @@ function vkExUnit_setting_menu_parent() {
 }
 
 /*-------------------------------------------*/
-/*	Load modules
+/*	Load master setting page
 /*-------------------------------------------*/
-require vkExUnit_get_directory() . '/common_init.php';
-require vkExUnit_get_directory() . '/common_helpers.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
-require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
-require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
-require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
-require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
-require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
-
 function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
+
+/*-------------------------------------------*/
+/*	Load modules
+/*-------------------------------------------*/
+
+require vkExUnit_get_directory() . '/common_init.php';
+$options = vkExUnit_get_common_options();
+require vkExUnit_get_directory() . '/common_helpers.php';
+
+require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
+
+if ( isset($options['active_sns']) && $options['active_sns'] )
+	require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
+
+if ( isset($options['active_ga']) && $options['active_ga'] )
+	require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
+
+if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
+	require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
+
+if ( isset($options['active_metaDescription']) && $options['active_metaDescription'] )
+	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
+
+if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
+	require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css

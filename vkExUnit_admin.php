@@ -1,32 +1,26 @@
 <h2>VK All in one Expansion Unit Settings.</h2>
-<ul>
-<li><a href="<?php echo admin_url();?>">SNS連携の設定</a></li>
-<li>head タグ内に meta description を出力する</li>
-<li>head タグ内に twitterカードのタグを出力する</li>
-</ul>
-
 
 <form method="post" action="options.php">
-<?php submit_button(); ?>
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
 	$options = vkExUnit_get_common_options();
-	print '<pre style="text-align:left">';print_r($options);print '</pre>';
 ?>
 
-<table class="wp-list-table widefat plugins">
+<table class="wp-list-table widefat plugins" style="width:auto;">
 	<thead>
 	<tr>
-		<th scope='col' id='cb' class='manage-column column-cb check-column'  style=""><label class="screen-reader-text" for="cb-select-all-1">すべて選択</label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'  style="">プラグイン</th><th scope='col' id='description' class='manage-column column-description'  style="">説明</th>	</tr>
+		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1">すべて選択</label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
 	</thead>
 
 	<tbody id="the-list">
-		<tr<?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'] == 'true')? ' class="active"': 'class="inactive"'; ?>>
+
+		<!-- [ active_metaDescription ] -->
+		<tr<?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
 				<label class='screen-reader-text' for='checkbox_active_metaDescription' >
 				<?php _e('Choose Print meta description.', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_metaDescription]" id="checkbox_active_metaDescription" value="true" <?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'] == 'true')? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_metaDescription]" id="checkbox_active_metaDescription" value="true" <?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
 				<strong>Print meta description</strong>
@@ -37,15 +31,29 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-		<tr<?php echo (isset($options['active_sns']) && $options['active_sns'] == 'true') ? ' class="active"': 'class="inactive"'; ?>>
+
+		<!-- [ active_sns ] -->
+		<tr<?php echo (isset($options['active_sns']) && $options['active_sns']) ? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
 				<label class='screen-reader-text' for='checkbox_active_sns' >
 				<?php _e('Choose Social media cooperation.', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_sns]" id="checkbox_active_sns" value="true" <?php echo (isset($options['active_sns']) && $options['active_sns'] == 'true')? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_sns]" id="checkbox_active_sns" value="true" <?php echo (isset($options['active_sns']) && $options['active_sns'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
 				<strong>Social media cooperation</strong>
+				<div class="row-actions visible">
+
+				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>
+
+					<span class="0">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_sns_options_page';?>">
+					<?php _e('Setting','vkExUnit');?>
+					</a></span>
+
+				<?php endif; ?>
+
+				</div>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
@@ -59,11 +67,75 @@
 			</td>
 		</tr>
 
+		<!-- [ active_ga ] -->
+		<tr<?php echo (isset($options['active_ga']) && $options['active_ga'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_ga' >
+				<?php _e('Choose Print Google Analytics tracking code.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_ga]" id="checkbox_active_ga" value="true" <?php echo (isset($options['active_ga']) && $options['active_ga'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong>Google Analytics</strong>
+
+				<?php if (isset($options['active_ga']) && $options['active_ga']) : ?>
+					
+					<span class="0">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_ga_options_page';?>">
+					<?php _e('Setting','vkExUnit');?>
+					</a></span>
+
+				<?php endif; ?>
+
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Print Google Analytics tracking code.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
+		<!-- [ active_relatedPosts ] -->
+		<tr<?php echo (isset($options['active_relatedPosts']) && $options['active_relatedPosts'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_relatedPosts' >
+				<?php _e('Choose Related posts.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_relatedPosts]" id="checkbox_active_relatedPosts" value="true" <?php echo (isset($options['active_relatedPosts']) && $options['active_relatedPosts'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Related posts', 'vkExUnit');?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Print Related posts lists to post content bottom.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
+		<!-- [ active_otherWidgets ] -->
+		<tr<?php echo (isset($options['active_otherWidgets']) && $options['active_otherWidgets'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_otherWidgets' >
+				<?php _e('Choose other widgets.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_otherWidgets]" id="checkbox_active_otherWidgets" value="true" <?php echo (isset($options['active_otherWidgets']) && $options['active_otherWidgets'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Other Widgets', 'vkExUnit');?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('You can use various widgets.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
 		</tbody>
 
 	<tfoot>
 	<tr>
-		<th scope='col'  class='manage-column column-cb check-column'  style=""><label class="screen-reader-text" for="cb-select-all-2">すべて選択</label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'  style="">プラグイン</th><th scope='col'  class='manage-column column-description'  style="">説明</th>	</tr>
+		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2">すべて選択</label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
 	</tfoot>
 
 </table>

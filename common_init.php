@@ -25,11 +25,11 @@ function vkExUnit_get_common_options() {
 
 function vkExUnit_get_common_options_default() {
 	$default_options = array(
-		'active_metaDescription'	=> 'true',
-		'active_sns' 				=> 'true',
-		// 'active_ga'					=> 'true',
-		// 'active_relatedPosts'		=> 'true',
-		// 'active_widget_newPosts'	=> 'true',
+		'active_metaDescription'	=> true,
+		'active_sns' 				=> true,
+		'active_ga'					=> true,
+		'active_relatedPosts'		=> true,
+		'active_otherWidgets'		=> true,
 
 	);
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
@@ -41,11 +41,11 @@ function vkExUnit_get_common_options_default() {
 
 function vkExUnit_common_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_common_options_default();
-	$output['active_metaDescription']	= (isset($input['active_metaDescription'])) ? 'true':'false';
-	$output['active_sns']				= (isset($input['active_sns'])) ? 'true':'false';
-	// $output['active_ga']				= $input['active_ga'];
-	// $output['active_relatedPosts']		= $input['active_relatedPosts'];
-	// $output['active_widget_newPosts']	= $input['active_widget_newPosts'];
+	$output['active_metaDescription']	= (isset($input['active_metaDescription'])) ? true:false;
+	$output['active_sns']				= (isset($input['active_sns'])) ? true:false;
+	$output['active_ga']				= (isset($input['active_ga'])) ? true:false;
+	$output['active_relatedPosts']		= (isset($input['active_relatedPosts'])) ? true:false;
+	$output['active_otherWidgets']		= (isset($input['active_otherWidgets'])) ? true:false;
 
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
 }
