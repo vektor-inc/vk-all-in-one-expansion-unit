@@ -38,19 +38,7 @@ function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
 }
 
-function vkExUnit_get_name() {
-	$system_name = 'VK All in one Expansion Unit';
-	return $system_name;
-}
-function vkExUnit_get_short_name() {
-	$short_name = 'Vk';
-	return $short_name;
-}
 
-function vkExUnit_get_capability_required(){
-	$capability_required = 'activate_plugins';
-	return $capability_required;
-}
 
 add_action('wp_head','vkExUnit_addJs');
 function vkExUnit_addJs(){
@@ -66,7 +54,7 @@ function vkExUnit_addJs(){
 add_action( 'admin_menu', 'vkExUnit_setting_menu_parent' );
 function vkExUnit_setting_menu_parent() {
 	global $menu;
-	$parent_name = __('VK Ex Unit');
+	$parent_name = 'VK Ex Unit';
 	$Capability_required = 'activate_plugins';
 
 	$custom_page = add_menu_page(
@@ -82,7 +70,7 @@ function vkExUnit_setting_menu_parent() {
 /*-------------------------------------------*/
 /*	Load modules
 /*-------------------------------------------*/
-
+require vkExUnit_get_directory() . '/common_init.php';
 require vkExUnit_get_directory() . '/common_helpers.php';
 require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
 require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';

@@ -1,5 +1,7 @@
 <?php
 /*-------------------------------------------*/
+/*	basic setting
+/*-------------------------------------------*/
 /*	Chack use post top page
 /*-------------------------------------------*/
 /*	Chack post type info
@@ -11,6 +13,21 @@
 /*	Archive title
 /*-------------------------------------------*/
 
+/*-------------------------------------------*/
+/*	basic setting
+/*-------------------------------------------*/
+function vkExUnit_get_name() {
+	$system_name = 'VK All in one Expansion Unit';
+	return $system_name;
+}
+function vkExUnit_get_short_name() {
+	$short_name = 'VK';
+	return $short_name;
+}
+function vkExUnit_get_capability_required(){
+	$capability_required = 'activate_plugins';
+	return $capability_required;
+}
 /*-------------------------------------------*/
 /*	Chack use post top page
 /*-------------------------------------------*/
@@ -109,7 +126,7 @@ function vkExUnit_get_wp_head_title(){
 		$title = sprintf(__('Search Results for : %s', 'vkExUnit'),get_search_query()).$sep.get_bloginfo('name');
 	// 404
 	} else if (is_404()){
-		$title = __('Not found', 'bvII').$sep.get_bloginfo('name');
+		$title = __('Not found', 'vkExUnit').$sep.get_bloginfo('name');
 	// Other
 	} else {
 		$title = get_bloginfo('name');
@@ -118,7 +135,7 @@ function vkExUnit_get_wp_head_title(){
 	// Add Page numner.
 	global $paged;
 	if ( $paged >= 2 ){
-		$title = '['.sprintf(__('Page of %s', 'bvII' ),$paged).'] '.$title;
+		$title = '['.sprintf(__('Page of %s', 'vkExUnit' ),$paged).'] '.$title;
 	}
 
 	$title = apply_filters( 'vkExUnit_get_wp_head_title', $title );
@@ -201,11 +218,11 @@ function vkExUnit_get_the_archive_title(){
     } elseif ( is_author() ) {
         $title = sprintf( __( 'Author: %s' ), '<span class="vcard">' . get_the_author() . '</span>' );
     } elseif ( is_year() ) {
-        $title = get_the_date( _x( 'Y', 'yearly archives date format', 'bvII' ) );
+        $title = get_the_date( _x( 'Y', 'yearly archives date format', 'vkExUnit' ) );
     } elseif ( is_month() ) {
-        $title = get_the_date( _x( 'F Y', 'monthly archives date format', 'bvII' ) );
+        $title = get_the_date( _x( 'F Y', 'monthly archives date format', 'vkExUnit' ) );
     } elseif ( is_day() ) {
-        $title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'bvII' ) );
+        $title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'vkExUnit' ) );
     } elseif ( is_tax( 'post_format' ) ) {
         if ( is_tax( 'post_format', 'post-format-aside' ) ) {
             $title = _x( 'Asides', 'post format archive title' );
