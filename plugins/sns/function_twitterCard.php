@@ -1,4 +1,7 @@
 <?php
+
+add_post_type_support( 'page', 'excerpt' ); // add excerpt
+
 add_filter( 'wp_head', 'vkExUnit_add_twitterCard',21);
 
 function vkExUnit_add_twitterCard(){

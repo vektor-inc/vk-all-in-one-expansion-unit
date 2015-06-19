@@ -111,7 +111,7 @@ function vkExUnit_print_css(){
 }
 
 /*-------------------------------------------*/
-/*	Print theme_options js
+/*	Print admin js
 /*-------------------------------------------*/
 add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_sns_options_page', 'vkExUnit_admin_add_js');
 function vkExUnit_admin_add_js( $hook_suffix ) {
