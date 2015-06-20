@@ -31,31 +31,42 @@ gulp.task( 'copy', function() {
 
 // ファイル結合
 gulp.task('scripts', function() {
+  return gulp.src(['./js/master.js'])
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('./js/'));
+});
+gulp.task('scripts_in_bs', function() {
   // bootstrap use
   return gulp.src(['./bootstrap/js/bootstrap.min.js','./js/master.js'])
     .pipe(concat('all_in_bs.js'))
-    .pipe(gulp.dest('./js/'));
-  // bootstrap no use
-  return gulp.src(['./js/_master.js'])
-    .pipe(concat('all.js'))
     .pipe(gulp.dest('./js/'));
 });
 
 // js最小化
 gulp.task('jsmin', function () {
-  gulp.src(['./js/all_in_bs.js','./js/all.js'])
+  gulp.src(['./js/all.js'])
   .pipe(plumber()) // エラーでも監視を続行
   .pipe(jsmin())
   .pipe(rename({suffix: '.min'}))
   .pipe(gulp.dest('./js'));
 });
 
+gulp.task('jsmin_in_bs', function () {
+  gulp.src(['./js/all_in_bs.js'])
+  .pipe(plumber()) // エラーでも監視を続行
+  .pipe(jsmin())
+  .pipe(rename({suffix: '.min'}))
+  .pipe(gulp.dest('./js'));
+});
+
+
 // Watch
 gulp.task('watch', function() {
     // gulp.watch('css/*.css', ['cssmin'])
     // gulp.watch('js/*.js', ['scripts']);
-    gulp.watch('js/master.js', ['scripts']);
-    gulp.watch('js/all_in_bs.js', ['jsmin']);
+    gulp.watch('js/master.js', ['scripts','scripts_in_bs']);
+    gulp.watch('js/all.js', ['jsmin']);
+    gulp.watch('js/all_in_bs.js', ['jsmin_in_bs']);
     gulp.watch('_scss/style.scss', ['copy']);
 });
 
