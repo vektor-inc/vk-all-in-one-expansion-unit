@@ -14,6 +14,24 @@
 
 	<tbody id="the-list">
 
+		<!-- [ active_bootstrap ] -->
+		<tr<?php echo (isset($options['active_bootstrap']) && $options['active_bootstrap'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_bootstrap' >
+				<?php _e('Choose Print Bootstrap css', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_bootstrap]" id="checkbox_active_bootstrap" value="true" <?php echo (isset($options['active_bootstrap']) && $options['active_bootstrap'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong>Print Bootstrap css and js</strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('If your using theme has already including Bootstrap, you deactivate this item.','vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
 		<!-- [ active_metaDescription ] -->
 		<tr<?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
