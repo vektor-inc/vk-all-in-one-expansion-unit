@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*	Add vkExUnit js
 /*-------------------------------------------*/
 
-include('plugins/css_customize/css-customize.php');
+//include('plugins/css_customize/css-customize.php');
 
 function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
@@ -95,7 +95,7 @@ if ( isset($options['active_metaDescription']) && $options['active_metaDescripti
 if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
 	require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
 
-if ( isset($options['css_customize']) && $options['css_customize'] )
+if ( isset($options['active_css_customize']) && $options['active_css_customize'] )
 	require vkExUnit_get_directory() . '/plugins/css_customize/css-customize.php';
 
 /*-------------------------------------------*/
