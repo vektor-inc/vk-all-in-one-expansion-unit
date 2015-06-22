@@ -1,10 +1,7 @@
 <?php
-
 $wp_theme = wp_get_theme();
 
-if($wp_theme->template != 'biz-vektor'){
-	$customize = new biz_vektor_css_customize();
-}
+$customize = new biz_vektor_css_customize();
 
 
 class biz_vektor_css_customize{
@@ -15,10 +12,10 @@ class biz_vektor_css_customize{
 
 
 	public  function set_hook(){
-		add_filter('biz_vektor_is_css_customize_widgets', array($this, 'biz_vektor_css_custom_beacon'), 10, 1 );
-		add_action( 'admin_footer', array($this, 'css_customize_page_js_and_css'));
-		add_action('wp_head',       array($this, 'biz_vektor_css_customize_push_css'), 200);
-		add_action('admin_menu',    array($this, 'biz_vektor_css_customize_menu'));
+		add_filter( 'biz_vektor_is_css_customize_widgets', array($this, 'biz_vektor_css_custom_beacon'), 10, 1 );
+		add_action( 'admin_footer',  array($this, 'css_customize_page_js_and_css'));
+		add_action( 'wp_head',       array($this, 'biz_vektor_css_customize_push_css'), 200);
+		add_action( 'admin_menu',    array($this, 'biz_vektor_css_customize_menu'));
 	}
 
 
@@ -30,14 +27,15 @@ class biz_vektor_css_customize{
 	/*-------------------------------------------*/
 	/*	CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
-
 	public function biz_vektor_css_customize_menu() 
 	{
-		add_theme_page(
+		$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
+		add_submenu_page(
+			'vkExUnit_setting_page',
 			__( 'CSS Customize', 'biz-vektor' ),
 			__( 'CSS Customize', 'biz-vektor' ),
-			'edit_theme_options',
-			'theme-css-customize',
+			$capability_required,
+			'vkExUnit_css_customize',
 			array($this, 'biz_vektor_css_customize_render_page')
 		);
 	}
@@ -91,7 +89,7 @@ class biz_vektor_css_customize{
 		{
 			$cleanCSS = strip_tags(stripslashes(trim($_POST['bv-css-css'])));
 
-			if( update_option('biz_vektor_css_custom', $cleanCSS) )
+			if( update_option('vkExUnit_css_customize', $cleanCSS) )
 				$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor') . '</p></div>';
 		}
 		else
@@ -108,8 +106,8 @@ class biz_vektor_css_customize{
 
 	public function biz_vektor_css_customize_get_css()
 	{
-		if( get_option('biz_vektor_css_custom') )
-			return get_option('biz_vektor_css_custom');
+		if( get_option('vkExUnit_css_customize') )
+			return get_option('vkExUnit_css_customize');
 		else
 			return '';
 	}
@@ -117,10 +115,10 @@ class biz_vektor_css_customize{
 
 	public function biz_vektor_css_customize_push_css(){
 
-		if( get_option('biz_vektor_css_custom') ){
+		if( get_option('vkExUnit_css_customize') ){
 		?>
 	<style type="text/css">
-	<?php echo get_option('biz_vektor_css_custom') ?>
+	<?php echo get_option('vkExUnit_css_customize') ?>
 	</style>
 		<?php
 		}
