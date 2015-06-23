@@ -161,7 +161,7 @@ function vkExUnit_get_pageDescription() {
 		if ( ! $post->description ) {
 			$pageDescription = sprintf(__('About %s', 'vkExUnit'),single_cat_title('',false)).' '.get_bloginfo('name').' '.get_bloginfo('description');
 		} else {
-			$pageDescription = esc_html( $post->description );
+			$pageDescription = $post->description;
 		}
 	} else if (is_tag()) {
 		$pageDescription = strip_tags(tag_description());
@@ -190,9 +190,9 @@ function vkExUnit_get_pageDescription() {
 	} else if (is_page() || is_single()) {
 		$metaExcerpt = $post->post_excerpt;
 		if ($metaExcerpt) {
-			$pageDescription = esc_html($post->post_excerpt);
+			$pageDescription = $post->post_excerpt;
 		} else {
-			$pageDescription = mb_substr( esc_html($post->post_content), 0, 240 ); // kill tags and trim 240 chara
+			$pageDescription = mb_substr( strip_tags($post->post_content), 0, 240 ); // kill tags and trim 240 chara
 		}
 	} else {
 		$pageDescription = get_bloginfo('description');
@@ -201,10 +201,12 @@ function vkExUnit_get_pageDescription() {
 	if ( $paged != '0'){
 		$pageDescription = '['.sprintf(__('Page of %s', 'vkExUnit' ),$paged).'] '.$pageDescription;
 	}
-	$pageDescription = esc_html(apply_filters( 'vkExUnit_pageDescriptionCustom', $pageDescription ));
+	$pageDescription = apply_filters( 'vkExUnit_pageDescriptionCustom', $pageDescription );
+	$pageDescription = esc_html(strip_tags($pageDescription));
+	// Delete Line break
+	$pageDescription = str_replace(array("\r", "\n"), ' ', $pageDescription);
 	return $pageDescription;
 }
-
 
 /*-------------------------------------------*/
 /*	Archive title
