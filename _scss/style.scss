@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 @import "compass";
 
 /*-------------------------------------------*/
@@ -92,4 +92,67 @@
 }
 .vk_icon_w_r_sns_fb:before {
 	content: "\e604";
+}
+
+/*-------------------------------------------*/
+/* Profile wiget Plugin
+/*-------------------------------------------*/
+.profile-media{
+	margin: 0.5em 0;
+}
+.profile-text{
+    font-size: 14px;
+    margin-bottom: 0.5em;
+}
+.sns-btns{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    li{
+	    float: left;
+        list-style: none;
+        vertical-align: middle;
+        text-align: center;
+    }   
+    a{
+        display: block;
+        padding: 5px;
+        color: #fff;
+        font-size: 20px;
+    }
+    .facebook-btn{
+        a{
+            color: #3b5998;
+        }
+    }
+    .twitter-btn{
+        a{
+            color: #55acee;
+        }
+    }
+    .mail-btn{
+        a{
+            color: #666;
+        }
+    }
+    .youtube-btn{
+        a{
+            color: #C81D1C;
+        }
+    }
+    .rss-btn{
+        a{
+            color: #f26522;
+        }
+    }
+    .instagram-btn{
+        a{
+            color: #3f729b;
+        }
+    }
+    .linkedin-btn{
+        a{
+            color: #0077b5;
+        }
+    }
 }

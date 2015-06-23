@@ -5,7 +5,6 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_profile extends WP_Widget {
     
-    // コンストラクタを定義
     function WP_Widget_vkExUnit_profile() {
 		$widget_ops = array(
 			'classname' => 'WP_Widget_vkExUnit_profile',
@@ -15,7 +14,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		$this->WP_Widget('WP_Widget_vkExUnit_profile', $widget_name, $widget_ops);
 	}
     
-    // form メソッド で管理画面に入力フォームをだす
     function form($instance){
         $defaults = array(
 			'label' => __("Site's Profile", 'vkExUnit' ),
@@ -34,67 +32,67 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
     ?>
         	
 		<?php //タイトル ?>
-		<label for="<?php echo $this->get_field_id('label');  ?>"><?php _e('Title:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('label'); ?>-title" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('label');  ?>"><?php _e('Title:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('label'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" />
+		</p>
 		
 		<?php //メディアアップローダー ?>
-        <label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Select Image:'); ?></label><br/>
-		<input type="hidden" class="mediaurl" id="<?php echo $this->get_field_id('mediafile'); ?>-title" name="<?php echo $this->get_field_name('mediafile'); ?>" value="<?php echo esc_attr($instance['mediafile']) ?>" />
+        <p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Select Profile image:'); ?></label><br/>
 		
-		<input type="hidden" class="mediaalt" id="<?php echo $this->get_field_id('mediaalt'); ?>-title" name="<?php echo $this->get_field_name('mediaalt'); ?>" value="<?php echo esc_attr($instance['mediaalt']) ?>" />
+		<input type="hidden" class="media-url" id="<?php echo $this->get_field_id('mediafile'); ?>-title" name="<?php echo $this->get_field_name('mediafile'); ?>" value="<?php echo esc_attr($instance['mediafile']); ?>" />
+		
+		<input type="hidden" class="media-alt" id="<?php echo $this->get_field_id('mediaalt'); ?>-title" name="<?php echo $this->get_field_name('mediaalt'); ?>" value="<?php echo esc_attr($instance['mediaalt']); ?>" />
         
-        <input type="button" class="media-select" name="media" value="画像を選択" />
-        <input type="button" class="media-clear" name="media-clear" value="画像をクリア" /><br/>
+        <input type="button" class="media-select" value="画像を選択" onclick="clickSelect();" />
+        <input type="button" class="media-clear" value="画像をクリア" onclick="clickClear();" />
+        </p>
+        
         <div class="media">
 	        <?php if(!empty($instance['mediafile'])): ?>
 	        <img class="media-image" src="<?php echo esc_url($instance['mediafile']); ?>" alt="<?php echo esc_attr($instance['mediaalt']); ?>" />
 	        <?php endif; ?>
         </div>
 		
-		<?php //profile ?>
-		<label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('profile'); ?>-title" name="<?php echo $this->get_field_name('profile'); ?>" value="<?php echo $instance['profile']; ?>" />
-		<br/>
+		<?php //profileテキスト ?>
+		<p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('profile'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('profile'); ?>" value="<?php echo $instance['profile']; ?>" />
+		</p>
 		
 		<?php //facebook_URL ?>
-		<label for="<?php echo $this->get_field_id('facebook');  ?>"><?php _e('Facebook URL:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('facebook'); ?>-title" name="<?php echo $this->get_field_name('facebook'); ?>" value="<?php echo $instance['facebook']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('facebook');  ?>"><?php _e('Facebook URL:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('facebook'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('facebook'); ?>" value="<?php echo $instance['facebook']; ?>" />
+		</p>
 		
 		<?php //twitter_URL ?>
-		<label for="<?php echo $this->get_field_id('twitter');  ?>"><?php _e('Twitter URL:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('twitter'); ?>-title" name="<?php echo $this->get_field_name('twitter'); ?>" value="<?php echo $instance['twitter']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('twitter');  ?>"><?php _e('Twitter URL:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('twitter'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('twitter'); ?>" value="<?php echo $instance['twitter']; ?>" />
+		</p>
 		
 		<?php //mail_URL ?>
-		<label for="<?php echo $this->get_field_id('mail');  ?>"><?php _e('Email Address:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('mail'); ?>-title" name="<?php echo $this->get_field_name('mail'); ?>" value="<?php echo $instance['mail']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('mail');  ?>"><?php _e('Email Address:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('mail'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('mail'); ?>" value="<?php echo $instance['mail']; ?>" />
+		</p>
 		
 		<?php //youtube_URL ?>
-		<label for="<?php echo $this->get_field_id('youtube');  ?>"><?php _e('Youtube URL:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('youtube'); ?>-title" name="<?php echo $this->get_field_name('youtube'); ?>" value="<?php echo $instance['youtube']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('youtube');  ?>"><?php _e('Youtube URL:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('youtube'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('youtube'); ?>" value="<?php echo $instance['youtube']; ?>" />
+		</p>
 		
 		<?php //rss_URL ?>
-		<label for="<?php echo $this->get_field_id('rss'); ?>"><?php _e('RSS URL:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('rss'); ?>-title" name="<?php echo $this->get_field_name('rss'); ?>" value="<?php echo $instance['rss']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('rss'); ?>"><?php _e('RSS URL:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('rss'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('rss'); ?>" value="<?php echo $instance['rss']; ?>" />
+		</p>
 		
 		<?php //instagram_URL ?>
-		<label for="<?php echo $this->get_field_id('instagram');  ?>"><?php _e('instagram URL:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('instagram'); ?>-title" name="<?php echo $this->get_field_name('instagram'); ?>" value="<?php echo $instance['instagram']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('instagram');  ?>"><?php _e('instagram URL:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('instagram'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('instagram'); ?>" value="<?php echo $instance['instagram']; ?>" /></p>
 		
 		<?php //linkedin_URL ?>
-		<label for="<?php echo $this->get_field_id('linkedin');  ?>"><?php _e('linkedin URL:'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('linkedin'); ?>-title" name="<?php echo $this->get_field_name('linkedin'); ?>" value="<?php echo $instance['linkedin']; ?>" />
-		<br/>
+		<p><label for="<?php echo $this->get_field_id('linkedin');  ?>"><?php _e('linkedin URL:'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('linkedin'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkedin'); ?>" value="<?php echo $instance['linkedin']; ?>" /></p>
    
-    <?php  } // form メソッド ここまで
+    <?php  }
     
-    // update メソッドで管理画面からの入力を保存する
     function update ($new_instance, $old_instance) {
         
         $instance = $old_instance;
@@ -111,9 +109,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         $instance['linkedin'] = $new_instance['linkedin'];
         return $instance;
         
-    } // update メソッドここまで
+    } 
     
-    // widget メソッドでサイトへ出力する
     function widget($args, $instance) {
 		// ここからサイドバーに表示される部分
         echo '<aside class="widget">';
@@ -209,33 +206,23 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		</div>
         </aside>
 <?php }
-
-} // class WP_Widget_vkExUnit_profile
+} 
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_profile");'));
 
-// メディアアップローダーjs
-function my_admin_scripts() {
- 
-    wp_register_script(
-        'mediauploader',
-        plugin_dir_url( __FILE__ ) . 'widget-prof-uploader.js',
-        array( 'jquery' ),
-        false,
-        true
-    );
- 
-    /* メディアアップローダの javascript API */
+// Profile widget uploader js
+function my_admin_scripts() {	
     wp_enqueue_media();
- 
-    /* 作成した javascript */
+    wp_register_script( 'mediauploader', plugin_dir_url( __FILE__ ) . 'js/widget-prof-uploader.js', array( 'jquery' ), false, true);
     wp_enqueue_script( 'mediauploader' );
- 
 }
 add_action( 'admin_print_scripts', 'my_admin_scripts' );
 
-// メディアアップローダーCSS
+// Profile widget CSS
 function my_admin_style() {
 echo '<style>
+	.prof-input{
+		width: 100%;
+	}
     .media-select,.media-clear{
 	    padding: 3px;
 	    border: none;
@@ -256,7 +243,7 @@ echo '<style>
 		margin: 3px 0;
 		min-height: 70px;
 		max-height: 200px;
-		width: 85%;
+		width: 100%;
 		border: 1px dashed #ccc;
 		border-radius: 5px;
 		background-color: rgba(212, 212, 212, 0.1);
@@ -274,8 +261,8 @@ echo '<style>
 		position: relative;
 		z-index: 3;
 		display: block;
-		width: 100%!important;
-		height: auto!important;
+		width: 100%;
+		height: auto;
 	}	
 </style>'.PHP_EOL;
 }
