@@ -142,7 +142,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
                 if( !empty($instance['facebook']) ): ?>
 				<li class="facebook-btn">
                     <a href="<?php echo esc_url($instance['facebook']); ?>" target="_blank">
-                    <i class="fa fa-facebook-official"></i>
+                    <i class="fa fa-facebook"></i>
                     </a>
 				</li>
 				<?php endif; ?>
@@ -196,7 +196,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
                 if( !empty($instance['linkedin']) ): ?>
 				<li class="linkedin-btn">
                     <a href="<?php echo esc_url($instance['linkedin']); ?>" target="_blank">
-                    <i class="fa fa-linkedin-square"></i>
+                    <i class="fa fa-linkedin"></i>
                     </a>
 				</li>
 				<?php endif; ?>
