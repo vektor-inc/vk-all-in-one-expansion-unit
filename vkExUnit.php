@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: VK All in one Expansion Unit
+Plugin Name: VK All in One Expansion Unit
 Plugin URI: http://vektor-inc.co.jp
 Description: 
 Version: 0.0.0.0

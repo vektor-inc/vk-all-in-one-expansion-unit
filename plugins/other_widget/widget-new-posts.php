@@ -39,7 +39,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			<div class="media" id="post-<?php the_ID(); ?>">
 				
 				<?php if ( has_post_thumbnail()) : ?>
-					<div class="media-left postList__thumbnail">
+					<div class="media-left postList_thumbnail">
 					<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
 					</div>
 				<?php endif; ?>

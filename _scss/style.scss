@@ -1,5 +1,6 @@
 ﻿@charset "utf-8";
 @import "compass";
+@import "_bizvektor_theme_included_style";
 
 /*-------------------------------------------*/
 /* ex_unit
@@ -49,6 +50,7 @@
 	&:after { border:none; }
 }
 .follow_btn { float:left;margin-right:20px; }
+
 
 /*-------------------------------------------*/
 /*			import icon
