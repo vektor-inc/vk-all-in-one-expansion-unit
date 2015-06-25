@@ -129,7 +129,7 @@ function vkExUnit_addJs(){
 /*-------------------------------------------*/
 /*	Print admin js
 /*-------------------------------------------*/
-add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_sns_options_page', 'vkExUnit_admin_add_js');
+add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js');
 function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_media();
 	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150525' );
