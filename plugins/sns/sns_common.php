@@ -15,7 +15,7 @@
 function vkExUnit_sns_options_init() {
 	if ( false === vkExUnit_get_sns_options() )
 		add_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
-	register_setting(
+	vkExUnit_register_setting(
 		'vkExUnit_sns_options_fields', 	//  Immediately following form tag of edit page.
 		'vkExUnit_sns_options',			// name attr
 		'vkExUnit_sns_options_validate'
@@ -121,3 +121,5 @@ function vkExUnit_add_sns_options_page(){
 	?>
 	<?php
 }
+
+add_action( 'vkExUnit_main_config' , 'vkExUnit_add_sns_options_page' );

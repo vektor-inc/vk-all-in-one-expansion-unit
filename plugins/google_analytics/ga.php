@@ -20,6 +20,7 @@ function vkExUnit_add_ga_menu() {
 }
 add_action( 'admin_menu', 'vkExUnit_add_ga_menu' );
 
+
 /*-------------------------------------------*/
 /*	Add setting page
 /*-------------------------------------------*/
@@ -35,7 +36,7 @@ function vkExUnit_ga_options_init() {
 	if ( false === vkExUnit_get_ga_options() )
 		add_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() );
 
-	register_setting(
+	vkExUnit_register_setting(
 		'vkExUnit_ga_options_fields', 	//  Immediately following form tag of edit page.
 		'vkExUnit_ga_options',			// name attr
 		'vkExUnit_ga_options_validate'
@@ -120,3 +121,6 @@ ga('send', 'pageview');
 		}
 	}
 }
+
+
+add_action( 'vkExUnit_main_config' , 'vkExUnit_add_ga_options_page' );

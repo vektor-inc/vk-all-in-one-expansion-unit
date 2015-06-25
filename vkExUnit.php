@@ -43,7 +43,6 @@ function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
 }
 
-
 /*-------------------------------------------*/
 /*	Add Parent menu
 /*-------------------------------------------*/
@@ -69,6 +68,8 @@ function vkExUnit_setting_menu_parent() {
 function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
+
+require_once( 'admin_warpper.php' );
 
 /*-------------------------------------------*/
 /*	Load modules
