@@ -1,6 +1,4 @@
-<form method="post" action="options.php">
 <?php
-	settings_fields( 'vkExUnit_ga_options_fields' );
 	$options = vkExUnit_get_ga_options();
 	// $options_default = vkExUnit_get_sns_options_default();
 /*-------------------------------------------*/
@@ -41,4 +39,3 @@ foreach( $vkExUnit_gaTypes as $vkExUnit_gaTypeValue => $vkExUnit_gaTypeLavel) {
 </table>
 <?php submit_button(); ?>
 </div>
-</form>

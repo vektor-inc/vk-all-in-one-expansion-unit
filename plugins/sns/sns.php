@@ -15,7 +15,7 @@
 function vkExUnit_sns_options_init() {
 	if ( false === vkExUnit_get_sns_options() )
 		add_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
-	register_setting(
+	vkExUnit_register_setting(
 		'vkExUnit_sns_options_fields', 	//  Immediately following form tag of edit page.
 		'vkExUnit_sns_options',			// name attr
 		'vkExUnit_sns_options_validate'
@@ -89,22 +89,6 @@ $fbAppId = (isset($options['fbAppId'])) ? $options['fbAppId'] : '';
 	<?php //endif;
 }
 
-/*-------------------------------------------*/
-/*	Add menu
-/*-------------------------------------------*/
-add_action( 'admin_menu', 'vkExUnit_add_sns_menu' );
-function vkExUnit_add_sns_menu() {
-	$capability_required = add_filter( 'vkExUnit_sns_page_capability', vkExUnit_get_capability_required() );
-	$custom_page = add_submenu_page(
-		'vkExUnit_setting_page',			// parent
-		'SNS setting',						// Name of page
-		'SNS setting',						// Label in menu
-		$capability_required,				// Capability required　このメニューページを閲覧・使用するために最低限必要なユーザーレベルまたはユーザーの種類と権限。
-		'vkExUnit_sns_options_page',		// ユニークなこのサブメニューページの識別子
-		'vkExUnit_add_sns_options_page'		// メニューページのコンテンツを出力する関数
-	);
-	if ( ! $custom_page ) return;
-}
 
 require vkExUnit_get_directory() . '/plugins/sns/function_fbPagePlugin.php';
 require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
@@ -121,3 +105,5 @@ function vkExUnit_add_sns_options_page(){
 	?>
 	<?php
 }
+
+add_action( 'vkExUnit_main_config' , 'vkExUnit_add_sns_options_page' );

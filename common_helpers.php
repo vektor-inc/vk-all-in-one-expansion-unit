@@ -55,14 +55,14 @@ function vkExUnit_get_post_type(){
 	/*-------------------------------------------*/
 	$postType['slug'] = get_post_type();
 	if ( !$postType['slug'] ) {
-	  global $wp_query;
-	  if ($wp_query->query_vars['post_type']) {
-	      $postType['slug'] = $wp_query->query_vars['post_type'];
-	  } else {
-	  	// Case of tax archive and no posts
-		$taxonomy = get_queried_object()->taxonomy;
-		$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];	  	
-	  }
+		global $wp_query;
+		if ($wp_query->query_vars['post_type']) {
+			$postType['slug'] = $wp_query->query_vars['post_type'];
+		} else {
+			// Case of tax archive and no posts
+			$taxonomy = get_queried_object()->taxonomy;
+			$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];
+		}
 	}
 
 	// Get post type name
@@ -188,9 +188,9 @@ function vkExUnit_get_pageDescription() {
 			$pageDescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
 		}
 	} else if (is_page() || is_single()) {
-		$metaExcerpt = $post->post_excerpt;
+		$metaExcerpt = $post->vkExUnit_metaKeyword;
 		if ($metaExcerpt) {
-			$pageDescription = $post->post_excerpt;
+			$pageDescription = $post->vkExUnit_metaKeyword;
 		} else {
 			$pageDescription = mb_substr( strip_tags($post->post_content), 0, 240 ); // kill tags and trim 240 chara
 		}

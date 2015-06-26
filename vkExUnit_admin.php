@@ -149,6 +149,23 @@
 			</td>
 		</tr>
 
+		<!-- [ CSS cosutomize ] -->
+		<tr<?php echo (isset($options['active_css_customize']) && $options['active_css_customize'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_css_customize' >
+				<?php _e('Choose other widgets.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_css_customize]" id="checkbox_active_css_customize" value="true" <?php echo (isset($options['active_css_customize']) && $options['active_css_customize'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('CSS customize', 'vkExUnit');?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('You can set Customize CSS.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
 		</tbody>
 
 	<tfoot>

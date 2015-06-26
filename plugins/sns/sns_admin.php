@@ -1,7 +1,5 @@
 <h2><?php echo __('SNS Settings');?></h2>
-<form method="post" action="options.php">
 <?php
-	settings_fields( 'vkExUnit_sns_options_fields' );
 	$options = vkExUnit_get_sns_options();
 /*-------------------------------------------*/
 /*	SNS
@@ -58,4 +56,6 @@ foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
 <td><input type="text" name="vkExUnit_sns_options[twitterId]" id="twitterId" value="<?php echo esc_attr( $options['twitterId'] ); ?>" /></td>
 </tr>
 </table>
-<?php submit_button(); ?>
+
+<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
+</div>

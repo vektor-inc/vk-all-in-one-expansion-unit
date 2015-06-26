@@ -37,11 +37,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*	Add vkExUnit js
 /*-------------------------------------------*/
 
+//include('plugins/css_customize/css-customize.php');
 
 function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
 }
-
 
 /*-------------------------------------------*/
 /*	Add Parent menu
@@ -69,6 +69,8 @@ function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
 
+require_once( 'admin_warpper.php' );
+
 /*-------------------------------------------*/
 /*	Load modules
 /*-------------------------------------------*/
@@ -77,13 +79,13 @@ require vkExUnit_get_directory() . '/common_init.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
-require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
+require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 
 if ( isset($options['active_sns']) && $options['active_sns'] )
-	require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
+	require vkExUnit_get_directory() . '/plugins/sns/sns.php';
 
 if ( isset($options['active_ga']) && $options['active_ga'] )
-	require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
+	require vkExUnit_get_directory() . '/plugins/google_analytics/google_analytics.php';
 
 if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
 	require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
@@ -92,7 +94,10 @@ if ( isset($options['active_metaDescription']) && $options['active_metaDescripti
 	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
 
 if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
-	require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
+	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';
+
+if ( isset($options['active_css_customize']) && $options['active_css_customize'] )
+	require vkExUnit_get_directory() . '/plugins/css_customize/css_customize.php';
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css
@@ -124,7 +129,7 @@ function vkExUnit_addJs(){
 /*-------------------------------------------*/
 /*	Print admin js
 /*-------------------------------------------*/
-add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_sns_options_page', 'vkExUnit_admin_add_js');
+add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js');
 function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_media();
 	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150525' );
