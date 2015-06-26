@@ -24,6 +24,8 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP = '<!-- [ '.vkExUnit_get_name().' OG ] -->'."\n";
 	$vkExUnitOGP .= '<meta property="og:site_name" content="'.get_bloginfo('name').'" />'."\n";
 	$vkExUnitOGP .= '<meta property="og:url" content="'.$linkUrl.'" />'."\n";
+	$vkExUnitOGP .= '<meta property="og:title" content="'.vkExUnit_get_wp_head_title().'" />'."\n";
+	$vkExUnitOGP .= '<meta property="og:description" content="'.vkExUnit_get_pageDescription().'" />'."\n";
 	if ($vkExUnit_sns_options['fbAppId']){
 		$vkExUnitOGP = $vkExUnitOGP.'<meta property="fb:app_id" content="'.$vkExUnit_sns_options['fbAppId'].'" />'."\n";
 	}
@@ -32,8 +34,6 @@ function vkExUnit_print_og() {
 		if ($vkExUnit_sns_options['ogImage']){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
-		$vkExUnitOGP .= '<meta property="og:title" content="'.get_bloginfo('name').'" />'."\n";
-		$vkExUnitOGP .= '<meta property="og:description" content="'.get_bloginfo('description').'" />'."\n";
 	} else if (is_category() || is_archive()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
 		if ($vkExUnit_sns_options['ogImage']){
@@ -49,22 +49,13 @@ function vkExUnit_print_og() {
 		} else if ($vkExUnit_sns_options['ogImage']){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
-		// description
-		$metaExcerpt = $post->post_excerpt;
-		if ($metaExcerpt) {
-			$metadescription = $post->post_excerpt;
-		} else {
-			$metadescription = mb_substr( strip_tags($post->post_content), 0, 240 ); // kill tags and trim 240 chara
-			$metadescription = str_replace(array("\r\n","\r","\n"), ' ', $metadescription);
-		}
-		$vkExUnitOGP .= '<meta property="og:title" content="'.get_the_title().' | '.get_bloginfo('name').'" />'."\n";
-		$vkExUnitOGP .= '<meta property="og:description" content="'.$metadescription.'" />'."\n";
 	} else {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
 		if ($vkExUnit_sns_options['ogImage']){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	}
+
 	$vkExUnitOGP .= '<!-- [ /'.vkExUnit_get_name().' OG ] -->'."\n";
 	if ( isset($vkExUnit_sns_options['ogTagDisplay']) && $vkExUnit_sns_options['ogTagDisplay'] == 'ogp_off' ) {
 		$vkExUnitOGP = '';
