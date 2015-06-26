@@ -1,27 +1,5 @@
 <?php
 /*-------------------------------------------*/
-/*	Add menu
-/*-------------------------------------------*/
-
-/*-------------------------------------------*/
-/*	Add menu
-/*-------------------------------------------*/
-function vkExUnit_add_ga_menu() {
-	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
-	$custom_page = add_submenu_page(
-		'vkExUnit_setting_page',			// parent
-		'GoogleAnalytics setting',	// Name of page
-		'GA setting',				// Label in menu
-		$capability_required,		// Capability
-		'vkExUnit_ga_options_page',			// ユニークなこのサブメニューページの識別子
-		'vkExUnit_add_ga_options_page'			// メニューページのコンテンツを出力する関数
-	);
-	if ( ! $custom_page ) return;
-}
-add_action( 'admin_menu', 'vkExUnit_add_ga_menu' );
-
-
-/*-------------------------------------------*/
 /*	Add setting page
 /*-------------------------------------------*/
 
