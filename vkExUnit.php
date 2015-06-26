@@ -79,13 +79,13 @@ require vkExUnit_get_directory() . '/common_init.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
-require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap.php';
+require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 
 if ( isset($options['active_sns']) && $options['active_sns'] )
-	require vkExUnit_get_directory() . '/plugins/sns/sns_common.php';
+	require vkExUnit_get_directory() . '/plugins/sns/sns.php';
 
 if ( isset($options['active_ga']) && $options['active_ga'] )
-	require vkExUnit_get_directory() . '/plugins/google_analytics/ga.php';
+	require vkExUnit_get_directory() . '/plugins/google_analytics/google_analytics.php';
 
 if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
 	require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
@@ -94,10 +94,10 @@ if ( isset($options['active_metaDescription']) && $options['active_metaDescripti
 	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
 
 if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
-	require vkExUnit_get_directory() . '/plugins/other_widget/widget.php';
+	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';
 
 if ( isset($options['active_css_customize']) && $options['active_css_customize'] )
-	require vkExUnit_get_directory() . '/plugins/css_customize/css-customize.php';
+	require vkExUnit_get_directory() . '/plugins/css_customize/css_customize.php';
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css
