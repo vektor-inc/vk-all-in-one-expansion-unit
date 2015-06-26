@@ -45,7 +45,7 @@ class biz_vektor_css_customize{
 	{
 		$data = $this->biz_vektor_css_customize_valid_form();
 
-		include('css-customize-edit.php');
+		include( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-edit.php' );
 	}
 
 
