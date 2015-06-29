@@ -178,14 +178,27 @@
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
 .pr-box{
+	.subSection-title{
+		font-size: 18px;
+	}
+	.media-pr{
+		margin-bottom: 0.5em;
+	}
 	.media-pc{
 		display: block;
 	}
 	.media-sp{
 		display: none;
 	}
-	.subSection-title{
-		font-size: 18px;
+	.summary{
+		margin-bottom: 0.5em;
+		font-size: 14px;
+		line-height: 1.4em;
+	}
+	.linkurl{
+		a{
+			text-decoration: none;
+		}
 	}
 }
 @media screen and (max-width:768px){
@@ -196,5 +209,8 @@
 	.media-sp{
 		display: block;
 	}
+	.linkurl { 
+		margin-bottom: 1.5em; 
+	} 
 }	
 }
