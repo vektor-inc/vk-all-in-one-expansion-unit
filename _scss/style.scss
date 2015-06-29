@@ -174,3 +174,27 @@
         }
     }
 }
+/*-------------------------------------------*/
+/* 3PR area wiget Plugin
+/*-------------------------------------------*/
+.pr-box{
+	.media-pc{
+		display: block;
+	}
+	.media-sp{
+		display: none;
+	}
+	.subSection-title{
+		font-size: 18px;
+	}
+}
+@media screen and (max-width:768px){
+.pr-box{
+	.media-pc{
+		display: none;
+	}
+	.media-sp{
+		display: block;
+	}
+}	
+}
