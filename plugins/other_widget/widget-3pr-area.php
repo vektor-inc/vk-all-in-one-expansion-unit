@@ -5,7 +5,6 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
     
-    // コンストラクタを定義
     function WP_Widget_vkExUnit_3PR_area() {
 		$widget_ops = array(
 			'classname' => 'WP_Widget_vkExUnit_3PR_area',
@@ -14,8 +13,6 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "3PR area", 'vkExUnit' );
 		$this->WP_Widget('WP_Widget_vkExUnit_3PR_area', $widget_name, $widget_ops);
 	}
-    
-    // form メソッド で管理画面に入力フォームをだす
     function form($instance){
         $defaults = array(
 			'label-1' => __("3PR area Title-1", 'vkExUnit' ),
@@ -45,7 +42,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         $instance = wp_parse_args((array) $instance, $defaults);
     ?>
         	
-    <?php // 3PR area 1 ここから ================================================ ?>
+<?php // 3PR area 1 =========================================================== ?>
 		<?php // 3PR area 1 タイトル ?>
 		<h5 class="pr-sub-title">3PR Box1 Setting</h5>
 		<p>
@@ -53,57 +50,51 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<input type="text" id="<?php echo $this->get_field_id('label-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-1'); ?>" value="<?php echo $instance['label-1']; ?>" />
 		</p>
 		
-		<?php // 3PR area 1 メディアアップローダー PC image ?>
+		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('media-3pr-image-1');  ?>"><?php _e('Select image for PC:'); ?></label><br/>
 	
 			<input type="hidden" class="media-image-3pr-pc <?php echo $this->get_field_id('media-3pr-image-1');  ?>" id="<?php echo $this->get_field_id('media-3pr-image-1'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-1']); ?>" />
 		
-			<?php //メディアアップローダー alt ?>
 			<input type="hidden" class="media-alt-3pr-pc" id="<?php echo $this->get_field_id('media-3pr-alt-1'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
 		        
 			<input type="button" class="media-select select-3pr" value="画像を選択" onclick="clickSelect3pr(event.target);" />
 			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3pr(event.target);" />
         </p>
-        
         <div class="media image-3pr">
 	        <?php if(!empty($instance['media-3pr-image-1'])): ?>
 	        <img class="media-image image-3pr" src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
 	        <?php endif; ?>
         </div>
-        
+
         <?php // 3PR area 1 メディアアップローダー sp image ?>
-        
         <p>
-	        <?php //メディアアップローダー SP ?>
 	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-1');  ?>"><?php _e('Select image for Mobile:'); ?></label><br/>
 		
 			<input type="hidden" class="media-image-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-image-sp-1'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-sp-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-sp-1']); ?>" />
 		
-			<?php //メディアアップローダー SP alt ?>
 			<input type="hidden" class="media-alt-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-alt-sp-1'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-sp-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-sp-1']); ?>" />
 		        
 			<input type="button" class="media-select" value="画像を選択" onclick="clickSelect3prSP(event.target);" />
 			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3prSP(event.target);" />
         </p>
-        
         <div class="media image-3pr-sp">
 	        <?php if(!empty($instance['media-3pr-image-sp-1'])): ?>
 	        <img class="media-image image-3pr-sp" src="<?php echo esc_url($instance['media-3pr-image-sp-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-1']); ?>" />
 	        <?php endif; ?>
         </div>
 		
-		<?php //概要テキスト ?>
+		<?php // 概要テキスト ?>
 		<p><label for="<?php echo $this->get_field_id('summary-1');  ?>"><?php _e('Summary Text:'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('summary-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-1'); ?>" value="<?php echo $instance['summary-1']; ?>" />
 		</p>
 		
-		<?php //リンク先_URL ?>
+		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id('linkurl-1');  ?>"><?php _e('Link URL:'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('linkurl-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-1'); ?>" value="<?php echo $instance['linkurl-1']; ?>" />
 		</p>
 		
-<hr /><?php // 3PR area 2 ここから =================================================?>
+<hr /><?php // 3PR area 2 =================================================?>
 		<?php // 3PR area 2 タイトル ?>
 		<h5 class="pr-sub-title">3PR Box2 Setting</h5>
 		<p>
@@ -111,13 +102,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<input type="text" id="<?php echo $this->get_field_id('label-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-2'); ?>" value="<?php echo $instance['label-2']; ?>" />
 		</p>
 		
-		<?php // 3PR area 1 メディアアップローダー PC image ?>
+		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('media-3pr-image-2');  ?>"><?php _e('Select image for PC:'); ?></label><br/>
 	
 			<input type="hidden" class="media-image-3pr-pc <?php echo $this->get_field_id('media-3pr-image-2');  ?>" id="<?php echo $this->get_field_id('media-3pr-image-2'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-2']); ?>" />
 		
-			<?php //メディアアップローダー alt ?>
 			<input type="hidden" class="media-alt-3pr-pc" id="<?php echo $this->get_field_id('media-3pr-alt-2'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
 		        
 			<input type="button" class="media-select select-3pr" value="画像を選択" onclick="clickSelect3pr(event.target);" />
@@ -130,21 +120,17 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 	        <?php endif; ?>
         </div>
         
-        <?php // 3PR area 2 メディアアップローダー sp image ?>
-        
+        <?php // 3PR area 2 メディアアップローダー sp  ?>
         <p>
-	        <?php //メディアアップローダー SP ?>
 	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-2');  ?>"><?php _e('Select image for Mobile:'); ?></label><br/>
 		
 			<input type="hidden" class="media-image-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-image-sp-2'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-sp-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-sp-2']); ?>" />
 		
-			<?php //メディアアップローダー SP alt ?>
 			<input type="hidden" class="media-alt-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-alt-sp-2'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-sp-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-sp-2']); ?>" />
 		        
 			<input type="button" class="media-select" value="画像を選択" onclick="clickSelect3prSP(event.target);" />
 			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3prSP(event.target);" />
         </p>
-        
         <div class="media image-3pr-sp">
 	        <?php if(!empty($instance['media-3pr-image-sp-2'])): ?>
 	        <img class="media-image image-3pr-sp" src="<?php echo esc_url($instance['media-3pr-image-sp-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-2']); ?>" />
@@ -161,7 +147,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<input type="text" id="<?php echo $this->get_field_id('linkurl-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-2'); ?>" value="<?php echo $instance['linkurl-2']; ?>" />
 		</p>
 	
-<hr /><?php // 3PR area 3 ここから =================================================?>
+<hr /><?php // 3PR area 3  =================================================?>
 		<?php // 3PR area 3 タイトル ?>
 		<h5 class="pr-sub-title">3PR Box3 Setting</h5>
 		<p>
@@ -169,34 +155,29 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<input type="text" id="<?php echo $this->get_field_id('label-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-3'); ?>" value="<?php echo $instance['label-3']; ?>" />
 		</p>
 		
-		<?php // 3PR area 1 メディアアップローダー PC image ?>
+		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('media-3pr-image-3');  ?>"><?php _e('Select image for PC:'); ?></label><br/>
 	
 			<input type="hidden" class="media-image-3pr-pc <?php echo $this->get_field_id('media-3pr-image-3');  ?>" id="<?php echo $this->get_field_id('media-3pr-image-3'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-3']); ?>" />
 		
-			<?php //メディアアップローダー alt ?>
 			<input type="hidden" class="media-alt-3pr-pc" id="<?php echo $this->get_field_id('media-3pr-alt-3'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
 		        
 			<input type="button" class="media-select select-3pr" value="画像を選択" onclick="clickSelect3pr(event.target);" />
 			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3pr(event.target);" />
         </p>
-        
         <div class="media image-3pr">
 	        <?php if(!empty($instance['media-3pr-image-3'])): ?>
 	        <img class="media-image image-3pr" src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
 	        <?php endif; ?>
         </div>
         
-        <?php // 3PR area 2 メディアアップローダー sp image ?>
-        
+        <?php // 3PR area 2 メディアアップローダー sp  ?>
         <p>
-	        <?php //メディアアップローダー SP ?>
 	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-3');  ?>"><?php _e('Select image for Mobile:'); ?></label><br/>
 		
 			<input type="hidden" class="media-image-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-image-sp-3'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-sp-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-sp-3']); ?>" />
 		
-			<?php //メディアアップローダー SP alt ?>
 			<input type="hidden" class="media-alt-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-alt-sp-3'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-sp-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-sp-3']); ?>" />
 		        
 			<input type="button" class="media-select" value="画像を選択" onclick="clickSelect3prSP(event.target);" />
@@ -219,7 +200,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<input type="text" id="<?php echo $this->get_field_id('linkurl-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-3'); ?>" value="<?php echo $instance['linkurl-3']; ?>" />
 		</p>
 
- <?php  } // form メソッド 終わりのところ
+ <?php  } 
     
     function update ($new_instance, $old_instance) {
 
@@ -250,16 +231,13 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         $instance['linkurl-3'] = $new_instance['linkurl-3'];
         
         return $instance;
-    
     } 
     
-    // サイトの外観ここから　===================================================
     function widget($args, $instance) {
-		// ここからサイドバーに表示される部分
         echo '<aside class="widget pr-box">';
 		?>
 		
-		<?php if( isset($instance['label-1']) && $instance['label-1'] ): // 1個目のボックスに値がある時の処理 ?>
+		<?php if( isset($instance['label-1']) && $instance['label-1'] ): ?>
 		<div class="pr-area col-md-4">
 		<?php
 		echo '<h1 class="subSection-title">';
@@ -271,48 +249,34 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		echo '</h1>'; ?>
 		
 		<?php 
-			// pr-area pc sp 画像表示 
-			
-			// pc か sp 用の画像のいずれかがあった場合
 			if( isset($instance['media-3pr-image-1'], $instance['media-3pr-image-sp-1']) ): ?>
 			<div class="media-pr">
-			<?php // リンクがあった場合の処理 
-				if( !empty($instance['linkurl-1']) ): ?> 
+			<?php if( !empty($instance['linkurl-1']) ): ?> 
 				<a href="<?php echo esc_url($instance['linkurl-1']); ?>" >
-		
-					<?php // PC 用画像があった時 
-					if( !empty($instance['media-3pr-image-1']) ): ?>
-					<img <?php if( !empty($instance['media-3pr-image-sp-1']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
+					<?php if( !empty($instance['media-3pr-image-1']) ): ?>
+						<img <?php if( !empty($instance['media-3pr-image-sp-1']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
+					<?php endif; ?>
 					
-					<?php endif; 
-						
-					// SP 要画像があった時
-					if( !empty($instance['media-3pr-image-sp-1']) ): ?>
-					<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-1']); ?>" />
+					<?php if( !empty($instance['media-3pr-image-sp-1']) ): ?>
+						<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-1']); ?>" />
 					<?php endif; ?>
 				</a>
-			<?php else: // リンクがなかった時の処理 ?> 
-				<?php // PC 用画像があった時 
-					if( !empty($instance['media-3pr-image-1']) ): ?>
+			<?php else: ?> 
+				<?php if( !empty($instance['media-3pr-image-1']) ): ?>
 					<img <?php if( !empty($instance['media-3pr-image-sp-1']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
-					
-					<?php endif; 
+				<?php endif; ?>
 						
-					// SP 要画像があった時
-					if( !empty($instance['media-3pr-image-sp-1']) ): ?>
+				<?php if( !empty($instance['media-3pr-image-sp-1']) ): ?>
 					<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-1']); ?>" />
-					<?php endif; ?>
+				<?php endif; ?>
 					
 			<?php endif; ?> 
 			</div>
 			<!--//.media-pr -->			
-          <?php endif; // pc か sp 用の画像のいずれかがあった場合の処理ここまで	           			 
-            // 概要テキスト表示
-            if( !empty($instance['summary-1']) ){
+			<?php endif; ?>	           			 
+            <?php if( !empty($instance['summary-1']) ){
                 echo '<p class="summary">'.esc_attr($instance['summary-1']).'</p>';
             } 
-        
-            // 詳しく見るリンクURL表示する
             if( !empty($instance['linkurl-1']) ){
                 echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-1']).'">詳しくはこちら</a></p>';
             } 
@@ -321,7 +285,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<!-- // div.pr-area -->
 		<?php endif; ?>
 				
-		<?php if( isset($instance['label-2']) && $instance['label-2'] ): // 2個目のボックスに値がある時の処理 ?>
+		<?php if( isset($instance['label-2']) && $instance['label-2'] ): ?>
 		<div class="pr-area col-md-4">
 		<?php
 		echo '<h1 class="subSection-title">';
@@ -332,49 +296,37 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		}
 		echo '</h1>'; ?>
 		
-		<?php 
-			// pr-area pc sp 画像表示 
-			
-			// pc か sp 用の画像のいずれかがあった場合
-			if( isset($instance['media-3pr-image-2'], $instance['media-3pr-image-sp-2']) ): ?>
+		<?php if( isset($instance['media-3pr-image-2'], $instance['media-3pr-image-sp-2']) ): ?>
 			<div class="media-pr">
-			<?php // リンクがあった場合の処理 
-				if( !empty($instance['linkurl-2']) ): ?> 
+			<?php if( !empty($instance['linkurl-2']) ): ?> 
 				<a href="<?php echo esc_url($instance['linkurl-2']); ?>" >
-		
-					<?php // PC 用画像があった時 
-					if( !empty($instance['media-3pr-image-2']) ): ?>
+					<?php if( !empty($instance['media-3pr-image-2']) ): ?>
 					<img <?php if( !empty($instance['media-3pr-image-sp-2']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
-					
-					<?php endif; 
+					<?php endif; ?>
 						
-					// SP 要画像があった時
-					if( !empty($instance['media-3pr-image-sp-2']) ): ?>
+					<?php if( !empty($instance['media-3pr-image-sp-2']) ): ?>
 					<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-2']); ?>" />
 					<?php endif; ?>
 				</a>
-			<?php else: // リンクがなかった時の処理 ?> 
-				<?php // PC 用画像があった時 
-					if( !empty($instance['media-3pr-image-2']) ): ?>
+			<?php else: ?> 
+					<?php if( !empty($instance['media-3pr-image-2']) ): ?>
 					<img <?php if( !empty($instance['media-3pr-image-sp-2']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
-					
-					<?php endif; 
+					<?php endif; ?>
 						
-					// SP 要画像があった時
-					if( !empty($instance['media-3pr-image-sp-2']) ): ?>
+					<?php if( !empty($instance['media-3pr-image-sp-2']) ): ?>
 					<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-2']); ?>" />
 					<?php endif; ?>
 					
 			<?php endif; ?> 
 			</div>
 			<!--//.media-pr -->			
-          <?php endif; // pc か sp 用の画像のいずれかがあった場合の処理ここまで	           			 
-            // 概要テキスト表示
-            if( !empty($instance['summary-2']) ){
+          <?php endif; ?>
+          	           			 
+            <?php 
+	        if( !empty($instance['summary-2']) ){
                 echo '<p class="summary">'.esc_attr($instance['summary-2']).'</p>';
             } 
         
-            // 詳しく見るリンクURL表示する
             if( !empty($instance['linkurl-2']) ){
                 echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-2']).'">詳しくはこちら</a></p>';
             } 
@@ -383,7 +335,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<!-- // div.pr-area -->
 		<?php endif; ?>
 
-		<?php if( isset($instance['label-3']) && $instance['label-3'] ): // 2個目のボックスに値がある時の処理 ?>
+		<?php if( isset($instance['label-3']) && $instance['label-3'] ):  ?>
 		<div class="pr-area col-md-4">
 		<?php
 		echo '<h1 class="subSection-title">';
@@ -394,49 +346,37 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		}
 		echo '</h1>'; ?>
 		
-		<?php 
-			// pr-area pc sp 画像表示 
-			
-			// pc か sp 用の画像のいずれかがあった場合
-			if( isset($instance['media-3pr-image-3'], $instance['media-3pr-image-sp-3']) ): ?>
+		<?php if( isset($instance['media-3pr-image-3'], $instance['media-3pr-image-sp-3']) ): ?>
 			<div class="media-pr">
-			<?php // リンクがあった場合の処理 
-				if( !empty($instance['linkurl-3']) ): ?> 
+			<?php if( !empty($instance['linkurl-3']) ): ?> 
 				<a href="<?php echo esc_url($instance['linkurl-3']); ?>" >
 		
-					<?php // PC 用画像があった時 
-					if( !empty($instance['media-3pr-image-3']) ): ?>
+					<?php if( !empty($instance['media-3pr-image-3']) ): ?>
 					<img <?php if( !empty($instance['media-3pr-image-sp-3']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
-					
-					<?php endif; 
+					<?php endif; ?>
 						
-					// SP 要画像があった時
-					if( !empty($instance['media-3pr-image-sp-3']) ): ?>
+					<?php if( !empty($instance['media-3pr-image-sp-3']) ): ?>
 					<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp-3']); ?>" />
 					<?php endif; ?>
 				</a>
-			<?php else: // リンクがなかった時の処理 ?> 
-				<?php // PC 用画像があった時 
-					if( !empty($instance['media-3pr-image-3']) ): ?>
+			<?php else: ?> 
+				<?php if( !empty($instance['media-3pr-image-3']) ): ?>
 					<img <?php if( !empty($instance['media-3pr-image-sp-3']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
-					
-					<?php endif; 
+				<?php endif; ?>
 						
-					// SP 要画像があった時
-					if( !empty($instance['media-3pr-image-sp']) ): ?>
+				<?php if( !empty($instance['media-3pr-image-sp']) ): ?>
 					<img class="media-sp" src="<?php  echo esc_url($instance['media-3pr-image-sp']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-sp']); ?>" />
-					<?php endif; ?>
+				<?php endif; ?>
 					
 			<?php endif; ?> 
 			</div>
 			<!--//.media-pr -->			
-          <?php endif; // pc か sp 用の画像のいずれかがあった場合の処理ここまで	           			 
-            // 概要テキスト表示
-            if( !empty($instance['summary-3']) ){
+          <?php endif; ?>
+            
+            <?php 
+	        if( !empty($instance['summary-3']) ){
                 echo '<p class="summary">'.esc_attr($instance['summary-3']).'</p>';
             } 
-        
-            // 詳しく見るリンクURL表示する
             if( !empty($instance['linkurl-3']) ){
                 echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-3']).'">詳しくはこちら</a></p>';
             } 
@@ -444,7 +384,6 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		</div>
 		<!-- // div.pr-area -->
 		<?php endif; ?>		
-		
         </aside>
 <?php }
 } 
