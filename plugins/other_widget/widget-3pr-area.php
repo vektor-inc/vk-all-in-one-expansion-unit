@@ -282,7 +282,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		
 					<?php // PC 用画像があった時 
 					if( !empty($instance['media-3pr-image-1']) ): ?>
-					<img class="media-pc" src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
+					<img <?php if( !empty($instance['media-3pr-image-sp-1']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
 					
 					<?php endif; 
 						
@@ -294,7 +294,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<?php else: // リンクがなかった時の処理 ?> 
 				<?php // PC 用画像があった時 
 					if( !empty($instance['media-3pr-image-1']) ): ?>
-					<img class="media-pc" src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
+					<img <?php if( !empty($instance['media-3pr-image-sp-1']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-1']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
 					
 					<?php endif; 
 						
@@ -314,7 +314,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         
             // 詳しく見るリンクURL表示する
             if( !empty($instance['linkurl-1']) ){
-                echo '<p class="linkurl-1"><a href="'.esc_attr($instance['linkurl-1']).'">詳しくはこちら</a></p>';
+                echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-1']).'">詳しくはこちら</a></p>';
             } 
 		?>    
 		</div>
@@ -344,7 +344,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		
 					<?php // PC 用画像があった時 
 					if( !empty($instance['media-3pr-image-2']) ): ?>
-					<img class="media-pc" src="<?php echo esc_url($instance['media-3pr-image-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
+					<img <?php if( !empty($instance['media-3pr-image-sp-2']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
 					
 					<?php endif; 
 						
@@ -356,7 +356,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<?php else: // リンクがなかった時の処理 ?> 
 				<?php // PC 用画像があった時 
 					if( !empty($instance['media-3pr-image-2']) ): ?>
-					<img class="media-pc" src="<?php echo esc_url($instance['media-3pr-image-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
+					<img <?php if( !empty($instance['media-3pr-image-sp-2']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-2']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
 					
 					<?php endif; 
 						
@@ -376,7 +376,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         
             // 詳しく見るリンクURL表示する
             if( !empty($instance['linkurl-2']) ){
-                echo '<p class="linkurl-2"><a href="'.esc_attr($instance['linkurl-2']).'">詳しくはこちら</a></p>';
+                echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-2']).'">詳しくはこちら</a></p>';
             } 
 		?>    
 		</div>
@@ -406,7 +406,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		
 					<?php // PC 用画像があった時 
 					if( !empty($instance['media-3pr-image-3']) ): ?>
-					<img class="media-pc" src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
+					<img <?php if( !empty($instance['media-3pr-image-sp-3']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
 					
 					<?php endif; 
 						
@@ -418,7 +418,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<?php else: // リンクがなかった時の処理 ?> 
 				<?php // PC 用画像があった時 
 					if( !empty($instance['media-3pr-image-3']) ): ?>
-					<img class="media-pc" src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
+					<img <?php if( !empty($instance['media-3pr-image-sp-3']) ){	echo 'class="media-pc"'; } ?> src="<?php echo esc_url($instance['media-3pr-image-3']); ?>" alt="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
 					
 					<?php endif; 
 						
@@ -438,7 +438,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         
             // 詳しく見るリンクURL表示する
             if( !empty($instance['linkurl-3']) ){
-                echo '<p class="linkurl-3"><a href="'.esc_attr($instance['linkurl-3']).'">詳しくはこちら</a></p>';
+                echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-3']).'">詳しくはこちら</a></p>';
             } 
 		?>    
 		</div>
@@ -464,12 +464,12 @@ add_action( 'admin_print_scripts', 'my_admin_scripts_3pr' );
 function style_3PR() {
 echo '<style>
 		.pr-sub-title{
-			font-size: 1em;
-			background: #EDEDED;
-			border: solid 1px #ddd;
-			width: 100%;
-			padding: 0.8em;
 			box-sizing: border-box;
+			padding: 0.8em;
+			width: 100%;
+			border: solid 1px #ddd;
+			background: #EDEDED;
+			font-size: 1em;
 		}
 </style>'.PHP_EOL;
 }
