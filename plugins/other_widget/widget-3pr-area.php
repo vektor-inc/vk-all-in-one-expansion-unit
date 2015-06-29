@@ -278,7 +278,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
                 echo '<p class="summary">'.esc_attr($instance['summary-1']).'</p>';
             } 
             if( !empty($instance['linkurl-1']) ){
-                echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-1']).'">詳しくはこちら</a></p>';
+                echo '<p class="linkurl btn btn-default"><a href="'.esc_attr($instance['linkurl-1']).'">詳しくはこちら</a></p>';
             } 
 		?>    
 		</div>
@@ -328,7 +328,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
             } 
         
             if( !empty($instance['linkurl-2']) ){
-                echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-2']).'">詳しくはこちら</a></p>';
+                echo '<p class="linkurl btn btn-default"><a href="'.esc_attr($instance['linkurl-2']).'">詳しくはこちら</a></p>';
             } 
 		?>    
 		</div>
@@ -378,7 +378,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
                 echo '<p class="summary">'.esc_attr($instance['summary-3']).'</p>';
             } 
             if( !empty($instance['linkurl-3']) ){
-                echo '<p class="linkurl"><a href="'.esc_attr($instance['linkurl-3']).'">詳しくはこちら</a></p>';
+                echo '<p class="linkurl btn btn-default"><a href="'.esc_attr($instance['linkurl-3']).'">詳しくはこちら</a></p>';
             } 
 		?>    
 		</div>

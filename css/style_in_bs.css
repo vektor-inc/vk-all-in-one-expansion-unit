@@ -2635,6 +2635,7 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .pr-box .media-pc { display: block; }
 .pr-box .media-sp { display: none; }
 .pr-box .subSection-title { font-size: 18px; }
+.pr-box .linkurl a{	text-decoration: none; }
 
 @media screen and (max-width: 768px) { .pr-box .media-pc { display: none; }
   .pr-box .media-sp { display: block; } }
