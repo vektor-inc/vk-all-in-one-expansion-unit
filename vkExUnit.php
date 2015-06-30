@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 0.1.0.0
+Version: 0.1.1.0
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*-------------------------------------------*/
 
 //include('plugins/css_customize/css-customize.php');
+load_plugin_textdomain('vkExUnit', false, basename( dirname( __FILE__ ) ) . '/languages' );
+
 
 function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
@@ -69,7 +71,7 @@ function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
 
-require_once( 'admin_warpper.php' );
+
 
 /*-------------------------------------------*/
 /*	Load modules
@@ -135,4 +137,17 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150525' );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
+}
+
+require_once( 'admin_warpper.php' );
+
+/*-------------------------------------------*/
+/*	Add fontawesome
+/*-------------------------------------------*/
+add_action('wp_head','vkExUnit_addfontawesome', 5);
+function vkExUnit_addfontawesome(){
+	$options = vkExUnit_get_common_options();
+	if ( isset($options['active_fontawesome']) && $options['active_fontawesome'] ) {
+		echo '<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">'.PHP_EOL;
+	}
 }
