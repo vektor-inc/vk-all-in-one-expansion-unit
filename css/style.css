@@ -1,5 +1,22 @@
+/*      .media(bootstrap)
 /*-------------------------------------------*/
-/* ex_unit
+.media { border-bottom: 1px solid #e5e5e5; padding: 2em 0; margin-top: 0; }
+.media:first-child { border-top: 1px solid #e5e5e5; }
+.media .postList_thumbnail { width: 160px; margin-bottom: 0.5em; padding-right: 30px; display: block; overflow: hidden; float: left; }
+.media .postList_thumbnail a { position: relative; display: block; overflow: hidden; }
+.media .postList_thumbnail img { width: 100%; height: auto; }
+.media .postList_thumbnail .postList_cateLabel { position: absolute; bottom: 0; left: 0; }
+.media .media-body .media-heading { font-size: 1.8em; line-height: 1.3em; margin-top: 0; margin-bottom: 0.5em; font-weight: normal; }
+.media .media-body .media-heading a { color: #464646; }
+.media .media-body .media-heading a:hover { text-decoration: none; }
+.media .media-body p { margin-bottom: 0; }
+.media .media-body a.media-body_excerpt { color: #464646; }
+
+@media (max-width: 767px) { .media .postList_thumbnail { padding-right: 20px; }
+  .media .media-body .media-heading { font-size: 1.2em; line-height: 1.3em; margin-bottom: 0.5em; } }
+@media (max-width: 500px) { .media .postList_thumbnail { width: 100px; } }
+/*-------------------------------------------*/
+/* ex_unit 
 /*-------------------------------------------*/
 .link-list li { padding: 0.5em; }
 
@@ -10,22 +27,22 @@
 /*-------------------------------------------*/
 /* fb Page Plugin
 /*-------------------------------------------*/
-.fb-like-box { text-align: center; background-color: #f9f9f9; margin: 0 auto; border: 4px solid #efefef; }
+.fb-like-box { margin: 0 auto; border: 4px solid #efefef; background-color: #f9f9f9; text-align: center; }
 
-.twitter-timeline iframe { margin-left: auto; margin-right: auto; }
+.twitter-timeline iframe { margin-right: auto; margin-left: auto; }
 
-.vkContentAddSection { display: block; overflow: hidden; clear: both; padding-top: 20px; }
+.vkContentAddSection { display: block; clear: both; overflow: hidden; padding-top: 20px; }
 
 /*-------------------------------------------*/
 /*			.socialSet 0.2.0.0
 /*-------------------------------------------*/
 .socialSet ul { margin: 0px; padding: 0; }
 
-.socialSet ul li { display: block; float: left; overflow: visible; background: none; padding: 0px; margin-right: 10px; position: relative; }
+.socialSet ul li { position: relative; display: block; float: left; overflow: visible; margin-right: 10px; padding: 0px; background: none; }
 
-.socialSet ul li.sb_icon a { display: block; overflow: hidden; border: 1px solid #ccc; background-color: #fff; padding: 3px 5px 0px; border-radius: 3px; line-height: 100%; color: #333; text-decoration: none; }
+.socialSet ul li.sb_icon a { display: block; overflow: hidden; padding: 3px 5px 0px; border: 1px solid #ccc; border-radius: 3px; background-color: #fff; color: #333; text-decoration: none; line-height: 100%; }
 
-.socialSet ul li.sb_icon a .sns_txt { font-size: 11px; position: relative; top: -2px; }
+.socialSet ul li.sb_icon a .sns_txt { position: relative; top: -2px; font-size: 11px; }
 
 .socialSet ul li iframe { border: none; }
 
@@ -45,9 +62,9 @@
 
 .relatedPosts h2 { margin-bottom: 10px; }
 
-.followSet { display: block; overflow: hidden; padding: 15px; background-color: #efefef; margin-top: 20px; border: 1px solid #f5f5f5; }
+.followSet { display: block; overflow: hidden; margin-top: 20px; padding: 15px; border: 1px solid #f5f5f5; background-color: #efefef; }
 
-.followSet h3.followSet_title { font-size: 18px; background-color: #333; color: #fff; border: none; padding: 6px 10px 4px; }
+.followSet h3.followSet_title { padding: 6px 10px 4px; border: none; background-color: #333; color: #fff; font-size: 18px; }
 .followSet h3.followSet_title:after { border: none; }
 
 .follow_btn { float: left; margin-right: 20px; }
@@ -55,8 +72,8 @@
 /*-------------------------------------------*/
 /*			import icon
 /*-------------------------------------------*/
-@font-face { font-family: 'vk_sns'; src: url("../plugins/sns/icons/fonts/vk_sns.eot?-bq20cj"); src: url("../plugins/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj") format("embedded-opentype"), url("../plugins/sns/icons/fonts/vk_sns.woff?-bq20cj") format("woff"), url("../plugins/sns/icons/fonts/vk_sns.ttf?-bq20cj") format("truetype"), url("../plugins/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns") format("svg"); font-weight: normal; font-style: normal; }
-[class^="vk_icon_w_r_sns_"], [class*=" vk_icon_w_r_sns_"] { font-family: 'vk_sns'; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; /* Better Font Rendering =========== */ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+@font-face { font-weight: normal; font-style: normal; font-family: 'vk_sns'; src: url("../plugins/sns/icons/fonts/vk_sns.eot?-bq20cj"); src: url("../plugins/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj") format("embedded-opentype"), url("../plugins/sns/icons/fonts/vk_sns.woff?-bq20cj") format("woff"), url("../plugins/sns/icons/fonts/vk_sns.ttf?-bq20cj") format("truetype"), url("../plugins/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns") format("svg"); }
+[class^="vk_icon_w_r_sns_"], [class*=" vk_icon_w_r_sns_"] { text-transform: none; font-weight: normal; font-style: normal; font-variant: normal; font-family: 'vk_sns'; line-height: 1; /* Better Font Rendering =========== */ speak: none; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 .vk_icon_w_r_sns_twitter:before { content: "\e600"; }
 
@@ -67,3 +84,23 @@
 .vk_icon_w_r_sns_google:before { content: "\e603"; }
 
 .vk_icon_w_r_sns_fb:before { content: "\e604"; }
+
+/*-------------------------------------------*/
+/* Profile wiget Plugin
+/*-------------------------------------------*/
+.profile-media { margin: 0.5em 0; }
+
+.profile-text { margin-bottom: 0.5em; font-size: 14px; }
+
+.sns-btns { margin: 0; padding: 0; width: 100%; }
+.sns-btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
+.sns-btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
+.sns-btns a:hover { opacity: 0.8; }
+.sns-btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
+.sns-btns .facebook-btn a { background: #3b5998; }
+.sns-btns .twitter-btn a { background: #55acee; }
+.sns-btns .mail-btn a { width: 44px; height: 44px; border: solid 1px #ccc; background: #fff; color: #999; }
+.sns-btns .youtube-btn a { background: #C81D1C; }
+.sns-btns .rss-btn a { background: #f26522; }
+.sns-btns .instagram-btn a { background: #3f729b; }
+.sns-btns .linkedin-btn a { background: #0077b5; }

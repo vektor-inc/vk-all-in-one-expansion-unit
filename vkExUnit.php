@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: VK All in one Expansion Unit
-Plugin URI: http://vektor-inc.co.jp
-Description: 
-Version: 0.0.0.0
-Author: Vektor,Inc,
+Plugin Name: VK All in One Expansion Unit
+Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
+Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
+Version: 0.1.0.0
+Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
 */
@@ -71,7 +71,7 @@ function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
 
-require_once( 'admin_warpper.php' );
+
 
 /*-------------------------------------------*/
 /*	Load modules
@@ -138,3 +138,5 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
+
+require_once( 'admin_warpper.php' );

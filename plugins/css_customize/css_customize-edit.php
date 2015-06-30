@@ -11,6 +11,7 @@
 		</p>
 	</form>
 
+<?php /*
 <div id="tipsList">
 <h3><?php _e( 'Examples of design customization', 'vkExUnit' ); ?></h3>
 <ul>
@@ -69,4 +70,5 @@
 </dl>
 
 </div><!-- [ /#tipsBody ] -->
+*/ ?>
 </div>

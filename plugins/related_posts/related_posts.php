@@ -38,7 +38,7 @@ function vkExUnit_add_relatedPosts($content){
 			$relatedPostsHtml .= '<div class="col-sm-6">';
 			$relatedPostsHtml .= '<div class="media">';
 			if ( has_post_thumbnail()) :
-			$relatedPostsHtml .= '<div class="media-left postList__thumbnail">';
+			$relatedPostsHtml .= '<div class="media-left postList_thumbnail">';
 			$relatedPostsHtml .= '<a href="'.get_the_permalink().'">';
 			$relatedPostsHtml .= get_the_post_thumbnail($post->ID,'thumbnail');
 			$relatedPostsHtml .= '</a>';
@@ -49,7 +49,7 @@ function vkExUnit_add_relatedPosts($content){
 			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;'.get_the_date().'</div>';   
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '</div>';
-			$relatedPostsHtml .= '</div>';
+			$relatedPostsHtml .= '</div>'."\n";
 			$i++;
 		} // foreach 
 		$relatedPostsHtml .= '</div>';

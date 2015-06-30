@@ -34,7 +34,8 @@ class biz_vektor_css_customize{
 			'vkExUnit_setting_page',
 			__( 'CSS Customize', 'biz-vektor' ),
 			__( 'CSS Customize', 'biz-vektor' ),
-			$capability_required,
+			// $capability_required,
+			'activate_plugins',	
 			'vkExUnit_css_customize',
 			array($this, 'biz_vektor_css_customize_render_page')
 		);

@@ -6,7 +6,8 @@ function vkExUnit_add_main_setting() {
 		'vkExUnit_setting_page',			// parent
 		'Main setting',						// Name of page
 		'Main setting',						// Label in menu
-		$capability_required,				// Capability
+		// $capability_required,
+		'activate_plugins',					// Capability
 		'vkExUnit_main_setting',			// ユニークなこのサブメニューページの識別子
 		'vkExUnit_render_main_config'		// メニューページのコンテンツを出力する関数
 	);

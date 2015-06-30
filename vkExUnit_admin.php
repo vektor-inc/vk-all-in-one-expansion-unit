@@ -1,4 +1,4 @@
-<h2>VK All in one Expansion Unit Settings.</h2>
+<h2>VK All in One Expansion Unit Settings.</h2>
 
 <form method="post" action="options.php">
 <?php
@@ -9,7 +9,7 @@
 <table class="wp-list-table widefat plugins" style="width:auto;">
 	<thead>
 	<tr>
-		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1">すべて選択</label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
 	</thead>
 
 	<tbody id="the-list">
@@ -170,7 +170,7 @@
 
 	<tfoot>
 	<tr>
-		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2">すべて選択</label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
 	</tfoot>
 
 </table>
