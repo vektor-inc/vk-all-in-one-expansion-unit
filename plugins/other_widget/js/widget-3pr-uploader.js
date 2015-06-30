@@ -3,7 +3,7 @@ function clickClear3pr(value){
 (function ($) {
 	$(value).siblings('.media-image-3pr-pc').val('');
 	$(value).siblings('.media-alt-3pr-pc').val('');
-    $(value).parent('p').siblings('.media.image-3pr').empty();
+    $(value).parent('p').next('.media.image-3pr').empty();
 })(jQuery);	
 }
 
@@ -14,7 +14,7 @@ function clickSelect3pr(value){
 	var custom_uploader,
 		$imageUrl = $(value).siblings('.media-image-3pr-pc'),
 		$imageAlt = $(value).siblings('.media-alt-3pr-pc'),
-		$mediaWrap = $(value).parent('p').siblings('.media.image-3pr');
+		$mediaWrap = $(value).parent('p').next('.media.image-3pr');
 	
 	if (custom_uploader) {
         custom_uploader.open();
@@ -52,7 +52,7 @@ function clickClear3prSP(value){
 (function ($) {	
     $(value).siblings('.media-image-3pr-sp').val('');
 	$(value).siblings('.media-alt-3pr-sp').val('');
-    $(value).parent('p').siblings('.media.image-3pr-sp').empty();
+    $(value).parent('p').next('.media.image-3pr-sp').empty();
 })(jQuery);	
 }
 
@@ -63,7 +63,7 @@ function clickSelect3prSP(value){
 	var custom_uploader,
 		$imageUrl = $(value).siblings('.media-image-3pr-sp'),
 		$imageAlt = $(value).siblings('.media-alt-3pr-sp'),
-		$mediaWrap = $(value).parent('p').siblings('.media.image-3pr-sp');
+		$mediaWrap = $(value).parent('p').next('.media.image-3pr-sp');
 	
 	if (custom_uploader) {
         custom_uploader.open();

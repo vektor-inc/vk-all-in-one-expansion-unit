@@ -2628,3 +2628,15 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .sns-btns .rss-btn a { background: #f26522; }
 .sns-btns .instagram-btn a { background: #3f729b; }
 .sns-btns .linkedin-btn a { background: #0077b5; }
+
+/*-------------------------------------------*/
+/* 3PR area wiget Plugin
+/*-------------------------------------------*/
+.pr-box .subSection-title { font-size: 18px; }
+.pr-box .media-pr { margin-bottom: 0.5em; }
+.pr-box .media-pc { display: block; }
+.pr-box .media-sp { display: none; }
+.pr-box .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
+.pr-box .linkurl a{	text-decoration: none; }
+@media screen and (max-width: 992px) { .pr-box .media-pc { display: none; }
+  .pr-box .media-sp { display: block; } .pr-box .linkurl { margin-bottom: 1.5em; } }
