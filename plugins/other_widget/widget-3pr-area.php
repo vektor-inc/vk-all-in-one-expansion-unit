@@ -15,7 +15,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 	}
     function form($instance){
         $defaults = array(
-			'label-1' => __("3PR area Title-1", 'vkExUnit' ),
+			'label-1' => __( '3PR area Title-1', 'vkExUnit' ),
             'media-3pr-image-1' => '',
             'media-3pr-alt-1' => '',
             'media-3pr-image-sp-1' => '',
@@ -23,7 +23,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
             'summary-1' => '',
             'linkurl-1' => '',
             
-            'label-2' => __("3PR area Title-2", 'vkExUnit' ),
+            'label-2' => __( '3PR area Title-2', 'vkExUnit' ),
             'media-3pr-image-2' => '',
             'media-3pr-alt-2' => '',
             'media-3pr-image-sp-2' => '',
@@ -31,7 +31,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
             'summary-2' => '',
             'linkurl-2' => '',
             
-            'label-3' => __("3PR area Title-3", 'vkExUnit' ),
+            'label-3' => __( '3PR area Title-3', 'vkExUnit' ),
             'media-3pr-image-3' => '',
             'media-3pr-alt-3' => '',
             'media-3pr-image-sp-3' => '',
@@ -44,22 +44,22 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         	
 <?php // 3PR area 1 =========================================================== ?>
 		<?php // 3PR area 1 タイトル ?>
-		<h5 class="pr-sub-title">3PR Box1 Setting</h5>
+		<h5 class="pr-sub-title"><?php _e( '3PR Box1 Setting', 'vkExUnit' ); ?></h5>
 		<p>
-			<label for="<?php echo $this->get_field_id('label-1');  ?>"><?php _e('Title:'); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('label-1');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('label-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-1'); ?>" value="<?php echo $instance['label-1']; ?>" />
 		</p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('media-3pr-image-1');  ?>"><?php _e('Select image for PC:'); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('media-3pr-image-1');  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
 	
 			<input type="hidden" class="media-image-3pr-pc <?php echo $this->get_field_id('media-3pr-image-1');  ?>" id="<?php echo $this->get_field_id('media-3pr-image-1'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-1']); ?>" />
 		
 			<input type="hidden" class="media-alt-3pr-pc" id="<?php echo $this->get_field_id('media-3pr-alt-1'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-1']); ?>" />
 		        
-			<input type="button" class="media-select select-3pr" value="画像を選択" onclick="clickSelect3pr(event.target);" />
-			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3pr(event.target);" />
+			<input type="button" class="media-select select-3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
+			<input type="button" class="media-clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
         </p>
         <div class="media image-3pr">
 	        <?php if(!empty($instance['media-3pr-image-1'])): ?>
@@ -69,14 +69,14 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
         <?php // 3PR area 1 メディアアップローダー sp image ?>
         <p>
-	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-1');  ?>"><?php _e('Select image for Mobile:'); ?></label><br/>
+	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-1');  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label><br/>
 		
 			<input type="hidden" class="media-image-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-image-sp-1'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-sp-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-sp-1']); ?>" />
 		
 			<input type="hidden" class="media-alt-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-alt-sp-1'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-sp-1'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-sp-1']); ?>" />
 		        
-			<input type="button" class="media-select" value="画像を選択" onclick="clickSelect3prSP(event.target);" />
-			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3prSP(event.target);" />
+			<input type="button" class="media-select" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3prSP(event.target);" />
+			<input type="button" class="media-clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3prSP(event.target);" />
         </p>
         <div class="media image-3pr-sp">
 	        <?php if(!empty($instance['media-3pr-image-sp-1'])): ?>
@@ -85,33 +85,33 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         </div>
 		
 		<?php // 概要テキスト ?>
-		<p><label for="<?php echo $this->get_field_id('summary-1');  ?>"><?php _e('Summary Text:'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('summary-1');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('summary-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-1'); ?>" value="<?php echo $instance['summary-1']; ?>" />
 		</p>
 		
 		<?php // リンク先_URL ?>
-		<p><label for="<?php echo $this->get_field_id('linkurl-1');  ?>"><?php _e('Link URL:'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('linkurl-1');  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('linkurl-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-1'); ?>" value="<?php echo $instance['linkurl-1']; ?>" />
 		</p>
 		
 <hr /><?php // 3PR area 2 =================================================?>
 		<?php // 3PR area 2 タイトル ?>
-		<h5 class="pr-sub-title">3PR Box2 Setting</h5>
+		<h5 class="pr-sub-title"><?php _e( '3PR Box2 Setting', 'vkExUnit' ); ?></h5>
 		<p>
-			<label for="<?php echo $this->get_field_id('label-2');  ?>"><?php _e('Title:'); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('label-2');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('label-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-2'); ?>" value="<?php echo $instance['label-2']; ?>" />
 		</p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('media-3pr-image-2');  ?>"><?php _e('Select image for PC:'); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('media-3pr-image-2');  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
 	
 			<input type="hidden" class="media-image-3pr-pc <?php echo $this->get_field_id('media-3pr-image-2');  ?>" id="<?php echo $this->get_field_id('media-3pr-image-2'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-2']); ?>" />
 		
 			<input type="hidden" class="media-alt-3pr-pc" id="<?php echo $this->get_field_id('media-3pr-alt-2'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-2']); ?>" />
 		        
-			<input type="button" class="media-select select-3pr" value="画像を選択" onclick="clickSelect3pr(event.target);" />
-			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3pr(event.target);" />
+			<input type="button" class="media-select select-3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
+			<input type="button" class="media-clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
         </p>
         
         <div class="media image-3pr">
@@ -122,14 +122,14 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         
         <?php // 3PR area 2 メディアアップローダー sp  ?>
         <p>
-	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-2');  ?>"><?php _e('Select image for Mobile:'); ?></label><br/>
+	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-2');  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label><br/>
 		
 			<input type="hidden" class="media-image-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-image-sp-2'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-sp-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-sp-2']); ?>" />
 		
 			<input type="hidden" class="media-alt-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-alt-sp-2'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-sp-2'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-sp-2']); ?>" />
 		        
-			<input type="button" class="media-select" value="画像を選択" onclick="clickSelect3prSP(event.target);" />
-			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3prSP(event.target);" />
+			<input type="button" class="media-select" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3prSP(event.target);" />
+			<input type="button" class="media-clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3prSP(event.target);" />
         </p>
         <div class="media image-3pr-sp">
 	        <?php if(!empty($instance['media-3pr-image-sp-2'])): ?>
@@ -138,33 +138,33 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         </div>
 		
 		<?php //概要テキスト ?>
-		<p><label for="<?php echo $this->get_field_id('summary-2');  ?>"><?php _e('Summary Text:'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('summary-2');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('summary-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-2'); ?>" value="<?php echo $instance['summary-2']; ?>" />
 		</p>
 		
 		<?php //リンク先_URL ?>
-		<p><label for="<?php echo $this->get_field_id('linkurl-2');  ?>"><?php _e('Link URL:'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('linkurl-2');  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('linkurl-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-2'); ?>" value="<?php echo $instance['linkurl-2']; ?>" />
 		</p>
 	
 <hr /><?php // 3PR area 3  =================================================?>
 		<?php // 3PR area 3 タイトル ?>
-		<h5 class="pr-sub-title">3PR Box3 Setting</h5>
+		<h5 class="pr-sub-title"><?php _e( '3PR Box3 Setting', 'vkExUnit' ); ?></h5>
 		<p>
-			<label for="<?php echo $this->get_field_id('label-3');  ?>"><?php _e('Title:'); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('label-3');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('label-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-3'); ?>" value="<?php echo $instance['label-3']; ?>" />
 		</p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('media-3pr-image-3');  ?>"><?php _e('Select image for PC:'); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('media-3pr-image-3');  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
 	
 			<input type="hidden" class="media-image-3pr-pc <?php echo $this->get_field_id('media-3pr-image-3');  ?>" id="<?php echo $this->get_field_id('media-3pr-image-3'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-3']); ?>" />
 		
 			<input type="hidden" class="media-alt-3pr-pc" id="<?php echo $this->get_field_id('media-3pr-alt-3'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-3']); ?>" />
 		        
-			<input type="button" class="media-select select-3pr" value="画像を選択" onclick="clickSelect3pr(event.target);" />
-			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3pr(event.target);" />
+			<input type="button" class="media-select select-3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
+			<input type="button" class="media-clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
         </p>
         <div class="media image-3pr">
 	        <?php if(!empty($instance['media-3pr-image-3'])): ?>
@@ -174,14 +174,14 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         
         <?php // 3PR area 2 メディアアップローダー sp  ?>
         <p>
-	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-3');  ?>"><?php _e('Select image for Mobile:'); ?></label><br/>
+	        <label for="<?php echo $this->get_field_id('media-3pr-image-sp-3');  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label><br/>
 		
 			<input type="hidden" class="media-image-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-image-sp-3'); ?>-image" name="<?php echo $this->get_field_name('media-3pr-image-sp-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-image-sp-3']); ?>" />
 		
 			<input type="hidden" class="media-alt-3pr-sp" id="<?php echo $this->get_field_id('media-3pr-alt-sp-3'); ?>-alt" name="<?php echo $this->get_field_name('media-3pr-alt-sp-3'); ?>" value="<?php echo esc_attr($instance['media-3pr-alt-sp-3']); ?>" />
 		        
-			<input type="button" class="media-select" value="画像を選択" onclick="clickSelect3prSP(event.target);" />
-			<input type="button" class="media-clear" value="画像をクリア" onclick="clickClear3prSP(event.target);" />
+			<input type="button" class="media-select" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3prSP(event.target);" />
+			<input type="button" class="media-clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3prSP(event.target);" />
         </p>
         
         <div class="media image-3pr-sp">
@@ -191,12 +191,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         </div>
 		
 		<?php //概要テキスト ?>
-		<p><label for="<?php echo $this->get_field_id('summary-3');  ?>"><?php _e('Summary Text:'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('summary-3');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('summary-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-3'); ?>" value="<?php echo $instance['summary-3']; ?>" />
 		</p>
 		
 		<?php //リンク先_URL ?>
-		<p><label for="<?php echo $this->get_field_id('linkurl-3');  ?>"><?php _e('Link URL:'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('linkurl-3');  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('linkurl-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-3'); ?>" value="<?php echo $instance['linkurl-3']; ?>" />
 		</p>
 
