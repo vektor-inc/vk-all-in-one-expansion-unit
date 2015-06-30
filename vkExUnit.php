@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*-------------------------------------------*/
 
 //include('plugins/css_customize/css-customize.php');
+load_plugin_textdomain('vkExUnit', false, basename( dirname( __FILE__ ) ) . '/languages' );
+
 
 function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
