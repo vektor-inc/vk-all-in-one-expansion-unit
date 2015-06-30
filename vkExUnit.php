@@ -140,3 +140,14 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 }
 
 require_once( 'admin_warpper.php' );
+
+/*-------------------------------------------*/
+/*	Add fontawesome
+/*-------------------------------------------*/
+add_action('wp_head','vkExUnit_addfontawesome', 5);
+function vkExUnit_addfontawesome(){
+	$options = vkExUnit_get_common_options();
+	if ( isset($options['active_fontawesome']) && $options['active_fontawesome'] ) {
+		echo '<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">'.PHP_EOL;
+	}
+}

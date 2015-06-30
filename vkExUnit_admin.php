@@ -31,7 +31,25 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-
+		
+		<!-- [ active_fontawesome ] -->
+		<tr<?php echo (isset($options['active_fontawesome']) && $options['active_fontawesome'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_fontawesome' >
+				<?php _e('Choose Print link fontawesome.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_fontawesome]" id="checkbox_active_fontawesome" value="true" <?php echo (isset($options['active_fontawesome']) && $options['active_fontawesome'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong>Print link fontawesome</strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p>Print fontawesome link tag to html head.</p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+		
 		<!-- [ active_metaDescription ] -->
 		<tr<?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
