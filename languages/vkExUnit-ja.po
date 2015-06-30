@@ -20,7 +20,7 @@ msgstr ""
 "_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: vkExUnit_admin.php:12 vkExUnit_admin.php:191
@@ -522,36 +522,36 @@ msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:11
 msgid "Displays a 3PR area"
-msgstr ""
+msgstr "3PR エリアを表示します。"
 
 #: plugins/other_widget/widget-3pr-area.php:13
 #: plugins/other_widget/widget-3pr-area.php:247
 #: plugins/other_widget/widget-3pr-area.php:295
 #: plugins/other_widget/widget-3pr-area.php:345
 msgid "3PR area"
-msgstr ""
+msgstr "3PR エリア"
 
 #: plugins/other_widget/widget-3pr-area.php:18
 msgid "3PR area Title-1"
-msgstr ""
+msgstr "3PR エリア1 タイトル"
 
 #: plugins/other_widget/widget-3pr-area.php:26
 msgid "3PR area Title-2"
-msgstr ""
+msgstr "3PR エリア2 タイトル"
 
 #: plugins/other_widget/widget-3pr-area.php:34
 msgid "3PR area Title-3"
-msgstr ""
+msgstr "3PR エリア3 タイトル"
 
 #: plugins/other_widget/widget-3pr-area.php:47
 msgid "3PR Box1 Setting"
-msgstr ""
+msgstr "3PR ボックス1 設定"
 
 #: plugins/other_widget/widget-3pr-area.php:55
 #: plugins/other_widget/widget-3pr-area.php:107
 #: plugins/other_widget/widget-3pr-area.php:160
 msgid "Select image for PC:"
-msgstr ""
+msgstr "PC 用画像を選択"
 
 #: plugins/other_widget/widget-3pr-area.php:61
 #: plugins/other_widget/widget-3pr-area.php:78
@@ -570,85 +570,83 @@ msgstr "デフォルトのOGPイメージ"
 #: plugins/other_widget/widget-3pr-area.php:167
 #: plugins/other_widget/widget-3pr-area.php:184
 msgid "Clear image"
-msgstr ""
+msgstr "画像クリア"
 
 #: plugins/other_widget/widget-3pr-area.php:72
 #: plugins/other_widget/widget-3pr-area.php:125
 #: plugins/other_widget/widget-3pr-area.php:177
 msgid "Select image for Mobile:"
-msgstr ""
+msgstr "モバイル用画像を選択"
 
 #: plugins/other_widget/widget-3pr-area.php:88
 #: plugins/other_widget/widget-3pr-area.php:141
 #: plugins/other_widget/widget-3pr-area.php:194
 msgid "Summary Text:"
-msgstr ""
+msgstr "概要テキスト"
 
 #: plugins/other_widget/widget-3pr-area.php:93
 #: plugins/other_widget/widget-3pr-area.php:146
 #: plugins/other_widget/widget-3pr-area.php:199
 msgid "Link URL:"
-msgstr ""
+msgstr "リンク先ページのURL"
 
 #: plugins/other_widget/widget-3pr-area.php:99
 msgid "3PR Box2 Setting"
-msgstr ""
+msgstr "3PR ボックス2 設定"
 
 #: plugins/other_widget/widget-3pr-area.php:152
 msgid "3PR Box3 Setting"
-msgstr ""
+msgstr "3PR ボックス3 設定"
 
 #: plugins/other_widget/widget-profile.php:11
 msgid "Displays a your site's profile"
-msgstr ""
+msgstr "サイトのプロフィールを表示します。"
 
 #: plugins/other_widget/widget-profile.php:13
 #: plugins/other_widget/widget-profile.php:19
 #: plugins/other_widget/widget-profile.php:121
 msgid "Site's Profile"
-msgstr ""
+msgstr "サイトの紹介"
 
 #: plugins/other_widget/widget-profile.php:22
 msgid "Site's Profile Text"
-msgstr ""
+msgstr "サイトの紹介テキスト"
 
 #: plugins/other_widget/widget-profile.php:40
 msgid "Select Profile image:"
-msgstr ""
+msgstr "プロフィール用画像を選択"
 
 #: plugins/other_widget/widget-profile.php:57
 msgid "Profile Text:"
-msgstr ""
+msgstr "紹介テキスト"
 
 #: plugins/other_widget/widget-profile.php:62
-#, fuzzy
 msgid "Facebook URL:"
-msgstr "FacebookページURL"
+msgstr "Facebook リンク先ページアドレス"
 
 #: plugins/other_widget/widget-profile.php:67
-#, fuzzy
 msgid "Twitter URL:"
-msgstr "twitterアカウント"
+msgstr "twitterリンク先ページアドレス"
 
 #: plugins/other_widget/widget-profile.php:72
 msgid "Email Address:"
-msgstr ""
+msgstr "Email リンク先ページアドレス"
 
 #: plugins/other_widget/widget-profile.php:77
 msgid "Youtube URL:"
-msgstr ""
+msgstr "Youtube リンク先ページアドレス"
 
 #: plugins/other_widget/widget-profile.php:82
 msgid "RSS URL:"
-msgstr ""
+msgstr "RSS リンク先ページアドレス"
 
 #: plugins/other_widget/widget-profile.php:87
 msgid "instagram URL:"
-msgstr ""
+msgstr "instagram リンク先ページアドレス"
 
 #: plugins/other_widget/widget-profile.php:91
 msgid "linkedin URL:"
-msgstr ""
+msgstr "linkedin リンク先ページアドレス"
 
 #: plugins/other_widget/widget-new-posts.php:11
 msgid "Displays a list of your most recent posts"
