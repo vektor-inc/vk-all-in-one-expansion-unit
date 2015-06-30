@@ -83,7 +83,7 @@
 				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>
 
 					<span class="0">
-					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_sns_options_page';?>">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting';?>">
 					<?php _e('Setting','vkExUnit');?>
 					</a></span>
 
@@ -117,7 +117,7 @@
 				<?php if (isset($options['active_ga']) && $options['active_ga']) : ?>
 					
 					<span class="0">
-					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_ga_options_page';?>">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting';?>">
 					<?php _e('Setting','vkExUnit');?>
 					</a></span>
 
