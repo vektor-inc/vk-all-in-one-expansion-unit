@@ -85,7 +85,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<label for="<?php echo $this->get_field_id('post_type'); ?>"><?php _e('Slug for the custom type you want to display', 'vkExUnit') ?>:</label><br />
 		<input type="text" id="<?php echo $this->get_field_id('post_type'); ?>" name="<?php echo $this->get_field_name('post_type'); ?>" value="<?php echo esc_attr($instance['post_type']) ?>" />
 		
-		<?php var_dump($this); ?>
 		<?php
 	}
 
