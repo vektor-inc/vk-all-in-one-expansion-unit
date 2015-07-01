@@ -82,6 +82,7 @@ $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
 require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
+require vkExUnit_get_directory() . '/plugins/dashboard_info_widget/dashboard-info-widget.php';
 
 if ( isset($options['active_sns']) && $options['active_sns'] )
 	require vkExUnit_get_directory() . '/plugins/sns/sns.php';
