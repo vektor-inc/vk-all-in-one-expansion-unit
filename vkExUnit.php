@@ -138,7 +138,7 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
 
-require_once( 'admin_warpper.php' );
+require_once( 'admin_wrapper.php' );
 
 /*-------------------------------------------*/
 /*	Add fontawesome
@@ -153,5 +153,5 @@ function vkExUnit_addfontawesome(){
 
 add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
 function vkExUnit_admin_enq(){
-	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/vkexunit_admin.css', __FILE__));
+	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/vkExUnit_admin.css', __FILE__));
 }

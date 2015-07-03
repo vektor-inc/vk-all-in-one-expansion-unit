@@ -21,7 +21,7 @@ function vkExUnit_render_main_config(){
 
 	vkExUnit_save_main_config();
 ?>
-<div class="warp">
+<div class="wrap vkExUnit_admin_page">
 <form method="post" action="">
 
 <?php 
@@ -93,7 +93,7 @@ function vkExUnit_save_main_config(){
 }
 
 function vkExUnit_render_menu( $sections, $current_tab=null ){
-	echo '<div class="optionNav" style="display:none;"><ul>';
+	echo '<div class="optionNav"><ul>';
 	foreach($sections as $section){
 		$tab_class = ( $section['option_name'] == $current_tab )? 'current' : '';
 
