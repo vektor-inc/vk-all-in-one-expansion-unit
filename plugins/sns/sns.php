@@ -16,9 +16,10 @@ function vkExUnit_sns_options_init() {
 	if ( false === vkExUnit_get_sns_options() )
 		add_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
 	vkExUnit_register_setting(
-		'vkExUnit_sns_options_fields', 	//  Immediately following form tag of edit page.
+		__('SNS', 'vkExUnit'), 	// tab label.
 		'vkExUnit_sns_options',			// name attr
-		'vkExUnit_sns_options_validate'
+		'vkExUnit_sns_options_validate', // sanitaise function name
+		'vkExUnit_add_sns_options_page'  // setting_page function name
 	);
 }
 add_action( 'admin_init', 'vkExUnit_sns_options_init' );
@@ -105,5 +106,3 @@ function vkExUnit_add_sns_options_page(){
 	?>
 	<?php
 }
-
-add_action( 'vkExUnit_main_config' , 'vkExUnit_add_sns_options_page' );

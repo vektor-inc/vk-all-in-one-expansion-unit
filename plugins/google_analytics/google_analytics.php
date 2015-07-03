@@ -15,9 +15,10 @@ function vkExUnit_ga_options_init() {
 		add_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() );
 
 	vkExUnit_register_setting(
-		'vkExUnit_ga_options_fields', 	//  Immediately following form tag of edit page.
+		__('Google Analytics Settings', 'vkExUnit'), 	//  Immediately following form tag of edit page.
 		'vkExUnit_ga_options',			// name attr
-		'vkExUnit_ga_options_validate'
+		'vkExUnit_ga_options_validate',
+		'vkExUnit_add_ga_options_page'
 	);
 }
 add_action( 'admin_init', 'vkExUnit_ga_options_init' );
@@ -99,6 +100,3 @@ ga('send', 'pageview');
 		}
 	}
 }
-
-
-add_action( 'vkExUnit_main_config' , 'vkExUnit_add_ga_options_page' );

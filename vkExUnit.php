@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 0.1.1.1
+Version: 0.1.1.2
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -70,8 +70,6 @@ function vkExUnit_setting_menu_parent() {
 function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
-
-
 
 /*-------------------------------------------*/
 /*	Load modules
@@ -151,4 +149,9 @@ function vkExUnit_addfontawesome(){
 	if ( isset($options['active_fontawesome']) && $options['active_fontawesome'] ) {
 		echo '<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">'.PHP_EOL;
 	}
+}
+
+add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
+function vkExUnit_admin_enq(){
+	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/vkexunit_admin.css', __FILE__));
 }
