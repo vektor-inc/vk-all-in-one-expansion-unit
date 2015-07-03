@@ -71,8 +71,6 @@ function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
 
-
-
 /*-------------------------------------------*/
 /*	Load modules
 /*-------------------------------------------*/
@@ -151,4 +149,9 @@ function vkExUnit_addfontawesome(){
 	if ( isset($options['active_fontawesome']) && $options['active_fontawesome'] ) {
 		echo '<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">'.PHP_EOL;
 	}
+}
+
+add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
+function vkExUnit_admin_enq(){
+	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/vkexunit_admin.css', __FILE__));
 }
