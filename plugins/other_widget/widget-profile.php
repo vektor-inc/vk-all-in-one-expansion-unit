@@ -16,10 +16,10 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
     
     function form($instance){
         $defaults = array(
-			'label' => __("Profile", 'vkExUnit' ),
+			'label' => __('Profile', 'vkExUnit' ),
             'mediafile' => '',
             'mediaalt' => '',
-            'profile' => __("Profile Text", 'vkExUnit' ),
+            'profile' => __('Profile Text', 'vkExUnit' ),
             'facebook' => '',
             'twitter' => '',
             'mail' => '',
