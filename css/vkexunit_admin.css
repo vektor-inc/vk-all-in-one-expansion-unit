@@ -2,17 +2,13 @@
 
 .optionNav ul { display: block; overflow: hidden; margin: 0; padding: 0 5px; }
 
-.optionNav ul li { display: block; float: left; border-radius: 3px 3px 0 0; border: 1px solid #ccc; border-bottom: none; margin-right: 1px; margin-bottom: 0; }
+.optionNav ul li { display: block; float: left; border-radius: 3px 3px 0 0; border: 1px solid #ccc; border-bottom: none; margin-right: 2px; margin-bottom: 0; }
 
 .optionNav ul li:hover { background-color: #666; }
 
 .optionNav ul li a { display: block; overflow: hidden; padding: 0.5em; text-decoration: none; color: #666; font-size: 12px; }
 
 .optionNav ul li:hover a { color: #fff; border: none; }
-
-.optionNav.bottomNav { margin: 2em 0; }
-
-.optionNav.bottomNav ul li { border-radius: 3px; border: 1px solid #ccc; float: right; }
 
 #design .optionNav ul li#btn_design, #contactInfo .optionNav ul li#btn_contactInfo, #prBox .optionNav ul li#btn_prBox, #postSetting .optionNav ul li#btn_postSetting, #seoSetting .optionNav ul li#btn_seoSetting, #topPage .optionNav ul li#btn_topPage, #slideSetting .optionNav ul li#btn_slideSetting, #snsSetting .optionNav ul li#btn_snsSetting { background-color: #333; }
 
