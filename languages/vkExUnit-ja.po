@@ -831,7 +831,7 @@ msgstr "関連記事を選択"
 
 #: vkExUnit_admin.php:147
 msgid "Print Related posts lists to post content bottom."
-msgstr "関連記事を記事コンテンツの下へ表示します。"
+msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
 #: vkExUnit_admin.php:156 vkExUnit_admin.php:174
 msgid "Choose other widgets."
@@ -843,7 +843,7 @@ msgstr "Other ウィジェット"
 
 #: vkExUnit_admin.php:165
 msgid "You can use various widgets."
-msgstr "いくつかのウィジェットを使用することができます。"
+msgstr "さまざまな機能のウィジェットを使用できるようになります。"
 
 #: vkExUnit_admin.php:179
 msgid "CSS customize"
