@@ -95,7 +95,7 @@ function vkExUnit_save_main_config(){
 function vkExUnit_render_menu( $sections, $current_tab=null ){
 	echo '<div class="optionNav"><ul>';
 	foreach($sections as $section){
-		$tab_class = ( $section['option_name'] == $current_tab )? 'current' : '';
+		$tab_class = ( $section['tab_label'] == $current_tab )? 'current' : '';
 
 		echo '<li id="btn_"'. $section['option_name']. '" class="'.$tab_class.'"><a href="#'. $section['option_name'] .'">';
 		echo $section['tab_label'];
