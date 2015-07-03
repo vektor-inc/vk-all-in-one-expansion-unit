@@ -54,12 +54,9 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         </div>
 		
 		<?php //profileテキスト ?>
-		<p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:', 'vkExUnit'); ?></label><br/>
+		<p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:', 'vkExUnit'); ?></label></p>
 		
-<!-- 		<input type="textarea" id="<?php echo $this->get_field_id('profile'); ?>-text" class="prof-input" name="<?php echo $this->get_field_name('profile'); ?>" value="<?php echo $instance['profile']; ?>" /> -->
-		
-		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id('profile'); ?>-text" class="prof-input" name="<?php echo $this->get_field_name('profile'); ?>"><?php echo $instance['profile']; ?></textarea>
-		</p>
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id('profile'); ?>-text" class="prof-input textarea" name="<?php echo $this->get_field_name('profile'); ?>"><?php echo $instance['profile']; ?></textarea>
 		
 		<?php //facebook_URL ?>
 		<p><label for="<?php echo $this->get_field_id('facebook');  ?>"><?php _e('Facebook URL:', 'vkExUnit'); ?></label><br/>
@@ -133,7 +130,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         } 
         // Display a profile text
         if( !empty($instance['profile']) ){
-            echo '<p class="profile-text">'.esc_attr($instance['profile']).'</p>'.PHP_EOL;
+            echo '<p class="profile-text">'.nl2br(esc_attr($instance['profile'])).'</p>'.PHP_EOL;
         } 
         // Display a sns botton
             if( isset($instance['facebook'], $instance['twitter'], $instance['mail'], $instance['youtube'], $instance['rss'], $instance['instagram'], $instance['linkedin'] ) ): ?>
@@ -229,6 +226,9 @@ echo '<style>
 		width: 100%;
 		height: auto;
 	}	
+	.prof-input.textarea{
+		margin-top: -1em;
+	}
 </style>'.PHP_EOL;
 }
 add_action("admin_print_styles-widgets.php", "my_admin_style");

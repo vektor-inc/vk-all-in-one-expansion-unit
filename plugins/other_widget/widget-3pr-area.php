@@ -47,7 +47,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<h5 class="pr-sub-title"><?php _e( '3PR area1 setting', 'vkExUnit' ); ?></h5>
 		<p>
 			<label for="<?php echo $this->get_field_id('label-1');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
-			<input type="text" id="<?php echo $this->get_field_id('label-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-1'); ?>" value="<?php echo $instance['label-1']; ?>" />
+			<input type="text" id="<?php echo $this->get_field_id('label-1'); ?>-title" class="pr-input" name="<?php echo $this->get_field_name('label-1'); ?>" value="<?php echo $instance['label-1']; ?>" />
 		</p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
@@ -86,12 +86,13 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		
 		<?php // 概要テキスト ?>
 		<p><label for="<?php echo $this->get_field_id('summary-1');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('summary-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-1'); ?>" value="<?php echo $instance['summary-1']; ?>" />
 		</p>
+		
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id('summary-1'); ?>-text" class="pr-input textarea" name="<?php echo $this->get_field_name('summary-1'); ?>"><?php echo $instance['summary-1']; ?></textarea>
 		
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id('linkurl-1');  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('linkurl-1'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-1'); ?>" value="<?php echo $instance['linkurl-1']; ?>" />
+		<input type="text" id="<?php echo $this->get_field_id('linkurl-1'); ?>-title" class="pr-input" name="<?php echo $this->get_field_name('linkurl-1'); ?>" value="<?php echo $instance['linkurl-1']; ?>" />
 		</p>
 		
 <hr /><?php // 3PR area 2 =================================================?>
@@ -99,7 +100,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<h5 class="pr-sub-title"><?php _e( '3PR area2 setting', 'vkExUnit' ); ?></h5>
 		<p>
 			<label for="<?php echo $this->get_field_id('label-2');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
-			<input type="text" id="<?php echo $this->get_field_id('label-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-2'); ?>" value="<?php echo $instance['label-2']; ?>" />
+			<input type="text" id="<?php echo $this->get_field_id('label-2'); ?>-title" class="pr-input" name="<?php echo $this->get_field_name('label-2'); ?>" value="<?php echo $instance['label-2']; ?>" />
 		</p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
@@ -138,13 +139,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         </div>
 		
 		<?php //概要テキスト ?>
-		<p><label for="<?php echo $this->get_field_id('summary-2');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('summary-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-2'); ?>" value="<?php echo $instance['summary-2']; ?>" />
-		</p>
+		<p><label for="<?php echo $this->get_field_id('summary-2');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label></p>
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id('summary-2'); ?>-text" class="pr-input textarea" name="<?php echo $this->get_field_name('summary-2'); ?>"><?php echo $instance['summary-2']; ?></textarea>
 		
 		<?php //リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id('linkurl-2');  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('linkurl-2'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-2'); ?>" value="<?php echo $instance['linkurl-2']; ?>" />
+		<input type="text" id="<?php echo $this->get_field_id('linkurl-2'); ?>-title" class="pr-input" name="<?php echo $this->get_field_name('linkurl-2'); ?>" value="<?php echo $instance['linkurl-2']; ?>" />
 		</p>
 	
 <hr /><?php // 3PR area 3  =================================================?>
@@ -152,7 +152,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<h5 class="pr-sub-title"><?php _e( '3PR area3 setting', 'vkExUnit' ); ?></h5>
 		<p>
 			<label for="<?php echo $this->get_field_id('label-3');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
-			<input type="text" id="<?php echo $this->get_field_id('label-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('label-3'); ?>" value="<?php echo $instance['label-3']; ?>" />
+			<input type="text" id="<?php echo $this->get_field_id('label-3'); ?>-title" class="pr-input" name="<?php echo $this->get_field_name('label-3'); ?>" value="<?php echo $instance['label-3']; ?>" />
 		</p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
@@ -191,13 +191,13 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
         </div>
 		
 		<?php //概要テキスト ?>
-		<p><label for="<?php echo $this->get_field_id('summary-3');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('summary-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('summary-3'); ?>" value="<?php echo $instance['summary-3']; ?>" />
+		<p><label for="<?php echo $this->get_field_id('summary-3');  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label>
 		</p>
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id('summary-3'); ?>-text" class="pr-input textarea" name="<?php echo $this->get_field_name('summary-3'); ?>"><?php echo $instance['summary-3']; ?></textarea>
 		
 		<?php //リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id('linkurl-3');  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('linkurl-3'); ?>-title" class="prof-input" name="<?php echo $this->get_field_name('linkurl-3'); ?>" value="<?php echo $instance['linkurl-3']; ?>" />
+		<input type="text" id="<?php echo $this->get_field_id('linkurl-3'); ?>-title" class="pr-input" name="<?php echo $this->get_field_name('linkurl-3'); ?>" value="<?php echo $instance['linkurl-3']; ?>" />
 		</p>
 
  <?php  } 
@@ -275,7 +275,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<!--//.media-pr -->			
 			<?php endif; ?>	           			 
             <?php if( !empty($instance['summary-1']) ){
-                echo '<p class="summary">'.esc_attr($instance['summary-1']).'</p>';
+                echo '<p class="summary">'.nl2br(esc_attr($instance['summary-1'])).'</p>';
             } 
             if( !empty($instance['linkurl-1']) ){
                 echo '<p class="linkurl btn btn-default"><a href="'.esc_attr($instance['linkurl-1']).'">'.__('Read more', 'vkExUnit' ).'</a></p>';
@@ -324,7 +324,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
           	           			 
             <?php 
 	        if( !empty($instance['summary-2']) ){
-                echo '<p class="summary">'.esc_attr($instance['summary-2']).'</p>';
+                echo '<p class="summary">'.nl2br(esc_attr($instance['summary-2'])).'</p>';
             } 
         
             if( !empty($instance['linkurl-2']) ){
@@ -375,7 +375,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
             
             <?php 
 	        if( !empty($instance['summary-3']) ){
-                echo '<p class="summary">'.esc_attr($instance['summary-3']).'</p>';
+                echo '<p class="summary">'.nl2br(esc_attr($instance['summary-3'])).'</p>';
             } 
             if( !empty($instance['linkurl-3']) ){
                 echo '<p class="linkurl btn btn-default"><a href="'.esc_attr($instance['linkurl-3']).'">'.__('Read more', 'vkExUnit' ).'</a></p>';
@@ -409,6 +409,12 @@ echo '<style>
 			border: solid 1px #ddd;
 			background: #EDEDED;
 			font-size: 1em;
+		}
+		.pr-input{
+			width: 100%;
+		}
+		.pr-input.textarea{
+			margin-top: -1em;
 		}
 </style>'.PHP_EOL;
 }
