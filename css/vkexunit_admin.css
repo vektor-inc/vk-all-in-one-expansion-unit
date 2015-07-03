@@ -10,8 +10,7 @@
 
 .optionNav ul li:hover a { color: #fff; border: none; }
 
-#design .optionNav ul li#btn_design, #contactInfo .optionNav ul li#btn_contactInfo, #prBox .optionNav ul li#btn_prBox, #postSetting .optionNav ul li#btn_postSetting, #seoSetting .optionNav ul li#btn_seoSetting, #topPage .optionNav ul li#btn_topPage, #slideSetting .optionNav ul li#btn_slideSetting, #snsSetting .optionNav ul li#btn_snsSetting { background-color: #333; }
-
-#design .optionNav ul li#btn_design a, #contactInfo .optionNav ul li#btn_contactInfo a, #prBox .optionNav ul li#btn_prBox a, #postSetting .optionNav ul li#btn_postSetting a, #seoSetting .optionNav ul li#btn_seoSetting a, #topPage .optionNav ul li#btn_topPage a, #slideSetting .optionNav ul li#btn_slideSetting a, #snsSetting .optionNav ul li#btn_snsSetting a { color: #fff; }
+.optionNav ul li.current { background-color: #333; color: #fff; }
+.optionNav ul li.current a { color: #fff; }
 
 .vkExUnit_admin_page.wrap h3 { background-color: #333; color: #fff; padding: 10px 15px; font-size: 150%; margin-top: 0; border-left: 5px solid #e50000; }
