@@ -234,7 +234,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
     } 
     
     function widget($args, $instance) {
-        echo '<aside class="widget pr-box">';
+        echo '<div class="widget pr-box row">';
 		?>
 		
 		<?php if( isset($instance['label-1']) && $instance['label-1'] ): ?>
@@ -384,7 +384,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		</div>
 		<!-- // div.pr-area -->
 		<?php endif; ?>		
-        </aside>
+        </div>
 <?php }
 } 
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_3PR_area");'));
