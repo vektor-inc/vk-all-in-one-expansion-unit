@@ -4,8 +4,8 @@ function vkExUnit_add_main_setting() {
 	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',			// parent
-		'Main setting',						// Name of page
-		'Main setting',						// Label in menu
+		__('Main setting','vkExUnit'),		// Name of page
+		__('Main setting','vkExUnit'),		// Label in menu
 		// $capability_required,
 		'activate_plugins',					// Capability
 		'vkExUnit_main_setting',			// ユニークなこのサブメニューページの識別子
