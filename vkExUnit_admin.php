@@ -9,7 +9,7 @@
 <table class="wp-list-table widefat plugins" style="width:auto;">
 	<thead>
 	<tr>
-		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function','vkExUnit');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
 	</thead>
 
 	<tbody id="the-list">
@@ -23,7 +23,7 @@
 				<input type="checkbox" name="vkExUnit_common_options[active_bootstrap]" id="checkbox_active_bootstrap" value="true" <?php echo (isset($options['active_bootstrap']) && $options['active_bootstrap'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong>Print Bootstrap css and js</strong>
+				<strong><?php _e('Print Bootstrap css and js', 'vkExUnit'); ?></strong>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
@@ -41,11 +41,11 @@
 				<input type="checkbox" name="vkExUnit_common_options[active_fontawesome]" id="checkbox_active_fontawesome" value="true" <?php echo (isset($options['active_fontawesome']) && $options['active_fontawesome'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong>Print link fontawesome</strong>
+				<strong><?php _e('Print link fontawesome.', 'vkExUnit'); ?></strong>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p>Print fontawesome link tag to html head.</p>
+					<p><?php _e('Print fontawesome link tag to html head.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
@@ -59,11 +59,11 @@
 				<input type="checkbox" name="vkExUnit_common_options[active_metaDescription]" id="checkbox_active_metaDescription" value="true" <?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong>Print meta description</strong>
+				<strong><?php _e('Print meta description', 'vkExUnit'); ?></strong>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p>Print meta description to html head.</p>
+					<p><?php _e('Print meta description to html head.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
@@ -188,7 +188,7 @@
 
 	<tfoot>
 	<tr>
-		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function', 'vkExUnit');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
 	</tfoot>
 
 </table>

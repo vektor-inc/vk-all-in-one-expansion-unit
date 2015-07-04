@@ -2619,7 +2619,7 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .sns-btns { margin: 0; padding: 0; width: 100%; }
 .sns-btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
 .sns-btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
-.sns-btns a:hover { opacity: 0.8; }
+.sns-btns a:hover { opacity: 0.8; color: #fff; text-decoration: none; }
 .sns-btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
 .sns-btns .facebook-btn a { background: #3b5998; }
 .sns-btns .twitter-btn a { background: #55acee; }

@@ -1,11 +1,8 @@
-# WordPress Blank Pot
-# Copyright (C) 2014 ...
-# This file is distrubuted under the GPL-2.0+
 msgid ""
 msgstr ""
-"Project-Id-Version: vkExUnit\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-06-30 16:49+0900\n"
+"POT-Creation-Date: 2015-07-03 12:10+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -13,114 +10,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_x;esc_html_e;esc_html__;esc_attr_e;esc_attr__;"
-"_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
-"__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.8.2\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
-
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
-msgid "Select all"
-msgstr ""
-
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
-msgid "Function"
-msgstr ""
-
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
-msgid "Description"
-msgstr ""
-
-#: vkExUnit_admin.php:21
-msgid "Choose Print Bootstrap css"
-msgstr ""
-
-#: vkExUnit_admin.php:30
-msgid ""
-"If your using theme has already including Bootstrap, you deactivate this "
-"item."
-msgstr ""
-
-#: vkExUnit_admin.php:39
-msgid "Choose Print link fontawesome."
-msgstr ""
-
-#: vkExUnit_admin.php:57
-msgid "Choose Print meta description."
-msgstr ""
-
-#: vkExUnit_admin.php:75
-msgid "Choose Social media cooperation."
-msgstr ""
-
-#: vkExUnit_admin.php:87 vkExUnit_admin.php:121
-msgid "Setting"
-msgstr ""
-
-#: vkExUnit_admin.php:97
-msgid "Print og tags to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:98
-msgid "Print twitter card tags to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:99
-msgid "Print social bookmarks."
-msgstr ""
-
-#: vkExUnit_admin.php:100
-msgid "Facebook Page Plugin."
-msgstr ""
-
-#: vkExUnit_admin.php:110
-msgid "Choose Print Google Analytics tracking code."
-msgstr ""
-
-#: vkExUnit_admin.php:129
-msgid "Print Google Analytics tracking code."
-msgstr ""
-
-#: vkExUnit_admin.php:138
-msgid "Choose Related posts."
-msgstr ""
-
-#: vkExUnit_admin.php:143 plugins/related_posts/related_posts.php:34
-msgid "Related posts"
-msgstr ""
-
-#: vkExUnit_admin.php:147
-msgid "Print Related posts lists to post content bottom."
-msgstr ""
-
-#: vkExUnit_admin.php:156 vkExUnit_admin.php:174
-msgid "Choose other widgets."
-msgstr ""
-
-#: vkExUnit_admin.php:161
-msgid "Other Widgets"
-msgstr ""
-
-#: vkExUnit_admin.php:165
-msgid "You can use various widgets."
-msgstr ""
-
-#: vkExUnit_admin.php:179
-msgid "CSS customize"
-msgstr ""
-
-#: vkExUnit_admin.php:183
-msgid "You can set Customize CSS."
-msgstr ""
 
 #: common_helpers.php:126
 #, php-format
 msgid "Search Results for : %s"
-msgstr ""
+msgstr "検索結果 : %s"
 
 #: common_helpers.php:129
 msgid "Not found"
@@ -129,93 +27,93 @@ msgstr "見つかりません"
 #: common_helpers.php:138 common_helpers.php:202
 #, php-format
 msgid "Page of %s"
-msgstr ""
+msgstr "%s のページ"
 
 #: common_helpers.php:162 common_helpers.php:170
 #, php-format
 msgid "About %s"
-msgstr ""
+msgstr "%s について"
 
 #: common_helpers.php:174 common_helpers.php:223
 msgctxt "yearly archives date format"
 msgid "Y"
-msgstr ""
+msgstr "年"
 
 #: common_helpers.php:175
 #, php-format
 msgctxt "Yearly archive description"
 msgid "Article of %s."
-msgstr ""
+msgstr "%s の記事"
 
 #: common_helpers.php:178 common_helpers.php:225
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr ""
+msgstr "年月"
 
 #: common_helpers.php:179 common_helpers.php:183 common_helpers.php:187
 #, php-format
 msgctxt "Archive description"
 msgid "Article of %s."
-msgstr ""
+msgstr "%s の記事"
 
 #: common_helpers.php:221
 #, php-format
 msgid "Author: %s"
-msgstr ""
+msgstr "著者: %s"
 
 #: common_helpers.php:227
 msgctxt "daily archives date format"
 msgid "F j, Y"
-msgstr ""
+msgstr "月日, 年"
 
 #: common_helpers.php:230
 msgctxt "post format archive title"
 msgid "Asides"
-msgstr ""
+msgstr "サイド"
 
 #: common_helpers.php:232
 msgctxt "post format archive title"
 msgid "Galleries"
-msgstr ""
+msgstr "ギャラリー"
 
 #: common_helpers.php:234
 msgctxt "post format archive title"
 msgid "Images"
-msgstr ""
+msgstr "画像"
 
 #: common_helpers.php:236
 msgctxt "post format archive title"
 msgid "Videos"
-msgstr ""
+msgstr "ビデオ"
 
 #: common_helpers.php:238
 msgctxt "post format archive title"
 msgid "Quotes"
-msgstr ""
+msgstr "引用"
 
 #: common_helpers.php:240
 msgctxt "post format archive title"
 msgid "Links"
-msgstr ""
+msgstr "リンク"
 
 #: common_helpers.php:242
 msgctxt "post format archive title"
 msgid "Statuses"
-msgstr ""
+msgstr "ステータス"
 
 #: common_helpers.php:244
 msgctxt "post format archive title"
 msgid "Audio"
-msgstr ""
+msgstr "オーディオ"
 
 #: common_helpers.php:246
 msgctxt "post format archive title"
 msgid "Chats"
-msgstr ""
+msgstr "チャット"
 
 #: common_helpers.php:262 plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
-msgstr ""
+msgstr "アーカイブ"
 
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:35
@@ -238,6 +136,574 @@ msgstr "CSSが保存されました"
 #: plugins/css_customize/css_customize.php:99
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
+
+#: plugins/google_analytics/ga_admin.php:9
+#: plugins/google_analytics/ga_admin.php:13
+msgid "Google Analytics Settings"
+msgstr "Google Analytics設定"
+
+#: plugins/google_analytics/ga_admin.php:14
+msgid ""
+"Please fill in the Google Analytics ID from the Analytics embed code used in "
+"the site."
+msgstr "このサイトで使用する Google アナリティクスの ID を入力して下さい。"
+
+#: plugins/google_analytics/ga_admin.php:16 plugins/sns/old/sns_admin.php:20
+#: plugins/sns/old/sns_admin.php:61 plugins/sns/old/sns_admin.php:79
+#: plugins/sns/old/sns_admin.php:98 plugins/sns/old/sns_admin.php:115
+#: plugins/sns/sns_admin.php:50
+msgid "ex) "
+msgstr "例: "
+
+#: plugins/google_analytics/ga_admin.php:19
+msgid ""
+"Please select the type of Analytics code . (If you are unsure you can skip "
+"this.)"
+msgstr ""
+"アナリティクスコードの種類を選択して下さい。( 不明な場合この設定は省略できま"
+"す )"
+
+#: plugins/google_analytics/ga_admin.php:23
+msgid "To output the Universal Analytics code (default)"
+msgstr "ユニバーサル アナリティクスのコードを出力します。( デフォルト )"
+
+#: plugins/google_analytics/ga_admin.php:24
+msgid "To output only normal code"
+msgstr "ノーマルのコードのみを出力します。"
+
+#: plugins/google_analytics/ga_admin.php:25
+msgid "To output both types"
+msgstr "両タイプのコードを出力します。"
+
+#: plugins/meta_description/meta_description-post.php:9
+#: plugins/meta_description/meta_description-post.php:10
+#: plugins/meta_description/meta_description-post.php:17
+msgid "Meta Keywords"
+msgstr "Meta キーワード"
+
+#: plugins/meta_description/meta_description-post.php:18
+msgid ""
+"To distinguish between individual keywords, please enter a , delimiter "
+"(optional)."
+msgstr "キーワードを複数入力する場合は , ( カンマ )で区切って下さい。"
+
+#: plugins/meta_description/meta_description-post.php:19
+msgctxt "link to seo setting"
+msgid ""
+msgstr "SEO 設定のリンク"
+
+#: plugins/meta_description/meta_description-post.php:20
+#, php-format
+msgid "* keywords common to the entire site can be set from %s."
+msgstr "サイト全体のキーワードは %s より設定することができます。"
+
+#: plugins/other_widget/old/widget-archive-list.php:12
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
+"プを選択できます。"
+
+#: plugins/other_widget/old/widget-archive-list.php:14
+msgid "archive list"
+msgstr "アーカイブリスト"
+
+#: plugins/other_widget/old/widget-archive-list.php:49
+#: plugins/other_widget/old/widget-archive-list.php:50
+msgid "Monthly archives"
+msgstr "月別アーカイブ"
+
+#: plugins/other_widget/old/widget-archive-list.php:59
+msgid "Title"
+msgstr "タイトル"
+
+#: plugins/other_widget/old/widget-archive-list.php:63
+msgid "Post type"
+msgstr "ポストタイプ"
+
+#: plugins/other_widget/old/widget-child-page-list.php:9
+msgid "Displays list of child page for the current page."
+msgstr "現在のページの子ページのリストを表示します。"
+
+#: plugins/other_widget/old/widget-child-page-list.php:11
+msgid "child pages list"
+msgstr "子ページのリスト"
+
+#: plugins/other_widget/old/widget-page-content.php:10
+msgid "Displays the content of a chosen page."
+msgstr "選択したページの内容を表示します。"
+
+#: plugins/other_widget/old/widget-page-content.php:12
+msgid "page content for top"
+msgstr "トップのページコンテンツ"
+
+#: plugins/other_widget/old/widget-page-content.php:30
+#: plugins/other_widget/old/widget-taxonomy-list.php:61
+msgid "Display page"
+msgstr "ページを表示"
+
+#: plugins/other_widget/old/widget-page-content.php:38
+msgid "display title"
+msgstr "タイトルを表示"
+
+#: plugins/other_widget/old/widget-page-content.php:61
+msgid "Edit"
+msgstr "編集"
+
+#: plugins/other_widget/old/widget-rss-widget.php:9
+msgid "Displays entries list from a RSS feed link."
+msgstr "RSSフィードリンクからエントリーリストを表示します。"
+
+#: plugins/other_widget/old/widget-rss-widget.php:11
+msgid "RSS entries for top"
+msgstr "トップのRSSエントリー"
+
+#: plugins/other_widget/old/widget-rss-widget.php:25
+msgid "Blog entries"
+msgstr "ブログエントリー"
+
+#: plugins/other_widget/old/widget-rss-widget.php:30
+msgid "Heading title"
+msgstr "見出しタイトル"
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:11
+msgid "Displays a categories, tags or format list."
+msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:17
+msgid "categories/tags list"
+msgstr "カテゴリー/タグ リスト"
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:48
+#: plugins/other_widget/old/widget-taxonomy-list.php:49
+msgid "Category"
+msgstr "カテゴリー"
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:57
+msgid "Label to display"
+msgstr "表示するラベル"
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:76
+msgid "Blog"
+msgstr "ブログ"
+
+#: plugins/other_widget/widget-3pr-area.php:11
+msgid "Displays a 3PR area"
+msgstr "3PR エリアを表示します。"
+
+#: plugins/other_widget/widget-3pr-area.php:13
+#: plugins/other_widget/widget-3pr-area.php:247
+#: plugins/other_widget/widget-3pr-area.php:295
+#: plugins/other_widget/widget-3pr-area.php:345
+msgid "3PR area"
+msgstr "3PR エリア"
+
+#: plugins/other_widget/widget-3pr-area.php:18
+msgid "3PR area1 title"
+msgstr "3PR エリア1 タイトル"
+
+#: plugins/other_widget/widget-3pr-area.php:26
+msgid "3PR area2 title"
+msgstr "3PR エリア2 タイトル"
+
+#: plugins/other_widget/widget-3pr-area.php:34
+msgid "3PR area3 title"
+msgstr "3PR エリア3 タイトル"
+
+#: plugins/other_widget/widget-3pr-area.php:47
+msgid "3PR area1 setting"
+msgstr "3PR エリア1 設定"
+
+#: plugins/other_widget/widget-3pr-area.php:49
+#: plugins/other_widget/widget-3pr-area.php:101
+#: plugins/other_widget/widget-3pr-area.php:154
+#: plugins/other_widget/widget-new-posts.php:75
+#: plugins/other_widget/widget-profile.php:35
+#: plugins/sns/function_fbPagePlugin.php:75
+msgid "Title:"
+msgstr "タイトル"
+
+#: plugins/other_widget/widget-3pr-area.php:55
+#: plugins/other_widget/widget-3pr-area.php:107
+#: plugins/other_widget/widget-3pr-area.php:160
+msgid "Select image for PC:"
+msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
+
+#: plugins/other_widget/widget-3pr-area.php:61
+#: plugins/other_widget/widget-3pr-area.php:78
+#: plugins/other_widget/widget-3pr-area.php:113
+#: plugins/other_widget/widget-3pr-area.php:131
+#: plugins/other_widget/widget-3pr-area.php:166
+#: plugins/other_widget/widget-3pr-area.php:183
+#: plugins/other_widget/widget-profile.php:46
+msgid "Select image"
+msgstr "画像を選択"
+
+#: plugins/other_widget/widget-3pr-area.php:62
+#: plugins/other_widget/widget-3pr-area.php:79
+#: plugins/other_widget/widget-3pr-area.php:114
+#: plugins/other_widget/widget-3pr-area.php:132
+#: plugins/other_widget/widget-3pr-area.php:167
+#: plugins/other_widget/widget-3pr-area.php:184
+#: plugins/other_widget/widget-profile.php:47
+msgid "Clear image"
+msgstr "画像クリア"
+
+#: plugins/other_widget/widget-3pr-area.php:72
+#: plugins/other_widget/widget-3pr-area.php:125
+#: plugins/other_widget/widget-3pr-area.php:177
+msgid "Select image for Mobile:"
+msgstr ""
+"スマホ用（ウィンドウサイズが 992px 以下の場合）に表示される画像を選択（橫 "
+"690px 以上推奨。空欄も可）"
+
+#: plugins/other_widget/widget-3pr-area.php:88
+#: plugins/other_widget/widget-3pr-area.php:141
+#: plugins/other_widget/widget-3pr-area.php:194
+msgid "Summary Text:"
+msgstr "概要となるテキスト"
+
+#: plugins/other_widget/widget-3pr-area.php:93
+#: plugins/other_widget/widget-3pr-area.php:146
+#: plugins/other_widget/widget-3pr-area.php:199
+msgid "Link URL:"
+msgstr "リンク先ページのURL"
+
+#: plugins/other_widget/widget-3pr-area.php:99
+msgid "3PR area2 setting"
+msgstr "3PR エリア2 設定"
+
+#: plugins/other_widget/widget-3pr-area.php:152
+msgid "3PR area3 setting"
+msgstr "3PR エリア3 設定"
+
+#: plugins/other_widget/widget-3pr-area.php:281
+#: plugins/other_widget/widget-3pr-area.php:331
+#: plugins/other_widget/widget-3pr-area.php:381
+msgid "Read more"
+msgstr "詳しくはこちら"
+
+#: plugins/other_widget/widget-new-posts.php:11
+msgid "Displays a list of your most recent posts"
+msgstr "最新の投稿記事リストを表示します。"
+
+#: plugins/other_widget/widget-new-posts.php:13
+#: plugins/other_widget/widget-new-posts.php:23
+#: plugins/other_widget/widget-new-posts.php:66
+msgid "Recent Posts"
+msgstr "最新記事"
+
+#: plugins/other_widget/widget-new-posts.php:80
+msgid "Display count"
+msgstr "表示する記事数"
+
+#: plugins/other_widget/widget-new-posts.php:85
+msgid "Slug for the custom type you want to display"
+msgstr "表示したい記事タイプ"
+
+#: plugins/other_widget/widget-profile.php:11
+msgid "Displays a your profile"
+msgstr ""
+"ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
+
+#: plugins/other_widget/widget-profile.php:13
+#: plugins/other_widget/widget-profile.php:19
+msgid "Profile"
+msgstr "プロフィール"
+
+#: plugins/other_widget/widget-profile.php:22
+msgid "Profile Text"
+msgstr "プロフィールテキスト"
+
+#: plugins/other_widget/widget-profile.php:40
+msgid "Select Profile image:"
+msgstr "プロフィール用画像を選択"
+
+#: plugins/other_widget/widget-profile.php:57
+msgid "Profile Text:"
+msgstr "プロフィールテキスト"
+
+#: plugins/other_widget/widget-profile.php:65
+msgid "Facebook URL:"
+msgstr "Facebook リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:70
+msgid "Twitter URL:"
+msgstr "twitterリンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:75
+msgid "Email Address:"
+msgstr "Email リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:80
+msgid "Youtube URL:"
+msgstr "Youtube リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:85
+msgid "RSS URL:"
+msgstr "RSS リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:90
+msgid "instagram URL:"
+msgstr "instagram リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:94
+msgid "linkedin URL:"
+msgstr "linkedin リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:124
+msgid "Site's Profile"
+msgstr "プロフィール"
+
+#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:143
+msgid "Related posts"
+msgstr "関連記事"
+
+#: plugins/sns/function_fbPagePlugin.php:10
+msgid "Displays a Facebook Page Plugin"
+msgstr "Facebook ページプラグインを表示します。"
+
+#: plugins/sns/function_fbPagePlugin.php:85
+msgid "Height"
+msgstr "高さ"
+
+#: plugins/sns/function_fbPagePlugin.php:90
+msgid "Show Friend's Faces"
+msgstr "アイコンを表示する"
+
+#: plugins/sns/function_fbPagePlugin.php:95
+msgid "Hide Cover Photo"
+msgstr "カバー画像を表示しない"
+
+#: plugins/sns/function_fbPagePlugin.php:100
+msgid "Show Page Posts"
+msgstr "タイムラインを表示"
+
+#: plugins/sns/function_follow.php:11
+msgid "Follow me!"
+msgstr "フォローして下さい！"
+
+#: plugins/sns/old/sns.php:378
+msgid "*　It is necessary to set the Theme options page."
+msgstr "* テーマオプションページで設定する必要があります。"
+
+#: plugins/sns/old/sns_admin.php:12
+msgid "Social media"
+msgstr "ソーシャルメディア"
+
+#: plugins/sns/old/sns_admin.php:13
+msgid "If you are unsure, you can leave for later."
+msgstr "不明な場合は後で設定することができます。"
+
+#: plugins/sns/old/sns_admin.php:18
+msgid ""
+"If you wish to link to a personal account or a Facebook page  banner will be "
+"displayed if you enter the URL."
+msgstr ""
+"個人アカウントやFacebookページのバナーにリンクしたい場合は URL を入力して下さ"
+"い。"
+
+#: plugins/sns/old/sns_admin.php:26 plugins/sns/sns_admin.php:32
+msgid "facebook application ID"
+msgstr "facebookアプリケーションID"
+
+#: plugins/sns/old/sns_admin.php:28 plugins/sns/sns_admin.php:34
+msgid "I will check and get the application ID"
+msgstr "アプリケーションIDを確認・取得する "
+
+#: plugins/sns/old/sns_admin.php:29 plugins/sns/sns_admin.php:35
+msgid ""
+"* If an application ID is not specified, neither a Like button nor the "
+"comment field displays and operates correctly."
+msgstr ""
+"※アプリケーションIDを入力しないとボタンやコメント欄が表示・正しく動作しませ"
+"ん。"
+
+#: plugins/sns/old/sns_admin.php:30 plugins/sns/sns_admin.php:36
+msgid ""
+"Please search for terms as [get Facebook application ID] If you do not know "
+"much about how to get application ID for Facebook."
+msgstr ""
+"facebookのアプリケーションIDの取得方法についてよくわからない場合は「facebook "
+"アプリケーションID 取得」などで検索して下さい。"
+
+#: plugins/sns/old/sns_admin.php:35
+msgid "Facebook user ID (optional)"
+msgstr "Facebook ユーザーID( オプション )"
+
+#: plugins/sns/old/sns_admin.php:36
+msgid "Please enter the Facebook user ID of the administrator."
+msgstr "管理者のFacebookユーザーIDを入力してください。"
+
+#: plugins/sns/old/sns_admin.php:38
+msgid "* It is not the application ID of the Facebook page."
+msgstr "* FacebookページのアプリケーションIDではありません。"
+
+#: plugins/sns/old/sns_admin.php:39
+msgid ""
+"You can see the personal Facebook ID when you access the following url "
+"http://graph.facebook.com/(own url name(example: hidekazu.ishikawa))."
+msgstr ""
+"このアドレス [ http://graph.facebook.com/( 自分の名前のURL (例 : hidekazu."
+"ishikawa) ) ] にアクセスして個人の Facebook ID を確認できます。"
+
+#: plugins/sns/old/sns_admin.php:40
+msgid ""
+"Please search for terms as [find facebook user ID] if you are still not sure."
+msgstr ""
+"まだ不明な場合は、[ FacebookのユーザーIDを検索 ] などのキーワードで検索して下"
+"さい。"
+
+#: plugins/sns/old/sns_admin.php:45
+msgid "twitter account"
+msgstr "Twitter アカウント"
+
+#: plugins/sns/old/sns_admin.php:46
+msgid ""
+"If you would like to link to a Twitter account, banner will be displayed if "
+"you enter the account name."
+msgstr ""
+"Twitterアカウントをバナーにリンクしたい場合は、アカウント名を入力して下さい。"
+
+#: plugins/sns/old/sns_admin.php:48
+msgid "widget"
+msgstr "ウィジェット"
+
+#: plugins/sns/old/sns_admin.php:49
+#, php-format
+msgid ""
+"* If you prefer to use Twitter widgets etc, this can be left blank, paste "
+"the source code into a [text] %s here."
+msgstr ""
+"Twitter のウィジェットなどを使用する時、ここを空にできます。%s にソースコード"
+"を貼り付けます。"
+
+#: plugins/sns/old/sns_admin.php:56
+msgid "OGP default image"
+msgstr "OGP デフォルト画像"
+
+#: plugins/sns/old/sns_admin.php:57 plugins/sns/sns_admin.php:46
+msgid ""
+"If, for example someone pressed the Facebook [Like] button, this is the "
+"image that appears on the Facebook timeline."
+msgstr ""
+"Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタイ"
+"ムラインに表示されます。"
+
+#: plugins/sns/old/sns_admin.php:58 plugins/sns/sns_admin.php:47
+msgid "If a featured image is specified for the page, it takes precedence."
+msgstr ""
+"ページにアイキャッチ画像が指定されている場合は、アイキャッチ画像が優先されま"
+"す。"
+
+#: plugins/sns/old/sns_admin.php:60 plugins/sns/sns_admin.php:49
+msgid "Select an image"
+msgstr "画像を選択"
+
+#: plugins/sns/old/sns_admin.php:62 plugins/sns/sns_admin.php:51
+msgid ""
+"* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is "
+"recommended."
+msgstr "画像サイズ 橫 300px 縦 300px 以上、画像比率 16:9 を推奨します。"
+
+#: plugins/sns/old/sns_admin.php:67
+msgid "Social buttons"
+msgstr "ソーシャルボタン"
+
+#: plugins/sns/old/sns_admin.php:68
+msgid "Please check the type of page that displays the social button."
+msgstr "ページに表示するソーシャルボタンの種類を選択して下さい。"
+
+#: plugins/sns/old/sns_admin.php:71 plugins/sns/old/sns_admin.php:88
+#: plugins/sns/old/sns_admin.php:108
+msgctxt "sns display"
+msgid "Home page"
+msgstr "ホームページ"
+
+#: plugins/sns/old/sns_admin.php:73 plugins/sns/old/sns_admin.php:90
+msgctxt "sns display"
+msgid "Page"
+msgstr "ページ"
+
+#: plugins/sns/old/sns_admin.php:75 plugins/sns/old/sns_admin.php:92
+#: plugins/sns/old/sns_admin.php:94
+msgctxt "sns display"
+msgid "Post"
+msgstr "投稿"
+
+#: plugins/sns/old/sns_admin.php:77 plugins/sns/old/sns_admin.php:96
+msgid ""
+"Within the type of page that is checked, if there is a particular page you "
+"do not wish to display, enter the Page ID. If multiple pages, please "
+"separate by commas."
+msgstr ""
+"表示したくない特定のページが有る場合にページ ID を入力して下さい。複数のペー"
+"ジがある場合は、カンマで区切って入力して下さい。"
+
+#: plugins/sns/old/sns_admin.php:84
+msgid "facebook comments box"
+msgstr "Facebookのコメントボックス"
+
+#: plugins/sns/old/sns_admin.php:85
+msgid "Please check the type of the page to display Facebook comments."
+msgstr "Facebook のコメントを表示するページタイプを確認して下さい。"
+
+#: plugins/sns/old/sns_admin.php:104
+msgid "If you wish to use Facebook LikeBox, please check the location."
+msgstr "Facebook のいいねボックスを使用する場合は、場所を確認して下さい。"
+
+#: plugins/sns/old/sns_admin.php:105
+msgid "* Please be sure to set Facebook application ID."
+msgstr "Facebook のアプリケーションIDを設定してください。"
+
+#: plugins/sns/old/sns_admin.php:110
+msgctxt "sns display"
+msgid "Side bar"
+msgstr "サイドバー"
+
+#: plugins/sns/old/sns_admin.php:113
+msgid "URL of the Facebook page."
+msgstr "Facebook ページの URL"
+
+#: plugins/sns/old/sns_admin.php:116
+msgid "Display stream"
+msgstr "タイムラインを表示する"
+
+#: plugins/sns/old/sns_admin.php:117 plugins/sns/old/sns_admin.php:119
+msgid "Display"
+msgstr "表示"
+
+#: plugins/sns/old/sns_admin.php:118
+msgid "Display faces"
+msgstr "アイコンを表示する"
+
+#: plugins/sns/old/sns_admin.php:120
+msgid "Height of LikeBox"
+msgstr "いいねボックスの高さ"
+
+#: plugins/sns/old/sns_admin.php:128
+msgid "Do not output the OGP"
+msgstr "OGP を出力しません"
+
+#: plugins/sns/old/sns_admin.php:130
+msgid ""
+"If other plug-ins are used for the OGP, do not output the OGP using "
+"BizVektor."
+msgstr ""
+"他の OGP プラグインを使用している場合は、BizVektor を使用して出力しません。"
+
+#: plugins/sns/old/sns_admin.php:133
+msgid "I want to output the OGP tags using BizVektor"
+msgstr "BizVektor を使用して OGP タグを出力したい。"
+
+#: plugins/sns/old/sns_admin.php:134
+msgid "Do not output OGP tags using BizVektor"
+msgstr "BizVektor を使用して OGP タグを出力しない。"
+
+#: plugins/sns/old/sns_admin.php:149
+msgid "Page top"
+msgstr "ページ先頭へ"
 
 #: plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
@@ -263,30 +729,6 @@ msgstr "OGタグを出力する"
 msgid "Do not output OG tags"
 msgstr "OGタグを出力しない"
 
-#: plugins/sns/sns_admin.php:32 plugins/sns/old/sns_admin.php:26
-msgid "facebook application ID"
-msgstr "facebookアプリケーションID"
-
-#: plugins/sns/sns_admin.php:34 plugins/sns/old/sns_admin.php:28
-msgid "I will check and get the application ID"
-msgstr "アプリケーションIDを確認・取得する "
-
-#: plugins/sns/sns_admin.php:35 plugins/sns/old/sns_admin.php:29
-msgid ""
-"* If an application ID is not specified, neither a Like button nor the "
-"comment field displays and operates correctly."
-msgstr ""
-"※アプリケーションIDを入力しないとボタンやコメント欄が表示・正しく動作しませ"
-"ん。"
-
-#: plugins/sns/sns_admin.php:36 plugins/sns/old/sns_admin.php:30
-msgid ""
-"Please search for terms as [get Facebook application ID] If you do not know "
-"much about how to get application ID for Facebook."
-msgstr ""
-"facebookのアプリケーションIDの取得方法についてよくわからない場合は「facebook "
-"アプリケーションID 取得」などで検索して下さい。"
-
 #: plugins/sns/sns_admin.php:40
 msgid "facebook page URL"
 msgstr "FacebookページURL"
@@ -295,511 +737,145 @@ msgstr "FacebookページURL"
 msgid "OG default image"
 msgstr "デフォルトのOGPイメージ"
 
-#: plugins/sns/sns_admin.php:46 plugins/sns/old/sns_admin.php:57
-msgid ""
-"If, for example someone pressed the Facebook [Like] button, this is the "
-"image that appears on the Facebook timeline."
-msgstr ""
-
-#: plugins/sns/sns_admin.php:47 plugins/sns/old/sns_admin.php:58
-msgid "If a featured image is specified for the page, it takes precedence."
-msgstr ""
-
-#: plugins/sns/sns_admin.php:49 plugins/sns/old/sns_admin.php:60
-msgid "Select an image"
-msgstr ""
-
-#: plugins/sns/sns_admin.php:50 plugins/sns/old/sns_admin.php:20
-#: plugins/sns/old/sns_admin.php:61 plugins/sns/old/sns_admin.php:79
-#: plugins/sns/old/sns_admin.php:98 plugins/sns/old/sns_admin.php:115
-#: plugins/google_analytics/ga_admin.php:16
-msgid "ex) "
-msgstr "例: "
-
-#: plugins/sns/sns_admin.php:51 plugins/sns/old/sns_admin.php:62
-msgid ""
-"* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is "
-"recommended."
-msgstr ""
-
 #: plugins/sns/sns_admin.php:55
 msgid "twitter ID"
 msgstr "twitterアカウント"
 
-#: plugins/sns/function_follow.php:11
-msgid "Follow me!"
-msgstr ""
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+msgid "Select all"
+msgstr "全てを選択"
 
-#: plugins/sns/function_fbPagePlugin.php:10
-msgid "Displays a Facebook Page Plugin"
-msgstr ""
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+msgid "Function"
+msgstr "有効化"
 
-#: plugins/sns/function_fbPagePlugin.php:75
-#: plugins/other_widget/widget-3pr-area.php:49
-#: plugins/other_widget/widget-3pr-area.php:101
-#: plugins/other_widget/widget-3pr-area.php:154
-#: plugins/other_widget/widget-profile.php:35
-#: plugins/other_widget/widget-new-posts.php:75
-msgid "Title:"
-msgstr ""
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+msgid "Description"
+msgstr "説明"
 
-#: plugins/sns/function_fbPagePlugin.php:85
-msgid "Height"
-msgstr ""
+#: vkExUnit_admin.php:21
+msgid "Choose Print Bootstrap css"
+msgstr "Bootstrap の CSS を出力するか選択"
 
-#: plugins/sns/function_fbPagePlugin.php:90
-msgid "Show Friend's Faces"
-msgstr ""
+#: vkExUnit_admin.php:26
+msgid "Print Bootstrap css and js"
+msgstr "Bootstrap の CSS と js を出力"
 
-#: plugins/sns/function_fbPagePlugin.php:95
-msgid "Hide Cover Photo"
-msgstr ""
-
-#: plugins/sns/function_fbPagePlugin.php:100
-msgid "Show Page Posts"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:12
-msgid "Social media"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:13
-msgid "If you are unsure, you can leave for later."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:18
+#: vkExUnit_admin.php:30
 msgid ""
-"If you wish to link to a personal account or a Facebook page  banner will be "
-"displayed if you enter the URL."
+"If your using theme has already including Bootstrap, you deactivate this "
+"item."
 msgstr ""
+"使用中のテーマで Bootstrap を既に読み込んでいる場合はプラグイン側の読み込みを"
+"無効にできます。"
 
-#: plugins/sns/old/sns_admin.php:35
-msgid "Facebook user ID (optional)"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:36
-msgid "Please enter the Facebook user ID of the administrator."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:38
-msgid "* It is not the application ID of the Facebook page."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:39
-msgid ""
-"You can see the personal Facebook ID when you access the following url "
-"http://graph.facebook.com/(own url name(example: hidekazu.ishikawa))."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:40
-msgid ""
-"Please search for terms as [find facebook user ID] if you are still not sure."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:45
-msgid "twitter account"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:46
-msgid ""
-"If you would like to link to a Twitter account, banner will be displayed if "
-"you enter the account name."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:48
-msgid "widget"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:49
-#, php-format
-msgid ""
-"* If you prefer to use Twitter widgets etc, this can be left blank, paste "
-"the source code into a [text] %s here."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:56
-msgid "OGP default image"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:67
-msgid "Social buttons"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:68
-msgid "Please check the type of page that displays the social button."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:71 plugins/sns/old/sns_admin.php:88
-#: plugins/sns/old/sns_admin.php:108
-msgctxt "sns display"
-msgid "Home page"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:73 plugins/sns/old/sns_admin.php:90
-msgctxt "sns display"
-msgid "Page"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:75 plugins/sns/old/sns_admin.php:92
-#: plugins/sns/old/sns_admin.php:94
-msgctxt "sns display"
-msgid "Post"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:77 plugins/sns/old/sns_admin.php:96
-msgid ""
-"Within the type of page that is checked, if there is a particular page you "
-"do not wish to display, enter the Page ID. If multiple pages, please "
-"separate by commas."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:84
-msgid "facebook comments box"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:85
-msgid "Please check the type of the page to display Facebook comments."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:104
-msgid "If you wish to use Facebook LikeBox, please check the location."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:105
-msgid "* Please be sure to set Facebook application ID."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:110
-msgctxt "sns display"
-msgid "Side bar"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:113
-msgid "URL of the Facebook page."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:116
-msgid "Display stream"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:117 plugins/sns/old/sns_admin.php:119
-msgid "Display"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:118
-msgid "Display faces"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:120
-msgid "Height of LikeBox"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:128
-msgid "Do not output the OGP"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:130
-msgid ""
-"If other plug-ins are used for the OGP, do not output the OGP using "
-"BizVektor."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:133
-msgid "I want to output the OGP tags using BizVektor"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:134
-msgid "Do not output OGP tags using BizVektor"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:149
-msgid "Page top"
-msgstr ""
-
-#: plugins/sns/old/sns.php:378
-msgid "*　It is necessary to set the Theme options page."
-msgstr ""
-
-#: plugins/other_widget/widget-3pr-area.php:11
-msgid "Displays a 3PR area"
-msgstr "3PR エリアを表示します。"
-
-#: plugins/other_widget/widget-3pr-area.php:13
-#: plugins/other_widget/widget-3pr-area.php:247
-#: plugins/other_widget/widget-3pr-area.php:295
-#: plugins/other_widget/widget-3pr-area.php:345
-msgid "3PR area"
-msgstr "3PR エリア"
-
-#: plugins/other_widget/widget-3pr-area.php:18
-msgid "3PR area Title-1"
-msgstr "3PR エリア1 タイトル"
-
-#: plugins/other_widget/widget-3pr-area.php:26
-msgid "3PR area Title-2"
-msgstr "3PR エリア2 タイトル"
-
-#: plugins/other_widget/widget-3pr-area.php:34
-msgid "3PR area Title-3"
-msgstr "3PR エリア3 タイトル"
-
-#: plugins/other_widget/widget-3pr-area.php:47
-msgid "3PR Box1 Setting"
-msgstr "3PR ボックス1 設定"
-
-#: plugins/other_widget/widget-3pr-area.php:55
-#: plugins/other_widget/widget-3pr-area.php:107
-#: plugins/other_widget/widget-3pr-area.php:160
-msgid "Select image for PC:"
-msgstr "PC 用画像を選択"
-
-#: plugins/other_widget/widget-3pr-area.php:61
-#: plugins/other_widget/widget-3pr-area.php:78
-#: plugins/other_widget/widget-3pr-area.php:113
-#: plugins/other_widget/widget-3pr-area.php:131
-#: plugins/other_widget/widget-3pr-area.php:166
-#: plugins/other_widget/widget-3pr-area.php:183
-#, fuzzy
-msgid "Select image"
-msgstr "デフォルトのOGPイメージ"
-
-#: plugins/other_widget/widget-3pr-area.php:62
-#: plugins/other_widget/widget-3pr-area.php:79
-#: plugins/other_widget/widget-3pr-area.php:114
-#: plugins/other_widget/widget-3pr-area.php:132
-#: plugins/other_widget/widget-3pr-area.php:167
-#: plugins/other_widget/widget-3pr-area.php:184
-msgid "Clear image"
-msgstr "画像クリア"
-
-#: plugins/other_widget/widget-3pr-area.php:72
-#: plugins/other_widget/widget-3pr-area.php:125
-#: plugins/other_widget/widget-3pr-area.php:177
-msgid "Select image for Mobile:"
-msgstr "モバイル用画像を選択"
-
-#: plugins/other_widget/widget-3pr-area.php:88
-#: plugins/other_widget/widget-3pr-area.php:141
-#: plugins/other_widget/widget-3pr-area.php:194
-msgid "Summary Text:"
-msgstr "概要テキスト"
-
-#: plugins/other_widget/widget-3pr-area.php:93
-#: plugins/other_widget/widget-3pr-area.php:146
-#: plugins/other_widget/widget-3pr-area.php:199
-msgid "Link URL:"
-msgstr "リンク先ページのURL"
-
-#: plugins/other_widget/widget-3pr-area.php:99
-msgid "3PR Box2 Setting"
-msgstr "3PR ボックス2 設定"
-
-#: plugins/other_widget/widget-3pr-area.php:152
-msgid "3PR Box3 Setting"
-msgstr "3PR ボックス3 設定"
-
-#: plugins/other_widget/widget-profile.php:11
-msgid "Displays a your site's profile"
-msgstr "サイトのプロフィールを表示します。"
-
-#: plugins/other_widget/widget-profile.php:13
-#: plugins/other_widget/widget-profile.php:19
-#: plugins/other_widget/widget-profile.php:121
-msgid "Site's Profile"
-msgstr "サイトの紹介"
-
-#: plugins/other_widget/widget-profile.php:22
-msgid "Site's Profile Text"
-msgstr "サイトの紹介テキスト"
-
-#: plugins/other_widget/widget-profile.php:40
-msgid "Select Profile image:"
-msgstr "プロフィール用画像を選択"
-
-#: plugins/other_widget/widget-profile.php:57
-msgid "Profile Text:"
-msgstr "紹介テキスト"
-
-#: plugins/other_widget/widget-profile.php:62
-msgid "Facebook URL:"
-msgstr "Facebook リンク先ページアドレス"
-
-#: plugins/other_widget/widget-profile.php:67
-msgid "Twitter URL:"
-msgstr "twitterリンク先ページアドレス"
-
-#: plugins/other_widget/widget-profile.php:72
-msgid "Email Address:"
-msgstr "Email リンク先ページアドレス"
-
-#: plugins/other_widget/widget-profile.php:77
-msgid "Youtube URL:"
-msgstr "Youtube リンク先ページアドレス"
-
-#: plugins/other_widget/widget-profile.php:82
-msgid "RSS URL:"
-msgstr "RSS リンク先ページアドレス"
-
-#: plugins/other_widget/widget-profile.php:87
-msgid "instagram URL:"
-msgstr "instagram リンク先ページアドレス"
-
-#: plugins/other_widget/widget-profile.php:91
-msgid "linkedin URL:"
-msgstr "linkedin リンク先ページアドレス"
-
-#: plugins/other_widget/widget-new-posts.php:11
-msgid "Displays a list of your most recent posts"
-msgstr ""
-
-#: plugins/other_widget/widget-new-posts.php:13
-#: plugins/other_widget/widget-new-posts.php:23
-#: plugins/other_widget/widget-new-posts.php:66
-msgid "Recent Posts"
-msgstr ""
-
-#: plugins/other_widget/widget-new-posts.php:80
-msgid "Display count"
-msgstr ""
-
-#: plugins/other_widget/widget-new-posts.php:85
-msgid "Slug for the custom type you want to display"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:11
-msgid "Displays a categories, tags or format list."
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:17
-msgid "categories/tags list"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:48
-#: plugins/other_widget/old/widget-taxonomy-list.php:49
-msgid "Category"
-msgstr "カテゴリー"
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:57
-msgid "Label to display"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:61
-#: plugins/other_widget/old/widget-page-content.php:30
-msgid "Display page"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:76
-msgid "Blog"
-msgstr "ブログ"
-
-#: plugins/other_widget/old/widget-rss-widget.php:9
-msgid "Displays entries list from a RSS feed link."
-msgstr ""
-
-#: plugins/other_widget/old/widget-rss-widget.php:11
-msgid "RSS entries for top"
-msgstr ""
-
-#: plugins/other_widget/old/widget-rss-widget.php:25
-msgid "Blog entries"
-msgstr ""
-
-#: plugins/other_widget/old/widget-rss-widget.php:30
-msgid "Heading title"
-msgstr ""
-
-#: plugins/other_widget/old/widget-page-content.php:10
-msgid "Displays the content of a chosen page."
-msgstr ""
-
-#: plugins/other_widget/old/widget-page-content.php:12
-msgid "page content for top"
-msgstr ""
-
-#: plugins/other_widget/old/widget-page-content.php:38
-msgid "display title"
-msgstr ""
-
-#: plugins/other_widget/old/widget-page-content.php:61
-msgid "Edit"
-msgstr "編集"
-
-#: plugins/other_widget/old/widget-child-page-list.php:9
-msgid "Displays list of child page for the current page."
-msgstr ""
-
-#: plugins/other_widget/old/widget-child-page-list.php:11
-msgid "child pages list"
-msgstr ""
-
-#: plugins/other_widget/old/widget-archive-list.php:12
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
-msgstr ""
-
-#: plugins/other_widget/old/widget-archive-list.php:14
-msgid "archive list"
-msgstr "アーカイブリスト"
-
-#: plugins/other_widget/old/widget-archive-list.php:49
-#: plugins/other_widget/old/widget-archive-list.php:50
-msgid "Monthly archives"
-msgstr ""
-
-#: plugins/other_widget/old/widget-archive-list.php:59
-msgid "Title"
-msgstr "タイトル"
-
-#: plugins/other_widget/old/widget-archive-list.php:63
-msgid "Post type"
-msgstr "ポストタイプ"
-
-#: plugins/meta_description/meta_description-post.php:9
-#: plugins/meta_description/meta_description-post.php:10
-#: plugins/meta_description/meta_description-post.php:17
-msgid "Meta Keywords"
-msgstr ""
-
-#: plugins/meta_description/meta_description-post.php:18
-msgid ""
-"To distinguish between individual keywords, please enter a , delimiter "
-"(optional)."
-msgstr ""
-
-#: plugins/meta_description/meta_description-post.php:20
-#, php-format
-msgid "* keywords common to the entire site can be set from %s."
-msgstr ""
-
-#: plugins/google_analytics/ga_admin.php:9
-#: plugins/google_analytics/ga_admin.php:13
-msgid "Google Analytics Settings"
-msgstr "Google Analytics設定"
-
-#: plugins/google_analytics/ga_admin.php:14
-msgid ""
-"Please fill in the Google Analytics ID from the Analytics embed code used in "
-"the site."
-msgstr ""
-
-#: plugins/google_analytics/ga_admin.php:19
-msgid ""
-"Please select the type of Analytics code . (If you are unsure you can skip "
-"this.)"
-msgstr ""
-
-#: plugins/google_analytics/ga_admin.php:23
-msgid "To output the Universal Analytics code (default)"
-msgstr ""
-
-#: plugins/google_analytics/ga_admin.php:24
-msgid "To output only normal code"
-msgstr ""
-
-#: plugins/google_analytics/ga_admin.php:25
-msgid "To output both types"
-msgstr ""
+#: vkExUnit_admin.php:39
+msgid "Choose Print link fontawesome."
+msgstr "出力する fontawesome link を選択して下さい。"
+
+#: vkExUnit_admin.php:44
+msgid "Print link fontawesome."
+msgstr "fontawesome link タグを出力"
+
+#: vkExUnit_admin.php:48
+msgid "Print fontawesome link tag to html head."
+msgstr "fontawesome を読み込む為の link タグを html head 内へ出力します。"
+
+#: vkExUnit_admin.php:57
+msgid "Choose Print meta description."
+msgstr "出力する meta description を選択して下さい。"
+
+#: vkExUnit_admin.php:62
+msgid "Print meta description"
+msgstr "meta description タグを出力"
+
+#: vkExUnit_admin.php:66
+msgid "Print meta description to html head."
+msgstr "description の meta タグを html head 内へ出力します。"
+
+#: vkExUnit_admin.php:75
+msgid "Choose Social media cooperation."
+msgstr "連携するソーシャルメディアを選択します。"
+
+#: vkExUnit_admin.php:87 vkExUnit_admin.php:121
+msgid "Setting"
+msgstr "設定"
+
+#: vkExUnit_admin.php:97
+msgid "Print og tags to html head."
+msgstr "OG タグを html head 内へ出力します。"
+
+#: vkExUnit_admin.php:98
+msgid "Print twitter card tags to html head."
+msgstr "Twitter カードタグを html head 内へ出力します。"
+
+#: vkExUnit_admin.php:99
+msgid "Print social bookmarks."
+msgstr "ソーシャルブックマークを表示します。"
+
+#: vkExUnit_admin.php:100
+msgid "Facebook Page Plugin."
+msgstr "Facebookページプラグインを表示します。"
+
+#: vkExUnit_admin.php:110
+msgid "Choose Print Google Analytics tracking code."
+msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
+
+#: vkExUnit_admin.php:129
+msgid "Print Google Analytics tracking code."
+msgstr "Google アナリティクスのトラッキングコードを出力します。"
+
+#: vkExUnit_admin.php:138
+msgid "Choose Related posts."
+msgstr "関連記事を選択"
+
+#: vkExUnit_admin.php:147
+msgid "Print Related posts lists to post content bottom."
+msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
+
+#: vkExUnit_admin.php:156 vkExUnit_admin.php:174
+msgid "Choose other widgets."
+msgstr "Other ウィジェットを選択"
+
+#: vkExUnit_admin.php:161
+msgid "Other Widgets"
+msgstr "Other ウィジェット"
+
+#: vkExUnit_admin.php:165
+msgid "You can use various widgets."
+msgstr "さまざまな機能のウィジェットを使用できるようになります。"
+
+#: vkExUnit_admin.php:179
+msgid "CSS customize"
+msgstr "CSSカスタマイズ"
+
+#: vkExUnit_admin.php:183
+msgid "You can set Customize CSS."
+msgstr "独自にカスタマイズした CSS を設定できます。"
+
+#~ msgid "Displays a your site's profile"
+#~ msgstr "サイトのプロフィールを表示します"
+
+#~ msgid "Site's Profile Text"
+#~ msgstr "Site's Profile Text"
+
+#~ msgid "3PR area Title-1"
+#~ msgstr "3PR エリア1 タイトル"
+
+#~ msgid "3PR area Title-2"
+#~ msgstr "3PR エリア2 タイトル"
+
+#~ msgid "3PR area Title-3"
+#~ msgstr "3PR エリア3 タイトル"
+
+#~ msgid "3PR Box1 Setting"
+#~ msgstr "3PR ボックス1 設定"
+
+#~ msgid "3PR Box2 Setting"
+#~ msgstr "3PR ボックス2 設定"
+
+#~ msgid "3PR Box3 Setting"
+#~ msgstr "3PR ボックス3 設定"
 
 #~ msgid "VK Ex Unit"
 #~ msgstr "VK Ex Unit"

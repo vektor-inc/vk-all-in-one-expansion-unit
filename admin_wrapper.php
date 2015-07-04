@@ -4,8 +4,8 @@ function vkExUnit_add_main_setting() {
 	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',			// parent
-		'Main setting',						// Name of page
-		'Main setting',						// Label in menu
+		__('Main setting','vkExUnit'),		// Name of page
+		__('Main setting','vkExUnit'),		// Label in menu
 		// $capability_required,
 		'activate_plugins',					// Capability
 		'vkExUnit_main_setting',			// ユニークなこのサブメニューページの識別子
@@ -21,12 +21,27 @@ function vkExUnit_render_main_config(){
 
 	vkExUnit_save_main_config();
 ?>
-<div class="warp">
+<div class="wrap vkExUnit_admin_page">
 <form method="post" action="">
 
 <?php 
 	wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
-	do_action('vkExUnit_main_config');
+
+	global $vkExUnit_options;
+	foreach($vkExUnit_options as $vkoption){
+		if(!isset($vkoption['render_page'])){ continue; }
+		
+		echo '<section id="'. $vkoption['option_name'] .'" class="sectionBox">';
+		
+		vkExUnit_render_menu($vkExUnit_options, $vkoption['tab_label']);
+
+		if( is_array($vkoption['render_page'])){
+			$vkoption['render_page'][0]->$vkoption['render_page'][1]();
+		}else{
+			$vkoption['render_page']();
+		}
+		echo '</section>';
+	}
 ?>
 
 <?php submit_button(); ?>
@@ -37,9 +52,15 @@ function vkExUnit_render_main_config(){
 
 
 
-function vkExUnit_register_setting( $option_group=false, $option_name, $sanitize_callback ){
+function vkExUnit_register_setting( $tab_label="tab_label", $option_name, $sanitize_callback, $render_page ){
 	global $vkExUnit_options;
-	$vkExUnit_options[] = array('option_name'=>$option_name, 'callback'=>$sanitize_callback);
+	$vkExUnit_options[] = 
+		array(
+			'option_name'=>$option_name,
+			'callback'=>$sanitize_callback,
+			'tab_label'=>$tab_label,
+			'render_page'=>$render_page
+		);
 }
 
 
@@ -69,4 +90,16 @@ function vkExUnit_save_main_config(){
     }
 
     vkExUnit_main_config_sanitaize($_POST);
+}
+
+function vkExUnit_render_menu( $sections, $current_tab=null ){
+	echo '<div class="optionNav"><ul>';
+	foreach($sections as $section){
+		$tab_class = ( $section['tab_label'] == $current_tab )? 'current' : '';
+
+		echo '<li id="btn_"'. $section['option_name']. '" class="'.$tab_class.'"><a href="#'. $section['option_name'] .'">';
+		echo $section['tab_label'];
+		echo '</a></li>';
+	}
+	echo "</ul></div>";
 }

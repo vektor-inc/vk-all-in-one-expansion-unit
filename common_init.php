@@ -26,6 +26,7 @@ function vkExUnit_get_common_options() {
 function vkExUnit_get_common_options_default() {
 	$default_options = array(
 		'active_bootstrap'          => false,
+		'active_fontawesome'    	=> false,
 		'active_metaDescription'    => true,
 		'active_sns'                => true,
 		'active_ga'                 => true,
@@ -44,6 +45,7 @@ function vkExUnit_get_common_options_default() {
 function vkExUnit_common_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_common_options_default();
 	$output['active_bootstrap']         = (isset($input['active_bootstrap'])) ? true:false;
+	$output['active_fontawesome']       = (isset($input['active_fontawesome'])) ? true:false;
 	$output['active_metaDescription']   = (isset($input['active_metaDescription'])) ? true:false;
 	$output['active_sns']               = (isset($input['active_sns'])) ? true:false;
 	$output['active_ga']                = (isset($input['active_ga'])) ? true:false;

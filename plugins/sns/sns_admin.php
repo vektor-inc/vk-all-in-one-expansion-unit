@@ -1,4 +1,4 @@
-<h2><?php echo __('SNS Settings');?></h2>
+<h3><?php echo __('SNS Settings');?></h3>
 <?php
 	$options = vkExUnit_get_sns_options();
 /*-------------------------------------------*/

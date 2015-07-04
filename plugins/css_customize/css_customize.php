@@ -32,8 +32,8 @@ class biz_vektor_css_customize{
 		$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
 		add_submenu_page(
 			'vkExUnit_setting_page',
-			__( 'CSS Customize', 'biz-vektor' ),
-			__( 'CSS Customize', 'biz-vektor' ),
+			__( 'CSS Customize', 'vkExUnit' ),
+			__( 'CSS Customize', 'vkExUnit' ),
 			// $capability_required,
 			'activate_plugins',	
 			'vkExUnit_css_customize',

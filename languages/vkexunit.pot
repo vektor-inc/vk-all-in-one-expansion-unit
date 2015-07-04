@@ -1,11 +1,12 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distrubuted under the GPL-2.0+
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: vkExUnit\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-02-16 13:33+0900\n"
+"POT-Creation-Date: 2015-07-03 12:10+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -19,6 +20,813 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x;esc_html_e;esc_html__;esc_attr_e;esc_attr__;"
 "_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: common_helpers.php:126
+#, php-format
+msgid "Search Results for : %s"
+msgstr ""
+
+#: common_helpers.php:129
+msgid "Not found"
+msgstr ""
+
+#: common_helpers.php:138 common_helpers.php:202
+#, php-format
+msgid "Page of %s"
+msgstr ""
+
+#: common_helpers.php:162 common_helpers.php:170
+#, php-format
+msgid "About %s"
+msgstr ""
+
+#: common_helpers.php:174 common_helpers.php:223
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+#: common_helpers.php:175
+#, php-format
+msgctxt "Yearly archive description"
+msgid "Article of %s."
+msgstr ""
+
+#: common_helpers.php:178 common_helpers.php:225
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr ""
+
+#: common_helpers.php:179 common_helpers.php:183 common_helpers.php:187
+#, php-format
+msgctxt "Archive description"
+msgid "Article of %s."
+msgstr ""
+
+#: common_helpers.php:221
+#, php-format
+msgid "Author: %s"
+msgstr ""
+
+#: common_helpers.php:227
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr ""
+
+#: common_helpers.php:230
+msgctxt "post format archive title"
+msgid "Asides"
+msgstr ""
+
+#: common_helpers.php:232
+msgctxt "post format archive title"
+msgid "Galleries"
+msgstr ""
+
+#: common_helpers.php:234
+msgctxt "post format archive title"
+msgid "Images"
+msgstr ""
+
+#: common_helpers.php:236
+msgctxt "post format archive title"
+msgid "Videos"
+msgstr ""
+
+#: common_helpers.php:238
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr ""
+
+#: common_helpers.php:240
+msgctxt "post format archive title"
+msgid "Links"
+msgstr ""
+
+#: common_helpers.php:242
+msgctxt "post format archive title"
+msgid "Statuses"
+msgstr ""
+
+#: common_helpers.php:244
+msgctxt "post format archive title"
+msgid "Audio"
+msgstr ""
+
+#: common_helpers.php:246
+msgctxt "post format archive title"
+msgid "Chats"
+msgstr ""
+
+#: common_helpers.php:262 plugins/other_widget/old/widget-taxonomy-list.php:81
+msgid "Archives"
+msgstr ""
+
+#: plugins/css_customize/css_customize-edit.php:2
+#: plugins/css_customize/css_customize.php:35
+#: plugins/css_customize/css_customize.php:36
+msgid "CSS Customize"
+msgstr ""
+
+#: plugins/css_customize/css_customize-edit.php:5
+msgid "You can add custom CSS here."
+msgstr ""
+
+#: plugins/css_customize/css_customize-edit.php:10
+msgid "Save CSS"
+msgstr ""
+
+#: plugins/css_customize/css_customize.php:94
+msgid "Your custom CSS was saved."
+msgstr ""
+
+#: plugins/css_customize/css_customize.php:99
+msgid "Error occured. Please try again."
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:9
+#: plugins/google_analytics/ga_admin.php:13
+msgid "Google Analytics Settings"
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:14
+msgid ""
+"Please fill in the Google Analytics ID from the Analytics embed code used in "
+"the site."
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:16 plugins/sns/old/sns_admin.php:20
+#: plugins/sns/old/sns_admin.php:61 plugins/sns/old/sns_admin.php:79
+#: plugins/sns/old/sns_admin.php:98 plugins/sns/old/sns_admin.php:115
+#: plugins/sns/sns_admin.php:50
+msgid "ex) "
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:19
+msgid ""
+"Please select the type of Analytics code . (If you are unsure you can skip "
+"this.)"
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:23
+msgid "To output the Universal Analytics code (default)"
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:24
+msgid "To output only normal code"
+msgstr ""
+
+#: plugins/google_analytics/ga_admin.php:25
+msgid "To output both types"
+msgstr ""
+
+#: plugins/meta_description/meta_description-post.php:9
+#: plugins/meta_description/meta_description-post.php:10
+#: plugins/meta_description/meta_description-post.php:17
+msgid "Meta Keywords"
+msgstr ""
+
+#: plugins/meta_description/meta_description-post.php:18
+msgid ""
+"To distinguish between individual keywords, please enter a , delimiter "
+"(optional)."
+msgstr ""
+
+#: plugins/meta_description/meta_description-post.php:19
+msgctxt "link to seo setting"
+msgid ""
+msgstr ""
+
+#: plugins/meta_description/meta_description-post.php:20
+#, php-format
+msgid "* keywords common to the entire site can be set from %s."
+msgstr ""
+
+#: plugins/other_widget/old/widget-archive-list.php:12
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+
+#: plugins/other_widget/old/widget-archive-list.php:14
+msgid "archive list"
+msgstr ""
+
+#: plugins/other_widget/old/widget-archive-list.php:49
+#: plugins/other_widget/old/widget-archive-list.php:50
+msgid "Monthly archives"
+msgstr ""
+
+#: plugins/other_widget/old/widget-archive-list.php:59
+msgid "Title"
+msgstr ""
+
+#: plugins/other_widget/old/widget-archive-list.php:63
+msgid "Post type"
+msgstr ""
+
+#: plugins/other_widget/old/widget-child-page-list.php:9
+msgid "Displays list of child page for the current page."
+msgstr ""
+
+#: plugins/other_widget/old/widget-child-page-list.php:11
+msgid "child pages list"
+msgstr ""
+
+#: plugins/other_widget/old/widget-page-content.php:10
+msgid "Displays the content of a chosen page."
+msgstr ""
+
+#: plugins/other_widget/old/widget-page-content.php:12
+msgid "page content for top"
+msgstr ""
+
+#: plugins/other_widget/old/widget-page-content.php:30
+#: plugins/other_widget/old/widget-taxonomy-list.php:61
+msgid "Display page"
+msgstr ""
+
+#: plugins/other_widget/old/widget-page-content.php:38
+msgid "display title"
+msgstr ""
+
+#: plugins/other_widget/old/widget-page-content.php:61
+msgid "Edit"
+msgstr ""
+
+#: plugins/other_widget/old/widget-rss-widget.php:9
+msgid "Displays entries list from a RSS feed link."
+msgstr ""
+
+#: plugins/other_widget/old/widget-rss-widget.php:11
+msgid "RSS entries for top"
+msgstr ""
+
+#: plugins/other_widget/old/widget-rss-widget.php:25
+msgid "Blog entries"
+msgstr ""
+
+#: plugins/other_widget/old/widget-rss-widget.php:30
+msgid "Heading title"
+msgstr ""
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:11
+msgid "Displays a categories, tags or format list."
+msgstr ""
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:17
+msgid "categories/tags list"
+msgstr ""
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:48
+#: plugins/other_widget/old/widget-taxonomy-list.php:49
+msgid "Category"
+msgstr ""
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:57
+msgid "Label to display"
+msgstr ""
+
+#: plugins/other_widget/old/widget-taxonomy-list.php:76
+msgid "Blog"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:11
+msgid "Displays a 3PR area"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:13
+#: plugins/other_widget/widget-3pr-area.php:247
+#: plugins/other_widget/widget-3pr-area.php:295
+#: plugins/other_widget/widget-3pr-area.php:345
+msgid "3PR area"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:18
+msgid "3PR area1 title"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:26
+msgid "3PR area2 title"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:34
+msgid "3PR area3 title"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:47
+msgid "3PR area1 setting"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:49
+#: plugins/other_widget/widget-3pr-area.php:101
+#: plugins/other_widget/widget-3pr-area.php:154
+#: plugins/other_widget/widget-new-posts.php:75
+#: plugins/other_widget/widget-profile.php:35
+#: plugins/sns/function_fbPagePlugin.php:75
+msgid "Title:"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:55
+#: plugins/other_widget/widget-3pr-area.php:107
+#: plugins/other_widget/widget-3pr-area.php:160
+msgid "Select image for PC:"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:61
+#: plugins/other_widget/widget-3pr-area.php:78
+#: plugins/other_widget/widget-3pr-area.php:113
+#: plugins/other_widget/widget-3pr-area.php:131
+#: plugins/other_widget/widget-3pr-area.php:166
+#: plugins/other_widget/widget-3pr-area.php:183
+#: plugins/other_widget/widget-profile.php:46
+msgid "Select image"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:62
+#: plugins/other_widget/widget-3pr-area.php:79
+#: plugins/other_widget/widget-3pr-area.php:114
+#: plugins/other_widget/widget-3pr-area.php:132
+#: plugins/other_widget/widget-3pr-area.php:167
+#: plugins/other_widget/widget-3pr-area.php:184
+#: plugins/other_widget/widget-profile.php:47
+msgid "Clear image"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:72
+#: plugins/other_widget/widget-3pr-area.php:125
+#: plugins/other_widget/widget-3pr-area.php:177
+msgid "Select image for Mobile:"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:88
+#: plugins/other_widget/widget-3pr-area.php:141
+#: plugins/other_widget/widget-3pr-area.php:194
+msgid "Summary Text:"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:93
+#: plugins/other_widget/widget-3pr-area.php:146
+#: plugins/other_widget/widget-3pr-area.php:199
+msgid "Link URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:99
+msgid "3PR area2 setting"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:152
+msgid "3PR area3 setting"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:281
+#: plugins/other_widget/widget-3pr-area.php:331
+#: plugins/other_widget/widget-3pr-area.php:381
+msgid "Read more"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:11
+msgid "Displays a list of your most recent posts"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:13
+#: plugins/other_widget/widget-new-posts.php:23
+#: plugins/other_widget/widget-new-posts.php:66
+msgid "Recent Posts"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:80
+msgid "Display count"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:85
+msgid "Slug for the custom type you want to display"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:11
+msgid "Displays a your profile"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:13
+#: plugins/other_widget/widget-profile.php:19
+msgid "Profile"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:22
+msgid "Profile Text"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:40
+msgid "Select Profile image:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:57
+msgid "Profile Text:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:65
+msgid "Facebook URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:70
+msgid "Twitter URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:75
+msgid "Email Address:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:80
+msgid "Youtube URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:85
+msgid "RSS URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:90
+msgid "instagram URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:94
+msgid "linkedin URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:124
+msgid "Site's Profile"
+msgstr ""
+
+#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:143
+msgid "Related posts"
+msgstr ""
+
+#: plugins/sns/function_fbPagePlugin.php:10
+msgid "Displays a Facebook Page Plugin"
+msgstr ""
+
+#: plugins/sns/function_fbPagePlugin.php:85
+msgid "Height"
+msgstr ""
+
+#: plugins/sns/function_fbPagePlugin.php:90
+msgid "Show Friend's Faces"
+msgstr ""
+
+#: plugins/sns/function_fbPagePlugin.php:95
+msgid "Hide Cover Photo"
+msgstr ""
+
+#: plugins/sns/function_fbPagePlugin.php:100
+msgid "Show Page Posts"
+msgstr ""
+
+#: plugins/sns/function_follow.php:11
+msgid "Follow me!"
+msgstr ""
+
+#: plugins/sns/old/sns.php:378
+msgid "*　It is necessary to set the Theme options page."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:12
+msgid "Social media"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:13
+msgid "If you are unsure, you can leave for later."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:18
+msgid ""
+"If you wish to link to a personal account or a Facebook page  banner will be "
+"displayed if you enter the URL."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:26 plugins/sns/sns_admin.php:32
+msgid "facebook application ID"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:28 plugins/sns/sns_admin.php:34
+msgid "I will check and get the application ID"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:29 plugins/sns/sns_admin.php:35
+msgid ""
+"* If an application ID is not specified, neither a Like button nor the "
+"comment field displays and operates correctly."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:30 plugins/sns/sns_admin.php:36
+msgid ""
+"Please search for terms as [get Facebook application ID] If you do not know "
+"much about how to get application ID for Facebook."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:35
+msgid "Facebook user ID (optional)"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:36
+msgid "Please enter the Facebook user ID of the administrator."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:38
+msgid "* It is not the application ID of the Facebook page."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:39
+msgid ""
+"You can see the personal Facebook ID when you access the following url "
+"http://graph.facebook.com/(own url name(example: hidekazu.ishikawa))."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:40
+msgid ""
+"Please search for terms as [find facebook user ID] if you are still not sure."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:45
+msgid "twitter account"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:46
+msgid ""
+"If you would like to link to a Twitter account, banner will be displayed if "
+"you enter the account name."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:48
+msgid "widget"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:49
+#, php-format
+msgid ""
+"* If you prefer to use Twitter widgets etc, this can be left blank, paste "
+"the source code into a [text] %s here."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:56
+msgid "OGP default image"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:57 plugins/sns/sns_admin.php:46
+msgid ""
+"If, for example someone pressed the Facebook [Like] button, this is the "
+"image that appears on the Facebook timeline."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:58 plugins/sns/sns_admin.php:47
+msgid "If a featured image is specified for the page, it takes precedence."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:60 plugins/sns/sns_admin.php:49
+msgid "Select an image"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:62 plugins/sns/sns_admin.php:51
+msgid ""
+"* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is "
+"recommended."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:67
+msgid "Social buttons"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:68
+msgid "Please check the type of page that displays the social button."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:71 plugins/sns/old/sns_admin.php:88
+#: plugins/sns/old/sns_admin.php:108
+msgctxt "sns display"
+msgid "Home page"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:73 plugins/sns/old/sns_admin.php:90
+msgctxt "sns display"
+msgid "Page"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:75 plugins/sns/old/sns_admin.php:92
+#: plugins/sns/old/sns_admin.php:94
+msgctxt "sns display"
+msgid "Post"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:77 plugins/sns/old/sns_admin.php:96
+msgid ""
+"Within the type of page that is checked, if there is a particular page you "
+"do not wish to display, enter the Page ID. If multiple pages, please "
+"separate by commas."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:84
+msgid "facebook comments box"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:85
+msgid "Please check the type of the page to display Facebook comments."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:104
+msgid "If you wish to use Facebook LikeBox, please check the location."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:105
+msgid "* Please be sure to set Facebook application ID."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:110
+msgctxt "sns display"
+msgid "Side bar"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:113
+msgid "URL of the Facebook page."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:116
+msgid "Display stream"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:117 plugins/sns/old/sns_admin.php:119
+msgid "Display"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:118
+msgid "Display faces"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:120
+msgid "Height of LikeBox"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:128
+msgid "Do not output the OGP"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:130
+msgid ""
+"If other plug-ins are used for the OGP, do not output the OGP using "
+"BizVektor."
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:133
+msgid "I want to output the OGP tags using BizVektor"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:134
+msgid "Do not output OGP tags using BizVektor"
+msgstr ""
+
+#: plugins/sns/old/sns_admin.php:149
+msgid "Page top"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:1
+msgid "SNS Settings"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:13
+msgid "Do not output the OG"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:15
+msgid ""
+"If other plug-ins are used for the OG, do not output the OG using this "
+"plugin."
+msgstr ""
+
+#: plugins/sns/sns_admin.php:19
+msgid "Output OG tags(default)"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:20
+msgid "Do not output OG tags"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:40
+msgid "facebook page URL"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:45
+msgid "OG default image"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:55
+msgid "twitter ID"
+msgstr ""
+
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+msgid "Select all"
+msgstr ""
+
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+msgid "Function"
+msgstr ""
+
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+msgid "Description"
+msgstr ""
+
+#: vkExUnit_admin.php:21
+msgid "Choose Print Bootstrap css"
+msgstr ""
+
+#: vkExUnit_admin.php:26
+msgid "Print Bootstrap css and js"
+msgstr ""
+
+#: vkExUnit_admin.php:30
+msgid ""
+"If your using theme has already including Bootstrap, you deactivate this "
+"item."
+msgstr ""
+
+#: vkExUnit_admin.php:39
+msgid "Choose Print link fontawesome."
+msgstr ""
+
+#: vkExUnit_admin.php:44
+msgid "Print link fontawesome."
+msgstr ""
+
+#: vkExUnit_admin.php:48
+msgid "Print fontawesome link tag to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:57
+msgid "Choose Print meta description."
+msgstr ""
+
+#: vkExUnit_admin.php:62
+msgid "Print meta description"
+msgstr ""
+
+#: vkExUnit_admin.php:66
+msgid "Print meta description to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:75
+msgid "Choose Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:87 vkExUnit_admin.php:121
+msgid "Setting"
+msgstr ""
+
+#: vkExUnit_admin.php:97
+msgid "Print og tags to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:98
+msgid "Print twitter card tags to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:99
+msgid "Print social bookmarks."
+msgstr ""
+
+#: vkExUnit_admin.php:100
+msgid "Facebook Page Plugin."
+msgstr ""
+
+#: vkExUnit_admin.php:110
+msgid "Choose Print Google Analytics tracking code."
+msgstr ""
+
+#: vkExUnit_admin.php:129
+msgid "Print Google Analytics tracking code."
+msgstr ""
+
+#: vkExUnit_admin.php:138
+msgid "Choose Related posts."
+msgstr ""
+
+#: vkExUnit_admin.php:147
+msgid "Print Related posts lists to post content bottom."
+msgstr ""
+
+#: vkExUnit_admin.php:156 vkExUnit_admin.php:174
+msgid "Choose other widgets."
+msgstr ""
+
+#: vkExUnit_admin.php:161
+msgid "Other Widgets"
+msgstr ""
+
+#: vkExUnit_admin.php:165
+msgid "You can use various widgets."
+msgstr ""
+
+#: vkExUnit_admin.php:179
+msgid "CSS customize"
+msgstr ""
+
+#: vkExUnit_admin.php:183
+msgid "You can set Customize CSS."
+msgstr ""

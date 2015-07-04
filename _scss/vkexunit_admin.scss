@@ -1,0 +1,14 @@
+@charset "utf-8";
+@import "compass";
+
+.optionNav	{ display:block !important; overflow:hidden; }
+.optionNav ul { display:block; overflow:hidden;margin:0;padding:0 5px; }
+.optionNav ul li { display: block; float:left;border-radius: 3px 3px 0 0;border:1px solid #ccc; border-bottom:none;margin-right:2px; margin-bottom:0;}
+.optionNav ul li:hover { background-color: #666; }
+.optionNav ul li a { display:block; overflow:hidden;padding:0.5em; text-decoration: none;color:#666;font-size:12px; }
+.optionNav ul li:hover a { color: #fff;border:none; }
+.optionNav ul li.current { background-color: #333;color:#fff;
+	a { color:#fff; }
+}
+
+.vkExUnit_admin_page.wrap h3			{ background-color:#333; color:#fff; padding:10px 15px;font-size:150%;margin-top:0;border-left:5px solid #e50000;}
