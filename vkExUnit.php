@@ -71,6 +71,8 @@ function vkExUnit_add_setting_page(){
 	require dirname( __FILE__ ) . '/vkExUnit_admin.php';
 }
 
+require_once( 'admin_wrapper.php' );
+
 /*-------------------------------------------*/
 /*	Load modules
 /*-------------------------------------------*/
@@ -137,8 +139,6 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
-
-require_once( 'admin_wrapper.php' );
 
 /*-------------------------------------------*/
 /*	Add fontawesome
