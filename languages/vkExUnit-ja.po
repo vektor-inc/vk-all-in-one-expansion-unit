@@ -767,7 +767,7 @@ msgid ""
 "item."
 msgstr ""
 "Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
-"中のテーマで Bootstrap を既に読み込んでいる場合は不要な設定です。"
+"中のテーマで Bootstrap を既に読み込んでいる場合はチェックを外して下さい。"
 
 #: vkExUnit_admin.php:39
 msgid "Choose Print link fontawesome."
