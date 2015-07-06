@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkExUnit\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-03 12:10+0900\n"
+"POT-Creation-Date: 2015-07-06 10:13+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -23,6 +23,10 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 1.8.2\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: admin_wrapper.php:7 admin_wrapper.php:8
+msgid "Main setting"
+msgstr ""
 
 #: common_helpers.php:126
 #, php-format
@@ -148,6 +152,7 @@ msgstr ""
 
 #: plugins/google_analytics/ga_admin.php:9
 #: plugins/google_analytics/ga_admin.php:13
+#: plugins/google_analytics/google_analytics.php:18
 msgid "Google Analytics Settings"
 msgstr ""
 
@@ -321,7 +326,7 @@ msgid "3PR area1 setting"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:49
-#: plugins/other_widget/widget-3pr-area.php:101
+#: plugins/other_widget/widget-3pr-area.php:102
 #: plugins/other_widget/widget-3pr-area.php:154
 #: plugins/other_widget/widget-new-posts.php:75
 #: plugins/other_widget/widget-profile.php:35
@@ -330,15 +335,15 @@ msgid "Title:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:55
-#: plugins/other_widget/widget-3pr-area.php:107
+#: plugins/other_widget/widget-3pr-area.php:108
 #: plugins/other_widget/widget-3pr-area.php:160
 msgid "Select image for PC:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:61
 #: plugins/other_widget/widget-3pr-area.php:78
-#: plugins/other_widget/widget-3pr-area.php:113
-#: plugins/other_widget/widget-3pr-area.php:131
+#: plugins/other_widget/widget-3pr-area.php:114
+#: plugins/other_widget/widget-3pr-area.php:132
 #: plugins/other_widget/widget-3pr-area.php:166
 #: plugins/other_widget/widget-3pr-area.php:183
 #: plugins/other_widget/widget-profile.php:46
@@ -347,8 +352,8 @@ msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:62
 #: plugins/other_widget/widget-3pr-area.php:79
-#: plugins/other_widget/widget-3pr-area.php:114
-#: plugins/other_widget/widget-3pr-area.php:132
+#: plugins/other_widget/widget-3pr-area.php:115
+#: plugins/other_widget/widget-3pr-area.php:133
 #: plugins/other_widget/widget-3pr-area.php:167
 #: plugins/other_widget/widget-3pr-area.php:184
 #: plugins/other_widget/widget-profile.php:47
@@ -356,24 +361,24 @@ msgid "Clear image"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:72
-#: plugins/other_widget/widget-3pr-area.php:125
+#: plugins/other_widget/widget-3pr-area.php:126
 #: plugins/other_widget/widget-3pr-area.php:177
 msgid "Select image for Mobile:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:88
-#: plugins/other_widget/widget-3pr-area.php:141
+#: plugins/other_widget/widget-3pr-area.php:142
 #: plugins/other_widget/widget-3pr-area.php:194
 msgid "Summary Text:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:93
+#: plugins/other_widget/widget-3pr-area.php:94
 #: plugins/other_widget/widget-3pr-area.php:146
 #: plugins/other_widget/widget-3pr-area.php:199
 msgid "Link URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:99
+#: plugins/other_widget/widget-3pr-area.php:100
 msgid "3PR area2 setting"
 msgstr ""
 
@@ -426,35 +431,35 @@ msgstr ""
 msgid "Profile Text:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:65
+#: plugins/other_widget/widget-profile.php:62
 msgid "Facebook URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:70
+#: plugins/other_widget/widget-profile.php:67
 msgid "Twitter URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:75
+#: plugins/other_widget/widget-profile.php:72
 msgid "Email Address:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:80
+#: plugins/other_widget/widget-profile.php:77
 msgid "Youtube URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:85
+#: plugins/other_widget/widget-profile.php:82
 msgid "RSS URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:90
+#: plugins/other_widget/widget-profile.php:87
 msgid "instagram URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:94
+#: plugins/other_widget/widget-profile.php:91
 msgid "linkedin URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:124
+#: plugins/other_widget/widget-profile.php:121
 msgid "Site's Profile"
 msgstr ""
 
@@ -685,6 +690,10 @@ msgstr ""
 
 #: plugins/sns/old/sns_admin.php:149
 msgid "Page top"
+msgstr ""
+
+#: plugins/sns/sns.php:19
+msgid "SNS"
 msgstr ""
 
 #: plugins/sns/sns_admin.php:1

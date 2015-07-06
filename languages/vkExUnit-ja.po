@@ -718,8 +718,8 @@ msgid ""
 "If other plug-ins are used for the OG, do not output the OG using this "
 "plugin."
 msgstr ""
-"もし他のプラグインやテーマで既にOGタグを出力している場合、このプラグインでの"
-"出力は必要ありません。"
+"OGタグの出力を選択して下さい。もし他のプラグインやテーマでOGタグを出力してい"
+"る場合は、このプラグインでの出力は必要ありません。"
 
 #: plugins/sns/sns_admin.php:19
 msgid "Output OG tags(default)"
@@ -766,8 +766,8 @@ msgid ""
 "If your using theme has already including Bootstrap, you deactivate this "
 "item."
 msgstr ""
-"使用中のテーマで Bootstrap を既に読み込んでいる場合はプラグイン側の読み込みを"
-"無効にできます。"
+"Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
+"中のテーマで Bootstrap を既に読み込んでいる場合は不要な設定です。"
 
 #: vkExUnit_admin.php:39
 msgid "Choose Print link fontawesome."
@@ -779,7 +779,7 @@ msgstr "fontawesome link タグを出力"
 
 #: vkExUnit_admin.php:48
 msgid "Print fontawesome link tag to html head."
-msgstr "fontawesome を読み込む為の link タグを html head 内へ出力します。"
+msgstr "fontawesome を読み込むための link タグを html head 内へ出力します。"
 
 #: vkExUnit_admin.php:57
 msgid "Choose Print meta description."
