@@ -28,6 +28,7 @@ function vkExUnit_get_common_options_default() {
 		'active_bootstrap'          => false,
 		'active_fontawesome'    	=> false,
 		'active_metaDescription'    => true,
+		'active_metaKeyword'        => true,
 		'active_wpTitle'		    => true,
 		'active_sns'                => true,
 		'active_ga'                 => true,
@@ -47,6 +48,7 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_bootstrap']         = (isset($input['active_bootstrap'])) ? true:false;
 	$output['active_fontawesome']       = (isset($input['active_fontawesome'])) ? true:false;
 	$output['active_metaDescription']   = (isset($input['active_metaDescription'])) ? true:false;
+	$output['active_metaKeyword']       = (isset($input['active_metaKeyword'])) ? true:false;
 	$output['active_wpTitle']   		= (isset($input['active_wpTitle'])) ? true:false;
 	$output['active_sns']               = (isset($input['active_sns'])) ? true:false;
 	$output['active_ga']                = (isset($input['active_ga'])) ? true:false;

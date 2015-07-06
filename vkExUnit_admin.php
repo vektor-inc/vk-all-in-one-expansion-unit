@@ -86,6 +86,24 @@
 			</td>
 		</tr>
 
+		<!-- [ active_metaKeyword ] -->
+		<tr<?php echo (isset($options['active_metaKeyword']) && $options['active_metaKeyword'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_metaKeyword' >
+				<?php _e('Choose Print meta Keyword.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_metaKeyword]" id="checkbox_active_metaKeyword" value="true" <?php echo (isset($options['active_metaKeyword']) && $options['active_metaKeyword'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Print meta Keyword', 'vkExUnit'); ?></strong>
+			</td>
+			<td class='column-Keyword desc'>
+				<div class='plugin-Keyword'>
+					<p><?php _e('Print meta Keyword to html head.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-Keyword ] -->
+			</td>
+		</tr>
+
 		<!-- [ active_sns ] -->
 		<tr<?php echo (isset($options['active_sns']) && $options['active_sns']) ? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>

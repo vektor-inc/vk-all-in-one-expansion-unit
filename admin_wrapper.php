@@ -69,10 +69,19 @@ function vkExUnit_main_config_sanitaize($post){
 
 	if(!empty($vkExUnit_options)){
 		foreach($vkExUnit_options as $opt){
-			if(!function_exists($opt['callback'])){ continue; }
 
-			$before = (isset($post[$opt['option_name']])? $post[$opt['option_name']]: null);
-			$option = $opt['callback']($before);
+			if( is_array( $opt['callback'] ) ){
+
+				$before = (isset($post[$opt['option_name']])? $post[$opt['option_name']]: null);
+				$option = $opt['callback'][0]->$opt['callback'][1]($before);
+			
+			}elseif( function_exists( $opt['callback'] ) ){
+
+				$before = (isset($post[$opt['option_name']])? $post[$opt['option_name']]: null);
+				$option = $opt['callback']($before);
+			
+			}else { continue; }
+
 			update_option($opt['option_name'], $option);
 		}
 	}
