@@ -52,7 +52,7 @@ msgstr "%s の記事"
 #: common_helpers.php:182 common_helpers.php:229
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr "年月"
+msgstr "Y年F"
 
 #: common_helpers.php:183 common_helpers.php:187 common_helpers.php:191
 #, php-format
@@ -821,8 +821,8 @@ msgstr "title タグ内のページタイトルを<br />VK EX Unit のルール�
 msgid "Print is rewritten by its own rules to html head."
 msgstr ""
 "head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
-"EX Unit 側で wp_title() をフィルターフックでカスタマイズします ) 使用中のテー"
-"マやプラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
 
 #: vkExUnit_admin.php:93
 msgid "Choose Social media cooperation."
