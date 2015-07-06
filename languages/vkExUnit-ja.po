@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-06 11:19+0900\n"
+"POT-Creation-Date: 2015-07-06 13:47+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -28,94 +28,94 @@ msgstr "検索結果 : %s"
 msgid "Not found"
 msgstr "見つかりません"
 
-#: common_helpers.php:138 common_helpers.php:202
+#: common_helpers.php:138 common_helpers.php:206
 #, php-format
 msgid "Page of %s"
 msgstr "%s のページ"
 
-#: common_helpers.php:162 common_helpers.php:170
+#: common_helpers.php:166 common_helpers.php:174
 #, php-format
 msgid "About %s"
 msgstr "%s について"
 
-#: common_helpers.php:174 common_helpers.php:223
+#: common_helpers.php:178 common_helpers.php:227
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "年"
 
-#: common_helpers.php:175
+#: common_helpers.php:179
 #, php-format
 msgctxt "Yearly archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: common_helpers.php:178 common_helpers.php:225
+#: common_helpers.php:182 common_helpers.php:229
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr "年月"
+msgstr "Y年F"
 
-#: common_helpers.php:179 common_helpers.php:183 common_helpers.php:187
+#: common_helpers.php:183 common_helpers.php:187 common_helpers.php:191
 #, php-format
 msgctxt "Archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: common_helpers.php:221
+#: common_helpers.php:225
 #, php-format
 msgid "Author: %s"
 msgstr "著者: %s"
 
-#: common_helpers.php:227
+#: common_helpers.php:231
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "月日, 年"
 
-#: common_helpers.php:230
+#: common_helpers.php:234
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr "サイド"
 
-#: common_helpers.php:232
+#: common_helpers.php:236
 msgctxt "post format archive title"
 msgid "Galleries"
 msgstr "ギャラリー"
 
-#: common_helpers.php:234
+#: common_helpers.php:238
 msgctxt "post format archive title"
 msgid "Images"
 msgstr "画像"
 
-#: common_helpers.php:236
+#: common_helpers.php:240
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "ビデオ"
 
-#: common_helpers.php:238
+#: common_helpers.php:242
 msgctxt "post format archive title"
 msgid "Quotes"
 msgstr "引用"
 
-#: common_helpers.php:240
+#: common_helpers.php:244
 msgctxt "post format archive title"
 msgid "Links"
 msgstr "リンク"
 
-#: common_helpers.php:242
+#: common_helpers.php:246
 msgctxt "post format archive title"
 msgid "Statuses"
 msgstr "ステータス"
 
-#: common_helpers.php:244
+#: common_helpers.php:248
 msgctxt "post format archive title"
 msgid "Audio"
 msgstr "オーディオ"
 
-#: common_helpers.php:246
+#: common_helpers.php:250
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "チャット"
 
-#: common_helpers.php:262 plugins/other_widget/old/widget-taxonomy-list.php:81
+#: common_helpers.php:266 plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
 msgstr "アーカイブ"
 
@@ -461,7 +461,7 @@ msgstr "linkedin リンク先ページのURL"
 msgid "Site's Profile"
 msgstr "プロフィール"
 
-#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:143
+#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:161
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -750,15 +750,15 @@ msgstr "デフォルトのOGPイメージ"
 msgid "twitter ID"
 msgstr "twitterアカウント"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Select all"
 msgstr "全てを選択"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Function"
 msgstr "有効化"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Description"
 msgstr "説明"
 
@@ -810,30 +810,45 @@ msgstr ""
 "する場合はチェックを外して下さい。"
 
 #: vkExUnit_admin.php:75
+msgid "Choose Rewrite the print title tag"
+msgstr "タイトルタグを独自ルールで書き換えるか選択"
+
+#: vkExUnit_admin.php:80
+msgid "Rewrite the print title tag"
+msgstr "title タグ内のページタイトルを<br />VK EX Unit のルールで出力"
+
+#: vkExUnit_admin.php:84
+msgid "Print is rewritten by its own rules to html head."
+msgstr ""
+"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+
+#: vkExUnit_admin.php:93
 msgid "Choose Social media cooperation."
 msgstr "連携するソーシャルメディアを選択します。"
 
-#: vkExUnit_admin.php:80
+#: vkExUnit_admin.php:98
 msgid "Social media cooperation."
 msgstr "ソーシャルメディアとの連携"
 
-#: vkExUnit_admin.php:87 vkExUnit_admin.php:121
+#: vkExUnit_admin.php:105 vkExUnit_admin.php:139
 msgid "Setting"
 msgstr "設定"
 
-#: vkExUnit_admin.php:97
+#: vkExUnit_admin.php:115
 msgid "Print og tags to html head."
 msgstr "OG タグを html head 内へ出力します。"
 
-#: vkExUnit_admin.php:98
+#: vkExUnit_admin.php:116
 msgid "Print twitter card tags to html head."
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: vkExUnit_admin.php:99
+#: vkExUnit_admin.php:117
 msgid "Print social bookmarks."
 msgstr "ソーシャルブックマークを表示します。"
 
-#: vkExUnit_admin.php:100
+#: vkExUnit_admin.php:118
 msgid "Facebook Page Plugin."
 msgstr ""
 "Facebookページプラグインを表示します。<br><br>\n"
@@ -842,11 +857,11 @@ msgstr ""
 "使用中のテーマやプラグインでソーシャルメディアとの連携を行う場合はチェックを"
 "外して下さい。"
 
-#: vkExUnit_admin.php:110
+#: vkExUnit_admin.php:128
 msgid "Choose Print Google Analytics tracking code."
 msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
 
-#: vkExUnit_admin.php:129
+#: vkExUnit_admin.php:147
 msgid "Print Google Analytics tracking code."
 msgstr ""
 "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
@@ -854,34 +869,34 @@ msgstr ""
 "のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
 "合はチェックを外して下さい。"
 
-#: vkExUnit_admin.php:138
+#: vkExUnit_admin.php:156
 msgid "Choose Related posts."
 msgstr "関連記事を選択"
 
-#: vkExUnit_admin.php:147
+#: vkExUnit_admin.php:165
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: vkExUnit_admin.php:156 vkExUnit_admin.php:174
+#: vkExUnit_admin.php:174 vkExUnit_admin.php:192
 msgid "Choose other widgets."
 msgstr "Other ウィジェットを選択"
 
-#: vkExUnit_admin.php:161
+#: vkExUnit_admin.php:179
 msgid "Other Widgets"
 msgstr "Other ウィジェット"
 
-#: vkExUnit_admin.php:165
+#: vkExUnit_admin.php:183
 msgid "You can use various widgets."
 msgstr ""
 "次の機能のウィジェットを追加できます [ 最新記事を表示 / 3PRエリアを表示 / "
 "Facebook ページプラグイン ( 旧Like box ) を表示 / プロフィールを表示 ] \n"
 "各ウィジェットの設定は「外観」→「ウィジェット」の設定画面より行って下さい。"
 
-#: vkExUnit_admin.php:179
+#: vkExUnit_admin.php:197
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: vkExUnit_admin.php:183
+#: vkExUnit_admin.php:201
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"

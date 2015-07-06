@@ -143,7 +143,7 @@ function vkExUnit_get_wp_head_title(){
 	// Remove Tags(ex:<i>) & return
 	return strip_tags($title);
 }
-add_filter('wp_title','vkExUnit_get_wp_head_title');
+
 
 /*-------------------------------------------*/
 /*	Page description
@@ -218,7 +218,7 @@ function vkExUnit_get_the_archive_title(){
     } elseif ( is_tag() ) {
         $title = single_tag_title( '', false );
     } elseif ( is_author() ) {
-        $title = sprintf( __( 'Author: %s' ), '<span class="vcard">' . get_the_author() . '</span>' );
+        $title = sprintf( __( 'Author: %s', 'vkExUnit' ), '<span class="vcard">' . get_the_author() . '</span>' );
     } elseif ( is_year() ) {
         $title = get_the_date( _x( 'Y', 'yearly archives date format', 'vkExUnit' ) );
     } elseif ( is_month() ) {
@@ -259,7 +259,7 @@ function vkExUnit_get_the_archive_title(){
 		if ( $postType ) {
 			$title = get_post_type_object($postType)->labels->name;
 		} else {
-			$title = __( 'Archives' );
+			$title = __( 'Archives', 'vkExUnit' );
 		}
     }
 

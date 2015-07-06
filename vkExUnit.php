@@ -155,3 +155,13 @@ add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUni
 function vkExUnit_admin_enq(){
 	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/vkExUnit_admin.css', __FILE__));
 }
+
+/*-------------------------------------------*/
+/*	swich wp_title 
+/*-------------------------------------------*/
+// if active_wpTitle true is run 
+if(isset($options['active_wpTitle']) && $options['active_wpTitle']){
+	add_filter('wp_title','vkExUnit_get_wp_head_title');	
+}
+
+// 「vkExUnit_get_wp_head_title」is common_helpers.php Head title
