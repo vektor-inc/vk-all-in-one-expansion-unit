@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-03 12:10+0900\n"
+"POT-Creation-Date: 2015-07-06 11:19+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: admin_wrapper.php:7 admin_wrapper.php:8
+msgid "Main setting"
+msgstr "メイン設定"
 
 #: common_helpers.php:126
 #, php-format
@@ -139,6 +143,7 @@ msgstr "何らかのエラー!! また試してみてください"
 
 #: plugins/google_analytics/ga_admin.php:9
 #: plugins/google_analytics/ga_admin.php:13
+#: plugins/google_analytics/google_analytics.php:18
 msgid "Google Analytics Settings"
 msgstr "Google Analytics設定"
 
@@ -316,7 +321,7 @@ msgid "3PR area1 setting"
 msgstr "3PR エリア1 設定"
 
 #: plugins/other_widget/widget-3pr-area.php:49
-#: plugins/other_widget/widget-3pr-area.php:101
+#: plugins/other_widget/widget-3pr-area.php:102
 #: plugins/other_widget/widget-3pr-area.php:154
 #: plugins/other_widget/widget-new-posts.php:75
 #: plugins/other_widget/widget-profile.php:35
@@ -325,15 +330,15 @@ msgid "Title:"
 msgstr "タイトル"
 
 #: plugins/other_widget/widget-3pr-area.php:55
-#: plugins/other_widget/widget-3pr-area.php:107
+#: plugins/other_widget/widget-3pr-area.php:108
 #: plugins/other_widget/widget-3pr-area.php:160
 msgid "Select image for PC:"
 msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 
 #: plugins/other_widget/widget-3pr-area.php:61
 #: plugins/other_widget/widget-3pr-area.php:78
-#: plugins/other_widget/widget-3pr-area.php:113
-#: plugins/other_widget/widget-3pr-area.php:131
+#: plugins/other_widget/widget-3pr-area.php:114
+#: plugins/other_widget/widget-3pr-area.php:132
 #: plugins/other_widget/widget-3pr-area.php:166
 #: plugins/other_widget/widget-3pr-area.php:183
 #: plugins/other_widget/widget-profile.php:46
@@ -342,8 +347,8 @@ msgstr "画像を選択"
 
 #: plugins/other_widget/widget-3pr-area.php:62
 #: plugins/other_widget/widget-3pr-area.php:79
-#: plugins/other_widget/widget-3pr-area.php:114
-#: plugins/other_widget/widget-3pr-area.php:132
+#: plugins/other_widget/widget-3pr-area.php:115
+#: plugins/other_widget/widget-3pr-area.php:133
 #: plugins/other_widget/widget-3pr-area.php:167
 #: plugins/other_widget/widget-3pr-area.php:184
 #: plugins/other_widget/widget-profile.php:47
@@ -351,7 +356,7 @@ msgid "Clear image"
 msgstr "画像クリア"
 
 #: plugins/other_widget/widget-3pr-area.php:72
-#: plugins/other_widget/widget-3pr-area.php:125
+#: plugins/other_widget/widget-3pr-area.php:126
 #: plugins/other_widget/widget-3pr-area.php:177
 msgid "Select image for Mobile:"
 msgstr ""
@@ -359,18 +364,18 @@ msgstr ""
 "690px 以上推奨。空欄も可）"
 
 #: plugins/other_widget/widget-3pr-area.php:88
-#: plugins/other_widget/widget-3pr-area.php:141
+#: plugins/other_widget/widget-3pr-area.php:142
 #: plugins/other_widget/widget-3pr-area.php:194
 msgid "Summary Text:"
 msgstr "概要となるテキスト"
 
-#: plugins/other_widget/widget-3pr-area.php:93
+#: plugins/other_widget/widget-3pr-area.php:94
 #: plugins/other_widget/widget-3pr-area.php:146
 #: plugins/other_widget/widget-3pr-area.php:199
 msgid "Link URL:"
 msgstr "リンク先ページのURL"
 
-#: plugins/other_widget/widget-3pr-area.php:99
+#: plugins/other_widget/widget-3pr-area.php:100
 msgid "3PR area2 setting"
 msgstr "3PR エリア2 設定"
 
@@ -424,41 +429,41 @@ msgstr "プロフィール用画像を選択"
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:65
+#: plugins/other_widget/widget-profile.php:62
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:70
+#: plugins/other_widget/widget-profile.php:67
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:75
+#: plugins/other_widget/widget-profile.php:72
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:80
+#: plugins/other_widget/widget-profile.php:77
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:85
+#: plugins/other_widget/widget-profile.php:82
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:90
+#: plugins/other_widget/widget-profile.php:87
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:94
+#: plugins/other_widget/widget-profile.php:91
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:124
+#: plugins/other_widget/widget-profile.php:121
 msgid "Site's Profile"
 msgstr "プロフィール"
 
 #: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:143
 msgid "Related posts"
-msgstr "関連記事"
+msgstr "関連記事を表示"
 
 #: plugins/sns/function_fbPagePlugin.php:10
 msgid "Displays a Facebook Page Plugin"
@@ -705,13 +710,17 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 msgid "Page top"
 msgstr "ページ先頭へ"
 
+#: plugins/sns/sns.php:19
+msgid "SNS"
+msgstr "SNS"
+
 #: plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr "SNS設定"
 
 #: plugins/sns/sns_admin.php:13
 msgid "Do not output the OG"
-msgstr "出力設定"
+msgstr "OGタグ出力設定"
 
 #: plugins/sns/sns_admin.php:15
 msgid ""
@@ -767,7 +776,8 @@ msgid ""
 "item."
 msgstr ""
 "Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
-"中のテーマで Bootstrap を既に読み込んでいる場合はチェックを外して下さい。"
+"中のテーマやプラグインで Bootstrap を既に読み込んでいる場合はチェックを外して"
+"下さい。"
 
 #: vkExUnit_admin.php:39
 msgid "Choose Print link fontawesome."
@@ -779,7 +789,10 @@ msgstr "fontawesome link タグを出力"
 
 #: vkExUnit_admin.php:48
 msgid "Print fontawesome link tag to html head."
-msgstr "fontawesome を読み込むための link タグを html head 内へ出力します。"
+msgstr ""
+"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
+"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
+"さい。"
 
 #: vkExUnit_admin.php:57
 msgid "Choose Print meta description."
@@ -791,11 +804,18 @@ msgstr "meta description タグを出力"
 
 #: vkExUnit_admin.php:66
 msgid "Print meta description to html head."
-msgstr "description の meta タグを html head 内へ出力します。"
+msgstr ""
+"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
+"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
+"する場合はチェックを外して下さい。"
 
 #: vkExUnit_admin.php:75
 msgid "Choose Social media cooperation."
 msgstr "連携するソーシャルメディアを選択します。"
+
+#: vkExUnit_admin.php:80
+msgid "Social media cooperation."
+msgstr "ソーシャルメディアとの連携"
 
 #: vkExUnit_admin.php:87 vkExUnit_admin.php:121
 msgid "Setting"
@@ -815,7 +835,12 @@ msgstr "ソーシャルブックマークを表示します。"
 
 #: vkExUnit_admin.php:100
 msgid "Facebook Page Plugin."
-msgstr "Facebookページプラグインを表示します。"
+msgstr ""
+"Facebookページプラグインを表示します。<br><br>\n"
+"※「設定」のリンクより「SNS Settings」画面へすすみ各ソーシャルメディアの設定を"
+"行って下さい。\n"
+"使用中のテーマやプラグインでソーシャルメディアとの連携を行う場合はチェックを"
+"外して下さい。"
 
 #: vkExUnit_admin.php:110
 msgid "Choose Print Google Analytics tracking code."
@@ -823,7 +848,11 @@ msgstr "出力する Google アナリティクスのトラッキングコード�
 
 #: vkExUnit_admin.php:129
 msgid "Print Google Analytics tracking code."
-msgstr "Google アナリティクスのトラッキングコードを出力します。"
+msgstr ""
+"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
+"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
+"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
+"合はチェックを外して下さい。"
 
 #: vkExUnit_admin.php:138
 msgid "Choose Related posts."
@@ -843,7 +872,10 @@ msgstr "Other ウィジェット"
 
 #: vkExUnit_admin.php:165
 msgid "You can use various widgets."
-msgstr "さまざまな機能のウィジェットを使用できるようになります。"
+msgstr ""
+"次の機能のウィジェットを追加できます [ 最新記事を表示 / 3PRエリアを表示 / "
+"Facebook ページプラグイン ( 旧Like box ) を表示 / プロフィールを表示 ] \n"
+"各ウィジェットの設定は「外観」→「ウィジェット」の設定画面より行って下さい。"
 
 #: vkExUnit_admin.php:179
 msgid "CSS customize"
@@ -851,7 +883,10 @@ msgstr "CSSカスタマイズ"
 
 #: vkExUnit_admin.php:183
 msgid "You can set Customize CSS."
-msgstr "独自にカスタマイズした CSS を設定できます。"
+msgstr ""
+"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
+"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
+"さい。"
 
 #~ msgid "Displays a your site's profile"
 #~ msgstr "サイトのプロフィールを表示します"

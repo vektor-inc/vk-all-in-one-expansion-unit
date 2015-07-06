@@ -77,7 +77,7 @@
 				<input type="checkbox" name="vkExUnit_common_options[active_sns]" id="checkbox_active_sns" value="true" <?php echo (isset($options['active_sns']) && $options['active_sns'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong>Social media cooperation</strong>
+				<strong><?php _e('Social media cooperation.', 'vkExUnit'); ?></strong>
 				<div class="row-actions visible">
 
 				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>

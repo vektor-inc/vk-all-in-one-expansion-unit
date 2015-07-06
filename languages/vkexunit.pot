@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkExUnit\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-06 10:13+0900\n"
+"POT-Creation-Date: 2015-07-06 11:19+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -782,6 +782,10 @@ msgstr ""
 
 #: vkExUnit_admin.php:75
 msgid "Choose Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:80
+msgid "Social media cooperation."
 msgstr ""
 
 #: vkExUnit_admin.php:87 vkExUnit_admin.php:121
