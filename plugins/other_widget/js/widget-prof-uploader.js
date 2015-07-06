@@ -1,14 +1,17 @@
-function clickClear(){
+function clickClear(value){
 (function ($) {
-	$('.media-url').val('');
-	$('.media-alt').val('');
-    $('.media').empty();
+	$(value).siblings('.media-url').val('');
+	$(value).siblings('.media-alt').val('');
+    $(value).parent('p').next('.media').empty();
 })(jQuery);	
 }
 
-function clickSelect(){
+function clickSelect(value){
 (function ($) {
-	var custom_uploader;
+	var custom_uploader,
+		$imageUrl = $(value).siblings('.media-url'),
+		$imageAlt = $(value).siblings('.media-alt'),
+		$mediaWrap = $(value).parent('p').next('.media');
 	
 	if (custom_uploader) {
         custom_uploader.open();
@@ -25,13 +28,14 @@ function clickSelect(){
     custom_uploader.on("select", function() {
     var images = custom_uploader.state().get('selection');
          images.each(function(file){
-            $('.media-url').val('');
-            $('.media').empty();
+            $imageUrl.val('');
+            $imageAlt.val('');
+            $mediaWrap.empty();
  
-            $('.media-url').val(file.toJSON().url);
-            $('.media-alt').val(file.toJSON().title);
+            $imageUrl.val(file.toJSON().url);
+            $imageAlt.val(file.toJSON().title);
  
-			$('.media').append('<img class="media-image" src="'+ file.toJSON().url +'" alt="'+ file.toJSON().title +'" />');
+			$mediaWrap.append('<img class="media-image" src="'+ file.toJSON().url +'" alt="'+ file.toJSON().title +'" />');
         });
     });
     custom_uploader.open();

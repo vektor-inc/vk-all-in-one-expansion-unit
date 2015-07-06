@@ -43,8 +43,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		
 		<input type="hidden" class="media-alt" id="<?php echo $this->get_field_id('mediaalt'); ?>-media" name="<?php echo $this->get_field_name('mediaalt'); ?>" value="<?php echo esc_attr($instance['mediaalt']); ?>" />
         
-        <input type="button" class="media-select" value="<?php _e('Select image', 'vkExUnit'); ?>" onclick="clickSelect();" />
-        <input type="button" class="media-clear" value="<?php _e('Clear image', 'vkExUnit'); ?>" onclick="clickClear();" />
+        <input type="button" class="media-select" value="<?php _e('Select image', 'vkExUnit'); ?>" onclick="clickSelect(event.target);" />
+        <input type="button" class="media-clear" value="<?php _e('Clear image', 'vkExUnit'); ?>" onclick="clickClear(event.target);" />
         </p>
         
         <div class="media">
