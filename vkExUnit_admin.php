@@ -67,6 +67,24 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+		
+		<!-- [ active_wpTitle ] -->
+		<tr<?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_wpTitle' >
+				<?php _e('Choose Rewrite the print title tag', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_wpTitle]" id="checkbox_aactive_wpTitle" value="true" <?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Rewrite the print title tag', 'vkExUnit'); ?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Print is rewritten by its own rules to html head.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-wpTitle ] -->
+			</td>
+		</tr>
 
 		<!-- [ active_sns ] -->
 		<tr<?php echo (isset($options['active_sns']) && $options['active_sns']) ? ' class="active"': ' class="inactive"'; ?>>
