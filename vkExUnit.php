@@ -96,6 +96,9 @@ if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
 if ( isset($options['active_metaDescription']) && $options['active_metaDescription'] )
 	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
 
+if ( isset($options['active_metaKeyword']) && $options['active_metaKeyword'] )
+	require vkExUnit_get_directory() . '/plugins/meta_keyword/meta_keyword.php';
+
 if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
 	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';
 
