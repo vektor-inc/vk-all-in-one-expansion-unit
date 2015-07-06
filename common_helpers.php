@@ -144,10 +144,6 @@ function vkExUnit_get_wp_head_title(){
 	return strip_tags($title);
 }
 
-// if active_wpTitle true is run 
-if(isset($options['active_wpTitle']) && $options['active_wpTitle']){
-	add_filter('wp_title','vkExUnit_get_wp_head_title');	
-}
 
 /*-------------------------------------------*/
 /*	Page description
