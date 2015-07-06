@@ -38,62 +38,6 @@ metaタグのディスクリプションはGoogleなどの検索サイトの検�
 /*-------------------------------------------*/
 add_filter( 'wp_head', 'vkExUnit_render_HeadDescription', 5 );
 function vkExUnit_render_HeadDescription() {
-	global $wp_query;
-	$post = $wp_query->get_queried_object();
-	if (is_home() || is_front_page() ) {
-		if ( isset($post->post_excerpt) && $post->post_excerpt ) {
-			$metadescription = get_the_excerpt();
-		} else {
-			$metadescription = get_bloginfo( 'description' );
-		}
-	} else if (is_category() || is_tax()) {
-		if ( ! $post->description ) {
-			$metadescription = sprintf(__('About %s', 'biz-vektor'),single_cat_title()).get_bloginfo('name').' '.get_bloginfo('description');
-		} else {
-			$metadescription = esc_html( $post->description );
-		}
-	} else if (is_tag()) {
-		$metadescription = strip_tags(tag_description());
-		$metadescription = str_replace(array("\r\n","\r","\n"), '', $metadescription);  // delete br
-		if ( ! $metadescription ) {
-			$metadescription = sprintf(__('About %s', 'biz-vektor'),single_tag_title()).get_bloginfo('name').' '.get_bloginfo('description');
-		}
-	} else if (is_archive()) {
-		if (is_year()){
-			$description_date = get_the_date( _x( 'Y', 'yearly archives date format', 'biz-vektor' ) );
-			$metadescription = sprintf(_x('Article of %s.','Yearly archive description', 'biz-vektor'), $description_date );
-			$metadescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
-		} else if (is_month()){
-			$description_date = get_the_date( _x( 'F Y', 'monthly archives date format', 'biz-vektor' ) );
-			$metadescription = sprintf(_x('Article of %s.','Archive description', 'biz-vektor'),$description_date );
-			$metadescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
-		} else if (is_author()) {
-			$userObj = get_queried_object();
-			$metadescription = sprintf(_x('Article of %s.','Archive description', 'biz-vektor'),esc_html($userObj->display_name) );
-			$metadescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
-		} else {
-			$postType = get_post_type();
-			$metadescription = sprintf(_x('Article of %s.','Archive description', 'biz-vektor'),esc_html(get_post_type_object($postType)->labels->name) );
-			$metadescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
-		}
-	} else if (is_page() || is_single()) {
-		$metaExcerpt = $post->post_excerpt;
-		if ($metaExcerpt) {
-			// $metadescription = strip_tags($post->post_excerpt);
-			$metadescription = strip_tags($post->post_excerpt);
-		} else {
-			$metadescription = mb_substr( strip_tags($post->post_content), 0, 240 ); // kill tags and trim 240 chara
-			$metadescription = str_replace(array("\r\n","\r","\n"), ' ', $metadescription);  // delete br
-		}
-	} else {
-		$metadescription = get_bloginfo('description');
-	}
-	global $paged;
-	if ( $paged != '0'){
-		$metadescription = '['.sprintf(__('Page of %s', 'biz-vektor' ),$paged).'] '.$metadescription;
-	}
-	$metadescription = apply_filters( 'metadescriptionCustom', $metadescription );
-	
 
-	echo '<meta name="description" content="' . $metadescription . '" />';
+	echo '<meta name="description" content="' . vkExUnit_get_pageDescription() . '" />';
 }
