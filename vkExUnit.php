@@ -96,6 +96,9 @@ if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
 if ( isset($options['active_metaDescription']) && $options['active_metaDescription'] )
 	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
 
+if ( isset($options['active_icon']) && $options['active_icon'] )
+	require vkExUnit_get_directory() . '/plugins/icons.php';
+
 if ( isset($options['active_metaKeyword']) && $options['active_metaKeyword'] )
 	require vkExUnit_get_directory() . '/plugins/meta_keyword/meta_keyword.php';
 
@@ -166,5 +169,3 @@ function vkExUnit_admin_enq(){
 if(isset($options['active_wpTitle']) && $options['active_wpTitle']){
 	add_filter('wp_title','vkExUnit_get_wp_head_title');	
 }
-
-// 「vkExUnit_get_wp_head_title」is common_helpers.php Head title

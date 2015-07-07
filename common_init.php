@@ -49,6 +49,7 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_fontawesome']       = (isset($input['active_fontawesome'])) ? true:false;
 	$output['active_metaDescription']   = (isset($input['active_metaDescription'])) ? true:false;
 	$output['active_metaKeyword']       = (isset($input['active_metaKeyword'])) ? true:false;
+	$output['active_icon']              = (isset($input['active_icon'])) ? true:false;
 	$output['active_wpTitle']   		= (isset($input['active_wpTitle'])) ? true:false;
 	$output['active_sns']               = (isset($input['active_sns'])) ? true:false;
 	$output['active_ga']                = (isset($input['active_ga'])) ? true:false;
