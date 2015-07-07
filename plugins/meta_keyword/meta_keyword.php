@@ -25,10 +25,10 @@ class vExUnit_meta_description {
  
 	public function option_init() {
 		vkExUnit_register_setting(
-			__('Meta Keywords', 'vkExUnit'), 	// tab label.
-			'vkExUnit_common_keywords',			// name attr
-			array( $this, 'sanitize_config' ), // sanitaise function name
-			array( $this, 'render_configPage' )  // setting_page function name
+			__('Meta Keywords', 'vkExUnit'), 	    // tab label.
+			'vkExUnit_common_keywords',			    // name attr
+			array( $this, 'sanitize_config' ),      // sanitaise function name
+			array( $this, 'render_configPage' )     // setting_page function name
 		);
 	}
 
@@ -40,7 +40,6 @@ class vExUnit_meta_description {
 	public function sanitize_config( $option ){
 		$option = preg_replace('/^,*(.+)$/', '$1', $option);
 		$option = preg_replace('/,*$/', '', $option);
-		$option = preg_replace('/["\']/', '', $option);
 		return $option;
 	}
 
@@ -90,7 +89,7 @@ class vExUnit_meta_description {
 	public function save_custom_field($post_id){
 		$metaKeyword = isset($_POST['_nonce_vkExUnit__custom_field_metaKeyword']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_metaKeyword']) : null;
 
-	    // ドラフトなら破棄
+	    // if autosave is to deny
 	    if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
 	       return $post_id;
 
@@ -116,6 +115,7 @@ class vExUnit_meta_description {
 
 	public function get_postKeyword(){
 		$post_id = get_the_id();
+		
 		if(empty($post_id))
 			return null;
 
@@ -139,4 +139,3 @@ class vExUnit_meta_description {
 }
  
 vExUnit_meta_description::instance();
-
