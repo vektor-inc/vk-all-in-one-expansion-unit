@@ -2623,7 +2623,7 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .sns-btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
 .sns-btns .facebook-btn a { background: #3b5998; }
 .sns-btns .twitter-btn a { background: #55acee; }
-.sns-btns .mail-btn a { width: 44px; height: 44px; border: solid 1px #ccc; background: #fff; color: #999; }
+.sns-btns .mail-btn a { background: #2F915F; }
 .sns-btns .youtube-btn a { background: #C81D1C; }
 .sns-btns .rss-btn a { background: #f26522; }
 .sns-btns .instagram-btn a { background: #3f729b; }
