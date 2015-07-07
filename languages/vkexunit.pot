@@ -1,12 +1,11 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distrubuted under the GPL-2.0+
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: vkExUnit\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-06 13:46+0900\n"
+"POT-Creation-Date: 2015-07-07 18:02+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -21,7 +20,7 @@ msgstr ""
 "_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin_wrapper.php:7 admin_wrapper.php:8
@@ -37,94 +36,94 @@ msgstr ""
 msgid "Not found"
 msgstr ""
 
-#: common_helpers.php:138 common_helpers.php:206
+#: common_helpers.php:138 common_helpers.php:202
 #, php-format
 msgid "Page of %s"
 msgstr ""
 
-#: common_helpers.php:166 common_helpers.php:174
+#: common_helpers.php:162 common_helpers.php:170
 #, php-format
 msgid "About %s"
 msgstr ""
 
-#: common_helpers.php:178 common_helpers.php:227
+#: common_helpers.php:174 common_helpers.php:223
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr ""
 
-#: common_helpers.php:179
+#: common_helpers.php:175
 #, php-format
 msgctxt "Yearly archive description"
 msgid "Article of %s."
 msgstr ""
 
-#: common_helpers.php:182 common_helpers.php:229
+#: common_helpers.php:178 common_helpers.php:225
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr ""
 
-#: common_helpers.php:183 common_helpers.php:187 common_helpers.php:191
+#: common_helpers.php:179 common_helpers.php:183 common_helpers.php:187
 #, php-format
 msgctxt "Archive description"
 msgid "Article of %s."
 msgstr ""
 
-#: common_helpers.php:225
+#: common_helpers.php:221
 #, php-format
 msgid "Author: %s"
 msgstr ""
 
-#: common_helpers.php:231
+#: common_helpers.php:227
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr ""
 
-#: common_helpers.php:234
+#: common_helpers.php:230
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr ""
 
-#: common_helpers.php:236
+#: common_helpers.php:232
 msgctxt "post format archive title"
 msgid "Galleries"
 msgstr ""
 
-#: common_helpers.php:238
+#: common_helpers.php:234
 msgctxt "post format archive title"
 msgid "Images"
 msgstr ""
 
-#: common_helpers.php:240
+#: common_helpers.php:236
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr ""
 
-#: common_helpers.php:242
+#: common_helpers.php:238
 msgctxt "post format archive title"
 msgid "Quotes"
 msgstr ""
 
-#: common_helpers.php:244
+#: common_helpers.php:240
 msgctxt "post format archive title"
 msgid "Links"
 msgstr ""
 
-#: common_helpers.php:246
+#: common_helpers.php:242
 msgctxt "post format archive title"
 msgid "Statuses"
 msgstr ""
 
-#: common_helpers.php:248
+#: common_helpers.php:244
 msgctxt "post format archive title"
 msgid "Audio"
 msgstr ""
 
-#: common_helpers.php:250
+#: common_helpers.php:246
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr ""
 
-#: common_helpers.php:266 plugins/other_widget/old/widget-taxonomy-list.php:81
+#: common_helpers.php:262 plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
 msgstr ""
 
@@ -187,24 +186,47 @@ msgstr ""
 msgid "To output both types"
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:9
-#: plugins/meta_description/meta_description-post.php:10
-#: plugins/meta_description/meta_description-post.php:17
+#: plugins/icons.php:26 plugins/icons.php:54
+msgid "icon setting"
+msgstr ""
+
+#: plugins/icons.php:59
+msgid "Favicon Setting"
+msgstr ""
+
+#: plugins/icons.php:61
+msgid "Choose icon"
+msgstr ""
+
+#: plugins/icons.php:62
+msgid "Please upload your \".ico\" file"
+msgstr ""
+
+#: plugins/meta_description/meta_description.php:7
+#: plugins/meta_description/meta_description.php:19
+#: plugins/meta_keyword/meta_keyword.php:54
+msgid "Meta Description"
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:28
+#: plugins/meta_keyword/meta_keyword.php:73
+#: plugins/meta_keyword/meta_keyword.php:74
+#: plugins/meta_keyword/meta_keyword.php:81
 msgid "Meta Keywords"
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:18
+#: plugins/meta_keyword/meta_keyword.php:82
 msgid ""
 "To distinguish between individual keywords, please enter a , delimiter "
 "(optional)."
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:19
+#: plugins/meta_keyword/meta_keyword.php:83
 msgctxt "link to seo setting"
 msgid ""
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:20
+#: plugins/meta_keyword/meta_keyword.php:84
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr ""
@@ -463,7 +485,7 @@ msgstr ""
 msgid "Site's Profile"
 msgstr ""
 
-#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:161
+#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:196
 msgid "Related posts"
 msgstr ""
 
@@ -730,15 +752,15 @@ msgstr ""
 msgid "twitter ID"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:244
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:244
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:244
 msgid "Description"
 msgstr ""
 
@@ -768,16 +790,16 @@ msgstr ""
 msgid "Print fontawesome link tag to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:57
+#: vkExUnit_admin.php:57 vkExUnit_admin.php:111
 msgid "Choose Print meta description."
 msgstr ""
 
 #: vkExUnit_admin.php:62
-msgid "Print meta description"
+msgid "Favicon setting"
 msgstr ""
 
 #: vkExUnit_admin.php:66
-msgid "Print meta description to html head."
+msgid "About favicon."
 msgstr ""
 
 #: vkExUnit_admin.php:75
@@ -793,65 +815,85 @@ msgid "Print is rewritten by its own rules to html head."
 msgstr ""
 
 #: vkExUnit_admin.php:93
-msgid "Choose Social media cooperation."
+msgid "Choose Print meta Keyword."
 msgstr ""
 
 #: vkExUnit_admin.php:98
-msgid "Social media cooperation."
+msgid "Print meta Keyword"
 msgstr ""
 
-#: vkExUnit_admin.php:105 vkExUnit_admin.php:139
-msgid "Setting"
-msgstr ""
-
-#: vkExUnit_admin.php:115
-msgid "Print og tags to html head."
+#: vkExUnit_admin.php:102
+msgid "Print meta Keyword to html head."
 msgstr ""
 
 #: vkExUnit_admin.php:116
-msgid "Print twitter card tags to html head."
+msgid "Print meta description"
 msgstr ""
 
-#: vkExUnit_admin.php:117
-msgid "Print social bookmarks."
-msgstr ""
-
-#: vkExUnit_admin.php:118
-msgid "Facebook Page Plugin."
+#: vkExUnit_admin.php:120
+msgid "Print meta description to html head."
 msgstr ""
 
 #: vkExUnit_admin.php:128
+msgid "Choose Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:133
+msgid "Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:140 vkExUnit_admin.php:174
+msgid "Setting"
+msgstr ""
+
+#: vkExUnit_admin.php:150
+msgid "Print og tags to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:151
+msgid "Print twitter card tags to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:152
+msgid "Print social bookmarks."
+msgstr ""
+
+#: vkExUnit_admin.php:153
+msgid "Facebook Page Plugin."
+msgstr ""
+
+#: vkExUnit_admin.php:163
 msgid "Choose Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:147
+#: vkExUnit_admin.php:182
 msgid "Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:156
+#: vkExUnit_admin.php:191
 msgid "Choose Related posts."
 msgstr ""
 
-#: vkExUnit_admin.php:165
+#: vkExUnit_admin.php:200
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:174 vkExUnit_admin.php:192
+#: vkExUnit_admin.php:209 vkExUnit_admin.php:227
 msgid "Choose other widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:179
+#: vkExUnit_admin.php:214
 msgid "Other Widgets"
 msgstr ""
 
-#: vkExUnit_admin.php:183
+#: vkExUnit_admin.php:218
 msgid "You can use various widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:197
+#: vkExUnit_admin.php:232
 msgid "CSS customize"
 msgstr ""
 
-#: vkExUnit_admin.php:201
+#: vkExUnit_admin.php:236
 msgid "You can set Customize CSS."
 msgstr ""

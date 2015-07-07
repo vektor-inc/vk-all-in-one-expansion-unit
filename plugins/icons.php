@@ -31,15 +31,14 @@ class vExUnit_icons {
 	}
 
 	public static function get_default_option(){
-		$option = array('favicon' => null, 'sp'=>null);
+		$option = '';
 		return $option;
 	}
 
 	public function sanitize_config( $option ){
 
 		$output = self::get_default_option();
-		$output['favicon'] = $option['favicon'];
-		$output['sp']      = $option['sp'];
+		$output = $option;
 		return $output;
 	}
 
@@ -57,18 +56,10 @@ class vExUnit_icons {
 <table class="form-table">
 	<!-- Favicon -->
 	<tr>
-	<th>Favicon設定</th>
-		<td><input type="text" name="vkExUnit_icon_settings[favicon]" id="favicon" value="<?php echo $options['favicon'] ?>" style="width:60%;" /> 
-	<button id="media_favicon" class="media_btn">画像を選択</button>
-	<p>作成したicoファイルをアップロードしてください。</p>
-	</td>
-	</tr>
-	<!-- Favicon -->
-	<tr>
-	<th>ウェブクリップアイコン設定</th>
-		<td><input type="text" name="vkExUnit_icon_settings[sp]" id="sp" value="<?php echo $options['sp'] ?>" style="width:60%;" /> 
-	<button id="media_sp" class="media_btn">画像を選択</button>
-	<p>スマートフォンでウェブページのショートカット作成時にアイコンとして使われる画像を設定します。114x114以上の正方形画像を設定してください。</p>
+	<th><?php _e('Favicon Setting', 'vkExUnit'); ?></th>
+		<td><input type="text" name="vkExUnit_icon_settings" id="favicon" value="<?php echo $options ?>" style="width:60%;" /> 
+	<button id="media_favicon" class="media_btn"><?php _e('Choose icon', 'vkExUnit'); ?></button>
+	<p><?php _e('Please upload your ".ico" file','vkExUnit'); ?></p>
 	</td>
 	</tr>
 </table>
@@ -80,11 +71,8 @@ class vExUnit_icons {
 
 	public function output_tag(){
 		$options = self::get_option();
-		if(isset($options['favicon']) && $options['favicon']){
-			echo '<link rel="SHORTCUT ICON" HREF="'.$options['favicon'].'" />';
-		}
-		if(isset($options['sp']) && $options['sp']){
-			echo '<link rel="apple-touch-icon-precomposed" HREF="'.$options['sp'].'" />';
+		if(isset($options) && $options){
+			echo '<link rel="SHORTCUT ICON" HREF="'.$options.'" />';
 		}
 	}
 
