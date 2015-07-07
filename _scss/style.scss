@@ -99,14 +99,14 @@
 /*-------------------------------------------*/
 /* Profile wiget Plugin
 /*-------------------------------------------*/
-.profile-media{
+.profile_media{
 	margin: 0.5em 0;
 }
-.profile-text{
+.profile_text{
     margin-bottom: 0.5em;
     font-size: 14px;
 }
-.sns-btns{
+.sns_btns{
     margin: 0;
     padding: 0;
     width: 100%;
@@ -136,17 +136,17 @@
         vertical-align:middle;
         text-align:center;  
     }
-    .facebook-btn{
+    .facebook_btn{
         a{
             background: #3b5998;
         }
     }
-    .twitter-btn{
+    .twitter_btn{
         a{
             background: #55acee;
         }
     }
-    .mail-btn{
+    .mail_btn{
         a{
 	        width: 44px;
 			height: 44px;
@@ -155,22 +155,22 @@
             color: #999;
         }
     }
-    .youtube-btn{
+    .youtube_btn{
         a{
             background: #C81D1C;
         }
     }
-    .rss-btn{
+    .rss_btn{
         a{
             background: #f26522;
         }
     }
-    .instagram-btn{
+    .instagram_btn{
         a{
             background: #3f729b;
         }
     }
-    .linkedin-btn{
+    .linkedin_btn{
         a{
             background: #0077b5;
         }
@@ -179,17 +179,17 @@
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
-.pr-box{
+.prBox{
 	.subSection-title{
 		font-size: 18px;
 	}
-	.media-pr{
+	.media_pr{
 		margin-bottom: 0.5em;
 	}
-	.media-pc{
+	.media_pc{
 		display: block;
 	}
-	.media-sp{
+	.media_sp{
 		display: none;
 	}
 	.summary{
@@ -204,11 +204,11 @@
 	}
 }
 @media screen and (max-width:768px){
-.pr-box{
-	.media-pc{
+.prBox{
+	.media_pc{
 		display: none;
 	}
-	.media-sp{
+	.media_sp{
 		display: block;
 	}
 	.linkurl { 
