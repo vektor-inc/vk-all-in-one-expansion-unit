@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vkExUnit\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-07 12:21+0900\n"
+"POT-Creation-Date: 2015-07-07 18:18+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -189,11 +189,11 @@ msgstr ""
 
 #: plugins/meta_description/meta_description.php:7
 #: plugins/meta_description/meta_description.php:19
-#: plugins/meta_keyword/meta_keyword.php:54
 msgid "Meta Description"
 msgstr ""
 
 #: plugins/meta_keyword/meta_keyword.php:28
+#: plugins/meta_keyword/meta_keyword.php:54
 #: plugins/meta_keyword/meta_keyword.php:73
 #: plugins/meta_keyword/meta_keyword.php:74
 #: plugins/meta_keyword/meta_keyword.php:81
@@ -748,15 +748,15 @@ msgstr ""
 msgid "twitter ID"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:227
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:234
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:227
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:234
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:227
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:234
 msgid "Description"
 msgstr ""
 
@@ -866,7 +866,7 @@ msgstr ""
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:192 vkExUnit_admin.php:210
+#: vkExUnit_admin.php:192 vkExUnit_admin.php:217
 msgid "Choose other widgets."
 msgstr ""
 
@@ -878,10 +878,33 @@ msgstr ""
 msgid "You can use various widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:215
+#: vkExUnit_admin.php:203
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr ""
+
+#: vkExUnit_admin.php:204
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+
+#: vkExUnit_admin.php:205
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr ""
+
+#: vkExUnit_admin.php:206
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr ""
+
+#: vkExUnit_admin.php:207
+msgid "VK_3PR area - display the 3PR area."
+msgstr ""
+
+#: vkExUnit_admin.php:222
 msgid "CSS customize"
 msgstr ""
 
-#: vkExUnit_admin.php:219
+#: vkExUnit_admin.php:226
 msgid "You can set Customize CSS."
 msgstr ""

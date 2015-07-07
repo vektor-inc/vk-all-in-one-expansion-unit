@@ -199,6 +199,13 @@
 			<td class='column-description desc'>
 				<div class='plugin-description'>
 					<p><?php _e('You can use various widgets.', 'vkExUnit'); ?></p>
+					<ul>
+					<li><?php _e('VK_Recent Posts - display the link text and the date of the latest article title.','vkExUnit');?></li>
+					<li><?php _e('VK_Page content to widget - display the contents of the page to the widgets.','vkExUnit');?></li>
+					<li><?php _e('VK_Profile - display the profile entered in the widget.','vkExUnit');?></li>
+					<li><?php _e('VK_FB Page Plugin - display the Facebook Page Plugin.','vkExUnit');?></li>
+					<li><?php _e('VK_3PR area - display the 3PR area.','vkExUnit');?></li>
+					</ul>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>

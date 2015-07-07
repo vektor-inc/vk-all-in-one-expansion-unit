@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-07 12:21+0900\n"
+"POT-Creation-Date: 2015-07-07 18:18+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -182,11 +182,11 @@ msgstr "両タイプのコードを出力します。"
 
 #: plugins/meta_description/meta_description.php:7
 #: plugins/meta_description/meta_description.php:19
-#: plugins/meta_keyword/meta_keyword.php:54
 msgid "Meta Description"
 msgstr "Meta ディスクリプション"
 
 #: plugins/meta_keyword/meta_keyword.php:28
+#: plugins/meta_keyword/meta_keyword.php:54
 #: plugins/meta_keyword/meta_keyword.php:73
 #: plugins/meta_keyword/meta_keyword.php:74
 #: plugins/meta_keyword/meta_keyword.php:81
@@ -768,15 +768,15 @@ msgstr "デフォルトのOGPイメージ"
 msgid "twitter ID"
 msgstr "twitterアカウント"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:227
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:234
 msgid "Select all"
 msgstr "全てを選択"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:227
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:234
 msgid "Function"
 msgstr "有効化"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:227
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:234
 msgid "Description"
 msgstr "説明"
 
@@ -910,7 +910,7 @@ msgstr "関連記事を選択"
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: vkExUnit_admin.php:192 vkExUnit_admin.php:210
+#: vkExUnit_admin.php:192 vkExUnit_admin.php:217
 msgid "Choose other widgets."
 msgstr "Other ウィジェットを選択"
 
@@ -921,15 +921,38 @@ msgstr "Other ウィジェット"
 #: vkExUnit_admin.php:201
 msgid "You can use various widgets."
 msgstr ""
-"次の機能のウィジェットを追加できます [ 最新記事を表示 / 3PRエリアを表示 / "
-"Facebook ページプラグイン ( 旧Like box ) を表示 / プロフィールを表示 ] \n"
-"各ウィジェットの設定は「外観」→「ウィジェット」の設定画面より行って下さい。"
+"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
+"→「ウィジェット」の設定画面より行って下さい。"
 
-#: vkExUnit_admin.php:215
+#: vkExUnit_admin.php:203
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
+
+#: vkExUnit_admin.php:204
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
+
+#: vkExUnit_admin.php:205
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
+
+#: vkExUnit_admin.php:206
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
+
+#: vkExUnit_admin.php:207
+msgid "VK_3PR area - display the 3PR area."
+msgstr "VK_3PR エリア - 3PR エリアを表示します。"
+
+#: vkExUnit_admin.php:222
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: vkExUnit_admin.php:219
+#: vkExUnit_admin.php:226
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
