@@ -1,6 +1,6 @@
 <?php
 
-class vExUnit_meta_description {
+class vExUnit_meta_keywords {
     // singleton instance
     private static $instance;
  
@@ -8,7 +8,7 @@ class vExUnit_meta_description {
         if ( isset( self::$instance ) )
             return self::$instance;
  
-        self::$instance = new vExUnit_meta_description;
+        self::$instance = new vExUnit_meta_keywords;
         self::$instance->run_init();
         return self::$instance;
     }
@@ -51,8 +51,8 @@ class vExUnit_meta_description {
 
 	public function render_configPage(){
 ?>
-<h3><?php _e('Meta Description', 'vkExUnit'); ?></h3>
-<div id="meta_description" class="sectionBox">
+<h3><?php _e('Meta Keywords', 'vkExUnit'); ?></h3>
+<div id="meta_keywords" class="sectionBox">
 <table class="form-table">
 <tr><th>共通キーワード</th>
 <td>metaタグのキーワードで、サイト全体で共通して入れるキーワードを , 区切りで入力して下さい。<br />
@@ -136,5 +136,5 @@ class vExUnit_meta_description {
 
 }
  
-vExUnit_meta_description::instance();
+vExUnit_meta_keywords::instance();
 
