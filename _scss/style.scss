@@ -179,17 +179,17 @@
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
-.pr-box{
+.prBox{
 	.subSection-title{
 		font-size: 18px;
 	}
-	.media-pr{
+	.media_pr{
 		margin-bottom: 0.5em;
 	}
-	.media-pc{
+	.media_pc{
 		display: block;
 	}
-	.media-sp{
+	.media_sp{
 		display: none;
 	}
 	.summary{
@@ -204,11 +204,11 @@
 	}
 }
 @media screen and (max-width:768px){
-.pr-box{
-	.media-pc{
+.prBox{
+	.media_pc{
 		display: none;
 	}
-	.media-sp{
+	.media_sp{
 		display: block;
 	}
 	.linkurl { 

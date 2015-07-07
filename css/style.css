@@ -91,13 +91,11 @@
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
-.pr-box .subSection-title { font-size: 18px; }
-.pr-box .media-pr { margin-bottom: 0.5em; }
-.pr-box .media-pc { display: block; }
-.pr-box .media-sp { display: none; }
-.pr-box .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
-.pr-box .linkurl a{	text-decoration: none; }
-@media screen and (max-width: 992px) { .pr-box .media-pc { display: none; }
-  .pr-box .media-sp { display: block; } .pr-box .linkurl { margin-bottom: 1.5em; } }
-
-/*# sourceMappingURL=style.css.map */
+.prBox .subSection-title { font-size: 18px; }
+.prBox .media_pr { margin-bottom: 0.5em; }
+.prBox .media_pc { display: block; }
+.prBox .media_sp { display: none; }
+.prBox .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
+.prBox .linkurl a{	text-decoration: none; }
+@media screen and (max-width: 992px) { .prBox .media_pc { display: none; }
+  .prBox .media_sp { display: block; } .prBox .linkurl { margin-bottom: 1.5em; } }
