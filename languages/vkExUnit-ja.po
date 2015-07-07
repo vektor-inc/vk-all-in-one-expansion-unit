@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-07 18:02+0900\n"
+"POT-Creation-Date: 2015-07-07 19:02+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -198,29 +198,105 @@ msgstr "作成したicoファイルをアップロードしてください"
 
 #: plugins/meta_description/meta_description.php:7
 #: plugins/meta_description/meta_description.php:19
-#: plugins/meta_keyword/meta_keyword.php:54
 msgid "Meta Description"
 msgstr "メタディスクリプション"
 
+#: plugins/meta_description/meta_description.php:25
+msgid ""
+"What you have to complete the \"excerpt\" column of the edit screen of each "
+"page will be reflected in the description of the meta tag."
+msgstr ""
+"各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプションに"
+"反映されます"
+
+#: plugins/meta_description/meta_description.php:26
+msgid ""
+"Description of meta tags in the search results screen of search sites such "
+"as Google, will be Displayed, such as the bottom of the site title. If the "
+"excerpt column is blank, is 240 characters than text beginning of a sentence "
+"has become a specification that is applied as a description."
+msgstr ""
+"トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されま"
+"す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
+"内容が反映されます。"
+
+#: plugins/meta_description/meta_description.php:27
+msgid ""
+"The meta description of the top page is subject to the catchphrase of the "
+"site. However, its contents will be reflected if the excerpt is entered in "
+"fixed page that was set on the top page."
+msgstr ""
+"トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されま"
+"す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
+"内容が反映されます。"
+
+#: plugins/meta_description/meta_description.php:28
+msgid ""
+"If \"excerpt\" column is not found, Click \"Display Option\" of page top at "
+"each article edit page, and check the expert column display."
+msgstr ""
+"抜粋欄が表示されていない場合は、編集画面の右上に「表示」というタブがあります"
+"ので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきますの"
+"で、チェックして下さい。"
+
 #: plugins/meta_keyword/meta_keyword.php:28
-#: plugins/meta_keyword/meta_keyword.php:73
 #: plugins/meta_keyword/meta_keyword.php:74
-#: plugins/meta_keyword/meta_keyword.php:81
+#: plugins/meta_keyword/meta_keyword.php:75
+#: plugins/meta_keyword/meta_keyword.php:82
 msgid "Meta Keywords"
 msgstr "メタキーワード"
 
-#: plugins/meta_keyword/meta_keyword.php:82
+#: plugins/meta_keyword/meta_keyword.php:54
+msgid "Meta Keyword"
+msgstr "メタキーワード"
+
+#: plugins/meta_keyword/meta_keyword.php:57
+msgid "Common Keywords"
+msgstr "共通キーワード設定"
+
+#: plugins/meta_keyword/meta_keyword.php:58
+msgid ""
+"Keywords for meta tag. This words will set Meta Keyword with post keywords. "
+"if you want multiple keywords, enter with separator of \",\"."
+msgstr ""
+"メタタグに入力するキーワードを入力します。ここでは全てのページで使用する共通"
+"のキーワードを設定します。複数ある場合は「,」で区切ってください。"
+
+#: plugins/meta_keyword/meta_keyword.php:61
+msgid "This is not seriously, Because the SearchEngine does not care this."
+msgstr ""
+"あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要なファ"
+"クターとはなりません。"
+
+#: plugins/meta_keyword/meta_keyword.php:62
+msgid ""
+"For each page individual keyword is enter at the edit screen of each "
+"article. 10 keywords maximum, together with a each article keywords is "
+"desirable."
+msgstr ""
+"個々のページのキーワードはそれぞれの投稿ページのキーワード入力欄から追加して"
+"ください。それらと合わせて10個程度のキーワード数であることが望ましいです。"
+
+#: plugins/meta_keyword/meta_keyword.php:63
+msgid "\",\" separator at end of the last keyword is do not need."
+msgstr "最後のキーワードの後ろに「,」は必要ありません。"
+
+#: plugins/meta_keyword/meta_keyword.php:64
+msgid "Example: WordPress,template,theme,free,GPL"
+msgstr "【例】 WordPress,テンプレート,テーマ,無料,GPL"
+
+#: plugins/meta_keyword/meta_keyword.php:83
 msgid ""
 "To distinguish between individual keywords, please enter a , delimiter "
 "(optional)."
 msgstr "キーワードを複数入力する場合は , ( カンマ )で区切って下さい。"
 
-#: plugins/meta_keyword/meta_keyword.php:83
+#: plugins/meta_keyword/meta_keyword.php:84
 msgctxt "link to seo setting"
 msgid ""
 msgstr "SEO 設定のリンク"
 
-#: plugins/meta_keyword/meta_keyword.php:84
+#: plugins/meta_keyword/meta_keyword.php:85
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
@@ -268,14 +344,17 @@ msgstr "トップのページコンテンツ"
 
 #: plugins/other_widget/old/widget-page-content.php:30
 #: plugins/other_widget/old/widget-taxonomy-list.php:61
+#: plugins/other_widget/widget-page.php:30
 msgid "Display page"
 msgstr "ページを表示"
 
 #: plugins/other_widget/old/widget-page-content.php:38
+#: plugins/other_widget/widget-page.php:38
 msgid "display title"
 msgstr "タイトルを表示"
 
 #: plugins/other_widget/old/widget-page-content.php:61
+#: plugins/other_widget/widget-page.php:60
 msgid "Edit"
 msgstr "編集"
 
@@ -321,9 +400,9 @@ msgid "Displays a 3PR area"
 msgstr "3PR エリアを表示します。"
 
 #: plugins/other_widget/widget-3pr-area.php:13
-#: plugins/other_widget/widget-3pr-area.php:247
-#: plugins/other_widget/widget-3pr-area.php:295
-#: plugins/other_widget/widget-3pr-area.php:345
+#: plugins/other_widget/widget-3pr-area.php:245
+#: plugins/other_widget/widget-3pr-area.php:287
+#: plugins/other_widget/widget-3pr-area.php:330
 msgid "3PR area"
 msgstr "3PR エリア"
 
@@ -406,9 +485,9 @@ msgstr "3PR エリア2 設定"
 msgid "3PR area3 setting"
 msgstr "3PR エリア3 設定"
 
-#: plugins/other_widget/widget-3pr-area.php:281
-#: plugins/other_widget/widget-3pr-area.php:331
-#: plugins/other_widget/widget-3pr-area.php:381
+#: plugins/other_widget/widget-3pr-area.php:274
+#: plugins/other_widget/widget-3pr-area.php:316
+#: plugins/other_widget/widget-3pr-area.php:359
 msgid "Read more"
 msgstr "詳しくはこちら"
 
@@ -429,6 +508,14 @@ msgstr "表示する記事数"
 #: plugins/other_widget/widget-new-posts.php:85
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
+
+#: plugins/other_widget/widget-page.php:11
+msgid "Displays a page contents to widget."
+msgstr ""
+
+#: plugins/other_widget/widget-page.php:13
+msgid "page content to widget"
+msgstr ""
 
 #: plugins/other_widget/widget-profile.php:11
 msgid "Displays a your profile"
@@ -948,73 +1035,6 @@ msgstr ""
 
 #~ msgid "Choose image"
 #~ msgstr "画像を選択"
-
-#~ msgid ""
-#~ "What you have to complete the \"excerpt\" column of the edit screen of "
-#~ "each page will be reflected in the description of the meta tag."
-#~ msgstr ""
-#~ "各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプション"
-#~ "に反映されます"
-
-#~ msgid ""
-#~ "Description of meta tags in the search results screen of search sites "
-#~ "such as Google, will be Displayed, such as the bottom of the site title. "
-#~ "If the excerpt column is blank, is 240 characters than text beginning of "
-#~ "a sentence has become a specification that is applied as a description."
-#~ msgstr ""
-#~ "トップページのメタディスクリプションにはサイトのキャッチフレーズが適用され"
-#~ "ます。しかし、トップページに設定した固定ページに抜粋が記入されている場合は"
-#~ "その内容が反映されます。"
-
-#~ msgid ""
-#~ "The meta description of the top page is subject to the catchphrase of the "
-#~ "site. However, its contents will be reflected if the excerpt is entered "
-#~ "in fixed page that was set on the top page."
-#~ msgstr ""
-#~ "トップページのメタディスクリプションにはサイトのキャッチフレーズが適用され"
-#~ "ます。しかし、トップページに設定した固定ページに抜粋が記入されている場合は"
-#~ "その内容が反映されます。"
-
-#~ msgid ""
-#~ "If \"excerpt\" column is not found, Click \"Display Option\" of page top "
-#~ "at each article edit page, and check the expert column display."
-#~ msgstr ""
-#~ "抜粋欄が表示されていない場合は、編集画面の右上に「表示」というタブがありま"
-#~ "すので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきま"
-#~ "すので、チェックして下さい。"
-
-#~ msgid "Meta Keyword"
-#~ msgstr "メタキーワード"
-
-#~ msgid "Common Keywords"
-#~ msgstr "共通キーワード設定"
-
-#~ msgid ""
-#~ "Keywords for meta tag. This words will set Meta Keyword with post "
-#~ "keywords. if you want multiple keywords, enter with separator of \",\"."
-#~ msgstr ""
-#~ "メタタグに入力するキーワードを入力します。ここでは全てのページで使用する共"
-#~ "通のキーワードを設定します。複数ある場合は「,」で区切ってください。"
-
-#~ msgid "This is not seriously, Because the SearchEngine does not care this."
-#~ msgstr ""
-#~ "あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要な"
-#~ "ファクターとはなりません。"
-
-#~ msgid ""
-#~ "For each page individual keyword is enter at the edit screen of each "
-#~ "article. 10 keywords maximum, together with a each article keywords is "
-#~ "desirable."
-#~ msgstr ""
-#~ "個々のページのキーワードはそれぞれの投稿ページのキーワード入力欄から追加し"
-#~ "てください。それらと合わせて10個程度のキーワード数であることが望ましいで"
-#~ "す。"
-
-#~ msgid "\",\" separator at end of the last keyword is do not need."
-#~ msgstr "最後のキーワードの後ろに「,」は必要ありません。"
-
-#~ msgid "Example: WordPress,template,theme,free,GPL"
-#~ msgstr "【例】 WordPress,テンプレート,テーマ,無料,GPL"
 
 #~ msgid ""
 #~ "Description of meta tags in the search results screen of search sites "

@@ -25,10 +25,10 @@ class vExUnit_meta_keywords {
  
 	public function option_init() {
 		vkExUnit_register_setting(
-			__('Meta Keywords', 'vkExUnit'), 	// tab label.
-			'vkExUnit_common_keywords',			// name attr
-			array( $this, 'sanitize_config' ), // sanitaise function name
-			array( $this, 'render_configPage' )  // setting_page function name
+			__('Meta Keywords', 'vkExUnit'), 	    // tab label.
+			'vkExUnit_common_keywords',			    // name attr
+			array( $this, 'sanitize_config' ),      // sanitaise function name
+			array( $this, 'render_configPage' )     // setting_page function name
 		);
 	}
 
@@ -51,16 +51,17 @@ class vExUnit_meta_keywords {
 
 	public function render_configPage(){
 ?>
-<h3><?php _e('Meta Keywords', 'vkExUnit'); ?></h3>
-<div id="meta_keywords" class="sectionBox">
+<h3><?php _e('Meta Keyword', 'vkExUnit'); ?></h3>
+<div id="meta_keyword" class="sectionBox">
 <table class="form-table">
-<tr><th>共通キーワード</th>
-<td>metaタグのキーワードで、サイト全体で共通して入れるキーワードを , 区切りで入力して下さい。<br />
+<tr><th><?php _e('Common Keywords','vkExUnit'); ?></th>
+<td><?php _e('Keywords for meta tag. This words will set Meta Keyword with post keywords. if you want multiple keywords, enter with separator of ",".','vkExUnit'); ?><br />
 <input type="text" name="vkExUnit_common_keywords" id="commonKeyWords" value="<?php echo self::get_option(); ?>" style="width:90%;" /><br />
-* 現在は検索エンジンからの評価に影響しませんのであまり真剣に考えなくてもかまいません。<br />
-* 各ページ個別のキーワードについては、それぞれの記事の編集画面より入力して下さい。共通キーワードと合わせて最大10個程度が望ましいです。<br />
-* 最後のキーワード欄の末尾には , は必要ありません。<br />
-【記入例】 WordPress,テンプレート,テーマ,無料,GPL</td></tr>
+
+* <?php _e('This is not seriously, Because the SearchEngine does not care this.','vkExUnit') ?><br/>
+* <?php _e('For each page individual keyword is enter at the edit screen of each article. 10 keywords maximum, together with a each article keywords is desirable.','vkExUnit') ?><br/>
+* <?php _e('"," separator at end of the last keyword is do not need.','vkExUnit') ?><br/>
+<?php _e('Example: WordPress,template,theme,free,GPL','vkExUnit'); ?></td></tr>
 </table>
 <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
 </div>
@@ -88,7 +89,7 @@ class vExUnit_meta_keywords {
 	public function save_custom_field($post_id){
 		$metaKeyword = isset($_POST['_nonce_vkExUnit__custom_field_metaKeyword']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_metaKeyword']) : null;
 
-	    // ドラフトなら破棄
+	    // if autosave is to deny
 	    if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
 	       return $post_id;
 
@@ -114,6 +115,7 @@ class vExUnit_meta_keywords {
 
 	public function get_postKeyword(){
 		$post_id = get_the_id();
+		
 		if(empty($post_id))
 			return null;
 
@@ -137,4 +139,3 @@ class vExUnit_meta_keywords {
 }
  
 vExUnit_meta_keywords::instance();
-
