@@ -71,22 +71,22 @@
 /*-------------------------------------------*/
 /* Profile wiget Plugin
 /*-------------------------------------------*/
-.profile-media { margin: 0.5em 0; }
+.profile_media { margin: 0.5em 0; }
 
-.profile-text { margin-bottom: 0.5em; font-size: 14px; }
+.profile_text { margin-bottom: 0.5em; font-size: 14px; }
 
-.sns-btns { margin: 0; padding: 0; width: 100%; }
-.sns-btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
-.sns-btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
-.sns-btns a:hover { opacity: 0.8; color: #fff; text-decoration: none; }
-.sns-btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
-.sns-btns .facebook-btn a { background: #3b5998; }
-.sns-btns .twitter-btn a { background: #55acee; }
-.sns-btns .mail-btn a { width: 44px; height: 44px; border: solid 1px #ccc; background: #fff; color: #999; }
-.sns-btns .youtube-btn a { background: #C81D1C; }
-.sns-btns .rss-btn a { background: #f26522; }
-.sns-btns .instagram-btn a { background: #3f729b; }
-.sns-btns .linkedin-btn a { background: #0077b5; }
+.sns_btns { margin: 0; padding: 0; width: 100%; }
+.sns_btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
+.sns_btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
+.sns_btns a:hover { opacity: 0.8; color: #fff; text-decoration: none; }
+.sns_btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
+.sns_btns .facebook_btn a { background: #3b5998; }
+.sns_btns .twitter_btn a { background: #55acee; }
+.sns_btns .mail_btn a { width: 44px; height: 44px; border: solid 1px #ccc; background: #fff; color: #999; }
+.sns_btns .youtube_btn a { background: #C81D1C; }
+.sns_btns .rss_btn a { background: #f26522; }
+.sns_btns .instagram_btn a { background: #3f729b; }
+.sns_btns .linkedin_btn a { background: #0077b5; }
 
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
