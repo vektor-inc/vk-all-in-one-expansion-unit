@@ -1,12 +1,11 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distrubuted under the GPL-2.0+
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: vkExUnit\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-06 11:19+0900\n"
+"POT-Creation-Date: 2015-07-07 15:50+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -21,7 +20,7 @@ msgstr ""
 "_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin_wrapper.php:7 admin_wrapper.php:8
@@ -187,24 +186,90 @@ msgstr ""
 msgid "To output both types"
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:9
-#: plugins/meta_description/meta_description-post.php:10
-#: plugins/meta_description/meta_description-post.php:17
+#: plugins/meta_description/meta_description.php:7
+#: plugins/meta_description/meta_description.php:19
+msgid "Meta Description"
+msgstr ""
+
+#: plugins/meta_description/meta_description.php:25
+msgid ""
+"What you have to complete the \"excerpt\" column of the edit screen of each "
+"page will be reflected in the description of the meta tag."
+msgstr ""
+
+#: plugins/meta_description/meta_description.php:26
+msgid ""
+"Description of meta tags in the search results screen of search sites such "
+"as Google, will be Displayed, such as the bottom of the site title. If the "
+"excerpt column is blank, is 240 characters than text beginning of a sentence "
+"has become a specification that is applied as a description."
+msgstr ""
+
+#: plugins/meta_description/meta_description.php:27
+msgid ""
+"The meta description of the top page is subject to the catchphrase of the "
+"site. However, its contents will be reflected if the excerpt is entered in "
+"fixed page that was set on the top page."
+msgstr ""
+
+#: plugins/meta_description/meta_description.php:28
+msgid ""
+"If \"excerpt\" column is not found, Click \"Display Option\" of page top at "
+"each article edit page, and check the expert column display."
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:28
+#: plugins/meta_keyword/meta_keyword.php:75
+#: plugins/meta_keyword/meta_keyword.php:76
+#: plugins/meta_keyword/meta_keyword.php:83
 msgid "Meta Keywords"
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:18
+#: plugins/meta_keyword/meta_keyword.php:55
+msgid "Meta Keyword"
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:58
+msgid "Common Keywords"
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:59
+msgid ""
+"Keywords for meta tag. This words will set Meta Keyword with post keywords. "
+"if you want multiple keywords, enter with separator of \",\"."
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:62
+msgid "This is not seriously, Because the SearchEngine does not care this."
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:63
+msgid ""
+"For each page individual keyword is enter at the edit screen of each "
+"article. 10 keywords maximum, together with a each article keywords is "
+"desirable."
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:64
+msgid "\",\" separator at end of the last keyword is do not need."
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:65
+msgid "Example: WordPress,template,theme,free,GPL"
+msgstr ""
+
+#: plugins/meta_keyword/meta_keyword.php:84
 msgid ""
 "To distinguish between individual keywords, please enter a , delimiter "
 "(optional)."
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:19
+#: plugins/meta_keyword/meta_keyword.php:85
 msgctxt "link to seo setting"
 msgid ""
 msgstr ""
 
-#: plugins/meta_description/meta_description-post.php:20
+#: plugins/meta_keyword/meta_keyword.php:86
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr ""
@@ -463,7 +528,7 @@ msgstr ""
 msgid "Site's Profile"
 msgstr ""
 
-#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:143
+#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:161
 msgid "Related posts"
 msgstr ""
 
@@ -730,15 +795,15 @@ msgstr ""
 msgid "twitter ID"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Description"
 msgstr ""
 
@@ -781,65 +846,77 @@ msgid "Print meta description to html head."
 msgstr ""
 
 #: vkExUnit_admin.php:75
-msgid "Choose Social media cooperation."
+msgid "Choose Print meta Keyword."
 msgstr ""
 
 #: vkExUnit_admin.php:80
-msgid "Social media cooperation."
+msgid "Print meta Keyword"
 msgstr ""
 
-#: vkExUnit_admin.php:87 vkExUnit_admin.php:121
-msgid "Setting"
+#: vkExUnit_admin.php:84
+msgid "Print meta Keyword to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:97
-msgid "Print og tags to html head."
+#: vkExUnit_admin.php:93
+msgid "Choose Social media cooperation."
 msgstr ""
 
 #: vkExUnit_admin.php:98
+msgid "Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:105 vkExUnit_admin.php:139
+msgid "Setting"
+msgstr ""
+
+#: vkExUnit_admin.php:115
+msgid "Print og tags to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:116
 msgid "Print twitter card tags to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:99
+#: vkExUnit_admin.php:117
 msgid "Print social bookmarks."
 msgstr ""
 
-#: vkExUnit_admin.php:100
+#: vkExUnit_admin.php:118
 msgid "Facebook Page Plugin."
 msgstr ""
 
-#: vkExUnit_admin.php:110
+#: vkExUnit_admin.php:128
 msgid "Choose Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:129
+#: vkExUnit_admin.php:147
 msgid "Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:138
+#: vkExUnit_admin.php:156
 msgid "Choose Related posts."
 msgstr ""
 
-#: vkExUnit_admin.php:147
+#: vkExUnit_admin.php:165
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:156 vkExUnit_admin.php:174
+#: vkExUnit_admin.php:174 vkExUnit_admin.php:192
 msgid "Choose other widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:161
+#: vkExUnit_admin.php:179
 msgid "Other Widgets"
 msgstr ""
 
-#: vkExUnit_admin.php:165
+#: vkExUnit_admin.php:183
 msgid "You can use various widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:179
+#: vkExUnit_admin.php:197
 msgid "CSS customize"
 msgstr ""
 
-#: vkExUnit_admin.php:183
+#: vkExUnit_admin.php:201
 msgid "You can set Customize CSS."
 msgstr ""

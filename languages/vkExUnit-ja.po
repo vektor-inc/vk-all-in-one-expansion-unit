@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2015-07-06 11:19+0900\n"
+"POT-Creation-Date: 2015-07-07 15:50+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -180,24 +180,107 @@ msgstr "ノーマルのコードのみを出力します。"
 msgid "To output both types"
 msgstr "両タイプのコードを出力します。"
 
-#: plugins/meta_description/meta_description-post.php:9
-#: plugins/meta_description/meta_description-post.php:10
-#: plugins/meta_description/meta_description-post.php:17
-msgid "Meta Keywords"
-msgstr "Meta キーワード"
+#: plugins/meta_description/meta_description.php:7
+#: plugins/meta_description/meta_description.php:19
+msgid "Meta Description"
+msgstr "メタディスクリプション"
 
-#: plugins/meta_description/meta_description-post.php:18
+#: plugins/meta_description/meta_description.php:25
+msgid ""
+"What you have to complete the \"excerpt\" column of the edit screen of each "
+"page will be reflected in the description of the meta tag."
+msgstr ""
+"各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプションに"
+"反映されます"
+
+#: plugins/meta_description/meta_description.php:26
+msgid ""
+"Description of meta tags in the search results screen of search sites such "
+"as Google, will be Displayed, such as the bottom of the site title. If the "
+"excerpt column is blank, is 240 characters than text beginning of a sentence "
+"has become a specification that is applied as a description."
+msgstr ""
+"トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されま"
+"す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
+"内容が反映されます。"
+
+#: plugins/meta_description/meta_description.php:27
+msgid ""
+"The meta description of the top page is subject to the catchphrase of the "
+"site. However, its contents will be reflected if the excerpt is entered in "
+"fixed page that was set on the top page."
+msgstr ""
+"トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されま"
+"す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
+"内容が反映されます。"
+
+#: plugins/meta_description/meta_description.php:28
+msgid ""
+"If \"excerpt\" column is not found, Click \"Display Option\" of page top at "
+"each article edit page, and check the expert column display."
+msgstr ""
+"抜粋欄が表示されていない場合は、編集画面の右上に「表示」というタブがあります"
+"ので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきますの"
+"で、チェックして下さい。"
+
+#: plugins/meta_keyword/meta_keyword.php:28
+#: plugins/meta_keyword/meta_keyword.php:75
+#: plugins/meta_keyword/meta_keyword.php:76
+#: plugins/meta_keyword/meta_keyword.php:83
+msgid "Meta Keywords"
+msgstr "メタキーワード"
+
+#: plugins/meta_keyword/meta_keyword.php:55
+msgid "Meta Keyword"
+msgstr "メタキーワード"
+
+#: plugins/meta_keyword/meta_keyword.php:58
+msgid "Common Keywords"
+msgstr "共通キーワード設定"
+
+#: plugins/meta_keyword/meta_keyword.php:59
+msgid ""
+"Keywords for meta tag. This words will set Meta Keyword with post keywords. "
+"if you want multiple keywords, enter with separator of \",\"."
+msgstr ""
+"メタタグに入力するキーワードを入力します。ここでは全てのページで使用する共通"
+"のキーワードを設定します。複数ある場合は「,」で区切ってください。"
+
+#: plugins/meta_keyword/meta_keyword.php:62
+msgid "This is not seriously, Because the SearchEngine does not care this."
+msgstr ""
+"あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要なファ"
+"クターとはなりません。"
+
+#: plugins/meta_keyword/meta_keyword.php:63
+msgid ""
+"For each page individual keyword is enter at the edit screen of each "
+"article. 10 keywords maximum, together with a each article keywords is "
+"desirable."
+msgstr ""
+"個々のページのキーワードはそれぞれの投稿ページのキーワード入力欄から追加して"
+"ください。それらと合わせて10個程度のキーワード数であることが望ましいです。"
+
+#: plugins/meta_keyword/meta_keyword.php:64
+msgid "\",\" separator at end of the last keyword is do not need."
+msgstr "最後のキーワードの後ろに「,」は必要ありません。"
+
+#: plugins/meta_keyword/meta_keyword.php:65
+msgid "Example: WordPress,template,theme,free,GPL"
+msgstr "【例】 WordPress,テンプレート,テーマ,無料,GPL"
+
+#: plugins/meta_keyword/meta_keyword.php:84
 msgid ""
 "To distinguish between individual keywords, please enter a , delimiter "
 "(optional)."
 msgstr "キーワードを複数入力する場合は , ( カンマ )で区切って下さい。"
 
-#: plugins/meta_description/meta_description-post.php:19
+#: plugins/meta_keyword/meta_keyword.php:85
 msgctxt "link to seo setting"
 msgid ""
 msgstr "SEO 設定のリンク"
 
-#: plugins/meta_description/meta_description-post.php:20
+#: plugins/meta_keyword/meta_keyword.php:86
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
@@ -461,7 +544,7 @@ msgstr "linkedin リンク先ページのURL"
 msgid "Site's Profile"
 msgstr "プロフィール"
 
-#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:143
+#: plugins/related_posts/related_posts.php:34 vkExUnit_admin.php:161
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -750,15 +833,15 @@ msgstr "デフォルトのOGPイメージ"
 msgid "twitter ID"
 msgstr "twitterアカウント"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Select all"
 msgstr "全てを選択"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Function"
 msgstr "有効化"
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:191
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:209
 msgid "Description"
 msgstr "説明"
 
@@ -800,40 +883,52 @@ msgstr "出力する meta description を選択して下さい。"
 
 #: vkExUnit_admin.php:62
 msgid "Print meta description"
-msgstr "meta description タグを出力"
+msgstr "メタディスクリプションタグを出力"
 
 #: vkExUnit_admin.php:66
 msgid "Print meta description to html head."
 msgstr ""
 "投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
 "head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
-"する場合はチェックを外して下さい。"
+"している場合はチェックを外して下さい。"
 
 #: vkExUnit_admin.php:75
+msgid "Choose Print meta Keyword."
+msgstr "メタキーワードを選んでください。"
+
+#: vkExUnit_admin.php:80
+msgid "Print meta Keyword"
+msgstr "メタキーワードを出力"
+
+#: vkExUnit_admin.php:84
+msgid "Print meta Keyword to html head."
+msgstr "ヘッダーにメタキーワードを出力します。"
+
+#: vkExUnit_admin.php:93
 msgid "Choose Social media cooperation."
 msgstr "連携するソーシャルメディアを選択します。"
 
-#: vkExUnit_admin.php:80
+#: vkExUnit_admin.php:98
 msgid "Social media cooperation."
 msgstr "ソーシャルメディアとの連携"
 
-#: vkExUnit_admin.php:87 vkExUnit_admin.php:121
+#: vkExUnit_admin.php:105 vkExUnit_admin.php:139
 msgid "Setting"
 msgstr "設定"
 
-#: vkExUnit_admin.php:97
+#: vkExUnit_admin.php:115
 msgid "Print og tags to html head."
 msgstr "OG タグを html head 内へ出力します。"
 
-#: vkExUnit_admin.php:98
+#: vkExUnit_admin.php:116
 msgid "Print twitter card tags to html head."
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: vkExUnit_admin.php:99
+#: vkExUnit_admin.php:117
 msgid "Print social bookmarks."
 msgstr "ソーシャルブックマークを表示します。"
 
-#: vkExUnit_admin.php:100
+#: vkExUnit_admin.php:118
 msgid "Facebook Page Plugin."
 msgstr ""
 "Facebookページプラグインを表示します。<br><br>\n"
@@ -842,11 +937,11 @@ msgstr ""
 "使用中のテーマやプラグインでソーシャルメディアとの連携を行う場合はチェックを"
 "外して下さい。"
 
-#: vkExUnit_admin.php:110
+#: vkExUnit_admin.php:128
 msgid "Choose Print Google Analytics tracking code."
 msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
 
-#: vkExUnit_admin.php:129
+#: vkExUnit_admin.php:147
 msgid "Print Google Analytics tracking code."
 msgstr ""
 "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
@@ -854,39 +949,48 @@ msgstr ""
 "のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
 "合はチェックを外して下さい。"
 
-#: vkExUnit_admin.php:138
+#: vkExUnit_admin.php:156
 msgid "Choose Related posts."
 msgstr "関連記事を選択"
 
-#: vkExUnit_admin.php:147
+#: vkExUnit_admin.php:165
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: vkExUnit_admin.php:156 vkExUnit_admin.php:174
+#: vkExUnit_admin.php:174 vkExUnit_admin.php:192
 msgid "Choose other widgets."
 msgstr "Other ウィジェットを選択"
 
-#: vkExUnit_admin.php:161
+#: vkExUnit_admin.php:179
 msgid "Other Widgets"
 msgstr "Other ウィジェット"
 
-#: vkExUnit_admin.php:165
+#: vkExUnit_admin.php:183
 msgid "You can use various widgets."
 msgstr ""
 "次の機能のウィジェットを追加できます [ 最新記事を表示 / 3PRエリアを表示 / "
 "Facebook ページプラグイン ( 旧Like box ) を表示 / プロフィールを表示 ] \n"
 "各ウィジェットの設定は「外観」→「ウィジェット」の設定画面より行って下さい。"
 
-#: vkExUnit_admin.php:179
+#: vkExUnit_admin.php:197
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: vkExUnit_admin.php:183
+#: vkExUnit_admin.php:201
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
+
+#~ msgid ""
+#~ "Description of meta tags in the search results screen of search sites "
+#~ "such as Google, will be Displayed, such as the bottom of the site title.\n"
+#~ "If the excerpt column is blank, is 240 characters than text beginning of "
+#~ "a sentence has become a specification that is applied as a description."
+#~ msgstr ""
+#~ "メタタグのディスクリプションはGoogleなどの検索サイトの検索結果画面で、サイ"
+#~ "トタイトルの下などに表示されます。"
 
 #~ msgid "Displays a your site's profile"
 #~ msgstr "サイトのプロフィールを表示します"

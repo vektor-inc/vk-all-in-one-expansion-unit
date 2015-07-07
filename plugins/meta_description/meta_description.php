@@ -21,11 +21,11 @@ function vkExUnit_add_description_options_page(){
 <table class="form-table">
 <tr><th>ディスクリプション</th>
 <td>
-各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプションに反映されます。<br />
-metaタグのディスクリプションはGoogleなどの検索サイトの検索結果画面で、サイトタイトルの下などに表示されます。<br />
-抜粋欄が未記入の場合は、本文文頭より240文字がディスクリプションとして適用される仕様となっています。<br />
-トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されます。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその内容が反映されます。<br />
-* 抜粋欄が表示されていない場合は、編集画面の右上に「表示」というタブがありますので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきますので、チェックして下さい。<br />
+
+<?php _e('What you have to complete the "excerpt" column of the edit screen of each page will be reflected in the description of the meta tag.','vkExUnit') ?><br/>
+<?php _e('Description of meta tags in the search results screen of search sites such as Google, will be Displayed, such as the bottom of the site title. If the excerpt column is blank, is 240 characters than text beginning of a sentence has become a specification that is applied as a description.','vkExUnit') ?><br/>
+<?php _e('The meta description of the top page is subject to the catchphrase of the site. However, its contents will be reflected if the excerpt is entered in fixed page that was set on the top page.','vkExUnit') ?><br/>
+* <?php _e('If "excerpt" column is not found, Click "Display Option" of page top at each article edit page, and check the expert column display.','vkExUnit') ?><br/>
 </td></tr>
 </table>
 </div>
