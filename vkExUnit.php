@@ -119,9 +119,9 @@ add_action('wp_enqueue_scripts','vkExUnit_print_css');
 function vkExUnit_print_css(){
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150525', 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150708', 'all');
 	} else {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150525', 'all');	
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150708', 'all');	
 	}
 }
 /*-------------------------------------------*/
@@ -131,9 +131,9 @@ add_action('wp_head','vkExUnit_addJs');
 function vkExUnit_addJs(){
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-	wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all_in_bs.min.js', array('jquery'), '20150628' );
+	wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all_in_bs.min.js', array('jquery'), '20150708' );
 	} else {
-		wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all.min.js', array('jquery'), '20150628' );
+		wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all.min.js', array('jquery'), '20150708' );
 	}
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
