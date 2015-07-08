@@ -72,12 +72,12 @@
 		<tr<?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
 				<label class='screen-reader-text' for='checkbox_active_wpTitle' >
-				<?php _e('Choose Rewrite the print title tag', 'vkExUnit'); ?>
+				<?php _e('Choose Rewrite the title tag', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_wpTitle]" id="checkbox_aactive_wpTitle" value="true" <?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_wpTitle]" id="checkbox_active_wpTitle" value="true" <?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong><?php _e('Rewrite the print title tag', 'vkExUnit'); ?></strong>
+				<strong><?php _e('Rewrite the title tag', 'vkExUnit'); ?></strong>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
