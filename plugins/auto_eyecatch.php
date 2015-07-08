@@ -103,7 +103,7 @@ class vExUnit_eyecatch {
 		$image_tag = get_the_post_thumbnail( $post_id, 'large' );
 
 		$html = <<<EOF
-<div class="vkExUnit_AutoEyeCatchBox">{$image_tag}</div>
+<div class="autoEyeCatchBox">{$image_tag}</div>
 EOF;
 		return $html;
 	}

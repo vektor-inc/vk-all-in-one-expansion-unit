@@ -2,10 +2,41 @@
 @import "compass";
 @import "_bizvektor_theme_included_style";
 
-/*-------------------------------------------*/
+/*-------------------------------------------------*/
 /* ex_unit 
+/*-------------------------------------------------*/
+/* .common
 /*-------------------------------------------*/
+/* .autoEyeCatchBox
+/*-------------------------------------------*/
+/* .sitemap
+/*-------------------------------------------*/
+/* fb Page Plugin
+/*-------------------------------------------*/
+/* .socialSet
+/*-------------------------------------------*/
+/* Profile wiget Plugin
+/*-------------------------------------------*/
+/* 3PR area wiget Plugin
+/*-------------------------------------------*/
+
+/*-------------------------------------------*/
+/* .common
+/*-------------------------------------------*/
+
 .link-list li { padding:0.5em; }
+
+/*-------------------------------------------*/
+/* .autoEyeCatchBox
+/*-------------------------------------------*/
+
+.autoEyeCatchBox { display:block; overflow:hidden;margin-bottom:2em; }
+
+/*-------------------------------------------*/
+/* .sitemap
+/*-------------------------------------------*/
+
+
 
 .sitemap .sectionBox { padding-top:0; }
 .sitemap .sitemap-col { padding-bottom:2em; }
@@ -26,7 +57,7 @@
 .vkContentAddSection { display:block; clear:both; overflow:hidden; padding-top:20px; }
 
 /*-------------------------------------------*/
-/*			.socialSet 0.2.0.0
+/* .socialSet
 /*-------------------------------------------*/
 .socialSet ul { margin:0px;padding:0; }
 .socialSet ul li { position:relative; display:block;float:left; overflow:visible; margin-right:10px; padding:0px; background:none; }

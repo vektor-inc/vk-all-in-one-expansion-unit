@@ -2539,11 +2539,36 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 @media (max-width: 767px) { .media .postList_thumbnail { padding-right: 20px; }
   .media .media-body .media-heading { font-size: 1.2em; line-height: 1.3em; margin-bottom: 0.5em; } }
 @media (max-width: 500px) { .media .postList_thumbnail { width: 100px; } }
-/*-------------------------------------------*/
+/*-------------------------------------------------*/
 /* ex_unit 
+/*-------------------------------------------------*/
+/* .common
+/*-------------------------------------------*/
+/* .autoEyeCatchBox
+/*-------------------------------------------*/
+/* .sitemap
+/*-------------------------------------------*/
+/* fb Page Plugin
+/*-------------------------------------------*/
+/* .socialSet
+/*-------------------------------------------*/
+/* Profile wiget Plugin
+/*-------------------------------------------*/
+/* 3PR area wiget Plugin
+/*-------------------------------------------*/
+/*-------------------------------------------*/
+/* .common
 /*-------------------------------------------*/
 .link-list li { padding: 0.5em; }
 
+/*-------------------------------------------*/
+/* .autoEyeCatchBox
+/*-------------------------------------------*/
+.autoEyeCatchBox { display: block; overflow: hidden; margin-bottom: 2em; }
+
+/*-------------------------------------------*/
+/* .sitemap
+/*-------------------------------------------*/
 .sitemap .sectionBox { padding-top: 0; }
 
 .sitemap .sitemap-col { padding-bottom: 2em; }
@@ -2558,7 +2583,7 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .vkContentAddSection { display: block; clear: both; overflow: hidden; padding-top: 20px; }
 
 /*-------------------------------------------*/
-/*			.socialSet 0.2.0.0
+/* .socialSet
 /*-------------------------------------------*/
 .socialSet ul { margin: 0px; padding: 0; }
 
