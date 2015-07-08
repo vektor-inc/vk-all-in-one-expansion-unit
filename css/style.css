@@ -1,3 +1,20 @@
+/*      .media(bootstrap)
+/*-------------------------------------------*/
+.media { border-bottom: 1px solid #e5e5e5; padding: 2em 0; margin-top: 0; }
+.media:first-child { border-top: 1px solid #e5e5e5; }
+.media .postList_thumbnail { width: 160px; margin-bottom: 0.5em; padding-right: 30px; display: block; overflow: hidden; float: left; }
+.media .postList_thumbnail a { position: relative; display: block; overflow: hidden; }
+.media .postList_thumbnail img { width: 100%; height: auto; }
+.media .postList_thumbnail .postList_cateLabel { position: absolute; bottom: 0; left: 0; }
+.media .media-body .media-heading { font-size: 1.8em; line-height: 1.3em; margin-top: 0; margin-bottom: 0.5em; font-weight: normal; }
+.media .media-body .media-heading a { color: #464646; }
+.media .media-body .media-heading a:hover { text-decoration: none; }
+.media .media-body p { margin-bottom: 0; }
+.media .media-body a.media-body_excerpt { color: #464646; }
+
+@media (max-width: 767px) { .media .postList_thumbnail { padding-right: 20px; }
+  .media .media-body .media-heading { font-size: 1.2em; line-height: 1.3em; margin-bottom: 0.5em; } }
+@media (max-width: 500px) { .media .postList_thumbnail { width: 100px; } }
 /*-------------------------------------------*/
 /* ex_unit 
 /*-------------------------------------------*/
@@ -71,35 +88,33 @@
 /*-------------------------------------------*/
 /* Profile wiget Plugin
 /*-------------------------------------------*/
+.profile_media { margin: 0.5em 0; }
 
-.profile-media { margin: 0.5em 0; }
+.profile_text { margin-bottom: 0.5em; font-size: 14px; }
 
-.profile-text { margin-bottom: 0.5em; font-size: 14px; }
-
-.sns-btns { margin: 0; padding: 0; width: 100%; }
-.sns-btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
-.sns-btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
-.sns-btns a:hover { opacity: 0.8; color: #fff; text-decoration: none; }
-.sns-btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
-.sns-btns .facebook-btn a { background: #3b5998; }
-.sns-btns .twitter-btn a { background: #55acee; }
-.sns-btns .mail-btn a { background: #2F915F; }
-.sns-btns .youtube-btn a { background: #C81D1C; }
-.sns-btns .rss-btn a { background: #f26522; }
-.sns-btns .instagram-btn a { background: #3f729b; }
-.sns-btns .linkedin-btn a { background: #0077b5; }
-
+.sns_btns { margin: 0; padding: 0; width: 100%; }
+.sns_btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
+.sns_btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
+.sns_btns a:hover { opacity: 0.8; color: #fff; text-decoration: none; }
+.sns_btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
+.sns_btns .facebook_btn a { background: #3b5998; }
+.sns_btns .twitter_btn a { background: #55acee; }
+.sns_btns .mail_btn a { background: #2F915F; }
+.sns_btns .youtube_btn a { background: #C81D1C; }
+.sns_btns .rss_btn a { background: #f26522; }
+.sns_btns .instagram_btn a { background: #3f729b; }
+.sns_btns .linkedin_btn a { background: #0077b5; }
 
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
-.pr-box .subSection-title { font-size: 18px; }
-.pr-box .media-pr { margin-bottom: 0.5em; }
-.pr-box .media-pc { display: block; }
-.pr-box .media-sp { display: none; }
-.pr-box .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
-.pr-box .linkurl a{	text-decoration: none; }
-@media screen and (max-width: 992px) { .pr-box .media-pc { display: none; }
-  .pr-box .media-sp { display: block; } .pr-box .linkurl { margin-bottom: 1.5em; } }
+.prBox .subSection-title { font-size: 18px; }
+.prBox .media_pr { margin-bottom: 0.5em; }
+.prBox .media_pc { display: block; }
+.prBox .media_sp { display: none; }
+.prBox .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
+.prBox .linkurl a { text-decoration: none; }
 
-/*# sourceMappingURL=style.css.map */
+@media screen and (max-width: 768px) { .prBox .media_pc { display: none; }
+  .prBox .media_sp { display: block; }
+  .prBox .linkurl { margin-bottom: 1.5em; } }
