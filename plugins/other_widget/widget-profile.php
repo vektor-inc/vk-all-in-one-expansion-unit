@@ -146,7 +146,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <?php endif; ?>
 <?php // Display a mail botton
     if( !empty($instance['mail']) ): ?>
-        <li class="mail_btn"><a href="<?php echo esc_url($instance['mail']); ?>" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li class="mail_btn"><a href="<?php echo esc_url($instance['mail']); ?>" target="_blank"><i class="fa fa-envelope"></i></a></li>
 <?php endif; ?>
 <?php // Display a youtube botton
     if( !empty($instance['youtube']) ): ?>
