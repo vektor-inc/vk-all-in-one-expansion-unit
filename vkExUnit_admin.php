@@ -96,6 +96,16 @@
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('Print meta Keyword', 'vkExUnit'); ?></strong>
+
+				<?php if (isset($options['active_metaKeyword']) && $options['active_metaKeyword']) : ?>
+				<div class="row-actions visible">
+					<span class="0">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords';?>">
+					<?php _e('Setting','vkExUnit');?>
+					</a></span>
+				</div>
+				<?php endif; ?>
+				
 			</td>
 			<td class='column-Keyword desc'>
 				<div class='plugin-Keyword'>
@@ -131,18 +141,16 @@
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('Social media cooperation.', 'vkExUnit'); ?></strong>
-				<div class="row-actions visible">
-
+				
 				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>
-
+				<div class="row-actions visible">
 					<span class="0">
 					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting';?>">
 					<?php _e('Setting','vkExUnit');?>
 					</a></span>
-
-				<?php endif; ?>
-
 				</div>
+				<?php endif; ?>
+				
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
