@@ -58,7 +58,7 @@ class vExUnit_icons {
 	<tr>
 	<th><?php _e('Favicon Setting', 'vkExUnit'); ?></th>
 		<td><input type="text" name="vkExUnit_icon_settings" id="favicon" value="<?php echo $options ?>" style="width:60%;" /> 
-	<button id="media_favicon" class="media_btn"><?php _e('Choose icon', 'vkExUnit'); ?></button>
+	<button id="media_favicon" class="media_btn button button-default"><?php _e('Choose icon', 'vkExUnit'); ?></button>
 	<p><?php _e('Please upload your ".ico" file','vkExUnit'); ?></p>
 	</td>
 	</tr>
