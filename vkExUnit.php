@@ -105,6 +105,9 @@ if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
 if ( isset($options['active_css_customize']) && $options['active_css_customize'] )
 	require vkExUnit_get_directory() . '/plugins/css_customize/css_customize.php';
 
+if ( isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'] )
+	require vkExUnit_get_directory() . '/plugins/auto_eyecatch.php';
+
 /*-------------------------------------------*/
 /*	Add vkExUnit css
 /*-------------------------------------------*/

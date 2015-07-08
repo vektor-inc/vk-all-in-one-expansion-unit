@@ -220,6 +220,25 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+
+		<!-- [ AUTO Eye Catch ] -->
+		<tr<?php echo (isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_auto_eyecatch' >
+				<?php _e('Automatic Eye Catch insert', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_auto_eyecatch]" id="checkbox_active_auto_eyecatch" value="true" <?php echo (isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Automatic Eye Catch insert', 'vkExUnit'); ?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Display Eye Catch image at before content.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+
+		</tr>
 		</tbody>
 
 	<tfoot>
