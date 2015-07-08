@@ -81,8 +81,8 @@ class vExUnit_meta_keywords {
 		echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_metaKeyword" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
 		echo '<label class="hidden" for="vkExUnit_metaKeyword">'.__('Meta Keywords', 'biz-vektor').'</label><input type="text" id="vkExUnit_metaKeyword" name="vkExUnit_metaKeyword" size="50" value="'.get_post_meta($post->ID, 'vkExUnit_metaKeyword', true).'" />';
 		echo '<p>'.__('To distinguish between individual keywords, please enter a , delimiter (optional).', 'vkExUnit').'<br />';
-		$theme_option_seo_link = '<a href="'.get_admin_url().'/themes.php?page=theme_options#seoSetting" target="_blank">'._x('','link to seo setting', 'vkExUnit').'</a>';
-		sprintf(__('* keywords common to the entire site can be set from %s.', 'vkExUnit'),$theme_option_seo_link);
+		$theme_option_seo_link = '<a href="'.get_admin_url().'/admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords" target="_blank">'.vkExUnit_get_name().' '.__('Main setting', 'vkExUnit').'</a>';
+		echo sprintf(__('* keywords common to the entire site can be set from %s.', 'vkExUnit'),$theme_option_seo_link);
 		echo '</p>';
 	}
 
