@@ -8,10 +8,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_x;_e\n"
+"Language: ja\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin_wrapper.php:7 ../admin_wrapper.php:8
@@ -168,7 +169,10 @@ msgstr "タイトルタグの書き換え"
 
 #: ../vkExUnit_admin.php:84
 msgid "Print is rewritten by its own rules to html head."
-msgstr "Twitter カードタグを html head 内へ出力します。"
+msgstr ""
+"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
 
 #: ../vkExUnit_admin.php:93
 msgid "Choose Print meta Keyword."
@@ -261,8 +265,8 @@ msgstr "Other ウィジェット"
 #: ../vkExUnit_admin.php:218
 msgid "You can use various widgets."
 msgstr ""
-"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
-"「ウィジェット」の設定画面より行って下さい。"
+"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
+"→「ウィジェット」の設定画面より行って下さい。"
 
 #: ../vkExUnit_admin.php:220
 msgid ""
