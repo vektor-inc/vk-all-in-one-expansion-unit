@@ -133,7 +133,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         } 
         
         // Display a sns botton
-<<<<<<< HEAD
         if( isset($instance['facebook']) && $instance['facebook'] || isset($instance['twitter']) && $instance['twitter'] || isset($instance['mail']) && $instance['mail'] || isset($instance['youtube']) && $instance['youtube'] || isset($instance['rss']) && $instance['rss'] || isset($instance['instagram']) && $instance['instagram'] || isset($instance['linkedin']) && $instance['linkedin'] ): ?>
         
 <ul class="sns_btns">
@@ -167,39 +166,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <?php endif; ?>
 </ul>
 <?php endif; ?>
-=======
-            if( isset($instance['facebook'], $instance['twitter'], $instance['mail'], $instance['youtube'], $instance['rss'], $instance['instagram'], $instance['linkedin'] ) ): ?>
-		<ul class="sns-btns">
-		    <?php // Display a facebook botton
-            if( !empty($instance['facebook']) ): ?>
-            <li class="facebook-btn"><a href="<?php echo esc_url($instance['facebook']); ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
-			<?php endif; ?>
-			<?php // Display a twitter botton
-			if( !empty($instance['twitter']) ): ?>
-            <li class="twitter-btn"><a href="<?php echo esc_url($instance['twitter']); ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
-			<?php endif; ?>
-			<?php // Display a mail botton
-            if( !empty($instance['mail']) ): ?>
-            <li class="mail-btn"><a href="<?php echo esc_url($instance['mail']); ?>" target="_blank"><i class="fa fa-envelope"></i></a></li>
-            <?php endif; ?>
-            <?php // Display a youtube botton
-	        if( !empty($instance['youtube']) ): ?>
-	        <li class="youtube-btn"><a href="<?php echo esc_url($instance['youtube']); ?>" target="_blank"><i class="fa fa-youtube"></i></a></li>
-	        <?php endif; ?>
-	        <?php // Display a RSS botton
-		    if( !empty($instance['rss']) ): ?>
-		    <li class="rss-btn"><a href="<?php echo esc_url($instance['rss']); ?>" target="_blank"><i class="fa fa-rss"></i></a></li>
-		    <?php endif; ?>
-		    <?php // Display a instagram botton
-			if( !empty($instance['instagram']) ): ?>
-			<li class="instagram-btn"><a href="<?php echo esc_url($instance['instagram']); ?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
-			<?php endif; ?>
-			<?php // Display a linkedin botton
-			if( !empty($instance['linkedin']) ): ?>
-			<li class="linkedin-btn"><a href="<?php echo esc_url($instance['linkedin']); ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li><?php endif; ?>
-		</ul>
-		<?php endif; ?>
->>>>>>> widgetList
+
 </div>
 <!-- / .site-profile -->		
 </aside>
