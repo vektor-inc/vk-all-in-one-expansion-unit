@@ -50,20 +50,20 @@
 			</td>
 		</tr>
 		
-		<!-- [ active_metaDescription ] -->
-		<tr<?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? ' class="active"': ' class="inactive"'; ?>>
+		<!-- [ active_icon ] -->
+		<tr<?php echo (isset($options['active_icon']) && $options['active_icon'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_metaDescription' >
+				<label class='screen-reader-text' for='checkbox_active_icon' >
 				<?php _e('Choose Print meta description.', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_metaDescription]" id="checkbox_active_metaDescription" value="true" <?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_icon]" id="checkbox_active_icon" value="true" <?php echo (isset($options['active_icon']) && $options['active_icon'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong><?php _e('Print meta description', 'vkExUnit'); ?></strong>
+				<strong><?php _e('Favicon setting', 'vkExUnit'); ?></strong>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p><?php _e('Print meta description to html head.', 'vkExUnit'); ?></p>
+					<p><?php _e('About favicon.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
@@ -104,6 +104,23 @@
 			</td>
 		</tr>
 
+		<!-- [ active_metaDescription ] -->
+		<tr<?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_metaDescription' >
+				<?php _e('Choose Print meta description.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_metaDescription]" id="checkbox_active_metaDescription" value="true" <?php echo (isset($options['active_metaDescription']) && $options['active_metaDescription'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Print meta description', 'vkExUnit'); ?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Print meta description to html head.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
 		<!-- [ active_sns ] -->
 		<tr<?php echo (isset($options['active_sns']) && $options['active_sns']) ? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>

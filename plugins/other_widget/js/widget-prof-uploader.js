@@ -1,7 +1,7 @@
 function clickClear(value){
 (function ($) {
-	$(value).siblings('.media-url').val('');
-	$(value).siblings('.media-alt').val('');
+	$(value).siblings('.media_url').val('');
+	$(value).siblings('.media_alt').val('');
     $(value).parent('p').next('.media').empty();
 })(jQuery);	
 }
@@ -9,8 +9,8 @@ function clickClear(value){
 function clickSelect(value){
 (function ($) {
 	var custom_uploader,
-		$imageUrl = $(value).siblings('.media-url'),
-		$imageAlt = $(value).siblings('.media-alt'),
+		$imageUrl = $(value).siblings('.media_url'),
+		$imageAlt = $(value).siblings('.media_alt'),
 		$mediaWrap = $(value).parent('p').next('.media');
 	
 	if (custom_uploader) {
@@ -35,7 +35,7 @@ function clickSelect(value){
             $imageUrl.val(file.toJSON().url);
             $imageAlt.val(file.toJSON().title);
  
-			$mediaWrap.append('<img class="media-image" src="'+ file.toJSON().url +'" alt="'+ file.toJSON().title +'" />');
+			$mediaWrap.append('<img class="media_image" src="'+ file.toJSON().url +'" alt="'+ file.toJSON().title +'" />');
         });
     });
     custom_uploader.open();
