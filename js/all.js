@@ -1,29 +1,3 @@
-pagePluginReSize();
-jQuery(window).resize(function(){
-	pagePluginReSize();
-});
-
-/*-------------------------------------------*/
-/*	facebookLikeBox
-/*-------------------------------------------*/
-function pagePluginReSize(){
-	// jQuery('.fb_iframe_widget').each(function(){
-	// 	var element = jQuery(this).parent().width();
-	// 	console.log(element);
-	// 	jQuery(this).attr('data-width',element);
-	// 	jQuery(this).children('span:first').css({"width":element});
-	// 	jQuery(this).children('span iframe.fb_ltr').css({"width":element});
-	// });
-}
-
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-
-/*-------------------------------------------*/
-/*	jquery.flatheights.js 
-/*-------------------------------------------*/
-jQuery(function() {
-    jQuery('.pr-area > .subSection-title').flatHeights();
-});
 /*
 ======================================================================
 	jquery.flatheights.js
@@ -141,4 +115,30 @@ jQuery(document).ready(function($){
     jQuery('.child_page_block').flatHeights();
     jQuery('.child_page_block p').flatHeights();
 	jQuery('#content .child_page_block h4 a').flatHeights();
+});
+pagePluginReSize();
+jQuery(window).resize(function(){
+	pagePluginReSize();
+});
+
+/*-------------------------------------------*/
+/*	facebookLikeBox
+/*-------------------------------------------*/
+function pagePluginReSize(){
+	// jQuery('.fb_iframe_widget').each(function(){
+	// 	var element = jQuery(this).parent().width();
+	// 	console.log(element);
+	// 	jQuery(this).attr('data-width',element);
+	// 	jQuery(this).children('span:first').css({"width":element});
+	// 	jQuery(this).children('span iframe.fb_ltr').css({"width":element});
+	// });
+}
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+/*-------------------------------------------*/
+/*	jquery.flatheights.js 
+/*-------------------------------------------*/
+jQuery(function() {
+    jQuery('.prArea > .subSection-title, .prArea > .summary').flatHeights();
 });

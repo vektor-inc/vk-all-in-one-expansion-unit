@@ -22,5 +22,5 @@ function pagePluginReSize(){
 /*	jquery.flatheights.js 
 /*-------------------------------------------*/
 jQuery(function() {
-    jQuery('.pr-area > .subSection-title').flatHeights();
+    jQuery('.prArea > .subSection-title, .prArea > .summary').flatHeights();
 });

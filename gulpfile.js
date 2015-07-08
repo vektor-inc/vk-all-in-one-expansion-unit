@@ -31,13 +31,13 @@ gulp.task( 'copy', function() {
 
 // ファイル結合
 gulp.task('scripts', function() {
-  return gulp.src(['./js/master.js'])
+  return gulp.src(['./js/jquery.flatheights.js','./js/master.js'])
     .pipe(concat('all.js'))
     .pipe(gulp.dest('./js/'));
 });
 gulp.task('scripts_in_bs', function() {
   // bootstrap use
-  return gulp.src(['./bootstrap/js/bootstrap.min.js','./js/master.js'])
+  return gulp.src(['./js/jquery.flatheights.js','./bootstrap/js/bootstrap.min.js','./js/master.js'])
     .pipe(concat('all_in_bs.js'))
     .pipe(gulp.dest('./js/'));
 });
