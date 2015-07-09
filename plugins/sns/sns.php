@@ -96,6 +96,7 @@ require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
 require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php';
 require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
 require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
+require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
 
 /*-------------------------------------------*/
 /*	Add setting page

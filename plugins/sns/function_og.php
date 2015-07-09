@@ -10,6 +10,14 @@ function vkExUnit_print_og() {
 	global $vkExUnit_sns_options;
 	if ($vkExUnit_sns_options['ogTagDisplay'] == 'og_on') {
 
+
+	if(is_single() || is_page()){
+		$title = get_post_meta(get_the_id(), 'vkExUnit_sns_title', true);
+	}
+	if(!$title){
+		$title = vkExUnit_get_wp_head_title();
+	}
+
 	//$ogImage = $vkExUnit_sns_options['ogImage'];
 	//$fbAppId = $vkExUnit_sns_options['fbAppId'];
 	global $wp_query;
@@ -24,7 +32,7 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP = '<!-- [ '.vkExUnit_get_name().' OG ] -->'."\n";
 	$vkExUnitOGP .= '<meta property="og:site_name" content="'.get_bloginfo('name').'" />'."\n";
 	$vkExUnitOGP .= '<meta property="og:url" content="'.$linkUrl.'" />'."\n";
-	$vkExUnitOGP .= '<meta property="og:title" content="'.vkExUnit_get_wp_head_title().'" />'."\n";
+	$vkExUnitOGP .= '<meta property="og:title" content="'.$title.'" />'."\n";
 	$vkExUnitOGP .= '<meta property="og:description" content="'.vkExUnit_get_pageDescription().'" />'."\n";
 	if ($vkExUnit_sns_options['fbAppId']){
 		$vkExUnitOGP = $vkExUnitOGP.'<meta property="fb:app_id" content="'.$vkExUnit_sns_options['fbAppId'].'" />'."\n";
