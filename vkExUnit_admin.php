@@ -230,6 +230,8 @@
 					<li><?php _e('VK_Profile - display the profile entered in the widget.','vkExUnit');?></li>
 					<li><?php _e('VK_FB Page Plugin - display the Facebook Page Plugin.','vkExUnit');?></li>
 					<li><?php _e('VK_3PR area - display the 3PR area.','vkExUnit');?></li>
+					<li>VK_<?php _e( 'categories/tags list', 'vkExUnit' ); ?> - <?php _e( 'Displays a categories, tags or format list.', 'vkExUnit' ); ?></li>
+					<li>VK_<?php _e( 'archive list', 'vkExUnit' ); ?> - <?php _e( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.' , 'vkExUnit' ); ?></li>
 					</ul>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
