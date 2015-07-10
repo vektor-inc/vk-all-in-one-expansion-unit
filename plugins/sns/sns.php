@@ -40,6 +40,7 @@ function vkExUnit_get_sns_options_default() {
 		'ogTagDisplay' => 'og_on',
 		'ogImage' => '',
 		'twitterId' => '',
+		'enableFollowMe' => true
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -56,6 +57,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['ogTagDisplay']		= $input['ogTagDisplay'];
 	$output['ogImage']			= $input['ogImage'];
 	$output['twitterId']		= $input['twitterId'];
+	$output['enableFollowMe']   = ( isset($input['enableFollowMe']) && isset($input['enableFollowMe']) == 'true' )? true: false;
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }

@@ -6,6 +6,8 @@
 function vkExUnit_add_follow($content){
 	if (is_single()) :
 	$options = vkExUnit_get_sns_options();
+	if(!$options['enableFollowMe']){ return $content; }
+
 	// https://about.twitter.com/resources/buttons#follow
 	$follow_html = '<div class="followSet vkContentAddSection">'."\n";
 	$follow_html .= '<h3 class="followSet_title">'.__('Follow me!').'</h3>';

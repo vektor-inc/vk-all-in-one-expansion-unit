@@ -55,6 +55,11 @@ foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
 <th><?php _e('twitter ID', 'vkExUnit'); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[twitterId]" id="twitterId" value="<?php echo esc_attr( $options['twitterId'] ); ?>" /></td>
 </tr>
+<tr>
+<th><label for="enableFollowMe"><?php _e('show "Follow me" box', 'vkExUnit'); ?></label></th>
+<td><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] )? 'checked': ''; ?> /></td>
+</tr>
+
 </table>
 
 <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
