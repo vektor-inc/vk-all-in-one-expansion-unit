@@ -188,9 +188,9 @@ function vkExUnit_get_pageDescription() {
 			$pageDescription .= ' '.get_bloginfo('name').' '.get_bloginfo('description');
 		}
 	} else if (is_page() || is_single()) {
-		$metaExcerpt = $post->vkExUnit_metaKeyword;
+		$metaExcerpt = $post->post_excerpt;
 		if ($metaExcerpt) {
-			$pageDescription = $post->vkExUnit_metaKeyword;
+			$pageDescription = $metaExcerpt;
 		} else {
 			$pageDescription = mb_substr( strip_tags($post->post_content), 0, 240 ); // kill tags and trim 240 chara
 		}
