@@ -11,6 +11,7 @@ function vkExUnit_print_og() {
 	if ($vkExUnit_sns_options['ogTagDisplay'] == 'og_on') {
 
 
+	$title = '';
 	if(is_single() || is_page()){
 		$title = get_post_meta(get_the_id(), 'vkExUnit_sns_title', true);
 	}

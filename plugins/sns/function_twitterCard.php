@@ -17,6 +17,7 @@ if ( ( is_single() || is_page() ) && has_post_thumbnail() ) {
 	$card_image_url = (isset($vkExUnit_sns_options['ogImage'])) ? $vkExUnit_sns_options['ogImage'] : '';
 }
 
+$title = '';
 if(is_single() || is_page()){
 	$title = get_post_meta(get_the_id(), 'vkExUnit_sns_title', true);
 }
