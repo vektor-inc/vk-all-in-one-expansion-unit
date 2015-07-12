@@ -9,9 +9,9 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		global $bizvektor_works_unit;
 		$widget_ops = array(
 			'classname'   => 'WP_Widget_VK_taxonomy_list',
-			'description' => __( 'Displays a categories, tags or format list.', 'vkExUnit' ),
+			'description' => __( 'Displays a categories and custom taxonomies list.', 'vkExUnit' ),
 		);
-		$widget_name = 'VK_' . __( 'categories/tags list', 'vkExUnit' );
+		$widget_name = vkExUnit_get_short_name().'_'. __( 'Categories/Custom taxonomies list', 'vkExUnit' );
 		$this->WP_Widget('WP_Widget_VK_taxonomy_list', $widget_name, $widget_ops);
 	}
 
@@ -46,7 +46,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			'tax_name'     => 'category',
 			'label'        => __( 'Category', 'vkExUnit' ),
 			'hide'         => __( 'Category', 'vkExUnit' ),
-			'title'        => 'test',
+			'title'        => 'Category',
 			'_builtin'     => false,
 		);
 		$instance = wp_parse_args((array) $instance, $defaults);
@@ -59,6 +59,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		
 		<label for="<?php echo $this->get_field_id('tax_name'); ?>"><?php _e('Display page', 'vkExUnit') ?></label>
 		<select name="<?php echo $this->get_field_name('tax_name'); ?>" >
+
 		<?php foreach($taxs as $tax){ ?>
 			<option value="<?php echo $tax->name; ?>" <?php if($instance['tax_name'] == $tax->name) echo 'selected="selected"'; ?> ><?php echo $tax->labels->name; ?></option>
 		<?php } ?>
