@@ -131,6 +131,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+
 		<!-- [ active_sns ] -->
 		<tr<?php echo (isset($options['active_sns']) && $options['active_sns']) ? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -145,7 +146,7 @@
 				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>
 				<div class="row-actions visible">
 					<span class="0">
-					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting';?>">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options';?>">
 					<?php _e('Setting','vkExUnit');?>
 					</a></span>
 				</div>
@@ -157,9 +158,14 @@
 					<ul>
 					<li><?php _e('Print og tags to html head.','vkExUnit');?></li>
 					<li><?php _e('Print twitter card tags to html head.','vkExUnit');?></li>
-					<li><?php _e('Print social bookmarks.','vkExUnit');?></li>
-					<li><?php _e('Facebook Page Plugin.','vkExUnit');?></li>
+					<li><?php _e('Print social bookmark buttons.','vkExUnit');?></li>
+					<li><?php _e('Facebook Page Plugin widget.','vkExUnit');?></li>
+					<li><?php _e('Print Follow me box to content bottom.','vkExUnit');?></li>
 					</ul>
+					<p><?php 
+					$settingPage = '<a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">'.__('Main setting page').'</a>';
+						printf( __( '* You can stop the function separately from the %s.', 'vkExUnit' ), $settingPage );?>
+					</p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
