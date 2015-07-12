@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-08 13:40+0900\n"
+"POT-Creation-Date: 2015-07-12 17:11+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -97,19 +97,20 @@ msgstr ""
 msgid "Chats"
 msgstr ""
 
-#: common_helpers.php:262 plugins/other_widget/old/widget-taxonomy-list.php:81
+#: common_helpers.php:262 plugins/other_widget/widget-taxonomies.php:81
+#: plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:251
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:298
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:251
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:298
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:251
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:298
 msgid "Description"
 msgstr ""
 
@@ -139,7 +140,7 @@ msgstr ""
 msgid "Print fontawesome link tag to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:57 vkExUnit_admin.php:111
+#: vkExUnit_admin.php:57 vkExUnit_admin.php:121
 msgid "Choose Print meta description."
 msgstr ""
 
@@ -171,107 +172,157 @@ msgstr ""
 msgid "Print meta Keyword"
 msgstr ""
 
-#: vkExUnit_admin.php:102
-msgid "Print meta Keyword to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:116
-msgid "Print meta description"
-msgstr ""
-
-#: vkExUnit_admin.php:120
-msgid "Print meta description to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:128
-msgid "Choose Social media cooperation."
-msgstr ""
-
-#: vkExUnit_admin.php:133
-msgid "Social media cooperation."
-msgstr ""
-
-#: vkExUnit_admin.php:140 vkExUnit_admin.php:174
+#: vkExUnit_admin.php:104 vkExUnit_admin.php:150 vkExUnit_admin.php:188
+#: vkExUnit_admin.php:231 vkExUnit_admin.php:264
 msgid "Setting"
 msgstr ""
 
-#: vkExUnit_admin.php:150
+#: vkExUnit_admin.php:112
+msgid "Print meta Keyword to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:126
+msgid "Print meta description"
+msgstr ""
+
+#: vkExUnit_admin.php:130
+msgid "Print meta description to html head."
+msgstr ""
+
+#: vkExUnit_admin.php:139
+msgid "Choose Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:144
+msgid "Social media cooperation."
+msgstr ""
+
+#: vkExUnit_admin.php:159
 msgid "Print og tags to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:151
+#: vkExUnit_admin.php:160
 msgid "Print twitter card tags to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:152
-msgid "Print social bookmarks."
+#: vkExUnit_admin.php:161
+msgid "Print social bookmark buttons."
 msgstr ""
 
-#: vkExUnit_admin.php:153
-msgid "Facebook Page Plugin."
+#: vkExUnit_admin.php:162
+msgid "Facebook Page Plugin widget."
 msgstr ""
 
 #: vkExUnit_admin.php:163
+msgid "Print Follow me box to content bottom."
+msgstr ""
+
+#: vkExUnit_admin.php:166
+msgid "Main setting page"
+msgstr ""
+
+#: vkExUnit_admin.php:167
+#, php-format
+msgid "* You can stop the function separately from the %s."
+msgstr ""
+
+#: vkExUnit_admin.php:177
 msgid "Choose Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:182
+#: vkExUnit_admin.php:196
 msgid "Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:191
+#: vkExUnit_admin.php:205
 msgid "Choose Related posts."
 msgstr ""
 
-#: vkExUnit_admin.php:196 plugins/related_posts/related_posts.php:34
+#: vkExUnit_admin.php:210 plugins/related_posts/related_posts.php:34
 msgid "Related posts"
 msgstr ""
 
-#: vkExUnit_admin.php:200
+#: vkExUnit_admin.php:214
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:209 vkExUnit_admin.php:234
+#: vkExUnit_admin.php:223 vkExUnit_admin.php:254
 msgid "Choose other widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:214
-msgid "Other Widgets"
+#: vkExUnit_admin.php:228
+msgid "Widgets"
 msgstr ""
 
-#: vkExUnit_admin.php:218
+#: vkExUnit_admin.php:236
 msgid "You can use various widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:220
+#: vkExUnit_admin.php:238
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr ""
 
-#: vkExUnit_admin.php:221
+#: vkExUnit_admin.php:239
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:222
+#: vkExUnit_admin.php:240
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr ""
 
-#: vkExUnit_admin.php:223
+#: vkExUnit_admin.php:241
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr ""
 
-#: vkExUnit_admin.php:224
+#: vkExUnit_admin.php:242
 msgid "VK_3PR area - display the 3PR area."
 msgstr ""
 
-#: vkExUnit_admin.php:239
+#: vkExUnit_admin.php:243 plugins/other_widget/old/widget-taxonomy-list.php:17
+msgid "categories/tags list"
+msgstr ""
+
+#: vkExUnit_admin.php:243 plugins/other_widget/old/widget-taxonomy-list.php:11
+msgid "Displays a categories, tags or format list."
+msgstr ""
+
+#: vkExUnit_admin.php:244 plugins/other_widget/widget-archives.php:14
+#: plugins/other_widget/old/widget-archive-list.php:14
+msgid "archive list"
+msgstr ""
+
+#: vkExUnit_admin.php:244 plugins/other_widget/widget-archives.php:12
+#: plugins/other_widget/old/widget-archive-list.php:12
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+
+#: vkExUnit_admin.php:259
 msgid "CSS customize"
 msgstr ""
 
-#: vkExUnit_admin.php:243
+#: vkExUnit_admin.php:271
 msgid "You can set Customize CSS."
+msgstr ""
+
+#: vkExUnit_admin.php:280 vkExUnit_admin.php:285
+msgid "Automatic Eye Catch insert"
+msgstr ""
+
+#: vkExUnit_admin.php:289
+msgid "Display Eye Catch image at before content."
+msgstr ""
+
+#: plugins/auto_eyecatch.php:32
+msgid "Automatic EyeCatch"
+msgstr ""
+
+#: plugins/auto_eyecatch.php:42
+msgid "Do not set eyecatch image automatic."
 msgstr ""
 
 #: plugins/icons.php:26 plugins/icons.php:54
@@ -324,7 +375,7 @@ msgid ""
 "the site."
 msgstr ""
 
-#: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:50
+#: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
 #: plugins/sns/old/sns_admin.php:20 plugins/sns/old/sns_admin.php:61
 #: plugins/sns/old/sns_admin.php:79 plugins/sns/old/sns_admin.php:98
 #: plugins/sns/old/sns_admin.php:115
@@ -526,6 +577,23 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
+#: plugins/other_widget/widget-archives.php:49
+#: plugins/other_widget/widget-archives.php:50
+#: plugins/other_widget/old/widget-archive-list.php:49
+#: plugins/other_widget/old/widget-archive-list.php:50
+msgid "Monthly archives"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:59
+#: plugins/other_widget/old/widget-archive-list.php:59
+msgid "Title"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:63
+#: plugins/other_widget/old/widget-archive-list.php:63
+msgid "Post type"
+msgstr ""
+
 #: plugins/other_widget/widget-new-posts.php:11
 msgid "Displays a list of your most recent posts"
 msgstr ""
@@ -553,6 +621,7 @@ msgid "page content to widget"
 msgstr ""
 
 #: plugins/other_widget/widget-page.php:30
+#: plugins/other_widget/widget-taxonomies.php:60
 #: plugins/other_widget/old/widget-page-content.php:30
 #: plugins/other_widget/old/widget-taxonomy-list.php:61
 msgid "Display page"
@@ -621,27 +690,29 @@ msgstr ""
 msgid "Site's Profile"
 msgstr ""
 
-#: plugins/other_widget/old/widget-archive-list.php:12
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
+#: plugins/other_widget/widget-taxonomies.php:12
+msgid "Displays a categories and custom taxonomies list."
 msgstr ""
 
-#: plugins/other_widget/old/widget-archive-list.php:14
-msgid "archive list"
+#: plugins/other_widget/widget-taxonomies.php:14
+msgid "Categories/Custom taxonomies list"
 msgstr ""
 
-#: plugins/other_widget/old/widget-archive-list.php:49
-#: plugins/other_widget/old/widget-archive-list.php:50
-msgid "Monthly archives"
+#: plugins/other_widget/widget-taxonomies.php:47
+#: plugins/other_widget/widget-taxonomies.php:48
+#: plugins/other_widget/old/widget-taxonomy-list.php:48
+#: plugins/other_widget/old/widget-taxonomy-list.php:49
+msgid "Category"
 msgstr ""
 
-#: plugins/other_widget/old/widget-archive-list.php:59
-msgid "Title"
+#: plugins/other_widget/widget-taxonomies.php:56
+#: plugins/other_widget/old/widget-taxonomy-list.php:57
+msgid "Label to display"
 msgstr ""
 
-#: plugins/other_widget/old/widget-archive-list.php:63
-msgid "Post type"
+#: plugins/other_widget/widget-taxonomies.php:76
+#: plugins/other_widget/old/widget-taxonomy-list.php:76
+msgid "Blog"
 msgstr ""
 
 #: plugins/other_widget/old/widget-child-page-list.php:9
@@ -676,27 +747,6 @@ msgstr ""
 msgid "Heading title"
 msgstr ""
 
-#: plugins/other_widget/old/widget-taxonomy-list.php:11
-msgid "Displays a categories, tags or format list."
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:17
-msgid "categories/tags list"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:48
-#: plugins/other_widget/old/widget-taxonomy-list.php:49
-msgid "Category"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:57
-msgid "Label to display"
-msgstr ""
-
-#: plugins/other_widget/old/widget-taxonomy-list.php:76
-msgid "Blog"
-msgstr ""
-
 #: plugins/sns/function_fbPagePlugin.php:10
 msgid "Displays a Facebook Page Plugin"
 msgstr ""
@@ -718,10 +768,10 @@ msgid "Show Page Posts"
 msgstr ""
 
 #: plugins/sns/function_follow.php:11
-msgid "Follow me!"
+msgid "Follow me"
 msgstr ""
 
-#: plugins/sns/sns.php:19
+#: plugins/sns/sns.php:17
 msgid "SNS"
 msgstr ""
 
@@ -729,74 +779,94 @@ msgstr ""
 msgid "SNS Settings"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:13
-msgid "Do not output the OG"
-msgstr ""
-
-#: plugins/sns/sns_admin.php:15
-msgid ""
-"If other plug-ins are used for the OG, do not output the OG using this "
-"plugin."
-msgstr ""
-
-#: plugins/sns/sns_admin.php:19
-msgid "Output OG tags(default)"
-msgstr ""
-
-#: plugins/sns/sns_admin.php:20
-msgid "Do not output OG tags"
-msgstr ""
-
-#: plugins/sns/sns_admin.php:32 plugins/sns/old/sns_admin.php:26
+#: plugins/sns/sns_admin.php:13 plugins/sns/old/sns_admin.php:26
 msgid "facebook application ID"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:34 plugins/sns/old/sns_admin.php:28
+#: plugins/sns/sns_admin.php:15 plugins/sns/old/sns_admin.php:28
 msgid "I will check and get the application ID"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:35 plugins/sns/old/sns_admin.php:29
+#: plugins/sns/sns_admin.php:16 plugins/sns/old/sns_admin.php:29
 msgid ""
 "* If an application ID is not specified, neither a Like button nor the "
 "comment field displays and operates correctly."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:36 plugins/sns/old/sns_admin.php:30
+#: plugins/sns/sns_admin.php:17 plugins/sns/old/sns_admin.php:30
 msgid ""
 "Please search for terms as [get Facebook application ID] If you do not know "
 "much about how to get application ID for Facebook."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:40
+#: plugins/sns/sns_admin.php:21
 msgid "facebook page URL"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:45
+#: plugins/sns/sns_admin.php:26
 msgid "OG default image"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:46 plugins/sns/old/sns_admin.php:57
+#: plugins/sns/sns_admin.php:27 plugins/sns/old/sns_admin.php:57
 msgid ""
 "If, for example someone pressed the Facebook [Like] button, this is the "
 "image that appears on the Facebook timeline."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:47 plugins/sns/old/sns_admin.php:58
+#: plugins/sns/sns_admin.php:28 plugins/sns/old/sns_admin.php:58
 msgid "If a featured image is specified for the page, it takes precedence."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:49 plugins/sns/old/sns_admin.php:60
+#: plugins/sns/sns_admin.php:30 plugins/sns/old/sns_admin.php:60
 msgid "Select an image"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:51 plugins/sns/old/sns_admin.php:62
+#: plugins/sns/sns_admin.php:32 plugins/sns/old/sns_admin.php:62
 msgid ""
 "* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is "
 "recommended."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:55
+#: plugins/sns/sns_admin.php:36
 msgid "twitter ID"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:41
+msgid "OG tags"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:43
+msgid "Print the OG tags"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:44
+msgid ""
+"If other plug-ins are used for the OG, do not output the OG using this "
+"plugin."
+msgstr ""
+
+#: plugins/sns/sns_admin.php:49
+msgid "Twitter Card tags"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:51
+msgid "Print the Twitter Card tags"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:56
+msgid "Social bookmark buttons"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:57
+msgid "Print the social bookmark buttons"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:61
+msgid "Follow me box"
+msgstr ""
+
+#: plugins/sns/sns_admin.php:62
+msgid "Print the Follow me box"
 msgstr ""
 
 #: plugins/sns/old/sns.php:378
