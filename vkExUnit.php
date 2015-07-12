@@ -160,6 +160,7 @@ function vkExUnit_addfontawesome(){
 	}
 }
 
+add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
 function vkExUnit_admin_enq(){
 	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/admin.css', __FILE__));
@@ -172,3 +173,15 @@ function vkExUnit_admin_enq(){
 if(isset($options['active_wpTitle']) && $options['active_wpTitle']){
 	add_filter('wp_title','vkExUnit_get_wp_head_title');	
 }
+/*-------------------------------------------*/
+/*	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
+/*-------------------------------------------*/
+
+// add_action("admin_head", 'suffix2console');
+// function suffix2console() {
+//     global $hook_suffix;
+//     if (is_user_logged_in()) {
+//         $str = "<script type=\"text/javascript\">console.log('%s')</script>";
+//         printf($str, $hook_suffix);
+//     }
+// }
