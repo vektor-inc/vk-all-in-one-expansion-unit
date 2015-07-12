@@ -4,8 +4,6 @@
 /*-------------------------------------------*/
 /*	Add facebook aprication id
 /*-------------------------------------------*/
-/*	Add menu
-/*-------------------------------------------*/
 /*	Add setting page
 /*-------------------------------------------*/
 /*	Options Init
@@ -35,12 +33,14 @@ function vkExUnit_get_sns_options() {
 
 function vkExUnit_get_sns_options_default() {
 	$default_options = array(
-		'fbAppId' => '',
-		'fbPageUrl' => '',
-		'ogTagDisplay' => 'og_on',
-		'ogImage' => '',
-		'twitterId' => '',
-		'enableFollowMe' => true
+		'fbAppId' 				=> '',
+		'fbPageUrl' 			=> '',
+		'ogImage' 				=> '',
+		'twitterId' 			=> '',
+		'enableOGTags' 			=> true,
+		'enableTwitterCardTags' => true,
+		'enableSnsBtns' 		=> true,
+		'enableFollowMe' 		=> true
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -52,12 +52,14 @@ function vkExUnit_get_sns_options_default() {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_sns_options_default();
 
-	$output['fbAppId']			= $input['fbAppId'];
-	$output['fbPageUrl']		= $input['fbPageUrl'];
-	$output['ogTagDisplay']		= $input['ogTagDisplay'];
-	$output['ogImage']			= $input['ogImage'];
-	$output['twitterId']		= $input['twitterId'];
-	$output['enableFollowMe']   = ( isset($input['enableFollowMe']) && isset($input['enableFollowMe']) == 'true' )? true: false;
+	$output['fbAppId']					= $input['fbAppId'];
+	$output['fbPageUrl']				= $input['fbPageUrl'];
+	$output['ogImage']					= $input['ogImage'];
+	$output['twitterId']				= $input['twitterId'];
+	$output['enableOGTags']  			= ( isset($input['enableOGTags']) && isset($input['enableOGTags']) == 'true' )? true: false;
+	$output['enableTwitterCardTags']  	= ( isset($input['enableTwitterCardTags']) && isset($input['enableTwitterCardTags']) == 'true' )? true: false;
+	$output['enableSnsBtns']   			= ( isset($input['enableSnsBtns']) && isset($input['enableSnsBtns']) == 'true' )? true: false;
+	$output['enableFollowMe']  			= ( isset($input['enableFollowMe']) && isset($input['enableFollowMe']) == 'true' )? true: false;
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }
@@ -92,12 +94,18 @@ $fbAppId = (isset($options['fbAppId'])) ? $options['fbAppId'] : '';
 	<?php //endif;
 }
 
+$vkExUnit_sns_options = vkExUnit_get_sns_options();
 
 require vkExUnit_get_directory() . '/plugins/sns/function_fbPagePlugin.php';
-require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
-require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php';
-require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
-require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
+
+if ($vkExUnit_sns_options['enableOGTags'] == true) 
+	require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
+if ($vkExUnit_sns_options['enableSnsBtns'] == true) 
+	require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php';
+if ($vkExUnit_sns_options['enableTwitterCardTags'] == true) 
+	require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
+if ($vkExUnit_sns_options['enableFollowMe'] == true) 
+	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
 
 /*-------------------------------------------*/
 /*	Add setting page

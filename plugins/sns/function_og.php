@@ -7,8 +7,6 @@ add_post_type_support( 'page', 'excerpt' ); // add excerpt
 /*-------------------------------------------*/
 add_action('wp_head', 'vkExUnit_print_og',20 );
 function vkExUnit_print_og() {
-	global $vkExUnit_sns_options;
-	if ($vkExUnit_sns_options['ogTagDisplay'] == 'og_on') {
 
 	//$ogImage = $vkExUnit_sns_options['ogImage'];
 	//$fbAppId = $vkExUnit_sns_options['fbAppId'];
@@ -26,7 +24,7 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP .= '<meta property="og:url" content="'.$linkUrl.'" />'."\n";
 	$vkExUnitOGP .= '<meta property="og:title" content="'.vkExUnit_get_wp_head_title().'" />'."\n";
 	$vkExUnitOGP .= '<meta property="og:description" content="'.vkExUnit_get_pageDescription().'" />'."\n";
-	if ($vkExUnit_sns_options['fbAppId']){
+	if (isset($vkExUnit_sns_options['fbAppId']) && $vkExUnit_sns_options['fbAppId']){
 		$vkExUnitOGP = $vkExUnitOGP.'<meta property="fb:app_id" content="'.$vkExUnit_sns_options['fbAppId'].'" />'."\n";
 	}
 	if (is_front_page() || is_home()) {
@@ -62,5 +60,4 @@ function vkExUnit_print_og() {
 	}
 	$vkExUnitOGP = apply_filters('vkExUnitOGPCustom', $vkExUnitOGP );
 	echo $vkExUnitOGP;
-	} // if ($vkExUnit_sns_options['ogTagDisplay'] == 'og_on')
 }

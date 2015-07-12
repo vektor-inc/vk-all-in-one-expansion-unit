@@ -10,25 +10,6 @@
 <!-- OGP hidden -->
 <table class="form-table">
 <tr>
-<th><?php _e('Do not output the OG', 'vkExUnit'); ?></th>
-<td>
-<p><?php _e('If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vkExUnit'); ?></p>
-<?php
-$ogTagDisplay = (isset($options['ogTagDisplay'])) ? $options['ogTagDisplay'] : 'og_on';
-$vkExUnit_ogTags = array(
-	'og_on' 	=> __('Output OG tags(default)', 'vkExUnit'),
-	'og_off' 	=> __('Do not output OG tags', 'vkExUnit')
-	);
-foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
-	if ( $vkExUnit_ogTagValue == $ogTagDisplay ) { ?>
-	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogTagValue ?>" checked> <?php echo $vkExUnit_ogTagLavel ?></label><br />
-	<?php } else { ?>
-	<label><input type="radio" name="vkExUnit_sns_options[ogTagDisplay]" value="<?php echo $vkExUnit_ogTagValue ?>"> <?php echo $vkExUnit_ogTagLavel ?></label><br />
-	<?php }
-} ?>
-</td>
-</tr>
-<tr>
 <th><?php _e('facebook application ID', 'vkExUnit'); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[fbAppId]" id="fbAppId" value="<?php echo esc_attr( $options['fbAppId'] ); ?>" />
 <span>[ <a href="https://developers.facebook.com/apps" target="_blank">&raquo; <?php _e('I will check and get the application ID', 'vkExUnit'); ?></a> ]</span><br />
@@ -55,9 +36,30 @@ foreach( $vkExUnit_ogTags as $vkExUnit_ogTagValue => $vkExUnit_ogTagLavel) {
 <th><?php _e('twitter ID', 'vkExUnit'); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[twitterId]" id="twitterId" value="<?php echo esc_attr( $options['twitterId'] ); ?>" /></td>
 </tr>
+
 <tr>
-<th><label for="enableFollowMe"><?php _e('show "Follow me" box', 'vkExUnit'); ?></label></th>
-<td><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] )? 'checked': ''; ?> /></td>
+<th><?php _e('OG tags', 'vkExUnit'); ?></th>
+<td><label>
+<input type="checkbox" name="vkExUnit_sns_options[enableOGTags]" id="enableOGTags" value="true" <?php echo ( $options['enableOGTags'] )? 'checked': ''; ?> /><?php _e('Print the OG tags', 'vkExUnit');?></label>
+<p><?php _e('If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vkExUnit'); ?></p>
+</td>
+</tr>
+
+<tr>
+<th><?php _e('Twitter Card tags', 'vkExUnit'); ?></th>
+<td><label>
+<input type="checkbox" name="vkExUnit_sns_options[enableTwitterCardTags]" id="enableTwitterCardTags" value="true" <?php echo ( $options['enableTwitterCardTags'] )? 'checked': ''; ?> /><?php _e('Print the Twitter Card tags', 'vkExUnit');?></label>
+</td>
+</tr>
+
+<tr>
+<th><label for="enableSnsBtns"><?php _e('Social bookmark buttons', 'vkExUnit'); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] )? 'checked': ''; ?> /><?php _e('Print the social bookmark buttons', 'vkExUnit');?></label></td>
+</tr>
+
+<tr>
+<th><label for="enableFollowMe"><?php _e('Follow me box', 'vkExUnit'); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] )? 'checked': ''; ?> /><?php _e('Print the Follow me box', 'vkExUnit');?></label></td>
 </tr>
 
 </table>
