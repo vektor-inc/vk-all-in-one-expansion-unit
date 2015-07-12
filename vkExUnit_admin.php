@@ -184,7 +184,7 @@
 				<?php if (isset($options['active_ga']) && $options['active_ga']) : ?>
 					
 					<span class="0">
-					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting';?>">
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options';?>">
 					<?php _e('Setting','vkExUnit');?>
 					</a></span>
 
@@ -225,7 +225,11 @@
 				<input type="checkbox" name="vkExUnit_common_options[active_otherWidgets]" id="checkbox_active_otherWidgets" value="true" <?php echo (isset($options['active_otherWidgets']) && $options['active_otherWidgets'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong><?php _e('Other Widgets', 'vkExUnit');?></strong>
+				<strong><?php _e('Widgets', 'vkExUnit');?></strong>
+				<span>
+				<a href="<?php echo admin_url().'widgets.php';?>">
+				<?php _e('Setting','vkExUnit');?>
+				</a></span>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
@@ -253,6 +257,14 @@
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('CSS customize', 'vkExUnit');?></strong>
+				<?php if (isset($options['active_css_customize']) && $options['active_css_customize']) : ?>
+					
+					<span>
+					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_css_customize';?>">
+					<?php _e('Setting','vkExUnit');?>
+					</a></span>
+
+				<?php endif; ?>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
