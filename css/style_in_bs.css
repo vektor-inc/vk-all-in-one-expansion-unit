@@ -2667,3 +2667,11 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 @media screen and (max-width: 768px) { .prBox .media_pc { display: none; }
   .prBox .media_sp { display: block; }
   .prBox .linkurl { margin-bottom: 1.5em; } }
+  
+/*-------------------------------------------*/
+/* childPageIndex Plugin
+/*-------------------------------------------*/
+.childPage_list a:hover { text-decoration: none; }
+.childPage_list .childPage_list_body { color: #333; font-size: 14px; }
+.childPage_list .childPage_list_body:hover { text-decoration: underline; }
+.childPage_list .childPage_list_more { display: table; float: right; margin-top: 1em; }

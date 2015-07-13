@@ -66,24 +66,12 @@ function save_custom_field_postdata( $post_id ) {
 
 // コンテンツの内容を加工する関数
 function show_childPageIndex($content) {
-	
 global $post;
 $childPageIndex_value = get_post_meta( $post->ID, 'vkExUnit_childPageIndex' );
 if(!empty($childPageIndex_value)){
-if( is_page() && $childPageIndex_value[0] == 'active'){ 
-			
-/*
-			//$page = $post->ID;
-			$page = $post->ID;
-			if( $post->post_parent ){
-				// 子ページ用
-				$childrens = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");			
-			} else {
-				// 親ページ用
-				$childrens = wp_list_pages("title_li=&child_of=".$page."&echo=0");
-			}
-*/
-			
+
+	if( is_page() && $childPageIndex_value[0] == 'active'){ 
+		
 			$my_wp_query = new WP_Query();
 			$all_wp_pages = $my_wp_query -> query(array('post_type' => 'page', 'posts_per_page' => -1, 'order' => 'ASC'));
 			
@@ -97,7 +85,7 @@ if( is_page() && $childPageIndex_value[0] == 'active'){
 			        $pageTitle = $page_data->post_title;
 			        $pageContent = $page_data->post_content;
 			        $pageLink = $page_data->guid;
-			        $childPageList .= PHP_EOL.'<div class="col-md-4"><a href="'.get_permalink($page).'"><h3>'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page ).'<p>'.mb_substr($pageContent, 0, 45).'<span class="childPage_list_more">詳しくはこちら</span></p></a></div>'.PHP_EOL;
+			        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page ).'<p class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'<span class="childPage_list_more btn btn-default btn-sm">詳しくはこちら</span></p></a></div>'.PHP_EOL;
 			    }
 		    } else { 		
 			// 親ページ用
@@ -106,15 +94,20 @@ if( is_page() && $childPageIndex_value[0] == 'active'){
 				        $page = $s->ID;
 				        $page_data = get_page($page);
 				        $pageTitle = $page_data->post_title;
+				        $pageexcerpt = $page_data->post_excerpt;
 				        $pageContent = $page_data->post_content;
 				        $pageLink = $page_data->guid;
-				        $childPageList .= PHP_EOL.'<div class="col-md-4"><a href="'.get_permalink($page).'">'.PHP_EOL.'<h3>'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page ).'<p>'.mb_substr($pageContent, 0, 45).'<span class="childPage_list_more">詳しくはこちら</span></p></a></div>'.PHP_EOL; 
+				        if(!empty($pageexcerpt)){
+					        $pageContent = $pageexcerpt;
+				        }
+				        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'">'.PHP_EOL.'<h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page ).'<p class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'<span class="childPage_list_more btn btn-default btn-sm">詳しくはこちら</span></p></a></div>'.PHP_EOL; 
 					}
 			    }	
 			}
-			$content = $content.$childPageList.'</div>'.PHP_EOL;
-			return $content;
+		$content = $content.$childPageList.'</div>'.PHP_EOL;
+		return $content;
+	} 
 } 
-}
+return $content;
 }
 ?>
