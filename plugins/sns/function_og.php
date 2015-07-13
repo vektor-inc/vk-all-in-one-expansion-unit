@@ -29,7 +29,7 @@ function vkExUnit_print_og() {
 	}
 	if (is_front_page() || is_home()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="website" />'."\n";
-		if ($vkExUnit_sns_options['ogImage']){
+		if (isset($vkExUnit_sns_options['ogImage']) && $vkExUnit_sns_options['ogImage']){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	} else if (is_category() || is_archive()) {
