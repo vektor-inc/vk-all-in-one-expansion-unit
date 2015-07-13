@@ -7,7 +7,7 @@ add_action('admin_menu', 'add_custom_field_childPageIndex' );
 add_action('save_post', 'save_custom_field_postdata');
 
 // 固定ページの場合コンテンツの内容を加工する
-add_filter('the_content', 'show_childPageIndex', 5);
+add_filter('the_content', 'show_childPageIndex', 7);
 
 
 // メタボックスを追加する関数
@@ -19,12 +19,13 @@ function add_custom_field_childPageIndex() {
 function childPageIndex_box(){
 	global $post;
 	$childPageIndex_active = get_post_meta( $post->ID, 'vkExUnit_childPageIndex' );
-	
 	echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_childPageIndex" id="_nonce_vkExUnit__custom_field_childPageIndex" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
 	echo '<label class="hidden" for="vkExUnit_childPageIndex">'.__('Choose display a child page index', 'vkExUnit').'</label>
-		<input type="checkbox" id="vkExUnit_childPageIndex" name="vkExUnit_childPageIndex" value="active"';
-	if ( $childPageIndex_active[0] === "active" ) echo ' checked="checked"';
-	echo '/> '.__('if checked you will display a child page index ', 'vkExUnit');
+		<input type="checkbox" id="vkExUnit_childPageIndex" name="vkExUnit_childPageIndex" value="active"';	
+	if( !empty($childPageIndex_active) ) {
+		if( $childPageIndex_active[0] === 'active' ) echo ' checked="checked"';
+	}
+	echo '/>'.__('if checked you will display a child page index ', 'vkExUnit');
 }
 
 /* 設定したカスタムフィールドの値をDBに書き込む記述 */
@@ -64,12 +65,56 @@ function save_custom_field_postdata( $post_id ) {
 }
 
 // コンテンツの内容を加工する関数
-function show_childPageIndex($value) {
-	global $post;
-	$childPageIndex_value = get_post_meta( $post->ID, 'vkExUnit_childPageIndex' );
-	if( is_page() && $childPageIndex_value[0] == 'active'){ 
-		return $value.wp_list_pages('title_li='); 
-	} 
-	return $value;
+function show_childPageIndex($content) {
+	
+global $post;
+$childPageIndex_value = get_post_meta( $post->ID, 'vkExUnit_childPageIndex' );
+if(!empty($childPageIndex_value)){
+if( is_page() && $childPageIndex_value[0] == 'active'){ 
+			
+/*
+			//$page = $post->ID;
+			$page = $post->ID;
+			if( $post->post_parent ){
+				// 子ページ用
+				$childrens = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");			
+			} else {
+				// 親ページ用
+				$childrens = wp_list_pages("title_li=&child_of=".$page."&echo=0");
+			}
+*/
+			
+			$my_wp_query = new WP_Query();
+			$all_wp_pages = $my_wp_query -> query(array('post_type' => 'page', 'posts_per_page' => -1, 'order' => 'ASC'));
+			
+			$childrens = get_page_children( $post->post_parent, $all_wp_pages );
+			$childPageList = PHP_EOL.'<div class="row childPage_list">'.PHP_EOL;
+			if( $post->post_parent ){
+			// 子ページ用
+				foreach($childrens as $s){
+			        $page = $s->ID;
+			        $page_data = get_page($page);
+			        $pageTitle = $page_data->post_title;
+			        $pageContent = $page_data->post_content;
+			        $pageLink = $page_data->guid;
+			        $childPageList .= PHP_EOL.'<div class="col-md-4"><a href="'.get_permalink($page).'"><h3>'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page ).'<p>'.mb_substr($pageContent, 0, 45).'<span class="childPage_list_more">詳しくはこちら</span></p></a></div>'.PHP_EOL;
+			    }
+		    } else { 		
+			// 親ページ用
+				foreach($childrens as $s){
+					if($s->post_parent){
+				        $page = $s->ID;
+				        $page_data = get_page($page);
+				        $pageTitle = $page_data->post_title;
+				        $pageContent = $page_data->post_content;
+				        $pageLink = $page_data->guid;
+				        $childPageList .= PHP_EOL.'<div class="col-md-4"><a href="'.get_permalink($page).'">'.PHP_EOL.'<h3>'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page ).'<p>'.mb_substr($pageContent, 0, 45).'<span class="childPage_list_more">詳しくはこちら</span></p></a></div>'.PHP_EOL; 
+					}
+			    }	
+			}
+			$content = $content.$childPageList.'</div>'.PHP_EOL;
+			return $content;
+} 
+}
 }
 ?>
