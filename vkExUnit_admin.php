@@ -215,6 +215,24 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+		
+		<!-- [ active_childPageIndex ] -->
+		<tr<?php echo (isset($options['active_childPageIndex']) && $options['active_childPageIndex'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_relatedPosts' >
+				<?php _e('Choose display a child page index to posts.', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_childPageIndex]" id="checkbox_active_childPageIndex" value="true" <?php echo (isset($options['active_childPageIndex']) && $options['active_childPageIndex'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Child page index', 'vkExUnit');?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Display a child page index to posts.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
 
 		<!-- [ active_otherWidgets ] -->
 		<tr<?php echo (isset($options['active_otherWidgets']) && $options['active_otherWidgets'])? ' class="active"': ' class="inactive"'; ?>>

@@ -111,6 +111,9 @@ if ( isset($options['active_css_customize']) && $options['active_css_customize']
 if ( isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'] )
 	require vkExUnit_get_directory() . '/plugins/auto_eyecatch.php';
 
+if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] )
+	require vkExUnit_get_directory() . '/plugins/child_page_index/child_page_index.php';
+
 /*-------------------------------------------*/
 /*	Add vkExUnit css
 /*-------------------------------------------*/

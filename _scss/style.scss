@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
-@import "compass";
-@import "_bizvektor_theme_included_style";
+//@import "compass";
+//@import "_bizvektor_theme_included_style";
 
 /*-------------------------------------------------*/
 /* ex_unit 
@@ -18,6 +18,8 @@
 /* Profile wiget Plugin
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
+/*-------------------------------------------*/
+/* childPageIndex Plugin
 /*-------------------------------------------*/
 
 /*-------------------------------------------*/
@@ -157,9 +159,9 @@
         text-decoration: none;
         font-size: 20px;
         &:hover{
-	        opacity: 0.8;
 	        color: #fff;
 	        text-decoration: none;
+	        opacity: 0.8;
         }
     }
     .fa{
@@ -242,4 +244,24 @@
 		margin-bottom: 1.5em; 
 	} 
 }	
+}
+/*-------------------------------------------*/
+/* childPageIndex Plugin
+/*-------------------------------------------*/
+.childPage_list {
+	a:hover{
+		text-decoration: none;
+	}
+	.childPage_list_body{
+		color: #333;
+		font-size: 14px;
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+	.childPage_list_more{
+		display: table;
+		float: right;
+		margin-top: 1em;
+	}
 }
