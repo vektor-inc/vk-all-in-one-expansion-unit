@@ -44,7 +44,7 @@ function vkExUnit_print_og() {
 			$image_id = get_post_thumbnail_id();
 			$image_url = wp_get_attachment_image_src($image_id,'large', true);
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$image_url[0].'" />'."\n";
-		} else if ($vkExUnit_sns_options['ogImage']){
+		} else if (isset($vkExUnit_sns_options['ogImage']) && $vkExUnit_sns_options['ogImage'] ){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	} else {
