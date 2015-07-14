@@ -354,7 +354,7 @@ msgstr "選択したページの内容を表示します。"
 
 #: plugins/other_widget/old/widget-page-content.php:12
 msgid "page content for top"
-msgstr "トップのページコンテンツ"
+msgstr "固定ページ本文"
 
 #: plugins/other_widget/old/widget-page-content.php:30
 #: plugins/other_widget/old/widget-taxonomy-list.php:61
@@ -528,7 +528,7 @@ msgstr "選択したページの内容を表示します。"
 
 #: plugins/other_widget/widget-page.php:13
 msgid "page content to widget"
-msgstr "トップのページコンテンツ"
+msgstr "固定ページ本文"
 
 #: plugins/other_widget/widget-profile.php:11
 msgid "Displays a your profile"
