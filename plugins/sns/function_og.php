@@ -34,7 +34,7 @@ function vkExUnit_print_og() {
 		}
 	} else if (is_category() || is_archive()) {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
-		if ($vkExUnit_sns_options['ogImage']){
+		if (isset($vkExUnit_sns_options['ogImage']) && $vkExUnit_sns_options['ogImage']){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	} else if (is_page() || is_single()) {
@@ -55,7 +55,7 @@ function vkExUnit_print_og() {
 	}
 
 	$vkExUnitOGP .= '<!-- [ /'.vkExUnit_get_name().' OG ] -->'."\n";
-	if ( isset($vkExUnit_sns_options['ogTagDisplay']) && $vkExUnit_sns_options['ogTagDisplay'] == 'ogp_off' ) {
+	if ( isset($vkExUnit_sns_options['ogTagDisplay']) && $vkExUnit_sns_options['ogTagDisplay'] != true  ) {
 		$vkExUnitOGP = '';
 	}
 	$vkExUnitOGP = apply_filters('vkExUnitOGPCustom', $vkExUnitOGP );
