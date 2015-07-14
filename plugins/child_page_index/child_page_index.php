@@ -64,38 +64,43 @@ if(!empty($childPageIndex_value)){
 			$all_wp_pages = $my_wp_query -> query(array('post_type' => 'page', 'posts_per_page' => -1, 'order' => 'ASC'));
 			
 			$childrens = get_page_children( $post->post_parent, $all_wp_pages );
+			$parentId = $post->ID;
+
 			$childPageList = PHP_EOL.'<div class="row childPage_list">'.PHP_EOL;
 			if( $post->post_parent ){
 			// child page
 				foreach($childrens as $s){
 			        $page = $s->ID;
-			        $page_data = get_page($page);
-			        $pageTitle = $page_data->post_title;
-			        $pageContent = strip_tags($page_data->post_content);
-			        $pageLink = $page_data->guid;
+			        $pageData = get_page($page);
+			        $pageTitle = $pageData->post_title;
+			        $pageContent = strip_tags($pageData->post_content);
+			        if(!empty($pageexcerpt)){
+					    $pageContent = $pageexcerpt;
+				    }
 			        $childPageList .= PHP_EOL.'<a href="'.get_permalink($page).'"><div class="childPage_list_box col-md-3"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL;
 			    }
 		    } else { 		
 			// parent page
 				foreach($childrens as $s){
-					if($s->post_parent){
+					if($s->post_parent === $parentId){
 				        $page = $s->ID;
-				        $page_data = get_page($page);
-				        $pageTitle = $page_data->post_title;
-				        $pageexcerpt = $page_data->post_excerpt;
-				        $pageContent = strip_tags($page_data->post_content);
-				        $pageLink = $page_data->guid;
+				        $pageData = get_page($page);
+				        $pageTitle = $pageData->post_title;
+				        $pageexcerpt = $pageData->post_excerpt;
+				        $pageContent = strip_tags($pageData->post_content);
 				        if(!empty($pageexcerpt)){
 					        $pageContent = $pageexcerpt;
 				        }
-				        $childPageList .= PHP_EOL.'<a href="'.get_permalink($page).'"><div class="childPage_list_box col-md-3">'.PHP_EOL.'<h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL; 
+				        $childPageList .= PHP_EOL.'<a href="'.get_permalink($page).'"><div class="childPage_list_box col-md-3"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL; 
 					}
 			    }	
 			}
+			
 		$content = $content.$childPageList.'</div>'.PHP_EOL;
 		return $content;
 	} 
 } 
 return $content;
 }
+//remove_filter( 'the_content', 'wpautop' );
 ?>
