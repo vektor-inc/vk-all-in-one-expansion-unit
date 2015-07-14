@@ -149,4 +149,7 @@ function pagePluginReSize(){
 jQuery(function() {
     jQuery('.prArea > .subSection-title').flatHeights();
     jQuery('.prArea > .summary').flatHeights();
+    jQuery('.childPage_list_box').flatHeights();
+    jQuery('.childPage_list_title').flatHeights();
+    jQuery('.childPage_list_body').flatHeights();
 });

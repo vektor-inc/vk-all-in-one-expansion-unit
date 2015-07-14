@@ -7,6 +7,8 @@ add_action('admin_menu', 'add_custom_field_childPageIndex' );
 add_action('save_post', 'save_custom_field_postdata');
 add_filter('the_content', 'show_childPageIndex', 7);
 
+
+
 // add meta_box
 function add_custom_field_childPageIndex() {
     add_meta_box('child_Page_index', __('Display a child page index', 'vkExUnit'), 'childPageIndex_box', 'page', 'normal', 'high');
@@ -71,7 +73,7 @@ if(!empty($childPageIndex_value)){
 			        $pageTitle = $page_data->post_title;
 			        $pageContent = strip_tags($page_data->post_content);
 			        $pageLink = $page_data->guid;
-			        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></a></div>'.PHP_EOL;
+			        $childPageList .= PHP_EOL.'<a href="'.get_permalink($page).'"><div class="childPage_list_box col-md-3"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL;
 			    }
 		    } else { 		
 			// parent page
@@ -86,7 +88,7 @@ if(!empty($childPageIndex_value)){
 				        if(!empty($pageexcerpt)){
 					        $pageContent = $pageexcerpt;
 				        }
-				        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'">'.PHP_EOL.'<h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></a></div>'.PHP_EOL; 
+				        $childPageList .= PHP_EOL.'<a href="'.get_permalink($page).'"><div class="childPage_list_box col-md-3">'.PHP_EOL.'<h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL; 
 					}
 			    }	
 			}

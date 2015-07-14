@@ -132,6 +132,9 @@
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 .childPage_list a:hover { text-decoration: none; }
+.childPage_list .childPage_list_title { font-size: 18px; line-height: 1.3; }
 .childPage_list .childPage_list_body { color: #333; font-size: 14px; }
 .childPage_list .childPage_list_body:hover { text-decoration: underline; }
 .childPage_list .childPage_list_more { display: table; float: right; margin-top: 1em; }
+
+/*# sourceMappingURL=style.css.map */
