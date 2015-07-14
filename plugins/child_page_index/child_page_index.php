@@ -6,8 +6,7 @@
 add_action('admin_menu', 'add_custom_field_childPageIndex' );
 add_action('save_post', 'save_custom_field_postdata');
 add_filter('the_content', 'show_childPageIndex', 7);
-
-
+remove_filter('the_content','wpautop');
 
 // add meta_box
 function add_custom_field_childPageIndex() {
@@ -96,11 +95,11 @@ if(!empty($childPageIndex_value)){
 			    }	
 			}
 			
-		$content = $content.$childPageList.'</div>'.PHP_EOL;
+		$content = wpautop($content).$childPageList.'</div>'.PHP_EOL;
 		return $content;
 	} 
 } 
-return $content;
+return wpautop($content);
 }
-//remove_filter( 'the_content', 'wpautop' );
+
 ?>
