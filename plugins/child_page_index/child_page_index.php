@@ -69,9 +69,9 @@ if(!empty($childPageIndex_value)){
 			        $page = $s->ID;
 			        $page_data = get_page($page);
 			        $pageTitle = $page_data->post_title;
-			        $pageContent = $page_data->post_content;
+			        $pageContent = strip_tags($page_data->post_content);
 			        $pageLink = $page_data->guid;
-			        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<p class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'<span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></p></a></div>'.PHP_EOL;
+			        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'"><h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></a></div>'.PHP_EOL;
 			    }
 		    } else { 		
 			// parent page
@@ -81,12 +81,12 @@ if(!empty($childPageIndex_value)){
 				        $page_data = get_page($page);
 				        $pageTitle = $page_data->post_title;
 				        $pageexcerpt = $page_data->post_excerpt;
-				        $pageContent = $page_data->post_content;
+				        $pageContent = strip_tags($page_data->post_content);
 				        $pageLink = $page_data->guid;
 				        if(!empty($pageexcerpt)){
 					        $pageContent = $pageexcerpt;
 				        }
-				        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'">'.PHP_EOL.'<h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<p class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'<span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></p></a></div>'.PHP_EOL; 
+				        $childPageList .= PHP_EOL.'<div class="col-md-3"><a href="'.get_permalink($page).'">'.PHP_EOL.'<h3 class="childPage_list_title">'.$pageTitle.'</h3>'.get_the_post_thumbnail( $page, 'large' ).'<div class="childPage_list_body">'.mb_substr($pageContent, 0, 50).'</div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></a></div>'.PHP_EOL; 
 					}
 			    }	
 			}
