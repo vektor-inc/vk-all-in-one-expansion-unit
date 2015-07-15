@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
-//@import "compass";
-//@import "_bizvektor_theme_included_style";
+@import "compass";
+@import "_bizvektor_theme_included_style";
 
 /*-------------------------------------------------*/
 /* ex_unit 
@@ -249,6 +249,7 @@
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 .childPage_list {
+	margin-top: 4em;
 	a:hover{
 		text-decoration: none;
 	}

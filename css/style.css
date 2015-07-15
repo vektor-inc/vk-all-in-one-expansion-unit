@@ -131,6 +131,7 @@
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
+.childPage_list { margin-top: 4em; }
 .childPage_list a:hover { text-decoration: none; }
 .childPage_list .childPage_list_box { margin-bottom: 1.5em; position: relative; }
 .childPage_list .childPage_list_title { font-size: 18px; line-height: 1.4; }
@@ -139,5 +140,3 @@
 .childPage_list .childPage_list_body:hover { text-decoration: underline; }
 .childPage_list .childPage_list_text { margin-bottom: 0; }
 .childPage_list .childPage_list_more { float: right; }
-
-/*# sourceMappingURL=style.css.map */
