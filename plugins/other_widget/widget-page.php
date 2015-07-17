@@ -68,4 +68,3 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_widget_page");'));
-add_filter( 'the_content', 'vkExUnit_add_snsBtns');
