@@ -84,6 +84,10 @@ require vkExUnit_get_directory() . '/common_helpers.php';
 require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 require vkExUnit_get_directory() . '/plugins/dashboard_info_widget/dashboard-info-widget.php';
 
+
+if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
+	add_filter('wp_title','vkExUnit_get_wp_head_title');
+
 if ( isset($options['active_sns']) && $options['active_sns'] )
 	require vkExUnit_get_directory() . '/plugins/sns/sns.php';
 
@@ -169,13 +173,6 @@ function vkExUnit_admin_enq(){
 	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/admin.css', __FILE__));
 }
 
-/*-------------------------------------------*/
-/*	swich wp_title 
-/*-------------------------------------------*/
-// if active_wpTitle true is run 
-if(isset($options['active_wpTitle']) && $options['active_wpTitle']){
-	add_filter('wp_title','vkExUnit_get_wp_head_title');	
-}
 /*-------------------------------------------*/
 /*	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
 /*-------------------------------------------*/
