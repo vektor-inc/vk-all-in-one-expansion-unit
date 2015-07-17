@@ -2671,7 +2671,12 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
+.childPage_list { margin-top: 4em; }
 .childPage_list a:hover { text-decoration: none; }
-.childPage_list .childPage_list_body { color: #333; font-size: 14px; }
+.childPage_list .childPage_list_box { margin-bottom: 1.5em; position: relative; }
+.childPage_list .childPage_list_title { font-size: 18px; line-height: 1.4; }
+.childPage_list .wp-post-image { margin-bottom: 1em; }
+.childPage_list .childPage_list_body { color: #333; font-size: 14px; margin-bottom: 0.5em; }
 .childPage_list .childPage_list_body:hover { text-decoration: underline; }
-.childPage_list .childPage_list_more { display: table; float: right; margin-top: 1em; }
+.childPage_list .childPage_list_text { margin-bottom: 0; }
+.childPage_list .childPage_list_more { float: right; }

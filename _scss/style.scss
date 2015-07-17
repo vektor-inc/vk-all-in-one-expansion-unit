@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
-//@import "compass";
-//@import "_bizvektor_theme_included_style";
+@import "compass";
+@import "_bizvektor_theme_included_style";
 
 /*-------------------------------------------------*/
 /* ex_unit 
@@ -249,19 +249,33 @@
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 .childPage_list {
+	margin-top: 4em;
 	a:hover{
 		text-decoration: none;
+	}
+	.childPage_list_box{
+		margin-bottom: 1.5em;
+		position: relative;
+	}
+	.childPage_list_title{
+		font-size: 18px;
+		line-height: 1.4;
+	}
+	.wp-post-image{
+		margin-bottom: 1em;
 	}
 	.childPage_list_body{
 		color: #333;
 		font-size: 14px;
+		margin-bottom: 0.5em;
 		&:hover{
 			text-decoration: underline;
 		}
 	}
+	.childPage_list_text{
+		margin-bottom: 0;
+	}
 	.childPage_list_more{
-		display: table;
 		float: right;
-		margin-top: 1em;
 	}
 }
