@@ -57,9 +57,20 @@ function vkExUnit_sitemap_options_validate( $input ) {
 	return apply_filters( 'vkExUnit_sitemap_options_validate', $output, $input, $defaults );
 }
 
+
 /*-------------------------------------------*/
 /*	insert sitemap page
 /*-------------------------------------------*/
+add_filter('the_content', 'show_sitemap', 7);
+
+function show_sitemap($content) {
+	global $post;
+	$show_sitemap_value = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
+
+	if(!empty($show_sitemap_value)){
+		return $content.do_shortcode('[vkExUnit_sitemap]');
+	}
+}
 
 function vkExUnit_sitemap($atts) {
 
