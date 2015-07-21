@@ -86,7 +86,7 @@ if(!empty($childPageIndex_value)){
 				        $pageData = get_page($page);
 				        $pageTitle = $pageData->post_title;
 				        $pageExcerpt = $pageData->post_excerpt;
-				        $pageContent = strip_tags($pageData->post_content);
+				        $pageContent = strip_tags(get_post_field('post_content', $page));
 				        if(!empty($pageExcerpt)){
 					        $pageContent = $pageExcerpt;
 				        }
