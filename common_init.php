@@ -37,6 +37,7 @@ function vkExUnit_get_common_options_default() {
 		'active_otherWidgets'       => true,
 		'active_css_customize'      => true,
 		'active_auto_eyecatch'      => true,
+		'active_sitemap_page'   	=> true
 	);
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
@@ -60,6 +61,7 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_otherWidgets']      = (isset($input['active_otherWidgets'])) ? true:false;
 	$output['active_css_customize']     = (isset($input['active_css_customize'])) ? true:false;
 	$output['active_auto_eyecatch']     = (isset($input['active_auto_eyecatch'])) ? true:false;
+	$output['active_sitemap_page']      = (isset($input['active_sitemap_page'])) ? true:false;
 
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
 }

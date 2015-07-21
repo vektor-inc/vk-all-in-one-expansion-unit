@@ -1,4 +1,66 @@
 <?php
+/*-------------------------------------------*/
+/*	Add setting page
+/*-------------------------------------------*/
+
+function vkExUnit_add_sitemap_options_page(){
+	require dirname( __FILE__ ) . '/sitemap_admin.php';
+}
+/*-------------------------------------------*/
+/*	Options Init
+/*-------------------------------------------*/
+function vkExUnit_sitemap_options_init() {
+	if ( false === vkExUnit_get_sitemap_options() )
+		add_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );
+
+	vkExUnit_register_setting(
+		__('Sitemap page Settings', 'vkExUnit'), 	//  Immediately following form tag of edit page.
+		'vkExUnit_sitemap_options',			// name attr
+		'vkExUnit_sitemap_options_validate',
+		'vkExUnit_add_sitemap_options_page'
+	);
+}
+add_action( 'admin_init', 'vkExUnit_sitemap_options_init' );
+
+function vkExUnit_get_sitemap_options() {
+	$options	= get_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );
+	$options_dafault	= vkExUnit_get_sitemap_options_default();
+	foreach ($options_dafault as $key => $value) {
+		$options[$key] = (isset($options[$key])) ? $options[$key] : $options_dafault[$key];
+	}
+	return apply_filters( 'vkExUnit_sitemap_options', $options );
+}
+
+function vkExUnit_get_sitemap_options_default() {
+	$default_options = array(
+		'addPostType' => '',
+		'excludeId' => ''
+	);
+	return apply_filters( 'vkExUnit_sitemap_options_default', $default_options );
+}
+
+/*-------------------------------------------*/
+/*	validate
+/*-------------------------------------------*/
+function vkExUnit_sitemap_options_validate( $input ) {
+	$output = $defaults = vkExUnit_get_sitemap_options_default();
+
+	$paras = array(
+			'addPostType',
+			'excludeId',
+			);
+
+	foreach ($paras as $key => $value) {
+		$output[$value] = (isset($input[$value])) ? $input[$value] : '';
+	}
+
+	return apply_filters( 'vkExUnit_sitemap_options_validate', $output, $input, $defaults );
+}
+
+/*-------------------------------------------*/
+/*	insert sitemap page
+/*-------------------------------------------*/
+
 function vkExUnit_sitemap($atts) {
 
     extract(shortcode_atts(array(
