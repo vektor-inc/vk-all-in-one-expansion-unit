@@ -21,12 +21,13 @@ function pagePluginReSize(){
 /*-------------------------------------------*/
 /*	jquery.flatheights.js 
 /*-------------------------------------------*/
-jQuery(function() {
-    jQuery('.prArea > .subSection-title').flatHeights();
-    jQuery('.prArea > .summary').flatHeights();
-    jQuery('.childPage_list_title').flatHeights();
+(function($){
+$(function() {
+    $('.prArea > .subSection-title').flatHeights();
+    $('.prArea > .summary').flatHeights();
+    $('.childPage_list_title').flatHeights();
 });
 window.onload = function() {
-    jQuery('.childPage_list_body').flatHeights();
-    jQuery('.childPage_list_box').flatHeights();
+    $('.childPage_list_box').flatHeights();
 }
+})(jQuery);
