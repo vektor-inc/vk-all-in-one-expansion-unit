@@ -125,7 +125,7 @@
 .prBox .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
 .prBox .linkurl a { text-decoration: none; }
 
-@media screen and (max-width: 992px) { .prBox .media_pc { display: none; }
+@media screen and (max-width: 768px) { .prBox .media_pc { display: none; }
   .prBox .media_sp { display: block; }
   .prBox .linkurl { margin-bottom: 1.5em; } }
 /*-------------------------------------------*/
@@ -133,13 +133,10 @@
 /*-------------------------------------------*/
 .childPage_list { margin-top: 4em; }
 .childPage_list a:hover { text-decoration: none; }
-
-.childPage_list_box { position: relative; margin-bottom: 2.5em; }
-.childPage_list_box .childPage_list_title { font-size: 16px; line-height: 1.4; }
-.childPage_list_box .wp-post-image { float: left; margin-right: 1em; width: 30%; border: solid 1px #ddd; }
-.childPage_list_box .childPage_list_body { overflow: hidden; color: #333; font-size: 14px; }
-.childPage_list_box .childPage_list_body:hover { text-decoration: underline; }
-.childPage_list_box .childPage_list_text { overflow: hidden; margin-bottom: 0; }
-.childPage_list_box .childPage_list_more { float: right; margin-top: 1.5em; }
-
-@media screen and (max-width: 992px) { .childPage_list_box .wp-post-image { float: left; margin-right: 1em; width: 25%; border: solid 1px #ddd; } }
+.childPage_list .childPage_list_box { margin-bottom: 1.5em; position: relative; }
+.childPage_list .childPage_list_title { font-size: 18px; line-height: 1.4; }
+.childPage_list .wp-post-image { margin-bottom: 1em; }
+.childPage_list .childPage_list_body { color: #333; font-size: 14px; margin-bottom: 0.5em; }
+.childPage_list .childPage_list_body:hover { text-decoration: underline; }
+.childPage_list .childPage_list_text { margin-bottom: 0; }
+.childPage_list .childPage_list_more { float: right; }

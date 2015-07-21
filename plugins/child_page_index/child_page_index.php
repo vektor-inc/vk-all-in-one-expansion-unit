@@ -76,7 +76,7 @@ if(!empty($childPageIndex_value)){
 			        if(!empty($pageExcerpt)){
 					    $pageContent = $pageExcerpt;
 				    }
-			        $childPageList .= '<a href="'.esc_url(get_permalink($page)).'"><div class="childPage_list_box col-md-6"><h3 class="childPage_list_title">'.esc_html($pageTitle).'</h3><div class="childPage_list_body">'.get_the_post_thumbnail( $page, 'large' ).'<p class="childPage_list_text">'.mb_substr(esc_html($pageContent), 0, 50).'</p></div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL;
+			        $childPageList .= '<a href="'.esc_url(get_permalink($page)).'"><div class="childPage_list_box col-md-3"><h3 class="childPage_list_title">'.esc_html($pageTitle).'</h3><div class="childPage_list_body">'.get_the_post_thumbnail( $page, 'large' ).'<p class="childPage_list_text">'.mb_substr(esc_html($pageContent), 0, 50).'</p></div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL;
 			    }
 		    } else { 		
 			// parent page
@@ -90,7 +90,7 @@ if(!empty($childPageIndex_value)){
 				        if(!empty($pageExcerpt)){
 					        $pageContent = $pageExcerpt;
 				        }
-				        $childPageList .= '<a href="'.esc_url(get_permalink($page)).'"><div class="childPage_list_box col-md-6"><h3 class="childPage_list_title">'.esc_html($pageTitle).'</h3><div class="childPage_list_body">'.get_the_post_thumbnail( $page, 'large' ).'<p class="childPage_list_text">'.mb_substr(esc_html($pageContent), 0, 50).'</p><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></div></a>'.PHP_EOL; 
+				        $childPageList .= '<a href="'.esc_url(get_permalink($page)).'"><div class="childPage_list_box col-md-3"><h3 class="childPage_list_title">'.esc_html($pageTitle).'</h3><div class="childPage_list_body">'.get_the_post_thumbnail( $page, 'large' ).'<p class="childPage_list_text">'.mb_substr(esc_html($pageContent), 0, 50).'</p></div><span class="childPage_list_more btn btn-default btn-sm">'.__('Read more', 'vkExUnit').'</span></div></a>'.PHP_EOL; 
 					}
 			    }	
 			}

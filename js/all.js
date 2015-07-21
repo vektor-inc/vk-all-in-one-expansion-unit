@@ -139,13 +139,12 @@ function pagePluginReSize(){
 /*-------------------------------------------*/
 /*	jquery.flatheights.js 
 /*-------------------------------------------*/
-(function($){
-$(function() {
-    $('.prArea > .subSection-title').flatHeights();
-    $('.prArea > .summary').flatHeights();
-    $('.childPage_list_title').flatHeights();
+jQuery(function() {
+    jQuery('.prArea > .subSection-title').flatHeights();
+    jQuery('.prArea > .summary').flatHeights();
+    jQuery('.childPage_list_title').flatHeights();
 });
 window.onload = function() {
-    $('.childPage_list_box').flatHeights();
+    jQuery('.childPage_list_body').flatHeights();
+    jQuery('.childPage_list_box').flatHeights();
 }
-})(jQuery);
