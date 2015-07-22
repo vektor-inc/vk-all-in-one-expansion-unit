@@ -279,3 +279,22 @@
 		float: right;
 	}
 }
+/*-------------------------------------------*/
+/* sitemap page Plugin
+/*-------------------------------------------*/
+.sitemap-col{
+	margin-top: 2.5em;
+	.link-list{
+		margin-top: 0;
+		margin-bottom: 0;
+	}	
+	.page_item{
+		padding: 0;
+	}
+	.children{
+		margin-bottom: 2em;
+	}
+	.cat-item{
+		padding: 0;
+	}
+}

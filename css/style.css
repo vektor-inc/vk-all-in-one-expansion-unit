@@ -140,3 +140,12 @@
 .childPage_list .childPage_list_body:hover { text-decoration: underline; }
 .childPage_list .childPage_list_text { margin-bottom: 0; }
 .childPage_list .childPage_list_more { float: right; }
+
+/*-------------------------------------------*/
+/* sitemap page Plugin
+/*-------------------------------------------*/
+.sitemap-col { margin-top: 2.5em; }
+.sitemap-col .link-list { margin-top: 0; margin-bottom: 0; }
+.sitemap-col .page_item { padding: 0; }
+.sitemap-col .children { margin-bottom: 2em; }
+.sitemap-col .cat-item { padding: 0; }

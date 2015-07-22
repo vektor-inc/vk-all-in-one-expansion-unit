@@ -61,7 +61,7 @@ function show_sitemap($content) {
 	global $post;
 	$show_sitemap_value = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
 	
-	if($show_sitemap_value[0] === 'active'){
+	if(!empty($show_sitemap_value) && $show_sitemap_value[0] === 'active'){
 		return $content.do_shortcode('[vkExUnit_sitemap]');
 	}
 	return $content;
