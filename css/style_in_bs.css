@@ -2556,6 +2556,8 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 /*-------------------------------------------*/
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
+/* childPageIndex Plugin
+/*-------------------------------------------*/
 /*-------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
@@ -2644,7 +2646,7 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .sns_btns { margin: 0; padding: 0; width: 100%; }
 .sns_btns li { float: left; margin-right: 0.45em; list-style: none; text-align: center; }
 .sns_btns a { display: block; display: table; width: 45px; height: 45px; border-radius: 23px; color: #fff; text-decoration: none; font-size: 20px; }
-.sns_btns a:hover { opacity: 0.8; color: #fff; text-decoration: none; }
+.sns_btns a:hover { color: #fff; text-decoration: none; opacity: 0.8; }
 .sns_btns .fa { display: table-cell; vertical-align: middle; text-align: center; }
 .sns_btns .facebook_btn a { background: #3b5998; }
 .sns_btns .twitter_btn a { background: #55acee; }
@@ -2664,10 +2666,9 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .prBox .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
 .prBox .linkurl a { text-decoration: none; }
 
-@media screen and (max-width: 768px) { .prBox .media_pc { display: none; }
+@media screen and (max-width: 992px) { .prBox .media_pc { display: none; }
   .prBox .media_sp { display: block; }
   .prBox .linkurl { margin-bottom: 1.5em; } }
-  
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
@@ -2683,5 +2684,11 @@ button.close { -webkit-appearance: none; padding: 0; cursor: pointer; background
 .childPage_list_box .childPage_list_more { float: right; margin-top: 1.5em; }
 
 @media screen and (max-width: 992px) { .childPage_list_box .wp-post-image { float: left; margin-right: 1em; width: 25%; border: solid 1px #ddd; } }
-
-
+/*-------------------------------------------*/
+/* sitemap page Plugin
+/*-------------------------------------------*/
+.sitemap-col { margin-top: 2.5em; }
+.sitemap-col .link-list { margin-top: 0; margin-bottom: 0; }
+.sitemap-col .page_item { padding: 0; }
+.sitemap-col .children { margin-bottom: 2em; }
+.sitemap-col .cat-item { padding: 0; }
