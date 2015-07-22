@@ -14,8 +14,8 @@ function vkExUnit_sitemap_options_init() {
 		add_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );
 
 	vkExUnit_register_setting(
-		__('Sitemap page Settings', 'vkExUnit'), 	//  Immediately following form tag of edit page.
-		'vkExUnit_sitemap_options',			// name attr
+		__('Sitemap page Settings', 'vkExUnit'), 	
+		'vkExUnit_sitemap_options',		
 		'vkExUnit_sitemap_options_validate',
 		'vkExUnit_add_sitemap_options_page'
 	);
@@ -44,14 +44,11 @@ function vkExUnit_get_sitemap_options_default() {
 function vkExUnit_sitemap_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_sitemap_options_default();
 
-	$paras = array(
-			'excludeId'
-			);
+	$paras = array( 'excludeId' );
 
 	foreach ($paras as $key => $value) {
 		$output[$value] = (isset($input[$value])) ? $input[$value] : '';
 	}
-
 	return apply_filters( 'vkExUnit_sitemap_options_validate', $output, $input, $defaults );
 }
 
@@ -76,18 +73,17 @@ function vkExUnit_sitemap($atts) {
         'exclude' => ''
     ), $atts));
 
-	$sitemap_html = '<div class="row sitemap">';
-	
+	$sitemap_html = '<div class="row sitemap">'.PHP_EOL;
 	$options = vkExUnit_get_sitemap_options();
 	$exclude = esc_attr($options['excludeId']);
 	$exclude = str_replace('，',',',$exclude);
 	$exclude = mb_convert_kana($exclude, 'kvrn');
-
+	
 	/*-------------------------------------------*/
 	/* pages
 	/*-------------------------------------------*/
-	$sitemap_html .= '<div class="col-md-6 sitemap-col">';
-	$sitemap_html .= '<ul class="link-list">';
+	$sitemap_html .= '<div class="col-md-6 sitemap-col">'.PHP_EOL;
+	$sitemap_html .= '<ul class="link-list">'.PHP_EOL;
 	$args = array(
 		'title_li' 	=> '',
 		'echo'		=> 0,
@@ -95,26 +91,23 @@ function vkExUnit_sitemap($atts) {
 	);
 	$sitemap_html .= wp_list_pages($args);
 
-	$sitemap_html .= '</ul>';
-	$sitemap_html .= '</div>';
-
+	$sitemap_html .= '</ul><!-- [ /.link-list ] -->'.PHP_EOL;
+	$sitemap_html .= '</div><!-- [ /.sitemap-col ] -->'.PHP_EOL;
 
 	/*-------------------------------------------*/
 	/* Posts & Custom posts
 	/*-------------------------------------------*/
-	$sitemap_html .= '<div class="col-md-6 sitemap-col">';
+	$sitemap_html .= '<div class="col-md-6 sitemap-col">'.PHP_EOL;
 
 	$page_for_posts = vkExUnit_get_page_for_posts();
-	
 	$allPostTypes = get_post_types(Array('public' => true));
-	
 	
 	foreach ($allPostTypes as $postType) {
 		$post_type_object = get_post_type_object($postType);	
 		
 		if($post_type_object){
 			$postType_name = esc_html($post_type_object->name);
-			// 投稿タイプが post だった時
+			// post-type is post 
 			if($postType_name === 'post'){
 				
 				$postTypes 	= array('post');
@@ -122,7 +115,7 @@ function vkExUnit_sitemap($atts) {
 				// Loop all post types
 				foreach ($postTypes as $key => $postType) {
 			
-					$sitemap_html .= '<div class="sectionBox">';
+					$sitemap_html .= '<div class="sectionBox">'.PHP_EOL;
 					$post_type_object = get_post_type_object($postType);
 					if($post_type_object){
 			
@@ -134,7 +127,7 @@ function vkExUnit_sitemap($atts) {
 							$postTypeName = $post_type_object->labels->name;
 							$postTypeTopUrl = home_url().'/?post_type='.$postType;
 						}
-						$sitemap_html .= '<h4><a href="'.$postTypeTopUrl.'">'.esc_html($postTypeName).'</a></h4>';
+						$sitemap_html .= '<h4><a href="'.$postTypeTopUrl.'">'.esc_html($postTypeName).'</a></h4>'.PHP_EOL;
 					
 						
 						// Loop for all taxonomies
@@ -144,8 +137,8 @@ function vkExUnit_sitemap($atts) {
 							// Get tax related post type
 							$taxonomy_postType = $taxonomy_info->object_type[0];
 							if ( $taxonomy_postType == $postType && ( $taxonomy_info->name != 'post_format')){
-								$sitemap_html .= '<h5>'.$taxonomy_info->labels->name.'</h5>';
-								$sitemap_html .= '<ul class="link-list">';
+								$sitemap_html .= '<h5>'.$taxonomy_info->labels->name.'</h5>'.PHP_EOL;
+								$sitemap_html .= '<ul class="link-list">'.PHP_EOL;
 													$args = array(
 														'taxonomy' => $taxonomy,
 														'title_li' => '',
@@ -154,23 +147,23 @@ function vkExUnit_sitemap($atts) {
 														'show_option_none' => '',
 													);
 								$sitemap_html .= wp_list_categories( $args );
-								$sitemap_html .= '</ul>';
+								$sitemap_html .= '</ul><!-- [ /.link-list ] -->'.PHP_EOL;
 							}
 						}
-					} // if($post_type_object)
-				} // foreach ($postTypes as $key => $postType)
-				
-			} // not page_type and post_type
+					} // end if($post_type_object)
+				} // end foreach ($postTypes as $key => $postType)
+			} // end post-type is post 
+			// not page_type and post_type
 			else if($postType_name !== 'page' && $postType_name !== 'attachment'){
 				$customPost_url = home_url().'/?post_type='.$postType_name;
-				$sitemap_html .= '<h4><a href="'.$customPost_url.'">'.$post_type_object->labels->name.'</a></h4>';
+				$sitemap_html .= '<h4><a href="'.$customPost_url.'">'.$post_type_object->labels->name.'</a></h4>'.PHP_EOL;
 				
 				$termNames = get_object_taxonomies($postType_name);
 				
 				foreach ($termNames as $termName) {
 					$termDate = get_taxonomy( $termName );
-					$sitemap_html .= '<h5>'.$termDate->label.'</h5>';
-								$sitemap_html .= '<ul class="link-list">';
+					$sitemap_html .= '<h5>'.$termDate->label.'</h5>'.PHP_EOL;
+								$sitemap_html .= '<ul class="link-list">'.PHP_EOL;
 													$args = array(
 														'taxonomy' => $termDate->name,
 														'title_li' => '',
@@ -179,16 +172,15 @@ function vkExUnit_sitemap($atts) {
 														'show_option_none' => ''
 													);
 								$sitemap_html .= wp_list_categories( $args );
-								$sitemap_html .= '</ul>';			
+								$sitemap_html .= '</ul>'.PHP_EOL;			
 				}
-			} 
-		}
-	}
-	$sitemap_html .= '</div>';
-	$sitemap_html .= '</div><!-- [ /.row ] -->';
+			} // end not page_type and post_type 
+		} // end if($post_type_object)
+	} // end foreach ($allPostTypes as $postType) 
+	$sitemap_html .= '</div><!-- [ /.sectionBox ] -->'.PHP_EOL;
+	$sitemap_html .= '</div><!-- [ /.sitemap-col ] -->'.PHP_EOL;
+	$sitemap_html .= '</div><!-- [ /.sitemap ] -->'.PHP_EOL;
 
     return $sitemap_html;
 }
 add_shortcode('vkExUnit_sitemap', 'vkExUnit_sitemap');
-
-
