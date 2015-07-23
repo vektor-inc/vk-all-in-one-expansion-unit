@@ -133,7 +133,13 @@
 /* Profile wiget Plugin
 /*-------------------------------------------*/
 .profile_media{
-	margin: 0.5em 0;
+	display:block; overflow:hidden;
+	margin: 0.8em auto;
+	max-width: 100px;
+	border-radius: 100px;
+}
+.site-profile {
+
 }
 .profile_text{
     margin-bottom: 0.5em;
