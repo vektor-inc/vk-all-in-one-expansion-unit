@@ -14,7 +14,7 @@ function vkExUnit_sitemap_options_init() {
 		add_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );
 
 	vkExUnit_register_setting(
-		__('Sitemap page Settings', 'vkExUnit'), 	
+		__('HTML Sitemap', 'vkExUnit'), 	
 		'vkExUnit_sitemap_options',		
 		'vkExUnit_sitemap_options_validate',
 		'vkExUnit_add_sitemap_options_page'

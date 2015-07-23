@@ -9,7 +9,7 @@ add_action('save_post', 'save_custom_field_sitemapData');
 
 // add meta_box
 function add_custom_field_pageOption() {
-    add_meta_box('pageOption', __('Display a page display options', 'vkExUnit'), 'pageOption_box', 'page', 'normal', 'high');
+    add_meta_box('pageOption', __('Setting of insert items', 'vkExUnit'), 'pageOption_box', 'page', 'normal', 'high');
 }
 
 // display a meta_box
