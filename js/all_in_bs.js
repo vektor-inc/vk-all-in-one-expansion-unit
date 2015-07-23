@@ -146,7 +146,13 @@ function pagePluginReSize(){
 /*-------------------------------------------*/
 /*	jquery.flatheights.js 
 /*-------------------------------------------*/
-jQuery(function() {
-    jQuery('.prArea > .subSection-title').flatHeights();
-    jQuery('.prArea > .summary').flatHeights();
+(function($){
+$(function() {
+    $('.prArea > .subSection-title').flatHeights();
+    $('.prArea > .summary').flatHeights();
+    $('.childPage_list_title').flatHeights();
 });
+window.onload = function() {
+    $('.childPage_list_box').flatHeights();
+}
+})(jQuery);

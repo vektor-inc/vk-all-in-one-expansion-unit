@@ -229,7 +229,25 @@
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p><?php _e('Display a child page index to posts.', 'vkExUnit'); ?></p>
+					<p><?php _e('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
+		<!-- [ Insert Site Map ] -->
+		<tr<?php echo (isset($options['active_sitemap_page']) && $options['active_sitemap_page'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='active_sitemap_page' >
+				<?php _e('Insert Site Map', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_sitemap_page]" id="active_sitemap_page" value="true" <?php echo (isset($options['active_sitemap_page']) && $options['active_sitemap_page'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Display HTML Site Map', 'vkExUnit'); ?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('It displays a HTML Site Map to the specified page.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
@@ -307,8 +325,8 @@
 					<p><?php _e('Display Eye Catch image at before content.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
-
 		</tr>
+		
 		</tbody>
 
 	<tfoot>

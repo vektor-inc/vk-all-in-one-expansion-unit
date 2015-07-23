@@ -49,7 +49,7 @@ function vkExUnit_print_og() {
 		}
 	} else {
 		$vkExUnitOGP .= '<meta property="og:type" content="article" />'."\n";
-		if ($vkExUnit_sns_options['ogImage']){
+		if (isset($vkExUnit_sns_options['ogImage']) && $vkExUnit_sns_options['ogImage']){
 			$vkExUnitOGP .= '<meta property="og:image" content="'.$vkExUnit_sns_options['ogImage'].'" />'."\n";
 		}
 	}

@@ -1,3 +1,20 @@
+/*      .media(bootstrap)
+/*-------------------------------------------*/
+.media { border-bottom: 1px solid #e5e5e5; padding: 2em 0; margin-top: 0; }
+.media:first-child { border-top: 1px solid #e5e5e5; }
+.media .postList_thumbnail { width: 160px; margin-bottom: 0.5em; padding-right: 30px; display: block; overflow: hidden; float: left; }
+.media .postList_thumbnail a { position: relative; display: block; overflow: hidden; }
+.media .postList_thumbnail img { width: 100%; height: auto; }
+.media .postList_thumbnail .postList_cateLabel { position: absolute; bottom: 0; left: 0; }
+.media .media-body .media-heading { font-size: 1.8em; line-height: 1.3em; margin-top: 0; margin-bottom: 0.5em; font-weight: normal; }
+.media .media-body .media-heading a { color: #464646; }
+.media .media-body .media-heading a:hover { text-decoration: none; }
+.media .media-body p { margin-bottom: 0; }
+.media .media-body a.media-body_excerpt { color: #464646; }
+
+@media (max-width: 767px) { .media .postList_thumbnail { padding-right: 20px; }
+  .media .media-body .media-heading { font-size: 1.2em; line-height: 1.3em; margin-bottom: 0.5em; } }
+@media (max-width: 500px) { .media .postList_thumbnail { width: 100px; } }
 /*-------------------------------------------------*/
 /* ex_unit 
 /*-------------------------------------------------*/
@@ -98,7 +115,7 @@
 /*-------------------------------------------*/
 /* Profile wiget Plugin
 /*-------------------------------------------*/
-.profile_media { margin: 0.5em 0; }
+.profile_media { display: block; overflow: hidden; margin: 0.8em auto; max-width: 100px; border-radius: 100px; }
 
 .profile_text { margin-bottom: 0.5em; font-size: 14px; }
 
@@ -125,13 +142,29 @@
 .prBox .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
 .prBox .linkurl a { text-decoration: none; }
 
-@media screen and (max-width: 768px) { .prBox .media_pc { display: none; }
+@media screen and (max-width: 992px) { .prBox .media_pc { display: none; }
   .prBox .media_sp { display: block; }
   .prBox .linkurl { margin-bottom: 1.5em; } }
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
+.childPage_list { margin-top: 4em; }
 .childPage_list a:hover { text-decoration: none; }
-.childPage_list .childPage_list_body { color: #333; font-size: 14px; }
-.childPage_list .childPage_list_body:hover { text-decoration: underline; }
-.childPage_list .childPage_list_more { display: table; float: right; margin-top: 1em; }
+
+.childPage_list_box { position: relative; margin-bottom: 2.5em; }
+.childPage_list_box .childPage_list_title { font-size: 16px; line-height: 1.4; }
+.childPage_list_box .wp-post-image { float: left; margin-right: 1em; width: 30%; border: solid 1px #ddd; }
+.childPage_list_box .childPage_list_body { overflow: hidden; color: #333; font-size: 14px; }
+.childPage_list_box .childPage_list_body:hover { text-decoration: underline; }
+.childPage_list_box .childPage_list_text { overflow: hidden; margin-bottom: 0; }
+.childPage_list_box .childPage_list_more { float: right; margin-top: 1.5em; }
+
+@media screen and (max-width: 992px) { .childPage_list_box .wp-post-image { float: left; margin-right: 1em; width: 25%; border: solid 1px #ddd; } }
+/*-------------------------------------------*/
+/* sitemap page Plugin
+/*-------------------------------------------*/
+.sitemap-col { margin-top: 2.5em; }
+.sitemap-col .link-list { margin-top: 0; margin-bottom: 0; }
+.sitemap-col .page_item { padding: 0; }
+.sitemap-col .children { margin-bottom: 2em; }
+.sitemap-col .cat-item { padding: 0; }
