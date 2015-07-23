@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.2
-Stable tag: 0.1.6.0
+Stable tag: 0.1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ This plug-in is an integrated plug-in with a variety of features that make it po
 
 Many features can be stopped individually.
 
-## Powerful　Widgets
+[ Powerful　Widgets ]
 
 *   Recent Posts - display the link text and the date of the latest article title.
 *   Page content to widget - display the contents of the page to the widgets.
@@ -27,13 +27,13 @@ Many features can be stopped individually.
 *   Archive list - Displays a list of archives. You can choose the post type and also to display archives by month or by year.
 *   Facebook Page Plugin widget
 
-## Social media 
+[ Social media ]
 
 *   Print Social Bookmarks
 *   Print OG Tags
 *   Print Twitter Card Tags
 
-## Others
+[ Others ]
 
 *   Print Google Analytics tag
 *   Print meta keyword tag
@@ -43,7 +43,6 @@ Many features can be stopped individually.
 *   Insert Child page List to page
 *   Insert Auto HTML Site Map
 *	Automatic Eye Catch insert
-
 
 and more.
 
