@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-23 13:31+0900\n"
+"POT-Creation-Date: 2015-07-24 16:44+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -32,7 +32,7 @@ msgstr "見つかりません"
 #: ../common_helpers.php:138 ../common_helpers.php:202
 #, php-format
 msgid "Page of %s"
-msgstr "%s のページ"
+msgstr "%sページ目"
 
 #: ../common_helpers.php:162 ../common_helpers.php:170
 #, php-format
@@ -418,8 +418,7 @@ msgstr ""
 msgid "if checked you will display a sitemap"
 msgstr "チェックを入れるとHTMLサイトマップを表示します。"
 
-#: ../plugins/child_page_index/child_page_index.php:34
-#: ../plugins/child_page_index/child_page_index.php:48
+#: ../plugins/child_page_index/child_page_index.php:40
 #: ../plugins/other_widget/widget-3pr-area.php:274
 #: ../plugins/other_widget/widget-3pr-area.php:316
 #: ../plugins/other_widget/widget-3pr-area.php:359
@@ -618,7 +617,7 @@ msgstr "3PR エリア1 設定"
 #: ../plugins/other_widget/widget-3pr-area.php:102
 #: ../plugins/other_widget/widget-3pr-area.php:154
 #: ../plugins/other_widget/widget-new-posts.php:75
-#: ../plugins/other_widget/widget-profile.php:35
+#: ../plugins/other_widget/widget-profile.php:38
 #: ../plugins/sns/function_fbPagePlugin.php:75
 msgid "Title:"
 msgstr "タイトル"
@@ -635,7 +634,7 @@ msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 #: ../plugins/other_widget/widget-3pr-area.php:132
 #: ../plugins/other_widget/widget-3pr-area.php:166
 #: ../plugins/other_widget/widget-3pr-area.php:183
-#: ../plugins/other_widget/widget-profile.php:46
+#: ../plugins/other_widget/widget-profile.php:49
 msgid "Select image"
 msgstr "画像を選択"
 
@@ -645,7 +644,7 @@ msgstr "画像を選択"
 #: ../plugins/other_widget/widget-3pr-area.php:133
 #: ../plugins/other_widget/widget-3pr-area.php:167
 #: ../plugins/other_widget/widget-3pr-area.php:184
-#: ../plugins/other_widget/widget-profile.php:47
+#: ../plugins/other_widget/widget-profile.php:50
 msgid "Clear image"
 msgstr "画像クリア"
 
@@ -747,47 +746,59 @@ msgstr ""
 msgid "Profile"
 msgstr "プロフィール"
 
-#: ../plugins/other_widget/widget-profile.php:22
+#: ../plugins/other_widget/widget-profile.php:25
 msgid "Profile Text"
 msgstr "プロフィールテキスト"
 
-#: ../plugins/other_widget/widget-profile.php:40
+#: ../plugins/other_widget/widget-profile.php:43
 msgid "Select Profile image:"
 msgstr "プロフィール用画像を選択"
 
-#: ../plugins/other_widget/widget-profile.php:57
+#: ../plugins/other_widget/widget-profile.php:60
+msgid "Cut out round the image."
+msgstr "画像を丸く切り抜いて表示する"
+
+#: ../plugins/other_widget/widget-profile.php:64
+msgid "Media size (Optional)"
+msgstr "画像の大きさ( 任意 )"
+
+#: ../plugins/other_widget/widget-profile.php:69
+msgid "Text float to image."
+msgstr "テキストを画像に回りこませる"
+
+#: ../plugins/other_widget/widget-profile.php:73
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: ../plugins/other_widget/widget-profile.php:62
+#: ../plugins/other_widget/widget-profile.php:78
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:67
+#: ../plugins/other_widget/widget-profile.php:83
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:72
+#: ../plugins/other_widget/widget-profile.php:88
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:77
+#: ../plugins/other_widget/widget-profile.php:93
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:82
+#: ../plugins/other_widget/widget-profile.php:98
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:87
+#: ../plugins/other_widget/widget-profile.php:103
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:91
+#: ../plugins/other_widget/widget-profile.php:107
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:121
+#: ../plugins/other_widget/widget-profile.php:140
 msgid "Site's Profile"
 msgstr "プロフィール"
 
@@ -1152,6 +1163,13 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 #: ../plugins/sns/old/sns_admin.php:149
 msgid "Page top"
 msgstr "ページ先頭へ"
+
+#~ msgid "Media round setting:"
+#~ msgstr "画像を丸く切り抜くか:"
+
+#, fuzzy
+#~ msgid "Media float setting:"
+#~ msgstr "メイン設定"
 
 #~ msgid "Display a child page index"
 #~ msgstr "子ページ一覧の表示"

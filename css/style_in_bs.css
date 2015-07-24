@@ -695,7 +695,15 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /*-------------------------------------------*/
 /* Profile wiget Plugin
 /*-------------------------------------------*/
-.profile_media { display: block; overflow: hidden; margin: 0.8em auto; max-width: 100px; border-radius: 100px; }
+.site-profile { overflow: hidden; }
+
+.profile_media { display: block; margin: 0.8em auto; max-width: 100%; }
+
+.media_round { border-radius: 50%; }
+
+.media_float { float: left; padding-right: 10px; }
+.media_float .profile_media { margin: 0.8em 0 0; }
+.media_float + .profile_text { padding-top: 0.8em; }
 
 .profile_text { margin-bottom: 0.5em; font-size: 14px; }
 
