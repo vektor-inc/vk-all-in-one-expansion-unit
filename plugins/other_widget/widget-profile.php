@@ -21,6 +21,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
             'mediaAlt' => '',
             'mediaRound' => '',
             'mediaSize' => '',
+            'mediaFloat' => '',
             'profile' => __('Profile Text', 'vkExUnit' ),
             'facebook' => '',
             'twitter' => '',
@@ -64,7 +65,12 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		<p><label for="<?php echo $this->get_field_id('mediaSize');  ?>"><?php _e('Media size setting(in pixels):', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('mediaSize'); ?>_size" class="prof_input" name="<?php echo $this->get_field_name('mediaSize'); ?>" value="<?php echo $instance['mediaSize']; ?>" />
 		</p>
-				
+		
+		<?php //image float setting ?>
+		<p><label for="<?php echo $this->get_field_id('mediaFloat');  ?>"><?php _e('Media float setting:', 'vkExUnit'); ?></label><br/>
+		<input type="checkbox" id="<?php echo $this->get_field_id('mediaFloat'); ?>_float" name="<?php echo $this->get_field_name('mediaFloat'); ?>" value="true" <?php echo ($instance['mediaFloat'])? 'checked': '' ; ?> >
+		</p>
+						
 		<?php //profile text ?>
 		<p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:', 'vkExUnit'); ?></label></p>
 		
@@ -114,6 +120,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         $instance['profile'] = $new_instance['profile'];
 		$instance['mediaRound'] = $new_instance['mediaRound'];
         $instance['mediaSize'] = $new_instance['mediaSize'];
+        $instance['mediaFloat'] = $new_instance['mediaFloat'];
         $instance['facebook'] = $new_instance['facebook'];
         $instance['twitter'] = $new_instance['twitter'];
         $instance['mail'] = $new_instance['mail'];
@@ -136,23 +143,29 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		}
 		echo '</h1>'; ?>
 	
-<div class="site-profile">
+<div class="site-profile" >
 <?php // Display a profile image 
 
 		$mediaRound = isset($instance['mediaRound']) ? ' media_round' : '' ;
 		$mediaSize = isset($instance['mediaSize']) ? mb_convert_kana($instance['mediaSize']) : '' ;
 		
-		echo '<img class="profile_media';
-		if( !empty($mediaRound) || !empty($mediaSize)){
+		echo '<div';
+		if(!empty($instance['mediaFloat'])){
+			echo ' class="media_float"';
+		}
+		echo '><img class="profile_media';
+		if( !empty($mediaRound) || !empty($mediaSize) || !empty($mediaFloat) ){
         	if( !empty($mediaRound) ){
 	        	echo $mediaRound;
         	}
-        } 
-        echo '" src="'.esc_url($instance['mediaFile']).'"';
-        if( !empty($mediaSize) ) {
-	        	echo ' width="'.$mediaSize.'"';
-	    }
-        echo ' alt="'.esc_attr($instance['mediaAlt']).'" />'.PHP_EOL;            
+	        echo '" src="'.esc_url($instance['mediaFile']).'"';
+		    if( !empty($mediaSize) ) {
+			       	echo ' width="'.$mediaSize.'"';
+			}
+			echo ' alt="'.esc_attr($instance['mediaAlt']).'" /></div>'.PHP_EOL;
+		} else {
+			echo '" src="'.esc_url($instance['mediaFile']).'" alt="'.esc_attr($instance['mediaAlt']).'" /></div>'.PHP_EOL;
+		}
         
         // Display a profile text
         if( !empty($instance['profile']) ){
