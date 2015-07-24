@@ -19,6 +19,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			'label' => __('Profile', 'vkExUnit' ),
             'mediaFile' => '',
             'mediaAlt' => '',
+            'mediaRound' => '',
+            'mediaSize' => '',
             'profile' => __('Profile Text', 'vkExUnit' ),
             'facebook' => '',
             'twitter' => '',
@@ -42,7 +44,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		<input type="hidden" class="media_url" id="<?php echo $this->get_field_id('mediaFile'); ?>_media" name="<?php echo $this->get_field_name('mediaFile'); ?>" value="<?php echo esc_attr($instance['mediaFile']); ?>" />
 		
 		<input type="hidden" class="media_alt" id="<?php echo $this->get_field_id('mediaAlt'); ?>_media" name="<?php echo $this->get_field_name('mediaAlt'); ?>" value="<?php echo esc_attr($instance['mediaAlt']); ?>" />
-        
+		        
         <input type="button" class="media_select" value="<?php _e('Select image', 'vkExUnit'); ?>" onclick="clickSelect(event.target);" />
         <input type="button" class="media_clear" value="<?php _e('Clear image', 'vkExUnit'); ?>" onclick="clickClear(event.target);" />
         </p>
@@ -53,6 +55,16 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	        <?php endif; ?>
         </div>
 		
+		<?php //image round setting ?>
+		<p><label for="<?php echo $this->get_field_id('mediaRound');  ?>"><?php _e('Media round setting:', 'vkExUnit'); ?></label><br/>
+		<input type="checkbox" id="<?php echo $this->get_field_id('mediaRound'); ?>_round" name="<?php echo $this->get_field_name('mediaRound'); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> >
+		</p>
+				
+		<?php //image size setting ?>
+		<p><label for="<?php echo $this->get_field_id('mediaSize');  ?>"><?php _e('Media size setting(in pixels):', 'vkExUnit'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('mediaSize'); ?>_size" class="prof_input" name="<?php echo $this->get_field_name('mediaSize'); ?>" value="<?php echo $instance['mediaSize']; ?>" />
+		</p>
+				
 		<?php //profile text ?>
 		<p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:', 'vkExUnit'); ?></label></p>
 		
@@ -100,6 +112,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         $instance['mediaFile'] = $new_instance['mediaFile'];
         $instance['mediaAlt'] = $new_instance['mediaAlt'];
         $instance['profile'] = $new_instance['profile'];
+		$instance['mediaRound'] = $new_instance['mediaRound'];
+        $instance['mediaSize'] = $new_instance['mediaSize'];
         $instance['facebook'] = $new_instance['facebook'];
         $instance['twitter'] = $new_instance['twitter'];
         $instance['mail'] = $new_instance['mail'];
@@ -121,12 +135,25 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			_e("Site's Profile", 'vkExUnit' );
 		}
 		echo '</h1>'; ?>
-		
+	
 <div class="site-profile">
 <?php // Display a profile image 
-		if( !empty($instance['mediaFile']) ){
-        	echo '<img class="profile_media" src="'.esc_url($instance['mediaFile']).'" alt="'.esc_attr($instance['mediaAlt']).'" />'.PHP_EOL;
+
+		$mediaRound = isset($instance['mediaRound']) ? ' media_round' : '' ;
+		$mediaSize = isset($instance['mediaSize']) ? mb_convert_kana($instance['mediaSize']) : '' ;
+		
+		echo '<img class="profile_media';
+		if( !empty($mediaRound) || !empty($mediaSize)){
+        	if( !empty($mediaRound) ){
+	        	echo $mediaRound;
+        	}
         } 
+        echo '" src="'.esc_url($instance['mediaFile']).'"';
+        if( !empty($mediaSize) ) {
+	        	echo ' width="'.$mediaSize.'"';
+	    }
+        echo ' alt="'.esc_attr($instance['mediaAlt']).'" />'.PHP_EOL;            
+        
         // Display a profile text
         if( !empty($instance['profile']) ){
             echo '<p class="profile_text">'.nl2br(esc_attr($instance['profile'])).'</p>'.PHP_EOL;
