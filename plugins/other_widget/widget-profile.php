@@ -57,18 +57,16 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         </div>
 		
 		<?php //image round setting ?>
-		<p><label for="<?php echo $this->get_field_id('mediaRound');  ?>"><?php _e('Media round setting:', 'vkExUnit'); ?></label><br/>
-		<input type="checkbox" id="<?php echo $this->get_field_id('mediaRound'); ?>_round" name="<?php echo $this->get_field_name('mediaRound'); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> >
+		<p><input type="checkbox" id="<?php echo $this->get_field_id('mediaRound'); ?>_round" name="<?php echo $this->get_field_name('mediaRound'); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id('mediaRound');  ?>"><?php _e('Cut out round the image.', 'vkExUnit'); ?></label>		
 		</p>
 				
 		<?php //image size setting ?>
-		<p><label for="<?php echo $this->get_field_id('mediaSize');  ?>"><?php _e('Media size setting(in pixels):', 'vkExUnit'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('mediaSize'); ?>_size" class="prof_input" name="<?php echo $this->get_field_name('mediaSize'); ?>" value="<?php echo $instance['mediaSize']; ?>" />
+		<p><label for="<?php echo $this->get_field_id('mediaSize');  ?>"><?php _e('Media size (Optional)', 'vkExUnit'); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id('mediaSize'); ?>_size" class="prof_input" name="<?php echo $this->get_field_name('mediaSize'); ?>" style="width:50px;" value="<?php echo $instance['mediaSize']; ?>" /> px
 		</p>
 		
 		<?php //image float setting ?>
-		<p><label for="<?php echo $this->get_field_id('mediaFloat');  ?>"><?php _e('Media float setting:', 'vkExUnit'); ?></label><br/>
-		<input type="checkbox" id="<?php echo $this->get_field_id('mediaFloat'); ?>_float" name="<?php echo $this->get_field_name('mediaFloat'); ?>" value="true" <?php echo ($instance['mediaFloat'])? 'checked': '' ; ?> >
+		<p><input type="checkbox" id="<?php echo $this->get_field_id('mediaFloat'); ?>_float" name="<?php echo $this->get_field_name('mediaFloat'); ?>" value="true" <?php echo ($instance['mediaFloat'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id('mediaFloat');  ?>"><?php _e('Text float to image.', 'vkExUnit'); ?></label><br/>
 		</p>
 						
 		<?php //profile text ?>
