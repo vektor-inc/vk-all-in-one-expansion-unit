@@ -21,6 +21,8 @@
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
+/* sitemap page Plugin
+/*-------------------------------------------*/
 
 /*-------------------------------------------*/
 /* .common
@@ -132,14 +134,26 @@
 /*-------------------------------------------*/
 /* Profile wiget Plugin
 /*-------------------------------------------*/
-.profile_media{
-	display:block; overflow:hidden;
-	margin: 0.8em auto;
-	max-width: 100px;
-	border-radius: 100px;
+.site-profile{
+	overflow: hidden;
 }
-.site-profile {
-
+.profile_media{
+	display:block; 
+	margin: 0.8em auto;
+	max-width: 100%;
+}
+.media_round{
+	border-radius: 50%;
+}
+.media_float{
+	float: left;
+	padding-right: 10px;
+	.profile_media{
+		margin: 0.8em 0 0;
+	}
+	&+.profile_text{
+		padding-top: 0.8em;
+	}
 }
 .profile_text{
     margin-bottom: 0.5em;
@@ -263,7 +277,7 @@
 .childPage_list_box{
 	position: relative;
 	margin-bottom: 2.5em;
-		.childPage_list_title{
+	.childPage_list_title{
 		font-size: 16px;
 		line-height: 1.4;
 	}
