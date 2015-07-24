@@ -18,6 +18,8 @@ function show_childPageIndex($content) {
 			$args = array(
 				'post_type'			=> 'page',
 				'posts_per_page'	=> -1,
+				'order'				=> 'asc',
+				'orderby'			=> 'menu_order',
 				'post_parent'		=> $parentId,
 				);
 			$childrens = new WP_Query($args);
