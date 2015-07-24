@@ -614,6 +614,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
+/* sitemap page Plugin
+/*-------------------------------------------*/
 /*-------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
@@ -700,6 +702,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .profile_media { display: block; margin: 0.8em auto; max-width: 100%; }
 
 .media_round { border-radius: 50%; }
+
+.media_left .profile_media { margin-left: 0; }
 
 .media_float { float: left; padding-right: 10px; }
 .media_float .profile_media { margin: 0.8em 0 0; }

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-24 16:48+0900\n"
+"POT-Creation-Date: 2015-07-24 20:36+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -383,7 +383,7 @@ msgstr ""
 msgid "if checked you will display a sitemap"
 msgstr ""
 
-#: plugins/child_page_index/child_page_index.php:40
+#: plugins/child_page_index/child_page_index.php:42
 #: plugins/other_widget/widget-3pr-area.php:274
 #: plugins/other_widget/widget-3pr-area.php:316
 #: plugins/other_widget/widget-3pr-area.php:359
@@ -563,7 +563,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:102
 #: plugins/other_widget/widget-3pr-area.php:154
 #: plugins/other_widget/widget-new-posts.php:75
-#: plugins/other_widget/widget-profile.php:38
+#: plugins/other_widget/widget-profile.php:39
 #: plugins/sns/function_fbPagePlugin.php:75
 msgid "Title:"
 msgstr ""
@@ -580,7 +580,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:132
 #: plugins/other_widget/widget-3pr-area.php:166
 #: plugins/other_widget/widget-3pr-area.php:183
-#: plugins/other_widget/widget-profile.php:49
+#: plugins/other_widget/widget-profile.php:50
 msgid "Select image"
 msgstr ""
 
@@ -590,7 +590,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:133
 #: plugins/other_widget/widget-3pr-area.php:167
 #: plugins/other_widget/widget-3pr-area.php:184
-#: plugins/other_widget/widget-profile.php:50
+#: plugins/other_widget/widget-profile.php:51
 msgid "Clear image"
 msgstr ""
 
@@ -689,60 +689,60 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:25
+#: plugins/other_widget/widget-profile.php:26
 msgid "Profile Text"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:43
+#: plugins/other_widget/widget-profile.php:44
 msgid "Select Profile image:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:60
+#: plugins/other_widget/widget-profile.php:61
 msgid "Cut out round the image."
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:64
+#: plugins/other_widget/widget-profile.php:65
 msgid "Media size (Optional)"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:69
+#: plugins/other_widget/widget-profile.php:70
+msgid "Image align left"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:74
 msgid "Text float to image."
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:73
+#: plugins/other_widget/widget-profile.php:78
 msgid "Profile Text:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:78
+#: plugins/other_widget/widget-profile.php:83
 msgid "Facebook URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:83
+#: plugins/other_widget/widget-profile.php:88
 msgid "Twitter URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:88
+#: plugins/other_widget/widget-profile.php:93
 msgid "Email Address:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:93
+#: plugins/other_widget/widget-profile.php:98
 msgid "Youtube URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:98
+#: plugins/other_widget/widget-profile.php:103
 msgid "RSS URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:103
+#: plugins/other_widget/widget-profile.php:108
 msgid "instagram URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:107
+#: plugins/other_widget/widget-profile.php:112
 msgid "linkedin URL:"
-msgstr ""
-
-#: plugins/other_widget/widget-profile.php:140
-msgid "Site's Profile"
 msgstr ""
 
 #: plugins/other_widget/widget-taxonomies.php:12
