@@ -80,6 +80,7 @@ require_once( 'admin_wrapper.php' );
 require vkExUnit_get_directory() . '/common_init.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
+require vkExUnit_get_directory() . '/common_other_functions.php';
 
 //require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 require vkExUnit_get_directory() . '/plugins/dashboard_info_widget/dashboard-info-widget.php';

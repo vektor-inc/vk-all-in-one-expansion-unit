@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-24 20:36+0900\n"
+"POT-Creation-Date: 2015-07-28 11:38+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -100,6 +100,16 @@ msgstr ""
 #: common_helpers.php:262 plugins/other_widget/widget-taxonomies.php:81
 #: plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
+msgstr ""
+
+#: common_other_functions.php:6
+msgid ""
+"<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
+"\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
+"Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.bizvektor."
+"com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
+"\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
+"</p>"
 msgstr ""
 
 #: vkExUnit_admin.php:12 vkExUnit_admin.php:334

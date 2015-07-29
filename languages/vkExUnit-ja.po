@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-24 20:36+0900\n"
+"POT-Creation-Date: 2015-07-30 00:32+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -29,79 +29,95 @@ msgstr "検索結果 : %s"
 msgid "Not found"
 msgstr "見つかりません"
 
-#: ../common_helpers.php:138 ../common_helpers.php:202
+#: ../common_helpers.php:138 ../common_helpers.php:210
 #, php-format
 msgid "Page of %s"
 msgstr "%sページ目"
 
-#: ../common_helpers.php:162 ../common_helpers.php:170
+#: ../common_helpers.php:170 ../common_helpers.php:178
 #, php-format
 msgid "About %s"
 msgstr "%s について"
 
-#: ../common_helpers.php:174 ../common_helpers.php:223
+#: ../common_helpers.php:182 ../common_helpers.php:231
 msgid "Y"
 msgstr "年"
 
-#: ../common_helpers.php:175 ../common_helpers.php:179
 #: ../common_helpers.php:183 ../common_helpers.php:187
+#: ../common_helpers.php:191 ../common_helpers.php:195
 #, php-format
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: ../common_helpers.php:178 ../common_helpers.php:225
+#: ../common_helpers.php:186 ../common_helpers.php:233
 msgid "F Y"
 msgstr "年月"
 
-#: ../common_helpers.php:221
+#: ../common_helpers.php:229
 #, php-format
 msgid "Author: %s"
 msgstr "著者: %s"
 
-#: ../common_helpers.php:227
+#: ../common_helpers.php:235
 msgid "F j, Y"
 msgstr "月日, 年"
 
-#: ../common_helpers.php:230
+#: ../common_helpers.php:238
 msgid "Asides"
 msgstr "サイド"
 
-#: ../common_helpers.php:232
+#: ../common_helpers.php:240
 msgid "Galleries"
 msgstr "ギャラリー"
 
-#: ../common_helpers.php:234
+#: ../common_helpers.php:242
 msgid "Images"
 msgstr "画像"
 
-#: ../common_helpers.php:236
+#: ../common_helpers.php:244
 msgid "Videos"
 msgstr "ビデオ"
 
-#: ../common_helpers.php:238
+#: ../common_helpers.php:246
 msgid "Quotes"
 msgstr "引用"
 
-#: ../common_helpers.php:240
+#: ../common_helpers.php:248
 msgid "Links"
 msgstr "リンク"
 
-#: ../common_helpers.php:242
+#: ../common_helpers.php:250
 msgid "Statuses"
 msgstr "ステータス"
 
-#: ../common_helpers.php:244
+#: ../common_helpers.php:252
 msgid "Audio"
 msgstr "オーディオ"
 
-#: ../common_helpers.php:246
+#: ../common_helpers.php:254
 msgid "Chats"
 msgstr "チャット"
 
-#: ../common_helpers.php:262 ../plugins/other_widget/widget-taxonomies.php:81
+#: ../common_helpers.php:270 ../plugins/other_widget/widget-taxonomies.php:81
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
 msgstr "アーカイブ"
+
+#: ../common_other_functions.php:6
+msgid ""
+"<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
+"\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
+"Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.bizvektor."
+"com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
+"\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
+"</p>"
+msgstr ""
+"<p>Powered by <a href=\"https://ja.wordpress.org/\" target=\"_blank"
+"\">WordPress</a> with <a href=\"//lightning.bizvektor.com/ja/\" target="
+"\"_blank\" title=\"Free WordPress Theme Lightning\"> Lightning Theme</a> "
+"&amp; <a href=\"http://ex-unit.bizvektor.com/ja/\" target=\"_blank\">VK All "
+"in One Expansion Unit</a> by <a href=\"http://www.vektor-inc.co.jp\" target="
+"\"_blank\">Vektor,Inc.</a> technology.</p>"
 
 #: ../vkExUnit_admin.php:12 ../vkExUnit_admin.php:334
 msgid "Select all"
