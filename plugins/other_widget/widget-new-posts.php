@@ -15,7 +15,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
-		echo '<aside class="widget">';
+		echo '<aside class="widget widget_newPosts">';
 		echo '<h1 class="widget-title subSection-title">';
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo $instance['label'];
