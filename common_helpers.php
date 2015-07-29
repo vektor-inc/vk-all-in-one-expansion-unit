@@ -151,9 +151,17 @@ function vkExUnit_get_wp_head_title(){
 function vkExUnit_get_pageDescription() {
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
-	if (is_home() || is_front_page() ) {
+	if ( is_front_page() ) {
 		if ( isset($post->post_excerpt) && $post->post_excerpt ) {
 			$pageDescription = get_the_excerpt();
+		} else {
+			$pageDescription = get_bloginfo( 'description' );
+		}
+	} else if ( is_home() ) {
+		$page_for_posts = vkExUnit_get_page_for_posts();
+		if ( $page_for_posts['post_top_use'] ){
+			$page = get_post($page_for_posts['post_top_id']);
+			$pageDescription = $page->post_excerpt;
 		} else {
 			$pageDescription = get_bloginfo( 'description' );
 		}
