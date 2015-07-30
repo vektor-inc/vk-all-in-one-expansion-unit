@@ -104,11 +104,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<br/><br/>
 
 		<?php // Terms ?>
-		<label for="<?php echo $this->get_field_id('terms'); ?>"><?php _e('taxonomy ID', 'biz-vektor') ?>:</label><br />
+		<label for="<?php echo $this->get_field_id('terms'); ?>"><?php _e('taxonomy ID', 'vkExUnit') ?>:</label><br />
 		<input type="text" id="<?php echo $this->get_field_id('terms'); ?>" name="<?php echo $this->get_field_name('terms'); ?>" value="<?php echo esc_attr($instance['terms']) ?>" /><br />
-		<?php _e('if you need filtering by term, add the term ID separate by ",".', 'biz-vektor'); 
+		<?php _e('if you need filtering by term, add the term ID separate by ",".', 'vkExUnit'); 
 		echo "<br/>";
-		_e('if empty this area, I will do not filtering.', 'biz-vektor'); 
+		_e('if empty this area, I will do not filtering.', 'vkExUnit'); 
 		echo "<br/><br/>";
 	}
 

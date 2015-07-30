@@ -105,7 +105,7 @@ if ($vkExUnit_sns_options['enableSnsBtns'] == true)
 if ($vkExUnit_sns_options['enableTwitterCardTags'] == true) 
 	require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
 if ($vkExUnit_sns_options['enableFollowMe'] == true) 
-	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php'
+	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
 
 require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
 
