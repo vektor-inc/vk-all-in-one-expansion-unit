@@ -92,7 +92,10 @@ class vExUnit_AdWords {
 <h3><?php _e('Meta Keyword', 'vkExUnit'); ?></h3>
 <div id="vkExUnit_AdWords" class="sectionBox">
 <table class="form-table">
-<tr><th><?php _e('AdWords', 'vkExUnit') ?></th>
+<tr><th><?php _e('AdWords', 'vkExUnit'); ?><br/><br/>
+<?php _e('Insert Adsense to more tag and after content.', 'vkExUnit'); ?><br/>
+<?php _e('If you want separate adwords area, you fill tow fields.', 'vkExUnit'); ?>
+</th>
 <td style="max-width:80em;">
     <dl>
         <dt><label for="ad_content_moretag"><?php _e('insert the AdWords [ more tag ]', 'vkExUnit'); ?></label></dt>
