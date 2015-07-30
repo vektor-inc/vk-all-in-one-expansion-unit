@@ -26,18 +26,18 @@ function vkExUnit_get_common_options() {
 function vkExUnit_get_common_options_default() {
 	$default_options = array(
 		'active_bootstrap'          => false,
-		'active_fontawesome'    	=> false,
+		'active_fontawesome'        => false,
 		'active_metaDescription'    => true,
 		'active_metaKeyword'        => true,
-		'active_wpTitle'		    => true,
+		'active_wpTitle'            => true,
 		'active_sns'                => true,
 		'active_ga'                 => true,
 		'active_relatedPosts'       => true,
-		'active_childPageIndex'		=> true,
+		'active_childPageIndex'     => true,
 		'active_otherWidgets'       => true,
 		'active_css_customize'      => true,
 		'active_auto_eyecatch'      => true,
-		'active_sitemap_page'   	=> true,
+		'active_sitemap_page'       => true,
 		'active_AdWords'            => true,
 	);
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
@@ -54,7 +54,7 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_metaDescription']   = (isset($input['active_metaDescription'])) ? true:false;
 	$output['active_metaKeyword']       = (isset($input['active_metaKeyword'])) ? true:false;
 	$output['active_icon']              = (isset($input['active_icon'])) ? true:false;
-	$output['active_wpTitle']   		= (isset($input['active_wpTitle'])) ? true:false;
+	$output['active_wpTitle']           = (isset($input['active_wpTitle'])) ? true:false;
 	$output['active_sns']               = (isset($input['active_sns'])) ? true:false;
 	$output['active_ga']                = (isset($input['active_ga'])) ? true:false;
 	$output['active_relatedPosts']      = (isset($input['active_relatedPosts'])) ? true:false;
