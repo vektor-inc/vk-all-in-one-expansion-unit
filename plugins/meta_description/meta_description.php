@@ -18,7 +18,6 @@ function vkExUnit_description_options_init() {
 add_action( 'admin_init', 'vkExUnit_description_options_init' );
 
 
-
 function vkExUnit_add_description_options_page(){
 ?>
 <h3><?php _e('Meta Description', 'vkExUnit'); ?></h3>
