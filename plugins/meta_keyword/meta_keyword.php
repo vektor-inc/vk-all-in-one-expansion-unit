@@ -70,10 +70,14 @@ class vExUnit_meta_keywords {
 
 
 	public function add_custom_field(){
-		if(function_exists('add_custom_field_metaKeyword') || true){
-			add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
-			add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
+		$post_types = get_post_types(array(),'objects');
+		foreach($post_types as $post){
+			if($post->_builtin) continue;
+			if(!$post->public) continue;
+			add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), $post->name, 'normal', 'high');
 		}
+		add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
+		add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
 	}
 
 	public function render_meta_box(){

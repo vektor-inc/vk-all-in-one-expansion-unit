@@ -107,6 +107,8 @@ if ($vkExUnit_sns_options['enableTwitterCardTags'] == true)
 if ($vkExUnit_sns_options['enableFollowMe'] == true) 
 	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
 
+require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
+
 /*-------------------------------------------*/
 /*	Add setting page
 /*-------------------------------------------*/
