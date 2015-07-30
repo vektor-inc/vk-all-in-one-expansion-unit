@@ -1,6 +1,11 @@
 <?php
-add_post_type_support( 'page', 'excerpt' );
 
+// Public post type auto support
+$postTypes = get_post_types(Array('public' => true));
+
+foreach ($postTypes as $postType) {
+	add_post_type_support( $postType, 'excerpt' );
+} // foreach ($postTypes as $postType) {
 
 function vkExUnit_description_options_init() {
 	vkExUnit_register_setting(
