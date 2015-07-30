@@ -728,7 +728,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /* 3PR area wiget Plugin
 /*-------------------------------------------*/
 .prBox .subSection-title { font-size: 18px; }
-.prBox .media_pr { margin-bottom: 0.5em; }
+.prBox .media_pr { margin-top: 0.8em; margin-bottom: 0.8em; }
 .prBox .media_pc { display: block; }
 .prBox .media_sp { display: none; }
 .prBox .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; }
