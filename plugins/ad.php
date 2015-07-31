@@ -89,14 +89,12 @@ class vExUnit_AdWords {
     public function render_configPage(){
         $option = $this->get_option();
 ?>
-<h3><?php _e('Meta Keyword', 'vkExUnit'); ?></h3>
+<h3><?php _e('AdWords', 'vkExUnit'); ?></h3>
 <div id="vkExUnit_AdWords" class="sectionBox">
 <table class="form-table">
 <tr><th><?php _e('AdWords', 'vkExUnit'); ?><br/><br/>
-<?php _e('Insert Adsense to more tag and after content.', 'vkExUnit'); ?><br/>
-<?php _e('If you want separate adwords area, you fill tow fields.', 'vkExUnit'); ?>
-</th>
-<td style="max-width:80em;">
+<?php _e('Insert Adsense to more tag and after content.', 'vkExUnit'); ?><br/><?php _e('If you want separate adwords area, you fill tow fields.', 'vkExUnit'); ?>
+</th><td style="max-width:80em;">
     <dl>
         <dt><label for="ad_content_moretag"><?php _e('insert the AdWords [ more tag ]', 'vkExUnit'); ?></label></dt>
         <dd>
@@ -113,9 +111,7 @@ class vExUnit_AdWords {
         <textarea rows="5" name="vkExUnit_AdWords[after][]" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['after'][1] ) && $option['after'][1] )? $option['after'][1]: ''; ?></textarea>
         </dd>
     </dl>
-</td></tr></table>
-<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
-</div>
+</td></tr></table><p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p></div>
 <?php
     }
 
