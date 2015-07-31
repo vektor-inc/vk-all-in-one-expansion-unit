@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-30 16:34+0900\n"
+"POT-Creation-Date: 2015-07-31 11:09+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -111,6 +111,27 @@ msgid ""
 "com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
 "\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
 "</p>"
+msgstr ""
+
+#: plugins/ad.php:28 plugins/ad.php:92 plugins/ad.php:95
+#: vkExUnit_admin.php:336 vkExUnit_admin.php:341
+msgid "AdWords"
+msgstr ""
+
+#: plugins/ad.php:96
+msgid "Insert Adsense to more tag and after content."
+msgstr ""
+
+#: plugins/ad.php:96
+msgid "If you want separate adwords area, you fill tow fields."
+msgstr ""
+
+#: plugins/ad.php:99
+msgid "insert the AdWords [ more tag ]"
+msgstr ""
+
+#: plugins/ad.php:107
+msgid "insert the AdWords [ after content ]"
 msgstr ""
 
 #: plugins/auto_eyecatch.php:32
@@ -900,15 +921,15 @@ msgstr ""
 msgid "Print the Follow me box"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:334
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:351
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:334
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:351
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:334
+#: vkExUnit_admin.php:12 vkExUnit_admin.php:351
 msgid "Description"
 msgstr ""
 
@@ -1115,4 +1136,8 @@ msgstr ""
 
 #: vkExUnit_admin.php:325
 msgid "Display Eye Catch image at before content."
+msgstr ""
+
+#: vkExUnit_admin.php:345
+msgid "Insert AdWords to content."
 msgstr ""

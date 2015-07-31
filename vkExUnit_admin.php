@@ -342,7 +342,7 @@
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p><?php _e('Display Eye Catch image at before content.', 'vkExUnit'); ?></p>
+					<p><?php _e('Insert AdWords to content.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
