@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit meta_discription.php
+ * Set meta tag of description for single page each
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.0.0.0
+ * @since    26/Jun/2015
+ */
 
 // Public post type auto support
 $postTypes = get_post_types(Array('public' => true));

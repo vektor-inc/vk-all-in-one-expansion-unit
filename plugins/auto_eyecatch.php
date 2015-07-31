@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit auto_eyecatch.php
+ * insert thumbnail for top of content automatically
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.1.2.0
+ * @since    8/Jul/2015
+ */
 
 class vExUnit_eyecatch {
     private static $instance;

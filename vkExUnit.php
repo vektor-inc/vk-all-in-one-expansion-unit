@@ -99,13 +99,13 @@ if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
 	require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
 
 if ( isset($options['active_metaDescription']) && $options['active_metaDescription'] )
-	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
+	require vkExUnit_get_directory() . '/plugins/meta_description.php';
 
 if ( isset($options['active_icon']) && $options['active_icon'] )
 	require vkExUnit_get_directory() . '/plugins/icons.php';
 
 if ( isset($options['active_metaKeyword']) && $options['active_metaKeyword'] )
-	require vkExUnit_get_directory() . '/plugins/meta_keyword/meta_keyword.php';
+	require vkExUnit_get_directory() . '/plugins/meta_keyword.php';
 
 if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
 	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';

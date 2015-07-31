@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit meta_keyword.php
+ * Set meta tag of keyword for single page each
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.0.0.0
+ * @since    26/Jun/2015
+ */
 
 class vExUnit_meta_keywords {
     // singleton instance

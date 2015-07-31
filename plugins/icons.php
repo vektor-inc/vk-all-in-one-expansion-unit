@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit icons.php
+ * set favicon tag of user uploaded icon
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.1.2.0
+ * @since    8/Jul/2015
+ */
 
 class vExUnit_icons {
     // singleton instance

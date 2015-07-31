@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit ad.php
+ * insert AdWords for Content.
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  1.6.0
+ * @since    30/Jul/2015
+ */
 
 class vExUnit_AdWords {
     // singleton instance
