@@ -1,4 +1,5 @@
-<h2>VK All in One Expansion Unit Settings.</h2>
+
+<h2><img src="<?php echo plugins_url('', __FILE__).'/images/head_logo_ExUnit.png'; ?>" alt="" class="head_logo_exUnit" /></h2>
 
 <form method="post" action="options.php">
 <?php

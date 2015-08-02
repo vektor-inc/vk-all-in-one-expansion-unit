@@ -22,6 +22,7 @@ function vkExUnit_render_main_config(){
 	vkExUnit_save_main_config();
 ?>
 <div class="wrap vkExUnit_admin_page">
+<h2><img src="<?php echo plugins_url('', __FILE__).'/images/head_logo_ExUnit.png'; ?>" alt="" class="head_logo_exUnit" /></h2>
 <form method="post" action="">
 
 <?php 
