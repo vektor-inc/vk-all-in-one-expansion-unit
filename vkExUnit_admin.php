@@ -1,6 +1,9 @@
+<div class="wrap vkExUnit_admin_page">
+<h2>
+<span class="pageTitleTxt">VK All in One Expansion Unit <?php _e('Enable setting','vkExUnit');?></span>
+</h2>
 
-<h2><img src="<?php echo plugins_url('', __FILE__).'/images/head_logo_ExUnit.png'; ?>" alt="" class="head_logo_exUnit" /></h2>
-
+<div class="adminMain">
 <form method="post" action="options.php">
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
@@ -10,7 +13,8 @@
 <table class="wp-list-table widefat plugins" style="width:auto;">
 	<thead>
 	<tr>
-		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function','vkExUnit');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function','vkExUnit');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>
+	</tr>
 	</thead>
 
 	<tbody id="the-list">
@@ -364,3 +368,8 @@
 </table>
 <?php submit_button(); ?>
 </form>
+</div><!-- [ /.adminMain ] -->
+<div class="adminSub">
+<div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
+</div><!-- [ /.adminSub ] -->
+</div>

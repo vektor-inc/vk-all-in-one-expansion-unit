@@ -81,8 +81,9 @@ require vkExUnit_get_directory() . '/common_init.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
+require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
-require vkExUnit_get_directory() . '/plugins/dashboard_info_widget/dashboard-info-widget.php';
+require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
 
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
@@ -177,6 +178,7 @@ function vkExUnit_addfontawesome(){
 	}
 }
 
+add_action( 'admin_print_styles-index.php', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
 function vkExUnit_admin_enq(){
@@ -187,11 +189,11 @@ function vkExUnit_admin_enq(){
 /*	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
 /*-------------------------------------------*/
 
-// add_action("admin_head", 'suffix2console');
-// function suffix2console() {
-//     global $hook_suffix;
-//     if (is_user_logged_in()) {
-//         $str = "<script type=\"text/javascript\">console.log('%s')</script>";
-//         printf($str, $hook_suffix);
-//     }
-// }
+add_action("admin_head", 'suffix2console');
+function suffix2console() {
+    global $hook_suffix;
+    if (is_user_logged_in()) {
+        $str = "<script type=\"text/javascript\">console.log('%s')</script>";
+        printf($str, $hook_suffix);
+    }
+}

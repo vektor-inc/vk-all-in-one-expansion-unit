@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-03 00:21+0900\n"
+"POT-Creation-Date: 2015-08-03 02:52+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_x;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../admin_wrapper.php:7 ../admin_wrapper.php:8
+#: ../admin_wrapper.php:7 ../admin_wrapper.php:8 ../admin_wrapper.php:26
 #: ../plugins/meta_keyword.php:97
 msgid "Main setting"
 msgstr "メイン設定"
@@ -103,7 +103,306 @@ msgstr "チャット"
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: ../common_other_functions.php:6
+#: ../vkExUnit_admin.php:3
+msgid "Enable setting"
+msgstr "有効化設定"
+
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:364
+msgid "Select all"
+msgstr "全てを選択"
+
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:364
+msgid "Function"
+msgstr "有効化"
+
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:364
+msgid "Description"
+msgstr "説明"
+
+#: ../vkExUnit_admin.php:26
+msgid "Choose Print Bootstrap css"
+msgstr "Bootstrap の CSS を出力するか選択"
+
+#: ../vkExUnit_admin.php:31
+msgid "Print Bootstrap css and js"
+msgstr "Bootstrap の CSS と js を出力"
+
+#: ../vkExUnit_admin.php:35
+msgid ""
+"If your using theme has already including Bootstrap, you deactivate this "
+"item."
+msgstr ""
+"Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
+"中のテーマやプラグインで Bootstrap を既に読み込んでいる場合はチェックを外して"
+"下さい。"
+
+#: ../vkExUnit_admin.php:44
+msgid "Choose Print link fontawesome."
+msgstr "出力する fontawesome link を選択して下さい。"
+
+#: ../vkExUnit_admin.php:49
+msgid "Print link fontawesome."
+msgstr "fontawesome link タグを出力"
+
+#: ../vkExUnit_admin.php:53
+msgid "Print fontawesome link tag to html head."
+msgstr ""
+"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
+"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
+"さい。"
+
+#: ../vkExUnit_admin.php:62 ../vkExUnit_admin.php:126
+msgid "Choose Print meta description."
+msgstr "出力する meta description を選択して下さい。"
+
+#: ../vkExUnit_admin.php:67
+msgid "Favicon setting"
+msgstr "ファビコン設定"
+
+#: ../vkExUnit_admin.php:71
+msgid "About favicon."
+msgstr ""
+"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
+"（ファビコン）を設定します。"
+
+#: ../vkExUnit_admin.php:80
+msgid "Choose Rewrite the title tag"
+msgstr "タイトルタグの書き換えを選択する"
+
+#: ../vkExUnit_admin.php:85
+msgid "Rewrite the title tag"
+msgstr "タイトルタグの書き換え"
+
+#: ../vkExUnit_admin.php:89
+msgid "Print is rewritten by its own rules to html head."
+msgstr ""
+"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+
+#: ../vkExUnit_admin.php:98
+msgid "Choose Print meta Keyword."
+msgstr "メタキーワードを選んでください。"
+
+#: ../vkExUnit_admin.php:103
+msgid "Print meta Keyword"
+msgstr "メタキーワードを出力"
+
+#: ../vkExUnit_admin.php:109 ../vkExUnit_admin.php:155
+#: ../vkExUnit_admin.php:193 ../vkExUnit_admin.php:272
+#: ../vkExUnit_admin.php:305 ../vkExUnit_admin.php:349
+msgid "Setting"
+msgstr "設定"
+
+#: ../vkExUnit_admin.php:117
+msgid "Print meta Keyword to html head."
+msgstr "ヘッダーにメタキーワードを出力します。"
+
+#: ../vkExUnit_admin.php:131
+msgid "Print meta description"
+msgstr "メタディスクリプションタグを出力"
+
+#: ../vkExUnit_admin.php:135
+msgid "Print meta description to html head."
+msgstr ""
+"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
+"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
+"している場合はチェックを外して下さい。"
+
+#: ../vkExUnit_admin.php:144
+msgid "Choose Social media cooperation."
+msgstr "連携するソーシャルメディアを選択します。"
+
+#: ../vkExUnit_admin.php:149
+msgid "Social media cooperation."
+msgstr "ソーシャルメディアとの連携"
+
+#: ../vkExUnit_admin.php:164
+msgid "Print og tags to html head."
+msgstr "OG タグを html head 内へ出力します。"
+
+#: ../vkExUnit_admin.php:165
+msgid "Print twitter card tags to html head."
+msgstr "Twitter カードタグを html head 内へ出力します。"
+
+#: ../vkExUnit_admin.php:166
+msgid "Print social bookmark buttons."
+msgstr "ソーシャルブックマークボタンを表示します。"
+
+#: ../vkExUnit_admin.php:167
+msgid "Facebook Page Plugin widget."
+msgstr "Facebookページプラグインウィジェット"
+
+#: ../vkExUnit_admin.php:168
+msgid "Print Follow me box to content bottom."
+msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
+
+#: ../vkExUnit_admin.php:171
+msgid "Main setting page"
+msgstr "メイン設定画面"
+
+#: ../vkExUnit_admin.php:172
+#, php-format
+msgid "* You can stop the function separately from the %s."
+msgstr "%s から個別に機能を停止する事ができます。"
+
+#: ../vkExUnit_admin.php:182
+msgid "Choose Print Google Analytics tracking code."
+msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
+
+#: ../vkExUnit_admin.php:201
+msgid "Print Google Analytics tracking code."
+msgstr ""
+"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
+"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
+"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
+"合はチェックを外して下さい。"
+
+#: ../vkExUnit_admin.php:210
+msgid "Choose Related posts."
+msgstr "関連記事を選択"
+
+#: ../vkExUnit_admin.php:215 ../plugins/related_posts/related_posts.php:34
+msgid "Related posts"
+msgstr "関連記事を表示"
+
+#: ../vkExUnit_admin.php:219
+msgid "Print Related posts lists to post content bottom."
+msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
+
+#: ../vkExUnit_admin.php:228
+msgid "Choose display a child page index to posts."
+msgstr "子ページの一覧を表示するか選択"
+
+#: ../vkExUnit_admin.php:233
+msgid "Child page index"
+msgstr "子ページの一覧表示"
+
+#: ../vkExUnit_admin.php:237
+msgid ""
+"At the bottom of the specified page, it will display a list of the child "
+"page."
+msgstr ""
+"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
+"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
+
+#: ../vkExUnit_admin.php:246
+msgid "Insert Site Map"
+msgstr "サイトマップを挿入する"
+
+#: ../vkExUnit_admin.php:251
+msgid "Display HTML Site Map"
+msgstr "HTMLサイトマップの表示"
+
+#: ../vkExUnit_admin.php:255
+msgid "It displays a HTML Site Map to the specified page."
+msgstr "指定した固定ページにHTMLサイトマップを表示します。"
+
+#: ../vkExUnit_admin.php:264 ../vkExUnit_admin.php:295
+msgid "Choose other widgets."
+msgstr "Other ウィジェットを選択"
+
+#: ../vkExUnit_admin.php:269
+msgid "Widgets"
+msgstr "ウィジェット"
+
+#: ../vkExUnit_admin.php:277
+msgid "You can use various widgets."
+msgstr ""
+"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
+"「ウィジェット」の設定画面より行って下さい。"
+
+#: ../vkExUnit_admin.php:279
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
+
+#: ../vkExUnit_admin.php:280
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
+
+#: ../vkExUnit_admin.php:281
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
+
+#: ../vkExUnit_admin.php:282
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
+
+#: ../vkExUnit_admin.php:283
+msgid "VK_3PR area - display the 3PR area."
+msgstr "VK_3PR エリア - 3PR エリアを表示します。"
+
+#: ../vkExUnit_admin.php:284
+#: ../plugins/other_widget/old/widget-taxonomy-list.php:17
+msgid "categories/tags list"
+msgstr "カテゴリー/タグ リスト"
+
+#: ../vkExUnit_admin.php:284
+#: ../plugins/other_widget/old/widget-taxonomy-list.php:11
+msgid "Displays a categories, tags or format list."
+msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
+
+#: ../vkExUnit_admin.php:285 ../plugins/other_widget/widget-archives.php:14
+#: ../plugins/other_widget/old/widget-archive-list.php:14
+msgid "archive list"
+msgstr "アーカイブリスト"
+
+#: ../vkExUnit_admin.php:285 ../plugins/other_widget/widget-archives.php:12
+#: ../plugins/other_widget/old/widget-archive-list.php:12
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
+"プを選択できます。"
+
+#: ../vkExUnit_admin.php:300
+msgid "CSS customize"
+msgstr "CSSカスタマイズ"
+
+#: ../vkExUnit_admin.php:312
+msgid "You can set Customize CSS."
+msgstr ""
+"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
+"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
+"さい。"
+
+#: ../vkExUnit_admin.php:321 ../vkExUnit_admin.php:326
+msgid "Automatic Eye Catch insert"
+msgstr "アイキャッチ画像自動挿入"
+
+#: ../vkExUnit_admin.php:330
+msgid "Display Eye Catch image at before content."
+msgstr ""
+"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
+"す。"
+
+#: ../vkExUnit_admin.php:341 ../vkExUnit_admin.php:346
+#: ../plugins/insert_ads.php:37 ../plugins/insert_ads.php:101
+msgid "Insert ads"
+msgstr "広告の挿入"
+
+#: ../vkExUnit_admin.php:354
+msgid "Insert ads to content."
+msgstr "記事に広告を挿入します"
+
+#: ../plugins/auto_eyecatch.php:41
+msgid "Automatic EyeCatch"
+msgstr "アイキャッチ自動挿入"
+
+#: ../plugins/auto_eyecatch.php:51
+msgid "Do not set eyecatch image automatic."
+msgstr "アイキャッチ画像を自動挿入しない"
+
+#: ../plugins/dashboard_info_widget.php:18
+msgid "News from VK All in One Expansion Unit"
+msgstr "VK All in One Expansion Unit からのお知らせ"
+
+#: ../plugins/footer_copyright_change.php:6
 msgid ""
 "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
 "\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
@@ -118,297 +417,6 @@ msgstr ""
 "&amp; <a href=\"http://ex-unit.bizvektor.com/ja/\" target=\"_blank\">VK All "
 "in One Expansion Unit</a> by <a href=\"http://www.vektor-inc.co.jp\" target="
 "\"_blank\">Vektor,Inc.</a> technology.</p>"
-
-#: ../vkExUnit_admin.php:12 ../vkExUnit_admin.php:351
-msgid "Select all"
-msgstr "全てを選択"
-
-#: ../vkExUnit_admin.php:12 ../vkExUnit_admin.php:351
-msgid "Function"
-msgstr "有効化"
-
-#: ../vkExUnit_admin.php:12 ../vkExUnit_admin.php:351
-msgid "Description"
-msgstr "説明"
-
-#: ../vkExUnit_admin.php:21
-msgid "Choose Print Bootstrap css"
-msgstr "Bootstrap の CSS を出力するか選択"
-
-#: ../vkExUnit_admin.php:26
-msgid "Print Bootstrap css and js"
-msgstr "Bootstrap の CSS と js を出力"
-
-#: ../vkExUnit_admin.php:30
-msgid ""
-"If your using theme has already including Bootstrap, you deactivate this "
-"item."
-msgstr ""
-"Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
-"中のテーマやプラグインで Bootstrap を既に読み込んでいる場合はチェックを外して"
-"下さい。"
-
-#: ../vkExUnit_admin.php:39
-msgid "Choose Print link fontawesome."
-msgstr "出力する fontawesome link を選択して下さい。"
-
-#: ../vkExUnit_admin.php:44
-msgid "Print link fontawesome."
-msgstr "fontawesome link タグを出力"
-
-#: ../vkExUnit_admin.php:48
-msgid "Print fontawesome link tag to html head."
-msgstr ""
-"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
-"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
-"さい。"
-
-#: ../vkExUnit_admin.php:57 ../vkExUnit_admin.php:121
-msgid "Choose Print meta description."
-msgstr "出力する meta description を選択して下さい。"
-
-#: ../vkExUnit_admin.php:62
-msgid "Favicon setting"
-msgstr "ファビコン設定"
-
-#: ../vkExUnit_admin.php:66
-msgid "About favicon."
-msgstr ""
-"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
-"（ファビコン）を設定します。"
-
-#: ../vkExUnit_admin.php:75
-msgid "Choose Rewrite the title tag"
-msgstr "タイトルタグの書き換えを選択する"
-
-#: ../vkExUnit_admin.php:80
-msgid "Rewrite the title tag"
-msgstr "タイトルタグの書き換え"
-
-#: ../vkExUnit_admin.php:84
-msgid "Print is rewritten by its own rules to html head."
-msgstr ""
-"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
-"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
-"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
-
-#: ../vkExUnit_admin.php:93
-msgid "Choose Print meta Keyword."
-msgstr "メタキーワードを選んでください。"
-
-#: ../vkExUnit_admin.php:98
-msgid "Print meta Keyword"
-msgstr "メタキーワードを出力"
-
-#: ../vkExUnit_admin.php:104 ../vkExUnit_admin.php:150
-#: ../vkExUnit_admin.php:188 ../vkExUnit_admin.php:267
-#: ../vkExUnit_admin.php:300
-msgid "Setting"
-msgstr "設定"
-
-#: ../vkExUnit_admin.php:112
-msgid "Print meta Keyword to html head."
-msgstr "ヘッダーにメタキーワードを出力します。"
-
-#: ../vkExUnit_admin.php:126
-msgid "Print meta description"
-msgstr "メタディスクリプションタグを出力"
-
-#: ../vkExUnit_admin.php:130
-msgid "Print meta description to html head."
-msgstr ""
-"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
-"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
-"している場合はチェックを外して下さい。"
-
-#: ../vkExUnit_admin.php:139
-msgid "Choose Social media cooperation."
-msgstr "連携するソーシャルメディアを選択します。"
-
-#: ../vkExUnit_admin.php:144
-msgid "Social media cooperation."
-msgstr "ソーシャルメディアとの連携"
-
-#: ../vkExUnit_admin.php:159
-msgid "Print og tags to html head."
-msgstr "OG タグを html head 内へ出力します。"
-
-#: ../vkExUnit_admin.php:160
-msgid "Print twitter card tags to html head."
-msgstr "Twitter カードタグを html head 内へ出力します。"
-
-#: ../vkExUnit_admin.php:161
-msgid "Print social bookmark buttons."
-msgstr "ソーシャルブックマークボタンを表示します。"
-
-#: ../vkExUnit_admin.php:162
-msgid "Facebook Page Plugin widget."
-msgstr "Facebookページプラグインウィジェット"
-
-#: ../vkExUnit_admin.php:163
-msgid "Print Follow me box to content bottom."
-msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
-
-#: ../vkExUnit_admin.php:166
-msgid "Main setting page"
-msgstr "メイン設定画面"
-
-#: ../vkExUnit_admin.php:167
-#, php-format
-msgid "* You can stop the function separately from the %s."
-msgstr "%s から個別に機能を停止する事ができます。"
-
-#: ../vkExUnit_admin.php:177
-msgid "Choose Print Google Analytics tracking code."
-msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
-
-#: ../vkExUnit_admin.php:196
-msgid "Print Google Analytics tracking code."
-msgstr ""
-"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
-"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
-"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
-"合はチェックを外して下さい。"
-
-#: ../vkExUnit_admin.php:205
-msgid "Choose Related posts."
-msgstr "関連記事を選択"
-
-#: ../vkExUnit_admin.php:210 ../plugins/related_posts/related_posts.php:34
-msgid "Related posts"
-msgstr "関連記事を表示"
-
-#: ../vkExUnit_admin.php:214
-msgid "Print Related posts lists to post content bottom."
-msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
-
-#: ../vkExUnit_admin.php:223
-msgid "Choose display a child page index to posts."
-msgstr "子ページの一覧を表示するか選択"
-
-#: ../vkExUnit_admin.php:228
-msgid "Child page index"
-msgstr "子ページの一覧表示"
-
-#: ../vkExUnit_admin.php:232
-msgid ""
-"At the bottom of the specified page, it will display a list of the child "
-"page."
-msgstr ""
-"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
-"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
-
-#: ../vkExUnit_admin.php:241
-msgid "Insert Site Map"
-msgstr "サイトマップを挿入する"
-
-#: ../vkExUnit_admin.php:246
-msgid "Display HTML Site Map"
-msgstr "HTMLサイトマップの表示"
-
-#: ../vkExUnit_admin.php:250
-msgid "It displays a HTML Site Map to the specified page."
-msgstr "指定した固定ページにHTMLサイトマップを表示します。"
-
-#: ../vkExUnit_admin.php:259 ../vkExUnit_admin.php:290
-msgid "Choose other widgets."
-msgstr "Other ウィジェットを選択"
-
-#: ../vkExUnit_admin.php:264
-msgid "Widgets"
-msgstr "ウィジェット"
-
-#: ../vkExUnit_admin.php:272
-msgid "You can use various widgets."
-msgstr ""
-"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
-"「ウィジェット」の設定画面より行って下さい。"
-
-#: ../vkExUnit_admin.php:274
-msgid ""
-"VK_Recent Posts - display the link text and the date of the latest article "
-"title."
-msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
-
-#: ../vkExUnit_admin.php:275
-msgid ""
-"VK_Page content to widget - display the contents of the page to the widgets."
-msgstr ""
-"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
-
-#: ../vkExUnit_admin.php:276
-msgid "VK_Profile - display the profile entered in the widget."
-msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
-
-#: ../vkExUnit_admin.php:277
-msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
-msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
-
-#: ../vkExUnit_admin.php:278
-msgid "VK_3PR area - display the 3PR area."
-msgstr "VK_3PR エリア - 3PR エリアを表示します。"
-
-#: ../vkExUnit_admin.php:279
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:17
-msgid "categories/tags list"
-msgstr "カテゴリー/タグ リスト"
-
-#: ../vkExUnit_admin.php:279
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:11
-msgid "Displays a categories, tags or format list."
-msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
-
-#: ../vkExUnit_admin.php:280 ../plugins/other_widget/widget-archives.php:14
-#: ../plugins/other_widget/old/widget-archive-list.php:14
-msgid "archive list"
-msgstr "アーカイブリスト"
-
-#: ../vkExUnit_admin.php:280 ../plugins/other_widget/widget-archives.php:12
-#: ../plugins/other_widget/old/widget-archive-list.php:12
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
-msgstr ""
-"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
-"プを選択できます。"
-
-#: ../vkExUnit_admin.php:295
-msgid "CSS customize"
-msgstr "CSSカスタマイズ"
-
-#: ../vkExUnit_admin.php:307
-msgid "You can set Customize CSS."
-msgstr ""
-"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
-"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
-"さい。"
-
-#: ../vkExUnit_admin.php:316 ../vkExUnit_admin.php:321
-msgid "Automatic Eye Catch insert"
-msgstr "アイキャッチ画像自動挿入"
-
-#: ../vkExUnit_admin.php:325
-msgid "Display Eye Catch image at before content."
-msgstr ""
-"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
-"す。"
-
-#: ../vkExUnit_admin.php:336 ../vkExUnit_admin.php:341
-#: ../plugins/insert_ads.php:37 ../plugins/insert_ads.php:101
-msgid "Insert ads"
-msgstr "広告の挿入"
-
-#: ../vkExUnit_admin.php:345
-msgid "Insert ads to content."
-msgstr "記事に広告を挿入します"
-
-#: ../plugins/auto_eyecatch.php:41
-msgid "Automatic EyeCatch"
-msgstr "アイキャッチ自動挿入"
-
-#: ../plugins/auto_eyecatch.php:51
-msgid "Do not set eyecatch image automatic."
-msgstr "アイキャッチ画像を自動挿入しない"
 
 #: ../plugins/icons.php:35 ../plugins/icons.php:63
 msgid "icon setting"
@@ -544,6 +552,10 @@ msgstr "キーワードを複数入力する場合は , ( カンマ )で区切�
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
+
+#: ../plugins/news_from_exUnit.php:38
+msgid "Sorry, there is no post"
+msgstr "お知らせはありません。"
 
 #: ../plugins/page_custom_field.php:12
 msgid "Setting of insert items"
@@ -1235,6 +1247,13 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 #: ../plugins/sns/old/sns_admin.php:149
 msgid "Page top"
 msgstr "ページ先頭へ"
+
+#, fuzzy
+#~ msgid "http://ex-unit.bizvektor.com/ja/?feed"
+#~ msgstr "http://ex-unit.bizvektor.com/ja/?feed"
+
+#~ msgid "http://ex-unit.bizvektor.com/?feed"
+#~ msgstr "http://ex-unit.bizvektor.com/ja/?feed"
 
 #~ msgid "AdWords"
 #~ msgstr "広告の挿入"

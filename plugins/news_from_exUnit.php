@@ -1,35 +1,17 @@
 <?php
-/*--------------------------------------------------*/
-/*	Display a Ex_unit information on the dashboard
-/*--------------------------------------------------*/
-
-add_filter('ex_unit_is_plugin_dashboard_info_widget', 'ex_unit_dash_beacon', 10, 1 );
-function ex_unit_dash_beacon($flag){
-	$flag = true;
-	return $flag;
-}
-
-//displays dashboard widget only for Japanese version
-if ( 'ja' == get_locale() ) {
-	add_action( 'wp_dashboard_setup', 'ex_unit_dashboard_widget' );
-}
-
-function ex_unit_dashboard_widget()
-{
-	wp_add_dashboard_widget(
-		'ex_unit_dashboard_widget',
-		'Ex-unit ニュース',
-		'ex_unit_dashboard_widget_function'
-	);
-}
-
-function ex_unit_dashboard_widget_function()
+function vkExUnit_news_body()
 {
 
 	include_once(ABSPATH . WPINC . '/feed.php');
 	
+	if ( 'ja' == get_locale() ) {
+		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/ja/?feed';
+	} else {
+		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/?feed';
+	}
+
 	$my_feeds = array( 
-		array('feed_url' => 'http://ex-unit.bizvektor.com/?feed?'.date('his')) 
+		array('feed_url' => $exUnit_feed_url) 
 	);
 
 		
@@ -45,12 +27,15 @@ function ex_unit_dashboard_widget_function()
 			$rss_items = $rss->get_items( 0, $maxitems );
 			
 			$output .= '<div class="rss-widget">';
+
+			$output .= '<div class="logo_exUnit">';
+			$output .= '<img src="'.site_url().'/wp-content/plugins/vk-all-in-one-expansion-unit/images/head_logo_ExUnit.png'.'" alt="VK ExUnit" style="width:200px;" /></div>';
 			$output .= '<ul>';
 
 			if ( $maxitems == 0 )
 			{
 				$output .= '<li>';
-				$output .= '表示するニュースがありません。';	
+				$output .= __('Sorry, there is no post', 'vkExUnit');	
 				$output .= '</li>';
 			}
 			else

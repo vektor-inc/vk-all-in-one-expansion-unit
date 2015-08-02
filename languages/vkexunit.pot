@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-02 11:57+0900\n"
+"POT-Creation-Date: 2015-08-03 02:52+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -14,7 +14,8 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin_wrapper.php:7 admin_wrapper.php:8 plugins/meta_keyword.php:97
+#: admin_wrapper.php:7 admin_wrapper.php:8 admin_wrapper.php:26
+#: plugins/meta_keyword.php:97
 msgid "Main setting"
 msgstr ""
 
@@ -101,280 +102,258 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: common_other_functions.php:6
-msgid ""
-"<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
-"\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
-"Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.bizvektor."
-"com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
-"\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
-"</p>"
+#: vkExUnit_admin.php:3
+msgid "Enable setting"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:351
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:364
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:351
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:364
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:12 vkExUnit_admin.php:351
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:364
 msgid "Description"
 msgstr ""
 
-#: vkExUnit_admin.php:21
+#: vkExUnit_admin.php:26
 msgid "Choose Print Bootstrap css"
 msgstr ""
 
-#: vkExUnit_admin.php:26
+#: vkExUnit_admin.php:31
 msgid "Print Bootstrap css and js"
 msgstr ""
 
-#: vkExUnit_admin.php:30
+#: vkExUnit_admin.php:35
 msgid ""
 "If your using theme has already including Bootstrap, you deactivate this "
 "item."
 msgstr ""
 
-#: vkExUnit_admin.php:39
+#: vkExUnit_admin.php:44
 msgid "Choose Print link fontawesome."
 msgstr ""
 
-#: vkExUnit_admin.php:44
+#: vkExUnit_admin.php:49
 msgid "Print link fontawesome."
 msgstr ""
 
-#: vkExUnit_admin.php:48
+#: vkExUnit_admin.php:53
 msgid "Print fontawesome link tag to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:57 vkExUnit_admin.php:121
+#: vkExUnit_admin.php:62 vkExUnit_admin.php:126
 msgid "Choose Print meta description."
 msgstr ""
 
-#: vkExUnit_admin.php:62
+#: vkExUnit_admin.php:67
 msgid "Favicon setting"
 msgstr ""
 
-#: vkExUnit_admin.php:66
+#: vkExUnit_admin.php:71
 msgid "About favicon."
 msgstr ""
 
-#: vkExUnit_admin.php:75
+#: vkExUnit_admin.php:80
 msgid "Choose Rewrite the title tag"
 msgstr ""
 
-#: vkExUnit_admin.php:80
+#: vkExUnit_admin.php:85
 msgid "Rewrite the title tag"
 msgstr ""
 
-#: vkExUnit_admin.php:84
+#: vkExUnit_admin.php:89
 msgid "Print is rewritten by its own rules to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:93
+#: vkExUnit_admin.php:98
 msgid "Choose Print meta Keyword."
 msgstr ""
 
-#: vkExUnit_admin.php:98
+#: vkExUnit_admin.php:103
 msgid "Print meta Keyword"
 msgstr ""
 
-#: vkExUnit_admin.php:104 vkExUnit_admin.php:150 vkExUnit_admin.php:188
-#: vkExUnit_admin.php:267 vkExUnit_admin.php:300
+#: vkExUnit_admin.php:109 vkExUnit_admin.php:155 vkExUnit_admin.php:193
+#: vkExUnit_admin.php:272 vkExUnit_admin.php:305 vkExUnit_admin.php:349
 msgid "Setting"
 msgstr ""
 
-#: vkExUnit_admin.php:112
+#: vkExUnit_admin.php:117
 msgid "Print meta Keyword to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:126
+#: vkExUnit_admin.php:131
 msgid "Print meta description"
 msgstr ""
 
-#: vkExUnit_admin.php:130
+#: vkExUnit_admin.php:135
 msgid "Print meta description to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:139
+#: vkExUnit_admin.php:144
 msgid "Choose Social media cooperation."
 msgstr ""
 
-#: vkExUnit_admin.php:144
+#: vkExUnit_admin.php:149
 msgid "Social media cooperation."
 msgstr ""
 
-#: vkExUnit_admin.php:159
+#: vkExUnit_admin.php:164
 msgid "Print og tags to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:160
+#: vkExUnit_admin.php:165
 msgid "Print twitter card tags to html head."
 msgstr ""
 
-#: vkExUnit_admin.php:161
+#: vkExUnit_admin.php:166
 msgid "Print social bookmark buttons."
 msgstr ""
 
-#: vkExUnit_admin.php:162
+#: vkExUnit_admin.php:167
 msgid "Facebook Page Plugin widget."
 msgstr ""
 
-#: vkExUnit_admin.php:163
+#: vkExUnit_admin.php:168
 msgid "Print Follow me box to content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:166
+#: vkExUnit_admin.php:171
 msgid "Main setting page"
 msgstr ""
 
-#: vkExUnit_admin.php:167
+#: vkExUnit_admin.php:172
 #, php-format
 msgid "* You can stop the function separately from the %s."
 msgstr ""
 
-#: vkExUnit_admin.php:177
+#: vkExUnit_admin.php:182
 msgid "Choose Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:196
+#: vkExUnit_admin.php:201
 msgid "Print Google Analytics tracking code."
 msgstr ""
 
-#: vkExUnit_admin.php:205
+#: vkExUnit_admin.php:210
 msgid "Choose Related posts."
 msgstr ""
 
-#: vkExUnit_admin.php:210 plugins/related_posts/related_posts.php:34
+#: vkExUnit_admin.php:215 plugins/related_posts/related_posts.php:34
 msgid "Related posts"
 msgstr ""
 
-#: vkExUnit_admin.php:214
+#: vkExUnit_admin.php:219
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:223
+#: vkExUnit_admin.php:228
 msgid "Choose display a child page index to posts."
 msgstr ""
 
-#: vkExUnit_admin.php:228
+#: vkExUnit_admin.php:233
 msgid "Child page index"
 msgstr ""
 
-#: vkExUnit_admin.php:232
+#: vkExUnit_admin.php:237
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
 msgstr ""
 
-#: vkExUnit_admin.php:241
+#: vkExUnit_admin.php:246
 msgid "Insert Site Map"
 msgstr ""
 
-#: vkExUnit_admin.php:246
+#: vkExUnit_admin.php:251
 msgid "Display HTML Site Map"
 msgstr ""
 
-#: vkExUnit_admin.php:250
+#: vkExUnit_admin.php:255
 msgid "It displays a HTML Site Map to the specified page."
 msgstr ""
 
-#: vkExUnit_admin.php:259 vkExUnit_admin.php:290
+#: vkExUnit_admin.php:264 vkExUnit_admin.php:295
 msgid "Choose other widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:264
+#: vkExUnit_admin.php:269
 msgid "Widgets"
 msgstr ""
 
-#: vkExUnit_admin.php:272
+#: vkExUnit_admin.php:277
 msgid "You can use various widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:274
+#: vkExUnit_admin.php:279
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr ""
 
-#: vkExUnit_admin.php:275
+#: vkExUnit_admin.php:280
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 
-#: vkExUnit_admin.php:276
+#: vkExUnit_admin.php:281
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr ""
 
-#: vkExUnit_admin.php:277
+#: vkExUnit_admin.php:282
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr ""
 
-#: vkExUnit_admin.php:278
+#: vkExUnit_admin.php:283
 msgid "VK_3PR area - display the 3PR area."
 msgstr ""
 
-#: vkExUnit_admin.php:279 plugins/other_widget/old/widget-taxonomy-list.php:17
+#: vkExUnit_admin.php:284 plugins/other_widget/old/widget-taxonomy-list.php:17
 msgid "categories/tags list"
 msgstr ""
 
-#: vkExUnit_admin.php:279 plugins/other_widget/old/widget-taxonomy-list.php:11
+#: vkExUnit_admin.php:284 plugins/other_widget/old/widget-taxonomy-list.php:11
 msgid "Displays a categories, tags or format list."
 msgstr ""
 
-#: vkExUnit_admin.php:280 plugins/other_widget/widget-archives.php:14
+#: vkExUnit_admin.php:285 plugins/other_widget/widget-archives.php:14
 #: plugins/other_widget/old/widget-archive-list.php:14
 msgid "archive list"
 msgstr ""
 
-#: vkExUnit_admin.php:280 plugins/other_widget/widget-archives.php:12
+#: vkExUnit_admin.php:285 plugins/other_widget/widget-archives.php:12
 #: plugins/other_widget/old/widget-archive-list.php:12
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
 msgstr ""
 
-#: vkExUnit_admin.php:295
+#: vkExUnit_admin.php:300
 msgid "CSS customize"
 msgstr ""
 
-#: vkExUnit_admin.php:307
+#: vkExUnit_admin.php:312
 msgid "You can set Customize CSS."
 msgstr ""
 
-#: vkExUnit_admin.php:316 vkExUnit_admin.php:321
+#: vkExUnit_admin.php:321 vkExUnit_admin.php:326
 msgid "Automatic Eye Catch insert"
 msgstr ""
 
-#: vkExUnit_admin.php:325
+#: vkExUnit_admin.php:330
 msgid "Display Eye Catch image at before content."
 msgstr ""
 
-#: vkExUnit_admin.php:336 vkExUnit_admin.php:341 plugins/ad.php:37
-#: plugins/ad.php:101 plugins/ad.php:104
-msgid "AdWords"
+#: vkExUnit_admin.php:341 vkExUnit_admin.php:346 plugins/insert_ads.php:37
+#: plugins/insert_ads.php:101
+msgid "Insert ads"
 msgstr ""
 
-#: vkExUnit_admin.php:345
-msgid "Insert AdWords to content."
-msgstr ""
-
-#: plugins/ad.php:105
-msgid "Insert Adsense to more tag and after content."
-msgstr ""
-
-#: plugins/ad.php:105
-msgid "If you want separate adwords area, you fill tow fields."
-msgstr ""
-
-#: plugins/ad.php:108
-msgid "insert the AdWords [ more tag ]"
-msgstr ""
-
-#: plugins/ad.php:116
-msgid "insert the AdWords [ after content ]"
+#: vkExUnit_admin.php:354
+msgid "Insert ads to content."
 msgstr ""
 
 #: plugins/auto_eyecatch.php:41
@@ -383,6 +362,20 @@ msgstr ""
 
 #: plugins/auto_eyecatch.php:51
 msgid "Do not set eyecatch image automatic."
+msgstr ""
+
+#: plugins/dashboard_info_widget.php:18
+msgid "News from VK All in One Expansion Unit"
+msgstr ""
+
+#: plugins/footer_copyright_change.php:6
+msgid ""
+"<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
+"\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
+"Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.bizvektor."
+"com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
+"\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
+"</p>"
 msgstr ""
 
 #: plugins/icons.php:35 plugins/icons.php:63
@@ -399,6 +392,26 @@ msgstr ""
 
 #: plugins/icons.php:71
 msgid "Please upload your \".ico\" file"
+msgstr ""
+
+#: plugins/insert_ads.php:104
+msgid "Insert ads to post."
+msgstr ""
+
+#: plugins/insert_ads.php:106
+msgid "Insert ads to more tag and after content."
+msgstr ""
+
+#: plugins/insert_ads.php:106
+msgid "If you want to separate ads area, you fill two fields."
+msgstr ""
+
+#: plugins/insert_ads.php:108
+msgid "insert the ad [ more tag ]"
+msgstr ""
+
+#: plugins/insert_ads.php:116
+msgid "insert the ad [ after content ]"
 msgstr ""
 
 #: plugins/meta_description.php:21 plugins/meta_description.php:32
@@ -481,6 +494,10 @@ msgstr ""
 #: plugins/meta_keyword.php:98
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
+msgstr ""
+
+#: plugins/news_from_exUnit.php:38
+msgid "Sorry, there is no post"
 msgstr ""
 
 #: plugins/page_custom_field.php:12
