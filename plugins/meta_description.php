@@ -32,7 +32,7 @@ function vkExUnit_add_description_options_page(){
 <h3><?php _e('Meta Description', 'vkExUnit'); ?></h3>
 <div id="meta_description" class="sectionBox">
 <table class="form-table">
-<tr><th>ディスクリプション</th>
+<tr><th><?php _e('Meta Description','vkExUnit');?></th>
 <td>
 
 <?php _e('What you have to complete the "excerpt" column of the edit screen of each page will be reflected in the description of the meta tag.','vkExUnit') ?><br/>

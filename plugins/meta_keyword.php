@@ -72,7 +72,7 @@ class vExUnit_meta_keywords {
 * <?php _e('"," separator at end of the last keyword is do not need.','vkExUnit') ?><br/>
 <?php _e('Example: WordPress,template,theme,free,GPL','vkExUnit'); ?></td></tr>
 </table>
-<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
+<?php submit_button(); ?>
 </div>
 <?php
 	}

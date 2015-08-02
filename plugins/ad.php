@@ -120,7 +120,9 @@ class vExUnit_AdWords {
         <textarea rows="5" name="vkExUnit_AdWords[after][]" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['after'][1] ) && $option['after'][1] )? $option['after'][1]: ''; ?></textarea>
         </dd>
     </dl>
-</td></tr></table><p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p></div>
+</td></tr></table>
+<?php submit_button(); ?>
+</div>
 <?php
     }
 

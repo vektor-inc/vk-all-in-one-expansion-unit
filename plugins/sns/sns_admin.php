@@ -64,5 +64,5 @@
 
 </table>
 
-<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
+<?php submit_button(); ?>
 </div>
