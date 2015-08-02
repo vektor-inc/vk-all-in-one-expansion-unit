@@ -10,8 +10,11 @@ function vkExUnit_add_follow($content){
 		$options = vkExUnit_get_sns_options();
 		if(!$options['enableFollowMe']){ return $content; }
 
-		$title = __('Follow me','vkExUnit').'!';
-		$title = apply_filters( 'vkExUnit_followMe_title', $title );
+		if (isset($options['followMe_title']) && $options['followMe_title'] ) {
+			$title = $options['followMe_title'];
+		} else {
+		 	$title = __('Follow me','vkExUnit').'!'; 
+		}
 
 		// https://about.twitter.com/resources/buttons#follow
 		$follow_html = '';

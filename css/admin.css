@@ -16,3 +16,7 @@ table.wp-list-table { margin-right: 10%; }
 .optionNav ul li.current a { color: #fff; }
 
 .vkExUnit_admin_page.wrap h3 { background-color: #333; color: #fff; padding: 10px 15px; font-size: 150%; margin-top: 0; border-left: 5px solid #e50000; }
+
+.vkExUnit_admin_page input[type=text] { width: 50%; }
+.vkExUnit_admin_page dl dt { font-weight: bold; margin-bottom: 5px; }
+.vkExUnit_admin_page dl dd { margin-left: 0; }
