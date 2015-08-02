@@ -339,6 +339,10 @@
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('Insert ads', 'vkExUnit'); ?></strong>
+				<span>
+				<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads';?>">
+				<?php _e('Setting','vkExUnit');?>
+				</a></span>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
