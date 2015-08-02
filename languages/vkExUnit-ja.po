@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-02 23:55+0900\n"
+"POT-Creation-Date: 2015-08-03 00:21+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -394,36 +394,13 @@ msgstr ""
 "す。"
 
 #: ../vkExUnit_admin.php:336 ../vkExUnit_admin.php:341
-msgid "AdWords"
-msgstr "広告の挿入"
-
-#: ../vkExUnit_admin.php:345
-msgid "Insert AdWords to content."
-msgstr "記事に広告を挿入します"
-
-#: ../plugins/ad.php:37 ../plugins/ad.php:101
+#: ../plugins/insert_ads.php:37 ../plugins/insert_ads.php:101
 msgid "Insert ads"
 msgstr "広告の挿入"
 
-#: ../plugins/ad.php:104
-msgid "Insert ads to post."
-msgstr "投稿に広告を挿入"
-
-#: ../plugins/ad.php:106
-msgid "Insert ads to more tag and after content."
-msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
-
-#: ../plugins/ad.php:106
-msgid "If you want to separate ads area, you fill two fields."
-msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
-
-#: ../plugins/ad.php:108
-msgid "insert the ad [ more tag ]"
-msgstr "広告を挿入 [ moreタグ ]"
-
-#: ../plugins/ad.php:116
-msgid "insert the ad [ after content ]"
-msgstr "広告を挿入 [ 記事の最後 ]"
+#: ../vkExUnit_admin.php:345
+msgid "Insert ads to content."
+msgstr "記事に広告を挿入します"
 
 #: ../plugins/auto_eyecatch.php:41
 msgid "Automatic EyeCatch"
@@ -448,6 +425,26 @@ msgstr "アイコンを選択"
 #: ../plugins/icons.php:71
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
+
+#: ../plugins/insert_ads.php:104
+msgid "Insert ads to post."
+msgstr "投稿に広告を挿入"
+
+#: ../plugins/insert_ads.php:106
+msgid "Insert ads to more tag and after content."
+msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
+
+#: ../plugins/insert_ads.php:106
+msgid "If you want to separate ads area, you fill two fields."
+msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
+
+#: ../plugins/insert_ads.php:108
+msgid "insert the ad [ more tag ]"
+msgstr "広告を挿入 [ moreタグ ]"
+
+#: ../plugins/insert_ads.php:116
+msgid "insert the ad [ after content ]"
+msgstr "広告を挿入 [ 記事の最後 ]"
 
 #: ../plugins/meta_description.php:21 ../plugins/meta_description.php:32
 #: ../plugins/meta_description.php:35
@@ -1238,6 +1235,9 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 #: ../plugins/sns/old/sns_admin.php:149
 msgid "Page top"
 msgstr "ページ先頭へ"
+
+#~ msgid "AdWords"
+#~ msgstr "広告の挿入"
 
 #, fuzzy
 #~ msgid "acebook application ID"

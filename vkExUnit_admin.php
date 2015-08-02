@@ -327,28 +327,33 @@
 			</td>
 		</tr>
 		
-		</tbody>
 
-		<!-- [ AUTO Eye Catch ] -->
-		<tr<?php echo (isset($options['active_AdWords']) && $options['active_AdWords'])? ' class="active"': ' class="inactive"'; ?>>
+
+		<!-- [ Insert ads ] -->
+		<tr<?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_AdWords' >
-				<?php _e('AdWords', 'vkExUnit'); ?>
+				<label class='screen-reader-text' for='checkbox_insert_ads' >
+				<?php _e('Insert ads', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_AdWords]" id="checkbox_AdWords" value="true" <?php echo (isset($options['active_AdWords']) && $options['active_AdWords'])? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_insert_ads]" id="checkbox_insert_ads" value="true" <?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong><?php _e('AdWords', 'vkExUnit'); ?></strong>
+				<strong><?php _e('Insert ads', 'vkExUnit'); ?></strong>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p><?php _e('Insert AdWords to content.', 'vkExUnit'); ?></p>
+					<p><?php _e('Insert ads to content.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+
+		</tbody>
+
 	<tfoot>
+
 	<tr>
-		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function', 'vkExUnit');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function', 'vkExUnit');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>
+	</tr>
 	</tfoot>
 
 </table>
