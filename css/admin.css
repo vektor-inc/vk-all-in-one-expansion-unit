@@ -1,5 +1,3 @@
-table.wp-list-table { margin-right: 10%; }
-
 .optionNav { display: block !important; overflow: hidden; }
 
 .optionNav ul { display: block; overflow: hidden; margin: 0; padding: 0 5px; }
@@ -15,4 +13,15 @@ table.wp-list-table { margin-right: 10%; }
 .optionNav ul li.current { background-color: #333; color: #fff; }
 .optionNav ul li.current a { color: #fff; }
 
-.vkExUnit_admin_page.wrap h3 { background-color: #333; color: #fff; padding: 10px 15px; font-size: 150%; margin-top: 0; border-left: 5px solid #e50000; }
+.vkExUnit_admin_page { padding-top: 1em; }
+.vkExUnit_admin_page .adminMain { display: block; overflow: hidden; width: 70%; float: left; }
+.vkExUnit_admin_page .adminSub { display: block; overflow: hidden; width: 28%; float: right; }
+.vkExUnit_admin_page .adminSub .exUnit_infoBox { display: block; overflow: hidden; padding: 1em; margin-right: 1em; background-color: #fff; }
+.vkExUnit_admin_page .adminSub .exUnit_infoBox .logo_exUnit { display: block; overflow: hidden; text-align: center; margin-bottom: 10px; border-bottom: 1px solid #ccc; }
+.vkExUnit_admin_page .adminSub .exUnit_infoBox .logo_exUnit img { width: 150px; }
+.vkExUnit_admin_page h2 { display: block; overflow: hidden; margin-bottom: 20px; }
+.vkExUnit_admin_page h2 .pageTitleTxt { font-size: 28px; }
+.vkExUnit_admin_page h3 { background-color: #333; color: #fff; padding: 10px 15px; font-size: 150%; margin-top: 0; border-left: 5px solid #e50000; }
+.vkExUnit_admin_page input[type=text] { width: 50%; }
+.vkExUnit_admin_page dl dt { font-weight: bold; margin-bottom: 5px; }
+.vkExUnit_admin_page dl dd { margin-left: 0; }

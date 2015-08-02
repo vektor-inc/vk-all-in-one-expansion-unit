@@ -1,7 +1,6 @@
 @charset "utf-8";
 @import "compass";
 
-table.wp-list-table { margin-right:10%; }
 .optionNav	{ display:block !important; overflow:hidden; }
 .optionNav ul { display:block; overflow:hidden;margin:0;padding:0 5px; }
 .optionNav ul li { display: block; float:left;border-radius: 3px 3px 0 0;border:1px solid #ccc; border-bottom:none;margin-right:2px; margin-bottom:0;}
@@ -12,4 +11,22 @@ table.wp-list-table { margin-right:10%; }
 	a { color:#fff; }
 }
 
-.vkExUnit_admin_page.wrap h3			{ background-color:#333; color:#fff; padding:10px 15px;font-size:150%;margin-top:0;border-left:5px solid #e50000;}
+.vkExUnit_admin_page { padding-top:1em;
+	.adminMain { display:block; overflow:hidden;width:70%;float:left }
+	.adminSub { display:block; overflow:hidden;width:28%;float:right;
+		.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
+			.logo_exUnit { display:block; overflow:hidden; text-align: center;margin-bottom:10px;border-bottom:1px solid #ccc;
+				img { width:150px; }
+			}
+		}
+	}
+	h2 { display:block; overflow:hidden;margin-bottom:20px;
+		.pageTitleTxt { font-size:28px; }
+	}
+	h3 { background-color:#333; color:#fff; padding:10px 15px;font-size:150%;margin-top:0;border-left:5px solid #e50000;}
+	input[type=text] { width:50%; }
+	dl {
+		dt { font-weight: bold;margin-bottom:5px; }
+		dd { margin-left:0; }
+	}
+}

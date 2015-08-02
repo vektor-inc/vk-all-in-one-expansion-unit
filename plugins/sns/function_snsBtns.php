@@ -16,7 +16,13 @@ function vkExUnit_add_snsBtns($content){
 		} else {
 			$linkUrl = get_permalink();
 		}
-		$pageTitle = urlencode(vkExUnit_get_wp_head_title());
+		$pageTitle = '';
+		if(is_single() || is_page()){
+			$pageTitle = get_post_meta(get_the_id(), 'vkExUnit_sns_title', true);
+		}
+		if(!$pageTitle){
+			$pageTitle = urlencode(vkExUnit_get_wp_head_title());
+		}
 		$socialSet = '<div class="socialSet vkContentAddSection"><ul>';
 		// facebook
 		$socialSet .= '<li class="sb_facebook sb_icon"><a href="http://www.facebook.com/sharer.php?src=bm&u='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank"" ><span class="vk_icon_w_r_sns_fb icon_sns"></span><span class="sns_txt">Facebook</span></a></li>';

@@ -1,6 +1,20 @@
 <?php
-add_post_type_support( 'page', 'excerpt' );
+/**
+ * VkExUnit meta_discription.php
+ * Set meta tag of description for single page each
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.0.0.0
+ * @since    26/Jun/2015
+ */
 
+// Public post type auto support
+$postTypes = get_post_types(Array('public' => true));
+
+foreach ($postTypes as $postType) {
+	add_post_type_support( $postType, 'excerpt' );
+} // foreach ($postTypes as $postType) {
 
 function vkExUnit_description_options_init() {
 	vkExUnit_register_setting(
@@ -13,13 +27,12 @@ function vkExUnit_description_options_init() {
 add_action( 'admin_init', 'vkExUnit_description_options_init' );
 
 
-
 function vkExUnit_add_description_options_page(){
 ?>
 <h3><?php _e('Meta Description', 'vkExUnit'); ?></h3>
 <div id="meta_description" class="sectionBox">
 <table class="form-table">
-<tr><th>ディスクリプション</th>
+<tr><th><?php _e('Meta Description','vkExUnit');?></th>
 <td>
 
 <?php _e('What you have to complete the "excerpt" column of the edit screen of each page will be reflected in the description of the meta tag.','vkExUnit') ?><br/>

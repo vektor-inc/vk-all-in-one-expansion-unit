@@ -22,6 +22,7 @@ function vkExUnit_render_main_config(){
 	vkExUnit_save_main_config();
 ?>
 <div class="wrap vkExUnit_admin_page">
+<div class="adminMain">
 <form method="post" action="">
 
 <?php 
@@ -46,6 +47,10 @@ function vkExUnit_render_main_config(){
 
 <?php submit_button(); ?>
 </form>
+</div><!-- [ /.adminMain ] -->
+<div class="adminSub">
+<div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
+</div><!-- [ /.adminSub ] -->
 </div>
 <?php
 }

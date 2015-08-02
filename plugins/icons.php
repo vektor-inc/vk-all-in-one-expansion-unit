@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit icons.php
+ * set favicon tag of user uploaded icon
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.1.2.0
+ * @since    8/Jul/2015
+ */
 
 class vExUnit_icons {
     // singleton instance
@@ -63,7 +72,7 @@ class vExUnit_icons {
 	</td>
 	</tr>
 </table>
-<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
+<?php submit_button(); ?>
 </div>
 <?php
 	}

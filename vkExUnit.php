@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 0.1.6.5
+Version: 1.0.0
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -81,8 +81,9 @@ require vkExUnit_get_directory() . '/common_init.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
-//require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
-require vkExUnit_get_directory() . '/plugins/dashboard_info_widget/dashboard-info-widget.php';
+require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
+require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
+require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
 
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
@@ -98,13 +99,13 @@ if ( isset($options['active_relatedPosts']) && $options['active_relatedPosts'] )
 	require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
 
 if ( isset($options['active_metaDescription']) && $options['active_metaDescription'] )
-	require vkExUnit_get_directory() . '/plugins/meta_description/meta_description.php';
+	require vkExUnit_get_directory() . '/plugins/meta_description.php';
 
 if ( isset($options['active_icon']) && $options['active_icon'] )
 	require vkExUnit_get_directory() . '/plugins/icons.php';
 
 if ( isset($options['active_metaKeyword']) && $options['active_metaKeyword'] )
-	require vkExUnit_get_directory() . '/plugins/meta_keyword/meta_keyword.php';
+	require vkExUnit_get_directory() . '/plugins/meta_keyword.php';
 
 if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
 	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';
@@ -120,6 +121,9 @@ if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex
 	
 if ( isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
+	
+if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
+	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
 
 // page custom field	
 if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] || isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
@@ -174,6 +178,7 @@ function vkExUnit_addfontawesome(){
 	}
 }
 
+add_action( 'admin_print_styles-index.php', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
 function vkExUnit_admin_enq(){
@@ -184,11 +189,11 @@ function vkExUnit_admin_enq(){
 /*	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
 /*-------------------------------------------*/
 
-// add_action("admin_head", 'suffix2console');
-// function suffix2console() {
-//     global $hook_suffix;
-//     if (is_user_logged_in()) {
-//         $str = "<script type=\"text/javascript\">console.log('%s')</script>";
-//         printf($str, $hook_suffix);
-//     }
-// }
+add_action("admin_head", 'suffix2console');
+function suffix2console() {
+    global $hook_suffix;
+    if (is_user_logged_in()) {
+        $str = "<script type=\"text/javascript\">console.log('%s')</script>";
+        printf($str, $hook_suffix);
+    }
+}

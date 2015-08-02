@@ -1,5 +1,9 @@
-<h2>VK All in One Expansion Unit Settings.</h2>
+<div class="wrap vkExUnit_admin_page">
+<h2>
+<span class="pageTitleTxt">VK All in One Expansion Unit <?php _e('Enable setting','vkExUnit');?></span>
+</h2>
 
+<div class="adminMain">
 <form method="post" action="options.php">
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
@@ -9,7 +13,8 @@
 <table class="wp-list-table widefat plugins" style="width:auto;">
 	<thead>
 	<tr>
-		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function','vkExUnit');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e('Function','vkExUnit');?></th><th scope='col' id='description' class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>
+	</tr>
 	</thead>
 
 	<tbody id="the-list">
@@ -327,13 +332,44 @@
 			</td>
 		</tr>
 		
+
+
+		<!-- [ Insert ads ] -->
+		<tr<?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_insert_ads' >
+				<?php _e('Insert ads', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_insert_ads]" id="checkbox_insert_ads" value="true" <?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Insert ads', 'vkExUnit'); ?></strong>
+				<span>
+				<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads';?>">
+				<?php _e('Setting','vkExUnit');?>
+				</a></span>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Insert ads to content.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
 		</tbody>
 
 	<tfoot>
+
 	<tr>
-		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function', 'vkExUnit');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>	</tr>
+		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e('Select all','vkExUnit');?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e('Function', 'vkExUnit');?></th><th scope='col'  class='manage-column column-description'><?php _e('Description','vkExUnit');?></th>
+	</tr>
 	</tfoot>
 
 </table>
 <?php submit_button(); ?>
 </form>
+</div><!-- [ /.adminMain ] -->
+<div class="adminSub">
+<div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
+</div><!-- [ /.adminSub ] -->
+</div>

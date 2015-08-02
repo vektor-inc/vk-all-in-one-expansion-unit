@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit auto_eyecatch.php
+ * insert thumbnail for top of content automatically
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.1.2.0
+ * @since    8/Jul/2015
+ */
 
 class vExUnit_eyecatch {
     private static $instance;
@@ -102,9 +111,7 @@ class vExUnit_eyecatch {
 
 		$image_tag = get_the_post_thumbnail( $post_id, 'large' );
 
-		$html = <<<EOF
-<div class="autoEyeCatchBox">{$image_tag}</div>
-EOF;
+		$html = '<div class="autoEyeCatchBox">' . $image_tag . '</div>';
 		return $html;
 	}
 

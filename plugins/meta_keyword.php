@@ -1,4 +1,13 @@
 <?php
+/**
+ * VkExUnit meta_keyword.php
+ * Set meta tag of keyword for single page each
+ *
+ * @package  VkExUnit
+ * @author   shoji imamura<imamura@vektor-inc.co.jp>
+ * @version  0.0.0.0
+ * @since    26/Jun/2015
+ */
 
 class vExUnit_meta_keywords {
     // singleton instance
@@ -63,17 +72,21 @@ class vExUnit_meta_keywords {
 * <?php _e('"," separator at end of the last keyword is do not need.','vkExUnit') ?><br/>
 <?php _e('Example: WordPress,template,theme,free,GPL','vkExUnit'); ?></td></tr>
 </table>
-<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="変更を保存"  /></p>
+<?php submit_button(); ?>
 </div>
 <?php
 	}
 
 
 	public function add_custom_field(){
-		if(function_exists('add_custom_field_metaKeyword') || true){
-			add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
-			add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
+		$post_types = get_post_types(array(),'objects');
+		foreach($post_types as $post){
+			if($post->_builtin) continue;
+			if(!$post->public) continue;
+			add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), $post->name, 'normal', 'high');
 		}
+		add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
+		add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
 	}
 
 	public function render_meta_box(){
