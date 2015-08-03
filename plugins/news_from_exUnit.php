@@ -29,7 +29,7 @@ function vkExUnit_news_body()
 			$output .= '<div class="rss-widget">';
 
 			$output .= '<div class="logo_exUnit">';
-			$output .= '<img src="'.site_url().'/wp-content/plugins/vk-all-in-one-expansion-unit/images/head_logo_ExUnit.png'.'" alt="VK ExUnit" style="width:200px;" /></div>';
+			$output .= '<img src="'.vkExUnit_get_directory_uri('/images/head_logo_ExUnit.png').'" alt="VK ExUnit" style="width:200px;" /></div>';
 			$output .= '<ul>';
 
 			if ( $maxitems == 0 )
@@ -52,7 +52,7 @@ function vkExUnit_news_body()
 
 					$output .= '<li style="color:#777;">';
 					$output .= $item_date;
-					$output .= '<a href="' . esc_url( $item->get_permalink() ) . '" title="' . $item_date . '">';
+					$output .= '<a href="' . esc_url( $item->get_permalink() ) . '" title="' . $item_date . '" target="_blank">';
 					$output .= esc_html( $item->get_title() );
 					$output .= '</a>';
 					$output .= '</li>';
