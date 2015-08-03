@@ -34,8 +34,8 @@ class vExUnit_Ads {
 
     public function option_init() {
         vkExUnit_register_setting(
-            __('Insert ads', 'vkExUnit'),        // tab label.
-            'vkExUnit_Ads',             // name attr
+            __('Insert ads', 'vkExUnit'),           // tab label.
+            'vkExUnit_Ads',                         // name attr
             array( $this, 'sanitize_config' ),      // sanitaise function name
             array( $this, 'render_configPage' )     // setting_page function name
         );
@@ -59,7 +59,7 @@ class vExUnit_Ads {
         if( $ads[1] ) $class="col-md-6";
 
         $content = '';
-        $content .= '<div class="row vkExUnit_AdWord '.$area.'">';
+        $content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
         foreach($ads as $ad){
             if(!$ad) break;
 
@@ -67,7 +67,7 @@ class vExUnit_Ads {
             $content .= $ad;
             $content .= '</div>';
         }
-        $content .= '</div>';
+        $content .= '</aside>';
 
        return $content; 
     }
