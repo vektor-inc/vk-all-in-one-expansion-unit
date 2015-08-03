@@ -43,17 +43,14 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
     ?>
         	
 <?php // 3PR area 1 =========================================================== ?>
-		<?php // 3PR area 1 タイトル ?>
-
+		
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		jQuery('.color_picker').on('focus', function(){
-			    jQuery('.color_picker').wpColorPicker();
-	    });
+		jQuery('.color_picker').wpColorPicker();
 	});
 </script>	
 
-		
+		<?php // 3PR area 1 タイトル ?>
 		<h5 class="pr_subTitle"><?php _e( '3PR area1 setting', 'vkExUnit' ); ?></h5>
 		<p>
 			<label for="<?php echo $this->get_field_id('label_1');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
@@ -232,164 +229,135 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
     
 function widget($args, $instance) {
 	echo PHP_EOL.'<div class="widget prBox_circle row">'.PHP_EOL; 
+
+
+// 1個目ここから ------------------------------------------- 
 if( isset($instance['label_1']) && $instance['label_1'] ): ?>
 
 <?php if( !empty($instance['linkurl_1']) ){
 	echo '<a href="'.esc_url($instance['linkurl_1']).'">' ; 
 }?>
 <article class="prArea col-md-4">
-
-<?php if( empty($instance['media_3pr_image_1'])): ?>
+<?php if( empty($instance['media_3pr_image_1'])): // if no image ?>
 <div class="circle_icon" style="background-color: <?php echo esc_attr($instance['iconFont_3pr_bgColor_1']); ?>">
 	<i class="fa <?php echo esc_attr($instance['iconFont_3pr_class_1']); ?> font_icon"></i>
 </div>
-<?php endif; ?>
+<?php else: // if has image ?>
+<div class="media_pr">
+	<img class="pr_image" src="<?php echo esc_url($instance['media_3pr_image_1']); ?>" alt="<?php echo esc_attr($instance['media_3pr_alt_1']); ?>" />
+</div>
+<!--//.media_pr -->		
+<?php endif; 
 
-<?php
 echo '<h1 class="prBox_title">';
 if ( isset($instance['label_1']) && $instance['label_1'] ) {
 	echo $instance['label_1'];
 } else {
 	_e("3PR area", 'vkExUnit' );
-}
-echo '</h1>'.PHP_EOL; ?>
+} 
+echo '</h1>'.PHP_EOL; 
 
-<?php if( isset($instance['media_3pr_image_1']) && $instance['media_3pr_image_1'] ): ?>
-
-
-<div class="media_pr">
-<img class="pr_image" src="<?php echo esc_url($instance['media_3pr_image_1']); ?>" alt="<?php echo esc_attr($instance['media_3pr_alt_1']); ?>" />
-</div>	
-<?php endif; ?>
-<!--//.media_pr -->			
-
-<?php endif; 
+// summary text
 if( !empty($instance['summary_1']) ){
 	echo '<p class="summary">'.nl2br(esc_attr($instance['summary_1'])).'</p>'.PHP_EOL;
 } ?> 
-
 </article>
 <?php if( !empty($instance['linkurl_1']) ){
 	echo '</a>' ; 
 }?>
 <!-- // div.prArea1 -->
+<?php endif; // 1個目ここまで ------------------------------------------- 
 
+// 2個目ここから ------------------------------------------- 
+if( isset($instance['label_2']) && $instance['label_2'] ): ?>
 
 <?php if( !empty($instance['linkurl_2']) ){
 	echo '<a href="'.esc_url($instance['linkurl_2']).'">' ; 
 }?>
 <article class="prArea col-md-4">
-
-<?php if( empty($instance['media_3pr_image_2'])): ?>
+<?php if( empty($instance['media_3pr_image_2'])): // if no image ?>
 <div class="circle_icon" style="background-color: <?php echo esc_attr($instance['iconFont_3pr_bgColor_2']); ?>">
 	<i class="fa <?php echo esc_attr($instance['iconFont_3pr_class_2']); ?> font_icon"></i>
 </div>
-<?php endif; ?>
-
-				
-<?php if( isset($instance['label_2']) && $instance['label_2'] ): 
-	
-	echo '<h1 class="prBox_title">';
-	if ( isset($instance['label_2']) && $instance['label_2'] ) {
-		echo $instance['label_2'];
-	} else {
-		_e("3PR area", 'vkExUnit' );
-	}
-	echo '</h1>'.PHP_EOL; ?>
-	
-<?php if( !empty($instance['media_3pr_image_2']) ): ?>
+<?php else: // if has image ?>
 <div class="media_pr">
 	<img class="pr_image" src="<?php echo esc_url($instance['media_3pr_image_2']); ?>" alt="<?php echo esc_attr($instance['media_3pr_alt_2']); ?>" />
 </div>
-<?php endif; ?>
-<!--//.media_pr -->			
+<!--//.media_pr -->		
+<?php endif; 
 
-<?php  
+echo '<h1 class="prBox_title">';
+if ( isset($instance['label_2']) && $instance['label_2'] ) {
+	echo $instance['label_2'];
+} else {
+	_e("3PR area", 'vkExUnit' );
+} 
+echo '</h1>'.PHP_EOL; 
+
+// summary text
 if( !empty($instance['summary_2']) ){
-    echo '<p class="summary">'.nl2br(esc_attr($instance['summary_2'])).'</p>'.PHP_EOL;
-}  ?> 
-
+	echo '<p class="summary">'.nl2br(esc_attr($instance['summary_2'])).'</p>'.PHP_EOL;
+} ?> 
 </article>
 <?php if( !empty($instance['linkurl_2']) ){
 	echo '</a>' ; 
 }?>
 <!-- // div.prArea2 -->
-<?php endif; ?>
+<?php endif; // 2個目ここまで -------------------------------------------  
 
 
+// 3個目ここから ------------------------------------------- 
+if( isset($instance['label_3']) && $instance['label_3'] ): ?>
 
 <?php if( !empty($instance['linkurl_3']) ){
 	echo '<a href="'.esc_url($instance['linkurl_3']).'">' ; 
 }?>
 <article class="prArea col-md-4">
-
-<?php if( empty($instance['media_3pr_image_3'])): ?>
+<?php if( empty($instance['media_3pr_image_3'])): // if no image ?>
 <div class="circle_icon" style="background-color: <?php echo esc_attr($instance['iconFont_3pr_bgColor_3']); ?>">
 	<i class="fa <?php echo esc_attr($instance['iconFont_3pr_class_3']); ?> font_icon"></i>
 </div>
-<?php endif; ?>
+<?php else: // if has image ?>
+<div class="media_pr">
+	<img class="pr_image" src="<?php echo esc_url($instance['media_3pr_image_3']); ?>" alt="<?php echo esc_attr($instance['media_3pr_alt_3']); ?>" />
+</div>
+<!--//.media_pr -->		
+<?php endif; 
 
-<?php
 echo '<h1 class="prBox_title">';
 if ( isset($instance['label_3']) && $instance['label_3'] ) {
 	echo $instance['label_3'];
 } else {
 	_e("3PR area", 'vkExUnit' );
-}
-echo '</h1>'.PHP_EOL; ?>
+} 
+echo '</h1>'.PHP_EOL; 
 
-<?php if( isset($instance['media_3pr_image_3']) && $instance['media_3pr_image_3'] ): ?>
-
-
-<div class="media_pr">
-<img class="pr_image" src="<?php echo esc_url($instance['media_3pr_image_3']); ?>" alt="<?php echo esc_attr($instance['media_3pr_alt_3']); ?>" />
-</div>	
-<?php endif; ?>
-<!--//.media_pr -->			
-
-<?php
+// summary text
 if( !empty($instance['summary_3']) ){
 	echo '<p class="summary">'.nl2br(esc_attr($instance['summary_3'])).'</p>'.PHP_EOL;
 } ?> 
-
 </article>
 <?php if( !empty($instance['linkurl_3']) ){
 	echo '</a>' ; 
 }?>
-<!-- // div.prArea1 -->
+<!-- // div.prArea3 -->
+<?php endif; // 3個目ここまで -------------------------------------------  
 
-
-</div>
-<?php }
-} 
+echo '</div>'.PHP_EOL;
+}
+}
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_3PR_area_circle");'));
 
-
+// メディアアップローダーjs
 function my_admin_scripts_3pr_circle() {
-	
-	// メディアアップローダーjs
     wp_enqueue_media();
     wp_register_script( 'mediauploader-3pr', plugin_dir_url( __FILE__ ) . 'js/widget-3pr-uploader.js', array( 'jquery' ), false, true );
- 
-    wp_enqueue_script( 'mediauploader-3pr' );    
 }
 add_action( 'admin_print_scripts', 'my_admin_scripts_3pr_circle' );
 
 // カラーピッカー js
-add_action('admin_enqueue_scripts', 'admin_scripts_circle');
-function admin_scripts_circle($hook) {
-    wp_enqueue_script('colorpicker-3pr',
-    plugins_url('js/widget-3pr-color-picker.js', __FILE__),
-    array( 'wp-color-picker' ), false, true);
+function admin_scripts_circle() {
+	wp_enqueue_style( 'wp-color-picker');
+	wp_enqueue_script( 'wp-color-picker');
 }
-
-// 3PR widget CSS
-function style_3PR_circle() {
-echo '<style>
-		.wp-picker-input-wrap .color_picker{
-			display: block!important;
-		}
-		
-</style>'.PHP_EOL;
-}
-add_action("admin_print_styles-widgets.php", "style_3PR_circle");
+add_action( 'admin_enqueue_scripts', 'admin_scripts_circle' );
