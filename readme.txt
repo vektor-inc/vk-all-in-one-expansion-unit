@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.2
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,7 +67,7 @@ e.g.
 
 == Changelog ==
 
-= 1.0.0
+= 1.0.0 =
 * [ Add functions ] Insert ads to post contents.
 * [ Add functions ] Heading of "Follow me box" can now be changed.
 * [ Add functions ] Added the setting of share and OG page title.
