@@ -29,6 +29,7 @@ function vkExUnit_render_main_config(){
 	wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
 
 	global $vkExUnit_options;
+	if( is_array($vkExUnit_options) ):
 	foreach($vkExUnit_options as $vkoption){
 		if(!isset($vkoption['render_page'])){ continue; }
 		
@@ -46,6 +47,11 @@ function vkExUnit_render_main_config(){
 ?>
 
 <?php submit_button(); ?>
+<?php else:
+
+_e('Activated Packages is noting. please activate some package.', 'vkExUnit');
+
+ endif; ?>
 </form>
 </div><!-- [ /.adminMain ] -->
 <div class="adminSub">

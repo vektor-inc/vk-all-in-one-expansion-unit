@@ -45,6 +45,10 @@ function vkExUnit_get_directory(){
 	return $dirctory = dirname( __FILE__ );
 }
 
+function vkExUnit_get_directory_uri($path=''){
+	return plugins_url( $path , __FILE__);
+}
+
 /*-------------------------------------------*/
 /*	Add Parent menu
 /*-------------------------------------------*/
