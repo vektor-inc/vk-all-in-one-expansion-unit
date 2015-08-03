@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
-@import "compass";
-@import "_bizvektor_theme_included_style";
+//@import "compass";
+//@import "_bizvektor_theme_included_style";
 
 /*-------------------------------------------------*/
 /* ex_unit 
@@ -267,6 +267,63 @@
 	} 
 }	
 }
+/*-------------------------------------------*/
+/* 3PR area wiget Plugin - circle
+/*-------------------------------------------*/
+.prBox_circle{
+	a{
+		color: #333;
+		&:hover{
+			color: #333;
+			text-decoration: none;
+		}
+		.summary:hover{
+			text-decoration: underline;
+		}
+	}
+	.circle_icon{
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		margin: 0 auto ;
+		display: table;
+		.font_icon{
+			color: #fff;
+			font-size: 35px;
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+		}
+	}
+	.prBox_title{
+		font-size: 18px;
+		text-align: center;
+		margin-bottom: 1em;
+		margin-top: 1.5em;
+	}
+	.media_pr{
+		margin: 0 auto;
+		display: table;
+	}
+	.pr_image{
+		height: 120px;
+		width: 120px;
+		overflow: hidden;
+		border-radius: 50%;
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.summary{
+		margin-bottom: 0.5em;
+		font-size: 14px;
+		line-height: 1.4em;
+		text-align: center;
+		padding: 0 15px;
+	}
+	
+}
+
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/

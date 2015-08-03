@@ -1,20 +1,3 @@
-/*      .media(bootstrap)
-/*-------------------------------------------*/
-.media { border-bottom: 1px solid #e5e5e5; padding: 2em 0; margin-top: 0; }
-.media:first-child { border-top: 1px solid #e5e5e5; }
-.media .postList_thumbnail { width: 160px; margin-bottom: 0.5em; padding-right: 30px; display: block; overflow: hidden; float: left; }
-.media .postList_thumbnail a { position: relative; display: block; overflow: hidden; }
-.media .postList_thumbnail img { width: 100%; height: auto; }
-.media .postList_thumbnail .postList_cateLabel { position: absolute; bottom: 0; left: 0; }
-.media .media-body .media-heading { font-size: 1.8em; line-height: 1.3em; margin-top: 0; margin-bottom: 0.5em; font-weight: normal; }
-.media .media-body .media-heading a { color: #464646; }
-.media .media-body .media-heading a:hover { text-decoration: none; }
-.media .media-body p { margin-bottom: 0; }
-.media .media-body a.media-body_excerpt { color: #464646; }
-
-@media (max-width: 767px) { .media .postList_thumbnail { padding-right: 20px; }
-  .media .media-body .media-heading { font-size: 1.2em; line-height: 1.3em; margin-bottom: 0.5em; } }
-@media (max-width: 500px) { .media .postList_thumbnail { width: 100px; } }
 /*-------------------------------------------------*/
 /* ex_unit 
 /*-------------------------------------------------*/
@@ -158,6 +141,19 @@
   .prBox .media_sp { display: block; }
   .prBox .linkurl { margin-bottom: 1.5em; } }
 /*-------------------------------------------*/
+/* 3PR area wiget Plugin - circle
+/*-------------------------------------------*/
+.prBox_circle a { color: #333; }
+.prBox_circle a:hover { color: #333; text-decoration: none; }
+.prBox_circle a .summary:hover { text-decoration: underline; }
+.prBox_circle .circle_icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto; display: table; }
+.prBox_circle .circle_icon .font_icon { color: #fff; font-size: 35px; display: table-cell; text-align: center; vertical-align: middle; }
+.prBox_circle .prBox_title { font-size: 18px; text-align: center; margin-bottom: 1em; margin-top: 1.5em; }
+.prBox_circle .media_pr { margin: 0 auto; display: table; }
+.prBox_circle .pr_image { height: 120px; width: 120px; overflow: hidden; border-radius: 50%; display: table-cell; text-align: center; vertical-align: middle; }
+.prBox_circle .summary { margin-bottom: 0.5em; font-size: 14px; line-height: 1.4em; text-align: center; padding: 0 15px; }
+
+/*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 .childPage_list { margin-top: 4em; }
@@ -180,3 +176,4 @@
 .sitemap-col .page_item { padding: 0; }
 .sitemap-col .children { margin-bottom: 2em; }
 .sitemap-col .cat-item { padding: 0; }
+
