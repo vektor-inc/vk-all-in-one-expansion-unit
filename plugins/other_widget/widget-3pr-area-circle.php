@@ -8,7 +8,7 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
     function WP_Widget_vkExUnit_3PR_area_circle() {
 		$widget_ops = array(
 			'classname' => 'WP_Widget_vkExUnit_3PR_area_circle',
-			'description' => __( "Displays a 3PR area", 'vkExUnit' ),
+			'description' => __( "Displays a circle image or icon font for 3PR area", 'vkExUnit' ),
 		);
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "3PR area Circle", 'vkExUnit' );
 		$this->WP_Widget('WP_Widget_vkExUnit_3PR_area_circle', $widget_name, $widget_ops);
@@ -60,19 +60,25 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 		<?php // 3PR area 1 アイコンフォントクラス入力 ?>
         <p>
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_class_1');  ?>"><?php _e( 'IconFont input class:', 'vkExUnit' ); ?></label><br/>
+        	        
 	        [ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_class_1'); ?>-title" class="font_class" name="<?php echo $this->get_field_name('iconFont_3pr_class_1'); ?>" value="<?php echo $instance['iconFont_3pr_class_1']; ?>" />
+			
+			<br>
+			<?php _e( 'To choose your favorite icon, and enter the class. For example, the use of 「fa-rocket」', 'vkExUnit' ); ?>
         </p>
 		
 		<?php // 3PR area 1 カラーピッカー ?>
         <p>
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_bgColor_1');  ?>"><?php _e( 'Icon bg-color:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_1'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_1'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_1']; ?>" />
+			<br>
+			<?php _e( 'To choose your favorite icon’s background color', 'vkExUnit' ); ?>
         </p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('media_3pr_image_1');  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('media_3pr_image_1');  ?>"><?php _e( 'Select image:', 'vkExUnit' ); ?></label><br/>
 	
 			<input type="hidden" class="media_image_3pr_pc <?php echo $this->get_field_id('media_3pr_image_1');  ?>" id="<?php echo $this->get_field_id('media_3pr_image_1'); ?>-image" name="<?php echo $this->get_field_name('media_3pr_image_1'); ?>" value="<?php echo esc_attr($instance['media_3pr_image_1']); ?>" />
 		
@@ -80,6 +86,8 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 		        
 			<input type="button" class="media_select select_3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
 			<input type="button" class="media_clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
+			
+			<br /><?php _e( 'When you have an image. Image is displayed with priority', 'vkExUnit' ); ?>
         </p>
         <div class="media image_3pr">
 	        <?php if(!empty($instance['media_3pr_image_1'])): ?>
@@ -111,17 +119,22 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_class_2');  ?>"><?php _e( 'IconFont input class:', 'vkExUnit' ); ?></label><br/>
 	        [ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_class_2'); ?>-title" class="font_class" name="<?php echo $this->get_field_name('iconFont_3pr_class_2'); ?>" value="<?php echo $instance['iconFont_3pr_class_2']; ?>" />
+			
+			<br>
+			<?php _e( 'To choose your favorite icon, and enter the class. For example, the use of 「fa-rocket」', 'vkExUnit' ); ?>
         </p>
         
         <?php // 3PR area 2 カラーピッカー ?>
         <p>
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_bgColor_2');  ?>"><?php _e( 'Icon bg-color:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_2'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_2'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_2']; ?>" />
+			<br>
+			<?php _e( 'To choose your favorite icon’s background color', 'vkExUnit' ); ?>
         </p>
 		
 		<?php // 3PR area 1 メディアアップローダー PC ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('media_3pr_image_2');  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('media_3pr_image_2');  ?>"><?php _e( 'Select image:', 'vkExUnit' ); ?></label><br/>
 	
 			<input type="hidden" class="media_image_3pr_pc <?php echo $this->get_field_id('media_3pr_image_2');  ?>" id="<?php echo $this->get_field_id('media_3pr_image_2'); ?>_image" name="<?php echo $this->get_field_name('media_3pr_image_2'); ?>" value="<?php echo esc_attr($instance['media_3pr_image_2']); ?>" />
 		
@@ -129,6 +142,7 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 		        
 			<input type="button" class="media_select select_3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
 			<input type="button" class="media_clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
+			<br /><?php _e( 'When you have an image. Image is displayed with priority', 'vkExUnit' ); ?>
         </p>
         
         <div class="media image_3pr">
@@ -159,17 +173,22 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_class_3');  ?>"><?php _e( 'IconFont input class:', 'vkExUnit' ); ?></label><br/>
 	        [ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_class_3'); ?>-title" class="font_class" name="<?php echo $this->get_field_name('iconFont_3pr_class_3'); ?>" value="<?php echo $instance['iconFont_3pr_class_3']; ?>" />
+			
+			<br>
+			<?php _e( 'To choose your favorite icon, and enter the class. For example, the use of 「fa-rocket」', 'vkExUnit' ); ?>
         </p>
         
         <?php // 3PR area 3 カラーピッカー ?>
         <p>
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_bgColor_3');  ?>"><?php _e( 'Icon bg-color:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_3'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_3'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_3']; ?>" />
+			<br>
+			<?php _e( 'To choose your favorite icon’s background color', 'vkExUnit' ); ?>
         </p>
 		
 		<?php // 3PR area 3 メディアアップローダー ?>
 		<p>
-			<label for="<?php echo $this->get_field_id('media_3pr_image_3');  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
+			<label for="<?php echo $this->get_field_id('media_3pr_image_3');  ?>"><?php _e( 'Select image:', 'vkExUnit' ); ?></label><br/>
 	
 			<input type="hidden" class="media_image_3pr_pc <?php echo $this->get_field_id('media_3pr_image_3');  ?>" id="<?php echo $this->get_field_id('media_3pr_image_3'); ?>_image" name="<?php echo $this->get_field_name('media_3pr_image_3'); ?>" value="<?php echo esc_attr($instance['media_3pr_image_3']); ?>" />
 		
@@ -177,6 +196,8 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 		        
 			<input type="button" class="media_select select_3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
 			<input type="button" class="media_clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
+			
+			<br /><?php _e( 'When you have an image. Image is displayed with priority', 'vkExUnit' ); ?>
         </p>
         <div class="media image_3pr">
 	        <?php if(!empty($instance['media_3pr_image_3'])): ?>
