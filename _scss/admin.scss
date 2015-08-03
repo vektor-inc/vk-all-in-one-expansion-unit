@@ -11,13 +11,15 @@
 	a { color:#fff; }
 }
 
+.logo_exUnit { display:block; overflow:hidden; text-align: center;margin-bottom:10px;border-bottom:1px solid #ccc;
+	img { width:150px; }
+}
+
 .vkExUnit_admin_page { padding-top:1em;
 	.adminMain { display:block; overflow:hidden;width:70%;float:left }
 	.adminSub { display:block; overflow:hidden;width:28%;float:right;
 		.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
-			.logo_exUnit { display:block; overflow:hidden; text-align: center;margin-bottom:10px;border-bottom:1px solid #ccc;
-				img { width:150px; }
-			}
+
 		}
 	}
 	h2 { display:block; overflow:hidden;margin-bottom:20px;

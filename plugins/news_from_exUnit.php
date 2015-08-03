@@ -52,7 +52,7 @@ function vkExUnit_news_body()
 
 					$output .= '<li style="color:#777;">';
 					$output .= $item_date;
-					$output .= '<a href="' . esc_url( $item->get_permalink() ) . '" title="' . $item_date . '">';
+					$output .= '<a href="' . esc_url( $item->get_permalink() ) . '" title="' . $item_date . '" target="_blank">';
 					$output .= esc_html( $item->get_title() );
 					$output .= '</a>';
 					$output .= '</li>';
