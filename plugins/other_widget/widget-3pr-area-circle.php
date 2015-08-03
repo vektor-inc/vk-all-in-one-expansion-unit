@@ -230,8 +230,7 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 function widget($args, $instance) {
 	echo PHP_EOL.'<div class="widget prBox_circle row">'.PHP_EOL; 
 
-
-// 1個目ここから ------------------------------------------- 
+// div.prArea1 start ------------------------------------------- 
 if( isset($instance['label_1']) && $instance['label_1'] ): ?>
 
 <?php if( !empty($instance['linkurl_1']) ){
@@ -265,10 +264,10 @@ if( !empty($instance['summary_1']) ){
 <?php if( !empty($instance['linkurl_1']) ){
 	echo '</a>' ; 
 }?>
-<!-- // div.prArea1 -->
-<?php endif; // 1個目ここまで ------------------------------------------- 
+<!-- // div.prArea1 end-->
+<?php endif;  
 
-// 2個目ここから ------------------------------------------- 
+// div.prArea2 start ------------------------------------------- 
 if( isset($instance['label_2']) && $instance['label_2'] ): ?>
 
 <?php if( !empty($instance['linkurl_2']) ){
@@ -303,10 +302,9 @@ if( !empty($instance['summary_2']) ){
 	echo '</a>' ; 
 }?>
 <!-- // div.prArea2 -->
-<?php endif; // 2個目ここまで -------------------------------------------  
+<?php endif; // div.prArea2 end -------------------------------------------  
 
-
-// 3個目ここから ------------------------------------------- 
+// div.prArea3 start   ------------------------------------------- 
 if( isset($instance['label_3']) && $instance['label_3'] ): ?>
 
 <?php if( !empty($instance['linkurl_3']) ){
@@ -341,7 +339,7 @@ if( !empty($instance['summary_3']) ){
 	echo '</a>' ; 
 }?>
 <!-- // div.prArea3 -->
-<?php endif; // 3個目ここまで -------------------------------------------  
+<?php endif; // div.prArea3 end -----------------------------------------  
 
 echo '</div>'.PHP_EOL;
 }
