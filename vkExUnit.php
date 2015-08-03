@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 1.0.7
+Version: 1.0.8
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -126,8 +126,8 @@ if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex
 if ( isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 	
-if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
-	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
+// if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
+// 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
 
 // page custom field	
 if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] || isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
