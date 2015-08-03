@@ -1,15 +1,22 @@
 // カラーピッカーjs
 
-(function( $ ) {
+
  
     //カラーピッカーを導入するためのクラスを指定します
-    $(function() {
-		$('.color_picker').wpColorPicker();
-
+    jQuery(function() {
+	    
+/*
+	    $('.color_picker').on('focus', function(){
+		    $('.color_picker').wpColorPicker();
+	    });
+*/
+	    	    
 		// ウィジェット画面でもクリアボタン出す		
-		if( $('.wp-picker-clear').hasClass('hidden') ){
-			$('.wp-picker-clear').removeClass('hidden');
+/*
+		if( jQuery('.wp-picker-clear').hasClass('hidden') ){
+			jQuery('.wp-picker-clear').removeClass('hidden');
 		}
+*/
 		
-	}); 
-})( jQuery );
+	});
+

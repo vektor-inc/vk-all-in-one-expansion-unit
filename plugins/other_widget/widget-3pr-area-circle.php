@@ -44,6 +44,16 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
         	
 <?php // 3PR area 1 =========================================================== ?>
 		<?php // 3PR area 1 タイトル ?>
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.color_picker').on('focus', function(){
+			    jQuery('.color_picker').wpColorPicker();
+	    });
+	});
+</script>	
+
+		
 		<h5 class="pr_subTitle"><?php _e( '3PR area1 setting', 'vkExUnit' ); ?></h5>
 		<p>
 			<label for="<?php echo $this->get_field_id('label_1');  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
