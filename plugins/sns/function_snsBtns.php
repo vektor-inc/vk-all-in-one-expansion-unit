@@ -1,6 +1,6 @@
 <?php
 
-	add_filter( 'the_content', 'vkExUnit_add_snsBtns');
+	add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1);
  // is_single()
 
 function vkExUnit_add_snsBtns($content){
