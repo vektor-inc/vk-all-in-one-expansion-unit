@@ -36,7 +36,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-		
+
 		<!-- [ active_fontawesome ] -->
 		<tr<?php echo (isset($options['active_fontawesome']) && $options['active_fontawesome'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -54,7 +54,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-		
+
 		<!-- [ active_icon ] -->
 		<tr<?php echo (isset($options['active_icon']) && $options['active_icon'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -72,7 +72,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-		
+
 		<!-- [ active_wpTitle ] -->
 		<tr<?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -110,7 +110,7 @@
 					</a></span>
 				</div>
 				<?php endif; ?>
-				
+
 			</td>
 			<td class='column-Keyword desc'>
 				<div class='plugin-Keyword'>
@@ -147,7 +147,7 @@
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('Social media cooperation.', 'vkExUnit'); ?></strong>
-				
+
 				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>
 				<div class="row-actions visible">
 					<span class="0">
@@ -156,7 +156,7 @@
 					</a></span>
 				</div>
 				<?php endif; ?>
-				
+
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
@@ -167,7 +167,7 @@
 					<li><?php _e('Facebook Page Plugin widget.','vkExUnit');?></li>
 					<li><?php _e('Print Follow me box to content bottom.','vkExUnit');?></li>
 					</ul>
-					<p><?php 
+					<p><?php
 					$settingPage = '<a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">'.__('Main setting page').'</a>';
 						printf( __( '* You can stop the function separately from the %s.', 'vkExUnit' ), $settingPage );?>
 					</p>
@@ -187,7 +187,7 @@
 				<strong>Google Analytics</strong>
 
 				<?php if (isset($options['active_ga']) && $options['active_ga']) : ?>
-					
+
 					<span class="0">
 					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options';?>">
 					<?php _e('Setting','vkExUnit');?>
@@ -220,7 +220,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-		
+
 		<!-- [ active_childPageIndex ] -->
 		<tr<?php echo (isset($options['active_childPageIndex']) && $options['active_childPageIndex'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -299,7 +299,7 @@
 			<td class='plugin-title'>
 				<strong><?php _e('CSS customize', 'vkExUnit');?></strong>
 				<?php if (isset($options['active_css_customize']) && $options['active_css_customize']) : ?>
-					
+
 					<span>
 					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_css_customize';?>">
 					<?php _e('Setting','vkExUnit');?>
@@ -331,7 +331,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-		
+
 
 
 		<!-- [ Insert ads ] -->
@@ -352,6 +352,29 @@
 			<td class='column-description desc'>
 				<div class='plugin-description'>
 					<p><?php _e('Insert ads to content.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
+
+
+		<!-- [ Call to Action ] -->
+		<tr<?php echo (isset($options['active_call_to_action']) && $options['active_call_to_action'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_insert_ads' >
+				<?php _e('Call to Action', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_call_to_action]" id="checkbox_insert_ads" value="true" <?php echo (isset($options['active_call_to_action']) && $options['active_call_to_action'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Call to Action', 'vkExUnit'); ?></strong>
+				<span>
+				<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads';?>">
+				<?php _e('Setting','vkExUnit');?>
+				</a></span>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Display any link to after content.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>

@@ -5,7 +5,7 @@ class vExUnit_call_responce {
 
     public static $posttype_name = 'cta';
 
-    public static $content_number = 500;
+    public $content_number = 500;
 
     public static function instance() {
         if ( isset( self::$instance ) )
@@ -27,7 +27,7 @@ class vExUnit_call_responce {
         add_action( 'admin_init', array($this, 'option_init') );
         add_action( 'admin_menu', array($this, 'add_custom_field') );
         add_action( 'save_post', array($this, 'save_custom_field') );
-        add_filter( 'the_content', array($this, 'content_filter'), 1, self::$content_number );
+        add_filter( 'the_content', array($this, 'content_filter'), $this->content_number, 1 );
     }
 
 
