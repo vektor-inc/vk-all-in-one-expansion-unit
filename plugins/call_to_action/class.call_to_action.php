@@ -1,0 +1,273 @@
+<?php
+class vExUnit_call_responce {
+    // singleton instance
+    private static $instance;
+
+    public static $posttype_name = 'cta';
+ 
+    public static function instance() {
+        if ( isset( self::$instance ) )
+            return self::$instance;
+ 
+        self::$instance = new vExUnit_call_responce;
+        self::$instance->run_init();
+        return self::$instance;
+    }
+ 
+
+    private function __construct() {
+    }
+ 
+
+    protected function run_init() {
+        add_action( 'init', array($this, 'set_posttype') );
+        add_action('admin_init', array($this, 'option_init' ));
+        add_action('admin_menu', array($this, 'add_custom_field'));
+        add_action('save_post' , array($this, 'save_custom_field'));
+        add_filter('the_content', array($this, 'content_filter'));
+    }
+ 
+
+    public function option_init() {
+        vkExUnit_register_setting(
+            __('call to action', 'vkExUnit'),       // tab label.
+            'vkExUnit_cta_settings',                // name attr
+            array( $this, 'sanitize_config' ),      // sanitaise function name
+            array( $this, 'render_configPage' )     // setting_page function name
+        );
+    }
+
+
+    public function set_posttype(){
+        $labels = array(
+            'name'     => self::$posttype_name,
+            'singular_name' => self::$posttype_name,
+        );
+
+        $args = array(
+            'labels'              => $labels,
+            'public'              => false,
+            'publicly_queryable'  => false,
+            'has_archive'         => true,
+            'show_ui'             => true,
+            'show_in_menu'        => true,
+            'menu_position'       => 5,
+            'query_var'           => true,
+            'rewrite'             => true,
+            'capability_type'     => 'post',
+            'has_archive'         => true,
+            'hierarchical'        => false,
+            'taxonomies'          => array(),
+            'supports'            => array( 'title', 'editor' ),
+            );
+        register_post_type( self::$posttype_name , $args );    
+    }
+
+
+    public function add_custom_field(){
+        $post_types = get_post_types(array(),'objects');
+        foreach($post_types as $post){
+            if($post->_builtin) continue;
+            if(!$post->public) continue;
+            add_meta_box('div1', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), $post->name, 'normal', 'high');
+        }
+        add_meta_box('div1', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
+        add_meta_box('div1', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
+        
+        add_meta_box('div1', __('URL setting', 'vkExUnit'), array( $this, 'render_meta_box_cta' ), self::$posttype_name, 'normal', 'high');
+    }
+
+
+    public function render_meta_box(){
+        global $post;
+        echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
+
+        $ctas    = self::get_ctas(true, '  - ');
+        array_unshift( $ctas, array( 'key' => 0, 'label' => __('Follow common setting', 'vkExUnit') ) );
+        $ctas[] = array( 'key' => 'disable', 'label' => __('Disable display', 'vkExUnit') );
+        $now     = get_post_meta(get_the_id(),'vkexunit_cta_each_option', true);
+        ?>
+<input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
+<table class="form-table"><tr>
+<th><?php _e('Post each setting.', 'vkExUnit'); ?></th>
+<td><select name="vkexunit_cta_each_option" id="vkexunit_cta_each_option">
+    <?php foreach($ctas as $cta): ?>
+        <option value="<?php echo $cta['key'] ?>" <?php echo($cta['key'] == $now)? 'selected':''; ?> ><?php echo $cta['label'] ?></option>
+    <?php endforeach; ?>
+</select></td></tr></table>
+        <?php
+    }
+
+
+    public function render_meta_box_cta(){
+        echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
+        ?>
+        <input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
+        <table class="form-table"><tr><th>
+        <label for="vkExUnit_cta_url_title"><?php _e('url title', 'vkExUnit'); ?></label></th><td>
+        <input type="text" name="vkExUnit_cta_url_title" id="vkExUnit_cta_url_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url_title', true); ?>" />
+        </td></tr><tr><th>
+        <label for="vkExUnit_cta_url"><?php _e('url', 'vkExUnit'); ?></label></th><td>
+        <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
+        </td></tr>
+        </table>
+        <?php
+    }
+
+
+    public function save_custom_field($post_id){
+        if( !isset( $_POST['_vkExUnit_cta_switch'] ) ) return $post_id;
+        $noonce = isset($_POST['_nonce_vkExUnit_custom_cta']) ? htmlspecialchars($_POST['_nonce_vkExUnit_custom_cta']) : null;
+
+        // if autosave is to deny
+        if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
+           return $post_id;
+
+        if(!wp_verify_nonce($noonce, plugin_basename(__FILE__))){
+            return $post_id;
+        }
+
+        if( $_POST['_vkExUnit_cta_switch'] == 'cta_number' ){
+            $data = $_POST['vkexunit_cta_each_option'];
+
+            if(get_post_meta($post_id, 'vkexunit_cta_each_option') == ""){
+                add_post_meta($post_id, 'vkexunit_cta_each_option', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkexunit_cta_each_option', true)){
+                update_post_meta($post_id, 'vkexunit_cta_each_option', $data);
+            }elseif(!$data){
+                delete_post_meta($post_id, 'vkexunit_cta_each_option', get_post_meta($post_id, 'vkexunit_cta_each_option', true));
+            }
+            return $post_id;
+        }
+        elseif( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ){
+            $data = $_POST['vkExUnit_cta_url_title'];
+
+            if(get_post_meta($post_id, 'vkExUnit_cta_url_title') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_url_title', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_url_title', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_url_title', $data);
+            }elseif(!$data){
+                delete_post_meta($post_id, 'vkExUnit_cta_url_title', get_post_meta($post_id, 'vkExUnit_cta_url_title', true));
+            }
+
+            $data = $_POST['vkExUnit_cta_url'];
+
+            if(get_post_meta($post_id, 'vkExUnit_cta_url') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_url', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_url', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_url', $data);
+            }elseif(!$data){
+                delete_post_meta($post_id, 'vkExUnit_cta_url', get_post_meta($post_id, 'vkExUnit_cta_url', true));
+            }
+
+            return $post_id;
+        }
+    }
+
+
+    public static function get_cta_post($id=null){
+        if(!$id) $id = get_the_id();
+        if(!$id) return null;
+
+        $args = array(
+            'post_type' => self::$posttype_name,
+            'p' => $id
+        );
+
+        $query = new WP_Query($args);
+        if(!$query->post_count) return null;
+
+        return $query->posts[0];
+    }
+
+
+    public static function render_cta_content( $id=null ){
+        if(!$id) return '';
+        $post = self::get_cta_post($id);
+        if(!$post) return '';
+
+        include vkExUnit_get_directory() . '/plugins/call_to_action/view.actionbox.php';
+        return $content;
+    }
+
+
+    public function is_cta_id( $id=null ){
+        if(!$id) $id = get_the_id();
+        if(!$id) return null;
+
+        $post_config = get_post_meta($id, 'vkexunit_cta_each_option', true);
+
+        if($post_config){
+            if($post_config == 'disable') return null;
+
+            return $post_config;
+        }
+
+        $post_type = get_post_type($id);
+        $option = self::get_option();
+        if( isset( $option['types'][$post_type] ) && is_numeric( $option['types'][$post_type] ) ) return $option['types'][$post_type] ;
+        return null;
+    }
+
+
+    public function content_filter( $content ){
+        $content .= self::render_cta_content( $this->is_cta_id() );
+
+        return $content;
+    }
+
+
+    public static function get_default_option(){
+        $option = array();
+        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
+        foreach($posttypes as $posttype){
+            $option['types'][ $posttype ] = false;
+        }
+        return $option;
+    }
+
+
+    public function sanitize_config( $option ){
+
+        $output = self::get_default_option();
+        $output = wp_parse_args($option, self::get_default_option());
+        return $output;
+    }
+
+
+    public static function get_option(){
+        $default = self::get_default_option();
+        //print_r(get_option( 'vkExUnit_cta_settings', $default ));
+        return wp_parse_args(get_option( 'vkExUnit_cta_settings' ) , $default );
+    }
+
+
+    public function get_ctas( $show_label=false, $head=''){
+        $args = array(
+            'post_type' => self::$posttype_name,
+        );
+        $query = new WP_Query($args);
+        $ctas = array();
+        foreach( $query->posts as $post ){
+            if($show_label){
+                $ctas[] = array(
+                    'key'   => $post->ID,
+                    'label' => $head . $post->post_title
+                );
+            }else{
+                $ctas[] = $post->ID;
+            }
+        }
+        return $ctas;
+    }
+
+
+    public function render_configPage(){
+        $options = self::get_option();
+        $ctas    = self::get_ctas(true, '  - ');
+        array_unshift( $ctas, array( 'key' => 0, 'label' => __('Disable display', 'vkExUnit') ) );
+
+        include vkExUnit_get_directory() . '/plugins/call_to_action/view.adminsetting.php';
+    }
+}
+ 
