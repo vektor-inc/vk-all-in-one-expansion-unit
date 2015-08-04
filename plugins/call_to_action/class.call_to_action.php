@@ -4,29 +4,32 @@ class vExUnit_call_responce {
     private static $instance;
 
     public static $posttype_name = 'cta';
- 
+
+    public static $content_number = 500;
+
     public static function instance() {
         if ( isset( self::$instance ) )
             return self::$instance;
- 
+
         self::$instance = new vExUnit_call_responce;
         self::$instance->run_init();
         return self::$instance;
     }
- 
+
 
     private function __construct() {
+        /***    do noting    ***/
     }
- 
+
 
     protected function run_init() {
         add_action( 'init', array($this, 'set_posttype') );
-        add_action('admin_init', array($this, 'option_init' ));
-        add_action('admin_menu', array($this, 'add_custom_field'));
-        add_action('save_post' , array($this, 'save_custom_field'));
-        add_filter('the_content', array($this, 'content_filter'));
+        add_action( 'admin_init', array($this, 'option_init') );
+        add_action( 'admin_menu', array($this, 'add_custom_field') );
+        add_action( 'save_post', array($this, 'save_custom_field') );
+        add_filter( 'the_content', array($this, 'content_filter'), 1, self::$content_number );
     }
- 
+
 
     public function option_init() {
         vkExUnit_register_setting(
@@ -40,8 +43,9 @@ class vExUnit_call_responce {
 
     public function set_posttype(){
         $labels = array(
-            'name'     => self::$posttype_name,
-            'singular_name' => self::$posttype_name,
+            'name'          => __('action', 'vkExUnit'),
+            'singular_name' => __('actions', 'vkExUnit'),
+            'edit_item'     => __('edit actions', 'vkExUnit'),
         );
 
         $args = array(
@@ -55,45 +59,42 @@ class vExUnit_call_responce {
             'query_var'           => true,
             'rewrite'             => true,
             'capability_type'     => 'post',
-            'has_archive'         => true,
+            'has_archive'         => false,
             'hierarchical'        => false,
             'taxonomies'          => array(),
             'supports'            => array( 'title', 'editor' ),
-            );
-        register_post_type( self::$posttype_name , $args );    
+        );
+        register_post_type( self::$posttype_name , $args );
     }
 
 
     public function add_custom_field(){
-        $post_types = get_post_types(array(),'objects');
-        foreach($post_types as $post){
-            if($post->_builtin) continue;
-            if(!$post->public) continue;
-            add_meta_box('div1', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), $post->name, 'normal', 'high');
+        $post_types = get_post_types( array( '_builtin' => false, 'public' => true ) );
+        while(list($key, $post) = each( $post_types ) ){
+            add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), $post, 'normal', 'high');
         }
-        add_meta_box('div1', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
-        add_meta_box('div1', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
-        
-        add_meta_box('div1', __('URL setting', 'vkExUnit'), array( $this, 'render_meta_box_cta' ), self::$posttype_name, 'normal', 'high');
+        add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
+        add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
+
+        add_meta_box('vkExUnit_cta_url', __('URL setting', 'vkExUnit'), array( $this, 'render_meta_box_cta' ), self::$posttype_name, 'normal', 'high');
     }
 
 
     public function render_meta_box(){
-        global $post;
         echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
 
         $ctas    = self::get_ctas(true, '  - ');
         array_unshift( $ctas, array( 'key' => 0, 'label' => __('Follow common setting', 'vkExUnit') ) );
-        $ctas[] = array( 'key' => 'disable', 'label' => __('Disable display', 'vkExUnit') );
+        $ctas[]  = array( 'key' => 'disable', 'label' => __('Disable display', 'vkExUnit') );
         $now     = get_post_meta(get_the_id(),'vkexunit_cta_each_option', true);
         ?>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
 <table class="form-table"><tr>
 <th><?php _e('Post each setting.', 'vkExUnit'); ?></th>
 <td><select name="vkexunit_cta_each_option" id="vkexunit_cta_each_option">
-    <?php foreach($ctas as $cta): ?>
-        <option value="<?php echo $cta['key'] ?>" <?php echo($cta['key'] == $now)? 'selected':''; ?> ><?php echo $cta['label'] ?></option>
-    <?php endforeach; ?>
+<?php foreach($ctas as $cta): ?>
+    <option value="<?php echo $cta['key'] ?>" <?php echo($cta['key'] == $now)? 'selected':''; ?> ><?php echo $cta['label'] ?></option>
+<?php endforeach; ?>
 </select></td></tr></table>
         <?php
     }
@@ -102,15 +103,15 @@ class vExUnit_call_responce {
     public function render_meta_box_cta(){
         echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
         ?>
-        <input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
-        <table class="form-table"><tr><th>
-        <label for="vkExUnit_cta_url_title"><?php _e('url title', 'vkExUnit'); ?></label></th><td>
-        <input type="text" name="vkExUnit_cta_url_title" id="vkExUnit_cta_url_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url_title', true); ?>" />
-        </td></tr><tr><th>
-        <label for="vkExUnit_cta_url"><?php _e('url', 'vkExUnit'); ?></label></th><td>
-        <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
-        </td></tr>
-        </table>
+<input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
+<table class="form-table"><tr><th>
+<label for="vkExUnit_cta_url_title"><?php _e('url title', 'vkExUnit'); ?></label></th><td>
+<input type="text" name="vkExUnit_cta_url_title" id="vkExUnit_cta_url_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url_title', true); ?>" />
+</td></tr><tr><th>
+<label for="vkExUnit_cta_url"><?php _e('url', 'vkExUnit'); ?></label></th><td>
+<input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
+</td></tr>
+</table>
         <?php
     }
 
@@ -165,9 +166,7 @@ class vExUnit_call_responce {
     }
 
 
-    public static function get_cta_post($id=null){
-        if(!$id) $id = get_the_id();
-        if(!$id) return null;
+    public static function get_cta_post( $id ){
 
         $args = array(
             'post_type' => self::$posttype_name,
@@ -181,7 +180,7 @@ class vExUnit_call_responce {
     }
 
 
-    public static function render_cta_content( $id=null ){
+    public static function render_cta_content( $id ){
         if(!$id) return '';
         $post = self::get_cta_post($id);
         if(!$post) return '';
@@ -205,7 +204,7 @@ class vExUnit_call_responce {
 
         $post_type = get_post_type($id);
         $option = self::get_option();
-        if( isset( $option['types'][$post_type] ) && is_numeric( $option['types'][$post_type] ) ) return $option['types'][$post_type] ;
+        if( isset( $option[$post_type] ) && is_numeric( $option[$post_type] ) ) return $option[$post_type] ;
         return null;
     }
 
@@ -217,28 +216,43 @@ class vExUnit_call_responce {
     }
 
 
+    public function sanitize_config( $input ){
+        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
+        $option = get_option( 'vkExUnit_cta_settings' );
+        if( !$option ) $current_option = self::get_default_option();
+
+        while(list($key, $value) = each($input)){
+            $option[$key] = ( is_numeric( $value ) )? $value : 0 ;
+        }
+
+        return $option;
+    }
+
+
     public static function get_default_option(){
         $option = array();
         $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
         foreach($posttypes as $posttype){
-            $option['types'][ $posttype ] = false;
+            $option[ $posttype ] = false;
         }
         return $option;
     }
 
 
-    public function sanitize_config( $option ){
-
-        $output = self::get_default_option();
-        $output = wp_parse_args($option, self::get_default_option());
-        return $output;
-    }
-
-
     public static function get_option(){
         $default = self::get_default_option();
-        //print_r(get_option( 'vkExUnit_cta_settings', $default ));
-        return wp_parse_args(get_option( 'vkExUnit_cta_settings' ) , $default );
+        $option = get_option( 'vkExUnit_cta_settings' );
+
+        if( !$option || !is_array($option) ) return $default;
+
+        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
+
+        $output_option = array();
+        while(list($key, $value) = each($posttypes)){
+            $output_option[$value] = ( isset( $option[$value] ) )? $option[$value] : $default[$value];
+        }
+
+        return $output_option;
     }
 
 
@@ -270,4 +284,3 @@ class vExUnit_call_responce {
         include vkExUnit_get_directory() . '/plugins/call_to_action/view.adminsetting.php';
     }
 }
- 
