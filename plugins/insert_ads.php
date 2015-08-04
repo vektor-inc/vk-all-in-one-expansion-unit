@@ -73,7 +73,12 @@ class vExUnit_Ads {
     }
 
 
-    public function sanitize_config( $option ){
+    public function sanitize_config( $input ){
+        $option['more'][0]  = stripslashes( $input['more'][0] );
+        $option['more'][1]  = stripslashes( $input['more'][1] );
+        $option['after'][0] = stripslashes( $input['after'][0] );
+        $option['after'][1] = stripslashes( $input['after'][1] );
+
         if( !$option['more'][0] && $option['more'][1] ){
             $option['more'][0] = $option['more'][1];
             $option['more'][1] = '';
