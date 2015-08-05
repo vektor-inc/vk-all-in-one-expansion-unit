@@ -28,9 +28,11 @@
 /*-------------------------------------------*/
 /* .socialSet
 /*-------------------------------------------*/
-/* Profile wiget Plugin
+/* Wiget Profile  Plugin
 /*-------------------------------------------*/
-/* 3PR area wiget Plugin
+/* Wiget 3PR area Plugin
+/*-------------------------------------------*/
+/* Widget Page Content
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
@@ -117,7 +119,7 @@
 .vk_icon_w_r_sns_fb:before { content: "\e604"; }
 
 /*-------------------------------------------*/
-/* Profile wiget Plugin
+/* Wiget Profile  Plugin
 /*-------------------------------------------*/
 .site-profile { overflow: hidden; }
 
@@ -147,7 +149,7 @@
 .sns_btns .linkedin_btn a { background: #0077b5; }
 
 /*-------------------------------------------*/
-/* 3PR area wiget Plugin
+/* Wiget 3PR area Plugin
 /*-------------------------------------------*/
 .prBox .subSection-title { font-size: 18px; }
 .prBox .media_pr { margin-top: 0.8em; margin-bottom: 0.8em; }
@@ -159,6 +161,11 @@
 @media screen and (max-width: 992px) { .prBox .media_pc { display: none; }
   .prBox .media_sp { display: block; }
   .prBox .linkurl { margin-bottom: 1.5em; } }
+/*-------------------------------------------*/
+/* Widget Page Content
+/*-------------------------------------------*/
+.widget_pageContent h1 { margin-bottom: 20px; }
+
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
