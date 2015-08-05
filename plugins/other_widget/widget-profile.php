@@ -141,9 +141,9 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
     	echo PHP_EOL.'<aside class="widget widget_profile">'.PHP_EOL;
 
 		if ( isset($instance['label']) && $instance['label'] ) {    
-			echo '<h3 class="widget-title subSection-title">';	
+			echo '<h1 class="widget-title subSection-title">';	
 			echo $instance['label'];
-			echo '</h3>';
+			echo '</h1>';
 		} ?>
 	
 <div class="site-profile" >

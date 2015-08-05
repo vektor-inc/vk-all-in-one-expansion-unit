@@ -333,7 +333,7 @@
 		</tr>
 		
 
-
+<?php /*
 		<!-- [ Insert ads ] -->
 		<tr<?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -355,6 +355,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+*/?>
 
 		</tbody>
 

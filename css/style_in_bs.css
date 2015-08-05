@@ -621,6 +621,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /*-------------------------------------------*/
 .link-list li { padding: 0.5em; }
 
+.widget .subSection-title { font-size: 18px; }
+
 /*-------------------------------------------*/
 /* .autoEyeCatchBox
 /*-------------------------------------------*/
