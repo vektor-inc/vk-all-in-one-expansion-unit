@@ -43,9 +43,11 @@ class vExUnit_call_responce {
 
     public function set_posttype(){
         $labels = array(
-            'name'          => __('action', 'vkExUnit'),
-            'singular_name' => __('actions', 'vkExUnit'),
-            'edit_item'     => __('edit actions', 'vkExUnit'),
+            'name'          => 'CTA',
+            'singular_name' => 'CTA',
+            'edit_item'     => __('new CTA', 'vkExUnit'),
+            'add_new_item'  => __('add new CTA', 'vkExUnit'),
+            'new_item'      => __('new CTA', 'vkExUnit'),
         );
 
         $args = array(
@@ -234,7 +236,7 @@ class vExUnit_call_responce {
     }
 
 
-    public static function get_option(){
+    public static function get_option( $show_label=false ){
         $default = self::get_default_option();
         $option = get_option( 'vkExUnit_cta_settings' );
 
