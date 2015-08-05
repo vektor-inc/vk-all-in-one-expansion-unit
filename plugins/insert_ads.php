@@ -56,7 +56,7 @@ class vExUnit_Ads {
     private function render_ad( $ads ,$area='more'){
         if( !$ads[0] ) return '';
         $class = "col-md-12";
-        if( $ads[1] ) $class="col-md-6";
+        if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
 
         $content = '';
         $content .= '<div class="row vkExUnit_AdWord '.$area.'">';
