@@ -31,14 +31,12 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		}
 
 	?>
-	<div class="localSection sideWidget">
-	<div class="sectionBox">
-		<h3 class="localHead"><?php echo $instance['label']; ?></h3>
+	<aside class="widget sideWidget widget_archive">
+		<h1 class="widget-title subSection-title"><?php echo $instance['label']; ?></h1>
 		<ul class="localNavi">
 			<?php wp_get_archives($arg); ?>
 		</ul>
-	</div>
-	</div>
+	</aside>
 	<?php
 	}
 
