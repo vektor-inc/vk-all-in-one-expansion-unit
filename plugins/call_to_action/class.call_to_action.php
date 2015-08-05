@@ -70,7 +70,7 @@ class vExUnit_call_responce {
 
     public function add_custom_field(){
         $post_types = get_post_types( array( '_builtin' => false, 'public' => true ) );
-        while(list($key, $post) = each( $post_types ) ){
+        while( list($key, $post ) = each( $post_types ) ){
             add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), $post, 'normal', 'high');
         }
         add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
@@ -116,7 +116,7 @@ class vExUnit_call_responce {
     }
 
 
-    public function save_custom_field($post_id){
+    public function save_custom_field( $post_id ){
         if( !isset( $_POST['_vkExUnit_cta_switch'] ) ) return $post_id;
         $noonce = isset($_POST['_nonce_vkExUnit_custom_cta']) ? htmlspecialchars($_POST['_nonce_vkExUnit_custom_cta']) : null;
 
@@ -167,23 +167,21 @@ class vExUnit_call_responce {
 
 
     public static function get_cta_post( $id ){
-
         $args = array(
             'post_type' => self::$posttype_name,
             'p' => $id
         );
-
-        $query = new WP_Query($args);
-        if(!$query->post_count) return null;
+        $query = new WP_Query( $args );
+        if( !$query->post_count ) return null;
 
         return $query->posts[0];
     }
 
 
     public static function render_cta_content( $id ){
-        if(!$id) return '';
+        if( !$id ) return '';
         $post = self::get_cta_post($id);
-        if(!$post) return '';
+        if( !$post ) return '';
 
         include vkExUnit_get_directory() . '/plugins/call_to_action/view.actionbox.php';
         return $content;
@@ -191,18 +189,17 @@ class vExUnit_call_responce {
 
 
     public function is_cta_id( $id=null ){
-        if(!$id) $id = get_the_id();
-        if(!$id) return null;
+        if( !$id ) $id = get_the_id();
+        if( !$id ) return null;
 
-        $post_config = get_post_meta($id, 'vkexunit_cta_each_option', true);
+        $post_config = get_post_meta( $id, 'vkexunit_cta_each_option', true );
 
-        if($post_config){
-            if($post_config == 'disable') return null;
-
+        if( $post_config ){
+            if( $post_config == 'disable' ) return null;
             return $post_config;
         }
 
-        $post_type = get_post_type($id);
+        $post_type = get_post_type( $id );
         $option = self::get_option();
         if( isset( $option[$post_type] ) && is_numeric( $option[$post_type] ) ) return $option[$post_type] ;
         return null;
@@ -211,20 +208,18 @@ class vExUnit_call_responce {
 
     public function content_filter( $content ){
         $content .= self::render_cta_content( $this->is_cta_id() );
-
         return $content;
     }
 
 
     public function sanitize_config( $input ){
-        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
+        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page' ), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ) );
         $option = get_option( 'vkExUnit_cta_settings' );
         if( !$option ) $current_option = self::get_default_option();
 
         while(list($key, $value) = each($input)){
             $option[$key] = ( is_numeric( $value ) )? $value : 0 ;
         }
-
         return $option;
     }
 
@@ -232,7 +227,7 @@ class vExUnit_call_responce {
     public static function get_default_option(){
         $option = array();
         $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
-        foreach($posttypes as $posttype){
+        while( list($key, $posttype) = each( $posttypes ) ){
             $option[ $posttype ] = false;
         }
         return $option;
@@ -245,7 +240,7 @@ class vExUnit_call_responce {
 
         if( !$option || !is_array($option) ) return $default;
 
-        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page'), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
+        $posttypes = array_merge( array( 'post'=>'post', 'page'=>'page' ), get_post_types( array( 'public'=>true, '_builtin'=>false ), 'names' ));
 
         $output_option = array();
         while(list($key, $value) = each($posttypes)){
@@ -256,13 +251,13 @@ class vExUnit_call_responce {
     }
 
 
-    public function get_ctas( $show_label=false, $head=''){
+    public function get_ctas( $show_label=false, $head='' ){
         $args = array(
             'post_type' => self::$posttype_name,
         );
         $query = new WP_Query($args);
         $ctas = array();
-        foreach( $query->posts as $post ){
+        while( list($key, $post) = each( $query->posts ) ){
             if($show_label){
                 $ctas[] = array(
                     'key'   => $post->ID,
