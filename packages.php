@@ -17,7 +17,20 @@ $required_packages[] = array(
 );
 
 */
+/*-------------------------------------------*/
+/*  sitemap_page
+/*-------------------------------------------*/
+/*  otherWidgets
+/*-------------------------------------------*/
+/*  css_customize
+/*-------------------------------------------*/
+/*  auto_eyecatch
+/*-------------------------------------------*/
 
+
+/*-------------------------------------------*/
+/*  sitemap_page
+/*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'sitemap_page',
     'title' => __('Display HTML Site Map', 'vkExUnit'),
@@ -25,7 +38,9 @@ $required_packages[] = array(
     'default' => true,
 );
 
-
+/*-------------------------------------------*/
+/*  otherWidgets
+/*-------------------------------------------*/
 $desk = array();
 $desk[] =  '<p>'.__('You can use various widgets.', 'vkExUnit').'</p>';
 $desk[] = '<ul>';
@@ -52,7 +67,9 @@ $required_packages[] = array(
     'default' => true,
 );
 
-
+/*-------------------------------------------*/
+/*  css_customize
+/*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'css_customize',
     'title' => __('CSS customize', 'vkExUnit'),
@@ -67,7 +84,9 @@ $required_packages[] = array(
     'default' => true,
 );
 
-
+/*-------------------------------------------*/
+/*  auto_eyecatch
+/*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'auto_eyecatch',
     'title' => __('Automatic Eye Catch insert', 'vkExUnit'),
