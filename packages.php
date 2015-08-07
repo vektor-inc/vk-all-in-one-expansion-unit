@@ -18,6 +18,8 @@ $required_packages[] = array(
 
 */
 /*-------------------------------------------*/
+/*  active_childPageIndex
+/*-------------------------------------------*/
 /*  sitemap_page
 /*-------------------------------------------*/
 /*  otherWidgets
@@ -26,7 +28,19 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  auto_eyecatch
 /*-------------------------------------------*/
+/*  active_insert_ads
+/*-------------------------------------------*/
 
+
+/*-------------------------------------------*/
+/*  active_childPageIndex
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'active_childPageIndex',
+    'title' => __('Child page index', 'vkExUnit'),
+    'description' => __('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'),
+    'default' => true,
+);
 
 /*-------------------------------------------*/
 /*  sitemap_page
@@ -78,10 +92,27 @@ $required_packages[] = array(
         array(
             'name'=>__('Setting','vkExUnit'),
             'url'=> admin_url().'admin.php?page=vkExUnit_css_customize',
-            'enable_only' => 1
+            'enable_only' => 1,
         )
     ),
     'default' => true,
+);
+
+/*-------------------------------------------*/
+/*  active_insert_ads
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'          => 'active_insert_ads',
+    'title'         => __('Insert ads', 'vkExUnit'),
+    'description'   => __('Insert ads to content.', 'vkExUnit'),
+    'attr'          => array(
+        array(
+            'name'  =>__('Setting','vkExUnit'),
+            'url'   => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads',
+            'enable_only' => 1,
+        )
+    ),
+    'default'          => true,
 );
 
 /*-------------------------------------------*/

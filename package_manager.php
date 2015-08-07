@@ -1,11 +1,10 @@
 <?php
 /**
- * VkExUnit ad.php
- * insert ads for Content.
+ * VkExUnit package_manager.php
  *
  * @package  VkExUnit
  * @author   shoji imamura<imamura@vektor-inc.co.jp>
- * @version  1.0.0
+ * @version  1.1.0
  * @since    6/Aug/2015
  */
 
