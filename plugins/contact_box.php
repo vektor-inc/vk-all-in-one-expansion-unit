@@ -209,6 +209,7 @@ class vExUnit_Contact {
         $cont .= '</p>';
         $cont .= '<div class="mainFootBt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg" ><i class="fa fa-envelope-o"></i>';
         $cont .= '<span class="button-text">'.$options['button_text'].'</span>';
+        $cont .= '<i class="fa fa-arrow-circle-o-right"></i>';
         $cont .= '<span class="button-text-small">'.$options['button_text_small'].'</span>';
         $cont .= '</a>';
         $cont .= '</div>';
