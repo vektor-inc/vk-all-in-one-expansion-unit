@@ -337,7 +337,7 @@
 	.link-list{
 		margin-top: 0;
 		margin-bottom: 0;
-	}	
+	}
 	.page_item{
 		padding: 0;
 	}
@@ -350,3 +350,11 @@
 }
 
 
+/*-------------------------------------------*/
+/* Contact Box
+/*-------------------------------------------*/
+.mainFootContact { padding:15px 0; border-top:1px solid $color_key;border-bottom:1px solid $color_key;
+    p.mainFootTxt span.mainFootTel { color:$color_key; }
+    .mainFootBt a { background-color: $color_key; }
+    .mainFootBt a:hover { background-color: $color_key; }
+}

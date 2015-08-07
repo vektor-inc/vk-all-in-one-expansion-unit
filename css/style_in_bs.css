@@ -769,3 +769,11 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .sitemap-col .page_item { padding: 0; }
 .sitemap-col .children { margin-bottom: 2em; }
 .sitemap-col .cat-item { padding: 0; }
+
+/*-------------------------------------------*/
+/* Contact Box
+/*-------------------------------------------*/
+.mainFootContact { padding: 15px 0; border-top: 1px solid #337ab7; border-bottom: 1px solid #337ab7; }
+.mainFootContact p.mainFootTxt span.mainFootTel { color: #337ab7; }
+.mainFootContact .mainFootBt a { background-color: #337ab7; }
+.mainFootContact .mainFootBt a:hover { background-color: #337ab7; }
