@@ -332,7 +332,23 @@
 			</td>
 		</tr>
 		
-
+		<!-- [ AUTO Eye Catch ] -->
+		<tr<?php echo (isset($options['active_contact_box']) && $options['active_contact_box'])? ' class="active"': ' class="inactive"'; ?>>
+			<th scope='row' class='check-column'>
+				<label class='screen-reader-text' for='checkbox_active_contact_box' >
+				<?php _e('Contact Box', 'vkExUnit'); ?>
+				</label>
+				<input type="checkbox" name="vkExUnit_common_options[active_contact_box]" id="checkbox_active_contact_box" value="true" <?php echo (isset($options['active_contact_box']) && $options['active_contact_box'])? 'checked': ''; ?> />
+			</th>
+			<td class='plugin-title'>
+				<strong><?php _e('Contact Box', 'vkExUnit'); ?></strong>
+			</td>
+			<td class='column-description desc'>
+				<div class='plugin-description'>
+					<p><?php _e('Display Contact Box at before content.', 'vkExUnit'); ?></p>
+				</div><!-- [ /.plugin-description ] -->
+			</td>
+		</tr>
 <?php /*
 		<!-- [ Insert ads ] -->
 		<tr<?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? ' class="active"': ' class="inactive"'; ?>>
