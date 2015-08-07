@@ -45,7 +45,7 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
 <?php // 3PR area 1 =========================================================== ?>
 		
 <script type="text/javascript">
-	jQuery(document).ready(function(){
+	jQuery(document).ajaxComplete(function(){
 		jQuery('.color_picker').wpColorPicker();
 	});
 </script>	
