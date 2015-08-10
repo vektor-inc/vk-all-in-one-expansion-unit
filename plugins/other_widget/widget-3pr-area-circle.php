@@ -384,7 +384,7 @@ function print_scripts() { ?>
 (function($){
 	function initColorPicker(widget) {
 		widget.find( '.color_picker' ).wpColorPicker( {
-			change: _.throttle( function() { // カスタマイザー用コード
+			change: _.throttle( function() { 
 				$(this).trigger('change');
 			}, 3000 )
 		});
