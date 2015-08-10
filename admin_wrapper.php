@@ -56,6 +56,7 @@ _e('Activated Packages is noting. please activate some package.', 'vkExUnit');
 </div><!-- [ /.adminMain ] -->
 <div class="adminSub">
 <div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
+<div class="exUnit_adminBnr"><?php vkExUnit_admin_banner(); ?></div>
 </div><!-- [ /.adminSub ] -->
 </div>
 <?php

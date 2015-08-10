@@ -281,5 +281,6 @@
 </div><!-- [ /.adminMain ] -->
 <div class="adminSub">
 <div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
+<div class="exUnit_adminBnr"><?php vkExUnit_admin_banner(); ?></div>
 </div><!-- [ /.adminSub ] -->
 </div>
