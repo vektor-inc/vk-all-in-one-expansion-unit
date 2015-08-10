@@ -44,11 +44,6 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
         	
 <?php // 3PR area 1 =========================================================== ?>
 		
-<script type="text/javascript">
-	jQuery(document).ajaxComplete(function(){
-		jQuery('.color_picker').wpColorPicker();
-	});
-</script>	
 
 		<?php // 3PR area 1 タイトル ?>
 		<h5 class="pr_subTitle"><?php _e( '3PR area1 setting', 'vkExUnit' ); ?></h5>
@@ -69,7 +64,8 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
         </p>
 		
 		<?php // 3PR area 1 カラーピッカー ?>
-        <p>
+				
+        <p class="color_picker_wrap">
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_bgColor_1');  ?>"><?php _e( 'Icon bg-color:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_1'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_1'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_1']; ?>" />
 			<br>
@@ -125,9 +121,10 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
         </p>
         
         <?php // 3PR area 2 カラーピッカー ?>
-        <p>
+        <p class="color_picker_wrap">
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_bgColor_2');  ?>"><?php _e( 'Icon bg-color:', 'vkExUnit' ); ?></label><br/>
-			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_2'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_2'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_2']; ?>" />
+	        
+	        <input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_2'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_2'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_2']; ?>" />
 			<br>
 			<?php _e( 'To choose your favorite icon’s background color', 'vkExUnit' ); ?>
         </p>
@@ -179,7 +176,7 @@ class WP_Widget_vkExUnit_3PR_area_circle extends WP_Widget {
         </p>
         
         <?php // 3PR area 3 カラーピッカー ?>
-        <p>
+        <p class="color_picker_wrap">
 	        <label for="<?php echo $this->get_field_id('iconFont_3pr_bgColor_3');  ?>"><?php _e( 'Icon bg-color:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id('iconFont_3pr_bgColor_3'); ?>-title" class="color_picker" name="<?php echo $this->get_field_name('iconFont_3pr_bgColor_3'); ?>" value="<?php echo $instance['iconFont_3pr_bgColor_3']; ?>" />
 			<br>
@@ -375,8 +372,35 @@ function my_admin_scripts_3pr_circle() {
 add_action( 'admin_print_scripts', 'my_admin_scripts_3pr_circle' );
 
 // カラーピッカー js
+add_action( 'admin_enqueue_scripts', 'admin_scripts_circle' );
 function admin_scripts_circle() {
 	wp_enqueue_style( 'wp-color-picker');
 	wp_enqueue_script( 'wp-color-picker');
 }
-add_action( 'admin_enqueue_scripts', 'admin_scripts_circle' );
+
+add_action( 'admin_footer-widgets.php', 'print_scripts' );
+function print_scripts() { ?>
+<script type="text/javascript">
+(function($){
+	function initColorPicker(widget) {
+		widget.find( '.color_picker' ).wpColorPicker( {
+			change: _.throttle( function() { // カスタマイザー用コード
+				$(this).trigger('change');
+			}, 3000 )
+		});
+	}
+	
+	function onFormUpdate(event, widget) {
+		initColorPicker(widget);
+	}
+	
+	$(document).on('widget-added widget-updated', onFormUpdate );
+	
+	$(document).ready( function() {
+		$('#widgets-right .widget:has(.color_picker)').each( function () {
+			initColorPicker( $(this) );
+		});
+	});
+}(jQuery));
+</script>		
+<?php } ?>
