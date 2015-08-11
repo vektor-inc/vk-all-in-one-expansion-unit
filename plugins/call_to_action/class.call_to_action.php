@@ -5,7 +5,7 @@ class vExUnit_call_responce {
 
     public static $posttype_name = 'cta';
 
-    public $content_number = 10;
+    public $content_number = 500;
 
     public static function instance() {
         if ( isset( self::$instance ) )
