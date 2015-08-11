@@ -19,6 +19,8 @@
 /*-------------------------------------------*/
 /* Wiget 3PR area Plugin
 /*-------------------------------------------*/
+/* Wiget PR Bloclks Plugin
+/*-------------------------------------------*/
 /* Widget Page Content
 /*-------------------------------------------*/
 /* childPageIndex Plugin
@@ -277,6 +279,88 @@
 }	
 }
 
+/*-------------------------------------------*/
+/* Wiget PR Bloclks Plugin
+/*-------------------------------------------*/
+.widget.pr_blocks{
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+	.prArea{
+		display: table-cell;
+		padding: 0 1em;
+		&:first-child{
+			padding-left: 0;
+		}
+		&:last-child{
+			padding-right: 0;
+		}
+	}
+	a{
+		color: #333;
+		&:hover{
+			color: #333;
+			text-decoration: none;
+		}
+		.summary:hover{
+			text-decoration: underline;
+		}
+	}
+	.circle_icon{
+		display: table;
+		margin: 0 auto ;
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		.font_icon{
+			display: table-cell;
+			color: #fff;
+			vertical-align: middle;
+			text-align: center;
+			font-size: 45px;
+		}
+	}
+	.prBox_title{
+		margin-top: 1.5em;
+		margin-bottom: 1em;
+		text-align: center;
+		font-size: 18px;
+	}
+	.media_pr{
+		display: table;
+		margin: 0 auto;
+	}
+	.pr_image{
+		display: table-cell;
+		overflow: hidden;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		vertical-align: middle;
+		text-align: center;
+	}
+	.summary{
+		margin-bottom: 0.5em;
+		text-align: center;
+		font-size: 14px;
+		line-height: 1.4em;
+	}
+}
+@media screen and (max-width:992px){
+.widget.pr_blocks{
+	display: block;
+	.prArea{
+		display: block;
+		margin-bottom: 3em;
+		&:first-child{
+			padding-left: 1em;
+		}
+		&:last-child{
+			padding-right: 1em;
+		}
+	}
+}
+}
 /*-------------------------------------------*/
 /* Widget Page Content
 /*-------------------------------------------*/
