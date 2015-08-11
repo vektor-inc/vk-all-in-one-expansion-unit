@@ -160,7 +160,8 @@ for ( $i = 1; $i <= intval($instance['block_count']); ) {
 function widget($args, $instance) {
 echo PHP_EOL.'<div class="widget pr_blocks">'.PHP_EOL; 
 
-$widget_block_count = intval($instance['block_count']);
+
+$widget_block_count = ( isset($instance['block_count'])) ? intval($instance['block_count']) : 3;
 
 // Print widget area
 for ( $i = 1; $i <= $widget_block_count; ) {
