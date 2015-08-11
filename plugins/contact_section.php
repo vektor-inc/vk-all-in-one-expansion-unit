@@ -54,9 +54,9 @@ class vExUnit_Contact {
 
     public static function get_option(){
         $default = array(
-            'contact_txt' => 'お気軽にお問い合わせください',
-            'tel_number' => '',
-            'contact_time' => ' 9:00 - 18:00 [ 土・日・祝日除く ]',
+            'contact_txt' => __('Please feel free to inquire.', 'vkExUnit'),
+            'tel_number' => '000-000-0000',
+            'contact_time' => _('Office hours 9:00 - 18:00 [ Weekdays except holidays ]'),
             'contact_link' => '',
             'button_text' => '',
             'button_text_small' => '',
@@ -138,7 +138,7 @@ class vExUnit_Contact {
 <br/>
 <label for="vkExUnit_contact">
 <input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable" <?php echo ($enable)? 'checked' : ''; ?> />
-<?php _e('show Contact box','vkExUnit'); ?></label>
+<?php _e('Display Contact Section','vkExUnit'); ?></label>
     <?php
     }
 
@@ -196,13 +196,13 @@ class vExUnit_Contact {
     public function render_contact_html(){
         $options = self::get_option();
         $cont = '';
-        $cont .= '<section class="mainFootContact">';
-        $cont .= '<p class="mainFootTxt">';
-        $cont .= '<span class="mainFootCatch">'.$options['contact_txt'].'</span>';
-        $cont .= '<span class="mainFootTel">TEL '.$options['tel_number'].'</span>';
-        $cont .= '<span class="mainFootTime">受付時間'.$options['contact_time'].'</span>';
+        $cont .= '<section class="vkExUnit_contact">';
+        $cont .= '<p class="vkExUnit_contact_txt">';
+        $cont .= '<span class="vkExUnit_contact_catch">'.$options['contact_txt'].'</span>';
+        $cont .= '<span class="vkExUnit_contact_tel">TEL '.$options['tel_number'].'</span>';
+        $cont .= '<span class="vkExUnit_contact_time">'.$options['contact_time'].'</span>';
         $cont .= '</p>';
-        $cont .= '<div class="mainFootBt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg" ><i class="fa fa-envelope-o"></i>';
+        $cont .= '<div class="vkExUnit_contact_Bt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg" ><i class="fa fa-envelope-o"></i>';
         $cont .= '<span class="button-text">'.$options['button_text'].'</span>';
         $cont .= '<i class="fa fa-arrow-circle-o-right"></i>';
         $cont .= '<span class="button-text-small">'.$options['button_text_small'].'</span>';

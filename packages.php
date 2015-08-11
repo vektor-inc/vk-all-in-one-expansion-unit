@@ -45,7 +45,7 @@ $required_packages[] = array(
     'attr' => array(
         array(
             'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'widgets.php',
+            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
             'enable_only' => 1,
         )
     ),

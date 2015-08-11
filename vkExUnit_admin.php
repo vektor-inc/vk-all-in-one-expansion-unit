@@ -221,23 +221,6 @@
 			</td>
 		</tr>
 		
-		<!-- [ contact_section ] -->
-		<tr<?php echo (isset($options['active_contact_section']) && $options['active_contact_section'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_contact_section' >
-				<?php _e('Contact Box', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_contact_section]" id="checkbox_active_contact_section" value="true" <?php echo (isset($options['active_contact_section']) && $options['active_contact_section'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('Contact Box', 'vkExUnit'); ?></strong>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('Display Contact Box at before content.', 'vkExUnit'); ?></p>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
 <?php
 
 
