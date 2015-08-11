@@ -618,6 +618,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /*-------------------------------------------*/
 /* sitemap page Plugin
 /*-------------------------------------------*/
+/* Insert Ads
+/*-------------------------------------------*/
 /*-------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
@@ -783,3 +785,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .mainFootContact .mainFootBt a { background-color: #337ab7; }
 .mainFootContact .mainFootBt a:hover { background-color: #337ab7; }
 .mainFootContact:after { content: ""; display: table; clear: both; }
+
+/*-------------------------------------------*/
+/* Insert Ads
+/*-------------------------------------------*/
+.vkExUnit_insertAds { margin-top: 1em; margin-bottom: 1.5em; }

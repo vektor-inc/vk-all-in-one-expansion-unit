@@ -82,6 +82,8 @@ require_once( 'admin_wrapper.php' );
 /*-------------------------------------------*/
 
 require vkExUnit_get_directory() . '/common_init.php';
+require vkExUnit_get_directory() . '/package_manager.php';
+require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
@@ -89,6 +91,8 @@ require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
 require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
+require vkExUnit_get_directory() . '/plugins/admin_banner.php';
+
 
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
@@ -112,26 +116,27 @@ if ( isset($options['active_icon']) && $options['active_icon'] )
 if ( isset($options['active_metaKeyword']) && $options['active_metaKeyword'] )
 	require vkExUnit_get_directory() . '/plugins/meta_keyword.php';
 
-if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
+if ( vkExUnit_package_is_enable( 'otherWidgets' ) )
 	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';
 
-if ( isset($options['active_css_customize']) && $options['active_css_customize'] )
+if ( vkExUnit_package_is_enable( 'css_customize' ) )
 	require vkExUnit_get_directory() . '/plugins/css_customize/css_customize.php';
 
-if ( isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'] )
+if ( vkExUnit_package_is_enable( 'auto_eyecatch' ) )
 	require vkExUnit_get_directory() . '/plugins/auto_eyecatch.php';
 
 if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] )
 	require vkExUnit_get_directory() . '/plugins/child_page_index/child_page_index.php';
-	
-if ( isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
+
+if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
-	
+
 if ( isset($options['active_contact_section']) && $options['active_contact_section'] )
 	require vkExUnit_get_directory() . '/plugins/contact_section.php';
 
-// if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
-// 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
+if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
+	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
+
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css
