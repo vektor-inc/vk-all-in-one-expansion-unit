@@ -18,7 +18,9 @@ $required_packages[] = array(
 
 */
 /*-------------------------------------------*/
-/*  active_childPageIndex
+/*  Contact Section
+/*-------------------------------------------*/
+/*  ChildPageIndex
 /*-------------------------------------------*/
 /*  sitemap_page
 /*-------------------------------------------*/
@@ -32,15 +34,35 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 
 
+
 /*-------------------------------------------*/
-/*  active_childPageIndex
+/*  Contact Section
 /*-------------------------------------------*/
 $required_packages[] = array(
+    'name'  => 'active_contact_section',
+    'title' => __('Contact Section', 'vkExUnit'),
+    'description' => __('Display Contact Section at before content.', 'vkExUnit'),
+    'attr' => array(
+        array(
+            'name'=>__('Setting','vkExUnit'),
+            'url'=> admin_url().'widgets.php',
+            'enable_only' => 1,
+        )
+    ),
+    'default' => true,
+);
+
+ /*-------------------------------------------*/
+ /*  ChildPageIndex
+ /*-------------------------------------------*/
+
+ $required_packages[] = array(
     'name'  => 'active_childPageIndex',
     'title' => __('Child page index', 'vkExUnit'),
     'description' => __('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'),
-    'default' => true,
-);
+     'default' => true,
+ );
+
 
 /*-------------------------------------------*/
 /*  sitemap_page
