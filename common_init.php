@@ -33,6 +33,13 @@ function vkExUnit_get_common_options_default() {
 		'active_sns'                => true,
 		'active_ga'                 => true,
 		'active_relatedPosts'       => true,
+		'active_childPageIndex'     => true,
+		'active_otherWidgets'       => true,
+		'active_css_customize'      => true,
+		'active_auto_eyecatch'      => true,
+		'active_sitemap_page'       => true,
+		'active_insert_ads'         => true,
+		'active_contact_section'        => true,
 	);
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
@@ -52,6 +59,14 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_sns']               = (isset($input['active_sns'])) ? true:false;
 	$output['active_ga']                = (isset($input['active_ga'])) ? true:false;
 	$output['active_relatedPosts']      = (isset($input['active_relatedPosts'])) ? true:false;
+	$output['active_childPageIndex']    = (isset($input['active_childPageIndex'])) ? true:false;
+	$output['active_otherWidgets']      = (isset($input['active_otherWidgets'])) ? true:false;
+	$output['active_css_customize']     = (isset($input['active_css_customize'])) ? true:false;
+	$output['active_auto_eyecatch']     = (isset($input['active_auto_eyecatch'])) ? true:false;
+	$output['active_sitemap_page']      = (isset($input['active_sitemap_page'])) ? true:false;
+	$output['active_insert_ads']        = (isset($input['active_insert_ads'])) ? true:false;
+	$output['active_contact_section']   = (isset($input['active_contact_section'])) ? true:false;
+
 
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
 }

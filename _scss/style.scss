@@ -423,7 +423,7 @@
 	.link-list{
 		margin-top: 0;
 		margin-bottom: 0;
-	}	
+	}
 	.page_item{
 		padding: 0;
 	}
@@ -433,6 +433,28 @@
 	.cat-item{
 		padding: 0;
 	}
+}
+
+/*-------------------------------------------*/
+/* Contact Box
+/*-------------------------------------------*/
+.mainFootContact { padding:15px 0; border-top:1px solid $color_key;border-bottom:1px solid $color_key;
+    p.mainFootTxt span.mainFootTel { color:$color_key; }
+    .mainFootCatch,
+    .mainFootTel,
+    .mainFootTime { display:block; }
+    .mainFootTel {
+  font-size: 24px;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 2px;
+  line-height: 100%;
+    }
+    .mainFootTxt { float:left; }
+    .mainFootBt { float:right; }
+    .button-text-small { display:block; }
+    .mainFootBt a { background-color: $color_key; }
+    .mainFootBt a:hover { background-color: $color_key; }
+    @include pie-clearfix;
 }
 
 /*-------------------------------------------*/

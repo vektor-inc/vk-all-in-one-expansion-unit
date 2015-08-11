@@ -90,7 +90,10 @@ require vkExUnit_get_directory() . '/common_helpers.php';
 require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
+require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 require vkExUnit_get_directory() . '/plugins/admin_banner.php';
+
+
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
 	add_filter('wp_title','vkExUnit_get_wp_head_title');
@@ -127,13 +130,13 @@ if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex
 
 if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
-	
+
+if ( isset($options['active_contact_section']) && $options['active_contact_section'] )
+	require vkExUnit_get_directory() . '/plugins/contact_section.php';
+
 if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
 
-// page custom field
-if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] || isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
-	require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css
