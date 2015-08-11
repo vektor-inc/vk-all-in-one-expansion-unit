@@ -5,7 +5,7 @@ class vExUnit_call_responce {
 
     public static $posttype_name = 'cta';
 
-    public $content_number = 500;
+    public $content_number = 10;
 
     public static function instance() {
         if ( isset( self::$instance ) )
@@ -105,6 +105,7 @@ class vExUnit_call_responce {
     public function render_meta_box_cta(){
         echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
         ?>
+<style>#message.updated a {display:none;}</style>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
 <table class="form-table"><tr><th>
 <label for="vkExUnit_cta_url_title"><?php _e('url title', 'vkExUnit'); ?></label></th><td>
@@ -114,6 +115,7 @@ class vExUnit_call_responce {
 <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
 </td></tr>
 </table>
+<a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>"><?php _e('cta setting', 'vkExUnit'); ?></a>
         <?php
     }
 
@@ -171,7 +173,8 @@ class vExUnit_call_responce {
     public static function get_cta_post( $id ){
         $args = array(
             'post_type' => self::$posttype_name,
-            'p' => $id
+            'p' => $id,
+            'post_count' => 1
         );
         $query = new WP_Query( $args );
         if( !$query->post_count ) return null;
