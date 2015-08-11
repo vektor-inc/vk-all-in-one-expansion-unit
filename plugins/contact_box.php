@@ -28,11 +28,17 @@ class vExUnit_Contact {
 
     protected function run_init() {
         add_action( 'admin_init', array($this, 'options_init') );
-        add_action('admin_menu', array($this, 'add_custom_field') );
         add_action('wp_head', array($this, 'header_css') );
         add_action('save_post', array($this, 'save_custom_field_postdata') );
         add_shortcode('vkExUnit_contact_box', array($this, 'shortcode') );
         add_filter('the_content',    array($this, 'set_content' ), 1);
+        add_filter('vkExUnit_customField_Page_activation', array($this, 'activate_metavox'), 10, 1);
+        add_action('vkExUnit_customField_Page_box', array($this, 'render_meta_box') );
+    }
+
+
+    public function activate_metavox( $flag ){
+        return true;
     }
 
 
@@ -125,26 +131,15 @@ class vExUnit_Contact {
     }
 
 
-    public function add_custom_field(){
-        add_meta_box('vkExUnit_contactbox_box', __('Contact Area', 'vkExUnit'), array($this, 'render_meta_box'), 'page', 'normal', 'high');
-    }
-
-
-    public function render_meta_box () {
+    public function render_meta_box() {
         $enable = get_post_meta(get_the_id(), 'vkExUnit_contactBox_enable', true);
-
     ?>
-    <input type="hidden" name="_nonce_vkExUnit_contactbox" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
-    <table class="form-table">
-    <tr>
-    <th><label for="vkExUnit_contactbox"><?php _e('show Contact box','vkExUnit'); ?></label></th>
-    <td>
-    <input type="checkbox" id="vkExUnit_contactbox" name="vkExUnit_contactBox_enable" <?php echo ($enable)? 'checked' : ''; ?> />
-    </td>
-    </tr>
-    </table>
+<input type="hidden" name="_nonce_vkExUnit_contactbox" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
+<br/>
+<label for="vkExUnit_contactbox">
+<input type="checkbox" id="vkExUnit_contactbox" name="vkExUnit_contactBox_enable" <?php echo ($enable)? 'checked' : ''; ?> />
+<?php _e('show Contact box','vkExUnit'); ?></label>
     <?php
-
     }
 
 

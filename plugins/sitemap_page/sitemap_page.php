@@ -184,3 +184,52 @@ function vkExUnit_sitemap($atts) {
     return $sitemap_html;
 }
 add_shortcode('vkExUnit_sitemap', 'vkExUnit_sitemap');
+
+
+add_filter('vkExUnit_customField_Page_activation', 'vkExUnit_sitemap_activate', 10, 1);
+function vkExUnit_sitemap_activate( $flag ){
+	return true;
+}
+
+
+add_action('vkExUnit_customField_Page_box', 'vkExUnit_sitemap_meta_box');
+function vkExUnit_sitemap_meta_box(){
+	global $post;
+	// sitemap display
+	$active_sitemap_page = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
+	echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_sitemap" id="_nonce_vkExUnit__custom_field_sitemap" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
+	echo '<label class="hidden" for="vkExUnit_sitemap">'.__('Choose display a child page index', 'vkExUnit').'</label>
+		<input type="checkbox" id="vkExUnit_sitemap" name="vkExUnit_sitemap" value="active"';	
+	if( !empty($active_sitemap_page) ) {
+		if( $active_sitemap_page[0] === 'active' ) echo ' checked="checked"';
+	}
+	echo '/>'.__('if checked you will display a sitemap', 'vkExUnit');
+}
+
+
+// save custom field sitemap
+add_action('save_post', 'vkExUnit_save_custom_field_sitemapData');
+function vkExUnit_save_custom_field_sitemapData( $post_id ) {
+    $sitemap = isset($_POST['_nonce_vkExUnit__custom_field_sitemap']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_sitemap']) : null;
+    
+	if( !wp_verify_nonce( $sitemap, plugin_basename(__FILE__) )){
+  		return $post_id;
+	}
+	
+	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
+    return $post_id;
+    
+    $data = isset($_POST['vkExUnit_sitemap']) ? htmlspecialchars($_POST['vkExUnit_sitemap']) : null;
+       
+	if('page' == $data){
+		if(!current_user_can('edit_page', $post_id)) return $post_id;
+	}
+		
+    if ( "" == get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
+        add_post_meta( $post_id, 'vkExUnit_sitemap', $data, true ) ;
+    } else if ( $data != get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
+        update_post_meta( $post_id, 'vkExUnit_sitemap', $data ) ;
+    } else if ( "" == $data ) {
+        delete_post_meta( $post_id, 'vkExUnit_sitemap' ) ;
+    }
+}
