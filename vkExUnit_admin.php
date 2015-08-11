@@ -333,12 +333,12 @@
 		</tr>
 		
 		<!-- [ AUTO Eye Catch ] -->
-		<tr<?php echo (isset($options['active_contact_box']) && $options['active_contact_box'])? ' class="active"': ' class="inactive"'; ?>>
+		<tr<?php echo (isset($options['active_contact_section']) && $options['active_contact_section'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_contact_box' >
+				<label class='screen-reader-text' for='checkbox_active_contact_section' >
 				<?php _e('Contact Box', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_contact_box]" id="checkbox_active_contact_box" value="true" <?php echo (isset($options['active_contact_box']) && $options['active_contact_box'])? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_contact_section]" id="checkbox_active_contact_section" value="true" <?php echo (isset($options['active_contact_section']) && $options['active_contact_section'])? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('Contact Box', 'vkExUnit'); ?></strong>

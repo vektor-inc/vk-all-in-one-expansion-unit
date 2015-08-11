@@ -1,6 +1,6 @@
 <?php
 /**
- * VkExUnit contact_box.php
+ * VkExUnit contact_section.php
  * display contaxt box at after content of page.
  *
  * @package  VkExUnit
@@ -30,7 +30,7 @@ class vExUnit_Contact {
         add_action( 'admin_init', array($this, 'options_init') );
         add_action('wp_head', array($this, 'header_css') );
         add_action('save_post', array($this, 'save_custom_field_postdata') );
-        add_shortcode('vkExUnit_contact_box', array($this, 'shortcode') );
+        add_shortcode('vkExUnit_contact_section', array($this, 'shortcode') );
         add_filter('the_content',    array($this, 'set_content' ), 1);
         add_filter('vkExUnit_customField_Page_activation', array($this, 'activate_metavox'), 10, 1);
         add_action('vkExUnit_customField_Page_box', array($this, 'render_meta_box') );
@@ -179,7 +179,7 @@ class vExUnit_Contact {
     public function set_content($content){
         if( !self::is_my_turn() ) return $content;
 
-        $content .= '[vkExUnit_contact_box]';
+        $content .= '[vkExUnit_contact_section]';
         return $content;
     }
 

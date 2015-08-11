@@ -127,8 +127,8 @@ if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex
 if ( isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 	
-if ( isset($options['active_contact_box']) && $options['active_contact_box'] )
-	require vkExUnit_get_directory() . '/plugins/contact_box.php';
+if ( isset($options['active_contact_section']) && $options['active_contact_section'] )
+	require vkExUnit_get_directory() . '/plugins/contact_section.php';
 
 // if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
 // 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
