@@ -30,7 +30,7 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  auto_eyecatch
 /*-------------------------------------------*/
-/*  active_insert_ads
+/*  insert_ads
 /*-------------------------------------------*/
 
 
@@ -39,7 +39,7 @@ $required_packages[] = array(
 /*  Contact Section
 /*-------------------------------------------*/
 $required_packages[] = array(
-    'name'  => 'active_contact_section',
+    'name'  => 'contact_section',
     'title' => __('Contact Section', 'vkExUnit'),
     'description' => __('Display Contact Section at before content.', 'vkExUnit'),
     'attr' => array(
@@ -57,7 +57,7 @@ $required_packages[] = array(
  /*-------------------------------------------*/
 
  $required_packages[] = array(
-    'name'  => 'active_childPageIndex',
+    'name'  => 'childPageIndex',
     'title' => __('Child page index', 'vkExUnit'),
     'description' => __('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'),
      'default' => true,
@@ -121,10 +121,10 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
-/*  active_insert_ads
+/*  insert_ads
 /*-------------------------------------------*/
 $required_packages[] = array(
-    'name'          => 'active_insert_ads',
+    'name'          => 'insert_ads',
     'title'         => __('Insert ads', 'vkExUnit'),
     'description'   => __('Insert ads to content.', 'vkExUnit'),
     'attr'          => array(
