@@ -180,3 +180,16 @@
 .sitemap-col .page_item { padding: 0; }
 .sitemap-col .children { margin-bottom: 2em; }
 .sitemap-col .cat-item { padding: 0; }
+
+/*-------------------------------------------*/
+/* CTA Section 
+/*-------------------------------------------*/
+.vkExUnit_cta { display: block; overflow: hidden; background-color: #efefef; }
+
+h1.vkExUnit_cta_title { display: block; overflow: hidden; background-color: #333; font-size: 24px; color: #fff; padding: 12px 20px 10px; }
+
+.vkExUnit_cta_body { display: block; overflow: hidden; padding: 1.5em 2em 2em; }
+
+.vkExUnit_cta_content { display: block; overflow: hidden; }
+
+.vkExUnit_cta_link { margin-top: 1em; }
