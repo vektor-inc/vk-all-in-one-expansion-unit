@@ -197,18 +197,25 @@ class vExUnit_Contact {
         $options = self::get_option();
         $cont = '';
         $cont .= '<section class="vkExUnit_contact">';
+
         $cont .= '<p class="vkExUnit_contact_txt">';
-        $cont .= '<span class="vkExUnit_contact_catch">'.$options['contact_txt'].'</span>';
-        $cont .= '<span class="vkExUnit_contact_tel">TEL '.$options['tel_number'].'</span>';
-        $cont .= '<span class="vkExUnit_contact_time">'.$options['contact_time'].'</span>';
+        $cont .= '<span class="vkExUnit_contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
+        $cont .= '<span class="vkExUnit_contact_txt_tel">'.$options['tel_number'].'</span>';
+        $cont .= '<span class="vkExUnit_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
         $cont .= '</p>';
-        $cont .= '<div class="vkExUnit_contact_Bt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg" ><i class="fa fa-envelope-o"></i>';
-        $cont .= '<span class="button-text">'.$options['button_text'].'</span>';
-        $cont .= '<i class="fa fa-arrow-circle-o-right"></i>';
-        $cont .= '<span class="button-text-small">'.$options['button_text_small'].'</span>';
-        $cont .= '</a>';
-        $cont .= '</div>';
+
+        if ( $options['contact_link'] && $options['button_text'] ) {
+            $cont .= '<div class="vkExUnit_contact_bt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg">';
+            $cont .= '<span class="vkExUnit_contact_bt_txt">'.$options['button_text'].'</span>';
+            $cont .= '<span class="vkExUnit_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+            $cont .= '</a>';
+            $cont .= '</div>';
+        }
+
         $cont .= '</section>';
+        if ( current_user_can('edit_theme_options') ) {
+        $cont .= '<div class="vkExUnit_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
+        }
         return $cont;
     }
 
