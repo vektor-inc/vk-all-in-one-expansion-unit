@@ -465,3 +465,7 @@ p.vkExUnit_contact_txt { margin-bottom:0; }
 /* Insert Ads
 /*-------------------------------------------*/
 .vkExUnit_insertAds { margin-top:1em;margin-bottom:1.5em; }
+@media (max-width: 971px){
+	.vkExUnit_insertAds { margin-bottom:0.5em; }
+	.vkExUnit_insertAds .col-md-6 {margin-bottom:1em; }
+}
