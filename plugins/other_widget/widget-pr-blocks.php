@@ -122,38 +122,17 @@ for ( $i = 1; $i <= intval($instance['block_count']); ) {
         
         $instance['block_count'] = $new_instance['block_count'];
 
-        $instance['label_1'] = $new_instance['label_1'];
-        $instance['media_image_1'] = $new_instance['media_image_1'];
-        $instance['media_alt_1'] = $new_instance['media_alt_1'];
-        $instance['iconFont_class_1'] = $new_instance['iconFont_class_1'];
-        $instance['iconFont_bgColor_1'] = $new_instance['iconFont_bgColor_1'];
-        $instance['summary_1'] = $new_instance['summary_1'];
-        $instance['linkurl_1'] = $new_instance['linkurl_1'];
-        
-        $instance['label_2'] = $new_instance['label_2'];
-        $instance['media_image_2'] = $new_instance['media_image_2'];
-        $instance['media_alt_2'] = $new_instance['media_alt_2'];
-        $instance['iconFont_class_2'] = $new_instance['iconFont_class_2'];
-        $instance['iconFont_bgColor_2'] = $new_instance['iconFont_bgColor_2'];
-        $instance['summary_2'] = $new_instance['summary_2'];
-        $instance['linkurl_2'] = $new_instance['linkurl_2'];
-        
-        $instance['label_3'] = $new_instance['label_3'];
-        $instance['media_image_3'] = $new_instance['media_image_3'];
-        $instance['media_alt_3'] = $new_instance['media_alt_3'];
-        $instance['iconFont_class_3'] = $new_instance['iconFont_class_3'];
-        $instance['iconFont_bgColor_3'] = $new_instance['iconFont_bgColor_3'];
-        $instance['summary_3'] = $new_instance['summary_3'];
-        $instance['linkurl_3'] = $new_instance['linkurl_3'];
-        
-        $instance['label_4'] = $new_instance['label_4'];
-        $instance['media_image_4'] = $new_instance['media_image_4'];
-        $instance['media_alt_4'] = $new_instance['media_alt_4'];
-        $instance['iconFont_class_4'] = $new_instance['iconFont_class_4'];
-        $instance['iconFont_bgColor_4'] = $new_instance['iconFont_bgColor_4'];
-        $instance['summary_4'] = $new_instance['summary_4'];
-        $instance['linkurl_4'] = $new_instance['linkurl_4'];
-        
+        for ( $i = 1; $i <= 4; ) {
+	        $instance['label_'.$i] = $new_instance['label_'.$i];
+	        $instance['media_image_'.$i] = $new_instance['media_image_'.$i];
+	        $instance['media_alt_'.$i] = $new_instance['media_alt_'.$i];
+	        $instance['iconFont_class_'.$i] = $new_instance['iconFont_class_'.$i];
+	        $instance['iconFont_bgColor_'.$i] = $new_instance['iconFont_bgColor_'.$i];
+	        $instance['summary_'.$i] = $new_instance['summary_'.$i];
+	        $instance['linkurl_'.$i] = $new_instance['linkurl_'.$i];
+	        $i++; 
+		}
+		   
         return $instance;
     } 
     
