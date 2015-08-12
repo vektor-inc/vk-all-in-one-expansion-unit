@@ -20,19 +20,20 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			'echo' => 1,
 			);
 
-		if($instance['display_type'] == 'y'){
+		if(isset($instance['display_type']) && $instance['display_type'] == 'y'){
 			$arg['type']      = "yearly";
-			$arg['post_type'] = $instance['post_type'];
+			$arg['post_type'] = ( isset($instance['post_type']) ) ? $instance['post_type'] : 'post';
 			$arg['after']     = '年';
 		}
 		else{
 			$arg['type']      = "monthly";
-			$arg['post_type'] = $instance['post_type'];
+			$arg['post_type'] = ( isset($instance['post_type']) ) ? $instance['post_type'] : 'post';
 		}
-
 	?>
 	<aside class="widget sideWidget widget_archive">
-		<h1 class="widget-title subSection-title"><?php echo $instance['label']; ?></h1>
+	<?php if( (isset($instance['label'])) && $instance['label'] ){ ?>
+	<h1 class="widget-title subSection-title"><?php echo $instance['label']; ?></h1>
+	<?php } ?>
 		<ul class="localNavi">
 			<?php wp_get_archives($arg); ?>
 		</ul>
