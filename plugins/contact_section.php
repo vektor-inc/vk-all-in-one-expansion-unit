@@ -216,6 +216,7 @@ class vExUnit_Contact {
         if ( current_user_can('edit_theme_options') ) {
         $cont .= '<div class="vkExUnit_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
         }
+        $cont = add_filter('vkExUnit_contact_custom','$cont');
         return $cont;
     }
 
