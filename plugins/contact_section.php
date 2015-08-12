@@ -72,38 +72,37 @@ class vExUnit_Contact {
 <div id="meta_description" class="sectionBox">
 <table class="form-table">
 <tr>
-<th scope="row"><label for="contact_txt"><?php _ex('Message', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="contact_txt"><?php _e('Message', 'vkExUnit') ;?></label></th>
 <td>
 <input type="text" name="vkExUnit_contact[contact_txt]" id="contact_txt" value="<?php echo esc_attr( $options['contact_txt'] ); ?>" style="width:50%;" /><br />
 <span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Please feel free to inquire.', 'vkExUnit') ;?></span>
 </td>
 </tr>
 <tr>
-<th scope="row"><label for="tel_number"><?php _ex('Phone number', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="tel_number"><?php _e('Phone number', 'vkExUnit') ;?></label></th>
 <td>
 <input type="text" name="vkExUnit_contact[tel_number]" id="tel_number" value="<?php echo esc_attr( $options['tel_number'] ); ?>" style="width:50%;" /><br />
 <span><?php _e('ex) ', 'vkExUnit') ;?>000-000-0000</span>
 </td>
 </tr>
 <tr>
-<th scope="row"><label for="contact_time"><?php _ex('Office hours', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="contact_time"><?php _e('Office hours', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[contact_time]" id="contact_time" value="" style="width:50%;" /><?php echo esc_attr( $options['contact_time'] ); ?></textarea><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?><?php _ex('Office hours', 'vkExUnit') ;?> 9:00 - 18:00 [ <?php _e('Weekdays except holidays', 'vkExUnit') ;?> ]</span>
+<span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Office hours', 'vkExUnit') ;?> 9:00 - 18:00 [ <?php _e('Weekdays except holidays', 'vkExUnit') ;?> ]</span>
 </td>
 </tr>
 <!-- he URL of contact page -->
 <tr>
-<th scope="row"><label for="contact_link"><?php _ex('The contact page URL', 'vkExUnit theme-customizer', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="contact_link"><?php _e('The contact page URL', 'vkExUnit') ;?></label></th>
 <td>
 <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
 <span><?php _e('ex) ', 'vkExUnit') ;?>http://www.********.co.jp/contact/ <?php _e('or', 'vkExUnit') ;?> /******/</span><br />
-<?php _e('* If you fill in the blank, contact banner will be displayed in the sidebar.', 'vkExUnit') ;?><br />
-<span class="alert"><?php _e('If not, it does not appear.', 'vkExUnit') ;?></span>
+<?php _e('* If you fill in the blank, contact button does not appear.', 'vkExUnit') ;?>
 </td>
 </tr>
 <tr>
-<th scope="row"><label for="sub_sitename"><?php _ex('Contact button Text.', 'vkExUnit theme-customizer', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="sub_sitename"><?php _e('Contact button Text.', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text]" id="sub_sitename" value="" style="width:50%;" /><?php echo esc_attr( $options['button_text'] ); ?></textarea><br />
 <span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Contact Us from email.', 'vkExUnit') ;?></span>
@@ -111,7 +110,7 @@ class vExUnit_Contact {
 </tr>
 <!-- Company address -->
 <tr>
-<th scope="row"><label for="button_text_small"><?php _ex('Contact button Text. ( sub )', 'vkExUnit theme-customizer', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="button_text_small"><?php _e('Contact button Text. ( sub )', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small'] ?></textarea><br />
     <span><?php _e('ex) ', 'vkExUnit') ;?>
@@ -204,10 +203,17 @@ class vExUnit_Contact {
         $cont .= '<span class="vkExUnit_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
         $cont .= '</p>';
 
-        if ( $options['contact_link'] && $options['button_text'] ) {
+        if ( 
+            ( isset($options['contact_link']) && $options['contact_link'] ) && 
+            ( isset($options['button_text']) && $options['button_text'] )
+            ) {
             $cont .= '<div class="vkExUnit_contact_bt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg">';
             $cont .= '<span class="vkExUnit_contact_bt_txt">'.$options['button_text'].'</span>';
-            $cont .= '<span class="vkExUnit_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+
+            if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+                $cont .= '<span class="vkExUnit_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+            }
+
             $cont .= '</a>';
             $cont .= '</div>';
         }
@@ -216,7 +222,7 @@ class vExUnit_Contact {
         if ( current_user_can('edit_theme_options') ) {
         $cont .= '<div class="vkExUnit_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
         }
-        $cont = add_filter('vkExUnit_contact_custom','$cont');
+        $cont = apply_filters('vkExUnit_contact_custom',$cont);
         return $cont;
     }
 

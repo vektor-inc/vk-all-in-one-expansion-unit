@@ -41,7 +41,7 @@ $required_packages[] = array(
 $required_packages[] = array(
     'name'  => 'contact_section',
     'title' => __('Contact Section', 'vkExUnit'),
-    'description' => __('Display Contact Section at before content.', 'vkExUnit'),
+    'description' => __('Display Contact Section at after content.', 'vkExUnit'),
     'attr' => array(
         array(
             'name'=>__('Setting','vkExUnit'),
