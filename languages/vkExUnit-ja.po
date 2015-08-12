@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-12 14:04+0900\n"
+"POT-Creation-Date: 2015-08-13 02:02+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -466,7 +466,7 @@ msgstr "お気軽にお問い合わせください。"
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: ../plugins/contact_section.php:216
+#: ../plugins/contact_section.php:222
 msgid "Edit contact information"
 msgstr ""
 
@@ -799,22 +799,34 @@ msgstr "3PR エリア2 設定"
 msgid "3PR area3 setting"
 msgstr "3PR エリア3 設定"
 
-#: ../plugins/other_widget/widget-archives.php:47
-#: ../plugins/other_widget/widget-archives.php:48
+#: ../plugins/other_widget/widget-archives.php:50
+#: ../plugins/other_widget/widget-archives.php:51
 #: ../plugins/other_widget/old/widget-archive-list.php:49
 #: ../plugins/other_widget/old/widget-archive-list.php:50
 msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
-#: ../plugins/other_widget/widget-archives.php:57
+#: ../plugins/other_widget/widget-archives.php:60
 #: ../plugins/other_widget/old/widget-archive-list.php:59
 msgid "Title"
 msgstr "タイトル"
 
-#: ../plugins/other_widget/widget-archives.php:61
+#: ../plugins/other_widget/widget-archives.php:64
 #: ../plugins/other_widget/old/widget-archive-list.php:63
 msgid "Post type"
 msgstr "ポストタイプ"
+
+#: ../plugins/other_widget/widget-archives.php:74
+msgid "Monthly"
+msgstr "月別"
+
+#: ../plugins/other_widget/widget-archives.php:76
+msgid "Yearly"
+msgstr "年別"
+
+#: ../plugins/other_widget/widget-archives.php:94
+msgid "archive"
+msgstr "アーカイブ"
 
 #: ../plugins/other_widget/widget-new-posts.php:11
 msgid "Displays a list of your most recent posts"
@@ -899,21 +911,21 @@ msgstr "PR ブロック4 タイトル"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:56
 msgid "You can select a block column:"
-msgstr ""
+msgstr "PRブロックの列"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:58
 msgid "3column"
-msgstr ""
+msgstr "3列"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:59
 msgid "4column"
-msgstr ""
+msgstr "4列"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:61
 msgid ""
 "Select the column. You click \"Save\" or \"Apply\". The column input field "
 "is increased or decreased."
-msgstr ""
+msgstr "列を選択したら一度保存して、"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:68
 #: ../plugins/other_widget/widget-pr-blocks.php:188

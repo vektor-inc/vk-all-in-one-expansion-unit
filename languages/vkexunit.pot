@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-12 13:43+0900\n"
+"POT-Creation-Date: 2015-08-13 02:06+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -374,9 +374,13 @@ msgstr ""
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr ""
 
+#: plugins/contact_section.php:75
+msgid "Message"
+msgstr ""
+
 #: plugins/contact_section.php:78 plugins/contact_section.php:85
 #: plugins/contact_section.php:92 plugins/contact_section.php:100
-#: plugins/contact_section.php:109 plugins/contact_section.php:117
+#: plugins/contact_section.php:108 plugins/contact_section.php:116
 #: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
 #: plugins/sns/old/sns_admin.php:20 plugins/sns/old/sns_admin.php:61
 #: plugins/sns/old/sns_admin.php:79 plugins/sns/old/sns_admin.php:98
@@ -384,8 +388,20 @@ msgstr ""
 msgid "ex) "
 msgstr ""
 
+#: plugins/contact_section.php:82
+msgid "Phone number"
+msgstr ""
+
+#: plugins/contact_section.php:89 plugins/contact_section.php:92
+msgid "Office hours"
+msgstr ""
+
 #: plugins/contact_section.php:92
 msgid "Weekdays except holidays"
+msgstr ""
+
+#: plugins/contact_section.php:97
+msgid "The contact page URL"
 msgstr ""
 
 #: plugins/contact_section.php:100
@@ -393,27 +409,30 @@ msgid "or"
 msgstr ""
 
 #: plugins/contact_section.php:101
-msgid ""
-"* If you fill in the blank, contact banner will be displayed in the sidebar."
+msgid "* If you fill in the blank, contact button does not appear."
 msgstr ""
 
-#: plugins/contact_section.php:102
-msgid "If not, it does not appear."
+#: plugins/contact_section.php:105
+msgid "Contact button Text."
 msgstr ""
 
-#: plugins/contact_section.php:109
+#: plugins/contact_section.php:108
 msgid "Contact Us from email."
 msgstr ""
 
-#: plugins/contact_section.php:118
+#: plugins/contact_section.php:113
+msgid "Contact button Text. ( sub )"
+msgstr ""
+
+#: plugins/contact_section.php:117
 msgid "Email contact form"
 msgstr ""
 
-#: plugins/contact_section.php:141
+#: plugins/contact_section.php:140
 msgid "Display Contact Section"
 msgstr ""
 
-#: plugins/contact_section.php:217
+#: plugins/contact_section.php:222
 msgid "Edit contact information"
 msgstr ""
 
@@ -718,21 +737,33 @@ msgstr ""
 msgid "3PR area3 setting"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:47
-#: plugins/other_widget/widget-archives.php:48
+#: plugins/other_widget/widget-archives.php:50
+#: plugins/other_widget/widget-archives.php:51
 #: plugins/other_widget/old/widget-archive-list.php:49
 #: plugins/other_widget/old/widget-archive-list.php:50
 msgid "Monthly archives"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:57
+#: plugins/other_widget/widget-archives.php:60
 #: plugins/other_widget/old/widget-archive-list.php:59
 msgid "Title"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:61
+#: plugins/other_widget/widget-archives.php:64
 #: plugins/other_widget/old/widget-archive-list.php:63
 msgid "Post type"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:74
+msgid "Monthly"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:76
+msgid "Yearly"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:94
+msgid "archive"
 msgstr ""
 
 #: plugins/other_widget/widget-new-posts.php:11
