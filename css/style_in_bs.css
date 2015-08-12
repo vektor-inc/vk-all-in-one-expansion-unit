@@ -608,7 +608,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /*-------------------------------------------*/
 /* .socialSet
 /*-------------------------------------------*/
-/* Wiget Profile  Plugin
+/* Wiget Profile Plugin
 /*-------------------------------------------*/
 /* Wiget 3PR area Plugin
 /*-------------------------------------------*/
@@ -703,7 +703,12 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .vk_icon_w_r_sns_fb:before { content: "\e604"; }
 
 /*-------------------------------------------*/
-/* Wiget Profile  Plugin
+/* Wiget Profile Plugin
+/*-------------------------------------------*/
+.vkExUnit_entry-meta_items.published:before { font-family: FontAwesome; content: "\f073"; margin-right: 5px; }
+
+/*-------------------------------------------*/
+/* Wiget Profile Plugin
 /*-------------------------------------------*/
 .site-profile { overflow: hidden; }
 
