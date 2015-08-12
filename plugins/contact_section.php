@@ -207,7 +207,7 @@ class vExUnit_Contact {
             ( isset($options['contact_link']) && $options['contact_link'] ) && 
             ( isset($options['button_text']) && $options['button_text'] )
             ) {
-            $cont .= '<div class="vkExUnit_contact_bt"><a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg">';
+            $cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg vkExUnit_contact_bt">';
             $cont .= '<span class="vkExUnit_contact_bt_txt">'.$options['button_text'].'</span>';
 
             if ( isset($options['button_text_small']) && $options['button_text_small'] ){
@@ -215,7 +215,6 @@ class vExUnit_Contact {
             }
 
             $cont .= '</a>';
-            $cont .= '</div>';
         }
 
         $cont .= '</section>';

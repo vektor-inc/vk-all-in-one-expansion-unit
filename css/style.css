@@ -233,7 +233,7 @@
 .vkExUnit_contact_bt_subTxt { display: block; overflow: hidden; font-size: 14px; }
 
 @media (max-width: 767px) { .vkExUnit_contact_txt { text-align: center; }
-  .vkExUnit_contact_bt a { display: block; } }
+  .vkExUnit_contact_bt { display: block; } }
 @media (min-width: 768px) { p.vkExUnit_contact_txt { margin-bottom: 0; }
   .vkExUnit_contact_txt { float: left; }
   .vkExUnit_contact_bt { float: right; } }
