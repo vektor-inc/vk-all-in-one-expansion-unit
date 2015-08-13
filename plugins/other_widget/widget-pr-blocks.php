@@ -53,12 +53,12 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 <?php // select Block count	?>
 <p>
-<label for="<?php echo $this->get_field_id('block_count'); ?>"><?php _e( 'You can select a block column:', 'vkExUnit' ); ?></label><br/>
+<label for="<?php echo $this->get_field_id('block_count'); ?>"><?php _e( 'The choice of the number of columns:', 'vkExUnit' ); ?></label><br/>
 <select name="<?php echo $this->get_field_name('block_count'); ?>" id="<?php echo $this->get_field_id('block_count'); ?>-count">
 	<option value="3" <?php if(intval($instance['block_count']) === 3 ){ echo 'selected'; } ?>><?php _e( '3column', 'vkExUnit' ); ?></option>
 	<option value="4" <?php if(intval($instance['block_count']) === 4 ){ echo 'selected'; } ?>><?php _e( '4column', 'vkExUnit' ); ?></option>
 </select><br>
-<?php _e( 'Select the column. You click "Save" or "Apply". The column input field is increased or decreased.', 'vkExUnit' ); ?>
+<?php _e( 'If you change the number of columns, click to "Save" botton and exit the edit page. When restart the edit page, the column input form is increased or decreased.', 'vkExUnit' ); ?>
 </p>
         	
 <?php // PR Blocks	
@@ -72,16 +72,15 @@ for ( $i = 1; $i <= intval($instance['block_count']); ) {
 		'<input type="text" id="'.$this->get_field_id('label_'.$i).'-title" class="pr-input" name="'.$this->get_field_name('label_'.$i).'" value="'.$instance['label_'.$i].'" /></p>';
 
 	// icon font class input
-	echo '<p><label for="'.$this->get_field_id('iconFont_'.$i).'">'.__( 'IconFont input class:', 'vkExUnit' ).'</label><br/>'.
+	echo '<p><label for="'.$this->get_field_id('iconFont_'.$i).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
 		'[ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]<br/>
 	<input type="text" id="'.$this->get_field_id('iconFont_class_'.$i).'-font" class="font_class" name="'.$this->get_field_name('iconFont_class_'.$i).'" value="'.$instance['iconFont_class_'.$i].'" /><br>'
-	.__( 'To choose your favorite icon, and enter the class. For example, the use of 「fa-rocket」', 'vkExUnit' ).'</p>';
+	.__( 'To choose your favorite icon, and enter the class.', 'vkExUnit').'<br>'.__(' ex:fa-rocket', 'vkExUnit' ).'</p>';
 	
 	// icon font background color
 	echo '<p class="color_picker_wrap">'.
 		'<label for="'.$this->get_field_id('iconFont_bgColor_'.$i).'">'.__( 'Icon bg-color:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id('iconFont_bgColor_'.$i).'-color" class="color_picker" name="'.$this->get_field_name('iconFont_bgColor_'.$i).'" value="'.$instance['iconFont_bgColor_'.$i].'" /><br>'.
-		__( 'To choose your favorite icon’s background color', 'vkExUnit' ).'</p>';
+		'<input type="text" id="'.$this->get_field_id('iconFont_bgColor_'.$i).'-color" class="color_picker" name="'.$this->get_field_name('iconFont_bgColor_'.$i).'" value="'.$instance['iconFont_bgColor_'.$i].'" /></p>';
 	
 	// media uploader imageurl input area
 	echo '<p><label for="'.$this->get_field_id('media_image_'.$i).'">'.__( 'Select image:', 'vkExUnit' ).'</label><br/>'.
