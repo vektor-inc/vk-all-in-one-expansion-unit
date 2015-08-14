@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-03 02:52+0900\n"
+"POT-Creation-Date: 2015-08-13 11:42+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -12,13 +12,17 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_x;_e\n"
+"X-Poedit-KeywordsList: __;_x;_e;_ex\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../admin_wrapper.php:7 ../admin_wrapper.php:8 ../admin_wrapper.php:26
+#: ../admin_wrapper.php:7 ../admin_wrapper.php:8
 #: ../plugins/meta_keyword.php:97
 msgid "Main setting"
 msgstr "メイン設定"
+
+#: ../admin_wrapper.php:52
+msgid "Activated Packages is noting. please activate some package."
+msgstr ""
 
 #: ../common_helpers.php:126
 #, php-format
@@ -98,24 +102,144 @@ msgstr "オーディオ"
 msgid "Chats"
 msgstr "チャット"
 
-#: ../common_helpers.php:270 ../plugins/other_widget/widget-taxonomies.php:81
+#: ../common_helpers.php:270 ../plugins/other_widget/widget-taxonomies.php:79
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
 msgstr "アーカイブ"
+
+#: ../packages.php:43 ../plugins/contact_section.php:71
+msgid "Contact Section"
+msgstr "お問い合わせ"
+
+#: ../packages.php:44
+msgid "Display Contact Section at after content."
+msgstr "お問い合わせ情報を本文の下に表示する"
+
+#: ../packages.php:47 ../packages.php:98 ../packages.php:115
+#: ../packages.php:132 ../vkExUnit_admin.php:109 ../vkExUnit_admin.php:155
+#: ../vkExUnit_admin.php:193
+msgid "Setting"
+msgstr "設定"
+
+#: ../packages.php:61
+msgid "Child page index"
+msgstr "子ページの一覧表示"
+
+#: ../packages.php:62
+msgid ""
+"At the bottom of the specified page, it will display a list of the child "
+"page."
+msgstr ""
+"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
+"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
+
+#: ../packages.php:72
+msgid "Display HTML Site Map"
+msgstr "HTMLサイトマップの表示"
+
+#: ../packages.php:73
+msgid "It displays a HTML Site Map to the specified page."
+msgstr "指定した固定ページにHTMLサイトマップを表示します。"
+
+#: ../packages.php:81
+msgid "You can use various widgets."
+msgstr ""
+"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
+"「ウィジェット」の設定画面より行って下さい。"
+
+#: ../packages.php:83
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
+
+#: ../packages.php:84
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
+
+#: ../packages.php:85
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
+
+#: ../packages.php:86
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
+
+#: ../packages.php:87
+msgid "VK_3PR area - display the 3PR area."
+msgstr "VK_3PR エリア - 3PR エリアを表示します。"
+
+#: ../packages.php:88 ../plugins/other_widget/old/widget-taxonomy-list.php:17
+msgid "categories/tags list"
+msgstr "カテゴリー/タグ リスト"
+
+#: ../packages.php:88 ../plugins/other_widget/old/widget-taxonomy-list.php:11
+msgid "Displays a categories, tags or format list."
+msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
+
+#: ../packages.php:89 ../plugins/other_widget/widget-archives.php:14
+#: ../plugins/other_widget/old/widget-archive-list.php:14
+msgid "archive list"
+msgstr "アーカイブリスト"
+
+#: ../packages.php:89 ../plugins/other_widget/widget-archives.php:12
+#: ../plugins/other_widget/old/widget-archive-list.php:12
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
+"プを選択できます。"
+
+#: ../packages.php:94
+msgid "Widgets"
+msgstr "ウィジェット"
+
+#: ../packages.php:111
+msgid "CSS customize"
+msgstr "CSSカスタマイズ"
+
+#: ../packages.php:112
+msgid "You can set Customize CSS."
+msgstr ""
+"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
+"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
+"さい。"
+
+#: ../packages.php:128 ../plugins/insert_ads.php:38
+#: ../plugins/insert_ads.php:118
+msgid "Insert ads"
+msgstr "広告の挿入"
+
+#: ../packages.php:129
+msgid "Insert ads to content."
+msgstr "記事に広告を挿入します"
+
+#: ../packages.php:145 ../vkExUnit_admin.php:233
+msgid "Automatic Eye Catch insert"
+msgstr "アイキャッチ画像自動挿入"
+
+#: ../packages.php:146
+msgid "Display Eye Catch image at before content."
+msgstr ""
+"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
+"す。"
 
 #: ../vkExUnit_admin.php:3
 msgid "Enable setting"
 msgstr "有効化設定"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:364
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:273
 msgid "Select all"
 msgstr "全てを選択"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:364
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:273
 msgid "Function"
 msgstr "有効化"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:364
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:273
 msgid "Description"
 msgstr "説明"
 
@@ -187,12 +311,6 @@ msgstr "メタキーワードを選んでください。"
 #: ../vkExUnit_admin.php:103
 msgid "Print meta Keyword"
 msgstr "メタキーワードを出力"
-
-#: ../vkExUnit_admin.php:109 ../vkExUnit_admin.php:155
-#: ../vkExUnit_admin.php:193 ../vkExUnit_admin.php:272
-#: ../vkExUnit_admin.php:305 ../vkExUnit_admin.php:349
-msgid "Setting"
-msgstr "設定"
 
 #: ../vkExUnit_admin.php:117
 msgid "Print meta Keyword to html head."
@@ -270,126 +388,6 @@ msgstr "関連記事を表示"
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: ../vkExUnit_admin.php:228
-msgid "Choose display a child page index to posts."
-msgstr "子ページの一覧を表示するか選択"
-
-#: ../vkExUnit_admin.php:233
-msgid "Child page index"
-msgstr "子ページの一覧表示"
-
-#: ../vkExUnit_admin.php:237
-msgid ""
-"At the bottom of the specified page, it will display a list of the child "
-"page."
-msgstr ""
-"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
-"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
-
-#: ../vkExUnit_admin.php:246
-msgid "Insert Site Map"
-msgstr "サイトマップを挿入する"
-
-#: ../vkExUnit_admin.php:251
-msgid "Display HTML Site Map"
-msgstr "HTMLサイトマップの表示"
-
-#: ../vkExUnit_admin.php:255
-msgid "It displays a HTML Site Map to the specified page."
-msgstr "指定した固定ページにHTMLサイトマップを表示します。"
-
-#: ../vkExUnit_admin.php:264 ../vkExUnit_admin.php:295
-msgid "Choose other widgets."
-msgstr "Other ウィジェットを選択"
-
-#: ../vkExUnit_admin.php:269
-msgid "Widgets"
-msgstr "ウィジェット"
-
-#: ../vkExUnit_admin.php:277
-msgid "You can use various widgets."
-msgstr ""
-"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
-"「ウィジェット」の設定画面より行って下さい。"
-
-#: ../vkExUnit_admin.php:279
-msgid ""
-"VK_Recent Posts - display the link text and the date of the latest article "
-"title."
-msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
-
-#: ../vkExUnit_admin.php:280
-msgid ""
-"VK_Page content to widget - display the contents of the page to the widgets."
-msgstr ""
-"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
-
-#: ../vkExUnit_admin.php:281
-msgid "VK_Profile - display the profile entered in the widget."
-msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
-
-#: ../vkExUnit_admin.php:282
-msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
-msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
-
-#: ../vkExUnit_admin.php:283
-msgid "VK_3PR area - display the 3PR area."
-msgstr "VK_3PR エリア - 3PR エリアを表示します。"
-
-#: ../vkExUnit_admin.php:284
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:17
-msgid "categories/tags list"
-msgstr "カテゴリー/タグ リスト"
-
-#: ../vkExUnit_admin.php:284
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:11
-msgid "Displays a categories, tags or format list."
-msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
-
-#: ../vkExUnit_admin.php:285 ../plugins/other_widget/widget-archives.php:14
-#: ../plugins/other_widget/old/widget-archive-list.php:14
-msgid "archive list"
-msgstr "アーカイブリスト"
-
-#: ../vkExUnit_admin.php:285 ../plugins/other_widget/widget-archives.php:12
-#: ../plugins/other_widget/old/widget-archive-list.php:12
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
-msgstr ""
-"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
-"プを選択できます。"
-
-#: ../vkExUnit_admin.php:300
-msgid "CSS customize"
-msgstr "CSSカスタマイズ"
-
-#: ../vkExUnit_admin.php:312
-msgid "You can set Customize CSS."
-msgstr ""
-"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
-"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
-"さい。"
-
-#: ../vkExUnit_admin.php:321 ../vkExUnit_admin.php:326
-msgid "Automatic Eye Catch insert"
-msgstr "アイキャッチ画像自動挿入"
-
-#: ../vkExUnit_admin.php:330
-msgid "Display Eye Catch image at before content."
-msgstr ""
-"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
-"す。"
-
-#: ../vkExUnit_admin.php:341 ../vkExUnit_admin.php:346
-#: ../plugins/insert_ads.php:37 ../plugins/insert_ads.php:101
-msgid "Insert ads"
-msgstr "広告の挿入"
-
-#: ../vkExUnit_admin.php:354
-msgid "Insert ads to content."
-msgstr "記事に広告を挿入します"
-
 #: ../plugins/auto_eyecatch.php:41
 msgid "Automatic EyeCatch"
 msgstr "アイキャッチ自動挿入"
@@ -397,6 +395,80 @@ msgstr "アイキャッチ自動挿入"
 #: ../plugins/auto_eyecatch.php:51
 msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
+
+#: ../plugins/contact_section.php:47
+msgid "Contact"
+msgstr ""
+
+#: ../plugins/contact_section.php:57 ../plugins/contact_section.php:78
+msgid "Please feel free to inquire."
+msgstr "お気軽にお問い合わせください。"
+
+#: ../plugins/contact_section.php:59
+msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
+msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
+
+#: ../plugins/contact_section.php:75
+msgid "Message"
+msgstr "メッセージ"
+
+#: ../plugins/contact_section.php:78 ../plugins/contact_section.php:85
+#: ../plugins/contact_section.php:92 ../plugins/contact_section.php:100
+#: ../plugins/contact_section.php:108 ../plugins/contact_section.php:116
+#: ../plugins/google_analytics/ga_admin.php:16 ../plugins/sns/sns_admin.php:31
+#: ../plugins/sns/old/sns_admin.php:20 ../plugins/sns/old/sns_admin.php:61
+#: ../plugins/sns/old/sns_admin.php:79 ../plugins/sns/old/sns_admin.php:98
+#: ../plugins/sns/old/sns_admin.php:115
+msgid "ex) "
+msgstr "例: "
+
+#: ../plugins/contact_section.php:82
+msgid "Phone number"
+msgstr "電話番号"
+
+#: ../plugins/contact_section.php:89 ../plugins/contact_section.php:92
+msgid "Office hours"
+msgstr "営業時間"
+
+#: ../plugins/contact_section.php:92
+msgid "Weekdays except holidays"
+msgstr ""
+
+#: ../plugins/contact_section.php:97
+msgid "The contact page URL"
+msgstr "お問い合わせ先URL"
+
+#: ../plugins/contact_section.php:100
+msgid "or"
+msgstr ""
+
+#: ../plugins/contact_section.php:101
+msgid "* If you fill in the blank, contact button does not appear."
+msgstr "未入力の場合はお問い合わせボタンは表示されません。"
+
+#: ../plugins/contact_section.php:105
+msgid "Contact button Text."
+msgstr "お問い合わせボタンに表示するテキスト"
+
+#: ../plugins/contact_section.php:108
+msgid "Contact Us from email."
+msgstr "メールでのお問い合わせはこちら"
+
+#: ../plugins/contact_section.php:113
+msgid "Contact button Text. ( sub )"
+msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
+
+#: ../plugins/contact_section.php:117
+msgid "Email contact form"
+msgstr "お気軽にお問い合わせください。"
+
+#: ../plugins/contact_section.php:140
+msgid "Display Contact Section"
+msgstr "お問い合わせ情報の表示"
+
+#: ../plugins/contact_section.php:222
+msgid "Edit contact information"
+msgstr ""
 
 #: ../plugins/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
@@ -434,23 +506,23 @@ msgstr "アイコンを選択"
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
-#: ../plugins/insert_ads.php:104
+#: ../plugins/insert_ads.php:121
 msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
-#: ../plugins/insert_ads.php:106
+#: ../plugins/insert_ads.php:123
 msgid "Insert ads to more tag and after content."
 msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
 
-#: ../plugins/insert_ads.php:106
+#: ../plugins/insert_ads.php:123
 msgid "If you want to separate ads area, you fill two fields."
 msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
 
-#: ../plugins/insert_ads.php:108
+#: ../plugins/insert_ads.php:125
 msgid "insert the ad [ more tag ]"
 msgstr "広告を挿入 [ moreタグ ]"
 
-#: ../plugins/insert_ads.php:116
+#: ../plugins/insert_ads.php:133
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 
@@ -557,22 +629,9 @@ msgstr "サイト全体のキーワードは %s より設定することがで�
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: ../plugins/page_custom_field.php:12
+#: ../plugins/page_custom_field.php:11
 msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
-
-#: ../plugins/page_custom_field.php:22 ../plugins/page_custom_field.php:32
-msgid "Choose display a child page index"
-msgstr "子ページの一覧を表示するか選択"
-
-#: ../plugins/page_custom_field.php:27
-msgid "if checked you will display a child page index "
-msgstr ""
-"チェックを入れると個別ページ下へ同じ親ページをもつ子ページ一覧を表示します。"
-
-#: ../plugins/page_custom_field.php:37
-msgid "if checked you will display a sitemap"
-msgstr "チェックを入れるとHTMLサイトマップを表示します。"
 
 #: ../plugins/child_page_index/child_page_index.php:42
 #: ../plugins/other_widget/widget-3pr-area.php:274
@@ -580,6 +639,16 @@ msgstr "チェックを入れるとHTMLサイトマップを表示します。"
 #: ../plugins/other_widget/widget-3pr-area.php:359
 msgid "Read more"
 msgstr "詳しくはこちら"
+
+#: ../plugins/child_page_index/child_page_index.php:75
+#: ../plugins/sitemap_page/sitemap_page.php:201
+msgid "Choose display a child page index"
+msgstr "子ページの一覧を表示するか選択"
+
+#: ../plugins/child_page_index/child_page_index.php:80
+msgid "if checked you will display a child page index "
+msgstr ""
+"チェックを入れると個別ページ下へ同じ親ページをもつ子ページ一覧を表示します。"
 
 #: ../plugins/css_customize/css_customize-edit.php:2
 #: ../plugins/css_customize/css_customize.php:35
@@ -614,13 +683,6 @@ msgid ""
 "Please fill in the Google Analytics ID from the Analytics embed code used in "
 "the site."
 msgstr "このサイトで使用する Google アナリティクスの ID を入力して下さい。"
-
-#: ../plugins/google_analytics/ga_admin.php:16 ../plugins/sns/sns_admin.php:31
-#: ../plugins/sns/old/sns_admin.php:20 ../plugins/sns/old/sns_admin.php:61
-#: ../plugins/sns/old/sns_admin.php:79 ../plugins/sns/old/sns_admin.php:98
-#: ../plugins/sns/old/sns_admin.php:115
-msgid "ex) "
-msgstr "例: "
 
 #: ../plugins/google_analytics/ga_admin.php:19
 msgid ""
@@ -673,6 +735,7 @@ msgstr "3PR エリア1 設定"
 #: ../plugins/other_widget/widget-3pr-area.php:102
 #: ../plugins/other_widget/widget-3pr-area.php:154
 #: ../plugins/other_widget/widget-new-posts.php:92
+#: ../plugins/other_widget/widget-pr-blocks.php:71
 #: ../plugins/other_widget/widget-profile.php:39
 #: ../plugins/sns/function_fbPagePlugin.php:75
 msgid "Title:"
@@ -690,6 +753,7 @@ msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 #: ../plugins/other_widget/widget-3pr-area.php:132
 #: ../plugins/other_widget/widget-3pr-area.php:166
 #: ../plugins/other_widget/widget-3pr-area.php:183
+#: ../plugins/other_widget/widget-pr-blocks.php:93
 #: ../plugins/other_widget/widget-profile.php:50
 msgid "Select image"
 msgstr "画像を選択"
@@ -700,6 +764,7 @@ msgstr "画像を選択"
 #: ../plugins/other_widget/widget-3pr-area.php:133
 #: ../plugins/other_widget/widget-3pr-area.php:167
 #: ../plugins/other_widget/widget-3pr-area.php:184
+#: ../plugins/other_widget/widget-pr-blocks.php:96
 #: ../plugins/other_widget/widget-profile.php:51
 msgid "Clear image"
 msgstr "画像クリア"
@@ -715,12 +780,14 @@ msgstr ""
 #: ../plugins/other_widget/widget-3pr-area.php:88
 #: ../plugins/other_widget/widget-3pr-area.php:142
 #: ../plugins/other_widget/widget-3pr-area.php:194
+#: ../plugins/other_widget/widget-pr-blocks.php:107
 msgid "Summary Text:"
 msgstr "概要となるテキスト"
 
 #: ../plugins/other_widget/widget-3pr-area.php:94
 #: ../plugins/other_widget/widget-3pr-area.php:146
 #: ../plugins/other_widget/widget-3pr-area.php:199
+#: ../plugins/other_widget/widget-pr-blocks.php:111
 msgid "Link URL:"
 msgstr "リンク先ページのURL"
 
@@ -732,22 +799,34 @@ msgstr "3PR エリア2 設定"
 msgid "3PR area3 setting"
 msgstr "3PR エリア3 設定"
 
-#: ../plugins/other_widget/widget-archives.php:49
 #: ../plugins/other_widget/widget-archives.php:50
+#: ../plugins/other_widget/widget-archives.php:51
 #: ../plugins/other_widget/old/widget-archive-list.php:49
 #: ../plugins/other_widget/old/widget-archive-list.php:50
 msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
-#: ../plugins/other_widget/widget-archives.php:59
+#: ../plugins/other_widget/widget-archives.php:60
 #: ../plugins/other_widget/old/widget-archive-list.php:59
 msgid "Title"
 msgstr "タイトル"
 
-#: ../plugins/other_widget/widget-archives.php:63
+#: ../plugins/other_widget/widget-archives.php:64
 #: ../plugins/other_widget/old/widget-archive-list.php:63
 msgid "Post type"
 msgstr "ポストタイプ"
+
+#: ../plugins/other_widget/widget-archives.php:74
+msgid "Monthly"
+msgstr "月別"
+
+#: ../plugins/other_widget/widget-archives.php:76
+msgid "Yearly"
+msgstr "年別"
+
+#: ../plugins/other_widget/widget-archives.php:94
+msgid "archive"
+msgstr "アーカイブ"
 
 #: ../plugins/other_widget/widget-new-posts.php:11
 msgid "Displays a list of your most recent posts"
@@ -790,7 +869,7 @@ msgid "page content to widget"
 msgstr "固定ページ本文"
 
 #: ../plugins/other_widget/widget-page.php:30
-#: ../plugins/other_widget/widget-taxonomies.php:60
+#: ../plugins/other_widget/widget-taxonomies.php:58
 #: ../plugins/other_widget/old/widget-page-content.php:30
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:61
 msgid "Display page"
@@ -805,6 +884,80 @@ msgstr "タイトルを表示"
 #: ../plugins/other_widget/old/widget-page-content.php:61
 msgid "Edit"
 msgstr "編集"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:10
+msgid "Displays a circle image or icon font for pr blocks"
+msgstr ""
+
+#: ../plugins/other_widget/widget-pr-blocks.php:12
+msgid "PR Blocks"
+msgstr ""
+
+#: ../plugins/other_widget/widget-pr-blocks.php:19
+msgid "PR Block1 title"
+msgstr "PR ブロック1 タイトル"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:27
+msgid "PR Block2 title"
+msgstr "PR ブロック2 タイトル"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:35
+msgid "PR Block3 title"
+msgstr "PR ブロック3 タイトル"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:43
+msgid "PR Block4 title"
+msgstr "PR ブロック4 タイトル"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:56
+msgid "The choice of the number of columns:"
+msgstr "列の数"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:58
+msgid "3column"
+msgstr "3列"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:59
+msgid "4column"
+msgstr "4列"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:61
+msgid ""
+"If you change the number of columns, click to \"Save\" botton and exit the "
+"edit page. When restart the edit page, the column input form is increased or "
+"decreased."
+msgstr ""
+"列の数を変更する場合は「保存して公開」ボタンをクリックして編集画面を終了しま"
+"す。それから編集画面を再度開くと列の入力フォームが増減します。"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:68
+#: ../plugins/other_widget/widget-pr-blocks.php:166
+msgid "PR Block"
+msgstr "PRブロック"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:75
+msgid "Class name of the icon font you want to use:"
+msgstr "使用したいアイコンフォントのクラス名:"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:78
+msgid "To choose your favorite icon, and enter the class."
+msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:78
+msgid " ex:fa-rocket"
+msgstr "例: fa-rocket"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:82
+msgid "Icon bg-color:"
+msgstr "アイコン背景色:"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:86
+msgid "Select image:"
+msgstr "画像を選択"
+
+#: ../plugins/other_widget/widget-pr-blocks.php:97
+msgid "When you have an image. Image is displayed with priority"
+msgstr "画像を設定するとアイコンフォントよりも画像が優先されます。"
 
 #: ../plugins/other_widget/widget-profile.php:11
 msgid "Displays a your profile"
@@ -880,19 +1033,19 @@ msgstr "カテゴリーやカスタム分類のリストを表示します。"
 msgid "Categories/Custom taxonomies list"
 msgstr "カテゴリー/カスタム分類リスト"
 
-#: ../plugins/other_widget/widget-taxonomies.php:47
-#: ../plugins/other_widget/widget-taxonomies.php:48
+#: ../plugins/other_widget/widget-taxonomies.php:45
+#: ../plugins/other_widget/widget-taxonomies.php:46
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:48
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:49
 msgid "Category"
 msgstr "カテゴリー"
 
-#: ../plugins/other_widget/widget-taxonomies.php:56
+#: ../plugins/other_widget/widget-taxonomies.php:54
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:57
 msgid "Label to display"
 msgstr "表示するラベル"
 
-#: ../plugins/other_widget/widget-taxonomies.php:76
+#: ../plugins/other_widget/widget-taxonomies.php:74
 #: ../plugins/other_widget/old/widget-taxonomy-list.php:76
 msgid "Blog"
 msgstr "ブログ"
@@ -950,6 +1103,10 @@ msgstr "複数のページを除外する場合は , （コンマ）で区切っ
 #: ../plugins/sitemap_page/sitemap_page.php:17
 msgid "HTML Sitemap"
 msgstr "HTMLサイトマップ"
+
+#: ../plugins/sitemap_page/sitemap_page.php:206
+msgid "if checked you will display a sitemap"
+msgstr "チェックを入れるとHTMLサイトマップを表示します。"
 
 #: ../plugins/sns/function_fbPagePlugin.php:10
 msgid "Displays a Facebook Page Plugin"
@@ -1180,6 +1337,20 @@ msgstr "ソーシャルボタン"
 msgid "Please check the type of page that displays the social button."
 msgstr "ページに表示するソーシャルボタンの種類を選択して下さい。"
 
+#: ../plugins/sns/old/sns_admin.php:71 ../plugins/sns/old/sns_admin.php:88
+#: ../plugins/sns/old/sns_admin.php:108
+msgid "Home page"
+msgstr "トップページ"
+
+#: ../plugins/sns/old/sns_admin.php:73 ../plugins/sns/old/sns_admin.php:90
+msgid "Page"
+msgstr "ページ"
+
+#: ../plugins/sns/old/sns_admin.php:75 ../plugins/sns/old/sns_admin.php:92
+#: ../plugins/sns/old/sns_admin.php:94
+msgid "Post"
+msgstr "投稿"
+
 #: ../plugins/sns/old/sns_admin.php:77 ../plugins/sns/old/sns_admin.php:96
 msgid ""
 "Within the type of page that is checked, if there is a particular page you "
@@ -1204,6 +1375,10 @@ msgstr "Facebook のいいねボックスを使用する場合は、場所を確
 #: ../plugins/sns/old/sns_admin.php:105
 msgid "* Please be sure to set Facebook application ID."
 msgstr "Facebook のアプリケーションIDを設定してください。"
+
+#: ../plugins/sns/old/sns_admin.php:110
+msgid "Side bar"
+msgstr "サイドバー"
 
 #: ../plugins/sns/old/sns_admin.php:113
 msgid "URL of the Facebook page."
@@ -1248,6 +1423,31 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 msgid "Page top"
 msgstr "ページ先頭へ"
 
+#~ msgid ""
+#~ "To choose your favorite icon, and enter the class. For example, the use "
+#~ "of 「fa-rocket」"
+#~ msgstr "気に入ったアイコンフォントのクラス名を入力します。"
+
+#~ msgid "Class of IconFont:"
+#~ msgstr "アイコンフォントの"
+
+#~ msgid ""
+#~ "Select the column. You click \"Save\" or \"Apply\". The column input "
+#~ "field is increased or decreased."
+#~ msgstr "列を選択したら一度保存して、"
+
+#~ msgid "You can select a block column:"
+#~ msgstr "PRブロックの列"
+
+#~ msgid "Choose display a child page index to posts."
+#~ msgstr "子ページの一覧を表示するか選択"
+
+#~ msgid "Insert Site Map"
+#~ msgstr "サイトマップを挿入する"
+
+#~ msgid "Choose other widgets."
+#~ msgstr "Other ウィジェットを選択"
+
 #, fuzzy
 #~ msgid "http://ex-unit.bizvektor.com/ja/?feed"
 #~ msgstr "http://ex-unit.bizvektor.com/ja/?feed"
@@ -1287,22 +1487,6 @@ msgstr "ページ先頭へ"
 #~ msgctxt "Archive description"
 #~ msgid "Article of %s."
 #~ msgstr "%s の記事"
-
-#~ msgctxt "sns display"
-#~ msgid "Home page"
-#~ msgstr "ホームページ"
-
-#~ msgctxt "sns display"
-#~ msgid "Page"
-#~ msgstr "ページ"
-
-#~ msgctxt "sns display"
-#~ msgid "Post"
-#~ msgstr "投稿"
-
-#~ msgctxt "sns display"
-#~ msgid "Side bar"
-#~ msgstr "サイドバー"
 
 #~ msgid "WebClip Setting"
 #~ msgstr "ウェブクリップ設定"

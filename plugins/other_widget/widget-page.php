@@ -50,8 +50,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	function display_page($pageid,$titleflag=false) {
 		
 		$page = get_page($pageid);
-		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget">'.PHP_EOL;
-		if($titleflag){ echo '<h1 class="widget-title subSection-title">'.$page->post_title.'</h1>'.PHP_EOL; }
+		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget widget_pageContent">'.PHP_EOL;
+		if($titleflag){ echo '<h1 class="widget-title">'.$page->post_title.'</h1>'.PHP_EOL; }
 		remove_filter( 'the_content', 'vkExUnit_add_snsBtns' );	
 		echo apply_filters('the_content', $page->post_content );
 		add_filter( 'the_content', 'vkExUnit_add_snsBtns');

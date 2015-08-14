@@ -21,6 +21,20 @@
 		.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
 
 		}
+		.exUnit_adminBnr{ 
+			display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
+			margin-top: 1em;
+			a{
+				display: block;
+			}
+			img{
+				max-width: 100%;
+				height: auto;
+				&:hover{
+					opacity: 0.7;
+				}
+			}
+		}
 	}
 	h2 { display:block; overflow:hidden;margin-bottom:20px;
 		.pageTitleTxt { font-size:28px; }

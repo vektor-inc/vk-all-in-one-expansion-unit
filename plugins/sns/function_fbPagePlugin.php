@@ -1,6 +1,6 @@
 <?php
 /*-------------------------------------------*/
-/*	Side Post list widget
+/*	fbPagePlugin widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
@@ -14,10 +14,10 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
-		echo '<div class="widget">';
+		echo '<aside class="widget widget_fbPagePlugin">';
 
 		if ( isset($instance['label']) && $instance['label'] ) {
-			echo '<h3>'.$instance['label'].'</h3>';
+			echo '<h1 class="widget-title subSection-title">'.$instance['label'].'</h1>';
 		}
 
 		$page_url 	= ( isset($instance['page_url']) && $instance['page_url'] ) ? $instance['page_url'] : '';
@@ -38,7 +38,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		</div>
 
 		<?php
-		echo '</div>';
+		echo '</aside>';
 
 	} // widget($args, $instance)
 

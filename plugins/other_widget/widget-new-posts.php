@@ -62,7 +62,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 				
 				<div class="media-body">
 					<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-					<div><i class="fa fa-calendar"></i>&nbsp;<?php echo get_the_date(); ?></div>          
+					<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>          
 				</div>
 
 			</div>

@@ -29,14 +29,12 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		$arg['taxonomy'] = $instance['tax_name'];
 
 	?>
-	<div class="localSection sideWidget">
-	<div class="sectionBox">
-		<h3 class="localHead"><?php echo $instance['label']; ?></h3>
+	<aside class="widget sideWidget widget_taxonomies">
+		<h1 class="widget-title subSection-title"><?php echo $instance['label']; ?></h3>
 		<ul class="localNavi">
 			<?php wp_list_categories($arg); ?>
 		</ul>
-	</div>
-	</div>
+	</aside>
 	<?php	
 	}
 

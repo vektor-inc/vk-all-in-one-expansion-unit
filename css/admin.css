@@ -20,6 +20,10 @@
 .vkExUnit_admin_page .adminMain { display: block; overflow: hidden; width: 70%; float: left; }
 .vkExUnit_admin_page .adminSub { display: block; overflow: hidden; width: 28%; float: right; }
 .vkExUnit_admin_page .adminSub .exUnit_infoBox { display: block; overflow: hidden; padding: 1em; margin-right: 1em; background-color: #fff; }
+.vkExUnit_admin_page .adminSub .exUnit_adminBnr { display: block; overflow: hidden; padding: 1em; margin-right: 1em; background-color: #fff; margin-top: 1em; }
+.vkExUnit_admin_page .adminSub .exUnit_adminBnr a { display: block; }
+.vkExUnit_admin_page .adminSub .exUnit_adminBnr img { max-width: 100%; height: auto; }
+.vkExUnit_admin_page .adminSub .exUnit_adminBnr img:hover { opacity: 0.7; }
 .vkExUnit_admin_page h2 { display: block; overflow: hidden; margin-bottom: 20px; }
 .vkExUnit_admin_page h2 .pageTitleTxt { font-size: 28px; }
 .vkExUnit_admin_page h3 { background-color: #333; color: #fff; padding: 10px 15px; font-size: 150%; margin-top: 0; border-left: 5px solid #e50000; }

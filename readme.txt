@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.2
-Stable tag: 1.0.6
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,7 @@ Many features can be stopped individually.
 *   Profile - display the profile entered in the widget.
 *   FB Page Plugin - display the Facebook Page Plugin.
 *   3PR area - display the 3PR area.
+*   PR Blocks - display the PR Blocks.
 *   Categories/tags list - Displays a categories, tags or format list.
 *   Archive list - Displays a list of archives. You can choose the post type and also to display archives by month or by year.
 *   Facebook Page Plugin widget
@@ -67,7 +68,13 @@ e.g.
 
 == Changelog ==
 
-= 1.0.0
+= 2.0.0 =
+* [ Add functions ] Insert Ads to contents.
+* [ Add functions ] New PR Blocks Widget.
+* [ Add functions ] Display contact infomation to contents of bottom.
+* [ bug fix ] Translation leakage
+
+= 1.0.0 =
 * [ Add functions ] Insert ads to post contents.
 * [ Add functions ] Heading of "Follow me box" can now be changed.
 * [ Add functions ] Added the setting of share and OG page title.

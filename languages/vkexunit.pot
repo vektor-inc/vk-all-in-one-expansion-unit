@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-03 02:52+0900\n"
+"POT-Creation-Date: 2015-08-13 02:06+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -14,9 +14,12 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin_wrapper.php:7 admin_wrapper.php:8 admin_wrapper.php:26
-#: plugins/meta_keyword.php:97
+#: admin_wrapper.php:7 admin_wrapper.php:8 plugins/meta_keyword.php:97
 msgid "Main setting"
+msgstr ""
+
+#: admin_wrapper.php:52
+msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 
 #: common_helpers.php:126
@@ -97,24 +100,130 @@ msgstr ""
 msgid "Chats"
 msgstr ""
 
-#: common_helpers.php:270 plugins/other_widget/widget-taxonomies.php:81
+#: common_helpers.php:270 plugins/other_widget/widget-taxonomies.php:79
 #: plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
+msgstr ""
+
+#: packages.php:43 plugins/contact_section.php:71
+msgid "Contact Section"
+msgstr ""
+
+#: packages.php:44
+msgid "Display Contact Section at after content."
+msgstr ""
+
+#: packages.php:47 packages.php:98 packages.php:115 packages.php:132
+#: vkExUnit_admin.php:109 vkExUnit_admin.php:155 vkExUnit_admin.php:193
+msgid "Setting"
+msgstr ""
+
+#: packages.php:61
+msgid "Child page index"
+msgstr ""
+
+#: packages.php:62
+msgid ""
+"At the bottom of the specified page, it will display a list of the child "
+"page."
+msgstr ""
+
+#: packages.php:72
+msgid "Display HTML Site Map"
+msgstr ""
+
+#: packages.php:73
+msgid "It displays a HTML Site Map to the specified page."
+msgstr ""
+
+#: packages.php:81
+msgid "You can use various widgets."
+msgstr ""
+
+#: packages.php:83
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr ""
+
+#: packages.php:84
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+
+#: packages.php:85
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr ""
+
+#: packages.php:86
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr ""
+
+#: packages.php:87
+msgid "VK_3PR area - display the 3PR area."
+msgstr ""
+
+#: packages.php:88 plugins/other_widget/old/widget-taxonomy-list.php:17
+msgid "categories/tags list"
+msgstr ""
+
+#: packages.php:88 plugins/other_widget/old/widget-taxonomy-list.php:11
+msgid "Displays a categories, tags or format list."
+msgstr ""
+
+#: packages.php:89 plugins/other_widget/widget-archives.php:14
+#: plugins/other_widget/old/widget-archive-list.php:14
+msgid "archive list"
+msgstr ""
+
+#: packages.php:89 plugins/other_widget/widget-archives.php:12
+#: plugins/other_widget/old/widget-archive-list.php:12
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+
+#: packages.php:94
+msgid "Widgets"
+msgstr ""
+
+#: packages.php:111
+msgid "CSS customize"
+msgstr ""
+
+#: packages.php:112
+msgid "You can set Customize CSS."
+msgstr ""
+
+#: packages.php:128 plugins/insert_ads.php:38 plugins/insert_ads.php:118
+msgid "Insert ads"
+msgstr ""
+
+#: packages.php:129
+msgid "Insert ads to content."
+msgstr ""
+
+#: packages.php:145 vkExUnit_admin.php:233
+msgid "Automatic Eye Catch insert"
+msgstr ""
+
+#: packages.php:146
+msgid "Display Eye Catch image at before content."
 msgstr ""
 
 #: vkExUnit_admin.php:3
 msgid "Enable setting"
 msgstr ""
 
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:364
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:273
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:364
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:273
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:364
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:273
 msgid "Description"
 msgstr ""
 
@@ -174,11 +283,6 @@ msgstr ""
 
 #: vkExUnit_admin.php:103
 msgid "Print meta Keyword"
-msgstr ""
-
-#: vkExUnit_admin.php:109 vkExUnit_admin.php:155 vkExUnit_admin.php:193
-#: vkExUnit_admin.php:272 vkExUnit_admin.php:305 vkExUnit_admin.php:349
-msgid "Setting"
 msgstr ""
 
 #: vkExUnit_admin.php:117
@@ -250,118 +354,86 @@ msgstr ""
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: vkExUnit_admin.php:228
-msgid "Choose display a child page index to posts."
-msgstr ""
-
-#: vkExUnit_admin.php:233
-msgid "Child page index"
-msgstr ""
-
-#: vkExUnit_admin.php:237
-msgid ""
-"At the bottom of the specified page, it will display a list of the child "
-"page."
-msgstr ""
-
-#: vkExUnit_admin.php:246
-msgid "Insert Site Map"
-msgstr ""
-
-#: vkExUnit_admin.php:251
-msgid "Display HTML Site Map"
-msgstr ""
-
-#: vkExUnit_admin.php:255
-msgid "It displays a HTML Site Map to the specified page."
-msgstr ""
-
-#: vkExUnit_admin.php:264 vkExUnit_admin.php:295
-msgid "Choose other widgets."
-msgstr ""
-
-#: vkExUnit_admin.php:269
-msgid "Widgets"
-msgstr ""
-
-#: vkExUnit_admin.php:277
-msgid "You can use various widgets."
-msgstr ""
-
-#: vkExUnit_admin.php:279
-msgid ""
-"VK_Recent Posts - display the link text and the date of the latest article "
-"title."
-msgstr ""
-
-#: vkExUnit_admin.php:280
-msgid ""
-"VK_Page content to widget - display the contents of the page to the widgets."
-msgstr ""
-
-#: vkExUnit_admin.php:281
-msgid "VK_Profile - display the profile entered in the widget."
-msgstr ""
-
-#: vkExUnit_admin.php:282
-msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
-msgstr ""
-
-#: vkExUnit_admin.php:283
-msgid "VK_3PR area - display the 3PR area."
-msgstr ""
-
-#: vkExUnit_admin.php:284 plugins/other_widget/old/widget-taxonomy-list.php:17
-msgid "categories/tags list"
-msgstr ""
-
-#: vkExUnit_admin.php:284 plugins/other_widget/old/widget-taxonomy-list.php:11
-msgid "Displays a categories, tags or format list."
-msgstr ""
-
-#: vkExUnit_admin.php:285 plugins/other_widget/widget-archives.php:14
-#: plugins/other_widget/old/widget-archive-list.php:14
-msgid "archive list"
-msgstr ""
-
-#: vkExUnit_admin.php:285 plugins/other_widget/widget-archives.php:12
-#: plugins/other_widget/old/widget-archive-list.php:12
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
-msgstr ""
-
-#: vkExUnit_admin.php:300
-msgid "CSS customize"
-msgstr ""
-
-#: vkExUnit_admin.php:312
-msgid "You can set Customize CSS."
-msgstr ""
-
-#: vkExUnit_admin.php:321 vkExUnit_admin.php:326
-msgid "Automatic Eye Catch insert"
-msgstr ""
-
-#: vkExUnit_admin.php:330
-msgid "Display Eye Catch image at before content."
-msgstr ""
-
-#: vkExUnit_admin.php:341 vkExUnit_admin.php:346 plugins/insert_ads.php:37
-#: plugins/insert_ads.php:101
-msgid "Insert ads"
-msgstr ""
-
-#: vkExUnit_admin.php:354
-msgid "Insert ads to content."
-msgstr ""
-
 #: plugins/auto_eyecatch.php:41
 msgid "Automatic EyeCatch"
 msgstr ""
 
 #: plugins/auto_eyecatch.php:51
 msgid "Do not set eyecatch image automatic."
+msgstr ""
+
+#: plugins/contact_section.php:47
+msgid "Contact"
+msgstr ""
+
+#: plugins/contact_section.php:57 plugins/contact_section.php:78
+msgid "Please feel free to inquire."
+msgstr ""
+
+#: plugins/contact_section.php:59
+msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
+msgstr ""
+
+#: plugins/contact_section.php:75
+msgid "Message"
+msgstr ""
+
+#: plugins/contact_section.php:78 plugins/contact_section.php:85
+#: plugins/contact_section.php:92 plugins/contact_section.php:100
+#: plugins/contact_section.php:108 plugins/contact_section.php:116
+#: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
+#: plugins/sns/old/sns_admin.php:20 plugins/sns/old/sns_admin.php:61
+#: plugins/sns/old/sns_admin.php:79 plugins/sns/old/sns_admin.php:98
+#: plugins/sns/old/sns_admin.php:115
+msgid "ex) "
+msgstr ""
+
+#: plugins/contact_section.php:82
+msgid "Phone number"
+msgstr ""
+
+#: plugins/contact_section.php:89 plugins/contact_section.php:92
+msgid "Office hours"
+msgstr ""
+
+#: plugins/contact_section.php:92
+msgid "Weekdays except holidays"
+msgstr ""
+
+#: plugins/contact_section.php:97
+msgid "The contact page URL"
+msgstr ""
+
+#: plugins/contact_section.php:100
+msgid "or"
+msgstr ""
+
+#: plugins/contact_section.php:101
+msgid "* If you fill in the blank, contact button does not appear."
+msgstr ""
+
+#: plugins/contact_section.php:105
+msgid "Contact button Text."
+msgstr ""
+
+#: plugins/contact_section.php:108
+msgid "Contact Us from email."
+msgstr ""
+
+#: plugins/contact_section.php:113
+msgid "Contact button Text. ( sub )"
+msgstr ""
+
+#: plugins/contact_section.php:117
+msgid "Email contact form"
+msgstr ""
+
+#: plugins/contact_section.php:140
+msgid "Display Contact Section"
+msgstr ""
+
+#: plugins/contact_section.php:222
+msgid "Edit contact information"
 msgstr ""
 
 #: plugins/dashboard_info_widget.php:18
@@ -394,23 +466,23 @@ msgstr ""
 msgid "Please upload your \".ico\" file"
 msgstr ""
 
-#: plugins/insert_ads.php:104
+#: plugins/insert_ads.php:121
 msgid "Insert ads to post."
 msgstr ""
 
-#: plugins/insert_ads.php:106
+#: plugins/insert_ads.php:123
 msgid "Insert ads to more tag and after content."
 msgstr ""
 
-#: plugins/insert_ads.php:106
+#: plugins/insert_ads.php:123
 msgid "If you want to separate ads area, you fill two fields."
 msgstr ""
 
-#: plugins/insert_ads.php:108
+#: plugins/insert_ads.php:125
 msgid "insert the ad [ more tag ]"
 msgstr ""
 
-#: plugins/insert_ads.php:116
+#: plugins/insert_ads.php:133
 msgid "insert the ad [ after content ]"
 msgstr ""
 
@@ -500,20 +572,8 @@ msgstr ""
 msgid "Sorry, there is no post"
 msgstr ""
 
-#: plugins/page_custom_field.php:12
+#: plugins/page_custom_field.php:11
 msgid "Setting of insert items"
-msgstr ""
-
-#: plugins/page_custom_field.php:22 plugins/page_custom_field.php:32
-msgid "Choose display a child page index"
-msgstr ""
-
-#: plugins/page_custom_field.php:27
-msgid "if checked you will display a child page index "
-msgstr ""
-
-#: plugins/page_custom_field.php:37
-msgid "if checked you will display a sitemap"
 msgstr ""
 
 #: plugins/child_page_index/child_page_index.php:42
@@ -521,6 +581,15 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:316
 #: plugins/other_widget/widget-3pr-area.php:359
 msgid "Read more"
+msgstr ""
+
+#: plugins/child_page_index/child_page_index.php:75
+#: plugins/sitemap_page/sitemap_page.php:201
+msgid "Choose display a child page index"
+msgstr ""
+
+#: plugins/child_page_index/child_page_index.php:80
+msgid "if checked you will display a child page index "
 msgstr ""
 
 #: plugins/css_customize/css_customize-edit.php:2
@@ -555,13 +624,6 @@ msgstr ""
 msgid ""
 "Please fill in the Google Analytics ID from the Analytics embed code used in "
 "the site."
-msgstr ""
-
-#: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
-#: plugins/sns/old/sns_admin.php:20 plugins/sns/old/sns_admin.php:61
-#: plugins/sns/old/sns_admin.php:79 plugins/sns/old/sns_admin.php:98
-#: plugins/sns/old/sns_admin.php:115
-msgid "ex) "
 msgstr ""
 
 #: plugins/google_analytics/ga_admin.php:19
@@ -613,6 +675,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:102
 #: plugins/other_widget/widget-3pr-area.php:154
 #: plugins/other_widget/widget-new-posts.php:92
+#: plugins/other_widget/widget-pr-blocks.php:71
 #: plugins/other_widget/widget-profile.php:39
 #: plugins/sns/function_fbPagePlugin.php:75
 msgid "Title:"
@@ -630,6 +693,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:132
 #: plugins/other_widget/widget-3pr-area.php:166
 #: plugins/other_widget/widget-3pr-area.php:183
+#: plugins/other_widget/widget-pr-blocks.php:94
 #: plugins/other_widget/widget-profile.php:50
 msgid "Select image"
 msgstr ""
@@ -640,6 +704,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:133
 #: plugins/other_widget/widget-3pr-area.php:167
 #: plugins/other_widget/widget-3pr-area.php:184
+#: plugins/other_widget/widget-pr-blocks.php:97
 #: plugins/other_widget/widget-profile.php:51
 msgid "Clear image"
 msgstr ""
@@ -653,12 +718,14 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:88
 #: plugins/other_widget/widget-3pr-area.php:142
 #: plugins/other_widget/widget-3pr-area.php:194
+#: plugins/other_widget/widget-pr-blocks.php:108
 msgid "Summary Text:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:94
 #: plugins/other_widget/widget-3pr-area.php:146
 #: plugins/other_widget/widget-3pr-area.php:199
+#: plugins/other_widget/widget-pr-blocks.php:112
 msgid "Link URL:"
 msgstr ""
 
@@ -670,21 +737,33 @@ msgstr ""
 msgid "3PR area3 setting"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:49
 #: plugins/other_widget/widget-archives.php:50
+#: plugins/other_widget/widget-archives.php:51
 #: plugins/other_widget/old/widget-archive-list.php:49
 #: plugins/other_widget/old/widget-archive-list.php:50
 msgid "Monthly archives"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:59
+#: plugins/other_widget/widget-archives.php:60
 #: plugins/other_widget/old/widget-archive-list.php:59
 msgid "Title"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:63
+#: plugins/other_widget/widget-archives.php:64
 #: plugins/other_widget/old/widget-archive-list.php:63
 msgid "Post type"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:74
+msgid "Monthly"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:76
+msgid "Yearly"
+msgstr ""
+
+#: plugins/other_widget/widget-archives.php:94
+msgid "archive"
 msgstr ""
 
 #: plugins/other_widget/widget-new-posts.php:11
@@ -726,7 +805,7 @@ msgid "page content to widget"
 msgstr ""
 
 #: plugins/other_widget/widget-page.php:30
-#: plugins/other_widget/widget-taxonomies.php:60
+#: plugins/other_widget/widget-taxonomies.php:58
 #: plugins/other_widget/old/widget-page-content.php:30
 #: plugins/other_widget/old/widget-taxonomy-list.php:61
 msgid "Display page"
@@ -740,6 +819,79 @@ msgstr ""
 #: plugins/other_widget/widget-page.php:64
 #: plugins/other_widget/old/widget-page-content.php:61
 msgid "Edit"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:10
+msgid "Displays a circle image or icon font for pr blocks"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:12
+msgid "PR Blocks"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:19
+msgid "PR Block1 title"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:27
+msgid "PR Block2 title"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:35
+msgid "PR Block3 title"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:43
+msgid "PR Block4 title"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:56
+msgid "You can select a block column:"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:58
+msgid "3column"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:59
+msgid "4column"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:61
+msgid ""
+"Select the column. You click \"Save\" or \"Apply\". The column input field "
+"is increased or decreased."
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:68
+#: plugins/other_widget/widget-pr-blocks.php:188
+msgid "PR Block"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:75
+msgid "IconFont input class:"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:78
+msgid ""
+"To choose your favorite icon, and enter the class. For example, the use of "
+"「fa-rocket」"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:82
+msgid "Icon bg-color:"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:84
+msgid "To choose your favorite icon’s background color"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:87
+msgid "Select image:"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:98
+msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 
 #: plugins/other_widget/widget-profile.php:11
@@ -815,19 +967,19 @@ msgstr ""
 msgid "Categories/Custom taxonomies list"
 msgstr ""
 
-#: plugins/other_widget/widget-taxonomies.php:47
-#: plugins/other_widget/widget-taxonomies.php:48
+#: plugins/other_widget/widget-taxonomies.php:45
+#: plugins/other_widget/widget-taxonomies.php:46
 #: plugins/other_widget/old/widget-taxonomy-list.php:48
 #: plugins/other_widget/old/widget-taxonomy-list.php:49
 msgid "Category"
 msgstr ""
 
-#: plugins/other_widget/widget-taxonomies.php:56
+#: plugins/other_widget/widget-taxonomies.php:54
 #: plugins/other_widget/old/widget-taxonomy-list.php:57
 msgid "Label to display"
 msgstr ""
 
-#: plugins/other_widget/widget-taxonomies.php:76
+#: plugins/other_widget/widget-taxonomies.php:74
 #: plugins/other_widget/old/widget-taxonomy-list.php:76
 msgid "Blog"
 msgstr ""
@@ -884,6 +1036,10 @@ msgstr ""
 
 #: plugins/sitemap_page/sitemap_page.php:17
 msgid "HTML Sitemap"
+msgstr ""
+
+#: plugins/sitemap_page/sitemap_page.php:206
+msgid "if checked you will display a sitemap"
 msgstr ""
 
 #: plugins/sns/function_fbPagePlugin.php:10
