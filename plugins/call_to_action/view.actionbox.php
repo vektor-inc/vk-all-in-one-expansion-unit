@@ -2,13 +2,24 @@
 
 $url_title = get_post_meta( $id, 'vkExUnit_cta_url_title', true );
 $url       = get_post_meta( $id, 'vkExUnit_cta_url', true );
+$text      = get_post_meta( $id, 'vkExUnit_cta_text', true);
+$text = preg_replace('/\n/', '<br/>', $text);
+$imgid     = get_post_meta( $id, 'vkExUnit_cta_img', true);
+$cta_image = wp_get_attachment_image_src($imgid);
+$image_position = get_post_meta( $id, 'vkExUnit_cta_img_position', true);
+if(!$image_position){ $image_position = 'right'; }
 
 $content  = '';
 $content .= '<section class="vkExUnit_cta">';
 $content .= '<h1 class="vkExUnit_cta_title">' . $post->post_title . '</h1>';
 $content .= '<div class="vkExUnit_cta_body">';
-$content .= '<div class="vkExUnit_cta_content">';
-$content .= $post->post_content;
+if( $imgid ){
+    $content .= '<div class="vkExUnit_cta_image '.$image_position.'">';
+    $content .= '<img src="'. $cta_image[0] .'" />';
+    $content .= '</div>';
+}
+$content .= '<div class="vkExUnit_cta_content '.(($imgid)? 'onimage' : 'noimage').'">';
+$content .= $text;
 $content .= '</div>';
 if( $url ){
     $content .= '<div class="vkExUnit_cta_link">';

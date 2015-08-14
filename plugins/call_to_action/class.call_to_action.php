@@ -5,7 +5,7 @@ class vExUnit_call_responce {
 
     public static $posttype_name = 'cta';
 
-    public $content_number = 10;
+    public $content_number = 500;
 
     public static function instance() {
         if ( isset( self::$instance ) )
@@ -64,7 +64,7 @@ class vExUnit_call_responce {
             'has_archive'         => false,
             'hierarchical'        => false,
             'taxonomies'          => array(),
-            'supports'            => array( 'title', 'editor' ),
+            'supports'            => array( 'title' ),
         );
         register_post_type( self::$posttype_name , $args );
     }
@@ -104,15 +104,92 @@ class vExUnit_call_responce {
 
     public function render_meta_box_cta(){
         echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
+        $imgid = get_post_meta(get_the_id(), 'vkExUnit_cta_img', true);
+        $cta_image = wp_get_attachment_image_src($imgid);
+        $image_position = get_post_meta(get_the_id(), 'vkExUnit_cta_img_position', true);
         ?>
-<style>#message.updated a {display:none;}</style>
+<style>
+#message.updated a {display:none;}
+#thumbnail_box { max-width:300px; max-height:300px; }
+#cta-thumbnail_image { max-width:300px; max-height:300px; }
+#cta-thumbnail_image.noimage { display:none; }
+#cta-thumbnail_control.add #media_thumb_url_add { display:inline; }
+#cta-thumbnail_control.add #media_thumb_url_change,
+#cta-thumbnail_control.add #media_thumb_url_remove { display:none; }
+#cta-thumbnail_control.change #media_thumb_url_add { display:none; }
+#cta-thumbnail_control.change #media_thumb_url_change,
+#cta-thumbnail_control.change #media_thumb_url_remove { display:inline; }
+</style>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+    var custom_uploader;
+    jQuery('.cta-media_btn').click(function(e) {
+        e.preventDefault();
+
+        if (custom_uploader) {
+            custom_uploader.open();
+            return;
+        }
+        custom_uploader = wp.media({
+            title: 'Choose Image',
+            library: {type: 'image'},
+            button: {text: 'Choose Image'},
+            multiple: false,
+        });
+
+        custom_uploader.on('select', function() {
+            var images = custom_uploader.state().get('selection');
+            images.each(function(file){
+                jQuery('#cta-thumbnail_image').attr('src', file.toJSON().url).removeClass("noimage");
+                jQuery('.vkExUnit_cta_img').val(file.toJSON().id);
+                jQuery('#cta-thumbnail_control').removeClass("add").addClass("change");
+            });
+        });
+        custom_uploader.open();
+    });
+    jQuery('#cta-thumbnail_control #media_thumb_url_remove').on('click', function(){
+        jQuery('#cta-thumbnail_image').attr('src', '').addClass("noimage");
+        jQuery('.vkExUnit_cta_img').val('');
+        jQuery('#cta-thumbnail_control').removeClass("change").addClass("add");
+        return false;
+    });
+});
+</script>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
-<table class="form-table"><tr><th>
+<table class="form-table">
+<tr>
+<th><?php _e('main image', 'vkExUnit'); ?></th>
+<td>
+    <div id="cta-thumbnail_box" >
+        <img id="cta-thumbnail_image" src="<?php echo ($cta_image)? $cta_image[0] : ''; ?>" class="<?php echo ($cta_image)? '' : 'noimage'; ?>" />
+    </div>
+    <div id="cta-thumbnail_control" class="<?php echo ($cta_image)? 'change' : 'add'; ?>">
+        <button id="media_thumb_url_add" class="cta-media_btn"><?php _e('add image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_change" class="cta-media_btn"><?php _e('change image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_remove" class=""><?php _e('remove image', 'vkExUnit'); ?></button>
+    </div>
+    <input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
+</td>
+</tr>
+<tr><th><label for="vkExUnit_cta_img_position"><?php _e('image position', 'vkExUnit'); ?></label></th>
+<td>
+    <select name="vkExUnit_cta_img_position" id="vkExUnit_cta_img_position">
+        <option value="right" <?php echo ($image_position == 'right')? 'selected' : ''; ?> ><?php _e('right', 'vkExUnit'); ?></option>
+        <option value="center" <?php echo ($image_position == 'center')? 'selected' : ''; ?> ><?php _e('center', 'vkExUnit'); ?></option>
+        <option value="left" <?php echo ($image_position == 'left')? 'selected' : ''; ?> ><?php _e('left', 'vkExUnit'); ?></option>
+    </select>
+</td></tr>
+<tr><th>
 <label for="vkExUnit_cta_url_title"><?php _e('url title', 'vkExUnit'); ?></label></th><td>
 <input type="text" name="vkExUnit_cta_url_title" id="vkExUnit_cta_url_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url_title', true); ?>" />
 </td></tr><tr><th>
 <label for="vkExUnit_cta_url"><?php _e('url', 'vkExUnit'); ?></label></th><td>
 <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
+</td></tr>
+<tr><th><label for="vkExUnit_cta_text"><?php _e('text', 'vkExUnit'); ?>
+</th>
+<td>
+<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_text', true); ?></textarea>
 </td></tr>
 </table>
 <a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>"><?php _e('cta setting', 'vkExUnit'); ?></a>
@@ -145,8 +222,25 @@ class vExUnit_call_responce {
             return $post_id;
         }
         elseif( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ){
-            $data = $_POST['vkExUnit_cta_url_title'];
+            $data = $_POST['vkExUnit_cta_img'];
+            if(get_post_meta($post_id, 'vkExUnit_cta_img') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_img', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_img', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_img', $data);
+            }elseif(!$data){
+                delete_post_meta($post_id, 'vkExUnit_cta_img', get_post_meta($post_id, 'vkExUnit_cta_img', true));
+            }
 
+            $data = $_POST['vkExUnit_cta_img_position'];
+            if(get_post_meta($post_id, 'vkExUnit_cta_img_position') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_img_position', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_img_position', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_img_position', $data);
+            }elseif(!$data){
+                delete_post_meta($post_id, 'vkExUnit_cta_img_position', get_post_meta($post_id, 'vkExUnit_cta_img_position', true));
+            }
+
+            $data = stripslashes($_POST['vkExUnit_cta_url_title']);
             if(get_post_meta($post_id, 'vkExUnit_cta_url_title') == ""){
                 add_post_meta($post_id, 'vkExUnit_cta_url_title', $data, true);
             }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_url_title', true)){
@@ -165,6 +259,14 @@ class vExUnit_call_responce {
                 delete_post_meta($post_id, 'vkExUnit_cta_url', get_post_meta($post_id, 'vkExUnit_cta_url', true));
             }
 
+            $data = stripslashes($_POST['vkExUnit_cta_text']);
+            if(get_post_meta($post_id, 'vkExUnit_cta_text') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_text', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_text', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_text', $data);
+            }elseif(!$data){
+                delete_post_meta($post_id, 'vkExUnit_cta_text', get_post_meta($post_id, 'vkExUnit_cta_text', true));
+            }
             return $post_id;
         }
     }
