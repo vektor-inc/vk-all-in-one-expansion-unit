@@ -760,8 +760,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .widget.pr_blocks a { color: #333; }
 .widget.pr_blocks a:hover { color: #333; text-decoration: none; }
 .widget.pr_blocks a .summary:hover { text-decoration: underline; }
-.widget.pr_blocks .circle_icon { display: table; margin: 0 auto; width: 100px; height: 100px; border-radius: 50%; }
-.widget.pr_blocks .circle_icon .font_icon { display: table-cell; color: #fff; vertical-align: middle; text-align: center; font-size: 45px; }
+.widget.pr_blocks .circle_icon { display: table; margin: 0 auto; width: 80px; height: 80px; border-radius: 50%; }
+.widget.pr_blocks .circle_icon .font_icon { display: table-cell; color: #fff; vertical-align: middle; text-align: center; font-size: 40px; }
 .widget.pr_blocks .prBox_title { margin-top: 1.5em; margin-bottom: 1em; text-align: center; font-size: 18px; }
 .widget.pr_blocks .media_pr { display: table; margin: 0 auto; }
 .widget.pr_blocks .pr_image { display: table-cell; overflow: hidden; width: 120px; height: 120px; border-radius: 50%; vertical-align: middle; text-align: center; }
