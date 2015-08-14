@@ -374,7 +374,7 @@
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p><?php _e('Display any link to after content.', 'vkExUnit'); ?></p>
+					<p><?php _e('Displays the PR contents and link at the end of the content.', 'vkExUnit'); ?></p>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
