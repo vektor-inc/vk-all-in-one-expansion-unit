@@ -78,7 +78,7 @@ class vExUnit_call_responce {
         add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'page', 'normal', 'high');
         add_meta_box('vkExUnit_cta', __('Call to Action setting', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
 
-        add_meta_box('vkExUnit_cta_url', __('URL setting', 'vkExUnit'), array( $this, 'render_meta_box_cta' ), self::$posttype_name, 'normal', 'high');
+        add_meta_box('vkExUnit_cta_url', __('CTA Contents', 'vkExUnit'), array( $this, 'render_meta_box_cta' ), self::$posttype_name, 'normal', 'high');
     }
 
 
@@ -119,6 +119,9 @@ class vExUnit_call_responce {
 #cta-thumbnail_control.change #media_thumb_url_add { display:none; }
 #cta-thumbnail_control.change #media_thumb_url_change,
 #cta-thumbnail_control.change #media_thumb_url_remove { display:inline; }
+.form-table input[type=text],
+.form-table input[type=url],
+.form-table textarea { width:80%; }
 </style>
 <script type="text/javascript">
 jQuery(document).ready(function($){
@@ -158,20 +161,20 @@ jQuery(document).ready(function($){
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
 <table class="form-table">
 <tr>
-<th><?php _e('main image', 'vkExUnit'); ?></th>
+<th><?php _e('CTA image', 'vkExUnit'); ?></th>
 <td>
     <div id="cta-thumbnail_box" >
         <img id="cta-thumbnail_image" src="<?php echo ($cta_image)? $cta_image[0] : ''; ?>" class="<?php echo ($cta_image)? '' : 'noimage'; ?>" />
     </div>
     <div id="cta-thumbnail_control" class="<?php echo ($cta_image)? 'change' : 'add'; ?>">
-        <button id="media_thumb_url_add" class="cta-media_btn"><?php _e('add image', 'vkExUnit'); ?></button>
-        <button id="media_thumb_url_change" class="cta-media_btn"><?php _e('change image', 'vkExUnit'); ?></button>
-        <button id="media_thumb_url_remove" class=""><?php _e('remove image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e('add image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e('change image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_remove" class="button button-default"><?php _e('remove image', 'vkExUnit'); ?></button>
     </div>
     <input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
 </td>
 </tr>
-<tr><th><label for="vkExUnit_cta_img_position"><?php _e('image position', 'vkExUnit'); ?></label></th>
+<tr><th><label for="vkExUnit_cta_img_position"><?php _e('Image position', 'vkExUnit'); ?></label></th>
 <td>
     <select name="vkExUnit_cta_img_position" id="vkExUnit_cta_img_position">
         <option value="right" <?php echo ($image_position == 'right')? 'selected' : ''; ?> ><?php _e('right', 'vkExUnit'); ?></option>
@@ -180,19 +183,19 @@ jQuery(document).ready(function($){
     </select>
 </td></tr>
 <tr><th>
-<label for="vkExUnit_cta_url_title"><?php _e('url title', 'vkExUnit'); ?></label></th><td>
-<input type="text" name="vkExUnit_cta_url_title" id="vkExUnit_cta_url_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url_title', true); ?>" />
+<label for="vkExUnit_cta_button_title"><?php _e('Button title', 'vkExUnit'); ?></label></th><td>
+<input type="text" name="vkExUnit_cta_button_title" id="vkExUnit_cta_button_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_button_title', true); ?>" />
 </td></tr><tr><th>
-<label for="vkExUnit_cta_url"><?php _e('url', 'vkExUnit'); ?></label></th><td>
+<label for="vkExUnit_cta_url"><?php _e('Button link url', 'vkExUnit'); ?></label></th><td>
 <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
 </td></tr>
-<tr><th><label for="vkExUnit_cta_text"><?php _e('text', 'vkExUnit'); ?>
+<tr><th><label for="vkExUnit_cta_text"><?php _e('Text', 'vkExUnit'); ?>
 </th>
 <td>
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_text', true); ?></textarea>
 </td></tr>
 </table>
-<a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>"><?php _e('cta setting', 'vkExUnit'); ?></a>
+<a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>" class="button button-default"><?php _e('CTA setting', 'vkExUnit'); ?></a>
         <?php
     }
 
@@ -240,13 +243,13 @@ jQuery(document).ready(function($){
                 delete_post_meta($post_id, 'vkExUnit_cta_img_position', get_post_meta($post_id, 'vkExUnit_cta_img_position', true));
             }
 
-            $data = stripslashes($_POST['vkExUnit_cta_url_title']);
-            if(get_post_meta($post_id, 'vkExUnit_cta_url_title') == ""){
-                add_post_meta($post_id, 'vkExUnit_cta_url_title', $data, true);
-            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_url_title', true)){
-                update_post_meta($post_id, 'vkExUnit_cta_url_title', $data);
+            $data = stripslashes($_POST['vkExUnit_cta_button_title']);
+            if(get_post_meta($post_id, 'vkExUnit_cta_button_title') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_button_title', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_button_title', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_button_title', $data);
             }elseif(!$data){
-                delete_post_meta($post_id, 'vkExUnit_cta_url_title', get_post_meta($post_id, 'vkExUnit_cta_url_title', true));
+                delete_post_meta($post_id, 'vkExUnit_cta_button_title', get_post_meta($post_id, 'vkExUnit_cta_button_title', true));
             }
 
             $data = $_POST['vkExUnit_cta_url'];
