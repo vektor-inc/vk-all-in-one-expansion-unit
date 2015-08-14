@@ -33,7 +33,7 @@ class vExUnit_call_responce {
 
     public function option_init() {
         vkExUnit_register_setting(
-            __('call to action', 'vkExUnit'),       // tab label.
+            'CTA',                                  // tab label.
             'vkExUnit_cta_settings',                // name attr
             array( $this, 'sanitize_config' ),      // sanitaise function name
             array( $this, 'render_configPage' )     // setting_page function name

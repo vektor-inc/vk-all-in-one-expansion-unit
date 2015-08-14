@@ -85,8 +85,13 @@ $required_packages[] = array(
     'description' => __('Displays the PR contents and link at the end of the content.', 'vkExUnit'),
     'attr' => array(
         array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads',
+            'name'=>__('Master Setting','vkExUnit'),
+            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
+            'enable_only' => 1,
+        ),
+        array(
+            'name'=>__('Contents setting','vkExUnit'),
+            'url'=> admin_url().'edit.php?post_type=cta',
             'enable_only' => 1,
         )
     ),

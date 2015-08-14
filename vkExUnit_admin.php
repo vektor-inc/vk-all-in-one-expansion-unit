@@ -36,7 +36,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-
+		
 		<!-- [ active_fontawesome ] -->
 		<tr<?php echo (isset($options['active_fontawesome']) && $options['active_fontawesome'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -54,7 +54,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-
+		
 		<!-- [ active_icon ] -->
 		<tr<?php echo (isset($options['active_icon']) && $options['active_icon'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -72,7 +72,7 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
-
+		
 		<!-- [ active_wpTitle ] -->
 		<tr<?php echo (isset($options['active_wpTitle']) && $options['active_wpTitle'])? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
@@ -110,7 +110,7 @@
 					</a></span>
 				</div>
 				<?php endif; ?>
-
+				
 			</td>
 			<td class='column-Keyword desc'>
 				<div class='plugin-Keyword'>
@@ -147,7 +147,7 @@
 			</th>
 			<td class='plugin-title'>
 				<strong><?php _e('Social media cooperation.', 'vkExUnit'); ?></strong>
-
+				
 				<?php if (isset($options['active_sns']) && $options['active_sns']) : ?>
 				<div class="row-actions visible">
 					<span class="0">
@@ -156,7 +156,7 @@
 					</a></span>
 				</div>
 				<?php endif; ?>
-
+				
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
@@ -167,7 +167,7 @@
 					<li><?php _e('Facebook Page Plugin widget.','vkExUnit');?></li>
 					<li><?php _e('Print Follow me box to content bottom.','vkExUnit');?></li>
 					</ul>
-					<p><?php
+					<p><?php 
 					$settingPage = '<a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">'.__('Main setting page').'</a>';
 						printf( __( '* You can stop the function separately from the %s.', 'vkExUnit' ), $settingPage );?>
 					</p>
@@ -187,7 +187,7 @@
 				<strong>Google Analytics</strong>
 
 				<?php if (isset($options['active_ga']) && $options['active_ga']) : ?>
-
+					
 					<span class="0">
 					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options';?>">
 					<?php _e('Setting','vkExUnit');?>
@@ -220,165 +220,58 @@
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+		
+<?php
 
-		<!-- [ active_childPageIndex ] -->
-		<tr<?php echo (isset($options['active_childPageIndex']) && $options['active_childPageIndex'])? ' class="active"': ' class="inactive"'; ?>>
+
+	global $vkExUnit_packages;
+	//$vkExUnit_packages = $package_boxs;
+	foreach($vkExUnit_packages as $package): ?>
+		<tr<?php echo ( vkExUnit_package_is_enable($package['name']))? ' class="active"': ' class="inactive"'; ?>>
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_relatedPosts' >
-				<?php _e('Choose display a child page index to posts.', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_childPageIndex]" id="checkbox_active_childPageIndex" value="true" <?php echo (isset($options['active_childPageIndex']) && $options['active_childPageIndex'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('Child page index', 'vkExUnit');?></strong>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'); ?></p>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
-
-		<!-- [ Insert Site Map ] -->
-		<tr<?php echo (isset($options['active_sitemap_page']) && $options['active_sitemap_page'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='active_sitemap_page' >
-				<?php _e('Insert Site Map', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_sitemap_page]" id="active_sitemap_page" value="true" <?php echo (isset($options['active_sitemap_page']) && $options['active_sitemap_page'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('Display HTML Site Map', 'vkExUnit'); ?></strong>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('It displays a HTML Site Map to the specified page.', 'vkExUnit'); ?></p>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
-
-		<!-- [ active_otherWidgets ] -->
-		<tr<?php echo (isset($options['active_otherWidgets']) && $options['active_otherWidgets'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_otherWidgets' >
-				<?php _e('Choose other widgets.', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_otherWidgets]" id="checkbox_active_otherWidgets" value="true" <?php echo (isset($options['active_otherWidgets']) && $options['active_otherWidgets'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('Widgets', 'vkExUnit');?></strong>
-				<span>
-				<a href="<?php echo admin_url().'widgets.php';?>">
-				<?php _e('Setting','vkExUnit');?>
-				</a></span>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('You can use various widgets.', 'vkExUnit'); ?></p>
-					<ul>
-					<li><?php _e('VK_Recent Posts - display the link text and the date of the latest article title.','vkExUnit');?></li>
-					<li><?php _e('VK_Page content to widget - display the contents of the page to the widgets.','vkExUnit');?></li>
-					<li><?php _e('VK_Profile - display the profile entered in the widget.','vkExUnit');?></li>
-					<li><?php _e('VK_FB Page Plugin - display the Facebook Page Plugin.','vkExUnit');?></li>
-					<li><?php _e('VK_3PR area - display the 3PR area.','vkExUnit');?></li>
-					<li>VK_<?php _e( 'categories/tags list', 'vkExUnit' ); ?> - <?php _e( 'Displays a categories, tags or format list.', 'vkExUnit' ); ?></li>
-					<li>VK_<?php _e( 'archive list', 'vkExUnit' ); ?> - <?php _e( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.' , 'vkExUnit' ); ?></li>
-					</ul>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
-
-		<!-- [ CSS cosutomize ] -->
-		<tr<?php echo (isset($options['active_css_customize']) && $options['active_css_customize'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_css_customize' >
-				<?php _e('Choose other widgets.', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_css_customize]" id="checkbox_active_css_customize" value="true" <?php echo (isset($options['active_css_customize']) && $options['active_css_customize'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('CSS customize', 'vkExUnit');?></strong>
-				<?php if (isset($options['active_css_customize']) && $options['active_css_customize']) : ?>
-
-					<span>
-					<a href="<?php echo admin_url().'admin.php?page=vkExUnit_css_customize';?>">
-					<?php _e('Setting','vkExUnit');?>
-					</a></span>
-
-				<?php endif; ?>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('You can set Customize CSS.', 'vkExUnit'); ?></p>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
-
-		<!-- [ AUTO Eye Catch ] -->
-		<tr<?php echo (isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_auto_eyecatch' >
+				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' >
 				<?php _e('Automatic Eye Catch insert', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_auto_eyecatch]" id="checkbox_active_auto_eyecatch" value="true" <?php echo (isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'])? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php echo ( vkExUnit_package_is_enable($package['name']) ) ? 'checked': ''; ?> />
 			</th>
 			<td class='plugin-title'>
-				<strong><?php _e('Automatic Eye Catch insert', 'vkExUnit'); ?></strong>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('Display Eye Catch image at before content.', 'vkExUnit'); ?></p>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
+				<strong><?php echo $package['title'] ?></strong>
 
-
-
-		<!-- [ Insert ads ] -->
-		<tr<?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_insert_ads' >
-				<?php _e('Insert ads', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_insert_ads]" id="checkbox_insert_ads" value="true" <?php echo (isset($options['active_insert_ads']) && $options['active_insert_ads'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('Insert ads', 'vkExUnit'); ?></strong>
+				<?php
+				$count = '';
+				$count = count($package['attr']);
+				$i = 0;
+				if($count):
+						foreach($package['attr'] as $att):
+							if( !$att['enable_only'] || isset($options['active_'.$package['name']]) && $options['active_'.$package['name']]):
+				?>
+				<?php echo ( $count > 1 && $i >= 1) ? ' | ':''; ?>
 				<span>
-				<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads';?>">
-				<?php _e('Setting','vkExUnit');?>
+				<a href="<?php echo ( $att['url'] )? $att['url'] : admin_url().'admin.php?page=vkExUnit_main_setting' ;?>">
+				<?php echo $att['name']; ?>
 				</a></span>
+
+				<?php
+						endif;
+						$i++;
+					endforeach;
+				endif; //if($count): ?>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>
-					<p><?php _e('Insert ads to content.', 'vkExUnit'); ?></p>
+					<?php
+						if(is_array($package['description'])):
+							foreach($package['description'] as $desk){ echo $desk; }
+						else: ?>
+					<p><?php echo $package['description']; ?></p>
+					<?php endif; ?>
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
 
-
-		<!-- [ Call to Action ] -->
-		<tr<?php echo (isset($options['active_call_to_action']) && $options['active_call_to_action'])? ' class="active"': ' class="inactive"'; ?>>
-			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_insert_ads' >
-				<?php _e('Call to Action', 'vkExUnit'); ?>
-				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_call_to_action]" id="checkbox_insert_ads" value="true" <?php echo (isset($options['active_call_to_action']) && $options['active_call_to_action'])? 'checked': ''; ?> />
-			</th>
-			<td class='plugin-title'>
-				<strong><?php _e('Call to Action', 'vkExUnit'); ?></strong>
-				<span>
-				<a href="<?php echo admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads';?>">
-				<?php _e('Setting','vkExUnit');?>
-				</a></span>
-			</td>
-			<td class='column-description desc'>
-				<div class='plugin-description'>
-					<p><?php _e('Displays the PR contents and link at the end of the content.', 'vkExUnit'); ?></p>
-				</div><!-- [ /.plugin-description ] -->
-			</td>
-		</tr>
-
+<?php
+	endforeach;
+?>
 		</tbody>
 
 	<tfoot>
@@ -394,5 +287,6 @@
 </div><!-- [ /.adminMain ] -->
 <div class="adminSub">
 <div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
+<div class="exUnit_adminBnr"><?php vkExUnit_admin_banner(); ?></div>
 </div><!-- [ /.adminSub ] -->
 </div>
