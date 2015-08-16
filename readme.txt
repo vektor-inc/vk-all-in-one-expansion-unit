@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.2
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Many features can be stopped individually.
 *   Print meta description tag
 *   Rewrite the title tag
 *   Insert Related Posts
+*   Insert Call to action
 *   Insert Child page List to page
 *   Insert Auto HTML Site Map
 *	Automatic Eye Catch insert
@@ -67,6 +68,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 2.1.0 =
+* [ Add functions ] Insert CTA to contents.
 
 = 2.0.0 =
 * [ Add functions ] Insert Ads to contents.
