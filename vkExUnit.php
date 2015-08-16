@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 1.0.8
+Version: 2.1.0
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -82,12 +82,17 @@ require_once( 'admin_wrapper.php' );
 /*-------------------------------------------*/
 
 require vkExUnit_get_directory() . '/common_init.php';
+require vkExUnit_get_directory() . '/package_manager.php';
+require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
 require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
+require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
+require vkExUnit_get_directory() . '/plugins/admin_banner.php';
+
 
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
@@ -111,27 +116,35 @@ if ( isset($options['active_icon']) && $options['active_icon'] )
 if ( isset($options['active_metaKeyword']) && $options['active_metaKeyword'] )
 	require vkExUnit_get_directory() . '/plugins/meta_keyword.php';
 
-if ( isset($options['active_otherWidgets']) && $options['active_otherWidgets'] )
+if ( vkExUnit_package_is_enable( 'otherWidgets' ) )
 	require vkExUnit_get_directory() . '/plugins/other_widget/other_widget.php';
 
-if ( isset($options['active_css_customize']) && $options['active_css_customize'] )
+if ( vkExUnit_package_is_enable( 'css_customize' ) )
 	require vkExUnit_get_directory() . '/plugins/css_customize/css_customize.php';
 
-if ( isset($options['active_auto_eyecatch']) && $options['active_auto_eyecatch'] )
+if ( vkExUnit_package_is_enable( 'auto_eyecatch' ) )
 	require vkExUnit_get_directory() . '/plugins/auto_eyecatch.php';
 
 if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] )
 	require vkExUnit_get_directory() . '/plugins/child_page_index/child_page_index.php';
-	
-if ( isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
-	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
-	
-// if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
-// 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
 
-// page custom field	
-if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] || isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
-	require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
+if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
+	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
+
+if ( isset($options['active_contact_section']) && $options['active_contact_section'] )
+	require vkExUnit_get_directory() . '/plugins/contact_section.php';
+
+// // page custom field
+// if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] || isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
+// 	require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
+
+if ( isset($options['active_call_to_action']) && $options['active_call_to_action'] )
+	require vkExUnit_get_directory() . '/plugins/call_to_action/call_to_action.php';
+
+if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
+	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
+
+
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css
@@ -143,7 +156,7 @@ function vkExUnit_print_css(){
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
 		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150708', 'all');
 	} else {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150708', 'all');	
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150708', 'all');
 	}
 }
 /*-------------------------------------------*/
@@ -193,11 +206,11 @@ function vkExUnit_admin_enq(){
 /*	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
 /*-------------------------------------------*/
 
-add_action("admin_head", 'suffix2console');
-function suffix2console() {
-    global $hook_suffix;
-    if (is_user_logged_in()) {
-        $str = "<script type=\"text/javascript\">console.log('%s')</script>";
-        printf($str, $hook_suffix);
-    }
-}
+// add_action("admin_head", 'vkExUnit_suffix2console');
+// function vkExUnit_suffix2console() {
+//     global $hook_suffix;
+//     if (is_user_logged_in()) {
+//         $str = "<script type=\"text/javascript\">console.log('%s')</script>";
+//         printf($str, $hook_suffix);
+//     }
+// }

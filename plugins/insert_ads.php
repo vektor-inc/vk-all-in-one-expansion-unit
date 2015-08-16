@@ -12,25 +12,26 @@
 class vExUnit_Ads {
     // singleton instance
     private static $instance;
- 
+
     public static function instance() {
         if ( isset( self::$instance ) )
             return self::$instance;
- 
+
         self::$instance = new vExUnit_Ads;
         self::$instance->run_init();
         return self::$instance;
     }
- 
+
     private function __construct() {
     }
- 
+
 
     protected function run_init() {
         add_action('admin_init', array($this, 'option_init' ));
         add_filter('the_content',    array($this, 'set_content' ), 1);
+        add_shortcode('vkExUnit_ad', array($this, 'shortcode') );
     }
- 
+
 
     public function option_init() {
         vkExUnit_register_setting(
@@ -40,23 +41,34 @@ class vExUnit_Ads {
             array( $this, 'render_configPage' )     // setting_page function name
         );
     }
-    
+
 
     public function set_content($content){
         $option = $this->get_option();
 
-        $content = preg_replace('/(<span id="more-[0-9]+"><\/span>)/', '$1'.$this->render_ad($option['more']) , $content);
+        $content = preg_replace('/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content);
 
-        $content .= $this->render_ad($option['after'],'after');
+        $content .= '[vkExUnit_ad area=after]';
 
         return $content;
+    }
+
+
+    public function shortcode( $atts ){
+        extract(shortcode_atts(array('area' => ''), $atts));
+
+        if($area != 'after' && $area != 'more') return '';
+
+        $option = $this->get_option();
+
+        return $this->render_ad($option[$area], $area);
     }
 
 
     private function render_ad( $ads ,$area='more'){
         if( !$ads[0] ) return '';
         $class = "col-md-12";
-        if( $ads[1] ) $class="col-md-6";
+        if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
 
         $content = '';
         $content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
@@ -69,11 +81,16 @@ class vExUnit_Ads {
         }
         $content .= '</aside>';
 
-       return $content; 
+       return $content;
     }
 
 
-    public function sanitize_config( $option ){
+    public function sanitize_config( $input ){
+        $option['more'][0]  = stripslashes( $input['more'][0] );
+        $option['more'][1]  = stripslashes( $input['more'][1] );
+        $option['after'][0] = stripslashes( $input['after'][0] );
+        $option['after'][1] = stripslashes( $input['after'][1] );
+
         if( !$option['more'][0] && $option['more'][1] ){
             $option['more'][0] = $option['more'][1];
             $option['more'][1] = '';
@@ -127,5 +144,5 @@ class vExUnit_Ads {
     }
 
 }
- 
+
 vExUnit_Ads::instance();

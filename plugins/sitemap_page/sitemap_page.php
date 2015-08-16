@@ -14,8 +14,8 @@ function vkExUnit_sitemap_options_init() {
 		add_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );
 
 	vkExUnit_register_setting(
-		__('HTML Sitemap', 'vkExUnit'), 	
-		'vkExUnit_sitemap_options',		
+		__('HTML Sitemap', 'vkExUnit'),
+		'vkExUnit_sitemap_options',
 		'vkExUnit_sitemap_options_validate',
 		'vkExUnit_add_sitemap_options_page'
 	);
@@ -55,12 +55,12 @@ function vkExUnit_sitemap_options_validate( $input ) {
 /*-------------------------------------------*/
 /*	insert sitemap page
 /*-------------------------------------------*/
-add_filter('the_content', 'show_sitemap', 7);
+add_filter('the_content', 'show_sitemap', 7, 1);
 
 function show_sitemap($content) {
 	global $post;
 	$show_sitemap_value = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
-	
+
 	if(!empty($show_sitemap_value) && $show_sitemap_value[0] === 'active'){
 		return $content.do_shortcode('[vkExUnit_sitemap]');
 	}
@@ -78,7 +78,7 @@ function vkExUnit_sitemap($atts) {
 	$exclude = esc_attr($options['excludeId']);
 	$exclude = str_replace('，',',',$exclude);
 	$exclude = mb_convert_kana($exclude, 'kvrn');
-	
+
 	/*-------------------------------------------*/
 	/* pages
 	/*-------------------------------------------*/
@@ -101,24 +101,24 @@ function vkExUnit_sitemap($atts) {
 
 	$page_for_posts = vkExUnit_get_page_for_posts();
 	$allPostTypes = get_post_types(Array('public' => true));
-	
+
 	foreach ($allPostTypes as $postType) {
-		$post_type_object = get_post_type_object($postType);	
-		
+		$post_type_object = get_post_type_object($postType);
+
 		if($post_type_object){
 			$postType_name = esc_html($post_type_object->name);
-			// post-type is post 
+			// post-type is post
 			if($postType_name === 'post'){
-				
+
 				$postTypes 	= array('post');
 				$taxonomies = get_taxonomies();
 				// Loop all post types
 				foreach ($postTypes as $key => $postType) {
-			
+
 					$sitemap_html .= '<div class="sectionBox">'.PHP_EOL;
 					$post_type_object = get_post_type_object($postType);
 					if($post_type_object){
-			
+
 						// Post type name
 						if ( $postType == 'post' && $page_for_posts['post_top_use'] ){
 							$postTypeName = $page_for_posts['post_top_name'];
@@ -128,12 +128,12 @@ function vkExUnit_sitemap($atts) {
 							$postTypeTopUrl = home_url().'/?post_type='.$postType;
 						}
 						$sitemap_html .= '<h4><a href="'.$postTypeTopUrl.'">'.esc_html($postTypeName).'</a></h4>'.PHP_EOL;
-					
-						
+
+
 						// Loop for all taxonomies
 						foreach ($taxonomies as $key => $taxonomy) {
 							$taxonomy_info = get_taxonomy( $taxonomy );
-			
+
 							// Get tax related post type
 							$taxonomy_postType = $taxonomy_info->object_type[0];
 							if ( $taxonomy_postType == $postType && ( $taxonomy_info->name != 'post_format')){
@@ -152,14 +152,14 @@ function vkExUnit_sitemap($atts) {
 						}
 					} // end if($post_type_object)
 				} // end foreach ($postTypes as $key => $postType)
-			} // end post-type is post 
+			} // end post-type is post
 			// not page_type and post_type
 			else if($postType_name !== 'page' && $postType_name !== 'attachment'){
 				$customPost_url = home_url().'/?post_type='.$postType_name;
 				$sitemap_html .= '<h4><a href="'.$customPost_url.'">'.$post_type_object->labels->name.'</a></h4>'.PHP_EOL;
-				
+
 				$termNames = get_object_taxonomies($postType_name);
-				
+
 				foreach ($termNames as $termName) {
 					$termDate = get_taxonomy( $termName );
 					$sitemap_html .= '<h5>'.$termDate->label.'</h5>'.PHP_EOL;
@@ -172,11 +172,11 @@ function vkExUnit_sitemap($atts) {
 														'show_option_none' => ''
 													);
 								$sitemap_html .= wp_list_categories( $args );
-								$sitemap_html .= '</ul>'.PHP_EOL;			
+								$sitemap_html .= '</ul>'.PHP_EOL;
 				}
-			} // end not page_type and post_type 
+			} // end not page_type and post_type
 		} // end if($post_type_object)
-	} // end foreach ($allPostTypes as $postType) 
+	} // end foreach ($allPostTypes as $postType)
 	$sitemap_html .= '</div><!-- [ /.sectionBox ] -->'.PHP_EOL;
 	$sitemap_html .= '</div><!-- [ /.sitemap-col ] -->'.PHP_EOL;
 	$sitemap_html .= '</div><!-- [ /.sitemap ] -->'.PHP_EOL;
@@ -184,3 +184,52 @@ function vkExUnit_sitemap($atts) {
     return $sitemap_html;
 }
 add_shortcode('vkExUnit_sitemap', 'vkExUnit_sitemap');
+
+
+add_filter('vkExUnit_customField_Page_activation', 'vkExUnit_sitemap_activate', 10, 1);
+function vkExUnit_sitemap_activate( $flag ){
+	return true;
+}
+
+
+add_action('vkExUnit_customField_Page_box', 'vkExUnit_sitemap_meta_box');
+function vkExUnit_sitemap_meta_box(){
+	global $post;
+	// sitemap display
+	$active_sitemap_page = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
+	echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_sitemap" id="_nonce_vkExUnit__custom_field_sitemap" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
+	echo '<label class="hidden" for="vkExUnit_sitemap">'.__('Choose display a child page index', 'vkExUnit').'</label>
+		<input type="checkbox" id="vkExUnit_sitemap" name="vkExUnit_sitemap" value="active"';	
+	if( !empty($active_sitemap_page) ) {
+		if( $active_sitemap_page[0] === 'active' ) echo ' checked="checked"';
+	}
+	echo '/>'.__('if checked you will display a sitemap', 'vkExUnit');
+}
+
+
+// save custom field sitemap
+add_action('save_post', 'vkExUnit_save_custom_field_sitemapData');
+function vkExUnit_save_custom_field_sitemapData( $post_id ) {
+    $sitemap = isset($_POST['_nonce_vkExUnit__custom_field_sitemap']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_sitemap']) : null;
+    
+	if( !wp_verify_nonce( $sitemap, plugin_basename(__FILE__) )){
+  		return $post_id;
+	}
+	
+	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
+    return $post_id;
+    
+    $data = isset($_POST['vkExUnit_sitemap']) ? htmlspecialchars($_POST['vkExUnit_sitemap']) : null;
+       
+	if('page' == $data){
+		if(!current_user_can('edit_page', $post_id)) return $post_id;
+	}
+		
+    if ( "" == get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
+        add_post_meta( $post_id, 'vkExUnit_sitemap', $data, true ) ;
+    } else if ( $data != get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
+        update_post_meta( $post_id, 'vkExUnit_sitemap', $data ) ;
+    } else if ( "" == $data ) {
+        delete_post_meta( $post_id, 'vkExUnit_sitemap' ) ;
+    }
+}

@@ -15,19 +15,32 @@
 /*-------------------------------------------*/
 /* .socialSet
 /*-------------------------------------------*/
-/* Profile wiget Plugin
+/* Wiget Profile Plugin
 /*-------------------------------------------*/
-/* 3PR area wiget Plugin
+/* Wiget 3PR area Plugin
+/*-------------------------------------------*/
+/* Wiget PR Bloclks Plugin
+/*-------------------------------------------*/
+/* Widget Page Content
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 /* sitemap page Plugin
 /*-------------------------------------------*/
+/* CTA Section 
+/*-------------------------------------------*/
+/* Contact Section
+/*-------------------------------------------*/
+/* Insert Ads
+/*-------------------------------------------*/
+
+$section_margin : 20px;
 
 /*-------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
 
+html { font-size: inherit; } /* reset bootstrap */
 .link-list li { padding:0.5em; }
 .widget { 
   .subSection-title { font-size:18px; }
@@ -137,7 +150,12 @@
 }
 
 /*-------------------------------------------*/
-/* Profile wiget Plugin
+/* Wiget Profile Plugin
+/*-------------------------------------------*/
+.vkExUnit_entry-meta_items.published:before { font-family:FontAwesome;content:"\f073";margin-right:5px; }
+
+/*-------------------------------------------*/
+/* Wiget Profile Plugin
 /*-------------------------------------------*/
 .site-profile{
 	overflow: hidden;
@@ -232,7 +250,7 @@
     }
 }
 /*-------------------------------------------*/
-/* 3PR area wiget Plugin
+/* Wiget 3PR area Plugin
 /*-------------------------------------------*/
 .prBox{
 	.subSection-title{
@@ -272,6 +290,94 @@
 	} 
 }	
 }
+
+/*-------------------------------------------*/
+/* Wiget PR Bloclks Plugin
+/*-------------------------------------------*/
+.widget.pr_blocks{
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+	.prArea{
+		display: table-cell;
+		padding: 0 1em;
+		&:first-child{
+			padding-left: 0;
+		}
+		&:last-child{
+			padding-right: 0;
+		}
+	}
+	a{
+		color: #333;
+		&:hover{
+			color: #333;
+			text-decoration: none;
+		}
+		.summary:hover{
+			text-decoration: underline;
+		}
+	}
+	.circle_icon{
+		display: table;
+		margin: 0 auto ;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		.font_icon{
+			display: table-cell;
+			color: #fff;
+			vertical-align: middle;
+			text-align: center;
+			font-size: 40px;
+		}
+	}
+	.prBox_title{
+		margin-top: 1.5em;
+		margin-bottom: 1em;
+		text-align: center;
+		font-size: 18px;
+	}
+	.media_pr{
+		display: table;
+		margin: 0 auto;
+	}
+	.pr_image{
+		display: table-cell;
+		overflow: hidden;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		vertical-align: middle;
+		text-align: center;
+	}
+	.summary{
+		margin-bottom: 0.5em;
+		text-align: center;
+		font-size: 14px;
+		line-height: 1.4em;
+	}
+}
+@media screen and (max-width:992px){
+.widget.pr_blocks{
+	display: block;
+	.prArea{
+		display: block;
+		margin-bottom: 3em;
+		&:first-child{
+			padding-left: 1em;
+		}
+		&:last-child{
+			padding-right: 1em;
+		}
+	}
+}
+}
+/*-------------------------------------------*/
+/* Widget Page Content
+/*-------------------------------------------*/
+.widget_pageContent h1 { margin-bottom:20px; }
+
 /*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
@@ -329,7 +435,7 @@
 	.link-list{
 		margin-top: 0;
 		margin-bottom: 0;
-	}	
+	}
 	.page_item{
 		padding: 0;
 	}
@@ -341,3 +447,53 @@
 	}
 }
 
+/*-------------------------------------------*/
+/* CTA Section 
+/*-------------------------------------------*/
+.vkExUnit_cta { display:block; overflow:hidden;background-color: #efefef;margin-top:$section_margin;margin-bottom:$section_margin;
+	h1.vkExUnit_cta_title { display:block; overflow:hidden;background-color: #333;font-size:22px;color:#fff;padding: 12px 20px 10px;line-height: 1.2em; }
+	.vkExUnit_cta_body { display:block; overflow:hidden; padding:1.5em 2em 2em;line-height: 170%; }
+	.vkExUnit_cta_body_image img { max-width: 250px; }
+	.vkExUnit_cta_body_image_right { float:right;margin-left:20px; }
+	.vkExUnit_cta_body_image_left { float:left;margin-right:20px; }
+	.vkExUnit_cta_body_image_center { display:block; overflow:hidden;
+		img { display:block; margin:0 auto 15px;max-width: 100%; }
+	}
+	
+	.vkExUnit_cta_body_txt { display:block; overflow:hidden; }
+	.vkExUnit_cta_body_link { margin-top:1em; }
+}
+
+/*-------------------------------------------*/
+/* Contact Section
+/*-------------------------------------------*/
+.vkExUnit_contact { display:block; overflow:hidden;margin-bottom:1em;padding:25px 24px 21px; border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);background-color: #f9f9f9 }
+.vkExUnit_contact_txt_catch,
+.vkExUnit_contact_txt_tel,
+.vkExUnit_contact_txt_time { display:block; overflow:hidden; }
+.vkExUnit_contact_txt_catch,
+.vkExUnit_contact_txt_time { line-height: 128.6%;font-size: 14px; }
+.vkExUnit_contact_txt_tel { font-size: 28px;line-height: 110%;color:$color_key;padding-top:4px;}
+.vkExUnit_contact_bt_txt:before { font-family:FontAwesome;content:"\f003";margin-right:7px; }
+.vkExUnit_contact_bt_txt:after { font-family:FontAwesome;content:"\f18e";margin-left:7px; }
+.vkExUnit_contact_bt_subTxt { display:block; overflow:hidden;font-size:14px; }
+
+@media (max-width: 767px){
+.vkExUnit_contact_txt { text-align: center; }
+.vkExUnit_contact_bt  { display: block; }
+}
+@media (min-width: 768px){
+p.vkExUnit_contact_txt { margin-bottom:0; }
+.vkExUnit_contact_txt { float:left; }
+.vkExUnit_contact_bt { float:right; }
+}
+
+
+/*-------------------------------------------*/
+/* Insert Ads
+/*-------------------------------------------*/
+.vkExUnit_insertAds { margin-top:1em;margin-bottom:1.5em; }
+@media (max-width: 971px){
+	.vkExUnit_insertAds { margin-bottom:0.5em; }
+	.vkExUnit_insertAds .col-md-6 {margin-bottom:1em; }
+}
