@@ -25,7 +25,7 @@ if( $imgid ){
 $content .= '<div class="vkExUnit_cta_body_txt '.(($imgid)? 'image_exist' : 'image_no').'">';
 $content .= $text;
 $content .= '</div>';
-if( $url ){
+if( $url && $btn_text ){
     $content .= '<div class="vkExUnit_cta_body_link">';
     $content .= '<a href="'.$url.'" class="btn btn-primary btn-block btn-lg" target="_blank">';
     $content .= $btn_text;
