@@ -620,11 +620,18 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 /*-------------------------------------------*/
 /* sitemap page Plugin
 /*-------------------------------------------*/
+/* CTA Section 
+/*-------------------------------------------*/
+/* Contact Section
+/*-------------------------------------------*/
 /* Insert Ads
 /*-------------------------------------------*/
 /*-------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
+html { font-size: inherit; }
+
+/* reset bootstrap */
 .link-list li { padding: 0.5em; }
 
 .widget .subSection-title { font-size: 18px; }
@@ -801,7 +808,21 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .sitemap-col .cat-item { padding: 0; }
 
 /*-------------------------------------------*/
-/* Contact Box
+/* CTA Section 
+/*-------------------------------------------*/
+.vkExUnit_cta { display: block; overflow: hidden; background-color: #efefef; margin-top: 20px; margin-bottom: 20px; }
+.vkExUnit_cta h1.vkExUnit_cta_title { display: block; overflow: hidden; background-color: #333; font-size: 22px; color: #fff; padding: 12px 20px 10px; line-height: 1.2em; }
+.vkExUnit_cta .vkExUnit_cta_body { display: block; overflow: hidden; padding: 1.5em 2em 2em; line-height: 170%; }
+.vkExUnit_cta .vkExUnit_cta_body_image img { max-width: 250px; }
+.vkExUnit_cta .vkExUnit_cta_body_image_right { float: right; margin-left: 20px; }
+.vkExUnit_cta .vkExUnit_cta_body_image_left { float: left; margin-right: 20px; }
+.vkExUnit_cta .vkExUnit_cta_body_image_center { display: block; overflow: hidden; }
+.vkExUnit_cta .vkExUnit_cta_body_image_center img { display: block; margin: 0 auto 15px; max-width: 100%; }
+.vkExUnit_cta .vkExUnit_cta_body_txt { display: block; overflow: hidden; }
+.vkExUnit_cta .vkExUnit_cta_body_link { margin-top: 1em; }
+
+/*-------------------------------------------*/
+/* Contact Section
 /*-------------------------------------------*/
 .vkExUnit_contact { display: block; overflow: hidden; margin-bottom: 1em; padding: 25px 24px 21px; border: 3px solid #efefef; box-shadow: inset 0px 0px 0px 1px white; background-color: #f9f9f9; }
 

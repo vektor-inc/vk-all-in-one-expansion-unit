@@ -237,18 +237,25 @@
 			<td class='plugin-title'>
 				<strong><?php echo $package['title'] ?></strong>
 
-				<?php if(count($package['attr'])):
+				<?php
+				$count = '';
+				$count = count($package['attr']);
+				$i = 0;
+				if($count):
 						foreach($package['attr'] as $att):
 							if( !$att['enable_only'] || isset($options['active_'.$package['name']]) && $options['active_'.$package['name']]):
 				?>
+				<?php echo ( $count > 1 && $i >= 1) ? ' | ':''; ?>
 				<span>
 				<a href="<?php echo ( $att['url'] )? $att['url'] : admin_url().'admin.php?page=vkExUnit_main_setting' ;?>">
 				<?php echo $att['name']; ?>
 				</a></span>
+
 				<?php
 						endif;
+						$i++;
 					endforeach;
-				endif; ?>
+				endif; //if($count): ?>
 			</td>
 			<td class='column-description desc'>
 				<div class='plugin-description'>

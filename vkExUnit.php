@@ -134,8 +134,16 @@ if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
 if ( isset($options['active_contact_section']) && $options['active_contact_section'] )
 	require vkExUnit_get_directory() . '/plugins/contact_section.php';
 
+// // page custom field
+// if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] || isset($options['active_sitemap_page']) && $options['active_sitemap_page'] )
+// 	require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
+
+if ( isset($options['active_call_to_action']) && $options['active_call_to_action'] )
+	require vkExUnit_get_directory() . '/plugins/call_to_action/call_to_action.php';
+
 if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
+
 
 
 /*-------------------------------------------*/
@@ -148,7 +156,7 @@ function vkExUnit_print_css(){
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
 		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150708', 'all');
 	} else {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150708', 'all');	
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150708', 'all');
 	}
 }
 /*-------------------------------------------*/

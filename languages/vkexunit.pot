@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-13 02:06+0900\n"
+"POT-Creation-Date: 2015-08-13 11:50+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -693,7 +693,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:132
 #: plugins/other_widget/widget-3pr-area.php:166
 #: plugins/other_widget/widget-3pr-area.php:183
-#: plugins/other_widget/widget-pr-blocks.php:94
+#: plugins/other_widget/widget-pr-blocks.php:93
 #: plugins/other_widget/widget-profile.php:50
 msgid "Select image"
 msgstr ""
@@ -704,7 +704,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:133
 #: plugins/other_widget/widget-3pr-area.php:167
 #: plugins/other_widget/widget-3pr-area.php:184
-#: plugins/other_widget/widget-pr-blocks.php:97
+#: plugins/other_widget/widget-pr-blocks.php:96
 #: plugins/other_widget/widget-profile.php:51
 msgid "Clear image"
 msgstr ""
@@ -718,14 +718,14 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:88
 #: plugins/other_widget/widget-3pr-area.php:142
 #: plugins/other_widget/widget-3pr-area.php:194
-#: plugins/other_widget/widget-pr-blocks.php:108
+#: plugins/other_widget/widget-pr-blocks.php:107
 msgid "Summary Text:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:94
 #: plugins/other_widget/widget-3pr-area.php:146
 #: plugins/other_widget/widget-3pr-area.php:199
-#: plugins/other_widget/widget-pr-blocks.php:112
+#: plugins/other_widget/widget-pr-blocks.php:111
 msgid "Link URL:"
 msgstr ""
 
@@ -846,7 +846,7 @@ msgid "PR Block4 title"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:56
-msgid "You can select a block column:"
+msgid "The choice of the number of columns:"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:58
@@ -859,38 +859,37 @@ msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:61
 msgid ""
-"Select the column. You click \"Save\" or \"Apply\". The column input field "
-"is increased or decreased."
+"If you change the number of columns, click to \"Save\" botton and exit the "
+"edit page. When restart the edit page, the column input form is increased or "
+"decreased."
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:68
-#: plugins/other_widget/widget-pr-blocks.php:188
+#: plugins/other_widget/widget-pr-blocks.php:166
 msgid "PR Block"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:75
-msgid "IconFont input class:"
+msgid "Class name of the icon font you want to use:"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:78
-msgid ""
-"To choose your favorite icon, and enter the class. For example, the use of "
-"「fa-rocket」"
+msgid "To choose your favorite icon, and enter the class."
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:78
+msgid " ex:fa-rocket"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:82
 msgid "Icon bg-color:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:84
-msgid "To choose your favorite icon’s background color"
-msgstr ""
-
-#: plugins/other_widget/widget-pr-blocks.php:87
+#: plugins/other_widget/widget-pr-blocks.php:86
 msgid "Select image:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:98
+#: plugins/other_widget/widget-pr-blocks.php:97
 msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 

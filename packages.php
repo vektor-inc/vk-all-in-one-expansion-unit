@@ -22,7 +22,9 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  ChildPageIndex
 /*-------------------------------------------*/
-/*  sitemap_page
+/*  Sitemap_page
+/*-------------------------------------------*/
+/*  Call To Action
 /*-------------------------------------------*/
 /*  otherWidgets
 /*-------------------------------------------*/
@@ -65,12 +67,40 @@ $required_packages[] = array(
 
 
 /*-------------------------------------------*/
-/*  sitemap_page
+/*  Sitemap_page
 /*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'sitemap_page',
     'title' => __('Display HTML Site Map', 'vkExUnit'),
     'description' => __('It displays a HTML Site Map to the specified page.', 'vkExUnit'),
+    'default' => true,
+);
+
+/*-------------------------------------------*/
+/*  Call To Action
+/*-------------------------------------------*/
+$cta_description = __('Display the CTA at the end of the post content.', 'vkExUnit');
+$cta_description .= '<br>';
+$cta_description .= __('The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit');
+$cta_description .= '<br>';
+$cta_description .= __('As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit');
+
+$required_packages[] = array(
+    'name'  => 'call_to_action',
+    'title' => __('Call To Action', 'vkExUnit'),
+    'description' => $cta_description,
+    'attr' => array(
+        array(
+            'name'=>__('Setting','vkExUnit'),
+            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
+            'enable_only' => 1,
+        ),
+        array(
+            'name'=>__('Contents setting','vkExUnit'),
+            'url'=> admin_url().'edit.php?post_type=cta',
+            'enable_only' => 1,
+        )
+    ),
     'default' => true,
 );
 

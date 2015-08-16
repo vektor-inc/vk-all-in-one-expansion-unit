@@ -1,5 +1,5 @@
 <?php
-add_filter( 'the_content', 'vkExUnit_add_relatedPosts');
+add_filter( 'the_content', 'vkExUnit_add_relatedPosts' , 800 , 1 );
 
 function vkExUnit_add_relatedPosts($content){
 
@@ -46,12 +46,12 @@ function vkExUnit_add_relatedPosts($content){
 			endif;
 			$relatedPostsHtml .= '<div class="media-body">';
 			$relatedPostsHtml .= '<div class="media-heading"><a href="'.get_the_permalink().'">'.get_the_title().'</a></div>';
-			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;'.get_the_date().'</div>';   
+			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;'.get_the_date().'</div>';
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '</div>'."\n";
 			$i++;
-		} // foreach 
+		} // foreach
 		$relatedPostsHtml .= '</div>';
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
 		$content .= $relatedPostsHtml;

@@ -33,7 +33,7 @@ function vkExUnit_get_common_options_default() {
 		'active_sns'                => true,
 		'active_ga'                 => true,
 		'active_relatedPosts'       => true,
-
+		'active_call_to_action'     => false,
 	);
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
@@ -55,5 +55,6 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_relatedPosts']      = (isset($input['active_relatedPosts'])) ? true:false;
 	$output['active_otherWidgets']      = (isset($input['active_otherWidgets'])) ? true:false;
 	$output['active_css_customize']     = (isset($input['active_css_customize'])) ? true:false;
+	$output['active_call_to_action']    = (isset($input['active_call_to_action'])) ? true:false;
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
 }
