@@ -82,10 +82,8 @@ class vExUnit_Ads {
                 $content .= '</div>';
             }
             $content .= '</aside>';
-
+            return $content;
         } //  if( get_post_type() == 'post'){
-
-       return $content;
     }
 
 
