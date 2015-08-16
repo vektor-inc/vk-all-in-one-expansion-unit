@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-13 11:42+0900\n"
+"POT-Creation-Date: 2015-08-16 20:58+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -107,25 +107,25 @@ msgstr "チャット"
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: ../packages.php:43 ../plugins/contact_section.php:71
+#: ../packages.php:45 ../plugins/contact_section.php:71
 msgid "Contact Section"
 msgstr "お問い合わせ"
 
-#: ../packages.php:44
+#: ../packages.php:46
 msgid "Display Contact Section at after content."
 msgstr "お問い合わせ情報を本文の下に表示する"
 
-#: ../packages.php:47 ../packages.php:98 ../packages.php:115
-#: ../packages.php:132 ../vkExUnit_admin.php:109 ../vkExUnit_admin.php:155
-#: ../vkExUnit_admin.php:193
+#: ../packages.php:49 ../packages.php:94 ../packages.php:128
+#: ../packages.php:145 ../packages.php:162 ../vkExUnit_admin.php:109
+#: ../vkExUnit_admin.php:155 ../vkExUnit_admin.php:193
 msgid "Setting"
 msgstr "設定"
 
-#: ../packages.php:61
+#: ../packages.php:63
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
-#: ../packages.php:62
+#: ../packages.php:64
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
@@ -133,58 +133,86 @@ msgstr ""
 "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
 "サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
-#: ../packages.php:72
+#: ../packages.php:74
 msgid "Display HTML Site Map"
 msgstr "HTMLサイトマップの表示"
 
-#: ../packages.php:73
+#: ../packages.php:75
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: ../packages.php:81
+#: ../packages.php:82 ../plugins/call_to_action/view.adminsetting.php:10
+msgid "Display the CTA at the end of the post content."
+msgstr "投稿内容の最後にCTAを表示します。"
+
+#: ../packages.php:84 ../plugins/call_to_action/view.adminsetting.php:11
+msgid ""
+"The CTA stands for \"Call to action\" and this is the area that prompts the "
+"user behavior."
+msgstr ""
+"CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
+"情報を表示します。"
+
+#: ../packages.php:86 ../plugins/call_to_action/view.adminsetting.php:12
+msgid ""
+"As an example, text message and a link button for induction to the free "
+"sample download page."
+msgstr ""
+"例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
+"ンなどです。"
+
+#: ../packages.php:90 ../plugins/call_to_action/view.adminsetting.php:6
+msgid "Call To Action"
+msgstr "Call To Action"
+
+#: ../packages.php:99
+msgid "Contents setting"
+msgstr "CTA表示内容設定"
+
+#: ../packages.php:111
 msgid "You can use various widgets."
 msgstr ""
 "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
 "「ウィジェット」の設定画面より行って下さい。"
 
-#: ../packages.php:83
+#: ../packages.php:113
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
-#: ../packages.php:84
+#: ../packages.php:114
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
-#: ../packages.php:85
+#: ../packages.php:115
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
 
-#: ../packages.php:86
+#: ../packages.php:116
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
 
-#: ../packages.php:87
+#: ../packages.php:117
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: ../packages.php:88 ../plugins/other_widget/old/widget-taxonomy-list.php:17
+#: ../packages.php:118 ../plugins/other_widget/old/widget-taxonomy-list.php:17
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: ../packages.php:88 ../plugins/other_widget/old/widget-taxonomy-list.php:11
+#: ../packages.php:118 ../plugins/other_widget/old/widget-taxonomy-list.php:11
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
-#: ../packages.php:89 ../plugins/other_widget/widget-archives.php:14
+#: ../packages.php:119 ../plugins/other_widget/widget-archives.php:14
 #: ../plugins/other_widget/old/widget-archive-list.php:14
 msgid "archive list"
 msgstr "アーカイブリスト"
 
-#: ../packages.php:89 ../plugins/other_widget/widget-archives.php:12
+#: ../packages.php:119 ../plugins/other_widget/widget-archives.php:12
 #: ../plugins/other_widget/old/widget-archive-list.php:12
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
@@ -193,35 +221,35 @@ msgstr ""
 "アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
 "プを選択できます。"
 
-#: ../packages.php:94
+#: ../packages.php:124
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: ../packages.php:111
+#: ../packages.php:141
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: ../packages.php:112
+#: ../packages.php:142
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: ../packages.php:128 ../plugins/insert_ads.php:38
+#: ../packages.php:158 ../plugins/insert_ads.php:38
 #: ../plugins/insert_ads.php:118
 msgid "Insert ads"
 msgstr "広告の挿入"
 
-#: ../packages.php:129
+#: ../packages.php:159
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: ../packages.php:145 ../vkExUnit_admin.php:233
+#: ../packages.php:175 ../vkExUnit_admin.php:233
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
-#: ../packages.php:146
+#: ../packages.php:176
 msgid "Display Eye Catch image at before content."
 msgstr ""
 "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
@@ -231,15 +259,15 @@ msgstr ""
 msgid "Enable setting"
 msgstr "有効化設定"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:273
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:280
 msgid "Select all"
 msgstr "全てを選択"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:273
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:280
 msgid "Function"
 msgstr "有効化"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:273
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:280
 msgid "Description"
 msgstr "説明"
 
@@ -632,6 +660,120 @@ msgstr "お知らせはありません。"
 #: ../plugins/page_custom_field.php:11
 msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
+
+#: ../plugins/call_to_action/class.call_to_action.php:48
+msgid "Edit CTA"
+msgstr "CTAの編集"
+
+#: ../plugins/call_to_action/class.call_to_action.php:49
+msgid "Add new CTA"
+msgstr "CTAの新規作成"
+
+#: ../plugins/call_to_action/class.call_to_action.php:50
+msgid "New CTA"
+msgstr ""
+
+#: ../plugins/call_to_action/class.call_to_action.php:76
+#: ../plugins/call_to_action/class.call_to_action.php:78
+#: ../plugins/call_to_action/class.call_to_action.php:79
+msgid "Call to Action setting"
+msgstr "CTA設定"
+
+#: ../plugins/call_to_action/class.call_to_action.php:81
+msgid "CTA Contents"
+msgstr "CTA Contents"
+
+#: ../plugins/call_to_action/class.call_to_action.php:89
+msgid "Follow common setting"
+msgstr "共通設定を使用"
+
+#: ../plugins/call_to_action/class.call_to_action.php:90
+#: ../plugins/call_to_action/class.call_to_action.php:390
+msgid "Disable display"
+msgstr "表示しない"
+
+#: ../plugins/call_to_action/class.call_to_action.php:101
+msgid "CTA common setting"
+msgstr "CTA共通設定"
+
+#: ../plugins/call_to_action/class.call_to_action.php:102
+#: ../plugins/call_to_action/view.adminsetting.php:22
+msgid "Show CTA index page"
+msgstr "CTAの一覧を表示"
+
+#: ../plugins/call_to_action/class.call_to_action.php:167
+msgid "CTA image"
+msgstr "CTA画像"
+
+#: ../plugins/call_to_action/class.call_to_action.php:173
+msgid "Add image"
+msgstr "画像を追加"
+
+#: ../plugins/call_to_action/class.call_to_action.php:174
+msgid "Change image"
+msgstr "画像を変更"
+
+#: ../plugins/call_to_action/class.call_to_action.php:175
+msgid "Remove image"
+msgstr "画像を削除"
+
+#: ../plugins/call_to_action/class.call_to_action.php:180
+msgid "CTA image position"
+msgstr "CTA画像の位置"
+
+#: ../plugins/call_to_action/class.call_to_action.php:183
+msgid "right"
+msgstr "右寄せ"
+
+#: ../plugins/call_to_action/class.call_to_action.php:184
+msgid "center"
+msgstr "中央"
+
+#: ../plugins/call_to_action/class.call_to_action.php:185
+msgid "left"
+msgstr "左寄せ"
+
+#: ../plugins/call_to_action/class.call_to_action.php:189
+msgid "Button text"
+msgstr "ボタンの表記文言"
+
+#: ../plugins/call_to_action/class.call_to_action.php:192
+msgid "Button link url"
+msgstr "ボタンのリンク先URL"
+
+#: ../plugins/call_to_action/class.call_to_action.php:195
+msgid "Text message"
+msgstr "テキストメッセージ"
+
+#: ../plugins/call_to_action/class.call_to_action.php:201
+msgid "CTA setting"
+msgstr "CTA設定"
+
+#: ../plugins/call_to_action/view.adminsetting.php:14
+msgid "How to use"
+msgstr "使い方"
+
+#: ../plugins/call_to_action/view.adminsetting.php:17
+msgid ""
+"You register the contents on \"CTA\" that you want to display to bottom of "
+"the content."
+msgstr "まずは投稿タイプCTAで、本文の最後に表示させたい内容を登録します。"
+
+#: ../plugins/call_to_action/view.adminsetting.php:18
+msgid "Choose the CTA to be displayed from the following."
+msgstr "下記のプルダウンで、投稿タイプ別に表示するCTAを選択して保存します。"
+
+#: ../plugins/call_to_action/view.adminsetting.php:19
+msgid ""
+"If you want to switch the CTA to be displayed on each post, please set in "
+"the details page of such posting."
+msgstr ""
+"投稿毎に表示するCTAを切り替えたい場合は、投稿などの詳細ページで設定してくださ"
+"い。"
+
+#: ../plugins/call_to_action/view.adminsetting.php:32
+msgid "Show index page"
+msgstr "一覧ページを表示する"
 
 #: ../plugins/child_page_index/child_page_index.php:42
 #: ../plugins/other_widget/widget-3pr-area.php:274
@@ -1423,6 +1565,13 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 msgid "Page top"
 msgstr "ページ先頭へ"
 
+#, fuzzy
+#~ msgid "Post each setting."
+#~ msgstr "3PR エリア1 設定"
+
+#~ msgid "Master Setting"
+#~ msgstr "設定"
+
 #~ msgid ""
 #~ "To choose your favorite icon, and enter the class. For example, the use "
 #~ "of 「fa-rocket」"
@@ -1490,9 +1639,6 @@ msgstr "ページ先頭へ"
 
 #~ msgid "WebClip Setting"
 #~ msgstr "ウェブクリップ設定"
-
-#~ msgid "Choose image"
-#~ msgstr "画像を選択"
 
 #~ msgid ""
 #~ "Description of meta tags in the search results screen of search sites "

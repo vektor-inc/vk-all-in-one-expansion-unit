@@ -1,6 +1,6 @@
 <?php
 
-$url_title = get_post_meta( $id, 'vkExUnit_cta_button_title', true );
+$url_title = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
 $url       = get_post_meta( $id, 'vkExUnit_cta_url', true );
 $text      = get_post_meta( $id, 'vkExUnit_cta_text', true);
 $text = preg_replace('/\n/', '<br/>', $text);

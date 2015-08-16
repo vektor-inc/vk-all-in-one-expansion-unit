@@ -91,13 +91,16 @@ class vExUnit_call_responce {
         $now     = get_post_meta(get_the_id(),'vkexunit_cta_each_option', true);
         ?>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
-<table class="form-table"><tr>
-<th><?php _e('Post each setting.', 'vkExUnit'); ?></th>
-<td><select name="vkexunit_cta_each_option" id="vkexunit_cta_each_option">
+
+<select name="vkexunit_cta_each_option" id="vkexunit_cta_each_option">
 <?php foreach($ctas as $cta): ?>
     <option value="<?php echo $cta['key'] ?>" <?php echo($cta['key'] == $now)? 'selected':''; ?> ><?php echo $cta['label'] ?></option>
 <?php endforeach; ?>
-</select></td></tr></table>
+</select>
+<p>
+<a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>" class="button button-default" target="_blank"><?php _e('CTA common setting', 'vkExUnit'); ?></a>
+<a href="<?php echo admin_url('edit.php?post_type=cta') ?>" class="button button-default" target="_blank"><?php _e('Show CTA index page', 'vkExUnit'); ?></a>
+</p>
         <?php
     }
 
@@ -174,7 +177,7 @@ jQuery(document).ready(function($){
     <input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
 </td>
 </tr>
-<tr><th><label for="vkExUnit_cta_img_position"><?php _e('Image position', 'vkExUnit'); ?></label></th>
+<tr><th><label for="vkExUnit_cta_img_position"><?php _e('CTA image position', 'vkExUnit'); ?></label></th>
 <td>
     <select name="vkExUnit_cta_img_position" id="vkExUnit_cta_img_position">
         <option value="right" <?php echo ($image_position == 'right')? 'selected' : ''; ?> ><?php _e('right', 'vkExUnit'); ?></option>
@@ -183,13 +186,13 @@ jQuery(document).ready(function($){
     </select>
 </td></tr>
 <tr><th>
-<label for="vkExUnit_cta_button_title"><?php _e('Button title', 'vkExUnit'); ?></label></th><td>
-<input type="text" name="vkExUnit_cta_button_title" id="vkExUnit_cta_button_title" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_button_title', true); ?>" />
+<label for="vkExUnit_cta_button_text"><?php _e('Button text', 'vkExUnit'); ?></label></th><td>
+<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_button_text', true); ?>" />
 </td></tr><tr><th>
 <label for="vkExUnit_cta_url"><?php _e('Button link url', 'vkExUnit'); ?></label></th><td>
 <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_url', true); ?>" />
 </td></tr>
-<tr><th><label for="vkExUnit_cta_text"><?php _e('Text', 'vkExUnit'); ?>
+<tr><th><label for="vkExUnit_cta_text"><?php _e('Text message', 'vkExUnit'); ?>
 </th>
 <td>
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_text', true); ?></textarea>
@@ -243,13 +246,13 @@ jQuery(document).ready(function($){
                 delete_post_meta($post_id, 'vkExUnit_cta_img_position', get_post_meta($post_id, 'vkExUnit_cta_img_position', true));
             }
 
-            $data = stripslashes($_POST['vkExUnit_cta_button_title']);
-            if(get_post_meta($post_id, 'vkExUnit_cta_button_title') == ""){
-                add_post_meta($post_id, 'vkExUnit_cta_button_title', $data, true);
-            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_button_title', true)){
-                update_post_meta($post_id, 'vkExUnit_cta_button_title', $data);
+            $data = stripslashes($_POST['vkExUnit_cta_button_text']);
+            if(get_post_meta($post_id, 'vkExUnit_cta_button_text') == ""){
+                add_post_meta($post_id, 'vkExUnit_cta_button_text', $data, true);
+            }elseif($data != get_post_meta($post_id, 'vkExUnit_cta_button_text', true)){
+                update_post_meta($post_id, 'vkExUnit_cta_button_text', $data);
             }elseif(!$data){
-                delete_post_meta($post_id, 'vkExUnit_cta_button_title', get_post_meta($post_id, 'vkExUnit_cta_button_title', true));
+                delete_post_meta($post_id, 'vkExUnit_cta_button_text', get_post_meta($post_id, 'vkExUnit_cta_button_text', true));
             }
 
             $data = $_POST['vkExUnit_cta_url'];

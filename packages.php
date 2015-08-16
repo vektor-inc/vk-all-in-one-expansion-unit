@@ -79,13 +79,19 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  Call To Action
 /*-------------------------------------------*/
+$cta_description = __('Display the CTA at the end of the post content.', 'vkExUnit');
+$cta_description .= '<br>';
+$cta_description .= __('The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit');
+$cta_description .= '<br>';
+$cta_description .= __('As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit');
+
 $required_packages[] = array(
     'name'  => 'call_to_action',
     'title' => __('Call To Action', 'vkExUnit'),
-    'description' => __('Displays the PR contents and link at the bottom of the content.', 'vkExUnit'),
+    'description' => $cta_description,
     'attr' => array(
         array(
-            'name'=>__('Master Setting','vkExUnit'),
+            'name'=>__('Setting','vkExUnit'),
             'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
             'enable_only' => 1,
         ),
