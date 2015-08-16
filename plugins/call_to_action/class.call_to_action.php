@@ -45,9 +45,9 @@ class vExUnit_call_responce {
         $labels = array(
             'name'          => 'CTA',
             'singular_name' => 'CTA',
-            'edit_item'     => __('new CTA', 'vkExUnit'),
-            'add_new_item'  => __('add new CTA', 'vkExUnit'),
-            'new_item'      => __('new CTA', 'vkExUnit'),
+            'edit_item'     => __('Edit CTA', 'vkExUnit'),
+            'add_new_item'  => __('Add new CTA', 'vkExUnit'),
+            'new_item'      => __('New CTA', 'vkExUnit'),
         );
 
         $args = array(
@@ -167,9 +167,9 @@ jQuery(document).ready(function($){
         <img id="cta-thumbnail_image" src="<?php echo ($cta_image)? $cta_image[0] : ''; ?>" class="<?php echo ($cta_image)? '' : 'noimage'; ?>" />
     </div>
     <div id="cta-thumbnail_control" class="<?php echo ($cta_image)? 'change' : 'add'; ?>">
-        <button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e('add image', 'vkExUnit'); ?></button>
-        <button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e('change image', 'vkExUnit'); ?></button>
-        <button id="media_thumb_url_remove" class="button button-default"><?php _e('remove image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e('Add image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e('Change image', 'vkExUnit'); ?></button>
+        <button id="media_thumb_url_remove" class="button button-default"><?php _e('Remove image', 'vkExUnit'); ?></button>
     </div>
     <input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
 </td>
@@ -195,7 +195,7 @@ jQuery(document).ready(function($){
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta(get_the_id(), 'vkExUnit_cta_text', true); ?></textarea>
 </td></tr>
 </table>
-<a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>" class="button button-default"><?php _e('CTA setting', 'vkExUnit'); ?></a>
+<a href="<?php echo admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings'); ?>" class="button button-default" target="_blank"><?php _e('CTA setting', 'vkExUnit'); ?></a>
         <?php
     }
 

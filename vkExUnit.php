@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 2.0.0
+Version: 2.0.1
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -206,11 +206,11 @@ function vkExUnit_admin_enq(){
 /*	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
 /*-------------------------------------------*/
 
-add_action("admin_head", 'suffix2console');
-function suffix2console() {
-    global $hook_suffix;
-    if (is_user_logged_in()) {
-        $str = "<script type=\"text/javascript\">console.log('%s')</script>";
-        printf($str, $hook_suffix);
-    }
-}
+// add_action("admin_head", 'vkExUnit_suffix2console');
+// function vkExUnit_suffix2console() {
+//     global $hook_suffix;
+//     if (is_user_logged_in()) {
+//         $str = "<script type=\"text/javascript\">console.log('%s')</script>";
+//         printf($str, $hook_suffix);
+//     }
+// }

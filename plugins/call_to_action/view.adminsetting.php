@@ -1,3 +1,8 @@
+<?php
+/*
+Main setting Page
+*/
+?>
 <h3><?php _e('Call To Action', 'vkExUnit'); ?></h3>
 
 <div id="on_setting" class="sectionBox">

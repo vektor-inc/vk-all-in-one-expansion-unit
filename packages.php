@@ -82,7 +82,7 @@ $required_packages[] = array(
 $required_packages[] = array(
     'name'  => 'call_to_action',
     'title' => __('Call To Action', 'vkExUnit'),
-    'description' => __('Displays the PR contents and link at the end of the content.', 'vkExUnit'),
+    'description' => __('Displays the PR contents and link at the bottom of the content.', 'vkExUnit'),
     'attr' => array(
         array(
             'name'=>__('Master Setting','vkExUnit'),
