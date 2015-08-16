@@ -29,9 +29,8 @@ class vExUnit_Ads {
     protected function run_init() {
         add_action('admin_init', array($this, 'option_init' ));
         add_filter('the_content',    array($this, 'set_content' ), 1);
-        add_shortcode('vkExUnit_ad', array($this, 'shortcode') );
+        add_shortcode('vkExUnit_ad', array($this, 'shortcode') );   
     }
-
 
     public function option_init() {
         vkExUnit_register_setting(
@@ -66,20 +65,25 @@ class vExUnit_Ads {
 
 
     private function render_ad( $ads ,$area='more'){
-        if( !$ads[0] ) return '';
-        $class = "col-md-12";
-        if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
+        // Display only post
+        if( get_post_type() == 'post'){
 
-        $content = '';
-        $content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
-        foreach($ads as $ad){
-            if(!$ad) break;
+            if( !$ads[0] ) return '';
+            $class = "col-md-12";
+            if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
 
-            $content .= '<div class="'.$class.'">';
-            $content .= $ad;
-            $content .= '</div>';
-        }
-        $content .= '</aside>';
+            $content = '';
+            $content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
+            foreach($ads as $ad){
+                if(!$ad) break;
+
+                $content .= '<div class="'.$class.'">';
+                $content .= $ad;
+                $content .= '</div>';
+            }
+            $content .= '</aside>';
+
+        } //  if( get_post_type() == 'post'){
 
        return $content;
     }
