@@ -286,9 +286,9 @@
 <button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;"><?php _e('Extension Setting', 'vkExUnit'); ?></button>
 <table class="form-table" id="vkEx_extention" style="display:none;">
 <tr>
-<th><?php _e('plugins option','vkExUnit'); ?></th>
+<th><?php _e('Plugin setting options','vkExUnit'); ?></th>
 <td><label><input type="checkbox" name="vkExUnit_common_options[delete_options_at_deactivate]" value="true" <?php echo (isset($options['delete_options_at_deactivate']) && $options['delete_options_at_deactivate'])? 'checked':''; ?> />
-<?php _e('delete this plugins options at deactivate.', 'vkExUnit'); ?></label></td>
+<?php _e('Delete myOptions when deactivate me.', 'vkExUnit'); ?></label></td>
 </tr>
 </table>
 <?php submit_button(); ?>
