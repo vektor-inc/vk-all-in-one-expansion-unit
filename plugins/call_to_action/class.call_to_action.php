@@ -320,8 +320,15 @@ jQuery(document).ready(function($){
 
 
     public function content_filter( $content ){
+        if( self::is_pagewidget() ) return $content;
         $content .= self::render_cta_content( $this->is_cta_id() );
         return $content;
+    }
+
+
+    public static function is_pagewidget(){
+        global $is_pagewidget;
+        return ($is_pagewidget)? true : false;
     }
 
 

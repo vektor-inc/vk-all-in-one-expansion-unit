@@ -15,7 +15,10 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 	
 	function widget($args, $instance){
+		global $is_pagewidget;
+		$is_pagewidget = true;
 		$this->display_page($instance['page_id'],$instance['set_title']);
+		$is_pagewidget = false;
 	}
 
 	function form($instance){
@@ -52,9 +55,9 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$page = get_page($pageid);
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget widget_pageContent">'.PHP_EOL;
 		if($titleflag){ echo '<h1 class="widget-title">'.$page->post_title.'</h1>'.PHP_EOL; }
-		remove_filter( 'the_content', 'vkExUnit_add_snsBtns' );	
+		remove_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );	
 		echo apply_filters('the_content', $page->post_content );
-		add_filter( 'the_content', 'vkExUnit_add_snsBtns');
+		add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1);
 		
 		if ( is_user_logged_in() == TRUE ) {
 			global $user_level;
