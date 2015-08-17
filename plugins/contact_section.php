@@ -131,13 +131,16 @@ class vExUnit_Contact {
 
 
     public function render_meta_box() {
-        $enable = get_post_meta(get_the_id(), 'vkExUnit_contact_enable', true);
-    ?>
+        $enable = get_post_meta(get_the_id(), 'vkExUnit_contact_enable', true); ?>
+
+<div>
 <input type="hidden" name="_nonce_vkExUnit_contact" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
-<br/>
 <label for="vkExUnit_contact">
-<input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable" <?php echo ($enable)? 'checked' : ''; ?> />
-<?php _e('Display Contact Section','vkExUnit'); ?></label>
+    <input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable"<?php echo ($enable)? ' checked' : ''; ?> />
+    <?php _e('Display Contact Section','vkExUnit'); ?>
+</label>
+</div>
+
     <?php
     }
 
