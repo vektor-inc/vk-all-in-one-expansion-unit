@@ -4,6 +4,9 @@
  // is_single()
 
 function vkExUnit_add_snsBtns($content){
+    global $is_pagewidget;
+    if( $is_pagewidget ) return $content;
+
 	if (is_single() || is_page()) :
 		if (is_home() || is_front_page()) {
 			$linkUrl = home_url();
