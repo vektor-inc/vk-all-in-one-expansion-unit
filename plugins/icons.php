@@ -5,31 +5,34 @@
  *
  * @package  VkExUnit
  * @author   shoji imamura<imamura@vektor-inc.co.jp>
- * @version  0.1.2.0
  * @since    8/Jul/2015
  */
 
 class vExUnit_icons {
-    // singleton instance
-    private static $instance;
- 
-    public static function instance() {
-        if ( isset( self::$instance ) )
-            return self::$instance;
- 
-        self::$instance = new vExUnit_icons;
-        self::$instance->run_init();
-        return self::$instance;
-    }
- 
-    private function __construct() {
-    }
- 
-    protected function run_init() {
-        add_action('admin_init', array($this, 'option_init' ));
+	// singleton instance
+	private static $instance;
+
+	public static function instance() {
+		if ( isset( self::$instance ) )
+			return self::$instance;
+
+		self::$instance = new vExUnit_icons;
+		self::$instance->run_init();
+		return self::$instance;
+	}
+
+
+	private function __construct() {
+		/***    do noting    ***/
+	}
+
+
+	protected function run_init() {
+		add_action('admin_init', array($this, 'option_init' ));
 		add_action('wp_head',    array($this, 'output_tag' ));
-    }
- 
+	}
+
+
 	public function option_init() {
 		vkExUnit_register_setting(
 			__('icon setting', 'vkExUnit'), 	// tab label.
@@ -39,10 +42,12 @@ class vExUnit_icons {
 		);
 	}
 
+
 	public static function get_default_option(){
 		$option = '';
 		return $option;
 	}
+
 
 	public function sanitize_config( $option ){
 
@@ -86,5 +91,5 @@ class vExUnit_icons {
 	}
 
 }
- 
+
 vExUnit_icons::instance();
