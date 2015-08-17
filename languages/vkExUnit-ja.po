@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-16 20:58+0900\n"
+"POT-Creation-Date: 2015-08-17 19:08+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -23,6 +23,7 @@ msgstr "メイン設定"
 #: ../admin_wrapper.php:52
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
+"有効化されているパッケージがありません。何かの機能を有効化してください。"
 
 #: ../common_helpers.php:126
 #, php-format
@@ -103,7 +104,6 @@ msgid "Chats"
 msgstr "チャット"
 
 #: ../common_helpers.php:270 ../plugins/other_widget/widget-taxonomies.php:79
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:81
 msgid "Archives"
 msgstr "アーカイブ"
 
@@ -199,21 +199,19 @@ msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します�
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: ../packages.php:118 ../plugins/other_widget/old/widget-taxonomy-list.php:17
+#: ../packages.php:118
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: ../packages.php:118 ../plugins/other_widget/old/widget-taxonomy-list.php:11
+#: ../packages.php:118
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
 #: ../packages.php:119 ../plugins/other_widget/widget-archives.php:14
-#: ../plugins/other_widget/old/widget-archive-list.php:14
 msgid "archive list"
 msgstr "アーカイブリスト"
 
 #: ../packages.php:119 ../plugins/other_widget/widget-archives.php:12
-#: ../plugins/other_widget/old/widget-archive-list.php:12
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
@@ -236,7 +234,7 @@ msgstr ""
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: ../packages.php:158 ../plugins/insert_ads.php:38
+#: ../packages.php:158 ../plugins/insert_ads.php:39
 #: ../plugins/insert_ads.php:118
 msgid "Insert ads"
 msgstr "広告の挿入"
@@ -425,6 +423,7 @@ msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
 
 #: ../plugins/contact_section.php:47
+#: ../plugins/other_widget/widget-pr-blocks.php:43
 msgid "Contact"
 msgstr ""
 
@@ -494,7 +493,7 @@ msgstr "お気軽にお問い合わせください。"
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: ../plugins/contact_section.php:222
+#: ../plugins/contact_section.php:225
 msgid "Edit contact information"
 msgstr ""
 
@@ -688,7 +687,7 @@ msgid "Follow common setting"
 msgstr "共通設定を使用"
 
 #: ../plugins/call_to_action/class.call_to_action.php:90
-#: ../plugins/call_to_action/class.call_to_action.php:390
+#: ../plugins/call_to_action/class.call_to_action.php:397
 msgid "Disable display"
 msgstr "表示しない"
 
@@ -775,22 +774,16 @@ msgstr ""
 msgid "Show index page"
 msgstr "一覧ページを表示する"
 
-#: ../plugins/child_page_index/child_page_index.php:42
+#: ../plugins/child_page_index/child_page_index.php:40
 #: ../plugins/other_widget/widget-3pr-area.php:274
 #: ../plugins/other_widget/widget-3pr-area.php:316
 #: ../plugins/other_widget/widget-3pr-area.php:359
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: ../plugins/child_page_index/child_page_index.php:75
-#: ../plugins/sitemap_page/sitemap_page.php:201
-msgid "Choose display a child page index"
-msgstr "子ページの一覧を表示するか選択"
-
-#: ../plugins/child_page_index/child_page_index.php:80
-msgid "if checked you will display a child page index "
-msgstr ""
-"チェックを入れると個別ページ下へ同じ親ページをもつ子ページ一覧を表示します。"
+#: ../plugins/child_page_index/child_page_index.php:76
+msgid "Display a child page index"
+msgstr "子ページ一覧の表示"
 
 #: ../plugins/css_customize/css_customize-edit.php:2
 #: ../plugins/css_customize/css_customize.php:35
@@ -943,18 +936,14 @@ msgstr "3PR エリア3 設定"
 
 #: ../plugins/other_widget/widget-archives.php:50
 #: ../plugins/other_widget/widget-archives.php:51
-#: ../plugins/other_widget/old/widget-archive-list.php:49
-#: ../plugins/other_widget/old/widget-archive-list.php:50
 msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: ../plugins/other_widget/widget-archives.php:60
-#: ../plugins/other_widget/old/widget-archive-list.php:59
 msgid "Title"
 msgstr "タイトル"
 
 #: ../plugins/other_widget/widget-archives.php:64
-#: ../plugins/other_widget/old/widget-archive-list.php:63
 msgid "Post type"
 msgstr "ポストタイプ"
 
@@ -1010,20 +999,16 @@ msgstr "選択したページの内容を表示します。"
 msgid "page content to widget"
 msgstr "固定ページ本文"
 
-#: ../plugins/other_widget/widget-page.php:30
+#: ../plugins/other_widget/widget-page.php:33
 #: ../plugins/other_widget/widget-taxonomies.php:58
-#: ../plugins/other_widget/old/widget-page-content.php:30
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:61
 msgid "Display page"
 msgstr "ページを表示"
 
-#: ../plugins/other_widget/widget-page.php:38
-#: ../plugins/other_widget/old/widget-page-content.php:38
+#: ../plugins/other_widget/widget-page.php:41
 msgid "display title"
 msgstr "タイトルを表示"
 
-#: ../plugins/other_widget/widget-page.php:64
-#: ../plugins/other_widget/old/widget-page-content.php:61
+#: ../plugins/other_widget/widget-page.php:65
 msgid "Edit"
 msgstr "編集"
 
@@ -1033,23 +1018,19 @@ msgstr ""
 
 #: ../plugins/other_widget/widget-pr-blocks.php:12
 msgid "PR Blocks"
-msgstr ""
+msgstr "PR Blocks"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:19
-msgid "PR Block1 title"
-msgstr "PR ブロック1 タイトル"
+msgid "Service"
+msgstr "サービス紹介"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:27
-msgid "PR Block2 title"
-msgstr "PR ブロック2 タイトル"
+msgid "Company"
+msgstr "会社案内"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:35
-msgid "PR Block3 title"
-msgstr "PR ブロック3 タイトル"
-
-#: ../plugins/other_widget/widget-pr-blocks.php:43
-msgid "PR Block4 title"
-msgstr "PR ブロック4 タイトル"
+msgid "Recruit"
+msgstr "採用情報"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:56
 msgid "The choice of the number of columns:"
@@ -1086,8 +1067,8 @@ msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:78
-msgid " ex:fa-rocket"
-msgstr "例: fa-rocket"
+msgid " ex:fa-file-text-o"
+msgstr "例:fa-file-text-o"
 
 #: ../plugins/other_widget/widget-pr-blocks.php:82
 msgid "Icon bg-color:"
@@ -1177,18 +1158,14 @@ msgstr "カテゴリー/カスタム分類リスト"
 
 #: ../plugins/other_widget/widget-taxonomies.php:45
 #: ../plugins/other_widget/widget-taxonomies.php:46
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:48
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:49
 msgid "Category"
 msgstr "カテゴリー"
 
 #: ../plugins/other_widget/widget-taxonomies.php:54
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:57
 msgid "Label to display"
 msgstr "表示するラベル"
 
 #: ../plugins/other_widget/widget-taxonomies.php:74
-#: ../plugins/other_widget/old/widget-taxonomy-list.php:76
 msgid "Blog"
 msgstr "ブログ"
 
@@ -1199,14 +1176,6 @@ msgstr "現在のページの子ページのリストを表示します。"
 #: ../plugins/other_widget/old/widget-child-page-list.php:11
 msgid "child pages list"
 msgstr "子ページのリスト"
-
-#: ../plugins/other_widget/old/widget-page-content.php:10
-msgid "Displays the content of a chosen page."
-msgstr "選択したページの内容を表示します。"
-
-#: ../plugins/other_widget/old/widget-page-content.php:12
-msgid "page content for top"
-msgstr "固定ページ本文"
 
 #: ../plugins/other_widget/old/widget-rss-widget.php:9
 msgid "Displays entries list from a RSS feed link."
@@ -1242,13 +1211,13 @@ msgid ""
 "that you want to exclude."
 msgstr "複数のページを除外する場合は , （コンマ）で区切って入力してください。"
 
-#: ../plugins/sitemap_page/sitemap_page.php:17
+#: ../plugins/sitemap_page/sitemap_page.php:31
 msgid "HTML Sitemap"
 msgstr "HTMLサイトマップ"
 
-#: ../plugins/sitemap_page/sitemap_page.php:206
-msgid "if checked you will display a sitemap"
-msgstr "チェックを入れるとHTMLサイトマップを表示します。"
+#: ../plugins/sitemap_page/sitemap_page.php:222
+msgid "Display a HTML sitemap"
+msgstr "HTMLサイトマップの表示"
 
 #: ../plugins/sns/function_fbPagePlugin.php:10
 msgid "Displays a Facebook Page Plugin"
@@ -1565,6 +1534,38 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 msgid "Page top"
 msgstr "ページ先頭へ"
 
+#~ msgid "Choose display a child page index"
+#~ msgstr "子ページの一覧を表示するか選択"
+
+#~ msgid "Displays the content of a chosen page."
+#~ msgstr "選択したページの内容を表示します。"
+
+#~ msgid "page content for top"
+#~ msgstr "固定ページ本文"
+
+#~ msgid "if checked you will display a child page index "
+#~ msgstr ""
+#~ "チェックを入れると個別ページ下へ同じ親ページをもつ子ページ一覧を表示しま"
+#~ "す。"
+
+#~ msgid "PR Block1 title"
+#~ msgstr "PR ブロック1 タイトル"
+
+#~ msgid "PR Block2 title"
+#~ msgstr "PR ブロック2 タイトル"
+
+#~ msgid "PR Block3 title"
+#~ msgstr "PR ブロック3 タイトル"
+
+#~ msgid "PR Block4 title"
+#~ msgstr "PR ブロック4 タイトル"
+
+#~ msgid " ex:fa-rocket"
+#~ msgstr "例: fa-rocket"
+
+#~ msgid "if checked you will display a sitemap"
+#~ msgstr "チェックを入れるとHTMLサイトマップを表示します。"
+
 #, fuzzy
 #~ msgid "Post each setting."
 #~ msgstr "3PR エリア1 設定"
@@ -1620,9 +1621,6 @@ msgstr "ページ先頭へ"
 #, fuzzy
 #~ msgid "Media float setting:"
 #~ msgstr "メイン設定"
-
-#~ msgid "Display a child page index"
-#~ msgstr "子ページ一覧の表示"
 
 #~ msgid "Other Widgets"
 #~ msgstr "Other ウィジェット"
