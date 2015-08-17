@@ -5,33 +5,36 @@
  *
  * @package  VkExUnit
  * @author   shoji imamura<imamura@vektor-inc.co.jp>
- * @version  0.0.0.0
  * @since    26/Jun/2015
  */
 
 class vExUnit_meta_keywords {
-    // singleton instance
-    private static $instance;
- 
-    public static function instance() {
-        if ( isset( self::$instance ) )
-            return self::$instance;
- 
-        self::$instance = new vExUnit_meta_keywords;
-        self::$instance->run_init();
-        return self::$instance;
-    }
- 
-    private function __construct() {
-    }
- 
-    protected function run_init() {
-        add_action('admin_init', array($this, 'option_init' ));
+
+	private static $instance;
+
+	public static function instance() {
+		if ( isset( self::$instance ) )
+			return self::$instance;
+
+		self::$instance = new vExUnit_meta_keywords;
+		self::$instance->run_init();
+		return self::$instance;
+	}
+
+
+	private function __construct() {
+		/***    do noting    ***/
+	}
+
+
+	protected function run_init() {
+		add_action('admin_init', array($this, 'option_init' ));
 		add_action('admin_menu', array($this, 'add_custom_field'));
 		add_action('save_post' , array($this, 'save_custom_field'));
 		add_action('wp_head',    array($this, 'set_HeadKeywords' ), 1);
-    }
- 
+	}
+
+
 	public function option_init() {
 		vkExUnit_register_setting(
 			__('Meta Keywords', 'vkExUnit'), 	    // tab label.
@@ -41,10 +44,12 @@ class vExUnit_meta_keywords {
 		);
 	}
 
+
 	public function get_default_option(){
 		$option = '';
 		return $option;
 	}
+
 
 	public function sanitize_config( $option ){
 		$option = preg_replace('/^,*(.+)$/', '$1', $option);
@@ -89,6 +94,7 @@ class vExUnit_meta_keywords {
 		add_meta_box('div1', __('Meta Keywords', 'vkExUnit'), array( $this, 'render_meta_box' ), 'post', 'normal', 'high');
 	}
 
+
 	public function render_meta_box(){
 		global $post;
 		echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_metaKeyword" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
@@ -99,12 +105,13 @@ class vExUnit_meta_keywords {
 		echo '</p>';
 	}
 
+
 	public function save_custom_field($post_id){
 		$metaKeyword = isset($_POST['_nonce_vkExUnit__custom_field_metaKeyword']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_metaKeyword']) : null;
 
-	    // if autosave is to deny
-	    if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
-	       return $post_id;
+		// if autosave is to deny
+		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
+		   return $post_id;
 
 		if(!wp_verify_nonce($metaKeyword, plugin_basename(__FILE__))){
 			return $post_id;
@@ -126,15 +133,17 @@ class vExUnit_meta_keywords {
 		}
 	}
 
+
 	public function get_postKeyword(){
 		$post_id = get_the_id();
-		
+
 		if(empty($post_id))
 			return null;
 
 		$keyword = get_post_meta($post_id, 'vkExUnit_metaKeyword', true);
 		return $keyword;
 	}
+
 
 	public function set_HeadKeywords(){
 		$commonKeyWords = self::get_option();
@@ -148,7 +157,6 @@ class vExUnit_meta_keywords {
 		if(!$key){ return; }
 		echo '<meta name="keywords" content="' . $key. '" />'."\n";
 	}
-
 }
- 
+
 vExUnit_meta_keywords::instance();

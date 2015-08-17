@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-17 19:08+0900\n"
+"POT-Creation-Date: 2015-08-17 19:28+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin_wrapper.php:7 ../admin_wrapper.php:8
-#: ../plugins/meta_keyword.php:97
+#: ../plugins/meta_keyword.php:103
 msgid "Main setting"
 msgstr "メイン設定"
 
-#: ../admin_wrapper.php:52
+#: ../admin_wrapper.php:51
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
@@ -107,7 +107,7 @@ msgstr "チャット"
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: ../packages.php:45 ../plugins/contact_section.php:71
+#: ../packages.php:45 ../plugins/contact_section.php:70
 msgid "Contact Section"
 msgstr "お問い合わせ"
 
@@ -414,34 +414,34 @@ msgstr "関連記事を表示"
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: ../plugins/auto_eyecatch.php:41
+#: ../plugins/auto_eyecatch.php:40
 msgid "Automatic EyeCatch"
 msgstr "アイキャッチ自動挿入"
 
-#: ../plugins/auto_eyecatch.php:51
+#: ../plugins/auto_eyecatch.php:50
 msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
 
-#: ../plugins/contact_section.php:47
+#: ../plugins/contact_section.php:46
 #: ../plugins/other_widget/widget-pr-blocks.php:43
 msgid "Contact"
 msgstr ""
 
-#: ../plugins/contact_section.php:57 ../plugins/contact_section.php:78
+#: ../plugins/contact_section.php:56 ../plugins/contact_section.php:77
 msgid "Please feel free to inquire."
 msgstr "お気軽にお問い合わせください。"
 
-#: ../plugins/contact_section.php:59
+#: ../plugins/contact_section.php:58
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 
-#: ../plugins/contact_section.php:75
+#: ../plugins/contact_section.php:74
 msgid "Message"
 msgstr "メッセージ"
 
-#: ../plugins/contact_section.php:78 ../plugins/contact_section.php:85
-#: ../plugins/contact_section.php:92 ../plugins/contact_section.php:100
-#: ../plugins/contact_section.php:108 ../plugins/contact_section.php:116
+#: ../plugins/contact_section.php:77 ../plugins/contact_section.php:84
+#: ../plugins/contact_section.php:91 ../plugins/contact_section.php:99
+#: ../plugins/contact_section.php:107 ../plugins/contact_section.php:115
 #: ../plugins/google_analytics/ga_admin.php:16 ../plugins/sns/sns_admin.php:31
 #: ../plugins/sns/old/sns_admin.php:20 ../plugins/sns/old/sns_admin.php:61
 #: ../plugins/sns/old/sns_admin.php:79 ../plugins/sns/old/sns_admin.php:98
@@ -449,43 +449,43 @@ msgstr "メッセージ"
 msgid "ex) "
 msgstr "例: "
 
-#: ../plugins/contact_section.php:82
+#: ../plugins/contact_section.php:81
 msgid "Phone number"
 msgstr "電話番号"
 
-#: ../plugins/contact_section.php:89 ../plugins/contact_section.php:92
+#: ../plugins/contact_section.php:88 ../plugins/contact_section.php:91
 msgid "Office hours"
 msgstr "営業時間"
 
-#: ../plugins/contact_section.php:92
+#: ../plugins/contact_section.php:91
 msgid "Weekdays except holidays"
 msgstr ""
 
-#: ../plugins/contact_section.php:97
+#: ../plugins/contact_section.php:96
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
-#: ../plugins/contact_section.php:100
+#: ../plugins/contact_section.php:99
 msgid "or"
 msgstr ""
 
-#: ../plugins/contact_section.php:101
+#: ../plugins/contact_section.php:100
 msgid "* If you fill in the blank, contact button does not appear."
 msgstr "未入力の場合はお問い合わせボタンは表示されません。"
 
-#: ../plugins/contact_section.php:105
+#: ../plugins/contact_section.php:104
 msgid "Contact button Text."
 msgstr "お問い合わせボタンに表示するテキスト"
 
-#: ../plugins/contact_section.php:108
+#: ../plugins/contact_section.php:107
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
-#: ../plugins/contact_section.php:113
+#: ../plugins/contact_section.php:112
 msgid "Contact button Text. ( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
-#: ../plugins/contact_section.php:117
+#: ../plugins/contact_section.php:116
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
@@ -493,7 +493,7 @@ msgstr "お気軽にお問い合わせください。"
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: ../plugins/contact_section.php:225
+#: ../plugins/contact_section.php:215
 msgid "Edit contact information"
 msgstr ""
 
@@ -517,19 +517,19 @@ msgstr ""
 "in One Expansion Unit</a> by <a href=\"http://www.vektor-inc.co.jp\" target="
 "\"_blank\">Vektor,Inc.</a> technology.</p>"
 
-#: ../plugins/icons.php:35 ../plugins/icons.php:63
+#: ../plugins/icons.php:38 ../plugins/icons.php:68
 msgid "icon setting"
 msgstr "アイコン設定"
 
-#: ../plugins/icons.php:68
+#: ../plugins/icons.php:73
 msgid "Favicon Setting"
 msgstr "ファビコン設定"
 
-#: ../plugins/icons.php:70
+#: ../plugins/icons.php:75
 msgid "Choose icon"
 msgstr "アイコンを選択"
 
-#: ../plugins/icons.php:71
+#: ../plugins/icons.php:76
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
@@ -553,12 +553,12 @@ msgstr "広告を挿入 [ moreタグ ]"
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 
-#: ../plugins/meta_description.php:21 ../plugins/meta_description.php:32
-#: ../plugins/meta_description.php:35
+#: ../plugins/meta_description.php:20 ../plugins/meta_description.php:31
+#: ../plugins/meta_description.php:34
 msgid "Meta Description"
 msgstr "メタディスクリプション"
 
-#: ../plugins/meta_description.php:38
+#: ../plugins/meta_description.php:37
 msgid ""
 "What you have to complete the \"excerpt\" column of the edit screen of each "
 "page will be reflected in the description of the meta tag."
@@ -566,7 +566,7 @@ msgstr ""
 "各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプションに"
 "反映されます"
 
-#: ../plugins/meta_description.php:39
+#: ../plugins/meta_description.php:38
 msgid ""
 "Description of meta tags in the search results screen of search sites such "
 "as Google, will be Displayed, such as the bottom of the site title. If the "
@@ -577,7 +577,7 @@ msgstr ""
 "す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
 "内容が反映されます。"
 
-#: ../plugins/meta_description.php:40
+#: ../plugins/meta_description.php:39
 msgid ""
 "The meta description of the top page is subject to the catchphrase of the "
 "site. However, its contents will be reflected if the excerpt is entered in "
@@ -587,7 +587,7 @@ msgstr ""
 "す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
 "内容が反映されます。"
 
-#: ../plugins/meta_description.php:41
+#: ../plugins/meta_description.php:40
 msgid ""
 "If \"excerpt\" column is not found, Click \"Display Option\" of page top at "
 "each article edit page, and check the expert column display."
@@ -596,21 +596,21 @@ msgstr ""
 "ので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきますの"
 "で、チェックして下さい。"
 
-#: ../plugins/meta_keyword.php:37 ../plugins/meta_keyword.php:86
-#: ../plugins/meta_keyword.php:88 ../plugins/meta_keyword.php:89
-#: ../plugins/meta_keyword.php:95
+#: ../plugins/meta_keyword.php:40 ../plugins/meta_keyword.php:91
+#: ../plugins/meta_keyword.php:93 ../plugins/meta_keyword.php:94
+#: ../plugins/meta_keyword.php:101
 msgid "Meta Keywords"
 msgstr "メタキーワード"
 
-#: ../plugins/meta_keyword.php:63
+#: ../plugins/meta_keyword.php:68
 msgid "Meta Keyword"
 msgstr "メタキーワード"
 
-#: ../plugins/meta_keyword.php:66
+#: ../plugins/meta_keyword.php:71
 msgid "Common Keywords"
 msgstr "共通キーワード設定"
 
-#: ../plugins/meta_keyword.php:67
+#: ../plugins/meta_keyword.php:72
 msgid ""
 "Keywords for meta tag. This words will set Meta Keyword with post keywords. "
 "if you want multiple keywords, enter with separator of \",\"."
@@ -618,13 +618,13 @@ msgstr ""
 "メタタグに入力するキーワードを入力します。ここでは全てのページで使用する共通"
 "のキーワードを設定します。複数ある場合は「,」で区切ってください。"
 
-#: ../plugins/meta_keyword.php:70
+#: ../plugins/meta_keyword.php:75
 msgid "This is not seriously, Because the SearchEngine does not care this."
 msgstr ""
 "あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要なファ"
 "クターとはなりません。"
 
-#: ../plugins/meta_keyword.php:71
+#: ../plugins/meta_keyword.php:76
 msgid ""
 "For each page individual keyword is enter at the edit screen of each "
 "article. 10 keywords maximum, together with a each article keywords is "
@@ -633,21 +633,21 @@ msgstr ""
 "個々のページのキーワードはそれぞれの投稿ページのキーワード入力欄から追加して"
 "ください。それらと合わせて10個程度のキーワード数であることが望ましいです。"
 
-#: ../plugins/meta_keyword.php:72
+#: ../plugins/meta_keyword.php:77
 msgid "\",\" separator at end of the last keyword is do not need."
 msgstr "最後のキーワードの後ろに「,」は必要ありません。"
 
-#: ../plugins/meta_keyword.php:73
+#: ../plugins/meta_keyword.php:78
 msgid "Example: WordPress,template,theme,free,GPL"
 msgstr "【例】 WordPress,テンプレート,テーマ,無料,GPL"
 
-#: ../plugins/meta_keyword.php:96
+#: ../plugins/meta_keyword.php:102
 msgid ""
 "To distinguish between individual keywords, please enter a , delimiter "
 "(optional)."
 msgstr "キーワードを複数入力する場合は , ( カンマ )で区切って下さい。"
 
-#: ../plugins/meta_keyword.php:98
+#: ../plugins/meta_keyword.php:104
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"

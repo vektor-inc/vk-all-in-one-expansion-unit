@@ -5,7 +5,6 @@
  *
  * @package  VkExUnit
  * @author   shoji imamura<imamura@vektor-inc.co.jp>
- * @version  0.0.0.0
  * @since    26/Jun/2015
  */
 

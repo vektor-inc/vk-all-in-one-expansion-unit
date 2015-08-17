@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function vkExUnit_add_main_setting() {
 	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
@@ -16,7 +16,6 @@ function vkExUnit_add_main_setting() {
 add_action( 'admin_menu', 'vkExUnit_add_main_setting' );
 
 
-
 function vkExUnit_render_main_config(){
 
 	vkExUnit_save_main_config();
@@ -25,16 +24,16 @@ function vkExUnit_render_main_config(){
 <div class="adminMain">
 <form method="post" action="">
 
-<?php 
+<?php
 	wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
 
 	global $vkExUnit_options;
 	if( is_array($vkExUnit_options) ):
 	foreach($vkExUnit_options as $vkoption){
 		if(!isset($vkoption['render_page'])){ continue; }
-		
+
 		echo '<section id="'. $vkoption['option_name'] .'" class="sectionBox">';
-		
+
 		vkExUnit_render_menu($vkExUnit_options, $vkoption['tab_label']);
 
 		if( is_array($vkoption['render_page'])){
@@ -66,7 +65,7 @@ _e('Activated Packages is noting. please activate some package.', 'vkExUnit');
 
 function vkExUnit_register_setting( $tab_label="tab_label", $option_name, $sanitize_callback, $render_page ){
 	global $vkExUnit_options;
-	$vkExUnit_options[] = 
+	$vkExUnit_options[] =
 		array(
 			'option_name'=>$option_name,
 			'callback'=>$sanitize_callback,
@@ -86,12 +85,12 @@ function vkExUnit_main_config_sanitaize($post){
 
 				$before = (isset($post[$opt['option_name']])? $post[$opt['option_name']]: null);
 				$option = $opt['callback'][0]->$opt['callback'][1]($before);
-			
+
 			}elseif( function_exists( $opt['callback'] ) ){
 
 				$before = (isset($post[$opt['option_name']])? $post[$opt['option_name']]: null);
 				$option = $opt['callback']($before);
-			
+
 			}else { continue; }
 
 			update_option($opt['option_name'], $option);
@@ -102,16 +101,17 @@ function vkExUnit_main_config_sanitaize($post){
 
 function vkExUnit_save_main_config(){
 
-    // nonce
-    if(!isset($_POST['_nonce_vkExUnit'])){
-        return ;
-    }
-    if(!wp_verify_nonce($_POST['_nonce_vkExUnit'], 'standing_on_the_shoulder_of_giants')){
-        return ;
-    }
+	// nonce
+	if(!isset($_POST['_nonce_vkExUnit'])){
+		return ;
+	}
+	if(!wp_verify_nonce($_POST['_nonce_vkExUnit'], 'standing_on_the_shoulder_of_giants')){
+		return ;
+	}
 
-    vkExUnit_main_config_sanitaize($_POST);
+	vkExUnit_main_config_sanitaize($_POST);
 }
+
 
 function vkExUnit_render_menu( $sections, $current_tab=null ){
 	echo '<div class="optionNav"><ul>';

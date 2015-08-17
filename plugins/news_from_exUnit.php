@@ -3,18 +3,18 @@ function vkExUnit_news_body()
 {
 
 	include_once(ABSPATH . WPINC . '/feed.php');
-	
+
 	if ( 'ja' == get_locale() ) {
 		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/ja/?feed?'.date('his') ;
 	} else {
 		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/?feed?'.date('his') ;
 	}
 
-	$my_feeds = array( 
-		array('feed_url' => $exUnit_feed_url) 
+	$my_feeds = array(
+		array('feed_url' => $exUnit_feed_url)
 	);
 
-		
+
 	foreach ( $my_feeds as $feed )
 	{
 		$rss = fetch_feed( $feed["feed_url"] );
@@ -22,10 +22,10 @@ function vkExUnit_news_body()
 		if ( !is_wp_error($rss) )
 		{
 			$output = '';
-			
+
 			$maxitems = $rss->get_item_quantity( 5 ); //number of news to display (maximum)
 			$rss_items = $rss->get_items( 0, $maxitems );
-			
+
 			$output .= '<div class="rss-widget">';
 
 			$output .= '<div class="logo_exUnit">';
@@ -35,7 +35,7 @@ function vkExUnit_news_body()
 			if ( $maxitems == 0 )
 			{
 				$output .= '<li>';
-				$output .= __('Sorry, there is no post', 'vkExUnit');	
+				$output .= __('Sorry, there is no post', 'vkExUnit');
 				$output .= '</li>';
 			}
 			else

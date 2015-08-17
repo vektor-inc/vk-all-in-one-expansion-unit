@@ -5,38 +5,37 @@
  *
  * @package  VkExUnit
  * @author   shoji imamura<imamura@vektor-inc.co.jp>
- * @version  0.1.2.0
  * @since    8/Jul/2015
  */
 
 class vExUnit_eyecatch {
-    private static $instance;
+	private static $instance;
 
-    public static $allowed_post_types = array( 'post', 'page' );
- 
-    public static function instance() {
-        if ( isset( self::$instance ) )
-            return self::$instance;
- 
-        self::$instance = new vExUnit_eyecatch;
-        self::$instance->run_init();
-        return self::$instance;
-    }
- 
+	public static $allowed_post_types = array( 'post', 'page' );
 
-    private function __construct() {
-    }
- 
+	public static function instance() {
+		if ( isset( self::$instance ) )
+			return self::$instance;
 
-    protected function run_init() {
+		self::$instance = new vExUnit_eyecatch;
+		self::$instance->run_init();
+		return self::$instance;
+	}
+
+
+	private function __construct() {
+		/***    do noting    ***/
+	}
+
+
+	protected function run_init() {
 		add_action('admin_menu', array($this, 'add_custom_field'));
 		add_action('save_post' , array($this, 'save_custom_field'));
 		add_filter('the_content',    array($this, 'set_eyecatch' ), 1);
-    }
+	}
 
 
 	public function add_custom_field(){
-		
 		foreach( self::$allowed_post_types as $post_type ){
 			add_meta_box('vkExUnit_EyeCatch', __('Automatic EyeCatch', 'vkExUnit'), array( $this, 'render_meta_box' ), $post_type, 'normal', 'high');
 		}
@@ -59,9 +58,9 @@ class vExUnit_eyecatch {
 
 		$keyword = get_post_meta($post_id, 'vkExUnit_metaKeyword', true);
 
-	    // if autosave then deny
-	    if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
-	       return $post_id;
+		// if autosave then deny
+		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
+		   return $post_id;
 
 		if(!wp_verify_nonce($metaKeyword, plugin_basename(__FILE__))){
 			return $post_id;
@@ -116,5 +115,5 @@ class vExUnit_eyecatch {
 	}
 
 }
- 
+
 vExUnit_eyecatch::instance();
