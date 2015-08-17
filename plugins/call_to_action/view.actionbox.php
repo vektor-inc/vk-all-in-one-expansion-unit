@@ -1,11 +1,15 @@
 <?php
 
-$url_title = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
+$btn_text  = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
 $url       = get_post_meta( $id, 'vkExUnit_cta_url', true );
 $text      = get_post_meta( $id, 'vkExUnit_cta_text', true);
 $text = preg_replace('/\n/', '<br/>', $text);
 $imgid     = get_post_meta( $id, 'vkExUnit_cta_img', true);
-$cta_image = wp_get_attachment_image_src($imgid,full);
+
+if (isset($imgid) && $imgid){
+	$cta_image = wp_get_attachment_image_src($imgid,full);
+}
+
 $image_position = get_post_meta( $id, 'vkExUnit_cta_img_position', true);
 if(!$image_position){ $image_position = 'right'; }
 
@@ -21,10 +25,10 @@ if( $imgid ){
 $content .= '<div class="vkExUnit_cta_body_txt '.(($imgid)? 'image_exist' : 'image_no').'">';
 $content .= $text;
 $content .= '</div>';
-if( $url ){
+if( $url && $btn_text ){
     $content .= '<div class="vkExUnit_cta_body_link">';
     $content .= '<a href="'.$url.'" class="btn btn-primary btn-block btn-lg" target="_blank">';
-    $content .= $url_title;
+    $content .= $btn_text;
     $content .= '</a>';
     $content .= '</div>';
 }
