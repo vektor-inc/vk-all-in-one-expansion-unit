@@ -43,6 +43,8 @@ class vExUnit_Ads {
 
 
     public function set_content($content){
+        if( get_post_type() != 'post' ){ return $content; }
+
         $option = $this->get_option();
 
         $content = preg_replace('/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content);
@@ -65,25 +67,21 @@ class vExUnit_Ads {
 
 
     private function render_ad( $ads ,$area='more'){
-        // Display only post
-        if( get_post_type() == 'post'){
+        if( !$ads[0] ) return '';
+        $class = "col-md-12";
+        if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
 
-            if( !$ads[0] ) return '';
-            $class = "col-md-12";
-            if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
+        $content = '';
+        $content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
+        foreach($ads as $ad){
+            if(!$ad) break;
 
-            $content = '';
-            $content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
-            foreach($ads as $ad){
-                if(!$ad) break;
-
-                $content .= '<div class="'.$class.'">';
-                $content .= $ad;
-                $content .= '</div>';
-            }
-            $content .= '</aside>';
-            return $content;
-        } //  if( get_post_type() == 'post'){
+            $content .= '<div class="'.$class.'">';
+            $content .= $ad;
+            $content .= '</div>';
+        }
+        $content .= '</aside>';
+        return $content;
     }
 
 
