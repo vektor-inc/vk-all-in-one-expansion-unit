@@ -45,3 +45,9 @@ foreach( $delete_customfields as $delete_customfield ){
         array( '%s' )
     );
 }
+
+$wpdb->delete(
+    $wpdb->prefix . 'posts',
+    array( 'post_type' => 'cta' ),
+    array( '%s' )
+);
