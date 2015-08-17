@@ -282,6 +282,15 @@
 	</tfoot>
 
 </table>
+
+<button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;"><?php _e('Extension Setting', 'vkExUnit'); ?></button>
+<table class="form-table" id="vkEx_extention" style="display:none;">
+<tr>
+<th><?php _e('plugins option','vkExUnit'); ?></th>
+<td><label><input type="checkbox" name="vkExUnit_common_options[delete_options_at_deactivate]" value="true" <?php echo (isset($options['delete_options_at_deactivate']) && $options['delete_options_at_deactivate'])? 'checked':''; ?> />
+<?php _e('delete this plugins options at deactivate.', 'vkExUnit'); ?></label></td>
+</tr>
+</table>
 <?php submit_button(); ?>
 </form>
 </div><!-- [ /.adminMain ] -->

@@ -41,8 +41,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 load_plugin_textdomain('vkExUnit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
-function vkExUnit_get_directory(){
-	return $dirctory = dirname( __FILE__ );
+function vkExUnit_get_directory($path=''){
+	return $dirctory = dirname( __FILE__ ) . $path;
 }
 
 function vkExUnit_get_directory_uri($path=''){
@@ -214,3 +214,13 @@ function vkExUnit_admin_enq(){
 //         printf($str, $hook_suffix);
 //     }
 // }
+
+
+if (function_exists('register_deactivation_hook')){
+    register_deactivation_hook(__FILE__,     'vkExUnit_uninstall_function');
+}
+
+function vkExUnit_uninstall_function()
+{
+	include vkExUnit_get_directory( '/uninstaller.php' );
+}
