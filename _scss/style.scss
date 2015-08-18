@@ -36,6 +36,7 @@
 /*-------------------------------------------*/
 
 $section_margin : 20px;
+$color_font_default : #464646;
 
 /*-------------------------------------------*/
 /* .common
@@ -383,40 +384,23 @@ html { font-size: inherit; } /* reset bootstrap */
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 .childPage_list {
-	margin-top: 4em;
+	margin-top: 2.5em;margin-bottom:1em;
 	a:hover{
 		text-decoration: none;
 	}
 }
 .childPage_list_box{
-	position: relative;
-	margin-bottom: 2.5em;
-	.childPage_list_title{
-		font-size: 16px;
-		line-height: 1.4;
-	}
-	.wp-post-image{
-		float: left;
-		margin-right: 1em;
-		width: 30%;
-		border: solid 1px #ddd;
-	}
-	.childPage_list_body{
-		overflow: hidden;
-		color: #333;
-		font-size: 14px;
+	display:block; overflow:hidden;	position: relative;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);padding: 0 20px;
+	margin-bottom: 1.5em;
+	.childPage_list_title{ margin-top:20px;font-size: 16px;line-height: 1.4;color:$color_font_default;}
+	.wp-post-image{ float: left; margin-right: 1em; width: 30%; border: solid 1px #ddd; }
+	.childPage_list_body{ overflow: hidden; color: #333; font-size: 14px;margin-bottom:15px;
 		&:hover{
 			text-decoration: underline;
 		}
 	}
-	.childPage_list_text{
-		overflow: hidden;
-		margin-bottom: 0;
-	}
-	.childPage_list_more{
-		float: right;
-		margin-top: 1.5em;
-	}
+	.childPage_list_text{ overflow: hidden;margin-bottom: 0;}
+	.childPage_list_more{ float: right;margin-bottom:20px; }
 }
 @media screen and (max-width:992px){
 .childPage_list_box{
@@ -475,7 +459,7 @@ html { font-size: inherit; } /* reset bootstrap */
 /*-------------------------------------------*/
 /* Contact Section
 /*-------------------------------------------*/
-.vkExUnit_contact { display:block; overflow:hidden;margin-bottom:1em;padding:25px 24px 21px; border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);background-color: #f9f9f9 }
+.vkExUnit_contact { display:block; overflow:hidden;margin-bottom:1em;padding:25px 24px 21px; border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);background-color: #f9f9f9; }
 .vkExUnit_contact_txt_catch,
 .vkExUnit_contact_txt_tel,
 .vkExUnit_contact_txt_time { display:block; overflow:hidden; }

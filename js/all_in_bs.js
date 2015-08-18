@@ -153,6 +153,7 @@ $(function() {
     $('.childPage_list_title').flatHeights();
 });
 window.onload = function() {
+	$('.childPage_list_text').flatHeights();
     $('.childPage_list_box').flatHeights();
 }
 })(jQuery);

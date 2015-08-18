@@ -166,9 +166,9 @@ add_action('wp_head','vkExUnit_addJs');
 function vkExUnit_addJs(){
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-	wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all_in_bs.min.js', array('jquery'), '20150708' );
+	wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all_in_bs.min.js', array('jquery'), '20150818' );
 	} else {
-		wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all.min.js', array('jquery'), '20150708' );
+		wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all.min.js', array('jquery'), '20150818' );
 	}
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
