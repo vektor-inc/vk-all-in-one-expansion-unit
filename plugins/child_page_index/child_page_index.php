@@ -4,9 +4,9 @@
 /*-------------------------------------------*/
 /*	Child page index
 /*-------------------------------------------*/
-add_filter('the_content', 'show_childPageIndex', 7);
+add_filter('the_content', 'vkExUnit_show_childPageIndex', 7);
 
-function show_childPageIndex($content) {
+function vkExUnit_show_childPageIndex($content) {
 	remove_filter('the_content','wpautop');
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_childPageIndex',true );
