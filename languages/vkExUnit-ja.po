@@ -459,7 +459,7 @@ msgstr "営業時間"
 
 #: ../plugins/contact_section.php:91
 msgid "Weekdays except holidays"
-msgstr ""
+msgstr "土日・祝日除く"
 
 #: ../plugins/contact_section.php:96
 msgid "The contact page URL"
