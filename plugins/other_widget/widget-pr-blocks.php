@@ -110,7 +110,7 @@ for ( $i = 1; $i <= intval($instance['block_count']); ) {
 	// link_URL
 	echo '<p><label for="'.$this->get_field_id('linkurl_'.$i).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
 		'<input type="text" id="'.$this->get_field_id('linkurl_'.$i).'_title" class="pr_input" name="'.$this->get_field_name('linkurl_'.$i).'" value="'.$instance['linkurl_'.$i].'" /></p>';
-	
+			
 	$i++;
 }
 
@@ -147,7 +147,7 @@ for ( $i = 1; $i <= $widget_block_count; ) {
 	if( isset($instance['label_'.$i]) && $instance['label_'.$i] ){
 		echo '<article class="prArea">'.PHP_EOL;
 		if( !empty($instance['linkurl_'.$i]) ){
-			echo '<a href="'.esc_url($instance['linkurl_1']).'">'.PHP_EOL ;
+			echo '<a href="'.esc_url($instance['linkurl_'.$i]).'">'.PHP_EOL ;
 		}
 		// icon font display
 		if( empty($instance['media_image_'.$i]) && !empty($instance['iconFont_class_'.$i])){
@@ -173,6 +173,7 @@ for ( $i = 1; $i <= $widget_block_count; ) {
 		if( !empty($instance['linkurl_'.$i]) ){
 			echo '</a>'.PHP_EOL; 
 		}
+		
 		echo '</article>'.PHP_EOL;
 		echo '<!--//.prArea -->'.PHP_EOL;
 	}
