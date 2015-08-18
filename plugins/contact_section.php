@@ -30,7 +30,7 @@ class vExUnit_Contact {
 		add_action( 'admin_init', array($this, 'options_init') );
 		add_action('save_post', array($this, 'save_custom_field_postdata') );
 		add_shortcode('vkExUnit_contact_section', array($this, 'shortcode') );
-		add_filter('the_content',    array($this, 'set_content' ), 1);
+		add_filter('the_content',    array($this, 'set_content' ), 10,1);
 		add_filter('vkExUnit_customField_Page_activation', array($this, 'activate_metavox'), 10, 1);
 		add_action('vkExUnit_customField_Page_box', array($this, 'render_meta_box') );
 	}
