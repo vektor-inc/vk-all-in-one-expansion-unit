@@ -453,15 +453,16 @@ html { font-size: inherit; } /* reset bootstrap */
 .vkExUnit_cta { display:block; overflow:hidden;background-color: #efefef;margin-top:$section_margin;margin-bottom:$section_margin;
 	h1.vkExUnit_cta_title { display:block; overflow:hidden;background-color: #333;font-size:22px;color:#fff;padding: 12px 20px 10px;line-height: 1.2em; }
 	.vkExUnit_cta_body { display:block; overflow:hidden; padding:1.5em 2em 2em;line-height: 170%; }
+	.vkExUnit_cta_body_image { margin-bottom:1.5em; }
 	.vkExUnit_cta_body_image img { max-width: 250px; }
-	.vkExUnit_cta_body_image_right { float:right;margin-left:20px; }
-	.vkExUnit_cta_body_image_left { float:left;margin-right:20px; }
+	.vkExUnit_cta_body_image_right { float:right;margin-left:30px; }
+	.vkExUnit_cta_body_image_left { float:left;margin-right:30px; }
 	.vkExUnit_cta_body_image_center { display:block; overflow:hidden;
 		img { display:block; margin:0 auto 15px;max-width: 100%; }
 	}
 	
 	.vkExUnit_cta_body_txt { display:block; overflow:hidden; }
-	.vkExUnit_cta_body_link { margin-top:1em; }
+	.vkExUnit_cta_body_link { clear:both;margin-top:1.5em; }
 }
 
 /*-------------------------------------------*/
