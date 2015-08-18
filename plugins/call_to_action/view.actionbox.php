@@ -17,7 +17,9 @@ $content .= '<div class="vkExUnit_cta_body">';
 if( $imgid ){
 	$cta_image = wp_get_attachment_image_src( $imgid, 'full' );
 	$content .= '<div class="vkExUnit_cta_body_image vkExUnit_cta_body_image_'.$image_position.'">';
+	$content .= ( $url )? '<a href="'.$url.'" target="_blank">':'';
 	$content .= '<img src="'. $cta_image[0] .'" />';
+	$content .= ( $url )? '</a>':'';
 	$content .= '</div>';
 }
 $content .= '<div class="vkExUnit_cta_body_txt '.(($imgid)? 'image_exist' : 'image_no').'">';
