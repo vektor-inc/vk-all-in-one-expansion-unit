@@ -18,24 +18,6 @@ $required_packages[] = array(
 
 */
 /*-------------------------------------------*/
-/*  bootstrap
-/*-------------------------------------------*/
-/*  fontawesome
-/*-------------------------------------------*/
-/*  icon	
-/*-------------------------------------------*/
-/*  wpTitle	
-/*-------------------------------------------*/
-/*  metaDescription	
-/*-------------------------------------------*/
-/*  metaKeyword	
-/*-------------------------------------------*/
-/*  sns
-/*-------------------------------------------*/
-/*  ga
-/*-------------------------------------------*/
-/*  relatedPosts
-/*-------------------------------------------*/
 /*  Contact Section
 /*-------------------------------------------*/
 /*  ChildPageIndex
@@ -54,127 +36,6 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 
 
-/*-------------------------------------------*/
-/*  bootstrap
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'bootstrap',
-    'title' => __('Print Bootstrap css and js', 'vkExUnit'),
-    'description' => __('If your using theme has already including Bootstrap, you deactivate this item.', 'vkExUnit'),
-    'default' => false
-);
-
-/*-------------------------------------------*/
-/*  fontawesome
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'fontawesome',
-    'title' => __('Print link fontawesome', 'vkExUnit'),
-    'description' => __('Print fontawesome link tag to html head.', 'vkExUnit'),
-    'default' => false
-);
-
-/*-------------------------------------------*/
-/*  icon	
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'icon',
-    'title' => __('Favicon setting', 'vkExUnit'),
-    'description' => __('About favicon.', 'vkExUnit'),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  wpTitle	
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'wpTitle',
-    'title' => __('Rewrite the title tag', 'vkExUnit'),
-    'description' => __('Print is rewritten by its own rules to html head.', 'vkExUnit'),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  metaKeyword	
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'metaKeyword',
-    'title' => __('Print meta Keyword', 'vkExUnit'),
-    'description' => __('Print meta Keyword to html head.', 'vkExUnit'),
-    'attr' => array(
-        array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
-            'enable_only' => 1,
-        )
-    ),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  metaDescription	
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'metaDescription',
-    'title' => __('Print meta description', 'vkExUnit'),
-    'description' => __('Print meta description to html head.', 'vkExUnit'),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  sns
-/*-------------------------------------------*/
-$deskSns = array();
-$settingPage = '<a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">'.__('Main setting page').'</a>';
-$deskSns[] = '<ul>';
-$deskSns[] = '<li>'.__('Print og tags to html head.','vkExUnit').'</li>';
-$deskSns[] = '<li>'.__('Print twitter card tags to html head.','vkExUnit').'</li>';
-$deskSns[] = '<li>'.__('Print social bookmark buttons.','vkExUnit').'</li>';
-$deskSns[] = '<li>'.__('Facebook Page Plugin widget.','vkExUnit').'</li>';
-$deskSns[] = '<li>'.__('Print Follow me box to content bottom.','vkExUnit').'</li>';
-$deskSns[] = '</ul>';
-$deskSns[] = '<p>'.sprintf( __( '* You can stop the function separately from the %s.', 'vkExUnit' ), $settingPage ).'</p>';
-
-$required_packages[] = array(
-    'name'  => 'sns',
-    'title' => __('Social media cooperation', 'vkExUnit'),
-    'description' => $deskSns,
-    'attr' => array(
-        array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options',
-            'enable_only' => 1,
-        )
-    ),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  ga
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'ga',
-    'title' => 'Google Analytics',
-    'description' => __('Print Google Analytics tracking code.', 'vkExUnit'),
-    'attr' => array(
-        array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options',
-            'enable_only' => 1,
-        )
-    ),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  relatedPosts
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'relatedPosts',
-    'title' => __('Related posts', 'vkExUnit'),
-    'description' => __('Print Related posts lists to post content bottom.', 'vkExUnit'),
-    'default' => true,
-);
 
 /*-------------------------------------------*/
 /*  Contact Section
@@ -193,10 +54,9 @@ $required_packages[] = array(
     'default' => true,
 );
 
-
-/*-------------------------------------------*/
-/*  ChildPageIndex
-/*-------------------------------------------*/
+ /*-------------------------------------------*/
+ /*  ChildPageIndex
+ /*-------------------------------------------*/
 
  $required_packages[] = array(
     'name'  => 'childPageIndex',
