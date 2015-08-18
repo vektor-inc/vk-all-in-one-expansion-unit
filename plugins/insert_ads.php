@@ -28,9 +28,7 @@ class vExUnit_Ads {
 
 	protected function run_init() {
 		add_action('admin_init', array($this, 'option_init' ));
-		if( get_post_type() == 'post' ){
-			add_filter('the_content',    array($this, 'set_content' ), 1);
-		}
+		add_filter('the_content',    array($this, 'set_content' ), 10,1);
 		add_shortcode('vkExUnit_ad', array($this, 'shortcode') );
 	}
 
@@ -46,10 +44,10 @@ class vExUnit_Ads {
 
 	public function set_content($content){
 		$option = $this->get_option();
-
-		$content = preg_replace('/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content);
-
-		$content .= '[vkExUnit_ad area=after]';
+		if( get_post_type() == 'post' ){
+			$content = preg_replace('/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content);
+			$content .= '[vkExUnit_ad area=after]';
+		}
 
 		return $content;
 	}
