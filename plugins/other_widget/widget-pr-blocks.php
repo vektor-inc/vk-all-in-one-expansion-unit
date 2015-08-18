@@ -16,35 +16,35 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
         $defaults = array(
 	        'block_count' => 3,
 	        
-			'label_1' => __( 'PR Block1 title', 'vkExUnit' ),
+			'label_1' => __( 'Service', 'vkExUnit' ),
             'media_image_1' => '',
             'media_alt_1' => '',
-            'iconFont_class_1' => '',
-            'iconFont_bgColor_1' => '',
+            'iconFont_class_1' => 'fa-file-text-o',
+            'iconFont_bgColor_1' => '#337ab7',
             'summary_1' => '',
             'linkurl_1' => '',
             
-            'label_2' => __( 'PR Block2 title', 'vkExUnit' ),
+            'label_2' => __( 'Company', 'vkExUnit' ),
             'media_image_2' => '',
             'media_alt_2' => '',
-            'iconFont_class_2' => '',
-            'iconFont_bgColor_2' => '',
+            'iconFont_class_2' => 'fa-building-o',
+            'iconFont_bgColor_2' => '#337ab7',
             'summary_2' => '',
             'linkurl_2' => '',
             
-            'label_3' => __( 'PR Block3 title', 'vkExUnit' ),
+            'label_3' => __( 'Recruit', 'vkExUnit' ),
             'media_image_3' => '',
             'media_alt_3' => '',
-            'iconFont_class_3' => '',
-            'iconFont_bgColor_3' => '',
+            'iconFont_class_3' => 'fa-user',
+            'iconFont_bgColor_3' => '#337ab7',
             'summary_3' => '',
             'linkurl_3' => '',
             
-            'label_4' => __( 'PR Block4 title', 'vkExUnit' ),
+            'label_4' => __( 'Contact', 'vkExUnit' ),
             'media_image_4' => '',
             'media_alt_4' => '',
-            'iconFont_class_4' => '',
-            'iconFont_bgColor_4' => '',
+            'iconFont_class_4' => 'fa-envelope',
+            'iconFont_bgColor_4' => '#337ab7',
             'summary_4' => '',
             'linkurl_4' => ''
 		);
@@ -75,7 +75,7 @@ for ( $i = 1; $i <= intval($instance['block_count']); ) {
 	echo '<p><label for="'.$this->get_field_id('iconFont_'.$i).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
 		'[ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]<br/>
 	<input type="text" id="'.$this->get_field_id('iconFont_class_'.$i).'-font" class="font_class" name="'.$this->get_field_name('iconFont_class_'.$i).'" value="'.$instance['iconFont_class_'.$i].'" /><br>'
-	.__( 'To choose your favorite icon, and enter the class.', 'vkExUnit').'<br>'.__(' ex:fa-rocket', 'vkExUnit' ).'</p>';
+	.__( 'To choose your favorite icon, and enter the class.', 'vkExUnit').'<br>'.__(' ex:fa-file-text-o', 'vkExUnit' ).'</p>';
 	
 	// icon font background color
 	echo '<p class="color_picker_wrap">'.
@@ -110,7 +110,7 @@ for ( $i = 1; $i <= intval($instance['block_count']); ) {
 	// link_URL
 	echo '<p><label for="'.$this->get_field_id('linkurl_'.$i).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
 		'<input type="text" id="'.$this->get_field_id('linkurl_'.$i).'_title" class="pr_input" name="'.$this->get_field_name('linkurl_'.$i).'" value="'.$instance['linkurl_'.$i].'" /></p>';
-	
+			
 	$i++;
 }
 
@@ -147,7 +147,7 @@ for ( $i = 1; $i <= $widget_block_count; ) {
 	if( isset($instance['label_'.$i]) && $instance['label_'.$i] ){
 		echo '<article class="prArea">'.PHP_EOL;
 		if( !empty($instance['linkurl_'.$i]) ){
-			echo '<a href="'.esc_url($instance['linkurl_1']).'">'.PHP_EOL ;
+			echo '<a href="'.esc_url($instance['linkurl_'.$i]).'">'.PHP_EOL ;
 		}
 		// icon font display
 		if( empty($instance['media_image_'.$i]) && !empty($instance['iconFont_class_'.$i])){
@@ -173,6 +173,7 @@ for ( $i = 1; $i <= $widget_block_count; ) {
 		if( !empty($instance['linkurl_'.$i]) ){
 			echo '</a>'.PHP_EOL; 
 		}
+		
 		echo '</article>'.PHP_EOL;
 		echo '<!--//.prArea -->'.PHP_EOL;
 	}

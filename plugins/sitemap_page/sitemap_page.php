@@ -1,4 +1,18 @@
 <?php
+
+/*-------------------------------------------*/
+/*	Add setting page
+/*-------------------------------------------*/
+/*	Options Init
+/*-------------------------------------------*/
+/*	validate
+/*-------------------------------------------*/
+/*	insert sitemap page
+/*-------------------------------------------*/
+/*	admin _ meta box
+/*-------------------------------------------*/
+
+
 /*-------------------------------------------*/
 /*	Add setting page
 /*-------------------------------------------*/
@@ -58,10 +72,10 @@ function vkExUnit_sitemap_options_validate( $input ) {
 add_filter('the_content', 'show_sitemap', 7, 1);
 
 function show_sitemap($content) {
+	wp_reset_postdata(); // need under other section / ex:child page index
 	global $post;
-	$show_sitemap_value = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
-
-	if(!empty($show_sitemap_value) && $show_sitemap_value[0] === 'active'){
+	$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap',true );
+	if($enable){
 		return $content.do_shortcode('[vkExUnit_sitemap]');
 	}
 	return $content;
@@ -192,18 +206,24 @@ function vkExUnit_sitemap_activate( $flag ){
 }
 
 
+/*-------------------------------------------*/
+/*	admin _ meta box
+/*-------------------------------------------*/
 add_action('vkExUnit_customField_Page_box', 'vkExUnit_sitemap_meta_box');
 function vkExUnit_sitemap_meta_box(){
 	global $post;
 	// sitemap display
-	$active_sitemap_page = get_post_meta( $post->ID, 'vkExUnit_sitemap' );
-	echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_sitemap" id="_nonce_vkExUnit__custom_field_sitemap" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
-	echo '<label class="hidden" for="vkExUnit_sitemap">'.__('Choose display a child page index', 'vkExUnit').'</label>
-		<input type="checkbox" id="vkExUnit_sitemap" name="vkExUnit_sitemap" value="active"';	
-	if( !empty($active_sitemap_page) ) {
-		if( $active_sitemap_page[0] === 'active' ) echo ' checked="checked"';
-	}
-	echo '/>'.__('if checked you will display a sitemap', 'vkExUnit');
+	$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap', true );	?>
+
+<div>
+<input type="hidden" name="_nonce_vkExUnit__custom_field_sitemap" id="_nonce_vkExUnit__custom_field_sitemap" value="<?php echo wp_create_nonce(plugin_basename(__FILE__));?>" />
+<label for="vkExUnit_sitemap">
+	<input type="checkbox" id="vkExUnit_sitemap" name="vkExUnit_sitemap" <?php echo ($enable)? ' checked' : ''; ?> />
+	<?php _e('Display a HTML sitemap', 'vkExUnit');?>
+</label>
+</div>
+
+	<?php 
 }
 
 

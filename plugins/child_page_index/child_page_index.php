@@ -9,10 +9,8 @@ add_filter('the_content', 'show_childPageIndex', 7);
 function show_childPageIndex($content) {
 	remove_filter('the_content','wpautop');
 	global $post;
-	$childPageIndex_value = get_post_meta( $post->ID, 'vkExUnit_childPageIndex' );
-	if(!empty($childPageIndex_value)){
-		// check the childPageIndex_value
-		if( is_page() && $childPageIndex_value[0] == 'active'){
+	$enable = get_post_meta( $post->ID, 'vkExUnit_childPageIndex',true );
+		if( is_page() && $enable ){
 
 			$parentId = $post->ID;
 			$args = array(
@@ -52,8 +50,7 @@ function show_childPageIndex($content) {
 				return wpautop($content);
 
 			endif;
-		} // if( is_page() && $childPageIndex_value[0] == 'active'){
-	} // if(!empty($childPageIndex_value)){
+		} // if( is_page() && $enable ){
 
 	return wpautop($content);
 	add_filter('the_content','wpautop');
@@ -70,14 +67,17 @@ add_action('vkExUnit_customField_Page_box', 'vkExUnit_childPageIndex_meta_box');
 function vkExUnit_childPageIndex_meta_box(){
 	global $post;
 	// childPageIndex display
-	$childPageIndex_active = get_post_meta( $post->ID, 'vkExUnit_childPageIndex' );
-	echo '<div><input type="hidden" name="_nonce_vkExUnit__custom_field_childPageIndex" id="_nonce_vkExUnit__custom_field_childPageIndex" value="'.wp_create_nonce(plugin_basename(__FILE__)).'" />';
-	echo '<label class="hidden" for="vkExUnit_childPageIndex">'.__('Choose display a child page index', 'vkExUnit').'</label>
-		<input type="checkbox" id="vkExUnit_childPageIndex" name="vkExUnit_childPageIndex" value="active"';	
-	if( !empty($childPageIndex_active) ) {
-		if( $childPageIndex_active[0] === 'active' ) echo ' checked="checked"';
-	}
-	echo '/>'.__('if checked you will display a child page index ', 'vkExUnit').'</div>';
+	$enable = get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true);?>
+
+<div>
+<input type="hidden" name="_nonce_vkExUnit__custom_field_childPageIndex" id="_nonce_vkExUnit__custom_field_childPageIndex" value="<?php echo wp_create_nonce(plugin_basename(__FILE__));?>" />
+<label for="vkExUnit_childPageIndex">
+	<input type="checkbox" id="vkExUnit_childPageIndex" name="vkExUnit_childPageIndex"<?php echo ($enable)? ' checked' : ''; ?> />
+	<?php _e('Display a child page index', 'vkExUnit');?>
+</label>
+</div>
+
+	<?php
 }
 
 
