@@ -20,11 +20,13 @@
 
 /*      .qaItem
 /*-------------------------------------------*/
-dl.qaItem { display: block; overflow: hidden; border-bottom: 1px dotted #ccc; padding: 0px 0px 20px; margin: 0px 0px 20px; width: 100%; }
-
-dl.qaItem dt { margin-bottom: 15px; background: url(../images/options/qaIconQ.gif) left top no-repeat; padding-left: 32px; border: none; }
-
-dl.qaItem dd { margin-bottom: 0px; background: url(../images/options/qaIconA.gif) left top no-repeat; padding-left: 32px; }
+dl.veu_qaItem { display: block; overflow: hidden; border-bottom: 1px dotted #ccc; padding: 0px 0px 20px; margin: 0px 0px 20px; width: 100%; position: relative; }
+dl.veu_qaItem dt, dl.veu_qaItem dd { border: none; padding-left: 35px; }
+dl.veu_qaItem dt:before, dl.veu_qaItem dd:before { position: absolute; left: 0; font-size: 24px; line-height: 105%; }
+dl.veu_qaItem dt { margin-bottom: 15px; font-size: 18px; }
+dl.veu_qaItem dt:before { font-family: "areal"; content: "Q "; color: #e50000; }
+dl.veu_qaItem dd { margin-bottom: 0px; }
+dl.veu_qaItem dd:before { content: "A "; color: #337ab7; font-family: ""; }
 
 /*      .flowBox
 /*-------------------------------------------*/
