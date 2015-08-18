@@ -126,7 +126,7 @@ if ( vkExUnit_package_is_enable( 'auto_eyecatch' ) )
 	require vkExUnit_get_directory() . '/plugins/auto_eyecatch.php';
 
 if ( isset($options['active_childPageIndex']) && $options['active_childPageIndex'] )
-	require vkExUnit_get_directory() . '/plugins/child_page_index/child_page_index.php';
+	require vkExUnit_get_directory() . '/plugins/child_page_index.php';
 
 if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';

@@ -33,7 +33,7 @@ function vkExUnit_show_childPageIndex($content) {
 						}
 
 						// Page Item build
-				        $childPageList_html .= '<a href="'.esc_url(get_permalink()).'"><div class="childPage_list_box col-md-6">';
+				        $childPageList_html .= '<a href="'.esc_url(get_permalink()).'" class="childPage_list_box col-md-6"><div>';
 				        $childPageList_html .= '<h3 class="childPage_list_title">'.esc_html(get_the_title()).'</h3>';
 				        $childPageList_html .= '<div class="childPage_list_body">'.get_the_post_thumbnail( $post->ID, 'large' );
 				        $childPageList_html .= '<p class="childPage_list_text">'.esc_html($postExcerpt).'</p></div>';
