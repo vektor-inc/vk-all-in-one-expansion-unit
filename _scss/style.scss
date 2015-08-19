@@ -440,8 +440,6 @@ html { font-size: inherit; } /* reset bootstrap */
 	.veu_cta_body { display:block; overflow:hidden; padding:1.5em 2em 2em;line-height: 170%; }
 	.veu_cta_body_image { margin-bottom:1.5em; }
 	.veu_cta_body_image img { max-width: 250px; }
-	.veu_cta_body_image_right { float:right;margin-left:30px; }
-	.veu_cta_body_image_left { float:left;margin-right:30px; }
 	.veu_cta_body_image_center { display:block; overflow:hidden;text-align: center;
 		img { display:block; margin:0 auto 15px;max-width: 100%; }
 	}
@@ -451,9 +449,13 @@ html { font-size: inherit; } /* reset bootstrap */
 }
 @media (max-width: 767px){
 .veu_cta {
-	.veu_cta_body_image_right,
-	.veu_cta_body_image_left { float:none;margin:auto; }
 	.veu_cta_body_image img { display:block; margin:0 auto 1.5em;max-width: 100%; }
+}
+}
+@media (min-width: 768px){
+.veu_cta {
+	.veu_cta_body_image_right { float:right;margin-left:30px; }
+	.veu_cta_body_image_left { float:left;margin-right:30px; }
 }
 }
 /*-------------------------------------------*/

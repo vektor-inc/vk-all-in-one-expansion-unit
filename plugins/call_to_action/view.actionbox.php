@@ -16,7 +16,7 @@ $content .= '<h1 class="veu_cta_title">' . $post->post_title . '</h1>';
 $content .= '<div class="veu_cta_body">';
 if( $imgid ){
 	$cta_image = wp_get_attachment_image_src( $imgid, 'full' );
-	$content .= '<div class="veu_cta_body_image vkExUnit_cta_body_image_'.$image_position.'">';
+	$content .= '<div class="veu_cta_body_image veu_cta_body_image_'.$image_position.'">';
 	$content .= ( $url )? '<a href="'.$url.'" target="_blank">':'';
 	$content .= '<img src="'. $cta_image[0] .'" />';
 	$content .= ( $url )? '</a>':'';
