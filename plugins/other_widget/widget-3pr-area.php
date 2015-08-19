@@ -4,15 +4,17 @@
 /*	PR area widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
-    
-    function WP_Widget_vkExUnit_3PR_area() {
-		$widget_ops = array(
-			'classname' => 'WP_Widget_vkExUnit_3PR_area',
-			'description' => __( "Displays a 3PR area", 'vkExUnit' ),
-		);
+
+    function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "3PR area", 'vkExUnit' );
-		$this->WP_Widget('WP_Widget_vkExUnit_3PR_area', $widget_name, $widget_ops);
+
+        parent::__construct(
+            'WP_Widget_vkExUnit_3PR_area',
+            $widget_name,
+            array( 'description' => __( "Displays a 3PR area", 'vkExUnit' ) )
+        );
 	}
+
     function form($instance){
         $defaults = array(
 			'label_1' => __( '3PR area1 title', 'vkExUnit' ),

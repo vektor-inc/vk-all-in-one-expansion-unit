@@ -5,14 +5,14 @@
 /*-------------------------------------------*/
 class WP_Widget_VK_archive_list extends WP_Widget {
     // ウィジェット定義
-	function WP_Widget_VK_archive_list() {
-		global $bizvektor_works_unit;
-		$widget_ops = array(
-			'classname'   => 'WP_Widget_VK_archive_list',
-			'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.' , 'vkExUnit' ),
-		);
+	function __construct() {
 		$widget_name = 'VK_' . __( 'archive list', 'vkExUnit' );
-		$this->WP_Widget('WP_Widget_VK_archive_list', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'WP_Widget_VK_archive_list',
+			$widget_name,
+			array( 'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.' , 'vkExUnit' ) )
+		);
 	}
 
 	function widget($args, $instance) {

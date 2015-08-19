@@ -4,16 +4,17 @@
 /*	Side Profile widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_profile extends WP_Widget {
-    
-    function WP_Widget_vkExUnit_profile() {
-		$widget_ops = array(
-			'classname' => 'WP_Widget_vkExUnit_profile',
-			'description' => __( "Displays a your profile", 'vkExUnit' ),
-		);
+
+    function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "Profile", 'vkExUnit' );
-		$this->WP_Widget('WP_Widget_vkExUnit_profile', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'WP_Widget_vkExUnit_profile',
+			$widget_name,
+			array( 'description' => __( 'Displays a your profile', 'biz-vektor' ) )
+		);
 	}
-    
+
     function form($instance){
         $defaults = array(
 			'label' => __('Profile', 'vkExUnit' ),

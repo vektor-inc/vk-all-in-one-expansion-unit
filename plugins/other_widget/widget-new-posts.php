@@ -5,13 +5,14 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
-	function WP_Widget_vkExUnit_post_list() {
-		$widget_ops = array(
-			'classname' => 'WP_Widget_vkExUnit_post_list',
-			'description' => __( 'Displays a list of your most recent posts', 'vkExUnit' ),
-		);
+	function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( 'Recent Posts', 'vkExUnit' );
-		$this->WP_Widget('vkExUnit_post_list', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'vkExUnit_post_list',
+			$widget_name,
+			array( 'description' => __( 'Displays a list of your most recent posts', 'vkExUnit' ) )
+		);
 	}
 
 	function widget($args, $instance) {

@@ -4,13 +4,14 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
-	function WP_Widget_vkExUnit_fbPagePlugin() {
-		$widget_ops = array(
-			'classname' => 'WP_Widget_vkExUnit_fbPagePlugin',
-			'description' => __( 'Displays a Facebook Page Plugin', 'vkExUnit' ),
-		);
+	function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . 'FB Page Plugin';
-		$this->WP_Widget('vkExUnit_fbPagePlugin', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'vkExUnit_fbPagePlugin',
+			$widget_name,
+			array( 'description' => __( "Displays a Facebook Page Plugin", 'vkExUnit' ) )
+		);
 	}
 
 	function widget($args, $instance) {

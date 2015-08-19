@@ -4,16 +4,17 @@
 /*	page widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {
-	
-	function WP_Widget_vkExUnit_widget_page() {
-		$widget_ops = array(
-			'classname' => 'WP_Widget_vkExUnit_widget_page',
-			'description' => __( 'Displays a page contents to widget.', 'vkExUnit' ),
-		);
+
+	function __construct() {
 		$widget_name = vkExUnit_get_short_name() . '_' . __( 'page content to widget', 'vkExUnit' );
-		$this->WP_Widget('pudge', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'pudge',
+			$widget_name,
+			array( 'description' => __( 'Displays a page contents to widget.', 'vkExUnit' ) )
+		);
 	}
-	
+
 	function widget($args, $instance){
 		global $is_pagewidget;
 		$is_pagewidget = true;

@@ -3,15 +3,17 @@
 /*	VK PR Blocks
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
-    
-    function WP_Widget_vkExUnit_PR_Blocks() {
-		$widget_ops = array(
-			'classname' => 'WP_Widget_vkExUnit_PR_Blocks',
-			'description' => __( "Displays a circle image or icon font for pr blocks", 'vkExUnit' ),
-		);
+
+    function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "PR Blocks", 'vkExUnit' );
-		$this->WP_Widget('WP_Widget_vkExUnit_PR_Blocks', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'WP_Widget_vkExUnit_PR_Blocks',
+			$widget_name,
+			array( 'description' => __( 'Displays a circle image or icon font for pr blocks', 'vkExUnit' ) )
+		);
 	}
+
     function form($instance){
         $defaults = array(
 	        'block_count' => 3,

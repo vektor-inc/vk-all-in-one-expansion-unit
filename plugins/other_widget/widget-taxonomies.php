@@ -5,14 +5,14 @@
 /*-------------------------------------------*/
 class WP_Widget_VK_taxonomy_list extends WP_Widget {
     // ウィジェット定義
-	function WP_Widget_VK_taxonomy_list() {
-		global $bizvektor_works_unit;
-		$widget_ops = array(
-			'classname'   => 'WP_Widget_VK_taxonomy_list',
-			'description' => __( 'Displays a categories and custom taxonomies list.', 'vkExUnit' ),
-		);
+	function __construct() {
 		$widget_name = vkExUnit_get_short_name().'_'. __( 'Categories/Custom taxonomies list', 'vkExUnit' );
-		$this->WP_Widget('WP_Widget_VK_taxonomy_list', $widget_name, $widget_ops);
+
+		parent::__construct(
+			'WP_Widget_VK_taxonomy_list',
+			$widget_name,
+			array( 'description' => __( 'Displays a categories and custom taxonomies list.', 'vkExUnit' ) )
+		);
 	}
 
 
