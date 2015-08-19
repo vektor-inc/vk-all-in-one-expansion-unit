@@ -188,23 +188,23 @@ class vExUnit_Contact {
 	public function render_contact_html(){
 		$options = self::get_option();
 		$cont = '';
-		$cont .= '<section class="vkExUnit_contact">';
+		$cont .= '<section class="veu_contact">';
 
-		$cont .= '<p class="vkExUnit_contact_txt">';
-		$cont .= '<span class="vkExUnit_contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
-		$cont .= '<span class="vkExUnit_contact_txt_tel">'.$options['tel_number'].'</span>';
-		$cont .= '<span class="vkExUnit_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
+		$cont .= '<p class="veu_contact_txt">';
+		$cont .= '<span class="veu_contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
+		$cont .= '<span class="veu_contact_txt_tel">'.$options['tel_number'].'</span>';
+		$cont .= '<span class="veu_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
 		$cont .= '</p>';
 
 		if (
 			( isset($options['contact_link']) && $options['contact_link'] ) &&
 			( isset($options['button_text']) && $options['button_text'] )
 			) {
-			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg vkExUnit_contact_bt">';
-			$cont .= '<span class="vkExUnit_contact_bt_txt">'.$options['button_text'].'</span>';
+			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
+			$cont .= '<span class="veu_contact_bt_txt">'.$options['button_text'].'</span>';
 
 			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
-				$cont .= '<span class="vkExUnit_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+				$cont .= '<span class="veu_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
 			}
 
 			$cont .= '</a>';
@@ -212,7 +212,7 @@ class vExUnit_Contact {
 
 		$cont .= '</section>';
 		if ( current_user_can('edit_theme_options') ) {
-		$cont .= '<div class="vkExUnit_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
+		$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
 		}
 		$cont = apply_filters('vkExUnit_contact_custom',$cont);
 		return $cont;

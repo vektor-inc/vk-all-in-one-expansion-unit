@@ -70,7 +70,7 @@ class vExUnit_Ads {
 		if( isset($ads[1]) && $ads[1] ) $class="col-md-6";
 
 		$content = '';
-		$content .= '<aside class="row vkExUnit_insertAds '.$area.'">';
+		$content .= '<aside class="row veu_insertAds '.$area.'">';
 		foreach($ads as $ad){
 			if(!$ad) break;
 
