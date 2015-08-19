@@ -192,7 +192,7 @@ class vExUnit_Contact {
 
 		$cont .= '<p class="veu_contact_txt">';
 		$cont .= '<span class="veu_contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
-		$cont .= '<span class="veu_contact_txt_tel">'.$options['tel_number'].'</span>';
+		$cont .= '<span class="veu_contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
 		$cont .= '<span class="veu_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
 		$cont .= '</p>';
 
