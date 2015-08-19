@@ -154,9 +154,9 @@ add_action('wp_enqueue_scripts','vkExUnit_print_css');
 function vkExUnit_print_css(){
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150708', 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150819', 'all');
 	} else {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150708', 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150819', 'all');
 	}
 }
 /*-------------------------------------------*/
