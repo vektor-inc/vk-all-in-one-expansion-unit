@@ -385,33 +385,28 @@ html { font-size: inherit; } /* reset bootstrap */
 /*-------------------------------------------*/
 .childPage_list {
 	margin-top: 2.5em;margin-bottom:1em;
-	a:hover{
-		text-decoration: none;
-	}
+	a:hover{ text-decoration: none; }
 }
-.childPage_list_box{
+.childPage_list_box { display:block;margin-bottom:1em; }
+.childPage_list_box_inner{
 	display:block; overflow:hidden;	position: relative;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);padding: 0 20px;
-	margin-bottom: 1.5em;
 	.childPage_list_title{ margin-top:20px;font-size: 16px;line-height: 1.4;color:$color_font_default;}
 	.wp-post-image{ float: left; margin-right: 1em; width: 30%; border: solid 1px #ddd; }
-	.childPage_list_body{ overflow: hidden; color: #333; font-size: 14px;margin-bottom:15px;
+	.childPage_list_body{ overflow: hidden; color: #333; font-size: 14px;margin-bottom:5px;
 		&:hover{
 			text-decoration: underline;
 		}
 	}
+	p { line-height: 1.5em; }
 	.childPage_list_text{ overflow: hidden;margin-bottom: 0;}
 	.childPage_list_more{ float: right;margin-bottom:20px; }
 }
-@media screen and (max-width:992px){
-.childPage_list_box{
-	.wp-post-image{
-		float: left;
-		margin-right: 1em;
-		width: 25%;
-		border: solid 1px #ddd;
-	}
+@media (max-width: 767px){
+.childPage_list_box_inner{
+	.wp-post-image{ width: 25%; }
 }
 }
+
 /*-------------------------------------------*/
 /* sitemap page Plugin
 /*-------------------------------------------*/
