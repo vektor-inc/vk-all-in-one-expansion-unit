@@ -185,7 +185,7 @@ class vExUnit_Contact {
 	}
 
 
-	public function render_contact_html(){
+	public static function render_contact_html(){
 		$options = self::get_option();
 		$cont = '';
 		$cont .= '<section class="veu_contact">';
@@ -220,7 +220,46 @@ class vExUnit_Contact {
 
 
 	public function shortcode(){
-		return $this->render_contact_html();
+		return self::render_contact_html();
 	}
 }
 vExUnit_Contact::instance();
+
+
+/*-------------------------------------------*/
+/*  Contact widget
+/*-------------------------------------------*/
+class WP_Widget_contact_link extends WP_Widget {
+
+    function __construct() {
+        $widget_name = vkExUnit_get_short_name().'_'.__('Contact button', 'vkExUnit');
+
+        parent::__construct(
+            'vke_contact',
+            $widget_name,
+            array( 'description' => __( '*　It is necessary to set the Theme options page.', 'biz-vektor' ) )
+        );
+    }
+
+
+    function widget($args, $instance) {
+    	echo '<div class="widget contact_section">';
+        echo vExUnit_Contact::render_contact_html();
+        echo '</div>';
+    }
+
+
+    function update($new_instance, $old_instance) {
+        return $new_instance;
+    }
+
+
+    function form($instance) {
+    	echo '<div style="padding:1em 0;">';
+    	_e('This have no option.','vkExUnit');
+    	echo '</div>';
+        return $instance;
+    }
+
+}
+add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_contact_link");'));
