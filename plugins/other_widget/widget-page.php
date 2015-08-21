@@ -43,21 +43,21 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		</p>
 		<?php
 	}
-	
+
 	function update($new_instance, $old_instance){
 		$instance = $old_instance;
 		$instance['page_id'] = $new_instance['page_id'];
 		$instance['set_title'] = ($new_instance['set_title'] == 'true')? true : false;
 		return $instance;
 	}
-	
+
 	function display_page($pageid,$titleflag=false) {
-		
+
 		$page = get_page($pageid);
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget widget_pageContent">'.PHP_EOL;
 		if($titleflag){ echo '<h1 class="widget-title">'.$page->post_title.'</h1>'.PHP_EOL; }
 		echo apply_filters('the_content', $page->post_content );
-		
+
 		if ( is_user_logged_in() == TRUE ) {
 			global $user_level;
 			get_currentuserinfo();

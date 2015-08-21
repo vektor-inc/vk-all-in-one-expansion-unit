@@ -4,7 +4,7 @@
 /*	Archive list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_archive_list extends WP_Widget {
-    // ウィジェット定義
+
 	function __construct() {
 		$widget_name = 'VK_' . __( 'archive list', 'vkExUnit' );
 
@@ -14,6 +14,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			array( 'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.' , 'vkExUnit' ) )
 		);
 	}
+
 
 	function widget($args, $instance) {
 		$arg = array(
@@ -42,6 +43,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 	</aside>
 	<?php
 	}
+
 
 	function form($instance){
 		$defaults = array(
@@ -98,18 +100,16 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		<?php
 	}
 
+
 	function update($new_instance, $old_instance){
 		$instance = $old_instance;
-		
 		$instance['post_type']    = $new_instance['post_type'];
 		$instance['display_type'] = $new_instance['display_type'];
-		
 		if(!$new_instance['label']){
 			$new_instance['label'] = $new_instance['hide'];
 		}
 		$instance['label'] = $new_instance['label'];
-		
 		return $instance;
 	}
-} // class WP_Widget_top_list_info
+}
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_VK_archive_list");'));

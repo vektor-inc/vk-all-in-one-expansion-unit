@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*-------------------------------------------*/
 /*	Side Profile widget
@@ -35,23 +35,19 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		);
         $instance = wp_parse_args((array) $instance, $defaults);
     ?>
-        	
+
 		<?php //title ?>
 		<p><label for="<?php echo $this->get_field_id('label');  ?>"><?php _e('Title:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('label'); ?>_title" class="prof_input" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" />
 		</p>
-		
+
 		<?php //media uploader ?>
         <p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Select Profile image:', 'vkExUnit'); ?></label><br/>
-		
 		<input type="hidden" class="media_url" id="<?php echo $this->get_field_id('mediaFile'); ?>_media" name="<?php echo $this->get_field_name('mediaFile'); ?>" value="<?php echo esc_attr($instance['mediaFile']); ?>" />
-		
 		<input type="hidden" class="media_alt" id="<?php echo $this->get_field_id('mediaAlt'); ?>_media" name="<?php echo $this->get_field_name('mediaAlt'); ?>" value="<?php echo esc_attr($instance['mediaAlt']); ?>" />
-		        
         <input type="button" class="media_select" value="<?php _e('Select image', 'vkExUnit'); ?>" onclick="clickSelect(event.target);" />
         <input type="button" class="media_clear" value="<?php _e('Clear image', 'vkExUnit'); ?>" onclick="clickClear(event.target);" />
         </p>
-        
         <div class="media">
 	        <?php if(!empty($instance['mediaFile'])): ?>
 	        <img class="media_image" src="<?php echo esc_url($instance['mediaFile']); ?>" alt="<?php echo esc_attr($instance['mediaAlt']); ?>" />
@@ -61,62 +57,61 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		<?php //image round setting ?>
 		<p><input type="checkbox" id="<?php echo $this->get_field_id('mediaRound'); ?>_round" name="<?php echo $this->get_field_name('mediaRound'); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id('mediaRound');  ?>"><?php _e('Cut out round the image.', 'vkExUnit'); ?></label>		
 		</p>
-				
-		<?php //image size setting ?>
+
+        <?php //image size setting ?>
 		<p><label for="<?php echo $this->get_field_id('mediaSize');  ?>"><?php _e('Media size (Optional)', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('mediaSize'); ?>_size" class="prof_input" name="<?php echo $this->get_field_name('mediaSize'); ?>" style="width:50px;" value="<?php echo $instance['mediaSize']; ?>" /> px
 		</p>
 
-		<?php //image mediaAlign_left setting ?>
+        <?php //image mediaAlign_left setting ?>
 		<p><input type="checkbox" id="<?php echo $this->get_field_id('mediaAlign_left'); ?>_round" name="<?php echo $this->get_field_name('mediaAlign_left'); ?>" value="true" <?php echo ($instance['mediaAlign_left'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id('mediaAlign_left'); ?>"><?php _e('Image align left', 'vkExUnit'); ?></label>		
 		</p>
 
 		<?php //image float setting ?>
 		<p><input type="checkbox" id="<?php echo $this->get_field_id('mediaFloat'); ?>_float" name="<?php echo $this->get_field_name('mediaFloat'); ?>" value="true" <?php echo ($instance['mediaFloat'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id('mediaFloat');  ?>"><?php _e('Text float to image.', 'vkExUnit'); ?></label><br/>
 		</p>
-						
+
 		<?php //profile text ?>
 		<p><label for="<?php echo $this->get_field_id('profile');  ?>"><?php _e('Profile Text:', 'vkExUnit'); ?></label></p>
-		
 		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id('profile'); ?>_text" class="prof_input textarea" name="<?php echo $this->get_field_name('profile'); ?>"><?php echo $instance['profile']; ?></textarea>
-		
-		<?php //facebook_URL ?>
+
+        <?php //facebook_URL ?>
 		<p><label for="<?php echo $this->get_field_id('facebook');  ?>"><?php _e('Facebook URL:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('facebook'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('facebook'); ?>" value="<?php echo $instance['facebook']; ?>" />
 		</p>
-		
+
 		<?php //twitter_URL ?>
 		<p><label for="<?php echo $this->get_field_id('twitter');  ?>"><?php _e('Twitter URL:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('twitter'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('twitter'); ?>" value="<?php echo $instance['twitter']; ?>" />
 		</p>
-		
+
 		<?php //mail_URL ?>
 		<p><label for="<?php echo $this->get_field_id('mail');  ?>"><?php _e('Email Address:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('mail'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('mail'); ?>" value="<?php echo $instance['mail']; ?>" />
 		</p>
-		
+
 		<?php //youtube_URL ?>
 		<p><label for="<?php echo $this->get_field_id('youtube');  ?>"><?php _e('Youtube URL:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('youtube'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('youtube'); ?>" value="<?php echo $instance['youtube']; ?>" />
 		</p>
-		
+
 		<?php //rss_URL ?>
 		<p><label for="<?php echo $this->get_field_id('rss'); ?>"><?php _e('RSS URL:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('rss'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('rss'); ?>" value="<?php echo $instance['rss']; ?>" />
 		</p>
-		
+
 		<?php //instagram_URL ?>
 		<p><label for="<?php echo $this->get_field_id('instagram');  ?>"><?php _e('instagram URL:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('instagram'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('instagram'); ?>" value="<?php echo $instance['instagram']; ?>" /></p>
-		
+
 		<?php //linkedin_URL ?>
 		<p><label for="<?php echo $this->get_field_id('linkedin');  ?>"><?php _e('linkedin URL:', 'vkExUnit'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('linkedin'); ?>_url" class="prof_input" name="<?php echo $this->get_field_name('linkedin'); ?>" value="<?php echo $instance['linkedin']; ?>" /></p>
-   
+
     <?php  }
-    
+
+
     function update ($new_instance, $old_instance) {
-        
         $instance = $old_instance;
         $instance['label'] = $new_instance['label'];
         $instance['mediaFile'] = $new_instance['mediaFile'];
@@ -134,28 +129,25 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
         $instance['instagram'] = $new_instance['instagram'];
         $instance['linkedin'] = $new_instance['linkedin'];
         return $instance;
-        
-    } 
-    
+    }
+
+
     function widget($args, $instance) {
 		// From here Display a widget
     	echo PHP_EOL.'<aside class="widget widget_profile">'.PHP_EOL;
 
-		if ( isset($instance['label']) && $instance['label'] ) {    
-			echo '<h1 class="widget-title subSection-title">';	
+		if ( isset($instance['label']) && $instance['label'] ) {
+			echo '<h1 class="widget-title subSection-title">';
 			echo $instance['label'];
 			echo '</h1>';
 		} ?>
-	
 <div class="site-profile" >
-<?php // Display a profile image 
+<?php // Display a profile image
 
 		$mediaRound = isset($instance['mediaRound']) ? ' media_round' : '' ;
 		$mediaSize = isset($instance['mediaSize']) ? mb_convert_kana($instance['mediaSize']) : '' ;
-		
 		$mediaClass = '';
 
-		
 		if(!empty($instance['mediaFloat'])){
 			$mediaClass .= 'media_float ';
 		}
@@ -180,15 +172,15 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		} else {
 			echo '" src="'.esc_url($instance['mediaFile']).'" alt="'.esc_attr($instance['mediaAlt']).'" /></div>'.PHP_EOL;
 		}
-        
+
         // Display a profile text
         if( !empty($instance['profile']) ){
             echo '<p class="profile_text">'.nl2br(esc_attr($instance['profile'])).'</p>'.PHP_EOL;
-        } 
-        
+        }
+
         // Display a sns botton
         if( isset($instance['facebook']) && $instance['facebook'] || isset($instance['twitter']) && $instance['twitter'] || isset($instance['mail']) && $instance['mail'] || isset($instance['youtube']) && $instance['youtube'] || isset($instance['rss']) && $instance['rss'] || isset($instance['instagram']) && $instance['instagram'] || isset($instance['linkedin']) && $instance['linkedin'] ): ?>
-        
+
 <ul class="sns_btns">
 <?php // Display a facebook botton
     if( !empty($instance['facebook']) ): ?>
@@ -222,14 +214,14 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <?php endif; ?>
 
 </div>
-<!-- / .site-profile -->		
+<!-- / .site-profile -->
 </aside>
 <?php }
-} 
+}
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_profile");'));
 
 // Profile widget uploader js
-function my_admin_scripts() {	
+function my_admin_scripts() {
     wp_enqueue_media();
     wp_register_script( 'mediauploader', plugin_dir_url( __FILE__ ) . 'js/widget-prof-uploader.js', array( 'jquery' ), false, true);
     wp_enqueue_script( 'mediauploader' );
@@ -282,7 +274,7 @@ echo '<style>
 		display: block;
 		width: 100%;
 		height: auto;
-	}	
+	}
 	.prof_input.textarea{
 		margin-top: -1em;
 	}

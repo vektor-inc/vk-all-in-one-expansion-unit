@@ -33,7 +33,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			'posts_per_page' => $count,
 			'paged' => 1,
 		);
-		
+
 		if(isset($instance['terms']) && $instance['terms']){
 			$taxonomies = get_taxonomies(array());
 	        $args['tax_query'] = array(
@@ -54,18 +54,15 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			while ( $post_loop->have_posts() ) : $post_loop->the_post(); ?>
 
 			<div class="media" id="post-<?php the_ID(); ?>">
-				
 				<?php if ( has_post_thumbnail()) : ?>
 					<div class="media-left postList_thumbnail">
 					<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
 					</div>
 				<?php endif; ?>
-				
 				<div class="media-body">
 					<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-					<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>          
+					<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>
 				</div>
-
 			</div>
 
 			<?php endwhile;
@@ -77,7 +74,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 	function form ($instance) {
-		
 		$defaults = array(
 			'count' 	=> 10,
 			'label' 	=> __('Recent Posts', 'vkExUnit' ),
@@ -86,10 +82,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		);
 
 		$instance = wp_parse_args((array) $instance, $defaults);
-		
-		?>
-		
-		<?php //タイトル ?>
+		 //タイトル ?>
 		<label for="<?php echo $this->get_field_id('label');  ?>"><?php _e('Title:'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('label'); ?>-title" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" />
 		<br/><br />
@@ -114,16 +107,13 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function update ($new_instance, $old_instance) {
-		
 		$instance = $old_instance;
-		
 		$instance['count'] 		= $new_instance['count'];
 		$instance['label'] 		= $new_instance['label'];
 		$instance['post_type']	= !empty($new_instance['post_type']) ? strip_tags($new_instance['post_type']) : 'post';
 		$instance['terms'] 		= preg_replace('/([^0-9,]+)/', '', $new_instance['terms']);
-
 		return $instance;
 	}
 
-} // class WP_Widget_top_list_post
+}
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_post_list");'));

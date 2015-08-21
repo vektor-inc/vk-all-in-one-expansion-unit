@@ -35,7 +35,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			<?php wp_list_categories($arg); ?>
 		</ul>
 	</aside>
-	<?php	
+	<?php
 	}
 
 
@@ -54,7 +54,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		<label for="<?php echo $this->get_field_id('label'); ?>"><?php _e( 'Label to display', 'vkExUnit' ); ?></label>
 		<input type="text"  id="<?php echo $this->get_field_id('label'); ?>-title" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" ><br/>
 		<input type="hidden" name="<?php echo $this->get_field_name('hide'); ?>" ><br/>
-		
+
 		<label for="<?php echo $this->get_field_id('tax_name'); ?>"><?php _e('Display page', 'vkExUnit') ?></label>
 		<select name="<?php echo $this->get_field_name('tax_name'); ?>" >
 
