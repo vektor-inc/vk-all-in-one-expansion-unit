@@ -3,15 +3,17 @@
 /*-------------------------------------------*/
 /*  child page list widget
 /*-------------------------------------------*/
+
 class WP_Widget_vkExUnit_child_page extends WP_Widget {
 
-	function WP_Widget_vkExUnit_child_page() {
-		$widget_opts = array(
-			'classname'   => 'WP_Widget_vkExUnit_child_page',
-			'description' => __('Display child pages list of current page.', 'vkExUnit')
-		);
+	function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "Child Page List", 'vkExUnit' );
-		$this->WP_Widget('WP_Widget_vkExUnit_child_page', $widget_name, $widget_opts);
+
+		parent::__construct(
+			'vkExUnit_child_pages',
+			$widget_name,
+			array( 'description' => __('Display child pages list of current page.', 'vkExUnit') )
+		);
 	}
 
 
@@ -33,10 +35,16 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 
 
 	function form($instance) {
+		?>
+<div style="padding:0.6em 0;">
+<?php _e('I have not more options.', 'vkExUnit'); ?>
+</div>
+		<?php
 	}
 
 
-	function update($new_instance, $old_instance) {
+	function update($instance, $old_instance) {
+		return $instance;
 	}
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_child_page");'));
