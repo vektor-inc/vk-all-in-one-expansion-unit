@@ -374,6 +374,8 @@ jQuery(document).ready(function($){
 	public function get_ctas( $show_label=false, $head='' ){
 		$args = array(
 			'post_type' => self::$posttype_name,
+			'nopaging'  => true,
+			'post_count' => -1
 		);
 		$query = new WP_Query($args);
 		$ctas = array();
