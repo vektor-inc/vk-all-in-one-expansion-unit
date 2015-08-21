@@ -14,6 +14,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		);
 	}
 
+
 	function widget($args, $instance) {
 		echo '<aside class="widget widget_fbPagePlugin">';
 
@@ -45,9 +46,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 
 	function update ($new_instance, $old_instance) {
-		
 		$instance = $old_instance;
-		
 		$instance['label'] 			= $new_instance['label'];
 		$instance['page_url'] 		= $new_instance['page_url'];
 		$instance['height'] 		= $new_instance['height'];
@@ -57,8 +56,10 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 		return $instance;
 	}
+
+
 	function form ($instance) {
-		
+
 		$defaults = array(
 			'label' 	=> 'Facebook',
 			'page_url'	=> '',
@@ -69,7 +70,6 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		);
 
 		$instance = wp_parse_args((array) $instance, $defaults);
-		
 		?>
 
 		<?php //タイトル ?>
@@ -101,7 +101,6 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		<label for="<?php echo $this->get_field_id('showPosts');  ?>"><?php _e('Show Page Posts', 'vkExUnit'); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name('showPosts'); ?>" value="true" <?php echo ($instance['showPosts'] == 'true')? 'checked': '' ; ?> >
 		<br/>
-		
 		<?php
 	}
 
