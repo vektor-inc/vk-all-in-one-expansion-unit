@@ -79,8 +79,8 @@
 	</tfoot>
 
 </table>
-
-<button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;"><?php _e('Extension Setting', 'vkExUnit'); ?></button>
+<br />
+<button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;" class="button"><?php _e('Extension Setting', 'vkExUnit'); ?></button>
 <table class="form-table" id="vkEx_extention" style="display:none;">
 <tr>
 <th><?php _e('Plugin setting options','vkExUnit'); ?></th>
