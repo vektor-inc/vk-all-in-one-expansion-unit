@@ -37,7 +37,7 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 	function form($instance) {
 		?>
 <div style="padding:0.6em 0;">
-<?php _e('I have not more options.', 'vkExUnit'); ?>
+<?php _e( 'This is only parent page.', 'vkExUnit' ); ?>
 </div>
 		<?php
 	}
