@@ -469,12 +469,12 @@ html { font-size: inherit; } /* reset bootstrap */
 
 @media (max-width: 767px){
 .veu_contact_txt { text-align: center; }
-.veu_contact_bt  { display: block; }
+.veu_contact .veu_contact_bt  { display: block; }
 }
 @media (min-width: 768px){
 p.veu_contact_txt { margin-bottom:0; }
 .veu_contact_txt { float:left; }
-.veu_contact_bt { float:right; }
+.veu_contact .veu_contact_bt { float:right; }
 }
 
 
