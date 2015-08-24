@@ -5,9 +5,9 @@ function vkExUnit_news_body()
 	include_once(ABSPATH . WPINC . '/feed.php');
 
 	if ( 'ja' == get_locale() ) {
-		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/ja/?feed?'.date('his') ;
+		$exUnit_feed_url = apply_filters( 'vkExUnit_news_RSS_URL_ja', 'http://ex-unit.bizvektor.com/ja/?feed?'.date('his') );
 	} else {
-		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/?feed?'.date('his') ;
+		$exUnit_feed_url = apply_filters( 'vkExUnit_news_RSS_URL', 'http://ex-unit.bizvektor.com/?feed?'.date('his') );
 	}
 
 	$my_feeds = array(
