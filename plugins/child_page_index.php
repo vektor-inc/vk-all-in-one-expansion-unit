@@ -51,7 +51,7 @@ function vkExUnit_childPageIndex_contentHook( $content ){
 	global $post;
 	if( !is_page() || !get_post_meta( $post->ID, 'vkExUnit_childPageIndex',true ) ) return $content;
 
-	$content .= '[vkExUnit_childs]';
+	$content .= "\n[vkExUnit_childs]";
 
 	return $content;
 }
