@@ -76,7 +76,7 @@ function show_sitemap($content) {
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap',true );
 	if($enable){
-		return $content.do_shortcode('[vkExUnit_sitemap]');
+		return $content . "\n" . do_shortcode('[vkExUnit_sitemap]');
 	}
 	return $content;
 }
