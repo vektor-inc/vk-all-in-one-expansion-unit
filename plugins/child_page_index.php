@@ -20,6 +20,9 @@ function vkExUnit_childPageIndex_shortcode(){
 		);
 	$childrens = new WP_Query($args);
 
+	add_filter( 'excerpt_more', 'vkExUnit_childs_excerpt_dots', 999 );
+	add_filter( 'excerpt_length', 'vkExUnit_childs_excerpt_length', 999 );
+
 	if( !$childrens->have_posts() ) return;
 
 	$childPageList_html = PHP_EOL.'<div class="row childPage_list">'.PHP_EOL;
@@ -28,7 +31,7 @@ function vkExUnit_childPageIndex_shortcode(){
 			// Set Excerpt
 			$postExcerpt = $post->post_excerpt;
 			if ( !$postExcerpt) {
-				$postExcerpt =  esc_html(mb_substr( strip_tags($post->post_content), 0, 120 )); // kill tags and trim 120 chara
+				$postExcerpt =  get_the_excerpt(); // kill tags and trim 120 chara
 			}
 
 			// Page Item build
@@ -42,8 +45,25 @@ function vkExUnit_childPageIndex_shortcode(){
 	endwhile;
 	$childPageList_html .= PHP_EOL.'</div><!-- [ /.childPage_list ] -->'.PHP_EOL;
 
+	remove_filter( 'vkExUnit_childs_excerpt_dots', 999 );
+	remove_filter( 'vkExUnit_childs_excerpt_length', 999 );
+
 	return $childPageList_html;
 }
+
+
+
+
+function vkExUnit_childs_excerpt_length( $length ) {
+     return 120;
+}
+
+
+
+function vkExUnit_childs_excerpt_dots($more) {
+	return '...';
+}
+
 
 
 add_filter('the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1);
@@ -70,7 +90,6 @@ function vkExUnit_childPageIndex_meta_box(){
 	global $post;
 	// childPageIndex display
 	$enable = get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true);?>
-
 <div>
 <input type="hidden" name="_nonce_vkExUnit__custom_field_childPageIndex" id="_nonce_vkExUnit__custom_field_childPageIndex" value="<?php echo wp_create_nonce(plugin_basename(__FILE__));?>" />
 <label for="vkExUnit_childPageIndex">
@@ -86,28 +105,28 @@ function vkExUnit_childPageIndex_meta_box(){
 // save custom field childPageIndex
 add_action('save_post', 'vkExUnit_save_custom_field_postdata');
 function vkExUnit_save_custom_field_postdata( $post_id ) {
-    $childPageIndex = isset($_POST['_nonce_vkExUnit__custom_field_childPageIndex']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_childPageIndex']) : null;
+	$childPageIndex = isset($_POST['_nonce_vkExUnit__custom_field_childPageIndex']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_childPageIndex']) : null;
 
 	if( !wp_verify_nonce( $childPageIndex, plugin_basename(__FILE__) )){
-  		return $post_id;
+		return $post_id;
 	}
 
-	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
-    return $post_id;
+	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
+	return $post_id;
 
-    $data = isset($_POST['vkExUnit_childPageIndex']) ? htmlspecialchars($_POST['vkExUnit_childPageIndex']) : null;
+	$data = isset($_POST['vkExUnit_childPageIndex']) ? htmlspecialchars($_POST['vkExUnit_childPageIndex']) : null;
 
 	if('page' == $data){
 		if(!current_user_can('edit_page', $post_id)) return $post_id;
 	}
 
-    if ( "" == get_post_meta( $post_id, 'vkExUnit_childPageIndex' )) {
-        add_post_meta( $post_id, 'vkExUnit_childPageIndex', $data, true ) ;
-    } else if ( $data != get_post_meta( $post_id, 'vkExUnit_childPageIndex' )) {
-        update_post_meta( $post_id, 'vkExUnit_childPageIndex', $data ) ;
-    } else if ( "" == $data ) {
-        delete_post_meta( $post_id, 'vkExUnit_childPageIndex' ) ;
-    }
+	if ( "" == get_post_meta( $post_id, 'vkExUnit_childPageIndex' )) {
+		add_post_meta( $post_id, 'vkExUnit_childPageIndex', $data, true ) ;
+	} else if ( $data != get_post_meta( $post_id, 'vkExUnit_childPageIndex' )) {
+		update_post_meta( $post_id, 'vkExUnit_childPageIndex', $data ) ;
+	} else if ( "" == $data ) {
+		delete_post_meta( $post_id, 'vkExUnit_childPageIndex' ) ;
+	}
 
-    do_action('vkExUnit_customField_Page_save_customField');
+	do_action('vkExUnit_customField_Page_save_customField');
 }
