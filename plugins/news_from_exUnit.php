@@ -29,7 +29,7 @@ function vkExUnit_news_body()
 			$output .= '<div class="rss-widget">';
 
 			$output .= '<div class="logo_exUnit">';
-			$output .= '<img src="'.vkExUnit_get_directory_uri('/images/head_logo_ExUnit.png').'" alt="VK ExUnit" style="width:200px;" /></div>';
+			$output .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', vkExUnit_get_directory_uri( '/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" style="width:200px;" /></div>';
 			$output .= '<ul>';
 
 			if ( $maxitems == 0 )
