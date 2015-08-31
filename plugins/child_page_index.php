@@ -20,8 +20,6 @@ function vkExUnit_childPageIndex_shortcode(){
 		);
 	$childrens = new WP_Query($args);
 
-	add_filter( 'excerpt_more', 'vkExUnit_childs_excerpt_dots', 999 );
-	add_filter( 'excerpt_length', 'vkExUnit_childs_excerpt_length', 999 );
 
 	if( !$childrens->have_posts() ) return;
 
@@ -31,7 +29,8 @@ function vkExUnit_childPageIndex_shortcode(){
 			// Set Excerpt
 			$postExcerpt = $post->post_excerpt;
 			if ( !$postExcerpt) {
-				$postExcerpt =  get_the_excerpt(); // kill tags and trim 120 chara
+				$postExcerpt =  esc_html(mb_substr( strip_tags($post->post_content), 0, 120 )); // kill tags and trim 120 chara
+				if( strlen( $postExcerpt >= 120 ) ) $postExcerpt .= '...';
 			}
 
 			// Page Item build
@@ -45,25 +44,8 @@ function vkExUnit_childPageIndex_shortcode(){
 	endwhile;
 	$childPageList_html .= PHP_EOL.'</div><!-- [ /.childPage_list ] -->'.PHP_EOL;
 
-	remove_filter( 'vkExUnit_childs_excerpt_dots', 999 );
-	remove_filter( 'vkExUnit_childs_excerpt_length', 999 );
-
 	return $childPageList_html;
 }
-
-
-
-
-function vkExUnit_childs_excerpt_length( $length ) {
-     return 120;
-}
-
-
-
-function vkExUnit_childs_excerpt_dots($more) {
-	return '...';
-}
-
 
 
 add_filter('the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1);
