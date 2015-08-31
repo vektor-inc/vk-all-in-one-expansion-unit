@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-17 19:28+0900\n"
+"POT-Creation-Date: 2015-08-31 11:44+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -107,25 +107,138 @@ msgstr "チャット"
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: ../packages.php:45 ../plugins/contact_section.php:70
-msgid "Contact Section"
-msgstr "お問い合わせ"
+#: ../packages.php:64
+msgid "Print Bootstrap css and js"
+msgstr "Bootstrap の CSS と js を出力"
 
-#: ../packages.php:46
-msgid "Display Contact Section at after content."
-msgstr "お問い合わせ情報を本文の下に表示する"
+#: ../packages.php:65
+msgid ""
+"If your using theme has already including Bootstrap, you deactivate this "
+"item."
+msgstr ""
+"Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
+"中のテーマやプラグインで Bootstrap を既に読み込んでいる場合はチェックを外して"
+"下さい。"
 
-#: ../packages.php:49 ../packages.php:94 ../packages.php:128
-#: ../packages.php:145 ../packages.php:162 ../vkExUnit_admin.php:109
-#: ../vkExUnit_admin.php:155 ../vkExUnit_admin.php:193
+#: ../packages.php:74
+msgid "Print link fontawesome"
+msgstr "fontawesome link タグを出力"
+
+#: ../packages.php:75
+msgid "Print fontawesome link tag to html head."
+msgstr ""
+"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
+"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
+"さい。"
+
+#: ../packages.php:84
+msgid "Favicon setting"
+msgstr "ファビコン設定"
+
+#: ../packages.php:85
+msgid "About favicon."
+msgstr ""
+"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
+"（ファビコン）を設定します。"
+
+#: ../packages.php:94
+msgid "Rewrite the title tag"
+msgstr "タイトルタグの書き換え"
+
+#: ../packages.php:95
+msgid "Print is rewritten by its own rules to html head."
+msgstr ""
+"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+
+#: ../packages.php:104
+msgid "Print meta description"
+msgstr "メタディスクリプションタグを出力"
+
+#: ../packages.php:105
+msgid "Print meta description to html head."
+msgstr ""
+"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
+"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
+"している場合はチェックを外して下さい。"
+
+#: ../packages.php:113
+msgid "Main setting page"
+msgstr "メイン設定画面"
+
+#: ../packages.php:115
+msgid "Print og tags to html head."
+msgstr "OG タグを html head 内へ出力します。"
+
+#: ../packages.php:116
+msgid "Print twitter card tags to html head."
+msgstr "Twitter カードタグを html head 内へ出力します。"
+
+#: ../packages.php:117
+msgid "Print social bookmark buttons."
+msgstr "ソーシャルブックマークボタンを表示します。"
+
+#: ../packages.php:118
+msgid "Facebook Page Plugin widget."
+msgstr "Facebookページプラグインウィジェット"
+
+#: ../packages.php:119
+msgid "Print Follow me box to content bottom."
+msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
+
+#: ../packages.php:121
+#, php-format
+msgid "* You can stop the function separately from the %s."
+msgstr "%s から個別に機能を停止する事ができます。"
+
+#: ../packages.php:125
+msgid "Social media cooperation"
+msgstr "ソーシャルメディア連携"
+
+#: ../packages.php:129 ../packages.php:146 ../packages.php:163
+#: ../packages.php:190 ../packages.php:235 ../packages.php:269
+#: ../packages.php:286 ../packages.php:303
 msgid "Setting"
 msgstr "設定"
 
-#: ../packages.php:63
+#: ../packages.php:142
+msgid "Print meta Keyword"
+msgstr "メタキーワードを出力"
+
+#: ../packages.php:143
+msgid "Print meta Keyword to html head."
+msgstr "ヘッダーにメタキーワードを出力します。"
+
+#: ../packages.php:160
+msgid "Print Google Analytics tracking code."
+msgstr ""
+"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
+"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
+"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
+"合はチェックを外して下さい。"
+
+#: ../packages.php:176 ../plugins/related_posts/related_posts.php:34
+msgid "Related posts"
+msgstr "関連記事を表示"
+
+#: ../packages.php:177
+msgid "Print Related posts lists to post content bottom."
+msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
+
+#: ../packages.php:186 ../plugins/contact_section.php:70
+msgid "Contact Section"
+msgstr "お問い合わせ"
+
+#: ../packages.php:187
+msgid "Display Contact Section at after content."
+msgstr "お問い合わせ情報を本文の下に表示する"
+
+#: ../packages.php:204
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
-#: ../packages.php:64
+#: ../packages.php:205
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
@@ -133,19 +246,19 @@ msgstr ""
 "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
 "サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
-#: ../packages.php:74
+#: ../packages.php:215
 msgid "Display HTML Site Map"
 msgstr "HTMLサイトマップの表示"
 
-#: ../packages.php:75
+#: ../packages.php:216
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: ../packages.php:82 ../plugins/call_to_action/view.adminsetting.php:10
+#: ../packages.php:223 ../plugins/call_to_action/view.adminsetting.php:10
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
-#: ../packages.php:84 ../plugins/call_to_action/view.adminsetting.php:11
+#: ../packages.php:225 ../plugins/call_to_action/view.adminsetting.php:11
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -153,7 +266,7 @@ msgstr ""
 "CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
 "情報を表示します。"
 
-#: ../packages.php:86 ../plugins/call_to_action/view.adminsetting.php:12
+#: ../packages.php:227 ../plugins/call_to_action/view.adminsetting.php:12
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -161,57 +274,57 @@ msgstr ""
 "例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
 "ンなどです。"
 
-#: ../packages.php:90 ../plugins/call_to_action/view.adminsetting.php:6
+#: ../packages.php:231 ../plugins/call_to_action/view.adminsetting.php:6
 msgid "Call To Action"
 msgstr "Call To Action"
 
-#: ../packages.php:99
+#: ../packages.php:240
 msgid "Contents setting"
 msgstr "CTA表示内容設定"
 
-#: ../packages.php:111
+#: ../packages.php:252
 msgid "You can use various widgets."
 msgstr ""
 "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
 "「ウィジェット」の設定画面より行って下さい。"
 
-#: ../packages.php:113
+#: ../packages.php:254
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
-#: ../packages.php:114
+#: ../packages.php:255
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
-#: ../packages.php:115
+#: ../packages.php:256
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
 
-#: ../packages.php:116
+#: ../packages.php:257
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
 
-#: ../packages.php:117
+#: ../packages.php:258
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: ../packages.php:118
+#: ../packages.php:259
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: ../packages.php:118
+#: ../packages.php:259
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
-#: ../packages.php:119 ../plugins/other_widget/widget-archives.php:14
+#: ../packages.php:260 ../plugins/other_widget/widget-archives.php:9
 msgid "archive list"
 msgstr "アーカイブリスト"
 
-#: ../packages.php:119 ../plugins/other_widget/widget-archives.php:12
+#: ../packages.php:260 ../plugins/other_widget/widget-archives.php:14
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
@@ -219,35 +332,35 @@ msgstr ""
 "アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
 "プを選択できます。"
 
-#: ../packages.php:124
+#: ../packages.php:265
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: ../packages.php:141
+#: ../packages.php:282
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: ../packages.php:142
+#: ../packages.php:283
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: ../packages.php:158 ../plugins/insert_ads.php:39
-#: ../plugins/insert_ads.php:118
+#: ../packages.php:299 ../plugins/insert_ads.php:37
+#: ../plugins/insert_ads.php:116
 msgid "Insert ads"
 msgstr "広告の挿入"
 
-#: ../packages.php:159
+#: ../packages.php:300
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: ../packages.php:175 ../vkExUnit_admin.php:233
+#: ../packages.php:316 ../vkExUnit_admin.php:30
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
-#: ../packages.php:176
+#: ../packages.php:317
 msgid "Display Eye Catch image at before content."
 msgstr ""
 "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
@@ -257,162 +370,31 @@ msgstr ""
 msgid "Enable setting"
 msgstr "有効化設定"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:280
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:77
 msgid "Select all"
 msgstr "全てを選択"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:280
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:77
 msgid "Function"
 msgstr "有効化"
 
-#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:280
+#: ../vkExUnit_admin.php:16 ../vkExUnit_admin.php:77
 msgid "Description"
 msgstr "説明"
 
-#: ../vkExUnit_admin.php:26
-msgid "Choose Print Bootstrap css"
-msgstr "Bootstrap の CSS を出力するか選択"
+#: ../vkExUnit_admin.php:83
+#, fuzzy
+msgid "Extension Setting"
+msgstr "アイコン設定"
 
-#: ../vkExUnit_admin.php:31
-msgid "Print Bootstrap css and js"
-msgstr "Bootstrap の CSS と js を出力"
-
-#: ../vkExUnit_admin.php:35
-msgid ""
-"If your using theme has already including Bootstrap, you deactivate this "
-"item."
-msgstr ""
-"Bootstrap の CSS と js を読み込むためのタグを html head 内へ出力します。使用"
-"中のテーマやプラグインで Bootstrap を既に読み込んでいる場合はチェックを外して"
-"下さい。"
-
-#: ../vkExUnit_admin.php:44
-msgid "Choose Print link fontawesome."
-msgstr "出力する fontawesome link を選択して下さい。"
-
-#: ../vkExUnit_admin.php:49
-msgid "Print link fontawesome."
-msgstr "fontawesome link タグを出力"
-
-#: ../vkExUnit_admin.php:53
-msgid "Print fontawesome link tag to html head."
-msgstr ""
-"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
-"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
-"さい。"
-
-#: ../vkExUnit_admin.php:62 ../vkExUnit_admin.php:126
-msgid "Choose Print meta description."
-msgstr "出力する meta description を選択して下さい。"
-
-#: ../vkExUnit_admin.php:67
-msgid "Favicon setting"
-msgstr "ファビコン設定"
-
-#: ../vkExUnit_admin.php:71
-msgid "About favicon."
-msgstr ""
-"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
-"（ファビコン）を設定します。"
-
-#: ../vkExUnit_admin.php:80
-msgid "Choose Rewrite the title tag"
-msgstr "タイトルタグの書き換えを選択する"
-
-#: ../vkExUnit_admin.php:85
-msgid "Rewrite the title tag"
-msgstr "タイトルタグの書き換え"
-
-#: ../vkExUnit_admin.php:89
-msgid "Print is rewritten by its own rules to html head."
-msgstr ""
-"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
-"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
-"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
-
-#: ../vkExUnit_admin.php:98
-msgid "Choose Print meta Keyword."
-msgstr "メタキーワードを選んでください。"
-
-#: ../vkExUnit_admin.php:103
-msgid "Print meta Keyword"
-msgstr "メタキーワードを出力"
-
-#: ../vkExUnit_admin.php:117
-msgid "Print meta Keyword to html head."
-msgstr "ヘッダーにメタキーワードを出力します。"
-
-#: ../vkExUnit_admin.php:131
-msgid "Print meta description"
-msgstr "メタディスクリプションタグを出力"
-
-#: ../vkExUnit_admin.php:135
-msgid "Print meta description to html head."
-msgstr ""
-"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
-"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
-"している場合はチェックを外して下さい。"
-
-#: ../vkExUnit_admin.php:144
-msgid "Choose Social media cooperation."
-msgstr "連携するソーシャルメディアを選択します。"
-
-#: ../vkExUnit_admin.php:149
-msgid "Social media cooperation."
-msgstr "ソーシャルメディアとの連携"
-
-#: ../vkExUnit_admin.php:164
-msgid "Print og tags to html head."
-msgstr "OG タグを html head 内へ出力します。"
-
-#: ../vkExUnit_admin.php:165
-msgid "Print twitter card tags to html head."
-msgstr "Twitter カードタグを html head 内へ出力します。"
-
-#: ../vkExUnit_admin.php:166
-msgid "Print social bookmark buttons."
-msgstr "ソーシャルブックマークボタンを表示します。"
-
-#: ../vkExUnit_admin.php:167
-msgid "Facebook Page Plugin widget."
-msgstr "Facebookページプラグインウィジェット"
-
-#: ../vkExUnit_admin.php:168
-msgid "Print Follow me box to content bottom."
-msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
-
-#: ../vkExUnit_admin.php:171
-msgid "Main setting page"
+#: ../vkExUnit_admin.php:86
+#, fuzzy
+msgid "Plugin setting options"
 msgstr "メイン設定画面"
 
-#: ../vkExUnit_admin.php:172
-#, php-format
-msgid "* You can stop the function separately from the %s."
-msgstr "%s から個別に機能を停止する事ができます。"
-
-#: ../vkExUnit_admin.php:182
-msgid "Choose Print Google Analytics tracking code."
-msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
-
-#: ../vkExUnit_admin.php:201
-msgid "Print Google Analytics tracking code."
+#: ../vkExUnit_admin.php:88
+msgid "Delete myOptions when deactivate me."
 msgstr ""
-"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
-"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
-"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
-"合はチェックを外して下さい。"
-
-#: ../vkExUnit_admin.php:210
-msgid "Choose Related posts."
-msgstr "関連記事を選択"
-
-#: ../vkExUnit_admin.php:215 ../plugins/related_posts/related_posts.php:34
-msgid "Related posts"
-msgstr "関連記事を表示"
-
-#: ../vkExUnit_admin.php:219
-msgid "Print Related posts lists to post content bottom."
-msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
 #: ../plugins/auto_eyecatch.php:40
 msgid "Automatic EyeCatch"
@@ -422,10 +404,21 @@ msgstr "アイキャッチ自動挿入"
 msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
 
+#: ../plugins/child_page_index.php:42
+#: ../plugins/other_widget/widget-3pr-area.php:269
+#: ../plugins/other_widget/widget-3pr-area.php:311
+#: ../plugins/other_widget/widget-3pr-area.php:354
+msgid "Read more"
+msgstr "詳しくはこちら"
+
+#: ../plugins/child_page_index.php:97
+msgid "Display a child page index"
+msgstr "子ページ一覧の表示"
+
 #: ../plugins/contact_section.php:46
-#: ../plugins/other_widget/widget-pr-blocks.php:43
+#: ../plugins/other_widget/widget-pr-blocks.php:46
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: ../plugins/contact_section.php:56 ../plugins/contact_section.php:77
 msgid "Please feel free to inquire."
@@ -495,7 +488,7 @@ msgstr "お問い合わせ情報の表示"
 
 #: ../plugins/contact_section.php:215
 msgid "Edit contact information"
-msgstr ""
+msgstr "Contact情報を編集"
 
 #: ../plugins/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
@@ -504,18 +497,18 @@ msgstr "VK All in One Expansion Unit からのお知らせ"
 #: ../plugins/footer_copyright_change.php:6
 msgid ""
 "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
-"\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
-"Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.bizvektor."
-"com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
+"\"//lightning.vektor-inc.co.jp\" target=\"_blank\" title=\"Free WordPress "
+"Theme Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.vektor-"
+"inc.co.jp/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
 "\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
 "</p>"
 msgstr ""
 "<p>Powered by <a href=\"https://ja.wordpress.org/\" target=\"_blank"
-"\">WordPress</a> with <a href=\"//lightning.bizvektor.com/ja/\" target="
+"\">WordPress</a> with <a href=\"//lightning.vektor-inc.co.jp/ja/\" target="
 "\"_blank\" title=\"Free WordPress Theme Lightning\"> Lightning Theme</a> "
-"&amp; <a href=\"http://ex-unit.bizvektor.com/ja/\" target=\"_blank\">VK All "
-"in One Expansion Unit</a> by <a href=\"http://www.vektor-inc.co.jp\" target="
-"\"_blank\">Vektor,Inc.</a> technology.</p>"
+"&amp; <a href=\"http://ex-unit.vektor-inc.co.jp/ja/\" target=\"_blank\">VK "
+"All in One Expansion Unit</a> by <a href=\"http://www.vektor-inc.co.jp\" "
+"target=\"_blank\">Vektor,Inc.</a> technology.</p>"
 
 #: ../plugins/icons.php:38 ../plugins/icons.php:68
 msgid "icon setting"
@@ -533,23 +526,23 @@ msgstr "アイコンを選択"
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
-#: ../plugins/insert_ads.php:121
+#: ../plugins/insert_ads.php:119
 msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
-#: ../plugins/insert_ads.php:123
+#: ../plugins/insert_ads.php:121
 msgid "Insert ads to more tag and after content."
 msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
 
-#: ../plugins/insert_ads.php:123
+#: ../plugins/insert_ads.php:121
 msgid "If you want to separate ads area, you fill two fields."
 msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
 
-#: ../plugins/insert_ads.php:125
+#: ../plugins/insert_ads.php:123
 msgid "insert the ad [ more tag ]"
 msgstr "広告を挿入 [ moreタグ ]"
 
-#: ../plugins/insert_ads.php:133
+#: ../plugins/insert_ads.php:131
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 
@@ -670,7 +663,7 @@ msgstr "CTAの新規作成"
 
 #: ../plugins/call_to_action/class.call_to_action.php:50
 msgid "New CTA"
-msgstr ""
+msgstr "CTA 新規作成"
 
 #: ../plugins/call_to_action/class.call_to_action.php:76
 #: ../plugins/call_to_action/class.call_to_action.php:78
@@ -687,7 +680,7 @@ msgid "Follow common setting"
 msgstr "共通設定を使用"
 
 #: ../plugins/call_to_action/class.call_to_action.php:90
-#: ../plugins/call_to_action/class.call_to_action.php:397
+#: ../plugins/call_to_action/class.call_to_action.php:399
 msgid "Disable display"
 msgstr "表示しない"
 
@@ -774,17 +767,6 @@ msgstr ""
 msgid "Show index page"
 msgstr "一覧ページを表示する"
 
-#: ../plugins/child_page_index/child_page_index.php:40
-#: ../plugins/other_widget/widget-3pr-area.php:274
-#: ../plugins/other_widget/widget-3pr-area.php:316
-#: ../plugins/other_widget/widget-3pr-area.php:359
-msgid "Read more"
-msgstr "詳しくはこちら"
-
-#: ../plugins/child_page_index/child_page_index.php:76
-msgid "Display a child page index"
-msgstr "子ページ一覧の表示"
-
 #: ../plugins/css_customize/css_customize-edit.php:2
 #: ../plugins/css_customize/css_customize.php:35
 #: ../plugins/css_customize/css_customize.php:36
@@ -839,22 +821,22 @@ msgstr "ノーマルのコードのみを出力します。"
 msgid "To output both types"
 msgstr "両タイプのコードを出力します。"
 
-#: ../plugins/other_widget/widget-3pr-area.php:11
-msgid "Displays a 3PR area"
-msgstr "3PR エリアを表示します。"
-
-#: ../plugins/other_widget/widget-3pr-area.php:13
-#: ../plugins/other_widget/widget-3pr-area.php:245
-#: ../plugins/other_widget/widget-3pr-area.php:287
-#: ../plugins/other_widget/widget-3pr-area.php:330
+#: ../plugins/other_widget/widget-3pr-area.php:9
+#: ../plugins/other_widget/widget-3pr-area.php:240
+#: ../plugins/other_widget/widget-3pr-area.php:282
+#: ../plugins/other_widget/widget-3pr-area.php:325
 msgid "3PR area"
 msgstr "3PR エリア"
 
-#: ../plugins/other_widget/widget-3pr-area.php:18
+#: ../plugins/other_widget/widget-3pr-area.php:14
+msgid "Displays a 3PR area"
+msgstr "3PR エリアを表示します。"
+
+#: ../plugins/other_widget/widget-3pr-area.php:20
 msgid "3PR area1 title"
 msgstr "3PR エリア1 タイトル"
 
-#: ../plugins/other_widget/widget-3pr-area.php:26
+#: ../plugins/other_widget/widget-3pr-area.php:27
 msgid "3PR area2 title"
 msgstr "3PR エリア2 タイトル"
 
@@ -862,189 +844,189 @@ msgstr "3PR エリア2 タイトル"
 msgid "3PR area3 title"
 msgstr "3PR エリア3 タイトル"
 
-#: ../plugins/other_widget/widget-3pr-area.php:47
+#: ../plugins/other_widget/widget-3pr-area.php:46
 msgid "3PR area1 setting"
 msgstr "3PR エリア1 設定"
 
-#: ../plugins/other_widget/widget-3pr-area.php:49
-#: ../plugins/other_widget/widget-3pr-area.php:102
-#: ../plugins/other_widget/widget-3pr-area.php:154
-#: ../plugins/other_widget/widget-new-posts.php:92
-#: ../plugins/other_widget/widget-pr-blocks.php:71
-#: ../plugins/other_widget/widget-profile.php:39
-#: ../plugins/sns/function_fbPagePlugin.php:75
+#: ../plugins/other_widget/widget-3pr-area.php:48
+#: ../plugins/other_widget/widget-3pr-area.php:98
+#: ../plugins/other_widget/widget-3pr-area.php:149
+#: ../plugins/other_widget/widget-new-posts.php:86
+#: ../plugins/other_widget/widget-pr-blocks.php:74
+#: ../plugins/other_widget/widget-profile.php:40
+#: ../plugins/sns/function_fbPagePlugin.php:76
 msgid "Title:"
 msgstr "タイトル"
 
-#: ../plugins/other_widget/widget-3pr-area.php:55
-#: ../plugins/other_widget/widget-3pr-area.php:108
-#: ../plugins/other_widget/widget-3pr-area.php:160
+#: ../plugins/other_widget/widget-3pr-area.php:54
+#: ../plugins/other_widget/widget-3pr-area.php:104
+#: ../plugins/other_widget/widget-3pr-area.php:155
 msgid "Select image for PC:"
 msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 
-#: ../plugins/other_widget/widget-3pr-area.php:61
-#: ../plugins/other_widget/widget-3pr-area.php:78
-#: ../plugins/other_widget/widget-3pr-area.php:114
-#: ../plugins/other_widget/widget-3pr-area.php:132
-#: ../plugins/other_widget/widget-3pr-area.php:166
-#: ../plugins/other_widget/widget-3pr-area.php:183
-#: ../plugins/other_widget/widget-pr-blocks.php:93
-#: ../plugins/other_widget/widget-profile.php:50
+#: ../plugins/other_widget/widget-3pr-area.php:57
+#: ../plugins/other_widget/widget-3pr-area.php:74
+#: ../plugins/other_widget/widget-3pr-area.php:110
+#: ../plugins/other_widget/widget-3pr-area.php:128
+#: ../plugins/other_widget/widget-3pr-area.php:161
+#: ../plugins/other_widget/widget-3pr-area.php:178
+#: ../plugins/other_widget/widget-pr-blocks.php:96
+#: ../plugins/other_widget/widget-profile.php:48
 msgid "Select image"
 msgstr "画像を選択"
 
-#: ../plugins/other_widget/widget-3pr-area.php:62
-#: ../plugins/other_widget/widget-3pr-area.php:79
-#: ../plugins/other_widget/widget-3pr-area.php:115
-#: ../plugins/other_widget/widget-3pr-area.php:133
-#: ../plugins/other_widget/widget-3pr-area.php:167
-#: ../plugins/other_widget/widget-3pr-area.php:184
-#: ../plugins/other_widget/widget-pr-blocks.php:96
-#: ../plugins/other_widget/widget-profile.php:51
+#: ../plugins/other_widget/widget-3pr-area.php:58
+#: ../plugins/other_widget/widget-3pr-area.php:75
+#: ../plugins/other_widget/widget-3pr-area.php:111
+#: ../plugins/other_widget/widget-3pr-area.php:129
+#: ../plugins/other_widget/widget-3pr-area.php:162
+#: ../plugins/other_widget/widget-3pr-area.php:179
+#: ../plugins/other_widget/widget-pr-blocks.php:99
+#: ../plugins/other_widget/widget-profile.php:49
 msgid "Clear image"
 msgstr "画像クリア"
 
-#: ../plugins/other_widget/widget-3pr-area.php:72
-#: ../plugins/other_widget/widget-3pr-area.php:126
-#: ../plugins/other_widget/widget-3pr-area.php:177
+#: ../plugins/other_widget/widget-3pr-area.php:68
+#: ../plugins/other_widget/widget-3pr-area.php:122
+#: ../plugins/other_widget/widget-3pr-area.php:172
 msgid "Select image for Mobile:"
 msgstr ""
 "スマホ用（ウィンドウサイズが 992px 以下の場合）に表示される画像を選択（橫 "
 "690px 以上推奨。空欄も可）"
 
-#: ../plugins/other_widget/widget-3pr-area.php:88
-#: ../plugins/other_widget/widget-3pr-area.php:142
-#: ../plugins/other_widget/widget-3pr-area.php:194
-#: ../plugins/other_widget/widget-pr-blocks.php:107
+#: ../plugins/other_widget/widget-3pr-area.php:84
+#: ../plugins/other_widget/widget-3pr-area.php:138
+#: ../plugins/other_widget/widget-3pr-area.php:188
+#: ../plugins/other_widget/widget-pr-blocks.php:110
 msgid "Summary Text:"
 msgstr "概要となるテキスト"
 
-#: ../plugins/other_widget/widget-3pr-area.php:94
-#: ../plugins/other_widget/widget-3pr-area.php:146
-#: ../plugins/other_widget/widget-3pr-area.php:199
-#: ../plugins/other_widget/widget-pr-blocks.php:111
+#: ../plugins/other_widget/widget-3pr-area.php:90
+#: ../plugins/other_widget/widget-3pr-area.php:142
+#: ../plugins/other_widget/widget-3pr-area.php:192
+#: ../plugins/other_widget/widget-pr-blocks.php:114
 msgid "Link URL:"
 msgstr "リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-3pr-area.php:100
+#: ../plugins/other_widget/widget-3pr-area.php:96
 msgid "3PR area2 setting"
 msgstr "3PR エリア2 設定"
 
-#: ../plugins/other_widget/widget-3pr-area.php:152
+#: ../plugins/other_widget/widget-3pr-area.php:147
 msgid "3PR area3 setting"
 msgstr "3PR エリア3 設定"
 
-#: ../plugins/other_widget/widget-archives.php:50
-#: ../plugins/other_widget/widget-archives.php:51
+#: ../plugins/other_widget/widget-archives.php:52
+#: ../plugins/other_widget/widget-archives.php:53
 msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
-#: ../plugins/other_widget/widget-archives.php:60
+#: ../plugins/other_widget/widget-archives.php:62
 msgid "Title"
 msgstr "タイトル"
 
-#: ../plugins/other_widget/widget-archives.php:64
+#: ../plugins/other_widget/widget-archives.php:66
 msgid "Post type"
 msgstr "ポストタイプ"
 
-#: ../plugins/other_widget/widget-archives.php:74
+#: ../plugins/other_widget/widget-archives.php:76
 msgid "Monthly"
 msgstr "月別"
 
-#: ../plugins/other_widget/widget-archives.php:76
+#: ../plugins/other_widget/widget-archives.php:78
 msgid "Yearly"
 msgstr "年別"
 
-#: ../plugins/other_widget/widget-archives.php:94
+#: ../plugins/other_widget/widget-archives.php:96
 msgid "archive"
 msgstr "アーカイブ"
 
-#: ../plugins/other_widget/widget-new-posts.php:11
-msgid "Displays a list of your most recent posts"
-msgstr "最新の投稿記事リストを表示します。"
-
-#: ../plugins/other_widget/widget-new-posts.php:13
-#: ../plugins/other_widget/widget-new-posts.php:23
-#: ../plugins/other_widget/widget-new-posts.php:82
+#: ../plugins/other_widget/widget-new-posts.php:9
+#: ../plugins/other_widget/widget-new-posts.php:24
+#: ../plugins/other_widget/widget-new-posts.php:79
 msgid "Recent Posts"
 msgstr "最新記事"
 
-#: ../plugins/other_widget/widget-new-posts.php:97
+#: ../plugins/other_widget/widget-new-posts.php:14
+msgid "Displays a list of your most recent posts"
+msgstr "最新の投稿記事リストを表示します。"
+
+#: ../plugins/other_widget/widget-new-posts.php:91
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: ../plugins/other_widget/widget-new-posts.php:102
+#: ../plugins/other_widget/widget-new-posts.php:96
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: ../plugins/other_widget/widget-new-posts.php:107
+#: ../plugins/other_widget/widget-new-posts.php:101
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: ../plugins/other_widget/widget-new-posts.php:109
+#: ../plugins/other_widget/widget-new-posts.php:103
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:111
+#: ../plugins/other_widget/widget-new-posts.php:105
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
 
-#: ../plugins/other_widget/widget-page.php:11
-msgid "Displays a page contents to widget."
-msgstr "選択したページの内容を表示します。"
-
-#: ../plugins/other_widget/widget-page.php:13
+#: ../plugins/other_widget/widget-page.php:9
 msgid "page content to widget"
 msgstr "固定ページ本文"
 
-#: ../plugins/other_widget/widget-page.php:33
+#: ../plugins/other_widget/widget-page.php:14
+msgid "Displays a page contents to widget."
+msgstr "選択したページの内容を表示します。"
+
+#: ../plugins/other_widget/widget-page.php:34
 #: ../plugins/other_widget/widget-taxonomies.php:58
 msgid "Display page"
 msgstr "ページを表示"
 
-#: ../plugins/other_widget/widget-page.php:41
+#: ../plugins/other_widget/widget-page.php:42
 msgid "display title"
 msgstr "タイトルを表示"
 
-#: ../plugins/other_widget/widget-page.php:65
+#: ../plugins/other_widget/widget-page.php:66
 msgid "Edit"
 msgstr "編集"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:10
-msgid "Displays a circle image or icon font for pr blocks"
-msgstr ""
-
-#: ../plugins/other_widget/widget-pr-blocks.php:12
+#: ../plugins/other_widget/widget-pr-blocks.php:9
 msgid "PR Blocks"
 msgstr "PR Blocks"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:19
+#: ../plugins/other_widget/widget-pr-blocks.php:14
+msgid "Displays a circle image or icon font for pr blocks"
+msgstr ""
+
+#: ../plugins/other_widget/widget-pr-blocks.php:22
 msgid "Service"
 msgstr "サービス紹介"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:27
+#: ../plugins/other_widget/widget-pr-blocks.php:30
 msgid "Company"
 msgstr "会社案内"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:35
+#: ../plugins/other_widget/widget-pr-blocks.php:38
 msgid "Recruit"
 msgstr "採用情報"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:56
+#: ../plugins/other_widget/widget-pr-blocks.php:59
 msgid "The choice of the number of columns:"
 msgstr "列の数"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:58
+#: ../plugins/other_widget/widget-pr-blocks.php:61
 msgid "3column"
 msgstr "3列"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:59
+#: ../plugins/other_widget/widget-pr-blocks.php:62
 msgid "4column"
 msgstr "4列"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:61
+#: ../plugins/other_widget/widget-pr-blocks.php:64
 msgid ""
 "If you change the number of columns, click to \"Save\" botton and exit the "
 "edit page. When restart the edit page, the column input form is increased or "
@@ -1053,108 +1035,108 @@ msgstr ""
 "列の数を変更する場合は「保存して公開」ボタンをクリックして編集画面を終了しま"
 "す。それから編集画面を再度開くと列の入力フォームが増減します。"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:68
-#: ../plugins/other_widget/widget-pr-blocks.php:166
+#: ../plugins/other_widget/widget-pr-blocks.php:71
+#: ../plugins/other_widget/widget-pr-blocks.php:167
 msgid "PR Block"
 msgstr "PRブロック"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:75
+#: ../plugins/other_widget/widget-pr-blocks.php:78
 msgid "Class name of the icon font you want to use:"
 msgstr "使用したいアイコンフォントのクラス名:"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:78
+#: ../plugins/other_widget/widget-pr-blocks.php:81
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:78
+#: ../plugins/other_widget/widget-pr-blocks.php:81
 msgid " ex:fa-file-text-o"
 msgstr "例:fa-file-text-o"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:82
+#: ../plugins/other_widget/widget-pr-blocks.php:85
 msgid "Icon bg-color:"
 msgstr "アイコン背景色:"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:86
+#: ../plugins/other_widget/widget-pr-blocks.php:89
 msgid "Select image:"
 msgstr "画像を選択"
 
-#: ../plugins/other_widget/widget-pr-blocks.php:97
+#: ../plugins/other_widget/widget-pr-blocks.php:100
 msgid "When you have an image. Image is displayed with priority"
 msgstr "画像を設定するとアイコンフォントよりも画像が優先されます。"
 
-#: ../plugins/other_widget/widget-profile.php:11
+#: ../plugins/other_widget/widget-profile.php:9
+#: ../plugins/other_widget/widget-profile.php:20
+msgid "Profile"
+msgstr "プロフィール"
+
+#: ../plugins/other_widget/widget-profile.php:14
 msgid "Displays a your profile"
 msgstr ""
 "ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
 
-#: ../plugins/other_widget/widget-profile.php:13
-#: ../plugins/other_widget/widget-profile.php:19
-msgid "Profile"
-msgstr "プロフィール"
-
-#: ../plugins/other_widget/widget-profile.php:26
+#: ../plugins/other_widget/widget-profile.php:27
 msgid "Profile Text"
 msgstr "プロフィールテキスト"
 
-#: ../plugins/other_widget/widget-profile.php:44
+#: ../plugins/other_widget/widget-profile.php:45
 msgid "Select Profile image:"
 msgstr "プロフィール用画像を選択"
 
-#: ../plugins/other_widget/widget-profile.php:61
+#: ../plugins/other_widget/widget-profile.php:58
 msgid "Cut out round the image."
 msgstr "画像を丸く切り抜いて表示する"
 
-#: ../plugins/other_widget/widget-profile.php:65
+#: ../plugins/other_widget/widget-profile.php:62
 msgid "Media size (Optional)"
 msgstr "画像の大きさ( 任意 )"
 
-#: ../plugins/other_widget/widget-profile.php:70
+#: ../plugins/other_widget/widget-profile.php:67
 msgid "Image align left"
 msgstr "画像を左揃えにする"
 
-#: ../plugins/other_widget/widget-profile.php:74
+#: ../plugins/other_widget/widget-profile.php:71
 msgid "Text float to image."
 msgstr "テキストを画像に回りこませる"
 
-#: ../plugins/other_widget/widget-profile.php:78
+#: ../plugins/other_widget/widget-profile.php:75
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: ../plugins/other_widget/widget-profile.php:83
+#: ../plugins/other_widget/widget-profile.php:79
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:88
+#: ../plugins/other_widget/widget-profile.php:84
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:93
+#: ../plugins/other_widget/widget-profile.php:89
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:98
+#: ../plugins/other_widget/widget-profile.php:94
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:103
+#: ../plugins/other_widget/widget-profile.php:99
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:108
+#: ../plugins/other_widget/widget-profile.php:104
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-profile.php:112
+#: ../plugins/other_widget/widget-profile.php:108
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
-#: ../plugins/other_widget/widget-taxonomies.php:12
-msgid "Displays a categories and custom taxonomies list."
-msgstr "カテゴリーやカスタム分類のリストを表示します。"
-
-#: ../plugins/other_widget/widget-taxonomies.php:14
+#: ../plugins/other_widget/widget-taxonomies.php:9
 msgid "Categories/Custom taxonomies list"
 msgstr "カテゴリー/カスタム分類リスト"
+
+#: ../plugins/other_widget/widget-taxonomies.php:14
+msgid "Displays a categories and custom taxonomies list."
+msgstr "カテゴリーやカスタム分類のリストを表示します。"
 
 #: ../plugins/other_widget/widget-taxonomies.php:45
 #: ../plugins/other_widget/widget-taxonomies.php:46
@@ -1219,23 +1201,23 @@ msgstr "HTMLサイトマップ"
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
-#: ../plugins/sns/function_fbPagePlugin.php:10
+#: ../plugins/sns/function_fbPagePlugin.php:13
 msgid "Displays a Facebook Page Plugin"
 msgstr "Facebook ページプラグインを表示します。"
 
-#: ../plugins/sns/function_fbPagePlugin.php:85
+#: ../plugins/sns/function_fbPagePlugin.php:86
 msgid "Height"
 msgstr "高さ"
 
-#: ../plugins/sns/function_fbPagePlugin.php:90
+#: ../plugins/sns/function_fbPagePlugin.php:91
 msgid "Show Friend's Faces"
 msgstr "アイコンを表示する"
 
-#: ../plugins/sns/function_fbPagePlugin.php:95
+#: ../plugins/sns/function_fbPagePlugin.php:96
 msgid "Hide Cover Photo"
 msgstr "カバー画像を表示しない"
 
-#: ../plugins/sns/function_fbPagePlugin.php:100
+#: ../plugins/sns/function_fbPagePlugin.php:101
 msgid "Show Page Posts"
 msgstr "タイムラインを表示"
 
@@ -1533,6 +1515,30 @@ msgstr "BizVektor を使用して OGP タグを出力しない。"
 #: ../plugins/sns/old/sns_admin.php:149
 msgid "Page top"
 msgstr "ページ先頭へ"
+
+#~ msgid "Choose Print Bootstrap css"
+#~ msgstr "Bootstrap の CSS を出力するか選択"
+
+#~ msgid "Choose Print link fontawesome."
+#~ msgstr "出力する fontawesome link を選択して下さい。"
+
+#~ msgid "Choose Print meta description."
+#~ msgstr "出力する meta description を選択して下さい。"
+
+#~ msgid "Choose Rewrite the title tag"
+#~ msgstr "タイトルタグの書き換えを選択する"
+
+#~ msgid "Choose Print meta Keyword."
+#~ msgstr "メタキーワードを選んでください。"
+
+#~ msgid "Choose Social media cooperation."
+#~ msgstr "連携するソーシャルメディアを選択します。"
+
+#~ msgid "Choose Print Google Analytics tracking code."
+#~ msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
+
+#~ msgid "Choose Related posts."
+#~ msgstr "関連記事を選択"
 
 #~ msgid "Choose display a child page index"
 #~ msgstr "子ページの一覧を表示するか選択"
