@@ -29,8 +29,8 @@ function vkExUnit_childPageIndex_shortcode(){
 			// Set Excerpt
 			$postExcerpt = $post->post_excerpt;
 			if ( !$postExcerpt) {
-				$postExcerpt =  esc_html(mb_substr( strip_tags($post->post_content), 0, 120 )); // kill tags and trim 120 chara
-				if( mb_strlen( $postExcerpt ) >= 120  ) $postExcerpt .= '...';
+				$postExcerpt =  esc_html(mb_substr( strip_tags($post->post_content), 0, 90 )); // kill tags and trim 120 chara
+				if( mb_strlen( $postExcerpt ) >= 90  ) $postExcerpt .= '...';
 			}
 
 			// Page Item build
