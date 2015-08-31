@@ -30,7 +30,7 @@ function vkExUnit_childPageIndex_shortcode(){
 			$postExcerpt = $post->post_excerpt;
 			if ( !$postExcerpt) {
 				$postExcerpt =  esc_html(mb_substr( strip_tags($post->post_content), 0, 120 )); // kill tags and trim 120 chara
-				if( strlen( $postExcerpt ) >= 120  ) $postExcerpt .= '...';
+				if( mb_strlen( $postExcerpt ) >= 120  ) $postExcerpt .= '...';
 			}
 
 			// Page Item build
