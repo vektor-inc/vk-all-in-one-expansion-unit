@@ -215,9 +215,18 @@ function vkExUnit_admin_enq(){
 //     }
 // }
 
+if( function_exists('register_activation_hook') ){
+	register_activation_hook( __FILE__ , 'vkExUnit_install_function' );
+}
+function vkExUnit_install_function(){
+	$opt = get_option('vkExUnit_common_options');
+	if( !$opt ){
+		add_option( 'vkExUnit_common_options', vkExUnit_get_common_options_default() );
+	}
+}
 
 if (function_exists('register_deactivation_hook')){
-    register_deactivation_hook(__FILE__,     'vkExUnit_uninstall_function');
+    register_deactivation_hook( __FILE__, 'vkExUnit_uninstall_function' );
 }
 
 function vkExUnit_uninstall_function()
