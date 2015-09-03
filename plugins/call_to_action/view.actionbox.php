@@ -34,3 +34,7 @@ if( $url && $btn_text ){
 }
 $content .= '</div><!-- [ /.vkExUnit_cta_body ] -->';
 $content .= '</section>';
+
+if ( $url = get_edit_post_link( $post->ID ) ) {
+	$content .= '<div class="veu_adminEdit"><a href="'.$url.'" class="btn btn-default">'.__('Edit CTA','vkExUnit').'</a></div>';
+}
