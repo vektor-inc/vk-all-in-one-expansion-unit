@@ -55,10 +55,11 @@ class vExUnit_Contact {
 		$default = array(
 			'contact_txt' => __('Please feel free to inquire.', 'vkExUnit'),
 			'tel_number' => '000-000-0000',
-			'contact_time' => _('Office hours 9:00 - 18:00 [ Weekdays except holidays ]'),
+			'contact_time' => __('Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vkExUnit'),
 			'contact_link' => '',
 			'button_text' => '',
 			'button_text_small' => '',
+			'short_text' => __( 'Contact us' , 'vkExUnit' )
 		);
 		return get_option('vkExUnit_contact', $default);
 	}
@@ -115,6 +116,13 @@ class vExUnit_Contact {
 	<span><?php _e('ex) ', 'vkExUnit') ;?>
 	<?php _e('Email contact form', 'vkExUnit') ;?>
 	</span>
+</td>
+</tr>
+<tr>
+<th scope="row"><label for="widget_text"><?php _e('short text for widget', 'vkExUnit') ;?></label></th>
+<td>
+<input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $options['short_text'] ); ?>" style="width:50%;" /><br />
+<span><?php _e( 'This will use contact widget.' , 'vkExUnit' ) ;?></span>
 </td>
 </tr>
 </table>
@@ -196,10 +204,7 @@ class vExUnit_Contact {
 		$cont .= '<span class="veu_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
 		$cont .= '</p>';
 
-		if (
-			( isset($options['contact_link']) && $options['contact_link'] ) &&
-			( isset($options['button_text']) && $options['button_text'] )
-			) {
+		if ( $options['contact_link'] && $options['button_text'] ) {
 			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
 			$cont .= '<span class="veu_contact_bt_txt">'.$options['button_text'].'</span>';
 
@@ -212,9 +217,25 @@ class vExUnit_Contact {
 
 		$cont .= '</section>';
 		if ( current_user_can('edit_theme_options') ) {
-		$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
+			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
 		}
 		$cont = apply_filters('vkExUnit_contact_custom',$cont);
+		return $cont;
+	}
+
+
+	public static function render_widget_html(){
+		$options = self::get_option();
+		$cont = '';
+
+		if ( $options['contact_link'] && $options['short_text'] ) {
+			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
+			$cont .= $options['short_text'];
+			$cont .= '</a>';
+		}
+		if ( current_user_can('edit_theme_options') ) {
+			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
+		}
 		return $cont;
 	}
 
@@ -242,9 +263,9 @@ class WP_Widget_contact_link extends WP_Widget {
     }
 
 
-    function widget($args, $instance) {
+    function widget( $args, $instance) {
     	echo '<div class="widget contact_section">';
-        echo vExUnit_Contact::render_contact_html();
+        echo vExUnit_Contact::render_widget_html();
         echo '</div>';
     }
 
