@@ -475,7 +475,12 @@ html { font-size: inherit; } /* reset bootstrap */
 p.veu_contact_txt { margin-bottom:0; }
 .veu_contact_txt { float:left; }
 .veu_contact .veu_contact_bt { float:right; }
+
+.subSection {
+	.veu_contact .veu_contact_bt { margin-top:15px;float:none;display: inline-block; }
 }
+
+} // @media (min-width: 768px){
 
 
 /*-------------------------------------------*/
