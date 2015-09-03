@@ -24,12 +24,12 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 		$children = wp_list_pages("title_li=&child_of=".$post_id."&echo=0");
 		if( !$children ) return;
 ?>
-<div class="localSection sideWidget pageListSection">
-<h3 class="localHead"><a href="<?php echo get_permalink($post_id); ?>"><?php echo get_the_title($post_id); ?></a></h3>
-<ul class="localNavi">
+<aside class="widget sideWidget widget_childPageList widget_nav_menu">
+<h1 class="widget-title subSection-title"><a href="<?php echo get_permalink($post_id); ?>"><?php echo get_the_title($post_id); ?></a></h1>
+<ul>
 <?php echo $children; ?>
 </ul>
-</div>
+</aside>
 <?php
 	}
 
