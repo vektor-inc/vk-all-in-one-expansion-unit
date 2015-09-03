@@ -33,14 +33,16 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			$arg['post_type'] = ( isset($instance['post_type']) ) ? $instance['post_type'] : 'post';
 		}
 	?>
-	<aside class="widget sideWidget widget_archive">
+	<?php echo $args['before_widget']; ?>
+	<div class="sideWidget widget_archive">
 	<?php if( (isset($instance['label'])) && $instance['label'] ){ ?>
-	<h1 class="widget-title subSection-title"><?php echo $instance['label']; ?></h1>
+	<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
 	<?php } ?>
-		<ul class="localNavi">
-			<?php wp_get_archives($arg); ?>
-		</ul>
-	</aside>
+<ul class="localNavi">
+	<?php wp_get_archives($arg); ?>
+</ul>
+</div>
+	<?php echo $args['after_widget']; ?>
 	<?php
 	}
 

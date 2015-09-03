@@ -18,7 +18,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	function widget($args, $instance){
 		global $is_pagewidget;
 		$is_pagewidget = true;
-		$this->display_page($instance['page_id'],$instance['set_title']);
+		$this->display_page($instance['page_id'],$instance['set_title'],$args);
 		$is_pagewidget = false;
 	}
 
@@ -51,11 +51,11 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		return $instance;
 	}
 
-	function display_page($pageid,$titleflag=false) {
-
+	function display_page( $pageid , $titleflag=false , $args ) {
+		echo $args['before_widget'];
 		$page = get_page($pageid);
-		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget widget_pageContent">'.PHP_EOL;
-		if($titleflag){ echo '<h1 class="widget-title">'.$page->post_title.'</h1>'.PHP_EOL; }
+		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget_pageContent">' . PHP_EOL;
+		if($titleflag){ echo $args['before_title'] . $page->post_title . $args['after_title'] . PHP_EOL; }
 		echo apply_filters('the_content', $page->post_content );
 
 		if ( is_user_logged_in() == TRUE ) {
@@ -67,6 +67,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	</div>
 <?php } }
 		echo '</div>'.PHP_EOL;
+		echo $args['after_widget'];
 	}
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_widget_page");'));

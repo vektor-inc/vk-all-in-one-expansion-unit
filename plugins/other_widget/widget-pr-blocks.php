@@ -139,7 +139,8 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 
 	function widget($args, $instance) {
-	    echo PHP_EOL.'<div class="widget pr_blocks">'.PHP_EOL;
+        echo $args['before_widget'];
+	    echo PHP_EOL.'<div class="pr_blocks">'.PHP_EOL;
 
 	    $widget_block_count = ( isset($instance['block_count'])) ? intval($instance['block_count']) : 3;
 
@@ -180,7 +181,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			}
 			$i++;
 		}
-		echo '</div>'.PHP_EOL.'<!-- //.pr_blocks -->';
+		echo '</div>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
 	}
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_PR_Blocks");'));

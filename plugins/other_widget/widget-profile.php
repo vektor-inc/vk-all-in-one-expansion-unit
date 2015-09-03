@@ -134,12 +134,13 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
     function widget($args, $instance) {
 		// From here Display a widget
-    	echo PHP_EOL.'<aside class="widget widget_profile">'.PHP_EOL;
+        echo $args['before_widget'];
+    	echo PHP_EOL.'<div class="widget_profile">'.PHP_EOL;
 
 		if ( isset($instance['label']) && $instance['label'] ) {
-			echo '<h1 class="widget-title subSection-title">';
+			echo $args['before_title'];
 			echo $instance['label'];
-			echo '</h1>';
+			echo $args['after_title'];
 		} ?>
 <div class="site-profile" >
 <?php // Display a profile image
@@ -215,7 +216,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 </div>
 <!-- / .site-profile -->
-</aside>
+</div>
 <?php }
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_profile");'));
