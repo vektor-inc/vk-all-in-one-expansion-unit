@@ -137,20 +137,17 @@ class vExUnit_Contact {
 	}
 
 
-    public function render_meta_box() {
-        $enable = get_post_meta(get_the_id(), 'vkExUnit_contact_enable', true); ?>
-
+	public function render_meta_box() {
+		$enable = get_post_meta(get_the_id(), 'vkExUnit_contact_enable', true); ?>
 <div>
-
 <input type="hidden" name="_nonce_vkExUnit_contact" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
 <label for="vkExUnit_contact">
-    <input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable"<?php echo ($enable)? ' checked' : ''; ?> />
-    <?php _e('Display Contact Section','vkExUnit'); ?>
+	<input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable"<?php echo ($enable)? ' checked' : ''; ?> />
+	<?php _e('Display Contact Section','vkExUnit'); ?>
 </label>
 </div>
-
-    <?php
-    }
+	<?php
+	}
 
 	public function save_custom_field_postdata( $post_id ) {
 		$childPageIndex = isset($_POST['_nonce_vkExUnit_contact']) ? htmlspecialchars($_POST['_nonce_vkExUnit_contact']) : null;
@@ -252,35 +249,35 @@ vExUnit_Contact::instance();
 /*-------------------------------------------*/
 class WP_Widget_contact_link extends WP_Widget {
 
-    function __construct() {
-        $widget_name = vkExUnit_get_short_name().'_'.__('Contact button', 'vkExUnit');
+	function __construct() {
+		$widget_name = vkExUnit_get_short_name().'_'.__('Contact button', 'vkExUnit');
 
-        parent::__construct(
-            'vke_contact',
-            $widget_name,
-            array( 'description' => __( '*　It is necessary to set the Theme options page.', 'biz-vektor' ) )
-        );
-    }
-
-
-    function widget( $args, $instance ) {
-    	echo $args['before_widget'];
-        echo vExUnit_Contact::render_widget_html();
-        echo $args['after_widget'];
-    }
+		parent::__construct(
+			'vke_contact',
+			$widget_name,
+			array( 'description' => __( '*　It is necessary to set the Theme options page.', 'biz-vektor' ) )
+		);
+	}
 
 
-    function update($new_instance, $old_instance) {
-        return $new_instance;
-    }
+	function widget( $args, $instance ) {
+		echo $args['before_widget'];
+		echo vExUnit_Contact::render_widget_html();
+		echo $args['after_widget'];
+	}
 
 
-    function form($instance) {
-    	echo '<div style="padding:1em 0;">';
-    	_e('This have no option.','vkExUnit');
-    	echo '</div>';
-        return $instance;
-    }
+	function update($new_instance, $old_instance) {
+		return $new_instance;
+	}
+
+
+	function form($instance) {
+		echo '<div style="padding:1em 0;">';
+		_e('This have no option.','vkExUnit');
+		echo '</div>';
+		return $instance;
+	}
 
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_contact_link");'));
