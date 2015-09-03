@@ -208,7 +208,7 @@ class vExUnit_Contact {
 			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
 			$cont .= '<span class="veu_contact_bt_txt">'.$options['button_text'].'</span>';
 
-			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+			if ( $options['button_text_small'] ){
 				$cont .= '<span class="veu_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
 			}
 
@@ -263,10 +263,10 @@ class WP_Widget_contact_link extends WP_Widget {
     }
 
 
-    function widget( $args, $instance) {
-    	echo '<div class="widget contact_section">';
+    function widget( $args, $instance ) {
+    	echo $args['before_widget'];
         echo vExUnit_Contact::render_widget_html();
-        echo '</div>';
+        echo $args['after_widget'];
     }
 
 
