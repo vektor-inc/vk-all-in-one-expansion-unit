@@ -87,13 +87,13 @@ require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
-require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
-require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
-require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
-require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
-require vkExUnit_get_directory() . '/plugins/admin_banner.php';
+require vkExUnit_get_directory() . '/plugins_admin/dashboard_info_widget.php';
+require vkExUnit_get_directory() . '/plugins_admin/news_from_exUnit.php';
+require vkExUnit_get_directory() . '/plugins_admin/admin_banner.php';
 require vkExUnit_get_directory() . '/plugins_admin/disable_admin_edit.php';
 
+require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
+require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )

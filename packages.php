@@ -28,15 +28,17 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  wpTitle	
 /*-------------------------------------------*/
-/*  metaDescription	
+/*  metaKeyword 
 /*-------------------------------------------*/
-/*  metaKeyword	
+/*  metaDescription	
 /*-------------------------------------------*/
 /*  sns
 /*-------------------------------------------*/
 /*  ga
 /*-------------------------------------------*/
-/*  relatedPosts
+/*  otherWidgets
+/*-------------------------------------------*/
+/*  css_customize
 /*-------------------------------------------*/
 /*  Contact Section
 /*-------------------------------------------*/
@@ -46,15 +48,12 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  Call To Action
 /*-------------------------------------------*/
-/*  otherWidgets
+/*  insert_ads
 /*-------------------------------------------*/
-/*  css_customize
+/*  relatedPosts
 /*-------------------------------------------*/
 /*  auto_eyecatch
 /*-------------------------------------------*/
-/*  insert_ads
-/*-------------------------------------------*/
-
 
 /*-------------------------------------------*/
 /*  bootstrap
@@ -97,6 +96,22 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
+/*  metaKeyword 
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'metaKeyword',
+    'title' => __('Print meta Keyword', 'vkExUnit'),
+    'description' => __('Print meta Keyword to html head.', 'vkExUnit'),
+    'attr' => array(
+        array(
+            'name'=>__('Setting','vkExUnit'),
+            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
+            'enable_only' => 1,
+        )
+    ),
+    'default' => true
+);
+/*-------------------------------------------*/
 /*  metaDescription	
 /*-------------------------------------------*/
 $required_packages[] = array(
@@ -135,23 +150,6 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
-/*  metaKeyword	
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'metaKeyword',
-    'title' => __('Print meta Keyword', 'vkExUnit'),
-    'description' => __('Print meta Keyword to html head.', 'vkExUnit'),
-    'attr' => array(
-        array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
-            'enable_only' => 1,
-        )
-    ),
-    'default' => true
-);
-
-/*-------------------------------------------*/
 /*  ga
 /*-------------------------------------------*/
 $required_packages[] = array(
@@ -166,83 +164,6 @@ $required_packages[] = array(
         )
     ),
     'default' => true
-);
-
-/*-------------------------------------------*/
-/*  relatedPosts
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'relatedPosts',
-    'title' => __('Related posts', 'vkExUnit'),
-    'description' => __('Print Related posts lists to post content bottom.', 'vkExUnit'),
-    'default' => true
-);
-
-/*-------------------------------------------*/
-/*  Contact Section
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'contact_section',
-    'title' => __('Contact Section', 'vkExUnit'),
-    'description' => __('Display Contact Section at after content.', 'vkExUnit'),
-    'attr' => array(
-        array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
-            'enable_only' => 1,
-        )
-    ),
-    'default' => true,
-);
-
- /*-------------------------------------------*/
- /*  ChildPageIndex
- /*-------------------------------------------*/
-
- $required_packages[] = array(
-    'name'  => 'childPageIndex',
-    'title' => __('Child page index', 'vkExUnit'),
-    'description' => __('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'),
-     'default' => true,
- );
-
-
-/*-------------------------------------------*/
-/*  Sitemap_page
-/*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'sitemap_page',
-    'title' => __('Display HTML Site Map', 'vkExUnit'),
-    'description' => __('It displays a HTML Site Map to the specified page.', 'vkExUnit'),
-    'default' => true,
-);
-
-/*-------------------------------------------*/
-/*  Call To Action
-/*-------------------------------------------*/
-$cta_description = __('Display the CTA at the end of the post content.', 'vkExUnit');
-$cta_description .= '<br>';
-$cta_description .= __('The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit');
-$cta_description .= '<br>';
-$cta_description .= __('As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit');
-
-$required_packages[] = array(
-    'name'  => 'call_to_action',
-    'title' => __('Call To Action', 'vkExUnit'),
-    'description' => $cta_description,
-    'attr' => array(
-        array(
-            'name'=>__('Setting','vkExUnit'),
-            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
-            'enable_only' => 1,
-        ),
-        array(
-            'name'=>__('Contents setting','vkExUnit'),
-            'url'=> admin_url().'edit.php?post_type=cta',
-            'enable_only' => 1,
-        )
-    ),
-    'default' => true,
 );
 
 /*-------------------------------------------*/
@@ -292,6 +213,74 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
+/*  Contact Section
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'contact_section',
+    'title' => __('Contact Section', 'vkExUnit'),
+    'description' => __('Display Contact Section at after content.', 'vkExUnit'),
+    'attr' => array(
+        array(
+            'name'=>__('Setting','vkExUnit'),
+            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
+            'enable_only' => 1,
+        )
+    ),
+    'default' => true,
+);
+
+ /*-------------------------------------------*/
+ /*  ChildPageIndex
+ /*-------------------------------------------*/
+
+ $required_packages[] = array(
+    'name'  => 'childPageIndex',
+    'title' => __('Child page index', 'vkExUnit'),
+    'description' => __('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'),
+     'default' => true,
+ );
+
+
+/*-------------------------------------------*/
+/*  Sitemap_page
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'sitemap_page',
+    'title' => __('Display HTML Site Map', 'vkExUnit'),
+    'description' => __('It displays a HTML Site Map to the specified page.', 'vkExUnit'),
+    'default' => true,
+);
+
+
+/*-------------------------------------------*/
+/*  Call To Action
+/*-------------------------------------------*/
+$cta_description = __('Display the CTA at the end of the post content.', 'vkExUnit');
+$cta_description .= '<br>';
+$cta_description .= __('The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit');
+$cta_description .= '<br>';
+$cta_description .= __('As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit');
+
+$required_packages[] = array(
+    'name'  => 'call_to_action',
+    'title' => __('Call To Action', 'vkExUnit'),
+    'description' => $cta_description,
+    'attr' => array(
+        array(
+            'name'=>__('Setting','vkExUnit'),
+            'url'=> admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
+            'enable_only' => 1,
+        ),
+        array(
+            'name'=>__('Contents setting','vkExUnit'),
+            'url'=> admin_url().'edit.php?post_type=cta',
+            'enable_only' => 1,
+        )
+    ),
+    'default' => true,
+);
+
+/*-------------------------------------------*/
 /*  insert_ads
 /*-------------------------------------------*/
 $required_packages[] = array(
@@ -307,6 +296,15 @@ $required_packages[] = array(
     ),
     'default'          => true,
 );
+/*-------------------------------------------*/
+/*  relatedPosts
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'relatedPosts',
+    'title' => __('Related posts', 'vkExUnit'),
+    'description' => __('Print Related posts lists to post content bottom.', 'vkExUnit'),
+    'default' => true
+);
 
 /*-------------------------------------------*/
 /*  auto_eyecatch
@@ -317,6 +315,7 @@ $required_packages[] = array(
     'description' => __('Display Eye Catch image at before content.', 'vkExUnit'),
     'default' => false,
 );
+
 
 
 foreach( $required_packages as $package ){
