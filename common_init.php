@@ -1,7 +1,5 @@
 <?php
 function vkExUnit_common_options_init() {
-	if ( false === vkExUnit_get_common_options() )
-		add_option( 'vkExUnit_common_options', vkExUnit_get_common_options_default() );
 	register_setting(
 		'vkExUnit_common_options_fields', 	//  Immediately following form tag of edit page.
 		'vkExUnit_common_options',			// name attr
