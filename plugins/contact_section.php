@@ -247,7 +247,7 @@ vExUnit_Contact::instance();
 /*-------------------------------------------*/
 /*  Contact widget
 /*-------------------------------------------*/
-class WP_Widget_vkExUnit extends WP_Widget {
+class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
 	function __construct() {
 		$widget_name = vkExUnit_get_short_name().'_'.__('Contact button', 'vkExUnit');
@@ -280,4 +280,4 @@ class WP_Widget_vkExUnit extends WP_Widget {
 	}
 
 }
-add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit");'));
+add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_contact_link");'));
