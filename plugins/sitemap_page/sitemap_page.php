@@ -72,6 +72,8 @@ function vkExUnit_sitemap_options_validate( $input ) {
 add_filter('the_content', 'show_sitemap', 7, 1);
 
 function show_sitemap($content) {
+    global $is_pagewidget;
+    if( $is_pagewidget ) return $content;
 	wp_reset_postdata(); // need under other section / ex:child page index
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap',true );
