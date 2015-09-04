@@ -296,7 +296,7 @@ html { font-size: inherit; } /* reset bootstrap */
 /*-------------------------------------------*/
 /* Wiget PR Bloclks Plugin
 /*-------------------------------------------*/
-.widget.pr_blocks{
+.widget .pr_blocks{
 	display: table;
 	width: 100%;
 	table-layout: fixed;
