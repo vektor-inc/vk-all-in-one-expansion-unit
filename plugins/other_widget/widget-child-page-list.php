@@ -12,7 +12,7 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_child_pages',
 			$widget_name,
-			array( 'description' => __('Display child pages list of current page.', 'vkExUnit') )
+			array( 'description' => __('Display the child pages list from ancestor page.', 'vkExUnit') )
 		);
 	}
 
@@ -47,7 +47,7 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 	function form($instance) {
 		?>
 <div style="padding:0.6em 0;">
-<?php _e( 'This is only parent page.', 'vkExUnit' ); ?>
+<?php _e( 'Display the child pages list from ancestor page.', 'vkExUnit' ); ?>
 </div>
 		<?php
 	}
