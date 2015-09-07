@@ -206,7 +206,7 @@ class vExUnit_Contact {
 			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
 			$cont .= '<span class="veu_contact_bt_txt">'.$options['button_text'].'</span>';
 
-			if ( $options['button_text_small'] ){
+			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
 				$cont .= '<span class="veu_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
 			}
 
@@ -230,8 +230,12 @@ class vExUnit_Contact {
 			( isset($options['contact_link']) && $options['contact_link'] ) && 
 			( isset($options['short_text']) && $options['short_text'] )
 			) {
-			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
+			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg btn-block veu_contact_bt"><span class="veu_contact_bt_txt">';
 			$cont .= $options['short_text'];
+			$cont .= '</span>';
+			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+				$cont .= '<span class="veu_contact_bt_subTxt veu_contact_bt_subTxt_side">'.$options['button_text_small'].'</span>';
+			}
 			$cont .= '</a>';
 		}
 		if ( current_user_can('edit_theme_options') ) {
