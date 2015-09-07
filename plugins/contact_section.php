@@ -68,7 +68,7 @@ class vExUnit_Contact {
 	public function options_page() {
 		$options = self::get_option();
 	?>
-<h3><?php _e('Contact Section', 'vkExUnit'); ?></h3>
+<h3><?php _e('Contact Information', 'vkExUnit'); ?></h3>
 <div id="meta_description" class="sectionBox">
 <table class="form-table">
 <tr>
@@ -110,7 +110,7 @@ class vExUnit_Contact {
 </tr>
 <!-- Company address -->
 <tr>
-<th scope="row"><label for="button_text_small"><?php _e('Contact button Text. ( sub )', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="button_text_small"><?php _e('Contact button text. ( sub )', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small'] ?></textarea><br />
 	<span><?php _e('ex) ', 'vkExUnit') ;?>
@@ -119,11 +119,11 @@ class vExUnit_Contact {
 </td>
 </tr>
 <tr>
-<th scope="row"><label for="widget_text"><?php _e('short text for widget', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="widget_text"><?php _e('Contact button short text for side widget', 'vkExUnit') ;?></label></th>
 <td>
 <?php $short_text = ( isset($options['short_text']) && $options['short_text'] ) ? $options['short_text'] : ''; ?>
 <input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $short_text ); ?>" style="width:50%;" /><br />
-<span><?php _e( 'This will use contact widget.' , 'vkExUnit' ) ;?></span>
+<span><?php _e( 'This will used to "Contact Button" widget.' , 'vkExUnit' ) ;?></span>
 </td>
 </tr>
 </table>
@@ -265,12 +265,14 @@ vExUnit_Contact::instance();
 class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name().'_'.__('Contact button', 'vkExUnit');
+		$widget_name = vkExUnit_get_short_name().'_'.__('Contact Button', 'vkExUnit');
 
 		parent::__construct(
 			'vkExUnit_contact',
 			$widget_name,
-			array( 'description' => __( '*　It is necessary to set the Theme options page.', 'vkExUnit' ) )
+			array( 
+				'description' => sprintf(__('*It is necessary to set the "%s" -> "Contact" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name())
+				)
 		);
 	}
 
@@ -289,7 +291,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
 	function form($instance) {
 		echo '<div style="padding:1em 0;">';
-		_e('This have no option.','vkExUnit');
+		_e(sprintf(__('*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name()));
 		echo '</div>';
 		return $instance;
 	}
