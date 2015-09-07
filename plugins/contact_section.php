@@ -191,6 +191,10 @@ class vExUnit_Contact {
 	}
 
 
+	/*-------------------------------------------*/
+	/*  contact bottom html
+	/*-------------------------------------------*/
+
 	public static function render_contact_html(){
 		$options = self::get_option();
 		$cont = '';
@@ -221,6 +225,9 @@ class vExUnit_Contact {
 		return $cont;
 	}
 
+	/*-------------------------------------------*/
+	/*  widget html
+	/*-------------------------------------------*/
 
 	public static function render_widget_html(){
 		$options = self::get_option();
