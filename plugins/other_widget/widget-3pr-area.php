@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*-------------------------------------------*/
 /*	PR area widget
@@ -229,7 +229,8 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 
 function widget($args, $instance) {
-	echo PHP_EOL.'<div class="widget prBox row">'.PHP_EOL;
+    echo $args['before_widget'];
+	echo PHP_EOL.'<div class="prBox row">'.PHP_EOL;
     if( isset($instance['label_1']) && $instance['label_1'] ): ?>
 <div class="prArea col-md-4">
 <?php
@@ -357,7 +358,9 @@ if( !empty($instance['linkurl_3']) ){
 <!-- // div.prArea3 -->
 <?php endif; ?>
 </div>
-<?php }
+<?php
+        echo $args['after_widget'];
+    }
 }
 add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_3PR_area");'));
 

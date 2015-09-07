@@ -17,11 +17,15 @@
 /*	basic setting
 /*-------------------------------------------*/
 function vkExUnit_get_name() {
-	$system_name = 'VK All in one Expansion Unit';
+	$system_name = apply_filters('vkExUnit_get_name_custom','VK All in one Expansion Unit');
 	return $system_name;
 }
+function vkExUnit_get_little_short_name() {
+	$little_short_name = apply_filters('vkExUnit_get_little_short_name_custom','VK Ex Unit');
+	return $little_short_name;
+}
 function vkExUnit_get_short_name() {
-	$short_name = 'VK';
+	$short_name = apply_filters('vkExUnit_get_short_name_custom','VK');
 	return $short_name;
 }
 function vkExUnit_get_capability_required(){

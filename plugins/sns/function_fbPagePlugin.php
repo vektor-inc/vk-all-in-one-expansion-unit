@@ -16,7 +16,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 
 	function widget($args, $instance) {
-		echo '<aside class="widget widget_fbPagePlugin">';
+		echo $args['before_widget'];
 
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo '<h1 class="widget-title subSection-title">'.$instance['label'].'</h1>';
@@ -40,7 +40,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		</div>
 
 		<?php
-		echo '</aside>';
+		echo $args['after_widget'];
 
 	} // widget($args, $instance)
 

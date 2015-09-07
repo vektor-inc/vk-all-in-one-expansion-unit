@@ -16,19 +16,20 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
-		echo '<aside class="widget widget_newPosts">';
-		echo '<h1 class="widget-title subSection-title">';
+		echo $args['before_widget'];
+		echo '<div class="widget_newPosts">';
+		echo $args['before_title'];
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo $instance['label'];
 		} else {
 			_e('Recent Posts', 'vkExUnit' );
 		}
-		echo '</h1>';
+		echo $args['after_title'];
 
 		$count 		= ( isset($instance['count']) && $instance['count'] ) ? $instance['count'] : 10;
 		$post_type 	= ( isset($instance['post_type']) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
 
-		$args = array(
+		$p_args = array(
 			'post_type' => $post_type,
 			'posts_per_page' => $count,
 			'paged' => 1,
@@ -36,18 +37,18 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		if(isset($instance['terms']) && $instance['terms']){
 			$taxonomies = get_taxonomies(array());
-	        $args['tax_query'] = array(
+	        $p_args['tax_query'] = array(
 	        	'relation' => 'OR',
 	        );
 			foreach($taxonomies as $taxonomy){
-	        $args['tax_query'][] = array(
+	        $p_args['tax_query'][] = array(
 					'taxonomy' => $taxonomy,
 					'field' => 'id',
 					'terms' => $instance['terms']
 				);
 			}
 	    }
-		$post_loop = new WP_Query( $args );
+		$post_loop = new WP_Query( $p_args );
 
 
 		if ($post_loop->have_posts()):
@@ -67,7 +68,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 			<?php endwhile;
 		endif;
-		echo '</aside>';
+		echo '</div>';
+		echo $args['after_widget'];
+
 		wp_reset_postdata();
 		wp_reset_query();
 

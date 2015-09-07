@@ -48,7 +48,8 @@ html { font-size: inherit; } /* reset bootstrap */
   .subSection-title { font-size:18px; }
 }
 
-
+.veu_adminEdit { margin-top:5px; }
+.veu_adminEdit a.btn:before{font-family:FontAwesome;content:"\f040";margin-right:5px;}
 
 /*-------------------------------------------*/
 /* .autoEyeCatchBox
@@ -296,7 +297,7 @@ html { font-size: inherit; } /* reset bootstrap */
 /*-------------------------------------------*/
 /* Wiget PR Bloclks Plugin
 /*-------------------------------------------*/
-.widget.pr_blocks{
+.widget .pr_blocks{
 	display: table;
 	width: 100%;
 	table-layout: fixed;
@@ -475,7 +476,13 @@ html { font-size: inherit; } /* reset bootstrap */
 p.veu_contact_txt { margin-bottom:0; }
 .veu_contact_txt { float:left; }
 .veu_contact .veu_contact_bt { float:right; }
+.veu_contact_bt_subTxt_side { font-size:12px; }
+
+.subSection {
+	.veu_contact .veu_contact_bt { margin-top:15px;float:none;display: inline-block; }
 }
+
+} // @media (min-width: 768px){
 
 
 /*-------------------------------------------*/

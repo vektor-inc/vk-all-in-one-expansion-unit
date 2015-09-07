@@ -55,7 +55,7 @@ function vkExUnit_get_directory_uri($path=''){
 add_action( 'admin_menu', 'vkExUnit_setting_menu_parent' );
 function vkExUnit_setting_menu_parent() {
 	global $menu;
-	$parent_name = 'VK Ex Unit';
+	$parent_name = vkExUnit_get_little_short_name();
 	$Capability_required = 'activate_plugins';
 
 	$custom_page = add_menu_page(

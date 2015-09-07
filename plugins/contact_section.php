@@ -55,10 +55,11 @@ class vExUnit_Contact {
 		$default = array(
 			'contact_txt' => __('Please feel free to inquire.', 'vkExUnit'),
 			'tel_number' => '000-000-0000',
-			'contact_time' => _('Office hours 9:00 - 18:00 [ Weekdays except holidays ]'),
+			'contact_time' => __('Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vkExUnit'),
 			'contact_link' => '',
 			'button_text' => '',
 			'button_text_small' => '',
+			'short_text' => __( 'Contact us' , 'vkExUnit' )
 		);
 		return get_option('vkExUnit_contact', $default);
 	}
@@ -67,7 +68,7 @@ class vExUnit_Contact {
 	public function options_page() {
 		$options = self::get_option();
 	?>
-<h3><?php _e('Contact Section', 'vkExUnit'); ?></h3>
+<h3><?php _e('Contact Information', 'vkExUnit'); ?></h3>
 <div id="meta_description" class="sectionBox">
 <table class="form-table">
 <tr>
@@ -109,12 +110,20 @@ class vExUnit_Contact {
 </tr>
 <!-- Company address -->
 <tr>
-<th scope="row"><label for="button_text_small"><?php _e('Contact button Text. ( sub )', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="button_text_small"><?php _e('Contact button text. ( sub )', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small'] ?></textarea><br />
 	<span><?php _e('ex) ', 'vkExUnit') ;?>
 	<?php _e('Email contact form', 'vkExUnit') ;?>
 	</span>
+</td>
+</tr>
+<tr>
+<th scope="row"><label for="widget_text"><?php _e('Contact button short text for side widget', 'vkExUnit') ;?></label></th>
+<td>
+<?php $short_text = ( isset($options['short_text']) && $options['short_text'] ) ? $options['short_text'] : ''; ?>
+<input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $short_text ); ?>" style="width:50%;" /><br />
+<span><?php _e( 'This will used to "Contact Button" widget.' , 'vkExUnit' ) ;?></span>
 </td>
 </tr>
 </table>
@@ -129,20 +138,17 @@ class vExUnit_Contact {
 	}
 
 
-    public function render_meta_box() {
-        $enable = get_post_meta(get_the_id(), 'vkExUnit_contact_enable', true); ?>
-
+	public function render_meta_box() {
+		$enable = get_post_meta(get_the_id(), 'vkExUnit_contact_enable', true); ?>
 <div>
-
 <input type="hidden" name="_nonce_vkExUnit_contact" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
 <label for="vkExUnit_contact">
-    <input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable"<?php echo ($enable)? ' checked' : ''; ?> />
-    <?php _e('Display Contact Section','vkExUnit'); ?>
+	<input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable"<?php echo ($enable)? ' checked' : ''; ?> />
+	<?php _e('Display Contact Section','vkExUnit'); ?>
 </label>
 </div>
-
-    <?php
-    }
+	<?php
+	}
 
 	public function save_custom_field_postdata( $post_id ) {
 		$childPageIndex = isset($_POST['_nonce_vkExUnit_contact']) ? htmlspecialchars($_POST['_nonce_vkExUnit_contact']) : null;
@@ -185,7 +191,11 @@ class vExUnit_Contact {
 	}
 
 
-	public function render_contact_html(){
+	/*-------------------------------------------*/
+	/*  contact bottom html
+	/*-------------------------------------------*/
+
+	public static function render_contact_html(){
 		$options = self::get_option();
 		$cont = '';
 		$cont .= '<section class="veu_contact">';
@@ -196,10 +206,7 @@ class vExUnit_Contact {
 		$cont .= '<span class="veu_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
 		$cont .= '</p>';
 
-		if (
-			( isset($options['contact_link']) && $options['contact_link'] ) &&
-			( isset($options['button_text']) && $options['button_text'] )
-			) {
+		if ( $options['contact_link'] && $options['button_text'] ) {
 			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
 			$cont .= '<span class="veu_contact_bt_txt">'.$options['button_text'].'</span>';
 
@@ -212,15 +219,82 @@ class vExUnit_Contact {
 
 		$cont .= '</section>';
 		if ( current_user_can('edit_theme_options') ) {
-		$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
+			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
 		}
 		$cont = apply_filters('vkExUnit_contact_custom',$cont);
 		return $cont;
 	}
 
+	/*-------------------------------------------*/
+	/*  widget html
+	/*-------------------------------------------*/
+
+	public static function render_widget_html(){
+		$options = self::get_option();
+		$cont = '';
+
+		if (
+			( isset($options['contact_link']) && $options['contact_link'] ) && 
+			( isset($options['short_text']) && $options['short_text'] )
+			) {
+			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg btn-block veu_contact_bt"><span class="veu_contact_bt_txt">';
+			$cont .= $options['short_text'];
+			$cont .= '</span>';
+			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+				$cont .= '<span class="veu_contact_bt_subTxt veu_contact_bt_subTxt_side">'.$options['button_text_small'].'</span>';
+			}
+			$cont .= '</a>';
+		}
+		if ( current_user_can('edit_theme_options') ) {
+			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
+		}
+		return $cont;
+	}
+
 
 	public function shortcode(){
-		return $this->render_contact_html();
+		return self::render_contact_html();
 	}
 }
 vExUnit_Contact::instance();
+
+
+/*-------------------------------------------*/
+/*  Contact widget
+/*-------------------------------------------*/
+class WP_Widget_vkExUnit_contact_link extends WP_Widget {
+
+	function __construct() {
+		$widget_name = vkExUnit_get_short_name().'_'.__('Contact Button', 'vkExUnit');
+
+		parent::__construct(
+			'vkExUnit_contact',
+			$widget_name,
+			array( 
+				'description' => sprintf(__('*It is necessary to set the "%s" -> "Contact" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name())
+				)
+		);
+	}
+
+
+	function widget( $args, $instance ) {
+		echo $args['before_widget'];
+		echo vExUnit_Contact::render_widget_html();
+		echo $args['after_widget'];
+	}
+
+
+	function update($new_instance, $old_instance) {
+		return $new_instance;
+	}
+
+
+	function form($instance) {
+		echo '<div style="padding:1em 0;">';
+		_e(sprintf(__('*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name()));
+		echo '</div>';
+		return $instance;
+	}
+
+}
+add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_contact_link");'));
