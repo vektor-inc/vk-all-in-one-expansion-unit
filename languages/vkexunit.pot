@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-08-17 19:28+0900\n"
+"POT-Creation-Date: 2015-08-31 11:48+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -104,132 +104,226 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: packages.php:45 plugins/contact_section.php:70
-msgid "Contact Section"
+#: packages.php:64
+msgid "Print Bootstrap css and js"
 msgstr ""
 
-#: packages.php:46
-msgid "Display Contact Section at after content."
+#: packages.php:65
+msgid ""
+"If your using theme has already including Bootstrap, you deactivate this "
+"item."
 msgstr ""
 
-#: packages.php:49 packages.php:94 packages.php:128 packages.php:145
-#: packages.php:162 vkExUnit_admin.php:109 vkExUnit_admin.php:155
-#: vkExUnit_admin.php:193
+#: packages.php:74
+msgid "Print link fontawesome"
+msgstr ""
+
+#: packages.php:75
+msgid "Print fontawesome link tag to html head."
+msgstr ""
+
+#: packages.php:84
+msgid "Favicon setting"
+msgstr ""
+
+#: packages.php:85
+msgid "About favicon."
+msgstr ""
+
+#: packages.php:94
+msgid "Rewrite the title tag"
+msgstr ""
+
+#: packages.php:95
+msgid "Print is rewritten by its own rules to html head."
+msgstr ""
+
+#: packages.php:104
+msgid "Print meta description"
+msgstr ""
+
+#: packages.php:105
+msgid "Print meta description to html head."
+msgstr ""
+
+#: packages.php:113
+msgid "Main setting page"
+msgstr ""
+
+#: packages.php:115
+msgid "Print og tags to html head."
+msgstr ""
+
+#: packages.php:116
+msgid "Print twitter card tags to html head."
+msgstr ""
+
+#: packages.php:117
+msgid "Print social bookmark buttons."
+msgstr ""
+
+#: packages.php:118
+msgid "Facebook Page Plugin widget."
+msgstr ""
+
+#: packages.php:119
+msgid "Print Follow me box to content bottom."
+msgstr ""
+
+#: packages.php:121
+#, php-format
+msgid "* You can stop the function separately from the %s."
+msgstr ""
+
+#: packages.php:125
+msgid "Social media cooperation"
+msgstr ""
+
+#: packages.php:129 packages.php:146 packages.php:163 packages.php:190
+#: packages.php:235 packages.php:269 packages.php:286 packages.php:303
 msgid "Setting"
 msgstr ""
 
-#: packages.php:63
+#: packages.php:142
+msgid "Print meta Keyword"
+msgstr ""
+
+#: packages.php:143
+msgid "Print meta Keyword to html head."
+msgstr ""
+
+#: packages.php:160
+msgid "Print Google Analytics tracking code."
+msgstr ""
+
+#: packages.php:176 plugins/related_posts/related_posts.php:34
+msgid "Related posts"
+msgstr ""
+
+#: packages.php:177
+msgid "Print Related posts lists to post content bottom."
+msgstr ""
+
+#: packages.php:186 plugins/contact_section.php:70
+msgid "Contact Section"
+msgstr ""
+
+#: packages.php:187
+msgid "Display Contact Section at after content."
+msgstr ""
+
+#: packages.php:204
 msgid "Child page index"
 msgstr ""
 
-#: packages.php:64
+#: packages.php:205
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
 msgstr ""
 
-#: packages.php:74
+#: packages.php:215
 msgid "Display HTML Site Map"
 msgstr ""
 
-#: packages.php:75
+#: packages.php:216
 msgid "It displays a HTML Site Map to the specified page."
 msgstr ""
 
-#: packages.php:82 plugins/call_to_action/view.adminsetting.php:10
+#: packages.php:223 plugins/call_to_action/view.adminsetting.php:10
 msgid "Display the CTA at the end of the post content."
 msgstr ""
 
-#: packages.php:84 plugins/call_to_action/view.adminsetting.php:11
+#: packages.php:225 plugins/call_to_action/view.adminsetting.php:11
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
 msgstr ""
 
-#: packages.php:86 plugins/call_to_action/view.adminsetting.php:12
+#: packages.php:227 plugins/call_to_action/view.adminsetting.php:12
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
 msgstr ""
 
-#: packages.php:90 plugins/call_to_action/view.adminsetting.php:6
+#: packages.php:231 plugins/call_to_action/view.adminsetting.php:6
 msgid "Call To Action"
 msgstr ""
 
-#: packages.php:99
+#: packages.php:240
 msgid "Contents setting"
 msgstr ""
 
-#: packages.php:111
+#: packages.php:252
 msgid "You can use various widgets."
 msgstr ""
 
-#: packages.php:113
+#: packages.php:254
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr ""
 
-#: packages.php:114
+#: packages.php:255
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 
-#: packages.php:115
+#: packages.php:256
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr ""
 
-#: packages.php:116
+#: packages.php:257
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr ""
 
-#: packages.php:117
+#: packages.php:258
 msgid "VK_3PR area - display the 3PR area."
 msgstr ""
 
-#: packages.php:118
+#: packages.php:259
 msgid "categories/tags list"
 msgstr ""
 
-#: packages.php:118
+#: packages.php:259
 msgid "Displays a categories, tags or format list."
 msgstr ""
 
-#: packages.php:119 plugins/other_widget/widget-archives.php:14
+#: packages.php:260 plugins/other_widget/widget-archives.php:9
 msgid "archive list"
 msgstr ""
 
-#: packages.php:119 plugins/other_widget/widget-archives.php:12
+#: packages.php:260 plugins/other_widget/widget-archives.php:14
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
 msgstr ""
 
-#: packages.php:124
+#: packages.php:265
 msgid "Widgets"
 msgstr ""
 
-#: packages.php:141
+#: packages.php:282
 msgid "CSS customize"
 msgstr ""
 
-#: packages.php:142
+#: packages.php:283
 msgid "You can set Customize CSS."
 msgstr ""
 
-#: packages.php:158 plugins/insert_ads.php:39 plugins/insert_ads.php:118
+#: packages.php:299 plugins/insert_ads.php:37 plugins/insert_ads.php:116
 msgid "Insert ads"
 msgstr ""
 
-#: packages.php:159
+#: packages.php:300
 msgid "Insert ads to content."
 msgstr ""
 
-#: packages.php:175 vkExUnit_admin.php:233
+#: packages.php:316 vkExUnit_admin.php:30
 msgid "Automatic Eye Catch insert"
 msgstr ""
 
-#: packages.php:176
+#: packages.php:317
 msgid "Display Eye Catch image at before content."
 msgstr ""
 
@@ -237,143 +331,28 @@ msgstr ""
 msgid "Enable setting"
 msgstr ""
 
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:280
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:77
 msgid "Select all"
 msgstr ""
 
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:280
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:77
 msgid "Function"
 msgstr ""
 
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:280
+#: vkExUnit_admin.php:16 vkExUnit_admin.php:77
 msgid "Description"
 msgstr ""
 
-#: vkExUnit_admin.php:26
-msgid "Choose Print Bootstrap css"
+#: vkExUnit_admin.php:83
+msgid "Extension Setting"
 msgstr ""
 
-#: vkExUnit_admin.php:31
-msgid "Print Bootstrap css and js"
+#: vkExUnit_admin.php:86
+msgid "Plugin setting options"
 msgstr ""
 
-#: vkExUnit_admin.php:35
-msgid ""
-"If your using theme has already including Bootstrap, you deactivate this "
-"item."
-msgstr ""
-
-#: vkExUnit_admin.php:44
-msgid "Choose Print link fontawesome."
-msgstr ""
-
-#: vkExUnit_admin.php:49
-msgid "Print link fontawesome."
-msgstr ""
-
-#: vkExUnit_admin.php:53
-msgid "Print fontawesome link tag to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:62 vkExUnit_admin.php:126
-msgid "Choose Print meta description."
-msgstr ""
-
-#: vkExUnit_admin.php:67
-msgid "Favicon setting"
-msgstr ""
-
-#: vkExUnit_admin.php:71
-msgid "About favicon."
-msgstr ""
-
-#: vkExUnit_admin.php:80
-msgid "Choose Rewrite the title tag"
-msgstr ""
-
-#: vkExUnit_admin.php:85
-msgid "Rewrite the title tag"
-msgstr ""
-
-#: vkExUnit_admin.php:89
-msgid "Print is rewritten by its own rules to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:98
-msgid "Choose Print meta Keyword."
-msgstr ""
-
-#: vkExUnit_admin.php:103
-msgid "Print meta Keyword"
-msgstr ""
-
-#: vkExUnit_admin.php:117
-msgid "Print meta Keyword to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:131
-msgid "Print meta description"
-msgstr ""
-
-#: vkExUnit_admin.php:135
-msgid "Print meta description to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:144
-msgid "Choose Social media cooperation."
-msgstr ""
-
-#: vkExUnit_admin.php:149
-msgid "Social media cooperation."
-msgstr ""
-
-#: vkExUnit_admin.php:164
-msgid "Print og tags to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:165
-msgid "Print twitter card tags to html head."
-msgstr ""
-
-#: vkExUnit_admin.php:166
-msgid "Print social bookmark buttons."
-msgstr ""
-
-#: vkExUnit_admin.php:167
-msgid "Facebook Page Plugin widget."
-msgstr ""
-
-#: vkExUnit_admin.php:168
-msgid "Print Follow me box to content bottom."
-msgstr ""
-
-#: vkExUnit_admin.php:171
-msgid "Main setting page"
-msgstr ""
-
-#: vkExUnit_admin.php:172
-#, php-format
-msgid "* You can stop the function separately from the %s."
-msgstr ""
-
-#: vkExUnit_admin.php:182
-msgid "Choose Print Google Analytics tracking code."
-msgstr ""
-
-#: vkExUnit_admin.php:201
-msgid "Print Google Analytics tracking code."
-msgstr ""
-
-#: vkExUnit_admin.php:210
-msgid "Choose Related posts."
-msgstr ""
-
-#: vkExUnit_admin.php:215 plugins/related_posts/related_posts.php:34
-msgid "Related posts"
-msgstr ""
-
-#: vkExUnit_admin.php:219
-msgid "Print Related posts lists to post content bottom."
+#: vkExUnit_admin.php:88
+msgid "Delete myOptions when deactivate me."
 msgstr ""
 
 #: plugins/auto_eyecatch.php:40
@@ -384,7 +363,18 @@ msgstr ""
 msgid "Do not set eyecatch image automatic."
 msgstr ""
 
-#: plugins/contact_section.php:46 plugins/other_widget/widget-pr-blocks.php:43
+#: plugins/child_page_index.php:42
+#: plugins/other_widget/widget-3pr-area.php:269
+#: plugins/other_widget/widget-3pr-area.php:311
+#: plugins/other_widget/widget-3pr-area.php:354
+msgid "Read more"
+msgstr ""
+
+#: plugins/child_page_index.php:97
+msgid "Display a child page index"
+msgstr ""
+
+#: plugins/contact_section.php:46 plugins/other_widget/widget-pr-blocks.php:46
 msgid "Contact"
 msgstr ""
 
@@ -465,9 +455,9 @@ msgstr ""
 #: plugins/footer_copyright_change.php:6
 msgid ""
 "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
-"\"//lightning.bizvektor.com\" target=\"_blank\" title=\"Free WordPress Theme "
-"Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.bizvektor."
-"com/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
+"\"//lightning.vektor-inc.co.jp\" target=\"_blank\" title=\"Free WordPress "
+"Theme Lightning\"> Lightning Theme</a> &amp; <a href=\"http://ex-unit.vektor-"
+"inc.co.jp/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
 "\"http://www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology."
 "</p>"
 msgstr ""
@@ -488,23 +478,23 @@ msgstr ""
 msgid "Please upload your \".ico\" file"
 msgstr ""
 
-#: plugins/insert_ads.php:121
+#: plugins/insert_ads.php:119
 msgid "Insert ads to post."
 msgstr ""
 
-#: plugins/insert_ads.php:123
+#: plugins/insert_ads.php:121
 msgid "Insert ads to more tag and after content."
 msgstr ""
 
-#: plugins/insert_ads.php:123
+#: plugins/insert_ads.php:121
 msgid "If you want to separate ads area, you fill two fields."
 msgstr ""
 
-#: plugins/insert_ads.php:125
+#: plugins/insert_ads.php:123
 msgid "insert the ad [ more tag ]"
 msgstr ""
 
-#: plugins/insert_ads.php:133
+#: plugins/insert_ads.php:131
 msgid "insert the ad [ after content ]"
 msgstr ""
 
@@ -625,7 +615,7 @@ msgid "Follow common setting"
 msgstr ""
 
 #: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:397
+#: plugins/call_to_action/class.call_to_action.php:399
 msgid "Disable display"
 msgstr ""
 
@@ -710,17 +700,6 @@ msgstr ""
 msgid "Show index page"
 msgstr ""
 
-#: plugins/child_page_index/child_page_index.php:40
-#: plugins/other_widget/widget-3pr-area.php:274
-#: plugins/other_widget/widget-3pr-area.php:316
-#: plugins/other_widget/widget-3pr-area.php:359
-msgid "Read more"
-msgstr ""
-
-#: plugins/child_page_index/child_page_index.php:76
-msgid "Display a child page index"
-msgstr ""
-
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:35
 #: plugins/css_customize/css_customize.php:36
@@ -773,22 +752,22 @@ msgstr ""
 msgid "To output both types"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:11
-msgid "Displays a 3PR area"
-msgstr ""
-
-#: plugins/other_widget/widget-3pr-area.php:13
-#: plugins/other_widget/widget-3pr-area.php:245
-#: plugins/other_widget/widget-3pr-area.php:287
-#: plugins/other_widget/widget-3pr-area.php:330
+#: plugins/other_widget/widget-3pr-area.php:9
+#: plugins/other_widget/widget-3pr-area.php:240
+#: plugins/other_widget/widget-3pr-area.php:282
+#: plugins/other_widget/widget-3pr-area.php:325
 msgid "3PR area"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:18
+#: plugins/other_widget/widget-3pr-area.php:14
+msgid "Displays a 3PR area"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:20
 msgid "3PR area1 title"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:26
+#: plugins/other_widget/widget-3pr-area.php:27
 msgid "3PR area2 title"
 msgstr ""
 
@@ -796,291 +775,291 @@ msgstr ""
 msgid "3PR area3 title"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:47
+#: plugins/other_widget/widget-3pr-area.php:46
 msgid "3PR area1 setting"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:49
-#: plugins/other_widget/widget-3pr-area.php:102
-#: plugins/other_widget/widget-3pr-area.php:154
-#: plugins/other_widget/widget-new-posts.php:92
-#: plugins/other_widget/widget-pr-blocks.php:71
-#: plugins/other_widget/widget-profile.php:39
-#: plugins/sns/function_fbPagePlugin.php:75
+#: plugins/other_widget/widget-3pr-area.php:48
+#: plugins/other_widget/widget-3pr-area.php:98
+#: plugins/other_widget/widget-3pr-area.php:149
+#: plugins/other_widget/widget-new-posts.php:86
+#: plugins/other_widget/widget-pr-blocks.php:74
+#: plugins/other_widget/widget-profile.php:40
+#: plugins/sns/function_fbPagePlugin.php:76
 msgid "Title:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:55
-#: plugins/other_widget/widget-3pr-area.php:108
-#: plugins/other_widget/widget-3pr-area.php:160
+#: plugins/other_widget/widget-3pr-area.php:54
+#: plugins/other_widget/widget-3pr-area.php:104
+#: plugins/other_widget/widget-3pr-area.php:155
 msgid "Select image for PC:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:61
-#: plugins/other_widget/widget-3pr-area.php:78
-#: plugins/other_widget/widget-3pr-area.php:114
-#: plugins/other_widget/widget-3pr-area.php:132
-#: plugins/other_widget/widget-3pr-area.php:166
-#: plugins/other_widget/widget-3pr-area.php:183
-#: plugins/other_widget/widget-pr-blocks.php:93
-#: plugins/other_widget/widget-profile.php:50
+#: plugins/other_widget/widget-3pr-area.php:57
+#: plugins/other_widget/widget-3pr-area.php:74
+#: plugins/other_widget/widget-3pr-area.php:110
+#: plugins/other_widget/widget-3pr-area.php:128
+#: plugins/other_widget/widget-3pr-area.php:161
+#: plugins/other_widget/widget-3pr-area.php:178
+#: plugins/other_widget/widget-pr-blocks.php:96
+#: plugins/other_widget/widget-profile.php:48
 msgid "Select image"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:62
-#: plugins/other_widget/widget-3pr-area.php:79
-#: plugins/other_widget/widget-3pr-area.php:115
-#: plugins/other_widget/widget-3pr-area.php:133
-#: plugins/other_widget/widget-3pr-area.php:167
-#: plugins/other_widget/widget-3pr-area.php:184
-#: plugins/other_widget/widget-pr-blocks.php:96
-#: plugins/other_widget/widget-profile.php:51
+#: plugins/other_widget/widget-3pr-area.php:58
+#: plugins/other_widget/widget-3pr-area.php:75
+#: plugins/other_widget/widget-3pr-area.php:111
+#: plugins/other_widget/widget-3pr-area.php:129
+#: plugins/other_widget/widget-3pr-area.php:162
+#: plugins/other_widget/widget-3pr-area.php:179
+#: plugins/other_widget/widget-pr-blocks.php:99
+#: plugins/other_widget/widget-profile.php:49
 msgid "Clear image"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:72
-#: plugins/other_widget/widget-3pr-area.php:126
-#: plugins/other_widget/widget-3pr-area.php:177
+#: plugins/other_widget/widget-3pr-area.php:68
+#: plugins/other_widget/widget-3pr-area.php:122
+#: plugins/other_widget/widget-3pr-area.php:172
 msgid "Select image for Mobile:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:88
-#: plugins/other_widget/widget-3pr-area.php:142
-#: plugins/other_widget/widget-3pr-area.php:194
-#: plugins/other_widget/widget-pr-blocks.php:107
+#: plugins/other_widget/widget-3pr-area.php:84
+#: plugins/other_widget/widget-3pr-area.php:138
+#: plugins/other_widget/widget-3pr-area.php:188
+#: plugins/other_widget/widget-pr-blocks.php:110
 msgid "Summary Text:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:94
-#: plugins/other_widget/widget-3pr-area.php:146
-#: plugins/other_widget/widget-3pr-area.php:199
-#: plugins/other_widget/widget-pr-blocks.php:111
+#: plugins/other_widget/widget-3pr-area.php:90
+#: plugins/other_widget/widget-3pr-area.php:142
+#: plugins/other_widget/widget-3pr-area.php:192
+#: plugins/other_widget/widget-pr-blocks.php:114
 msgid "Link URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:100
+#: plugins/other_widget/widget-3pr-area.php:96
 msgid "3PR area2 setting"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:152
+#: plugins/other_widget/widget-3pr-area.php:147
 msgid "3PR area3 setting"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:50
-#: plugins/other_widget/widget-archives.php:51
+#: plugins/other_widget/widget-archives.php:52
+#: plugins/other_widget/widget-archives.php:53
 msgid "Monthly archives"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:60
+#: plugins/other_widget/widget-archives.php:62
 msgid "Title"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:64
+#: plugins/other_widget/widget-archives.php:66
 msgid "Post type"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:74
+#: plugins/other_widget/widget-archives.php:76
 msgid "Monthly"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:76
+#: plugins/other_widget/widget-archives.php:78
 msgid "Yearly"
 msgstr ""
 
-#: plugins/other_widget/widget-archives.php:94
+#: plugins/other_widget/widget-archives.php:96
 msgid "archive"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:11
-msgid "Displays a list of your most recent posts"
-msgstr ""
-
-#: plugins/other_widget/widget-new-posts.php:13
-#: plugins/other_widget/widget-new-posts.php:23
-#: plugins/other_widget/widget-new-posts.php:82
+#: plugins/other_widget/widget-new-posts.php:9
+#: plugins/other_widget/widget-new-posts.php:24
+#: plugins/other_widget/widget-new-posts.php:79
 msgid "Recent Posts"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:97
+#: plugins/other_widget/widget-new-posts.php:14
+msgid "Displays a list of your most recent posts"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:91
 msgid "Display count"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:102
+#: plugins/other_widget/widget-new-posts.php:96
 msgid "Slug for the custom type you want to display"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:107
+#: plugins/other_widget/widget-new-posts.php:101
 msgid "taxonomy ID"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:109
+#: plugins/other_widget/widget-new-posts.php:103
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:111
+#: plugins/other_widget/widget-new-posts.php:105
 msgid "if empty this area, I will do not filtering."
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:11
-msgid "Displays a page contents to widget."
-msgstr ""
-
-#: plugins/other_widget/widget-page.php:13
+#: plugins/other_widget/widget-page.php:9
 msgid "page content to widget"
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:33
+#: plugins/other_widget/widget-page.php:14
+msgid "Displays a page contents to widget."
+msgstr ""
+
+#: plugins/other_widget/widget-page.php:34
 #: plugins/other_widget/widget-taxonomies.php:58
 msgid "Display page"
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:41
+#: plugins/other_widget/widget-page.php:42
 msgid "display title"
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:65
+#: plugins/other_widget/widget-page.php:66
 msgid "Edit"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:10
-msgid "Displays a circle image or icon font for pr blocks"
-msgstr ""
-
-#: plugins/other_widget/widget-pr-blocks.php:12
+#: plugins/other_widget/widget-pr-blocks.php:9
 msgid "PR Blocks"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:19
+#: plugins/other_widget/widget-pr-blocks.php:14
+msgid "Displays a circle image or icon font for pr blocks"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:22
 msgid "Service"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:27
+#: plugins/other_widget/widget-pr-blocks.php:30
 msgid "Company"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:35
+#: plugins/other_widget/widget-pr-blocks.php:38
 msgid "Recruit"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:56
+#: plugins/other_widget/widget-pr-blocks.php:59
 msgid "The choice of the number of columns:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:58
+#: plugins/other_widget/widget-pr-blocks.php:61
 msgid "3column"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:59
+#: plugins/other_widget/widget-pr-blocks.php:62
 msgid "4column"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:61
+#: plugins/other_widget/widget-pr-blocks.php:64
 msgid ""
 "If you change the number of columns, click to \"Save\" botton and exit the "
 "edit page. When restart the edit page, the column input form is increased or "
 "decreased."
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:68
-#: plugins/other_widget/widget-pr-blocks.php:166
+#: plugins/other_widget/widget-pr-blocks.php:71
+#: plugins/other_widget/widget-pr-blocks.php:167
 msgid "PR Block"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:75
+#: plugins/other_widget/widget-pr-blocks.php:78
 msgid "Class name of the icon font you want to use:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:78
+#: plugins/other_widget/widget-pr-blocks.php:81
 msgid "To choose your favorite icon, and enter the class."
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:78
+#: plugins/other_widget/widget-pr-blocks.php:81
 msgid " ex:fa-file-text-o"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:82
+#: plugins/other_widget/widget-pr-blocks.php:85
 msgid "Icon bg-color:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:86
+#: plugins/other_widget/widget-pr-blocks.php:89
 msgid "Select image:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:97
+#: plugins/other_widget/widget-pr-blocks.php:100
 msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:11
-msgid "Displays a your profile"
-msgstr ""
-
-#: plugins/other_widget/widget-profile.php:13
-#: plugins/other_widget/widget-profile.php:19
+#: plugins/other_widget/widget-profile.php:9
+#: plugins/other_widget/widget-profile.php:20
 msgid "Profile"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:26
+#: plugins/other_widget/widget-profile.php:14
+msgid "Displays a your profile"
+msgstr ""
+
+#: plugins/other_widget/widget-profile.php:27
 msgid "Profile Text"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:44
+#: plugins/other_widget/widget-profile.php:45
 msgid "Select Profile image:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:61
+#: plugins/other_widget/widget-profile.php:58
 msgid "Cut out round the image."
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:65
+#: plugins/other_widget/widget-profile.php:62
 msgid "Media size (Optional)"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:70
+#: plugins/other_widget/widget-profile.php:67
 msgid "Image align left"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:74
+#: plugins/other_widget/widget-profile.php:71
 msgid "Text float to image."
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:78
+#: plugins/other_widget/widget-profile.php:75
 msgid "Profile Text:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:83
+#: plugins/other_widget/widget-profile.php:79
 msgid "Facebook URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:88
+#: plugins/other_widget/widget-profile.php:84
 msgid "Twitter URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:93
+#: plugins/other_widget/widget-profile.php:89
 msgid "Email Address:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:98
+#: plugins/other_widget/widget-profile.php:94
 msgid "Youtube URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:103
+#: plugins/other_widget/widget-profile.php:99
 msgid "RSS URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:108
+#: plugins/other_widget/widget-profile.php:104
 msgid "instagram URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-profile.php:112
+#: plugins/other_widget/widget-profile.php:108
 msgid "linkedin URL:"
 msgstr ""
 
-#: plugins/other_widget/widget-taxonomies.php:12
-msgid "Displays a categories and custom taxonomies list."
+#: plugins/other_widget/widget-taxonomies.php:9
+msgid "Categories/Custom taxonomies list"
 msgstr ""
 
 #: plugins/other_widget/widget-taxonomies.php:14
-msgid "Categories/Custom taxonomies list"
+msgid "Displays a categories and custom taxonomies list."
 msgstr ""
 
 #: plugins/other_widget/widget-taxonomies.php:45
@@ -1146,23 +1125,23 @@ msgstr ""
 msgid "Display a HTML sitemap"
 msgstr ""
 
-#: plugins/sns/function_fbPagePlugin.php:10
+#: plugins/sns/function_fbPagePlugin.php:13
 msgid "Displays a Facebook Page Plugin"
 msgstr ""
 
-#: plugins/sns/function_fbPagePlugin.php:85
+#: plugins/sns/function_fbPagePlugin.php:86
 msgid "Height"
 msgstr ""
 
-#: plugins/sns/function_fbPagePlugin.php:90
+#: plugins/sns/function_fbPagePlugin.php:91
 msgid "Show Friend's Faces"
 msgstr ""
 
-#: plugins/sns/function_fbPagePlugin.php:95
+#: plugins/sns/function_fbPagePlugin.php:96
 msgid "Hide Cover Photo"
 msgstr ""
 
-#: plugins/sns/function_fbPagePlugin.php:100
+#: plugins/sns/function_fbPagePlugin.php:101
 msgid "Show Page Posts"
 msgstr ""
 

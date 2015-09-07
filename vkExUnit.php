@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 2.3.2
+Version: 2.3.5
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -87,12 +87,13 @@ require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
-require vkExUnit_get_directory() . '/plugins/news_from_exUnit.php';
-require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
-require vkExUnit_get_directory() . '/plugins/dashboard_info_widget.php';
-require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
-require vkExUnit_get_directory() . '/plugins/admin_banner.php';
+require vkExUnit_get_directory() . '/plugins_admin/dashboard_info_widget.php';
+require vkExUnit_get_directory() . '/plugins_admin/news_from_exUnit.php';
+require vkExUnit_get_directory() . '/plugins_admin/admin_banner.php';
+require vkExUnit_get_directory() . '/plugins_admin/disable_admin_edit.php';
 
+require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
+require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 
 if ( isset($options['active_wpTitle']) && $options['active_wpTitle'] )
@@ -215,9 +216,18 @@ function vkExUnit_admin_enq(){
 //     }
 // }
 
+if( function_exists('register_activation_hook') ){
+	register_activation_hook( __FILE__ , 'vkExUnit_install_function' );
+}
+function vkExUnit_install_function(){
+	$opt = get_option('vkExUnit_common_options');
+	if( !$opt ){
+		add_option( 'vkExUnit_common_options', vkExUnit_get_common_options_default() );
+	}
+}
 
 if (function_exists('register_deactivation_hook')){
-    register_deactivation_hook(__FILE__,     'vkExUnit_uninstall_function');
+    register_deactivation_hook( __FILE__, 'vkExUnit_uninstall_function' );
 }
 
 function vkExUnit_uninstall_function()

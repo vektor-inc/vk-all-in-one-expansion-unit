@@ -5,9 +5,9 @@ function vkExUnit_news_body()
 	include_once(ABSPATH . WPINC . '/feed.php');
 
 	if ( 'ja' == get_locale() ) {
-		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/ja/?feed?'.date('his') ;
+		$exUnit_feed_url = apply_filters( 'vkExUnit_news_RSS_URL_ja', 'http://ex-unit.bizvektor.com/ja/?feed?'.date('his') );
 	} else {
-		$exUnit_feed_url = 'http://ex-unit.bizvektor.com/?feed?'.date('his') ;
+		$exUnit_feed_url = apply_filters( 'vkExUnit_news_RSS_URL', 'http://ex-unit.bizvektor.com/?feed?'.date('his') );
 	}
 
 	$my_feeds = array(
@@ -29,7 +29,7 @@ function vkExUnit_news_body()
 			$output .= '<div class="rss-widget">';
 
 			$output .= '<div class="logo_exUnit">';
-			$output .= '<img src="'.vkExUnit_get_directory_uri('/images/head_logo_ExUnit.png').'" alt="VK ExUnit" style="width:200px;" /></div>';
+			$output .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', vkExUnit_get_directory_uri( '/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" style="width:200px;" /></div>';
 			$output .= '<ul>';
 
 			if ( $maxitems == 0 )
