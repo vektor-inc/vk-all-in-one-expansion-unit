@@ -24,13 +24,13 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  fontawesome
 /*-------------------------------------------*/
-/*  icon	
+/*  icon
 /*-------------------------------------------*/
-/*  wpTitle	
+/*  wpTitle
 /*-------------------------------------------*/
-/*  metaKeyword 
+/*  metaKeyword
 /*-------------------------------------------*/
-/*  metaDescription	
+/*  metaDescription
 /*-------------------------------------------*/
 /*  sns
 /*-------------------------------------------*/
@@ -53,6 +53,8 @@ $required_packages[] = array(
 /*  relatedPosts
 /*-------------------------------------------*/
 /*  auto_eyecatch
+/*-------------------------------------------*/
+/*  disable_ping-back
 /*-------------------------------------------*/
 
 /*-------------------------------------------*/
@@ -313,6 +315,16 @@ $required_packages[] = array(
     'name'  => 'auto_eyecatch',
     'title' => __('Automatic Eye Catch insert', 'vkExUnit'),
     'description' => __('Display Eye Catch image at before content.', 'vkExUnit'),
+    'default' => false,
+);
+
+/*-------------------------------------------*/
+/*  disable_ping-back
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'disable_ping-back',
+    'title' => __('Disable ping back', 'vkExUnit'),
+    'description' => __('Disable xmlrpc ping back.', 'vkExUnit'),
     'default' => false,
 );
 
