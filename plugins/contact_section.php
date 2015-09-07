@@ -121,7 +121,8 @@ class vExUnit_Contact {
 <tr>
 <th scope="row"><label for="widget_text"><?php _e('short text for widget', 'vkExUnit') ;?></label></th>
 <td>
-<input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $options['short_text'] ); ?>" style="width:50%;" /><br />
+<?php $short_text = ( isset($options['short_text']) && $options['short_text'] ) ? $options['short_text'] : ''; ?>
+<input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $short_text ); ?>" style="width:50%;" /><br />
 <span><?php _e( 'This will use contact widget.' , 'vkExUnit' ) ;?></span>
 </td>
 </tr>
