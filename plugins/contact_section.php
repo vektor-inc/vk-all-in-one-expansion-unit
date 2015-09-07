@@ -270,7 +270,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_contact',
 			$widget_name,
-			array( 'description' => __( '*　It is necessary to set the Theme options page.', 'biz-vektor' ) )
+			array( 'description' => __( '*　It is necessary to set the Theme options page.', 'vkExUnit' ) )
 		);
 	}
 
