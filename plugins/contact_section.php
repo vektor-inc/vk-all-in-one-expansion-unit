@@ -102,7 +102,7 @@ class vExUnit_Contact {
 </td>
 </tr>
 <tr>
-<th scope="row"><label for="sub_sitename"><?php _e('Contact button Text.', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="sub_sitename"><?php _e('Contact button Text', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text]" id="sub_sitename" value="" style="width:50%;" /><?php echo esc_attr( $options['button_text'] ); ?></textarea><br />
 <span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Contact Us from email.', 'vkExUnit') ;?></span>
@@ -110,7 +110,7 @@ class vExUnit_Contact {
 </tr>
 <!-- Company address -->
 <tr>
-<th scope="row"><label for="button_text_small"><?php _e('Contact button text. ( sub )', 'vkExUnit') ;?></label></th>
+<th scope="row"><label for="button_text_small"><?php _e('Contact button text( sub )', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small'] ?></textarea><br />
 	<span><?php _e('ex) ', 'vkExUnit') ;?>
@@ -271,7 +271,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 			'vkExUnit_contact',
 			$widget_name,
 			array( 
-				'description' => sprintf(__('*It is necessary to set the "%s" -> "Contact" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name())
+				'description' => sprintf(__('*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name())
 				)
 		);
 	}
