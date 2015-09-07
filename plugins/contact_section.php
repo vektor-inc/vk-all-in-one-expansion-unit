@@ -268,7 +268,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 		$widget_name = vkExUnit_get_short_name().'_'.__('Contact button', 'vkExUnit');
 
 		parent::__construct(
-			'vke_contact',
+			'vkExUnit_contact',
 			$widget_name,
 			array( 'description' => __( '*　It is necessary to set the Theme options page.', 'biz-vektor' ) )
 		);
