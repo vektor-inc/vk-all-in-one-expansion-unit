@@ -145,8 +145,8 @@ if ( isset($options['active_call_to_action']) && $options['active_call_to_action
 if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
 
-if ( isset($options['active_disable_ping-back']) && $options['active_disable_ping-back'] )
-	require vkExUnit_get_directory() . '/plugins/disable_ping-back.php';
+// if ( isset($options['active_disable_ping-back']) && $options['active_disable_ping-back'] )
+// 	require vkExUnit_get_directory() . '/plugins/disable_ping-back.php';
 
 
 
