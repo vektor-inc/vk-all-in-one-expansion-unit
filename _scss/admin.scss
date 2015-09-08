@@ -3,7 +3,7 @@
 
 .optionNav	{ display:block !important; overflow:hidden; }
 .optionNav ul { display:block; overflow:hidden;margin:0;padding:0 5px; }
-.optionNav ul li { display: block; float:left;border-radius: 3px 3px 0 0;border:1px solid #ccc; border-bottom:none;margin-right:2px; margin-bottom:0;}
+.optionNav ul li { display: block; border-radius: 3px;border:1px solid #ccc; margin-bottom:2px;}
 .optionNav ul li:hover { background-color: #666; }
 .optionNav ul li a { display:block; overflow:hidden;padding:0.5em; text-decoration: none;color:#666;font-size:12px; }
 .optionNav ul li:hover a { color: #fff;border:none; }
@@ -16,8 +16,15 @@
 }
 
 .vkExUnit_admin_page { padding-top:1em;
-	.adminMain { display:block; overflow:hidden;width:70%;float:left }
-	.adminSub { display:block; overflow:hidden;width:28%;float:right;
+	.adminMain { display:block; overflow:hidden;width:74%;float:left;
+		#adminContent_sub {
+			display:block; overflow:hidden;width:24%;float:left;
+		}
+		#adminContent_main {
+			display:block; overflow:hidden;width:74%;float:right;
+		}
+	}
+	.adminSub { display:block; overflow:hidden;width:24%;float:right;
 		.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
 
 		}

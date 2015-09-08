@@ -51,3 +51,19 @@ jQuery(document).ready(function($){
             jQuery(this).next().slideToggle();
      });
 });
+
+/*-------------------------------------------*/
+/* ページ内の表示／非表示切り替えセクションの追加
+/*-------------------------------------------*/
+jQuery(document).ready(function(){
+    
+    // 基準の表示位置を取得
+        var defaultHeight = jQuery('#adminContent_sub').height();
+        console.log(defaultHeight);
+    // スクロールしたら
+
+        // スクロールの量を取得
+
+        // メニューのtopを標準の表示位置+スクロール量にする
+
+});
