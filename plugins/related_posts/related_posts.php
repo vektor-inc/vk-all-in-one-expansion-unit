@@ -8,6 +8,7 @@ function vkExUnit_add_relatedPosts($content){
 
 	$max_show_posts = 10;
 	$border_of_and_to_in = 2;
+
 	$args_base = array(
 		'posts_per_page'   => $max_show_posts,
 		'offset'           => 0,
@@ -20,9 +21,8 @@ function vkExUnit_add_relatedPosts($content){
 	);
 
 	if ( get_post_type() == 'post' && is_single() ) :
-	global $post;
-	global $is_page_widget;
-	if($is_page_widget) return $content;
+	global $is_pagewidget;
+	if($is_pagewidget) return $content;
 
 	$mytags = get_the_tags();
 
@@ -36,13 +36,14 @@ function vkExUnit_add_relatedPosts($content){
 
 	$posts_array = get_posts( $args );
 
-	if( count( $posts_array ) <= $border_of_and_to_in && count( $tags ) > 1 ){
+	if( count( $posts_array ) < $border_of_and_to_in && count( $tags ) > 1 ){
 		$args = $args_base;
 		$args['tag__in'] = $tags;
 		$posts_array = get_posts( $args );
 	}
 	$tag_posts = $posts_array;
 
+	// foreach($tag_posts as $tp) echo $tp->post_title." - \n<br/>";
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
 
@@ -55,16 +56,16 @@ function vkExUnit_add_relatedPosts($content){
 		foreach ($tag_posts as $key => $post) {
 			$relatedPostsHtml .= '<div class="col-sm-6">';
 			$relatedPostsHtml .= '<div class="media">';
-			if ( has_post_thumbnail()) :
+			if ( has_post_thumbnail($post->ID)) :
 			$relatedPostsHtml .= '<div class="media-left postList_thumbnail">';
-			$relatedPostsHtml .= '<a href="'.get_the_permalink().'">';
+			$relatedPostsHtml .= '<a href="'.get_the_permalink($post->ID).'">';
 			$relatedPostsHtml .= get_the_post_thumbnail($post->ID,'thumbnail');
 			$relatedPostsHtml .= '</a>';
 			$relatedPostsHtml .= '</div>';
 			endif;
 			$relatedPostsHtml .= '<div class="media-body">';
-			$relatedPostsHtml .= '<div class="media-heading"><a href="'.get_the_permalink().'">'.get_the_title().'</a></div>';
-			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;'.get_the_date().'</div>';
+			$relatedPostsHtml .= '<div class="media-heading"><a href="'.get_the_permalink($post->ID).'">'.$post->post_title.'</a></div>';
+			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;'.get_the_date(false , $post->ID).'</div>';
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '</div>';
 			$relatedPostsHtml .= '</div>'."\n";
