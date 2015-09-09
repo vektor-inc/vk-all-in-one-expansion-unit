@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.3
-Stable tag: 2.3.6
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +26,8 @@ Many features can be stopped individually.
 *   PR Blocks - display the PR Blocks.
 *   Categories/tags list - Displays a categories, tags or format list.
 *   Archive list - Displays a list of archives. You can choose the post type and also to display archives by month or by year.
-*   Facebook Page Plugin widget
+*   Facebook Page Plugin widget.
+*   Contact Button widget.
 
 [ Social media ]
 
@@ -68,6 +69,13 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 3.0.0 =
+* [ Add functions ] Add Contact Button Widget.
+* [ Add functions ] Add Child Page List Widget.
+* [ Specification change ] Change mark up of the widget.
+* [ Specification change ] Change Setting Page UI.
+* [ Specification change ] Change Related Post list logic.
 
 = 2.3.0 =
 * [ bug fix ] WordPress4.3 bug fix.
