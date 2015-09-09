@@ -11,7 +11,7 @@
 <table class="form-table">
 <tr>
 <th><?php _e('facebook application ID', 'vkExUnit'); ?></th>
-<td><input type="text" name="vkExUnit_sns_options[fbAppId]" id="fbAppId" value="<?php echo esc_attr( $options['fbAppId'] ); ?>" />
+<td><input type="text" name="vkExUnit_sns_options[fbAppId]" id="fbAppId" value="<?php echo esc_attr( $options['fbAppId'] ); ?>" /><br />
 <span>[ <a href="https://developers.facebook.com/apps" target="_blank">&raquo; <?php _e('I will check and get the application ID', 'vkExUnit'); ?></a> ]</span><br />
 <?php _e('* If an application ID is not specified, neither a Like button nor the comment field displays and operates correctly.', 'vkExUnit'); ?><br />
 <?php _e('Please search for terms as [get Facebook application ID] If you do not know much about how to get application ID for Facebook.', 'vkExUnit'); ?>

@@ -27,9 +27,7 @@ function vkExUnit_news_body()
 			$rss_items = $rss->get_items( 0, $maxitems );
 
 			$output .= '<div class="rss-widget">';
-
-			$output .= '<div class="logo_exUnit">';
-			$output .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', vkExUnit_get_directory_uri( '/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" style="width:200px;" /></div>';
+			$output .= '<h1 class="veu_admin_subTitle">Information</h1>';
 			$output .= '<ul>';
 
 			if ( $maxitems == 0 )

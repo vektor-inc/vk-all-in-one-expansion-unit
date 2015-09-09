@@ -183,7 +183,7 @@ function vkExUnit_addJs(){
 add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js');
 function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_media();
-	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150525' );
+	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150908' );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }

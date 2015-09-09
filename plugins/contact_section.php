@@ -43,9 +43,9 @@ class vExUnit_Contact {
 
 	public function options_init() {
 		vkExUnit_register_setting(
-			__('Contact', 'vkExUnit'),      // tab label.
-			'vkExUnit_contact',          // name attr
-			array($this, 'option_sanitaize'),                                   // sanitaise function name
+			__('Contact Information', 'vkExUnit'),      // tab label.
+			'vkExUnit_contact',          				// name attr
+			array($this, 'option_sanitaize'),           // sanitaise function name
 			array($this, 'options_page')  // setting_page function name
 		);
 	}

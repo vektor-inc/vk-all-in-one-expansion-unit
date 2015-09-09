@@ -16,6 +16,12 @@ function vkExUnit_dashboard_widget()
 	wp_add_dashboard_widget(
 		'vkExUnit_dashboard_widget',
 		__('News from VK All in One Expansion Unit','vkExUnit'),
-		'vkExUnit_news_body'
+		'vkExUnit_dashboard_widget_body'
 	);
+}
+
+function vkExUnit_dashboard_widget_body(){
+	echo vkExUnit_get_systemlogo();
+	vkExUnit_news_body();
+
 }
