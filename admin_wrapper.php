@@ -32,6 +32,9 @@ function vkExUnit_render_main_config(){
 <form method="post" action="">
 
 	<div id="adminContent_sub">
+
+	<?php echo vkExUnit_get_systemlogo();?>
+
 	<div class="optionNav"><ul>
 	<?php
 	// $i = 0;
@@ -56,8 +59,6 @@ function vkExUnit_render_main_config(){
 			if(!isset($vkoption['render_page'])){ continue; }
 
 			echo '<section id="'. $vkoption['option_name'] .'">';
-
-			// vkExUnit_render_menu($vkExUnit_options, $vkoption['tab_label']);
 
 			if( is_array($vkoption['render_page'])){
 				$vkoption['render_page'][0]->$vkoption['render_page'][1]();
@@ -135,17 +136,4 @@ function vkExUnit_save_main_config(){
 	}
 
 	vkExUnit_main_config_sanitaize($_POST);
-}
-
-
-function vkExUnit_render_menu( $sections, $current_tab=null ){
-	echo '<div class="optionNav"><ul>';
-	foreach($sections as $section){
-		$tab_class = ( $section['tab_label'] == $current_tab )? 'current' : '';
-
-		echo '<li id="btn_"'. $section['option_name']. '" class="'.$tab_class.'"><a href="#'. $section['option_name'] .'">';
-		echo $section['tab_label'];
-		echo '</a></li>';
-	}
-	echo "</ul></div>";
 }

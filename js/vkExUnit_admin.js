@@ -68,7 +68,7 @@ jQuery(document).ready(function(){
     function setNav(){
         // スクロールの量を取得
         var scroll = jQuery(this).scrollTop();
-        // jQuery('#adminContent_sub').css({"padding-top":scroll});
+        jQuery('#adminContent_sub').css({"padding-top":scroll});
         jQuery('.adminSub').css({"padding-top":scroll});
     }
 });
