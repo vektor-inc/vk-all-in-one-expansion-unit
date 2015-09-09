@@ -28,6 +28,8 @@ function vkExUnit_add_relatedPosts($content){
 
 	if( !count($mytags) ) return ;
 
+	if ( isset($mytags) && $mytags ) {
+
 	$tags = array();
 	foreach( $mytags as $t ) $tags[] = $t->term_id;
 
@@ -75,6 +77,7 @@ function vkExUnit_add_relatedPosts($content){
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
 		$content .= $relatedPostsHtml;
 	} // if ( $tag_posts )
+	} // if ( isset($mytags) && $mytags ) 
 	endif;
 	wp_reset_postdata();
 
