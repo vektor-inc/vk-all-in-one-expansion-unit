@@ -3,7 +3,9 @@
 
 .optionNav	{ display:block !important; overflow:hidden; }
 .optionNav ul { display:block; overflow:hidden;margin:0;padding:0 5px; }
-.optionNav ul li { display: block; border-radius: 3px;border:1px solid #ccc; margin-bottom:2px;}
+.optionNav ul li { display: block; border:1px solid #ccc;margin-bottom:0;border-bottom:none;background-color: #fff;}
+.optionNav ul li:first-child { border-top-left-radius: 3px;border-top-right-radius: 3px; }
+.optionNav ul li:last-child { border-bottom-left-radius: 3px;border-bottom-right-radius: 3px;border-bottom:1px solid #ccc; }
 .optionNav ul li:hover { background-color: #666; }
 .optionNav ul li a { display:block; overflow:hidden;padding:0.5em; text-decoration: none;color:#666;font-size:12px; }
 .optionNav ul li:hover a { color: #fff;border:none; }
@@ -16,33 +18,6 @@
 }
 
 .vkExUnit_admin_page { padding-top:1em;
-	.adminMain { display:block; overflow:hidden;width:74%;float:left;
-		#adminContent_sub {
-			display:block; overflow:hidden;width:24%;float:left;
-		}
-		#adminContent_main {
-			display:block; overflow:hidden;width:74%;float:right;
-		}
-	}
-	.adminSub { display:block; overflow:hidden;width:24%;float:right;
-		.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
-
-		}
-		.exUnit_adminBnr{ 
-			display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
-			margin-top: 1em;
-			a{
-				display: block;
-			}
-			img{
-				max-width: 100%;
-				height: auto;
-				&:hover{
-					opacity: 0.7;
-				}
-			}
-		}
-	}
 	h2 { display:block; overflow:hidden;margin-bottom:20px;
 		.pageTitleTxt { font-size:28px; }
 	}
@@ -52,5 +27,28 @@
 	dl {
 		dt { font-weight: bold;margin-bottom:5px; }
 		dd { margin-left:0; }
+	}
+}
+.adminMain { display:block; overflow:hidden;width:74%;float:left;
+	#adminContent_sub { display:block; overflow:hidden;width:24%;float:left; }
+	#adminContent_main { display:block; overflow:hidden;width:74%;float:right; }
+}
+.adminSub { display:block; overflow:hidden;width:24%;float:right;
+	.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;	}
+	.exUnit_adminBnr{ 
+		display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
+		margin-top: 1em;
+		a{ display: block; }
+		img{ max-width: 100%;height: auto;
+			&:hover{ opacity: 0.7; }
+		}
+	}
+}
+
+@media (max-width: 991px){
+	.adminMain table.form-table{
+		th,
+		td { display: block; }
+		th { background-color: #ccc;width:auto; padding: 10px; border-radius: 3px; }
 	}
 }

@@ -27,32 +27,24 @@ function vkExUnit_render_main_config(){
 <?php
 	wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
 	global $vkExUnit_options;
-	if( is_array($vkExUnit_options) ): ?>
+	if( is_array($vkExUnit_options) ):?>
 
 <form method="post" action="">
 
 	<div id="adminContent_sub">
 	<div class="optionNav"><ul>
 	<?php
+	// $i = 0;
 		foreach($vkExUnit_options as $vkoption){
 			if(!isset($vkoption['render_page'])){ continue; }
-
-		echo '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $vkoption['option_name'] .'">';
-		echo $vkoption['tab_label'];
-		echo '</a></li>';
+			// $linkUrl = ($i == 0) ? 'wpwrap':$vkoption['option_name'];
+			$linkUrl = $vkoption['option_name'];
+			echo '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
+			echo $vkoption['tab_label'];
+			echo '</a></li>';
+			// $i++;
 
 		}
-	?>
-	<?php
-		// foreach($vkExUnit_options as $vkoption){
-		// 	if(!isset($vkoption['render_page'])){ continue; }
-
-		// 	echo '<section id="'. $vkoption['option_name'] .'" class="sectionBox">';
-
-		// 	vkExUnit_render_menu($vkExUnit_options, $vkoption['tab_label']);
-
-		// 	echo '</section>';
-		// }
 	?>
 	</ul></div>
 	</div><!-- [ /#adminContent_sub ] -->
@@ -63,7 +55,7 @@ function vkExUnit_render_main_config(){
 		foreach($vkExUnit_options as $vkoption){
 			if(!isset($vkoption['render_page'])){ continue; }
 
-			echo '<section id="'. $vkoption['option_name'] .'" class="sectionBox">';
+			echo '<section id="'. $vkoption['option_name'] .'">';
 
 			// vkExUnit_render_menu($vkExUnit_options, $vkoption['tab_label']);
 
