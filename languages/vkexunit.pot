@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-09-10 16:41+0900\n"
+"POT-Creation-Date: 2015-09-10 17:32+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -714,8 +714,9 @@ msgid "Show index page"
 msgstr ""
 
 #: plugins/css_customize/css_customize-edit.php:2
-#: plugins/css_customize/css_customize.php:35
-#: plugins/css_customize/css_customize.php:36
+#: plugins/css_customize/css_customize.php:28
+#: plugins/css_customize/css_customize.php:44
+#: plugins/css_customize/css_customize.php:45
 msgid "CSS Customize"
 msgstr ""
 
@@ -727,11 +728,11 @@ msgstr ""
 msgid "Save CSS"
 msgstr ""
 
-#: plugins/css_customize/css_customize.php:94
+#: plugins/css_customize/css_customize.php:103
 msgid "Your custom CSS was saved."
 msgstr ""
 
-#: plugins/css_customize/css_customize.php:99
+#: plugins/css_customize/css_customize.php:108
 msgid "Error occured. Please try again."
 msgstr ""
 
@@ -1293,14 +1294,20 @@ msgstr ""
 msgid "Follow me box title"
 msgstr ""
 
-#: plugins_admin/dashboard_info_widget.php:18
-msgid "News from VK All in One Expansion Unit"
+#: plugins_admin/admin_bar.php:17 plugins_admin/admin_bar.php:34
+msgid "Edit Guide"
 msgstr ""
 
-#: plugins_admin/disable_admin_edit.php:17
-#: plugins_admin/disable_admin_edit.php:37
-#: plugins_admin/disable_admin_edit.php:38
-msgid "Edit Guide"
+#: plugins_admin/admin_bar.php:60
+msgid "Active Setting"
+msgstr ""
+
+#: plugins_admin/admin_bar.php:68
+msgid "Main Setting"
+msgstr ""
+
+#: plugins_admin/dashboard_info_widget.php:18
+msgid "News from VK All in One Expansion Unit"
 msgstr ""
 
 #: plugins_admin/news_from_exUnit.php:36

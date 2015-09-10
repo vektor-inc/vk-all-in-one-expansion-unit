@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-09-10 16:38+0900\n"
+"POT-Creation-Date: 2015-09-10 17:31+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -782,8 +782,9 @@ msgid "Show index page"
 msgstr "一覧ページを表示する"
 
 #: ../plugins/css_customize/css_customize-edit.php:2
-#: ../plugins/css_customize/css_customize.php:35
-#: ../plugins/css_customize/css_customize.php:36
+#: ../plugins/css_customize/css_customize.php:28
+#: ../plugins/css_customize/css_customize.php:44
+#: ../plugins/css_customize/css_customize.php:45
 msgid "CSS Customize"
 msgstr "CSSカスタマイズ"
 
@@ -795,11 +796,11 @@ msgstr "デザインをカスタマイズする場合は下のテキストエリ
 msgid "Save CSS"
 msgstr "CSSを保存する"
 
-#: ../plugins/css_customize/css_customize.php:94
+#: ../plugins/css_customize/css_customize.php:103
 msgid "Your custom CSS was saved."
 msgstr "CSSが保存されました"
 
-#: ../plugins/css_customize/css_customize.php:99
+#: ../plugins/css_customize/css_customize.php:108
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
 
@@ -1382,15 +1383,21 @@ msgstr "Follow me ユニットを本文の下に表示する"
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
+#: ../plugins_admin/admin_bar.php:17 ../plugins_admin/admin_bar.php:34
+msgid "Edit Guide"
+msgstr "編集ガイド"
+
+#: ../plugins_admin/admin_bar.php:60
+msgid "Active Setting"
+msgstr "有効化設定"
+
+#: ../plugins_admin/admin_bar.php:68
+msgid "Main Setting"
+msgstr "メイン設定"
+
 #: ../plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
 msgstr "VK All in One Expansion Unit からのお知らせ"
-
-#: ../plugins_admin/disable_admin_edit.php:17
-#: ../plugins_admin/disable_admin_edit.php:37
-#: ../plugins_admin/disable_admin_edit.php:38
-msgid "Edit Guide"
-msgstr "編集ガイド"
 
 #: ../plugins_admin/news_from_exUnit.php:36
 msgid "Sorry, there is no post"
@@ -1600,9 +1607,6 @@ msgstr "お知らせはありません。"
 #, fuzzy
 #~ msgid "Post each setting."
 #~ msgstr "3PR エリア1 設定"
-
-#~ msgid "Master Setting"
-#~ msgstr "設定"
 
 #~ msgid ""
 #~ "To choose your favorite icon, and enter the class. For example, the use "
