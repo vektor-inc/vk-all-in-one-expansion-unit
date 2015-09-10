@@ -35,3 +35,32 @@ if(a){a=false;c.show();b.removeClass('active').text('<?php echo __('Edit Guide',
 };$(d).ready(function(){b=$('#wp-admin-bar-veu_disable_admin_edit .ab-item').on('click',f);c=$('.veu_adminEdit');});})(jQuery,document);</script>
 	<?php }
 }
+
+
+
+add_action( 'admin_bar_menu', 'vkExUnit_adminbar_link', 40 );
+function vkExUnit_adminbar_link( $wp_admin_bar ){
+
+	global $current_user;
+	get_currentuserinfo();
+	if ($current_user->ID == '') return ;
+	if( !user_can( $current_user->ID, 'activate_plugins' ) ) return;
+
+	$args = array(
+		'id'    => 'veu_adminlink',
+		'title' => vkExUnit_get_little_short_name(). ' '. __('ActiveSetting','vkExUnit'),
+		'href'  => admin_url() . 'admin.php?page=vkExUnit_setting_page',
+		'meta'  => array()
+	);
+	$wp_admin_bar->add_node( $args );
+	$wp_admin_bar->add_node(
+		array(
+			'parent' => 'veu_adminlink',
+			'id'     => 'veu_adminlink_main',
+			'title'  => __( 'Main Setting', 'vkExUnit' ),
+			'href'   => admin_url() . 'admin.php?page=vkExUnit_main_setting',
+		)
+	);
+
+	do_action( 'vkExUnit_action_adminbar', $wp_admin_bar );
+}

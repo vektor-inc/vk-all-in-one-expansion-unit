@@ -12,17 +12,26 @@ class biz_vektor_css_customize{
 
 
 	public  function set_hook(){
-		add_filter( 'biz_vektor_is_css_customize_widgets', array($this, 'biz_vektor_css_custom_beacon'), 10, 1 );
 		add_action( 'admin_footer',  array($this, 'css_customize_page_js_and_css'));
 		add_action( 'wp_head',       array($this, 'biz_vektor_css_customize_push_css'), 200);
 		add_action( 'admin_menu',    array($this, 'biz_vektor_css_customize_menu'));
+		add_action( 'vkExUnit_action_adminbar', array($this, 'admin_bar'));
 	}
 
 
-	public function biz_vektor_css_custom_beacon($flag){
-		$flag = true;
-		return $flag;
+
+	public function admin_bar( $wp_admin_bar ){
+		$wp_admin_bar->add_node(
+			array(
+				'parent' => 'veu_adminlink',
+				'id'     => 'veu_adminlink_css',
+				'title'  => __( 'CSS Customize', 'vkExUnit' ),
+				'href'   => admin_url() . 'admin.php?page=vkExUnit_css_customize',
+			)
+		);
 	}
+
+
 
 	/*-------------------------------------------*/
 	/*	CSSカスタマイズ」のメニュー
@@ -35,7 +44,7 @@ class biz_vektor_css_customize{
 			__( 'CSS Customize', 'vkExUnit' ),
 			__( 'CSS Customize', 'vkExUnit' ),
 			// $capability_required,
-			'activate_plugins',	
+			'activate_plugins',
 			'vkExUnit_css_customize',
 			array($this, 'biz_vektor_css_customize_render_page')
 		);
