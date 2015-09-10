@@ -5,6 +5,8 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
+	public $taxonomies = array('category');
+
 	function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( 'Recent Posts', 'vkExUnit' );
 
@@ -16,8 +18,10 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
+		if(!isset($instance['format'])) $instance['format'] = 0;
+
 		echo $args['before_widget'];
-		echo '<div class="widget_newPosts">';
+		echo '<div class="widget_newPosts pt_'.$instance['format'].'">';
 		echo $args['before_title'];
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo $instance['label'];
@@ -28,6 +32,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		$count 		= ( isset($instance['count']) && $instance['count'] ) ? $instance['count'] : 10;
 		$post_type 	= ( isset($instance['post_type']) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
+
+		if($instance['format']) $this->_taxonomy_init($post_type);
 
 		$p_args = array(
 			'post_type' => $post_type,
@@ -52,21 +58,18 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 		if ($post_loop->have_posts()):
-			while ( $post_loop->have_posts() ) : $post_loop->the_post(); ?>
+			if(!$instance['format']){
+				while ( $post_loop->have_posts() ) : $post_loop->the_post();
+					$this->display_pattern_0();
+				endwhile;
+			} else {
+				echo '<ul class="veu_newsList">';
+				while ( $post_loop->have_posts() ) : $post_loop->the_post();
+					$this->display_pattern_1();
+				endwhile;
+				echo '</ul>';
+			}
 
-			<div class="media" id="post-<?php the_ID(); ?>">
-				<?php if ( has_post_thumbnail()) : ?>
-					<div class="media-left postList_thumbnail">
-					<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
-					</div>
-				<?php endif; ?>
-				<div class="media-body">
-					<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-					<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>
-				</div>
-			</div>
-
-			<?php endwhile;
 		endif;
 		echo '</div>';
 		echo $args['after_widget'];
@@ -76,16 +79,73 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	} // widget($args, $instance)
 
+
+
+	function display_pattern_0(){ ?>
+<div class="media" id="post-<?php the_ID(); ?>">
+	<?php if ( has_post_thumbnail()) : ?>
+		<div class="media-left postList_thumbnail">
+		<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
+		</div>
+	<?php endif; ?>
+	<div class="media-body">
+		<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+		<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>
+	</div>
+</div><?php
+	}
+
+
+
+	function display_pattern_1(){ ?>
+<li id="post-<?php the_ID(); ?>">
+	<span class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></span>
+	<span class="taxonomies"><?php echo $this->taxonomy_list( get_the_id(), ' ', '', '' ); ?></span>
+	<span class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
+</li><?php
+	}
+
+
+
+	function _taxonomy_init( $post_type ){
+		if($post_type == 'post') return;
+		$this->taxonomies = get_object_taxonomies( $post_type );
+	}
+
+
+
+	function taxonomy_list( $post_id=0, $before=' ', $sep=',', $after='' ){
+		if( !$post_id ) $post_id = get_the_ID();
+
+		$taxo_catelist = array();
+
+		foreach( $this->taxonomies as $taxonomy ){
+			$terms           = get_the_term_list( $post_id, $taxonomy, $before, $sep , $after);
+			if( $terms ) $taxo_catelist[] = $terms;
+		}
+
+		if( count( $taxo_catelist ) ) return join( $taxo_catelist, $sep );
+		return '';
+	}
+
+
+
 	function form ($instance) {
 		$defaults = array(
 			'count' 	=> 10,
 			'label' 	=> __('Recent Posts', 'vkExUnit' ),
 			'post_type' => 'post',
-			'terms'     => ''
+			'terms'     => '',
+			'format'    => '0'
 		);
 
 		$instance = wp_parse_args((array) $instance, $defaults);
-		 //タイトル ?>
+		//タイトル ?>
+		<br/>
+		<?php echo _e('Display Format', 'vkExUnit'); ?>:<br/>
+		<label><input type="radio" name="<?php echo $this->get_field_name('format');  ?>" value="0" <?php if(!$instance['format']) echo 'checked'; ?> /><?php echo __('Thumbnail', 'vkExUnit') .'/'. __('Title', 'vkExUnit') .'/'. __('Date', 'vkExUnit'); ?></label><br/>
+		<label><input type="radio" name="<?php echo $this->get_field_name('format');  ?>" value="1" <?php if($instance['format'] == 1) echo 'checked'; ?>/><?php echo __('Date', 'vkExUnit') .'/'. __('Category', 'vkExUnit') .'/'. __('Title', 'vkExUnit'); ?></label>
+		<br/><br/>
 		<label for="<?php echo $this->get_field_id('label');  ?>"><?php _e('Title:'); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id('label'); ?>-title" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" />
 		<br/><br />
@@ -111,10 +171,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function update ($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['count'] 		= $new_instance['count'];
-		$instance['label'] 		= $new_instance['label'];
-		$instance['post_type']	= !empty($new_instance['post_type']) ? strip_tags($new_instance['post_type']) : 'post';
-		$instance['terms'] 		= preg_replace('/([^0-9,]+)/', '', $new_instance['terms']);
+		$instance['format']     = $new_instance['format'];
+		$instance['count']      = $new_instance['count'];
+		$instance['label']      = $new_instance['label'];
+		$instance['post_type']  = !empty($new_instance['post_type']) ? strip_tags($new_instance['post_type']) : 'post';
+		$instance['terms']      = preg_replace('/([^0-9,]+)/', '', $new_instance['terms']);
 		return $instance;
 	}
 

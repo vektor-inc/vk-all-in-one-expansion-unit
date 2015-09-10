@@ -52,6 +52,25 @@ html { font-size: inherit; } /* reset bootstrap */
 .veu_adminEdit a.btn:before{font-family:FontAwesome;content:"\f040";margin-right:5px;}
 
 /*-------------------------------------------*/
+/* .veu_newsList
+/*-------------------------------------------*/
+.widget_newPosts {
+	h1.mainSection-title { margin-bottom:0; }
+}
+ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
+	li { display:block; overflow:hidden;border-bottom:1px dotted #666;padding:0;clear:both; }
+	a {color:$color_font_default;}
+	.published,
+	.taxonomies a,
+	.entry-title {display:block; overflow:hidden;float:left;}
+	.published { margin-right:10px;color:#d44950; }
+	.published:before { content:'';margin:0; }
+	.taxonomies a { background-color: #efefef; padding: 2px 5px 1px; border-radius:3px;font-size:12px;margin-right:3px; }
+	.entry-title { clear:both; display: block;margin:5px 0; }
+
+}
+
+/*-------------------------------------------*/
 /* .autoEyeCatchBox
 /*-------------------------------------------*/
 
