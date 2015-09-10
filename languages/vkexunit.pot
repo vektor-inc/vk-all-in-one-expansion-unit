@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-09-07 18:47+0900\n"
+"POT-Creation-Date: 2015-09-10 16:41+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -18,89 +18,89 @@ msgstr ""
 msgid "Main setting"
 msgstr ""
 
-#: admin_wrapper.php:51
+#: admin_wrapper.php:78
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 
-#: common_helpers.php:130
+#: common_helpers.php:137
 #, php-format
 msgid "Search Results for : %s"
 msgstr ""
 
-#: common_helpers.php:133
+#: common_helpers.php:140
 msgid "Not found"
 msgstr ""
 
-#: common_helpers.php:142 common_helpers.php:214
+#: common_helpers.php:149 common_helpers.php:221
 #, php-format
 msgid "Page of %s"
 msgstr ""
 
-#: common_helpers.php:174 common_helpers.php:182
+#: common_helpers.php:181 common_helpers.php:189
 #, php-format
 msgid "About %s"
 msgstr ""
 
-#: common_helpers.php:186 common_helpers.php:235
+#: common_helpers.php:193 common_helpers.php:242
 msgid "Y"
 msgstr ""
 
-#: common_helpers.php:187 common_helpers.php:191 common_helpers.php:195
-#: common_helpers.php:199
+#: common_helpers.php:194 common_helpers.php:198 common_helpers.php:202
+#: common_helpers.php:206
 #, php-format
 msgid "Article of %s."
 msgstr ""
 
-#: common_helpers.php:190 common_helpers.php:237
+#: common_helpers.php:197 common_helpers.php:244
 msgid "F Y"
 msgstr ""
 
-#: common_helpers.php:233
+#: common_helpers.php:240
 #, php-format
 msgid "Author: %s"
 msgstr ""
 
-#: common_helpers.php:239
+#: common_helpers.php:246
 msgid "F j, Y"
 msgstr ""
 
-#: common_helpers.php:242
+#: common_helpers.php:249
 msgid "Asides"
 msgstr ""
 
-#: common_helpers.php:244
+#: common_helpers.php:251
 msgid "Galleries"
 msgstr ""
 
-#: common_helpers.php:246
+#: common_helpers.php:253
 msgid "Images"
 msgstr ""
 
-#: common_helpers.php:248
+#: common_helpers.php:255
 msgid "Videos"
 msgstr ""
 
-#: common_helpers.php:250
+#: common_helpers.php:257
 msgid "Quotes"
 msgstr ""
 
-#: common_helpers.php:252
+#: common_helpers.php:259
 msgid "Links"
 msgstr ""
 
-#: common_helpers.php:254
+#: common_helpers.php:261
 msgid "Statuses"
 msgstr ""
 
-#: common_helpers.php:256
+#: common_helpers.php:263
 msgid "Audio"
 msgstr ""
 
-#: common_helpers.php:258
+#: common_helpers.php:265
 msgid "Chats"
 msgstr ""
 
-#: common_helpers.php:274 plugins/other_widget/widget-taxonomies.php:81
+#: common_helpers.php:281 plugins/other_widget/widget-taxonomies.php:81
 msgid "Archives"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Insert ads to content."
 msgstr ""
 
-#: packages.php:306 plugins/related_posts/related_posts.php:34
+#: packages.php:306 plugins/related_posts/related_posts.php:53
 msgid "Related posts"
 msgstr ""
 
@@ -325,14 +325,6 @@ msgstr ""
 
 #: packages.php:317
 msgid "Display Eye Catch image at before content."
-msgstr ""
-
-#: packages.php:326
-msgid "Disable ping back"
-msgstr ""
-
-#: packages.php:327
-msgid "Disable xmlrpc ping back."
 msgstr ""
 
 #: vkExUnit_admin.php:3
@@ -382,11 +374,11 @@ msgstr ""
 msgid "Display a child page index"
 msgstr ""
 
-#: plugins/contact_section.php:46 plugins/other_widget/widget-pr-blocks.php:46
-msgid "Contact"
+#: plugins/contact_section.php:46 plugins/contact_section.php:72
+msgid "Contact Information"
 msgstr ""
 
-#: plugins/contact_section.php:56 plugins/contact_section.php:78
+#: plugins/contact_section.php:56 plugins/contact_section.php:79
 msgid "Please feel free to inquire."
 msgstr ""
 
@@ -398,92 +390,78 @@ msgstr ""
 msgid "Contact us"
 msgstr ""
 
-#: plugins/contact_section.php:71
-msgid "Contact Information"
-msgstr ""
-
-#: plugins/contact_section.php:75
+#: plugins/contact_section.php:76
 msgid "Message"
 msgstr ""
 
-#: plugins/contact_section.php:78 plugins/contact_section.php:85
-#: plugins/contact_section.php:92 plugins/contact_section.php:100
-#: plugins/contact_section.php:108 plugins/contact_section.php:116
+#: plugins/contact_section.php:79 plugins/contact_section.php:86
+#: plugins/contact_section.php:93 plugins/contact_section.php:101
+#: plugins/contact_section.php:109 plugins/contact_section.php:117
 #: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
-#: plugins/sns/old/sns_admin.php:20 plugins/sns/old/sns_admin.php:61
-#: plugins/sns/old/sns_admin.php:79 plugins/sns/old/sns_admin.php:98
-#: plugins/sns/old/sns_admin.php:115
 msgid "ex) "
 msgstr ""
 
-#: plugins/contact_section.php:82
+#: plugins/contact_section.php:83
 msgid "Phone number"
 msgstr ""
 
-#: plugins/contact_section.php:89 plugins/contact_section.php:92
+#: plugins/contact_section.php:90 plugins/contact_section.php:93
 msgid "Office hours"
 msgstr ""
 
-#: plugins/contact_section.php:92
+#: plugins/contact_section.php:93
 msgid "Weekdays except holidays"
 msgstr ""
 
-#: plugins/contact_section.php:97
+#: plugins/contact_section.php:98
 msgid "The contact page URL"
 msgstr ""
 
-#: plugins/contact_section.php:100
+#: plugins/contact_section.php:101
 msgid "or"
 msgstr ""
 
-#: plugins/contact_section.php:101
+#: plugins/contact_section.php:102
 msgid "* If you fill in the blank, contact button does not appear."
 msgstr ""
 
-#: plugins/contact_section.php:105
-msgid "Contact button Text."
+#: plugins/contact_section.php:106
+msgid "Contact button Text"
 msgstr ""
 
-#: plugins/contact_section.php:108
+#: plugins/contact_section.php:109
 msgid "Contact Us from email."
 msgstr ""
 
-#: plugins/contact_section.php:113
-msgid "Contact button text. ( sub )"
+#: plugins/contact_section.php:114
+msgid "Contact button text( sub )"
 msgstr ""
 
-#: plugins/contact_section.php:117
+#: plugins/contact_section.php:118
 msgid "Email contact form"
 msgstr ""
 
-#: plugins/contact_section.php:122
+#: plugins/contact_section.php:123
 msgid "Contact button short text for side widget"
 msgstr ""
 
-#: plugins/contact_section.php:126
+#: plugins/contact_section.php:127
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
 
-#: plugins/contact_section.php:147
+#: plugins/contact_section.php:148
 msgid "Display Contact Section"
 msgstr ""
 
-#: plugins/contact_section.php:222 plugins/contact_section.php:249
+#: plugins/contact_section.php:223 plugins/contact_section.php:250
 msgid "Edit contact information"
 msgstr ""
 
-#: plugins/contact_section.php:268
+#: plugins/contact_section.php:269
 msgid "Contact Button"
 msgstr ""
 
-#: plugins/contact_section.php:274
-#, php-format
-msgid ""
-"*It is necessary to set the \"%s\" -> \"Contact\" section in \"Main setting"
-"\" page."
-msgstr ""
-
-#: plugins/contact_section.php:294
+#: plugins/contact_section.php:275 plugins/contact_section.php:295
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -817,7 +795,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:48
 #: plugins/other_widget/widget-3pr-area.php:98
 #: plugins/other_widget/widget-3pr-area.php:149
-#: plugins/other_widget/widget-new-posts.php:89
+#: plugins/other_widget/widget-new-posts.php:149
 #: plugins/other_widget/widget-pr-blocks.php:74
 #: plugins/other_widget/widget-profile.php:40
 #: plugins/sns/function_fbPagePlugin.php:76
@@ -886,6 +864,8 @@ msgid "Monthly archives"
 msgstr ""
 
 #: plugins/other_widget/widget-archives.php:64
+#: plugins/other_widget/widget-new-posts.php:146
+#: plugins/other_widget/widget-new-posts.php:147
 msgid "Title"
 msgstr ""
 
@@ -914,33 +894,52 @@ msgstr ""
 msgid "Display the child pages list from ancestor page."
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:9
-#: plugins/other_widget/widget-new-posts.php:25
-#: plugins/other_widget/widget-new-posts.php:82
+#: plugins/other_widget/widget-new-posts.php:11
+#: plugins/other_widget/widget-new-posts.php:29
+#: plugins/other_widget/widget-new-posts.php:136
 msgid "Recent Posts"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:14
+#: plugins/other_widget/widget-new-posts.php:16
 msgid "Displays a list of your most recent posts"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:94
+#: plugins/other_widget/widget-new-posts.php:145
+msgid "Display Format"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:146
+msgid "Thumbnail"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:146
+#: plugins/other_widget/widget-new-posts.php:147
+msgid "Date"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:147
+#: plugins/other_widget/widget-taxonomies.php:47
+#: plugins/other_widget/widget-taxonomies.php:48
+msgid "Category"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:154
 msgid "Display count"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:99
+#: plugins/other_widget/widget-new-posts.php:159
 msgid "Slug for the custom type you want to display"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:104
+#: plugins/other_widget/widget-new-posts.php:164
 msgid "taxonomy ID"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:106
+#: plugins/other_widget/widget-new-posts.php:166
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:108
+#: plugins/other_widget/widget-new-posts.php:168
 msgid "if empty this area, I will do not filtering."
 msgstr ""
 
@@ -983,6 +982,10 @@ msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:38
 msgid "Recruit"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:46
+msgid "Contact"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:59
@@ -1106,11 +1109,6 @@ msgstr ""
 msgid "Displays a categories and custom taxonomies list."
 msgstr ""
 
-#: plugins/other_widget/widget-taxonomies.php:47
-#: plugins/other_widget/widget-taxonomies.php:48
-msgid "Category"
-msgstr ""
-
 #: plugins/other_widget/widget-taxonomies.php:56
 msgid "Label to display"
 msgstr ""
@@ -1201,21 +1199,21 @@ msgstr ""
 msgid "SNS Settings"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:13 plugins/sns/old/sns_admin.php:26
+#: plugins/sns/sns_admin.php:13
 msgid "facebook application ID"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:15 plugins/sns/old/sns_admin.php:28
+#: plugins/sns/sns_admin.php:15
 msgid "I will check and get the application ID"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:16 plugins/sns/old/sns_admin.php:29
+#: plugins/sns/sns_admin.php:16
 msgid ""
 "* If an application ID is not specified, neither a Like button nor the "
 "comment field displays and operates correctly."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:17 plugins/sns/old/sns_admin.php:30
+#: plugins/sns/sns_admin.php:17
 msgid ""
 "Please search for terms as [get Facebook application ID] If you do not know "
 "much about how to get application ID for Facebook."
@@ -1229,21 +1227,21 @@ msgstr ""
 msgid "OG default image"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:27 plugins/sns/old/sns_admin.php:57
+#: plugins/sns/sns_admin.php:27
 msgid ""
 "If, for example someone pressed the Facebook [Like] button, this is the "
 "image that appears on the Facebook timeline."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:28 plugins/sns/old/sns_admin.php:58
+#: plugins/sns/sns_admin.php:28
 msgid "If a featured image is specified for the page, it takes precedence."
 msgstr ""
 
-#: plugins/sns/sns_admin.php:30 plugins/sns/old/sns_admin.php:60
+#: plugins/sns/sns_admin.php:30
 msgid "Select an image"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:32 plugins/sns/old/sns_admin.php:62
+#: plugins/sns/sns_admin.php:32
 msgid ""
 "* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is "
 "recommended."
@@ -1295,145 +1293,6 @@ msgstr ""
 msgid "Follow me box title"
 msgstr ""
 
-#: plugins/sns/old/sns.php:378
-msgid "*　It is necessary to set the Theme options page."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:12
-msgid "Social media"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:13
-msgid "If you are unsure, you can leave for later."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:18
-msgid ""
-"If you wish to link to a personal account or a Facebook page  banner will be "
-"displayed if you enter the URL."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:35
-msgid "Facebook user ID (optional)"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:36
-msgid "Please enter the Facebook user ID of the administrator."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:38
-msgid "* It is not the application ID of the Facebook page."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:39
-msgid ""
-"You can see the personal Facebook ID when you access the following url "
-"http://graph.facebook.com/(own url name(example: hidekazu.ishikawa))."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:40
-msgid ""
-"Please search for terms as [find facebook user ID] if you are still not sure."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:45
-msgid "twitter account"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:46
-msgid ""
-"If you would like to link to a Twitter account, banner will be displayed if "
-"you enter the account name."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:48
-msgid "widget"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:49
-#, php-format
-msgid ""
-"* If you prefer to use Twitter widgets etc, this can be left blank, paste "
-"the source code into a [text] %s here."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:56
-msgid "OGP default image"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:67
-msgid "Social buttons"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:68
-msgid "Please check the type of page that displays the social button."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:77 plugins/sns/old/sns_admin.php:96
-msgid ""
-"Within the type of page that is checked, if there is a particular page you "
-"do not wish to display, enter the Page ID. If multiple pages, please "
-"separate by commas."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:84
-msgid "facebook comments box"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:85
-msgid "Please check the type of the page to display Facebook comments."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:104
-msgid "If you wish to use Facebook LikeBox, please check the location."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:105
-msgid "* Please be sure to set Facebook application ID."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:113
-msgid "URL of the Facebook page."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:116
-msgid "Display stream"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:117 plugins/sns/old/sns_admin.php:119
-msgid "Display"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:118
-msgid "Display faces"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:120
-msgid "Height of LikeBox"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:128
-msgid "Do not output the OGP"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:130
-msgid ""
-"If other plug-ins are used for the OGP, do not output the OGP using "
-"BizVektor."
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:133
-msgid "I want to output the OGP tags using BizVektor"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:134
-msgid "Do not output OGP tags using BizVektor"
-msgstr ""
-
-#: plugins/sns/old/sns_admin.php:149
-msgid "Page top"
-msgstr ""
-
 #: plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
 msgstr ""
@@ -1444,6 +1303,6 @@ msgstr ""
 msgid "Edit Guide"
 msgstr ""
 
-#: plugins_admin/news_from_exUnit.php:38
+#: plugins_admin/news_from_exUnit.php:36
 msgid "Sorry, there is no post"
 msgstr ""
