@@ -48,11 +48,19 @@ function vkExUnit_adminbar_link( $wp_admin_bar ){
 
 	$args = array(
 		'id'    => 'veu_adminlink',
-		'title' => vkExUnit_get_little_short_name(). ' '. __('ActiveSetting','vkExUnit'),
-		'href'  => admin_url() . 'admin.php?page=vkExUnit_setting_page',
+		'title' => vkExUnit_get_little_short_name(),
+		'href'  => admin_url() . 'admin.php?page=vkExUnit_main_setting',
 		'meta'  => array()
 	);
 	$wp_admin_bar->add_node( $args );
+	$wp_admin_bar->add_node( 
+		array(
+			'parent' => 'veu_adminlink',
+			'id' => 'veu_adminlink_active',
+			'title' => __('Active Setting','vkExUnit'),
+			'href' => admin_url() . 'admin.php?page=vkExUnit_setting_page',
+		)
+	);
 	$wp_admin_bar->add_node(
 		array(
 			'parent' => 'veu_adminlink',
