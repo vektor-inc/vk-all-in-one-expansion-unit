@@ -58,10 +58,18 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 		if ($post_loop->have_posts()):
-			while ( $post_loop->have_posts() ) : $post_loop->the_post();
-				if(!$instance['format']) $this->display_pattern_0();
-				else $this->display_pattern_1();
-			endwhile;
+			if(!$instance['format']){
+				while ( $post_loop->have_posts() ) : $post_loop->the_post();
+					$this->display_pattern_0();
+				endwhile;
+			} else {
+				echo '<ul class="veu_newsList">';
+				while ( $post_loop->have_posts() ) : $post_loop->the_post();
+					$this->display_pattern_1();
+				endwhile;
+				echo '</ul>';
+			}
+
 		endif;
 		echo '</div>';
 		echo $args['after_widget'];
@@ -90,13 +98,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 	function display_pattern_1(){ ?>
-<div class="media" id="post-<?php the_ID(); ?>">
-	<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>
-	<div class="taxonomies"><?php echo $this->taxonomy_list( get_the_id(), ' ', ',', '' ); ?></div>
-	<div class="media-body">
-		<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-	</div>
-</div><?php
+<li id="post-<?php the_ID(); ?>">
+	<span class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></span>
+	<span class="taxonomies"><?php echo $this->taxonomy_list( get_the_id(), ' ', '', '' ); ?></span>
+	<span class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
+</li><?php
 	}
 
 
