@@ -23,13 +23,11 @@ function vkExUnit_render_main_config(){
 <div class="wrap vkExUnit_admin_page">
 
 <div class="adminMain">
-
+<form method="post" action="">
 <?php
 	wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
 	global $vkExUnit_options;
 	if( is_array($vkExUnit_options) ):?>
-
-<form method="post" action="">
 
 	<div id="adminContent_sub">
 
@@ -71,14 +69,14 @@ function vkExUnit_render_main_config(){
 
 	</div><!-- [ /#adminContent_main ] -->
 
-</form>
+
 
 <?php else:
 
 _e('Activated Packages is noting. please activate some package.', 'vkExUnit');
 
  endif; ?>
-
+</form>
 </div><!-- [ /.adminMain ] -->
 
 <div class="adminSub">
