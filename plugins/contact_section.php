@@ -61,7 +61,8 @@ class vExUnit_Contact {
 			'button_text_small' => '',
 			'short_text' => __( 'Contact us' , 'vkExUnit' )
 		);
-		return get_option('vkExUnit_contact', $default);
+		$option = get_option( 'vkExUnit_contact' );
+		return wp_parse_args( $option, $default );
 	}
 
 
