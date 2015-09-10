@@ -321,12 +321,12 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  disable_ping-back
 /*-------------------------------------------*/
-$required_packages[] = array(
-    'name'  => 'disable_ping-back',
-    'title' => __('Disable ping back', 'vkExUnit'),
-    'description' => __('Disable xmlrpc ping back.', 'vkExUnit'),
-    'default' => false,
-);
+// $required_packages[] = array(
+//     'name'  => 'disable_ping-back',
+//     'title' => __('Disable ping back', 'vkExUnit'),
+//     'description' => __('Disable xmlrpc ping back.', 'vkExUnit'),
+//     'default' => false,
+// );
 
 
 
