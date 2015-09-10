@@ -1,12 +1,12 @@
 <?php
 add_filter( 'the_content', 'vkExUnit_add_relatedPosts' , 800 , 1 );
 
-function vkExUnit_add_relatedPosts($content){
+function vkExUnit_add_relatedPosts( $content ){
 	/*-------------------------------------------*/
 	/*	Related posts
 	/*-------------------------------------------*/
 
-	$max_show_posts = 10;
+	$max_show_posts      = 10;
 	$border_of_and_to_in = 2;
 
 	$args_base = array(
@@ -20,15 +20,15 @@ function vkExUnit_add_relatedPosts($content){
 		'suppress_filters' => true
 	);
 
-	if ( get_post_type() == 'post' && is_single() ) :
+	if ( !is_single() || get_post_type() != 'post' ) return $content;
+
 	global $is_pagewidget;
-	if($is_pagewidget) return $content;
+	if( $is_pagewidget ) return $content;
 
 	$mytags = get_the_tags();
 
-	if( !count($mytags) ) return ;
+	if( !$mytags  || !is_array($mytags) ) return $content;
 
-	if ( isset($mytags) && $mytags ) {
 
 	$tags = array();
 	foreach( $mytags as $t ) $tags[] = $t->term_id;
@@ -44,8 +44,6 @@ function vkExUnit_add_relatedPosts($content){
 		$posts_array = get_posts( $args );
 	}
 	$tag_posts = $posts_array;
-
-	// foreach($tag_posts as $tp) echo $tp->post_title." - \n<br/>";
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
 
@@ -76,9 +74,8 @@ function vkExUnit_add_relatedPosts($content){
 		$relatedPostsHtml .= '</div>';
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
 		$content .= $relatedPostsHtml;
-	} // if ( $tag_posts )
-	} // if ( isset($mytags) && $mytags ) 
-	endif;
+	}
+
 	wp_reset_postdata();
 
 	return $content;
