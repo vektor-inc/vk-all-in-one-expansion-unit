@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: https://github.com/kurudrive/VK-All-in-one-Expansion-Unit
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 3.1.3
+Version: 3.1.4
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
@@ -164,9 +164,9 @@ function vkExUnit_print_css(){
 	global $version;
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), $version, 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/vkExUnit_style_in_bs.css', array(), $version, 'all');
 	} else {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), $version, 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/vkExUnit_style.css', array(), $version, 'all');
 	}
 }
 /*-------------------------------------------*/
@@ -211,7 +211,7 @@ add_action( 'admin_print_styles-index.php', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq');
 function vkExUnit_admin_enq(){
-	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/admin.css', __FILE__));
+	wp_enqueue_style('vkexunit-css-admin', plugins_url('/css/vkExUnit_admin.css', __FILE__));
 }
 
 /*-------------------------------------------*/
