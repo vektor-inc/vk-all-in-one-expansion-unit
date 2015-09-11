@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 /*-------------------------------------------*/
-/*	add page custom field 
+/*	add page custom field
 /*-------------------------------------------*/
 add_action('admin_menu', 'vkExUnit_add_custom_field_pageOption' );
 

@@ -1,6 +1,6 @@
 <?php
-	$options = vkExUnit_get_sitemap_options();
-	// $options_default = vkExUnit_get_sns_options_default();
+$options = vkExUnit_get_sitemap_options();
+// $options_default = vkExUnit_get_sns_options_default();
 /*-------------------------------------------*/
 /*	sitemap page
 /*-------------------------------------------*/

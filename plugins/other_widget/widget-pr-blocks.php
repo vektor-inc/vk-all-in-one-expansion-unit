@@ -5,7 +5,7 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
-    function __construct() {
+	function __construct() {
 		$widget_name = vkExUnit_get_short_name(). '_' . __( "PR Blocks", 'vkExUnit' );
 
 		parent::__construct(
@@ -15,44 +15,44 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 		);
 	}
 
-    function form($instance){
-        $defaults = array(
-	        'block_count' => 3,
+	function form($instance){
+		$defaults = array(
+			'block_count' => 3,
 
 			'label_1' => __( 'Service', 'vkExUnit' ),
-            'media_image_1' => '',
-            'media_alt_1' => '',
-            'iconFont_class_1' => 'fa-file-text-o',
-            'iconFont_bgColor_1' => '#337ab7',
-            'summary_1' => '',
-            'linkurl_1' => '',
+			'media_image_1' => '',
+			'media_alt_1' => '',
+			'iconFont_class_1' => 'fa-file-text-o',
+			'iconFont_bgColor_1' => '#337ab7',
+			'summary_1' => '',
+			'linkurl_1' => '',
 
-            'label_2' => __( 'Company', 'vkExUnit' ),
-            'media_image_2' => '',
-            'media_alt_2' => '',
-            'iconFont_class_2' => 'fa-building-o',
-            'iconFont_bgColor_2' => '#337ab7',
-            'summary_2' => '',
-            'linkurl_2' => '',
+			'label_2' => __( 'Company', 'vkExUnit' ),
+			'media_image_2' => '',
+			'media_alt_2' => '',
+			'iconFont_class_2' => 'fa-building-o',
+			'iconFont_bgColor_2' => '#337ab7',
+			'summary_2' => '',
+			'linkurl_2' => '',
 
-            'label_3' => __( 'Recruit', 'vkExUnit' ),
-            'media_image_3' => '',
-            'media_alt_3' => '',
-            'iconFont_class_3' => 'fa-user',
-            'iconFont_bgColor_3' => '#337ab7',
-            'summary_3' => '',
-            'linkurl_3' => '',
+			'label_3' => __( 'Recruit', 'vkExUnit' ),
+			'media_image_3' => '',
+			'media_alt_3' => '',
+			'iconFont_class_3' => 'fa-user',
+			'iconFont_bgColor_3' => '#337ab7',
+			'summary_3' => '',
+			'linkurl_3' => '',
 
-            'label_4' => __( 'Contact', 'vkExUnit' ),
-            'media_image_4' => '',
-            'media_alt_4' => '',
-            'iconFont_class_4' => 'fa-envelope',
-            'iconFont_bgColor_4' => '#337ab7',
-            'summary_4' => '',
-            'linkurl_4' => ''
+			'label_4' => __( 'Contact', 'vkExUnit' ),
+			'media_image_4' => '',
+			'media_alt_4' => '',
+			'iconFont_class_4' => 'fa-envelope',
+			'iconFont_bgColor_4' => '#337ab7',
+			'summary_4' => '',
+			'linkurl_4' => ''
 		);
-        $instance = wp_parse_args((array) $instance, $defaults);
-    ?>
+		$instance = wp_parse_args((array) $instance, $defaults);
+	?>
 
 <?php // select Block count	?>
 <p>
@@ -120,29 +120,29 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 
 	function update ($new_instance, $old_instance) {
-	    $instance = $old_instance;
+		$instance = $old_instance;
 
-	    $instance['block_count'] = $new_instance['block_count'];
+		$instance['block_count'] = $new_instance['block_count'];
 
-	    for ( $i = 1; $i <= 4; ) {
-	        $instance['label_'.$i] = $new_instance['label_'.$i];
-	        $instance['media_image_'.$i] = $new_instance['media_image_'.$i];
-	        $instance['media_alt_'.$i] = $new_instance['media_alt_'.$i];
-	        $instance['iconFont_class_'.$i] = $new_instance['iconFont_class_'.$i];
-	        $instance['iconFont_bgColor_'.$i] = $new_instance['iconFont_bgColor_'.$i];
-	        $instance['summary_'.$i] = $new_instance['summary_'.$i];
-	        $instance['linkurl_'.$i] = $new_instance['linkurl_'.$i];
-	        $i++;
+		for ( $i = 1; $i <= 4; ) {
+			$instance['label_'.$i] = $new_instance['label_'.$i];
+			$instance['media_image_'.$i] = $new_instance['media_image_'.$i];
+			$instance['media_alt_'.$i] = $new_instance['media_alt_'.$i];
+			$instance['iconFont_class_'.$i] = $new_instance['iconFont_class_'.$i];
+			$instance['iconFont_bgColor_'.$i] = $new_instance['iconFont_bgColor_'.$i];
+			$instance['summary_'.$i] = $new_instance['summary_'.$i];
+			$instance['linkurl_'.$i] = $new_instance['linkurl_'.$i];
+			$i++;
 		}
-	    return $instance;
+		return $instance;
 	}
 
 
 	function widget($args, $instance) {
-        echo $args['before_widget'];
-	    echo PHP_EOL.'<div class="pr_blocks">'.PHP_EOL;
+		echo $args['before_widget'];
+		echo PHP_EOL.'<div class="pr_blocks">'.PHP_EOL;
 
-	    $widget_block_count = ( isset($instance['block_count'])) ? intval($instance['block_count']) : 3;
+		$widget_block_count = ( isset($instance['block_count'])) ? intval($instance['block_count']) : 3;
 
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
@@ -189,9 +189,9 @@ add_action('widgets_init', create_function('', 'return register_widget("WP_Widge
 // uploader js
 add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
 function admin_scripts_pr_media() {
-    wp_enqueue_media();
-    wp_register_script( 'media-pr-blocks', plugin_dir_url( __FILE__ ) . 'js/widget-pr-blocks.js', array( 'jquery' ), false, true );
-    wp_enqueue_script( 'media-pr-blocks' );
+	wp_enqueue_media();
+	wp_register_script( 'media-pr-blocks', plugin_dir_url( __FILE__ ) . 'js/widget-pr-blocks.js', array( 'jquery' ), false, true );
+	wp_enqueue_script( 'media-pr-blocks' );
 }
 
 // color picker js
@@ -229,15 +229,6 @@ function print_scripts_pr_color() { ?>
 // PR blocks admin CSS
 add_action("admin_print_styles-widgets.php", "style_prBlocks");
 function style_prBlocks() {
-echo '<style>
-		.media.image_pr{
-			max-height: 170px;
-		}
-		.media_img{
-			max-width: 100%;
-			height: auto;
-			position: relative;
-			z-index: 999;
-		}
-</style>'.PHP_EOL;
+echo '<style>.media.image_pr{ max-height: 170px; }
+.media_img{ max-width: 100%; height: auto; position: relative; z-index: 999;}</style>'.PHP_EOL;
 }
