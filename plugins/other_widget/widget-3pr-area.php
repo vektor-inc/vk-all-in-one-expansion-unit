@@ -230,7 +230,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 function widget($args, $instance) {
     echo $args['before_widget'];
-	echo PHP_EOL.'<div class="prBox row">'.PHP_EOL;
+	echo PHP_EOL.'<div class="veu_3prArea row">'.PHP_EOL;
     if( isset($instance['label_1']) && $instance['label_1'] ): ?>
 <div class="prArea col-md-4">
 <?php

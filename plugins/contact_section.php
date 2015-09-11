@@ -200,25 +200,25 @@ class vExUnit_Contact {
 	public static function render_contact_html(){
 		$options = self::get_option();
 		$cont = '';
-		$cont .= '<section class="veu_contact">';
-
-		$cont .= '<p class="veu_contact_txt">';
-		$cont .= '<span class="veu_contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
-		$cont .= '<span class="veu_contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
-		$cont .= '<span class="veu_contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
+		$cont .= '<section class="veu_contact veu_contentAddSection">';
+		$cont .= '<div class="contact_frame">';
+		$cont .= '<p class="contact_txt">';
+		$cont .= '<span class="contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
+		$cont .= '<span class="contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
+		$cont .= '<span class="contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
 		$cont .= '</p>';
 
 		if ( $options['contact_link'] && $options['button_text'] ) {
-			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg veu_contact_bt">';
-			$cont .= '<span class="veu_contact_bt_txt">'.$options['button_text'].'</span>';
+			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg contact_bt">';
+			$cont .= '<span class="contact_bt_txt">'.$options['button_text'].'</span>';
 
 			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
-				$cont .= '<span class="veu_contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+				$cont .= '<span class="contact_bt_subTxt">'.$options['button_text_small'].'</span>';
 			}
 
 			$cont .= '</a>';
 		}
-
+		$cont .= '</div>';
 		$cont .= '</section>';
 		if ( current_user_can('edit_theme_options') ) {
 			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
@@ -239,11 +239,11 @@ class vExUnit_Contact {
 			( isset($options['contact_link']) && $options['contact_link'] ) && 
 			( isset($options['short_text']) && $options['short_text'] )
 			) {
-			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg btn-block veu_contact_bt"><span class="veu_contact_bt_txt">';
+			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 			$cont .= $options['short_text'];
 			$cont .= '</span>';
 			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
-				$cont .= '<span class="veu_contact_bt_subTxt veu_contact_bt_subTxt_side">'.$options['button_text_small'].'</span>';
+				$cont .= '<span class="contact_bt_subTxt contact_bt_subTxt_side">'.$options['button_text_small'].'</span>';
 			}
 			$cont .= '</a>';
 		}
@@ -281,7 +281,9 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
+		echo '<div class="veu_contact">';
 		echo vExUnit_Contact::render_widget_html();
+		echo '</div>';
 		echo $args['after_widget'];
 	}
 

@@ -89,7 +89,7 @@ function vkExUnit_sitemap($atts) {
         'exclude' => ''
     ), $atts));
 
-	$sitemap_html = '<div class="row sitemap">'.PHP_EOL;
+	$sitemap_html = '<div class="row veu_sitemap">'.PHP_EOL;
 	$options = vkExUnit_get_sitemap_options();
 	$exclude = esc_attr($options['excludeId']);
 	$exclude = str_replace('，',',',$exclude);

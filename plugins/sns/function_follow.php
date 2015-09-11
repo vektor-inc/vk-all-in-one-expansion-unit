@@ -23,7 +23,7 @@ function vkExUnit_add_follow($content){
 		$twitterId = (isset($options['twitterId'])) ? $options['twitterId'] : '';
 
 		if ( $fbPageUrl || $twitterId ) {
-			$follow_html .= '<div class="followSet vkContentAddSection">'."\n";
+			$follow_html .= '<div class="veu_followSet veu_contentAddSection">'."\n";
 			$follow_html .= '<h3 class="followSet_title">'.$title.'</h3>';
 		}
 
