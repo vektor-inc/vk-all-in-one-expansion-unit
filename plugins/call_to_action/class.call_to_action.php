@@ -321,6 +321,7 @@ jQuery(document).ready(function($){
 
 	public function content_filter( $content ){
 		if( self::is_pagewidget() ) return $content;
+		if( vkExUnit_is_excerpt() ) return $content;
 		$content .= self::render_cta_content( $this->is_cta_id() );
 		return $content;
 	}

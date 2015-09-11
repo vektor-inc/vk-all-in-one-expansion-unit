@@ -284,3 +284,9 @@ function vkExUnit_get_the_archive_title(){
 
     return apply_filters( 'vkExUnit_get_the_archive_title', $title );
 }
+
+function vkExUnit_is_excerpt(){
+    global $wp_current_filter;
+    if( in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) return true;
+    return false;
+}
