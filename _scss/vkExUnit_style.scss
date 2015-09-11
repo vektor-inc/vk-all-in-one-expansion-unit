@@ -22,8 +22,6 @@
 /*-------------------------------------------*/
 /* Wiget PR Bloclks Plugin
 /*-------------------------------------------*/
-/* Widget Page Content
-/*-------------------------------------------*/
 /* childPageIndex Plugin
 /*-------------------------------------------*/
 /* sitemap page Plugin
@@ -44,14 +42,18 @@ $color_font_default : #464646;
 
 html { font-size: inherit; } /* reset bootstrap */
 .link-list li { padding:0.5em; }
+
+@media (min-width: 768px){
+.mainSection .widget { margin-bottom:40px; }
+}
 .widget { 
   .subSection-title { font-size:18px; }
 }
 
+h1.mainSection-title { font-size:24px; }
+
 .veu_adminEdit { margin-top:5px; }
 .veu_adminEdit a.btn:before{font-family:FontAwesome;content:"\f040";margin-right:5px;}
-
-h1.mainSection-title { font-size:24px; }
 
 /*-------------------------------------------*/
 /* .veu_newsList
@@ -397,10 +399,6 @@ ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
 	}
 }
 }
-/*-------------------------------------------*/
-/* Widget Page Content
-/*-------------------------------------------*/
-.widget_pageContent h1 { margin-bottom:20px; }
 
 /*-------------------------------------------*/
 /* childPageIndex Plugin
