@@ -72,8 +72,8 @@ function vkExUnit_sitemap_options_validate( $input ) {
 add_filter('the_content', 'show_sitemap', 7, 1);
 
 function show_sitemap($content) {
-    global $is_pagewidget;
-    if( $is_pagewidget ) return $content;
+	global $is_pagewidget;
+	if( $is_pagewidget ) return $content;
 	wp_reset_postdata(); // need under other section / ex:child page index
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap',true );
@@ -225,33 +225,33 @@ function vkExUnit_sitemap_meta_box(){
 </label>
 </div>
 
-	<?php 
+	<?php
 }
 
 
 // save custom field sitemap
 add_action('save_post', 'vkExUnit_save_custom_field_sitemapData');
 function vkExUnit_save_custom_field_sitemapData( $post_id ) {
-    $sitemap = isset($_POST['_nonce_vkExUnit__custom_field_sitemap']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_sitemap']) : null;
-    
+	$sitemap = isset($_POST['_nonce_vkExUnit__custom_field_sitemap']) ? htmlspecialchars($_POST['_nonce_vkExUnit__custom_field_sitemap']) : null;
+
 	if( !wp_verify_nonce( $sitemap, plugin_basename(__FILE__) )){
   		return $post_id;
 	}
-	
+
 	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
-    return $post_id;
-    
-    $data = isset($_POST['vkExUnit_sitemap']) ? htmlspecialchars($_POST['vkExUnit_sitemap']) : null;
-       
+	return $post_id;
+
+	$data = isset($_POST['vkExUnit_sitemap']) ? htmlspecialchars($_POST['vkExUnit_sitemap']) : null;
+
 	if('page' == $data){
 		if(!current_user_can('edit_page', $post_id)) return $post_id;
 	}
-		
-    if ( "" == get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
-        add_post_meta( $post_id, 'vkExUnit_sitemap', $data, true ) ;
-    } else if ( $data != get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
-        update_post_meta( $post_id, 'vkExUnit_sitemap', $data ) ;
-    } else if ( "" == $data ) {
-        delete_post_meta( $post_id, 'vkExUnit_sitemap' ) ;
-    }
+
+	if ( "" == get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
+		add_post_meta( $post_id, 'vkExUnit_sitemap', $data, true ) ;
+	} else if ( $data != get_post_meta( $post_id, 'vkExUnit_sitemap' )) {
+		update_post_meta( $post_id, 'vkExUnit_sitemap', $data ) ;
+	} else if ( "" == $data ) {
+		delete_post_meta( $post_id, 'vkExUnit_sitemap' ) ;
+	}
 }

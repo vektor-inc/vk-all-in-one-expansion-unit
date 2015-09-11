@@ -30,8 +30,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 		echo $args['after_title'];
 
-		$count 		= ( isset($instance['count']) && $instance['count'] ) ? $instance['count'] : 10;
-		$post_type 	= ( isset($instance['post_type']) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
+		$count      = ( isset($instance['count']) && $instance['count'] ) ? $instance['count'] : 10;
+		$post_type  = ( isset($instance['post_type']) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
 
 		if($instance['format']) $this->_taxonomy_init($post_type);
 
@@ -43,17 +43,17 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		if(isset($instance['terms']) && $instance['terms']){
 			$taxonomies = get_taxonomies(array());
-	        $p_args['tax_query'] = array(
-	        	'relation' => 'OR',
-	        );
+			$p_args['tax_query'] = array(
+				'relation' => 'OR',
+			);
 			foreach($taxonomies as $taxonomy){
-	        $p_args['tax_query'][] = array(
+			$p_args['tax_query'][] = array(
 					'taxonomy' => $taxonomy,
 					'field' => 'id',
 					'terms' => $instance['terms']
 				);
 			}
-	    }
+		}
 		$post_loop = new WP_Query( $p_args );
 
 
@@ -120,7 +120,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$taxo_catelist = array();
 
 		foreach( $this->taxonomies as $taxonomy ){
-			$terms           = get_the_term_list( $post_id, $taxonomy, $before, $sep , $after);
+			$terms = get_the_term_list( $post_id, $taxonomy, $before, $sep , $after);
 			if( $terms ) $taxo_catelist[] = $terms;
 		}
 
@@ -132,8 +132,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function form ($instance) {
 		$defaults = array(
-			'count' 	=> 10,
-			'label' 	=> __('Recent Posts', 'vkExUnit' ),
+			'count'     => 10,
+			'label'     => __('Recent Posts', 'vkExUnit' ),
 			'post_type' => 'post',
 			'terms'     => '',
 			'format'    => '0'
