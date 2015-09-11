@@ -37,6 +37,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*	Add vkExUnit js
 /*-------------------------------------------*/
 
+// Get Plugin version
+$data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
+global $version;
+$version = $data['version'];
+
 //include('plugins/css_customize/css-customize.php');
 load_plugin_textdomain('vkExUnit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
@@ -156,11 +161,12 @@ if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
 // Add vkExUnit css
 add_action('wp_enqueue_scripts','vkExUnit_print_css');
 function vkExUnit_print_css(){
+	global $version;
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), '20150911', 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style_in_bs.css', array(), $version, 'all');
 	} else {
-		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), '20150911', 'all');
+		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/style.css', array(), $version, 'all');
 	}
 }
 /*-------------------------------------------*/
@@ -168,11 +174,12 @@ function vkExUnit_print_css(){
 /*-------------------------------------------*/
 add_action('wp_head','vkExUnit_addJs');
 function vkExUnit_addJs(){
+	global $version;
 	$options = vkExUnit_get_common_options();
 	if ( isset($options['active_bootstrap']) && $options['active_bootstrap'] ) {
-	wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all_in_bs.min.js', array('jquery'), '20150818' );
+	wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all_in_bs.min.js', array('jquery'), $version );
 	} else {
-		wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all.min.js', array('jquery'), '20150818' );
+		wp_register_script( 'vkExUnit_master-js' , plugins_url('', __FILE__).'/js/all.min.js', array('jquery'), $version );
 	}
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
@@ -182,8 +189,9 @@ function vkExUnit_addJs(){
 /*-------------------------------------------*/
 add_action('admin_print_scripts-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js');
 function vkExUnit_admin_add_js( $hook_suffix ) {
+	global $version;
 	wp_enqueue_media();
-	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), '20150908' );
+	wp_register_script( 'vkExUnit_admin_js', plugins_url('', __FILE__).'/js/vkExUnit_admin.js', array('jquery'), $version );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
