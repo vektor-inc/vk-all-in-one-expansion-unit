@@ -43,6 +43,9 @@ class vExUnit_Ads {
 
 
 	public function set_content($content){
+		if( vkExUnit_is_excerpt() ) return $content;
+		global $is_pagewidget;
+		if( $is_pagewidget ) return $content;
 		$option = $this->get_option();
 		if( get_post_type() == 'post' ){
 			$content = preg_replace('/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content);

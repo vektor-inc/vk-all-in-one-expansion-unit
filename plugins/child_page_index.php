@@ -50,6 +50,7 @@ function vkExUnit_childPageIndex_shortcode(){
 
 add_filter('the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1);
 function vkExUnit_childPageIndex_contentHook( $content ){
+	if( vkExUnit_is_excerpt() ) return $content;
     global $is_pagewidget;
     if( $is_pagewidget ) return $content;
 	global $post;

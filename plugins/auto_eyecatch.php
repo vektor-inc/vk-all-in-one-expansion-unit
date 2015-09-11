@@ -75,6 +75,8 @@ class vExUnit_eyecatch {
 
 	public static function is_my_turn(){
 
+		if( vkExUnit_is_excerpt() ) return false;
+
 		if(get_the_id()){
 
 			if( in_array( get_post_type(get_the_id()), self::$allowed_post_types ) ){
