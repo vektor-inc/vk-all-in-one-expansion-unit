@@ -78,7 +78,7 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
-/*  icon	
+/*  icon
 /*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'icon',
@@ -88,7 +88,7 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
-/*  wpTitle	
+/*  wpTitle
 /*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'wpTitle',
@@ -98,7 +98,7 @@ $required_packages[] = array(
 );
 
 /*-------------------------------------------*/
-/*  metaKeyword 
+/*  metaKeyword
 /*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'metaKeyword',
@@ -114,7 +114,7 @@ $required_packages[] = array(
     'default' => true
 );
 /*-------------------------------------------*/
-/*  metaDescription	
+/*  metaDescription
 /*-------------------------------------------*/
 $required_packages[] = array(
     'name'  => 'metaDescription',
