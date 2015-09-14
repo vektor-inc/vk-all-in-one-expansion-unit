@@ -1,3 +1,11 @@
+/*-------------------------------------------*/
+/*  facebookLikeBox
+/*-------------------------------------------*/
+/*  jquery.flatheights.js 
+/*-------------------------------------------*/
+/*  snsCount
+/*-------------------------------------------*/
+
 pagePluginReSize();
 jQuery(window).resize(function(){
 	pagePluginReSize();
