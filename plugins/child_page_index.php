@@ -23,7 +23,7 @@ function vkExUnit_childPageIndex_shortcode(){
 
 	if( !$childrens->have_posts() ) return;
 
-	$childPageList_html = PHP_EOL.'<div class="row childPage_list">'.PHP_EOL;
+	$childPageList_html = PHP_EOL.'<div class="row veu_childPage_list">'.PHP_EOL;
 	while ( $childrens->have_posts() ) : $childrens->the_post();
 
 			// Set Excerpt

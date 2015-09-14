@@ -7,7 +7,7 @@ function vkExUnit_add_relatedPosts( $content ){
 	/*-------------------------------------------*/
 
 	$max_show_posts      = 10;
-	$border_of_and_to_in = 2;
+	$border_of_and_to_in = 10;
 
 	$args_base = array(
 		'posts_per_page'   => $max_show_posts,
@@ -49,7 +49,7 @@ function vkExUnit_add_relatedPosts( $content ){
 
 	if ( $tag_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
-		$relatedPostsHtml .= '<aside class="relatedPosts subSection vkContentAddSection">';
+		$relatedPostsHtml .= '<aside class="relatedPosts subSection veu_contentAddSection">';
 		$relatedPostsHtml .= '<h1 class="mainSection-title">'.__('Related posts','vkExUnit').'</h1>';
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';

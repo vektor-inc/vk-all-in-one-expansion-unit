@@ -21,7 +21,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		if(!isset($instance['format'])) $instance['format'] = 0;
 
 		echo $args['before_widget'];
-		echo '<div class="widget_newPosts pt_'.$instance['format'].'">';
+		echo '<div class="veu_newPosts pt_'.$instance['format'].'">';
 		echo $args['before_title'];
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo $instance['label'];
@@ -63,7 +63,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 					$this->display_pattern_0();
 				endwhile;
 			} else {
-				echo '<ul class="veu_newsList">';
+				echo '<ul class="postList">';
 				while ( $post_loop->have_posts() ) : $post_loop->the_post();
 					$this->display_pattern_1();
 				endwhile;
@@ -90,7 +90,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	<?php endif; ?>
 	<div class="media-body">
 		<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-		<div class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></div>
+		<div class="published entry-meta_items"><?php echo get_the_date(); ?></div>
 	</div>
 </div><?php
 	}
@@ -99,7 +99,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function display_pattern_1(){ ?>
 <li id="post-<?php the_ID(); ?>">
-	<span class="published vkExUnit_entry-meta_items"><?php echo get_the_date(); ?></span>
+	<span class="published entry-meta_items"><?php echo get_the_date(); ?></span>
 	<span class="taxonomies"><?php echo $this->taxonomy_list( get_the_id(), ' ', '', '' ); ?></span>
 	<span class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
 </li><?php

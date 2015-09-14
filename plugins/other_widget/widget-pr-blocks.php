@@ -140,7 +140,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 	function widget($args, $instance) {
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="pr_blocks">'.PHP_EOL;
+		echo PHP_EOL.'<div class="veu_prBlocks">'.PHP_EOL;
 
 		$widget_block_count = ( isset($instance['block_count'])) ? intval($instance['block_count']) : 3;
 

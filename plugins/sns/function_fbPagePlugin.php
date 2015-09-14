@@ -17,9 +17,11 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function widget($args, $instance) {
 		echo $args['before_widget'];
-
+		echo '<div class="veu_fbPagePlugin">';
 		if ( isset($instance['label']) && $instance['label'] ) {
-			echo '<h1 class="widget-title subSection-title">'.$instance['label'].'</h1>';
+			echo $args['before_title'];
+			echo $instance['label'];
+			echo $args['after_title'];
 		}
 
 		$page_url 	= ( isset($instance['page_url']) && $instance['page_url'] ) ? $instance['page_url'] : '';
@@ -29,17 +31,18 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		$showPosts 	= ( isset($instance['showPosts']) && $instance['showPosts'] ) ? $instance['showPosts'] : 'true';
 		?>
 
-		<div id="fb-like-box" class="fb-like-box">
-			<div class="fb-page fb-like-box" data-href="<?php echo $page_url; ?>" data-width="500"  data-height="<?php echo $height; ?>" data-hide-cover="<?php echo $hideCover; ?>" data-show-facepile="<?php echo $showFaces; ?>" data-show-posts="<?php echo $showPosts; ?>">
-			<div class="fb-xfbml-parse-ignore">
-				<blockquote cite="<?php echo $page_url; ?>">
-				<a href="<?php echo $page_url; ?>">Facebook page</a>
-				</blockquote>
+		<div class="fbPagePlugin_body">
+			<div class="fb-page" data-href="<?php echo $page_url; ?>" data-width="500"  data-height="<?php echo $height; ?>" data-hide-cover="<?php echo $hideCover; ?>" data-show-facepile="<?php echo $showFaces; ?>" data-show-posts="<?php echo $showPosts; ?>">
+				<div class="fb-xfbml-parse-ignore">
+					<blockquote cite="<?php echo $page_url; ?>">
+					<a href="<?php echo $page_url; ?>">Facebook page</a>
+					</blockquote>
+				</div>
 			</div>
-		</div>
 		</div>
 
 		<?php
+		echo '</div>';
 		echo $args['after_widget'];
 
 	} // widget($args, $instance)

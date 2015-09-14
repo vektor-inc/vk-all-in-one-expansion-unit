@@ -22,10 +22,8 @@ function vkExUnit_add_follow($content){
 		$fbPageUrl = (isset($options['fbPageUrl'])) ? $options['fbPageUrl'] : '';
 		$twitterId = (isset($options['twitterId'])) ? $options['twitterId'] : '';
 
-		if ( $fbPageUrl || $twitterId ) {
-			$follow_html .= '<div class="followSet vkContentAddSection">'."\n";
-			$follow_html .= '<h3 class="followSet_title">'.$title.'</h3>';
-		}
+		$follow_html .= '<div class="veu_followSet veu_contentAddSection">'."\n";
+		$follow_html .= '<h3 class="followSet_title">'.$title.'</h3>';
 
 		if ( $fbPageUrl ) {
 			$follow_html .= '<div class="follow_btn fb-like" data-href="'.esc_url( $options['fbPageUrl'] ).'" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>'."\n";	
@@ -35,9 +33,9 @@ function vkExUnit_add_follow($content){
 			$follow_html .= '<div class="follow_btn follow_twitter"><a href="https://twitter.com/'.esc_html( $options['twitterId'] ).'" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">@'.esc_html( $options['twitterId'] ).'</a></div>'."\n";	
 		}
 
-		if ( $fbPageUrl || $twitterId ) {
-			$follow_html .= '</div><!-- [ /.followSet ] -->'."\n";
-		}
+		$follow_html .= '<div class="follow_btn follow_feedly"><a href="http://cloud.feedly.com/#subscription/feed/'.home_url().'/feed/" target="blank"><img id="feedlyFollow" src="http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-small_2x.png" alt="follow us in feedly" width="66" height="20"></a></div>'."\n";
+
+		$follow_html .= '</div><!-- [ /.followSet ] -->'."\n";
 
 		$content .= $follow_html;
 

@@ -135,14 +135,14 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	function widget($args, $instance) {
 		// From here Display a widget
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="widget_profile">'.PHP_EOL;
+		echo PHP_EOL.'<div class="veu_profile">'.PHP_EOL;
 
 		if ( isset($instance['label']) && $instance['label'] ) {
 			echo $args['before_title'];
 			echo $instance['label'];
 			echo $args['after_title'];
 		} ?>
-<div class="site-profile" >
+<div class="profile" >
 <?php // Display a profile image
 
 		$mediaRound = isset($instance['mediaRound']) ? ' media_round' : '' ;
