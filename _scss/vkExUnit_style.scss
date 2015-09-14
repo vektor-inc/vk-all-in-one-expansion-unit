@@ -114,10 +114,12 @@ h1.mainSection-title { font-size:24px; }
 	li.sb_icon.sb_line .icon_sns	{ color:#6ebd30; }
 	li.sb_pocket		{ margin-left:5px;}
 }
-.veu_socialSet .vk_count_sns_fb, .veu_socialSet .vk_count_sns_tw, .veu_socialSet .vk_count_sns_hb { display:inline-block; margin-left:5px; padding:2px 5px; border-radius:5px; line-height:1; vertical-align:top; font-size:77%; color:#ffffff; }
-.veu_socialSet .vk_count_sns_fb { background:#425dab; }
-.veu_socialSet .vk_count_sns_tw { background:#00abec; }
-.veu_socialSet .vk_count_sns_hb { background:#2c6ebd; }
+.veu_count_sns_fb,
+.veu_count_sns_tw,
+.veu_count_sns_hb { display:inline-block; margin-left:5px; padding:2px 5px; border-radius:5px; line-height:1; vertical-align:top; font-size:77%; color:#ffffff; }
+.veu_count_sns_fb { background:#425dab; }
+.veu_count_sns_tw { background:#00abec; }
+.veu_count_sns_hb { background:#2c6ebd; }
 
 /*-------------------------------------------*/
 /*			import icon
