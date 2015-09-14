@@ -116,6 +116,14 @@ jQuery(document).ready(function($){
     jQuery('.child_page_block p').flatHeights();
 	jQuery('#content .child_page_block h4 a').flatHeights();
 });
+/*-------------------------------------------*/
+/*  facebookLikeBox
+/*-------------------------------------------*/
+/*  jquery.flatheights.js 
+/*-------------------------------------------*/
+/*  snsCount
+/*-------------------------------------------*/
+
 pagePluginReSize();
 jQuery(window).resize(function(){
 	pagePluginReSize();
@@ -149,4 +157,59 @@ window.onload = function() {
 	$('.childPage_list_text').flatHeights();
     $('.childPage_list_box').flatHeights();
 }
+})(jQuery);
+
+/*-------------------------------------------*/
+/*	snsCount
+/*-------------------------------------------*/
+(function($){
+var facebook = {
+  init: function() {
+    var url = 'http://graph.facebook.com/?id=' + encodeURIComponent(location.href);
+    $.ajax({
+      url: url,
+      dataType: 'jsonp',
+      success: function(json) {
+        var count = json.shares ? json.shares : 0;
+        $('.veu_socialSet').find('.veu_count_sns_fb').html(count);
+      }
+    });
+  }
+}
+facebook.init();
+
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+var twitter = {
+  init: function() {
+    var url = 'http://urls.api.twitter.com/1/urls/count.json?url=' + encodeURIComponent(location.href);
+    $.ajax({
+      url: url,
+      dataType: 'jsonp',
+      success: function(json) {
+        var count = json.count ? json.count : 0;
+        $('.veu_socialSet').find('.veu_count_sns_tw').html(count);
+      }
+    });
+  }
+}
+twitter.init();
+
+var hatena = {
+  init: function() {
+    var url = 'http://api.b.st-hatena.com/entry.count?url=' + encodeURIComponent(location.href);
+    $.ajax({
+      url: url,
+      dataType: 'jsonp',
+      success: function(json) {
+        var count = json ? json : 0;
+        $('.veu_socialSet').find('.veu_count_sns_hb').html(count);
+
+        if(typeof(count) == 'undefined'){
+          count = 0;
+        }
+      }
+    });
+  }
+}
+hatena.init();
 })(jQuery);
