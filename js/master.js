@@ -53,7 +53,7 @@ var facebook = {
       dataType: 'jsonp',
       success: function(json) {
         var count = json.shares ? json.shares : 0;
-        $('.veu_socialSet').find('.vk_count_sns_fb').html(count);
+        $('.veu_socialSet').find('.veu_count_sns_fb').html(count);
       }
     });
   }
@@ -69,7 +69,7 @@ var twitter = {
       dataType: 'jsonp',
       success: function(json) {
         var count = json.count ? json.count : 0;
-        $('.veu_socialSet').find('.vk_count_sns_tw').html(count);
+        $('.veu_socialSet').find('.veu_count_sns_tw').html(count);
       }
     });
   }
@@ -84,7 +84,7 @@ var hatena = {
       dataType: 'jsonp',
       success: function(json) {
         var count = json ? json : 0;
-        $('.veu_socialSet').find('.vk_count_sns_hb').html(count);
+        $('.veu_socialSet').find('.veu_count_sns_hb').html(count);
 
         if(typeof(count) == 'undefined'){
           count = 0;
