@@ -53,7 +53,7 @@ function vkExUnit_adminbar_link( $wp_admin_bar ){
 		'meta'  => array()
 	);
 	$wp_admin_bar->add_node( $args );
-	$wp_admin_bar->add_node( 
+	$wp_admin_bar->add_node(
 		array(
 			'parent' => 'veu_adminlink',
 			'id' => 'veu_adminlink_active',
