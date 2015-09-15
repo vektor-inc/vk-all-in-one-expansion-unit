@@ -56,6 +56,8 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  disable_ping-back
 /*-------------------------------------------*/
+/*  pageList_ancestor
+/*-------------------------------------------*/
 
 /*-------------------------------------------*/
 /*  bootstrap
@@ -328,6 +330,15 @@ $required_packages[] = array(
 //     'default' => false,
 // );
 
+/*-------------------------------------------*/
+/*  pageList_ancestor
+/*-------------------------------------------*/
+$required_packages[] = array(
+    'name'  => 'pageList_ancestor',
+    'title' => __('Page list from ancestor', 'vkExUnit'),
+    'description' => __('Display Page list from ancestor at after content.', 'vkExUnit'),
+    'default' => true
+);
 
 
 foreach( $required_packages as $package ){

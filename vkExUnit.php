@@ -153,7 +153,8 @@ if ( isset($options['active_insert_ads']) && $options['active_insert_ads'] )
 // if ( isset($options['active_disable_ping-back']) && $options['active_disable_ping-back'] )
 // 	require vkExUnit_get_directory() . '/plugins/disable_ping-back.php';
 
-
+if ( isset($options['active_pageList_ancestor']) && $options['active_pageList_ancestor'] )
+	require vkExUnit_get_directory() . '/plugins/pageList_ancestor.php';
 
 /*-------------------------------------------*/
 /*	Add vkExUnit css

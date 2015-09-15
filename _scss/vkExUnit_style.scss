@@ -32,6 +32,8 @@
 /*-------------------------------------------*/
 /* Insert Ads
 /*-------------------------------------------*/
+/* pageList_ancestor
+/*-------------------------------------------*/
 
 $section_margin : 20px;
 $color_font_default : #464646;
@@ -53,7 +55,7 @@ html { font-size: inherit; } /* reset bootstrap */
 h1.mainSection-title { font-size:24px; }
 
 .veu_adminEdit { margin-top:5px; }
-.veu_adminEdit a.btn:before{font-family:FontAwesome;content:"\f040";margin-right:5px;}
+.veu_adminEdit a.btn:before{margin-right:5px;content:"\f040";font-family:FontAwesome;}
 
 /*-------------------------------------------*/
 /* .veu_newsList
@@ -62,15 +64,15 @@ h1.mainSection-title { font-size:24px; }
 	h1.mainSection-title { margin-bottom:0; }
 }
 ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
-	li { display:block; overflow:hidden;border-bottom:1px dotted #666;padding:0;clear:both; }
+	li { display:block;clear:both; overflow:hidden;padding:0;border-bottom:1px dotted #666; }
 	a {color:$color_font_default;}
 	.published,
 	.taxonomies a,
-	.entry-title {display:block; overflow:hidden;float:left;}
+	.entry-title {display:block;float:left; overflow:hidden;}
 	.published { margin-right:10px;color:#d44950; }
-	.published:before { content:'';margin:0; }
-	.taxonomies a { background-color: #efefef; padding: 2px 5px 1px; border-radius:3px;font-size:12px;margin-right:3px; }
-	.entry-title { clear:both; display: block;margin:5px 0; }
+	.published:before {margin:0; content:''; }
+	.taxonomies a {margin-right:3px; padding: 2px 5px 1px; border-radius:3px; background-color: #efefef;font-size:12px; }
+	.entry-title { display: block; clear:both;margin:5px 0; }
 
 }
 
@@ -178,7 +180,7 @@ ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
 /*-------------------------------------------*/
 /* Wiget Profile Plugin
 /*-------------------------------------------*/
-.vkExUnit_entry-meta_items.published:before { font-family:FontAwesome;content:"\f073";margin-right:5px; }
+.vkExUnit_entry-meta_items.published:before {margin-right:5px;content:"\f073"; font-family:FontAwesome; }
 
 /*-------------------------------------------*/
 /* Wiget Profile Plugin
@@ -408,11 +410,11 @@ ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
 	a:hover{ text-decoration: none; }
 }
 .childPage_list_box { display:block;margin-bottom:1em; }
-.childPage_list_box_inner{
-	display:block; overflow:hidden;	position: relative;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);padding: 0 20px;
-	.childPage_list_title{ margin-top:20px;font-size: 16px;line-height: 1.4;color:$color_font_default;}
+.childPage_list_box_inner{	position: relative;
+	display:block; overflow:hidden;padding: 0 20px;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);
+	.childPage_list_title{ margin-top:20px;color:$color_font_default;font-size: 16px;line-height: 1.4;}
 	.wp-post-image{ float: left; margin-right: 1em; width: 30%; border: solid 1px #ddd; }
-	.childPage_list_body{ overflow: hidden; color: #333; font-size: 14px;margin-bottom:5px;
+	.childPage_list_body{ overflow: hidden;margin-bottom:5px; color: #333; font-size: 14px;
 		&:hover{
 			text-decoration: underline;
 		}
@@ -450,8 +452,8 @@ ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
 /*-------------------------------------------*/
 /* CTA Section 
 /*-------------------------------------------*/
-.veu_cta { display:block; overflow:hidden;background-color: #efefef;margin-top:$section_margin;margin-bottom:$section_margin;
-	h1.veu_cta_title { display:block; overflow:hidden;background-color: #333;font-size:22px;color:#fff;padding: 12px 20px 10px;line-height: 1.2em; }
+.veu_cta { display:block; overflow:hidden;margin-top:$section_margin;margin-bottom:$section_margin;background-color: #efefef;
+	h1.veu_cta_title { display:block; overflow:hidden;padding: 12px 20px 10px;background-color: #333;color:#fff;font-size:22px;line-height: 1.2em; }
 	.veu_cta_body { display:block; overflow:hidden; padding:1.5em 2em 2em;line-height: 170%; }
 	.veu_cta_body_image { margin-bottom:1.5em; }
 	.veu_cta_body_image img { max-width: 250px; }
@@ -476,15 +478,15 @@ ul.veu_newsList { margin:15px 0 $section_margin;padding:0;
 /*-------------------------------------------*/
 /* Contact Section
 /*-------------------------------------------*/
-.veu_contact { display:block; overflow:hidden;margin-bottom:1em;padding:25px 24px 21px; border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);background-color: #f9f9f9; }
+.veu_contact { display:block; overflow:hidden;margin-bottom:1em;padding:25px 24px 21px; border:3px solid #efefef;background-color: #f9f9f9;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1); }
 .veu_contact_txt_catch,
 .veu_contact_txt_tel,
 .veu_contact_txt_time { display:block; overflow:hidden; }
 .veu_contact_txt_catch,
-.veu_contact_txt_time { line-height: 128.6%;font-size: 14px; }
-.veu_contact_txt_tel { font-size: 28px;line-height: 110%;padding-top:4px;}
-.veu_contact_bt_txt:before { font-family:FontAwesome;content:"\f003";margin-right:7px; }
-.veu_contact_bt_txt:after { font-family:FontAwesome;content:"\f18e";margin-left:7px; }
+.veu_contact_txt_time {font-size: 14px; line-height: 128.6%; }
+.veu_contact_txt_tel {padding-top:4px; font-size: 28px;line-height: 110%;}
+.veu_contact_bt_txt:before {margin-right:7px;content:"\f003"; font-family:FontAwesome; }
+.veu_contact_bt_txt:after {margin-left:7px;content:"\f18e"; font-family:FontAwesome; }
 .veu_contact_bt_subTxt { display:block; overflow:hidden;font-size:14px; }
 
 @media (max-width: 767px){
@@ -498,7 +500,7 @@ p.veu_contact_txt { margin-bottom:0; }
 .veu_contact_bt_subTxt_side { font-size:12px; }
 
 .subSection {
-	.veu_contact .veu_contact_bt { margin-top:15px;float:none;display: inline-block; }
+	.veu_contact .veu_contact_bt {display: inline-block;float:none; margin-top:15px; }
 }
 
 } // @media (min-width: 768px){
@@ -511,4 +513,74 @@ p.veu_contact_txt { margin-bottom:0; }
 @media (max-width: 971px){
 	.veu_insertAds { margin-bottom:0.5em; }
 	.veu_insertAds .col-md-6 {margin-bottom:1em; }
+}
+/*-------------------------------------------*/
+/* pageList_ancestor
+/*-------------------------------------------*/
+.veu_pageList_ancestor{
+	margin: 0 0 15px;
+	.section_title.section_title{
+		margin:0.5em 0;
+		a{	
+			color: #333;
+			font-size: 23px;		
+		}
+	}
+	.pageList{
+		display: flex;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		-ms-flex-wrap:wrap;
+		-webkit-flex-wrap:wrap;
+		flex-wrap:wrap;
+	}
+	.page_item{
+		box-sizing: border-box;
+		width: 33.3%;
+		list-style: none;
+		a{
+			display: block;
+			padding: 12px;
+			color: #333;
+			font-size: 0.8em;
+		}
+		a:hover{
+			background-color: #F0F0F0;
+		}
+	}
+	.current_page_item a{
+		background-color: #F0F0F0;
+	}
+	.children{
+		margin: 0;
+		padding-left: 20px;
+		li{
+			display: block;
+			margin-bottom: 0;
+			width: 100%;
+		}
+		a{
+			padding: 5px;
+			font-size: 12px;
+		}
+	}
+}
+@media screen and (max-width:992px){
+.veu_pageList_ancestor{
+	.page_item{
+		float: none;
+		margin-bottom: 0;
+		width: 100%;
+	}
+	.children{
+		a{
+			padding: 5px;
+		}
+	}
+}	
 }
