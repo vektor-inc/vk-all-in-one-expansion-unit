@@ -101,25 +101,25 @@ require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 
-if ( vkExUnit_package_is_enable( 'active_wpTitle' ) )
+if ( vkExUnit_package_is_enable( 'wpTitle' ) )
 	add_filter('wp_title','vkExUnit_get_wp_head_title');
 
-if ( vkExUnit_package_is_enable( 'active_sns' ) )
+if ( vkExUnit_package_is_enable( 'sns' ) )
 	require vkExUnit_get_directory() . '/plugins/sns/sns.php';
 
-if ( vkExUnit_package_is_enable( 'active_ga' ) )
+if ( vkExUnit_package_is_enable( 'ga' ) )
 	require vkExUnit_get_directory() . '/plugins/google_analytics/google_analytics.php';
 
-if ( vkExUnit_package_is_enable( 'active_relatedPosts' ) )
+if ( vkExUnit_package_is_enable( 'relatedPosts' ) )
 	require vkExUnit_get_directory() . '/plugins/related_posts/related_posts.php';
 
-if ( vkExUnit_package_is_enable( 'active_metaDescription' ) )
+if ( vkExUnit_package_is_enable( 'metaDescription' ) )
 	require vkExUnit_get_directory() . '/plugins/meta_description.php';
 
-if ( vkExUnit_package_is_enable( 'active_icon' ) )
+if ( vkExUnit_package_is_enable( 'icon' ) )
 	require vkExUnit_get_directory() . '/plugins/icons.php';
 
-if ( vkExUnit_package_is_enable( 'active_metaKeyword' ) )
+if ( vkExUnit_package_is_enable( 'metaKeyword' ) )
 	require vkExUnit_get_directory() . '/plugins/meta_keyword.php';
 
 if ( vkExUnit_package_is_enable( 'otherWidgets' ) )
@@ -131,19 +131,19 @@ if ( vkExUnit_package_is_enable( 'css_customize' ) )
 if ( vkExUnit_package_is_enable( 'auto_eyecatch' ) )
 	require vkExUnit_get_directory() . '/plugins/auto_eyecatch.php';
 
-if ( vkExUnit_package_is_enable( 'active_childPageIndex' ) )
+if ( vkExUnit_package_is_enable( 'childPageIndex' ) )
 	require vkExUnit_get_directory() . '/plugins/child_page_index.php';
 
 if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
 
-if ( vkExUnit_package_is_enable( 'active_contact_section' ) )
+if ( vkExUnit_package_is_enable( 'contact_section' ) )
 	require vkExUnit_get_directory() . '/plugins/contact_section.php';
 
-if ( vkExUnit_package_is_enable( 'active_call_to_action' ) )
+if ( vkExUnit_package_is_enable( 'call_to_action' ) )
 	require vkExUnit_get_directory() . '/plugins/call_to_action/call_to_action.php';
 
-if ( vkExUnit_package_is_enable( 'active_insert_ads' ) )
+if ( vkExUnit_package_is_enable( 'insert_ads' ) )
 	require vkExUnit_get_directory() . '/plugins/insert_ads.php';
 
 // if ( isset($options['active_disable_ping-back']) && $options['active_disable_ping-back'] )
