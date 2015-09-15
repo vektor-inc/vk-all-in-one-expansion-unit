@@ -135,7 +135,7 @@ class vExUnit_Contact {
 <tr>
 <th>ページ下部に挿入するお問い合わせ情報を画像で表示する</th>
 <td><input type="text" name="vkExUnit_contact[info_image]" id="info_image" value="<?php echo $options['info_image'] ?>" style="width:60%;" /> 
-<button id="media_contact_image" class="media_btn button button-default">画像を選択</button>
+<button id="media_info_image" class="media_btn button button-default">画像を選択</button>
 </td>
 </tr>
 <tr>
@@ -152,6 +152,7 @@ class vExUnit_Contact {
 
 
 	public function option_sanitaize( $option ) {
+		$option['info_text'] = stripslashes( $option['info_text'] );
 		return $option;
 	}
 
@@ -218,24 +219,32 @@ class vExUnit_Contact {
 		$options = self::get_option();
 		$cont = '';
 		$cont .= '<section class="veu_contact veu_contentAddSection">';
-		$cont .= '<div class="contact_frame">';
-		$cont .= '<p class="contact_txt">';
-		$cont .= '<span class="contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
-		$cont .= '<span class="contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
-		$cont .= '<span class="contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
-		$cont .= '</p>';
-
-		if ( $options['contact_link'] && $options['button_text'] ) {
-			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg contact_bt">';
-			$cont .= '<span class="contact_bt_txt">'.$options['button_text'].'</span>';
-
-			if ( isset($options['button_text_small']) && $options['button_text_small'] ){
-				$cont .= '<span class="contact_bt_subTxt">'.$options['button_text_small'].'</span>';
-			}
-
+		if ( $options['info_text'] ) {
+			$cont .= $options['info_text'];
+		} elseif ( $options['info_image'] ) {
+			$cont .= '<a href="'.$options['contact_link'].'">';
+			$cont .= '<img src="'.$options['info_image'].'" alt="contact_txt">';
 			$cont .= '</a>';
+		} else {
+			$cont .= '<div class="contact_frame">';
+			$cont .= '<p class="contact_txt">';
+			$cont .= '<span class="contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
+			$cont .= '<span class="contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
+			$cont .= '<span class="contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
+			$cont .= '</p>';
+
+			if ( $options['contact_link'] && $options['button_text'] ) {
+				$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg contact_bt">';
+				$cont .= '<span class="contact_bt_txt">'.$options['button_text'].'</span>';
+
+				if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+					$cont .= '<span class="contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+				}
+
+				$cont .= '</a>';
+			}
+			$cont .= '</div>';
 		}
-		$cont .= '</div>';
 		$cont .= '</section>';
 		if ( current_user_can('edit_theme_options') ) {
 			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__('Edit contact information', 'vkExUnit').'</a></div>';
