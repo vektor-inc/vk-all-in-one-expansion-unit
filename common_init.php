@@ -22,6 +22,7 @@ function vkExUnit_get_common_options() {
 }
 
 function vkExUnit_get_common_options_default() {
+	// hook vkExUnit_package_is_enable()
 	$default_options = array(
 		'active_bootstrap'          => false,
 		'active_fontawesome'        => false,
