@@ -54,7 +54,7 @@ function vkExUnit_add_relatedPosts( $content ){
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ($tag_posts as $key => $post) {
-			$relatedPostsHtml .= '<div class="col-sm-6">';
+			$relatedPostsHtml .= '<div class="col-sm-6 veu_related_item">';
 			$relatedPostsHtml .= '<div class="media">';
 			if ( has_post_thumbnail($post->ID)) :
 			$relatedPostsHtml .= '<div class="media-left postList_thumbnail">';
