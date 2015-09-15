@@ -40,7 +40,7 @@
 				$i = 0;
 				if($count):
 						foreach($package['attr'] as $att):
-							if( !$att['enable_only'] || isset($options['active_'.$package['name']]) && $options['active_'.$package['name']]):
+							if( !$att['enable_only'] || vkExUnit_package_is_enable($package['name']) ):
 				?>
 				<?php echo ( $count > 1 && $i >= 1) ? ' | ':''; ?>
 				<span>

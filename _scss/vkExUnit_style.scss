@@ -22,6 +22,8 @@
 /*-------------------------------------------*/
 /* .veu_insertAds
 /*-------------------------------------------*/
+/* .veu_relatedPosts
+/*-------------------------------------------*/
 /* Widget .veu_fbPagePlugin
 /*-------------------------------------------*/
 /* Widget .veu_newsList
@@ -262,6 +264,49 @@ h1.mainSection-title { font-size:24px; }
 	.veu_insertAds .col-md-6 {margin-bottom:1em; }
 }
 
+/*-------------------------------------------*/
+/* .veu_relatedPosts
+/*-------------------------------------------*/
+.veu_relatedPosts{
+	& > .row{
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		margin: 0;
+		margin-right: -3%;
+		-ms-flex-wrap:wrap;
+		-webkit-flex-wrap:wrap;
+		flex-wrap:wrap;
+	}
+	.relatedPosts_item{
+		float: none;
+		margin-right: 2.9%;
+		padding-right: 0;
+		padding-left: 0;
+		width: 47%;
+		border-bottom: solid 1px #e5e5e5;
+		& > .media:first-child{
+			border: none;
+		}
+		& > .media{
+			border: none;
+		}
+	}
+	.relatedPosts_item:nth-child(1){ border-top: solid 1px #e5e5e5; }
+	.relatedPosts_item:nth-child(2){ border-top: solid 1px #e5e5e5; }
+}
+
+@media (max-width: 768px){
+.veu_relatedPosts{
+	.relatedPosts_item{
+		display: block;
+		width: 100%;
+	}
+	.relatedPosts_item:nth-child(2){
+		border-top: none;
+	}
+}
+}
 /*-------------------------------------------*/
 /* Widget .veu_fbPagePlugin
 /*-------------------------------------------*/
