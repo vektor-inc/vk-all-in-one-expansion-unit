@@ -59,7 +59,9 @@ class vExUnit_Contact {
 			'contact_link' => '',
 			'button_text' => '',
 			'button_text_small' => '',
-			'short_text' => __( 'Contact us' , 'vkExUnit' )
+			'short_text' => __( 'Contact us' , 'vkExUnit' ),
+			'info_image' => '',
+			'info_text' => ''
 		);
 		$option = get_option( 'vkExUnit_contact' );
 		return wp_parse_args( $option, $default );
@@ -125,6 +127,21 @@ class vExUnit_Contact {
 <?php $short_text = ( isset($options['short_text']) && $options['short_text'] ) ? $options['short_text'] : ''; ?>
 <input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $short_text ); ?>" style="width:50%;" /><br />
 <span><?php _e( 'This will used to "Contact Button" widget.' , 'vkExUnit' ) ;?></span>
+</td>
+</tr>
+</table>
+<button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button">高度な設定</button>
+<table class="form-table" id="vkEx_contact_info" style="display:none;">
+<tr>
+<th>ページ下部に挿入するお問い合わせ情報を画像で表示する</th>
+<td><input type="text" name="vkExUnit_contact[info_image]" id="info_image" value="<?php echo $options['info_image'] ?>" style="width:60%;" /> 
+<button id="media_contact_image" class="media_btn button button-default">画像を選択</button>
+</td>
+</tr>
+<tr>
+<th>ページ下部に挿入するお問い合わせ情報をHTMLで差し替える</th>
+<td><textarea cols="20" rows="5" name="vkExUnit_contact[info_text]" id="info_text" value="" style="width:100%;"><?php echo $options['info_text'] ?></textarea>
+<p>画像とHTMLが入力されている場合はHTMLが優先されます</p>
 </td>
 </tr>
 </table>
