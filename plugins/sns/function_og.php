@@ -7,8 +7,7 @@ add_post_type_support( 'page', 'excerpt' ); // add excerpt
 /*-------------------------------------------*/
 add_action('wp_head', 'vkExUnit_print_og',20 );
 function vkExUnit_print_og() {
-
-
+	global $vkExUnit_sns_options;
 	$title = '';
 	if(is_single() || is_page()){
 		$title = get_post_meta(get_the_id(), 'vkExUnit_sns_title', true);
