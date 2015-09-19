@@ -102,7 +102,7 @@ require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 
 if ( vkExUnit_package_is_enable( 'wpTitle' ) )
-	add_filter('wp_title','vkExUnit_get_wp_head_title');
+	add_filter('wp_title','vkExUnit_get_wp_head_title',11);
 
 if ( vkExUnit_package_is_enable( 'sns' ) )
 	require vkExUnit_get_directory() . '/plugins/sns/sns.php';

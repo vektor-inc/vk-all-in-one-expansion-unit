@@ -108,7 +108,7 @@ function vkExUnit_get_wp_head_title(){
 	$sep = apply_filters( 'vkExUnit_get_wp_head_title', $sep );
 
 	if (is_front_page()) {
-		$title = get_bloginfo('name');
+		$title = get_bloginfo('name').$sep.get_bloginfo( 'description' );
 	} else if ( is_home() && !is_front_page()) {
 		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo('name');
 	} else if ( is_archive() ) {
