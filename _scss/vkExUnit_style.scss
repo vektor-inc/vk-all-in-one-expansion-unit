@@ -16,6 +16,8 @@
 /*-------------------------------------------*/
 /* .veu_childPage_list
 /*-------------------------------------------*/
+/* .veu_pageList_ancestor
+/*-------------------------------------------*/
 /* .veu_cta
 /*-------------------------------------------*/
 /* .veu_contact
@@ -37,7 +39,6 @@
 /* Widget .veu_prBlocks
 /*-------------------------------------------*/
 
-
 $section_margin : 20px;
 $color_font_default : #464646;
 
@@ -58,7 +59,7 @@ html { font-size: inherit; } /* reset bootstrap */
 h1.mainSection-title { font-size:24px; }
 
 .veu_adminEdit { margin-top:5px; }
-.veu_adminEdit a.btn:before{font-family:FontAwesome;content:"\f040";margin-right:5px;}
+.veu_adminEdit a.btn:before{margin-right:5px;font-family:FontAwesome;content:"\f040";}
 
 .veu_contentAddSection { display:block; clear:both; overflow:hidden; padding-top:20px; }
 
@@ -190,7 +191,78 @@ h1.mainSection-title { font-size:24px; }
 .veu_childPage_list {
 	.wp-post-image{ width: 25%; }
 }
+} // @media (max-width: 767px){
+
+/*-------------------------------------------*/
+/* .veu_pageList_ancestor
+/*-------------------------------------------*/
+.veu_pageList_ancestor{
+	margin: 0 0 15px;
+	.section_title.section_title{
+		margin:0.5em 0;
+		a{	
+			color: #333;
+			font-size: 23px;		
+		}
+	}
+	.pageList{
+		display: flex;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		-ms-flex-wrap:wrap;
+		-webkit-flex-wrap:wrap;
+		flex-wrap:wrap;
+	}
+	.page_item{
+		box-sizing: border-box;
+		width: 33.3%;
+		list-style: none;
+		a{
+			display: block;
+			padding: 12px;
+			color: #333;
+			font-size: 0.8em;
+		}
+		a:hover{
+			background-color: #F0F0F0;
+		}
+	}
+	.current_page_item a{
+		background-color: #F0F0F0;
+	}
+	.children{
+		margin: 0;
+		padding-left: 20px;
+		li{
+			display: block;
+			margin-bottom: 0;
+			width: 100%;
+		}
+		a{
+			padding: 5px;
+			font-size: 12px;
+		}
+	}
 }
+@media screen and (max-width:992px){
+.veu_pageList_ancestor{
+	.page_item{
+		float: none;
+		margin-bottom: 0;
+		width: 100%;
+	}
+	.children{
+		a{
+			padding: 5px;
+		}
+	}
+}	
+} // @media screen and (max-width:992px){
 
 /*-------------------------------------------*/
 /* .veu_cta

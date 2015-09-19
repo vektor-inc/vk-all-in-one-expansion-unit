@@ -44,6 +44,8 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  ChildPageIndex
 /*-------------------------------------------*/
+/*  pageList_ancestor
+/*-------------------------------------------*/
 /*  Sitemap_page
 /*-------------------------------------------*/
 /*  Call To Action
@@ -242,6 +244,15 @@ $required_packages[] = array(
      'default' => true,
  );
 
+/*-------------------------------------------*/
+/*  pageList_ancestor
+/*-------------------------------------------*/
+// $required_packages[] = array(
+//     'name'  => 'pageList_ancestor',
+//     'title' => __('Page list from ancestor', 'vkExUnit'),
+//     'description' => __('Display Page list from ancestor at after content.', 'vkExUnit'),
+//     'default' => true
+// );
 
 /*-------------------------------------------*/
 /*  Sitemap_page
@@ -327,8 +338,6 @@ $required_packages[] = array(
 //     'description' => __('Disable xmlrpc ping back.', 'vkExUnit'),
 //     'default' => false,
 // );
-
-
 
 foreach( $required_packages as $package ){
     vkExUnit_package_register( $package );
