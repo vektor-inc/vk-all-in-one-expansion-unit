@@ -42,6 +42,7 @@ function vkExUnit_childPageIndex_shortcode(){
 			$childPageList_html .= '</div></a>'.PHP_EOL;
 
 	endwhile;
+	wp_reset_postdata();
 	$childPageList_html .= PHP_EOL.'</div><!-- [ /.childPage_list ] -->'.PHP_EOL;
 
 	return $childPageList_html;
