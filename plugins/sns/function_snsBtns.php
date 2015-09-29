@@ -30,7 +30,7 @@ function vkExUnit_add_snsBtns($content){
 		// facebook
 		$socialSet .= '<li class="sb_facebook sb_icon"><a href="http://www.facebook.com/sharer.php?src=bm&u='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank"" ><span class="vk_icon_w_r_sns_fb icon_sns"></span><span class="sns_txt">Facebook</span><span class="veu_count_sns_fb"></span></a></li>';
 		// twitter
-		$socialSet .= '<li class="sb_twitter sb_icon"><a href="http://twitter.com/intent/tweet?url='.$linkUrl.'&amp;text='.$pageTitle.'" target="_blank" onclick="javascript:" ><span class="vk_icon_w_r_sns_twitter icon_sns"></span><span class="sns_txt">twitter</span><span class="veu_count_sns_tw"></span></a></li>';
+		$socialSet .= '<li class="sb_twitter sb_icon"><a href="http://twitter.com/intent/tweet?url='.$linkUrl.'&amp;text='.$pageTitle.'" target="_blank" onclick="javascript:" ><span class="vk_icon_w_r_sns_twitter icon_sns"></span><span class="sns_txt">twitter</span></a></li>';
 		// hatena
 		$socialSet .= '<li class="sb_hatena sb_icon"><a href="http://b.hatena.ne.jp/add?mode=confirm&url='.$linkUrl.'&amp;title='.$pageTitle.'" target="_blank" onclick="snsWindowOpen();"><span class="vk_icon_w_r_sns_hatena icon_sns"></span><span class="sns_txt">Hatena</span><span class="veu_count_sns_hb"></span></a></li>';
 		// line

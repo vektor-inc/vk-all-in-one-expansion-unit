@@ -186,20 +186,6 @@ var facebook = {
 facebook.init();
 
 window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-var twitter = {
-  init: function() {
-    var url = '//urls.api.twitter.com/1/urls/count.json?url=' + encodeURIComponent(location.href);
-    $.ajax({
-      url: url,
-      dataType: 'jsonp',
-      success: function(json) {
-        var count = json.count ? json.count : 0;
-        $('.veu_socialSet').find('.veu_count_sns_tw').html(count);
-      }
-    });
-  }
-}
-twitter.init();
 
 var hatena = {
   init: function() {
