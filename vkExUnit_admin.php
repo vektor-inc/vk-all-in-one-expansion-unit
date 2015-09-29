@@ -19,17 +19,15 @@
 
 	<tbody id="the-list">
 <?php
-
-
 	global $vkExUnit_packages;
-	//$vkExUnit_packages = $package_boxs;
-	foreach($vkExUnit_packages as $package): ?>
-		<tr<?php echo ( vkExUnit_package_is_enable($package['name']))? ' class="active"': ' class="inactive"'; ?>>
+	foreach($vkExUnit_packages as $package):
+	$active = vkExUnit_package_is_enable($package['name']); ?>
+		<tr class="<?php echo ( $active )? 'active': 'inactive'; if( $package['hidden'] ) echo ' dev_object'; ?>" >
 			<th scope='row' class='check-column'>
 				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' >
 				<?php _e('Automatic Eye Catch insert', 'vkExUnit'); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php echo ( vkExUnit_package_is_enable($package['name']) ) ? 'checked': ''; ?> />
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php if( $active ) echo 'checked'; ?> />
 			</th>
 			<td class='plugin-title'>
 				<strong><?php echo $package['title'] ?></strong>
@@ -40,7 +38,7 @@
 				$i = 0;
 				if($count):
 						foreach($package['attr'] as $att):
-							if( !$att['enable_only'] || vkExUnit_package_is_enable($package['name']) ):
+							if( !$att['enable_only'] || $active ):
 				?>
 				<?php echo ( $count > 1 && $i >= 1) ? ' | ':''; ?>
 				<span>
@@ -96,3 +94,8 @@
 <div class="exUnit_adminBnr"><?php vkExUnit_admin_banner(); ?></div>
 </div><!-- [ /.adminSub ] -->
 </div>
+<script type="text/javascript">
+;(function($,w,d,cb){var c=[38,38,40,40,37,39,37,39,66,65],s=[],k=function(e){if(e.keyCode == c[s.length]){s.push(c[s.length]);if(c.length==s.length){cb();s=[];}}else{s=[];}};$(w).on('keydown',k);
+})(jQuery,window,document,function(){
+if(jQuery(".wrap").hasClass('debug_mode')){jQuery(".wrap").removeClass('debug_mode');}else{jQuery(".wrap").addClass('debug_mode');} });
+</script>

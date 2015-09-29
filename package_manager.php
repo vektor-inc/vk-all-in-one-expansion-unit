@@ -34,21 +34,42 @@ function vkExUnit_package_register( $args ){
 }
 
 
+function vkExUnit_package_include(){
+	global $vkExUnit_packages;
+	if( !count($vkExUnit_packages) || !is_array($vkExUnit_packages) ) return $output;
+	$options = vkExUnit_get_common_options();
+	$include_base=vkExUnit_get_directory().'/plugins/';
+	foreach($vkExUnit_packages as $package){
+		if(
+			$package['include' ] and
+			(
+				(  isset( $options[ 'active_' . $package['name'] ] ) and $options[ 'active_' . $package['name'] ] ) or
+				( !isset( $options[ 'active_' . $package['name'] ] ) and $package['default'] )
+			)
+		){
+			require_once $include_base . $package[ 'include' ];
+		}
+	}
+}
+
+
 function vkExUnit_package_default(){
 	return array(
-			'name'  => null,
-			'title' => 'noting',
-			'description' => "noting",
-			'attr' => array(),
-			'default' => null,
-		);
+		'name'        => null,
+		'title'       => 'noting',
+		'description' => "noting",
+		'attr'        => array(),
+		'default'     => null,
+		'include'     => false,
+		'hidden'      => false,
+	);
 }
 
 
 add_filter('vkExUnit_common_options_validate' , 'vkExUnit_common_package_options_validate', 10, 2);
 function vkExUnit_common_package_options_validate( $output, $input ){
 	global $vkExUnit_packages;
-	if( !count($vkExUnit_packages) ) return $output;
+	if( !count($vkExUnit_packages) || !is_array($vkExUnit_packages) ) return $output;
 	foreach($vkExUnit_packages as $package){
 		if(
 			isset($output['active_'.$package['name']]) &&

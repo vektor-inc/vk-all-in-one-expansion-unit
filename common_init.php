@@ -11,13 +11,6 @@ add_action( 'admin_init', 'vkExUnit_common_options_init' );
 function vkExUnit_get_common_options() {
 	$options            = get_option( 'vkExUnit_common_options', vkExUnit_get_common_options_default() );
 	$options_dafault    = vkExUnit_get_common_options_default();
-	// foreach ($options_dafault as $key => $value) {
-	// 	if (isset($options[$key])) {
-	// 		$options[$key] = $options[$key];
-	// 	} else {
-	// 		$options[$key] = $options_dafault[$key];
-	// 	}
-	// }
 	return apply_filters( 'vkExUnit_common_options', $options );
 }
 

@@ -28,6 +28,10 @@
 		dt { font-weight: bold;margin-bottom:5px; }
 		dd { margin-left:0; }
 	}
+	tr.dev_object{ display:none; }
+}
+.wrap.debug_mode{
+	tr.dev_object{ display:table-row; }
 }
 .adminMain { display:block; overflow:hidden;width:74%;float:left;
 	#adminContent_sub { display:block; overflow:hidden;width:24%;float:left; }
@@ -35,7 +39,7 @@
 }
 .adminSub { display:block; overflow:hidden;width:24%;float:right;
 	.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;	}
-	.exUnit_adminBnr{ 
+	.exUnit_adminBnr{
 		display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
 		margin-top: 1em;
 		a{ display: block; }

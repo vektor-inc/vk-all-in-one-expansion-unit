@@ -14,6 +14,7 @@ $required_packages[] = array(
         )
     ),
     'default' => false,
+    'include' => '/auto_eyecatch.php',
 );
 
 */
@@ -86,7 +87,8 @@ $required_packages[] = array(
     'name'  => 'icon',
     'title' => __('Favicon setting', 'vkExUnit'),
     'description' => __('About favicon.', 'vkExUnit'),
-    'default' => true
+    'default' => true,
+    'include' => 'icons.php',
 );
 
 /*-------------------------------------------*/
@@ -113,7 +115,8 @@ $required_packages[] = array(
             'enable_only' => 1,
         )
     ),
-    'default' => true
+    'default' => true,
+    'include' => 'meta_keyword.php',
 );
 /*-------------------------------------------*/
 /*  metaDescription
@@ -122,7 +125,8 @@ $required_packages[] = array(
     'name'  => 'metaDescription',
     'title' => __('Print meta description', 'vkExUnit'),
     'description' => __('Print meta description to html head.', 'vkExUnit'),
-    'default' => true
+    'default' => true,
+    'include' => 'meta_description.php',
 );
 
 /*-------------------------------------------*/
@@ -150,7 +154,8 @@ $required_packages[] = array(
             'enable_only' => 1,
         )
     ),
-    'default' => true
+    'default' => true,
+    'include' => 'sns/sns.php',
 );
 
 /*-------------------------------------------*/
@@ -167,7 +172,8 @@ $required_packages[] = array(
             'enable_only' => 1,
         )
     ),
-    'default' => true
+    'default' => true,
+    'include' => 'google_analytics/google_analytics.php',
 );
 
 /*-------------------------------------------*/
@@ -197,6 +203,7 @@ $required_packages[] = array(
         )
     ),
     'default' => true,
+    'include' => 'other_widget/other_widget.php',
 );
 
 /*-------------------------------------------*/
@@ -214,6 +221,7 @@ $required_packages[] = array(
         )
     ),
     'default' => true,
+    'include' => 'css_customize/css_customize.php',
 );
 
 /*-------------------------------------------*/
@@ -231,6 +239,7 @@ $required_packages[] = array(
         )
     ),
     'default' => true,
+    'include' => 'contact_section.php',
 );
 
  /*-------------------------------------------*/
@@ -242,17 +251,9 @@ $required_packages[] = array(
     'title' => __('Child page index', 'vkExUnit'),
     'description' => __('At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit'),
      'default' => true,
+    'include' => 'child_page_index.php',
  );
 
-/*-------------------------------------------*/
-/*  pageList_ancestor
-/*-------------------------------------------*/
-// $required_packages[] = array(
-//     'name'  => 'pageList_ancestor',
-//     'title' => __('Page list from ancestor', 'vkExUnit'),
-//     'description' => __('Display Page list from ancestor at after content.', 'vkExUnit'),
-//     'default' => true
-// );
 
 /*-------------------------------------------*/
 /*  Sitemap_page
@@ -262,6 +263,7 @@ $required_packages[] = array(
     'title' => __('Display HTML Site Map', 'vkExUnit'),
     'description' => __('It displays a HTML Site Map to the specified page.', 'vkExUnit'),
     'default' => true,
+    'include' => 'sitemap_page/sitemap_page.php',
 );
 
 
@@ -291,6 +293,7 @@ $required_packages[] = array(
         )
     ),
     'default' => true,
+    'include' => 'call_to_action/call_to_action.php',
 );
 
 /*-------------------------------------------*/
@@ -307,7 +310,8 @@ $required_packages[] = array(
             'enable_only' => 1,
         )
     ),
-    'default'          => true,
+    'default'        => true,
+    'include'        => 'insert_ads.php'
 );
 /*-------------------------------------------*/
 /*  relatedPosts
@@ -316,7 +320,8 @@ $required_packages[] = array(
     'name'  => 'relatedPosts',
     'title' => __('Related posts', 'vkExUnit'),
     'description' => __('Print Related posts lists to post content bottom.', 'vkExUnit'),
-    'default' => true
+    'default' => true,
+    'include' => 'related_posts/related_posts.php',
 );
 
 /*-------------------------------------------*/
@@ -327,17 +332,20 @@ $required_packages[] = array(
     'title' => __('Automatic Eye Catch insert', 'vkExUnit'),
     'description' => __('Display Eye Catch image at before content.', 'vkExUnit'),
     'default' => false,
+    'include' => 'auto_eyecatch.php',
 );
 
 /*-------------------------------------------*/
 /*  disable_ping-back
 /*-------------------------------------------*/
-// $required_packages[] = array(
-//     'name'  => 'disable_ping-back',
-//     'title' => __('Disable ping back', 'vkExUnit'),
-//     'description' => __('Disable xmlrpc ping back.', 'vkExUnit'),
-//     'default' => false,
-// );
+$required_packages[] = array(
+    'name'    => 'disable_ping-back',
+    'title'   => __('Disable ping back', 'vkExUnit'),
+    'description' => __('Disable xmlrpc ping back.', 'vkExUnit'),
+    'default' => false,
+    'include' => 'disable_ping-back.php',
+    'hidden'  => true
+);
 
 foreach( $required_packages as $package ){
     vkExUnit_package_register( $package );
