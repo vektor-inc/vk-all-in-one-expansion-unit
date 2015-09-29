@@ -103,7 +103,7 @@ require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 vkExUnit_package_include();
 
 if ( vkExUnit_package_is_enable( 'wpTitle' ) )
-	add_filter('wp_title','vkExUnit_get_wp_head_tle',11);
+	add_filter('wp_title','vkExUnit_get_wp_head_title',11);
 
 
 /*-------------------------------------------*/
