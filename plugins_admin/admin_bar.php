@@ -27,8 +27,8 @@ add_action('wp_head','vkExUnit_adminbar_edit_header');
 function vkExUnit_adminbar_edit_header(){
 	if(is_user_logged_in() && !is_admin() && current_user_can('administrator') || current_user_can('editor')){ ?>
 <style>#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item { background-color: #0085C8; cursor: pointer; }
-#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active { background-color: #68F259; color: #555; }
-#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item:hover { background-color: #68F259; color: #555; }
+#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active { background-color: #17A686; color: #555; }
+#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item:hover { background-color: #17A686; color: #555; }
 #wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active:hover { background-color: #0085C8; color: #fff; }
 </style><script type="text/javascript">;(function($,d){var a=false,b='',c='',f=function(){
 if(a){a=false;c.show();b.removeClass('active').text('<?php echo __('Edit Guide', 'vkExUnit').' : SHOW'; ?>');}else{a=true;c.hide();b.addClass('active').text('<?php echo __('Edit Guide', 'vkExUnit').' :  HIDE'; ?>');}
