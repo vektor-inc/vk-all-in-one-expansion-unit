@@ -119,6 +119,9 @@ function vkExUnit_print_css(){
 	} else {
 		wp_enqueue_style('vkExUnit_common_style', plugins_url('', __FILE__).'/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all');
 	}
+	if ( isset($options['active_fontawesome']) && $options['active_fontawesome'] ) {
+		wp_enqueue_style( 'font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css', array(), '4.3.0', 'all' );
+	}
 }
 /*-------------------------------------------*/
 /*	Add vkExUnit js
@@ -147,16 +150,6 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
 
-/*-------------------------------------------*/
-/*	Add fontawesome
-/*-------------------------------------------*/
-add_action('wp_head','vkExUnit_addfontawesome', 5);
-function vkExUnit_addfontawesome(){
-	$options = vkExUnit_get_common_options();
-	if ( isset($options['active_fontawesome']) && $options['active_fontawesome'] ) {
-		echo '<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">'.PHP_EOL;
-	}
-}
 
 add_action( 'admin_print_styles-index.php', 'vkExUnit_admin_enq');
 add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq');
