@@ -223,7 +223,7 @@ function vkExUnit_get_pageDescription() {
 	$pageDescription = apply_filters( 'vkExUnit_pageDescriptionCustom', $pageDescription );
 	$pageDescription = esc_html(strip_tags($pageDescription));
 	// Delete Line break
-	$pageDescription = str_replace(array("\r", "\n"), ' ', $pageDescription);
+	$pageDescription = str_replace(array("\r\n","\r","\n"), '', $pageDescription);
 	return $pageDescription;
 }
 
