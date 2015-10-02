@@ -247,12 +247,12 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  pageList_ancestor
 /*-------------------------------------------*/
-// $required_packages[] = array(
-//     'name'  => 'pageList_ancestor',
-//     'title' => __('Page list from ancestor', 'vkExUnit'),
-//     'description' => __('Display Page list from ancestor at after content.', 'vkExUnit'),
-//     'default' => true
-// );
+ $required_packages[] = array(
+     'name'  => 'pageList_ancestor',
+     'title' => __('Page list from ancestor', 'vkExUnit'),
+     'description' => __('Display Page list from ancestor at after content.', 'vkExUnit'),
+     'default' => true
+ );
 
 /*-------------------------------------------*/
 /*  Sitemap_page

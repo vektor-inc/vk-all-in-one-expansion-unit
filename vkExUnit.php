@@ -134,8 +134,8 @@ if ( vkExUnit_package_is_enable( 'auto_eyecatch' ) )
 if ( vkExUnit_package_is_enable( 'childPageIndex' ) )
 	require vkExUnit_get_directory() . '/plugins/child_page_index.php';
 
-// if ( vkExUnit_package_is_enable('pageList_ancestor' ) )
-// 	require vkExUnit_get_directory() . '/plugins/pageList_ancestor.php';
+if ( vkExUnit_package_is_enable('pageList_ancestor' ) )
+ 	require vkExUnit_get_directory() . '/plugins/pageList_ancestor.php';
 
 if ( vkExUnit_package_is_enable( 'sitemap_page' ) )
 	require vkExUnit_get_directory() . '/plugins/sitemap_page/sitemap_page.php';
