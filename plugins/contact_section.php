@@ -78,21 +78,21 @@ class vExUnit_Contact {
 <th scope="row"><label for="contact_txt"><?php _e('Message', 'vkExUnit') ;?></label></th>
 <td>
 <input type="text" name="vkExUnit_contact[contact_txt]" id="contact_txt" value="<?php echo esc_attr( $options['contact_txt'] ); ?>" style="width:50%;" /><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Please feel free to inquire.', 'vkExUnit') ;?></span>
+<span><?php _e('ex) ', 'vkExUnit') ; ?><?php _e('Please feel free to inquire.', 'vkExUnit') ;?></span>
 </td>
 </tr>
 <tr>
 <th scope="row"><label for="tel_number"><?php _e('Phone number', 'vkExUnit') ;?></label></th>
 <td>
 <input type="text" name="vkExUnit_contact[tel_number]" id="tel_number" value="<?php echo esc_attr( $options['tel_number'] ); ?>" style="width:50%;" /><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?>000-000-0000</span>
+<span><?php _e('ex) ', 'vkExUnit') ; ?>000-000-0000</span>
 </td>
 </tr>
 <tr>
 <th scope="row"><label for="contact_time"><?php _e('Office hours', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[contact_time]" id="contact_time" value="" style="width:50%;" /><?php echo esc_attr( $options['contact_time'] ); ?></textarea><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Office hours', 'vkExUnit') ;?> 9:00 - 18:00 [ <?php _e('Weekdays except holidays', 'vkExUnit') ;?> ]</span>
+<span><?php _e('ex) ', 'vkExUnit') ; ?><?php _e('Office hours', 'vkExUnit') ;?> 9:00 - 18:00 [ <?php _e('Weekdays except holidays', 'vkExUnit') ;?> ]</span>
 </td>
 </tr>
 <!-- he URL of contact page -->
@@ -100,7 +100,7 @@ class vExUnit_Contact {
 <th scope="row"><label for="contact_link"><?php _e('The contact page URL', 'vkExUnit') ;?></label></th>
 <td>
 <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?>http://www.********.co.jp/contact/ <?php _e('or', 'vkExUnit') ;?> /******/</span><br />
+<span><?php _e('ex) ', 'vkExUnit') ; ?>http://www.********.co.jp/contact/ <?php _e('or', 'vkExUnit') ;?> /******/</span><br />
 <?php _e('* If you fill in the blank, contact button does not appear.', 'vkExUnit') ;?>
 </td>
 </tr>
@@ -108,7 +108,7 @@ class vExUnit_Contact {
 <th scope="row"><label for="sub_sitename"><?php _e('Contact button Text', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text]" id="sub_sitename" value="" style="width:50%;" /><?php echo esc_attr( $options['button_text'] ); ?></textarea><br />
-<span><?php _e('ex) ', 'vkExUnit') ;?><?php _e('Contact Us from email.', 'vkExUnit') ;?></span>
+<span><?php _e('ex) ', 'vkExUnit') ; ?><?php _e('Contact Us from email.', 'vkExUnit') ;?></span>
 </td>
 </tr>
 <!-- Company address -->
@@ -116,8 +116,8 @@ class vExUnit_Contact {
 <th scope="row"><label for="button_text_small"><?php _e('Contact button text( sub )', 'vkExUnit') ;?></label></th>
 <td>
 <textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small'] ?></textarea><br />
-	<span><?php _e('ex) ', 'vkExUnit') ;?>
-	<?php _e('Email contact form', 'vkExUnit') ;?>
+	<span><?php _e('ex) ', 'vkExUnit') ; ?>
+	<?php _e('Email contact form', 'vkExUnit') ; ?>
 	</span>
 </td>
 </tr>
@@ -130,18 +130,18 @@ class vExUnit_Contact {
 </td>
 </tr>
 </table>
-<button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button">高度な設定</button>
-<table class="form-table" id="vkEx_contact_info" style="display:none;">
+<button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e('Advanced Setting', 'vkExUnit'); ?></button>
+<table class="form-table" id="vkEx_contact_info" style="<?php if( !$options['info_image'] and !$options['info_text'] ) echo 'display:none;'; ?>">
 <tr>
-<th>ページ下部に挿入するお問い合わせ情報を画像で表示する</th>
-<td><input type="text" name="vkExUnit_contact[info_image]" id="info_image" value="<?php echo $options['info_image'] ?>" style="width:60%;" /> 
-<button id="media_info_image" class="media_btn button button-default">画像を選択</button>
+<th><?php _e('Display image instead of the standard', 'vkExUnit');?></th>
+<td><input type="text" name="vkExUnit_contact[info_image]" id="info_image" value="<?php echo $options['info_image'] ?>" style="width:60%;" />
+<button id="media_info_image" class="media_btn button button-default"><?php _e('Select Image'); ?></button>
 </td>
 </tr>
 <tr>
-<th>ページ下部に挿入するお問い合わせ情報をHTMLで差し替える</th>
+<th><?php _e('Display HTML message instead of the standard', 'vkExUnit'); ?></th>
 <td><textarea cols="20" rows="5" name="vkExUnit_contact[info_text]" id="info_text" value="" style="width:100%;"><?php echo $options['info_text'] ?></textarea>
-<p>画像とHTMLが入力されている場合はHTMLが優先されます</p>
+<p><?php _e('HTML takes precedence over image', 'vkExUnit'); ?></p>
 </td>
 </tr>
 </table>
@@ -168,6 +168,7 @@ class vExUnit_Contact {
 </div>
 	<?php
 	}
+
 
 	public function save_custom_field_postdata( $post_id ) {
 		$childPageIndex = isset($_POST['_nonce_vkExUnit_contact']) ? htmlspecialchars($_POST['_nonce_vkExUnit_contact']) : null;
@@ -262,9 +263,9 @@ class vExUnit_Contact {
 		$cont = '';
 
 		if (
-			( isset($options['contact_link']) && $options['contact_link'] ) && 
-			( isset($options['short_text']) && $options['short_text'] )
-			) {
+				( isset($options['contact_link']) && $options['contact_link'] ) &&
+				( isset($options['short_text']) && $options['short_text'] )
+		) {
 			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 			$cont .= $options['short_text'];
 			$cont .= '</span>';
@@ -298,7 +299,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_contact',
 			$widget_name,
-			array( 
+			array(
 				'description' => sprintf(__('*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit'),vkExUnit_get_little_short_name())
 				)
 		);
