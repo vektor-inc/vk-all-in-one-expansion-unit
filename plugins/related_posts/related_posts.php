@@ -53,12 +53,12 @@ function vkExUnit_add_relatedPosts( $content ){
 
 	if ( $tag_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
-		$relatedPostsHtml .= '<aside class="relatedPosts subSection veu_contentAddSection">';
+		$relatedPostsHtml .= '<aside class="veu_relatedPosts subSection veu_contentAddSection">';
 		$relatedPostsHtml .= '<h1 class="mainSection-title">'.__('Related posts','vkExUnit').'</h1>';
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ($tag_posts as $key => $post) {
-			$relatedPostsHtml .= '<div class="col-sm-6 veu_related_item">';
+			$relatedPostsHtml .= '<div class="col-sm-6 relatedPosts_item">';
 			$relatedPostsHtml .= '<div class="media">';
 			if ( has_post_thumbnail($post->ID)) :
 			$relatedPostsHtml .= '<div class="media-left postList_thumbnail">';
