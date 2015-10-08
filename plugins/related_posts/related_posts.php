@@ -28,7 +28,6 @@ function vkExUnit_add_relatedPosts( $content ){
 
 	if( !$mytags  || !is_array($mytags) ) return $content;
 
-
 	$tags = array();
 	foreach( $mytags as $t ) $tags[] = $t->term_id;
 
@@ -36,8 +35,9 @@ function vkExUnit_add_relatedPosts( $content ){
 	$args['tag__and'] = $tags;
 
 	$posts_array = get_posts( $args );
+	if( is_array( $posts_array ) ) $posts_array = array();
 
-	$post_shortage = $max_show_posts - ( is_array( $posts_array )? count( $posts_array ): 0 );
+	$post_shortage = $max_show_posts - count( $posts_array );
 	if( $post_shortage > 0 ){
 		$args = $args_base;
 		$args['posts_per_page'] = $post_shortage;
