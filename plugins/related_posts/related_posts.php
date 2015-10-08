@@ -7,7 +7,6 @@ function vkExUnit_add_relatedPosts( $content ){
 	/*-------------------------------------------*/
 
 	$max_show_posts      = 10;
-	$border_of_and_to_in = 10;
 
 	$args_base = array(
 		'posts_per_page'   => $max_show_posts,
@@ -38,23 +37,28 @@ function vkExUnit_add_relatedPosts( $content ){
 
 	$posts_array = get_posts( $args );
 
-	if( count( $posts_array ) < $border_of_and_to_in && count( $tags ) > 1 ){
+	$post_shortage = $max_show_posts - ( is_array( $posts_array )? count( $posts_array ): 0 );
+	if( $post_shortage > 0 ){
 		$args = $args_base;
+		$args['posts_per_page'] = $post_shortage;
+		foreach( $posts_array as $post ) $args['post__not_in'][] = $post->ID;
 		$args['tag__in'] = $tags;
-		$posts_array = get_posts( $args );
+		$singletags = get_posts( $args );
+		if( is_array($singletags) && count($singletags) ) $posts_array = array_merge( $posts_array, $singletags );
 	}
+
 	$tag_posts = $posts_array;
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
 
 	if ( $tag_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
-		$relatedPostsHtml .= '<aside class="veu_relatedPosts subSection veu_contentAddSection">';
+		$relatedPostsHtml .= '<aside class="relatedPosts subSection veu_contentAddSection">';
 		$relatedPostsHtml .= '<h1 class="mainSection-title">'.__('Related posts','vkExUnit').'</h1>';
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ($tag_posts as $key => $post) {
-			$relatedPostsHtml .= '<div class="col-sm-6 relatedPosts_item">';
+			$relatedPostsHtml .= '<div class="col-sm-6 veu_related_item">';
 			$relatedPostsHtml .= '<div class="media">';
 			if ( has_post_thumbnail($post->ID)) :
 			$relatedPostsHtml .= '<div class="media-left postList_thumbnail">';
