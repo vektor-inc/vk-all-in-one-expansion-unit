@@ -13,8 +13,8 @@ class vExUnit_icons {
 	private static $instance;
 
 	public static function instance() {
-		if ( isset( self::$instance ) )
-			return self::$instance;
+		if ( isset( self::$instance ) ) {
+			return self::$instance; }
 
 		self::$instance = new vExUnit_icons;
 		self::$instance->run_init();
@@ -28,14 +28,14 @@ class vExUnit_icons {
 
 
 	protected function run_init() {
-		add_action('admin_init', array($this, 'option_init' ));
-		add_action('wp_head',    array($this, 'output_tag' ));
+		add_action( 'admin_init', array( $this, 'option_init' ) );
+		add_action( 'wp_head',    array( $this, 'output_tag' ) );
 	}
 
 
 	public function option_init() {
 		vkExUnit_register_setting(
-			__('icon setting', 'vkExUnit'), 	// tab label.
+			__( 'icon setting', 'vkExUnit' ), 	// tab label.
 			'vkExUnit_icon_settings',			// name attr
 			array( $this, 'sanitize_config' ), // sanitaise function name
 			array( $this, 'render_configPage' )  // setting_page function name
@@ -43,13 +43,13 @@ class vExUnit_icons {
 	}
 
 
-	public static function get_default_option(){
+	public static function get_default_option() {
 		$option = '';
 		return $option;
 	}
 
 
-	public function sanitize_config( $option ){
+	public function sanitize_config( $option ) {
 
 		$output = self::get_default_option();
 		$output = $option;
@@ -57,25 +57,25 @@ class vExUnit_icons {
 	}
 
 
-	public static function get_option(){
+	public static function get_option() {
 		return get_option( 'vkExUnit_icon_settings', self::get_default_option() );
 	}
 
 
-	public function render_configPage(){
+	public function render_configPage() {
 		$options = self::get_option();
 ?>
-<h3><?php _e('icon setting', 'vkExUnit'); ?></h3>
+<h3><?php _e( 'icon setting', 'vkExUnit' ); ?></h3>
 <div id="on_setting" class="sectionBox">
 <table class="form-table">
-	<!-- Favicon -->
-	<tr>
-	<th><?php _e('Favicon Setting', 'vkExUnit'); ?></th>
+    <!-- Favicon -->
+    <tr>
+	<th><?php _e( 'Favicon Setting', 'vkExUnit' ); ?></th>
 		<td><input type="text" name="vkExUnit_icon_settings" id="favicon" value="<?php echo $options ?>" style="width:60%;" /> 
-	<button id="media_favicon" class="media_btn button button-default"><?php _e('Choose icon', 'vkExUnit'); ?></button>
-	<p><?php _e('Please upload your ".ico" file','vkExUnit'); ?></p>
-	</td>
-	</tr>
+	<button id="media_favicon" class="media_btn button button-default"><?php _e( 'Choose icon', 'vkExUnit' ); ?></button>
+	<p><?php _e( 'Please upload your ".ico" file','vkExUnit' ); ?></p>
+    </td>
+    </tr>
 </table>
 <?php submit_button(); ?>
 </div>
@@ -83,13 +83,12 @@ class vExUnit_icons {
 	}
 
 
-	public function output_tag(){
+	public function output_tag() {
 		$options = self::get_option();
-		if(isset($options) && $options){
+		if ( isset( $options ) && $options ) {
 			echo '<link rel="SHORTCUT ICON" HREF="'.$options.'" />';
 		}
 	}
-
 }
 
 vExUnit_icons::instance();

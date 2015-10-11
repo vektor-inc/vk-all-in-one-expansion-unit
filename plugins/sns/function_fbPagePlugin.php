@@ -1,6 +1,6 @@
 <?php
 /*-------------------------------------------*/
-/*	fbPagePlugin widget
+/*  fbPagePlugin widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
@@ -10,36 +10,36 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_fbPagePlugin',
 			$widget_name,
-			array( 'description' => __( "Displays a Facebook Page Plugin", 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a Facebook Page Plugin', 'vkExUnit' ) )
 		);
 	}
 
 
-	function widget($args, $instance) {
+	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_fbPagePlugin">';
-		if ( isset($instance['label']) && $instance['label'] ) {
+		if ( isset( $instance['label'] ) && $instance['label'] ) {
 			echo $args['before_title'];
 			echo $instance['label'];
 			echo $args['after_title'];
 		}
 
-		$page_url 	= ( isset($instance['page_url']) && $instance['page_url'] ) ? $instance['page_url'] : '';
-		$height 	= ( isset($instance['height']) && $instance['height'] ) ? $instance['height'] : 200;
-		$showFaces 	= ( isset($instance['showFaces']) && $instance['showFaces'] ) ? $instance['showFaces'] : 'false';
-		$hideCover 	= ( isset($instance['hideCover']) && $instance['hideCover'] ) ? $instance['hideCover'] : 'false';
-		$showPosts 	= ( isset($instance['showPosts']) && $instance['showPosts'] ) ? $instance['showPosts'] : 'true';
+		$page_url 	= ( isset( $instance['page_url'] ) && $instance['page_url'] ) ? $instance['page_url'] : '';
+		$height 	= ( isset( $instance['height'] ) && $instance['height'] ) ? $instance['height'] : 200;
+		$showFaces 	= ( isset( $instance['showFaces'] ) && $instance['showFaces'] ) ? $instance['showFaces'] : 'false';
+		$hideCover 	= ( isset( $instance['hideCover'] ) && $instance['hideCover'] ) ? $instance['hideCover'] : 'false';
+		$showPosts 	= ( isset( $instance['showPosts'] ) && $instance['showPosts'] ) ? $instance['showPosts'] : 'true';
 		?>
 
-		<div class="fbPagePlugin_body">
+        <div class="fbPagePlugin_body">
 			<div class="fb-page" data-href="<?php echo $page_url; ?>" data-width="500"  data-height="<?php echo $height; ?>" data-hide-cover="<?php echo $hideCover; ?>" data-show-facepile="<?php echo $showFaces; ?>" data-show-posts="<?php echo $showPosts; ?>">
-				<div class="fb-xfbml-parse-ignore">
+                <div class="fb-xfbml-parse-ignore">
 					<blockquote cite="<?php echo $page_url; ?>">
 					<a href="<?php echo $page_url; ?>">Facebook page</a>
-					</blockquote>
-				</div>
-			</div>
-		</div>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
 
 		<?php
 		echo '</div>';
@@ -48,7 +48,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 	} // widget($args, $instance)
 
 
-	function update ($new_instance, $old_instance) {
+	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['label'] 			= $new_instance['label'];
 		$instance['page_url'] 		= $new_instance['page_url'];
@@ -61,7 +61,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 	}
 
 
-	function form ($instance) {
+	function form( $instance ) {
 
 		$defaults = array(
 			'label' 	=> 'Facebook',
@@ -72,40 +72,39 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 			'showPosts' => 'true',
 		);
 
-		$instance = wp_parse_args((array) $instance, $defaults);
+		$instance = wp_parse_args( (array) $instance, $defaults );
 		?>
 
 		<?php //タイトル ?>
-		<label for="<?php echo $this->get_field_id('label');  ?>"><?php _e('Title:', 'vkExUnit'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('label'); ?>-title" name="<?php echo $this->get_field_name('label'); ?>" value="<?php echo $instance['label']; ?>" />
-		<br/>
+		<label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
+        <br/>
 
 		<?php //URL ?>
-		<label for="<?php echo $this->get_field_id('page_url');  ?>"><?php echo 'Facebook Page URL'; ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('page_url'); ?>" name="<?php echo $this->get_field_name('page_url'); ?>" value="<?php echo $instance['page_url']; ?>" />
-		<br/>
+		<label for="<?php echo $this->get_field_id( 'page_url' );  ?>"><?php echo 'Facebook Page URL'; ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'page_url' ); ?>" name="<?php echo $this->get_field_name( 'page_url' ); ?>" value="<?php echo $instance['page_url']; ?>" />
+        <br/>
 
 		<?php //Height ?>
-		<label for="<?php echo $this->get_field_id('height');  ?>"><?php _e('Height', 'vkExUnit'); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id('height'); ?>" name="<?php echo $this->get_field_name('height'); ?>" value="<?php echo $instance['height']; ?>" />
-		<br/>
+		<label for="<?php echo $this->get_field_id( 'height' );  ?>"><?php _e( 'Height', 'vkExUnit' ); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo $instance['height']; ?>" />
+        <br/>
 
 		<?php //showFaces ?>
-		<label for="<?php echo $this->get_field_id('showFaces');  ?>"><?php _e("Show Friend's Faces", 'vkExUnit'); ?></label><br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name('showFaces'); ?>" value="true" <?php echo ($instance['showFaces'] == 'true')? 'checked': '' ; ?> >
-		<br/>
+		<label for="<?php echo $this->get_field_id( 'showFaces' );  ?>"><?php _e( "Show Friend's Faces", 'vkExUnit' ); ?></label><br/>
+		<input type="checkbox" name="<?php echo $this->get_field_name( 'showFaces' ); ?>" value="true" <?php echo ($instance['showFaces'] == 'true')? 'checked': '' ; ?> >
+        <br/>
 
 		<?php //hideCover ?>
-		<label for="<?php echo $this->get_field_id('hideCover');  ?>"><?php _e('Hide Cover Photo', 'vkExUnit'); ?></label><br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name('hideCover'); ?>" value="true" <?php echo ($instance['hideCover'] == 'true')? 'checked': '' ; ?> >
-		<br/>
+		<label for="<?php echo $this->get_field_id( 'hideCover' );  ?>"><?php _e( 'Hide Cover Photo', 'vkExUnit' ); ?></label><br/>
+		<input type="checkbox" name="<?php echo $this->get_field_name( 'hideCover' ); ?>" value="true" <?php echo ($instance['hideCover'] == 'true')? 'checked': '' ; ?> >
+        <br/>
 
 		<?php //showPosts ?>
-		<label for="<?php echo $this->get_field_id('showPosts');  ?>"><?php _e('Show Page Posts', 'vkExUnit'); ?></label><br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name('showPosts'); ?>" value="true" <?php echo ($instance['showPosts'] == 'true')? 'checked': '' ; ?> >
-		<br/>
+		<label for="<?php echo $this->get_field_id( 'showPosts' );  ?>"><?php _e( 'Show Page Posts', 'vkExUnit' ); ?></label><br/>
+		<input type="checkbox" name="<?php echo $this->get_field_name( 'showPosts' ); ?>" value="true" <?php echo ($instance['showPosts'] == 'true')? 'checked': '' ; ?> >
+        <br/>
 		<?php
 	}
-
 } // class WP_Widget_top_list_post
-add_action('widgets_init', create_function('', 'return register_widget("WP_Widget_vkExUnit_fbPagePlugin");'));
+add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_fbPagePlugin");' ) );
