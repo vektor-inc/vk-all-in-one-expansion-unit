@@ -59,7 +59,7 @@ if ( is_array( $vkExUnit_options ) ) : ?>
 		echo '<section id="'. $vkoption['option_name'] .'">';
 
 		if ( is_array( $vkoption['render_page'] ) ) {
-			$vkoption['render_page'][0]->$vkoption['render_page'][1]();
+			$vkoption['render_page'][0]->{$vkoption['render_page'][1]}();
 		} else {
 			$vkoption['render_page']();
 		}
