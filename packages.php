@@ -347,6 +347,17 @@ $required_packages[] = array(
 	'hidden'  => true,
 	);
 
+
+	$required_packages[] = array(
+	'name'    => 'disable_dashbord',
+	'title'   => __( 'Disable dashbord', 'vkExUnit' ),
+	'description' => __( 'Disable dashbord', 'vkExUnit' ),
+	'default' => false,
+	'include' => 'disable_dashbord.php',
+	'hidden'  => true,
+	);
+
+
 	foreach ( $required_packages as $package ) {
 		vkExUnit_package_register( $package );
 	}

@@ -25,3 +25,4 @@ function vkExUnit_dashboard_widget_body() {
 	vkExUnit_news_body();
 
 }
+
