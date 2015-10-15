@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.3
-Stable tag: 3.6.3
+Stable tag: 3.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,7 @@ Many features can be stopped individually.
 *   Insert Related Posts
 *   Insert Call to action
 *   Insert Child page List to page
+*	Insert Page list from ancestor
 *   Insert Auto HTML Site Map
 *	Automatic Eye Catch insert
 
@@ -69,6 +70,12 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 3.7.0 =
+* [ Add function ] Insert Page list from ancestor.
+* [ Specification change ][ Related post ] Change related logic.
+* [ bug fix ][ Description ] Delete <br />
+* [ bug fix ] php7
 
 = 3.6.3 =
 * [ bug fix( by twitter api Specification change) ] Stop display the tweet count.
