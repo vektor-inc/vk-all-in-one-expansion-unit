@@ -108,7 +108,7 @@ function vkExUnit_main_config_sanitaize( $post ) {
 			if ( is_array( $opt['callback'] ) ) {
 
 				$before = (isset( $post[ $opt['option_name'] ] )? $post[ $opt['option_name'] ]: null);
-				$option = $opt['callback'][0]->$opt['callback'][1]($before);
+				$option = $opt['callback'][0]->{$opt['callback'][1]}($before);
 
 			} elseif ( function_exists( $opt['callback'] ) ) {
 
