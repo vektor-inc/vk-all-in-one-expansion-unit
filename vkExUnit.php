@@ -102,10 +102,6 @@ require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 vkExUnit_package_include(); // package_manager.php
 
-if ( vkExUnit_package_is_enable( 'wpTitle' ) ) {
-	add_filter( 'wp_title','vkExUnit_get_wp_head_title',11 ); }
-
-
 /*-------------------------------------------*/
 /*  Add vkExUnit css
 /*-------------------------------------------*/
