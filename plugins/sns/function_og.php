@@ -62,7 +62,7 @@ function vkExUnit_print_og() {
 		}
 	}
 
-	$vkExUnitOGP .= '<!-- [ /'.vkExUnit_get_name().' OGP ] -->'."\n";
+	$vkExUnitOGP .= '<!-- [ / '.vkExUnit_get_name().' OGP ] -->'."\n";
 	if ( isset( $vkExUnit_sns_options['ogTagDisplay'] ) && $vkExUnit_sns_options['ogTagDisplay'] != true  ) {
 		$vkExUnitOGP = '';
 	}
