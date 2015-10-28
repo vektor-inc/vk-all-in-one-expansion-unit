@@ -224,27 +224,9 @@ $required_packages[] = array(
 	'include' => 'css_customize/css_customize.php',
 );
 
-/*-------------------------------------------*/
-/*  Contact Section
-/*-------------------------------------------*/
-$required_packages[] = array(
-	'name'  => 'contact_section',
-	'title' => __( 'Contact Section', 'vkExUnit' ),
-	'description' => __( 'Display Contact Section at after content.', 'vkExUnit' ),
-	'attr' => array(
-		array(
-			'name' => __( 'Setting','vkExUnit' ),
-			'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
-			'enable_only' => 1,
-		),
-	),
-	'default' => true,
-	'include' => 'contact_section.php',
-);
-
 	/*-------------------------------------------*/
 	/*  ChildPageIndex
- /*-------------------------------------------*/
+ 	/*-------------------------------------------*/
 
 	$required_packages[] = array(
 	'name'  => 'childPageIndex',
@@ -265,6 +247,24 @@ $required_packages[] = array(
 	     'default' => true,
 	     'include' => 'pageList_ancestor.php',
 	 );
+
+	/*-------------------------------------------*/
+	/*  Contact Section
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'  => 'contact_section',
+		'title' => __( 'Contact Section', 'vkExUnit' ),
+		'description' => __( 'Display Contact Section at after content.', 'vkExUnit' ),
+		'attr' => array(
+			array(
+				'name' => __( 'Setting','vkExUnit' ),
+				'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
+				'enable_only' => 1,
+			),
+		),
+		'default' => true,
+		'include' => 'contact_section.php',
+	);
 
 	/*-------------------------------------------*/
 	/*  Sitemap_page
