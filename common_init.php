@@ -25,7 +25,7 @@ function vkExUnit_get_common_options_default() {
 		'active_sns'                => true,
 		'active_ga'                 => true,
 		'active_relatedPosts'       => true,
-		'active_call_to_action'     => false,
+		'active_call_to_action'     => true,
 		'delete_options_at_deactivate' => false,
 		'delete_options_with_bizvektors_common' => true,
 	);
