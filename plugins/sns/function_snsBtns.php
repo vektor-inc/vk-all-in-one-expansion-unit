@@ -28,7 +28,7 @@ function vkExUnit_add_snsBtns( $content ) {
 		}
 		$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook
-		$socialSet .= '<li class="sb_facebook sb_icon"><a href="http://www.facebook.com/sharer.php?src=bm&u='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank"" ><span class="vk_icon_w_r_sns_fb icon_sns"></span><span class="sns_txt">Facebook</span><span class="veu_count_sns_fb"></span></a></li>';
+		$socialSet .= '<li class="sb_facebook sb_icon"><a href="http://www.facebook.com/sharer.php?src=bm&u='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank" ><span class="vk_icon_w_r_sns_fb icon_sns"></span><span class="sns_txt">Facebook</span><span class="veu_count_sns_fb"></span></a></li>';
 		// twitter
 		$socialSet .= '<li class="sb_twitter sb_icon"><a href="http://twitter.com/intent/tweet?url='.$linkUrl.'&amp;text='.$pageTitle.'" target="_blank" onclick="javascript:" ><span class="vk_icon_w_r_sns_twitter icon_sns"></span><span class="sns_txt">twitter</span></a></li>';
 		// hatena
@@ -39,7 +39,7 @@ function vkExUnit_add_snsBtns( $content ) {
 		<a href="line://msg/text/'.$pageTitle.' '.$linkUrl.'"><span class="vk_icon_w_r_sns_line icon_sns"></span><span class="sns_txt">LINE</span></a></li>';
 		endif;
 		// pocket
-		$socialSet .= '<li class="sb_pocket"><?php /* do not delete span */?><span></span><a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-save-url="'.$linkUrl.'" data-lang="en"></a><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script></li>';
+		$socialSet .= '<li class="sb_pocket"><span></span><a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-save-url="'.$linkUrl.'" data-lang="en"></a><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script></li>';
 
 		$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
 		$content .= $socialSet;
