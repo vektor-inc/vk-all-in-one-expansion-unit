@@ -21,7 +21,7 @@ function vkExUnit_get_name() {
 	return $system_name;
 }
 function vkExUnit_get_little_short_name() {
-	$little_short_name = apply_filters( 'vkExUnit_get_little_short_name_custom','VK Ex Unit' );
+	$little_short_name = apply_filters( 'vkExUnit_get_little_short_name_custom','VK ExUnit' );
 	return $little_short_name;
 }
 function vkExUnit_get_short_name() {
