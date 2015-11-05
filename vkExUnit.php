@@ -156,7 +156,7 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 
 add_action( 'admin_print_styles-index.php', 'vkExUnit_admin_enq' );
 add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq' );
-add_action( 'admin_print_styles-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq' );
+add_action( 'admin_print_styles-vk-exunit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq' );
 function vkExUnit_admin_enq() {
 	global $vkExUnit_version;
 	wp_enqueue_style( 'vkexunit-css-admin', plugins_url( '/css/vkExUnit_admin.css', __FILE__ ), array(), $vkExUnit_version, 'all' );
