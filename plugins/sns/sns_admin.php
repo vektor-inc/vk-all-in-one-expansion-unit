@@ -58,8 +58,16 @@
 </tr>
 
 <tr>
-<th>famas</th>
-<td><input type="text" name="vkExUnit_sns_options[SnsBtn_igronePost]" value="<?php if( isset( $options['SnsBtn_igronePost'] ) ) echo $options['SnsBtn_igronePost'] ?>" /></td>
+<th><label for="SnsBtn_igronePost"><?php _e( 'ignore postID for SNS buttons' ,'vkExUnit'); ?></label></th>
+<td><input type="text" id="SnsBtn_igronePost" name="vkExUnit_sns_options[SnsBtn_igronePost]" value="<?php if( isset( $options['SnsBtn_igronePost'] ) ) echo $options['SnsBtn_igronePost'] ?>" />
+<br/>
+<?php _e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vkExUnit' );
+echo '<br/>';
+_e( 'if empty this area, I will do not filtering.', 'vkExUnit' );
+echo "<br/>";
+_e( 'example', 'vkExUnit'); ?>
+  (12,31,553)
+</td>
 </tr>
 
 <tr>
