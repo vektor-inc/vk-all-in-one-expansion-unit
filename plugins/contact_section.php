@@ -178,6 +178,8 @@ class vExUnit_Contact {
 
 
 	public static function is_my_turn() {
+		global $is_pagewidget;
+		if ( $is_pagewidget ) { return false; }
 		if ( vkExUnit_is_excerpt() ) { return false; }
 		if ( ! is_page() ) { return false; }
 		if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) { return true; }

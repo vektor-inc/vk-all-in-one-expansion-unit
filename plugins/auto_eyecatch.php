@@ -77,6 +77,9 @@ class vExUnit_eyecatch {
 
 		if ( vkExUnit_is_excerpt() ) { return false; }
 
+		global $is_pagewidget;
+		if( $is_pagewidget ){ return false; }
+
 		if ( get_the_id() ) {
 
 			if ( in_array( get_post_type( get_the_id() ), self::$allowed_post_types ) ) {
