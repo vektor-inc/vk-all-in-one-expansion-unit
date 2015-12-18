@@ -58,6 +58,11 @@
 </tr>
 
 <tr>
+<th>famas</th>
+<td><input type="text" name="vkExUnit_sns_options[SnsBtn_igronePost]" value="<?php if( isset( $options['SnsBtn_igronePost'] ) ) echo $options['SnsBtn_igronePost'] ?>" /></td>
+</tr>
+
+<tr>
 <th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vkExUnit' ); ?></label></th>
 <td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] )? 'checked': ''; ?> /><?php _e( 'Print the Follow me box', 'vkExUnit' );?></label>
 <dl>

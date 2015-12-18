@@ -6,6 +6,12 @@ add_action( 'wp_head', 'vkExUnit_add_twitterCard',21 );
 
 function vkExUnit_add_twitterCard() {
 	global $vkExUnit_sns_options;
+
+	$options = vkExUnit_get_sns_options();
+	$ignores = explode( ",", $options["SnsBtn_igronePost"] );
+
+	if( in_array( get_the_id(), $ignores ) ) return false;
+
 	// url
 	$linkUrl = (is_front_page()) ? home_url():get_permalink();
 	// image

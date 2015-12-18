@@ -41,6 +41,7 @@ function vkExUnit_get_sns_options_default() {
 		'enableTwitterCardTags' => true,
 		'enableSnsBtns' 		=> true,
 		'enableFollowMe' 		=> true,
+		'SnsBtn_igronePost'     => '',
 		'followMe_title'		=> 'Follow me!',
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
@@ -57,6 +58,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['fbPageUrl']				= $input['fbPageUrl'];
 	$output['ogImage']					= $input['ogImage'];
 	$output['twitterId']				= $input['twitterId'];
+	$output['SnsBtn_igronePost']		= preg_replace('/[^0-9,]/', '', $input['SnsBtn_igronePost']);
 	$output['enableOGTags']  			= ( isset( $input['enableOGTags'] ) && isset( $input['enableOGTags'] ) == 'true' )? true: false;
 	$output['enableTwitterCardTags']  	= ( isset( $input['enableTwitterCardTags'] ) && isset( $input['enableTwitterCardTags'] ) == 'true' )? true: false;
 	$output['enableSnsBtns']   			= ( isset( $input['enableSnsBtns'] ) && isset( $input['enableSnsBtns'] ) == 'true' )? true: false;
