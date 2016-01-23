@@ -15,13 +15,15 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		);
 	}
 
-
 	function widget( $args, $instance ) {
+		if ( !isset($instance['tax_name'])) $instance['tax_name'] = 'category';
+		if ( !isset($instance['label'])) $instance['label'] = __('Category', 'vkExUnit');
 		$arg = array(
 			'echo'               => 1,
 			'style'              => 'list',
 			'show_count'         => false,
 			'show_option_all'    => false,
+			// 'hide_empty'		 => false,
 			'hierarchical'       => true,
 			'title_li'           => '',
 			);
