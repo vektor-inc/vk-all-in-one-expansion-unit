@@ -144,7 +144,7 @@ function vkExUnit_addJs() {
 /*-------------------------------------------*/
 /*  Print admin js
 /*-------------------------------------------*/
-add_action( 'admin_print_scripts-vk-ex-unit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js' );
+add_action( 'admin_print_scripts-vk-exunit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js' );
 function vkExUnit_admin_add_js( $hook_suffix ) {
 	global $vkExUnit_version;
 	wp_enqueue_media();
