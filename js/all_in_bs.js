@@ -55,7 +55,7 @@ jQuery.changeLetterSize = {
 	self.addHandler = function(func) {
 		self.handlers.push(func);
 		if (self.handlers.length == 1) {
-			setInterval(observer, self.interval);
+			// setInterval(observer, self.interval);
 		}
 	};
 

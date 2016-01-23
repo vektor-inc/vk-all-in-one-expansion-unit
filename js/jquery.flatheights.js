@@ -55,7 +55,8 @@ jQuery.changeLetterSize = {
 	self.addHandler = function(func) {
 		self.handlers.push(func);
 		if (self.handlers.length == 1) {
-			setInterval(observer, self.interval);
+			// 文字サイズが変わった時に定期的に実行されてしまうが、高さなんてそう細かく直さなくていいから停止
+			// setInterval(observer, self.interval);
 		}
 	};
 
