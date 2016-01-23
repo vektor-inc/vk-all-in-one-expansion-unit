@@ -23,7 +23,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			'style'              => 'list',
 			'show_count'         => false,
 			'show_option_all'    => false,
-			// 'hide_empty'		 => false,
+			'hide_empty'		 => false,
 			'hierarchical'       => true,
 			'title_li'           => '',
 			);
