@@ -71,6 +71,9 @@ e.g.
 
 == Changelog ==
 
+= 3.7.9 =
+* [ bug fix ] Archive Widget Link bug fix.
+
 = 3.7.0 =
 * [ Add function ] Insert Page list from ancestor.
 * [ Specification change ][ Related post ] Change related logic.
