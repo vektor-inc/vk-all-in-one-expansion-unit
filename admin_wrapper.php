@@ -54,15 +54,12 @@ if ( is_array( $vkExUnit_options ) ) : ?>
 
 	<?php
 	foreach ( $vkExUnit_options as $vkoption ) {
-		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
+		if ( empty( $vkoption['render_page'] ) ) {  continue; }
 
 		echo '<section id="'. $vkoption['option_name'] .'">';
 
-		if ( is_array( $vkoption['render_page'] ) ) {
-			$vkoption['render_page'][0]->{$vkoption['render_page'][1]}();
-		} else {
-			$vkoption['render_page']();
-		}
+		call_user_func_array( $vkoption['render_page'], array() );
+
 		echo '</section>';
 	}
 	?>
@@ -105,17 +102,10 @@ function vkExUnit_main_config_sanitaize( $post ) {
 	if ( ! empty( $vkExUnit_options ) ) {
 		foreach ( $vkExUnit_options as $opt ) {
 
-			if ( is_array( $opt['callback'] ) ) {
-
-				$before = (isset( $post[ $opt['option_name'] ] )? $post[ $opt['option_name'] ]: null);
-				$option = $opt['callback'][0]->{$opt['callback'][1]}($before);
-
-			} elseif ( function_exists( $opt['callback'] ) ) {
-
-				$before = (isset( $post[ $opt['option_name'] ] )? $post[ $opt['option_name'] ]: null);
-				$option = $opt['callback']($before);
-
-			} else { continue; }
+			if ( ! empty( $opt['callback'] ) ) {
+				$before = ( ! empty( $post[ $opt['option_name'] ] )? $post[ $opt['option_name'] ]: null);
+				$option = call_user_func_array( $opt['callback'], array( $before ) );
+			}
 
 			update_option( $opt['option_name'], $option );
 		}
