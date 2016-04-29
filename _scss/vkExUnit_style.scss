@@ -517,6 +517,7 @@ h1.mainSection-title { font-size:24px; }
 }
 @media screen and (max-width:992px){
 .veu_3prArea{
+	.prArea{ margin-bottom: 1em; }
 	.media_pc{ display: none; }
 	.media_sp{ display: block; }
 	.linkurl { margin-bottom: 1.5em; } 
@@ -527,19 +528,6 @@ h1.mainSection-title { font-size:24px; }
 /* Widget .veu_prBlocks
 /*-------------------------------------------*/
 .veu_prBlocks{
-	display: table;
-	width: 100%;
-	table-layout: fixed;
-	.prArea{
-		display: table-cell;
-		padding: 0 1em;
-		&:first-child{
-			padding-left: 0;
-		}
-		&:last-child{
-			padding-right: 0;
-		}
-	}
 	a{
 		color: #333;
 		&:hover{
@@ -590,18 +578,11 @@ h1.mainSection-title { font-size:24px; }
 		line-height: 1.4em;
 	}
 }
-@media screen and (max-width:767px){
-.veu_pr_blocks{
-	display: block;
+
+@media screen and (max-width:992px){
+.veu_prBlocks{
 	.prArea{
-		display: block;
-		margin-bottom: 3em;
-		&:first-child{
-			padding-left: 1em;
-		}
-		&:last-child{
-			padding-right: 1em;
-		}
+		margin-bottom: 1em;
 	}
-}
+}	
 }
