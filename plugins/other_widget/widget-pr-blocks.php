@@ -140,7 +140,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="veu_prBlocks">'.PHP_EOL;
+		echo PHP_EOL.'<div class="veu_prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
 		
