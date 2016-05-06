@@ -58,8 +58,8 @@
 </tr>
 
 <tr>
-<th><label for="SnsBtn_igronePost"><?php _e( 'ignore postID for SNS buttons' ,'vkExUnit'); ?></label></th>
-<td><input type="text" id="SnsBtn_igronePost" name="vkExUnit_sns_options[SnsBtn_igronePost]" value="<?php if( isset( $options['SnsBtn_igronePost'] ) ) echo $options['SnsBtn_igronePost'] ?>" />
+<th><label for="SnsBtn_ignorePost"><?php _e( 'ignore postID for SNS buttons' ,'vkExUnit'); ?></label></th>
+<td><input type="text" id="SnsBtn_ignorePost" name="vkExUnit_sns_options[SnsBtn_ignorePost]" value="<?php if( isset( $options['SnsBtn_ignorePost'] ) ) echo $options['SnsBtn_ignorePost'] ?>" />
 <br/>
 <?php _e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vkExUnit' );
 echo '<br/>';

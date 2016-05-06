@@ -28,7 +28,7 @@ function vkExUnit_add_snsBtns( $content ) {
 		}
 		global $post;
 		$options = vkExUnit_get_sns_options();
-		if ( !isset( $options['SnsBtn_igronePost'] ) || $options['SnsBtn_igronePost'] != $post->ID ) {
+		if ( !isset( $options['SnsBtn_ignorePost'] ) || $options['SnsBtn_ignorePost'] != $post->ID ) {
 			$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 			// facebook
 			$socialSet .= '<li class="sb_facebook sb_icon"><a href="http://www.facebook.com/sharer.php?src=bm&u='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank" ><span class="vk_icon_w_r_sns_fb icon_sns"></span><span class="sns_txt">Facebook</span><span class="veu_count_sns_fb"></span></a></li>';
@@ -46,7 +46,7 @@ function vkExUnit_add_snsBtns( $content ) {
 
 			$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
 			$content .= $socialSet;
-		} // if ( !isset( $options['SnsBtn_igronePost'] ) || $options['SnsBtn_igronePost'] != $post->ID ) {
+		} // if ( !isset( $options['SnsBtn_ignorePost'] ) || $options['SnsBtn_ignorePost'] != $post->ID ) {
 		
 	endif;
 	return $content;
