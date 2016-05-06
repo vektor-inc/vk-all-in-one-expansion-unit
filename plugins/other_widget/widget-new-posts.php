@@ -94,11 +94,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	<?php endif; ?>
     <div class="media-body">
 		<?php
-			do_action( 'vk_post_list_widget_media_before' );
+			do_action( 'vk_post_list_widget_media_body_prepend' );
 			$media_body_output  = '<h4 class="media-heading"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></h4>';
 			$media_body_output .= '<div class="published entry-meta_items">'.esc_html( get_the_date() ).'</div>';
 			echo apply_filters( 'vk_post_list_widget_media_body', $media_body_output );
-			do_action( 'vk_post_list_widget_media_after' );
+			do_action( 'vk_post_list_widget_media_body_append' );
 		?>
     </div>
 </div><?php
@@ -109,12 +109,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 <li id="post-<?php the_ID(); ?>">
 	
 	<?php
-		do_action( 'vk_post_list_widget_li_items_before' );
+		do_action( 'vk_post_list_widget_li_prepend' );
 		$li_items_output  = '<span class="published entry-meta_items">'.esc_html( get_the_date() ).'</span>';
 		$li_items_output .= '<span class="taxonomies">'.$this->taxonomy_list( get_the_id(), ' ', '', '' ).'</span>';
 		$li_items_output .=	'<span class="entry-title"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></span>';
 		echo apply_filters( 'vk_post_list_widget_li_items', $li_items_output );
-		do_action( 'vk_post_list_widget_li_items_after' );
+		do_action( 'vk_post_list_widget_li_append' );
 	?>
 </li><?php
 	}
