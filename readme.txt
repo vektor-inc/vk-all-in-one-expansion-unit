@@ -3,8 +3,8 @@ Contributors: vektor-inc,bizvektor,kurudrive,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
-Tested up to: 4.4.2
-Stable tag: 3.7.10
+Tested up to: 4.5.1
+Stable tag: 3.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,13 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 3.8.0 =
+* [ Add Function ] Add TinyMCE Style Tags ( bootstrap buttons )
+* [ Specification change ][ New post Widget ] add filter & action hooks.
+* [ Specification change ][ PR Block Widget ] Change html markup.
+* [ bug fix ] Corresponding to WordPress4.5.
+* [ bug fix ][ Profile Widget ] markup bug fix.
 
 = 3.7.10 =
 * [ bug fix ] Archive Widget Link bug fix.

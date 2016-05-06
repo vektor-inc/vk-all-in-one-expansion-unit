@@ -59,6 +59,8 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  disable_ping-back
 /*-------------------------------------------*/
+/*  TinyMCE Style Tags
+/*-------------------------------------------*/
 
 /*-------------------------------------------*/
 /*  bootstrap
@@ -224,151 +226,161 @@ $required_packages[] = array(
 	'include' => 'css_customize/css_customize.php',
 );
 
+/*-------------------------------------------*/
+/*  ChildPageIndex
 	/*-------------------------------------------*/
-	/*  ChildPageIndex
- 	/*-------------------------------------------*/
 
-	$required_packages[] = array(
-	'name'  => 'childPageIndex',
-	'title' => __( 'Child page index', 'vkExUnit' ),
-	'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit' ),
-	 'default' => true,
-	'include' => 'child_page_index.php',
-	);
-
-
-	/*-------------------------------------------*/
-	/*  pageList_ancestor
-	/*-------------------------------------------*/
-	 $required_packages[] = array(
-	     'name'  => 'pageList_ancestor',
-	     'title' => __( 'Page list from ancestor', 'vkExUnit' ),
-	     'description' => __( 'Display Page list from ancestor at after content.', 'vkExUnit' ),
-	     'default' => true,
-	     'include' => 'pageList_ancestor.php',
-	 );
-
-	/*-------------------------------------------*/
-	/*  Contact Section
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'  => 'contact_section',
-		'title' => __( 'Contact Section', 'vkExUnit' ),
-		'description' => __( 'Display Contact Section at after content.', 'vkExUnit' ),
-		'attr' => array(
-			array(
-				'name' => __( 'Setting','vkExUnit' ),
-				'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
-				'enable_only' => 1,
-			),
-		),
-		'default' => true,
-		'include' => 'contact_section.php',
-	);
-
-	/*-------------------------------------------*/
-	/*  Sitemap_page
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-	'name'  => 'sitemap_page',
-	'title' => __( 'Display HTML Site Map', 'vkExUnit' ),
-	'description' => __( 'It displays a HTML Site Map to the specified page.', 'vkExUnit' ),
-	'default' => true,
-	'include' => 'sitemap_page/sitemap_page.php',
-	);
+$required_packages[] = array(
+'name'  => 'childPageIndex',
+'title' => __( 'Child page index', 'vkExUnit' ),
+'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit' ),
+ 'default' => true,
+'include' => 'child_page_index.php',
+);
 
 
-	/*-------------------------------------------*/
-	/*  Call To Action
-	/*-------------------------------------------*/
-	$cta_description = __( 'Display the CTA at the end of the post content.', 'vkExUnit' );
-	$cta_description .= '<br>';
-	$cta_description .= __( 'The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit' );
-	$cta_description .= '<br>';
-	$cta_description .= __( 'As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit' );
+/*-------------------------------------------*/
+/*  pageList_ancestor
+/*-------------------------------------------*/
+ $required_packages[] = array(
+     'name'  => 'pageList_ancestor',
+     'title' => __( 'Page list from ancestor', 'vkExUnit' ),
+     'description' => __( 'Display Page list from ancestor at after content.', 'vkExUnit' ),
+     'default' => true,
+     'include' => 'pageList_ancestor.php',
+ );
 
-	$required_packages[] = array(
-	'name'  => 'call_to_action',
-	'title' => __( 'Call To Action', 'vkExUnit' ),
-	'description' => $cta_description,
+/*-------------------------------------------*/
+/*  Contact Section
+/*-------------------------------------------*/
+$required_packages[] = array(
+	'name'  => 'contact_section',
+	'title' => __( 'Contact Section', 'vkExUnit' ),
+	'description' => __( 'Display Contact Section at after content.', 'vkExUnit' ),
 	'attr' => array(
 		array(
 			'name' => __( 'Setting','vkExUnit' ),
-			'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
-			'enable_only' => 1,
-		),
-		array(
-			'name' => __( 'Contents setting','vkExUnit' ),
-			'url' => admin_url().'edit.php?post_type=cta',
+			'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
 			'enable_only' => 1,
 		),
 	),
 	'default' => true,
-	'include' => 'call_to_action/call_to_action.php',
-	);
+	'include' => 'contact_section.php',
+);
 
-	/*-------------------------------------------*/
-	/*  insert_ads
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-	'name'          => 'insert_ads',
-	'title'         => __( 'Insert ads', 'vkExUnit' ),
-	'description'   => __( 'Insert ads to content.', 'vkExUnit' ),
-	'attr'          => array(
-		array(
-			'name'  => __( 'Setting','vkExUnit' ),
-			'url'   => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads',
-			'enable_only' => 1,
-		),
+/*-------------------------------------------*/
+/*  Sitemap_page
+/*-------------------------------------------*/
+$required_packages[] = array(
+'name'  => 'sitemap_page',
+'title' => __( 'Display HTML Site Map', 'vkExUnit' ),
+'description' => __( 'It displays a HTML Site Map to the specified page.', 'vkExUnit' ),
+'default' => true,
+'include' => 'sitemap_page/sitemap_page.php',
+);
+
+
+/*-------------------------------------------*/
+/*  Call To Action
+/*-------------------------------------------*/
+$cta_description = __( 'Display the CTA at the end of the post content.', 'vkExUnit' );
+$cta_description .= '<br>';
+$cta_description .= __( 'The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit' );
+$cta_description .= '<br>';
+$cta_description .= __( 'As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit' );
+
+$required_packages[] = array(
+'name'  => 'call_to_action',
+'title' => __( 'Call To Action', 'vkExUnit' ),
+'description' => $cta_description,
+'attr' => array(
+	array(
+		'name' => __( 'Setting','vkExUnit' ),
+		'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
+		'enable_only' => 1,
 	),
-	'default'        => true,
-	'include'        => 'insert_ads.php',
-	);
-	/*-------------------------------------------*/
-	/*  relatedPosts
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-	'name'  => 'relatedPosts',
-	'title' => __( 'Related posts', 'vkExUnit' ),
-	'description' => __( 'Print Related posts lists to post content bottom.', 'vkExUnit' ),
-	'default' => true,
-	'include' => 'related_posts/related_posts.php',
-	);
+	array(
+		'name' => __( 'Contents setting','vkExUnit' ),
+		'url' => admin_url().'edit.php?post_type=cta',
+		'enable_only' => 1,
+	),
+),
+'default' => true,
+'include' => 'call_to_action/call_to_action.php',
+);
 
-	/*-------------------------------------------*/
-	/*  auto_eyecatch
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-	'name'  => 'auto_eyecatch',
-	'title' => __( 'Automatic Eye Catch insert', 'vkExUnit' ),
-	'description' => __( 'Display Eye Catch image at before content.', 'vkExUnit' ),
-	'default' => false,
-	'include' => 'auto_eyecatch.php',
-	);
+/*-------------------------------------------*/
+/*  insert_ads
+/*-------------------------------------------*/
+$required_packages[] = array(
+'name'          => 'insert_ads',
+'title'         => __( 'Insert ads', 'vkExUnit' ),
+'description'   => __( 'Insert ads to content.', 'vkExUnit' ),
+'attr'          => array(
+	array(
+		'name'  => __( 'Setting','vkExUnit' ),
+		'url'   => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads',
+		'enable_only' => 1,
+	),
+),
+'default'        => true,
+'include'        => 'insert_ads.php',
+);
+/*-------------------------------------------*/
+/*  relatedPosts
+/*-------------------------------------------*/
+$required_packages[] = array(
+'name'  => 'relatedPosts',
+'title' => __( 'Related posts', 'vkExUnit' ),
+'description' => __( 'Print Related posts lists to post content bottom.', 'vkExUnit' ),
+'default' => true,
+'include' => 'related_posts/related_posts.php',
+);
 
-	/*-------------------------------------------*/
-	/*  disable_ping-back
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-	'name'    => 'disable_ping-back',
-	'title'   => __( 'Disable ping back', 'vkExUnit' ),
-	'description' => __( 'Disable xmlrpc ping back.', 'vkExUnit' ),
-	'default' => false,
-	'include' => 'disable_ping-back.php',
-	'hidden'  => true,
-	);
+/*-------------------------------------------*/
+/*  auto_eyecatch
+/*-------------------------------------------*/
+$required_packages[] = array(
+'name'  => 'auto_eyecatch',
+'title' => __( 'Automatic Eye Catch insert', 'vkExUnit' ),
+'description' => __( 'Display Eye Catch image at before content.', 'vkExUnit' ),
+'default' => false,
+'include' => 'auto_eyecatch.php',
+);
+
+/*-------------------------------------------*/
+/*  disable_ping-back
+/*-------------------------------------------*/
+$required_packages[] = array(
+'name'    => 'disable_ping-back',
+'title'   => __( 'Disable ping back', 'vkExUnit' ),
+'description' => __( 'Disable xmlrpc ping back.', 'vkExUnit' ),
+'default' => false,
+'include' => 'disable_ping-back.php',
+'hidden'  => true,
+);
 
 
-	$required_packages[] = array(
-	'name'    => 'disable_dashbord',
-	'title'   => __( 'Disable dashbord', 'vkExUnit' ),
-	'description' => __( 'Disable dashbord', 'vkExUnit' ),
-	'default' => false,
-	'include' => 'disable_dashbord.php',
-	'hidden'  => true,
-	);
+$required_packages[] = array(
+'name'    => 'disable_dashbord',
+'title'   => __( 'Disable dashbord', 'vkExUnit' ),
+'description' => __( 'Disable dashbord', 'vkExUnit' ),
+'default' => false,
+'include' => 'disable_dashbord.php',
+'hidden'  => true,
+);
 
+/*-------------------------------------------*/
+/*  TinyMCE Style Tags
+/*-------------------------------------------*/
+$required_packages[] = array(
+'name'  => 'tiny_mce_style_tags',
+'title' => __( 'TinyMCE Style Tags', 'vkExUnit' ),
+'description' => __( 'Add TinyMCE Editor to style tags.', 'vkExUnit' ),
+'default' => true,
+'include' => 'tiny_mce_style_tags.php',
+);
 
-	foreach ( $required_packages as $package ) {
-		vkExUnit_package_register( $package );
-	}
+foreach ( $required_packages as $package ) {
+	vkExUnit_package_register( $package );
+}

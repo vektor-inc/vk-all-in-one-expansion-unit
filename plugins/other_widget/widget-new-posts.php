@@ -79,41 +79,50 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 
-
 	function display_pattern_0() {
 	?>
 <div class="media" id="post-<?php the_ID(); ?>">
 	<?php if ( has_post_thumbnail() ) : ?>
         <div class="media-left postList_thumbnail">
-		<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'thumbnail' ); ?></a>
+		<a href="<?php the_permalink(); ?>">
+			<?php 
+				$thumbnail_size = 'thumbnail';
+				the_post_thumbnail( apply_filters( 'vk_post_list_widget_thumbnail', esc_attr( $thumbnail_size ) ) );
+			?>
+		</a>
         </div>
 	<?php endif; ?>
     <div class="media-body">
-		<h4 class="media-heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-		<div class="published entry-meta_items"><?php echo get_the_date(); ?></div>
+		<?php
+			do_action( 'vk_post_list_widget_media_body_prepend' );
+			$media_body_output  = '<h4 class="media-heading"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></h4>';
+			$media_body_output .= '<div class="published entry-meta_items">'.esc_html( get_the_date() ).'</div>';
+			echo apply_filters( 'vk_post_list_widget_media_body', $media_body_output );
+			do_action( 'vk_post_list_widget_media_body_append' );
+		?>
     </div>
 </div><?php
 	}
 
-
-
 	function display_pattern_1() {
 	?>
 <li id="post-<?php the_ID(); ?>">
-	<span class="published entry-meta_items"><?php echo get_the_date(); ?></span>
-	<span class="taxonomies"><?php echo $this->taxonomy_list( get_the_id(), ' ', '', '' ); ?></span>
-	<span class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
+	
+	<?php
+		do_action( 'vk_post_list_widget_li_prepend' );
+		$li_items_output  = '<span class="published entry-meta_items">'.esc_html( get_the_date() ).'</span>';
+		$li_items_output .= '<span class="taxonomies">'.$this->taxonomy_list( get_the_id(), ' ', '', '' ).'</span>';
+		$li_items_output .=	'<span class="entry-title"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></span>';
+		echo apply_filters( 'vk_post_list_widget_li_items', $li_items_output );
+		do_action( 'vk_post_list_widget_li_append' );
+	?>
 </li><?php
 	}
-
-
 
 	function _taxonomy_init( $post_type ) {
 		if ( $post_type == 'post' ) { return; }
 		$this->taxonomies = get_object_taxonomies( $post_type );
 	}
-
-
 
 	function taxonomy_list( $post_id = 0, $before = ' ', $sep = ',', $after = '' ) {
 		if ( ! $post_id ) { $post_id = get_the_ID(); }
