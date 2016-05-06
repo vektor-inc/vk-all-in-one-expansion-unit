@@ -3,7 +3,7 @@
 Plugin Name: VK All in One Expansion Unit
 Plugin URI: http://ex-unit.vektor-inc.co.jp
 Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-Version: 3.7.10
+Version: 3.8.0
 Author: Vektor,Inc.
 Author URI: http://vektor-inc.co.jp
 License: GPL2
