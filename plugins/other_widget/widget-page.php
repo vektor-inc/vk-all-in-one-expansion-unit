@@ -59,9 +59,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		echo apply_filters( 'the_content', $page->post_content );
 
 		if ( is_user_logged_in() == true ) {
-			global $user_level;
-			get_currentuserinfo();
-			if ( 10 <= $user_level ) { ?>
+			if (  current_user_can( 'edit_pages' ) ) { ?>
     <div class="veu_adminEdit">
 		<a href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $pageid ;?>&action=edit" class="btn btn-default btn-sm"><?php _e( 'Edit', 'vkExUnit' );?></a>
     </div>

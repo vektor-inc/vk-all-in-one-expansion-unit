@@ -41,10 +41,7 @@ if(a){a=false;c.show();b.removeClass('active').text('<?php echo __( 'Edit Guide'
 add_action( 'admin_bar_menu', 'vkExUnit_adminbar_link', 40 );
 function vkExUnit_adminbar_link( $wp_admin_bar ) {
 
-	global $current_user;
-	get_currentuserinfo();
-	if ( $current_user->ID == '' ) { return ; }
-	if ( ! user_can( $current_user->ID, 'activate_plugins' ) ) { return; }
+	if ( ! current_user_can( 'activate_plugins' ) ) { return; }
 
 	$args = array(
 		'id'    => 'veu_adminlink',
