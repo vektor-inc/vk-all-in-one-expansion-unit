@@ -217,7 +217,8 @@ if ( ! empty( $instance['linkedin'] ) ) :  ?>
 </div>
 <!-- / .site-profile -->
 </div>
-<?php }
+<?php echo $args['after_widget'];
+}
 }
 add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_profile");' ) );
 

@@ -140,14 +140,19 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="veu_prBlocks">'.PHP_EOL;
+		echo PHP_EOL.'<div class="veu_prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
-
+		
+		$col_class = 'col-md-4';
+		if( $widget_block_count == 4 ){
+			$col_class = 'col-md-3';
+		} 
+		
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
-				echo '<article class="prArea">'.PHP_EOL;
+				echo '<article class="prArea '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'">'.PHP_EOL ;
 				}
