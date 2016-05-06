@@ -368,6 +368,16 @@ $required_packages[] = array(
 	'hidden'  => true,
 	);
 
+	/*-------------------------------------------*/
+	/*  TinyMCE Style Tags
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+	'name'  => 'tiny_mce_style_tags',
+	'title' => __( 'TinyMCE Style Tags', 'vkExUnit' ),
+	'description' => __( 'Add TinyMCE Editor to style tags.', 'vkExUnit' ),
+	'default' => true,
+	'include' => 'tiny_mce_style_tags.php',
+	);
 
 	foreach ( $required_packages as $package ) {
 		vkExUnit_package_register( $package );
