@@ -8,7 +8,7 @@ function vkExUnit_add_twitterCard() {
 	global $vkExUnit_sns_options;
 
 	$options = vkExUnit_get_sns_options();
-	$ignores = explode( ",", $options["SnsBtn_ignorePost"] );
+	$ignores = explode( ",", $options["snsBtn_ignorePosts"] );
 
 	if( in_array( get_the_id(), $ignores ) ) return false;
 
