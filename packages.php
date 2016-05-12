@@ -101,6 +101,7 @@ $required_packages[] = array(
 	'title' => __( 'Rewrite the title tag', 'vkExUnit' ),
 	'description' => __( 'Print is rewritten by its own rules to html head.', 'vkExUnit' ),
 	'default' => true,
+	'include' => 'wp_title.php',
 );
 
 /*-------------------------------------------*/

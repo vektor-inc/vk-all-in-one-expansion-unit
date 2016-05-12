@@ -3,8 +3,8 @@ Contributors: vektor-inc,bizvektor,kurudrive,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
-Tested up to: 4.5.1
-Stable tag: 3.8.2
+Tested up to: 4.5.2
+Stable tag: 3.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 3.9.0 =
+* [ Add Function ][ titile tag ] The ability to customize the title tag of homepage.
 
 = 3.8.2 =
 * [ bug fix ][ SNS Buttons ] ignore post id no work...
@@ -192,7 +195,7 @@ e.g.
 * Setting page url bug fix
 
 = 0.1.1.0 =
-* Hellow world 
+* Hellow world
 
 == Upgrade Notice ==
 

@@ -6,8 +6,6 @@
 /*-------------------------------------------*/
 /*  Chack post type info
 /*-------------------------------------------*/
-/*  Head title
-/*-------------------------------------------*/
 /*  Page description
 /*-------------------------------------------*/
 /*  Archive title
@@ -98,10 +96,10 @@ function vkExUnit_get_post_type() {
 	$postType = apply_filters( 'vkExUnit_postType_custom',$postType );
 	return $postType;
 }
+
 /*-------------------------------------------*/
 /*  Archive title
 /*-------------------------------------------*/
-
 function vkExUnit_get_the_archive_title() {
 	if ( is_category() ) {
 		$title = single_cat_title( '', false );
@@ -154,63 +152,6 @@ function vkExUnit_get_the_archive_title() {
 	}
 
 	return apply_filters( 'vkExUnit_get_the_archive_title', $title );
-}
-
-/*-------------------------------------------*/
-/*  Head title
-/*-------------------------------------------*/
-function vkExUnit_get_wp_head_title() {
-	global $wp_query;
-	$post = $wp_query->get_queried_object();
-	$sep = ' | ';
-	$sep = apply_filters( 'vkExUnit_get_wp_head_title', $sep );
-
-	if ( is_front_page() ) {
-		$title = get_bloginfo( 'name' ).$sep.get_bloginfo( 'description' );
-	} else if ( is_home() && ! is_front_page() ) {
-		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo( 'name' );
-	} else if ( is_archive() ) {
-		$title = vkExUnit_get_the_archive_title().$sep.get_bloginfo( 'name' );
-		// Page
-	} else if ( is_page() ) {
-		// Sub Pages
-		if ( $post->post_parent ) {
-			if ( $post->ancestors ) {
-				foreach ( $post->ancestors as $post_anc_id ) {
-					$post_id = $post_anc_id;
-				}
-			} else {
-				$post_id = $post->ID;
-			}
-			$title = get_the_title().$sep.get_the_title( $post_id ).$sep.get_bloginfo( 'name' );
-			// Not Sub Pages
-		} else {
-			$title = get_the_title().$sep.get_bloginfo( 'name' );
-		}
-	} else if ( is_single() || is_attachment() ) {
-		$title = get_the_title().$sep.get_bloginfo( 'name' );
-
-		// Search
-	} else if ( is_search() ) {
-		$title = sprintf( __( 'Search Results for : %s', 'vkExUnit' ),get_search_query() ).$sep.get_bloginfo( 'name' );
-		// 404
-	} else if ( is_404() ) {
-		$title = __( 'Not found', 'vkExUnit' ).$sep.get_bloginfo( 'name' );
-		// Other
-	} else {
-		$title = get_bloginfo( 'name' );
-	}
-
-	// Add Page numner.
-	global $paged;
-	if ( $paged >= 2 ) {
-		$title = '['.sprintf( __( 'Page of %s', 'vkExUnit' ),$paged ).'] '.$title;
-	}
-
-	$title = apply_filters( 'vkExUnit_get_wp_head_title', $title );
-
-	// Remove Tags(ex:<i>) & return
-	return strip_tags( $title );
 }
 
 
