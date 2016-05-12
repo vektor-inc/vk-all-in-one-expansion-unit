@@ -9,7 +9,7 @@ Author URI: http://vektor-inc.co.jp
 License: GPL2
 */
 /*
-Copyright 2015 Hidekazu Ishikawa ( email : kurudrive@gmail.com )
+Copyright 2015-2016 Vektor,Inc. ( email : kurudrive@gmail.com )
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -101,13 +101,6 @@ require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
 
 vkExUnit_package_include(); // package_manager.php
-
-if ( vkExUnit_package_is_enable( 'wpTitle' ) ) {
-	//WordPress -> 4.3
-	add_filter( 'wp_title', 'vkExUnit_get_wp_head_title', 11 );
-	//WordPress 4.4 ->
-	add_filter( 'pre_get_document_title', 'vkExUnit_get_wp_head_title', 11 );
-}
 
 /*-------------------------------------------*/
 /*  Add vkExUnit css

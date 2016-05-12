@@ -28,7 +28,7 @@ function vkExUnit_add_twitterCard() {
 		$title = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
 	}
 	if ( ! $title ) {
-		$title = vkExUnit_get_wp_head_title();
+		$title = strip_tags( wp_title( '', false ) );
 	}
 	// domain
 	preg_match( '/https?:\/\/(.+?)\//i', admin_url(), $match );
