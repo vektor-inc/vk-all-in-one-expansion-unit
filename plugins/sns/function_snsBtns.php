@@ -10,7 +10,7 @@ function vkExUnit_is_snsBtns_display(){
 	if ( !isset( $options['snsBtn_ignorePosts'] ) ){
 		return true;
 	} else if ( isset( $options['snsBtn_ignorePosts'] ) && $options['snsBtn_ignorePosts'] == $post->ID ) {
-		return false;		
+		return false;
 	} else if ( is_array( $ignorePosts ) && in_array( $post->ID, $ignorePosts ) ){
 		return false;
 	} else {
@@ -39,9 +39,9 @@ function vkExUnit_add_snsBtns( $content ) {
 			$pageTitle = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
 		}
 		if ( ! $pageTitle ) {
-			$pageTitle = urlencode( vkExUnit_get_wp_head_title() );
+			$pageTitle = urlencode( strip_tags( wp_title( '', false ) ) );
 		}
-		
+
 		if ( vkExUnit_is_snsBtns_display() ) {
 			$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 			// facebook
@@ -61,7 +61,7 @@ function vkExUnit_add_snsBtns( $content ) {
 			$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
 			$content .= $socialSet;
 		} // if ( !isset( $options['snsBtn_ignorePosts'] ) || $options['snsBtn_ignorePosts'] != $post->ID ) {
-		
+
 	endif;
 	return $content;
 }
