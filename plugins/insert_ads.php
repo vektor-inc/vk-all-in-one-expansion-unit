@@ -101,7 +101,7 @@ class vExUnit_Ads {
 		}
 		if ( ! $option['before'][1] ) { unset( $option['more'][1] ); }
 
-		if ( ! $option['more'][0] && isset( $option['more'][1] ) && $option['more'][1] ) {
+		if ( ! $option['more'][0] && $option['more'][1] ) {
 			$option['more'][0] = $option['more'][1];
 			$option['more'][1] = '';
 		}
@@ -118,7 +118,7 @@ class vExUnit_Ads {
 
 
 	public static function get_option() {
-		return get_option( 'vkExUnit_Ads', array( 'more' => array( '' ), 'after' => array( '' ) ) );
+		return get_option( 'vkExUnit_Ads', array( 'before' => array( '' ),  'more' => array( '' ), 'after' => array( '' ) ) );
 	}
 
 
