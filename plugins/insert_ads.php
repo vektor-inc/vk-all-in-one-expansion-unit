@@ -118,7 +118,11 @@ class vExUnit_Ads {
 
 
 	public static function get_option() {
-		return get_option( 'vkExUnit_Ads', array( 'before' => array( '' ),  'more' => array( '' ), 'after' => array( '' ) ) );
+		$option = get_option( 'vkExUnit_Ads', array( 'before' => array( '' ),  'more' => array( '' ), 'after' => array( '' ) ) );
+		$option['before'][0] = ( isset($option['before'][0] ) ) ? $option['before'][0] : '';
+		$option['more'][0] = ( isset($option['more'][0] ) ) ? $option['more'][0] : '';
+		$option['after'][0] = ( isset($option['after'][0] ) ) ? $option['after'][0] : '';
+		return $option;
 	}
 
 
