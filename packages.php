@@ -100,6 +100,13 @@ $required_packages[] = array(
 	'name'  => 'wpTitle',
 	'title' => __( 'Rewrite the title tag', 'vkExUnit' ),
 	'description' => __( 'Print is rewritten by its own rules to html head.', 'vkExUnit' ),
+	'attr' => array(
+		array(
+			'name' => __( 'Setting','vkExUnit' ),
+			'url' => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_wp_title',
+			'enable_only' => 1,
+		),
+	),
 	'default' => true,
 	'include' => 'wp_title.php',
 );
