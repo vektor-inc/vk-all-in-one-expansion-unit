@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-05-12 13:11+0900\n"
+"POT-Creation-Date: 2016-05-16 11:53+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -143,65 +143,65 @@ msgstr ""
 "EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
 "ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
 
-#: ../packages.php:112
-msgid "Print meta Keyword"
-msgstr "メタキーワードを出力"
-
-#: ../packages.php:113
-msgid "Print meta Keyword to html head."
-msgstr "ヘッダーにメタキーワードを出力します。"
-
-#: ../packages.php:116 ../packages.php:155 ../packages.php:173
-#: ../packages.php:203 ../packages.php:221 ../packages.php:263
-#: ../packages.php:299 ../packages.php:322
+#: ../packages.php:105 ../packages.php:123 ../packages.php:162
+#: ../packages.php:180 ../packages.php:210 ../packages.php:228
+#: ../packages.php:270 ../packages.php:306 ../packages.php:329
 msgid "Setting"
 msgstr "設定"
 
-#: ../packages.php:129
+#: ../packages.php:119
+msgid "Print meta Keyword"
+msgstr "メタキーワードを出力"
+
+#: ../packages.php:120
+msgid "Print meta Keyword to html head."
+msgstr "ヘッダーにメタキーワードを出力します。"
+
+#: ../packages.php:136
 msgid "Print meta description"
 msgstr "メタディスクリプションタグを出力"
 
-#: ../packages.php:130
+#: ../packages.php:137
 msgid "Print meta description to html head."
 msgstr ""
 "投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
 "head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
 "している場合はチェックを外して下さい。"
 
-#: ../packages.php:139
+#: ../packages.php:146
 msgid "Main setting page"
 msgstr "メイン設定画面"
 
-#: ../packages.php:141
+#: ../packages.php:148
 msgid "Print og tags to html head."
 msgstr "OG タグを html head 内へ出力します。"
 
-#: ../packages.php:142
+#: ../packages.php:149
 msgid "Print twitter card tags to html head."
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: ../packages.php:143
+#: ../packages.php:150
 msgid "Print social bookmark buttons."
 msgstr "ソーシャルブックマークボタンを表示します。"
 
-#: ../packages.php:144
+#: ../packages.php:151
 msgid "Facebook Page Plugin widget."
 msgstr "Facebookページプラグインウィジェット"
 
-#: ../packages.php:145
+#: ../packages.php:152
 msgid "Print Follow me box to content bottom."
 msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
 
-#: ../packages.php:147
+#: ../packages.php:154
 #, php-format
 msgid "* You can stop the function separately from the %s."
 msgstr "%s から個別に機能を停止する事ができます。"
 
-#: ../packages.php:151
+#: ../packages.php:158
 msgid "Social media cooperation"
 msgstr "ソーシャルメディア連携"
 
-#: ../packages.php:170
+#: ../packages.php:177
 msgid "Print Google Analytics tracking code."
 msgstr ""
 "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
@@ -209,49 +209,49 @@ msgstr ""
 "のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
 "合はチェックを外して下さい。"
 
-#: ../packages.php:186
+#: ../packages.php:193
 msgid "You can use various widgets."
 msgstr ""
 "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→"
 "「ウィジェット」の設定画面より行って下さい。"
 
-#: ../packages.php:188
+#: ../packages.php:195
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
-#: ../packages.php:189
+#: ../packages.php:196
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
-#: ../packages.php:190
+#: ../packages.php:197
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
 
-#: ../packages.php:191
+#: ../packages.php:198
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
 
-#: ../packages.php:192
+#: ../packages.php:199
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: ../packages.php:193
+#: ../packages.php:200
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: ../packages.php:193
+#: ../packages.php:200
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
-#: ../packages.php:194 ../plugins/other_widget/widget-archives.php:9
+#: ../packages.php:201 ../plugins/other_widget/widget-archives.php:9
 msgid "archive list"
 msgstr "アーカイブリスト"
 
-#: ../packages.php:194 ../plugins/other_widget/widget-archives.php:14
+#: ../packages.php:201 ../plugins/other_widget/widget-archives.php:14
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
@@ -259,26 +259,26 @@ msgstr ""
 "アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
 "プを選択できます。"
 
-#: ../packages.php:199
+#: ../packages.php:206
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: ../packages.php:217
+#: ../packages.php:224
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: ../packages.php:218
+#: ../packages.php:225
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: ../packages.php:236
+#: ../packages.php:243
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
-#: ../packages.php:237
+#: ../packages.php:244
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
@@ -286,36 +286,36 @@ msgstr ""
 "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
 "サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
-#: ../packages.php:248
+#: ../packages.php:255
 msgid "Page list from ancestor"
 msgstr "先祖階層からの子ページリスト表示"
 
-#: ../packages.php:249
+#: ../packages.php:256
 msgid "Display Page list from ancestor at after content."
 msgstr ""
 "現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
 
-#: ../packages.php:259
+#: ../packages.php:266
 msgid "Contact Section"
 msgstr "お問い合わせ"
 
-#: ../packages.php:260
+#: ../packages.php:267
 msgid "Display Contact Section at after content."
 msgstr "お問い合わせ情報を本文の下に表示する"
 
-#: ../packages.php:277
+#: ../packages.php:284
 msgid "Display HTML Site Map"
 msgstr "HTMLサイトマップの表示"
 
-#: ../packages.php:278
+#: ../packages.php:285
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: ../packages.php:287 ../plugins/call_to_action/view.adminsetting.php:10
+#: ../packages.php:294 ../plugins/call_to_action/view.adminsetting.php:10
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
-#: ../packages.php:289 ../plugins/call_to_action/view.adminsetting.php:11
+#: ../packages.php:296 ../plugins/call_to_action/view.adminsetting.php:11
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -323,7 +323,7 @@ msgstr ""
 "CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
 "情報を表示します。"
 
-#: ../packages.php:291 ../plugins/call_to_action/view.adminsetting.php:12
+#: ../packages.php:298 ../plugins/call_to_action/view.adminsetting.php:12
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -331,58 +331,58 @@ msgstr ""
 "例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
 "ンなどです。"
 
-#: ../packages.php:295 ../plugins/call_to_action/view.adminsetting.php:6
+#: ../packages.php:302 ../plugins/call_to_action/view.adminsetting.php:6
 msgid "Call To Action"
 msgstr "Call To Action"
 
-#: ../packages.php:304
+#: ../packages.php:311
 msgid "Contents setting"
 msgstr "CTA表示内容設定"
 
-#: ../packages.php:318 ../plugins/insert_ads.php:37
-#: ../plugins/insert_ads.php:119
+#: ../packages.php:325 ../plugins/insert_ads.php:37
+#: ../plugins/insert_ads.php:128
 msgid "Insert ads"
 msgstr "広告の挿入"
 
-#: ../packages.php:319
+#: ../packages.php:326
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: ../packages.php:335 ../plugins/related_posts/related_posts.php:57
+#: ../packages.php:342 ../plugins/related_posts/related_posts.php:57
 msgid "Related posts"
 msgstr "関連記事を表示"
 
-#: ../packages.php:336
+#: ../packages.php:343
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: ../packages.php:346 ../vkExUnit_admin.php:28
+#: ../packages.php:353 ../vkExUnit_admin.php:28
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
-#: ../packages.php:347
+#: ../packages.php:354
 msgid "Display Eye Catch image at before content."
 msgstr ""
 "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
 "す。"
 
-#: ../packages.php:357
+#: ../packages.php:364
 msgid "Disable ping back"
 msgstr "ping backを停止"
 
-#: ../packages.php:358
+#: ../packages.php:365
 msgid "Disable xmlrpc ping back."
 msgstr "xmlrpcを停止"
 
-#: ../packages.php:367 ../packages.php:368
+#: ../packages.php:374 ../packages.php:375
 msgid "Disable dashbord"
 msgstr "ダッシュボードに最新情報を表示しない"
 
-#: ../packages.php:379
+#: ../packages.php:386
 msgid "TinyMCE Style Tags"
 msgstr ""
 
-#: ../packages.php:380
+#: ../packages.php:387
 msgid "Add TinyMCE Editor to style tags."
 msgstr ""
 
@@ -563,23 +563,27 @@ msgstr "アイコンを選択"
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
-#: ../plugins/insert_ads.php:122
+#: ../plugins/insert_ads.php:131
 msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
-#: ../plugins/insert_ads.php:124
+#: ../plugins/insert_ads.php:133
 msgid "Insert ads to more tag and after content."
 msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
 
-#: ../plugins/insert_ads.php:124
+#: ../plugins/insert_ads.php:133
 msgid "If you want to separate ads area, you fill two fields."
 msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
 
-#: ../plugins/insert_ads.php:126
+#: ../plugins/insert_ads.php:135
+msgid "insert the ad [ before content ]"
+msgstr "広告を挿入 [ 記事の最初 ]"
+
+#: ../plugins/insert_ads.php:143
 msgid "insert the ad [ more tag ]"
 msgstr "広告を挿入 [ moreタグ ]"
 
-#: ../plugins/insert_ads.php:134
+#: ../plugins/insert_ads.php:151
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 

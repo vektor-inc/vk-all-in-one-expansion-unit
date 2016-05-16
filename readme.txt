@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.5.2
-Stable tag: 3.9.1
+Stable tag: 3.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,11 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 4.0.0 =
+* [ Improve the UI ][ titile tag ] Add link to setting page.
+* [ Add Function ][ Insert Ads ] Add insert ads before contents.
+* [ Other ] Add test domain. 
 
 = 3.9.1 =
 * [ bug fix ][ titile tag ]
