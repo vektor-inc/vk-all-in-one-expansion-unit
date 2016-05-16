@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-05-16 11:53+0900\n"
+"POT-Creation-Date: 2016-05-16 13:32+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -718,12 +718,13 @@ msgid "Normally, I will include the %1$s in the title tag."
 msgstr "通常 %1$s が全ページのタイトルタグに入ります。"
 
 #: ../plugins/wp_title.php:93
+#, php-format
 msgid ""
-"For example, it appears in the form of <br />&lt;title&gt;page title | site "
-"title&lt;/title&gt;<br /> if using a static page."
+"For example, it appears in the form of <br />&lt;title&gt;page title | "
+"%1$s&lt;/title&gt;<br /> if using a static page."
 msgstr ""
-"例えば固定ページであれば<br>&lt;title&gt;固定ページ名 | サイトタイトル&lt;/"
-"title&gt;<br>というような形式で出力されます。<br>"
+"例えば固定ページであれば<br>&lt;title&gt;固定ページ名 | %1$s&lt;/title&gt;"
+"<br>というような形式で出力されます。<br>"
 
 #: ../plugins/wp_title.php:95
 #, php-format
@@ -737,19 +738,26 @@ msgstr ""
 "くなるので、%s は一番検索されたいキーワードを盛り込みつつなるべく短くまとめる"
 "事が望ましいです。<br>"
 
-#: ../plugins/wp_title.php:96
-msgid ""
-"However, in the home page, as described above, other title will not be "
-"added, it is possible to make the &lt;title&gt; little longer, which can be "
-"set separately here."
-msgstr ""
-"ただ、トップページにおいては上記のように他のタイトルと連結されないので、もう"
-"少し長めの&lt;title&gt;をつける事が出来るために、ここで別途設定する事が出来る"
-"ようになっています。"
+#: ../plugins/wp_title.php:97
+msgid "Tagline"
+msgstr "キャッチフレーズ"
 
 #: ../plugins/wp_title.php:98
-msgid "Noting, set automatically"
+#, php-format
+msgid ""
+"In the top page will be output usually in the form of <br />&lt;title&gt;"
+"%1$s | %2$s&lt;/title&gt;"
 msgstr ""
+"トップページでは<br>&lt;title&gt;%1$s | %2$s&lt;/title&gt;<br>というような形"
+"式で出力されます。"
+
+#: ../plugins/wp_title.php:99
+msgid ""
+"However, it may be too long in the above format. If the input to the input "
+"field of the following, its contents will be reflected."
+msgstr ""
+"しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
+"力すれば、その内容が反映されます。"
 
 #: ../plugins/call_to_action/class.call_to_action.php:48
 #: ../plugins/call_to_action/view.actionbox.php:39
@@ -1504,6 +1512,15 @@ msgstr "VK All in One Expansion Unit からのお知らせ"
 #: ../plugins_admin/news_from_exUnit.php:31
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
+
+#~ msgid ""
+#~ "However, in the home page, as described above, other title will not be "
+#~ "added, it is possible to make the &lt;title&gt; little longer, which can "
+#~ "be set separately here."
+#~ msgstr ""
+#~ "ただ、トップページにおいては上記のように他のタイトルと連結されないので、も"
+#~ "う少し長めの&lt;title&gt;をつける事が出来るために、ここで別途設定する事が"
+#~ "出来るようになっています。"
 
 #~ msgid "*　It is necessary to set the Theme options page."
 #~ msgstr "* テーマオプションページで設定する必要があります。"

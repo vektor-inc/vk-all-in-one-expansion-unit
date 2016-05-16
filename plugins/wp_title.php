@@ -90,12 +90,17 @@ function vkExUnit_add_wp_title_page(){
 <?php
 $sitetitle_link = '<a href="'.get_admin_url().'options-general.php" target="_blank">'.__('title of the site', 'vkExUnit').'</a>';
 printf( __( 'Normally, I will include the %1$s in the title tag.', 'vkExUnit' ), $sitetitle_link );?><br />
-<?php _e('For example, it appears in the form of <br />&lt;title&gt;page title | site title&lt;/title&gt;<br /> if using a static page.', 'vkExUnit'); ?>
+<?php printf( __('For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vkExUnit'), $sitetitle_link ); ?>
 <?php
 printf( __('However, it might have negative impact on search engine rankings if the &lt;title&gt; is too long, <strong>therefore please include the most popular keywords in a summarized manner, keeping the %s as short as possible.</strong>', 'vkExUnit'),$sitetitle_link) ; ?>
-<?php _e('However, in the home page, as described above, other title will not be added, it is possible to make the &lt;title&gt; little longer, which can be set separately here.', 'vkExUnit'); ?></p>
+<?php
+$tagline_link = '<a href="'.get_admin_url().'options-general.php" target="_blank">'.__('Tagline', 'vkExUnit').'</a>';
+printf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vkExUnit'), $sitetitle_link ,$tagline_link );?><br />
+<?php _e('However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vkExUnit');?>
+<?php /*_e('However, in the home page, as described above, other title will not be added, it is possible to make the &lt;title&gt; little longer, which can be set separately here.', 'vkExUnit');*/ ?></p>
 
-<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo  $options['extend_frontTitle']; ?>" placeholder="<?php _e( 'Noting, set automatically', 'vkExUnit' ); ?>" />
+
+<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo  $options['extend_frontTitle']; ?>" />
 </td>
 </tr>
 </table>
