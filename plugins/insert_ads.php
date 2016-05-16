@@ -49,6 +49,7 @@ class vExUnit_Ads {
 		$option = $this->get_option();
 		if ( get_post_type() == 'post' ) {
 			$content = preg_replace( '/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content );
+			$content = '[vkExUnit_ad area=before]'.$content;
 			$content .= '[vkExUnit_ad area=after]';
 		}
 
@@ -59,7 +60,7 @@ class vExUnit_Ads {
 	public function shortcode( $atts ) {
 		extract( shortcode_atts( array( 'area' => '' ), $atts ) );
 
-		if ( $area != 'after' && $area != 'more' ) { return ''; }
+		if ( $area != 'before' && $area != 'after' && $area != 'more' ) { return ''; }
 
 		$option = $this->get_option();
 
@@ -87,10 +88,18 @@ class vExUnit_Ads {
 
 
 	public function sanitize_config( $input ) {
+		$option['before'][0] = stripslashes( $input['before'][0] );
+		$option['before'][1] = stripslashes( $input['before'][1] );
 		$option['more'][0]  = stripslashes( $input['more'][0] );
 		$option['more'][1]  = stripslashes( $input['more'][1] );
 		$option['after'][0] = stripslashes( $input['after'][0] );
 		$option['after'][1] = stripslashes( $input['after'][1] );
+
+		if ( ! $option['before'][0] && $option['before'][1] ) {
+			$option['before'][0] = $option['before'][1];
+			$option['before'][1] = '';
+		}
+		if ( ! $option['before'][1] ) { unset( $option['more'][1] ); }
 
 		if ( ! $option['more'][0] && $option['more'][1] ) {
 			$option['more'][0] = $option['more'][1];
@@ -122,6 +131,14 @@ class vExUnit_Ads {
 <tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
 </th><td style="max-width:80em;">
 <?php _e( 'Insert ads to more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
+    <dl>
+		<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vkExUnit' ); ?></label></dt>
+        <dd>
+		<textarea rows="5" name="vkExUnit_Ads[before][]" id="ad_content_before" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['before'][0] ) && $option['before'][0] )? $option['before'][0]: ''; ?></textarea>
+        <br/>
+		<textarea rows="5" name="vkExUnit_Ads[before][]" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['before'][1] ) && $option['before'][1] )? $option['before'][1]: ''; ?></textarea>
+        </dd>
+    </dl>
     <dl>
 		<dt><label for="ad_content_moretag"><?php _e( 'insert the ad [ more tag ]', 'vkExUnit' ); ?></label></dt>
         <dd>
