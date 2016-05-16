@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.5.2
-Stable tag: 3.9.2
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,7 +72,7 @@ e.g.
 == Changelog ==
 
 = 4.0.0 =
-* [ Improve the UI ][ titile tag ] Add link to setting page.
+* [ Improve the UI ][ title tag ] Add link to setting page.
 * [ Add Function ][ Insert Ads ] Add insert ads before contents.
 * [ Other ] Add test domain. 
 
@@ -80,7 +80,7 @@ e.g.
 * [ bug fix ][ titile tag ]
 
 = 3.9.0 =
-* [ Add Function ][ titile tag ] The ability to customize the title tag of homepage.
+* [ Add Function ][ title tag ] The ability to customize the title tag of homepage.
 
 = 3.8.2 =
 * [ bug fix ][ SNS Buttons ] ignore post id no work...
