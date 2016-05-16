@@ -89,10 +89,10 @@ function vkExUnit_add_wp_title_page(){
 <p>
 <?php
 $sitetitle_link = '<a href="'.get_admin_url().'options-general.php" target="_blank">'.__('title of the site', 'vkExUnit').'</a>';
-printf( __( 'Normally, I will include the %1$s in the title tag.', 'vkExUnit' ), $sitetitle_link );?><br />
-<?php printf( __('For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vkExUnit'), $sitetitle_link ); ?>
+printf( __( 'Normally "%1$s" is placed in the title tags of all the pages.', 'vkExUnit' ), $sitetitle_link );?><br />
+<?php printf( __('For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vkExUnit'), $sitetitle_link ); ?><br />
 <?php
-printf( __('However, it might have negative impact on search engine rankings if the &lt;title&gt; is too long, <strong>therefore please include the most popular keywords in a summarized manner, keeping the %s as short as possible.</strong>', 'vkExUnit'),$sitetitle_link) ; ?>
+printf( __('However, it might have negative impact on search engine rankings if the &lt;title&gt; is too long, <strong>therefore please include the most popular keywords in a summarized manner, keeping the %s as short as possible.</strong>', 'vkExUnit'),$sitetitle_link) ; ?><br />
 <?php
 $tagline_link = '<a href="'.get_admin_url().'options-general.php" target="_blank">'.__('Tagline', 'vkExUnit').'</a>';
 printf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vkExUnit'), $sitetitle_link ,$tagline_link );?><br />

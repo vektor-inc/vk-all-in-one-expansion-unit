@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-05-16 13:32+0900\n"
+"POT-Creation-Date: 2016-05-16 18:26+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -340,7 +340,7 @@ msgid "Contents setting"
 msgstr "CTA表示内容設定"
 
 #: ../packages.php:325 ../plugins/insert_ads.php:37
-#: ../plugins/insert_ads.php:128
+#: ../plugins/insert_ads.php:132
 msgid "Insert ads"
 msgstr "広告の挿入"
 
@@ -563,27 +563,27 @@ msgstr "アイコンを選択"
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
-#: ../plugins/insert_ads.php:131
+#: ../plugins/insert_ads.php:135
 msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
-#: ../plugins/insert_ads.php:133
+#: ../plugins/insert_ads.php:137
 msgid "Insert ads to more tag and after content."
 msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
 
-#: ../plugins/insert_ads.php:133
+#: ../plugins/insert_ads.php:137
 msgid "If you want to separate ads area, you fill two fields."
 msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
 
-#: ../plugins/insert_ads.php:135
+#: ../plugins/insert_ads.php:139
 msgid "insert the ad [ before content ]"
 msgstr "広告を挿入 [ 記事の最初 ]"
 
-#: ../plugins/insert_ads.php:143
+#: ../plugins/insert_ads.php:147
 msgid "insert the ad [ more tag ]"
 msgstr "広告を挿入 [ moreタグ ]"
 
-#: ../plugins/insert_ads.php:151
+#: ../plugins/insert_ads.php:155
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 
@@ -714,8 +714,8 @@ msgstr "サイトのタイトル"
 
 #: ../plugins/wp_title.php:92
 #, php-format
-msgid "Normally, I will include the %1$s in the title tag."
-msgstr "通常 %1$s が全ページのタイトルタグに入ります。"
+msgid "Normally \"%1$s\" is placed in the title tags of all the pages."
+msgstr "通常「%1$s」が全ページのタイトルタグに入ります。"
 
 #: ../plugins/wp_title.php:93
 #, php-format
@@ -724,7 +724,7 @@ msgid ""
 "%1$s&lt;/title&gt;<br /> if using a static page."
 msgstr ""
 "例えば固定ページであれば<br>&lt;title&gt;固定ページ名 | %1$s&lt;/title&gt;"
-"<br>というような形式で出力されます。<br>"
+"<br>というような形式で出力されます。"
 
 #: ../plugins/wp_title.php:95
 #, php-format
@@ -736,7 +736,7 @@ msgid ""
 msgstr ""
 "しかし、&lt;title&gt;の文字数が長くなりすぎると検索エンジンからの評価が逆に悪"
 "くなるので、%s は一番検索されたいキーワードを盛り込みつつなるべく短くまとめる"
-"事が望ましいです。<br>"
+"事が望ましいです。"
 
 #: ../plugins/wp_title.php:97
 msgid "Tagline"
@@ -1512,6 +1512,9 @@ msgstr "VK All in One Expansion Unit からのお知らせ"
 #: ../plugins_admin/news_from_exUnit.php:31
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
+
+#~ msgid "Normally, I will include the %1$s in the title tag."
+#~ msgstr "通常 %1$s が全ページのタイトルタグに入ります。"
 
 #~ msgid ""
 #~ "However, in the home page, as described above, other title will not be "
