@@ -99,7 +99,7 @@ class vExUnit_Ads {
 			$option['before'][0] = $option['before'][1];
 			$option['before'][1] = '';
 		}
-		if ( ! $option['before'][1] ) { unset( $option['more'][1] ); }
+		if ( ! $option['before'][1] ) { unset( $option['before'][1] ); }
 
 		if ( ! $option['more'][0] && isset( $option['more'][1] ) && $option['more'][1] ) {
 			$option['more'][0] = $option['more'][1];
@@ -111,7 +111,7 @@ class vExUnit_Ads {
 			$option['after'][0] = $option['after'][1];
 			$option['after'][1] = '';
 		}
-		if ( ! $option['after'][1] ) { unset( $option['more'][1] ); }
+		if ( ! $option['after'][1] ) { unset( $option['after'][1] ); }
 
 		return $option;
 	}
