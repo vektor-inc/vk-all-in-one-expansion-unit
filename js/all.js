@@ -55,6 +55,7 @@ jQuery.changeLetterSize = {
 	self.addHandler = function(func) {
 		self.handlers.push(func);
 		if (self.handlers.length == 1) {
+			// 文字サイズが変わった時に定期的に実行されてしまうが、高さなんてそう細かく直さなくていいから停止
 			// setInterval(observer, self.interval);
 		}
 	};
@@ -200,3 +201,9 @@ var hatena = {
 }
 hatena.init();
 })(jQuery);
+
+
+/// master.jsのも同じコードがあるので注意
+;(function($,d){var a=false,b='',c='',f=function(){
+if(a){a=false;c.show();b.removeClass('active');}else{a=true;c.hide();b.addClass('active');}
+};$(d).ready(function(){b=$('#wp-admin-bar-veu_disable_admin_edit .ab-item').on('click',f);c=$('.veu_adminEdit');});})(jQuery,document);
