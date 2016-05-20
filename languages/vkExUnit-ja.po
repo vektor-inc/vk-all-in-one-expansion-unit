@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-05-16 18:26+0900\n"
+"POT-Creation-Date: 2016-05-20 11:06+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -568,8 +568,8 @@ msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
 #: ../plugins/insert_ads.php:137
-msgid "Insert ads to more tag and after content."
-msgstr "moreタグの直後と、記事の最後に広告を挿入できます。"
+msgid "Insert ads to before content and more tag and after content."
+msgstr "記事の直前 / moreタグの直後 / 記事の最後に広告を挿入できます。"
 
 #: ../plugins/insert_ads.php:137
 msgid "If you want to separate ads area, you fill two fields."
@@ -959,7 +959,7 @@ msgstr "3PR エリア1 設定"
 #: ../plugins/other_widget/widget-3pr-area.php:48
 #: ../plugins/other_widget/widget-3pr-area.php:98
 #: ../plugins/other_widget/widget-3pr-area.php:149
-#: ../plugins/other_widget/widget-new-posts.php:159
+#: ../plugins/other_widget/widget-new-posts.php:161
 #: ../plugins/other_widget/widget-pr-blocks.php:74
 #: ../plugins/other_widget/widget-profile.php:40
 #: ../plugins/sns/function_fbPagePlugin.php:79
@@ -1030,8 +1030,8 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: ../plugins/other_widget/widget-archives.php:63
-#: ../plugins/other_widget/widget-new-posts.php:156
-#: ../plugins/other_widget/widget-new-posts.php:157
+#: ../plugins/other_widget/widget-new-posts.php:158
+#: ../plugins/other_widget/widget-new-posts.php:159
 msgid "Title"
 msgstr "タイトル"
 
@@ -1062,7 +1062,7 @@ msgstr "表示しているページの先祖階層からの子ページリスト
 
 #: ../plugins/other_widget/widget-new-posts.php:11
 #: ../plugins/other_widget/widget-new-posts.php:29
-#: ../plugins/other_widget/widget-new-posts.php:146
+#: ../plugins/other_widget/widget-new-posts.php:148
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1070,45 +1070,45 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:155
+#: ../plugins/other_widget/widget-new-posts.php:157
 msgid "Display Format"
 msgstr "表示形式"
 
-#: ../plugins/other_widget/widget-new-posts.php:156
+#: ../plugins/other_widget/widget-new-posts.php:158
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: ../plugins/other_widget/widget-new-posts.php:156
-#: ../plugins/other_widget/widget-new-posts.php:157
+#: ../plugins/other_widget/widget-new-posts.php:158
+#: ../plugins/other_widget/widget-new-posts.php:159
 msgid "Date"
 msgstr "日付"
 
-#: ../plugins/other_widget/widget-new-posts.php:157
+#: ../plugins/other_widget/widget-new-posts.php:159
 #: ../plugins/other_widget/widget-taxonomies.php:20
 #: ../plugins/other_widget/widget-taxonomies.php:49
 #: ../plugins/other_widget/widget-taxonomies.php:50
 msgid "Category"
 msgstr "カテゴリー"
 
-#: ../plugins/other_widget/widget-new-posts.php:164
+#: ../plugins/other_widget/widget-new-posts.php:166
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: ../plugins/other_widget/widget-new-posts.php:169
+#: ../plugins/other_widget/widget-new-posts.php:171
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: ../plugins/other_widget/widget-new-posts.php:174
+#: ../plugins/other_widget/widget-new-posts.php:176
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: ../plugins/other_widget/widget-new-posts.php:176
+#: ../plugins/other_widget/widget-new-posts.php:178
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:178
+#: ../plugins/other_widget/widget-new-posts.php:180
 #: ../plugins/sns/sns_admin.php:66
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
@@ -1493,7 +1493,7 @@ msgstr "Follow me ユニットを本文の下に表示する"
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
-#: ../plugins_admin/admin_bar.php:17 ../plugins_admin/admin_bar.php:34
+#: ../plugins_admin/admin_bar.php:17
 msgid "Edit Guide"
 msgstr "編集ガイド"
 

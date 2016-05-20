@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-05-12 13:21+0900\n"
+"POT-Creation-Date: 2016-05-20 11:06+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -129,220 +129,221 @@ msgstr ""
 msgid "Print is rewritten by its own rules to html head."
 msgstr ""
 
-#: packages.php:112
-msgid "Print meta Keyword"
-msgstr ""
-
-#: packages.php:113
-msgid "Print meta Keyword to html head."
-msgstr ""
-
-#: packages.php:116 packages.php:155 packages.php:173 packages.php:203
-#: packages.php:221 packages.php:263 packages.php:299 packages.php:322
+#: packages.php:105 packages.php:123 packages.php:162 packages.php:180
+#: packages.php:210 packages.php:228 packages.php:270 packages.php:306
+#: packages.php:329
 msgid "Setting"
 msgstr ""
 
-#: packages.php:129
+#: packages.php:119
+msgid "Print meta Keyword"
+msgstr ""
+
+#: packages.php:120
+msgid "Print meta Keyword to html head."
+msgstr ""
+
+#: packages.php:136
 msgid "Print meta description"
 msgstr ""
 
-#: packages.php:130
+#: packages.php:137
 msgid "Print meta description to html head."
 msgstr ""
 
-#: packages.php:139
+#: packages.php:146
 msgid "Main setting page"
 msgstr ""
 
-#: packages.php:141
+#: packages.php:148
 msgid "Print og tags to html head."
 msgstr ""
 
-#: packages.php:142
+#: packages.php:149
 msgid "Print twitter card tags to html head."
 msgstr ""
 
-#: packages.php:143
+#: packages.php:150
 msgid "Print social bookmark buttons."
 msgstr ""
 
-#: packages.php:144
+#: packages.php:151
 msgid "Facebook Page Plugin widget."
 msgstr ""
 
-#: packages.php:145
+#: packages.php:152
 msgid "Print Follow me box to content bottom."
 msgstr ""
 
-#: packages.php:147
+#: packages.php:154
 #, php-format
 msgid "* You can stop the function separately from the %s."
 msgstr ""
 
-#: packages.php:151
+#: packages.php:158
 msgid "Social media cooperation"
 msgstr ""
 
-#: packages.php:170
+#: packages.php:177
 msgid "Print Google Analytics tracking code."
 msgstr ""
 
-#: packages.php:186
+#: packages.php:193
 msgid "You can use various widgets."
 msgstr ""
 
-#: packages.php:188
+#: packages.php:195
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr ""
 
-#: packages.php:189
+#: packages.php:196
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 
-#: packages.php:190
+#: packages.php:197
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr ""
 
-#: packages.php:191
+#: packages.php:198
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr ""
 
-#: packages.php:192
+#: packages.php:199
 msgid "VK_3PR area - display the 3PR area."
 msgstr ""
 
-#: packages.php:193
+#: packages.php:200
 msgid "categories/tags list"
 msgstr ""
 
-#: packages.php:193
+#: packages.php:200
 msgid "Displays a categories, tags or format list."
 msgstr ""
 
-#: packages.php:194 plugins/other_widget/widget-archives.php:9
+#: packages.php:201 plugins/other_widget/widget-archives.php:9
 msgid "archive list"
 msgstr ""
 
-#: packages.php:194 plugins/other_widget/widget-archives.php:14
+#: packages.php:201 plugins/other_widget/widget-archives.php:14
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
 msgstr ""
 
-#: packages.php:199
+#: packages.php:206
 msgid "Widgets"
 msgstr ""
 
-#: packages.php:217
+#: packages.php:224
 msgid "CSS customize"
 msgstr ""
 
-#: packages.php:218
+#: packages.php:225
 msgid "You can set Customize CSS."
 msgstr ""
 
-#: packages.php:236
+#: packages.php:243
 msgid "Child page index"
 msgstr ""
 
-#: packages.php:237
+#: packages.php:244
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
 msgstr ""
 
-#: packages.php:248
+#: packages.php:255
 msgid "Page list from ancestor"
 msgstr ""
 
-#: packages.php:249
+#: packages.php:256
 msgid "Display Page list from ancestor at after content."
 msgstr ""
 
-#: packages.php:259
+#: packages.php:266
 msgid "Contact Section"
 msgstr ""
 
-#: packages.php:260
+#: packages.php:267
 msgid "Display Contact Section at after content."
 msgstr ""
 
-#: packages.php:277
+#: packages.php:284
 msgid "Display HTML Site Map"
 msgstr ""
 
-#: packages.php:278
+#: packages.php:285
 msgid "It displays a HTML Site Map to the specified page."
 msgstr ""
 
-#: packages.php:287 plugins/call_to_action/view.adminsetting.php:10
+#: packages.php:294 plugins/call_to_action/view.adminsetting.php:10
 msgid "Display the CTA at the end of the post content."
 msgstr ""
 
-#: packages.php:289 plugins/call_to_action/view.adminsetting.php:11
+#: packages.php:296 plugins/call_to_action/view.adminsetting.php:11
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
 msgstr ""
 
-#: packages.php:291 plugins/call_to_action/view.adminsetting.php:12
+#: packages.php:298 plugins/call_to_action/view.adminsetting.php:12
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
 msgstr ""
 
-#: packages.php:295 plugins/call_to_action/view.adminsetting.php:6
+#: packages.php:302 plugins/call_to_action/view.adminsetting.php:6
 msgid "Call To Action"
 msgstr ""
 
-#: packages.php:304
+#: packages.php:311
 msgid "Contents setting"
 msgstr ""
 
-#: packages.php:318 plugins/insert_ads.php:37 plugins/insert_ads.php:119
+#: packages.php:325 plugins/insert_ads.php:37 plugins/insert_ads.php:132
 msgid "Insert ads"
 msgstr ""
 
-#: packages.php:319
+#: packages.php:326
 msgid "Insert ads to content."
 msgstr ""
 
-#: packages.php:335 plugins/related_posts/related_posts.php:57
+#: packages.php:342 plugins/related_posts/related_posts.php:57
 msgid "Related posts"
 msgstr ""
 
-#: packages.php:336
+#: packages.php:343
 msgid "Print Related posts lists to post content bottom."
 msgstr ""
 
-#: packages.php:346 vkExUnit_admin.php:28
+#: packages.php:353 vkExUnit_admin.php:28
 msgid "Automatic Eye Catch insert"
 msgstr ""
 
-#: packages.php:347
+#: packages.php:354
 msgid "Display Eye Catch image at before content."
 msgstr ""
 
-#: packages.php:357
+#: packages.php:364
 msgid "Disable ping back"
 msgstr ""
 
-#: packages.php:358
+#: packages.php:365
 msgid "Disable xmlrpc ping back."
 msgstr ""
 
-#: packages.php:367 packages.php:368
+#: packages.php:374 packages.php:375
 msgid "Disable dashbord"
 msgstr ""
 
-#: packages.php:379
+#: packages.php:386
 msgid "TinyMCE Style Tags"
 msgstr ""
 
-#: packages.php:380
+#: packages.php:387
 msgid "Add TinyMCE Editor to style tags."
 msgstr ""
 
@@ -513,23 +514,27 @@ msgstr ""
 msgid "Please upload your \".ico\" file"
 msgstr ""
 
-#: plugins/insert_ads.php:122
+#: plugins/insert_ads.php:135
 msgid "Insert ads to post."
 msgstr ""
 
-#: plugins/insert_ads.php:124
-msgid "Insert ads to more tag and after content."
+#: plugins/insert_ads.php:137
+msgid "Insert ads to before content and more tag and after content."
 msgstr ""
 
-#: plugins/insert_ads.php:124
+#: plugins/insert_ads.php:137
 msgid "If you want to separate ads area, you fill two fields."
 msgstr ""
 
-#: plugins/insert_ads.php:126
+#: plugins/insert_ads.php:139
+msgid "insert the ad [ before content ]"
+msgstr ""
+
+#: plugins/insert_ads.php:147
 msgid "insert the ad [ more tag ]"
 msgstr ""
 
-#: plugins/insert_ads.php:134
+#: plugins/insert_ads.php:155
 msgid "insert the ad [ after content ]"
 msgstr ""
 
@@ -642,13 +647,14 @@ msgstr ""
 
 #: plugins/wp_title.php:92
 #, php-format
-msgid "Normally, I will include the %1$s in the title tag."
+msgid "Normally \"%1$s\" is placed in the title tags of all the pages."
 msgstr ""
 
 #: plugins/wp_title.php:93
+#, php-format
 msgid ""
-"For example, it appears in the form of <br />&lt;title&gt;page title | site "
-"title&lt;/title&gt;<br /> if using a static page."
+"For example, it appears in the form of <br />&lt;title&gt;page title | "
+"%1$s&lt;/title&gt;<br /> if using a static page."
 msgstr ""
 
 #: plugins/wp_title.php:95
@@ -660,15 +666,21 @@ msgid ""
 "strong>"
 msgstr ""
 
-#: plugins/wp_title.php:96
-msgid ""
-"However, in the home page, as described above, other title will not be "
-"added, it is possible to make the &lt;title&gt; little longer, which can be "
-"set separately here."
+#: plugins/wp_title.php:97
+msgid "Tagline"
 msgstr ""
 
 #: plugins/wp_title.php:98
-msgid "Noting, set automatically"
+#, php-format
+msgid ""
+"In the top page will be output usually in the form of <br />&lt;title&gt;"
+"%1$s | %2$s&lt;/title&gt;"
+msgstr ""
+
+#: plugins/wp_title.php:99
+msgid ""
+"However, it may be too long in the above format. If the input to the input "
+"field of the following, its contents will be reflected."
 msgstr ""
 
 #: plugins/call_to_action/class.call_to_action.php:48
@@ -867,7 +879,7 @@ msgstr ""
 #: plugins/other_widget/widget-3pr-area.php:48
 #: plugins/other_widget/widget-3pr-area.php:98
 #: plugins/other_widget/widget-3pr-area.php:149
-#: plugins/other_widget/widget-new-posts.php:159
+#: plugins/other_widget/widget-new-posts.php:161
 #: plugins/other_widget/widget-pr-blocks.php:74
 #: plugins/other_widget/widget-profile.php:40
 #: plugins/sns/function_fbPagePlugin.php:79
@@ -936,8 +948,8 @@ msgid "Monthly archives"
 msgstr ""
 
 #: plugins/other_widget/widget-archives.php:63
-#: plugins/other_widget/widget-new-posts.php:156
-#: plugins/other_widget/widget-new-posts.php:157
+#: plugins/other_widget/widget-new-posts.php:158
+#: plugins/other_widget/widget-new-posts.php:159
 msgid "Title"
 msgstr ""
 
@@ -968,7 +980,7 @@ msgstr ""
 
 #: plugins/other_widget/widget-new-posts.php:11
 #: plugins/other_widget/widget-new-posts.php:29
-#: plugins/other_widget/widget-new-posts.php:146
+#: plugins/other_widget/widget-new-posts.php:148
 msgid "Recent Posts"
 msgstr ""
 
@@ -976,43 +988,43 @@ msgstr ""
 msgid "Displays a list of your most recent posts"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:155
+#: plugins/other_widget/widget-new-posts.php:157
 msgid "Display Format"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:156
+#: plugins/other_widget/widget-new-posts.php:158
 msgid "Thumbnail"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:156
-#: plugins/other_widget/widget-new-posts.php:157
+#: plugins/other_widget/widget-new-posts.php:158
+#: plugins/other_widget/widget-new-posts.php:159
 msgid "Date"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:157
+#: plugins/other_widget/widget-new-posts.php:159
 #: plugins/other_widget/widget-taxonomies.php:20
 #: plugins/other_widget/widget-taxonomies.php:49
 #: plugins/other_widget/widget-taxonomies.php:50
 msgid "Category"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:164
+#: plugins/other_widget/widget-new-posts.php:166
 msgid "Display count"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:169
+#: plugins/other_widget/widget-new-posts.php:171
 msgid "Slug for the custom type you want to display"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:174
+#: plugins/other_widget/widget-new-posts.php:176
 msgid "taxonomy ID"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:176
+#: plugins/other_widget/widget-new-posts.php:178
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:178 plugins/sns/sns_admin.php:66
+#: plugins/other_widget/widget-new-posts.php:180 plugins/sns/sns_admin.php:66
 msgid "if empty this area, I will do not filtering."
 msgstr ""
 
@@ -1379,7 +1391,7 @@ msgstr ""
 msgid "Follow me box title"
 msgstr ""
 
-#: plugins_admin/admin_bar.php:17 plugins_admin/admin_bar.php:34
+#: plugins_admin/admin_bar.php:17
 msgid "Edit Guide"
 msgstr ""
 

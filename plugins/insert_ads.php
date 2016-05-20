@@ -134,7 +134,7 @@ class vExUnit_Ads {
 <table class="form-table">
 <tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
 </th><td style="max-width:80em;">
-<?php _e( 'Insert ads to more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
+<?php _e( 'Insert ads to before content and more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
     <dl>
 		<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vkExUnit' ); ?></label></dt>
         <dd>
