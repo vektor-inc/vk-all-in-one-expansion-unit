@@ -46,14 +46,16 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			$p_args['tax_query'] = array(
 				'relation' => 'OR',
 			);
+			$terms_array = explode( ',', $instance['terms'] );
 			foreach ( $taxonomies as $taxonomy ) {
 				$p_args['tax_query'][] = array(
 					'taxonomy' => $taxonomy,
 					'field' => 'id',
-					'terms' => $instance['terms'],
+					'terms' => $terms_array,
 				);
 			}
 		}
+
 		$post_loop = new WP_Query( $p_args );
 
 		if ( $post_loop->have_posts() ) :
