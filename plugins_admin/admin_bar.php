@@ -32,7 +32,7 @@ function vkExUnit_adminbar_edit_header() {
 #wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active ._show { display: none; }
 #wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active ._hide { display: inline; }
 #wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item:hover { background-color: #17A686; color: #555; }
-#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active:hover { background-color: #0085C8; color: #fff; }
+#wpadminbar #wp-admin-bar-veu_disable_admin_edit .ab-item.active:hover { background-color: #0085C8; color: #fff; }</style>
 	<?php }
 }
 
