@@ -189,16 +189,3 @@ function vkExUnit_uninstall_function() {
 
 	include vkExUnit_get_directory( '/uninstaller.php' );
 }
-
-
-add_action('wp_ajax_nopriv_famas', 'vkExUnit_sns_count_pocket');
-function vkExUnit_sns_count_pocket(){
-	// var_dump($_POST);
-	$r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=http://bizvektor.com', array() );
-	if( is_wp_error($r) ){
-		die();
-	}
-	header("Content-Type: text/html");
-	echo $r['body'];
-	die();
-}
