@@ -131,8 +131,9 @@ function vkExUnit_addJs() {
 	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
 		wp_register_script( 'vkExUnit_master-js' , plugins_url( '', __FILE__ ).'/js/all_in_bs.min.js', array( 'jquery' ), $vkExUnit_version );
 	} else {
-		wp_register_script( 'vkExUnit_master-js' , plugins_url( '', __FILE__ ).'/js/all.min.js', array( 'jquery' ), $vkExUnit_version );
+		wp_register_script( 'vkExUnit_master-js' , plugins_url( '', __FILE__ ).'/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
 	}
+	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters('vkExUnit_localize_options', array('ajax_url'=>admin_url('admin-ajax.php')) ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
 
@@ -187,4 +188,17 @@ if ( function_exists( 'register_deactivation_hook' ) ) {
 function vkExUnit_uninstall_function() {
 
 	include vkExUnit_get_directory( '/uninstaller.php' );
+}
+
+
+add_action('wp_ajax_nopriv_famas', 'vkExUnit_sns_count_pocket');
+function vkExUnit_sns_count_pocket(){
+	// var_dump($_POST);
+	$r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=http://bizvektor.com', array() );
+	if( is_wp_error($r) ){
+		die();
+	}
+	header("Content-Type: text/html");
+	echo $r['body'];
+	die();
 }
