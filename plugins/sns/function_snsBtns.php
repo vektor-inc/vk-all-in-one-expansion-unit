@@ -1,7 +1,14 @@
 <?php
-
+	add_filter( 'vkExUnit_localize_options', 'vkExUnit_sns_set_location_option');
 	add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );
 	// is_single()
+
+function vkExUnit_sns_set_location_option( $opt ){
+	if(!vkExUnit_is_snsBtns_display())return $opt;
+	$opt['sns_linkurl'] = vkExUnit_sns_get_url();
+	return $opt;
+}
+
 
 function vkExUnit_is_snsBtns_display(){
 	global $post;
@@ -18,22 +25,29 @@ function vkExUnit_is_snsBtns_display(){
 	}
 }
 
+
+function vkExUnit_sns_get_url(){
+	if ( is_home() || is_front_page() ) {
+		$linkUrl = home_url();
+		$twitterUrl = home_url();
+	} else if ( is_single() || is_archive() || ( is_page() && ! is_front_page() ) ) {
+		// $twitterUrl = home_url().'/?p='.get_the_ID();
+		// URL is shortened it's id, but perm link because it does not count URL becomes separately
+		$twitterUrl = get_permalink();
+		$linkUrl = get_permalink();
+	} else {
+		$linkUrl = get_permalink();
+	}
+	return $linkUrl;
+}
+
+
 function vkExUnit_add_snsBtns( $content ) {
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
 
 	if ( is_single() || is_page() ) :
-		if ( is_home() || is_front_page() ) {
-			$linkUrl = home_url();
-			$twitterUrl = home_url();
-		} else if ( is_single() || is_archive() || ( is_page() && ! is_front_page() ) ) {
-			// $twitterUrl = home_url().'/?p='.get_the_ID();
-			// URL is shortened it's id, but perm link because it does not count URL becomes separately
-			$twitterUrl = get_permalink();
-			$linkUrl = get_permalink();
-		} else {
-			$linkUrl = get_permalink();
-		}
+		$linkUrl = vkExUnit_sns_get_url();
 		$pageTitle = '';
 		if ( is_single() || is_page() ) {
 			$pageTitle = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
@@ -56,7 +70,7 @@ function vkExUnit_add_snsBtns( $content ) {
 			<a href="line://msg/text/'.$pageTitle.' '.$linkUrl.'"><span class="vk_icon_w_r_sns_line icon_sns"></span><span class="sns_txt">LINE</span></a></li>';
 			endif;
 			// pocket
-			$socialSet .= '<li class="sb_pocket"><span></span><a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-save-url="'.$linkUrl.'" data-lang="en"></a><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script></li>';
+			$socialSet .= '<li class="sb_pocket"><a href="http://www.facebook.com/sharer.php?src=bm&u='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank" ><span class="vk_icon_w_r_sns_fb icon_sns"></span><span class="sns_txt">Pocket</span><span class="veu_count_sns_pocket">-</span></a></li>';
 
 			$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
 			$content .= $socialSet;
@@ -64,4 +78,16 @@ function vkExUnit_add_snsBtns( $content ) {
 
 	endif;
 	return $content;
+}
+
+add_action('wp_ajax_vkex_pocket_tunnel', 'vkExUnit_sns_pocket_tunnel');
+add_action('wp_ajax_nopriv_vkex_pocket_tunnel', 'vkExUnit_sns_pocket_tunnel');
+function vkExUnit_sns_pocket_tunnel(){
+	ini_set( 'display_errors', 0 );
+	$linkurl = urldecode( filter_input( INPUT_POST, "linkurl" ) );
+	if( $s["host"] != $p["host"] ){ echo "0"; die(); }
+	$r = wp_safe_remote_get('https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl);
+	if( is_wp_error($r) ){ echo "0"; die(); }
+	echo $r['body'];
+	die();
 }
