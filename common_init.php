@@ -52,7 +52,7 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_css_customize']     = (isset( $input['active_css_customize'] )) ? true:false;
 	$output['active_call_to_action']    = (isset( $input['active_call_to_action'] )) ? true:false;
 	$output['delete_options_at_deactivate']             = (isset( $input['delete_options_at_deactivate'] )) ? true:false;
-	$output['content_filter_state']     = 'loop_end';
+	$output['content_filter_state']     = (isset( $input['content_filter_state'] )) ? 'loop_end': 'content';
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
 }
 
