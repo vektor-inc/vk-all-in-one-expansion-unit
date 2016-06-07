@@ -14,34 +14,33 @@ function vkExUnit_childPageIndex_shortcode() {
 	$args = array(
 		'post_type'			=> 'page',
 		'posts_per_page'	=> -1,
-		'order'				=> 'asc',
+		'order'				=> 'ASC',
 		'orderby'			=> 'menu_order',
 		'post_parent'		=> $parentId,
-		);
-	$childrens = new WP_Query( $args );
+	);
+	$childrens = get_posts( $args );
 
-	if ( ! $childrens->have_posts() ) { return; }
+	if ( empty( $childrens ) ) { return; }
 
 	$childPageList_html = PHP_EOL.'<div class="row veu_childPage_list">'.PHP_EOL;
-	while ( $childrens->have_posts() ) : $childrens->the_post();
+	foreach( $childrens as $children ):
 
 			// Set Excerpt
-			$postExcerpt = $post->post_excerpt;
+			$postExcerpt = $children->post_excerpt;
 		if ( ! $postExcerpt ) {
-			$postExcerpt = esc_html( mb_substr( strip_tags( $post->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
+			$postExcerpt = esc_html( mb_substr( strip_tags( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
 			if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
 		}
 
 			// Page Item build
-			$childPageList_html .= '<a href="'.esc_url( get_permalink() ).'" class="col-sm-6 childPage_list_box"><div class="childPage_list_box_inner">';
-			$childPageList_html .= '<h3 class="childPage_list_title">'.esc_html( get_the_title() ).'</h3>';
-			$childPageList_html .= '<div class="childPage_list_body">'.get_the_post_thumbnail( $post->ID, 'large' );
+			$childPageList_html .= '<a href="'.esc_url( get_permalink( $children->ID ) ).'" class="col-sm-6 childPage_list_box"><div class="childPage_list_box_inner">';
+			$childPageList_html .= '<h3 class="childPage_list_title">'.esc_html( strip_tags( $children->post_title ) ).'</h3>';
+			$childPageList_html .= '<div class="childPage_list_body">'.get_the_post_thumbnail( $children->ID, 'large' );
 			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p></div>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">'.__( 'Read more', 'vkExUnit' ).'</span>';
 			$childPageList_html .= '</div></a>'.PHP_EOL;
+	endforeach;
 
-	endwhile;
-	wp_reset_postdata();
 	$childPageList_html .= PHP_EOL.'</div><!-- [ /.childPage_list ] -->'.PHP_EOL;
 
 	return $childPageList_html;
