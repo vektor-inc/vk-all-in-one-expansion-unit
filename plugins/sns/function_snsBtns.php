@@ -4,7 +4,8 @@ if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'v
 else add_action( 'loop_end', 'vkExUnit_add_snsBtns_loopend' );
 
 
-function vkExUnit_add_snsBtns_loopend(){
+function vkExUnit_add_snsBtns_loopend( $query ){
+	if( ! $query->is_main_query() ) return;
 	echo vkExUnit_add_snsBtns('');
 }
 

@@ -73,8 +73,8 @@ if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 's
 else add_action( 'loop_end', 'vkExUnit_sitemap_loopend' );
 
 
-
-function vkExUnit_sitemap_loopend(){
+function vkExUnit_sitemap_loopend( $query ){
+	if( ! $query->is_main_query() ) return;
 	echo show_sitemap('');
 }
 
