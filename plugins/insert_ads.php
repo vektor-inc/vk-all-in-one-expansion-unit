@@ -135,30 +135,30 @@ class vExUnit_Ads {
 <tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
 </th><td style="max-width:80em;">
 <?php _e( 'Insert ads to before content and more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
-    <dl>
+	<dl>
 		<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vkExUnit' ); ?></label></dt>
-        <dd>
+		<dd>
 		<textarea rows="5" name="vkExUnit_Ads[before][]" id="ad_content_before" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['before'][0] ) && $option['before'][0] )? $option['before'][0]: ''; ?></textarea>
-        <br/>
+		<br/>
 		<textarea rows="5" name="vkExUnit_Ads[before][]" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['before'][1] ) && $option['before'][1] )? $option['before'][1]: ''; ?></textarea>
-        </dd>
-    </dl>
-    <dl>
+		</dd>
+	</dl>
+	<dl>
 		<dt><label for="ad_content_moretag"><?php _e( 'insert the ad [ more tag ]', 'vkExUnit' ); ?></label></dt>
-        <dd>
+		<dd>
 		<textarea rows="5" name="vkExUnit_Ads[more][]" id="ad_content_moretag" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['more'][0] ) && $option['more'][0] )? $option['more'][0]: ''; ?></textarea>
-        <br/>
+		<br/>
 		<textarea rows="5" name="vkExUnit_Ads[more][]" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['more'][1] ) && $option['more'][1] )? $option['more'][1]: ''; ?></textarea>
-        </dd>
-    </dl>
-    <dl>
+		</dd>
+	</dl>
+	<dl>
 		<dt><label for="ad_content_after"><?php _e( 'insert the ad [ after content ]', 'vkExUnit' ); ?></label></dt>
-        <dd>
+		<dd>
 		<textarea rows="5" name="vkExUnit_Ads[after][]" id="ad_content_after" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['after'][0] ) && $option['after'][0] )? $option['after'][0]: ''; ?></textarea>
-        <br/>
+		<br/>
 		<textarea rows="5" name="vkExUnit_Ads[after][]" value="" style="width:100%;max-width:50em;" /><?php echo (isset( $option['after'][1] ) && $option['after'][1] )? $option['after'][1]: ''; ?></textarea>
-        </dd>
-    </dl>
+		</dd>
+	</dl>
 </td></tr></table>
 <?php submit_button(); ?>
 </div>
