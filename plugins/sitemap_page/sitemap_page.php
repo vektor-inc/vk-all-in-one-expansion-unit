@@ -118,6 +118,9 @@ function vkExUnit_sitemap( $atts ) {
 	$page_for_posts = vkExUnit_get_page_for_posts();
 	$allPostTypes = get_post_types( array( 'public' => true ) );
 
+	$p = get_posts(array('post_type'=>'post','post_status'=>'publish'));
+	if( empty($p) ) unset( $allPostTypes['post'] );
+
 	foreach ( $allPostTypes as $postType ) {
 		$post_type_object = get_post_type_object( $postType );
 
