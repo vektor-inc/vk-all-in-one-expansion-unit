@@ -1,5 +1,14 @@
 <?php
-add_filter( 'the_content', 'vkExUnit_add_relatedPosts' , 800 , 1 );
+
+if( vkExUnit_content_filter_state() == 'content' )  add_filter( 'the_content', 'vkExUnit_add_relatedPosts' , 800 , 1 );
+else add_action( 'loop_end', 'vkExUnit_add_related_loopend' );
+
+
+function vkExUnit_add_related_loopend(){
+	if( ! is_single() ) return;
+	echo vkExUnit_add_relatedPosts('famas');
+}
+
 
 function vkExUnit_add_relatedPosts( $content ) {
 	/*-------------------------------------------*/

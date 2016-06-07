@@ -48,7 +48,15 @@ function vkExUnit_childPageIndex_shortcode() {
 }
 
 
-add_filter( 'the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1 );
+if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1 );
+else add_action( 'loop_end', 'vkExUnit_chidPageIndex_loopend' );
+
+
+function vkExUnit_chidPageIndex_loopend(){
+	echo do_shortcode( vkExUnit_childPageIndex_contentHook('') );
+}
+
+
 function vkExUnit_childPageIndex_contentHook( $content ) {
 	if ( vkExUnit_is_excerpt() ) { return $content; }
 	global $is_pagewidget;

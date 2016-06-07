@@ -30,9 +30,16 @@ class vExUnit_Contact {
 		add_action( 'admin_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		add_filter( 'the_content',    array( $this, 'set_content' ), 10,1 );
 		add_filter( 'vkExUnit_customField_Page_activation', array( $this, 'activate_metavox' ), 10, 1 );
 		add_action( 'vkExUnit_customField_Page_box', array( $this, 'render_meta_box' ) );
+
+		if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content',    array( $this, 'set_content' ), 10,1 );
+		else add_action( 'loop_end', array( $this, 'set_content_loopend') );
+	}
+
+
+	public function set_content_loopend(){
+		echo do_shortcode( $this->set_content('') );
 	}
 
 

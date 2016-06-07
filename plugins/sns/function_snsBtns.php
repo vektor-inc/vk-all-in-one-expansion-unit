@@ -1,7 +1,12 @@
 <?php
 
-	add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );
-	// is_single()
+if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );
+else add_action( 'loop_end', 'vkExUnit_add_snsBtns_loopend' );
+
+
+function vkExUnit_add_snsBtns_loopend(){
+	echo vkExUnit_add_snsBtns('');
+}
 
 function vkExUnit_is_snsBtns_display(){
 	global $post;
