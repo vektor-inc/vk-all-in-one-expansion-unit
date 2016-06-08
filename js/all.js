@@ -164,33 +164,35 @@ window.onload = function() {
 /*	snsCount
 /*-------------------------------------------*/
 (function($){
+var socials = $('.veu_socialSet');
+if(typeof socials[0] === "undefined")return;
+var linkurl = encodeURIComponent(( typeof vkExOpt !== "undefined" && vkExOpt.sns_linkurl ) || location.href);
 var facebook = {
   init: function() {
-    var url = '//graph.facebook.com/?id=' + encodeURIComponent(location.href);
+    var url = '//graph.facebook.com/?id=' + linkurl;
     $.ajax({
       url: url,
       dataType: 'jsonp',
-      success: function(json) {
-        var count = json.shares ? json.shares : 0;
-        $('.veu_socialSet').find('.veu_count_sns_fb').html(count);
+      success: function(response) {
+        var count = response.shares ? response.shares : 0;
+        socials.find('.veu_count_sns_fb').html(count);
       }
     });
   }
 }
-facebook.init();
 
 window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
 
 var hatena = {
   init: function() {
     var url = (location.protocol === 'https:'?'https://b.hatena.ne.jp':'http://api.b.st-hatena.com')
-            + '/entry.count?url=' + encodeURIComponent(location.href);
+            + '/entry.count?url=' + linkurl;
     $.ajax({
       url: url,
       dataType: 'jsonp',
-      success: function(json) {
-        var count = json ? json : 0;
-        $('.veu_socialSet').find('.veu_count_sns_hb').html(count);
+      success: function(response) {
+        var count = response ? response : 0;
+        socials.find('.veu_count_sns_hb').html(count);
 
         if(typeof(count) == 'undefined'){
           count = 0;
@@ -199,7 +201,27 @@ var hatena = {
     });
   }
 }
+var pocket = {
+    init: function(){
+        $.ajax({
+            url: vkExOpt.ajax_url,
+            type: 'POST',
+            data: {
+                'action':'vkex_pocket_tunnel',
+                'linkurl': linkurl
+            },
+            dataType: 'html',
+            success: function(response){
+                var count = $(response).find("#cnt").html();
+                if( typeof count === 'undefined' ) return;
+                socials.find('.veu_count_sns_pocket').html(count);
+            }
+        })
+    }
+}
+facebook.init();
 hatena.init();
+pocket.init();
 })(jQuery);
 
 
