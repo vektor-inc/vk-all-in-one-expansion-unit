@@ -70,7 +70,7 @@ function vkExUnit_add_snsBtns( $content ) {
 			<a href="line://msg/text/'.$pageTitle.' '.$linkUrl.'"><span class="vk_icon_w_r_sns_line icon_sns"></span><span class="sns_txt">LINE</span></a></li>';
 			endif;
 			// pocket
-			$socialSet .= '<li class="sb_pocket sb_icon"><a href="http://getpocket.com/edit?url='.$linkUrl.'&amp;t='.$pageTitle.'" target="_blank" ><i class="fa fa-get-pocket" aria-hidden="true"></i><span class="sns_txt">Pocket</span><span class="veu_count_sns_pocket">-</span></a></li>';
+			$socialSet .= '<li class="sb_pocket sb_icon"><a href="//getpocket.com/edit?url='. $linkUrl .'&title=' . $pageTitle . '" target="_blank" onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><i class="fa fa-get-pocket" aria-hidden="true"></i><span class="sns_txt">Pocket</span><span class="veu_count_sns_pocket">-</span></a></li>';
 
 			$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
 			$content .= $socialSet;
