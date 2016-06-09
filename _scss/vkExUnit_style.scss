@@ -151,7 +151,7 @@ h1.mainSection-title { font-size:24px; }
 		&.sb_icon a .sns_txt { position: relative;top:-1px;  }
 		iframe	{ border:none; }
 		a .icon_sns,
-		a .fa-get-pocket { margin-right:5px;font-size:100%;padding: 5px 8px 5px 0; display: inline-block; border-right: 1px solid #ffffff; }
+		a .fa-get-pocket { font-size:100%;padding: 5px 8px 5px 0; display: inline-block; }
 		&.sb_icon.sb_facebook a{ background: #425dab; box-shadow: 0 4px 0 rgb(52, 78, 132);
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 		}
@@ -167,7 +167,7 @@ h1.mainSection-title { font-size:24px; }
 		&.sb_icon.sb_line a { background:#6ebd30; box-shadow: 0 4px 0 #5b9c28;
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 		}
-		&.sb_pocket a.pocket-btn { background: #ea4654; box-shadow: 0 4px 0 #c1303c;
+		&.sb_pocket a { background: #ea4654; box-shadow: 0 4px 0 #c1303c;
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 			#btn b{ background-image:none;}
 			#btn span { position: relative; display: block; border:none; font-weight: bold; color: #777; background:transparent;}
@@ -176,7 +176,7 @@ h1.mainSection-title { font-size:24px; }
 		}//li.sb_pocket
 	}//li
 }//.veu_socialSet ul
-.pocket-count,
+.veu_count_sns_pocket,
 .veu_count_sns_fb,
 .veu_count_sns_hb { position: absolute; bottom: 5px; right: 5px; font-size:77%; line-height:1;font-weight: bold; }
 
