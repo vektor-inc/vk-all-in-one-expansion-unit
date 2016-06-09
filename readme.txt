@@ -71,10 +71,14 @@ e.g.
 
 == Changelog ==
 
+= 4.1.0 =
+* [ Add Function ][ Add Widget ] Child Page list
+* [ Other ][ SNS Button ] Redesign 
+
 = 4.0.0 =
-* [ Improve the UI ][ title tag ] Add link to setting page.
-* [ Add Function ][ Insert Ads ] Add insert ads before contents.
-* [ Other ] Add test domain. 
+
+* [ Add Function ][ Insert Ads ] Add insert ads before contents
+* [ Specification change ][ SNS Button ] Redesign
 
 = 3.9.1 =
 * [ bug fix ][ titile tag ]
