@@ -146,22 +146,39 @@ h1.mainSection-title { font-size:24px; }
 /* .veu_socialSet
 /*-------------------------------------------*/
 .veu_socialSet ul { margin:0px;padding:0;
-	li { position:relative; display:block;float:left; overflow:visible; margin-right:10px; padding:0px; background:none; }
-	li.sb_icon a {display:block; overflow:hidden; padding: 3px 5px 0px;border:1px solid #ccc; border-radius: 3px; background-color:#fff;color:#333;text-decoration: none; line-height: 100%; }
-	li.sb_icon a .sns_txt { position: relative;top:-2px; font-size:11px; }
-	li iframe	{ border:none; }
-	li a .icon_sns { margin-right:5px;font-size:100%; }
-	li.sb_icon.sb_facebook .icon_sns	{ color:#425dab; }
-	li.sb_icon.sb_hatena .icon_sns	{ color:#2c6ebd; }
-	li.sb_icon.sb_twitter .icon_sns	{ color:#00abec; }
-	li.sb_icon.sb_google .icon_sns	{ color:#dd4b39; }
-	li.sb_icon.sb_line .icon_sns	{ color:#6ebd30; }
-	li.sb_pocket		{ margin-left:5px;}
-}
+	li { position:relative; display:block;float:left; overflow:visible; width: 24.1%; margin-right: 5px; padding:0px; background:none; 
+		&.sb_icon a {display:block; overflow:hidden; padding: 7px 10px;border-radius: 4px; color:#fff;text-decoration: none; line-height: 100%; font-size: 90%;}
+		&.sb_icon a .sns_txt { position: relative;top:-1px;  }
+		iframe	{ border:none; }
+		a .icon_sns,
+		a .fa-get-pocket { margin-right:5px;font-size:100%;padding: 5px 8px 5px 0; display: inline-block; border-right: 1px solid #ffffff; }
+		&.sb_icon.sb_facebook a{ background: #425dab; box-shadow: 0 4px 0 rgb(52, 78, 132);
+			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
+		}
+		&.sb_icon.sb_hatena a { background: #007fc5; box-shadow: 0 4px 0 rgba(0,103,159,1); 
+			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
+		}
+		&.sb_icon.sb_twitter a	{ background:#00abec; box-shadow: 0 4px 0 rgba(0,126,170,1); 
+			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
+		}
+		&.sb_icon.sb_google a { background:#dd4b39;     box-shadow: 0 4px 0 rgba(160,53,36,1); 
+			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
+		}
+		&.sb_icon.sb_line a { background:#6ebd30; box-shadow: 0 4px 0 #5b9c28;
+			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
+		}
+		&.sb_pocket a.pocket-btn { background: #ea4654; box-shadow: 0 4px 0 #c1303c;
+			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
+			#btn b{ background-image:none;}
+			#btn span { position: relative; display: block; border:none; font-weight: bold; color: #777; background:transparent;}
+			.icon-pocket:after{ content:'Pocket';}
+
+		}//li.sb_pocket
+	}//li
+}//.veu_socialSet ul
+.pocket-count,
 .veu_count_sns_fb,
-.veu_count_sns_hb { display:inline-block; margin-left:5px; padding:2px 5px; border-radius:5px; color:#ffffff; vertical-align:top; font-size:77%; line-height:1; }
-.veu_count_sns_fb { background:#425dab; }
-.veu_count_sns_hb { background:#2c6ebd; }
+.veu_count_sns_hb { position: absolute; bottom: 5px; right: 5px; font-size:77%; line-height:1;font-weight: bold; }
 
 /*-------------------------------------------*/
 /*			import icon
@@ -226,6 +243,7 @@ h1.mainSection-title { font-size:24px; }
 	.childPage_list_text{ overflow: hidden;margin-bottom: 0;}
 	.childPage_list_more{ float: right;margin-bottom:20px; }
 }
+
 @media (max-width: 767px){
 .veu_childPage_list {
 	.wp-post-image{ width: 25%; }
@@ -326,11 +344,18 @@ h1.mainSection-title { font-size:24px; }
 	.cta_body_txt { display:block; overflow:hidden; }
 	.cta_body_link { clear:both;margin-top:1.5em; }
 }
+
 @media (max-width: 767px){
+.veu_socialSet ul li { width: 49%; margin-bottom: 9px;
+	&:nth-child(even) { margin-right:0; }
+	&.sb_icon a { padding: 8px 10px; }
+}	
+.pocket-count, .veu_count_sns_fb, .veu_count_sns_hb { bottom: 2px;}
 .veu_cta {
 	.cta_body_image img { display:block; margin:0 auto 1.5em;max-width: 100%; }
 }
 }
+
 @media (min-width: 768px){
 .veu_cta {
 	.cta_body_image_right { float:right;margin-left:30px; }
