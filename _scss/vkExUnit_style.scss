@@ -49,6 +49,7 @@ $section_margin : 30px;
 
 html { font-size: inherit; } /* reset bootstrap */
 .link-list li { padding:0.5em; }
+iframe.wp-embedded-content { width:100%; }
 
 @media (min-width: 768px){
 .mainSection .widget { margin-bottom:40px; }
@@ -312,7 +313,7 @@ h1.mainSection-title { font-size:24px; }
 
 @mixin veu_content_bottom_section { display:block; overflow:hidden;margin-top:$section_margin;margin-bottom:$section_margin;background-color: #efefef; }
 @mixin veu_content_bottom_section_title { display:block; overflow:hidden;margin:0;padding: 12px 20px 10px;background-color: #333;color:#fff;font-size:22px;line-height: 1.2em; }
-@mixin veu_content_bottom_section_body { display:block; overflow:hidden; padding:1.5em 2em 2em; }
+@mixin veu_content_bottom_section_body { display:block; overflow:hidden; padding:1.5em 1.5em 2em; }
 
 /*-------------------------------------------*/
 /* .veu_followSet
