@@ -151,13 +151,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			'format'    => '0',
 		);
 
-		$instance = wp_parse_args( (array) $instance, $defaults );
-		//タイトル ?>
+		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
         <br/>
 		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' );  ?>" value="0" <?php if ( ! $instance['format'] ) { echo 'checked'; } ?> /><?php echo __( 'Thumbnail', 'vkExUnit' ) .'/'. __( 'Title', 'vkExUnit' ) .'/'. __( 'Date', 'vkExUnit' ); ?></label><br/>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' );  ?>" value="1" <?php if ( $instance['format'] == 1 ) { echo 'checked'; } ?>/><?php echo __( 'Date', 'vkExUnit' ) .'/'. __( 'Category', 'vkExUnit' ) .'/'. __( 'Title', 'vkExUnit' ); ?></label>
         <br/><br/>
+
+        <?php //タイトル ?>
 		<label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
         <br/><br />
