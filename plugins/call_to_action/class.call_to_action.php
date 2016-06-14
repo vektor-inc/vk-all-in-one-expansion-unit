@@ -27,7 +27,15 @@ class vExUnit_call_responce {
 		add_action( 'admin_init', array( $this, 'option_init' ) );
 		add_action( 'admin_menu', array( $this, 'add_custom_field' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field' ) );
-		add_filter( 'the_content', array( $this, 'content_filter' ), $this->content_number, 1 );
+		if( vkExUnit_content_filter_state() == 'content' )  add_filter( 'the_content', array( $this, 'content_filter' ), $this->content_number, 1 );
+		else add_action( 'loop_end', array( $this, 'set_content_loopend' ), $this->content_number, 1 );
+	}
+
+
+	public function set_content_loopend($query ){
+		if( ! $query->is_main_query() ) return;
+		if( ! is_single() ) return;
+		echo $this->content_filter('');
 	}
 
 

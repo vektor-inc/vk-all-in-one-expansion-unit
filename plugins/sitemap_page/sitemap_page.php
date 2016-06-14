@@ -69,7 +69,15 @@ function vkExUnit_sitemap_options_validate( $input ) {
 /*-------------------------------------------*/
 /*  insert sitemap page
 /*-------------------------------------------*/
-add_filter( 'the_content', 'show_sitemap', 7, 1 );
+if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'show_sitemap', 7, 1 );
+else add_action( 'loop_end', 'vkExUnit_sitemap_loopend' );
+
+
+function vkExUnit_sitemap_loopend( $query ){
+	if( ! $query->is_main_query() ) return;
+	echo show_sitemap('');
+}
+
 
 function show_sitemap( $content ) {
 	global $is_pagewidget;

@@ -1,7 +1,17 @@
 <?php
-add_filter( 'the_content', 'vkExUnit_add_relatedPosts' , 800 , 1 );
+
+if( vkExUnit_content_filter_state() == 'content' )  add_filter( 'the_content', 'vkExUnit_add_relatedPosts' , 800 , 1 );
+else add_action( 'loop_end', 'vkExUnit_add_related_loopend', 800, 1 );
+
+
+function vkExUnit_add_related_loopend( $query ){
+	if( ! $query->is_main_query() ) return;
+	echo vkExUnit_add_relatedPosts('');
+}
+
 
 function vkExUnit_add_relatedPosts( $content ) {
+	if( ! is_single() ) return $content;
 	/*-------------------------------------------*/
 	/*  Related posts
 	/*-------------------------------------------*/

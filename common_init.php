@@ -28,6 +28,7 @@ function vkExUnit_get_common_options_default() {
 		'active_call_to_action'     => true,
 		'delete_options_at_deactivate' => false,
 		'delete_options_with_bizvektors_common' => true,
+		'content_filter_state'      => 'content',
 	);
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
@@ -51,5 +52,13 @@ function vkExUnit_common_options_validate( $input ) {
 	$output['active_css_customize']     = (isset( $input['active_css_customize'] )) ? true:false;
 	$output['active_call_to_action']    = (isset( $input['active_call_to_action'] )) ? true:false;
 	$output['delete_options_at_deactivate']             = (isset( $input['delete_options_at_deactivate'] )) ? true:false;
+	$output['content_filter_state']     = (isset( $input['content_filter_state'] )) ? 'loop_end': 'content';
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
+}
+
+
+
+function vkExUnit_content_filter_state(){
+	$opt = vkExUnit_get_common_options();
+	return empty( $opt['content_filter_state'] )? 'content' : $opt['content_filter_state'];
 }

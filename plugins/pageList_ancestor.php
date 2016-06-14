@@ -4,6 +4,17 @@
 /*-------------------------------------------*/
 
 add_shortcode( 'pageList_ancestor', 'vkExUnit_pageList_ancestor_shortcode' );
+
+if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
+else add_action( 'loop_end', 'vkExUnit_pageList_ancestor_loopend', 10, 1 );
+
+
+function vkExUnit_pageList_ancestor_loopend( $query ){
+	if( ! $query->is_main_query() ) return;
+	echo vkExUnit_pageList_ancestor_shortcode();
+}
+
+
 function vkExUnit_pageList_ancestor_shortcode() {
 	global $post;
 	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) { return; }
@@ -31,7 +42,7 @@ function vkExUnit_pageList_ancestor_shortcode() {
 	return $pageList_ancestor_html;
 }
 
-add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook' );
+
 function vkExUnit_pageList_ancestor_contentHook( $content ) {
 
 	global $post;
@@ -47,6 +58,8 @@ add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_pageList_ancestor_
 function vkExUnit_pageList_ancestor_activate_meta_box( $flag ) {
 	return true;
 }
+
+
 
 // admin screen -------------------------------
 

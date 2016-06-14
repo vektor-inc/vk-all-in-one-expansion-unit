@@ -1,7 +1,12 @@
 <?php
-	add_filter( 'vkExUnit_localize_options', 'vkExUnit_sns_set_location_option');
-	add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );
-	// is_single()
+if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );
+else add_action( 'loop_end', 'vkExUnit_add_snsBtns_loopend' );
+
+
+function vkExUnit_add_snsBtns_loopend( $query ){
+	if( ! $query->is_main_query() ) return;
+	echo vkExUnit_add_snsBtns('');
+}
 
 function vkExUnit_sns_set_location_option( $opt ){
 	if(!vkExUnit_is_snsBtns_display())return $opt;
