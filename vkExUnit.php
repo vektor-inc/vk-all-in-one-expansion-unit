@@ -118,7 +118,7 @@ function vkExUnit_print_css() {
 		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ).'/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
 	}
 	if ( isset( $options['active_fontawesome'] ) && $options['active_fontawesome'] ) {
-		wp_enqueue_style( 'font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css', array(), '4.3.0', 'all' );
+		wp_enqueue_style( 'font-awesome', vkExUnit_get_directory_uri() . '/liblarys/font-awesome/css/font-awesome.min.css', array(), '4.6.3', 'all' );
 	}
 }
 /*-------------------------------------------*/
