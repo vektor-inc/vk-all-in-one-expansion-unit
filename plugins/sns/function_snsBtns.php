@@ -51,7 +51,7 @@ function vkExUnit_add_snsBtns( $content ) {
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
 
-	if ( is_single() || is_page() ) :
+	if ( ( ! is_front_page() and ! is_home() ) && ( is_single() || is_page() ) ) :
 		$linkUrl = vkExUnit_sns_get_url();
 		$pageTitle = '';
 		if ( is_single() || is_page() ) {
