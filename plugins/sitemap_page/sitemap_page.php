@@ -115,8 +115,8 @@ function vkExUnit_sitemap( $atts ) {
 	);
 	$sitemap_html .= wp_list_pages( $args );
 
-	$sitemap_html .= '</ul><!-- [ /.link-list ] -->'.PHP_EOL;
-	$sitemap_html .= '</div><!-- [ /.sitemap-col ] -->'.PHP_EOL;
+	$sitemap_html .= '</ul>'.PHP_EOL; // <!-- [ /.link-list ] -->
+	$sitemap_html .= '</div>'.PHP_EOL; //<!-- [ /.sitemap-col ] -->
 
 	/*-------------------------------------------*/
 	/* Posts & Custom posts
@@ -173,7 +173,7 @@ function vkExUnit_sitemap( $atts ) {
 														'show_option_none' => '',
 													);
 													$sitemap_html .= wp_list_categories( $args );
-													$sitemap_html .= '</ul><!-- [ /.link-list ] -->'.PHP_EOL;
+													$sitemap_html .= '</ul>'.PHP_EOL; // <!-- [ /.link-list ] -->
 							}
 						}
 					} // end if($post_type_object)
@@ -203,9 +203,9 @@ function vkExUnit_sitemap( $atts ) {
 			} // end not page_type and post_type
 		} // end if($post_type_object)
 	} // end foreach ($allPostTypes as $postType)
-	$sitemap_html .= '</div><!-- [ /.sectionBox ] -->'.PHP_EOL;
-	$sitemap_html .= '</div><!-- [ /.sitemap-col ] -->'.PHP_EOL;
-	$sitemap_html .= '</div><!-- [ /.sitemap ] -->'.PHP_EOL;
+	$sitemap_html .= '</div>'.PHP_EOL; // <!-- [ /.sectionBox ] -->
+	$sitemap_html .= '</div>'.PHP_EOL; // <!-- [ /.sitemap-col ] -->
+	$sitemap_html .= '</div>'.PHP_EOL; // <!-- [ /.sitemap ] -->
 
 	return $sitemap_html;
 }
