@@ -51,15 +51,6 @@ html { font-size: inherit; } /* reset bootstrap */
 .link-list li { padding:0.5em; }
 iframe.wp-embedded-content { width:100%; }
 
-@media (min-width: 768px){
-.mainSection .widget { margin-bottom:40px; }
-}
-.widget { 
-  .subSection-title { font-size:18px; }
-}
-
-h1.mainSection-title { font-size:24px; }
-
 .veu_adminEdit { margin-top:5px; }
 .veu_adminEdit a.btn:before{margin-right:5px;content:"\f040";font-family:FontAwesome;}
 

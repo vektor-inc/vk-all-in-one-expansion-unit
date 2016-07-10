@@ -21,7 +21,7 @@ function vkExUnit_print_og() {
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
 	if ( is_home() || is_front_page() ) {
-		$linkUrl = home_url();
+		$linkUrl = home_url('/');
 	} else if ( is_single() || is_page() ) {
 		$linkUrl = get_permalink();
 	} else {
