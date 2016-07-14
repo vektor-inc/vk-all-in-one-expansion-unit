@@ -32,7 +32,7 @@ function vkExUnit_pageList_ancestor_shortcode() {
 	if ( $post_id ) {
 			$children = wp_list_pages( 'title_li=&child_of='.$post_id.'&echo=0' );
 		if ( $children ) {
-			$pageList_ancestor_html .= '<h1 class="section_title subSection-title"><a href="'.get_permalink( $post_id ).'">'.get_the_title( $post_id ).'</a></h1>';
+			$pageList_ancestor_html .= '<h3 class="section_title"><a href="'.get_permalink( $post_id ).'">'.get_the_title( $post_id ).'</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
 			$pageList_ancestor_html .= $children;
 			$pageList_ancestor_html .= '</ul>';
