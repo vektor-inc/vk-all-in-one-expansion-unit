@@ -21,6 +21,6 @@ function vkExUnit_dashboard_widget() {
 }
 
 function vkExUnit_dashboard_widget_body() {
-	vkExUnit_the_systemlogo();
+	echo vkExUnit_get_systemlogo();
 	echo Vk_Admin::get_news_body();
 }

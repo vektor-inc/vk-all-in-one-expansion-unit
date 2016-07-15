@@ -40,8 +40,9 @@ class Vk_Admin {
 	/*  admin_banner
 	/*--------------------------------------------------*/
 	public static function admin_banner() {
+		// print '<pre style="text-align:left">';print_r($a);print '</pre>';
 		$dir_url = plugin_dir_url( __FILE__ );
-		if ( strtoupper( get_locale() ) == 'ja' ) {
+		if ( get_locale() == 'ja' ) {
 			$banner = '<a href="http://lightning.vektor-inc.co.jp/ja/" target="_blank"><img src="'.$dir_url.'/images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
 		} else {
 			$banner = '<a href="http://lightning.vektor-inc.co.jp/" target="_blank"><img src="'.$dir_url.'/images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
@@ -115,8 +116,8 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 	public static function admin_sub() {
 		$adminSub = '<div class="adminSub">'."\n";
-		$adminSub .= '<div class="exUnit_infoBox">'.Vk_Admin::get_news_body().'</div>'."\n";
-		$adminSub .= '<div class="exUnit_adminBnr">'.Vk_Admin::admin_banner().'</div>'."\n";
+		$adminSub .= '<div class="infoBox">'.Vk_Admin::get_news_body().'</div>'."\n";
+		$adminSub .= '<div class="adminBnr">'.Vk_Admin::admin_banner().'</div>'."\n";
 		$adminSub .= '</div><!-- [ /.adminSub ] -->'."\n";
 		return $adminSub;
 	}
@@ -124,29 +125,30 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 	/*  admin_banner
 	/*--------------------------------------------------*/
-	public static function admin_page_frame( $the_body, $the_logo = false , $the_menu = false ) { ?>
-		<div class="wrap vkExUnit_admin_page">
-
+	public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '' , $get_menu_html = '' ) { ?>
+		<div class="wrap vk_admin_page">
 			<div class="adminMain">
 
 				<div id="adminContent_sub">
-					<?php call_user_func_array( $the_logo, array() );?>
+					<?php echo $get_logo_html; ?>
+					<h2 class="page_title"><?php echo $get_page_title;?></h2>
 					<div class="vk_option_nav">
 						<ul>
-						<?php call_user_func_array( $the_menu, array() );?>
+						<?php echo $get_menu_html; ?>
 						</ul>
 					</div>
 				</div><!-- [ /#adminContent_sub ] -->
 
 				<div id="adminContent_main">
-				<?php call_user_func_array( $the_body, array() );?>
+
+				<?php call_user_func_array( $the_body_callback, array() );?>
 				</div><!-- [ /#adminContent_main ] -->
 
 			</div><!-- [ /.adminMain ] -->
 
 			<div class="adminSub">
-			<div class="exUnit_infoBox"><?php echo Vk_Admin::get_news_body();?></div>
-			<div class="exUnit_adminBnr"><?php echo Vk_Admin::admin_banner();?></div>
+			<div class="infoBox"><?php echo Vk_Admin::get_news_body();?></div>
+			<div class="adminBnr"><?php echo Vk_Admin::admin_banner();?></div>
 			</div><!-- [ /.adminSub ] -->
 
 		</div><!-- [ /.vkExUnit_admin_page ] -->

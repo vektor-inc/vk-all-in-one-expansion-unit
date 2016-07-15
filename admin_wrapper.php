@@ -42,30 +42,28 @@ function vkExUnit_the_main_setting_body(){
 	echo  '</form>';
 }
 
-function vkExUnit_the_main_setting_menu(){
-	global $vkExUnit_options;
-
-	// $menu
-	/*--------------------------------------------------*/
-	$menu = '';
-	foreach ( $vkExUnit_options as $vkoption ) {
-		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
-		// $linkUrl = ($i == 0) ? 'wpwrap':$vkoption['option_name'];
-		$linkUrl = $vkoption['option_name'];
-		$menu .= '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
-		$menu .= $vkoption['tab_label'];
-		$menu .= '</a></li>';
-	}
-	echo $menu;
-}
 
 function vkExUnit_render_main_config() {
 
 	vkExUnit_save_main_config();
 
-	// $body
+	$get_page_title = 'ExUnit Main setting';
+	$get_logo_html = vkExUnit_get_systemlogo();
+
+	// $menu
 	/*--------------------------------------------------*/
-	Vk_Admin::admin_page_frame( 'vkExUnit_the_main_setting_body', 'vkExUnit_the_systemlogo', 'vkExUnit_the_main_setting_menu' );
+	global $vkExUnit_options;
+	$get_menu_html = '';
+	foreach ( $vkExUnit_options as $vkoption ) {
+		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
+		// $linkUrl = ($i == 0) ? 'wpwrap':$vkoption['option_name'];
+		$linkUrl = $vkoption['option_name'];
+		$get_menu_html .= '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
+		$get_menu_html .= $vkoption['tab_label'];
+		$get_menu_html .= '</a></li>';
+	}
+
+	Vk_Admin::admin_page_frame( $get_page_title, 'vkExUnit_the_main_setting_body', $get_logo_html, $get_menu_html );
 
 }
 
