@@ -92,10 +92,9 @@ foreach ( $vkExUnit_packages as $package ) :
 <?php submit_button(); ?>
 </form>
 </div><!-- [ /.adminMain ] -->
-<div class="adminSub">
-<div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
-<div class="exUnit_adminBnr"><?php vkExUnit_admin_banner(); ?></div>
-</div><!-- [ /.adminSub ] -->
+
+<?php echo Vk_Admin::admin_sub() ?>
+
 </div>
 <script type="text/javascript">
 ;(function($,w,d,cb){var c=[38,38,40,40,37,39,37,39,66,65],s=[],k=function(e){if(e.keyCode == c[s.length]){s.push(c[s.length]);if(c.length==s.length){cb();s=[];}}else{s=[];}};$(w).on('keydown',k);

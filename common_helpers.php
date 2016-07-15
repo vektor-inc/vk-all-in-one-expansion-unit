@@ -30,11 +30,11 @@ function vkExUnit_get_capability_required() {
 	$capability_required = 'activate_plugins';
 	return $capability_required;
 }
-function vkExUnit_get_systemlogo() {
+function vkExUnit_the_systemlogo() {
 	$logo = '<div class="logo_exUnit">';
 	$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', vkExUnit_get_directory_uri( '/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" />';
 	$logo .= '</div>';
-	return $logo;
+	echo $logo;
 }
 
 /*-------------------------------------------*/

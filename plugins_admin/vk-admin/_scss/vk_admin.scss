@@ -1,0 +1,56 @@
+@charset "utf-8";
+@import "compass";
+
+.logo_exUnit { display:block; overflow:hidden; text-align: center;margin-bottom:10px;border-bottom:1px solid #ccc;
+	img { width:150px;max-width: 100%; }
+}
+
+.vk_option_nav	{ display:block !important; overflow:hidden; }
+.vk_option_nav ul { display:block; overflow:hidden;margin:0;padding:0 5px; }
+.vk_option_nav ul li { display: block; border:1px solid #ccc;margin-bottom:0;border-bottom:none;background-color: #fff;}
+.vk_option_nav ul li:first-child { border-top-left-radius: 3px;border-top-right-radius: 3px; }
+.vk_option_nav ul li:last-child { border-bottom-left-radius: 3px;border-bottom-right-radius: 3px;border-bottom:1px solid #ccc; }
+.vk_option_nav ul li:hover { background-color: #666; }
+.vk_option_nav ul li a { display:block; overflow:hidden;padding:0.5em; text-decoration: none;color:#666;font-size:12px; }
+.vk_option_nav ul li:hover a { color: #fff;border:none; }
+.vk_option_nav ul li.current { background-color: #333;color:#fff;
+	a { color:#fff; }
+}
+
+.vkExUnit_admin_page { padding-top:1em;
+	h2 { display:block; overflow:hidden;margin-bottom:20px;
+		.pageTitleTxt { font-size:28px; }
+	}
+	h3 { background-color:#333; color:#fff; padding:10px 15px;font-size:150%;margin-top:0;border-left:5px solid #e50000;}
+	input[type=text] { width:50%; }
+	select { width:50%; }
+	dl {
+		dt { font-weight: bold;margin-bottom:5px; }
+		dd { margin-left:0; }
+	}
+	tr.dev_object{ display:none; }
+}
+
+.adminMain { display:block; overflow:hidden;width:74%;float:left;
+	#adminContent_sub { display:block; overflow:hidden;width:24%;float:left; }
+	#adminContent_main { display:block; overflow:hidden;width:74%;float:right; }
+}
+.adminSub { display:block; overflow:hidden;width:24%;float:right;
+	.exUnit_infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;	}
+	.exUnit_adminBnr{
+		display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
+		margin-top: 1em;
+		a{ display: block; }
+		img{ max-width: 100%;height: auto;
+			&:hover{ opacity: 0.7; }
+		}
+	}
+	h1.veu_admin_subTitle { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-bottom:15px; }
+	@media (max-width: 991px){
+		.adminMain table.form-table{
+			th,
+			td { display: block; }
+			th { background-color: #ccc;width:auto; padding: 10px; border-radius: 3px; }
+		}
+	}
+}

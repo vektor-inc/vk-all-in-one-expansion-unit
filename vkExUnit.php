@@ -95,12 +95,13 @@ $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
 require vkExUnit_get_directory() . '/plugins_admin/dashboard_info_widget.php';
-require vkExUnit_get_directory() . '/plugins_admin/news_from_exUnit.php';
-require vkExUnit_get_directory() . '/plugins_admin/admin_banner.php';
+
 require vkExUnit_get_directory() . '/plugins_admin/admin_bar.php';
 
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
+
+require vkExUnit_get_directory() . '/plugins_admin/vk-admin-config.php';
 
 vkExUnit_package_include(); // package_manager.php
 
@@ -147,14 +148,6 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_register_script( 'vkExUnit_admin_js', plugins_url( '', __FILE__ ).'/js/vkExUnit_admin.js', array( 'jquery' ), $vkExUnit_version );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
-}
-
-add_action( 'admin_print_styles-index.php', 'vkExUnit_admin_enq' );
-add_action( 'admin_print_styles-toplevel_page_vkExUnit_setting_page', 'vkExUnit_admin_enq' );
-add_action( 'admin_print_styles-vk-exunit_page_vkExUnit_main_setting', 'vkExUnit_admin_enq' );
-function vkExUnit_admin_enq() {
-	global $vkExUnit_version;
-	wp_enqueue_style( 'vkexunit-css-admin', plugins_url( '/css/vkExUnit_admin.css', __FILE__ ), array(), $vkExUnit_version, 'all' );
 }
 
 /*-------------------------------------------*/

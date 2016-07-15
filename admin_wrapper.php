@@ -16,72 +16,57 @@ function vkExUnit_add_main_setting() {
 add_action( 'admin_menu', 'vkExUnit_add_main_setting' );
 
 
-function vkExUnit_render_main_config() {
+function vkExUnit_the_main_setting_body(){
+	global $vkExUnit_options;?>
+	<form method="post" action="">
+	<?php wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
+	if ( is_array( $vkExUnit_options ) ) {
+		echo '<div>'; // jsでfirst-child取得用
+		foreach ( $vkExUnit_options as $vkoption ) {
 
-	vkExUnit_save_main_config();
-?>
-<div class="wrap vkExUnit_admin_page">
+			if ( empty( $vkoption['render_page'] ) ) { continue; }
 
-<div class="adminMain">
-<form method="post" action="">
-<?php
-	wp_nonce_field( 'standing_on_the_shoulder_of_giants', '_nonce_vkExUnit' );
+			echo '<section id="'. $vkoption['option_name'] .'">';
+
+			call_user_func_array( $vkoption['render_page'], array() );
+
+			echo '</section>';
+		}
+		echo '</div>';
+
+	} else {
+
+		echo  __( 'Activated Packages is noting. please activate some package.', 'vkExUnit' );
+
+	}
+	echo  '</form>';
+}
+
+function vkExUnit_the_main_setting_menu(){
 	global $vkExUnit_options;
-if ( is_array( $vkExUnit_options ) ) : ?>
 
-	<div id="adminContent_sub">
-
-	<?php echo vkExUnit_get_systemlogo();?>
-
-	<div class="optionNav"><ul>
-	<?php
-	// $i = 0;
+	// $menu
+	/*--------------------------------------------------*/
+	$menu = '';
 	foreach ( $vkExUnit_options as $vkoption ) {
 		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
 		// $linkUrl = ($i == 0) ? 'wpwrap':$vkoption['option_name'];
 		$linkUrl = $vkoption['option_name'];
-		echo '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
-		echo $vkoption['tab_label'];
-		echo '</a></li>';
-		// $i++;
-
+		$menu .= '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
+		$menu .= $vkoption['tab_label'];
+		$menu .= '</a></li>';
 	}
-	?>
-	</ul></div>
-	</div><!-- [ /#adminContent_sub ] -->
+	echo $menu;
+}
 
-	<div id="adminContent_main">
+function vkExUnit_render_main_config() {
 
-	<?php
-	foreach ( $vkExUnit_options as $vkoption ) {
-		if ( empty( $vkoption['render_page'] ) ) {  continue; }
+	vkExUnit_save_main_config();
 
-		echo '<section id="'. $vkoption['option_name'] .'">';
+	// $body
+	/*--------------------------------------------------*/
+	Vk_Admin::admin_page_frame( 'vkExUnit_the_main_setting_body', 'vkExUnit_the_systemlogo', 'vkExUnit_the_main_setting_menu' );
 
-		call_user_func_array( $vkoption['render_page'], array() );
-
-		echo '</section>';
-	}
-	?>
-
-	</div><!-- [ /#adminContent_main ] -->
-
-
-
-<?php else :
-
-	_e( 'Activated Packages is noting. please activate some package.', 'vkExUnit' );
-
-	endif; ?>
-</form>
-</div><!-- [ /.adminMain ] -->
-
-<div class="adminSub">
-<div class="exUnit_infoBox"><?php vkExUnit_news_body(); ?></div>
-<div class="exUnit_adminBnr"><?php vkExUnit_admin_banner(); ?></div>
-</div><!-- [ /.adminSub ] -->
-</div>
-<?php
 }
 
 function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
