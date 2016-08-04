@@ -145,41 +145,30 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <div class="profile" >
 <?php // Display a profile image
 
-		$mediaRound = isset( $instance['mediaRound'] ) ? ' media_round' : '' ;
-		$mediaSize = isset( $instance['mediaSize'] ) ? mb_convert_kana( $instance['mediaSize'] ) : '' ;
-		$mediaClass = '';
-
+$mediaRound = isset( $instance['mediaRound'] ) ? ' media_round' : '' ;
+$mediaSize = isset( $instance['mediaSize'] ) ? mb_convert_kana( $instance['mediaSize'] ) : 'auto' ;
+$mediaClass = '';
+		
 if ( ! empty( $instance['mediaFloat'] ) ) {
-	$mediaClass .= 'media_float ';
+	$mediaClass .= ' media_float';
 }
 if ( ! empty( $instance['mediaAlign_left'] ) ) {
-	$mediaClass .= 'media_left';
+	$mediaClass .= ' media_left';
+}
+if( ! empty( $instance['mediaFile'] ) ){
+	// 配置がフロート設定の場合 $mediaClass で該当のクラス付与
+	echo '<div class="media_class'.$mediaClass.'">';
+	//  画像が角丸設定の場合 $mediaRound でクラス付与
+	echo '<img class="profile_media'.$mediaRound.'" src="'.esc_url( $instance['mediaFile'] ).'" width="'.$mediaSize.'" alt="'.esc_attr( $instance['mediaAlt'] ).'" />';
+	echo '</div>';
 }
 
-		echo '<div';
-if ( $mediaClass ) {
-	echo ' class="'.$mediaClass.'"';
-}
-		echo '><img class="profile_media';
-if ( ! empty( $mediaRound ) || ! empty( $mediaSize ) || ! empty( $mediaFloat ) ) {
-	if ( ! empty( $mediaRound ) ) {
-		echo $mediaRound;
-	}
-	echo '" src="'.esc_url( $instance['mediaFile'] ).'"';
-	if ( ! empty( $mediaSize ) ) {
-		echo ' width="'.$mediaSize.'"';
-	}
-	echo ' alt="'.esc_attr( $instance['mediaAlt'] ).'" /></div>'.PHP_EOL;
-} else {
-	echo '" src="'.esc_url( $instance['mediaFile'] ).'" alt="'.esc_attr( $instance['mediaAlt'] ).'" /></div>'.PHP_EOL;
-}
-
-		// Display a profile text
+// Display a profile text
 if ( ! empty( $instance['profile'] ) ) {
 	echo '<p class="profile_text">'.nl2br( esc_attr( $instance['profile'] ) ).'</p>'.PHP_EOL;
 }
 
-		// Display a sns botton
+// Display a sns botton
 if ( isset( $instance['facebook'] ) && $instance['facebook'] || isset( $instance['twitter'] ) && $instance['twitter'] || isset( $instance['mail'] ) && $instance['mail'] || isset( $instance['youtube'] ) && $instance['youtube'] || isset( $instance['rss'] ) && $instance['rss'] || isset( $instance['instagram'] ) && $instance['instagram'] || isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
 
 <ul class="sns_btns">
