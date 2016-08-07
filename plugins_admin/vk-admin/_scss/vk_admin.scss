@@ -6,7 +6,7 @@
 }
 
 .vk_option_nav	{ display:block !important; overflow:hidden; }
-.vk_option_nav ul { display:block; overflow:hidden;margin:0;padding:0 5px; }
+.vk_option_nav ul { display:block; overflow:hidden;margin:0;padding:0; }
 .vk_option_nav ul li { display: block; border:1px solid #ccc;margin-bottom:0;border-bottom:none;background-color: #fff;}
 .vk_option_nav ul li:first-child { border-top-left-radius: 3px;border-top-right-radius: 3px; }
 .vk_option_nav ul li:last-child { border-bottom-left-radius: 3px;border-bottom-right-radius: 3px;border-bottom:1px solid #ccc; }
@@ -29,18 +29,25 @@
 	tr.dev_object{ display:none; }
 
 	.adminMain { display:block; overflow:hidden;width:74%;float:left;
-		#adminContent_sub { display:block; overflow:hidden;width:24%;float:left; }
-		#adminContent_main { display:block; overflow:hidden;width:74%;float:right; }
+		#adminContent_sub { display:block; overflow:hidden;width:23%;float:left;padding-bottom:10px; }
+		#adminContent_main { display:block; overflow:hidden;width:74%;float:right;
+			.form_horizontal_item { margin-right:1em; }
+		}
 	}
 
-	.adminSub { display:block; overflow:hidden;width:24%;float:right;
-		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;	}
-		.adminBnr{
-			display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff;
+	.adminSub { display:block; overflow:hidden;width:24%;float:right;padding-bottom:10px;
+		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff; }
+		.adminBnr_section{
+			display:block; overflow:hidden;margin-right:1em;
 			margin-top: 1em;
-			a{ display: block; }
-			img{ max-width: 100%;height: auto;
+			a { display: block; }
+			a.admin_banner {  margin-bottom:1em;border:1px solid #ccc;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1); }
+			img{ max-width: 100%;height: auto; display: block;
 				&:hover{ opacity: 0.7; }
+			}
+			.vektor_logo { 
+				margin-top:1em;
+				img { width:150px;float:right;}
 			}
 		}
 		h1.veu_admin_subTitle { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-bottom:15px; }

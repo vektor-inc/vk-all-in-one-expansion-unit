@@ -1,4 +1,4 @@
-<div class="wrap vkExUnit_admin_page">
+<div class="wrap vk_admin_page">
 <h2>
 <span class="pageTitleTxt">VK All in One Expansion Unit <?php _e( 'Enable setting','vkExUnit' );?></span>
 </h2>

@@ -1,4 +1,3 @@
-
 /*-------------------------------------------*/
 /* メディアアップローダー
 /*-------------------------------------------*/
@@ -10,35 +9,36 @@ jQuery(document).ready(function($){
 
 //for (i = 0; i < media_id.length; i++) {　//iという変数に0をいれループ一回ごとに加算する
 
-        // var media_btn = '#media_' + media_id[i];
-        // var media_target = '#' + media_id[i];
-        jQuery('.media_btn').click(function(e) {
-            media_target = jQuery(this).attr('id').replace(/media_/g,'#');
-            e.preventDefault();
-            if (custom_uploader) {
-                custom_uploader.open();
-                return;
-            }
-            custom_uploader = wp.media({
-                title: 'Choose Image',
-                // 以下のコメントアウトを解除すると画像のみに限定される。 → されないみたい
-                library: {
-                    type: 'image'
-                },
-                button: {
-                    text: 'Choose Image'
-                },
-                multiple: false, // falseにすると画像を1つしか選択できなくなる
-            });
-            custom_uploader.on('select', function() {
-                var images = custom_uploader.state().get('selection');
-                images.each(function(file){
-                    //$('#head_logo').append('<img src="'+file.toJSON().url+'" />');
-                    jQuery(media_target).attr('value', file.toJSON().url );
-                });
-            });
+    // var media_btn = '#media_' + media_id[i];
+    // var media_target = '#' + media_id[i];
+    jQuery('.media_btn').click(function(e) {
+        media_target    = jQuery(this).attr('id').replace(/media_/g,'#');
+        thumb_src       = jQuery(this).attr('id').replace(/media_/g,'#thumb_');
+        e.preventDefault();
+        if (custom_uploader) {
             custom_uploader.open();
+            return;
+        }
+        custom_uploader = wp.media({
+            title: 'Choose Image',
+            // 以下のコメントアウトを解除すると画像のみに限定される。 → されないみたい
+            library: {
+                type: 'image'
+            },
+            button: {
+                text: 'Choose Image'
+            },
+            multiple: false, // falseにすると画像を1つしか選択できなくなる
         });
+        custom_uploader.on('select', function() {
+            var images = custom_uploader.state().get('selection');
+            images.each(function(file){
+                jQuery(media_target).attr('value', file.toJSON().id );
+                jQuery(thumb_src).attr('src', file.toJSON().url );
+            });
+        });
+        custom_uploader.open();
+    });
 //}
 
 });
@@ -56,22 +56,71 @@ jQuery(document).ready(function($){
 /* スクロール時の位置固定
 /*-------------------------------------------*/
 jQuery(document).ready(function(){
+
+    // サイドバー要素のデフォルトの絶対位置
+    var default_offset = jQuery('.scrTracking').offset();
+
+    // コンテンツエリアの高さを取得
     var contentHeight = jQuery('.adminMain').height();
-    setNav();
+
+    navMove( default_offset, contentHeight );
+
     // スクロールしたら
     jQuery(window).scroll(function () {
-        var scroll = jQuery(this).scrollTop();
-        if ( scroll < contentHeight ){ // これがないと延々とスクロールする
-            setNav();
-        }
+        navMove( default_offset, contentHeight );
     });
-    function setNav(){
-        // スクロールの量を取得
-        var scroll = jQuery(this).scrollTop();
-        jQuery('#adminContent_sub').css({"padding-top":scroll});
-        jQuery('.adminSub').css({"padding-top":scroll});
-    }
+    jQuery(window).resize(function(){
+        navMove( default_offset, contentHeight );
+    });
 });
+
+function navMove( default_offset, contentHeight ){
+
+    // ウィンドウの高さを取得
+    var windowHeight = jQuery(window).height();
+
+    // スクロール量
+    var scrollHeight = jQuery(this).scrollTop();
+
+    var marginBottom = 15;
+
+    jQuery('.scrTracking').each(function(i){
+
+        // サイドバー要素の高さ
+        var itemHeight = jQuery(this).height();
+
+        // ウィンドウサイズからはみ出すサイズ
+        if ( itemHeight < windowHeight ){
+            var overHeight = 0;
+        } else {
+            var overHeight = itemHeight - windowHeight;
+        }
+
+        if ( scrollHeight < contentHeight ){ // これがないと延々とスクロールする
+
+            if ( windowHeight < itemHeight ) {
+                // アイテムがウィンドウサイズより高い場合
+
+                if ( scrollHeight > overHeight ) {
+                    // はみ出してる高さよりスクロールが大きい場合
+                    // スクロール量からはみ出してる高さを引いた余白を追加
+                    var marginTop = scrollHeight - overHeight - default_offset['top'] - marginBottom;
+                    jQuery(this).css({"margin-top":marginTop});
+                } else { 
+                    // はみ出してる高さよりスクロールが小さい場合
+                    jQuery(this).css({"margin-top":0});
+                }
+                
+            } else {
+                // アイテムがウィンドウサイズより低い場合
+                jQuery(this).css({ "margin-top" : scrollHeight });
+            }
+        }
+
+    });
+}
+
+
 /*-------------------------------------------*/
 /* ページ内リンクで頭出しの余白を適切にする
 /*-------------------------------------------*/
@@ -99,9 +148,3 @@ jQuery(document).ready(function(){
         }
     });
 });
-
-
-/// all.jsのも同じコードがあるので注意
-;(function($,d){var a=false,b='',c='',f=function(){
-if(a){a=false;c.show();b.removeClass('active');}else{a=true;c.hide();b.addClass('active');}
-};$(d).ready(function(){b=$('#wp-admin-bar-veu_disable_admin_edit .ab-item').on('click',f);c=$('.veu_adminEdit');});})(jQuery,document);

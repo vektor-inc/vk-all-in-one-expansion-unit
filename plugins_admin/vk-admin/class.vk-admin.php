@@ -20,13 +20,13 @@ class Vk_Admin {
 	}
 
 	static function admin_common_css (){
-		wp_enqueue_style( 'vk-admin-style', self::admin_directory_url().'/css/vk_admin.css', array(), self::$version, 'all' );
+		wp_enqueue_style( 'vk-admin-style', self::admin_directory_url().'css/vk_admin.css', array(), self::$version, 'all' );
 	}
 
 	static function admin_enqueue_scripts() {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_media();
-		wp_enqueue_script( 'vk-admin-js', self::admin_directory_url().'/js/vk_admin.js', array( 'jquery' ), self::$version );
+		wp_enqueue_script( 'vk-admin-js', self::admin_directory_url().'js/vk_admin.js', array( 'jquery' ), self::$version );
 	}
 
 	static function admin_scripts( $admin_pages ){
@@ -40,14 +40,24 @@ class Vk_Admin {
 	/*  admin_banner
 	/*--------------------------------------------------*/
 	public static function admin_banner() {
-		// print '<pre style="text-align:left">';print_r($a);print '</pre>';
-		$dir_url = plugin_dir_url( __FILE__ );
-		if ( get_locale() == 'ja' ) {
-			$banner = '<a href="http://lightning.vektor-inc.co.jp/ja/" target="_blank"><img src="'.$dir_url.'/images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
-		} else {
-			$banner = '<a href="http://lightning.vektor-inc.co.jp/" target="_blank"><img src="'.$dir_url.'/images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
+		$banner = '';
+		$dir_url = self::admin_directory_url();
+		$lang = ( get_locale() == 'ja' ) ? 'ja' : 'en' ;
+
+		if ( !is_plugin_active('vk-post-author-display/post-author-display.php') ){
+			$banner .= '<a href="https://wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/post_author_display_bnr_'.$lang .'.jpg" alt="VK Post Author 
+			Display" /></a>';
 		}
-		return apply_filters( 'vkExUnit_news_admin_banner_html' , $banner );
+
+		if ( $lang == 'ja' ) {
+			$banner .= '<a href="http://lightning.vektor-inc.co.jp/ja/" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
+		} else {
+			$banner .= '<a href="http://lightning.vektor-inc.co.jp/" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
+		}
+
+		$banner .= '<a href="http://www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/vektor_logo.png" alt="lightning_bnr_en" /></a>';
+
+		return apply_filters( 'vk_admin_banner_html' , $banner );
 	}
 
 	/*--------------------------------------------------*/
@@ -114,10 +124,11 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 	/*  admin_sub
 	/*--------------------------------------------------*/
+	// 2016.08.07 ExUnitの有効化ページでは直接 admin_subを呼び出しているので注意
 	public static function admin_sub() {
-		$adminSub = '<div class="adminSub">'."\n";
+		$adminSub = '<div class="adminSub scrTracking">'."\n";
 		$adminSub .= '<div class="infoBox">'.Vk_Admin::get_news_body().'</div>'."\n";
-		$adminSub .= '<div class="adminBnr">'.Vk_Admin::admin_banner().'</div>'."\n";
+		$adminSub .= '<div class="adminBnr_section">'.Vk_Admin::admin_banner().'</div>'."\n";
 		$adminSub .= '</div><!-- [ /.adminSub ] -->'."\n";
 		return $adminSub;
 	}
@@ -129,9 +140,11 @@ class Vk_Admin {
 		<div class="wrap vk_admin_page">
 			<div class="adminMain">
 
-				<div id="adminContent_sub">
+				<div id="adminContent_sub" class="scrTracking">
 					<?php echo $get_logo_html; ?>
+					<?php if ( $get_page_title ) : ?>
 					<h2 class="page_title"><?php echo $get_page_title;?></h2>
+					<?php endif; ?>
 					<div class="vk_option_nav">
 						<ul>
 						<?php echo $get_menu_html; ?>
@@ -146,10 +159,7 @@ class Vk_Admin {
 
 			</div><!-- [ /.adminMain ] -->
 
-			<div class="adminSub">
-			<div class="infoBox"><?php echo Vk_Admin::get_news_body();?></div>
-			<div class="adminBnr"><?php echo Vk_Admin::admin_banner();?></div>
-			</div><!-- [ /.adminSub ] -->
+			<?php echo Vk_Admin::admin_sub();?>
 
 		</div><!-- [ /.vkExUnit_admin_page ] -->
 	<?php 
