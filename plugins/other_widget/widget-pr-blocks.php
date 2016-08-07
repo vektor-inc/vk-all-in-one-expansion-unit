@@ -144,9 +144,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
 		
-		$col_class = 'col-md-4';
+		$col_class = 'col-sm-4';
 		if( $widget_block_count == 4 ){
-			$col_class = 'col-md-3';
+			$col_class = 'col-sm-3';
 		} 
 		
 		// Print widget area
