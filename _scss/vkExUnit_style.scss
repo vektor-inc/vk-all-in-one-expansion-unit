@@ -242,7 +242,7 @@ iframe.wp-embedded-content { width:100%; }
 
 .veu_pageList_ancestor{
 	margin: 0 0 15px;
-	padding: 0 20px;
+	padding: 20px 20px 0;
 	border: 3px solid #efefef;
 	box-shadow: inset 0px 0px 0px 1px #fff;
 	.pageList{
@@ -287,11 +287,11 @@ iframe.wp-embedded-content { width:100%; }
 			}
 		}		
 	}
-	.section_title.subSection-title{
+	h3 {
 		margin: 0.5em 0;
 		a{	
 			color: #333;
-			font-size: 23px;		
+			font-size: 16px;		
 		}
 	}
 }
@@ -312,7 +312,7 @@ iframe.wp-embedded-content { width:100%; }
 .veu_followSet { @include veu_content_bottom_section;
 	h1.followSet_title {  @include veu_content_bottom_section_title; }
 	.followSet_body {  @include veu_content_bottom_section_body; }
-	.follow_btn { float:left;margin-right:20px; }
+	.follow_btn { float:left;margin-right:20px;margin-bottom:10px; }
 }
 
 /*-------------------------------------------*/

@@ -22,7 +22,5 @@ function vkExUnit_dashboard_widget() {
 
 function vkExUnit_dashboard_widget_body() {
 	echo vkExUnit_get_systemlogo();
-	vkExUnit_news_body();
-
+	echo Vk_Admin::get_news_body();
 }
-
