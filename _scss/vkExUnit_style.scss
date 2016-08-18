@@ -245,48 +245,6 @@ iframe.wp-embedded-content { width:100%; }
 	padding: 20px 20px 0;
 	border: 3px solid #efefef;
 	box-shadow: inset 0px 0px 0px 1px #fff;
-	.pageList{
-		margin-top: 1em;
-		padding-left: 0;
-		a{
-			display: block;
-			padding: 8px 5px;
-			border-bottom: solid 1px #ddd;
-			color: #333;
-			font-size: 0.8em;
-		}
-		& > .page_item {
-			list-style: none;
-		}
-		& > .page_item:last-child a{
-			border: none;
-		}
-		.page_item{
-			margin-bottom: 0;
-		}
-	}
-	.current_page_item > a{
-		background-color: #F0F0F0;
-		box-shadow: inset 0 0 5px #eee;
-	}
-	.children{
-		margin: 0;
-		padding-left: 15px;
-		.page_item{
-			position: relative;
-			list-style: none;
-			&:before{
-				position: absolute;
-				top: 0.26em;
-				left: 5px;
-				display: inline-block;
-				content: "・";
-			}
-			a{
-				padding-left: 20px;
-			}
-		}		
-	}
 	h3 {
 		margin: 0.5em 0;
 		a{	
@@ -294,13 +252,49 @@ iframe.wp-embedded-content { width:100%; }
 			font-size: 16px;		
 		}
 	}
-}
-@media screen and (max-width:992px){
-	.page-template-default .veu_pageList_ancestor{
-		display: none;
+	ul.pageList{
+		margin-top: 1em;
+		padding-left: 0;
+		a {
+			display: block;
+			padding: 8px 5px;
+			border-bottom: solid 1px #ddd;
+			color: #333;
+			font-size: 0.8em;
+		}
+		a:hover { text-decoration: underline; }
+		& > .page_item {
+			list-style: none;
+		}
+		li { margin-bottom: 0; }
+		ul { margin: 0;padding-left: 0px;
+			li { position: relative; list-style: none;
+				&:before{
+					position: absolute;
+					top: 0.26em;
+					left: 5px;
+					display: inline-block;
+					// content: "・";
+				}
+			}
+			li a { padding-left: 20px; }
+			li li a { padding-left:30px; }
+			li li li a { padding-left:40px; }
+		}
 	}
-} // @media screen and (max-width:992px){
+	.current_page_item > a{
+		// background-color: #F0F0F0;
+		// box-shadow: inset 0 0 5px #eee;
+		font-weight: bold;
+	}
 
+}
+// 1カラムの時に表示されないと困るので非表示解除
+// @media screen and (max-width:992px){
+// 	.page-template-default .veu_pageList_ancestor{
+// 		display: none;
+// 	}
+// } // @media screen and (max-width:992px){
 
 @mixin veu_content_bottom_section { display:block; overflow:hidden;margin-top:$section_margin;margin-bottom:$section_margin;background-color: #efefef; }
 @mixin veu_content_bottom_section_title { display:block; overflow:hidden;margin:0;padding: 12px 20px 10px;background-color: #333;color:#fff;font-size:22px;line-height: 1.2em; }
