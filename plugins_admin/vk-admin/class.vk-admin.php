@@ -11,7 +11,7 @@ https://github.com/vektor-inc/vektor-wp-libraries
 
 class Vk_Admin {
 
-	public static $version = '1.1.1';
+	public static $version = '1.2.0';
 	
 	static function init(){
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
@@ -90,7 +90,7 @@ class Vk_Admin {
 				$rss_items = $rss->get_items( 0, $maxitems );
 
 				$output .= '<div class="rss-widget">';
-				$output .= '<h1 class="veu_admin_subTitle">Information</h1>';
+				$output .= '<h4 class="adminSub_title">'.apply_filters( 'vk-admin-sub-title-text', 'Information' ).'</h4>';
 				$output .= '<ul>';
 
 				if ( $maxitems == 0 ) {
@@ -139,12 +139,14 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 	/*  admin_banner
 	/*--------------------------------------------------*/
-	public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '' , $get_menu_html = '' ) { ?>
+	public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '' , $get_menu_html = '', $get_layout = 'column_3' ) { ?>
 		<div class="wrap vk_admin_page">
-			<div class="adminMain">
 
+			<div class="adminMain <?php echo $get_layout;?>">
+
+				<?php if ( $get_layout == 'column_3' ) : ?>
 				<div id="adminContent_sub" class="scrTracking">
-					<?php echo $get_logo_html; ?>
+					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
 					<?php if ( $get_page_title ) : ?>
 					<h2 class="page_title"><?php echo $get_page_title;?></h2>
 					<?php endif; ?>
@@ -154,9 +156,16 @@ class Vk_Admin {
 						</ul>
 					</div>
 				</div><!-- [ /#adminContent_sub ] -->
+				<?php endif; ?>
+
+				<?php if ( $get_layout == 'column_2' ) : ?>
+					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
+					<?php if ( $get_page_title ) : ?>
+						<h1 class="page_title"><?php echo $get_page_title;?></h1>
+					<?php endif; ?>
+				<?php endif; ?>
 
 				<div id="adminContent_main">
-
 				<?php call_user_func_array( $the_body_callback, array() );?>
 				</div><!-- [ /#adminContent_main ] -->
 

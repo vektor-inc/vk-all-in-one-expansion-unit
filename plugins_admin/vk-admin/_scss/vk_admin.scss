@@ -27,13 +27,20 @@
 		dd { margin-left:0; }
 	}
 	tr.dev_object{ display:none; }
-
+	.pageLogo { text-align: center;
+		img { max-width: 150px;margin:0 auto; }
+	}
 	.adminMain { display:block; overflow:hidden;width:74%;float:left;
-		#adminContent_sub { display:block; overflow:hidden;width:23%;float:left;padding-bottom:10px; }
+		#adminContent_sub { display:block; overflow:hidden;width:23%;float:left;padding-bottom:10px;
+		}
 		#adminContent_main { display:block; overflow:hidden;width:74%;float:right;
 			.form_horizontal_item { margin-right:1em; }
 		}
+		&.column_2 {
+			#adminContent_main { width:100%; }
+		}
 	}
+
 
 	.adminSub { display:block; overflow:hidden;width:24%;float:right;padding-bottom:10px;
 		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff; }
@@ -50,7 +57,7 @@
 				img { width:150px;float:right;}
 			}
 		}
-		h1.veu_admin_subTitle { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-bottom:15px; }
+		.adminSub_title { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-top:0;margin-bottom:15px; }
 		@media (max-width: 991px){
 			.adminMain table.form-table{
 				th,
