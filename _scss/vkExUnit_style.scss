@@ -373,7 +373,7 @@ iframe.wp-embedded-content { width:100%; }
 } // .veu_contact
 
 .widget {
-	.veu_contact .contact_bt {display: inline-block;float:none; margin-top:15px; }
+	.veu_contact .contact_bt {display: inline-block;float:none; }
 }
 
 } // @media (min-width: 768px){
@@ -412,8 +412,11 @@ iframe.wp-embedded-content { width:100%; }
 		& > .media:first-child{
 			border: none;
 		}
-		& > .media{
+		& > .media{ padding:1em 0 0.8em;margin-top:0;
 			border: none;
+			.media-body { font-size:14px; }
+			.postList_thumbnail { width:80px;padding-right:15px;margin-bottom:0; }
+			.media-heading { font-size:14px; }
 		}
 	}
 	.relatedPosts_item:nth-child(1){ border-top: solid 1px #e5e5e5; }
@@ -450,7 +453,8 @@ iframe.wp-embedded-content { width:100%; }
 /* Widget .veu_newsList
 /*-------------------------------------------*/
 .veu_newPosts {
-	h1.mainSection-title { margin-bottom:0; }
+	h1.mainSection-title,
+	.subSection-title { margin-bottom:0; }
 	ul.postList { margin:15px 0 $section_margin;padding:0;
 		li { display:block;clear:both; overflow:hidden;padding:0;border-bottom:1px dotted #666; }
 		a {color:$color_font_default;}
@@ -477,14 +481,14 @@ iframe.wp-embedded-content { width:100%; }
 		.profile_media{ margin: 0.8em 0 0;}
 		&+.profile_text{ padding-top: 0.8em;}
 	}
-	.profile_text{ margin-bottom: 0.5em;font-size: 14px;}
+	.profile_text{ margin-bottom: 1em;font-size: 14px;}
 	.sns_btns{ margin: 0;padding: 0;width: 100%;
 	    li{ float: left;margin-right: 0.45em;list-style: none;text-align: center; }   
 	    a{
 	        display: block;
 	        display:table;
-	        width: 45px;
-	        height: 45px;
+	        width: 40px;
+	        height: 40px;
 	        border-radius: 23px;
 	        color: #fff;
 	        text-decoration: none;

@@ -63,8 +63,9 @@ function vkExUnit_add_relatedPosts( $content ) {
 
 	if ( $tag_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
-		$relatedPostsHtml .= '<aside class="veu_relatedPosts subSection veu_contentAddSection">';
-		$relatedPostsHtml .= '<h1 class="mainSection-title">'.__( 'Related posts','vkExUnit' ).'</h1>';
+		$relatedPostsHtml .= '<aside class="veu_relatedPosts veu_contentAddSection">';
+		$relatedPostTitle = apply_filters( 'veu_related_post_title', __( 'Related posts','vkExUnit' ) );
+		$relatedPostsHtml .= '<h1 class="mainSection-title">'.$relatedPostTitle.'</h1>';
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ( $tag_posts as $key => $post ) {
