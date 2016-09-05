@@ -162,9 +162,20 @@ iframe.wp-embedded-content { width:100%; }
 		}//li.sb_pocket
 	}//li
 }//.veu_socialSet ul
+
 .veu_count_sns_pocket,
 .veu_count_sns_fb,
 .veu_count_sns_hb { position: absolute; bottom: 5px; right: 5px; font-size:77%; line-height:1;font-weight: bold; }
+
+@media (max-width: 767px){
+.veu_socialSet ul { flex-wrap:wrap; }
+.veu_socialSet ul li { width: 48%; margin-bottom: 9px;
+	&:nth-child(even) { margin-right:0; }
+	&.sb_icon a { padding: 8px 10px; }
+}	
+.pocket-count, .veu_count_sns_fb, .veu_count_sns_hb { bottom: 2px;}
+}
+
 
 /*-------------------------------------------*/
 /*			import icon
@@ -326,11 +337,6 @@ iframe.wp-embedded-content { width:100%; }
 }
 
 @media (max-width: 767px){
-.veu_socialSet ul li { width: 49%; margin-bottom: 9px;
-	&:nth-child(even) { margin-right:0; }
-	&.sb_icon a { padding: 8px 10px; }
-}	
-.pocket-count, .veu_count_sns_fb, .veu_count_sns_hb { bottom: 2px;}
 .veu_cta {
 	.cta_body_image img { display:block; margin:0 auto 1.5em;max-width: 100%; }
 }
