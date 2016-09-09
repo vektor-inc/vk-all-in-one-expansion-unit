@@ -122,6 +122,12 @@ function vkExUnit_print_css() {
 		wp_enqueue_style( 'font-awesome', vkExUnit_get_directory_uri() . '/libraries/font-awesome/css/font-awesome.min.css', array(), '4.6.3', 'all' );
 	}
 }
+
+function vkExUnit_print_editor_css() {
+	add_editor_style( plugins_url( '', __FILE__ ).'/css/vkExUnit_editor_style.css' );
+}
+add_action('after_setup_theme', 'vkExUnit_print_editor_css');
+
 /*-------------------------------------------*/
 /*  Add vkExUnit js
 /*-------------------------------------------*/

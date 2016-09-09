@@ -5,21 +5,33 @@
 function vkExUnit_mce_before_init_insert_formats( $init_array ) {  
 	$style_formats = array(
  		array( 
+			'title' => 'a.btn-blank',  
+			'block' => 'a',  
+			'classes' => 'btn btn-primary btn-lg',
+			'wrapper' => true,
+		),
+ 		array( 
 			'title' => 'a.btn.btn-primary',  
 			'block' => 'a',  
 			'classes' => 'btn btn-primary',
 			'wrapper' => true,
 		),
  		array( 
-			'title' => 'a.btn-primary.btn-block',  
+			'title' => 'a.btn-primary.btn-lg',  
 			'block' => 'a',  
-			'classes' => 'btn btn-primary btn-block',
+			'classes' => 'btn btn-primary btn-lg',
 			'wrapper' => true,
 		),
  		array( 
-			'title' => 'a.btn-primary.btn-block.btn-lg',  
+			'title' => 'a.btn-primary.btn-lg.btn-block',  
 			'block' => 'a',  
-			'classes' => 'btn btn-primary btn-block btn-lg',
+			'classes' => 'btn btn-primary btn-lg btn-block',
+			'wrapper' => true,
+		),
+ 		array( 
+			'title' => 'a.btn-primary.btn-lg.btn-block.btn-blank',  
+			'block' => 'a',  
+			'classes' => 'btn btn-primary btn-lg btn-block btn-blank',
 			'wrapper' => true,
 		),
  		array( 

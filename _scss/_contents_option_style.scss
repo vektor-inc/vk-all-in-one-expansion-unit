@@ -3,7 +3,14 @@
 
 /*-------------------------------------------*/
 .veu_leadTxt,
-p.veu_leadTxt { font-size:2em;line-height: 150%;padding:0; }
+p.veu_leadTxt { font-size:1.6em; line-height: 150%;padding:0; }
+
+@media (min-width: 768px){
+.veu_leadTxt,
+p.veu_leadTxt { font-size:2em; }
+}
+
+.btn.btn-blank::after { margin-left:0.7em;font-family: FontAwesome;content: "\f08e"; }
 
 /*      .qaItem
 /*-------------------------------------------*/
