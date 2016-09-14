@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-05-20 11:06+0900\n"
+"POT-Creation-Date: 2016-09-15 02:15+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Main setting"
 msgstr "メイン設定"
 
-#: ../admin_wrapper.php:73
+#: ../admin_wrapper.php:39
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
@@ -146,6 +146,7 @@ msgstr ""
 #: ../packages.php:105 ../packages.php:123 ../packages.php:162
 #: ../packages.php:180 ../packages.php:210 ../packages.php:228
 #: ../packages.php:270 ../packages.php:306 ../packages.php:329
+#: ../packages.php:401
 msgid "Setting"
 msgstr "設定"
 
@@ -348,7 +349,7 @@ msgstr "広告の挿入"
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: ../packages.php:342 ../plugins/related_posts/related_posts.php:57
+#: ../packages.php:342 ../plugins/related_posts/related_posts.php:67
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -386,6 +387,15 @@ msgstr ""
 msgid "Add TinyMCE Editor to style tags."
 msgstr ""
 
+#: ../packages.php:397
+#, fuzzy
+msgid "Post Type Manager"
+msgstr "ポストタイプ"
+
+#: ../packages.php:398
+msgid "Add custom post types and custom taxonomies."
+msgstr "カスタム投稿タイプやカスタム分類を追加します。"
+
 #: ../vkExUnit_admin.php:3
 msgid "Enable setting"
 msgstr "有効化設定"
@@ -407,10 +417,19 @@ msgid "Extension Setting"
 msgstr "拡張設定"
 
 #: ../vkExUnit_admin.php:83
+#, fuzzy
+msgid "extention contents"
+msgstr "記事に広告を挿入します"
+
+#: ../vkExUnit_admin.php:84
+msgid "set extension contents to loop_end hook"
+msgstr ""
+
+#: ../vkExUnit_admin.php:87
 msgid "Plugin setting options"
 msgstr "プラグイン設定オプション"
 
-#: ../vkExUnit_admin.php:85
+#: ../vkExUnit_admin.php:89
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
 
@@ -429,100 +448,100 @@ msgstr "アイキャッチ画像を自動挿入しない"
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: ../plugins/child_page_index.php:82
+#: ../plugins/child_page_index.php:90
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
-#: ../plugins/contact_section.php:46 ../plugins/contact_section.php:72
+#: ../plugins/contact_section.php:54 ../plugins/contact_section.php:80
 msgid "Contact Information"
 msgstr "お問い合わせ情報"
 
-#: ../plugins/contact_section.php:56 ../plugins/contact_section.php:79
+#: ../plugins/contact_section.php:64 ../plugins/contact_section.php:87
 msgid "Please feel free to inquire."
 msgstr "お気軽にお問い合わせください。"
 
-#: ../plugins/contact_section.php:58
+#: ../plugins/contact_section.php:66
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 
-#: ../plugins/contact_section.php:62
+#: ../plugins/contact_section.php:70
 msgid "Contact us"
 msgstr "お問い合わせ"
 
-#: ../plugins/contact_section.php:76
+#: ../plugins/contact_section.php:84
 msgid "Message"
 msgstr "メッセージ"
 
-#: ../plugins/contact_section.php:79 ../plugins/contact_section.php:86
-#: ../plugins/contact_section.php:93 ../plugins/contact_section.php:101
-#: ../plugins/contact_section.php:109 ../plugins/contact_section.php:117
+#: ../plugins/contact_section.php:87 ../plugins/contact_section.php:94
+#: ../plugins/contact_section.php:101 ../plugins/contact_section.php:109
+#: ../plugins/contact_section.php:117 ../plugins/contact_section.php:125
 #: ../plugins/google_analytics/ga_admin.php:16 ../plugins/sns/sns_admin.php:31
 msgid "ex) "
 msgstr "例: "
 
-#: ../plugins/contact_section.php:83
+#: ../plugins/contact_section.php:91
 msgid "Phone number"
 msgstr "電話番号"
 
-#: ../plugins/contact_section.php:90 ../plugins/contact_section.php:93
+#: ../plugins/contact_section.php:98 ../plugins/contact_section.php:101
 msgid "Office hours"
 msgstr "営業時間"
 
-#: ../plugins/contact_section.php:93
+#: ../plugins/contact_section.php:101
 msgid "Weekdays except holidays"
 msgstr "土日・祝日除く"
 
-#: ../plugins/contact_section.php:98
+#: ../plugins/contact_section.php:106
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
-#: ../plugins/contact_section.php:101
+#: ../plugins/contact_section.php:109
 msgid "or"
 msgstr "もしくは"
 
-#: ../plugins/contact_section.php:102
+#: ../plugins/contact_section.php:110
 msgid "* If you fill in the blank, contact button does not appear."
 msgstr "未入力の場合はお問い合わせボタンは表示されません。"
 
-#: ../plugins/contact_section.php:106
+#: ../plugins/contact_section.php:114
 msgid "Contact button Text"
 msgstr "お問い合わせボタンに表示するテキスト"
 
-#: ../plugins/contact_section.php:109
+#: ../plugins/contact_section.php:117
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
-#: ../plugins/contact_section.php:114
+#: ../plugins/contact_section.php:122
 msgid "Contact button text( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
-#: ../plugins/contact_section.php:118
+#: ../plugins/contact_section.php:126
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
-#: ../plugins/contact_section.php:123
+#: ../plugins/contact_section.php:131
 msgid "Contact button short text for side widget"
 msgstr "お問い合わせボタンウィジェットに表示するテキスト"
 
-#: ../plugins/contact_section.php:127
+#: ../plugins/contact_section.php:135
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
 "このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利"
 "用を想定していますので少ない文字数で設定してください。"
 
-#: ../plugins/contact_section.php:148
+#: ../plugins/contact_section.php:156
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: ../plugins/contact_section.php:226 ../plugins/contact_section.php:253
+#: ../plugins/contact_section.php:234 ../plugins/contact_section.php:261
 msgid "Edit contact information"
 msgstr "Contact情報を編集"
 
-#: ../plugins/contact_section.php:272
+#: ../plugins/contact_section.php:280
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
-#: ../plugins/contact_section.php:278 ../plugins/contact_section.php:300
+#: ../plugins/contact_section.php:286 ../plugins/contact_section.php:308
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -690,7 +709,7 @@ msgstr "サイト全体のキーワードは %s より設定することがで�
 msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
 
-#: ../plugins/pageList_ancestor.php:64
+#: ../plugins/pageList_ancestor.php:77
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
@@ -759,92 +778,92 @@ msgstr ""
 "しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
 "力すれば、その内容が反映されます。"
 
-#: ../plugins/call_to_action/class.call_to_action.php:48
+#: ../plugins/call_to_action/class.call_to_action.php:56
 #: ../plugins/call_to_action/view.actionbox.php:39
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
-#: ../plugins/call_to_action/class.call_to_action.php:49
+#: ../plugins/call_to_action/class.call_to_action.php:57
 msgid "Add new CTA"
 msgstr "CTAの新規作成"
 
-#: ../plugins/call_to_action/class.call_to_action.php:50
+#: ../plugins/call_to_action/class.call_to_action.php:58
 msgid "New CTA"
 msgstr "CTA 新規作成"
 
-#: ../plugins/call_to_action/class.call_to_action.php:76
-#: ../plugins/call_to_action/class.call_to_action.php:78
-#: ../plugins/call_to_action/class.call_to_action.php:79
+#: ../plugins/call_to_action/class.call_to_action.php:84
+#: ../plugins/call_to_action/class.call_to_action.php:86
+#: ../plugins/call_to_action/class.call_to_action.php:87
 msgid "Call to Action setting"
 msgstr "CTA設定"
 
-#: ../plugins/call_to_action/class.call_to_action.php:81
+#: ../plugins/call_to_action/class.call_to_action.php:89
 msgid "CTA Contents"
 msgstr "CTA Contents"
 
-#: ../plugins/call_to_action/class.call_to_action.php:89
+#: ../plugins/call_to_action/class.call_to_action.php:97
 msgid "Follow common setting"
 msgstr "共通設定を使用"
 
-#: ../plugins/call_to_action/class.call_to_action.php:90
-#: ../plugins/call_to_action/class.call_to_action.php:399
+#: ../plugins/call_to_action/class.call_to_action.php:98
+#: ../plugins/call_to_action/class.call_to_action.php:407
 msgid "Disable display"
 msgstr "表示しない"
 
-#: ../plugins/call_to_action/class.call_to_action.php:101
+#: ../plugins/call_to_action/class.call_to_action.php:109
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: ../plugins/call_to_action/class.call_to_action.php:102
+#: ../plugins/call_to_action/class.call_to_action.php:110
 #: ../plugins/call_to_action/view.adminsetting.php:22
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
-#: ../plugins/call_to_action/class.call_to_action.php:167
+#: ../plugins/call_to_action/class.call_to_action.php:175
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: ../plugins/call_to_action/class.call_to_action.php:173
+#: ../plugins/call_to_action/class.call_to_action.php:181
 msgid "Add image"
 msgstr "画像を追加"
 
-#: ../plugins/call_to_action/class.call_to_action.php:174
+#: ../plugins/call_to_action/class.call_to_action.php:182
 msgid "Change image"
 msgstr "画像を変更"
 
-#: ../plugins/call_to_action/class.call_to_action.php:175
+#: ../plugins/call_to_action/class.call_to_action.php:183
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: ../plugins/call_to_action/class.call_to_action.php:180
+#: ../plugins/call_to_action/class.call_to_action.php:188
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: ../plugins/call_to_action/class.call_to_action.php:183
+#: ../plugins/call_to_action/class.call_to_action.php:191
 msgid "right"
 msgstr "右寄せ"
 
-#: ../plugins/call_to_action/class.call_to_action.php:184
+#: ../plugins/call_to_action/class.call_to_action.php:192
 msgid "center"
 msgstr "中央"
 
-#: ../plugins/call_to_action/class.call_to_action.php:185
+#: ../plugins/call_to_action/class.call_to_action.php:193
 msgid "left"
 msgstr "左寄せ"
 
-#: ../plugins/call_to_action/class.call_to_action.php:189
+#: ../plugins/call_to_action/class.call_to_action.php:197
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: ../plugins/call_to_action/class.call_to_action.php:192
+#: ../plugins/call_to_action/class.call_to_action.php:200
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: ../plugins/call_to_action/class.call_to_action.php:195
+#: ../plugins/call_to_action/class.call_to_action.php:203
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: ../plugins/call_to_action/class.call_to_action.php:201
+#: ../plugins/call_to_action/class.call_to_action.php:209
 msgid "CTA setting"
 msgstr "CTA設定"
 
@@ -959,7 +978,7 @@ msgstr "3PR エリア1 設定"
 #: ../plugins/other_widget/widget-3pr-area.php:48
 #: ../plugins/other_widget/widget-3pr-area.php:98
 #: ../plugins/other_widget/widget-3pr-area.php:149
-#: ../plugins/other_widget/widget-new-posts.php:161
+#: ../plugins/other_widget/widget-new-posts.php:162
 #: ../plugins/other_widget/widget-pr-blocks.php:74
 #: ../plugins/other_widget/widget-profile.php:40
 #: ../plugins/sns/function_fbPagePlugin.php:79
@@ -1030,8 +1049,8 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: ../plugins/other_widget/widget-archives.php:63
+#: ../plugins/other_widget/widget-new-posts.php:157
 #: ../plugins/other_widget/widget-new-posts.php:158
-#: ../plugins/other_widget/widget-new-posts.php:159
 msgid "Title"
 msgstr "タイトル"
 
@@ -1070,45 +1089,45 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:157
+#: ../plugins/other_widget/widget-new-posts.php:156
 msgid "Display Format"
 msgstr "表示形式"
 
-#: ../plugins/other_widget/widget-new-posts.php:158
+#: ../plugins/other_widget/widget-new-posts.php:157
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
+#: ../plugins/other_widget/widget-new-posts.php:157
 #: ../plugins/other_widget/widget-new-posts.php:158
-#: ../plugins/other_widget/widget-new-posts.php:159
 msgid "Date"
 msgstr "日付"
 
-#: ../plugins/other_widget/widget-new-posts.php:159
+#: ../plugins/other_widget/widget-new-posts.php:158
 #: ../plugins/other_widget/widget-taxonomies.php:20
 #: ../plugins/other_widget/widget-taxonomies.php:49
 #: ../plugins/other_widget/widget-taxonomies.php:50
 msgid "Category"
 msgstr "カテゴリー"
 
-#: ../plugins/other_widget/widget-new-posts.php:166
+#: ../plugins/other_widget/widget-new-posts.php:167
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: ../plugins/other_widget/widget-new-posts.php:171
+#: ../plugins/other_widget/widget-new-posts.php:172
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: ../plugins/other_widget/widget-new-posts.php:176
+#: ../plugins/other_widget/widget-new-posts.php:177
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: ../plugins/other_widget/widget-new-posts.php:178
+#: ../plugins/other_widget/widget-new-posts.php:179
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:180
+#: ../plugins/other_widget/widget-new-posts.php:181
 #: ../plugins/sns/sns_admin.php:66
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
@@ -1121,16 +1140,16 @@ msgstr "固定ページ本文"
 msgid "Displays a page contents to widget."
 msgstr "選択したページの内容を表示します。"
 
-#: ../plugins/other_widget/widget-page.php:34
+#: ../plugins/other_widget/widget-page.php:36
 #: ../plugins/other_widget/widget-taxonomies.php:62
 msgid "Display page"
 msgstr "ページを表示"
 
-#: ../plugins/other_widget/widget-page.php:42
+#: ../plugins/other_widget/widget-page.php:44
 msgid "display title"
 msgstr "タイトルを表示"
 
-#: ../plugins/other_widget/widget-page.php:64
+#: ../plugins/other_widget/widget-page.php:66
 msgid "Edit"
 msgstr "編集"
 
@@ -1274,6 +1293,14 @@ msgstr "instagram リンク先ページのURL"
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
+#: ../plugins/other_widget/widget-side-child-page-list.php:12
+msgid "child pages list"
+msgstr "子ページのリスト"
+
+#: ../plugins/other_widget/widget-side-child-page-list.php:17
+msgid "Displays list of child page for the current page."
+msgstr "表示しているページの先祖階層からの子ページリストを表示します。"
+
 #: ../plugins/other_widget/widget-taxonomies.php:9
 msgid "Categories/Custom taxonomies list"
 msgstr "カテゴリー/カスタム分類リスト"
@@ -1306,6 +1333,80 @@ msgstr "ブログエントリー"
 msgid "Heading title"
 msgstr "見出しタイトル"
 
+#: ../plugins/post-type-manager/class.post-type-manager.php:21
+#: ../plugins/post-type-manager/class.post-type-manager.php:22
+#: ../plugins/post-type-manager/class.post-type-manager.php:64
+msgid "Custom Post Type Setting"
+msgstr "カスタム投稿タイプ設定"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:74
+msgid "Post Type ID(Required)"
+msgstr "投稿タイプID（必須）"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:75
+msgid "20 characters or less in alphanumeric"
+msgstr "半角英数字20文字以内で入力ください"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:80
+msgid "title"
+msgstr "タイトル"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:81
+msgid "editor"
+msgstr "本文"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:82
+msgid "author"
+msgstr "投稿者"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:83
+msgid "thumbnail"
+msgstr "アイキャッチ画像"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:84
+msgid "excerpt"
+msgstr "抜粋"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:85
+msgid "comments"
+msgstr "コメント"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:86
+msgid "revisions"
+msgstr "リビジョン"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:90
+msgid "Supports(Required)"
+msgstr "有効にする項目（必須）"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:102
+msgid "Menu position(optional)"
+msgstr "メニューの位置( 任意 )"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:103
+msgid "Please enter a number."
+msgstr "数字を入力してください。数字が小さいほど上に表示されます。"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:109
+msgid "Custom taxonomies(optional)"
+msgstr "カスタム分類（任意）"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:114
+msgid "Custon taxonomy name(slug)"
+msgstr "カスタム分類名（スラッグ）"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:115
+msgid "Custon taxonomy label"
+msgstr "カスタム分類名（表示名）"
+
+#: ../plugins/post-type-manager/class.post-type-manager.php:185
+#, php-format
+msgid ""
+"Please save a <a href=\"%s\">permanent link configuration</a> After updating "
+"the setting."
+msgstr ""
+"設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
+
 #: ../plugins/sitemap_page/sitemap_admin.php:9
 msgid "HTML Sitemap Settings"
 msgstr "HTMLサイトマップ設定"
@@ -1328,7 +1429,7 @@ msgstr "複数のページを除外する場合は , （コンマ）で区切っ
 msgid "HTML Sitemap"
 msgstr "HTMLサイトマップ"
 
-#: ../plugins/sitemap_page/sitemap_page.php:223
+#: ../plugins/sitemap_page/sitemap_page.php:234
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
@@ -1509,9 +1610,17 @@ msgstr "メイン設定"
 msgid "News from VK All in One Expansion Unit"
 msgstr "VK All in One Expansion Unit からのお知らせ"
 
-#: ../plugins_admin/news_from_exUnit.php:31
+#: ../plugins_admin/vk-admin/class.vk-admin.php:98
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
+
+#, fuzzy
+#~ msgid "Custom Post Types Setting"
+#~ msgstr "3PR エリア1 設定"
+
+#, fuzzy
+#~ msgid "Custom Post Setting"
+#~ msgstr "CTA設定"
 
 #~ msgid "Normally, I will include the %1$s in the title tag."
 #~ msgstr "通常 %1$s が全ページのタイトルタグに入ります。"
@@ -1721,10 +1830,6 @@ msgstr "お知らせはありません。"
 
 #~ msgid "if checked you will display a sitemap"
 #~ msgstr "チェックを入れるとHTMLサイトマップを表示します。"
-
-#, fuzzy
-#~ msgid "Post each setting."
-#~ msgstr "3PR エリア1 設定"
 
 #~ msgid ""
 #~ "To choose your favorite icon, and enter the class. For example, the use "

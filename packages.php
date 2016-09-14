@@ -389,6 +389,24 @@ $required_packages[] = array(
 	'include'     => 'tiny_mce_style_tags.php',
 );
 
+/*-------------------------------------------*/
+/*  post_type_manager
+/*-------------------------------------------*/
+$required_packages[] = array(
+	'name'        => 'post_type_manager',
+	'title'       => __( 'Post Type Manager', 'vkExUnit' ),
+	'description' => __( 'Add custom post types and custom taxonomies.', 'vkExUnit' ),
+	'attr'        => array(
+		array(
+			'name'        => __( 'Setting','vkExUnit' ),
+			'url'         => admin_url().'edit.php?post_type=post_type_manage',
+			'enable_only' => 1,
+		),
+	),
+	'default'     => false,
+	'include'     => 'post-type-manager-config.php'
+);
+
 foreach ( $required_packages as $package ) {
 	vkExUnit_package_register( $package );
 }
