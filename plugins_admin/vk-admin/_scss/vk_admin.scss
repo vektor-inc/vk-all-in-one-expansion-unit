@@ -1,6 +1,10 @@
 @charset "utf-8";
 @import "compass";
 
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
 .logo_exUnit { display:block; overflow:hidden; text-align: center;margin-bottom:10px;border-bottom:1px solid #ccc;
 	img { width:150px;max-width: 100%; }
 }
