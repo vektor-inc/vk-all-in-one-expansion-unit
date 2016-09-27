@@ -47,11 +47,16 @@ class vExUnit_Ads {
 		global $is_pagewidget;
 		if ( $is_pagewidget ) { return $content; }
 		$option = $this->get_option();
-		if ( get_post_type() == 'post' ) {
-			$content = preg_replace( '/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content );
-			$content = '[vkExUnit_ad area=before]'.$content;
-			$content .= '[vkExUnit_ad area=after]';
+		$post_types = array('post');
+		$post_types = apply_filters( 'veu_add_ad',$post_types );
+		foreach ($post_types as $key => $post_type) {
+			if ( get_post_type() == $post_type ) {
+				$content = preg_replace( '/(<span id="more-[0-9]+"><\/span>)/', '$1'.'[vkExUnit_ad area=more]' , $content );
+				$content = '[vkExUnit_ad area=before]'.$content;
+				$content .= '[vkExUnit_ad area=after]';
+			}
 		}
+
 
 		return $content;
 	}
