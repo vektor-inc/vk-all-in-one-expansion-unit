@@ -41,7 +41,7 @@ class vExUnit_call_responce {
 
 	public function option_init() {
 		vkExUnit_register_setting(
-			'Call To Action',                                  // tab label.
+			'Call To Action',                       // tab label.
 			'vkExUnit_cta_settings',                // name attr
 			array( $this, 'sanitize_config' ),      // sanitaise function name
 			array( $this, 'render_configPage' )     // setting_page function name
@@ -328,6 +328,7 @@ jQuery(document).ready(function($){
 
 	public function content_filter( $content ) {
 		if ( self::is_pagewidget() ) { return $content; }
+		if ( self::is_contentsarea_posts_widget() ) { return $content; }
 		if ( vkExUnit_is_excerpt() ) { return $content; }
 		$content .= self::render_cta_content( $this->is_cta_id() );
 		return $content;
@@ -336,9 +337,13 @@ jQuery(document).ready(function($){
 
 	public static function is_pagewidget() {
 		global $is_pagewidget;
-		return ($is_pagewidget)? true : false;
+		return ( $is_pagewidget )? true : false;
 	}
 
+	public static function is_contentsarea_posts_widget() {
+		global $is_contentsarea_posts_widget;
+		return ( $is_contentsarea_posts_widget ) ? true : false;
+	}
 
 	public function sanitize_config( $input ) {
 		$posttypes = array_merge( array( 'post' => 'post', 'page' => 'page' ), get_post_types( array( 'public' => true, '_builtin' => false ), 'names' ) );
