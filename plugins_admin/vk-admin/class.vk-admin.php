@@ -48,17 +48,17 @@ class Vk_Admin {
 		$lang = ( get_locale() == 'ja' ) ? 'ja' : 'en' ;
 
 		if ( !is_plugin_active('vk-post-author-display/post-author-display.php') ){
-			$banner .= '<a href="https://wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/post_author_display_bnr_'.$lang .'.jpg" alt="VK Post Author 
+			$banner .= '<a href="https://wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/post_author_display_bnr_'.$lang .'.jpg" alt="VK Post Author 
 			Display" /></a>';
 		}
 
 		if ( $lang == 'ja' ) {
-			$banner .= '<a href="http://lightning.vektor-inc.co.jp/ja/" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
+			$banner .= '<a href="http://lightning.vektor-inc.co.jp/ja/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
 		} else {
-			$banner .= '<a href="http://lightning.vektor-inc.co.jp/" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
+			$banner .= '<a href="http://lightning.vektor-inc.co.jp/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
 		}
 
-		$banner .= '<a href="http://www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="'.$dir_url.'/images/vektor_logo.png" alt="lightning_bnr_en" /></a>';
+		$banner .= '<a href="http://www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/vektor_logo.png" alt="lightning_bnr_en" /></a>';
 
 		return apply_filters( 'vk_admin_banner_html' , $banner );
 	}

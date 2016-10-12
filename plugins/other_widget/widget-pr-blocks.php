@@ -24,6 +24,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'media_alt_1' => '',
 			'iconFont_class_1' => 'fa-file-text-o',
 			'iconFont_bgColor_1' => '#337ab7',
+			'iconFont_bgType_1' => '',
 			'summary_1' => '',
 			'linkurl_1' => '',
 
@@ -32,6 +33,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'media_alt_2' => '',
 			'iconFont_class_2' => 'fa-building-o',
 			'iconFont_bgColor_2' => '#337ab7',
+			'iconFont_bgType_2' => '',
 			'summary_2' => '',
 			'linkurl_2' => '',
 
@@ -40,6 +42,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'media_alt_3' => '',
 			'iconFont_class_3' => 'fa-user',
 			'iconFont_bgColor_3' => '#337ab7',
+			'iconFont_bgType_3' => '',
 			'summary_3' => '',
 			'linkurl_3' => '',
 
@@ -48,6 +51,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'media_alt_4' => '',
 			'iconFont_class_4' => 'fa-envelope',
 			'iconFont_bgColor_4' => '#337ab7',
+			'iconFont_bgType_4' => '',
 			'summary_4' => '',
 			'linkurl_4' => '',
 		);
@@ -80,10 +84,22 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 			<input type="text" id="'.$this->get_field_id( 'iconFont_class_'.$i ).'-font" class="font_class" name="'.$this->get_field_name( 'iconFont_class_'.$i ).'" value="'.$instance[ 'iconFont_class_'.$i ].'" /><br>'
 	.__( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ).'<br>'.__( ' ex:fa-file-text-o', 'vkExUnit' ).'</p>';
 
-	// icon font background color
+	// icon font color
 	echo '<p class="color_picker_wrap">'.
-		'<label for="'.$this->get_field_id( 'iconFont_bgColor_'.$i ).'">'.__( 'Icon bg-color:', 'vkExUnit' ).'</label><br/>'.
+		'<label for="'.$this->get_field_id( 'iconFont_bgColor_'.$i ).'">'.__( 'Icon color:', 'vkExUnit' ).'</label><br/>'.
 		'<input type="text" id="'.$this->get_field_id( 'iconFont_bgColor_'.$i ).'-color" class="color_picker" name="'.$this->get_field_name( 'iconFont_bgColor_'.$i ).'" value="'.$instance[ 'iconFont_bgColor_'.$i ].'" /></p>';
+
+	// icon font type
+	echo '<p>'.__( 'Icon Background:', 'vkExUnit' ).'<br>';
+
+	$checked = ( !isset( $instance[ 'iconFont_bgType_'.$i ] ) || !$instance[ 'iconFont_bgType_'.$i ] ) ? ' checked' : '';
+	echo '<input type="radio" id="'.$this->get_field_id( 'iconFont_bgType_'.$i ).'_solid" name="'.$this->get_field_name( 'iconFont_bgType_'.$i ).'" value=""'.$checked.' />';
+	echo '<label for="'.$this->get_field_id( 'iconFont_bgType_'.$i ).'_solid">'.__( 'Solid color', 'vkExUnit' ).'</label>  ';
+
+	$checked = ( isset( $instance[ 'iconFont_bgType_'.$i ] ) && $instance[ 'iconFont_bgType_'.$i ] === 'no_paint' ) ? ' checked' : '';
+	echo '<input type="radio" id="'.$this->get_field_id( 'iconFont_bgType_'.$i ).'_no_paint" name="'.$this->get_field_name( 'iconFont_bgType_'.$i ).'" value="no_paint"'.$checked.' />';
+	echo '<label for="'.$this->get_field_id( 'iconFont_bgType_'.$i ).'_no_paint">'.__( 'No background', 'vkExUnit' ).'</label>';
+	echo '</p>';
 
 	// media uploader imageurl input area
 	echo '<p><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'Select image:', 'vkExUnit' ).'</label><br/>'.
@@ -130,6 +146,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 			$instance[ 'media_alt_'.$i ] = $new_instance[ 'media_alt_'.$i ];
 			$instance[ 'iconFont_class_'.$i ] = $new_instance[ 'iconFont_class_'.$i ];
 			$instance[ 'iconFont_bgColor_'.$i ] = $new_instance[ 'iconFont_bgColor_'.$i ];
+			$instance[ 'iconFont_bgType_'.$i ] = $new_instance[ 'iconFont_bgType_'.$i ];
 			$instance[ 'summary_'.$i ] = $new_instance[ 'summary_'.$i ];
 			$instance[ 'linkurl_'.$i ] = $new_instance[ 'linkurl_'.$i ];
 			$i++;
@@ -140,7 +157,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="veu_prBlocks row">'.PHP_EOL;
+		echo PHP_EOL.'<div class="veu_prBlocks prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
 		
@@ -152,21 +169,36 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
-				echo '<article class="prArea '.$col_class.'">'.PHP_EOL;
+				echo '<article class="prBlock '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'">'.PHP_EOL ;
 				}
 				// icon font display
 				if ( empty( $instance[ 'media_image_'.$i ] ) && ! empty( $instance[ 'iconFont_class_'.$i ] ) ) {
-					echo '<div class="circle_icon" style="background-color:'.esc_attr( $instance[ 'iconFont_bgColor_'.$i ] ).'">';
-					echo '<i class="fa '.esc_attr( $instance[ 'iconFont_class_'.$i ] ).' font_icon"></i></div>'.PHP_EOL;
+
+					$styles = 'border:1px solid '.$instance[ 'iconFont_bgColor_'.$i ].';';
+
+					if ( !isset( $instance[ 'iconFont_bgType_'.$i ] ) || $instance[ 'iconFont_bgType_'.$i ] != 'no_paint' ){
+						$styles .= 'background-color:'.$instance[ 'iconFont_bgColor_'.$i ].';';
+					}
+
+					echo '<div class="prBlock_icon_outer" style="'.esc_attr( $styles ).'">';
+
+					if ( isset( $instance[ 'iconFont_bgType_'.$i ] ) && $instance[ 'iconFont_bgType_'.$i ] == 'no_paint' ){
+						$icon_styles = ' style="color:'.$instance[ 'iconFont_bgColor_'.$i ].';"';
+					} else {
+						$icon_styles = ' style="color:#fff;"';
+					}
+					
+					echo '<i class="fa '.esc_attr( $instance[ 'iconFont_class_'.$i ] ).' font_icon prBlock_icon"'.$icon_styles.'></i></div>'.PHP_EOL;
+
 					// image display
 				} else if ( ! empty( $instance[ 'media_image_'.$i ] ) ) {
-					echo '<div class="media_pr">'.PHP_EOL;
-					echo '<img class="pr_image" src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />'.PHP_EOL.'</div><!--//.media_pr -->'.PHP_EOL;
+					echo '<div class="prBlock_image">'.PHP_EOL;
+					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />'.PHP_EOL.'</div><!--//.prBlock_image -->'.PHP_EOL;
 				}
 				// title text
-				echo '<h1 class="prBox_title">';
+				echo '<h1 class="prBlock_title">';
 				if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
 					echo $instance[ 'label_'.$i ];
 				} else {
@@ -175,14 +207,14 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 				echo '</h1>'.PHP_EOL;
 				// summary text
 				if ( ! empty( $instance[ 'summary_'.$i ] ) ) {
-					echo '<p class="summary">'.nl2br( esc_attr( $instance[ 'summary_'.$i ] ) ).'</p>'.PHP_EOL;
+					echo '<p class="prBlock_summary">'.nl2br( esc_attr( $instance[ 'summary_'.$i ] ) ).'</p>'.PHP_EOL;
 				}
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					echo '</a>'.PHP_EOL;
 				}
 
 				echo '</article>'.PHP_EOL;
-				echo '<!--//.prArea -->'.PHP_EOL;
+				echo '<!--//.prBlock -->'.PHP_EOL;
 			}
 			$i++;
 		}
