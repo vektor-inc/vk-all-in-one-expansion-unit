@@ -72,6 +72,9 @@ e.g.
 
 == Changelog ==
 
+= 4.5.0 =
+* [ Add Function ][ PR Blocks Widget] Add PR Blocks Design type.
+
 = 4.4.0 =
 * [ Add Function ] Custom post type and custom taxonomy manager
 
