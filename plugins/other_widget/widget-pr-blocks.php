@@ -176,16 +176,16 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 				// icon font display
 				if ( empty( $instance[ 'media_image_'.$i ] ) && ! empty( $instance[ 'iconFont_class_'.$i ] ) ) {
 
-					$styles = 'border:1px solid '.$instance[ 'iconFont_bgColor_'.$i ].';';
+					$styles = 'border:1px solid '.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';';
 
 					if ( !isset( $instance[ 'iconFont_bgType_'.$i ] ) || $instance[ 'iconFont_bgType_'.$i ] != 'no_paint' ){
-						$styles .= 'background-color:'.$instance[ 'iconFont_bgColor_'.$i ].';';
+						$styles .= 'background-color:'.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';';
 					}
 
 					echo '<div class="prBlock_icon_outer" style="'.esc_attr( $styles ).'">';
 
 					if ( isset( $instance[ 'iconFont_bgType_'.$i ] ) && $instance[ 'iconFont_bgType_'.$i ] == 'no_paint' ){
-						$icon_styles = ' style="color:'.$instance[ 'iconFont_bgColor_'.$i ].';"';
+						$icon_styles = ' style="color:'.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';"';
 					} else {
 						$icon_styles = ' style="color:#fff;"';
 					}
