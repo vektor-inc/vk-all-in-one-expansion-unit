@@ -22,7 +22,7 @@ function vkExUnit_childPageIndex_shortcode() {
 
 	if ( empty( $childrens ) ) { return; }
 
-	$childPageList_html = PHP_EOL.'<div class="row veu_childPage_list">'.PHP_EOL;
+	$childPageList_html = PHP_EOL.'<div class="veu_childPage_list">'.PHP_EOL;
 	foreach( $childrens as $children ):
 
 			// Set Excerpt
@@ -33,7 +33,7 @@ function vkExUnit_childPageIndex_shortcode() {
 		}
 
 			// Page Item build
-			$childPageList_html .= '<a href="'.esc_url( get_permalink( $children->ID ) ).'" class="col-sm-6 childPage_list_box"><div class="childPage_list_box_inner">';
+			$childPageList_html .= '<a href="'.esc_url( get_permalink( $children->ID ) ).'" class="childPage_list_box"><div class="childPage_list_box_inner">';
 			$childPageList_html .= '<h3 class="childPage_list_title">'.esc_html( strip_tags( $children->post_title ) ).'</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">'.get_the_post_thumbnail( $children->ID, 'large' );
 			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p></div>';
