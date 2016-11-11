@@ -321,7 +321,7 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .veu_followSet
 /*-------------------------------------------*/
-.veu_followSet { @include veu_content_bottom_section;
+.veu_followSet { @include veu_content_bottom_section; clear: both;
 	h1.followSet_title {  @include veu_content_bottom_section_title; }
 	.followSet_body {  @include veu_content_bottom_section_body; }
 	.follow_btn { float:left;margin-right:20px;margin-bottom:10px; }
