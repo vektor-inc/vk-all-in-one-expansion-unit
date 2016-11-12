@@ -136,19 +136,21 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				echo '</h1>';
 
 				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) ) { 
-					echo '<div class="media_pr">';
+
+					// media_pr は現在不使用 近日削除
+					echo '<div class="media_pr veu_3prArea_image">';
 
 					if ( ! empty( $instance['linkurl_'.$i] ) ) {
-						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" >';
+						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link">';
 					}
 
 					if ( ! empty( $instance['media_3pr_image_'.$i] ) ) {
-						$class = ( ! empty( $instance['media_3pr_image_sp_'.$i] ) ) ? ' class="media_pc"' :'';
+						$class = ( ! empty( $instance['media_3pr_image_sp_'.$i] ) ) ? ' class="image_pc"' :'';
 						echo '<img'.$class.' src="'.esc_url( $instance['media_3pr_image_'.$i] ).'" alt="'.esc_attr( $instance['media_3pr_alt_'.$i] ).'" />';
 					}
 
 					if ( ! empty( $instance['media_3pr_image_sp_'.$i] ) ) {
-						echo '<img class="media_sp" src="'.esc_url( $instance['media_3pr_image_sp_'.$i] ).'" alt="'.esc_attr( $instance['media_3pr_alt_sp_'.$i] ).'" />';
+						echo '<img class="image_sp" src="'.esc_url( $instance['media_3pr_image_sp_'.$i] ).'" alt="'.esc_attr( $instance['media_3pr_alt_sp_'.$i] ).'" />';
 					}
 
 					if ( ! empty( $instance['linkurl_'.$i] ) ) {
