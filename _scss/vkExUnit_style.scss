@@ -221,11 +221,11 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .veu_childPage_list
 /*-------------------------------------------*/
-.veu_childPage_list {
-	margin-top: 2.5em;margin-bottom:1em;
-	a:hover{ text-decoration: none; }
-	.childPage_list_box { display:block;margin-bottom:1em; }
-	.childPage_list_box_inner{	position: relative; display:block; overflow:hidden;padding: 0 20px;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);}
+$section_pagelist_margin:2.5em 0 1em;
+.veu_childPage_list { 
+	margin: $section_pagelist_margin;
+	.childPage_list_box { display:block;margin-bottom:1.5em; width: 100%;text-decoration: none; }
+	.childPage_list_box_inner{	position: relative; display:block; overflow:hidden;height:100%;padding: 0 20px;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);}
 	.childPage_list_title{ margin-top:20px;color:$color_font_default;font-size: 16px;line-height: 1.4;}
 	.wp-post-image{ float: left; margin-right: 1em; width: 30%; border: solid 1px #ddd; }
 	.childPage_list_body{ overflow: hidden;margin-bottom:5px; color: #333; font-size: 14px;
@@ -234,7 +234,7 @@ iframe.wp-embedded-content { width:100%; }
 		}
 	}
 	p { line-height: 1.5em; }
-	.childPage_list_text{ overflow: hidden;margin-bottom: 0;}
+	.childPage_list_text{ overflow: hidden;margin-bottom: 1em;}
 	.childPage_list_more{ float: right;margin-bottom:20px; }
 }
 
@@ -243,13 +243,24 @@ iframe.wp-embedded-content { width:100%; }
 	.wp-post-image{ width: 25%; }
 }
 } // @media (max-width: 767px){
+@media (min-width: 541px){
+.veu_childPage_list {
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap; /* Safari */
+	justify-content:         space-between;
+	-webkit-justify-content: space-between; /* Safari */
+	.childPage_list_box { width: 48%; }
+}
+} // @media (max-width: 767px){
 
 /*-------------------------------------------*/
 /* .veu_pageList_ancestor
 /*-------------------------------------------*/
 
-.veu_pageList_ancestor{
-	margin: 0 0 15px;
+.veu_pageList_ancestor{ clear: both;
+	margin: $section_pagelist_margin;
 	padding: 20px 20px 0;
 	border: 3px solid #efefef;
 	box-shadow: inset 0px 0px 0px 1px #fff;
@@ -268,14 +279,14 @@ iframe.wp-embedded-content { width:100%; }
 			padding: 8px 5px;
 			border-bottom: solid 1px #ddd;
 			color: #333;
-			font-size: 0.8em;
+			font-size: 14px;
 		}
 		a:hover { text-decoration: underline; }
 		& > .page_item {
 			list-style: none;
 		}
 		li { margin-bottom: 0; }
-		ul { margin: 0;padding-left: 0px;
+		ul { margin: 0;padding-left: 0px;padding-bottom:0;
 			li { position: relative; list-style: none;
 				&:before{
 					position: absolute;
@@ -311,7 +322,7 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .veu_followSet
 /*-------------------------------------------*/
-.veu_followSet { @include veu_content_bottom_section;
+.veu_followSet { @include veu_content_bottom_section; clear: both;
 	h1.followSet_title {  @include veu_content_bottom_section_title; }
 	.followSet_body {  @include veu_content_bottom_section_body; }
 	.follow_btn { float:left;margin-right:20px;margin-bottom:10px; }
@@ -530,22 +541,27 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 .veu_3prArea{
 	.subSection-title{ font-size: 18px; }
-	.media_pr{
-		margin-top: 0.8em;
-		margin-bottom: 0.8em;
-	}
-	.media_pc{ display: block; }
-	.media_sp{ display: none; }
 	.summary{ margin-bottom: 0.5em; font-size: 14px; line-height: 1.6em; }
 	.linkurl a{ text-decoration: none; }
 }
-@media screen and (max-width:992px){
-.veu_3prArea{
-	.prArea{ margin-bottom: 1em; }
-	.media_pc{ display: none; }
-	.media_sp{ display: block; }
+.veu_3prArea_image {
+	margin-top: 0.8em;
+	margin-bottom: 0.8em;
+	.image_pc{ display: block; }
+	.image_sp{ display: none; }
+	border:1px solid #e5e5e5;
+	img { width:100%; }
+}
+.veu_3prArea_image_link { border:1px solid #fff;display:block; overflow:hidden; }
+
+@media screen and (max-width:768px){
+.veu_3prArea{ 
+	.prArea{ margin-bottom: 1em;display:block; overflow:hidden; }
+	.image_pc{ display: none; }
+	.image_sp{ display: block; }
 	.linkurl { margin-bottom: 1.5em; } 
-}	
+}
+.veu_3prArea_image { width:138px;margin:0 1em 0 0; float:left; }
 }
 
 /*-------------------------------------------*/

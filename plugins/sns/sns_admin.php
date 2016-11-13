@@ -54,12 +54,34 @@
 
 <tr>
 <th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vkExUnit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] )? 'checked': ''; ?> /><?php _e( 'Print the social bookmark buttons', 'vkExUnit' );?></label></td>
-</tr>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] )? 'checked': ''; ?> /><?php _e( 'Print the social bookmark buttons', 'vkExUnit' );?></label>
 
-<tr>
-<th><label for="snsBtn_ignorePosts"><?php _e( 'ignore postID for SNS buttons' ,'vkExUnit'); ?></label></th>
-<td><input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="<?php if( isset( $options['snsBtn_ignorePosts'] ) ) echo $options['snsBtn_ignorePosts'] ?>" />
+<dl>
+<dt><?php _e('Exclude Post Types', 'vkExUnit');?></dt>
+<dd>
+<?php
+$args = array(
+	'public'   => true,
+);
+$post_types = get_post_types($args,'object');
+echo '<ul>';
+foreach ($post_types as $key => $value) {
+	if ( $key != 'attachment' ) {
+		$checked = ( isset( $options['snsBtn_exclude_post_types'][$key] ) && $options['snsBtn_exclude_post_types'][$key] == 'true' ) ? ' checked':''; 
+		echo '<li><label>';
+		echo '<input type="checkbox" name="vkExUnit_sns_options[snsBtn_exclude_post_types]['.$key.']" id="snsBtn_exclude_post_types" value="true"'.$checked.' />'.$value->label;
+		echo '</label></li>';
+	}
+}
+echo '</ul>';
+?>
+</dd>
+</dl>
+
+<dl>
+<dt><?php _e( 'Exclude Post ID' ,'vkExUnit'); ?></dt>
+<dd>
+<input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="<?php if( isset( $options['snsBtn_ignorePosts'] ) ) echo $options['snsBtn_ignorePosts'] ?>" />
 <br/>
 <?php _e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vkExUnit' );
 echo '<br/>';
@@ -67,6 +89,8 @@ _e( 'if empty this area, I will do not filtering.', 'vkExUnit' );
 echo "<br/>";
 _e( 'example', 'vkExUnit'); ?>
   (12,31,553)
+</dd>
+</dl>
 </td>
 </tr>
 

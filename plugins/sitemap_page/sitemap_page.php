@@ -163,17 +163,19 @@ function vkExUnit_sitemap( $atts ) {
 							// Get tax related post type
 							$taxonomy_postType = $taxonomy_info->object_type[0];
 							if ( $taxonomy_postType == $postType && ( $taxonomy_info->name != 'post_format') ) {
-								$sitemap_html .= '<h5>'.$taxonomy_info->labels->name.'</h5>'.PHP_EOL;
-								$sitemap_html .= '<ul class="link-list">'.PHP_EOL;
-													$args = array(
-														'taxonomy' => $taxonomy,
-														'title_li' => '',
-														'orderby' => 'order',
-														'echo'	=> 0,
-														'show_option_none' => '',
-													);
-													$sitemap_html .= wp_list_categories( $args );
-													$sitemap_html .= '</ul>'.PHP_EOL; // <!-- [ /.link-list ] -->
+								$args = array(
+									'taxonomy' => $taxonomy,
+									'title_li' => '',
+									'orderby' => 'order',
+									'echo'	=> 0,
+									'show_option_none' => '',
+								);
+								$tax_sitemap_html = wp_list_categories( $args );
+
+								if ( $tax_sitemap_html ) {
+									$sitemap_html .= '<h5>'.$taxonomy_info->labels->name.'</h5>';
+									$sitemap_html .= '<ul class="link-list">'.$tax_sitemap_html.'</ul>';
+								}
 							}
 						}
 					} // end if($post_type_object)

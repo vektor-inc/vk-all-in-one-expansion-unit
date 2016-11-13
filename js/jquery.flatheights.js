@@ -113,7 +113,7 @@ jQuery(document).ready(function($){
     // .topPrTitには高さのpaddingを入れる事もあるので a に対して指定
     jQuery('.topPrTit a').flatHeights();
     jQuery('.topPrDescription').flatHeights();
-    jQuery('.child_page_block').flatHeights();
-    jQuery('.child_page_block p').flatHeights();
-	jQuery('#content .child_page_block h4 a').flatHeights();
+    // jQuery('.child_page_block').flatHeights();
+    // jQuery('.child_page_block p').flatHeights();
+	jQuery('.child_page_block h4 a').flatHeights();
 });

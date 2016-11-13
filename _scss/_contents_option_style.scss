@@ -47,3 +47,20 @@ dl.veu_qaItem  { display:block; overflow:hidden;border-bottom:1px dotted #ccc; p
  }
 .veu_floatLeft { float:left;margin-right:20px; }
 .veu_floatRight { float:right;margin-left:20px; }
+
+
+.veu_feat_list { background: none;border:none; padding: 0 0 0 2em; font-size:2em;margin-top:1.5em; position: relative; }
+.veu_feat_list::before,
+.veu_feat_list::after { border: none; background:none; }
+
+.veu_feat_list::before { position: absolute;left:0;top:-0.2em; background-color: #4e7729;color:#fff; border-radius: 100%; margin-right:0.5em; padding: 0.2em 0.5em; }
+.veu_feat_list_1::before { content:"1"; }
+.veu_feat_list_2::before { content:"2"; }
+.veu_feat_list_3::before { content:"3"; }
+.veu_feat_list_4::before { content:"4"; }
+.veu_feat_list_5::before { content:"5"; }
+.veu_feat_list_6::before { content:"6"; }
+.veu_feat_list_7::before { content:"7"; }
+.veu_feat_list_8::before { content:"8"; }
+.veu_feat_list_9::before { content:"9"; }
+
