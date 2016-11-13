@@ -20,7 +20,12 @@ function vkExUnit_is_snsBtns_display(){
 	global $post;
 	$options = vkExUnit_get_sns_options();
 	$ignorePosts = explode(",", $options['snsBtn_ignorePosts']);
-	if ( !isset( $options['snsBtn_ignorePosts'] ) ){
+	$post_type = vkExUnit_get_post_type();
+	$post_type = $post_type['slug'];
+
+	if ( isset( $options['snsBtn_exclude_post_types'][$post_type] ) && $options['snsBtn_exclude_post_types'][$post_type] ){
+		return false;
+	} else if ( !isset( $options['snsBtn_ignorePosts'] ) ){
 		return true;
 	} else if ( isset( $options['snsBtn_ignorePosts'] ) && $options['snsBtn_ignorePosts'] == $post->ID ) {
 		return false;
