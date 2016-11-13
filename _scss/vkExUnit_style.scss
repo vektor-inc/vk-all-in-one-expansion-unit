@@ -221,8 +221,9 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .veu_childPage_list
 /*-------------------------------------------*/
+$section_pagelist_margin:2.5em 0 1em;
 .veu_childPage_list { 
-	margin-top: 2.5em;margin-bottom:1em;
+	margin: $section_pagelist_margin;
 	.childPage_list_box { display:block;margin-bottom:1em; width: 100%;text-decoration: none; }
 	.childPage_list_box_inner{	position: relative; display:block; overflow:hidden;height:100%;padding: 0 20px;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);}
 	.childPage_list_title{ margin-top:20px;color:$color_font_default;font-size: 16px;line-height: 1.4;}
@@ -259,7 +260,7 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 
 .veu_pageList_ancestor{ clear: both;
-	margin: 0 0 15px;
+	margin: $section_pagelist_margin;
 	padding: 20px 20px 0;
 	border: 3px solid #efefef;
 	box-shadow: inset 0px 0px 0px 1px #fff;
