@@ -36,8 +36,10 @@ function vkExUnit_childPageIndex_shortcode() {
 			$childPageList_html .= '<a href="'.esc_url( get_permalink( $children->ID ) ).'" class="childPage_list_box"><div class="childPage_list_box_inner">';
 			$childPageList_html .= '<h3 class="childPage_list_title">'.esc_html( strip_tags( $children->post_title ) ).'</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">'.get_the_post_thumbnail( $children->ID, 'large' );
-			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p></div>';
+			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">'.__( 'Read more', 'vkExUnit' ).'</span>';
+			$childPageList_html .= '</div>';
+			
 			$childPageList_html .= '</div></a>'.PHP_EOL;
 	endforeach;
 
