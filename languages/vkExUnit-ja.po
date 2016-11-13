@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-11-12 08:48+0900\n"
+"POT-Creation-Date: 2016-11-13 15:29+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -519,11 +519,11 @@ msgid "Show index page"
 msgstr "一覧ページを表示する"
 
 #: ../plugins/child_page_index.php:40
-#: ../plugins/other_widget/widget-3pr-area.php:165
+#: ../plugins/other_widget/widget-3pr-area.php:167
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: ../plugins/child_page_index.php:90
+#: ../plugins/child_page_index.php:92
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -1003,7 +1003,7 @@ msgstr ""
 "します。"
 
 #: ../plugins/other_widget/widget-new-posts.php:181
-#: ../plugins/sns/sns_admin.php:66
+#: ../plugins/sns/sns_admin.php:88
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
 
@@ -1308,7 +1308,7 @@ msgstr "複数のページを除外する場合は , （コンマ）で区切っ
 msgid "HTML Sitemap"
 msgstr "HTMLサイトマップ"
 
-#: ../plugins/sitemap_page/sitemap_page.php:234
+#: ../plugins/sitemap_page/sitemap_page.php:236
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
@@ -1446,30 +1446,34 @@ msgstr "ソーシャルボタン"
 msgid "Print the social bookmark buttons"
 msgstr "ソーシャルブックマーク（シェアボタンやtweetボタン）を表示します。"
 
-#: ../plugins/sns/sns_admin.php:61
-msgid "ignore postID for SNS buttons"
-msgstr "SNSボタンの非表示設定"
+#: ../plugins/sns/sns_admin.php:60
+msgid "Exclude Post Types"
+msgstr "シェアボタンを表示しない投稿タイプ"
 
-#: ../plugins/sns/sns_admin.php:64
+#: ../plugins/sns/sns_admin.php:82
+msgid "Exclude Post ID"
+msgstr "シェアボタンを表示しない投稿のID"
+
+#: ../plugins/sns/sns_admin.php:86
 msgid ""
 "if you need filtering by post_ID, add the ignore post_ID separate by \",\"."
 msgstr ""
 "特定のポストのみSNSボタンを表示したくない場合、カンマ(,)区切りでポストIDを入"
 "力します。"
 
-#: ../plugins/sns/sns_admin.php:68
+#: ../plugins/sns/sns_admin.php:90
 msgid "example"
 msgstr "例"
 
-#: ../plugins/sns/sns_admin.php:74
+#: ../plugins/sns/sns_admin.php:98
 msgid "Follow me box"
 msgstr "Follow me box"
 
-#: ../plugins/sns/sns_admin.php:75
+#: ../plugins/sns/sns_admin.php:99
 msgid "Print the Follow me box"
 msgstr "Follow me ユニットを本文の下に表示する"
 
-#: ../plugins/sns/sns_admin.php:77
+#: ../plugins/sns/sns_admin.php:101
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
@@ -1594,6 +1598,9 @@ msgstr "プラグイン設定オプション"
 #: ../vkExUnit_admin.php:89
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
+
+#~ msgid "ignore postID for SNS buttons"
+#~ msgstr "SNSボタンの非表示設定"
 
 #~ msgid "3PR area2 setting"
 #~ msgstr "3PR エリア2 設定"
