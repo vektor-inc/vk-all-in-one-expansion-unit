@@ -24,7 +24,7 @@ var spritesmith = require('gulp.spritesmith');
 
 gulp.task( 'copy', function() {
     // bootstrapのcssをscssディレクトリに複製
-    gulp.src( './bootstrap/css/bootstrap.min.css'  )
+    gulp.src( './libraries/bootstrap/css/bootstrap.min.css'  )
     .pipe(rename({prefix: "_",extname: ".scss"})) // 拡張子をscssに
     .pipe( gulp.dest( './_scss/' ) ); // _scss ディレクトリに保存
 } );
@@ -37,7 +37,7 @@ gulp.task('scripts', function() {
 });
 gulp.task('scripts_in_bs', function() {
   // bootstrap use
-  return gulp.src(['./js/jquery.flatheights.js','./bootstrap/js/bootstrap.min.js','./js/master.js'])
+  return gulp.src(['./js/jquery.flatheights.js','./libraries/bootstrap/js/bootstrap.min.js','./js/master.js'])
     .pipe(concat('all_in_bs.js'))
     .pipe(gulp.dest('./js/'));
 });
