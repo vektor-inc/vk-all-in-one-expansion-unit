@@ -115,7 +115,7 @@ jQuery(document).ready(function($){
     jQuery('.topPrDescription').flatHeights();
     // jQuery('.child_page_block').flatHeights();
     // jQuery('.child_page_block p').flatHeights();
-	// jQuery('#content .child_page_block h4 a').flatHeights();
+	jQuery('.child_page_block h4 a').flatHeights();
 });
 /*-------------------------------------------*/
 /*  facebookLikeBox
