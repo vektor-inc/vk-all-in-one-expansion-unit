@@ -209,6 +209,8 @@ function vkExUnit_sitemap( $atts ) {
 	$sitemap_html .= '</div>'.PHP_EOL; // <!-- [ /.sitemap-col ] -->
 	$sitemap_html .= '</div>'.PHP_EOL; // <!-- [ /.sitemap ] -->
 
+	wp_reset_postdata();
+	wp_reset_query();
 	return $sitemap_html;
 }
 add_shortcode( 'vkExUnit_sitemap', 'vkExUnit_sitemap' );
