@@ -32,7 +32,11 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
         <p>
-		<?php 	$pages = get_pages();	?>
+		<?php
+		$args = array(
+			'post_status' => 'publish,private',
+		); 
+		$pages = get_pages($args);	?>
 		<label for="<?php echo $this->get_field_id( 'page_id' ); ?>"><?php _e( 'Display page', 'vkExUnit' ) ?></label>
 		<select name="<?php echo $this->get_field_name( 'page_id' ); ?>" >
 		<?php foreach ( $pages as $page ) {  ?>
