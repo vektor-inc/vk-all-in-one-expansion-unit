@@ -9,7 +9,7 @@ function vkExUnit_add_related_loopend( $query ){
 	echo vkExUnit_add_relatedPosts_html('');
 }
 
-function vkExUnit_add_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag', $max_show_posts = 10 ){
+function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag', $max_show_posts = 10 ){
 	$posts_array = '';
 	$post_id = get_the_id();
 
@@ -77,7 +77,7 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	/*-------------------------------------------*/
 	/*  Related posts
 	/*-------------------------------------------*/
-	$related_posts = vkExUnit_add_relatedPosts();
+	$related_posts = vkExUnit_get_relatedPosts();
 
 	if ( !$related_posts ) { return $content; }
 
