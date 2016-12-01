@@ -62,8 +62,6 @@ gulp.task('jsmin_in_bs', function () {
 
 // Watch
 gulp.task('watch', function() {
-    // gulp.watch('css/*.css', ['cssmin'])
-    // gulp.watch('js/*.js', ['scripts']);
     gulp.watch('js/master.js', ['scripts','scripts_in_bs']);
     gulp.watch('js/all.js', ['jsmin']);
     gulp.watch('js/all_in_bs.js', ['jsmin_in_bs']);
@@ -71,4 +69,5 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
-gulp.task('default', ['scripts','jsmin','watch']);
+gulp.task('default', ['scripts','scripts_in_bs','copy','watch']);
+gulp.task('compile', ['scripts','scripts_in_bs','jsmin','jsmin_in_bs','copy']);
