@@ -67,7 +67,7 @@ function vkExUnit_add_snsBtns( $content ) {
 		endif;
 		// pocket
 
-		$socialSet .= '<li class="sb_pocket sb_icon"><a href="//getpocket.com/edit?url='. $linkUrl .'&title=' . $pageTitle . '" target="_blank" onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><i class="fa fa-get-pocket" aria-hidden="true"></i><span class="sns_txt">Pocket</span><span class="veu_count_sns_pocket">-</span></a></li>';
+		$socialSet .= '<li class="sb_pocket sb_icon"><a href="//getpocket.com/edit?url='. $linkUrl .'&title=' . $pageTitle . '" target="_blank" onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><i class="fa fa-get-pocket" aria-hidden="true"></i><span class="sns_txt">Pocket</span><span class="veu_count_sns_pocket"></span></a></li>';
 
 
 		$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
@@ -83,7 +83,7 @@ function vkExUnit_sns_pocket_tunnel(){
 	ini_set( 'display_errors', 0 );
 	$linkurl = urldecode( filter_input( INPUT_POST, "linkurl" ) );
 	if( $s["host"] != $p["host"] ){ echo "0"; die(); }
-	$r = wp_safe_remote_get('https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl);
+	$r = wp_safe_remote_get('https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl .'&title=title&src='.$linkurl.'&r='.rand(100));
 	if( is_wp_error($r) ){ echo "0"; die(); }
 	echo $r['body'];
 	die();

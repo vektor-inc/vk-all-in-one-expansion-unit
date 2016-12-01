@@ -50,13 +50,13 @@ if(typeof socials[0] === "undefined")return;
 var linkurl = encodeURIComponent(( typeof vkExOpt !== "undefined" && vkExOpt.sns_linkurl ) || location.href);
 var facebook = {
   init: function() {
-    var url = '//graph.facebook.com/?id=' + linkurl;
+    var url = 'https://graph.facebook.com/?id=' + linkurl;
     $.ajax({
       url: url,
       dataType: 'jsonp',
       success: function(response) {
-        var count = response.shares ? response.shares : 0;
-        socials.find('.veu_count_sns_fb').html(count);
+        if( response.share.share_count === undefined ) return;
+        socials.find('.veu_count_sns_fb').html(response.share.share_count);
       }
     });
   }
@@ -94,7 +94,7 @@ var pocket = {
             dataType: 'html',
             success: function(response){
                 var count = $(response).find("#cnt").html();
-                if( typeof count === 'undefined' ) return;
+                if( count === undefined ) return;
                 socials.find('.veu_count_sns_pocket').html(count);
             }
         })
