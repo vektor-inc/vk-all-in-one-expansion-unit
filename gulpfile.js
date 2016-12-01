@@ -65,7 +65,7 @@ gulp.task('watch', function() {
     gulp.watch('js/master.js', ['scripts','scripts_in_bs']);
     gulp.watch('js/all.js', ['jsmin']);
     gulp.watch('js/all_in_bs.js', ['jsmin_in_bs']);
-    gulp.watch('_scss/style.scss', ['copy'])
+    gulp.watch('_scss/style.scss', ['copy']);
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
