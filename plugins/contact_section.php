@@ -152,9 +152,10 @@ class vExUnit_Contact {
 <button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e('Advanced Setting', 'vkExUnit'); ?></button>
 <table class="form-table" id="vkEx_contact_info" style="<?php if( !$options['contact_image'] and !$options['contact_html'] ) echo 'display:none;'; ?>">
 <tr>
-<th><?php _e('Display image instead of the standard', 'vkExUnit');?></th>
+<th><?php _e('Inquiry Banner image', 'vkExUnit' );?></th>
 <td><input type="text" name="vkExUnit_contact[contact_image]" id="contact_image" value="<?php echo $options['contact_image'] ?>" style="width:60%;" />
 <button id="media_src_contact_image" class="media_btn button button-default"><?php _e('Select Image'); ?></button>
+<p><?php _e('Display the image instead of the above inquiry information', 'vkExUnit');?><p>
 </td>
 </tr>
 <tr>

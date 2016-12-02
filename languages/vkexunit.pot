@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-02 13:42+0900\n"
+"POT-Creation-Date: 2016-12-02 18:57+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -364,92 +364,94 @@ msgstr ""
 msgid "Do not set eyecatch image automatic."
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:56
+#: plugins/call_to_action/class.call_to_action.php:63
 #: plugins/call_to_action/view.actionbox.php:39
 msgid "Edit CTA"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:57
+#: plugins/call_to_action/class.call_to_action.php:64
 msgid "Add new CTA"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:58
+#: plugins/call_to_action/class.call_to_action.php:65
 msgid "New CTA"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:84
-#: plugins/call_to_action/class.call_to_action.php:86
-#: plugins/call_to_action/class.call_to_action.php:87
+#: plugins/call_to_action/class.call_to_action.php:92
+#: plugins/call_to_action/class.call_to_action.php:94
+#: plugins/call_to_action/class.call_to_action.php:95
 msgid "Call to Action setting"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:89
+#: plugins/call_to_action/class.call_to_action.php:97
 msgid "CTA Contents"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:97
+#: plugins/call_to_action/class.call_to_action.php:106
 msgid "Follow common setting"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:98
-#: plugins/call_to_action/class.call_to_action.php:412
+#: plugins/call_to_action/class.call_to_action.php:107
+#: plugins/call_to_action/class.call_to_action.php:434
 msgid "Disable display"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:109
+#: plugins/call_to_action/class.call_to_action.php:118
 msgid "CTA common setting"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:110
+#: plugins/call_to_action/class.call_to_action.php:119
 #: plugins/call_to_action/view.adminsetting.php:22
+#: plugins/call_to_action/widget.call_to_action.php:60
 msgid "Show CTA index page"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:175
+#: plugins/call_to_action/class.call_to_action.php:184
 msgid "CTA image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:181
+#: plugins/call_to_action/class.call_to_action.php:190
 msgid "Add image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:182
+#: plugins/call_to_action/class.call_to_action.php:191
 msgid "Change image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:183
+#: plugins/call_to_action/class.call_to_action.php:192
 msgid "Remove image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:188
+#: plugins/call_to_action/class.call_to_action.php:197
 msgid "CTA image position"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:191
+#: plugins/call_to_action/class.call_to_action.php:200
 msgid "right"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:192
+#: plugins/call_to_action/class.call_to_action.php:201
 msgid "center"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:193
+#: plugins/call_to_action/class.call_to_action.php:202
 msgid "left"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:197
+#: plugins/call_to_action/class.call_to_action.php:206
 msgid "Button text"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:200
+#: plugins/call_to_action/class.call_to_action.php:209
 msgid "Button link url"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:203
+#: plugins/call_to_action/class.call_to_action.php:212
 msgid "Text message"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:209
+#: plugins/call_to_action/class.call_to_action.php:218
+#: plugins/call_to_action/widget.call_to_action.php:61
 msgid "CTA setting"
 msgstr ""
 
@@ -477,6 +479,18 @@ msgstr ""
 msgid "Show index page"
 msgstr ""
 
+#: plugins/call_to_action/widget.call_to_action.php:12
+msgid "CTA"
+msgstr ""
+
+#: plugins/call_to_action/widget.call_to_action.php:18
+msgid "Select CTA and display it."
+msgstr ""
+
+#: plugins/call_to_action/widget.call_to_action.php:50
+msgid "Please select CTA to display."
+msgstr ""
+
 #: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:167
 msgid "Read more"
 msgstr ""
@@ -485,7 +499,7 @@ msgstr ""
 msgid "Display a child page index"
 msgstr ""
 
-#: plugins/contact_section.php:59 plugins/contact_section.php:87
+#: plugins/contact_section.php:59 plugins/contact_section.php:89
 msgid "Contact Information"
 msgstr ""
 
@@ -501,7 +515,7 @@ msgstr ""
 msgid "Contact us"
 msgstr ""
 
-#: plugins/contact_section.php:92
+#: plugins/contact_section.php:91
 msgid ""
 "Contents input here are displayed on an \"Contact Button\" widget and each "
 "fixed page."
@@ -572,19 +586,43 @@ msgstr ""
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
 
-#: plugins/contact_section.php:171
+#: plugins/contact_section.php:152
+msgid "Advanced Setting"
+msgstr ""
+
+#: plugins/contact_section.php:155
+msgid "Inquiry Banner image"
+msgstr ""
+
+#: plugins/contact_section.php:157
+msgid "Select Image"
+msgstr ""
+
+#: plugins/contact_section.php:158
+msgid "Display the image instead of the above inquiry information"
+msgstr ""
+
+#: plugins/contact_section.php:162
+msgid "Display HTML message instead of the standard"
+msgstr ""
+
+#: plugins/contact_section.php:164
+msgid "HTML takes precedence over image"
+msgstr ""
+
+#: plugins/contact_section.php:187
 msgid "Display Contact Section"
 msgstr ""
 
-#: plugins/contact_section.php:254 plugins/contact_section.php:284
+#: plugins/contact_section.php:282 plugins/contact_section.php:312
 msgid "Edit contact information"
 msgstr ""
 
-#: plugins/contact_section.php:304
+#: plugins/contact_section.php:332
 msgid "Contact Button"
 msgstr ""
 
-#: plugins/contact_section.php:310 plugins/contact_section.php:332
+#: plugins/contact_section.php:338 plugins/contact_section.php:360
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -951,16 +989,16 @@ msgstr ""
 msgid "Displays a page contents to widget."
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:36
+#: plugins/other_widget/widget-page.php:40
 #: plugins/other_widget/widget-taxonomies.php:62
 msgid "Display page"
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:44
+#: plugins/other_widget/widget-page.php:48
 msgid "display title"
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:66
+#: plugins/other_widget/widget-page.php:70
 msgid "Edit"
 msgstr ""
 
