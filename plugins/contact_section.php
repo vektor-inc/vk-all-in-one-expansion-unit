@@ -68,6 +68,8 @@ class vExUnit_Contact {
 			'button_text' => '',
 			'button_text_small' => '',
 			'short_text' => __( 'Contact us' , 'vkExUnit' ),
+			'info_image' => '',
+			'info_text' => ''
 		);
 		$option = get_option( 'vkExUnit_contact' );
 		return wp_parse_args( $option, $default );
@@ -136,6 +138,21 @@ class vExUnit_Contact {
 </td>
 </tr>
 </table>
+<button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e('Advanced Setting', 'vkExUnit'); ?></button>
+<table class="form-table" id="vkEx_contact_info" style="<?php if( !$options['info_image'] and !$options['info_text'] ) echo 'display:none;'; ?>">
+<tr>
+<th><?php _e('Display image instead of the standard', 'vkExUnit');?></th>
+<td><input type="text" name="vkExUnit_contact[info_image]" id="info_image" value="<?php echo $options['info_image'] ?>" style="width:60%;" />
+<button id="media_info_image" class="media_btn button button-default"><?php _e('Select Image'); ?></button>
+</td>
+</tr>
+<tr>
+<th><?php _e('Display HTML message instead of the standard', 'vkExUnit'); ?></th>
+<td><textarea cols="20" rows="5" name="vkExUnit_contact[info_text]" id="info_text" value="" style="width:100%;"><?php echo $options['info_text'] ?></textarea>
+<p><?php _e('HTML takes precedence over image', 'vkExUnit'); ?></p>
+</td>
+</tr>
+</table>
 <?php submit_button(); ?>
 </div>
 	<?php
@@ -143,6 +160,7 @@ class vExUnit_Contact {
 
 
 	public function option_sanitaize( $option ) {
+		$option['info_text'] = stripslashes( $option['info_text'] );
 		return $option;
 	}
 
@@ -158,6 +176,7 @@ class vExUnit_Contact {
 </div>
 	<?php
 	}
+
 
 	public function save_custom_field_postdata( $post_id ) {
 		$childPageIndex = isset( $_POST['_nonce_vkExUnit_contact'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_contact'] ) : null;
@@ -211,24 +230,32 @@ class vExUnit_Contact {
 		$options = self::get_option();
 		$cont = '';
 		$cont .= '<section class="veu_contact veu_contentAddSection">';
-		$cont .= '<div class="contact_frame">';
-		$cont .= '<p class="contact_txt">';
-		$cont .= '<span class="contact_txt_catch">'.nl2br( esc_textarea( $options['contact_txt'] ) ).'</span>';
-		$cont .= '<span class="contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
-		$cont .= '<span class="contact_txt_time">'.nl2br( esc_textarea( $options['contact_time'] ) ).'</span>';
-		$cont .= '</p>';
-
-		if ( $options['contact_link'] && $options['button_text'] ) {
-			$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg contact_bt">';
-			$cont .= '<span class="contact_bt_txt">'.$options['button_text'].'</span>';
-
-			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
-				$cont .= '<span class="contact_bt_subTxt">'.$options['button_text_small'].'</span>';
-			}
-
+		if ( $options['info_text'] ) {
+			$cont .= apply_filters('the_content', $options['info_text'] );
+		} elseif ( $options['info_image'] ) {
+			$cont .= '<a href="'.esc_url( $options['contact_link'] ).'">';
+			$cont .= '<img src="'.esc_attr( $options['info_image'] ).'" alt="contact_txt">';
 			$cont .= '</a>';
+		} else {
+			$cont .= '<div class="contact_frame">';
+			$cont .= '<p class="contact_txt">';
+			$cont .= '<span class="contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
+			$cont .= '<span class="contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
+			$cont .= '<span class="contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
+			$cont .= '</p>';
+
+			if ( $options['contact_link'] && $options['button_text'] ) {
+				$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg contact_bt">';
+				$cont .= '<span class="contact_bt_txt">'.$options['button_text'].'</span>';
+
+				if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+					$cont .= '<span class="contact_bt_subTxt">'.$options['button_text_small'].'</span>';
+				}
+
+				$cont .= '</a>';
+			}
+			$cont .= '</div>';
 		}
-		$cont .= '</div>';
 		$cont .= '</section>';
 		if ( current_user_can( 'edit_theme_options' ) ) {
 			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__( 'Edit contact information', 'vkExUnit' ).'</a></div>';
