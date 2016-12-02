@@ -15,7 +15,7 @@ class WP_Widget_vkExUnit_call_to_action extends WP_Widget
             'vkExUnit_cta',
             $widget_name,
             array(
-                'description' => sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ),
+                'description' => sprintf( __( 'Select CTA and display it.', 'vkExUnit' ),vkExUnit_get_little_short_name() ),
                 )
         );
     }
@@ -47,7 +47,7 @@ class WP_Widget_vkExUnit_call_to_action extends WP_Widget
         $ctas = vExUnit_call_responce::get_ctas(true, '- ');
 ?>
 <div style="padding:1em 0;">
-    表示するCTA
+    <?php _e( 'Please select CTA to display.', 'vkExUnit' );?>
 </div>
 <div style="padding-bottom: 0.5em;">
 <select name="<?php echo $this->get_field_name( 'id' ); ?>" style="width: 100%" >
