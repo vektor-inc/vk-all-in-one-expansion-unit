@@ -27,7 +27,7 @@
 <td><?php _e( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vkExUnit' ); ?><br />
 <?php _e( 'If a featured image is specified for the page, it takes precedence.', 'vkExUnit' ); ?><br />
 <input type="text" name="vkExUnit_sns_options[ogImage]" id="ogImage" value="<?php echo esc_attr( $options['ogImage'] ); ?>" /> 
-<button id="media_ogImage" class="media_btn button"><?php _e( 'Select an image', 'vkExUnit' ); ?></button><br />
+<button id="media_src_ogImage" class="media_btn button"><?php _e( 'Select an image', 'vkExUnit' ); ?></button><br />
 <span><?php _e( 'ex) ', 'vkExUnit' );?>http://www.vektor-inc.co.jp/images/ogImage.png</span><br />
 <?php _e( '* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit' ); ?>
 </td>
