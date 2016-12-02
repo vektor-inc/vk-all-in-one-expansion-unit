@@ -21,12 +21,14 @@ class vExUnit_Contact {
 		return self::$instance;
 	}
 
-	private function __construct() {
+	private function __construct()
+	{
 		/***    do noting    ***/
 	}
 
 
-	protected function run_init() {
+	protected function run_init()
+	{
 		add_action( 'admin_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
@@ -38,18 +40,21 @@ class vExUnit_Contact {
 	}
 
 
-	public function set_content_loopend( $query ){
+	public function set_content_loopend( $query )
+	{
 		if( ! $query->is_main_query() ) return;
 		echo self::render_contact_html();
 	}
 
 
-	public function activate_metavox( $flag ) {
+	public function activate_metavox( $flag )
+	{
 		return true;
 	}
 
 
-	public function options_init() {
+	public function options_init()
+	{
 		vkExUnit_register_setting(
 			__( 'Contact Information', 'vkExUnit' ),      // tab label.
 			'vkExUnit_contact',          				// name attr
@@ -59,7 +64,8 @@ class vExUnit_Contact {
 	}
 
 
-	public static function get_option() {
+	public static function get_option()
+	{
 		$default = array(
 			'contact_txt' => __( 'Please feel free to inquire.', 'vkExUnit' ),
 			'tel_number' => '000-000-0000',
@@ -68,19 +74,24 @@ class vExUnit_Contact {
 			'button_text' => '',
 			'button_text_small' => '',
 			'short_text' => __( 'Contact us' , 'vkExUnit' ),
-			'info_image' => '',
-			'info_text' => ''
+			'contact_image' => '',
+			'contact_html' => ''
 		);
 		$option = get_option( 'vkExUnit_contact' );
 		return wp_parse_args( $option, $default );
 	}
 
 
-	public function options_page() {
+	public function options_page()
+	{
 		$options = self::get_option();
 	?>
 <h3><?php _e( 'Contact Information', 'vkExUnit' ); ?></h3>
 <div id="meta_description" class="sectionBox">
+<?php _e('Contents input here are displayed on an "Contact Button" widget and each fixed page.', 'vkExUnit'); ?>
+<br/>
+<?php _e('When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vkExUnit'); ?>
+
 <table class="form-table">
 <tr>
 <th scope="row"><label for="contact_txt"><?php _e( 'Message', 'vkExUnit' );?></label></th>
@@ -109,7 +120,7 @@ class vExUnit_Contact {
 <td>
 <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
 <span><?php _e( 'ex) ', 'vkExUnit' );?>http://www.********.co.jp/contact/ <?php _e( 'or', 'vkExUnit' );?> /******/</span><br />
-<?php _e( '* If you fill in the blank, contact button does not appear.', 'vkExUnit' );?>
+<?php _e( '* If you fill in the blank, widget\'s contact button does not appear.', 'vkExUnit' );?>
 </td>
 </tr>
 <tr>
@@ -139,16 +150,16 @@ class vExUnit_Contact {
 </tr>
 </table>
 <button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e('Advanced Setting', 'vkExUnit'); ?></button>
-<table class="form-table" id="vkEx_contact_info" style="<?php if( !$options['info_image'] and !$options['info_text'] ) echo 'display:none;'; ?>">
+<table class="form-table" id="vkEx_contact_info" style="<?php if( !$options['contact_image'] and !$options['contact_html'] ) echo 'display:none;'; ?>">
 <tr>
 <th><?php _e('Display image instead of the standard', 'vkExUnit');?></th>
-<td><input type="text" name="vkExUnit_contact[info_image]" id="info_image" value="<?php echo $options['info_image'] ?>" style="width:60%;" />
-<button id="media_info_image" class="media_btn button button-default"><?php _e('Select Image'); ?></button>
+<td><input type="text" name="vkExUnit_contact[contact_image]" id="contact_image" value="<?php echo $options['contact_image'] ?>" style="width:60%;" />
+<button id="media_src_contact_image" class="media_btn button button-default"><?php _e('Select Image'); ?></button>
 </td>
 </tr>
 <tr>
 <th><?php _e('Display HTML message instead of the standard', 'vkExUnit'); ?></th>
-<td><textarea cols="20" rows="5" name="vkExUnit_contact[info_text]" id="info_text" value="" style="width:100%;"><?php echo $options['info_text'] ?></textarea>
+<td><textarea cols="20" rows="5" name="vkExUnit_contact[contact_html]" id="contact_html" value="" style="width:100%;"><?php echo $options['contact_html'] ?></textarea>
 <p><?php _e('HTML takes precedence over image', 'vkExUnit'); ?></p>
 </td>
 </tr>
@@ -158,14 +169,15 @@ class vExUnit_Contact {
 	<?php
 	}
 
-
-	public function option_sanitaize( $option ) {
-		$option['info_text'] = stripslashes( $option['info_text'] );
+	public function option_sanitaize( $option )
+	{
+		$option['contact_html'] = stripslashes( $option['contact_html'] );
 		return $option;
 	}
 
 
-	public function render_meta_box() {
+	public function render_meta_box()
+	{
 		$enable = get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ); ?>
 <div>
 <input type="hidden" name="_nonce_vkExUnit_contact" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
@@ -204,7 +216,8 @@ class vExUnit_Contact {
 	}
 
 
-	public static function is_my_turn() {
+	public static function is_my_turn()
+	{
 		global $is_pagewidget;
 		if ( $is_pagewidget ) { return false; }
 		if ( vkExUnit_is_excerpt() ) { return false; }
@@ -214,7 +227,8 @@ class vExUnit_Contact {
 	}
 
 
-	public function set_content( $content ) {
+	public function set_content( $content )
+	{
 		if ( ! self::is_my_turn() ) { return $content; }
 
 		$content .= '[vkExUnit_contact_section]';
@@ -226,29 +240,35 @@ class vExUnit_Contact {
 	/*  contact bottom html
 	/*-------------------------------------------*/
 
-	public static function render_contact_html() {
+	public static function render_contact_html()
+	{
 		$options = self::get_option();
 		$cont = '';
 		$cont .= '<section class="veu_contact veu_contentAddSection">';
-		if ( $options['info_text'] ) {
-			$cont .= apply_filters('the_content', $options['info_text'] );
-		} elseif ( $options['info_image'] ) {
+
+		if ( $options['contact_html'] ) {
+			$cont .= $options['contact_html'];
+
+		} elseif ( $options['contact_image'] ) {
 			$cont .= '<a href="'.esc_url( $options['contact_link'] ).'">';
-			$cont .= '<img src="'.esc_attr( $options['info_image'] ).'" alt="contact_txt">';
+			$cont .= '<img src="'.esc_attr( $options['contact_image'] ).'" alt="contact_txt">';
 			$cont .= '</a>';
+
 		} else {
 			$cont .= '<div class="contact_frame">';
 			$cont .= '<p class="contact_txt">';
-			$cont .= '<span class="contact_txt_catch">'.nl2br(esc_textarea($options['contact_txt'])).'</span>';
+			$cont .= '<span class="contact_txt_catch">'.nl2br( esc_textarea( $options['contact_txt'] ) ).'</span>';
+			if (wp_is_mobile()) { $cont .= '<a href="tel:'.$options['tel_number'].'" >'; }
 			$cont .= '<span class="contact_txt_tel veu_color_txt_key">'.$options['tel_number'].'</span>';
-			$cont .= '<span class="contact_txt_time">'.nl2br(esc_textarea($options['contact_time'])).'</span>';
+			if (wp_is_mobile()) { $cont .= '</a>'; }
+			$cont .= '<span class="contact_txt_time">'.nl2br( esc_textarea( $options['contact_time'] ) ).'</span>';
 			$cont .= '</p>';
 
 			if ( $options['contact_link'] && $options['button_text'] ) {
 				$cont .= '<a href="'.$options['contact_link'].'" class="btn btn-primary btn-lg contact_bt">';
 				$cont .= '<span class="contact_bt_txt">'.$options['button_text'].'</span>';
 
-				if ( isset($options['button_text_small']) && $options['button_text_small'] ){
+				if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
 					$cont .= '<span class="contact_bt_subTxt">'.$options['button_text_small'].'</span>';
 				}
 
@@ -260,7 +280,9 @@ class vExUnit_Contact {
 		if ( current_user_can( 'edit_theme_options' ) ) {
 			$cont .= '<div class="veu_adminEdit"><a href="'.admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">'.__( 'Edit contact information', 'vkExUnit' ).'</a></div>';
 		}
-		$cont = apply_filters( 'vkExUnit_contact_custom',$cont );
+
+		$cont = apply_filters( 'vkExUnit_contact_custom', $cont );
+
 		return $cont;
 	}
 
@@ -268,7 +290,8 @@ class vExUnit_Contact {
 	/*  widget html
 	/*-------------------------------------------*/
 
-	public static function render_widget_html() {
+	public static function render_widget_html()
+	{
 		$options = self::get_option();
 		$cont = '';
 
@@ -295,6 +318,7 @@ class vExUnit_Contact {
 		return self::render_contact_html();
 	}
 }
+
 vExUnit_Contact::instance();
 
 
@@ -337,4 +361,5 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 		return $instance;
 	}
 }
+
 add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_contact_link");' ) );
