@@ -1,5 +1,6 @@
 <?php
-class vExUnit_call_responce {
+class vExUnit_call_responce
+{
 	// singleton instance
 	private static $instance;
 
@@ -7,7 +8,8 @@ class vExUnit_call_responce {
 
 	public $content_number = 100;
 
-	public static function instance() {
+	public static function instance()
+	{
 		if ( isset( self::$instance ) ) {
 			return self::$instance; }
 
@@ -17,12 +19,14 @@ class vExUnit_call_responce {
 	}
 
 
-	private function __construct() {
+	private function __construct()
+	{
 		/***    do noting    ***/
 	}
 
 
-	protected function run_init() {
+	protected function run_init()
+	{
 		add_action( 'init', array( $this, 'set_posttype' ) );
 		add_action( 'admin_init', array( $this, 'option_init' ) );
 		add_action( 'admin_menu', array( $this, 'add_custom_field' ) );
@@ -32,14 +36,16 @@ class vExUnit_call_responce {
 	}
 
 
-	public function set_content_loopend($query ){
+	public function set_content_loopend($query )
+	{
 		if( ! $query->is_main_query() ) return;
 		if( ! is_single() ) return;
 		echo $this->content_filter('');
 	}
 
 
-	public function option_init() {
+	public function option_init()
+	{
 		vkExUnit_register_setting(
 			'Call To Action',                       // tab label.
 			'vkExUnit_cta_settings',                // name attr
@@ -49,7 +55,8 @@ class vExUnit_call_responce {
 	}
 
 
-	public function set_posttype() {
+	public function set_posttype()
+	{
 		$labels = array(
 			'name'          => 'CTA',
 			'singular_name' => 'CTA',
@@ -78,7 +85,8 @@ class vExUnit_call_responce {
 	}
 
 
-	public function add_custom_field() {
+	public function add_custom_field()
+	{
 		$post_types = get_post_types( array( '_builtin' => false, 'public' => true ) );
 		while ( list($key, $post ) = each( $post_types ) ) {
 			add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', 'vkExUnit' ), array( $this, 'render_meta_box' ), $post, 'normal', 'high' );
@@ -90,7 +98,8 @@ class vExUnit_call_responce {
 	}
 
 
-	public function render_meta_box() {
+	public function render_meta_box()
+	{
 		echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
 
 		$ctas    = self::get_ctas( true, '  - ' );
@@ -211,7 +220,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public function save_custom_field( $post_id ) {
+	public function save_custom_field( $post_id )
+	{
 		if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) { return $post_id; }
 		$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_custom_cta'] ) : null;
 
@@ -285,7 +295,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public static function get_cta_post( $id ) {
+	public static function get_cta_post( $id )
+	{
 		$args = array(
 			'post_type' => self::$posttype_name,
 			'p' => $id,
@@ -298,7 +309,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public static function render_cta_content( $id ) {
+	public static function render_cta_content( $id )
+	{
 		if ( ! $id ) { return ''; }
 		$post = self::get_cta_post( $id );
 		if ( ! $post ) { return ''; }
@@ -308,7 +320,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public function is_cta_id( $id = null ) {
+	public function is_cta_id( $id = null )
+	{
 		if ( ! $id ) { $id = get_the_id(); }
 		if ( ! $id ) { return null; }
 
@@ -326,7 +339,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public function content_filter( $content ) {
+	public function content_filter( $content )
+	{
 		if ( self::is_pagewidget() ) { return $content; }
 		if ( self::is_contentsarea_posts_widget() ) { return $content; }
 		if ( vkExUnit_is_excerpt() ) { return $content; }
@@ -335,15 +349,19 @@ jQuery(document).ready(function($){
 	}
 
 
-	public static function is_pagewidget() {
+	public static function is_pagewidget()
+	{
 		global $is_pagewidget;
 		return ( $is_pagewidget )? true : false;
 	}
 
-	public static function is_contentsarea_posts_widget() {
+
+	public static function is_contentsarea_posts_widget()
+	{
 		global $is_contentsarea_posts_widget;
 		return ( $is_contentsarea_posts_widget ) ? true : false;
 	}
+
 
 	public function sanitize_config( $input ) {
 		$posttypes = array_merge( array( 'post' => 'post', 'page' => 'page' ), get_post_types( array( 'public' => true, '_builtin' => false ), 'names' ) );
@@ -357,7 +375,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public static function get_default_option() {
+	public static function get_default_option()
+	{
 		$option = array();
 		$posttypes = array_merge( array( 'post' => 'post', 'page' => 'page' ), get_post_types( array( 'public' => true, '_builtin' => false ), 'names' ) );
 		while ( list($key, $posttype) = each( $posttypes ) ) {
@@ -367,7 +386,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public static function get_option( $show_label = false ) {
+	public static function get_option( $show_label = false )
+	{
 		$default = self::get_default_option();
 		$option = get_option( 'vkExUnit_cta_settings' );
 
@@ -384,7 +404,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public function get_ctas( $show_label = false, $head = '' ) {
+	public static function get_ctas( $show_label = false, $head = '' )
+	{
 		$args = array(
 			'post_type' => self::$posttype_name,
 			'nopaging'  => true,
@@ -406,7 +427,8 @@ jQuery(document).ready(function($){
 	}
 
 
-	public function render_configPage() {
+	public function render_configPage()
+	{
 		$options = self::get_option();
 		$ctas    = self::get_ctas( true, '  - ' );
 		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Disable display', 'vkExUnit' ) ) );
