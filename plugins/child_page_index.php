@@ -39,7 +39,7 @@ function vkExUnit_childPageIndex_shortcode() {
 			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">'.__( 'Read more', 'vkExUnit' ).'</span>';
 			$childPageList_html .= '</div>';
-			
+
 			$childPageList_html .= '</div></a>'.PHP_EOL;
 	endforeach;
 
