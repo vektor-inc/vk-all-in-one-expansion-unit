@@ -9,5 +9,7 @@
  */
 
 require_once vkExUnit_get_directory() . '/plugins/call_to_action/class.call_to_action.php';
+require_once vkExUnit_get_directory() . '/plugins/call_to_action/widget.call_to_action.php';
 
 vExUnit_call_responce::instance();
+add_action( 'widgets_init', 'vkExUnit_set_CTA_widget' );
