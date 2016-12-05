@@ -209,7 +209,6 @@ if ( ! empty( $instance['linkedin'] ) ) :  ?>
 <?php echo $args['after_widget'];
 }
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_profile");' ) );
 
 // Profile widget uploader js
 function my_admin_scripts() {
@@ -231,3 +230,9 @@ border: 1px dashed #ccc; border-radius: 5px; background-color: rgba(212, 212, 21
 .prof_input.textarea{ margin-top: -1em; }</style>'.PHP_EOL;
 }
 add_action( 'admin_print_styles-widgets.php', 'my_admin_style' );
+
+
+add_action('widgets_init', 'vkExUnit_widget_register_profile');
+function vkExUnit_widget_register_profile(){
+	return register_widget("WP_Widget_vkExUnit_profile");
+}
