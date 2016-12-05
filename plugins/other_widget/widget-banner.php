@@ -88,7 +88,7 @@ var vkEx_banner_addiditional = function(e){
     var d=jQuery(e).parent().children("._display");
     var w=jQuery(e).parent().children("._form").children('.__id')[0];
     var u=wp.media({library:{type:'image'},multiple:false}).on('select', function(e){
-        u.state().get('selection').each(function(f){ d.children().remove();d.append(jQuery('<img style="max-width:100%;max-height:10em">').attr('src',f.toJSON().url));w.value=f.toJSON().id; });
+        u.state().get('selection').each(function(f){ d.children().remove();d.append(jQuery('<img style="max-width:100%;max-height:10em">').attr('src',f.toJSON().url));jQuery(w).val(f.toJSON().id).change(); });
     });
     u.open();
 };
