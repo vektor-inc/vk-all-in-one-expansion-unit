@@ -29,4 +29,5 @@ script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - gulp compile
   - compass compile
+  - cd plugins_admin/vk-admin/ && compass compile && cd ../../
 

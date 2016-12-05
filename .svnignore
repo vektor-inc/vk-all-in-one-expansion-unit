@@ -1,0 +1,9 @@
+*sftp-config.json
+node_modules/
+.sass-cache/
+.DS_Store
+Thumbs.db
+_notes/
+*~
+vkexunit.mo
+.travis.yml
