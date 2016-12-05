@@ -45,7 +45,6 @@
 		}
 	}
 
-
 	.adminSub { display:block; overflow:hidden;width:24%;float:right;padding-bottom:10px;
 		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff; }
 		.adminBnr_section{
@@ -70,4 +69,6 @@
 			}
 		}
 	}
+
+	&.debug_mode tr.dev_object { display: table-row; }
 }
