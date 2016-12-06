@@ -104,6 +104,20 @@ _e( 'example', 'vkExUnit'); ?>
 </td>
 </tr>
 
+<tr>
+<th><label><?php _e('Share button for display', 'vkExUnit'); ?></label></th>
+<td><label></label>
+<ul>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useFacebook]" value="true" <?php if($options['useFacebook']) echo 'checked' ?> /> <?php _e('Facebook', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useTwitter]" value="true" <?php if($options['useTwitter']) echo 'checked' ?> /> <?php _e('Twitter', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true" <?php if($options['useHatena']) echo 'checked' ?> /> <?php _e('HatenaBlog', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[usePocket]" value="true" <?php if($options['usePocket']) echo 'checked' ?> /> <?php _e('Pocket', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useLine]" value="true" <?php if($options['useLine']) echo 'checked' ?> /> <?php _e('Line (mobile only)', 'vkExUnit'); ?></label></li>
+</ul>
+</td>
+</tr>
+
+
 </table>
 
 <?php submit_button(); ?>
