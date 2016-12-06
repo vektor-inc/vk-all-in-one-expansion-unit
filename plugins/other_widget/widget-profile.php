@@ -55,7 +55,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </div>
 
 		<?php //image round setting ?>
-<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaRound' ); ?>_round" name="<?php echo $this->get_field_name( 'mediaRound' ); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaRound' );  ?>"><?php _e( 'Cut out round the image.', 'vkExUnit' ); ?></label>      
+<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaRound' ); ?>_round" name="<?php echo $this->get_field_name( 'mediaRound' ); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaRound' );  ?>"><?php _e( 'Cut out round the image.', 'vkExUnit' ); ?></label>
 </p>
 
 		<?php //image size setting ?>
@@ -64,7 +64,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </p>
 
 		<?php //image mediaAlign_left setting ?>
-<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>_round" name="<?php echo $this->get_field_name( 'mediaAlign_left' ); ?>" value="true" <?php echo ($instance['mediaAlign_left'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>"><?php _e( 'Image align left', 'vkExUnit' ); ?></label>       
+<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>_round" name="<?php echo $this->get_field_name( 'mediaAlign_left' ); ?>" value="true" <?php echo ($instance['mediaAlign_left'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>"><?php _e( 'Image align left', 'vkExUnit' ); ?></label>
 </p>
 
 		<?php //image float setting ?>
@@ -148,7 +148,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 $mediaRound = isset( $instance['mediaRound'] ) ? ' media_round' : '' ;
 $mediaSize = isset( $instance['mediaSize'] ) ? mb_convert_kana( $instance['mediaSize'] ) : 'auto' ;
 $mediaClass = '';
-		
+
 if ( ! empty( $instance['mediaFloat'] ) ) {
 	$mediaClass .= ' media_float';
 }
@@ -211,15 +211,15 @@ if ( ! empty( $instance['linkedin'] ) ) :  ?>
 }
 
 // Profile widget uploader js
-function my_admin_scripts() {
+function vkExUnit_profile_admin_scripts() {
 	wp_enqueue_media();
 	wp_register_script( 'mediauploader', plugin_dir_url( __FILE__ ) . 'js/widget-prof-uploader.js', array( 'jquery' ), false, true );
 	wp_enqueue_script( 'mediauploader' );
 }
-add_action( 'admin_print_scripts', 'my_admin_scripts' );
+add_action( 'admin_print_scripts', 'vkExUnit_profile_admin_scripts' );
 
 // Profile widget CSS
-function my_admin_style() {
+function vkExUnit_profile_admin_style() {
 	echo '<style>.prof_input{ width: 100%;}
 .media_select,.media_clear{ padding: 3px; border: none; border-radius: 3px; background: #00a0d2; color: #fff; font-size: 12px; cursor: pointer; outline: none;}
 .media_select:hover,.media_clear:hover{ background: #0073aa; }
@@ -229,7 +229,7 @@ border: 1px dashed #ccc; border-radius: 5px; background-color: rgba(212, 212, 21
 .media_image{ position: relative; z-index: 3; display: block; width: 100%; height: auto;}
 .prof_input.textarea{ margin-top: -1em; }</style>'.PHP_EOL;
 }
-add_action( 'admin_print_styles-widgets.php', 'my_admin_style' );
+add_action( 'admin_print_styles-widgets.php', 'vkExUnit_profile_admin_style' );
 
 
 add_action('widgets_init', 'vkExUnit_widget_register_profile');
