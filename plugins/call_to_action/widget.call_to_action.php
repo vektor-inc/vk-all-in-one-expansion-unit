@@ -1,10 +1,11 @@
 <?php
+namespace Vektor\ExUnit\Package\Cta;
 
 
 /*-------------------------------------------*/
 /*  Contact widget
 /*-------------------------------------------*/
-class WP_Widget_vkExUnit_call_to_action extends WP_Widget
+class Widget_CTA extends \WP_Widget
 {
 
     function __construct()
@@ -24,7 +25,7 @@ class WP_Widget_vkExUnit_call_to_action extends WP_Widget
     function widget( $args, $instance )
     {
         echo $args['before_widget'];
-        echo vExUnit_call_responce::render_cta_content($instance['id']);
+        echo CTA::render_cta_content($instance['id']);
         echo $args['before_widget'];
 
         return;
@@ -33,7 +34,7 @@ class WP_Widget_vkExUnit_call_to_action extends WP_Widget
 
     function update( $new_instance, $old_instance )
     {
-        return array( 'id' => (vExUnit_call_responce::$posttype_name == get_post_type( $new_instance['id']))? $new_instance['id'] : Null);
+        return array( 'id' => (CTA::POST_TYPE == get_post_type( $new_instance['id']))? $new_instance['id'] : Null);
     }
 
 
@@ -42,9 +43,9 @@ class WP_Widget_vkExUnit_call_to_action extends WP_Widget
         $defaults = array(
             'id'    => Null,
         );
-        $instance = wp_parse_args( (array) $instance, $defaults );
+        $instance = \wp_parse_args( (array) $instance, $defaults );
         $value = $instance['id'];
-        $ctas = vExUnit_call_responce::get_ctas(true, '- ');
+        $ctas = CTA::get_ctas(true, '- ');
 ?>
 <div style="padding:1em 0;">
     <?php _e( 'Please select CTA to display.', 'vkExUnit' );?>
@@ -65,6 +66,3 @@ class WP_Widget_vkExUnit_call_to_action extends WP_Widget
     }
 }
 
-function vkExUnit_set_CTA_widget() {
-    return register_widget("WP_Widget_vkExUnit_call_to_action");
-}
