@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-02 18:57+0900\n"
+"POT-Creation-Date: 2016-12-08 14:03+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -999,6 +999,25 @@ msgstr "年別"
 #: ../plugins/other_widget/widget-archives.php:97
 msgid "archive"
 msgstr "アーカイブ"
+
+#: ../plugins/other_widget/widget-banner.php:14
+msgid "Banner"
+msgstr "バナー"
+
+#: ../plugins/other_widget/widget-banner.php:20
+msgid ""
+"You can easily set up a banner simply by registering images and link "
+"destinations."
+msgstr "画像とリンク先を登録するだけで簡単にバナーを設定できます。"
+
+#: ../plugins/other_widget/widget-banner.php:78
+#, fuzzy
+msgid "Set image"
+msgstr "画像を選択"
+
+#: ../plugins/other_widget/widget-banner.php:82
+msgid "Open link new tab."
+msgstr "リンクを別ウィンドウで開く"
 
 #: ../plugins/other_widget/widget-child-page-list.php:10
 msgid "Child Page List"
