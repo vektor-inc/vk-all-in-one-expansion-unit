@@ -1,12 +1,14 @@
 <?php
+namespace Vektor\ExUnit\Package\Widgets;
 
-add_action('widgets_init', 'vkExUnit_widget_register_banner');
-function vkExUnit_widget_register_banner(){
-    return register_widget("WP_Widget_vkExUnit_banner");
+
+add_action('widgets_init', 'Vektor\ExUnit\Package\Widgets\register_banner');
+function register_banner(){
+    return register_widget("Vektor\ExUnit\Package\Widgets\WidgetBanner");
 }
 
 
-class WP_Widget_vkExUnit_banner extends WP_Widget
+class WidgetBanner extends \WP_Widget
 {
 
     function __construct()
@@ -23,7 +25,7 @@ class WP_Widget_vkExUnit_banner extends WP_Widget
     }
 
 
-    function widget( $args, $instance )
+    public function widget( $args, $instance )
     {
         $instance = self::default_option( $instance );
         $image = null;
@@ -41,7 +43,7 @@ class WP_Widget_vkExUnit_banner extends WP_Widget
     }
 
 
-    function update( $new_instance, $old_instance )
+    public function update( $new_instance, $old_instance )
     {
         $instance['id']    = $new_instance['id'];
         $instance['href']  = $new_instance['href'];
@@ -61,7 +63,7 @@ class WP_Widget_vkExUnit_banner extends WP_Widget
     }
 
 
-    function form( $instance )
+    public function form( $instance )
     {
         $instance = self::default_option( $instance );
         $image = null;
