@@ -37,6 +37,8 @@ function vkExUnit_pageList_ancestor_shortcode() {
 			$pageList_ancestor_html .= $children;
 			$pageList_ancestor_html .= '</ul>';
 			$pageList_ancestor_html .= '</section>';
+		} else {
+			return '';
 		}
 	}
 	return $pageList_ancestor_html;
