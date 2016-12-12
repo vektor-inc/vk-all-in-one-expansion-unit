@@ -178,7 +178,6 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		echo $args['after_widget'];
 	}
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_3PR_area");' ) );
 
 // メディアアップローダーjs
 function my_admin_scripts_3pr() {
@@ -208,3 +207,8 @@ function style_3PR() {
 </style>'.PHP_EOL;
 }
 add_action( 'admin_print_styles-widgets.php', 'style_3PR' );
+
+add_action('widgets_init', 'vkExUnit_widget_register_3pr');
+function vkExUnit_widget_register_3pr(){
+	return register_widget("WP_Widget_vkExUnit_3PR_area");
+}

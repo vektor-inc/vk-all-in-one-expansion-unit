@@ -75,4 +75,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		echo $args['after_widget'];
 	}
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_widget_page");' ) );
+
+add_action('widgets_init', 'vkExUnit_widget_register_page');
+function vkExUnit_widget_register_page(){
+	return register_widget("WP_Widget_vkExUnit_widget_page");
+}

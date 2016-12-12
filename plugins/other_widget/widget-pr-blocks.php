@@ -221,7 +221,6 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		echo '</div>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
 	}
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_PR_Blocks");' ) );
 
 // uploader js
 add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
@@ -269,4 +268,10 @@ add_action( 'admin_print_styles-widgets.php', 'style_prBlocks' );
 function style_prBlocks() {
 	echo '<style>.media.image_pr{ max-height: 170px; }
 .media_img{ max-width: 100%; height: auto; position: relative; z-index: 999;}</style>'.PHP_EOL;
+}
+
+
+add_action('widgets_init', 'vkExUnit_widget_register_prblocks');
+function vkExUnit_widget_register_prblocks(){
+	return register_widget("WP_Widget_vkExUnit_PR_Blocks");
 }

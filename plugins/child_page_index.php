@@ -8,7 +8,7 @@
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode() {
 	global $post;
-	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true ) ) { return; }
+	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true ) ) { return false; }
 
 	$parentId = $post->ID;
 	$args = array(
@@ -20,7 +20,7 @@ function vkExUnit_childPageIndex_shortcode() {
 	);
 	$childrens = get_posts( $args );
 
-	if ( empty( $childrens ) ) { return; }
+	if ( empty( $childrens ) ) { wp_reset_query(); return false; }
 
 	$childPageList_html = PHP_EOL.'<div class="veu_childPage_list">'.PHP_EOL;
 	foreach( $childrens as $children ):
@@ -44,6 +44,7 @@ function vkExUnit_childPageIndex_shortcode() {
 	endforeach;
 
 	$childPageList_html .= PHP_EOL.'</div><!-- [ /.childPage_list ] -->'.PHP_EOL;
+	wp_reset_query();
 
 	return $childPageList_html;
 }
@@ -72,12 +73,10 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 }
 
 
-
 add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_childPageIndex_activate_meta_box', 10, 1 );
 function vkExUnit_childPageIndex_activate_meta_box( $flag ) {
 	return true;
 }
-
 
 
 add_action( 'vkExUnit_customField_Page_box', 'vkExUnit_childPageIndex_meta_box' );

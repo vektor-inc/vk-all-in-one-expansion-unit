@@ -18,10 +18,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
+		$instance = static::default_options($instance);
+
 		if ( ! isset( $instance['format'] ) ) { $instance['format'] = 0; }
 
 		echo $args['before_widget'];
-		echo '<div class="veu_newPosts pt_'.$instance['format'].'">';
+		echo '<div class="veu_postList pt_'.$instance['format'].'">';
 		echo $args['before_title'];
 		if ( isset( $instance['label'] ) && $instance['label'] ) {
 			echo $instance['label'];
@@ -30,14 +32,16 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 		echo $args['after_title'];
 
-		$count      = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
-		$post_type  = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
+		$count       = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
+		$post_type   = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
+		$is_modified = ($instance['orderby'] == 'modified');
 
 		if ( $instance['format'] ) { $this->_taxonomy_init( $post_type ); }
 
 		$p_args = array(
 			'post_type' => $post_type,
 			'posts_per_page' => $count,
+			'orderby' => $instance['orderby'],
 			'paged' => 1,
 		);
 
@@ -61,12 +65,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		if ( $post_loop->have_posts() ) :
 			if ( ! $instance['format'] ) {
 				while ( $post_loop->have_posts() ) : $post_loop->the_post();
-					$this->display_pattern_0();
+					$this->display_pattern_0($is_modified);
 				endwhile;
 			} else {
 				echo '<ul class="postList">';
 				while ( $post_loop->have_posts() ) : $post_loop->the_post();
-					$this->display_pattern_1();
+					$this->display_pattern_1($is_modified);
 				endwhile;
 				echo '</ul>';
 			}
@@ -81,40 +85,49 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 
-	function display_pattern_0() {
+	function display_pattern_0($is_modified=false) {
 	?>
-<div class="media" id="post-<?php the_ID(); ?>">
+<div class="postList postList_thumb" id="post-<?php the_ID(); ?>">
 	<?php if ( has_post_thumbnail() ) : ?>
-        <div class="media-left postList_thumbnail">
+        <div class="postList_thumbnail">
 		<a href="<?php the_permalink(); ?>">
-			<?php 
+			<?php
 				$thumbnail_size = 'thumbnail';
 				the_post_thumbnail( apply_filters( 'vk_post_list_widget_thumbnail', esc_attr( $thumbnail_size ) ) );
 			?>
 		</a>
-        </div>
+        </div><!-- [ /.postList_thumbnail ] -->
 	<?php endif; ?>
-    <div class="media-body">
+    <div class="postList_body">
 		<?php
 			do_action( 'vk_post_list_widget_media_body_prepend' );
-			$media_body_output  = '<h4 class="media-heading"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></h4>';
-			$media_body_output .= '<div class="published entry-meta_items">'.esc_html( get_the_date() ).'</div>';
+			$media_body_output  = '<div class="postList_title entry-title"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></div>';
+			if ($is_modified) $media_body_output .= '<div class="modified postList_date postList_meta_items">'.esc_html( get_the_modified_date() ).'</div>';
+			else $media_body_output .= '<div class="published postList_date postList_meta_items">'.esc_html( get_the_date() ).'</div>';
 			echo apply_filters( 'vk_post_list_widget_media_body', $media_body_output );
 			do_action( 'vk_post_list_widget_media_body_append' );
 		?>
-    </div>
+    </div><!-- [ /.postList_body ] -->
 </div><?php
 	}
 
-	function display_pattern_1() {
+	function display_pattern_1($is_modified=false) {
 	?>
 <li id="post-<?php the_ID(); ?>">
-	
+
 	<?php
 		do_action( 'vk_post_list_widget_li_prepend' );
-		$li_items_output  = '<span class="published entry-meta_items">'.esc_html( get_the_date() ).'</span>';
-		$li_items_output .= '<span class="taxonomies">'.$this->taxonomy_list( get_the_id(), ' ', '', '' ).'</span>';
-		$li_items_output .=	'<span class="entry-title"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></span>';
+		/*
+		microformats なので削除してはいけないクラス名
+		.entry-title
+		.published
+		.modified
+		*/
+		$li_items_output = '';
+		if ( $is_modified ) $li_items_output .= '<span class="modified postList_date postList_meta_items">'.esc_html( get_the_modified_date() ).'</span>';
+		else $li_items_output  = '<span class="published postList_date postList_meta_items">'.esc_html( get_the_date() ).'</span>';
+		$li_items_output .= '<span class="postList_terms postList_meta_items">'.$this->taxonomy_list( get_the_id(), '', '', '' ).'</span>';
+		$li_items_output .=	'<span class="postList_title entry-title"><a href="'.esc_url( get_the_permalink() ).'">'.esc_html( get_the_title() ).'</a></span>';
 		echo apply_filters( 'vk_post_list_widget_li_items', $li_items_output );
 		do_action( 'vk_post_list_widget_li_append' );
 	?>
@@ -140,28 +153,39 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return '';
 	}
 
-
-
-	function form( $instance ) {
+	static function default_options( $instance=array() ) {
 		$defaults = array(
 			'count'     => 10,
 			'label'     => __( 'Recent Posts', 'vkExUnit' ),
 			'post_type' => 'post',
+			'orderby'   => 'date',
 			'terms'     => '',
 			'format'    => '0',
 		);
 
-		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-        <br/>
+		return wp_parse_args( (array) $instance, $defaults );
+	}
+
+
+	function form( $instance ) {
+		$instance = static::default_options($instance);
+
+		?>
+		<br />
+        <?php //タイトル ?>
+		<label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:' ); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
+        <br /><br />
+
 		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' );  ?>" value="0" <?php if ( ! $instance['format'] ) { echo 'checked'; } ?> /><?php echo __( 'Thumbnail', 'vkExUnit' ) .'/'. __( 'Title', 'vkExUnit' ) .'/'. __( 'Date', 'vkExUnit' ); ?></label><br/>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' );  ?>" value="1" <?php if ( $instance['format'] == 1 ) { echo 'checked'; } ?>/><?php echo __( 'Date', 'vkExUnit' ) .'/'. __( 'Category', 'vkExUnit' ) .'/'. __( 'Title', 'vkExUnit' ); ?></label>
         <br/><br/>
 
-        <?php //タイトル ?>
-		<label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
-        <br/><br />
+		<?php echo _e( 'Order by', 'vkExUnit' ); ?>:<br/>
+		<label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' );  ?>" value="date" <?php if ( $instance['orderby'] != 'modified' ) { echo 'checked'; } ?> /><?php _e( 'Publish date', 'vkExUnit' ); ?></label><br/>
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' );  ?>" value="modified" <?php if ( $instance['orderby'] == 'modified' ) { echo 'checked'; } ?>/><?php _e( 'Modified date', 'vkExUnit' ); ?></label>
+        <br/><br/>
 
 		<?php //表示件数 ?>
 		<label for="<?php echo $this->get_field_id( 'count' );  ?>"><?php _e( 'Display count','vkExUnit' ); ?>:</label><br/>
@@ -187,9 +211,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$instance['format']     = $new_instance['format'];
 		$instance['count']      = $new_instance['count'];
 		$instance['label']      = $new_instance['label'];
+		$instance['orderby']    = in_array($new_instance['orderby'], array('date', 'modified'))? $new_instance['orderby']: 'date';
 		$instance['post_type']  = ! empty( $new_instance['post_type'] ) ? strip_tags( $new_instance['post_type'] ) : 'post';
 		$instance['terms']      = preg_replace( '/([^0-9,]+)/', '', $new_instance['terms'] );
 		return $instance;
 	}
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_post_list");' ) );
+
+add_action('widgets_init', 'vkExUnit_widget_register_post_list');
+function vkExUnit_widget_register_post_list(){
+	return register_widget("WP_Widget_vkExUnit_post_list");
+}

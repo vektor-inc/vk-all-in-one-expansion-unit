@@ -113,4 +113,8 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		return $instance;
 	}
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_VK_archive_list");' ) );
+
+add_action('widgets_init', 'vkExUnit_widget_register_archive_list');
+function vkExUnit_widget_register_archive_list(){
+	return register_widget("WP_Widget_VK_archive_list");
+}

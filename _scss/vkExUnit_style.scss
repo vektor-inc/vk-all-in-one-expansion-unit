@@ -29,7 +29,7 @@
 /*-------------------------------------------*/
 /* Widget .veu_fbPagePlugin
 /*-------------------------------------------*/
-/* Widget .veu_newsList
+/* Widget .veu_postList
 /*-------------------------------------------*/
 /* Widget .veu_profile
 /*-------------------------------------------*/
@@ -476,23 +476,30 @@ $section_pagelist_margin:2.5em 0 1em;
 .twitter-timeline iframe {margin-right:auto; margin-left:auto; }
 
 /*-------------------------------------------*/
-/* Widget .veu_newsList
+/* Widget .veu_postList
 /*-------------------------------------------*/
-.veu_newPosts {
+.veu_postList {
 	h1.mainSection-title,
 	.subSection-title { margin-bottom:0; }
 	ul.postList { margin:15px 0 $section_margin;padding:0;
 		li { display:block;clear:both; overflow:hidden;padding:0;border-bottom:1px dotted #666; }
-		a {color:$color_font_default;}
-		.published,
-		.taxonomies a,
-		.entry-title {display:block;float:left; overflow:hidden;}
-		.published { margin-right:10px;color:#d44950; }
-		.published:before {margin:0; content:''; }
-		.taxonomies a {margin-right:3px; padding: 2px 5px 1px; border-radius:3px; background-color: #efefef;font-size:12px; }
-		.entry-title { display: block; clear:both;margin:5px 0; }
 	}
-	.entry-meta_items.published:before {margin-right:5px;content:"\f073"; font-family:FontAwesome; }
+
+	.postList a { color:$color_font_default; text-decoration:none; }
+	.postList a:hover { text-decoration:underline; }
+	.postList_title { display: block; clear:both;margin:5px 0; }
+	.postList_meta_items { font-size:14px;color:#666; }
+	.postList_date { margin-right:10px;color:#d44950; }
+	.postList_date:before { content:"";margin-right:0; }
+	.postList_terms a {margin-right:3px; padding: 2px 5px 1px; border-radius:3px; background-color: #efefef;font-size:12px; }
+	.postList_thumb { display:block; overflow:hidden;clear: both;
+		padding:15px 0 ;border-bottom:1px dotted #666;
+		.postList_thumbnail { float:left;margin-right:15px; }
+		.postList_thumbnail a { position: relative; display: block; overflow: hidden; border: 1px solid #e5e5e5; }
+		.postList_thumbnail img { width:80px; height:auto;}
+		.postList_body { display:block; overflow:hidden;width:auto; }
+		.postList_title { font-size:14px; }
+	}
 }
 
 /*-------------------------------------------*/
