@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-08 14:03+0900\n"
+"POT-Creation-Date: 2016-12-08 15:25+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -538,7 +538,7 @@ msgstr "表示するCTAを選択してください。"
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: ../plugins/child_page_index.php:92
+#: ../plugins/child_page_index.php:91
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -932,7 +932,7 @@ msgid "3PR area setting"
 msgstr "3PR エリア設定"
 
 #: ../plugins/other_widget/widget-3pr-area.php:48
-#: ../plugins/other_widget/widget-new-posts.php:162
+#: ../plugins/other_widget/widget-new-posts.php:179
 #: ../plugins/other_widget/widget-pr-blocks.php:78
 #: ../plugins/other_widget/widget-profile.php:40
 #: ../plugins/sns/function_fbPagePlugin.php:79
@@ -979,8 +979,8 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: ../plugins/other_widget/widget-archives.php:63
-#: ../plugins/other_widget/widget-new-posts.php:157
-#: ../plugins/other_widget/widget-new-posts.php:158
+#: ../plugins/other_widget/widget-new-posts.php:169
+#: ../plugins/other_widget/widget-new-posts.php:170
 msgid "Title"
 msgstr "タイトル"
 
@@ -1011,7 +1011,6 @@ msgid ""
 msgstr "画像とリンク先を登録するだけで簡単にバナーを設定できます。"
 
 #: ../plugins/other_widget/widget-banner.php:78
-#, fuzzy
 msgid "Set image"
 msgstr "画像を選択"
 
@@ -1029,8 +1028,8 @@ msgid "Display the child pages list from ancestor page."
 msgstr "表示しているページの先祖階層からの子ページリストを表示します。"
 
 #: ../plugins/other_widget/widget-new-posts.php:11
-#: ../plugins/other_widget/widget-new-posts.php:29
-#: ../plugins/other_widget/widget-new-posts.php:148
+#: ../plugins/other_widget/widget-new-posts.php:31
+#: ../plugins/other_widget/widget-new-posts.php:152
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1038,45 +1037,57 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:156
+#: ../plugins/other_widget/widget-new-posts.php:168
 msgid "Display Format"
 msgstr "表示形式"
 
-#: ../plugins/other_widget/widget-new-posts.php:157
+#: ../plugins/other_widget/widget-new-posts.php:169
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: ../plugins/other_widget/widget-new-posts.php:157
-#: ../plugins/other_widget/widget-new-posts.php:158
+#: ../plugins/other_widget/widget-new-posts.php:169
+#: ../plugins/other_widget/widget-new-posts.php:170
 msgid "Date"
 msgstr "日付"
 
-#: ../plugins/other_widget/widget-new-posts.php:158
+#: ../plugins/other_widget/widget-new-posts.php:170
 #: ../plugins/other_widget/widget-taxonomies.php:20
 #: ../plugins/other_widget/widget-taxonomies.php:49
 #: ../plugins/other_widget/widget-taxonomies.php:50
 msgid "Category"
 msgstr "カテゴリー"
 
-#: ../plugins/other_widget/widget-new-posts.php:167
+#: ../plugins/other_widget/widget-new-posts.php:173
+msgid "Order by"
+msgstr "表示順"
+
+#: ../plugins/other_widget/widget-new-posts.php:174
+msgid "Publish date"
+msgstr "公開日"
+
+#: ../plugins/other_widget/widget-new-posts.php:175
+msgid "Modified date"
+msgstr "最終更新日"
+
+#: ../plugins/other_widget/widget-new-posts.php:184
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: ../plugins/other_widget/widget-new-posts.php:172
+#: ../plugins/other_widget/widget-new-posts.php:189
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: ../plugins/other_widget/widget-new-posts.php:177
+#: ../plugins/other_widget/widget-new-posts.php:194
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: ../plugins/other_widget/widget-new-posts.php:179
+#: ../plugins/other_widget/widget-new-posts.php:196
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: ../plugins/other_widget/widget-new-posts.php:181
+#: ../plugins/other_widget/widget-new-posts.php:198
 #: ../plugins/sns/sns_admin.php:88
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
@@ -1278,7 +1289,7 @@ msgstr "表示するラベル"
 msgid "Blog"
 msgstr "ブログ"
 
-#: ../plugins/pageList_ancestor.php:77
+#: ../plugins/pageList_ancestor.php:79
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
