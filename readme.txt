@@ -3,8 +3,8 @@ Contributors: vektor-inc,bizvektor,kurudrive,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
-Tested up to: 4.6
-Stable tag: 4.7.0
+Tested up to: 4.7.0
+Stable tag: 5.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ e.g.
 
 == Changelog ==
 
+= 5.0.0 =
+* [ Add Function ][ New Post Widget ] The display in the update date order is now available.
+* [ Add Function ][ Banner Widget ] Banner widget is now available!!
+* [ Add Function ][ Page Widget ] Allow Private post content display
 
 = 4.7.0 =
 * [ CTA ][ Add Function ]Add CTA Widget
