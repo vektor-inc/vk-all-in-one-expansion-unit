@@ -201,6 +201,7 @@ function ltg_charm_1_2_fix_function(){
     if ( $skin == 'charm' && $theme == 'Lightning' ){
 
 		$charm_custom_css = "
+.veu_postList .postList .postList_item:first-child { border-top:none; }
 .mainSection .veu_postList.pt_0 .postList.postList_miniThumb { padding:0;margin-left:0;margin-right:0; }
 .mainSection .veu_postList.pt_0 .postList.postList_miniThumb postList_body { display:table-cell; }
 @media (max-width: 991px) {
