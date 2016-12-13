@@ -202,8 +202,12 @@ function ltg_charm_1_2_fix_function(){
 
 		$charm_custom_css = "
 .mainSection .veu_postList.pt_0 .postList.postList_miniThumb { padding:0;margin-left:0;margin-right:0; }
+.mainSection .veu_postList.pt_0 .postList.postList_miniThumb postList_body { display:table-cell; }
+@media (max-width: 991px) {
+.mainSection .veu_postList.pt_0 .postList.postList_miniThumb .postList_thumbnail { float:none; }
+}
 @media (min-width: 992px) {
-.mainSection .veu_postList.pt_0 .postList_item .postList_thumbnail { width:50%;margin-left:0; }
+.mainSection .veu_postList.pt_0 .postList_item .postList_thumbnail { width:50%;margin-left:0;margin-right:0;padding-right:30px; }
 .mainSection .veu_postList.pt_0 .postList_item.even .postList_thumbnail { margin-right:0; }	
 }
 ";
