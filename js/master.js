@@ -1,4 +1,29 @@
 /*-------------------------------------------*/
+/*  Lightning Charm 1.2.0 での表示崩れ回避用
+/*  Lightning Charm 1.4.0 以降になったら削除
+/*-------------------------------------------*/
+(function($){
+  // veu_postList のサムネイルがない場合にクラスを付与
+  $veu_postList = $('.veu_postList');
+  if( $veu_postList.length ){
+    var $postList_item_veu = $('.veu_postList .postList > .postList_item'),
+      cnt = 0;
+    
+    $postList_item_veu.each(function(){
+      var $post_thumb = $(this).find('.postList_thumbnail');
+      if( !( $post_thumb.length ) ){ 
+        $(this).addClass('no_img');
+      } else {
+        cnt++;
+        if( ( cnt % 2 ) == 0  ){
+          $(this).addClass('even');
+        }
+      }     
+    });
+  }
+})(jQuery);
+
+/*-------------------------------------------*/
 /*  facebookLikeBox
 /*-------------------------------------------*/
 /*  jquery.flatheights.js 

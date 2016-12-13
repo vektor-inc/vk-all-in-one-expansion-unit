@@ -64,9 +64,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		if ( $post_loop->have_posts() ) :
 			if ( ! $instance['format'] ) {
+				echo '<div class="postList postList_miniThumb">';
 				while ( $post_loop->have_posts() ) : $post_loop->the_post();
 					$this->display_pattern_0($is_modified);
 				endwhile;
+				echo '</div>';
 			} else {
 				echo '<ul class="postList">';
 				while ( $post_loop->have_posts() ) : $post_loop->the_post();
@@ -87,7 +89,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function display_pattern_0($is_modified=false) {
 	?>
-<div class="postList postList_miniThumb" id="post-<?php the_ID(); ?>">
+<!-- [ .postList は近日削除されます ] -->
+<div class="postList postList_item" id="post-<?php the_ID(); ?>">
 	<?php if ( has_post_thumbnail() ) : ?>
         <div class="postList_thumbnail">
 		<a href="<?php the_permalink(); ?>">
