@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: http://ex-unit.vektor-inc.co.jp
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 5.0.1
+* Version: 5.0.2
 * Author: Vektor,Inc.
 * Text Domain: vkExUnit
 * Domain Path: /languages
@@ -186,4 +186,28 @@ if ( function_exists( 'register_deactivation_hook' ) ) {
 function vkExUnit_uninstall_function() {
 
 	include vkExUnit_get_directory( '/uninstaller.php' );
+}
+
+/*
+/*  Lightning Charm 1.2.0 での表示崩れ回避用
+/*  Lightning Charm 1.4.0 以降になったら削除
+*/
+add_action( 'wp_head', 'ltg_charm_1_2_fix_function',2 ); 
+function ltg_charm_1_2_fix_function(){
+	$theme_opt = wp_get_theme( get_template() );
+    $skin = get_option('lightning_design_skin');
+    $theme = $theme_opt->Name;
+    
+    if ( $skin == 'charm' && $theme == 'Lightning' ){
+
+		$charm_custom_css = "
+.mainSection .veu_postList.pt_0 .postList.postList_miniThumb { padding:0;margin-left:0;margin-right:0; }
+@media (min-width: 992px) {
+.mainSection .veu_postList.pt_0 .postList_item .postList_thumbnail { width:50%;margin-left:0; }
+.mainSection .veu_postList.pt_0 .postList_item.even .postList_thumbnail { margin-right:0; }	
+}
+";
+		wp_add_inline_style( 'lightning-design-style', $charm_custom_css );
+
+    } // if ( $skin == 'charm' && $theme == 'Lightning' ){
 }
