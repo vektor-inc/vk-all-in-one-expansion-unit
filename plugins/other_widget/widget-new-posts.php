@@ -87,7 +87,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function display_pattern_0($is_modified=false) {
 	?>
-<div class="postList postList_thumb" id="post-<?php the_ID(); ?>">
+<div class="postList postList_miniThumb" id="post-<?php the_ID(); ?>">
 	<?php if ( has_post_thumbnail() ) : ?>
         <div class="postList_thumbnail">
 		<a href="<?php the_permalink(); ?>">

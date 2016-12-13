@@ -484,7 +484,6 @@ $section_pagelist_margin:2.5em 0 1em;
 	ul.postList { margin:15px 0 $section_margin;padding:0;
 		li { display:block;clear:both; overflow:hidden;padding:0;border-bottom:1px dotted #666; }
 	}
-
 	.postList a { color:$color_font_default; text-decoration:none; }
 	.postList a:hover { text-decoration:underline; }
 	.postList_title { display: block; clear:both;margin:5px 0; }
@@ -492,8 +491,9 @@ $section_pagelist_margin:2.5em 0 1em;
 	.postList_date { margin-right:10px;color:#d44950; }
 	.postList_date:before { content:"";margin-right:0; }
 	.postList_terms a {margin-right:3px; padding: 2px 5px 1px; border-radius:3px; background-color: #efefef;font-size:12px; }
-	.postList_thumb { display:block; overflow:hidden;clear: both;
-		padding:15px 0 ;border-bottom:1px dotted #666;
+
+	// postList_miniThumb
+	.postList_miniThumb { display:block; overflow:hidden;clear: both;padding:15px 0 ;border-bottom:1px dotted #666;
 		.postList_thumbnail { float:left;margin-right:15px; }
 		.postList_thumbnail a { position: relative; display: block; overflow: hidden; border: 1px solid #e5e5e5; }
 		.postList_thumbnail img { width:80px; height:auto;}
