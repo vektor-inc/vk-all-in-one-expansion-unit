@@ -5,14 +5,13 @@
 /*-------------------------------------------*/
 class WP_Widget_Button extends WP_Widget {
 
-    static $button_default = 'default';
-
     static $button_otherlabels = array(
-        'primary',
-        'success',
-        'info',
-        'warning',
-        'danger'
+        'primary' => __( 'Key Color(.primary)', 'vkExUnit' ),
+        'default' => __( 'No paint(.default)', 'vkExUnit' ),
+        'success' => __( 'Light green(.success)', 'vkExUnit' ),
+        'info'    => __( 'Light blue(.info)', 'vkExUnit' ),
+        'warning' => __( 'Orange(.warning)', 'vkExUnit' ),
+        'danger'  => __( 'Red(.danger)', 'vkExUnit' ),
     );
 
     static $default = array(
@@ -21,16 +20,16 @@ class WP_Widget_Button extends WP_Widget {
         'linkurl'      => '',
         'blank'        => false,
         'size'         => '',
-        'color'        => 'default'
+        'color'        => 'primary'
     );
 
     function __construct() {
-        $widget_name = 'VK_' . __( 'button', 'vkExUnit' );
+        $widget_name = 'VK_' . __( 'Button', 'vkExUnit' );
 
         parent::__construct(
             'vkExUnit_button',
             $widget_name,
-            array( 'description' => __( 'set button.' , 'vkExUnit' ) )
+            array( 'description' => __( 'You can set buttons for arbitrary text.' , 'vkExUnit' ) )
         );
     }
 
@@ -49,7 +48,7 @@ class WP_Widget_Button extends WP_Widget {
     ?>
     <?php echo $args['before_widget']; ?>
 
-    <?php if ($options['linkurl']): ?>
+    <?php if ( $options['linkurl'] ): ?>
         <a type="button" class="<?php echo implode(' ', $classes); ?>" href="<?php echo $options['linkurl']; ?>" <?php if($options['blank']) echo 'target="_blank"'; ?> >
             <span class="contact_bt_txt"><?php echo htmlspecialchars($options['maintext']); ?></span>
             <?php if ($options['subtext']): ?>
@@ -80,20 +79,24 @@ class WP_Widget_Button extends WP_Widget {
 
         ?>
         <div class="warp" style="padding: 1em 0;line-height: 2.5em;">
-        <textarea placeholder="<?php _e('main text', 'vkExUnit'); ?>" id="<?php echo $this->get_field_id('maintext'); ?>" name="<?php echo $this->get_field_name('maintext') ?>" style="width:100%; margin-bottom: 0.5em;" ><?php echo $instance['maintext']; ?></textarea>
+
+        <?php _e('Main text(Required):', 'vkExUnit'); ?>
+        <input type="text" id="<?php echo $this->get_field_id('maintext'); ?>" name="<?php echo $this->get_field_name('maintext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['maintext']; ?>">
 
         <br/>
-        <textarea placeholder="<?php _e('sub text', 'vkExUnit'); ?>" id="<?php echo $this->get_field_id('subtext'); ?>" name="<?php echo $this->get_field_name('subtext') ?>" style="width: 100%; margin-bottom: 0.5em;" ><?php echo $instance['subtext']; ?></textarea>
+        <?php _e('Sub text:', 'vkExUnit'); ?>
+        <input type="text" id="<?php echo $this->get_field_id('subtext'); ?>" name="<?php echo $this->get_field_name('subtext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['subtext']; ?>">
 
         <br/>
-        <input placeholder="<?php _e('URL', 'vkExUnit'); ?>" type="text" id="<?php echo $this->get_field_id('linkurl'); ?>" name="<?php echo $this->get_field_name('linkurl') ?> value="<?php echo $instance['linkurl']; ?>" style="width: 100%" />
+         <?php _e('Link URL(Required):', 'vkExUnit'); ?>
+        <input type="text" id="<?php echo $this->get_field_id('linkurl'); ?>" name="<?php echo $this->get_field_name('linkurl') ?> value="<?php echo $instance['linkurl']; ?>" style="width: 100%" />
 
         <br/>
         <input type="checkbox" id="<?php echo $this->get_field_id('blank'); ?>" name="<?php echo $this->get_field_name('blank') ?>" value="true" <?php if($instance['blank']) echo 'checked'; ?>  />
-        <label for="<?php echo $this->get_field_id('blank'); ?>"><?php _e('open with new tab', 'vkExUnit'); ?></label>
+        <label for="<?php echo $this->get_field_id('blank'); ?>"><?php _e('Open with new tab', 'vkExUnit'); ?></label>
 
         <br/>
-        <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('size', 'vkExUnit'); ?> :</label>
+        <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Size', 'vkExUnit'); ?> :</label>
         <select id="<?php echo $this->get_field_id('size'); ?>" name="<?php echo $this->get_field_name('size') ?>">
             <option value="sm" <?php if($instance['size'] == 'sm') echo 'selected'; ?> ><?php _e('small', 'vkExUnit'); ?></option>
             <option value="md" <?php if(!in_array($instance['size'], ['sm', 'lg'])) echo 'selected'; ?> ><?php _e('medium', 'vkExUnit'); ?></option>
@@ -101,11 +104,14 @@ class WP_Widget_Button extends WP_Widget {
         </select>
 
         <br/>
-        <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('type', 'vkExUnit');?> :</label>
+        <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Type', 'vkExUnit');?> :</label>
         <select id="<?php echo $this->get_field_id('color'); ?>" name="<?php echo $this->get_field_name('color'); ?>">
-            <option value="<?php echo static::$button_default; ?>" <?php if(!in_array($instance['color'], static::$button_otherlabels)) echo 'selected'; ?> ><?php _e(static::$button_default, 'vkExUnit'); ?></option>
-        <?php foreach(static::$button_otherlabels as $label): ?>
-            <option value="<?php echo $label; ?>" <?php if($instance['color'] == $label)echo 'selected'; ?> ><?php _e($label, 'vkExUnit'); ?></option>
+        <?php
+        if ( !isset($instance['color']) || !$instance['color'] ) $instance['color'] = $default['color'];
+        foreach( static::$button_otherlabels as $key => $label ): ?>
+            <option value="<?php echo $key; ?>" <?php if ( $instance['color'] == $key ) echo 'selected'; ?> >
+            <?php echo esc_html($label); ?>
+            </option>
         <?php endforeach; ?>
         </select>
         </div>
@@ -124,7 +130,6 @@ class WP_Widget_Button extends WP_Widget {
         return $opt;
     }
 }
-
 
 add_action('widgets_init', 'vkExUnit_widget_button');
 function vkExUnit_widget_button(){
