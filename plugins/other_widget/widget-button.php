@@ -48,20 +48,13 @@ class WP_Widget_Button extends WP_Widget {
     ?>
     <?php echo $args['before_widget']; ?>
 
-    <?php if ( $options['linkurl'] ): ?>
+    <?php if ( $options['linkurl'] && $options['maintext'] ): ?>
         <a type="button" class="<?php echo implode(' ', $classes); ?>" href="<?php echo $options['linkurl']; ?>" <?php if($options['blank']) echo 'target="_blank"'; ?> >
             <span class="contact_bt_txt"><?php echo htmlspecialchars($options['maintext']); ?></span>
             <?php if ($options['subtext']): ?>
                 <span class="contact_bt_subTxt contact_bt_subTxt_side"><?php echo htmlspecialchars($options['subtext']); ?></span>
             <?php endif; ?>
         </a>
-    <?php else: ?>
-        <button type="button" class="<?php echo implode(' ', $classes); ?>" >
-            <span class="contact_bt_txt"><?php echo htmlspecialchars($options['maintext']); ?></span>
-            <?php if ($options['subtext']): ?>
-                <span class="contact_bt_subTxt contact_bt_subTxt_side"><?php echo htmlspecialchars($options['subtext']); ?></span>
-            <?php endif; ?>
-            </button>
     <?php endif; ?>
 
     <?php echo $args['after_widget']; ?>
