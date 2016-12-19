@@ -6,12 +6,19 @@
 class WP_Widget_Button extends WP_Widget {
 
     static $button_otherlabels = array(
-        'primary' => __( 'Key Color(.primary)', 'vkExUnit' ),
-        'default' => __( 'No paint(.default)', 'vkExUnit' ),
-        'success' => __( 'Light green(.success)', 'vkExUnit' ),
-        'info'    => __( 'Light blue(.info)', 'vkExUnit' ),
-        'warning' => __( 'Orange(.warning)', 'vkExUnit' ),
-        'danger'  => __( 'Red(.danger)', 'vkExUnit' ),
+        'primary' => 'Key Color(.primary)',
+        'default' => 'No paint(.default)',
+        'success' => 'Light green(.success)',
+        'info'    => 'Light blue(.info)',
+        'warning' => 'Orange(.warning)',
+        'danger'  => 'Red(.danger)',
+
+        // 'primary' => __( 'Key Color(.primary)', 'vkExUnit' ),
+        // 'default' => __( 'No paint(.default)', 'vkExUnit' ),
+        // 'success' => __( 'Light green(.success)', 'vkExUnit' ),
+        // 'info'    => __( 'Light blue(.info)', 'vkExUnit' ),
+        // 'warning' => __( 'Orange(.warning)', 'vkExUnit' ),
+        // 'danger'  => __( 'Red(.danger)', 'vkExUnit' ),
     );
 
     static $default = array(
