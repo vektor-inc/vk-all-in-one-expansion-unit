@@ -15,7 +15,8 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 		);
 	}
 
-	function form( $instance ) {
+	public static function default_options( $args=array() )
+	{
 		$defaults = array(
 			'block_count' => 3,
 
@@ -27,6 +28,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'iconFont_bgType_1' => '',
 			'summary_1' => '',
 			'linkurl_1' => '',
+			'blank_1' => '',
 
 			'label_2' => __( 'Company', 'vkExUnit' ),
 			'media_image_2' => '',
@@ -36,6 +38,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'iconFont_bgType_2' => '',
 			'summary_2' => '',
 			'linkurl_2' => '',
+			'blank_1' => '',
 
 			'label_3' => __( 'Recruit', 'vkExUnit' ),
 			'media_image_3' => '',
@@ -45,6 +48,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'iconFont_bgType_3' => '',
 			'summary_3' => '',
 			'linkurl_3' => '',
+			'blank_1' => '',
 
 			'label_4' => __( 'Contact', 'vkExUnit' ),
 			'media_image_4' => '',
@@ -54,8 +58,15 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			'iconFont_bgType_4' => '',
 			'summary_4' => '',
 			'linkurl_4' => '',
+			'blank_1' => '',
 		);
-		$instance = wp_parse_args( (array) $instance, $defaults );
+		return wp_parse_args( (array) $args, $defaults );
+	}
+
+
+	public function form( $instance )
+	{
+		$instance = self::default_options($instance);
 	?>
 
 <?php // select Block count	?>
@@ -128,14 +139,18 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// link_URL
 	echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'.$instance[ 'linkurl_'.$i ].'" /></p>';
+		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'.$instance[ 'linkurl_'.$i ].'" />';
+	echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'" '.($instance['blank_'.$i]?'checked':'').' />';
+	echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('open new window').'</label>';
+	echo '</p>';
 
 	$i++;
 }
 	}
 
 
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance )
+	{
 		$instance = $old_instance;
 
 		$instance['block_count'] = $new_instance['block_count'];
@@ -149,29 +164,33 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 			$instance[ 'iconFont_bgType_'.$i ] = $new_instance[ 'iconFont_bgType_'.$i ];
 			$instance[ 'summary_'.$i ] = $new_instance[ 'summary_'.$i ];
 			$instance[ 'linkurl_'.$i ] = $new_instance[ 'linkurl_'.$i ];
+			$instance[ 'blank_'.$i ] = (isset($new_instance[ 'blank_'.$i ]) && $new_instance[ 'blank_'.$i ] == 'true');
 			$i++;
 		}
 		return $instance;
 	}
 
 
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance )
+	{
+		$instance = self::default_options($instance);
 		echo $args['before_widget'];
 		echo PHP_EOL.'<div class="veu_prBlocks prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
-		
+
 		$col_class = 'col-sm-4';
 		if( $widget_block_count == 4 ){
 			$col_class = 'col-sm-3';
-		} 
-		
+		}
+
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
 				echo '<article class="prBlock '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
-					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'">'.PHP_EOL ;
+					$blank = $instance['blank_'.$i]? 'target="_blank"':'';
+					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
 				}
 				// icon font display
 				if ( empty( $instance[ 'media_image_'.$i ] ) && ! empty( $instance[ 'iconFont_class_'.$i ] ) ) {
@@ -189,7 +208,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					} else {
 						$icon_styles = ' style="color:#fff;"';
 					}
-					
+
 					echo '<i class="fa '.esc_attr( $instance[ 'iconFont_class_'.$i ] ).' font_icon prBlock_icon"'.$icon_styles.'></i></div>'.PHP_EOL;
 
 					// image display
