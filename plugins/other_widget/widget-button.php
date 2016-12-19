@@ -12,13 +12,6 @@ class WP_Widget_Button extends WP_Widget {
         'info'    => 'Light blue(.info)',
         'warning' => 'Orange(.warning)',
         'danger'  => 'Red(.danger)',
-
-        // 'primary' => __( 'Key Color(.primary)', 'vkExUnit' ),
-        // 'default' => __( 'No paint(.default)', 'vkExUnit' ),
-        // 'success' => __( 'Light green(.success)', 'vkExUnit' ),
-        // 'info'    => __( 'Light blue(.info)', 'vkExUnit' ),
-        // 'warning' => __( 'Orange(.warning)', 'vkExUnit' ),
-        // 'danger'  => __( 'Red(.danger)', 'vkExUnit' ),
     );
 
     static $default = array(
@@ -89,7 +82,7 @@ class WP_Widget_Button extends WP_Widget {
 
         <br/>
          <?php _e('Link URL(Required):', 'vkExUnit'); ?>
-        <input type="text" id="<?php echo $this->get_field_id('linkurl'); ?>" name="<?php echo $this->get_field_name('linkurl') ?> value="<?php echo $instance['linkurl']; ?>" style="width: 100%" />
+        <input type="text" id="<?php echo $this->get_field_id('linkurl'); ?>" name="<?php echo $this->get_field_name('linkurl') ?>" value="<?php echo $instance['linkurl']; ?>" style="width: 100%" />
 
         <br/>
         <input type="checkbox" id="<?php echo $this->get_field_id('blank'); ?>" name="<?php echo $this->get_field_name('blank') ?>" value="true" <?php if($instance['blank']) echo 'checked'; ?>  />
@@ -110,7 +103,7 @@ class WP_Widget_Button extends WP_Widget {
         if ( !isset($instance['color']) || !$instance['color'] ) $instance['color'] = $default['color'];
         foreach( static::$button_otherlabels as $key => $label ): ?>
             <option value="<?php echo $key; ?>" <?php if ( $instance['color'] == $key ) echo 'selected'; ?> >
-            <?php echo esc_html($label); ?>
+            <?php _e($label, 'vkExUnit'); ?>
             </option>
         <?php endforeach; ?>
         </select>
@@ -126,8 +119,17 @@ class WP_Widget_Button extends WP_Widget {
         $opt['linkurl']  = $new_instance['linkurl'];
         $opt['blank']    = (isset($new_instance['blank']) && $new_instance['blank'] == 'true');
         $opt['size']     = in_array($new_instance['size'], array('sm', 'lg'))? $new_instance['size'] : 'md';
-        $opt['color']    = in_array($new_instance['color'], self::$button_otherlabels)? $new_instance['color'] : static::$button_default;
+        $opt['color']    = in_array($new_instance['color'], array_keys(self::$button_otherlabels))? $new_instance['color'] : static::$button_default;
         return $opt;
+    }
+
+    public static function dummy(){
+        __( 'Key Color(.primary)', 'vkExUnit' );
+        __( 'No paint(.default)', 'vkExUnit' );
+        __( 'Light green(.success)', 'vkExUnit' );
+        __( 'Light blue(.info)', 'vkExUnit' );
+        __( 'Orange(.warning)', 'vkExUnit' );
+        __( 'Red(.danger)', 'vkExUnit' );
     }
 }
 
