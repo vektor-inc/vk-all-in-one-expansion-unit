@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-20 00:25+0900\n"
+"POT-Creation-Date: 2016-12-21 13:22+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -1015,71 +1015,93 @@ msgstr "画像を選択"
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
 
-#: plugins/other_widget/widget-button.php:27
+#: plugins/other_widget/widget-button.php:29
 msgid "Button"
 msgstr "ボタン"
 
-#: plugins/other_widget/widget-button.php:32
+#: plugins/other_widget/widget-button.php:34
 msgid "You can set buttons for arbitrary text."
 msgstr "任意のテキストのボタンを設定できます。"
 
-#: plugins/other_widget/widget-button.php:76
+#: plugins/other_widget/widget-button.php:79
 msgid "Main text(Required):"
 msgstr "ボタンテキスト(必須):"
 
-#: plugins/other_widget/widget-button.php:80
+#: plugins/other_widget/widget-button.php:84
+msgid "Class name of the icon font"
+msgstr "使用したいアイコンフォント"
+
+#: plugins/other_widget/widget-button.php:86
+msgid "Before :"
+msgstr "文字の前 :"
+
+#: plugins/other_widget/widget-button.php:88
+msgid "After :"
+msgstr "文字の後 :"
+
+#: plugins/other_widget/widget-button.php:90
+#: plugins/other_widget/widget-pr-blocks.php:85
+msgid "To choose your favorite icon, and enter the class."
+msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
+
+#: plugins/other_widget/widget-button.php:92
+#: plugins/other_widget/widget-pr-blocks.php:85
+msgid " ex:fa-file-text-o"
+msgstr "例:fa-file-text-o"
+
+#: plugins/other_widget/widget-button.php:97
 msgid "Sub text:"
 msgstr "サブテキスト:"
 
-#: plugins/other_widget/widget-button.php:84
+#: plugins/other_widget/widget-button.php:101
 msgid "Link URL(Required):"
 msgstr "リンク先ページのURL(必須):"
 
-#: plugins/other_widget/widget-button.php:89
+#: plugins/other_widget/widget-button.php:106
 msgid "Open with new tab"
 msgstr "リンクを別ウィンドウで開く"
 
-#: plugins/other_widget/widget-button.php:92
+#: plugins/other_widget/widget-button.php:109
 msgid "Size"
 msgstr "サイズ"
 
-#: plugins/other_widget/widget-button.php:94
+#: plugins/other_widget/widget-button.php:111
 msgid "Small"
 msgstr "小"
 
-#: plugins/other_widget/widget-button.php:95
+#: plugins/other_widget/widget-button.php:112
 msgid "Medium"
 msgstr "中"
 
-#: plugins/other_widget/widget-button.php:96
+#: plugins/other_widget/widget-button.php:113
 msgid "Large"
 msgstr "大"
 
-#: plugins/other_widget/widget-button.php:100
+#: plugins/other_widget/widget-button.php:117
 msgid "Button color:"
 msgstr "ボタンの色:"
 
-#: plugins/other_widget/widget-button.php:127
+#: plugins/other_widget/widget-button.php:146
 msgid "Key Color(.primary)"
 msgstr "キーカラー(.primary)"
 
-#: plugins/other_widget/widget-button.php:128
+#: plugins/other_widget/widget-button.php:147
 msgid "No paint(.default)"
 msgstr "塗りなし(.default)"
 
-#: plugins/other_widget/widget-button.php:129
+#: plugins/other_widget/widget-button.php:148
 msgid "Light green(.success)"
 msgstr "明るい緑(.success)"
 
-#: plugins/other_widget/widget-button.php:130
+#: plugins/other_widget/widget-button.php:149
 msgid "Light blue(.info)"
 msgstr "空色(.info)"
 
-#: plugins/other_widget/widget-button.php:131
+#: plugins/other_widget/widget-button.php:150
 msgid "Orange(.warning)"
 msgstr "オレンジ(.warning)"
 
-#: plugins/other_widget/widget-button.php:132
+#: plugins/other_widget/widget-button.php:151
 msgid "Red(.danger)"
 msgstr "赤(.danger)"
 
@@ -1230,14 +1252,6 @@ msgstr "PRブロック"
 #: plugins/other_widget/widget-pr-blocks.php:82
 msgid "Class name of the icon font you want to use:"
 msgstr "使用したいアイコンフォントのクラス名:"
-
-#: plugins/other_widget/widget-pr-blocks.php:85
-msgid "To choose your favorite icon, and enter the class."
-msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
-
-#: plugins/other_widget/widget-pr-blocks.php:85
-msgid " ex:fa-file-text-o"
-msgstr "例:fa-file-text-o"
 
 #: plugins/other_widget/widget-pr-blocks.php:89
 msgid "Icon color:"

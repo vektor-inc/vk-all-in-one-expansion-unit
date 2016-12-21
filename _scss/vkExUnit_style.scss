@@ -592,6 +592,9 @@ $section_pagelist_margin:2.5em 0 1em;
 /* Widget .veu_button
 /*-------------------------------------------*/
 .veu_button {
-	.btn { padding-top:1em;padding-bottom:0.9em; }
-	.btn.btn-sm { padding-top:0.8em;padding-bottom:0.7em; }
+	i { margin-left:0.3em;margin-right:0.3em; }
+	.button_mainText,
+	.button_subText { display: block; }
+	.btn.btn-sm { padding-top:0.6em;padding-bottom:0.45em; }
+	.btn { padding-top:0.8em;padding-bottom:0.55em; }
 }
