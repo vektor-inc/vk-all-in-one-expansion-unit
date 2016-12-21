@@ -16,6 +16,8 @@ class WP_Widget_Button extends WP_Widget {
 
     static $default = array(
         'maintext'     => '',
+        'icon_before'  => '',
+        'icon_after'   => '',
         'subtext'      => '',
         'linkurl'      => '',
         'blank'        => false,
@@ -50,10 +52,23 @@ class WP_Widget_Button extends WP_Widget {
     <?php if ( $options['linkurl'] && $options['maintext'] ): ?>
     <div class="veu_button">
         <a type="button" class="<?php echo implode(' ', $classes); ?>" href="<?php echo $options['linkurl']; ?>" <?php if($options['blank']) echo 'target="_blank"'; ?> >
-            <span class="button_bt_txt"><?php echo htmlspecialchars($options['maintext']); ?></span>
+            <span class="button_mainText">
+
+            <?php 
+            if ( isset( $instance[ 'icon_before' ] ) && $instance[ 'icon_before' ] ) {
+                echo '<i class="fa '.esc_attr( $instance[ 'icon_before' ] ).' font_icon"></i>';
+            }
+            
+            echo esc_html($options['maintext']);
+
+            if ( isset( $instance[ 'icon_after' ] ) && $instance[ 'icon_after' ] ) {
+                echo '<i class="fa '.esc_attr( $instance[ 'icon_after' ] ).' font_icon"></i>';
+            }
+            ?>
+                
+            </span>
             <?php if ($options['subtext']): ?>
-                <br>
-                <span class="veu_caption"><?php echo htmlspecialchars($options['subtext']); ?></span>
+                <span class="veu_caption button_subText"><?php echo htmlspecialchars($options['subtext']); ?></span>
             <?php endif; ?>
         </a>
     </div>
@@ -77,7 +92,18 @@ class WP_Widget_Button extends WP_Widget {
         <?php _e('Main text(Required):', 'vkExUnit'); ?>
         <input type="text" id="<?php echo $this->get_field_id('maintext'); ?>" name="<?php echo $this->get_field_name('maintext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['maintext']; ?>">
 
-        <br/>
+        <?php 
+    // icon font class input
+echo '<p>'.__( 'Class name of the icon font', 'vkExUnit' ).'</label><br/>';
+echo  __( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ).'<br>';
+echo '<label for="'.$this->get_field_id( 'icon_before' ).'">'.__('Before :','vkExUnit' );
+echo '<input type="text" id="'.$this->get_field_id( 'icon_before' ).'-font" class="font_class" name="'.$this->get_field_name( 'icon_before' ).'" value="'.$instance[ 'icon_before' ].'" /><br>';
+echo '<label for="'.$this->get_field_id( 'icon_after' ).'">'.__('After :','vkExUnit' );
+echo '<input type="text" id="'.$this->get_field_id( 'icon_after' ).'-font" class="font_class" name="'.$this->get_field_name( 'icon_after' ).'" value="'.$instance[ 'icon_after' ].'" />';
+echo  __( ' ex:fa-arrow-circle-o-right', 'vkExUnit' ).'<br>';
+echo  '[ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]<br>';
+echo '</p>';
+?>
         <?php _e('Sub text:', 'vkExUnit'); ?>
         <input type="text" id="<?php echo $this->get_field_id('subtext'); ?>" name="<?php echo $this->get_field_name('subtext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['subtext']; ?>">
 
@@ -116,6 +142,8 @@ class WP_Widget_Button extends WP_Widget {
     function update( $new_instance, $old_instance ) {
         $opt = array();
         $opt['maintext'] = $new_instance['maintext'];
+        $opt['icon_before'] = $new_instance['icon_before'];
+        $opt['icon_after'] = $new_instance['icon_after'];
         $opt['subtext']  = $new_instance['subtext'];
         $opt['linkurl']  = $new_instance['linkurl'];
         $opt['blank']    = (isset($new_instance['blank']) && $new_instance['blank'] == 'true');
