@@ -98,9 +98,9 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_'.$i );  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'linkurl_'.$i ); ?>_title" class="pr_input" name="<?php echo $this->get_field_name( 'linkurl_'.$i ); ?>" value="<?php echo $instance['linkurl_'.$i]; ?>" /><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'linkurl_'.$i ); ?>_title" class="pr_input text" name="<?php echo $this->get_field_name( 'linkurl_'.$i ); ?>" value="<?php echo $instance['linkurl_'.$i]; ?>" style="margin-bottom:0.5em;" /><br/>
 		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank_'.$i ); ?>" class="pr_input checkbox" name="<?php echo $this->get_field_name( 'blank_'.$i ); ?>" <?php if ($instance['blank_'.$i]) echo 'checked'; ?> value="true" />
-		<label for="<?php echo $this->get_field_id( 'blank_'.$i ); ?>"><?php _e('open new window', 'vkExUnit'); ?></label>
+		<label for="<?php echo $this->get_field_id( 'blank_'.$i ); ?>"><?php _e('Open link new tab.', 'vkExUnit'); ?></label>
         </p>
 
 <hr />
@@ -149,7 +149,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 				echo '</h1>';
 
-				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) ) { 
+				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) && $instance['media_3pr_image_'.$i]) { 
 
 					// media_pr は現在不使用 近日削除
 					echo '<div class="media_pr veu_3prArea_image">';
@@ -215,6 +215,9 @@ function style_3PR() {
         }
         .pr_input{
             width: 100%;
+        }
+        .pr_input.text{
+            margin-bottom: 0.5em;
         }
         .pr_input.textarea{
             margin-top: -1em;
