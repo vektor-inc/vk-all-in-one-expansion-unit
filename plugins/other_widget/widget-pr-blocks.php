@@ -139,9 +139,10 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// link_URL
 	echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'.$instance[ 'linkurl_'.$i ].'" />';
-	echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'" '.($instance['blank_'.$i]?'checked':'').' />';
-	echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('open new window').'</label>';
+		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'.$instance[ 'linkurl_'.$i ].'" style="margin-bottom:0.5em" />';
+	$checked = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' checked':'';
+	echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'"'.$checked.' />';
+	echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('Open link new tab.', 'vkExUnit').'</label>';
 	echo '</p>';
 
 	$i++;
@@ -189,7 +190,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
 				echo '<article class="prBlock '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
-					$blank = $instance['blank_'.$i]? 'target="_blank"':'';
+					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? 'target="_blank"':'';
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
 				}
 				// icon font display
