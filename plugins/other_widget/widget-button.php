@@ -47,16 +47,17 @@ class WP_Widget_Button extends WP_Widget {
             $classes[] = 'btn-' . $options['size'];
     ?>
     <?php echo $args['before_widget']; ?>
-
     <?php if ( $options['linkurl'] && $options['maintext'] ): ?>
+    <div class="veu_button">
         <a type="button" class="<?php echo implode(' ', $classes); ?>" href="<?php echo $options['linkurl']; ?>" <?php if($options['blank']) echo 'target="_blank"'; ?> >
-            <span class="contact_bt_txt"><?php echo htmlspecialchars($options['maintext']); ?></span>
+            <span class="button_bt_txt"><?php echo htmlspecialchars($options['maintext']); ?></span>
             <?php if ($options['subtext']): ?>
-                <span class="contact_bt_subTxt contact_bt_subTxt_side"><?php echo htmlspecialchars($options['subtext']); ?></span>
+                <br>
+                <span class="veu_caption"><?php echo htmlspecialchars($options['subtext']); ?></span>
             <?php endif; ?>
         </a>
+    </div>
     <?php endif; ?>
-
     <?php echo $args['after_widget']; ?>
     <?php
     }
@@ -91,13 +92,13 @@ class WP_Widget_Button extends WP_Widget {
         <br/>
         <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Size', 'vkExUnit'); ?> :</label>
         <select id="<?php echo $this->get_field_id('size'); ?>" name="<?php echo $this->get_field_name('size') ?>">
-            <option value="sm" <?php if($instance['size'] == 'sm') echo 'selected'; ?> ><?php _e('small', 'vkExUnit'); ?></option>
-            <option value="md" <?php if(!in_array($instance['size'], ['sm', 'lg'])) echo 'selected'; ?> ><?php _e('medium', 'vkExUnit'); ?></option>
-            <option value="lg" <?php if($instance['size'] == 'lg') echo 'selected'; ?> ><?php _e('large', 'vkExUnit'); ?></option>
+            <option value="sm" <?php if($instance['size'] == 'sm') echo 'selected'; ?> ><?php _e('Small', 'vkExUnit'); ?></option>
+            <option value="md" <?php if(!in_array($instance['size'], ['sm', 'lg'])) echo 'selected'; ?> ><?php _e('Medium', 'vkExUnit'); ?></option>
+            <option value="lg" <?php if($instance['size'] == 'lg') echo 'selected'; ?> ><?php _e('Large', 'vkExUnit'); ?></option>
         </select>
 
         <br/>
-        <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Type', 'vkExUnit');?> :</label>
+        <label for="<?php echo $this->get_field_id('size'); ?>"><?php _e('Button color:', 'vkExUnit');?> </label>
         <select id="<?php echo $this->get_field_id('color'); ?>" name="<?php echo $this->get_field_name('color'); ?>">
         <?php
         if ( !isset($instance['color']) || !$instance['color'] ) $instance['color'] = $default['color'];
