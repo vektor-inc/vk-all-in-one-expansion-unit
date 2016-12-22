@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-02 18:57+0900\n"
+"POT-Creation-Date: 2016-12-22 16:02+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -21,6 +21,10 @@ msgstr ""
 
 #: admin_wrapper.php:39
 msgid "Activated Packages is noting. please activate some package."
+msgstr ""
+
+#: admin_wrapper.php:89
+msgid "Settings"
 msgstr ""
 
 #: common_helpers.php:109
@@ -364,94 +368,94 @@ msgstr ""
 msgid "Do not set eyecatch image automatic."
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:63
+#: plugins/call_to_action/class.call_to_action.php:46
 #: plugins/call_to_action/view.actionbox.php:39
 msgid "Edit CTA"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:64
+#: plugins/call_to_action/class.call_to_action.php:47
 msgid "Add new CTA"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:65
+#: plugins/call_to_action/class.call_to_action.php:48
 msgid "New CTA"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:92
-#: plugins/call_to_action/class.call_to_action.php:94
-#: plugins/call_to_action/class.call_to_action.php:95
+#: plugins/call_to_action/class.call_to_action.php:75
+#: plugins/call_to_action/class.call_to_action.php:77
+#: plugins/call_to_action/class.call_to_action.php:78
 msgid "Call to Action setting"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:97
+#: plugins/call_to_action/class.call_to_action.php:80
 msgid "CTA Contents"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:106
+#: plugins/call_to_action/class.call_to_action.php:89
 msgid "Follow common setting"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:107
-#: plugins/call_to_action/class.call_to_action.php:434
+#: plugins/call_to_action/class.call_to_action.php:90
+#: plugins/call_to_action/class.call_to_action.php:417
 msgid "Disable display"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:118
+#: plugins/call_to_action/class.call_to_action.php:101
 msgid "CTA common setting"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:119
+#: plugins/call_to_action/class.call_to_action.php:102
 #: plugins/call_to_action/view.adminsetting.php:22
-#: plugins/call_to_action/widget.call_to_action.php:60
+#: plugins/call_to_action/widget.call_to_action.php:61
 msgid "Show CTA index page"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:184
+#: plugins/call_to_action/class.call_to_action.php:167
 msgid "CTA image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:190
+#: plugins/call_to_action/class.call_to_action.php:173
 msgid "Add image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:191
+#: plugins/call_to_action/class.call_to_action.php:174
 msgid "Change image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:192
+#: plugins/call_to_action/class.call_to_action.php:175
 msgid "Remove image"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:197
+#: plugins/call_to_action/class.call_to_action.php:180
 msgid "CTA image position"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:200
+#: plugins/call_to_action/class.call_to_action.php:183
 msgid "right"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/call_to_action/class.call_to_action.php:184
 msgid "center"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:202
+#: plugins/call_to_action/class.call_to_action.php:185
 msgid "left"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:206
+#: plugins/call_to_action/class.call_to_action.php:189
 msgid "Button text"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:209
+#: plugins/call_to_action/class.call_to_action.php:192
 msgid "Button link url"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:212
+#: plugins/call_to_action/class.call_to_action.php:195
 msgid "Text message"
 msgstr ""
 
-#: plugins/call_to_action/class.call_to_action.php:218
-#: plugins/call_to_action/widget.call_to_action.php:61
+#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/call_to_action/widget.call_to_action.php:62
 msgid "CTA setting"
 msgstr ""
 
@@ -479,23 +483,23 @@ msgstr ""
 msgid "Show index page"
 msgstr ""
 
-#: plugins/call_to_action/widget.call_to_action.php:12
+#: plugins/call_to_action/widget.call_to_action.php:13
 msgid "CTA"
 msgstr ""
 
-#: plugins/call_to_action/widget.call_to_action.php:18
+#: plugins/call_to_action/widget.call_to_action.php:19
 msgid "Select CTA and display it."
 msgstr ""
 
-#: plugins/call_to_action/widget.call_to_action.php:50
+#: plugins/call_to_action/widget.call_to_action.php:51
 msgid "Please select CTA to display."
 msgstr ""
 
-#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:167
+#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:182
 msgid "Read more"
 msgstr ""
 
-#: plugins/child_page_index.php:92
+#: plugins/child_page_index.php:91
 msgid "Display a child page index"
 msgstr ""
 
@@ -831,7 +835,7 @@ msgid "Heading title"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:9
-#: plugins/other_widget/widget-3pr-area.php:134
+#: plugins/other_widget/widget-3pr-area.php:148
 msgid "3PR area"
 msgstr ""
 
@@ -839,60 +843,66 @@ msgstr ""
 msgid "Displays a 3PR area"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:20
+#: plugins/other_widget/widget-3pr-area.php:21
 msgid "3PR area1 title"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:27
+#: plugins/other_widget/widget-3pr-area.php:29
 msgid "3PR area2 title"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:34
+#: plugins/other_widget/widget-3pr-area.php:37
 msgid "3PR area3 title"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:46
+#: plugins/other_widget/widget-3pr-area.php:56
 msgid "3PR area setting"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:48
-#: plugins/other_widget/widget-new-posts.php:162
-#: plugins/other_widget/widget-pr-blocks.php:78
+#: plugins/other_widget/widget-3pr-area.php:58
+#: plugins/other_widget/widget-new-posts.php:179
+#: plugins/other_widget/widget-pr-blocks.php:89
 #: plugins/other_widget/widget-profile.php:40
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:54
+#: plugins/other_widget/widget-3pr-area.php:64
 msgid "Select image for PC:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:57
-#: plugins/other_widget/widget-3pr-area.php:74
-#: plugins/other_widget/widget-pr-blocks.php:112
+#: plugins/other_widget/widget-3pr-area.php:67
+#: plugins/other_widget/widget-3pr-area.php:84
+#: plugins/other_widget/widget-pr-blocks.php:123
 #: plugins/other_widget/widget-profile.php:48
 msgid "Select image"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:58
-#: plugins/other_widget/widget-3pr-area.php:75
-#: plugins/other_widget/widget-pr-blocks.php:115
+#: plugins/other_widget/widget-3pr-area.php:68
+#: plugins/other_widget/widget-3pr-area.php:85
+#: plugins/other_widget/widget-pr-blocks.php:126
 #: plugins/other_widget/widget-profile.php:49
 msgid "Clear image"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:68
+#: plugins/other_widget/widget-3pr-area.php:78
 msgid "Select image for Mobile:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:84
-#: plugins/other_widget/widget-pr-blocks.php:126
+#: plugins/other_widget/widget-3pr-area.php:94
+#: plugins/other_widget/widget-pr-blocks.php:137
 msgid "Summary Text:"
 msgstr ""
 
-#: plugins/other_widget/widget-3pr-area.php:90
-#: plugins/other_widget/widget-pr-blocks.php:130
+#: plugins/other_widget/widget-3pr-area.php:100
+#: plugins/other_widget/widget-pr-blocks.php:141
 msgid "Link URL:"
+msgstr ""
+
+#: plugins/other_widget/widget-3pr-area.php:103
+#: plugins/other_widget/widget-banner.php:84
+#: plugins/other_widget/widget-pr-blocks.php:145
+msgid "Open link new tab."
 msgstr ""
 
 #: plugins/other_widget/widget-archives.php:53
@@ -901,8 +911,8 @@ msgid "Monthly archives"
 msgstr ""
 
 #: plugins/other_widget/widget-archives.php:63
-#: plugins/other_widget/widget-new-posts.php:157
-#: plugins/other_widget/widget-new-posts.php:158
+#: plugins/other_widget/widget-new-posts.php:184
+#: plugins/other_widget/widget-new-posts.php:185
 msgid "Title"
 msgstr ""
 
@@ -922,6 +932,109 @@ msgstr ""
 msgid "archive"
 msgstr ""
 
+#: plugins/other_widget/widget-banner.php:16
+msgid "Banner"
+msgstr ""
+
+#: plugins/other_widget/widget-banner.php:22
+msgid ""
+"You can easily set up a banner simply by registering images and link "
+"destinations."
+msgstr ""
+
+#: plugins/other_widget/widget-banner.php:80
+msgid "Set image"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:29
+msgid "Button"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:34
+msgid "You can set buttons for arbitrary text."
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:92
+msgid "Main text(Required):"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:97
+msgid "Class name of the icon font"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:98
+#: plugins/other_widget/widget-pr-blocks.php:96
+msgid "To choose your favorite icon, and enter the class."
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:99
+msgid "Before :"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:101
+msgid "After :"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:103
+msgid " ex:fa-arrow-circle-o-right"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:107
+msgid "Sub text:"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:111
+msgid "Link URL(Required):"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:116
+msgid "Open with new tab"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:119
+msgid "Size"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:121
+msgid "Small"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:122
+msgid "Medium"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:123
+msgid "Large"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:127
+msgid "Button color:"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:156
+msgid "Key Color(.primary)"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:157
+msgid "No paint(.default)"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:158
+msgid "Light green(.success)"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:159
+msgid "Light blue(.info)"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:160
+msgid "Orange(.warning)"
+msgstr ""
+
+#: plugins/other_widget/widget-button.php:161
+msgid "Red(.danger)"
+msgstr ""
+
 #: plugins/other_widget/widget-child-page-list.php:10
 msgid "Child Page List"
 msgstr ""
@@ -932,8 +1045,8 @@ msgid "Display the child pages list from ancestor page."
 msgstr ""
 
 #: plugins/other_widget/widget-new-posts.php:11
-#: plugins/other_widget/widget-new-posts.php:29
-#: plugins/other_widget/widget-new-posts.php:148
+#: plugins/other_widget/widget-new-posts.php:31
+#: plugins/other_widget/widget-new-posts.php:162
 msgid "Recent Posts"
 msgstr ""
 
@@ -941,43 +1054,55 @@ msgstr ""
 msgid "Displays a list of your most recent posts"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:156
+#: plugins/other_widget/widget-new-posts.php:183
 msgid "Display Format"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:157
+#: plugins/other_widget/widget-new-posts.php:184
 msgid "Thumbnail"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:157
-#: plugins/other_widget/widget-new-posts.php:158
+#: plugins/other_widget/widget-new-posts.php:184
+#: plugins/other_widget/widget-new-posts.php:185
 msgid "Date"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:158
+#: plugins/other_widget/widget-new-posts.php:185
 #: plugins/other_widget/widget-taxonomies.php:20
 #: plugins/other_widget/widget-taxonomies.php:49
 #: plugins/other_widget/widget-taxonomies.php:50
 msgid "Category"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:167
+#: plugins/other_widget/widget-new-posts.php:188
+msgid "Order by"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:189
+msgid "Publish date"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:190
+msgid "Modified date"
+msgstr ""
+
+#: plugins/other_widget/widget-new-posts.php:194
 msgid "Display count"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:172
+#: plugins/other_widget/widget-new-posts.php:199
 msgid "Slug for the custom type you want to display"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:177
+#: plugins/other_widget/widget-new-posts.php:204
 msgid "taxonomy ID"
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:179
+#: plugins/other_widget/widget-new-posts.php:206
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 
-#: plugins/other_widget/widget-new-posts.php:181 plugins/sns/sns_admin.php:88
+#: plugins/other_widget/widget-new-posts.php:208 plugins/sns/sns_admin.php:88
 msgid "if empty this area, I will do not filtering."
 msgstr ""
 
@@ -1010,79 +1135,75 @@ msgstr ""
 msgid "Displays a circle image or icon font for pr blocks"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:22
+#: plugins/other_widget/widget-pr-blocks.php:23
 msgid "Service"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:31
+#: plugins/other_widget/widget-pr-blocks.php:33
 msgid "Company"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:40
+#: plugins/other_widget/widget-pr-blocks.php:43
 msgid "Recruit"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:49
+#: plugins/other_widget/widget-pr-blocks.php:53
 msgid "Contact"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:63
+#: plugins/other_widget/widget-pr-blocks.php:74
 msgid "The choice of the number of columns:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:65
+#: plugins/other_widget/widget-pr-blocks.php:76
 msgid "3column"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:66
+#: plugins/other_widget/widget-pr-blocks.php:77
 msgid "4column"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:68
+#: plugins/other_widget/widget-pr-blocks.php:79
 msgid ""
 "If you change the number of columns, click to \"Save\" botton and exit the "
 "edit page. When restart the edit page, the column input form is increased or "
 "decreased."
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:75
-#: plugins/other_widget/widget-pr-blocks.php:205
+#: plugins/other_widget/widget-pr-blocks.php:86
+#: plugins/other_widget/widget-pr-blocks.php:225
 msgid "PR Block"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:82
+#: plugins/other_widget/widget-pr-blocks.php:93
 msgid "Class name of the icon font you want to use:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:85
-msgid "To choose your favorite icon, and enter the class."
-msgstr ""
-
-#: plugins/other_widget/widget-pr-blocks.php:85
+#: plugins/other_widget/widget-pr-blocks.php:96
 msgid " ex:fa-file-text-o"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:89
+#: plugins/other_widget/widget-pr-blocks.php:100
 msgid "Icon color:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:93
+#: plugins/other_widget/widget-pr-blocks.php:104
 msgid "Icon Background:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:97
+#: plugins/other_widget/widget-pr-blocks.php:108
 msgid "Solid color"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:101
+#: plugins/other_widget/widget-pr-blocks.php:112
 msgid "No background"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:105
+#: plugins/other_widget/widget-pr-blocks.php:116
 msgid "Select image:"
 msgstr ""
 
-#: plugins/other_widget/widget-pr-blocks.php:116
+#: plugins/other_widget/widget-pr-blocks.php:127
 msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 
@@ -1175,7 +1296,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: plugins/pageList_ancestor.php:77
+#: plugins/pageList_ancestor.php:79
 msgid "Display a page list from ancestor"
 msgstr ""
 
