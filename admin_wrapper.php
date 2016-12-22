@@ -86,6 +86,9 @@ function vkExUnit_package_adminbar( $wp_admin_bar ) {
 
 	if ( ! current_user_can( 'activate_plugins' ) ) { return; }
 
+	global $vkExUnit_options;
+	if (!isset($vkExUnit_options) || !count($vkExUnit_options)) return;
+
 	$args = array(
 		'id'    => 'vew_configbar',
 		'title' => vkExUnit_get_little_short_name(). '_' .__('Settings', 'vkExUnit'),
@@ -94,8 +97,6 @@ function vkExUnit_package_adminbar( $wp_admin_bar ) {
 	);
 	$wp_admin_bar->add_node( $args );
 
-	global $vkExUnit_options;
-	if (!isset($vkExUnit_options)) return;
 	foreach ($vkExUnit_options as $opt) {
 		$wp_admin_bar->add_node( array(
 			'parent' => 'vew_configbar',
