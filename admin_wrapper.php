@@ -79,6 +79,31 @@ function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $san
 }
 
 
+add_action( 'admin_bar_menu', 'vkExUnit_package_adminbar', 43 );
+function vkExUnit_package_adminbar( $wp_admin_bar ) {
+
+	if ( ! current_user_can( 'activate_plugins' ) ) { return; }
+
+	$args = array(
+		'id'    => 'vew_configbar',
+		'title' => vkExUnit_get_little_short_name(). '_' .__('Settings', 'vkExUnit'),
+		'href'  => admin_url() . 'admin.php?page=vkExUnit_main_setting',
+		'meta'  => array(),
+	);
+	$wp_admin_bar->add_node( $args );
+
+	global $vkExUnit_options;
+	foreach ($vkExUnit_options as $opt) {
+		$wp_admin_bar->add_node( array(
+			'parent' => 'vew_configbar',
+			'title'  => $opt['tab_label'],
+			'id'     => 'vew_configbar_'.$opt['option_name'],
+			'href'   => admin_url() . 'admin.php?page=vkExUnit_main_setting#'.$opt['option_name']
+		));
+	}
+}
+
+
 function vkExUnit_main_config_sanitaize( $post ) {
 	global $vkExUnit_options;
 
