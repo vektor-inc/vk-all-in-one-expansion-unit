@@ -53,6 +53,7 @@ function vkExUnit_render_main_config() {
 	// $menu
 	/*--------------------------------------------------*/
 	global $vkExUnit_options;
+	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
 	$get_menu_html = '';
 	foreach ( $vkExUnit_options as $vkoption ) {
 		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
@@ -69,6 +70,7 @@ function vkExUnit_render_main_config() {
 
 function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
 	global $vkExUnit_options;
+	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
 	$vkExUnit_options[] =
 		array(
 			'option_name' => $option_name,
@@ -93,6 +95,7 @@ function vkExUnit_package_adminbar( $wp_admin_bar ) {
 	$wp_admin_bar->add_node( $args );
 
 	global $vkExUnit_options;
+	if (!isset($vkExUnit_options)) return;
 	foreach ($vkExUnit_options as $opt) {
 		$wp_admin_bar->add_node( array(
 			'parent' => 'vew_configbar',
