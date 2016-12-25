@@ -38,7 +38,7 @@ class WidgetBanner extends \WP_Widget
         if ($instance['href']) echo '<a href="'. esc_url( $instance['href'] ) .'" '.$alt.' '. (($instance['blank'])? 'target="_blank"' : '') .' >';
         echo '<img src="'.$image[0].'" />';
         if ($instance['href']) echo '</a>';
-        echo $args['before_widget'];
+        echo $args['after_widget'];
 
         return;
     }
