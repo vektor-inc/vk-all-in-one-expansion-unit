@@ -31,10 +31,11 @@ class WidgetBanner extends \WP_Widget
         $image = null;
         if (is_numeric($instance['id'])) {
             $image = wp_get_attachment_image_src( $instance['id'], 'full' );
+            $alt = $instance['alt']?'alt="'.esc_html($instance['alt']).'" ':'';
         }
         if (!$image) return;
         echo $args['before_widget'];
-        if ($instance['href']) echo '<a href="'. esc_url( $instance['href'] ) .'" '. (($instance['blank'])? 'target="_blank"' : '') .' >';
+        if ($instance['href']) echo '<a href="'. esc_url( $instance['href'] ) .'" '.$alt.' '. (($instance['blank'])? 'target="_blank"' : '') .' >';
         echo '<img src="'.$image[0].'" />';
         if ($instance['href']) echo '</a>';
         echo $args['before_widget'];
@@ -47,6 +48,7 @@ class WidgetBanner extends \WP_Widget
     {
         $instance['id']    = $new_instance['id'];
         $instance['href']  = $new_instance['href'];
+        $instance['alt']  = $new_instance['alt'];
         $instance['blank'] = (isset($new_instance['blank']) && $new_instance['blank'] == 'true');
         return $new_instance;
     }
@@ -57,7 +59,8 @@ class WidgetBanner extends \WP_Widget
         $defaults = array(
             'id'    => Null,
             'href'  => '',
-            'blank' => false
+            'blank' => false,
+            'alt' => ''
         );
         return wp_parse_args( $instance, $defaults );
     }
@@ -81,7 +84,8 @@ class WidgetBanner extends \WP_Widget
 <div class="_form" style="line-height: 2em">
     <input type="hidden" class="__id" name="<?php echo $this->get_field_name( 'id' ); ?>" value="<?php echo $instance['id']; ?>" />
     <label>URL : <input type="text" name="<?php echo $this->get_field_name( 'href' ); ?>" style="width: 100%" value="<?php echo $instance['href'] ?>" /></label><br/>
-    <label><input type="checkbox" name="<?php echo $this->get_field_name( 'blank' ); ?>" value="true" <?php if ($instance['blank']) echo 'checked'; ?> name="" /> <?php _e('Open link new tab.', 'vkExUnit'); ?></label>
+    <label><input type="checkbox" name="<?php echo $this->get_field_name( 'blank' ); ?>" value="true" <?php if ($instance['blank']) echo 'checked'; ?> name="" /> <?php _e('Open link new tab.', 'vkExUnit'); ?></label><br/>
+    <label><?php _e('alternative text', 'vkExUnit'); ?> : <input type="text" name="<?php echo $this->get_field_name( 'alt' ); ?>" style="width: 100%" value="<?php echo $instance['alt'] ?>" /></label><br/>
 </div>
 </div>
 <script type="text/javascript">
