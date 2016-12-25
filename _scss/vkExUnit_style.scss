@@ -559,12 +559,11 @@ $section_pagelist_margin:2.5em 0 1em;
 /* Widget .veu_3prArea
 /*-------------------------------------------*/
 .veu_3prArea{
-	.subSection-title{ font-size: 18px; }
+	.subSection-title{ font-size: 18px;margin-top: 0.8em; }
 	.summary{ margin-bottom: 0.5em; font-size: 14px; line-height: 1.6em; }
 	.linkurl a{ text-decoration: none; }
 }
 .veu_3prArea_image {
-	margin-top: 0.8em;
 	margin-bottom: 0.8em;
 	.image_pc{ display: block; }
 	.image_sp{ display: none; }
@@ -615,5 +614,6 @@ $section_pagelist_margin:2.5em 0 1em;
 	.button_mainText,
 	.button_subText { display: block; }
 	.btn.btn-sm { padding-top:0.6em;padding-bottom:0.45em; }
-	.btn { padding-top:0.8em;padding-bottom:0.55em; }
+	.btn { padding-top:0.8em;padding-bottom:0.6em; }
+	.btn.btn-lg { padding-top:0.8em;padding-bottom:0.7em; }
 }
