@@ -395,7 +395,7 @@ $required_packages[] = array(
 	'title'       => __( 'Admin bar manu', 'vkExUnit' ),
 	'description' => __( 'Add ExUnit menu to admin bar.', 'vkExUnit' ),
 	'default'     => true,
-	'include'     => 'admin_bar.php',
+	'include'     => '../plugins_admin/admin_bar.php',
 );
 
 /*-------------------------------------------*/

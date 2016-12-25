@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-22 16:02+0900\n"
+"POT-Creation-Date: 2016-12-25 10:27+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -25,7 +25,7 @@ msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
 
-#: admin_wrapper.php:89
+#: admin_wrapper.php:94
 msgid "Settings"
 msgstr "設定"
 
@@ -149,7 +149,7 @@ msgstr ""
 
 #: packages.php:105 packages.php:123 packages.php:162 packages.php:180
 #: packages.php:210 packages.php:228 packages.php:270 packages.php:306
-#: packages.php:329 packages.php:401
+#: packages.php:329 packages.php:410
 msgid "Setting"
 msgstr "設定"
 
@@ -389,13 +389,29 @@ msgstr "TinyMCE スタイルタグ"
 msgid "Add TinyMCE Editor to style tags."
 msgstr "スタイルタグにTinyMCEエディタを追加する"
 
-#: packages.php:397
+#: packages.php:395
+msgid "Admin bar manu"
+msgstr "管理バーメニュー"
+
+#: packages.php:396
+msgid "Add ExUnit menu to admin bar."
+msgstr ""
+
+#: packages.php:406
 msgid "Post Type Manager"
 msgstr "カスタム投稿タイプマネージャー"
 
-#: packages.php:398
+#: packages.php:407
 msgid "Add custom post types and custom taxonomies."
 msgstr "カスタム投稿タイプやカスタム分類を追加します。"
+
+#: plugins/admin_bar.php:28
+msgid "Active Setting"
+msgstr "有効化設定"
+
+#: plugins/admin_bar.php:36
+msgid "Main Setting"
+msgstr "メイン設定"
 
 #: plugins/auto_eyecatch.php:40
 msgid "Automatic EyeCatch"
@@ -975,7 +991,7 @@ msgid "Link URL:"
 msgstr "リンク先ページのURL"
 
 #: plugins/other_widget/widget-3pr-area.php:103
-#: plugins/other_widget/widget-banner.php:84
+#: plugins/other_widget/widget-banner.php:87
 #: plugins/other_widget/widget-pr-blocks.php:145
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
@@ -1017,9 +1033,13 @@ msgid ""
 "destinations."
 msgstr "画像とリンク先を登録するだけで簡単にバナーを設定できます。"
 
-#: plugins/other_widget/widget-banner.php:80
+#: plugins/other_widget/widget-banner.php:83
 msgid "Set image"
 msgstr "画像を選択"
+
+#: plugins/other_widget/widget-banner.php:88
+msgid "Alternative text"
+msgstr ""
 
 #: plugins/other_widget/widget-button.php:29
 msgid "Button"
@@ -1713,21 +1733,13 @@ msgstr ""
 "しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
 "力すれば、その内容が反映されます。"
 
-#: plugins_admin/admin_bar.php:17
-msgid "Edit Guide"
-msgstr "編集ガイド"
-
-#: plugins_admin/admin_bar.php:57
-msgid "Active Setting"
-msgstr "有効化設定"
-
-#: plugins_admin/admin_bar.php:65
-msgid "Main Setting"
-msgstr "メイン設定"
-
 #: plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
 msgstr "VK All in One Expansion Unit からのお知らせ"
+
+#: plugins_admin/disable_guide.php:17
+msgid "Edit Guide"
+msgstr "編集ガイド"
 
 #: plugins_admin/vk-admin/class.vk-admin.php:98
 msgid "Sorry, there is no post"
