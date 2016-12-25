@@ -96,7 +96,7 @@ require vkExUnit_get_directory() . '/common_helpers.php';
 
 require vkExUnit_get_directory() . '/plugins_admin/dashboard_info_widget.php';
 
-require vkExUnit_get_directory() . '/plugins_admin/admin_bar.php';
+require vkExUnit_get_directory() . '/plugins_admin/disable_guide.php';
 
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 require vkExUnit_get_directory() . '/plugins/page_custom_field.php';
