@@ -395,7 +395,7 @@ msgstr "管理バーメニュー"
 
 #: packages.php:396
 msgid "Add ExUnit menu to admin bar."
-msgstr ""
+msgstr "ExUnitのメニューを管理バーに表示する"
 
 #: packages.php:406
 msgid "Post Type Manager"
@@ -1039,7 +1039,7 @@ msgstr "画像を選択"
 
 #: plugins/other_widget/widget-banner.php:88
 msgid "Alternative text"
-msgstr ""
+msgstr "代替テキスト（alt）"
 
 #: plugins/other_widget/widget-button.php:29
 msgid "Button"
