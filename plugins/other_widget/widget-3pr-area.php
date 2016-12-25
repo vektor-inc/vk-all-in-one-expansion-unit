@@ -15,7 +15,8 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		);
 	}
 
-	function form( $instance ) {
+	public static function default_options( $args=array() )
+	{
 		$defaults = array(
 			'label_1' => __( '3PR area1 title', 'vkExUnit' ),
 			'media_3pr_image_1' => '',
@@ -24,6 +25,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			'media_3pr_alt_sp_1' => '',
 			'summary_1' => '',
 			'linkurl_1' => '',
+			'blank_1' => false,
 			'label_2' => __( '3PR area2 title', 'vkExUnit' ),
 			'media_3pr_image_2' => '',
 			'media_3pr_alt_2' => '',
@@ -31,6 +33,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			'media_3pr_alt_sp_2' => '',
 			'summary_2' => '',
 			'linkurl_2' => '',
+			'blank_2' => false,
 			'label_3' => __( '3PR area3 title', 'vkExUnit' ),
 			'media_3pr_image_3' => '',
 			'media_3pr_alt_3' => '',
@@ -38,8 +41,15 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			'media_3pr_alt_sp_3' => '',
 			'summary_3' => '',
 			'linkurl_3' => '',
+			'blank_3' => false,
 		);
-		$instance = wp_parse_args( (array) $instance, $defaults );
+		return wp_parse_args( (array) $args, $defaults );
+	}
+
+
+	function form( $instance )
+	{
+		$instance = self::default_options( $instance );
 
 		for ( $i = 1; $i <= 3 ;) { ?>
 
@@ -88,7 +98,9 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_'.$i );  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'linkurl_'.$i ); ?>_title" class="pr_input" name="<?php echo $this->get_field_name( 'linkurl_'.$i ); ?>" value="<?php echo $instance['linkurl_'.$i]; ?>" />
+		<input type="text" id="<?php echo $this->get_field_id( 'linkurl_'.$i ); ?>_title" class="pr_input text" name="<?php echo $this->get_field_name( 'linkurl_'.$i ); ?>" value="<?php echo $instance['linkurl_'.$i]; ?>" style="margin-bottom:0.5em;" /><br/>
+		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank_'.$i ); ?>" class="pr_input checkbox" name="<?php echo $this->get_field_name( 'blank_'.$i ); ?>" <?php if ($instance['blank_'.$i]) echo 'checked'; ?> value="true" />
+		<label for="<?php echo $this->get_field_id( 'blank_'.$i ); ?>"><?php _e('Open link new tab.', 'vkExUnit'); ?></label>
         </p>
 
 <hr />
@@ -112,6 +124,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			$instance['media_3pr_alt_sp_'.$i] = $new_instance['media_3pr_alt_sp_'.$i];
 			$instance['summary_'.$i] = $new_instance['summary_'.$i];
 			$instance['linkurl_'.$i] = $new_instance['linkurl_'.$i];
+			$instance['blank_'.$i] = (isset($new_instance['blank_'.$i]) && $new_instance['blank_'.$i] == 'true');
 			$i++;
 		}
 
@@ -120,6 +133,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 
 	function widget( $args, $instance ) {
+		$instance = self::default_options($instance);
 		echo $args['before_widget'];
 		echo '<div class="veu_3prArea row">';
 		for ( $i = 1; $i <= 3 ;) {
@@ -135,13 +149,14 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 				echo '</h1>';
 
-				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) ) { 
+				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) && $instance['media_3pr_image_'.$i]) { 
 
 					// media_pr は現在不使用 近日削除
 					echo '<div class="media_pr veu_3prArea_image">';
 
 					if ( ! empty( $instance['linkurl_'.$i] ) ) {
-						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link">';
+						$blank = $instance['blank_'.$i]? ' target="_blank" ':'';
+						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link" '.$blank.'>';
 					}
 
 					if ( ! empty( $instance['media_3pr_image_'.$i] ) ) {
@@ -158,7 +173,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 					}
 
 					echo '</div>';
-				} 
+				}
 
 				if ( ! empty( $instance['summary_'.$i] ) ) {
 					echo '<p class="summary">'.nl2br( esc_attr( $instance['summary_'.$i] ) ).'</p>';
@@ -200,6 +215,9 @@ function style_3PR() {
         }
         .pr_input{
             width: 100%;
+        }
+        .pr_input.text{
+            margin-bottom: 0.5em;
         }
         .pr_input.textarea{
             margin-top: -1em;

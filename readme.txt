@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
 Tested up to: 4.7.0
-Stable tag: 5.0.3
+Stable tag: 5.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,8 +26,10 @@ Many features can be stopped individually.
 *   PR Blocks - display the PR Blocks.
 *   Categories/tags list - Displays a categories, tags or format list.
 *   Archive list - Displays a list of archives. You can choose the post type and also to display archives by month or by year.
-*   Facebook Page Plugin widget.
-*   Contact Button widget.
+*   Facebook Page Plugin widget
+*   Image Banner widget
+*   Text Button widget
+*   Contact Button widget
 
 [ Social media ]
 
@@ -71,6 +73,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 5.1.0 =
+* [ Add Function ][ Button Widget ] Button widget is now available!!
+* [ Bug fix ][ Page Widget ] New Posts Widget PHP error fix
 
 = 5.0.0 =
 * [ Add Function ][ New Post Widget ] The display in the update date order is now available.

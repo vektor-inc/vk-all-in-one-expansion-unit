@@ -389,6 +389,15 @@ $required_packages[] = array(
 	'include'     => 'tiny_mce_style_tags.php',
 );
 
+
+$required_packages[] = array(
+	'name'        => 'admin_bar',
+	'title'       => __( 'Admin bar manu', 'vkExUnit' ),
+	'description' => __( 'Add ExUnit menu to admin bar.', 'vkExUnit' ),
+	'default'     => true,
+	'include'     => '../plugins_admin/admin_bar.php',
+);
+
 /*-------------------------------------------*/
 /*  post_type_manager
 /*-------------------------------------------*/
