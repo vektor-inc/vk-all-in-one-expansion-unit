@@ -18,7 +18,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		$instance = static::default_options($instance);
+		// $instance = static::default_options($instance);
 
 		if ( ! isset( $instance['format'] ) ) { $instance['format'] = 0; }
 
@@ -34,14 +34,15 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		$count       = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
 		$post_type   = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
-		$is_modified = ($instance['orderby'] == 'modified');
+		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified');
+		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
 		if ( $instance['format'] ) { $this->_taxonomy_init( $post_type ); }
 
 		$p_args = array(
 			'post_type' => $post_type,
 			'posts_per_page' => $count,
-			'orderby' => $instance['orderby'],
+			'orderby' => $orderby,
 			'paged' => 1,
 		);
 
@@ -156,7 +157,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return '';
 	}
 
-	static function default_options( $instance=array() ) {
+	static function default_options( $instance = array() ) {
 		$defaults = array(
 			'count'     => 10,
 			'label'     => __( 'Recent Posts', 'vkExUnit' ),
@@ -171,8 +172,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 	function form( $instance ) {
-		$instance = static::default_options($instance);
-
+		// $instance = static::default_options($instance);
 		?>
 		<br />
         <?php //タイトル ?>
