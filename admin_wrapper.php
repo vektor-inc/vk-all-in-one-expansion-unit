@@ -53,6 +53,7 @@ function vkExUnit_render_main_config() {
 	// $menu
 	/*--------------------------------------------------*/
 	global $vkExUnit_options;
+	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
 	$get_menu_html = '';
 	foreach ( $vkExUnit_options as $vkoption ) {
 		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
@@ -69,6 +70,7 @@ function vkExUnit_render_main_config() {
 
 function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
 	global $vkExUnit_options;
+	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
 	$vkExUnit_options[] =
 		array(
 			'option_name' => $option_name,
@@ -76,6 +78,33 @@ function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $san
 			'tab_label' => $tab_label,
 			'render_page' => $render_page,
 		);
+}
+
+
+add_action( 'admin_bar_menu', 'vkExUnit_package_adminbar', 43 );
+function vkExUnit_package_adminbar( $wp_admin_bar ) {
+
+	if ( ! current_user_can( 'activate_plugins' ) ) { return; }
+
+	global $vkExUnit_options;
+	if (!isset($vkExUnit_options) || !count($vkExUnit_options)) return;
+
+	$args = array(
+		'id'    => 'vew_configbar',
+		'title' => vkExUnit_get_little_short_name(). '_' .__('Settings', 'vkExUnit'),
+		'href'  => admin_url() . 'admin.php?page=vkExUnit_main_setting',
+		'meta'  => array(),
+	);
+	$wp_admin_bar->add_node( $args );
+
+	foreach ($vkExUnit_options as $opt) {
+		$wp_admin_bar->add_node( array(
+			'parent' => 'vew_configbar',
+			'title'  => $opt['tab_label'],
+			'id'     => 'vew_configbar_'.$opt['option_name'],
+			'href'   => admin_url() . 'admin.php?page=vkExUnit_main_setting#'.$opt['option_name']
+		));
+	}
 }
 
 
