@@ -7,7 +7,7 @@ require vkExUnit_get_directory() . '/plugins/other_widget/widget-taxonomies.php'
 require vkExUnit_get_directory() . '/plugins/other_widget/widget-archives.php';
 require vkExUnit_get_directory() . '/plugins/other_widget/widget-pr-blocks.php';
 require vkExUnit_get_directory() . '/plugins/other_widget/widget-side-child-page-list.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-button.php';
+// require vkExUnit_get_directory() . '/plugins/other_widget/widget-button.php';
 require vkExUnit_get_directory() . '/plugins/other_widget/widget-banner.php';
 // require vkExUnit_get_directory() . '/plugins/other_widget/widget-child-page-list.php';
 
