@@ -27,17 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*-------------------------------------------*/
-/*  Load master setting page
-/*-------------------------------------------*/
-/*  Load modules
-/*-------------------------------------------*/
-/*  Add Parent menu
-/*-------------------------------------------*/
-/*  Add vkExUnit css
-/*-------------------------------------------*/
-/*  Add vkExUnit js
-/*-------------------------------------------*/
+
 
 // Get Plugin version
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
@@ -68,9 +58,9 @@ function vkExUnit_uninstall_function() {
 
 
 /// PHP Version check
-if (version_compare( phpversion(), '5.4.45') >= 0) {
+if ( version_compare( phpversion(), '5.4.45') >= 0) {
 	require_once vkExUnit_get_directory() . '/initialize.php';
-	if (version_compare(phpversion(), '5.6') < 0 && is_admin())
+	if ( version_compare(phpversion(), '5.6') < 0 && is_admin())
 		add_filter( 'admin_notices', 'vkExUnit_phpversion_warning_notice');
 }else{
 	add_filter( 'admin_notices', 'vkExUnit_phpversion_error');
@@ -80,9 +70,13 @@ function vkExUnit_phpversion_error($val){
 	if (!current_user_can('activate_plugins')) return $val;
     ?>
 <div class="notice notice-error error is-dismissible"><p>
-<?php _e("Current PHP Version is too old", 'vkExUnit'); ?>
- (<?php echo phpversion() ?>).
-  <?php _e("VkExUnit's support after PHP5.6", 'vkExUnit'); ?>
+<?php 
+/*
+本来システム名は vkExUnit_get_little_short_name() で引っ張るが、PHPのバージョンが低くて vkExUnit_get_little_short_name() 関数が読み込まれていないので"VK ExUnit"直書き
+*/
+printf( __("The current PHP version(%s) is too old, so VK ExUnit will not work.", 'vkExUnit'),  phpversion() 
+    ); ?>
+ <?php _e("VK ExUnit supports PHP5.6 or later.", 'vkExUnit'); ?>
 </p></div>
     <?php
     return $val;
@@ -94,9 +88,8 @@ function vkExUnit_phpversion_warning_notice($val){
     if (strpos($hook_suffix, 'vkExUnit') == false) return;
     ?>
 <div class="notice notice-warning is-dismissible"><p>
-<?php _e("Current PHP Version is old", 'vkExUnit'); ?>
- (<?php echo phpversion() ?>).
-  <?php _e("VkExUnit's support after PHP5.6", 'vkExUnit'); ?>
+<?php printf(__("Current PHP Version(%s) is old.", 'vkExUnit'), phpversion() ); ?>
+  <?php printf(__("%s supports PHP5.6 or later.", 'vkExUnit'), vkExUnit_get_little_short_name() ); ?>
 </p></div>
     <?php
     return $val;
