@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-22 16:02+0900\n"
+"POT-Creation-Date: 2016-12-27 10:54+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -21,10 +21,6 @@ msgstr ""
 
 #: admin_wrapper.php:39
 msgid "Activated Packages is noting. please activate some package."
-msgstr ""
-
-#: admin_wrapper.php:89
-msgid "Settings"
 msgstr ""
 
 #: common_helpers.php:109
@@ -136,7 +132,7 @@ msgstr ""
 
 #: packages.php:105 packages.php:123 packages.php:162 packages.php:180
 #: packages.php:210 packages.php:228 packages.php:270 packages.php:306
-#: packages.php:329 packages.php:401
+#: packages.php:329 packages.php:410
 msgid "Setting"
 msgstr ""
 
@@ -352,11 +348,19 @@ msgstr ""
 msgid "Add TinyMCE Editor to style tags."
 msgstr ""
 
-#: packages.php:397
+#: packages.php:395
+msgid "Admin bar manu"
+msgstr ""
+
+#: packages.php:396
+msgid "Add ExUnit menu to admin bar."
+msgstr ""
+
+#: packages.php:406
 msgid "Post Type Manager"
 msgstr ""
 
-#: packages.php:398
+#: packages.php:407
 msgid "Add custom post types and custom taxonomies."
 msgstr ""
 
@@ -900,7 +904,6 @@ msgid "Link URL:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:103
-#: plugins/other_widget/widget-banner.php:84
 #: plugins/other_widget/widget-pr-blocks.php:145
 msgid "Open link new tab."
 msgstr ""
@@ -932,106 +935,92 @@ msgstr ""
 msgid "archive"
 msgstr ""
 
-#: plugins/other_widget/widget-banner.php:16
-msgid "Banner"
-msgstr ""
-
-#: plugins/other_widget/widget-banner.php:22
-msgid ""
-"You can easily set up a banner simply by registering images and link "
-"destinations."
-msgstr ""
-
-#: plugins/other_widget/widget-banner.php:80
-msgid "Set image"
-msgstr ""
-
-#: plugins/other_widget/widget-button.php:29
+#: plugins/other_widget/widget-button.php:35
 msgid "Button"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:34
+#: plugins/other_widget/widget-button.php:40
 msgid "You can set buttons for arbitrary text."
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:92
+#: plugins/other_widget/widget-button.php:98
 msgid "Main text(Required):"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:97
+#: plugins/other_widget/widget-button.php:103
 msgid "Class name of the icon font"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:98
+#: plugins/other_widget/widget-button.php:104
 #: plugins/other_widget/widget-pr-blocks.php:96
 msgid "To choose your favorite icon, and enter the class."
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:99
+#: plugins/other_widget/widget-button.php:105
 msgid "Before :"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:101
+#: plugins/other_widget/widget-button.php:107
 msgid "After :"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:103
+#: plugins/other_widget/widget-button.php:109
 msgid " ex:fa-arrow-circle-o-right"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:107
+#: plugins/other_widget/widget-button.php:113
 msgid "Sub text:"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:111
+#: plugins/other_widget/widget-button.php:117
 msgid "Link URL(Required):"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:116
+#: plugins/other_widget/widget-button.php:122
 msgid "Open with new tab"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:119
+#: plugins/other_widget/widget-button.php:125
 msgid "Size"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:121
+#: plugins/other_widget/widget-button.php:127
 msgid "Small"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:122
+#: plugins/other_widget/widget-button.php:128
 msgid "Medium"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:123
+#: plugins/other_widget/widget-button.php:129
 msgid "Large"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:127
+#: plugins/other_widget/widget-button.php:133
 msgid "Button color:"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:156
+#: plugins/other_widget/widget-button.php:162
 msgid "Key Color(.primary)"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:157
+#: plugins/other_widget/widget-button.php:163
 msgid "No paint(.default)"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:158
+#: plugins/other_widget/widget-button.php:164
 msgid "Light green(.success)"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:159
+#: plugins/other_widget/widget-button.php:165
 msgid "Light blue(.info)"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:160
+#: plugins/other_widget/widget-button.php:166
 msgid "Orange(.warning)"
 msgstr ""
 
-#: plugins/other_widget/widget-button.php:161
+#: plugins/other_widget/widget-button.php:167
 msgid "Red(.danger)"
 msgstr ""
 
@@ -1046,7 +1035,7 @@ msgstr ""
 
 #: plugins/other_widget/widget-new-posts.php:11
 #: plugins/other_widget/widget-new-posts.php:31
-#: plugins/other_widget/widget-new-posts.php:162
+#: plugins/other_widget/widget-new-posts.php:163
 msgid "Recent Posts"
 msgstr ""
 
@@ -1609,15 +1598,11 @@ msgid ""
 "field of the following, its contents will be reflected."
 msgstr ""
 
-#: plugins_admin/admin_bar.php:17
-msgid "Edit Guide"
-msgstr ""
-
-#: plugins_admin/admin_bar.php:57
+#: plugins_admin/admin_bar.php:28
 msgid "Active Setting"
 msgstr ""
 
-#: plugins_admin/admin_bar.php:65
+#: plugins_admin/admin_bar.php:36
 msgid "Main Setting"
 msgstr ""
 
@@ -1625,8 +1610,24 @@ msgstr ""
 msgid "News from VK All in One Expansion Unit"
 msgstr ""
 
+#: plugins_admin/disable_guide.php:17
+msgid "Edit Guide"
+msgstr ""
+
 #: plugins_admin/vk-admin/class.vk-admin.php:98
 msgid "Sorry, there is no post"
+msgstr ""
+
+#: vkExUnit.php:83
+msgid "Current PHP Version is too old"
+msgstr ""
+
+#: vkExUnit.php:85 vkExUnit.php:99
+msgid "VkExUnit's support after PHP5.6"
+msgstr ""
+
+#: vkExUnit.php:97
+msgid "Current PHP Version is old"
 msgstr ""
 
 #: vkExUnit_admin.php:3
