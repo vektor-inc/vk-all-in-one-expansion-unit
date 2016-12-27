@@ -1,4 +1,15 @@
 <?php
+/*-------------------------------------------*/
+/*  Add Parent menu
+/*-------------------------------------------*/
+/*  Load master setting page
+/*-------------------------------------------*/
+/*  Load modules
+/*-------------------------------------------*/
+/*  Add vkExUnit css
+/*-------------------------------------------*/
+/*  Add vkExUnit js
+/*-------------------------------------------*/
 
 /*-------------------------------------------*/
 /*  Add Parent menu
@@ -112,6 +123,7 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 //         printf($str, $hook_suffix);
 //     }
 // }
+
 
 if ( function_exists( 'register_activation_hook' ) ) {
     register_activation_hook( __FILE__ , 'vkExUnit_install_function' );
