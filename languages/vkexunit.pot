@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-27 10:54+0900\n"
+"POT-Creation-Date: 2016-12-28 03:35+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -904,6 +904,7 @@ msgid "Link URL:"
 msgstr ""
 
 #: plugins/other_widget/widget-3pr-area.php:103
+#: plugins/other_widget/widget-banner.php:87
 #: plugins/other_widget/widget-pr-blocks.php:145
 msgid "Open link new tab."
 msgstr ""
@@ -933,6 +934,24 @@ msgstr ""
 
 #: plugins/other_widget/widget-archives.php:97
 msgid "archive"
+msgstr ""
+
+#: plugins/other_widget/widget-banner.php:16
+msgid "Banner"
+msgstr ""
+
+#: plugins/other_widget/widget-banner.php:22
+msgid ""
+"You can easily set up a banner simply by registering images and link "
+"destinations."
+msgstr ""
+
+#: plugins/other_widget/widget-banner.php:83
+msgid "Set image"
+msgstr ""
+
+#: plugins/other_widget/widget-banner.php:88
+msgid "Alternative text"
 msgstr ""
 
 #: plugins/other_widget/widget-button.php:35
@@ -1618,16 +1637,23 @@ msgstr ""
 msgid "Sorry, there is no post"
 msgstr ""
 
-#: vkExUnit.php:83
-msgid "Current PHP Version is too old"
+#: vkExUnit.php:77
+#, php-format
+msgid "The current PHP version(%s) is too old, so VK ExUnit will not work."
 msgstr ""
 
-#: vkExUnit.php:85 vkExUnit.php:99
-msgid "VkExUnit's support after PHP5.6"
+#: vkExUnit.php:79
+msgid "VK ExUnit supports PHP5.6 or later."
 msgstr ""
 
-#: vkExUnit.php:97
-msgid "Current PHP Version is old"
+#: vkExUnit.php:91
+#, php-format
+msgid "Current PHP Version(%s) is old."
+msgstr ""
+
+#: vkExUnit.php:92
+#, php-format
+msgid "%s supports PHP5.6 or later."
 msgstr ""
 
 #: vkExUnit_admin.php:3
