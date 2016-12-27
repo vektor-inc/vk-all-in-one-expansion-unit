@@ -29,7 +29,7 @@ class vExUnit_Contact {
 
 	protected function run_init()
 	{
-		add_action( 'admin_init', array( $this, 'options_init' ) );
+		add_action( 'vkExUnit_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
 		add_filter( 'vkExUnit_customField_Page_activation', array( $this, 'activate_metavox' ), 10, 1 );

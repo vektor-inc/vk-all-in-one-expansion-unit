@@ -20,7 +20,7 @@ function vkExUnit_sns_options_init() {
 		'vkExUnit_add_sns_options_page'  // setting_page function name
 	);
 }
-add_action( 'admin_init', 'vkExUnit_sns_options_init' );
+add_action( 'vkExUnit_package_init', 'vkExUnit_sns_options_init' );
 
 function vkExUnit_get_sns_options() {
 	$options			= get_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
