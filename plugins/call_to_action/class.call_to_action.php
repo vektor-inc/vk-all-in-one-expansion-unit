@@ -11,7 +11,7 @@ class CTA
 	public static function init()
 	{
 		add_action( 'init',       array( __CLASS__, 'set_posttype' ) );
-		add_action( 'admin_init', array( __CLASS__, 'option_init' ) );
+		add_action( 'vkExUnit_package_init', array( __CLASS__, 'option_init' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'add_custom_field' ) );
 		add_action( 'save_post',  array( __CLASS__, 'save_custom_field' ) );
 		if( vkExUnit_content_filter_state() == 'content' )  add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );

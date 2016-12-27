@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-25 10:27+0900\n"
+"POT-Creation-Date: 2016-12-28 03:27+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -24,10 +24,6 @@ msgstr "メイン設定"
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
-
-#: admin_wrapper.php:94
-msgid "Settings"
-msgstr "設定"
 
 #: common_helpers.php:109
 #, php-format
@@ -404,14 +400,6 @@ msgstr "カスタム投稿タイプマネージャー"
 #: packages.php:407
 msgid "Add custom post types and custom taxonomies."
 msgstr "カスタム投稿タイプやカスタム分類を追加します。"
-
-#: plugins/admin_bar.php:28
-msgid "Active Setting"
-msgstr "有効化設定"
-
-#: plugins/admin_bar.php:36
-msgid "Main Setting"
-msgstr "メイン設定"
 
 #: plugins/auto_eyecatch.php:40
 msgid "Automatic EyeCatch"
@@ -1041,92 +1029,92 @@ msgstr "画像を選択"
 msgid "Alternative text"
 msgstr "代替テキスト（alt）"
 
-#: plugins/other_widget/widget-button.php:29
+#: plugins/other_widget/widget-button.php:35
 msgid "Button"
 msgstr "ボタン"
 
-#: plugins/other_widget/widget-button.php:34
+#: plugins/other_widget/widget-button.php:40
 msgid "You can set buttons for arbitrary text."
 msgstr "任意のテキストのボタンを設定できます。"
 
-#: plugins/other_widget/widget-button.php:92
+#: plugins/other_widget/widget-button.php:98
 msgid "Main text(Required):"
 msgstr "ボタンテキスト(必須):"
 
-#: plugins/other_widget/widget-button.php:97
+#: plugins/other_widget/widget-button.php:103
 msgid "Class name of the icon font"
 msgstr "使用したいアイコンフォント"
 
-#: plugins/other_widget/widget-button.php:98
+#: plugins/other_widget/widget-button.php:104
 #: plugins/other_widget/widget-pr-blocks.php:96
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: plugins/other_widget/widget-button.php:99
+#: plugins/other_widget/widget-button.php:105
 msgid "Before :"
 msgstr "文字の前 :"
 
-#: plugins/other_widget/widget-button.php:101
+#: plugins/other_widget/widget-button.php:107
 msgid "After :"
 msgstr "文字の後 :"
 
-#: plugins/other_widget/widget-button.php:103
+#: plugins/other_widget/widget-button.php:109
 msgid " ex:fa-arrow-circle-o-right"
 msgstr "例: fa-arrow-circle-o-right"
 
-#: plugins/other_widget/widget-button.php:107
+#: plugins/other_widget/widget-button.php:113
 msgid "Sub text:"
 msgstr "サブテキスト:"
 
-#: plugins/other_widget/widget-button.php:111
+#: plugins/other_widget/widget-button.php:117
 msgid "Link URL(Required):"
 msgstr "リンク先ページのURL(必須):"
 
-#: plugins/other_widget/widget-button.php:116
+#: plugins/other_widget/widget-button.php:122
 msgid "Open with new tab"
 msgstr "リンクを別ウィンドウで開く"
 
-#: plugins/other_widget/widget-button.php:119
+#: plugins/other_widget/widget-button.php:125
 msgid "Size"
 msgstr "サイズ"
 
-#: plugins/other_widget/widget-button.php:121
+#: plugins/other_widget/widget-button.php:127
 msgid "Small"
 msgstr "小"
 
-#: plugins/other_widget/widget-button.php:122
+#: plugins/other_widget/widget-button.php:128
 msgid "Medium"
 msgstr "中"
 
-#: plugins/other_widget/widget-button.php:123
+#: plugins/other_widget/widget-button.php:129
 msgid "Large"
 msgstr "大"
 
-#: plugins/other_widget/widget-button.php:127
+#: plugins/other_widget/widget-button.php:133
 msgid "Button color:"
 msgstr "ボタンの色:"
 
-#: plugins/other_widget/widget-button.php:156
+#: plugins/other_widget/widget-button.php:162
 msgid "Key Color(.primary)"
 msgstr "キーカラー(.primary)"
 
-#: plugins/other_widget/widget-button.php:157
+#: plugins/other_widget/widget-button.php:163
 msgid "No paint(.default)"
 msgstr "塗りなし(.default)"
 
-#: plugins/other_widget/widget-button.php:158
+#: plugins/other_widget/widget-button.php:164
 msgid "Light green(.success)"
 msgstr "明るい緑(.success)"
 
-#: plugins/other_widget/widget-button.php:159
+#: plugins/other_widget/widget-button.php:165
 msgid "Light blue(.info)"
 msgstr "空色(.info)"
 
-#: plugins/other_widget/widget-button.php:160
+#: plugins/other_widget/widget-button.php:166
 msgid "Orange(.warning)"
 msgstr "オレンジ(.warning)"
 
-#: plugins/other_widget/widget-button.php:161
+#: plugins/other_widget/widget-button.php:167
 msgid "Red(.danger)"
 msgstr "赤(.danger)"
 
@@ -1141,7 +1129,7 @@ msgstr "表示しているページの先祖階層からの子ページリスト
 
 #: plugins/other_widget/widget-new-posts.php:11
 #: plugins/other_widget/widget-new-posts.php:31
-#: plugins/other_widget/widget-new-posts.php:162
+#: plugins/other_widget/widget-new-posts.php:163
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1733,6 +1721,14 @@ msgstr ""
 "しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
 "力すれば、その内容が反映されます。"
 
+#: plugins_admin/admin_bar.php:28
+msgid "Active Setting"
+msgstr "有効化設定"
+
+#: plugins_admin/admin_bar.php:36
+msgid "Main Setting"
+msgstr "メイン設定"
+
 #: plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
 msgstr "VK All in One Expansion Unit からのお知らせ"
@@ -1744,6 +1740,25 @@ msgstr "編集ガイド"
 #: plugins_admin/vk-admin/class.vk-admin.php:98
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
+
+#: vkExUnit.php:77
+#, php-format
+msgid "The current PHP version(%s) is too old, so VK ExUnit will not work."
+msgstr "使用中のPHPのバージョン(%s) が古すぎるので VK ExUnit は動作しません。"
+
+#: vkExUnit.php:79
+msgid "VK ExUnit supports PHP5.6 or later."
+msgstr "VKExUnit がサポートしているPHPのバージョンは5.6以降です"
+
+#: vkExUnit.php:91
+#, php-format
+msgid "Current PHP Version(%s) is old."
+msgstr "使用中のPHPのバージョン(%s) が古いです。"
+
+#: vkExUnit.php:92
+#, php-format
+msgid "%s supports PHP5.6 or later."
+msgstr "%s がサポートしているPHPのバージョンは5.6以降です。"
 
 #: vkExUnit_admin.php:3
 msgid "Enable setting"
@@ -1781,6 +1796,12 @@ msgstr "プラグイン設定オプション"
 #: vkExUnit_admin.php:89
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
+
+#~ msgid "Current PHP Version is old."
+#~ msgstr "使用中のPHPのバージョンが古いです。"
+
+#~ msgid "Settings"
+#~ msgstr "設定"
 
 #, fuzzy
 #~ msgid "Color:"
