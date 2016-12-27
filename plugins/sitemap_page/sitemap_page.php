@@ -34,7 +34,7 @@ function vkExUnit_sitemap_options_init() {
 		'vkExUnit_add_sitemap_options_page'
 	);
 }
-add_action( 'admin_init', 'vkExUnit_sitemap_options_init' );
+add_action( 'vkExUnit_package_init', 'vkExUnit_sitemap_options_init' );
 
 function vkExUnit_get_sitemap_options() {
 	$options	= get_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );

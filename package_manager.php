@@ -16,6 +16,14 @@ function vkExUnit_package_initilate() {
 }
 
 
+add_action('init', 'vkExUnit_package_init');
+function vkExUnit_package_init()
+{
+    if ( ! current_user_can( 'activate_plugins' ) ) { return; }
+	do_action('vkExUnit_package_init');
+}
+
+
 function vkExUnit_package_is_enable( $package_name ) {
 	global $vkExUnit_packages;
 	if ( ! isset( $vkExUnit_packages[ $package_name ] ) ) { return null; }

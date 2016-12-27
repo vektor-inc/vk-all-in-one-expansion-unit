@@ -27,7 +27,7 @@ class vExUnit_Ads {
 
 
 	protected function run_init() {
-		add_action( 'admin_init', array( $this, 'option_init' ) );
+		add_action( 'vkExUnit_package_init', array( $this, 'option_init' ) );
 		add_filter( 'the_content',    array( $this, 'set_content' ), 10,1 );
 		add_shortcode( 'vkExUnit_ad', array( $this, 'shortcode' ) );
 	}

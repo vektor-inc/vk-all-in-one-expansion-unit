@@ -28,7 +28,7 @@ class vExUnit_meta_keywords {
 
 
 	protected function run_init() {
-		add_action( 'admin_init', array( $this, 'option_init' ) );
+		add_action( 'vkExUnit_package_init', array( $this, 'option_init' ) );
 		add_action( 'admin_menu', array( $this, 'add_custom_field' ) );
 		add_action( 'save_post' , array( $this, 'save_custom_field' ) );
 		add_action( 'wp_head',    array( $this, 'set_HeadKeywords' ), 1 );
