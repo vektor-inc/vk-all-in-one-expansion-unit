@@ -24,10 +24,11 @@ class Widget_CTA extends \WP_Widget
 
     function widget( $args, $instance )
     {
-        echo $args['before_widget'];
-        echo CTA::render_cta_content($instance['id']);
-        echo $args['before_widget'];
-
+        if ( isset( $instance['id'] ) && $instance['id'] ) {
+            echo $args['before_widget'];
+            echo CTA::render_cta_content($instance['id']);
+            echo $args['before_widget'];
+        }
         return;
     }
 
@@ -52,7 +53,8 @@ class Widget_CTA extends \WP_Widget
 </div>
 <div style="padding-bottom: 0.5em;">
 <select name="<?php echo $this->get_field_name( 'id' ); ?>" style="width: 100%" >
-<?php foreach ( $ctas as $cta ) :  ?>
+<option value="">[ <?php _e('Please select', 'vkExUnit' ) ?> ]</option>
+<?php foreach ( $ctas as $cta ) : ?>
     <option value="<?php echo $cta['key'] ?>" <?php echo($value == $cta['key'])? 'selected':''; ?> ><?php echo $cta['label'] ?></option>
 <?php endforeach; ?>
 </select>
