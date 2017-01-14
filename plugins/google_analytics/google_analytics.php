@@ -84,7 +84,7 @@ function vkExUnit_googleAnalytics() {
 </script>
 		<?php }
 		if ( ($gaType == 'gaType_both') || ($gaType == 'gaType_universal') ) {
-			$domainUrl = site_url();
+			$domainUrl = home_url();
 			$delete = array( 'http://', 'https://' );
 			$domain = str_replace( $delete, '', $domainUrl ); ?>
 <script>
