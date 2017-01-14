@@ -74,6 +74,9 @@ e.g.
 
 == Changelog ==
 
+= 5.2.4 =
+* [ Bug fix ][ CTA Widget ] PHP notice
+
 = 5.2.0 =
 * [ Add Function ] PHP Version activate
 
