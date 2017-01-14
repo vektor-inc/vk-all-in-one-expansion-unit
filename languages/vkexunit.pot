@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-28 03:35+0900\n"
+"POT-Creation-Date: 2017-01-14 16:07+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -410,7 +410,7 @@ msgstr ""
 
 #: plugins/call_to_action/class.call_to_action.php:102
 #: plugins/call_to_action/view.adminsetting.php:22
-#: plugins/call_to_action/widget.call_to_action.php:61
+#: plugins/call_to_action/widget.call_to_action.php:63
 msgid "Show CTA index page"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgid "Text message"
 msgstr ""
 
 #: plugins/call_to_action/class.call_to_action.php:201
-#: plugins/call_to_action/widget.call_to_action.php:62
+#: plugins/call_to_action/widget.call_to_action.php:64
 msgid "CTA setting"
 msgstr ""
 
@@ -495,8 +495,12 @@ msgstr ""
 msgid "Select CTA and display it."
 msgstr ""
 
-#: plugins/call_to_action/widget.call_to_action.php:51
+#: plugins/call_to_action/widget.call_to_action.php:52
 msgid "Please select CTA to display."
+msgstr ""
+
+#: plugins/call_to_action/widget.call_to_action.php:56
+msgid "Please select"
 msgstr ""
 
 #: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:182
