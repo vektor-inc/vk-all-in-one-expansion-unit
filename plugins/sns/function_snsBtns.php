@@ -40,7 +40,7 @@ function vkExUnit_is_snsBtns_display(){
 function vkExUnit_add_snsBtns( $content ) {
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
-	if( is_front_page() || is_home() || is_archive() ) { return $content; }
+	if ( is_archive() ) { return $content; }
 
 	$linkUrl = get_permalink();
 
@@ -83,7 +83,7 @@ function vkExUnit_sns_pocket_tunnel(){
 	ini_set( 'display_errors', 0 );
 	$linkurl = urldecode( filter_input( INPUT_POST, "linkurl" ) );
 	if( $s["host"] != $p["host"] ){ echo "0"; die(); }
-	$r = wp_safe_remote_get('https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl .'&title=title&src='.$linkurl.'&r='.rand(100));
+	$r = wp_safe_remote_get('https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl .'&title=title&src='.$linkurl.'&r='.rand(1,100));
 	if( is_wp_error($r) ){ echo "0"; die(); }
 	echo $r['body'];
 	die();
