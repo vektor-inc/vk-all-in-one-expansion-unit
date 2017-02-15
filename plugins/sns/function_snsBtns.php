@@ -40,7 +40,7 @@ function vkExUnit_is_snsBtns_display(){
 function vkExUnit_add_snsBtns( $content ) {
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
-	if( is_front_page() || is_home() || is_archive() ) { return $content; }
+	if ( is_archive() ) { return $content; }
 
 	$linkUrl = get_permalink();
 
