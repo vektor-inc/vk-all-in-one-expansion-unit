@@ -53,9 +53,9 @@ class Vk_Admin {
 		}
 
 		if ( $lang == 'ja' ) {
-			$banner .= '<a href="//lightning.vektor-inc.co.jp/ja/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
+			$banner .= '<a href="//lightning.nagoya/ja/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
 		} else {
-			$banner .= '<a href="//lightning.vektor-inc.co.jp/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
+			$banner .= '<a href="//lightning.nagoya/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
 		}
 
 		$banner .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/vektor_logo.png" alt="lightning_bnr_en" /></a>';
