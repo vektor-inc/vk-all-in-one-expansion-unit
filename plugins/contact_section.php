@@ -219,14 +219,28 @@ class vExUnit_Contact {
 
 	public static function is_my_turn()
 	{
+		// 固定ページウィジェットの場合出力しない
 		global $is_pagewidget;
-		if ( $is_pagewidget ) { return false; }
-		if ( vkExUnit_is_excerpt() ) { return false; }
-		if ( ! is_page() ) { return false; }
-		if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) { return true; }
-		return false;
-	}
+		if ( $is_pagewidget ) { 
+			return false;
+		}
 
+		// 抜粋では表示しない
+		if ( vkExUnit_is_excerpt() ) { 
+			return false; 
+		}
+
+		// 固定ページ以外では表示しない
+		if ( get_post_type() == 'page' ) {
+			// 固定ページで問い合わせ先情報にチェックが入っている時
+			if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) { 
+				return true;
+			}
+		} else {
+			return false;
+		}
+		
+	}
 
 	public function set_content( $content )
 	{

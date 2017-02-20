@@ -18,7 +18,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		// $instance = static::default_options($instance);
+		$instance = static::default_options($instance);
 
 		if ( ! isset( $instance['format'] ) ) { $instance['format'] = 0; }
 
@@ -172,7 +172,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 	function form( $instance ) {
-		// $instance = static::default_options($instance);
+		/*
+		 下記 default_options($instance) が無いと Charm テスト環境ではエラーが発生する
+		 但し、これがある事で過去にnotice が出た経緯があるようなので、要調査
+		 ※20行目付近にも同様の記述あり
+		*/ 
+		$instance = static::default_options($instance);
 		?>
 		<br />
         <?php //タイトル ?>
