@@ -61,7 +61,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
         <p>
 
 		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title','vkExUnit' );?>:</label>
-		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" ><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" ><br/>
 		<input type="hidden" name="<?php echo $this->get_field_name( 'hide' ); ?>" ><br/>
 
 		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'vkExUnit' ) ?>:</label>

@@ -182,7 +182,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<br />
         <?php //タイトル ?>
 		<label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
+		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
         <br /><br />
 
 		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
@@ -197,7 +197,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		<?php //表示件数 ?>
 		<label for="<?php echo $this->get_field_id( 'count' );  ?>"><?php _e( 'Display count','vkExUnit' ); ?>:</label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo $instance['count']; ?>" />
+		<input type="text" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo esc_attr( $instance['count'] ); ?>" />
         <br /><br />
 
 		<?php //投稿タイプ ?>
