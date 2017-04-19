@@ -22,23 +22,10 @@ var spritesmith = require('gulp.spritesmith');
 //   .pipe(gulp.dest('css'));
 // });
 
-gulp.task( 'copy', function() {
-    // bootstrapのcssをscssディレクトリに複製
-    gulp.src( './libraries/bootstrap/css/bootstrap.min.css'  )
-    .pipe(rename({prefix: "_",extname: ".scss"})) // 拡張子をscssに
-    .pipe( gulp.dest( './_scss/' ) ); // _scss ディレクトリに保存
-} );
-
 // ファイル結合
 gulp.task('scripts', function() {
   return gulp.src(['./js/jquery.flatheights.js','./js/master.js'])
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('./js/'));
-});
-gulp.task('scripts_in_bs', function() {
-  // bootstrap use
-  return gulp.src(['./js/jquery.flatheights.js','./libraries/bootstrap/js/bootstrap.min.js','./js/master.js'])
-    .pipe(concat('all_in_bs.js'))
     .pipe(gulp.dest('./js/'));
 });
 
@@ -51,23 +38,13 @@ gulp.task('jsmin', function () {
   .pipe(gulp.dest('./js'));
 });
 
-gulp.task('jsmin_in_bs', function () {
-  gulp.src(['./js/all_in_bs.js'])
-  .pipe(plumber()) // エラーでも監視を続行
-  .pipe(jsmin())
-  .pipe(rename({suffix: '.min'}))
-  .pipe(gulp.dest('./js'));
-});
-
-
 // Watch
 gulp.task('watch', function() {
-    gulp.watch('js/master.js', ['scripts','scripts_in_bs']);
+    gulp.watch('js/master.js', ['scripts']);
     gulp.watch('js/all.js', ['jsmin']);
-    gulp.watch('js/all_in_bs.js', ['jsmin_in_bs']);
     gulp.watch('_scss/style.scss', ['copy']);
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
-gulp.task('default', ['scripts','scripts_in_bs','copy','watch']);
-gulp.task('compile', ['scripts','scripts_in_bs','jsmin','jsmin_in_bs','copy']);
+gulp.task('default', ['scripts','watch']);
+gulp.task('compile', ['scripts','jsmin']);

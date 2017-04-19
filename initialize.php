@@ -89,12 +89,7 @@ add_action('after_setup_theme', 'vkExUnit_print_editor_css');
 add_action( 'wp_head','vkExUnit_addJs' );
 function vkExUnit_addJs() {
     global $vkExUnit_version;
-    $options = vkExUnit_get_common_options();
-    if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
-        wp_register_script( 'vkExUnit_master-js' , plugins_url( '', __FILE__ ).'/js/all_in_bs.min.js', array( 'jquery' ), $vkExUnit_version );
-    } else {
-        wp_register_script( 'vkExUnit_master-js' , plugins_url( '', __FILE__ ).'/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
-    }
+    wp_register_script( 'vkExUnit_master-js' , plugins_url( '', __FILE__ ).'/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
     wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters('vkExUnit_localize_options', array('ajax_url'=>admin_url('admin-ajax.php')) ) );
     wp_enqueue_script( 'vkExUnit_master-js' );
 }

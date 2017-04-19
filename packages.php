@@ -67,9 +67,10 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 $required_packages[] = array(
 	'name'        => 'bootstrap',
-	'title'       => __( 'Print Bootstrap css and js', 'vkExUnit' ),
+	'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vkExUnit' ),
 	'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vkExUnit' ),
 	'default'     => false,
+	'include'     => 'bootstrap.php',
 );
 
 /*-------------------------------------------*/

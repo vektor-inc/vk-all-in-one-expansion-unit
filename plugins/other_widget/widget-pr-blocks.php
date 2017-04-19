@@ -87,18 +87,18 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// PR Block display title
 	echo '<p><label for="'.$this->get_field_id( 'label_'.$i ).'">'.__( 'Title:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'label_'.$i ).'-title" class="pr-input" name="'.$this->get_field_name( 'label_'.$i ).'" value="'.$instance[ 'label_'.$i ].'" /></p>';
+		'<input type="text" id="'.$this->get_field_id( 'label_'.$i ).'-title" class="pr-input" name="'.$this->get_field_name( 'label_'.$i ).'" value="'. esc_attr( $instance[ 'label_'.$i ] ) .'" /></p>';
 
 	// icon font class input
 	echo '<p><label for="'.$this->get_field_id( 'iconFont_'.$i ).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
 		'[ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]<br/>
-			<input type="text" id="'.$this->get_field_id( 'iconFont_class_'.$i ).'-font" class="font_class" name="'.$this->get_field_name( 'iconFont_class_'.$i ).'" value="'.$instance[ 'iconFont_class_'.$i ].'" /><br>'
+			<input type="text" id="'.$this->get_field_id( 'iconFont_class_'.$i ).'-font" class="font_class" name="'.$this->get_field_name( 'iconFont_class_'.$i ).'" value="'. esc_attr( $instance[ 'iconFont_class_'.$i ] ) .'" /><br>'
 	.__( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ).'<br>'.__( ' ex:fa-file-text-o', 'vkExUnit' ).'</p>';
 
 	// icon font color
 	echo '<p class="color_picker_wrap">'.
 		'<label for="'.$this->get_field_id( 'iconFont_bgColor_'.$i ).'">'.__( 'Icon color:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'iconFont_bgColor_'.$i ).'-color" class="color_picker" name="'.$this->get_field_name( 'iconFont_bgColor_'.$i ).'" value="'.$instance[ 'iconFont_bgColor_'.$i ].'" /></p>';
+		'<input type="text" id="'.$this->get_field_id( 'iconFont_bgColor_'.$i ).'-color" class="color_picker" name="'.$this->get_field_name( 'iconFont_bgColor_'.$i ).'" value="'. esc_attr( $instance[ 'iconFont_bgColor_'.$i ] ).'" /></p>';
 
 	// icon font type
 	echo '<p>'.__( 'Icon Background:', 'vkExUnit' ).'<br>';
@@ -135,11 +135,11 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// summary text
 	echo '<p><label for="'.$this->get_field_id( 'summary_'.$i ).'">'.__( 'Summary Text:', 'vkExUnit' ).'</label><br/></p>'.
-		'<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="pr_input textarea" name="'.$this->get_field_name( 'summary_'.$i ).'">'.$instance[ 'summary_'.$i ].'</textarea>';
+		'<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="pr_input textarea" name="'.$this->get_field_name( 'summary_'.$i ).'">'. esc_textarea( $instance[ 'summary_'.$i ] ) .'</textarea>';
 
 	// link_URL
 	echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'.$instance[ 'linkurl_'.$i ].'" style="margin-bottom:0.5em" />';
+		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'. esc_attr( $instance[ 'linkurl_'.$i ] ).'" style="margin-bottom:0.5em" />';
 	$checked = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' checked':'';
 	echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'"'.$checked.' />';
 	echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('Open link new tab.', 'vkExUnit').'</label>';
@@ -176,7 +176,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	{
 		$instance = self::default_options($instance);
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="veu_prBlocks prBlocks row">'.PHP_EOL;
+		echo PHP_EOL.'<article class="veu_prBlocks prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
 
@@ -188,7 +188,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
-				echo '<article class="prBlock '.$col_class.'">'.PHP_EOL;
+				echo '<div class="prBlock '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? 'target="_blank"':'';
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
@@ -233,12 +233,12 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '</a>'.PHP_EOL;
 				}
 
-				echo '</article>'.PHP_EOL;
+				echo '</div>'.PHP_EOL;
 				echo '<!--//.prBlock -->'.PHP_EOL;
 			}
 			$i++;
 		}
-		echo '</div>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
+		echo '</article>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
 	}
 }
 

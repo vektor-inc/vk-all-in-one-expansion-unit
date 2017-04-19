@@ -15,6 +15,7 @@ $delete_options = array(
 	'vkExUnit_Ads',
 	'vkExUnit_description_options',
 	'vkExUnit_common_keywords',
+	'vkExUnit_colors'
 );
 
 $delete_customfields = array(
