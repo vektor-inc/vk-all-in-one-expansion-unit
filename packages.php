@@ -70,6 +70,7 @@ $required_packages[] = array(
 	'title'       => __( 'Print Bootstrap css and js', 'vkExUnit' ),
 	'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vkExUnit' ),
 	'default'     => false,
+	'include'     => 'bootstrap.php',
 );
 
 /*-------------------------------------------*/
