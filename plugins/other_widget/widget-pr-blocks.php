@@ -176,7 +176,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	{
 		$instance = self::default_options($instance);
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="veu_prBlocks prBlocks row">'.PHP_EOL;
+		echo PHP_EOL.'<article class="veu_prBlocks prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
 
@@ -188,7 +188,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
-				echo '<article class="prBlock '.$col_class.'">'.PHP_EOL;
+				echo '<div class="prBlock '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? 'target="_blank"':'';
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
@@ -233,12 +233,12 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '</a>'.PHP_EOL;
 				}
 
-				echo '</article>'.PHP_EOL;
+				echo '</div>'.PHP_EOL;
 				echo '<!--//.prBlock -->'.PHP_EOL;
 			}
 			$i++;
 		}
-		echo '</div>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
+		echo '</article>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
 	}
 }
 
