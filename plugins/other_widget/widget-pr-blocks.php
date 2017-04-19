@@ -188,7 +188,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		// Print widget area
 		for ( $i = 1; $i <= $widget_block_count; ) {
 			if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
-				echo '<article class="prBlock '.$col_class.'">'.PHP_EOL;
+				echo '<div class="prBlock '.$col_class.'">'.PHP_EOL;
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? 'target="_blank"':'';
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
@@ -218,13 +218,13 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />'.PHP_EOL.'</div><!--//.prBlock_image -->'.PHP_EOL;
 				}
 				// title text
-				echo '<h1 class="prBlock_title">';
+				echo '<h3 class="prBlock_title">';
 				if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
 					echo $instance[ 'label_'.$i ];
 				} else {
 					_e( 'PR Block', 'vkExUnit' );
 				}
-				echo '</h1>'.PHP_EOL;
+				echo '</h3>'.PHP_EOL;
 				// summary text
 				if ( ! empty( $instance[ 'summary_'.$i ] ) ) {
 					echo '<p class="prBlock_summary">'.nl2br( esc_attr( $instance[ 'summary_'.$i ] ) ).'</p>'.PHP_EOL;
@@ -233,7 +233,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '</a>'.PHP_EOL;
 				}
 
-				echo '</article>'.PHP_EOL;
+				echo '</div>'.PHP_EOL;
 				echo '<!--//.prBlock -->'.PHP_EOL;
 			}
 			$i++;
