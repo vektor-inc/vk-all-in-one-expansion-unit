@@ -96,26 +96,26 @@ class WP_Widget_Button extends WP_Widget {
         <div class="warp" style="padding: 1em 0;line-height: 2.5em;">
 
         <?php _e('Main text(Required):', 'vkExUnit'); ?>
-        <input type="text" id="<?php echo $this->get_field_id('maintext'); ?>" name="<?php echo $this->get_field_name('maintext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['maintext']; ?>">
+        <input type="text" id="<?php echo $this->get_field_id('maintext'); ?>" name="<?php echo $this->get_field_name('maintext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo esc_attr( $instance['maintext'] ); ?>">
 
         <?php 
     // icon font class input
 echo '<p>'.__( 'Class name of the icon font', 'vkExUnit' ).'</label><br/>';
 echo  __( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ).'<br>';
 echo '<label for="'.$this->get_field_id( 'icon_before' ).'">'.__('Before :','vkExUnit' );
-echo '<input type="text" id="'.$this->get_field_id( 'icon_before' ).'-font" class="font_class" name="'.$this->get_field_name( 'icon_before' ).'" value="'.$instance[ 'icon_before' ].'" /><br>';
+echo '<input type="text" id="'.$this->get_field_id( 'icon_before' ).'-font" class="font_class" name="'.$this->get_field_name( 'icon_before' ).'" value="'. esc_attr( $instance[ 'icon_before' ] ) .'" /><br>';
 echo '<label for="'.$this->get_field_id( 'icon_after' ).'">'.__('After :','vkExUnit' );
-echo '<input type="text" id="'.$this->get_field_id( 'icon_after' ).'-font" class="font_class" name="'.$this->get_field_name( 'icon_after' ).'" value="'.$instance[ 'icon_after' ].'" />';
+echo '<input type="text" id="'.$this->get_field_id( 'icon_after' ).'-font" class="font_class" name="'.$this->get_field_name( 'icon_after' ).'" value="'. esc_attr( $instance[ 'icon_after' ] ) .'" />';
 echo  __( ' ex:fa-arrow-circle-o-right', 'vkExUnit' ).'<br>';
 echo  '[ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]<br>';
 echo '</p>';
 ?>
         <?php _e('Sub text:', 'vkExUnit'); ?>
-        <input type="text" id="<?php echo $this->get_field_id('subtext'); ?>" name="<?php echo $this->get_field_name('subtext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['subtext']; ?>">
+        <input type="text" id="<?php echo $this->get_field_id('subtext'); ?>" name="<?php echo $this->get_field_name('subtext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo esc_attr( $instance['subtext'] ); ?>">
 
         <br/>
          <?php _e('Link URL(Required):', 'vkExUnit'); ?>
-        <input type="text" id="<?php echo $this->get_field_id('linkurl'); ?>" name="<?php echo $this->get_field_name('linkurl') ?>" value="<?php echo $instance['linkurl']; ?>" style="width: 100%" />
+        <input type="text" id="<?php echo $this->get_field_id('linkurl'); ?>" name="<?php echo $this->get_field_name('linkurl') ?>" value="<?php echo esc_attr( $instance['linkurl'] ); ?>" style="width: 100%" />
 
         <br/>
         <input type="checkbox" id="<?php echo $this->get_field_id('blank'); ?>" name="<?php echo $this->get_field_name('blank') ?>" value="true" <?php if($instance['blank']) echo 'checked'; ?>  />

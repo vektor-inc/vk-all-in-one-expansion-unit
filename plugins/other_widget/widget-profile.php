@@ -38,7 +38,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 	<?php //title ?>
 <p><label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>_title" class="prof_input" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>_title" class="prof_input" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
 </p>
 
 		<?php //media uploader ?>
@@ -60,7 +60,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 		<?php //image size setting ?>
 <p><label for="<?php echo $this->get_field_id( 'mediaSize' );  ?>"><?php _e( 'Media size (Optional)', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'mediaSize' ); ?>_size" class="prof_input" name="<?php echo $this->get_field_name( 'mediaSize' ); ?>" style="width:50px;" value="<?php echo $instance['mediaSize']; ?>" /> px
+<input type="text" id="<?php echo $this->get_field_id( 'mediaSize' ); ?>_size" class="prof_input" name="<?php echo $this->get_field_name( 'mediaSize' ); ?>" style="width:50px;" value="<?php echo esc_attr( $instance['mediaSize'] ); ?>" /> px
 </p>
 
 		<?php //image mediaAlign_left setting ?>
@@ -73,40 +73,40 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 		<?php //profile text ?>
 <p><label for="<?php echo $this->get_field_id( 'profile' );  ?>"><?php _e( 'Profile Text:', 'vkExUnit' ); ?></label></p>
-<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'profile' ); ?>_text" class="prof_input textarea" name="<?php echo $this->get_field_name( 'profile' ); ?>"><?php echo $instance['profile']; ?></textarea>
+<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'profile' ); ?>_text" class="prof_input textarea" name="<?php echo $this->get_field_name( 'profile' ); ?>"><?php echo esc_textarea( $instance['profile'] ); ?></textarea>
 
 		<?php //facebook_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'facebook' );  ?>"><?php _e( 'Facebook URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'facebook' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'facebook' ); ?>" value="<?php echo $instance['facebook']; ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'facebook' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'facebook' ); ?>" value="<?php echo esc_attr( $instance['facebook'] ); ?>" />
 </p>
 
 		<?php //twitter_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'twitter' );  ?>"><?php _e( 'Twitter URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'twitter' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo $instance['twitter']; ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'twitter' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo esc_attr( $instance['twitter'] ); ?>" />
 </p>
 
 		<?php //mail_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'mail' );  ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo $instance['mail']; ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo esc_attr( $instance['mail'] ); ?>" />
 </p>
 
 		<?php //youtube_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'youtube' );  ?>"><?php _e( 'Youtube URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'youtube' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo $instance['youtube']; ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'youtube' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $instance['youtube'] ); ?>" />
 </p>
 
 		<?php //rss_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'rss' ); ?>"><?php _e( 'RSS URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'rss' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'rss' ); ?>" value="<?php echo $instance['rss']; ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'rss' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'rss' ); ?>" value="<?php echo esc_attr( $instance['rss'] ); ?>" />
 </p>
 
 		<?php //instagram_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'instagram' );  ?>"><?php _e( 'instagram URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'instagram' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'instagram' ); ?>" value="<?php echo $instance['instagram']; ?>" /></p>
+<input type="text" id="<?php echo $this->get_field_id( 'instagram' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'instagram' ); ?>" value="<?php echo esc_attr( $instance['instagram'] ); ?>" /></p>
 
 		<?php //linkedin_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'linkedin' );  ?>"><?php _e( 'linkedin URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo $instance['linkedin']; ?>" /></p>
+<input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>_url" class="prof_input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $instance['linkedin'] ); ?>" /></p>
 
 	<?php  }
 
