@@ -79,10 +79,15 @@ foreach ( $vkExUnit_packages as $package ) :
 <br />
 <button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;" class="button"><?php _e( 'Extension Setting', 'vkExUnit' ); ?></button>
 <table class="form-table" id="vkEx_extention" style="display:none;">
+<?php /* 誤作動が多いので再調整 */ ?>
+<!--
 <tr>
-<th><?php _e('extention contents', 'vkExUnit'); ?></th>
-<td><label><input type="checkbox" name="vkExUnit_common_options[content_filter_state]" value="loop_enud" <?php if( vkExUnit_content_filter_state() == 'loop_end' ) echo 'checked'; ?> /><?php _e('set extension contents to loop_end hook', 'vkExUnit'); ?></label></td>
+<th><?php _e('Extention contents', 'vkExUnit'); ?></th>
+<td><label><input type="checkbox" name="vkExUnit_common_options[content_filter_state]" value="loop_enud" <?php if( vkExUnit_content_filter_state() == 'loop_end' ) echo 'checked'; ?> /><?php _e('set extension contents to loop_end hook', 'vkExUnit'); ?></label>
+<?php do_action('vkExUnit_extention_contents_message');?>
+</td>
 </tr>
+-->
 <tr>
 <th><?php _e( 'Plugin setting options','vkExUnit' ); ?></th>
 <td><label><input type="checkbox" name="vkExUnit_common_options[delete_options_at_deactivate]" value="true" <?php echo (isset( $options['delete_options_at_deactivate'] ) && $options['delete_options_at_deactivate'])? 'checked':''; ?> />

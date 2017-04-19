@@ -59,6 +59,8 @@ function vkExUnit_common_options_validate( $input ) {
 
 
 function vkExUnit_content_filter_state(){
-	$opt = vkExUnit_get_common_options();
-	return empty( $opt['content_filter_state'] )? 'content' : $opt['content_filter_state'];
+	// $opt = vkExUnit_get_common_options();
+	// return empty( $opt['content_filter_state'] )? 'content' : $opt['content_filter_state'];
+	// コンテンツループ下部に出力すると誤動作が多いので、一旦コンテンツ下部出力に強制変更
+	return 'content';
 }
