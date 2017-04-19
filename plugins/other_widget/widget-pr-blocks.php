@@ -176,7 +176,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	{
 		$instance = self::default_options($instance);
 		echo $args['before_widget'];
-		echo PHP_EOL.'<div class="veu_prBlocks prBlocks row">'.PHP_EOL;
+		echo PHP_EOL.'<article class="veu_prBlocks prBlocks row">'.PHP_EOL;
 
 		$widget_block_count = ( isset( $instance['block_count'] )) ? intval( $instance['block_count'] ) : 3;
 
@@ -218,13 +218,13 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />'.PHP_EOL.'</div><!--//.prBlock_image -->'.PHP_EOL;
 				}
 				// title text
-				echo '<h3 class="prBlock_title">';
+				echo '<h1 class="prBlock_title">';
 				if ( isset( $instance[ 'label_'.$i ] ) && $instance[ 'label_'.$i ] ) {
 					echo $instance[ 'label_'.$i ];
 				} else {
 					_e( 'PR Block', 'vkExUnit' );
 				}
-				echo '</h3>'.PHP_EOL;
+				echo '</h1>'.PHP_EOL;
 				// summary text
 				if ( ! empty( $instance[ 'summary_'.$i ] ) ) {
 					echo '<p class="prBlock_summary">'.nl2br( esc_attr( $instance[ 'summary_'.$i ] ) ).'</p>'.PHP_EOL;
@@ -238,7 +238,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 			}
 			$i++;
 		}
-		echo '</div>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
+		echo '</article>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
 	}
 }
 
