@@ -154,9 +154,10 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 					// media_pr は現在不使用 近日削除
 					echo '<div class="media_pr veu_3prArea_image">';
 
+					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' target="_blank" ':'';
+
 					if ( ! empty( $instance['linkurl_'.$i] ) ) {
-						$blank = $instance['blank_'.$i]? ' target="_blank" ':'';
-						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link" '.$blank.'>';
+						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link"'.$blank.'>';
 					}
 
 					if ( ! empty( $instance['media_3pr_image_'.$i] ) ) {
@@ -179,7 +180,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 					echo '<p class="summary">'.nl2br( esc_attr( $instance['summary_'.$i] ) ).'</p>';
 				}
 				if ( ! empty( $instance['linkurl_'.$i] ) ) {
-					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm">'.__( 'Read more', 'vkExUnit' ).'</a></p>';
+					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm"'.$blank.'>'.__( 'Read more', 'vkExUnit' ).'</a></p>';
 				}
 
 				echo '</div>';
