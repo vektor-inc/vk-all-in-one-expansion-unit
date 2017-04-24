@@ -80,7 +80,7 @@ var facebook = {
       url: url,
       dataType: 'jsonp',
       success: function(response) {
-        if( response.share.share_count === undefined ) return;
+        if( !response.share || response.share.share_count === undefined ) return;
         socials.find('.veu_count_sns_fb').html(response.share.share_count);
       }
     });
