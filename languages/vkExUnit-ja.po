@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-04-19 15:40+0900\n"
+"POT-Creation-Date: 2017-04-24 16:09+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.11\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_x;_e;_ex\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
@@ -31,50 +31,63 @@ msgid "Author: %s"
 msgstr "著者: %s"
 
 #: common_helpers.php:111 common_helpers.php:192
+msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "年"
 
 #: common_helpers.php:113 common_helpers.php:196
+msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr "年月"
 
 #: common_helpers.php:115
+msgctxt "daily archives date format"
 msgid "F j, Y"
-msgstr "月日, 年"
+msgstr "Y年F月j日"
 
 #: common_helpers.php:118
+#, fuzzy
+msgctxt "post format archive title"
 msgid "Asides"
 msgstr "サイド"
 
 #: common_helpers.php:120
+msgctxt "post format archive title"
 msgid "Galleries"
 msgstr "ギャラリー"
 
 #: common_helpers.php:122
+msgctxt "post format archive title"
 msgid "Images"
 msgstr "画像"
 
 #: common_helpers.php:124
+msgctxt "post format archive title"
 msgid "Videos"
 msgstr "ビデオ"
 
 #: common_helpers.php:126
+msgctxt "post format archive title"
 msgid "Quotes"
 msgstr "引用"
 
 #: common_helpers.php:128
+msgctxt "post format archive title"
 msgid "Links"
 msgstr "リンク"
 
 #: common_helpers.php:130
+msgctxt "post format archive title"
 msgid "Statuses"
 msgstr "ステータス"
 
 #: common_helpers.php:132
+msgctxt "post format archive title"
 msgid "Audio"
 msgstr "オーディオ"
 
 #: common_helpers.php:134
+msgctxt "post format archive title"
 msgid "Chats"
 msgstr "チャット"
 
@@ -87,9 +100,15 @@ msgstr "アーカイブ"
 msgid "About %s"
 msgstr "%s について"
 
-#: common_helpers.php:193 common_helpers.php:197 common_helpers.php:201
-#: common_helpers.php:205
+#: common_helpers.php:193
 #, php-format
+msgctxt "Yearly archive description"
+msgid "Article of %s."
+msgstr "%s の記事"
+
+#: common_helpers.php:197 common_helpers.php:201 common_helpers.php:205
+#, php-format
+msgctxt "Archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
@@ -1544,6 +1563,11 @@ msgstr ""
 msgid "SNS"
 msgstr "SNS"
 
+#: plugins/sns/sns.php:89 plugins/sns/sns.php:100
+msgctxt "facebook language code"
+msgid "en_US"
+msgstr "ja_JP"
+
 #: plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr "SNS設定"
@@ -1794,20 +1818,20 @@ msgstr "説明"
 msgid "Extension Setting"
 msgstr "拡張設定"
 
-#: vkExUnit_admin.php:83
+#: vkExUnit_admin.php:85
 #, fuzzy
-msgid "extention contents"
+msgid "Extention contents"
 msgstr "記事に広告を挿入します"
 
-#: vkExUnit_admin.php:84
+#: vkExUnit_admin.php:86
 msgid "set extension contents to loop_end hook"
 msgstr "ループ終了時にコンテンツを追加する"
 
-#: vkExUnit_admin.php:87
+#: vkExUnit_admin.php:92
 msgid "Plugin setting options"
 msgstr "プラグイン設定オプション"
 
-#: vkExUnit_admin.php:89
+#: vkExUnit_admin.php:94
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
 
@@ -2105,10 +2129,6 @@ msgstr "プラグインを無効化する際にDBに保存したオプション�
 
 #~ msgid "Output OG tags(default)"
 #~ msgstr "OGタグを出力する"
-
-#~ msgctxt "Archive description"
-#~ msgid "Article of %s."
-#~ msgstr "%s の記事"
 
 #~ msgid "WebClip Setting"
 #~ msgstr "ウェブクリップ設定"
