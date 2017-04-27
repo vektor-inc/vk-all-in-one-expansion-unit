@@ -124,3 +124,27 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 
 	return $content;
 }
+
+/*
+
+hook sample
+
+add_filter('veu_related_post_types', 'veu_related_post_types_custom');
+function veu_related_post_types_custom( $related_post_types ){
+    $related_post_types[] = 'item';
+    return $related_post_types;
+}
+
+add_filter('veu_related_post_args', 'veu_related_post_args_custom');
+function veu_related_post_args_custom( $related_post_args ){
+    if ( get_post_type() == 'item' ) {
+        $related_post_args = array(
+            'post_type' => 'item',
+            'taxonomy' => 'item-category',
+            'max_show_posts' => 10
+        );
+    }
+    return $related_post_args;
+}
+
+*/
