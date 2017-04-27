@@ -67,17 +67,24 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 }
 
 function vkExUnit_add_relatedPosts_html( $content ) {
+
 	if( ! is_single() ) return $content;
 
-	if ( ! is_single() || get_post_type() != 'post' ) { return $content; }
-
 	global $is_pagewidget;
-	if ( $is_pagewidget ) { return $content; }
+	if ( $is_pagewidget ) return $content;
+
+	$related_post_types = apply_filters( 'veu_related_post_types', array( 'post' ) );
+	if ( !in_array( get_post_type(), $related_post_types ) ) return $content;
 
 	/*-------------------------------------------*/
 	/*  Related posts
 	/*-------------------------------------------*/
-	$related_posts = vkExUnit_get_relatedPosts();
+	$related_post_args = apply_filters( 'veu_related_post_args', array(
+		'post_type' => 'post',
+		'taxonomy' => 'post_tag',
+		'max_show_posts' => 10
+		) );
+	$related_posts = vkExUnit_get_relatedPosts( $related_post_args['post_type'], $related_post_args['taxonomy'], $related_post_args['max_show_posts'] );
 
 	if ( !$related_posts ) { return $content; }
 
@@ -117,3 +124,27 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 
 	return $content;
 }
+
+/*
+
+hook sample
+
+add_filter('veu_related_post_types', 'veu_related_post_types_custom');
+function veu_related_post_types_custom( $related_post_types ){
+    $related_post_types[] = 'item';
+    return $related_post_types;
+}
+
+add_filter('veu_related_post_args', 'veu_related_post_args_custom');
+function veu_related_post_args_custom( $related_post_args ){
+    if ( get_post_type() == 'item' ) {
+        $related_post_args = array(
+            'post_type' => 'item',
+            'taxonomy' => 'item-category',
+            'max_show_posts' => 10
+        );
+    }
+    return $related_post_args;
+}
+
+*/
