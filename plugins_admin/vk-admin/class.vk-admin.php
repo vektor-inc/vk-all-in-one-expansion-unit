@@ -71,9 +71,9 @@ class Vk_Admin {
 		include_once( ABSPATH . WPINC . '/feed.php' );
 
 		if ( 'ja' == get_locale() ) {
-			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL_ja', 'http://ex-unit.vektor-inc.co.jp/ja/feed' );
+			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL_ja', 'https://ex-unit.nagoya/ja/feed' );
 		} else {
-			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL', 'http://ex-unit.vektor-inc.co.jp/feed' );
+			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL', 'https://ex-unit.nagoya/feed' );
 		}
 
 		$my_feeds = array(
