@@ -133,7 +133,10 @@ iframe.wp-embedded-content { width:100%; }
 /* .veu_socialSet
 /*-------------------------------------------*/
 .veu_socialSet { margin-top:3em; }
-.veu_socialSet ul { margin:0px;padding:0;display: flex;
+/*
+.veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
+*/
+.veu_socialSet.veu_contentAddSection ul { margin:0px;padding:0;display: flex;
 	li { position:relative; display:block;overflow:visible; width: 50%; margin:3px; padding:0px; background:none; 
 		&.sb_icon a {display:block; overflow:hidden; padding: 7px 10px;border-radius: 4px; color:#fff;text-decoration: none; line-height: 100%; font-size: 90%;}
 		&.sb_icon a .sns_txt { position: relative;top:-1px;  }
