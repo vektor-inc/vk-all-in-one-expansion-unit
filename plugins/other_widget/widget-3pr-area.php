@@ -177,7 +177,9 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 
 				if ( ! empty( $instance['summary_'.$i] ) ) {
-					echo '<p class="summary">'.nl2br( esc_attr( $instance['summary_'.$i] ) ).'</p>';
+
+					echo '<p class="summary">'.nl2br( wp_kses_post( $instance['summary_'.$i] ) ).'</p>';
+					
 				}
 				if ( ! empty( $instance['linkurl_'.$i] ) ) {
 					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm"'.$blank.'>'.__( 'Read more', 'vkExUnit' ).'</a></p>';
