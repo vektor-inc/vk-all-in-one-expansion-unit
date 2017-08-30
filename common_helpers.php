@@ -202,8 +202,13 @@ function vkExUnit_get_pageDescription() {
 			$pageDescription .= ' '.get_bloginfo( 'name' ).' '.get_bloginfo( 'description' );
 		} else {
 			$postType = get_post_type();
-			$pageDescription = sprintf( _x( 'Article of %s.','Archive description', 'vkExUnit' ),esc_html( get_post_type_object( $postType )->labels->name ) );
-			$pageDescription .= ' '.get_bloginfo( 'name' ).' '.get_bloginfo( 'description' );
+			if ( $postType ) {
+				$pageDescription = sprintf( _x( 'Article of %s.','Archive description', 'vkExUnit' ),esc_html( get_post_type_object( $postType )->label ) );
+				$pageDescription .= ' '.get_bloginfo( 'name' ).' '.get_bloginfo( 'description' );	
+			} else {
+				$pageDescription = get_bloginfo( 'description' );
+			}
+
 		}
 	} else if ( is_page() || is_single() ) {
 		$metaExcerpt = $post->post_excerpt;
