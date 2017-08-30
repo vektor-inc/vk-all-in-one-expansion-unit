@@ -15,20 +15,11 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		);
 	}
 
-	function widget( $args, $instance ) {
-		global $is_pagewidget;
-		$is_pagewidget = true;
-		if ( isset( $instance['page_id'] ) && $instance['page_id'] ) {
-			$this->display_page( $args, $instance );
-		}
-		$is_pagewidget = false;
-	}
-
 	/*
 	$input 保存されてる値
 	$value 今のinputタグのvalueの値
 	*/
-	function echo_checked( $input, $value){
+	static public function echo_checked( $input, $value){
 		if ( $input === $value ) {
 			echo ' checked';
 		}
@@ -99,35 +90,62 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		return $instance;
 	}
 
-	function display_page( $args, $instance ) {
+	function widget( $args, $instance ) {
+		global $is_pagewidget;
+		$is_pagewidget = true;
+		if ( isset( $instance['page_id'] ) && $instance['page_id'] ) {
+			$this->display_page( $args, $instance );
+		}
+		$is_pagewidget = false;
+	}
+
+	/*
+	ウィジェットのタイトルに関する情報を出力する関数
+	[ 返り値 ]
+	$widget_title['display'] : 表示するかどうか
+	$widget_title['label'] : ウィジェットのタイトルとして表示する文字
+	*/
+	static public function widget_title( $instance ){
+
 		$pageid = $instance['page_id'];
-		echo $args['before_widget'];
 		$page = get_page( $pageid );
 
 		if ( $instance['set_title'] != 'title-hidden' ){
 			// 非表示じゃない項目が選択されてた場合は true
-			$titleflag = true;
+			$widget_title['display'] = true;
 			if ( $instance['set_title'] == 'title-widget' && !$instance['label'] ){
 				// ウィジェットのタイトルが選択されているが、タイトルが入力されていない場合は false
-				$titleflag = false;
+				$widget_title['display'] = false;
 			}
 		} else { // $instance['set_title'] == 'title-hidden'
 			// タイトルを表示しないが選択されている場合
-			$titleflag = false;
+			$widget_title['display'] = false;
 		}
 
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
 		if ( $instance['set_title'] == 'title-widget' && $instance['label'] ) {
-			$widget_title = $instance['label'];
+			$widget_title['label'] = $instance['label'];
 		// 旧バージョンで　タイトルを表示になっていた場合に
 		// タイトル表示形式フラグに 固定ページのタイトルを表示するvalueにしておく
 		} else if ( ( $instance['set_title'] === true ) || ( $instance['set_title'] == 'title-page' ) ){
-			$widget_title = $page->post_title;
+			$widget_title['label'] = $page->post_title;
+		} else {
+			$widget_title['label'] = '';
 		}
+		return $widget_title;
+	}
+
+
+	function display_page( $args, $instance ) {
+		$pageid = $instance['page_id'];
+		$page = get_page( $pageid );
+		echo $args['before_widget'];
+
+		$widget_title = $this->widget_title( $instance );
 
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget_pageContent">' . PHP_EOL;
-		if ( $titleflag	) {
-			echo $args['before_title'] . $widget_title . $args['after_title'] . PHP_EOL;
+		if ( $widget_title['display'] ) {
+			echo $args['before_title'] . $widget_title['label'] . $args['after_title'] . PHP_EOL;
 		}
 		echo apply_filters( 'the_content', $page->post_content );
 
