@@ -45,15 +45,15 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 			<label>
 				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' );  ?>" value="title-widget" <?php $this->echo_checked( $instance['set_title'] , "title-widget");?> />
-				<?php _e( '入力したタイトルを表示する', 'vkExUnit' ); ?></label><br/>
+				<?php _e( 'Display the entered title', 'vkExUnit' ); ?></label><br/>
 
 			<label>
 				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-page" <?php $this->echo_checked( $instance['set_title'] , "title-page");?> />
-				<?php _e( '固定ページのタイトルを表示する', 'vkExUnit' ); ?></label><br/>
+				<?php _e( 'Display the title of page', 'vkExUnit' ); ?></label><br/>
 
 			<label>
 				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' );  ?>" value="title-hidden" <?php $this->echo_checked( $instance['set_title'] , "title-hidden");?> />
-				<?php _e( 'タイトルを表示しない', 'vkExUnit' ); ?></label><br/>
+				<?php _e( 'Do not display titles', 'vkExUnit' ); ?></label><br/>
         <br/>
 
 		<?php
