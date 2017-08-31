@@ -165,7 +165,7 @@ if( ! empty( $instance['mediaFile'] ) ){
 
 // Display a profile text
 if ( ! empty( $instance['profile'] ) ) {
-	echo '<p class="profile_text">'.nl2br( esc_attr( $instance['profile'] ) ).'</p>'.PHP_EOL;
+	echo '<p class="profile_text">'.nl2br( wp_kses_post( $instance['profile'] )  ).'</p>'.PHP_EOL;
 }
 
 // Display a sns botton
