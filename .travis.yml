@@ -8,7 +8,7 @@ php:
 
 branches:
   - master
-  - develop
+  - add_test
 
 cache:
   directories:
