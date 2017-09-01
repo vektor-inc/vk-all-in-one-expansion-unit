@@ -27,7 +27,16 @@ $content .= $text;
 $content .= '</div>';
 if ( $url && $btn_text ) {
 	$content .= '<div class="cta_body_link">';
-	$content .= '<a href="'.$url.'" class="btn btn-primary btn-block btn-lg" target="_blank">';
+
+	// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得
+	$target_blank = get_post_meta( $id, 'vkExUnit_cta_url_blank', true );
+	if ( $target_blank != "window_self") {
+		$target = ' target="_blank"';
+	} else {
+		$target = '';
+	}
+
+	$content .= '<a href="'.$url.'" class="btn btn-primary btn-block btn-lg"'.$target.'>';
 	$content .= $btn_text;
 	$content .= '</a>';
 	$content .= '</div>';
