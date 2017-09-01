@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-08-31 12:28+0900\n"
+"POT-Creation-Date: 2017-09-01 10:44+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -441,7 +441,7 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: plugins/call_to_action/class.call_to_action.php:46
-#: plugins/call_to_action/view.actionbox.php:39
+#: plugins/call_to_action/view.actionbox.php:48
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
@@ -468,7 +468,7 @@ msgid "Follow common setting"
 msgstr "共通設定を使用"
 
 #: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:417
+#: plugins/call_to_action/class.call_to_action.php:442
 msgid "Disable display"
 msgstr "表示しない"
 
@@ -518,15 +518,23 @@ msgstr "左寄せ"
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call_to_action/class.call_to_action.php:192
+#: plugins/call_to_action/class.call_to_action.php:193
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call_to_action/class.call_to_action.php:195
+#: plugins/call_to_action/class.call_to_action.php:206
+msgid "Target window"
+msgstr "リンク先ターゲット"
+
+#: plugins/call_to_action/class.call_to_action.php:208
+msgid "Open in a self window"
+msgstr "同じウィンドウで開く"
+
+#: plugins/call_to_action/class.call_to_action.php:210
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/call_to_action/class.call_to_action.php:216
 #: plugins/call_to_action/widget.call_to_action.php:64
 msgid "CTA setting"
 msgstr "CTA設定"

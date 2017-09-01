@@ -188,9 +188,24 @@ jQuery(document).ready(function($){
 <tr><th>
 <label for="vkExUnit_cta_button_text"><?php _e( 'Button text', 'vkExUnit' ); ?></label></th><td>
 <input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ); ?>" />
-</td></tr><tr><th>
+</td></tr>
+<tr><th>
 <label for="vkExUnit_cta_url"><?php _e( 'Button link url', 'vkExUnit' ); ?></label></th><td>
 <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_url', true ); ?>" />
+</td></tr>
+<tr><th>
+
+<?php
+$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );
+if ( $target_blank == "window_self") {
+ 	$checked = ' checked';
+} else {
+	$checked = '';
+}
+?>
+<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', 'vkExUnit' ); ?></label></th><td>
+<input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php  echo $checked; ?> />
+<label for="vkExUnit_cta_url_blank"><?php _e('Open in a self window', 'vkExUnit'); ?></label>
 </td></tr>
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vkExUnit' ); ?>
 </th>
@@ -263,6 +278,16 @@ jQuery(document).ready(function($){
 				update_post_meta( $post_id, 'vkExUnit_cta_url', $data );
 			} elseif ( ! $data ) {
 				delete_post_meta( $post_id, 'vkExUnit_cta_url', get_post_meta( $post_id, 'vkExUnit_cta_url', true ) );
+			}
+
+			$data = $_POST['vkExUnit_cta_url_blank'];
+
+			if ( get_post_meta( $post_id, 'vkExUnit_cta_url_blank' ) == '' ) {
+				add_post_meta( $post_id, 'vkExUnit_cta_url_blank', $data, true );
+			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) ) {
+				update_post_meta( $post_id, 'vkExUnit_cta_url_blank', $data );
+			} elseif ( ! $data ) {
+				delete_post_meta( $post_id, 'vkExUnit_cta_url_blank', get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) );
 			}
 
 			$data = stripslashes( $_POST['vkExUnit_cta_text'] );
