@@ -3,7 +3,8 @@
 /*-------------------------------------------*/
 /*  Taxonomy list widget
 /*-------------------------------------------*/
-class WP_Widget_VK_taxonomy_list extends WP_Widget {
+class WP_Widget_VK_taxonomy_list extends WP_Widget
+{
 	// ウィジェット定義
 	function __construct() {
 		$widget_name = vkExUnit_get_short_name().'_'. __( 'Categories/Custom taxonomies list', 'vkExUnit' );
@@ -15,7 +16,10 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		);
 	}
 
-	function widget( $args, $instance ) {
+
+	function widget( $args, $instance )
+	{
+		$instance = static::get_defaults( $instance );
 		if ( !isset($instance['tax_name'])) $instance['tax_name'] = 'category';
 		if ( !isset($instance['label'])) $instance['label'] = __('Category', 'vkExUnit');
 		$arg = array(
@@ -23,7 +27,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			'style'              => 'list',
 			'show_count'         => false,
 			'show_option_all'    => false,
-			'hide_empty'		 => false,
+			'hide_empty'		 => $instance['hide_empty'],
 			'hierarchical'       => true,
 			'title_li'           => '',
 			);
@@ -43,15 +47,23 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	}
 
 
-	function form( $instance ) {
+	public static function get_defaults($instance=array())
+	{
 		$defaults = array(
 			'tax_name'     => 'category',
 			'label'        => __( 'Category', 'vkExUnit' ),
 			'hide'         => __( 'Category', 'vkExUnit' ),
 			'title'        => 'Category',
+			'hide_empty'   => false,
 			'_builtin'     => false,
 		);
-		$instance = wp_parse_args( (array) $instance, $defaults );
+		return wp_parse_args( (array) $instance, $defaults );
+	}
+
+
+	function form( $instance )
+	{
+		$instance = static::get_defaults( $instance );
 		$taxs = get_taxonomies( array( 'public' => true ),'objects' );
 		?>
         <p>
@@ -65,7 +77,12 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		<?php foreach ( $taxs as $tax ) {  ?>
 			<option value="<?php echo $tax->name; ?>" <?php if ( $instance['tax_name'] == $tax->name ) { echo 'selected="selected"'; } ?> ><?php echo $tax->labels->name; ?></option>
 		<?php } ?>
-        </select></p>
+        </select><br/><br/>
+
+		<input type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true" <?php if ($instance['hide_empty']) echo 'checked'; ?> />
+		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e('hide taxonomy with no post', 'vkExUnit'); ?></label>
+		</p>
+
         <script type="text/javascript">
         jQuery(document).ready(function($){
             var post_labels = new Array();
@@ -88,7 +105,8 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	}
 
 
-	function update( $new_instance, $old_instance ) {
+	function update( $new_instance, $old_instance )
+	{
 		$instance = $old_instance;
 
 		$instance['tax_name'] = $new_instance['tax_name'];
@@ -98,8 +116,14 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		}
 		$instance['label'] = esc_html( $new_instance['label'] );
 
+		$instance['hide_empty'] = (isset($new_instance['hide_empty']) && $new_instance['hide_empty'] == 'true');
+
 		return $instance;
 	}
 } // class WP_Widget_top_list_info
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_VK_taxonomy_list");' ) );
+
+add_action('widgets_init', 'vkExUnit_widget_register_taxonomy_list');
+function vkExUnit_widget_register_taxonomy_list(){
+	return register_widget("WP_Widget_VK_taxonomy_list");
+}
