@@ -1,6 +1,14 @@
 <?php
 
 $btn_text  = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
+$btn_before  = get_post_meta( $id, 'vkExUnit_cta_button_icon_before', true );
+if ( $btn_before ) {
+		$btn_before = '<i class="fa '.esc_attr( $btn_before ).' font_icon"></i> ';
+}
+$btn_after = get_post_meta( $id, 'vkExUnit_cta_button_icon_after', true );
+if ( $btn_after ) {
+		$btn_after = ' <i class="fa '.esc_attr( $btn_after ).' font_icon"></i>';
+}
 $url       = get_post_meta( $id, 'vkExUnit_cta_url', true );
 $text      = get_post_meta( $id, 'vkExUnit_cta_text', true );
 $text      = preg_replace( '/\n/', '<br/>', $text );
@@ -37,7 +45,7 @@ if ( $url && $btn_text ) {
 	}
 
 	$content .= '<a href="'.$url.'" class="btn btn-primary btn-block btn-lg"'.$target.'>';
-	$content .= $btn_text;
+	$content .= $btn_before .$btn_text .$btn_after;
 	$content .= '</a>';
 	$content .= '</div>';
 }

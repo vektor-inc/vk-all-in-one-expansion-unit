@@ -86,8 +86,10 @@ class CTA
 		echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
 
 		$ctas    = self::get_ctas( true, '  - ' );
+		// ランダムを先頭に追加
+		array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', 'vkExUnit' ) ) );
+		array_unshift( $ctas, array( 'key' => 'disable', 'label' => __( 'Disable display', 'vkExUnit' ) ) );
 		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Follow common setting', 'vkExUnit' ) ) );
-		$ctas[]  = array( 'key' => 'disable', 'label' => __( 'Disable display', 'vkExUnit' ) );
 		$now     = get_post_meta( get_the_id(),'vkexunit_cta_each_option', true );
 		?>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
@@ -187,7 +189,18 @@ jQuery(document).ready(function($){
 </td></tr>
 <tr><th>
 <label for="vkExUnit_cta_button_text"><?php _e( 'Button text', 'vkExUnit' ); ?></label></th><td>
-<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ); ?>" />
+<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo esc_html( get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ) ); ?>" />
+</td></tr>
+<tr><th>
+<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', 'vkExUnit' ); ?></label></th><td>
+<p><?php _e( 'To choose your favorite icon, and enter the class.', 'vkExUnit' )?><br>
+<label for="icon_before"><?php _e('Before :','vkExUnit' );?>
+<input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /><br>
+<label for="icon_after"><?php _e('After :','vkExUnit' );?>
+<input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /><br>
+<?php _e( ' ex:fa-arrow-circle-o-right', 'vkExUnit' )?><br>
+<a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">[Font Awesome Icons]</a><br>
+</p>
 </td></tr>
 <tr><th>
 <label for="vkExUnit_cta_url"><?php _e( 'Button link url', 'vkExUnit' ); ?></label></th><td>
@@ -243,61 +256,62 @@ if ( $target_blank == "window_self") {
 			}
 			return $post_id;
 		} elseif ( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ) {
-			$data = $_POST['vkExUnit_cta_img'];
-			if ( get_post_meta( $post_id, 'vkExUnit_cta_img' ) == '' ) {
-				add_post_meta( $post_id, 'vkExUnit_cta_img', $data, true );
-			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_img', true ) ) {
-				update_post_meta( $post_id, 'vkExUnit_cta_img', $data );
-			} elseif ( ! $data ) {
-				delete_post_meta( $post_id, 'vkExUnit_cta_img', get_post_meta( $post_id, 'vkExUnit_cta_img', true ) );
-			}
 
-			$data = $_POST['vkExUnit_cta_img_position'];
-			if ( get_post_meta( $post_id, 'vkExUnit_cta_img_position' ) == '' ) {
-				add_post_meta( $post_id, 'vkExUnit_cta_img_position', $data, true );
-			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_img_position', true ) ) {
-				update_post_meta( $post_id, 'vkExUnit_cta_img_position', $data );
-			} elseif ( ! $data ) {
-				delete_post_meta( $post_id, 'vkExUnit_cta_img_position', get_post_meta( $post_id, 'vkExUnit_cta_img_position', true ) );
-			}
+			// カスタムフィールドの設定
+			$custom_fields = array(
+				'vkExUnit_cta_img' => array(
+					'escape_type' => '',
+				),
+					'vkExUnit_cta_img_position' => array(
+						'escape_type' => '',
+				),
+				'vkExUnit_cta_button_text' => array(
+					'escape_type' => 'stripslashes',
+				),
+				'vkExUnit_cta_button_icon' => array(
+					'escape_type' => 'stripslashes',
+				),
+				'vkExUnit_cta_button_icon_before' => array(
+					'escape_type' => 'stripslashes',
+				),
+				'vkExUnit_cta_button_icon_after' => array(
+					'escape_type' => 'stripslashes',
+				),
+				'vkExUnit_cta_url' => array(
+					'escape_type' => '',
+				),
+				'vkExUnit_cta_url_blank' => array(
+					'escape_type' => '',
+				),
+				'vkExUnit_cta_text' => array(
+						'escape_type' => 'stripslashes',
+				),
+			);
 
-			$data = stripslashes( $_POST['vkExUnit_cta_button_text'] );
-			if ( get_post_meta( $post_id, 'vkExUnit_cta_button_text' ) == '' ) {
-				add_post_meta( $post_id, 'vkExUnit_cta_button_text', $data, true );
-			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_button_text', true ) ) {
-				update_post_meta( $post_id, 'vkExUnit_cta_button_text', $data );
-			} elseif ( ! $data ) {
-				delete_post_meta( $post_id, 'vkExUnit_cta_button_text', get_post_meta( $post_id, 'vkExUnit_cta_button_text', true ) );
-			}
+			// カスタムフィールドの保存
+			foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 
-			$data = $_POST['vkExUnit_cta_url'];
+				if ( isset( $_POST[$custom_field_name] ) ) {
+					if ( isset( $custom_field_name['escape_type'] ) && $custom_field_name['escape_type'] == 'stripslashes' ){
+						$data = stripslashes( $_POST[$custom_field_name] );
+					} else {
+						$data = $_POST[$custom_field_name];
+					}
+				}
 
-			if ( get_post_meta( $post_id, 'vkExUnit_cta_url' ) == '' ) {
-				add_post_meta( $post_id, 'vkExUnit_cta_url', $data, true );
-			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_url', true ) ) {
-				update_post_meta( $post_id, 'vkExUnit_cta_url', $data );
-			} elseif ( ! $data ) {
-				delete_post_meta( $post_id, 'vkExUnit_cta_url', get_post_meta( $post_id, 'vkExUnit_cta_url', true ) );
-			}
+				if ( get_post_meta( $post_id, $custom_field_name ) == '' ) {
+					// データが今までなかったらカスタムフィールドに新規保存
+					add_post_meta( $post_id, $custom_field_name, $data, true );
+				} elseif ( $data != get_post_meta( $post_id, $custom_field_name, true ) ) {
+					// 保存されてたデータと送信されてきたデータが違ったら更新
+					update_post_meta( $post_id, $custom_field_name, $data );
+				} elseif ( ! $data ) {
+					// データが送信されてこなかった（空のデータが送られてきた）らフィールドの値を削除
+					delete_post_meta( $post_id, $custom_field_name, get_post_meta( $post_id, $custom_field_name, true ) );
+				}
 
-			$data = $_POST['vkExUnit_cta_url_blank'];
+			} // foreach ( $custom_fields as $key => $custom_field_name ) {
 
-			if ( get_post_meta( $post_id, 'vkExUnit_cta_url_blank' ) == '' ) {
-				add_post_meta( $post_id, 'vkExUnit_cta_url_blank', $data, true );
-			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) ) {
-				update_post_meta( $post_id, 'vkExUnit_cta_url_blank', $data );
-			} elseif ( ! $data ) {
-				delete_post_meta( $post_id, 'vkExUnit_cta_url_blank', get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) );
-			}
-
-			$data = stripslashes( $_POST['vkExUnit_cta_text'] );
-			if ( get_post_meta( $post_id, 'vkExUnit_cta_text' ) == '' ) {
-				add_post_meta( $post_id, 'vkExUnit_cta_text', $data, true );
-			} elseif ( $data != get_post_meta( $post_id, 'vkExUnit_cta_text', true ) ) {
-				update_post_meta( $post_id, 'vkExUnit_cta_text', $data );
-			} elseif ( ! $data ) {
-				delete_post_meta( $post_id, 'vkExUnit_cta_text', get_post_meta( $post_id, 'vkExUnit_cta_text', true ) );
-			}
 			return $post_id;
 		}
 	}
@@ -333,19 +347,44 @@ if ( $target_blank == "window_self") {
 		if ( ! $id ) { $id = get_the_id(); }
 		if ( ! $id ) { return null; }
 
+		// 各投稿編集画面で プルダウンで指定されている 表示するCTAの投稿ID（もしくは共通設定や非表示）
 		$post_config = get_post_meta( $id, 'vkexunit_cta_each_option', true );
 
+		// 「共通設定を使用」じゃなかった場合
 		if ( $post_config ) {
+			// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
 			if ( $post_config == 'disable' ) { return null; }
+
+			// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
+			if ( $post_config == 'random' ) {
+				// ランダムに抽出したCTAの投稿IDを返す
+				// CTAの投稿をランダムで１件取得
+				$args = array(
+					'post_type' => self::POST_TYPE, //投稿タイプを指定
+					'posts_per_page' => 1, // １ページでの表示件数を指定
+					'orderby' => 'rand', // 表示順をランダムで取得
+				);
+				$cta_post = get_posts( $args );
+				return $cta_post[0]->ID;
+			}
 			return $post_config;
 		}
 
+		////////////////////////////////////////
+		// 共通設定を使用の場合
+		////////////////////////////////////////
+		// 今表示している記事の投稿タイプを取得
 		$post_type = get_post_type( $id );
+		// 投稿タイプ別にどのCTAを共通設定として表示するかの情報を取得
 		$option = self::get_option();
-		if ( isset( $option[ $post_type ] ) && is_numeric( $option[ $post_type ] ) ) { return $option[ $post_type ] ; }
+		// 今表示している記事の投稿タイプのとき どのCTAを表示するかの設定が
+		// 定義されており なおかつ 数字で入っている場合
+		if ( isset( $option[ $post_type ] ) && is_numeric( $option[ $post_type ] ) ) {
+			// その数字（表示するCTAの投稿ID）を返す
+			return $option[ $post_type ] ;
+		}
 		return null;
 	}
-
 
 	public static function content_filter( $content )
 	{
@@ -376,7 +415,7 @@ if ( $target_blank == "window_self") {
 		$option = get_option( 'vkExUnit_cta_settings' );
 		if ( ! $option ) { $current_option = self::get_default_option(); }
 
-		while ( list($key, $value) = each( $input ) ) {
+		while ( list( $key, $value ) = each( $input ) ) {
 			$option[ $key ] = ( is_numeric( $value ) )? $value : 0 ;
 		}
 		return $option;
@@ -421,7 +460,7 @@ if ( $target_blank == "window_self") {
 		);
 		$query = new \WP_Query( $args );
 		$ctas = array();
-		while ( list($key, $post) = each( $query->posts ) ) {
+		while ( list( $key, $post ) = each( $query->posts ) ) {
 			if ( $show_label ) {
 				$ctas[] = array(
 					'key'   => $post->ID,
@@ -439,6 +478,10 @@ if ( $target_blank == "window_self") {
 	{
 		$options = self::get_option();
 		$ctas    = self::get_ctas( true, '  - ' );
+
+		// ランダムを先頭に追加
+		array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', 'vkExUnit' ) ) );
+		// 表示しないを先頭に追加
 		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Disable display', 'vkExUnit' ) ) );
 
 		include vkExUnit_get_directory() . '/plugins/call_to_action/view.adminsetting.php';

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-01 11:40+0900\n"
+"POT-Creation-Date: 2017-09-04 12:42+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -441,7 +441,7 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: plugins/call_to_action/class.call_to_action.php:46
-#: plugins/call_to_action/view.actionbox.php:48
+#: plugins/call_to_action/view.actionbox.php:56
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
@@ -463,78 +463,108 @@ msgstr "CTA設定"
 msgid "CTA Contents"
 msgstr "CTA Contents"
 
-#: plugins/call_to_action/class.call_to_action.php:89
-msgid "Follow common setting"
-msgstr "共通設定を使用"
-
 #: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:442
+#: plugins/call_to_action/class.call_to_action.php:483
+msgid "Random"
+msgstr "ランダム表示"
+
+#: plugins/call_to_action/class.call_to_action.php:91
+#: plugins/call_to_action/class.call_to_action.php:485
 msgid "Disable display"
 msgstr "表示しない"
 
-#: plugins/call_to_action/class.call_to_action.php:101
+#: plugins/call_to_action/class.call_to_action.php:92
+msgid "Follow common setting"
+msgstr "共通設定を使用"
+
+#: plugins/call_to_action/class.call_to_action.php:103
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: plugins/call_to_action/class.call_to_action.php:102
+#: plugins/call_to_action/class.call_to_action.php:104
 #: plugins/call_to_action/view.adminsetting.php:22
 #: plugins/call_to_action/widget.call_to_action.php:63
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
-#: plugins/call_to_action/class.call_to_action.php:167
+#: plugins/call_to_action/class.call_to_action.php:169
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: plugins/call_to_action/class.call_to_action.php:173
+#: plugins/call_to_action/class.call_to_action.php:175
 msgid "Add image"
 msgstr "画像を追加"
 
-#: plugins/call_to_action/class.call_to_action.php:174
+#: plugins/call_to_action/class.call_to_action.php:176
 msgid "Change image"
 msgstr "画像を変更"
 
-#: plugins/call_to_action/class.call_to_action.php:175
+#: plugins/call_to_action/class.call_to_action.php:177
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: plugins/call_to_action/class.call_to_action.php:180
+#: plugins/call_to_action/class.call_to_action.php:182
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: plugins/call_to_action/class.call_to_action.php:183
+#: plugins/call_to_action/class.call_to_action.php:185
 msgid "right"
 msgstr "右寄せ"
 
-#: plugins/call_to_action/class.call_to_action.php:184
+#: plugins/call_to_action/class.call_to_action.php:186
 msgid "center"
 msgstr "中央"
 
-#: plugins/call_to_action/class.call_to_action.php:185
+#: plugins/call_to_action/class.call_to_action.php:187
 msgid "left"
 msgstr "左寄せ"
 
-#: plugins/call_to_action/class.call_to_action.php:189
+#: plugins/call_to_action/class.call_to_action.php:191
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call_to_action/class.call_to_action.php:193
+#: plugins/call_to_action/class.call_to_action.php:195
+msgid "Button icon"
+msgstr "ボタンアイコン"
+
+#: plugins/call_to_action/class.call_to_action.php:196
+#: plugins/other_widget/widget-button.php:104
+#: plugins/other_widget/widget-pr-blocks.php:96
+msgid "To choose your favorite icon, and enter the class."
+msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
+
+#: plugins/call_to_action/class.call_to_action.php:197
+#: plugins/other_widget/widget-button.php:105
+msgid "Before :"
+msgstr "文字の前 :"
+
+#: plugins/call_to_action/class.call_to_action.php:199
+#: plugins/other_widget/widget-button.php:107
+msgid "After :"
+msgstr "文字の後 :"
+
+#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/other_widget/widget-button.php:109
+msgid " ex:fa-arrow-circle-o-right"
+msgstr "例: fa-arrow-circle-o-right"
+
+#: plugins/call_to_action/class.call_to_action.php:206
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call_to_action/class.call_to_action.php:206
+#: plugins/call_to_action/class.call_to_action.php:219
 msgid "Target window"
 msgstr "リンク先ターゲット"
 
-#: plugins/call_to_action/class.call_to_action.php:208
+#: plugins/call_to_action/class.call_to_action.php:221
 msgid "Open in a self window"
 msgstr "同じウィンドウで開く"
 
-#: plugins/call_to_action/class.call_to_action.php:210
+#: plugins/call_to_action/class.call_to_action.php:223
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call_to_action/class.call_to_action.php:216
+#: plugins/call_to_action/class.call_to_action.php:229
 #: plugins/call_to_action/widget.call_to_action.php:64
 msgid "CTA setting"
 msgstr "CTA設定"
@@ -1086,23 +1116,6 @@ msgstr "ボタンテキスト(必須):"
 #: plugins/other_widget/widget-button.php:103
 msgid "Class name of the icon font"
 msgstr "使用したいアイコンフォント"
-
-#: plugins/other_widget/widget-button.php:104
-#: plugins/other_widget/widget-pr-blocks.php:96
-msgid "To choose your favorite icon, and enter the class."
-msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
-
-#: plugins/other_widget/widget-button.php:105
-msgid "Before :"
-msgstr "文字の前 :"
-
-#: plugins/other_widget/widget-button.php:107
-msgid "After :"
-msgstr "文字の後 :"
-
-#: plugins/other_widget/widget-button.php:109
-msgid " ex:fa-arrow-circle-o-right"
-msgstr "例: fa-arrow-circle-o-right"
 
 #: plugins/other_widget/widget-button.php:113
 msgid "Sub text:"
