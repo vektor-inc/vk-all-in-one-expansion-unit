@@ -3,11 +3,11 @@
 $btn_text  = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
 $btn_before  = get_post_meta( $id, 'vkExUnit_cta_button_icon_before', true );
 if ( $btn_before ) {
-		$btn_before = '<i class="fa '.esc_attr( $btn_before ).' font_icon"></i>';
+		$btn_before = '<i class="fa '.esc_attr( $btn_before ).' font_icon"></i> ';
 }
 $btn_after = get_post_meta( $id, 'vkExUnit_cta_button_icon_after', true );
 if ( $btn_after ) {
-		$btn_after = '<i class="fa '.esc_attr( $btn_after ).' font_icon"></i>';
+		$btn_after = ' <i class="fa '.esc_attr( $btn_after ).' font_icon"></i>';
 }
 $url       = get_post_meta( $id, 'vkExUnit_cta_url', true );
 $text      = get_post_meta( $id, 'vkExUnit_cta_text', true );
