@@ -80,7 +80,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget
         </select><br/><br/>
 
 		<input type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true" <?php if ($instance['hide_empty']) echo 'checked'; ?> />
-		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e('hide taxonomy with no post', 'vkExUnit'); ?></label>
+		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e('Do not display terms without posts', 'vkExUnit'); ?></label>
 		</p>
 
         <script type="text/javascript">
