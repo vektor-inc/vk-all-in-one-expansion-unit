@@ -32,6 +32,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			'rss' => '',
 			'instagram' => '',
 			'linkedin' => '',
+			'iconFont_bgType' => '',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 	?>
@@ -108,6 +109,21 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <p><label for="<?php echo $this->get_field_id( 'linkedin' );  ?>"><?php _e( 'linkedin URL:', 'vkExUnit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $instance['linkedin'] ); ?>" /></p>
 
+<?php // icon font type ?>
+
+<p><?php _e( 'Icon Background:', 'vkExUnit' ); ?><br>
+
+<?php
+$checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_bgType' ] ) ? ' checked' : '';
+?>
+<input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_solid'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value=""<?php echo $checked; ?> />
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_solid'; ?>"> <?php _e( 'Solid color', 'vkExUnit' ); ?></label>
+<?php $checked = ( isset( $instance[ 'iconFont_bgType' ] ) && $instance[ 'iconFont_bgType' ] === 'no_paint' ) ? ' checked' : ''; ?>
+<input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint"<?php echo $checked; ?> />
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>"><?php _e( 'No background', 'vkExUnit' ); ?></label>
+</p>
+
+
 	<?php  }
 
 
@@ -128,6 +144,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		$instance['rss'] = $new_instance['rss'];
 		$instance['instagram'] = $new_instance['instagram'];
 		$instance['linkedin'] = $new_instance['linkedin'];
+		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
 		return $instance;
 	}
 
