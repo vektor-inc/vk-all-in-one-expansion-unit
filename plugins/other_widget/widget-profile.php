@@ -33,6 +33,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			'instagram' => '',
 			'linkedin' => '',
 			'iconFont_bgType' => '',
+			'icon_color' => '',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 	?>
@@ -87,7 +88,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </p>
 
 		<?php //mail_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'mail' );  ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'mail' ); ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo esc_attr( $instance['mail'] ); ?>" />
 </p>
 
@@ -122,7 +123,12 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 <input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint"<?php echo $checked; ?> />
 <label for="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>"><?php _e( 'No background', 'vkExUnit' ); ?></label>
 </p>
+<p>※ アイコンの背景を指定しない場合は各ブランドカラーが設定されます。</p>
 
+<?php // icon font color ?>
+<p class="color_picker_wrap">
+<label for="<?php echo $this->get_field_id( 'icon_color' ); ?>"><?php _e( 'Icon color:', 'vkExUnit' ); ?></label><br/>
+<input type="text" id="<?php echo $this->get_field_id( 'icon_color' ).'-color'; ?>" class="color_picker" name="<?php echo $this->get_field_name( 'icon_color' ); ?>" value="<?php echo esc_attr( $instance[ 'icon_color' ] ); ?>" /></p>
 
 	<?php  }
 
@@ -145,9 +151,41 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		$instance['instagram'] = $new_instance['instagram'];
 		$instance['linkedin'] = $new_instance['linkedin'];
 		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
+		$instance['icon_color'] = $new_instance['icon_color'];
 		return $instance;
 	}
 
+	/*
+	SNSアイコンに出力するCSSを出力する関数
+	*/
+	static public function outer_css( $iconFont_bgType, $icon_color ){
+		if ( !$iconFont_bgType && !$icon_color ){
+			$outer_css = '';
+		} else if ( $iconFont_bgType == 'no_paint' ){
+			if ( ! $icon_color ) {
+				$icon_color = '#ccc';
+			}
+			$outer_css = ' style="border:1px solid '.$icon_color.';background:none;"';
+		} else {
+			$outer_css = ' style="border:1px solid '.$icon_color.';background-color:'.$icon_color.';';
+		}
+		return $outer_css;
+	}
+	static public function icon_css( $iconFont_bgType, $icon_color ){
+		if ( !$iconFont_bgType && !$icon_color ){
+			$icon_css = '';
+		} else if ( $iconFont_bgType == 'no_paint' ){
+			// 線のとき
+			if ( ! $icon_color ) {
+				$icon_color = '#ccc';
+			}
+			$icon_css = ' style="color:'.$icon_color.';"';
+		} else {
+			// 塗りのとき
+			$icon_css = ' style="color:#fff;"';
+		}
+		return $icon_css;
+	}
 
 	function widget( $args, $instance ) {
 		// From here Display a widget
@@ -195,18 +233,32 @@ if (
 	isset( $instance['instagram'] ) && $instance['instagram'] ||
 	isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
 
+<?php
+if ( isset( $instance[ 'iconFont_bgType' ] ) ) {
+	$iconFont_bgType = esc_html( $instance[ 'iconFont_bgType' ] );
+} else {
+	$iconFont_bgType = '';
+}
+if ( isset( $instance[ 'icon_color' ] ) ) {
+	$icon_color = esc_html( $instance[ 'icon_color' ] );
+} else {
+	$icon_color = '';
+}
+$outer_css = $this->outer_css( $iconFont_bgType, $icon_color );
+$icon_css = $this->icon_css( $iconFont_bgType, $icon_color );
+?>
 <ul class="sns_btns">
 <?php
 $sns_names = array( 'facebook', 'twitter', 'mail', 'youtube', 'rss', 'instagram', 'linkedin' );
 foreach ( $sns_names as $key => $sns_name ) {
-	if ( ! empty( $instance[$sns_name] ) ) :
+	if ( ! empty( $instance[$sns_name] ) ) { // $instance[$sns_name] 入力されたURLが返ってくる
 		if ( $sns_name == 'mail') {
 			$sns_name_class = 'envelope';
 		} else {
 			$sns_name_class = $sns_name;
 		}
-		echo '<li class="'.$sns_name.'_btn"><a href="'.esc_url( $instance[$sns_name] ).'" target="_blank"><i class="fa fa-'.$sns_name_class.'"></i></a></li>';
-	endif;
+		echo '<li class="'.$sns_name.'_btn"><a href="'.esc_url( $instance[$sns_name] ).'" target="_blank"'.$outer_css.'><i class="fa fa-'.$sns_name_class.'"'.$icon_css.'></i></a></li>';
+	} // if ( ! empty( $instance[$sns_name] ) ) :
 } // foreach ( $sns_names as $key => $sns_name ) {
  ?>
 </ul>

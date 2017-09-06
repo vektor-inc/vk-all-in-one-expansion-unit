@@ -194,7 +194,13 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
 				}
 				// icon font display
-				if ( empty( $instance[ 'media_image_'.$i ] ) && ! empty( $instance[ 'iconFont_class_'.$i ] ) ) {
+
+				if (
+					// 画像が未登録 &&
+					empty( $instance[ 'media_image_'.$i ] ) &&
+					// アイコンフォントクラスが空じゃない（背景なし（no_paint）を選択している）場合
+					! empty( $instance[ 'iconFont_class_'.$i ] )
+				) {
 
 					$styles = 'border:1px solid '.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';';
 
