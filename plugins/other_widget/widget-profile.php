@@ -128,7 +128,7 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 <?php // icon font color ?>
 <p class="color_picker_wrap">
 <label for="<?php echo $this->get_field_id( 'icon_color' ); ?>"><?php _e( 'Icon color:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'icon_color' ).'-color'; ?>" class="color_picker" name="<?php echo $this->get_field_name( 'icon_color' ); ?>" value="<?php echo esc_attr( $instance[ 'icon_color' ] ); ?>" /></p>
+<input type="text" id="<?php echo $this->get_field_id( 'icon_color' ); ?>" class="color_picker" name="<?php echo $this->get_field_name( 'icon_color' ); ?>" value="<?php echo esc_attr( $instance[ 'icon_color' ] ); ?>" /></p>
 
 	<?php  }
 
@@ -167,7 +167,7 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 			}
 			$outer_css = ' style="border:1px solid '.$icon_color.';background:none;"';
 		} else {
-			$outer_css = ' style="border:1px solid '.$icon_color.';background-color:'.$icon_color.';';
+			$outer_css = ' style="border:1px solid '.$icon_color.';background-color:'.$icon_color.';"';
 		}
 		return $outer_css;
 	}
