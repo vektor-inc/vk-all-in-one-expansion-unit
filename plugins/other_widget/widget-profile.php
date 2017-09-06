@@ -186,37 +186,29 @@ if ( ! empty( $instance['profile'] ) ) {
 }
 
 // Display a sns botton
-if ( isset( $instance['facebook'] ) && $instance['facebook'] || isset( $instance['twitter'] ) && $instance['twitter'] || isset( $instance['mail'] ) && $instance['mail'] || isset( $instance['youtube'] ) && $instance['youtube'] || isset( $instance['rss'] ) && $instance['rss'] || isset( $instance['instagram'] ) && $instance['instagram'] || isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
+if (
+	isset( $instance['facebook'] ) && $instance['facebook'] ||
+	isset( $instance['twitter'] ) && $instance['twitter'] ||
+	isset( $instance['mail'] ) && $instance['mail'] ||
+	isset( $instance['youtube'] ) && $instance['youtube'] ||
+	isset( $instance['rss'] ) && $instance['rss'] ||
+	isset( $instance['instagram'] ) && $instance['instagram'] ||
+	isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
 
 <ul class="sns_btns">
-<?php // Display a facebook botton
-if ( ! empty( $instance['facebook'] ) ) :  ?>
-        <li class="facebook_btn"><a href="<?php echo esc_url( $instance['facebook'] ); ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
-<?php endif; ?>
-<?php // Display a twitter botton
-if ( ! empty( $instance['twitter'] ) ) :  ?>
-        <li class="twitter_btn"><a href="<?php echo esc_url( $instance['twitter'] ); ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
-<?php endif; ?>
-<?php // Display a mail botton
-if ( ! empty( $instance['mail'] ) ) :  ?>
-        <li class="mail_btn"><a href="<?php echo esc_url( $instance['mail'] ); ?>" target="_blank"><i class="fa fa-envelope"></i></a></li>
-<?php endif; ?>
-<?php // Display a youtube botton
-if ( ! empty( $instance['youtube'] ) ) :  ?>
-        <li class="youtube_btn"><a href="<?php echo esc_url( $instance['youtube'] ); ?>" target="_blank"><i class="fa fa-youtube"></i></a></li>
-<?php endif; ?>
-<?php // Display a RSS botton
-if ( ! empty( $instance['rss'] ) ) :  ?>
-        <li class="rss_btn"><a href="<?php echo esc_url( $instance['rss'] ); ?>" target="_blank"><i class="fa fa-rss"></i></a></li>
-<?php endif; ?>
-<?php // Display a instagram botton
-if ( ! empty( $instance['instagram'] ) ) :  ?>
-        <li class="instagram_btn"><a href="<?php echo esc_url( $instance['instagram'] ); ?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
-<?php endif; ?>
-<?php // Display a linkedin botton
-if ( ! empty( $instance['linkedin'] ) ) :  ?>
-        <li class="linkedin_btn"><a href="<?php echo esc_url( $instance['linkedin'] ); ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-<?php endif; ?>
+<?php
+$sns_names = array( 'facebook', 'twitter', 'mail', 'youtube', 'rss', 'instagram', 'linkedin' );
+foreach ( $sns_names as $key => $sns_name ) {
+	if ( ! empty( $instance[$sns_name] ) ) :
+		if ( $sns_name == 'mail') {
+			$sns_name_class = 'envelope';
+		} else {
+			$sns_name_class = $sns_name;
+		}
+		echo '<li class="'.$sns_name.'_btn"><a href="'.esc_url( $instance[$sns_name] ).'" target="_blank"><i class="fa fa-'.$sns_name_class.'"></i></a></li>';
+	endif;
+} // foreach ( $sns_names as $key => $sns_name ) {
+ ?>
 </ul>
 <?php endif; ?>
 
