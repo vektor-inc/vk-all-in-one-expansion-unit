@@ -198,7 +198,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 				if (
 					// 画像が未登録 &&
 					empty( $instance[ 'media_image_'.$i ] ) &&
-					// アイコンフォントクラスが空じゃない（背景なし（no_paint）を選択している）場合
+					// iconFont_class_が空じゃない（ font-awesomeのアイコンが入力されている ）場合
 					! empty( $instance[ 'iconFont_class_'.$i ] )
 				) {
 
