@@ -123,7 +123,7 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 <input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint"<?php echo $checked; ?> />
 <label for="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>"><?php _e( 'No background', 'vkExUnit' ); ?></label>
 </p>
-<p>※ アイコンの背景を指定しない場合は各ブランドカラーが設定されます。</p>
+<p><?php _e( '* When "Icon Background: Fill" is selected and "Icon color" is not specified, each brand color will be painted.', 'vkExUnit' ); ?></p>
 
 <?php // icon font color ?>
 <p class="color_picker_wrap">
