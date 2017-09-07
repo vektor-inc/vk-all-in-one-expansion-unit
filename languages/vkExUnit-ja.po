@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-07 10:56+0900\n"
+"POT-Creation-Date: 2017-09-07 17:15+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -1008,10 +1008,10 @@ msgid "3PR area setting"
 msgstr "3PR エリア設定"
 
 #: plugins/other_widget/widget-3pr-area.php:58
-#: plugins/other_widget/widget-new-posts.php:184
+#: plugins/other_widget/widget-new-posts.php:194
 #: plugins/other_widget/widget-page.php:39
 #: plugins/other_widget/widget-pr-blocks.php:89
-#: plugins/other_widget/widget-profile.php:42
+#: plugins/other_widget/widget-profile.php:47
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -1023,14 +1023,14 @@ msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 #: plugins/other_widget/widget-3pr-area.php:67
 #: plugins/other_widget/widget-3pr-area.php:84
 #: plugins/other_widget/widget-pr-blocks.php:123
-#: plugins/other_widget/widget-profile.php:50
+#: plugins/other_widget/widget-profile.php:55
 msgid "Select image"
 msgstr "画像を選択"
 
 #: plugins/other_widget/widget-3pr-area.php:68
 #: plugins/other_widget/widget-3pr-area.php:85
 #: plugins/other_widget/widget-pr-blocks.php:126
-#: plugins/other_widget/widget-profile.php:51
+#: plugins/other_widget/widget-profile.php:56
 msgid "Clear image"
 msgstr "画像クリア"
 
@@ -1062,8 +1062,8 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: plugins/other_widget/widget-archives.php:63
-#: plugins/other_widget/widget-new-posts.php:189
-#: plugins/other_widget/widget-new-posts.php:190
+#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:200
 msgid "Title"
 msgstr "タイトル"
 
@@ -1184,7 +1184,7 @@ msgstr "表示しているページの先祖階層からの子ページリスト
 
 #: plugins/other_widget/widget-new-posts.php:11
 #: plugins/other_widget/widget-new-posts.php:31
-#: plugins/other_widget/widget-new-posts.php:163
+#: plugins/other_widget/widget-new-posts.php:171
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1192,59 +1192,67 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: plugins/other_widget/widget-new-posts.php:188
+#: plugins/other_widget/widget-new-posts.php:198
 msgid "Display Format"
 msgstr "表示形式"
 
-#: plugins/other_widget/widget-new-posts.php:189
+#: plugins/other_widget/widget-new-posts.php:199
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: plugins/other_widget/widget-new-posts.php:189
-#: plugins/other_widget/widget-new-posts.php:190
+#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:200
 msgid "Date"
 msgstr "日付"
 
-#: plugins/other_widget/widget-new-posts.php:190
+#: plugins/other_widget/widget-new-posts.php:200
 #: plugins/other_widget/widget-taxonomies.php:24
 #: plugins/other_widget/widget-taxonomies.php:54
 #: plugins/other_widget/widget-taxonomies.php:55
 msgid "Category"
 msgstr "カテゴリー"
 
-#: plugins/other_widget/widget-new-posts.php:193
+#: plugins/other_widget/widget-new-posts.php:203
 msgid "Order by"
 msgstr "表示順"
 
-#: plugins/other_widget/widget-new-posts.php:194
+#: plugins/other_widget/widget-new-posts.php:204
 msgid "Publish date"
 msgstr "公開日"
 
-#: plugins/other_widget/widget-new-posts.php:195
+#: plugins/other_widget/widget-new-posts.php:205
 msgid "Modified date"
 msgstr "最終更新日"
 
-#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:209
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: plugins/other_widget/widget-new-posts.php:204
+#: plugins/other_widget/widget-new-posts.php:214
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: plugins/other_widget/widget-new-posts.php:209
+#: plugins/other_widget/widget-new-posts.php:219
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: plugins/other_widget/widget-new-posts.php:211
+#: plugins/other_widget/widget-new-posts.php:221
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: plugins/other_widget/widget-new-posts.php:213 plugins/sns/sns_admin.php:88
+#: plugins/other_widget/widget-new-posts.php:223 plugins/sns/sns_admin.php:88
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
+
+#: plugins/other_widget/widget-new-posts.php:228
+msgid "Destination URL:"
+msgstr "リンク先URL"
+
+#: plugins/other_widget/widget-new-posts.php:231
+msgid "Notation text:"
+msgstr "表記テキスト:"
 
 #: plugins/other_widget/widget-page.php:9
 msgid "page content to widget"
@@ -1334,22 +1342,22 @@ msgid " ex:fa-file-text-o"
 msgstr "例:fa-file-text-o"
 
 #: plugins/other_widget/widget-pr-blocks.php:100
-#: plugins/other_widget/widget-profile.php:130
+#: plugins/other_widget/widget-profile.php:135
 msgid "Icon color:"
 msgstr "アイコンの色:"
 
 #: plugins/other_widget/widget-pr-blocks.php:104
-#: plugins/other_widget/widget-profile.php:115
+#: plugins/other_widget/widget-profile.php:120
 msgid "Icon Background:"
 msgstr "アイコン背景:"
 
 #: plugins/other_widget/widget-pr-blocks.php:108
-#: plugins/other_widget/widget-profile.php:121
+#: plugins/other_widget/widget-profile.php:126
 msgid "Solid color"
 msgstr "塗りつぶし"
 
 #: plugins/other_widget/widget-pr-blocks.php:112
-#: plugins/other_widget/widget-profile.php:124
+#: plugins/other_widget/widget-profile.php:129
 msgid "No background"
 msgstr "背景なし"
 
@@ -1362,7 +1370,7 @@ msgid "When you have an image. Image is displayed with priority"
 msgstr "画像を設定するとアイコンフォントよりも画像が優先されます。"
 
 #: plugins/other_widget/widget-profile.php:9
-#: plugins/other_widget/widget-profile.php:20
+#: plugins/other_widget/widget-profile.php:25
 msgid "Profile"
 msgstr "プロフィール"
 
@@ -1371,63 +1379,63 @@ msgid "Displays a your profile"
 msgstr ""
 "ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
 
-#: plugins/other_widget/widget-profile.php:27
+#: plugins/other_widget/widget-profile.php:32
 msgid "Profile Text"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:47
+#: plugins/other_widget/widget-profile.php:52
 msgid "Select Profile image:"
 msgstr "プロフィール用画像を選択"
 
-#: plugins/other_widget/widget-profile.php:60
+#: plugins/other_widget/widget-profile.php:65
 msgid "Cut out round the image."
 msgstr "画像を丸く切り抜いて表示する"
 
-#: plugins/other_widget/widget-profile.php:64
+#: plugins/other_widget/widget-profile.php:69
 msgid "Media size (Optional)"
 msgstr "画像の大きさ( 任意 )"
 
-#: plugins/other_widget/widget-profile.php:69
+#: plugins/other_widget/widget-profile.php:74
 msgid "Image align left"
 msgstr "画像を左揃えにする"
 
-#: plugins/other_widget/widget-profile.php:73
+#: plugins/other_widget/widget-profile.php:78
 msgid "Text float to image."
 msgstr "テキストを画像に回りこませる"
 
-#: plugins/other_widget/widget-profile.php:77
+#: plugins/other_widget/widget-profile.php:82
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:81
+#: plugins/other_widget/widget-profile.php:86
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:86
+#: plugins/other_widget/widget-profile.php:91
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:91
+#: plugins/other_widget/widget-profile.php:96
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:96
+#: plugins/other_widget/widget-profile.php:101
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:101
+#: plugins/other_widget/widget-profile.php:106
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:106
+#: plugins/other_widget/widget-profile.php:111
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:110
+#: plugins/other_widget/widget-profile.php:115
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:126
+#: plugins/other_widget/widget-profile.php:131
 msgid ""
 "* When \"Icon Background: Fill\" is selected and \"Icon color\" is not "
 "specified, each brand color will be painted."

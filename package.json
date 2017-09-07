@@ -26,5 +26,8 @@
     "gulp-jsmin": "^0.1.5",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2"
+  },
+  "dependencies": {
+    "compass": "^0.1.1"
   }
 }
