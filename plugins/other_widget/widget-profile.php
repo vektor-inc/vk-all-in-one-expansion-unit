@@ -15,7 +15,12 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		);
 	}
 
-	function form( $instance ) {
+
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
+	function form( $instance ) 
+	{
 		$defaults = array(
 			'label' => __( 'Profile', 'vkExUnit' ),
 			'mediaFile' => '',
@@ -133,6 +138,9 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 	<?php  }
 
 
+	/*-------------------------------------------*/
+	/*  update
+	/*-------------------------------------------*/
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['label'] = $new_instance['label'];
@@ -157,9 +165,9 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 
 
 
-	/*
-	SNSアイコンに出力するCSSを出力する関数
-	*/
+	/*-------------------------------------------*/
+	/*  SNSアイコンに出力するCSSを出力する関数
+	/*-------------------------------------------*/
 	static public function outer_css( $instance )
 	{
 		// iconFont_bgType が定義されている場合
@@ -229,7 +237,9 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 	}
 
 
-
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
 	function widget( $args, $instance ) {
 		// From here Display a widget
 		echo $args['before_widget'];
