@@ -79,7 +79,15 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			}
 
 		endif;
+
+		if ( ! empty ( $instance['more_text'] ) && ! empty ( $instance['more_url'] )) {
+			echo '<div class="postList_more">';
+			echo '<a href="'.esc_url( $instance['more_url'] ).'">'.wp_kses_post( $instance['more_text'] ).'</a>';
+			echo '</div>';
+		}
+
 		echo '</div>';
+
 		echo $args['after_widget'];
 
 		wp_reset_postdata();
@@ -165,6 +173,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			'orderby'   => 'date',
 			'terms'     => '',
 			'format'    => '0',
+			'more_url'  => '',
+			'more_text' => '',
 		);
 
 		return wp_parse_args( (array) $instance, $defaults );
@@ -176,7 +186,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		 下記 default_options($instance) が無いと Charm テスト環境ではエラーが発生する
 		 但し、これがある事で過去にnotice が出た経緯があるようなので、要調査
 		 ※20行目付近にも同様の記述あり
-		*/ 
+		*/
 		$instance = static::default_options($instance);
 		?>
 		<br />
@@ -211,8 +221,19 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<?php _e( 'if you need filtering by term, add the term ID separate by ",".', 'vkExUnit' );
 		echo '<br/>';
 		_e( 'if empty this area, I will do not filtering.', 'vkExUnit' );
-		echo '<br/><br/>';
-	}
+		?>
+		<br/><br/>
+
+		<?php // Read more ?>
+		<label for="<?php echo $this->get_field_id( 'more_url' );  ?>"><?php _e( 'Destination URL:', 'vkExUnit' ); ?></label><br/>
+		<input type="text" id="<?php echo $this->get_field_id( 'more_url' ); ?>" name="<?php echo $this->get_field_name( 'more_url' ); ?>" value="<?php echo esc_attr( $instance['more_url'] ); ?>" />
+		<br /><br />
+		<label for="<?php echo $this->get_field_id( 'more_text' );  ?>"><?php _e( 'Notation text:', 'vkExUnit' ); ?></label><br/>
+		<input type="text" placeholder="最新記事一覧 ≫" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
+				<br /><br />
+
+	<?php
+}
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -222,6 +243,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$instance['orderby']    = in_array($new_instance['orderby'], array('date', 'modified'))? $new_instance['orderby']: 'date';
 		$instance['post_type']  = ! empty( $new_instance['post_type'] ) ? strip_tags( $new_instance['post_type'] ) : 'post';
 		$instance['terms']      = preg_replace( '/([^0-9,]+)/', '', $new_instance['terms'] );
+		$instance['more_url']   = $new_instance['more_url'];
+		$instance['more_text']  = $new_instance['more_text'];
 		return $instance;
 	}
 }
