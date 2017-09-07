@@ -17,6 +17,22 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		);
 	}
 
+	/*-------------------------------------------*/
+	/*  一覧へのリンクhtmlを出力する関数
+	/*-------------------------------------------*/
+	static public function more_link_html( $instance )
+	{
+		if ( ! empty ( $instance['more_text'] ) && ! empty ( $instance['more_url'] )) {
+			$more_link_html = '<div class="postList_more">';
+			$more_link_html .= '<a href="'.esc_url( $instance['more_url'] ).'">'.wp_kses_post( $instance['more_text'] ).'</a>';
+			$more_link_html .= '</div>';
+		} else {
+			$more_link_html = '';
+		}
+		return $more_link_html;
+	}
+
+
 	function widget( $args, $instance ) {
 		$instance = static::default_options($instance);
 
@@ -80,11 +96,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		endif;
 
-		if ( ! empty ( $instance['more_text'] ) && ! empty ( $instance['more_url'] )) {
-			echo '<div class="postList_more">';
-			echo '<a href="'.esc_url( $instance['more_url'] ).'">'.wp_kses_post( $instance['more_text'] ).'</a>';
-			echo '</div>';
-		}
+		echo  $this->more_link_html( $instance );
 
 		echo '</div>';
 
