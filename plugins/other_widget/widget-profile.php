@@ -15,7 +15,12 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		);
 	}
 
-	function form( $instance ) {
+
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
+	function form( $instance ) 
+	{
 		$defaults = array(
 			'label' => __( 'Profile', 'vkExUnit' ),
 			'mediaFile' => '',
@@ -32,6 +37,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			'rss' => '',
 			'instagram' => '',
 			'linkedin' => '',
+			'iconFont_bgType' => '',
+			'icon_color' => '',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 	?>
@@ -86,7 +93,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </p>
 
 		<?php //mail_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'mail' );  ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'mail' ); ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo esc_attr( $instance['mail'] ); ?>" />
 </p>
 
@@ -108,9 +115,32 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <p><label for="<?php echo $this->get_field_id( 'linkedin' );  ?>"><?php _e( 'linkedin URL:', 'vkExUnit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $instance['linkedin'] ); ?>" /></p>
 
+<?php // icon font type ?>
+
+<p><?php _e( 'Icon Background:', 'vkExUnit' ); ?><br>
+
+<?php
+$checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_bgType' ] ) ? ' checked' : '';
+?>
+<input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_solid'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value=""<?php echo $checked; ?> />
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_solid'; ?>"> <?php _e( 'Solid color', 'vkExUnit' ); ?></label>
+<?php $checked = ( isset( $instance[ 'iconFont_bgType' ] ) && $instance[ 'iconFont_bgType' ] === 'no_paint' ) ? ' checked' : ''; ?>
+<input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint"<?php echo $checked; ?> />
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ).'_no_paint'; ?>"><?php _e( 'No background', 'vkExUnit' ); ?></label>
+</p>
+<p><?php _e( '* When "Icon Background: Fill" is selected and "Icon color" is not specified, each brand color will be painted.', 'vkExUnit' ); ?></p>
+
+<?php // icon font color ?>
+<p class="color_picker_wrap">
+<label for="<?php echo $this->get_field_id( 'icon_color' ); ?>"><?php _e( 'Icon color:', 'vkExUnit' ); ?></label><br/>
+<input type="text" id="<?php echo $this->get_field_id( 'icon_color' ); ?>" class="color_picker" name="<?php echo $this->get_field_name( 'icon_color' ); ?>" value="<?php echo esc_attr( $instance[ 'icon_color' ] ); ?>" /></p>
+
 	<?php  }
 
 
+	/*-------------------------------------------*/
+	/*  update
+	/*-------------------------------------------*/
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['label'] = $new_instance['label'];
@@ -128,10 +158,88 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		$instance['rss'] = $new_instance['rss'];
 		$instance['instagram'] = $new_instance['instagram'];
 		$instance['linkedin'] = $new_instance['linkedin'];
+		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
+		$instance['icon_color'] = $new_instance['icon_color'];
 		return $instance;
 	}
 
 
+
+	/*-------------------------------------------*/
+	/*  SNSアイコンに出力するCSSを出力する関数
+	/*-------------------------------------------*/
+	static public function outer_css( $instance )
+	{
+		// iconFont_bgType が定義されている場合
+		if ( isset( $instance[ 'iconFont_bgType' ] ) ) {
+			$iconFont_bgType = esc_html( $instance[ 'iconFont_bgType' ] ); // 中身が ''の場合もありえる
+		} else {
+			$iconFont_bgType = '';
+		}
+
+		// icon_color が定義されている場合
+		if ( isset( $instance[ 'icon_color' ] ) ) {
+			$icon_color = esc_html( $instance[ 'icon_color' ] );
+		} else {
+			$icon_color = '';
+		}
+
+		// 背景塗り && 色指定がない場合
+		if ( !$iconFont_bgType && !$icon_color ){
+			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
+			$outer_css = '';
+
+		// 背景なし枠線の場合
+		} else if ( $iconFont_bgType == 'no_paint' ){
+			// 色指定がない場合
+			if ( ! $icon_color ) {
+				$icon_color = '#ccc';
+			}
+			$outer_css = ' style="border:1px solid '.$icon_color.';background:none;"';
+
+		// それ以外（ 背景塗りの時 ）
+		} else {
+			$outer_css = ' style="border:1px solid '.$icon_color.';background-color:'.$icon_color.';"';
+		}
+		return $outer_css;
+	}
+
+
+	static public function icon_css( $instance )
+	{
+		// iconFont_bgType が定義されている場合
+		if ( isset( $instance[ 'iconFont_bgType' ] ) ) {
+			$iconFont_bgType = esc_html( $instance[ 'iconFont_bgType' ] ); // 中身が ''の場合もありえる
+		} else {
+			$iconFont_bgType = '';
+		}
+
+		// icon_color が定義されている場合
+		if ( isset( $instance[ 'icon_color' ] ) ) {
+			$icon_color = esc_html( $instance[ 'icon_color' ] );
+		} else {
+			$icon_color = '';
+		}
+
+		if ( !$iconFont_bgType && !$icon_color ){
+			$icon_css = '';
+		} else if ( $iconFont_bgType == 'no_paint' ){
+			// 線のとき
+			if ( ! $icon_color ) {
+				$icon_color = '#ccc';
+			}
+			$icon_css = ' style="color:'.$icon_color.';"';
+		} else {
+			// 塗りのとき
+			$icon_css = ' style="color:#fff;"';
+		}
+		return $icon_css;
+	}
+
+
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
 	function widget( $args, $instance ) {
 		// From here Display a widget
 		echo $args['before_widget'];
@@ -169,37 +277,33 @@ if ( ! empty( $instance['profile'] ) ) {
 }
 
 // Display a sns botton
-if ( isset( $instance['facebook'] ) && $instance['facebook'] || isset( $instance['twitter'] ) && $instance['twitter'] || isset( $instance['mail'] ) && $instance['mail'] || isset( $instance['youtube'] ) && $instance['youtube'] || isset( $instance['rss'] ) && $instance['rss'] || isset( $instance['instagram'] ) && $instance['instagram'] || isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
+if (
+	isset( $instance['facebook'] ) && $instance['facebook'] ||
+	isset( $instance['twitter'] ) && $instance['twitter'] ||
+	isset( $instance['mail'] ) && $instance['mail'] ||
+	isset( $instance['youtube'] ) && $instance['youtube'] ||
+	isset( $instance['rss'] ) && $instance['rss'] ||
+	isset( $instance['instagram'] ) && $instance['instagram'] ||
+	isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
 
+<?php
+$outer_css = $this->outer_css( $instance );
+$icon_css = $this->icon_css( $instance );
+?>
 <ul class="sns_btns">
-<?php // Display a facebook botton
-if ( ! empty( $instance['facebook'] ) ) :  ?>
-        <li class="facebook_btn"><a href="<?php echo esc_url( $instance['facebook'] ); ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
-<?php endif; ?>
-<?php // Display a twitter botton
-if ( ! empty( $instance['twitter'] ) ) :  ?>
-        <li class="twitter_btn"><a href="<?php echo esc_url( $instance['twitter'] ); ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
-<?php endif; ?>
-<?php // Display a mail botton
-if ( ! empty( $instance['mail'] ) ) :  ?>
-        <li class="mail_btn"><a href="<?php echo esc_url( $instance['mail'] ); ?>" target="_blank"><i class="fa fa-envelope"></i></a></li>
-<?php endif; ?>
-<?php // Display a youtube botton
-if ( ! empty( $instance['youtube'] ) ) :  ?>
-        <li class="youtube_btn"><a href="<?php echo esc_url( $instance['youtube'] ); ?>" target="_blank"><i class="fa fa-youtube"></i></a></li>
-<?php endif; ?>
-<?php // Display a RSS botton
-if ( ! empty( $instance['rss'] ) ) :  ?>
-        <li class="rss_btn"><a href="<?php echo esc_url( $instance['rss'] ); ?>" target="_blank"><i class="fa fa-rss"></i></a></li>
-<?php endif; ?>
-<?php // Display a instagram botton
-if ( ! empty( $instance['instagram'] ) ) :  ?>
-        <li class="instagram_btn"><a href="<?php echo esc_url( $instance['instagram'] ); ?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
-<?php endif; ?>
-<?php // Display a linkedin botton
-if ( ! empty( $instance['linkedin'] ) ) :  ?>
-        <li class="linkedin_btn"><a href="<?php echo esc_url( $instance['linkedin'] ); ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-<?php endif; ?>
+<?php
+$sns_names = array( 'facebook', 'twitter', 'mail', 'youtube', 'rss', 'instagram', 'linkedin' );
+foreach ( $sns_names as $key => $sns_name ) {
+	if ( ! empty( $instance[$sns_name] ) ) { // $instance[$sns_name] 入力されたURLが返ってくる
+		if ( $sns_name == 'mail') {
+			$sns_name_class = 'envelope';
+		} else {
+			$sns_name_class = $sns_name;
+		}
+		echo '<li class="'.$sns_name.'_btn"><a href="'.esc_url( $instance[$sns_name] ).'" target="_blank"'.$outer_css.'><i class="fa fa-'.$sns_name_class.'"'.$icon_css.'></i></a></li>';
+	} // if ( ! empty( $instance[$sns_name] ) ) :
+} // foreach ( $sns_names as $key => $sns_name ) {
+ ?>
 </ul>
 <?php endif; ?>
 
