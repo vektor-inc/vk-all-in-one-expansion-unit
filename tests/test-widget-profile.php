@@ -19,6 +19,10 @@ class WidgetProfileTest extends WP_UnitTestCase {
 		$test_array = array(
 			// どちらも未定義の場合（既存ユーザー）
 			array(
+				'correct_outer_css' => '',
+				'correct_icon_css' => '',
+			),
+			array(
 				'iconFont_bgType' => '',
 				'icon_color' => '',
 				'correct_outer_css' => '',
@@ -47,12 +51,10 @@ class WidgetProfileTest extends WP_UnitTestCase {
 		);
 
 		foreach ( $test_array as $key => $test_value) {
-			$iconFont_bgType = $test_value['iconFont_bgType'];
-			$icon_color = $test_value['icon_color'];
 			// 外枠に付与するCSSを取得
-			$outer_css = WP_Widget_vkExUnit_profile::outer_css( $iconFont_bgType, $icon_color );
+			$outer_css = WP_Widget_vkExUnit_profile::outer_css( $test_value );
 			// アイコンフォントに付与するCSSを取得
-			$icon_css = WP_Widget_vkExUnit_profile::icon_css( $iconFont_bgType, $icon_color );
+			$icon_css = WP_Widget_vkExUnit_profile::icon_css( $test_value );
 
 			// 取得できたCSSと、想定する正しいCSSが等しいかテスト
 			$this->assertEquals( $test_value['correct_outer_css'], $outer_css );

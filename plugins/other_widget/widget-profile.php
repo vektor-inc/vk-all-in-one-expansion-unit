@@ -155,23 +155,64 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		return $instance;
 	}
 
+
+
 	/*
 	SNSアイコンに出力するCSSを出力する関数
 	*/
-	static public function outer_css( $iconFont_bgType, $icon_color ){
+	static public function outer_css( $instance )
+	{
+		// iconFont_bgType が定義されている場合
+		if ( isset( $instance[ 'iconFont_bgType' ] ) ) {
+			$iconFont_bgType = esc_html( $instance[ 'iconFont_bgType' ] ); // 中身が ''の場合もありえる
+		} else {
+			$iconFont_bgType = '';
+		}
+
+		// icon_color が定義されている場合
+		if ( isset( $instance[ 'icon_color' ] ) ) {
+			$icon_color = esc_html( $instance[ 'icon_color' ] );
+		} else {
+			$icon_color = '';
+		}
+
+		// 背景塗り && 色指定がない場合
 		if ( !$iconFont_bgType && !$icon_color ){
+			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
 			$outer_css = '';
+
+		// 背景なし枠線の場合
 		} else if ( $iconFont_bgType == 'no_paint' ){
+			// 色指定がない場合
 			if ( ! $icon_color ) {
 				$icon_color = '#ccc';
 			}
 			$outer_css = ' style="border:1px solid '.$icon_color.';background:none;"';
+
+		// それ以外（ 背景塗りの時 ）
 		} else {
 			$outer_css = ' style="border:1px solid '.$icon_color.';background-color:'.$icon_color.';"';
 		}
 		return $outer_css;
 	}
-	static public function icon_css( $iconFont_bgType, $icon_color ){
+
+
+	static public function icon_css( $instance )
+	{
+		// iconFont_bgType が定義されている場合
+		if ( isset( $instance[ 'iconFont_bgType' ] ) ) {
+			$iconFont_bgType = esc_html( $instance[ 'iconFont_bgType' ] ); // 中身が ''の場合もありえる
+		} else {
+			$iconFont_bgType = '';
+		}
+
+		// icon_color が定義されている場合
+		if ( isset( $instance[ 'icon_color' ] ) ) {
+			$icon_color = esc_html( $instance[ 'icon_color' ] );
+		} else {
+			$icon_color = '';
+		}
+
 		if ( !$iconFont_bgType && !$icon_color ){
 			$icon_css = '';
 		} else if ( $iconFont_bgType == 'no_paint' ){
@@ -186,6 +227,8 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		}
 		return $icon_css;
 	}
+
+
 
 	function widget( $args, $instance ) {
 		// From here Display a widget
@@ -234,18 +277,8 @@ if (
 	isset( $instance['linkedin'] ) && $instance['linkedin'] ) :  ?>
 
 <?php
-if ( isset( $instance[ 'iconFont_bgType' ] ) ) {
-	$iconFont_bgType = esc_html( $instance[ 'iconFont_bgType' ] );
-} else {
-	$iconFont_bgType = '';
-}
-if ( isset( $instance[ 'icon_color' ] ) ) {
-	$icon_color = esc_html( $instance[ 'icon_color' ] );
-} else {
-	$icon_color = '';
-}
-$outer_css = $this->outer_css( $iconFont_bgType, $icon_color );
-$icon_css = $this->icon_css( $iconFont_bgType, $icon_color );
+$outer_css = $this->outer_css( $instance );
+$icon_css = $this->icon_css( $instance );
 ?>
 <ul class="sns_btns">
 <?php
