@@ -113,7 +113,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		if ( $instance['set_title'] != 'title-hidden' ){
 			// 非表示じゃない項目が選択されてた場合は true
 			$widget_title['display'] = true;
-			if ( $instance['set_title'] == 'title-widget' && !$instance['title'] ){
+			if ( $instance['set_title'] == 'title-widget' && empty( $instance['title'] ) ){
 				// ウィジェットのタイトルが選択されているが、タイトルが入力されていない場合は false
 				$widget_title['display'] = false;
 			}
@@ -123,7 +123,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		}
 
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
-		if ( $instance['set_title'] == 'title-widget' && $instance['title'] ) {
+		if ( $instance['set_title'] == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
 			$widget_title['title'] = $instance['title'];
 		// 旧バージョンで　タイトルを表示になっていた場合に
 		// タイトル表示形式フラグに 固定ページのタイトルを表示するvalueにしておく
