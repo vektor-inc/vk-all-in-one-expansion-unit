@@ -27,7 +27,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 	function form( $instance ) {
 		$defaults = array(
-			'label'     => '',
+			'title'     => '',
 			'page_id'   => 2,
 			'set_title' => 'title-widget',
 		);
@@ -36,8 +36,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
         <p>
 
 			<?php //タイトル ?>
-			<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
-			<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
+			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 	    <br />
 			<br />
 
@@ -84,7 +84,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	// 保存・更新する値
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['label'] = $new_instance['label'];
+		$instance['title'] = $new_instance['title'];
 		$instance['page_id'] = $new_instance['page_id'];
 		$instance['set_title'] = $new_instance['set_title'];
 		return $instance;
@@ -103,7 +103,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	ウィジェットのタイトルに関する情報を出力する関数
 	[ 返り値 ]
 	$widget_title['display'] : 表示するかどうか
-	$widget_title['label'] : ウィジェットのタイトルとして表示する文字
+	$widget_title['title'] : ウィジェットのタイトルとして表示する文字
 	*/
 	static public function widget_title( $instance ){
 
@@ -113,7 +113,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		if ( $instance['set_title'] != 'title-hidden' ){
 			// 非表示じゃない項目が選択されてた場合は true
 			$widget_title['display'] = true;
-			if ( $instance['set_title'] == 'title-widget' && !$instance['label'] ){
+			if ( $instance['set_title'] == 'title-widget' && !$instance['title'] ){
 				// ウィジェットのタイトルが選択されているが、タイトルが入力されていない場合は false
 				$widget_title['display'] = false;
 			}
@@ -123,14 +123,14 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		}
 
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
-		if ( $instance['set_title'] == 'title-widget' && $instance['label'] ) {
-			$widget_title['label'] = $instance['label'];
+		if ( $instance['set_title'] == 'title-widget' && $instance['title'] ) {
+			$widget_title['title'] = $instance['title'];
 		// 旧バージョンで　タイトルを表示になっていた場合に
 		// タイトル表示形式フラグに 固定ページのタイトルを表示するvalueにしておく
 		} else if ( ( $instance['set_title'] === true ) || ( $instance['set_title'] == 'title-page' ) ){
-			$widget_title['label'] = $page->post_title;
+			$widget_title['title'] = $page->post_title;
 		} else {
-			$widget_title['label'] = '';
+			$widget_title['title'] = '';
 		}
 		return $widget_title;
 	}
@@ -145,7 +145,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget_pageContent">' . PHP_EOL;
 		if ( $widget_title['display'] ) {
-			echo $args['before_title'] . $widget_title['label'] . $args['after_title'] . PHP_EOL;
+			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
 		}
 		echo apply_filters( 'the_content', $page->post_content );
 
