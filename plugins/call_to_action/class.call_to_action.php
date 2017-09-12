@@ -341,10 +341,25 @@ if ( $target_blank == "window_self") {
 		return $content;
 	}
 
+	public static function cta_id_random()
+	{
+		// ランダムに抽出したCTAの投稿IDを返す
+		// CTAの投稿をランダムで１件取得
+		$args = array(
+			'post_type' => self::POST_TYPE, //投稿タイプを指定
+			'posts_per_page' => 1, // １ページでの表示件数を指定
+			'orderby' => 'rand', // 表示順をランダムで取得
+		);
+		$cta_post = get_posts( $args );
+		return $cta_post[0]->ID;
+	}
 
 	public static function is_cta_id( $id = null )
 	{
+
+		// 表示する投稿のIDを取得
 		if ( ! $id ) { $id = get_the_id(); }
+		// ?
 		if ( ! $id ) { return null; }
 
 		// 各投稿編集画面で プルダウンで指定されている 表示するCTAの投稿ID（もしくは共通設定や非表示）
@@ -352,20 +367,13 @@ if ( $target_blank == "window_self") {
 
 		// 「共通設定を使用」じゃなかった場合
 		if ( $post_config ) {
+			
 			// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
 			if ( $post_config == 'disable' ) { return null; }
 
 			// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
 			if ( $post_config == 'random' ) {
-				// ランダムに抽出したCTAの投稿IDを返す
-				// CTAの投稿をランダムで１件取得
-				$args = array(
-					'post_type' => self::POST_TYPE, //投稿タイプを指定
-					'posts_per_page' => 1, // １ページでの表示件数を指定
-					'orderby' => 'rand', // 表示順をランダムで取得
-				);
-				$cta_post = get_posts( $args );
-				return $cta_post[0]->ID;
+				return self::cta_id_random();
 			}
 			return $post_config;
 		}
@@ -377,20 +385,31 @@ if ( $target_blank == "window_self") {
 		$post_type = get_post_type( $id );
 		// 投稿タイプ別にどのCTAを共通設定として表示するかの情報を取得
 		$option = self::get_option();
+
 		// 今表示している記事の投稿タイプのとき どのCTAを表示するかの設定が
 		// 定義されており なおかつ 数字で入っている場合
-		if ( isset( $option[ $post_type ] ) && is_numeric( $option[ $post_type ] ) ) {
+		if ( 
+			isset( $option[ $post_type ] ) && 
+			is_numeric( $option[ $post_type ] ) 
+			// $option[ $post_type ] > 0
+			) {
 			// その数字（表示するCTAの投稿ID）を返す
 			return $option[ $post_type ] ;
+		} else {
+			return self::cta_id_random();
 		}
 		return null;
 	}
 
 	public static function content_filter( $content )
 	{
+		// 固定ページウィジェットの場合
 		if ( self::is_pagewidget() ) { return $content; }
+		// Ligthning Advanced Unit のウィジェットだと...思う...
 		if ( self::is_contentsarea_posts_widget() ) { return $content; }
+		// 抜粋の場合
 		if ( vkExUnit_is_excerpt() ) { return $content; }
+		// 上記以外の場合に出力
 		$content .= self::render_cta_content( self::is_cta_id() );
 		return $content;
 	}
@@ -416,7 +435,11 @@ if ( $target_blank == "window_self") {
 		if ( ! $option ) { $current_option = self::get_default_option(); }
 
 		while ( list( $key, $value ) = each( $input ) ) {
-			$option[ $key ] = ( is_numeric( $value ) )? $value : 0 ;
+			if ( $value == 'random' ){
+				$option[ $key ] = 'random';
+			} else {
+				$option[ $key ] = ( is_numeric( $value ) )? $value : 0 ;
+			}
 		}
 		return $option;
 	}
