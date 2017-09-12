@@ -46,6 +46,40 @@ class PackageManagerTest extends WP_UnitTestCase {
 			print 'Package Correct :'.$test_value['correct'].PHP_EOL;
 		}
 
+		/**
+		 * 保存バリデート
+		 */
+		$test_array = array(
+			// どちらも未定義の場合
+			array(
+				// 'active_bootstrap' => null,
+				'correct' => false,
+			),
+			array(
+				'active_bootstrap' => null,
+				'correct' => false,
+			),
+			array(
+				'active_bootstrap' => '',
+				'correct' => false,
+			),
+			array(
+				'active_bootstrap' => 1,
+				'correct' => true,
+			),
+		);
+		foreach ( $test_array as $key => $test_value ) {
+			// 判定結果
+			$output = vkExUnit_common_options_validate( $test_value );
+
+			// 取得できた値と、想定する値が等しいかテスト
+			$this->assertEquals( $test_value['correct'], $output['active_bootstrap'] );
+
+			print PHP_EOL;
+			print 'options_validate         :'.$output['active_bootstrap'].PHP_EOL;
+			print 'options_validate Correct :'.$test_value['correct'].PHP_EOL;
+		}
+
 		// $this->assertTrue( true );
 	}
 }
