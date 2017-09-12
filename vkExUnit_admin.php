@@ -8,6 +8,7 @@
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
 	$options = vkExUnit_get_common_options();
+	print '<pre style="text-align:left">';print_r($options);print '</pre>';
 ?>
 
 <table class="wp-list-table widefat plugins" style="width:auto;">
@@ -20,6 +21,7 @@
 	<tbody id="the-list">
 <?php
 	global $vkExUnit_packages;
+	print '<pre style="text-align:left">';print_r($vkExUnit_packages);print '</pre>';
 foreach ( $vkExUnit_packages as $package ) :
 	$active = vkExUnit_package_is_enable( $package['name'] ); ?>
 		<tr class="<?php echo ( $active )? 'active': 'inactive'; if ( $package['hidden'] ) { echo ' dev_object'; } ?>" >
