@@ -194,18 +194,27 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					echo '<a href="'.esc_url( $instance[ 'linkurl_'.$i ] ).'" '.$blank.'>'.PHP_EOL ;
 				}
 				// icon font display
-				if ( empty( $instance[ 'media_image_'.$i ] ) && ! empty( $instance[ 'iconFont_class_'.$i ] ) ) {
+
+				if (
+					// 画像が未登録 &&
+					empty( $instance[ 'media_image_'.$i ] ) &&
+					// iconFont_class_が空じゃない（ font-awesomeのアイコンが入力されている ）場合
+					! empty( $instance[ 'iconFont_class_'.$i ] )
+				) {
 
 					$styles = 'border:1px solid '.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';';
 
-					if ( !isset( $instance[ 'iconFont_bgType_'.$i ] ) || $instance[ 'iconFont_bgType_'.$i ] != 'no_paint' ){
+					if (
+						!isset( $instance[ 'iconFont_bgType_'.$i ] ) ||
+						$instance[ 'iconFont_bgType_'.$i ] != 'no_paint'
+					){
 						$styles .= 'background-color:'.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';';
 					}
 
 					echo '<div class="prBlock_icon_outer" style="'.esc_attr( $styles ).'">';
 
 					if ( isset( $instance[ 'iconFont_bgType_'.$i ] ) && $instance[ 'iconFont_bgType_'.$i ] == 'no_paint' ){
-						$icon_styles = ' style="color:'.esc_attr($instance[ 'iconFont_bgColor_'.$i ]).';"';
+						$icon_styles = ' style="color:'.esc_attr( $instance[ 'iconFont_bgColor_'.$i ] ).';"';
 					} else {
 						$icon_styles = ' style="color:#fff;"';
 					}
@@ -225,10 +234,13 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					_e( 'PR Block', 'vkExUnit' );
 				}
 				echo '</h1>'.PHP_EOL;
+
 				// summary text
 				if ( ! empty( $instance[ 'summary_'.$i ] ) ) {
-					echo '<p class="prBlock_summary">'.nl2br( esc_attr( $instance[ 'summary_'.$i ] ) ).'</p>'.PHP_EOL;
+
+					echo '<p class="prBlock_summary">'.nl2br( wp_kses_post( $instance[ 'summary_'.$i ] ) ).'</p>'.PHP_EOL;
 				}
+
 				if ( ! empty( $instance[ 'linkurl_'.$i ] ) ) {
 					echo '</a>'.PHP_EOL;
 				}

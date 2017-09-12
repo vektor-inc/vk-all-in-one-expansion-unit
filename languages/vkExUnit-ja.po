@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-04-24 16:09+0900\n"
+"POT-Creation-Date: 2017-09-07 17:15+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -91,7 +91,7 @@ msgctxt "post format archive title"
 msgid "Chats"
 msgstr "チャット"
 
-#: common_helpers.php:150 plugins/other_widget/widget-taxonomies.php:83
+#: common_helpers.php:150 plugins/other_widget/widget-taxonomies.php:100
 msgid "Archives"
 msgstr "アーカイブ"
 
@@ -106,13 +106,13 @@ msgctxt "Yearly archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: common_helpers.php:197 common_helpers.php:201 common_helpers.php:205
+#: common_helpers.php:197 common_helpers.php:201 common_helpers.php:206
 #, php-format
 msgctxt "Archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: common_helpers.php:220 plugins/wp_title.php:59
+#: common_helpers.php:225 plugins/wp_title.php:59
 #, php-format
 msgid "Page of %s"
 msgstr "%sページ目"
@@ -366,7 +366,7 @@ msgstr "広告の挿入"
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: packages.php:343 plugins/related_posts/related_posts.php:89
+#: packages.php:343 plugins/related_posts/related_posts.php:96
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -441,7 +441,7 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: plugins/call_to_action/class.call_to_action.php:46
-#: plugins/call_to_action/view.actionbox.php:39
+#: plugins/call_to_action/view.actionbox.php:56
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
@@ -463,70 +463,108 @@ msgstr "CTA設定"
 msgid "CTA Contents"
 msgstr "CTA Contents"
 
-#: plugins/call_to_action/class.call_to_action.php:89
-msgid "Follow common setting"
-msgstr "共通設定を使用"
-
 #: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:417
+#: plugins/call_to_action/class.call_to_action.php:483
+msgid "Random"
+msgstr "ランダム表示"
+
+#: plugins/call_to_action/class.call_to_action.php:91
+#: plugins/call_to_action/class.call_to_action.php:485
 msgid "Disable display"
 msgstr "表示しない"
 
-#: plugins/call_to_action/class.call_to_action.php:101
+#: plugins/call_to_action/class.call_to_action.php:92
+msgid "Follow common setting"
+msgstr "共通設定を使用"
+
+#: plugins/call_to_action/class.call_to_action.php:103
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: plugins/call_to_action/class.call_to_action.php:102
+#: plugins/call_to_action/class.call_to_action.php:104
 #: plugins/call_to_action/view.adminsetting.php:22
 #: plugins/call_to_action/widget.call_to_action.php:63
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
-#: plugins/call_to_action/class.call_to_action.php:167
+#: plugins/call_to_action/class.call_to_action.php:169
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: plugins/call_to_action/class.call_to_action.php:173
+#: plugins/call_to_action/class.call_to_action.php:175
 msgid "Add image"
 msgstr "画像を追加"
 
-#: plugins/call_to_action/class.call_to_action.php:174
+#: plugins/call_to_action/class.call_to_action.php:176
 msgid "Change image"
 msgstr "画像を変更"
 
-#: plugins/call_to_action/class.call_to_action.php:175
+#: plugins/call_to_action/class.call_to_action.php:177
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: plugins/call_to_action/class.call_to_action.php:180
+#: plugins/call_to_action/class.call_to_action.php:182
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: plugins/call_to_action/class.call_to_action.php:183
+#: plugins/call_to_action/class.call_to_action.php:185
 msgid "right"
 msgstr "右寄せ"
 
-#: plugins/call_to_action/class.call_to_action.php:184
+#: plugins/call_to_action/class.call_to_action.php:186
 msgid "center"
 msgstr "中央"
 
-#: plugins/call_to_action/class.call_to_action.php:185
+#: plugins/call_to_action/class.call_to_action.php:187
 msgid "left"
 msgstr "左寄せ"
 
-#: plugins/call_to_action/class.call_to_action.php:189
+#: plugins/call_to_action/class.call_to_action.php:191
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call_to_action/class.call_to_action.php:192
+#: plugins/call_to_action/class.call_to_action.php:195
+msgid "Button icon"
+msgstr "ボタンアイコン"
+
+#: plugins/call_to_action/class.call_to_action.php:196
+#: plugins/other_widget/widget-button.php:104
+#: plugins/other_widget/widget-pr-blocks.php:96
+msgid "To choose your favorite icon, and enter the class."
+msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
+
+#: plugins/call_to_action/class.call_to_action.php:197
+#: plugins/other_widget/widget-button.php:105
+msgid "Before :"
+msgstr "文字の前 :"
+
+#: plugins/call_to_action/class.call_to_action.php:199
+#: plugins/other_widget/widget-button.php:107
+msgid "After :"
+msgstr "文字の後 :"
+
+#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/other_widget/widget-button.php:109
+msgid " ex:fa-arrow-circle-o-right"
+msgstr "例: fa-arrow-circle-o-right"
+
+#: plugins/call_to_action/class.call_to_action.php:206
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call_to_action/class.call_to_action.php:195
+#: plugins/call_to_action/class.call_to_action.php:219
+msgid "Target window"
+msgstr "リンク先ターゲット"
+
+#: plugins/call_to_action/class.call_to_action.php:221
+msgid "Open in a self window"
+msgstr "同じウィンドウで開く"
+
+#: plugins/call_to_action/class.call_to_action.php:223
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/call_to_action/class.call_to_action.php:229
 #: plugins/call_to_action/widget.call_to_action.php:64
 msgid "CTA setting"
 msgstr "CTA設定"
@@ -574,7 +612,7 @@ msgstr "表示するCTAを選択してください。"
 msgid "Please select"
 msgstr "選択してください"
 
-#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:182
+#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:185
 msgid "Read more"
 msgstr "詳しくはこちら"
 
@@ -970,9 +1008,10 @@ msgid "3PR area setting"
 msgstr "3PR エリア設定"
 
 #: plugins/other_widget/widget-3pr-area.php:58
-#: plugins/other_widget/widget-new-posts.php:184
+#: plugins/other_widget/widget-new-posts.php:194
+#: plugins/other_widget/widget-page.php:39
 #: plugins/other_widget/widget-pr-blocks.php:89
-#: plugins/other_widget/widget-profile.php:40
+#: plugins/other_widget/widget-profile.php:47
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -984,14 +1023,14 @@ msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 #: plugins/other_widget/widget-3pr-area.php:67
 #: plugins/other_widget/widget-3pr-area.php:84
 #: plugins/other_widget/widget-pr-blocks.php:123
-#: plugins/other_widget/widget-profile.php:48
+#: plugins/other_widget/widget-profile.php:55
 msgid "Select image"
 msgstr "画像を選択"
 
 #: plugins/other_widget/widget-3pr-area.php:68
 #: plugins/other_widget/widget-3pr-area.php:85
 #: plugins/other_widget/widget-pr-blocks.php:126
-#: plugins/other_widget/widget-profile.php:49
+#: plugins/other_widget/widget-profile.php:56
 msgid "Clear image"
 msgstr "画像クリア"
 
@@ -1023,8 +1062,8 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: plugins/other_widget/widget-archives.php:63
-#: plugins/other_widget/widget-new-posts.php:189
-#: plugins/other_widget/widget-new-posts.php:190
+#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:200
 msgid "Title"
 msgstr "タイトル"
 
@@ -1077,23 +1116,6 @@ msgstr "ボタンテキスト(必須):"
 #: plugins/other_widget/widget-button.php:103
 msgid "Class name of the icon font"
 msgstr "使用したいアイコンフォント"
-
-#: plugins/other_widget/widget-button.php:104
-#: plugins/other_widget/widget-pr-blocks.php:96
-msgid "To choose your favorite icon, and enter the class."
-msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
-
-#: plugins/other_widget/widget-button.php:105
-msgid "Before :"
-msgstr "文字の前 :"
-
-#: plugins/other_widget/widget-button.php:107
-msgid "After :"
-msgstr "文字の後 :"
-
-#: plugins/other_widget/widget-button.php:109
-msgid " ex:fa-arrow-circle-o-right"
-msgstr "例: fa-arrow-circle-o-right"
 
 #: plugins/other_widget/widget-button.php:113
 msgid "Sub text:"
@@ -1162,7 +1184,7 @@ msgstr "表示しているページの先祖階層からの子ページリスト
 
 #: plugins/other_widget/widget-new-posts.php:11
 #: plugins/other_widget/widget-new-posts.php:31
-#: plugins/other_widget/widget-new-posts.php:163
+#: plugins/other_widget/widget-new-posts.php:171
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1170,59 +1192,67 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: plugins/other_widget/widget-new-posts.php:188
+#: plugins/other_widget/widget-new-posts.php:198
 msgid "Display Format"
 msgstr "表示形式"
 
-#: plugins/other_widget/widget-new-posts.php:189
+#: plugins/other_widget/widget-new-posts.php:199
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: plugins/other_widget/widget-new-posts.php:189
-#: plugins/other_widget/widget-new-posts.php:190
+#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:200
 msgid "Date"
 msgstr "日付"
 
-#: plugins/other_widget/widget-new-posts.php:190
-#: plugins/other_widget/widget-taxonomies.php:20
-#: plugins/other_widget/widget-taxonomies.php:49
-#: plugins/other_widget/widget-taxonomies.php:50
+#: plugins/other_widget/widget-new-posts.php:200
+#: plugins/other_widget/widget-taxonomies.php:24
+#: plugins/other_widget/widget-taxonomies.php:54
+#: plugins/other_widget/widget-taxonomies.php:55
 msgid "Category"
 msgstr "カテゴリー"
 
-#: plugins/other_widget/widget-new-posts.php:193
+#: plugins/other_widget/widget-new-posts.php:203
 msgid "Order by"
 msgstr "表示順"
 
-#: plugins/other_widget/widget-new-posts.php:194
+#: plugins/other_widget/widget-new-posts.php:204
 msgid "Publish date"
 msgstr "公開日"
 
-#: plugins/other_widget/widget-new-posts.php:195
+#: plugins/other_widget/widget-new-posts.php:205
 msgid "Modified date"
 msgstr "最終更新日"
 
-#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:209
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: plugins/other_widget/widget-new-posts.php:204
+#: plugins/other_widget/widget-new-posts.php:214
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: plugins/other_widget/widget-new-posts.php:209
+#: plugins/other_widget/widget-new-posts.php:219
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: plugins/other_widget/widget-new-posts.php:211
+#: plugins/other_widget/widget-new-posts.php:221
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: plugins/other_widget/widget-new-posts.php:213 plugins/sns/sns_admin.php:88
+#: plugins/other_widget/widget-new-posts.php:223 plugins/sns/sns_admin.php:88
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
+
+#: plugins/other_widget/widget-new-posts.php:228
+msgid "Destination URL:"
+msgstr "リンク先URL"
+
+#: plugins/other_widget/widget-new-posts.php:231
+msgid "Notation text:"
+msgstr "表記テキスト:"
 
 #: plugins/other_widget/widget-page.php:9
 msgid "page content to widget"
@@ -1232,16 +1262,24 @@ msgstr "固定ページ本文"
 msgid "Displays a page contents to widget."
 msgstr "選択したページの内容を表示します。"
 
-#: plugins/other_widget/widget-page.php:40
-#: plugins/other_widget/widget-taxonomies.php:62
+#: plugins/other_widget/widget-page.php:48
+msgid "Display the entered title"
+msgstr "入力したタイトルを表示する"
+
+#: plugins/other_widget/widget-page.php:52
+msgid "Display the title of page"
+msgstr "固定ページのタイトルを表示する"
+
+#: plugins/other_widget/widget-page.php:56
+msgid "Do not display titles"
+msgstr "タイトルを表示しない"
+
+#: plugins/other_widget/widget-page.php:70
+#: plugins/other_widget/widget-taxonomies.php:74
 msgid "Display page"
 msgstr "ページを表示"
 
-#: plugins/other_widget/widget-page.php:48
-msgid "display title"
-msgstr "タイトルを表示"
-
-#: plugins/other_widget/widget-page.php:70
+#: plugins/other_widget/widget-page.php:154
 msgid "Edit"
 msgstr "編集"
 
@@ -1291,7 +1329,7 @@ msgstr ""
 "す。それから編集画面を再度開くと列の入力フォームが増減します。"
 
 #: plugins/other_widget/widget-pr-blocks.php:86
-#: plugins/other_widget/widget-pr-blocks.php:225
+#: plugins/other_widget/widget-pr-blocks.php:234
 msgid "PR Block"
 msgstr "PRブロック"
 
@@ -1304,18 +1342,22 @@ msgid " ex:fa-file-text-o"
 msgstr "例:fa-file-text-o"
 
 #: plugins/other_widget/widget-pr-blocks.php:100
+#: plugins/other_widget/widget-profile.php:135
 msgid "Icon color:"
 msgstr "アイコンの色:"
 
 #: plugins/other_widget/widget-pr-blocks.php:104
+#: plugins/other_widget/widget-profile.php:120
 msgid "Icon Background:"
 msgstr "アイコン背景:"
 
 #: plugins/other_widget/widget-pr-blocks.php:108
+#: plugins/other_widget/widget-profile.php:126
 msgid "Solid color"
 msgstr "塗りつぶし"
 
 #: plugins/other_widget/widget-pr-blocks.php:112
+#: plugins/other_widget/widget-profile.php:129
 msgid "No background"
 msgstr "背景なし"
 
@@ -1328,7 +1370,7 @@ msgid "When you have an image. Image is displayed with priority"
 msgstr "画像を設定するとアイコンフォントよりも画像が優先されます。"
 
 #: plugins/other_widget/widget-profile.php:9
-#: plugins/other_widget/widget-profile.php:20
+#: plugins/other_widget/widget-profile.php:25
 msgid "Profile"
 msgstr "プロフィール"
 
@@ -1337,61 +1379,69 @@ msgid "Displays a your profile"
 msgstr ""
 "ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
 
-#: plugins/other_widget/widget-profile.php:27
+#: plugins/other_widget/widget-profile.php:32
 msgid "Profile Text"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:45
+#: plugins/other_widget/widget-profile.php:52
 msgid "Select Profile image:"
 msgstr "プロフィール用画像を選択"
 
-#: plugins/other_widget/widget-profile.php:58
+#: plugins/other_widget/widget-profile.php:65
 msgid "Cut out round the image."
 msgstr "画像を丸く切り抜いて表示する"
 
-#: plugins/other_widget/widget-profile.php:62
+#: plugins/other_widget/widget-profile.php:69
 msgid "Media size (Optional)"
 msgstr "画像の大きさ( 任意 )"
 
-#: plugins/other_widget/widget-profile.php:67
+#: plugins/other_widget/widget-profile.php:74
 msgid "Image align left"
 msgstr "画像を左揃えにする"
 
-#: plugins/other_widget/widget-profile.php:71
+#: plugins/other_widget/widget-profile.php:78
 msgid "Text float to image."
 msgstr "テキストを画像に回りこませる"
 
-#: plugins/other_widget/widget-profile.php:75
+#: plugins/other_widget/widget-profile.php:82
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:79
+#: plugins/other_widget/widget-profile.php:86
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:84
+#: plugins/other_widget/widget-profile.php:91
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:89
+#: plugins/other_widget/widget-profile.php:96
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:94
+#: plugins/other_widget/widget-profile.php:101
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:99
+#: plugins/other_widget/widget-profile.php:106
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:104
+#: plugins/other_widget/widget-profile.php:111
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:108
+#: plugins/other_widget/widget-profile.php:115
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
+
+#: plugins/other_widget/widget-profile.php:131
+msgid ""
+"* When \"Icon Background: Fill\" is selected and \"Icon color\" is not "
+"specified, each brand color will be painted."
+msgstr ""
+"※ 「アイコン背景 : 塗りつぶし」を選択した場合で「アイコンの色」の指定がないと"
+"きは各ブランドカラーで塗りつぶしされます。"
 
 #: plugins/other_widget/widget-side-child-page-list.php:12
 msgid "child pages list"
@@ -1401,19 +1451,23 @@ msgstr "子ページのリスト"
 msgid "Displays list of child page for the current page."
 msgstr "表示しているページの先祖階層からの子ページリストを表示します。"
 
-#: plugins/other_widget/widget-taxonomies.php:9
+#: plugins/other_widget/widget-taxonomies.php:10
 msgid "Categories/Custom taxonomies list"
 msgstr "カテゴリー/カスタム分類リスト"
 
-#: plugins/other_widget/widget-taxonomies.php:14
+#: plugins/other_widget/widget-taxonomies.php:15
 msgid "Displays a categories and custom taxonomies list."
 msgstr "カテゴリーやカスタム分類のリストを表示します。"
 
-#: plugins/other_widget/widget-taxonomies.php:58
+#: plugins/other_widget/widget-taxonomies.php:70
 msgid "Label to display"
 msgstr "表示するラベル"
 
-#: plugins/other_widget/widget-taxonomies.php:78
+#: plugins/other_widget/widget-taxonomies.php:83
+msgid "Do not display terms without posts"
+msgstr "投稿のない分類項目を表示しない"
+
+#: plugins/other_widget/widget-taxonomies.php:95
 msgid "Blog"
 msgstr "ブログ"
 
@@ -1563,7 +1617,7 @@ msgstr ""
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:89 plugins/sns/sns.php:100
+#: plugins/sns/sns.php:97
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
@@ -2045,9 +2099,6 @@ msgstr "プラグインを無効化する際にDBに保存したオプション�
 
 #~ msgid "Choose display a child page index"
 #~ msgstr "子ページの一覧を表示するか選択"
-
-#~ msgid "Displays the content of a chosen page."
-#~ msgstr "選択したページの内容を表示します。"
 
 #~ msgid "page content for top"
 #~ msgstr "固定ページ本文"

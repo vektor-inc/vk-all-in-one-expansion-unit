@@ -3,7 +3,7 @@
 @import "_contents_option_style";
 
 /*-------------------------------------------------*/
-/* ex_unit 
+/* ex_unit
 /*-------------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
@@ -40,7 +40,7 @@
 
 $color_font_default : #464646;
 $color_key : #337ab7;
-$border_primary : 1px solid #e5e5e5; 
+$border_primary : 1px solid #e5e5e5;
 $section_margin : 30px;
 
 /*-------------------------------------------*/
@@ -82,7 +82,7 @@ iframe.wp-embedded-content { width:100%; }
 @media (max-width: 767px){
 .media {
   .postList_thumbnail { padding-right:20px; }
-  .media-body { 
+  .media-body {
     .media-heading { font-size:1.2em;line-height:1.3em; margin-bottom:0.5em; }
     } // .media-body
   } // .media
@@ -97,7 +97,7 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .relatedPosts
 /*-------------------------------------------*/
-.relatedPosts { 
+.relatedPosts {
 	h2 { margin-bottom:10px; }
 }
 
@@ -133,8 +133,11 @@ iframe.wp-embedded-content { width:100%; }
 /* .veu_socialSet
 /*-------------------------------------------*/
 .veu_socialSet { margin-top:3em; }
-.veu_socialSet ul { margin:0px;padding:0;display: flex;
-	li { position:relative; display:block;overflow:visible; width: 50%; margin:3px; padding:0px; background:none; 
+/*
+.veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
+*/
+.veu_socialSet.veu_contentAddSection ul { margin:0px;padding:0;display: flex;
+	li { position:relative; display:block;overflow:visible; width: 50%; margin:3px; padding:0px; background:none;
 		&.sb_icon a {display:block; overflow:hidden; padding: 7px 10px;border-radius: 4px; color:#fff;text-decoration: none; line-height: 100%; font-size: 90%;}
 		&.sb_icon a .sns_txt { position: relative;top:-1px;  }
 		iframe	{ border:none; }
@@ -143,13 +146,13 @@ iframe.wp-embedded-content { width:100%; }
 		&.sb_icon.sb_facebook a{ background: #425dab; box-shadow: 0 4px 0 rgb(52, 78, 132);
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 		}
-		&.sb_icon.sb_hatena a { background: #007fc5; box-shadow: 0 4px 0 rgba(0,103,159,1); 
+		&.sb_icon.sb_hatena a { background: #007fc5; box-shadow: 0 4px 0 rgba(0,103,159,1);
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 		}
-		&.sb_icon.sb_twitter a	{ background:#00abec; box-shadow: 0 4px 0 rgba(0,126,170,1); 
+		&.sb_icon.sb_twitter a	{ background:#00abec; box-shadow: 0 4px 0 rgba(0,126,170,1);
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 		}
-		&.sb_icon.sb_google a { background:#dd4b39;     box-shadow: 0 4px 0 rgba(160,53,36,1); 
+		&.sb_icon.sb_google a { background:#dd4b39;     box-shadow: 0 4px 0 rgba(160,53,36,1);
 			&:hover { box-shadow: none; transform: translate3d(0, 4px, 0); -webkit-transform: translate3d(0, 4px, 0);}
 		}
 		&.sb_icon.sb_line a { background:#6ebd30; box-shadow: 0 4px 0 #5b9c28;
@@ -170,7 +173,7 @@ iframe.wp-embedded-content { width:100%; }
 .veu_socialSet ul li { width: 48%; margin-bottom: 9px;
 	&:nth-child(even) { margin-right:0; }
 	&.sb_icon a { padding: 8px 10px; }
-}	
+}
 .pocket-count, .veu_count_sns_fb, .veu_count_sns_hb { bottom: 2px;}
 }
 
@@ -223,7 +226,7 @@ iframe.wp-embedded-content { width:100%; }
 /* .veu_childPage_list
 /*-------------------------------------------*/
 $section_pagelist_margin:2.5em 0 1em;
-.veu_childPage_list { 
+.veu_childPage_list {
 	margin: $section_pagelist_margin;
 	.childPage_list_box { display:block;margin-bottom:1.5em; width: 100%;text-decoration: none; }
 	.childPage_list_box_inner{	position: relative; display:block; overflow:hidden;padding: 0 20px;border:3px solid #efefef;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);}
@@ -267,9 +270,9 @@ $section_pagelist_margin:2.5em 0 1em;
 	box-shadow: inset 0px 0px 0px 1px #fff;
 	h3 {
 		margin: 0.5em 0;
-		a{	
+		a{
 			color: #333;
-			font-size: 16px;		
+			font-size: 16px;
 		}
 	}
 	ul.pageList{
@@ -340,7 +343,7 @@ $section_pagelist_margin:2.5em 0 1em;
 	.cta_body_image_center { display:block; overflow:hidden;text-align: center;
 		img { display:block; margin:0 auto 15px;max-width: 100%; }
 	}
-	
+
 	.cta_body_txt { display:block; overflow:hidden; }
 	.cta_body_link { clear:both;margin-top:1.5em; }
 }
@@ -387,7 +390,7 @@ $section_pagelist_margin:2.5em 0 1em;
 // 	.contact_txt { float:none; text-align: center; }
 // 	.contact_bt { float:none; }
 // 	// .contact_txt { text-align: center; }
-// 	.contact_bt  { display: block; }	
+// 	.contact_bt  { display: block; }
 // }
 
 @media (min-width: 1200px){
@@ -480,22 +483,24 @@ $section_pagelist_margin:2.5em 0 1em;
 /* Widget .veu_postList
 /*-------------------------------------------*/
 .veu_postList {
+	margin-bottom:$section_margin;
 	h1.mainSection-title,
 	.subSection-title { margin-bottom:0; }
-	ul.postList { margin:15px 0 $section_margin;padding:0;
-		li { display:block;clear:both; overflow:hidden;padding:0;border-bottom:1px dotted #666; }
+	ul.postList { margin:0; padding:0;
+		li { display:block;clear:both; overflow:hidden;margin:0;padding:15px 0;border-bottom:1px dotted #666;line-height:1.4em; }
 	}
 	.postList a { color:$color_font_default; text-decoration:none; }
 	.postList a:hover { text-decoration:underline; }
-	.postList_title { display: block; clear:both;margin:5px 0; }
+	.postList_title { display: block; clear:both;margin:3px 0 0; }
 	.postList_meta_items { font-size:14px;color:#666; }
 	.postList_date { margin-right:10px;color:#d44950; }
 	.postList_date:before { content:"";margin-right:0; }
 	.postList_terms a {margin-right:3px; padding: 2px 5px 1px; border-radius:3px; background-color: #efefef;font-size:12px; }
+	.postList_more { margin: 10px 5px 0 0; text-align: right; }
 
 	// postList_miniThumb
-	
-	.postList_miniThumb { 
+
+	.postList_miniThumb {
 		.postList_item { display:block; overflow:hidden;clear:both; position:relative; padding:15px 0 ;border-bottom:1px dotted #666;margin-bottom:0; }
 		.postList_thumbnail { float:left;margin-right:15px; }
 		.postList_thumbnail a { position: relative; display: block; overflow: hidden; border: 1px solid #e5e5e5; }
@@ -529,7 +534,7 @@ $section_pagelist_margin:2.5em 0 1em;
 	}
 	.profile_text{ margin-bottom: 1em;font-size: 14px;}
 	.sns_btns{ margin: 0;padding: 0;width: 100%;
-	    li{ float: left;margin-right: 0.45em;list-style: none;text-align: center; }   
+	    li{ float: left;margin-right: 0.45em;list-style: none;text-align: center; }
 	    a{
 	        display: block;
 	        display:table;
@@ -544,7 +549,7 @@ $section_pagelist_margin:2.5em 0 1em;
 	    .fa{
 		 	display:table-cell;
 	        vertical-align:middle;
-	        text-align:center;  
+	        text-align:center;
 	    }
 	    .facebook_btn a{ background: #3b5998; }
 	    .twitter_btn a{ background: #55acee; }
@@ -574,11 +579,11 @@ $section_pagelist_margin:2.5em 0 1em;
 .veu_3prArea_image_link { border:1px solid #fff;display:block; overflow:hidden; }
 
 @media screen and (max-width:768px){
-.veu_3prArea{ 
+.veu_3prArea{
 	.prArea{ margin-bottom: 1em;display:block; overflow:hidden; }
 	.image_pc{ display: none; }
 	.image_sp{ display: block; }
-	.linkurl { margin-bottom: 1.5em; } 
+	.linkurl { margin-bottom: 1.5em; }
 }
 .veu_3prArea_image { width:138px;margin:0 1em 0 0; float:left; }
 }
@@ -598,12 +603,12 @@ $section_pagelist_margin:2.5em 0 1em;
 	.prBlock_image{ display: table; margin: 0 auto;
 		img{ display: table-cell; overflow: hidden; width: 120px; height: 120px; border-radius: 50%; vertical-align: middle; text-align: center; }
 	}
-	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }	
+	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }
 }
 /*
 入れ子にするとLightning テーマ埋め込みの３ＰＲブロックのアイコンカラーが負けるので、各スキンの方で継承を強くするまで旦軽くする為に個別記載とする
 */
-.prBlock_icon { color: #fff; } 
+.prBlock_icon { color: #fff; }
 // }
 
 @media screen and (max-width:992px){

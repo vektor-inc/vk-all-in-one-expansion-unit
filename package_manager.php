@@ -25,10 +25,20 @@ function vkExUnit_package_init()
 
 
 function vkExUnit_package_is_enable( $package_name ) {
+	// パッケージ情報を取得
 	global $vkExUnit_packages;
+
+	// パッケージ情報に パッケージ名 が存在しなかった場合はnullを返す
 	if ( ! isset( $vkExUnit_packages[ $package_name ] ) ) { return null; }
+
+	// 共通設定（有効化情報）を読み込む
 	$options = vkExUnit_get_common_options();
-	if ( ! isset( $options[ 'active_'.$package_name ] ) ) { return $vkExUnit_packages[ $package_name ]['default']; }
+
+	// 保存されている共通設定データにパッケージ名が存在しない場合
+	if ( ! isset( $options[ 'active_'.$package_name ] ) ) { 
+		// 初期情報のデータを返す
+		return $vkExUnit_packages[ $package_name ]['default']; 
+	}
 	return $options[ 'active_'.$package_name ];
 }
 
