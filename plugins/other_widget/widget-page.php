@@ -102,7 +102,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	/*
 	ウィジェットのタイトルに関する情報を出力する関数
 	[ 返り値 ]
-	$widget_title['display'] : 表示するかどうか
+	$widget_title['display'] : 表示するかどうか // → 5.4.3以降は不要のはず。
 	$widget_title['title'] : ウィジェットのタイトルとして表示する文字
 	*/
 	static public function widget_title( $instance ){
@@ -144,7 +144,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$widget_title = $this->widget_title( $instance );
 
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget_pageContent">' . PHP_EOL;
-		if ( $widget_title['display'] ) {
+		if ( $widget_title['title'] ) {
 			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
 		}
 		echo apply_filters( 'the_content', $page->post_content );
