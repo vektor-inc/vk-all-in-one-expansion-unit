@@ -110,18 +110,39 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$pageid = $instance['page_id'];
 		$page = get_page( $pageid );
 
-		if ( $instance['set_title'] != 'title-hidden' ){
-			// 非表示じゃない項目が選択されてた場合は true
+		// Set display
+		/*-------------------------------------------*/
+		// 5.3以前のユーザーで、タイトル表示にチェックしていなかった場合
+		if ( $instance['set_title'] == null ){
+			$widget_title['display'] = false;
+
+		// 5.3以前のユーザーで、タイトル表示にチェックがはいっていた場合
+		} else if ( $instance['set_title'] === true ){
 			$widget_title['display'] = true;
-			if ( $instance['set_title'] == 'title-widget' && empty( $instance['title'] ) ){
-				// ウィジェットのタイトルが選択されているが、タイトルが入力されていない場合は false
+
+		} else if ( $instance['set_title'] == 'title-hidden' ){
+			$widget_title['display'] = false;
+
+		// ウィジェットのタイトルが選択されている場合は
+		} else if ( $instance['set_title'] == 'title-widget' ){
+
+			// ウィジェットタイトルが未入力の場合
+			if ( empty( $instance['title'] ) ){
 				$widget_title['display'] = false;
+			} else {
+				$widget_title['display'] = true;
 			}
-		} else { // $instance['set_title'] == 'title-hidden'
-			// タイトルを表示しないが選択されている場合
+
+		// 固定ページのタイトルが選択されている場合は
+		} else if ( $instance['set_title'] == 'title-page' ){
+			$widget_title['display'] = true;
+
+		} else {
 			$widget_title['display'] = false;
 		}
 
+		// Set title 
+		/*-------------------------------------------*/
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
 		if ( $instance['set_title'] == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
 			$widget_title['title'] = $instance['title'];
@@ -130,7 +151,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		} else if ( ( $instance['set_title'] === true ) || ( $instance['set_title'] == 'title-page' ) ){
 			$widget_title['title'] = $page->post_title;
 		} else {
-			$widget_title['title'] = '';
+			$widget_title['title'] = null;
 		}
 		return $widget_title;
 	}
@@ -144,7 +165,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$widget_title = $this->widget_title( $instance );
 
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget_pageContent">' . PHP_EOL;
-		if ( $widget_title['title'] ) {
+		if ( $widget_title['display'] ) {
 			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
 		}
 		echo apply_filters( 'the_content', $page->post_content );
