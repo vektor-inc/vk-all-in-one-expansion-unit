@@ -335,6 +335,8 @@ if ( $target_blank == "window_self") {
 	{
 		if ( ! $id ) { return ''; }
 		$post = self::get_cta_post( $id );
+
+		// たぶん何か必ず $post にはデータが返ってくるので事実上不要
 		if ( ! $post ) { return ''; }
 
 		include vkExUnit_get_directory() . '/plugins/call_to_action/view.actionbox.php';
@@ -367,7 +369,7 @@ if ( $target_blank == "window_self") {
 
 		// 「共通設定を使用」じゃなかった場合
 		if ( $post_config ) {
-			
+
 			// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
 			if ( $post_config == 'disable' ) { return null; }
 
@@ -388,9 +390,9 @@ if ( $target_blank == "window_self") {
 
 		// 今表示している記事の投稿タイプのとき どのCTAを表示するかの設定が
 		// 定義されており なおかつ 数字で入っている場合
-		if ( 
-			isset( $option[ $post_type ] ) && 
-			is_numeric( $option[ $post_type ] ) 
+		if (
+			isset( $option[ $post_type ] ) &&
+			is_numeric( $option[ $post_type ] )
 			// $option[ $post_type ] > 0
 			) {
 			// その数字（表示するCTAの投稿ID）を返す
