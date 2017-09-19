@@ -38,13 +38,13 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			<?php //タイトル ?>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
-	    <br />
+	    	<br />
 			<br />
 
 			<?php /* タイトルの表示形式の選択 */ ?>
 
 			<label>
-				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' );  ?>" value="title-widget" <?php $this->echo_checked( $instance['set_title'] , "title-widget");?> />
+				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-widget" <?php $this->echo_checked( $instance['set_title'] , "title-widget");?> />
 				<?php _e( 'Display the entered title', 'vkExUnit' ); ?></label><br/>
 
 			<label>
@@ -52,7 +52,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 				<?php _e( 'Display the title of page', 'vkExUnit' ); ?></label><br/>
 
 			<label>
-				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' );  ?>" value="title-hidden" <?php $this->echo_checked( $instance['set_title'] , "title-hidden");?> />
+				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-hidden" <?php $this->echo_checked( $instance['set_title'] , "title-hidden");?> />
 				<?php _e( 'Do not display titles', 'vkExUnit' ); ?></label><br/>
         <br/>
 
