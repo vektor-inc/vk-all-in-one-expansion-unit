@@ -149,12 +149,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 				echo '</h1>';
 
+				$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' target="_blank" ':'';
+
 				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) && $instance['media_3pr_image_'.$i]) { 
 
 					// media_pr は現在不使用 近日削除
 					echo '<div class="media_pr veu_3prArea_image">';
-
-					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' target="_blank" ':'';
 
 					if ( ! empty( $instance['linkurl_'.$i] ) ) {
 						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link"'.$blank.'>';
