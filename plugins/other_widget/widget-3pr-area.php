@@ -182,7 +182,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 					
 				}
 				if ( ! empty( $instance['linkurl_'.$i] ) ) {
-					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm"'.$blank.'>'.__( 'Read more', 'vkExUnit' ).'</a></p>';
+					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm"'.$blank.'>'.apply_filters( 'vkExUnit_widget_3pr_read_more_txt', __( 'Read more', 'vkExUnit' ) ).'</a></p>';
 				}
 
 				echo '</div>';
