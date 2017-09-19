@@ -26,6 +26,9 @@ class Widget_CTA extends \WP_Widget
     {
         if ( isset( $instance['id'] ) && $instance['id'] ) {
             echo $args['before_widget'];
+            if ( $instance['id'] == 'random' ){
+              $instance['id'] = CTA::cta_id_random();
+            }
             echo CTA::render_cta_content($instance['id']);
             echo $args['before_widget'];
         }
@@ -33,9 +36,14 @@ class Widget_CTA extends \WP_Widget
     }
 
 
-    function update( $new_instance, $old_instance )
-    {
-        return array( 'id' => (CTA::POST_TYPE == get_post_type( $new_instance['id']))? $new_instance['id'] : Null);
+    function update( $new_instance, $old_instance ) {
+      $cta_wid = array();
+      if ( $new_instance['id'] == 'random' ){
+        $cta_wid['id'] = 'random';
+      } else {
+        $cta_wid['id'] = ( CTA::POST_TYPE == get_post_type( $new_instance['id'] ) ) ? $new_instance['id'] : Null;
+      }
+      return $cta_wid;
     }
 
 
@@ -52,6 +60,11 @@ class Widget_CTA extends \WP_Widget
     <?php _e( 'Please select CTA to display.', 'vkExUnit' );?>
 </div>
 <div style="padding-bottom: 0.5em;">
+<?php
+  // ランダムを先頭に追加
+  array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', 'vkExUnit' ) ) );
+?>
+<input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
 <select name="<?php echo $this->get_field_name( 'id' ); ?>" style="width: 100%" >
 <option value="">[ <?php _e('Please select', 'vkExUnit' ) ?> ]</option>
 <?php foreach ( $ctas as $cta ) : ?>
@@ -67,4 +80,3 @@ class Widget_CTA extends \WP_Widget
         return $instance;
     }
 }
-
