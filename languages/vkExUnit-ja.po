@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-07 17:15+0900\n"
+"POT-Creation-Date: 2017-09-21 12:15+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -464,12 +464,13 @@ msgid "CTA Contents"
 msgstr "CTA Contents"
 
 #: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:483
+#: plugins/call_to_action/class.call_to_action.php:508
+#: plugins/call_to_action/widget.call_to_action.php:65
 msgid "Random"
 msgstr "ランダム表示"
 
 #: plugins/call_to_action/class.call_to_action.php:91
-#: plugins/call_to_action/class.call_to_action.php:485
+#: plugins/call_to_action/class.call_to_action.php:510
 msgid "Disable display"
 msgstr "表示しない"
 
@@ -483,7 +484,7 @@ msgstr "CTA共通設定"
 
 #: plugins/call_to_action/class.call_to_action.php:104
 #: plugins/call_to_action/view.adminsetting.php:22
-#: plugins/call_to_action/widget.call_to_action.php:63
+#: plugins/call_to_action/widget.call_to_action.php:76
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
@@ -565,7 +566,7 @@ msgid "Text message"
 msgstr "テキストメッセージ"
 
 #: plugins/call_to_action/class.call_to_action.php:229
-#: plugins/call_to_action/widget.call_to_action.php:64
+#: plugins/call_to_action/widget.call_to_action.php:77
 msgid "CTA setting"
 msgstr "CTA設定"
 
@@ -604,11 +605,11 @@ msgstr "CTAの新規作成"
 msgid "Select CTA and display it."
 msgstr "CTAを選択して表示します。"
 
-#: plugins/call_to_action/widget.call_to_action.php:52
+#: plugins/call_to_action/widget.call_to_action.php:60
 msgid "Please select CTA to display."
 msgstr "表示するCTAを選択してください。"
 
-#: plugins/call_to_action/widget.call_to_action.php:56
+#: plugins/call_to_action/widget.call_to_action.php:69
 msgid "Please select"
 msgstr "選択してください"
 
@@ -1008,7 +1009,7 @@ msgid "3PR area setting"
 msgstr "3PR エリア設定"
 
 #: plugins/other_widget/widget-3pr-area.php:58
-#: plugins/other_widget/widget-new-posts.php:194
+#: plugins/other_widget/widget-new-posts.php:204
 #: plugins/other_widget/widget-page.php:39
 #: plugins/other_widget/widget-pr-blocks.php:89
 #: plugins/other_widget/widget-profile.php:47
@@ -1062,8 +1063,8 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: plugins/other_widget/widget-archives.php:63
-#: plugins/other_widget/widget-new-posts.php:199
-#: plugins/other_widget/widget-new-posts.php:200
+#: plugins/other_widget/widget-new-posts.php:209
+#: plugins/other_widget/widget-new-posts.php:210
 msgid "Title"
 msgstr "タイトル"
 
@@ -1183,8 +1184,7 @@ msgid "Display the child pages list from ancestor page."
 msgstr "表示しているページの先祖階層からの子ページリストを表示します。"
 
 #: plugins/other_widget/widget-new-posts.php:11
-#: plugins/other_widget/widget-new-posts.php:31
-#: plugins/other_widget/widget-new-posts.php:171
+#: plugins/other_widget/widget-new-posts.php:181
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1192,65 +1192,65 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: plugins/other_widget/widget-new-posts.php:198
+#: plugins/other_widget/widget-new-posts.php:208
 msgid "Display Format"
 msgstr "表示形式"
 
-#: plugins/other_widget/widget-new-posts.php:199
+#: plugins/other_widget/widget-new-posts.php:209
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: plugins/other_widget/widget-new-posts.php:199
-#: plugins/other_widget/widget-new-posts.php:200
+#: plugins/other_widget/widget-new-posts.php:209
+#: plugins/other_widget/widget-new-posts.php:210
 msgid "Date"
 msgstr "日付"
 
-#: plugins/other_widget/widget-new-posts.php:200
+#: plugins/other_widget/widget-new-posts.php:210
 #: plugins/other_widget/widget-taxonomies.php:24
 #: plugins/other_widget/widget-taxonomies.php:54
 #: plugins/other_widget/widget-taxonomies.php:55
 msgid "Category"
 msgstr "カテゴリー"
 
-#: plugins/other_widget/widget-new-posts.php:203
+#: plugins/other_widget/widget-new-posts.php:213
 msgid "Order by"
 msgstr "表示順"
 
-#: plugins/other_widget/widget-new-posts.php:204
+#: plugins/other_widget/widget-new-posts.php:214
 msgid "Publish date"
 msgstr "公開日"
 
-#: plugins/other_widget/widget-new-posts.php:205
+#: plugins/other_widget/widget-new-posts.php:215
 msgid "Modified date"
 msgstr "最終更新日"
 
-#: plugins/other_widget/widget-new-posts.php:209
+#: plugins/other_widget/widget-new-posts.php:219
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: plugins/other_widget/widget-new-posts.php:214
+#: plugins/other_widget/widget-new-posts.php:224
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: plugins/other_widget/widget-new-posts.php:219
+#: plugins/other_widget/widget-new-posts.php:229
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: plugins/other_widget/widget-new-posts.php:221
+#: plugins/other_widget/widget-new-posts.php:231
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: plugins/other_widget/widget-new-posts.php:223 plugins/sns/sns_admin.php:88
+#: plugins/other_widget/widget-new-posts.php:233 plugins/sns/sns_admin.php:88
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
 
-#: plugins/other_widget/widget-new-posts.php:228
+#: plugins/other_widget/widget-new-posts.php:238
 msgid "Destination URL:"
-msgstr "リンク先URL"
+msgstr "リンク先URL:"
 
-#: plugins/other_widget/widget-new-posts.php:231
+#: plugins/other_widget/widget-new-posts.php:241
 msgid "Notation text:"
 msgstr "表記テキスト:"
 
@@ -1279,7 +1279,7 @@ msgstr "タイトルを表示しない"
 msgid "Display page"
 msgstr "ページを表示"
 
-#: plugins/other_widget/widget-page.php:154
+#: plugins/other_widget/widget-page.php:175
 msgid "Edit"
 msgstr "編集"
 
