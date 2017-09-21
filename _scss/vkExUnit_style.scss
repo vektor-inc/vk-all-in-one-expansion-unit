@@ -169,8 +169,11 @@ iframe.wp-embedded-content { width:100%; }
 .veu_count_sns_hb { position: absolute; bottom: 5px; right: 5px; font-size:77%; line-height:1;font-weight: bold; }
 
 @media (max-width: 767px){
-.veu_socialSet ul { flex-wrap:wrap; }
-.veu_socialSet ul li { width: 48%; margin-bottom: 9px;
+/*
+.veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
+*/
+.veu_socialSet.veu_contentAddSection ul { flex-wrap:wrap; }
+.veu_socialSet.veu_contentAddSection ul li { width: 48%; margin-bottom: 9px;
 	&:nth-child(even) { margin-right:0; }
 	&.sb_icon a { padding: 8px 10px; }
 }

@@ -262,39 +262,6 @@ function admin_scripts_pr_media() {
 	wp_enqueue_script( 'media-pr-blocks' );
 }
 
-// color picker js
-add_action( 'admin_enqueue_scripts', 'admin_scripts_pr_color' );
-function admin_scripts_pr_color() {
-	wp_enqueue_style( 'wp-color-picker' );
-	wp_enqueue_script( 'wp-color-picker' );
-}
-
-add_action( 'admin_footer-widgets.php', 'print_scripts_pr_color' );
-function print_scripts_pr_color() {
-	?>
-<script type="text/javascript">
-(function($){
-    function initColorPicker(widget) {
-        widget.find( '.color_picker' ).wpColorPicker( {
-            change: _.throttle( function() {
-                $(this).trigger('change');
-            }, 3000 )
-        });
-    }
-
-    function onFormUpdate(event, widget) {
-        initColorPicker(widget);
-    }
-    $(document).on('widget-added widget-updated', onFormUpdate );
-    $(document).ready( function() {
-        $('#widgets-right .widget:has(.color_picker)').each( function () {
-            initColorPicker( $(this) );
-        });
-    });
-}(jQuery));
-</script>
-<?php }
-
 // PR blocks admin CSS
 add_action( 'admin_print_styles-widgets.php', 'style_prBlocks' );
 function style_prBlocks() {

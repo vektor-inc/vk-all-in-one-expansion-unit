@@ -40,13 +40,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		echo $args['before_widget'];
 		echo '<div class="veu_postList pt_'.$instance['format'].'">';
-		echo $args['before_title'];
-		if ( isset( $instance['label'] ) && $instance['label'] ) {
+		if ( ! empty ( $instance['label'] ) ) {
+			echo $args['before_title'];
 			echo $instance['label'];
-		} else {
-			_e( 'Recent Posts', 'vkExUnit' );
+			echo $args['after_title'];
 		}
-		echo $args['after_title'];
 
 		$count       = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
 		$post_type   = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
