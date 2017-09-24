@@ -66,7 +66,5 @@ class WidgetProfileTest extends WP_UnitTestCase {
 			print 'icon_css_correct  :'.$test_value['correct_icon_css'].PHP_EOL;
 			print 'icon_css          :'.$icon_css.PHP_EOL;
 		}
-
-		$this->assertTrue( true );
 	}
 }

@@ -70,6 +70,18 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 		    //CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）
 		    wp_nonce_field( wp_create_nonce(__FILE__), 'noncename__post_type_manager' ); 
 
+		    ?>
+		    <style type="text/css">
+		    table.table { border-collapse: collapse; border-spacing: 0;width:100%; }
+		    table.table th,
+		    table.table td{ padding:0.5em 0.8em; }
+		    table.table th { background-color: #f5f5f5; }
+		    table.table-border,
+		    table.table-border th,
+		    table.table-border td { border:1px solid #e5e5e5; }
+		    </style>
+		    <?php
+
 		    // Post Type ID
             echo '<h4>'.__('Post Type ID(Required)', $vk_post_type_manager_textdomain).'</h4>';
             echo '<p>'.__( '20 characters or less in alphanumeric',$vk_post_type_manager_textdomain).'</p>';
@@ -108,30 +120,33 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			// Custom taxonomies
 			echo '<h4>'.__('Custom taxonomies(optional)', $vk_post_type_manager_textdomain).'</h4>';
 			$taxonomies = array( 'taxonomy_id', 'taxonomy_lavel');
-			echo '<table>';
-			echo '<tr>';
-			echo '<th></th>';
-			echo '<th>'.__('Custon taxonomy name(slug)', $vk_post_type_manager_textdomain ).'</th>';
-			echo '<th>'.__('Custon taxonomy label', $vk_post_type_manager_textdomain ).'</th>';
-			echo '</tr>';
-			// foreach ($variable as $key => $value) {
-			// 	# code...
-			// }
+			echo '<table class="table table-border">';
+
 			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
 			for ($i=1; $i <= 3; $i++) { 
-				echo '<tr>';
+				// echo '<tr>';
 				$slug = ( isset( $taxonomy[$i]['slug'] ) ) ? $taxonomy[$i]['slug'] : '';
 				$label = ( isset( $taxonomy[$i]['label'] ) ) ? $taxonomy[$i]['label'] : '';
-				echo '<td>'.$i.'</td>';
-				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="30"></td>';
-				echo '<td><input type="text" id="veu_taxonomy['.$i.'][label]" name="veu_taxonomy['.$i.'][label]" value="'.esc_attr($label).'" size="30"></td>';
-				
+				$tag = ( isset( $taxonomy[$i]['tag'] ) ) ? $taxonomy[$i]['tag'] : '';
+
+				echo '<tr>';
+				echo '<th rowspan="3">'.$i.'</th>';
+				echo '<td>'.__('Custon taxonomy name(slug)', $vk_post_type_manager_textdomain ).'</td>';
+				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="20"></td>';
+
+				echo '<tr>';
+				echo '<td>'.__('Custon taxonomy label', $vk_post_type_manager_textdomain ).'</td>';
+				echo '<td><input type="text" id="veu_taxonomy['.$i.'][label]" name="veu_taxonomy['.$i.'][label]" value="'.esc_attr($label).'" size="20"></td>';
+				echo '</tr>';
+
+				$checked = ( isset( $taxonomy[$i]['tag'] ) && $taxonomy[$i]['tag'] ) ? ' checked':'';
+
+				echo '<td>'.__('Hierarchy', $vk_post_type_manager_textdomain ).'</td>';
+				echo '<td><label><input type="checkbox" id="veu_taxonomy['.$i.'][tag]" name="veu_taxonomy['.$i.'][tag]" value="true"'.$checked.'> '.__('Make it a tag (do not hierarchize)',  $vk_post_type_manager_textdomain).'</label></td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 
-
-			echo '<hr>';
 
 			$taxonomy = array( 
 				array ( 'category' => 'カテゴリー' ),
@@ -245,11 +260,13 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 						foreach ($veu_taxonomies as $key => $taxonomy) {
 							// print '<pre style="text-align:left">';print_r($taxonomy);print '</pre>';
 							if ( $taxonomy['slug'] && $taxonomy['label']){
+
+								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 								register_taxonomy(
 										$taxonomy['slug'], 
 										$post_type_id,
 										array(
-											'hierarchical' => true,
+											'hierarchical' => $hierarchical_true,
 											'update_count_callback' => '_update_post_term_count',
 											'label' => $taxonomy['label'],
 											'singular_label' => $taxonomy['label'],
