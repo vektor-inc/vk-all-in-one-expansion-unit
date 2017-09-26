@@ -50,7 +50,7 @@ function vkExUnit_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_control( 'snsBtn_bg_fill_not', array(
-		'label'		=> __( 'Do not fill background color.', 'vkExUnit' ),
+		'label'		=> __( 'No background', 'vkExUnit' ),
 		'section'	=> 'ex_unit_sns_setting',
 		'settings'  => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
 		'type'		=> 'checkbox',
