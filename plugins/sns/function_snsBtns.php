@@ -44,6 +44,7 @@ function vkExUnit_add_snsBtns( $content ) {
 
 	$options = vkExUnit_get_sns_options();
 
+
 	$linkUrl = get_permalink();
 
 	$pageTitle = '';
@@ -55,6 +56,7 @@ function vkExUnit_add_snsBtns( $content ) {
 	}
 
 	if ( vkExUnit_is_snsBtns_display() ) {
+		print '<pre style="text-align:left">';print_r($options);print '</pre>';
 		$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook
 		if ($options['useFacebook'])

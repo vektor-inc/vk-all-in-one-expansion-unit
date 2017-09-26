@@ -42,8 +42,8 @@ function vkExUnit_get_sns_options_default() {
 		'enableSnsBtns' 		=> true,
 		'snsBtn_exclude_post_types' => array( 'post' => '', 'page' => '' ),
 		'snsBtn_ignorePosts'     => '',
-		'snsBtn_bg_fill'     => false,
-		'snsBtn_bg_color'     => "#ffffff",
+		'snsBtn_bg_fill_not'     => false,
+		'snsBtn_color'       => false,
 		'enableFollowMe' 		=> true,
 		'followMe_title'		=> 'Follow me!',
 		'useFacebook'           => true,
@@ -71,6 +71,8 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['enableTwitterCardTags']  	= ( isset( $input['enableTwitterCardTags'] ) && isset( $input['enableTwitterCardTags'] ) == 'true' )? true: false;
 	$output['enableSnsBtns']   			= ( isset( $input['enableSnsBtns'] ) && isset( $input['enableSnsBtns'] ) == 'true' )? true: false;
 	$output['snsBtn_exclude_post_types'] = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
+	$output['snsBtn_bg_fill_not']  			= ( isset( $input['snsBtn_bg_fill_not'] ) && isset( $input['snsBtn_bg_fill_not'] ) == 'true' )? true: false;
+	$output['snsBtn_color']  			= ( isset( $input['snsBtn_color'] ) && isset( $input['snsBtn_color'] ) )? 	sanitize_hex_color( $input['snsBtn_color'] ): false;
 	$output['enableFollowMe']  			= ( isset( $input['enableFollowMe'] ) && isset( $input['enableFollowMe'] ) == 'true' )? true: false;
 	$output['followMe_title']			= $input['followMe_title'];
 	$output['useFacebook']              = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );

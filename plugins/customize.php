@@ -41,29 +41,46 @@ function vkExUnit_customize_register( $wp_customize ) {
 		'panel'				=> 'ex_unit_setting',
 	) );
 
-	$wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_bg_fill]', array(
+  // Bin bg fill
+	$wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
 		'default'			=> false,
-		'capability'		=> 'edit_theme_options',
-		'sanitize_callback' => 'vkExUnit_sanitize_boolean',
-	) );
-	$wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_bg_fill]', array(
-		'default'			=> false,
+    'type'				=> 'option', // 保存先 option or theme_mod
 		'capability'		=> 'edit_theme_options',
 		'sanitize_callback' => 'vkExUnit_sanitize_boolean',
 	) );
 
-	$wp_customize->add_control( 'vkExUnit_sns_options_snsBtn_bg_fill', array(
-		'label'		=> _x( '背景を塗りつぶさない' ,'lightning theme-customizer', 'vkExUnit' ),
+	$wp_customize->add_control( 'snsBtn_bg_fill_not', array(
+		'label'		=> __( 'Do not fill background color.', 'vkExUnit' ),
 		'section'	=> 'ex_unit_sns_setting',
-		'settings'  => 'vkExUnit_sns_options[snsBtn_bg_fill]',
+		'settings'  => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
 		'type'		=> 'checkbox',
 		'priority'	=> 1,
-	));
-  $wp_customize->get_setting( 'vkExUnit_sns_options[snsBtn_bg_fill]' )->transport        = 'postMessage';
-  $wp_customize->selective_refresh->add_partial( 'vkExUnit_sns_options[snsBtn_bg_fill]', array(
+	) );
+
+  // Btn color
+  $wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_color]', array(
+		'default'			=> false,
+    'type'				=> 'option', // 保存先 option or theme_mod
+		'capability'		=> 'edit_theme_options',
+		'sanitize_callback' => 'sanitize_hex_color',
+	) );
+
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'snsBtn_color', array(
+    'label'    => __('Btn color', 'vkExUnit'),
+    'section'  => 'ex_unit_sns_setting',
+    'settings' => 'vkExUnit_sns_options[snsBtn_color]',
+    'priority' => 2,
+  )));
+
+  // $wp_customize->get_setting( 'vkExUnit_sns_options[snsBtn_bg_fill_not]' )->transport        = 'postMessage';
+
+  /*-------------------------------------------*/
+	/*	Add Edit Customize Link Btn
+	/*-------------------------------------------*/
+  $wp_customize->selective_refresh->add_partial( 'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
     'selector' => '.veu_socialSet',
     'render_callback' => '',
-) );
+  ) );
 	// if( apply_filters( 'lightning_show_default_keycolor_customizer', true ) ){
 	// 	$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, 'color_key', array(
 	// 		'label'    => _x('Key color', 'lightning theme-customizer', 'lightning'),
