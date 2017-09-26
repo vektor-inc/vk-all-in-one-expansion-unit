@@ -46,6 +46,11 @@ function vkExUnit_customize_register( $wp_customize ) {
 		'capability'		=> 'edit_theme_options',
 		'sanitize_callback' => 'vkExUnit_sanitize_boolean',
 	) );
+	$wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_bg_fill]', array(
+		'default'			=> false,
+		'capability'		=> 'edit_theme_options',
+		'sanitize_callback' => 'vkExUnit_sanitize_boolean',
+	) );
 
 	$wp_customize->add_control( 'vkExUnit_sns_options_snsBtn_bg_fill', array(
 		'label'		=> _x( '背景を塗りつぶさない' ,'lightning theme-customizer', 'vkExUnit' ),
@@ -54,6 +59,11 @@ function vkExUnit_customize_register( $wp_customize ) {
 		'type'		=> 'checkbox',
 		'priority'	=> 1,
 	));
+  $wp_customize->get_setting( 'vkExUnit_sns_options[snsBtn_bg_fill]' )->transport        = 'postMessage';
+  $wp_customize->selective_refresh->add_partial( 'vkExUnit_sns_options[snsBtn_bg_fill]', array(
+    'selector' => '.veu_socialSet',
+    'render_callback' => '',
+) );
 	// if( apply_filters( 'lightning_show_default_keycolor_customizer', true ) ){
 	// 	$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, 'color_key', array(
 	// 		'label'    => _x('Key color', 'lightning theme-customizer', 'lightning'),
