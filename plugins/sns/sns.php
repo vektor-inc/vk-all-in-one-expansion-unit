@@ -46,6 +46,11 @@ function vkExUnit_get_sns_options_default() {
 		'snsBtn_bg_color'     => "#ffffff",
 		'enableFollowMe' 		=> true,
 		'followMe_title'		=> 'Follow me!',
+		'useFacebook'           => true,
+		'useTwitter'            => true,
+		'useHatena'             => true,
+		'usePocket'             => true,
+		'useLine'               => true,
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -68,6 +73,11 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['snsBtn_exclude_post_types'] = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
 	$output['enableFollowMe']  			= ( isset( $input['enableFollowMe'] ) && isset( $input['enableFollowMe'] ) == 'true' )? true: false;
 	$output['followMe_title']			= $input['followMe_title'];
+	$output['useFacebook']              = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
+	$output['useTwitter']               = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
+	$output['useHatena']                = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
+	$output['usePocket']                = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
+	$output['useLine']                  = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }
