@@ -42,6 +42,8 @@ function vkExUnit_get_sns_options_default() {
 		'enableSnsBtns' 		=> true,
 		'snsBtn_exclude_post_types' => array( 'post' => '', 'page' => '' ),
 		'snsBtn_ignorePosts'     => '',
+		'snsBtn_bg_fill'     => false,
+		'snsBtn_bg_color'     => "#ffffff",
 		'enableFollowMe' 		=> true,
 		'followMe_title'		=> 'Follow me!',
 	);
