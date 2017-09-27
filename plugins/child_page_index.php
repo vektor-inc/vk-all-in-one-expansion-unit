@@ -73,13 +73,13 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 }
 
 
-add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_childPageIndex_activate_meta_box', 10, 1 );
+add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_activate_meta_box', 10, 1 );
 function vkExUnit_childPageIndex_activate_meta_box( $flag ) {
 	return true;
 }
 
 
-add_action( 'vkExUnit_customField_Page_box', 'vkExUnit_childPageIndex_meta_box' );
+add_action( 'veu_content_meta_box_content', 'vkExUnit_childPageIndex_meta_box' );
 function vkExUnit_childPageIndex_meta_box() {
 	global $post;
 	// childPageIndex display
