@@ -40,7 +40,7 @@ function vkExUnit_is_snsBtns_display(){
 /*  SNSアイコンに出力するCSSを出力する関数
 /*-------------------------------------------*/
 
-function outer_css( $options )
+function vkExUnit_sns_outer_css( $options )
 {
 	// snsBtn_bg_fill_not が定義されている場合
 	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
@@ -114,7 +114,7 @@ function vkExUnit_add_snsBtns( $content ) {
 	if ( is_archive() ) { return $content; }
 
 	$options = vkExUnit_get_sns_options();
-	$outer_css = outer_css( $options );
+	$outer_css = vkExUnit_sns_outer_css( $options );
 	$icon_css = icon_css( $options );
 
 	$linkUrl = get_permalink();
