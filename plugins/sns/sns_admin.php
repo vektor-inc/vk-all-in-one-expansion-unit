@@ -1,6 +1,6 @@
 <h3><?php echo __( 'SNS Settings' );?></h3>
 <?php
-	$options = vkExUnit_get_sns_options();
+	$options = veu_get_sns_options();
 /*-------------------------------------------*/
 /*  SNS
 /*-------------------------------------------*/

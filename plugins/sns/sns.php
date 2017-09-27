@@ -12,9 +12,9 @@
 /*-------------------------------------------*/
 
 
-function vkExUnit_sns_options_init() {
-	if ( false === vkExUnit_get_sns_options() ) {
-		add_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() ); }
+function veu_sns_options_init() {
+	if ( false === veu_get_sns_options() ) {
+		add_option( 'vkExUnit_sns_options', veu_get_sns_options_default() ); }
 	vkExUnit_register_setting(
 		__( 'SNS', 'vkExUnit' ), 	// tab label.
 		'vkExUnit_sns_options',			// name attr
@@ -22,18 +22,18 @@ function vkExUnit_sns_options_init() {
 		'vkExUnit_add_sns_options_page'  // setting_page function name
 	);
 }
-add_action( 'vkExUnit_package_init', 'vkExUnit_sns_options_init' );
+add_action( 'vkExUnit_package_init', 'veu_sns_options_init' );
 
-function vkExUnit_get_sns_options() {
-	$options			= get_option( 'vkExUnit_sns_options', vkExUnit_get_sns_options_default() );
-	$options_dafault	= vkExUnit_get_sns_options_default();
+function veu_get_sns_options() {
+	$options			= get_option( 'vkExUnit_sns_options', veu_get_sns_options_default() );
+	$options_dafault	= veu_get_sns_options_default();
 	foreach ( $options_dafault as $key => $value ) {
 		$options[ $key ] = (isset( $options[ $key ] )) ? $options[ $key ] : $options_dafault[ $key ];
 	}
 	return apply_filters( 'vkExUnit_sns_options', $options );
 }
 
-function vkExUnit_get_sns_options_default() {
+function veu_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId' 				=> '',
 		'fbPageUrl' 			=> '',
@@ -62,7 +62,7 @@ function vkExUnit_get_sns_options_default() {
 /*-------------------------------------------*/
 
 function vkExUnit_sns_options_validate( $input ) {
-	$output = $defaults = vkExUnit_get_sns_options_default();
+	$output = $defaults = veu_get_sns_options_default();
 
 	$output['fbAppId']					= $input['fbAppId'];
 	$output['fbPageUrl']				= $input['fbPageUrl'];
@@ -92,7 +92,7 @@ function vkExUnit_sns_options_validate( $input ) {
 add_action( 'wp_head', 'vkExUnit_set_sns_options',1 );
 function vkExUnit_set_sns_options() {
 	global $vkExUnit_sns_options;
-	$vkExUnit_sns_options = vkExUnit_get_sns_options();
+	$vkExUnit_sns_options = veu_get_sns_options();
 }
 
 /*-------------------------------------------*/
@@ -103,7 +103,7 @@ function exUnit_print_fbId_script() {
 ?>
 <div id="fb-root"></div>
 <?php
-$options = vkExUnit_get_sns_options();
+$options = veu_get_sns_options();
 $fbAppId = (isset( $options['fbAppId'] )) ? $options['fbAppId'] : '';
 ?>
 <script>(function(d, s, id) {
@@ -116,7 +116,7 @@ $fbAppId = (isset( $options['fbAppId'] )) ? $options['fbAppId'] : '';
 	<?php //endif;
 }
 
-$vkExUnit_sns_options = vkExUnit_get_sns_options();
+$vkExUnit_sns_options = veu_get_sns_options();
 
 require vkExUnit_get_directory() . '/plugins/sns/function_fbPagePlugin.php';
 

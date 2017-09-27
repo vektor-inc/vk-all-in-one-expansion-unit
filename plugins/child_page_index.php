@@ -50,7 +50,7 @@ function vkExUnit_childPageIndex_shortcode() {
 }
 
 
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1 );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1 );
 else add_action( 'loop_end', 'vkExUnit_chidPageIndex_loopend', 10, 1 );
 
 

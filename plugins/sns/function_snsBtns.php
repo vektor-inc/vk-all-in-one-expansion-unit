@@ -1,24 +1,23 @@
 <?php
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_add_snsBtns', 200, 1 );
-else add_action( 'loop_end', 'vkExUnit_add_snsBtns_loopend' );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
+else add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
 
 
-function vkExUnit_add_snsBtns_loopend( $query ){
+function veu_add_sns_btns_loopend( $query ){
 	if( ! $query->is_main_query() ) return;
 	if( is_front_page() || is_home() ) return;
-	echo vkExUnit_add_snsBtns('');
+	echo veu_add_sns_btns('');
 }
 
-function vkExUnit_sns_set_location_option( $opt ){
-	if(!vkExUnit_is_snsBtns_display())return $opt;
-	$opt['sns_linkurl'] = vkExUnit_sns_get_url();
-	return $opt;
-}
+// function veu_sns_set_location_option( $opt ){
+// 	if( ! veu_is_sns_btns_display() ) return $opt;
+// 	$opt['sns_linkurl'] = veu_sns_get_url();
+// 	return $opt;
+// }
 
-
-function vkExUnit_is_snsBtns_display(){
+function veu_is_sns_btns_display(){
 	global $post;
-	$options = vkExUnit_get_sns_options();
+	$options = veu_get_sns_options();
 	$ignorePosts = explode(",", $options['snsBtn_ignorePosts']);
 	$post_type = vkExUnit_get_post_type();
 	$post_type = $post_type['slug'];
@@ -40,7 +39,7 @@ function vkExUnit_is_snsBtns_display(){
 /*  SNSアイコンに出力するCSSを出力する関数
 /*-------------------------------------------*/
 
-function vkExUnit_sns_outer_css( $options )
+function veu_sns_outer_css( $options )
 {
 	// snsBtn_bg_fill_not が定義されている場合
 	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
@@ -76,7 +75,7 @@ function vkExUnit_sns_outer_css( $options )
 	return $outer_css;
 }
 
-function icon_css( $options )
+function veu_sns_icon_css( $options )
 {
 	// snsBtn_bg_fill_not が定義されている場合
 	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
@@ -108,14 +107,14 @@ function icon_css( $options )
 }
 
 
-function vkExUnit_add_snsBtns( $content ) {
+function veu_add_sns_btns( $content ) {
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
 	if ( is_archive() ) { return $content; }
 
-	$options = vkExUnit_get_sns_options();
-	$outer_css = vkExUnit_sns_outer_css( $options );
-	$icon_css = icon_css( $options );
+	$options = veu_get_sns_options();
+	$outer_css = veu_sns_outer_css( $options );
+	$icon_css = veu_sns_icon_css( $options );
 
 	$linkUrl = get_permalink();
 
@@ -127,7 +126,7 @@ function vkExUnit_add_snsBtns( $content ) {
 		$pageTitle = urlencode( strip_tags( wp_title( '', false ) ) );
 	}
 
-	if ( vkExUnit_is_snsBtns_display() ) {
+	if ( veu_is_sns_btns_display() ) {
 		$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook
 		if ($options['useFacebook'])
@@ -159,9 +158,9 @@ function vkExUnit_add_snsBtns( $content ) {
 	return $content;
 }
 
-add_action('wp_ajax_vkex_pocket_tunnel', 'vkExUnit_sns_pocket_tunnel');
-add_action('wp_ajax_nopriv_vkex_pocket_tunnel', 'vkExUnit_sns_pocket_tunnel');
-function vkExUnit_sns_pocket_tunnel(){
+add_action('wp_ajax_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel');
+add_action('wp_ajax_nopriv_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel');
+function veu_sns_pocket_tunnel(){
 	ini_set( 'display_errors', 0 );
 	$linkurl = urldecode( filter_input( INPUT_POST, "linkurl" ) );
 	if( $s["host"] != $p["host"] ){ echo "0"; die(); }

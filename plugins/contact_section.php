@@ -35,7 +35,7 @@ class vExUnit_Contact {
 		add_filter( 'vkExUnit_customField_Page_activation', array( $this, 'activate_metavox' ), 10, 1 );
 		add_action( 'vkExUnit_customField_Page_box', array( $this, 'render_meta_box' ) );
 
-		if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', array( $this, 'set_content' ), 10,1 );
+		if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', array( $this, 'set_content' ), 10,1 );
 		else add_action( 'loop_end', array( $this, 'set_content_loopend'), 10, 1);
 	}
 

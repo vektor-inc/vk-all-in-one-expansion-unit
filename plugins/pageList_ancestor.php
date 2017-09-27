@@ -5,7 +5,7 @@
 
 add_shortcode( 'pageList_ancestor', 'vkExUnit_pageList_ancestor_shortcode' );
 
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
 else add_action( 'loop_end', 'vkExUnit_pageList_ancestor_loopend', 10, 1 );
 
 
