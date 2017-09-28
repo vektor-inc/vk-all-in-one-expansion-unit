@@ -17,6 +17,7 @@ class Widget_CTA extends \WP_Widget
 
     function __construct()
     {
+        global $vk_call_to_action_textdomain;
         $widget_name = vkExUnit_get_short_name().'_'.__( 'CTA', $vk_call_to_action_textdomain );
 
         parent::__construct(
@@ -56,6 +57,7 @@ class Widget_CTA extends \WP_Widget
 
     function form( $instance )
     {
+        global $vk_call_to_action_textdomain;
         $defaults = array(
             'id'    => Null,
         );

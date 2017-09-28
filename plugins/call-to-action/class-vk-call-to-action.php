@@ -14,7 +14,6 @@ class Vk_Call_To_Action
 
 	const CONTENT_NUMBER = 100;
 
-
 	public static function init()
 	{
 		add_action( 'init',       array( __CLASS__, 'set_posttype' ) );
@@ -47,6 +46,7 @@ class Vk_Call_To_Action
 
 	public static function set_posttype()
 	{
+		global $vk_call_to_action_textdomain;
 		$labels = array(
 			'name'          => 'CTA',
 			'singular_name' => 'CTA',
@@ -346,7 +346,7 @@ if ( $target_blank == "window_self") {
 		// たぶん何か必ず $post にはデータが返ってくるので事実上不要
 		if ( ! $post ) { return ''; }
 
-		include vkExUnit_get_directory() . '/plugins/call_to_action/view-actionbox.php';
+		include dirname( __FILE__ ) . '/view-actionbox.php';
 		return $content;
 	}
 
@@ -518,6 +518,6 @@ if ( $target_blank == "window_self") {
 		// 表示しないを先頭に追加
 		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Disable display', $vk_call_to_action_textdomain ) ) );
 
-		include vkExUnit_get_directory() . '/plugins/call_to_action/view-adminsetting.php';
+		include dirname( __FILE__ ) . '/view-adminsetting.php';
 	}
 }

@@ -6,6 +6,8 @@ https://github.com/vektor-inc/vektor-wp-libraries
 にあります。修正の際は上記リポジトリのデータを修正してください。
 */
 
+global $vk_call_to_action_textdomain;
+
 $btn_text  = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
 $btn_before  = get_post_meta( $id, 'vkExUnit_cta_button_icon_before', true );
 if ( $btn_before ) {

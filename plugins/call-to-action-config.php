@@ -9,5 +9,4 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) )
 
 	global $vk_call_to_action_textdomain;
 	$vk_call_to_action_textdomain = 'vkExUnit';
-
 }

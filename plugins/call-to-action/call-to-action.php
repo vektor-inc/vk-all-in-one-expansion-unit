@@ -18,8 +18,8 @@ namespace Vektor\ExUnit\Package\Cta;
  * @since    3/Aug/2015
  */
 
-require_once vkExUnit_get_directory() . '/plugins/call-to-action/class-vk-call-to-action.php';
-require_once vkExUnit_get_directory() . '/plugins/call-to-action/widget-call-to-action.php';
+require_once dirname( __FILE__ ) . '/class-vk-call-to-action.php';
+require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
 
 Vk_Call_To_Action::init();
 
