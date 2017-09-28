@@ -5,7 +5,7 @@
 
 add_shortcode( 'pageList_ancestor', 'vkExUnit_pageList_ancestor_shortcode' );
 
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
 else add_action( 'loop_end', 'vkExUnit_pageList_ancestor_loopend', 10, 1 );
 
 
@@ -56,7 +56,7 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 	}
 	return $content;
 }
-add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_pageList_ancestor_activate_meta_box', 10, 1 );
+add_filter( 'veu_content_meta_box_activation', 'vkExUnit_pageList_ancestor_activate_meta_box', 10, 1 );
 function vkExUnit_pageList_ancestor_activate_meta_box( $flag ) {
 	return true;
 }
@@ -65,7 +65,7 @@ function vkExUnit_pageList_ancestor_activate_meta_box( $flag ) {
 
 // admin screen -------------------------------
 
-add_action( 'vkExUnit_customField_Page_box', 'vkExUnit_pageList_ancestor_meta_box' );
+add_action( 'veu_content_meta_box_content', 'vkExUnit_pageList_ancestor_meta_box' );
 add_action( 'save_post', 'vkExUnit_pageList_ancestor' );
 
 function vkExUnit_pageList_ancestor_meta_box() {

@@ -10,6 +10,8 @@
 /*-------------------------------------------*/
 /*  Archive title
 /*-------------------------------------------*/
+/*  Sanitize
+/*-------------------------------------------*/
 
 /*-------------------------------------------*/
 /*  basic setting
@@ -204,7 +206,7 @@ function vkExUnit_get_pageDescription() {
 			$postType = get_post_type();
 			if ( $postType ) {
 				$pageDescription = sprintf( _x( 'Article of %s.','Archive description', 'vkExUnit' ),esc_html( get_post_type_object( $postType )->label ) );
-				$pageDescription .= ' '.get_bloginfo( 'name' ).' '.get_bloginfo( 'description' );	
+				$pageDescription .= ' '.get_bloginfo( 'name' ).' '.get_bloginfo( 'description' );
 			} else {
 				$pageDescription = get_bloginfo( 'description' );
 			}
@@ -235,4 +237,19 @@ function vkExUnit_is_excerpt() {
 	global $wp_current_filter;
 	if ( in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) { return true; }
 	return false;
+}
+
+/*-------------------------------------------*/
+/*  Sanitize
+/*-------------------------------------------*/
+function veu_sanitize_boolean( $input ){
+ if( $input == true ){
+	 return true;
+ } else {
+	 return false;
+ }
+}
+
+function veu_sanitize_radio($input){
+ return esc_attr( $input );
 }

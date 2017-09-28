@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-24 23:11+0900\n"
+"POT-Creation-Date: 2017-09-26 17:12+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -464,13 +464,13 @@ msgid "CTA Contents"
 msgstr "CTA Contents"
 
 #: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:508
+#: plugins/call_to_action/class.call_to_action.php:510
 #: plugins/call_to_action/widget.call_to_action.php:65
 msgid "Random"
 msgstr "ランダム表示"
 
 #: plugins/call_to_action/class.call_to_action.php:91
-#: plugins/call_to_action/class.call_to_action.php:510
+#: plugins/call_to_action/class.call_to_action.php:512
 msgid "Disable display"
 msgstr "表示しない"
 
@@ -781,6 +781,23 @@ msgstr "CSSが保存されました"
 #: plugins/css_customize/css_customize.php:105
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
+
+#: plugins/customize.php:32
+msgid "ExUnit Settings"
+msgstr "ExUnit設定"
+
+#: plugins/customize.php:39 plugins/sns/sns_admin.php:1
+msgid "SNS Settings"
+msgstr "SNS設定"
+
+#: plugins/customize.php:53 plugins/other_widget/widget-pr-blocks.php:112
+#: plugins/other_widget/widget-profile.php:129
+msgid "No background"
+msgstr "背景なし"
+
+#: plugins/customize.php:69
+msgid "Btn color"
+msgstr "ボタンの色"
 
 #: plugins/footer_copyright_change.php:6
 msgid ""
@@ -1356,11 +1373,6 @@ msgstr "アイコン背景:"
 msgid "Solid color"
 msgstr "塗りつぶし"
 
-#: plugins/other_widget/widget-pr-blocks.php:112
-#: plugins/other_widget/widget-profile.php:129
-msgid "No background"
-msgstr "背景なし"
-
 #: plugins/other_widget/widget-pr-blocks.php:116
 msgid "Select image:"
 msgstr "画像を選択"
@@ -1553,7 +1565,7 @@ msgstr "階層"
 msgid "Make it a tag (do not hierarchize)"
 msgstr "タグにする（階層化しない）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:202
+#: plugins/post-type-manager/class.post-type-manager.php:200
 #, php-format
 msgid ""
 "Please save a <a href=\"%s\">permanent link configuration</a> After updating "
@@ -1621,18 +1633,14 @@ msgstr ""
 "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
 "るタイトルを上書きすることができます"
 
-#: plugins/sns/sns.php:17
+#: plugins/sns/sns.php:19
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:97
+#: plugins/sns/sns.php:113
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
-
-#: plugins/sns/sns_admin.php:1
-msgid "SNS Settings"
-msgstr "SNS設定"
 
 #: plugins/sns/sns_admin.php:13
 msgid "facebook application ID"
@@ -1756,6 +1764,30 @@ msgstr "Follow me ユニットを本文の下に表示する"
 #: plugins/sns/sns_admin.php:101
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
+
+#: plugins/sns/sns_admin.php:108
+msgid "Share button for display"
+msgstr "表示するシェアボタン"
+
+#: plugins/sns/sns_admin.php:111
+msgid "Facebook"
+msgstr "Facebook"
+
+#: plugins/sns/sns_admin.php:112
+msgid "Twitter"
+msgstr "Twitter"
+
+#: plugins/sns/sns_admin.php:113
+msgid "Hatena"
+msgstr "Hatena"
+
+#: plugins/sns/sns_admin.php:114
+msgid "Pocket"
+msgstr "Pocket"
+
+#: plugins/sns/sns_admin.php:115
+msgid "LINE (mobile only)"
+msgstr "LINE (mobile only)"
 
 #: plugins/wp_title.php:47
 #, php-format
@@ -1896,6 +1928,9 @@ msgstr "プラグイン設定オプション"
 #: vkExUnit_admin.php:94
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
+
+#~ msgid "Do not fill background color."
+#~ msgstr "塗りつぶしなし"
 
 #~ msgid "Current PHP Version is old."
 #~ msgstr "使用中のPHPのバージョンが古いです。"

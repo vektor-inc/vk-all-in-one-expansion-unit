@@ -7,7 +7,7 @@ function vkExUnit_add_follow( $content ) {
 
 	if ( is_single() && $postType['slug'] == 'post' ) :
 
-		$options = vkExUnit_get_sns_options();
+		$options = veu_get_sns_options();
 		if ( ! $options['enableFollowMe'] ) {  return $content; }
 
 		if ( isset( $options['followMe_title'] ) && $options['followMe_title'] ) {

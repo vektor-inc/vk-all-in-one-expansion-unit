@@ -1,6 +1,6 @@
 <?php
 	$options = vkExUnit_get_ga_options();
-	// $options_default = vkExUnit_get_sns_options_default();
+	// $options_default = veu_get_sns_options_default();
 /*-------------------------------------------*/
 /*  Google Analytics
 /*-------------------------------------------*/
