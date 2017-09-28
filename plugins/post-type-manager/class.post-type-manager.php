@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 このファイルの元ファイルは
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
             global $post;
 
 		    //CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）
-		    wp_nonce_field( wp_create_nonce(__FILE__), 'noncename__post_type_manager' ); 
+		    wp_nonce_field( wp_create_nonce(__FILE__), 'noncename__post_type_manager' );
 
 		    ?>
 		    <style type="text/css">
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
             echo '<input class="form-control" type="text" id="veu_post_type_id" name="veu_post_type_id" value="'.esc_attr($post->veu_post_type_id).'" size="30">';
             echo '<hr>';
 
-            $post_type_items_array = array( 
+            $post_type_items_array = array(
             	'title'     => __( 'title', $vk_post_type_manager_textdomain ),
 				'editor'    => __( 'editor', $vk_post_type_manager_textdomain ),
 				'author'    => __( 'author', $vk_post_type_manager_textdomain ),
@@ -123,7 +123,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			echo '<table class="table table-border">';
 
 			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
-			for ($i=1; $i <= 3; $i++) { 
+			for ($i=1; $i <= 3; $i++) {
 				// echo '<tr>';
 				$slug = ( isset( $taxonomy[$i]['slug'] ) ) ? $taxonomy[$i]['slug'] : '';
 				$label = ( isset( $taxonomy[$i]['label'] ) ) ? $taxonomy[$i]['label'] : '';
@@ -148,10 +148,10 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			echo '</table>';
 
 
-			$taxonomy = array( 
+			$taxonomy = array(
 				array ( 'category' => 'カテゴリー' ),
 			 );
-            
+
         }
 
 		/*-------------------------------------------*/
@@ -165,13 +165,13 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 		    $noncename__post_type_manager = isset($_POST['noncename__post_type_manager']) ? $_POST['noncename__post_type_manager'] : null;
 
 		    //nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
-		    if(!wp_verify_nonce($noncename__post_type_manager, wp_create_nonce(__FILE__))) {  
+		    if(!wp_verify_nonce($noncename__post_type_manager, wp_create_nonce(__FILE__))) {
 		        return $post_id;
 		    }
 
 		    //自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）
 		    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { return $post_id; }
-		    
+
 		    $fields = array( 'veu_post_type_id','veu_post_type_items','veu_menu_position','veu_taxonomy' );
 
 		    foreach ($fields as $key => $field) {
@@ -197,14 +197,14 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				$html  = '<div class="notice-warning notice is-dismissible">';
 				$link = admin_url().'options-permalink.php';
 				// $html .= '<p>'.sprintf( __('設定を更新したら<a href="%s">パーマリンク設定</a>を保存してください。', $vk_post_type_manager_textdomain ),$link ).'</p>';
-				$html .= '<p>'.sprintf( __('Please save a <a href="%s">permanent link configuration</a> After updating the setting.', $vk_post_type_manager_textdomain ),$link ).'</p>';	
+				$html .= '<p>'.sprintf( __('Please save a <a href="%s">permanent link configuration</a> After updating the setting.', $vk_post_type_manager_textdomain ),$link ).'</p>';
 				$html .= '  <button type="button" class="notice-dismiss">';
 				$html .= '    <span class="screen-reader-text">この通知を非表示にする</span>';
 				$html .= '  </button>';
 				$html .= '</div>';
 
 				echo $html;
-			}	
+			}
 		}
 
 
@@ -219,7 +219,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				'post_status'      => 'publish',
 				'order'            => 'ASC',
 				'orderby'          => 'menu_order',
-				'suppress_filters' => true 
+				'suppress_filters' => true
 			);
 		    $custom_post_types = get_posts($args);
 		    if ( $custom_post_types ) {
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 								register_taxonomy(
-										$taxonomy['slug'], 
+										$taxonomy['slug'],
 										$post_type_id,
 										array(
 											'hierarchical' => $hierarchical_true,
@@ -273,7 +273,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 											'public' => true,
 											'show_ui' => true,
 										)
-									);		
+									);
 							}
 
 						}
@@ -304,6 +304,5 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
     } // class Vk_post_type_manager
 
     $Vk_post_type_manager = new Vk_post_type_manager();
-    
+
 }
-    

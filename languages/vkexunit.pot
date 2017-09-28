@@ -298,23 +298,23 @@ msgstr ""
 msgid "It displays a HTML Site Map to the specified page."
 msgstr ""
 
-#: packages.php:295 plugins/call_to_action/view.adminsetting.php:10
+#: packages.php:295 plugins/call_to_action/view-adminsetting.php:10
 msgid "Display the CTA at the end of the post content."
 msgstr ""
 
-#: packages.php:297 plugins/call_to_action/view.adminsetting.php:11
+#: packages.php:297 plugins/call_to_action/view-adminsetting.php:11
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
 msgstr ""
 
-#: packages.php:299 plugins/call_to_action/view.adminsetting.php:12
+#: packages.php:299 plugins/call_to_action/view-adminsetting.php:12
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
 msgstr ""
 
-#: packages.php:303 plugins/call_to_action/view.adminsetting.php:6
+#: packages.php:303 plugins/call_to_action/view-adminsetting.php:6
 msgid "Call To Action"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgid "Key color(dark)"
 msgstr ""
 
 #: plugins/call_to_action/class.call_to_action.php:46
-#: plugins/call_to_action/view.actionbox.php:56
+#: plugins/call_to_action/view-actionbox.php:56
 msgid "Edit CTA"
 msgstr ""
 
@@ -445,7 +445,7 @@ msgid "CTA common setting"
 msgstr ""
 
 #: plugins/call_to_action/class.call_to_action.php:104
-#: plugins/call_to_action/view.adminsetting.php:22
+#: plugins/call_to_action/view-adminsetting.php:22
 #: plugins/call_to_action/widget.call_to_action.php:76
 msgid "Show CTA index page"
 msgstr ""
@@ -532,27 +532,27 @@ msgstr ""
 msgid "CTA setting"
 msgstr ""
 
-#: plugins/call_to_action/view.adminsetting.php:14
+#: plugins/call_to_action/view-adminsetting.php:14
 msgid "How to use"
 msgstr ""
 
-#: plugins/call_to_action/view.adminsetting.php:17
+#: plugins/call_to_action/view-adminsetting.php:17
 msgid ""
 "You register the contents on \"CTA\" that you want to display to bottom of "
 "the content."
 msgstr ""
 
-#: plugins/call_to_action/view.adminsetting.php:18
+#: plugins/call_to_action/view-adminsetting.php:18
 msgid "Choose the CTA to be displayed from the following."
 msgstr ""
 
-#: plugins/call_to_action/view.adminsetting.php:19
+#: plugins/call_to_action/view-adminsetting.php:19
 msgid ""
 "If you want to switch the CTA to be displayed on each post, please set in "
 "the details page of such posting."
 msgstr ""
 
-#: plugins/call_to_action/view.adminsetting.php:32
+#: plugins/call_to_action/view-adminsetting.php:32
 msgid "Show index page"
 msgstr ""
 

@@ -330,11 +330,11 @@ msgstr "HTMLサイトマップの表示"
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: packages.php:295 plugins/call_to_action/view.adminsetting.php:10
+#: packages.php:295 plugins/call_to_action/view-adminsetting.php:10
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
-#: packages.php:297 plugins/call_to_action/view.adminsetting.php:11
+#: packages.php:297 plugins/call_to_action/view-adminsetting.php:11
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -342,7 +342,7 @@ msgstr ""
 "CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
 "情報を表示します。"
 
-#: packages.php:299 plugins/call_to_action/view.adminsetting.php:12
+#: packages.php:299 plugins/call_to_action/view-adminsetting.php:12
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -350,7 +350,7 @@ msgstr ""
 "例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
 "ンなどです。"
 
-#: packages.php:303 plugins/call_to_action/view.adminsetting.php:6
+#: packages.php:303 plugins/call_to_action/view-adminsetting.php:6
 msgid "Call To Action"
 msgstr "Call To Action"
 
@@ -441,7 +441,7 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: plugins/call_to_action/class.call_to_action.php:46
-#: plugins/call_to_action/view.actionbox.php:56
+#: plugins/call_to_action/view-actionbox.php:56
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
@@ -483,7 +483,7 @@ msgid "CTA common setting"
 msgstr "CTA共通設定"
 
 #: plugins/call_to_action/class.call_to_action.php:104
-#: plugins/call_to_action/view.adminsetting.php:22
+#: plugins/call_to_action/view-adminsetting.php:22
 #: plugins/call_to_action/widget.call_to_action.php:76
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
@@ -570,21 +570,21 @@ msgstr "テキストメッセージ"
 msgid "CTA setting"
 msgstr "CTA設定"
 
-#: plugins/call_to_action/view.adminsetting.php:14
+#: plugins/call_to_action/view-adminsetting.php:14
 msgid "How to use"
 msgstr "使い方"
 
-#: plugins/call_to_action/view.adminsetting.php:17
+#: plugins/call_to_action/view-adminsetting.php:17
 msgid ""
 "You register the contents on \"CTA\" that you want to display to bottom of "
 "the content."
 msgstr "まずは投稿タイプCTAで、本文の最後に表示させたい内容を登録します。"
 
-#: plugins/call_to_action/view.adminsetting.php:18
+#: plugins/call_to_action/view-adminsetting.php:18
 msgid "Choose the CTA to be displayed from the following."
 msgstr "下記のプルダウンで、投稿タイプ別に表示するCTAを選択して保存します。"
 
-#: plugins/call_to_action/view.adminsetting.php:19
+#: plugins/call_to_action/view-adminsetting.php:19
 msgid ""
 "If you want to switch the CTA to be displayed on each post, please set in "
 "the details page of such posting."
@@ -592,7 +592,7 @@ msgstr ""
 "投稿毎に表示するCTAを切り替えたい場合は、投稿などの詳細ページで設定してくださ"
 "い。"
 
-#: plugins/call_to_action/view.adminsetting.php:32
+#: plugins/call_to_action/view-adminsetting.php:32
 msgid "Show index page"
 msgstr "一覧ページを表示する"
 
