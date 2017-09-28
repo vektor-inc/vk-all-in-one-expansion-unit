@@ -16,22 +16,12 @@
 /*-------------------------------------------*/
 /*  basic setting
 /*-------------------------------------------*/
-function vkExUnit_get_name() {
-	$system_name = apply_filters( 'vkExUnit_get_name_custom','VK All in one Expansion Unit' );
-	return $system_name;
-}
-function vkExUnit_get_little_short_name() {
-	$little_short_name = apply_filters( 'vkExUnit_get_little_short_name_custom','VK ExUnit' );
-	return $little_short_name;
-}
-function vkExUnit_get_short_name() {
-	$short_name = apply_filters( 'vkExUnit_get_short_name_custom','VK' );
-	return $short_name;
-}
+
 function vkExUnit_get_capability_required() {
 	$capability_required = 'activate_plugins';
 	return $capability_required;
 }
+
 function vkExUnit_get_systemlogo() {
 	$logo = '<div class="logo_exUnit">';
 	$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', vkExUnit_get_directory_uri( '/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" />';
