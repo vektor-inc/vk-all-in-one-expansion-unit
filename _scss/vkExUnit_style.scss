@@ -329,31 +329,8 @@ $section_pagelist_margin:2.5em 0 1em;
 /*-------------------------------------------*/
 /* .veu_cta
 /*-------------------------------------------*/
-.veu_cta { @include veu_content_bottom_section;
-	h1.cta_title { @include veu_content_bottom_section_title; }
-	.cta_body { @include veu_content_bottom_section_body;line-height: 170%; }
-	.cta_body_image { margin-bottom:1.5em; }
-	.cta_body_image img { max-width: 250px; }
-	.cta_body_image_center { display:block; overflow:hidden;text-align: center;
-		img { display:block; margin:0 auto 15px;max-width: 100%; }
-	}
+@import "../plugins/call-to-action/_scss/_vk-call-to-action";
 
-	.cta_body_txt { display:block; overflow:hidden; }
-	.cta_body_link { clear:both;margin-top:1.5em; }
-}
-
-@media (max-width: 767px){
-.veu_cta {
-	.cta_body_image img { display:block; margin:0 auto 1.5em;max-width: 100%; }
-}
-}
-
-@media (min-width: 768px){
-.veu_cta {
-	.cta_body_image_right { float:right;margin-left:30px; }
-	.cta_body_image_left { float:left;margin-right:30px; }
-}
-}
 /*-------------------------------------------*/
 /* .veu_contact
 /*-------------------------------------------*/
