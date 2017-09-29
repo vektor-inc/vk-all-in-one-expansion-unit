@@ -6,7 +6,7 @@ https://github.com/vektor-inc/vektor-wp-libraries
 にあります。修正の際は上記リポジトリのデータを修正してください。
 */
 
-namespace Vektor\ExUnit\Package\Cta;
+// namespace Vektor\ExUnit\Package\Cta;
 
 
 /*-------------------------------------------*/
@@ -24,7 +24,7 @@ class Widget_CTA extends \WP_Widget
             'vkExUnit_cta',
             $widget_name,
             array(
-                'description' => sprintf( __( 'Select CTA and display it.', $vk_call_to_action_textdomain ),vkExUnit_get_little_short_name() ),
+                'description' => __( 'Select CTA and display it.', $vk_call_to_action_textdomain ),
                 )
         );
     }

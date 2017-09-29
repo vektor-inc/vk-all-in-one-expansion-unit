@@ -17,6 +17,9 @@
 /*  basic setting
 /*-------------------------------------------*/
 
+require_once( vkExUnit_get_directory().'/plugins/template-tags/template-tags-veu.php' );
+require_once( vkExUnit_get_directory().'/plugins/template-tags/template-tags.php' );
+
 function vkExUnit_get_capability_required() {
 	$capability_required = 'activate_plugins';
 	return $capability_required;
@@ -221,12 +224,6 @@ function vkExUnit_get_pageDescription() {
 	// Delete Line break
 	$pageDescription = str_replace( array( "\r\n", "\r", "\n" ), '', $pageDescription );
 	return $pageDescription;
-}
-
-function vkExUnit_is_excerpt() {
-	global $wp_current_filter;
-	if ( in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) { return true; }
-	return false;
 }
 
 /*-------------------------------------------*/

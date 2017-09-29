@@ -9,7 +9,9 @@ https://github.com/vektor-inc/vektor-wp-libraries
 /*
 Main setting Page
 */
+global $vk_call_to_action_textdomain;
 ?>
+
 <h3><?php _e( 'Call To Action', $vk_call_to_action_textdomain ); ?></h3>
 
 <div id="on_setting" class="sectionBox">
