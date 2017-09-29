@@ -66,12 +66,20 @@ class vExUnit_icons {
 		$options = self::get_option();
 ?>
 <h3><?php _e( 'icon setting', 'vkExUnit' ); ?></h3>
+
 <div id="on_setting" class="sectionBox">
+		<p class="text-warning">
+			<?php
+			$href = '"'.admin_url('customize.php').'"';
+			printf( __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of [ <a href=%s>Themes > Customize</a> ] After updating the setting.', 'vkExUnit' ), $href );
+			?>
+		</p>
+
 <table class="form-table">
     <!-- Favicon -->
     <tr>
 	<th><?php _e( 'Favicon Setting', 'vkExUnit' ); ?></th>
-		<td><input type="text" name="vkExUnit_icon_settings" id="favicon" value="<?php echo $options ?>" style="width:60%;" /> 
+		<td><input type="text" name="vkExUnit_icon_settings" id="favicon" value="<?php echo $options ?>" style="width:60%;" />
 	<button id="media_src_favicon" class="media_btn button button-default"><?php _e( 'Choose icon', 'vkExUnit' ); ?></button>
 	<p><?php _e( 'Please upload your ".ico" file','vkExUnit' ); ?></p>
     </td>
@@ -90,5 +98,22 @@ class vExUnit_icons {
 		}
 	}
 }
+
+	function vkExUnit_icons_discontinue() {
+		global $pagenow;
+		if ( $pagenow != 'icons.php' ) {
+			return;
+		}
+
+		$html  = '<div class="error notice is-dismissible">';
+		$html .= '  <p>「抜粋」は必ず入力してください！</p>';
+		$html .= '  <button type="button" class="notice-dismiss">';
+		$html .= '    <span class="screen-reader-text">この通知を非表示にする</span>';
+		$html .= '  </button>';
+		$html .= '</div>';
+
+		echo $html;
+	}
+	add_action( 'admin_notices', 'vkExUnit_icons_discontinue' );
 
 vExUnit_icons::instance();

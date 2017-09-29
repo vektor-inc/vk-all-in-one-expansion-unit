@@ -4,6 +4,8 @@
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
+.text-warning { color: #a94442;}
+
 
 .wp-core-ui .button-block { display:block;width:100%; text-align: center; }
 
@@ -58,7 +60,7 @@
 			img{ max-width: 100%;height: auto; display: block;
 				&:hover{ opacity: 0.7; }
 			}
-			.vektor_logo { 
+			.vektor_logo {
 				margin-top:1em;
 				img { width:150px;float:right;}
 			}

@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.2
-Tested up to: 4.8.1
-Stable tag: 5.5.0
+Tested up to: 4.8.2
+Stable tag: 5.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,10 +75,10 @@ e.g.
 == Changelog ==
 
 = 5.5.0 =
-* [ Custom Post Type Manager ][ add Function ] Add taxonomy tag setting. 
+* [ Custom Post Type Manager ][ add Function ] Add taxonomy tag setting.
 
 = 5.4.6 =
-* [ CTA Widget ][ add function ] Random display 
+* [ CTA Widget ][ add function ] Random display
 
 = 5.4.5 =
 * [ 3PR Widget ][ add filter ] read more text
@@ -168,7 +168,7 @@ e.g.
 
 = 4.1.0 =
 * [ Add Function ][ Add Widget ] Child Page list
-* [ Other ][ SNS Button ] Redesign 
+* [ Other ][ SNS Button ] Redesign
 
 = 4.0.0 =
 
