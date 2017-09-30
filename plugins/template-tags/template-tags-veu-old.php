@@ -20,7 +20,7 @@ if ( ! function_exists( 'vkExUnit_get_name' ) ){
 
 if ( ! function_exists( 'vkExUnit_get_little_short_name' ) ){
 	function vkExUnit_get_little_short_name(){
-			return veu_get_little_short_name();
+		return veu_get_little_short_name();
 	}
 }
 

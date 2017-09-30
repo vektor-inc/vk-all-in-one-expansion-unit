@@ -40,3 +40,5 @@ if ( ! function_exists( 'veu_get_short_name' ) ){
 	 return $short_name;
 	}
 }
+
+require_once( 'template-tags-veu-old.php' );

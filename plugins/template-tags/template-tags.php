@@ -236,5 +236,3 @@ if ( ! function_exists( 'veu_sanitize_radio' ) ){
 	 return esc_attr( $input );
 	}
 }
-
-require_once( 'template-tags-old.php' );
