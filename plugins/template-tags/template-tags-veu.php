@@ -41,4 +41,15 @@ if ( ! function_exists( 'veu_get_short_name' ) ){
 	}
 }
 
+if ( ! function_exists( 'veu_is_cta_active' ) ){
+	function veu_is_cta_active(){
+		if ( vk_is_plugin_active( 'vk-all-in-one-expantion-unit/vkExUnit.php' ) ){
+			$veu_common_options = get_option( 'vkExUnit_common_options' );
+			if ( isset( $veu_common_options['active_call_to_action'] ) && $veu_common_options['active_call_to_action'] ){
+				return true;
+			}
+		}
+	}
+}
+
 require_once( 'template-tags-veu-old.php' );

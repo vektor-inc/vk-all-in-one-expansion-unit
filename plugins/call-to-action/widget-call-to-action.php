@@ -82,8 +82,12 @@ class Widget_CTA extends \WP_Widget
 </select>
 </div>
 <div style="padding-bottom: 1em;">
-<a href="<?php echo admin_url( 'edit.php?post_type=cta' ) ?>" class="button button-default" target="_blank"><?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?></a>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?></a>
+<a href="<?php echo admin_url( 'edit.php?post_type=cta' ) ?>" class="button button-default" target="_blank">
+	<?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?>
+</a>
+<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank">
+	<?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?>
+</a>
 </div>
 <?php
         return $instance;

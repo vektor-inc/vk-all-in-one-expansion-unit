@@ -61,5 +61,5 @@ $content .= '</div><!-- [ /.vkExUnit_cta_body ] -->';
 $content .= '</section>';
 
 if ( $url = get_edit_post_link( $post->ID ) ) {
-	$content .= '<div class="veu_adminEdit"><a href="'.$url.'" class="btn btn-default">'.__( 'Edit CTA',$vk_call_to_action_textdomain ).'</a></div>';
+	$content .= '<div class="veu_adminEdit"><a href="'.$url.'" class="btn btn-default" target="_blank">'.__( 'Edit CTA',$vk_call_to_action_textdomain ).'</a></div>';
 }

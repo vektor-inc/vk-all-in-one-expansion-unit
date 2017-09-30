@@ -96,9 +96,24 @@ class Vk_Call_To_Action
 		add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
 	}
 
+	/**
+	 * CTAメイン設定画面のurl
+	 * ExUnitと単体プラグインなどによって変動する
+	 * @return [type] [description]
+	 */
+	public static function setting_page_url()
+	{
+		if ( veu_is_cta_active() ){
+			$setting_page_url = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' );
+		} else {
+			$setting_page_url = admin_url( 'options-general.php?page=vk_cta_options' );
+		}
+		return $setting_page_url;
+	}
 
 	public static function render_meta_box()
 	{
+		global $vk_call_to_action_textdomain;
 		echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
 
 		$ctas    = self::get_ctas( true, '  - ' );
@@ -116,7 +131,7 @@ class Vk_Call_To_Action
 <?php endforeach; ?>
 </select>
 <p>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA common setting', $vk_call_to_action_textdomain ); ?></a>
+<a href="<?php echo self::setting_page_url(); ?>" class="button button-default" target="_blank"><?php _e( 'CTA common setting', $vk_call_to_action_textdomain ); ?></a>
 <a href="<?php echo admin_url( 'edit.php?post_type=cta' ) ?>" class="button button-default" target="_blank"><?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?></a>
 </p>
 		<?php

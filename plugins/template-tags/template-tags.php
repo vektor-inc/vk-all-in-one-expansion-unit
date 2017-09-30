@@ -219,6 +219,23 @@ if ( ! function_exists( 'vk_get_page_description' ) ){
 }
 
 /*-------------------------------------------*/
+/*  vk_is_plugin_active
+/*-------------------------------------------*/
+if ( ! function_exists( 'vk_is_plugin_active' ) ){
+	function vk_is_plugin_active( $plugin_path = '' )
+	{
+		if ( function_exists('is_plugin_active') ) {
+				return is_plugin_active( $plugin_path );
+		} else {
+				return in_array(
+						$plugin_path,
+						get_option('active_plugins')
+				);
+		}
+	}
+}
+
+/*-------------------------------------------*/
 /*  Sanitize
 /*-------------------------------------------*/
 if ( ! function_exists( 'veu_sanitize_boolean' ) ){
