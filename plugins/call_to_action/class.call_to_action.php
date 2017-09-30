@@ -353,7 +353,9 @@ if ( $target_blank == "window_self") {
 			'orderby' => 'rand', // 表示順をランダムで取得
 		);
 		$cta_post = get_posts( $args );
-		return $cta_post[0]->ID;
+		if ( $cta_post && isset ( $cta_post[0] ) ) {
+			return $cta_post[0]->ID;
+		}
 	}
 
 	public static function is_cta_id( $id = null )
