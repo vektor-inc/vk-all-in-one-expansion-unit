@@ -43,7 +43,7 @@ class vExUnit_Contact {
 	public function set_content_loopend( $query )
 	{
 		if( ! $query->is_main_query() ) return;
-		echo self::render_contact_btn_html();
+		echo self::render_contact_section_html();
 	}
 
 
@@ -255,7 +255,7 @@ class vExUnit_Contact {
 	/*  contact bottom html
 	/*-------------------------------------------*/
 
-	public static function render_contact_btn_html()
+	public static function render_contact_section_html()
 	{
 		$options = self::get_option();
 		$cont = '';
@@ -330,7 +330,7 @@ class vExUnit_Contact {
 
 
 	public function shortcode() {
-		return self::render_contact_btn_html();
+		return self::render_contact_section_html();
 	}
 }
 
@@ -338,7 +338,7 @@ vExUnit_Contact::instance();
 
 
 /*-------------------------------------------*/
-/*  Contact widget
+/*  Contact Button Widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
@@ -378,3 +378,46 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 }
 
 add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_contact_link");' ) );
+
+/*-------------------------------------------*/
+/*  Contact Section Widget
+/*-------------------------------------------*/
+class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
+
+	function __construct() {
+
+		$widget_name = vkExUnit_get_short_name().'_'.__( 'Contact Section HTML', 'vkExUnit' );
+
+		parent::__construct(
+			'vkExUnit_contact_section',
+			$widget_name,
+			array(
+				'description' => sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ),
+				)
+		);
+	}
+
+
+	function widget( $args, $instance ) {
+		echo $args['before_widget'];
+		echo '<div class="veu_contact">';
+		echo vExUnit_Contact::render_contact_section_html();
+		echo '</div>';
+		echo $args['after_widget'];
+	}
+
+
+	function update( $new_instance, $old_instance ) {
+		return $new_instance;
+	}
+
+
+	function form( $instance ) {
+		echo '<div style="padding:1em 0;">';
+		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ) );
+		echo '</div>';
+		return $instance;
+	}
+}
+
+add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_Contact_Section");' ) );
