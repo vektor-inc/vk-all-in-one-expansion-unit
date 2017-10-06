@@ -43,7 +43,7 @@ class vExUnit_Contact {
 	public function set_content_loopend( $query )
 	{
 		if( ! $query->is_main_query() ) return;
-		echo self::render_contact_html();
+		echo self::render_contact_btn_html();
 	}
 
 
@@ -221,25 +221,25 @@ class vExUnit_Contact {
 	{
 		// 固定ページウィジェットの場合出力しない
 		global $is_pagewidget;
-		if ( $is_pagewidget ) { 
+		if ( $is_pagewidget ) {
 			return false;
 		}
 
 		// 抜粋では表示しない
-		if ( vkExUnit_is_excerpt() ) { 
-			return false; 
+		if ( vkExUnit_is_excerpt() ) {
+			return false;
 		}
 
 		// 固定ページ以外では表示しない
 		if ( get_post_type() == 'page' ) {
 			// 固定ページで問い合わせ先情報にチェックが入っている時
-			if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) { 
+			if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) {
 				return true;
 			}
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	public function set_content( $content )
@@ -255,7 +255,7 @@ class vExUnit_Contact {
 	/*  contact bottom html
 	/*-------------------------------------------*/
 
-	public static function render_contact_html()
+	public static function render_contact_btn_html()
 	{
 		$options = self::get_option();
 		$cont = '';
@@ -305,7 +305,7 @@ class vExUnit_Contact {
 	/*  widget html
 	/*-------------------------------------------*/
 
-	public static function render_widget_html()
+	public static function render_widget_contact_btn_html()
 	{
 		$options = self::get_option();
 		$cont = '';
@@ -330,7 +330,7 @@ class vExUnit_Contact {
 
 
 	public function shortcode() {
-		return self::render_contact_html();
+		return self::render_contact_btn_html();
 	}
 }
 
@@ -358,7 +358,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
-		echo vExUnit_Contact::render_widget_html();
+		echo vExUnit_Contact::render_widget_contact_btn_html();
 		echo '</div>';
 		echo $args['after_widget'];
 	}
