@@ -17,25 +17,25 @@ class WidgetNewPostsTest extends WP_UnitTestCase {
 		// テスト用の投稿を追加する
 
 		$test_array = array(
-			// 既存の人
+			// URLも表記テキストも未定義の場合（既存ユーザー） → 何も出力しない
 			array(
 				'correct_more_link_html' => '',
 			),
-			// どちらも定義されている
+			// どちらも定義されている → リンクテキストを表示
 			array(
-				'more_url' => 'https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit/',
+				'more_url' => 'https://vektor-inc.co.jp',
 				'more_text' => '一覧を見る ≫',
-				'correct_more_link_html' => '<div class="postList_more"><a href="https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit/">一覧を見る ≫</a></div>',
+				'correct_more_link_html' => '<div class="postList_more"><a href="https://vektor-inc.co.jp">一覧を見る ≫</a></div>',
 			),
-			// URLが定義されていない
+			// 表記テキストは入力されている URLが入力されていない → 何も出力しない
 			array(
 				'more_url' => '',
 				'more_text' => '一覧を見る ≫',
 				'correct_more_link_html' => '',
 			),
-			// 表記するテキストが定義されていない
+			// URLは入力されている 表記テキストは入力されていない → 何も出力しない
 			array(
-				'more_url' => 'https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit/',
+				'more_url' => 'https://vektor-inc.co.jp',
 				'more_text' => '',
 				'correct_more_link_html' => '',
 			),
@@ -49,10 +49,10 @@ class WidgetNewPostsTest extends WP_UnitTestCase {
 
 		foreach ( $test_array as $key => $test_value) {
 
-			// 外枠に付与するCSSを取得
+			// 一覧へリンクのHTMLを取得
 			$more_link_html = WP_Widget_vkExUnit_post_list::more_link_html( $test_value );
 
-			// 取得できたCSSと、想定する正しいCSSが等しいかテスト
+			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct_more_link_html'], $more_link_html );
 
 			print PHP_EOL;
