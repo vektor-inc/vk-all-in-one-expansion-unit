@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-29 15:24+0900\n"
+"POT-Creation-Date: 2017-10-06 17:31+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -760,6 +760,7 @@ msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
 #: plugins/contact_section.php:352 plugins/contact_section.php:374
+#: plugins/contact_section.php:395 plugins/contact_section.php:417
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -767,6 +768,10 @@ msgid ""
 msgstr ""
 "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
 "す。"
+
+#: plugins/contact_section.php:389
+msgid "Contact Section HTML"
+msgstr "お問い合わせバナー"
 
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:28
