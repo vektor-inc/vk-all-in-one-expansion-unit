@@ -61,9 +61,8 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 		<?php // 3PR area 1 メディアアップローダー PC ?>
 
-				<h3 class="admin_widget_h3">
-					<label for="<?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label>
-				</h3>
+				<label for="<?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label>
+
 				<div class="media_image_section">
 					<div class="_display" style="height:auto">
 					    <?php
@@ -79,9 +78,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 					</div>
 				</div><!-- [ /.media_image_section ] -->
 
-				<h3 class="admin_widget_h3">
-					<label for="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i );  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label>
-				</h3>
+				<label for="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i );  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label>
 
 				<div class="media_image_section">
 					<div class="_display" style="height:auto">
@@ -99,15 +96,13 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				</div><!-- [ /.media_image_section ] -->
 
         <?php // 3PR area 1 メディアアップローダー sp image ?>
-        <p>
 	       <br/>
-        </p>
 
 		<?php // 概要テキスト ?>
 		<p><label for="<?php echo $this->get_field_id( 'summary_'.$i );  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
         </p>
 
-		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_'.$i ); ?>_text" class="pr_input textarea" name="<?php echo $this->get_field_name( 'summary_'.$i ); ?>"><?php echo esc_textarea( $instance['summary_'.$i] ); ?></textarea>
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_'.$i ); ?>_text" class="admin_widget_input" name="<?php echo $this->get_field_name( 'summary_'.$i ); ?>"><?php echo esc_textarea( $instance['summary_'.$i] ); ?></textarea>
 
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_'.$i );  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
