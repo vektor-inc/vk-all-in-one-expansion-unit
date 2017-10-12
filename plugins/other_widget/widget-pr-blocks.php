@@ -83,11 +83,28 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// PR Block admin title
-	echo '<h5 class="pr_subTitle">'.__( 'PR Block'.$i.' setting', 'vkExUnit' ).'</h5>';
+	echo '<h2 class="admin_widget_h2">'.__( 'PR Block'.$i.' setting', 'vkExUnit' ).'</h2>';
 
 	// PR Block display title
 	echo '<p><label for="'.$this->get_field_id( 'label_'.$i ).'">'.__( 'Title:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'label_'.$i ).'-title" class="pr-input" name="'.$this->get_field_name( 'label_'.$i ).'" value="'. esc_attr( $instance[ 'label_'.$i ] ) .'" /></p>';
+		'<input type="text" id="'.$this->get_field_id( 'label_'.$i ).'-title" class="admin_widget_input" name="'.$this->get_field_name( 'label_'.$i ).'" value="'. esc_attr( $instance[ 'label_'.$i ] ) .'" /></p>';
+
+		// summary text
+		echo '<p><label for="'.$this->get_field_id( 'summary_'.$i ).'">'.__( 'Summary Text:', 'vkExUnit' ).'</label><br/>';
+		echo '<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="admin_widget_input" name="'.$this->get_field_name( 'summary_'.$i ).'">'. esc_textarea( $instance[ 'summary_'.$i ] ) .'</textarea>';
+		echo '</p>';
+
+		// link_URL
+		echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
+			'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="admin_widget_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'. esc_attr( $instance[ 'linkurl_'.$i ] ).'" style="margin-bottom:0.5em" />';
+		$checked = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' checked':'';
+		echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'"'.$checked.' />';
+		echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('Open link new tab.', 'vkExUnit').'</label>';
+		echo '</p>';
+
+		/*  Icon font
+		/*-------------------------------------------*/
+		echo '<h3 class="admin_widget_h3">'.__( 'Icon', 'vkExUnit' ).'</h3>';
 
 	// icon font class input
 	echo '<p><label for="'.$this->get_field_id( 'iconFont_'.$i ).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
@@ -112,8 +129,10 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	echo '<label for="'.$this->get_field_id( 'iconFont_bgType_'.$i ).'_no_paint">'.__( 'No background', 'vkExUnit' ).'</label>';
 	echo '</p>';
 
+	/*  PR Image
+	/*-------------------------------------------*/
 	// media uploader imageurl input area
-	echo '<h4><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'Select image:', 'vkExUnit' ).'</label></h4>';
+	echo '<h3 class="admin_widget_h3"><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'PR Image', 'vkExUnit' ).'</label></h3>';
 	echo '<p>'.__( 'When you have an image. Image is displayed with priority', 'vkExUnit' ).'</p>';
 
 ?>
@@ -133,59 +152,8 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 </div><!-- [ /.media_image_section ] -->
 
 <?php
-	// summary text
-	echo '<p><label for="'.$this->get_field_id( 'summary_'.$i ).'">'.__( 'Summary Text:', 'vkExUnit' ).'</label><br/></p>'.
-		'<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="pr_input textarea" name="'.$this->get_field_name( 'summary_'.$i ).'">'. esc_textarea( $instance[ 'summary_'.$i ] ) .'</textarea>';
-
-	// link_URL
-	echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'. esc_attr( $instance[ 'linkurl_'.$i ] ).'" style="margin-bottom:0.5em" />';
-	$checked = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' checked':'';
-	echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'"'.$checked.' />';
-	echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('Open link new tab.', 'vkExUnit').'</label>';
-	echo '</p>';
-
 	$i++;
 }
-?>
-<script type="text/javascript">
-// 背景画像登録処理
-if ( vk_widget_image_add == undefined ){
-	var vk_widget_image_add = function(e){
-		// プレビュー画像を表示するdiv
-    var thumb_outer=jQuery(e).parent().children("._display");
-		// 画像IDを保存するinputタグ
-    var thumb_input=jQuery(e).parent().children("._form").children('.__id')[0];
-    var u=wp.media({library:{type:'image'},multiple:false}).on('select', function(e){
-				u.state().get('selection').each(function(f){
-					// プレビュー画像の枠の中の要素を一旦削除
-					thumb_outer.children().remove();
-					// ウィジェットフォームでのプレビュー画像を設定
-					thumb_outer.append(jQuery('<img style="width:100%;mheight:auto">').attr('src',f.toJSON().url));
-					// hiddeになってるinputタグのvalueも変更
-					jQuery(thumb_input).val(f.toJSON().url).change();
-				});
-    });
-    u.open();
-};
-}
-
-// 背景画像削除処理
-if ( vk_widget_image_del == undefined ){
-	var vk_widget_image_del = function(e){
-		// プレビュー画像を表示するdiv
-		var thumb_outer=jQuery(e).parent().children("._display");
-		// 画像IDを保存するinputタグ
-		var thumb_input=jQuery(e).parent().children("._form").children('.__id')[0];
-		// プレビュー画像のimgタグを削除
-		thumb_outer.children().remove();
-		// w.attr("value","");
-		jQuery(e).parent().children("._form").children('.__id').attr("value","").change();
-	};
-}
-</script>
-
-<?php
 	}
 
 
@@ -294,20 +262,12 @@ if ( vk_widget_image_del == undefined ){
 }
 
 // uploader js
-// add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
-// function admin_scripts_pr_media() {
-// 	wp_enqueue_media();
-// 	wp_register_script( 'media-pr-blocks', plugin_dir_url( __FILE__ ) . 'js/widget-pr-blocks.js', array( 'jquery' ), false, true );
-// 	wp_enqueue_script( 'media-pr-blocks' );
-// }
-
-// PR blocks admin CSS
-add_action( 'admin_print_styles-widgets.php', 'style_prBlocks' );
-function style_prBlocks() {
-	echo '<style>.media.image_pr{ max-height: 170px; }
-.media_img{ max-width: 100%; height: auto; position: relative; z-index: 999;}</style>'.PHP_EOL;
+add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
+function admin_scripts_pr_media() {
+	wp_enqueue_media();
+	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+	wp_enqueue_script( 'vk-admin-widget' );
 }
-
 
 add_action('widgets_init', 'vkExUnit_widget_register_prblocks');
 function vkExUnit_widget_register_prblocks(){

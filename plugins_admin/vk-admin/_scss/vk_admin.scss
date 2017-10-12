@@ -4,8 +4,6 @@
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
-.text-warning { color: #a94442;}
-
 
 .wp-core-ui .button-block { display:block;width:100%; text-align: center; }
 
@@ -74,4 +72,26 @@
 			}
 		}
 	}
+}
+
+.admin_widget_h2{
+	box-sizing: border-box;
+	padding: 0.8em;
+	width: 100%;
+	border: solid 1px #ddd;
+	background: #EDEDED;
+	font-size: 1em;
+}
+.admin_widget_h3{
+	box-sizing: border-box;
+	padding: 0.4em 0;
+	margin-bottom:0.3em;
+	width: 100%;
+	border-bottom: solid 1px #ddd;
+	// background: #EDEDED;
+	font-size: 1em;
+}
+.admin_widget_input {
+	width: 100%;
+	margin: 0.3em 0;
 }
