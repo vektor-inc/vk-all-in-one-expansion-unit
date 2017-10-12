@@ -125,8 +125,8 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	        <img src="<?php echo esc_url( $instance['media_image_'.$i] ); ?>" style="width:100%;height:auto;" />
 	    <?php endif; ?>
 	</div>
-	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;"><?php _e('Select image', 'vkExUnit' ); ?></button>
-	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
+	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e('Select image', 'vkExUnit' ); ?></button>
+	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
 	<div class="_form" style="line-height: 2em">
 	    <input type="hidden" class="__id" name="<?php echo $this->get_field_name( 'media_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_image_'.$i] ); ?>" />
 	</div>
@@ -150,36 +150,39 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 ?>
 <script type="text/javascript">
 // 背景画像登録処理
-// jQuery(document).ready(function($){
-jQuery('.widget_media_btn_select').click(function(e){
+if ( vk_widget_image_add == undefined ){
+	var vk_widget_image_add = function(e){
 		// プレビュー画像を表示するdiv
-    var d=jQuery(this).parent().children("._display");
+    var thumb_outer=jQuery(e).parent().children("._display");
 		// 画像IDを保存するinputタグ
-    var w=jQuery(this).parent().children("._form").children('.__id')[0];
+    var thumb_input=jQuery(e).parent().children("._form").children('.__id')[0];
     var u=wp.media({library:{type:'image'},multiple:false}).on('select', function(e){
-        u.state().get('selection').each(function(f){
-					d.children().remove();
-					d.append(jQuery('<img style="width:100%;mheight:auto">').attr('src',f.toJSON().url));
-					jQuery(w).val(f.toJSON().id).change();
+				u.state().get('selection').each(function(f){
+					// プレビュー画像の枠の中の要素を一旦削除
+					thumb_outer.children().remove();
+					// ウィジェットフォームでのプレビュー画像を設定
+					thumb_outer.append(jQuery('<img style="width:100%;mheight:auto">').attr('src',f.toJSON().url));
+					// hiddeになってるinputタグのvalueも変更
+					jQuery(thumb_input).val(f.toJSON().url).change();
 				});
     });
     u.open();
-});
+};
+}
 
 // 背景画像削除処理
-
-jQuery('.widget_media_btn_reset').click(function(e) {
+if ( vk_widget_image_del == undefined ){
+	var vk_widget_image_del = function(e){
 		// プレビュー画像を表示するdiv
-		var d=jQuery(this).parent().children("._display");
+		var thumb_outer=jQuery(e).parent().children("._display");
 		// 画像IDを保存するinputタグ
-		var w=jQuery(this).parent().children("._form").children('.__id')[0];
-
+		var thumb_input=jQuery(e).parent().children("._form").children('.__id')[0];
 		// プレビュー画像のimgタグを削除
-		d.children().remove();
+		thumb_outer.children().remove();
 		// w.attr("value","");
-		jQuery(this).parent().children("._form").children('.__id').attr("value","").change();
-});
-// });
+		jQuery(e).parent().children("._form").children('.__id').attr("value","").change();
+	};
+}
 </script>
 
 <?php
@@ -291,12 +294,12 @@ jQuery('.widget_media_btn_reset').click(function(e) {
 }
 
 // uploader js
-add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
-function admin_scripts_pr_media() {
-	wp_enqueue_media();
-	wp_register_script( 'media-pr-blocks', plugin_dir_url( __FILE__ ) . 'js/widget-pr-blocks.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'media-pr-blocks' );
-}
+// add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
+// function admin_scripts_pr_media() {
+// 	wp_enqueue_media();
+// 	wp_register_script( 'media-pr-blocks', plugin_dir_url( __FILE__ ) . 'js/widget-pr-blocks.js', array( 'jquery' ), false, true );
+// 	wp_enqueue_script( 'media-pr-blocks' );
+// }
 
 // PR blocks admin CSS
 add_action( 'admin_print_styles-widgets.php', 'style_prBlocks' );
