@@ -141,13 +141,14 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	<div class="_display" style="height:auto">
 	    <?php
 			if ( ! empty( $instance[ 'media_image_'.$i ] ) ): ?>
-	        <img src="<?php echo esc_url( $instance['media_image_'.$i] ); ?>" style="width:100%;height:auto;" />
+	        <img src="<?php echo esc_url( $instance['media_image_'.$i] ); ?>" class="admin_widget_thumb" />
 	    <?php endif; ?>
 	</div>
 	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e('Select image', 'vkExUnit' ); ?></button>
 	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
 	<div class="_form" style="line-height: 2em">
-	    <input type="hidden" class="__id" name="<?php echo $this->get_field_name( 'media_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_image_'.$i] ); ?>" />
+	    <input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'media_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_image_'.$i] ); ?>" />
+			<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'media_alt_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_alt_'.$i] ); ?>" />
 	</div>
 </div><!-- [ /.media_image_section ] -->
 
