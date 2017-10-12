@@ -113,26 +113,26 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	echo '</p>';
 
 	// media uploader imageurl input area
-	echo '<p><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'Select image:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="hidden" class="pr_media_image  '.$this->get_field_id( 'media_image_'.$i ).'" id="'.$this->get_field_id( 'media_image_'.$i ).'-image" name="'.$this->get_field_name( 'media_image_'.$i ).'" value="'.esc_attr( $instance[ 'media_image_'.$i ] ).'" />';
+	echo '<h4><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'Select image:', 'vkExUnit' ).'</label></h4>';
+	echo '<p>'.__( 'When you have an image. Image is displayed with priority', 'vkExUnit' ).'</p>';
 
-	// media uploader imagealt input area
-	echo '<input type="hidden" class="pr_media_alt" id="'.$this->get_field_id( 'media_alt_'.$i ).'-alt" name="'.$this->get_field_name( 'media_alt_'.$i ).'" value="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />';
+?>
 
-	// media uploader select btn
-	echo '<input type="button" class="media_select" value="'.__( 'Select image', 'vkExUnit' ).'" onclick="clickSelectPrBroks(event.target);" />';
+<div class="media_image_section">
+	<div class="_display" style="height:auto">
+	    <?php
+			if ( ! empty( $instance[ 'media_image_'.$i ] ) ): ?>
+	        <img src="<?php echo esc_url( $instance['media_image_'.$i] ); ?>" style="width:100%;height:auto;" />
+	    <?php endif; ?>
+	</div>
+	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;"><?php _e('Select image', 'vkExUnit' ); ?></button>
+	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
+	<div class="_form" style="line-height: 2em">
+	    <input type="hidden" class="__id" name="<?php echo $this->get_field_name( 'media_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_image_'.$i] ); ?>" />
+	</div>
+</div><!-- [ /.media_image_section ] -->
 
-	// media uploader clear btn
-	echo '<input type="button" class="media_clear" value="'.__( 'Clear image', 'vkExUnit' ).'" onclick="clickClearPrBroks(event.target);" />'.
-	'<br />'.__( 'When you have an image. Image is displayed with priority', 'vkExUnit' ).'</p>';
-
-	// media image display
-	echo '<div class="media image_pr">';
-	if ( ! empty( $instance[ 'media_image_'.$i ] ) ) {
-		echo '<img class="media_img" src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'. esc_attr( $instance[ 'media_alt_'.$i ] ).'" />';
-	}
-	echo '</div>';
-
+<?php
 	// summary text
 	echo '<p><label for="'.$this->get_field_id( 'summary_'.$i ).'">'.__( 'Summary Text:', 'vkExUnit' ).'</label><br/></p>'.
 		'<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="pr_input textarea" name="'.$this->get_field_name( 'summary_'.$i ).'">'. esc_textarea( $instance[ 'summary_'.$i ] ) .'</textarea>';
@@ -147,6 +147,42 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	$i++;
 }
+?>
+<script type="text/javascript">
+// 背景画像登録処理
+// jQuery(document).ready(function($){
+jQuery('.widget_media_btn_select').click(function(e){
+		// プレビュー画像を表示するdiv
+    var d=jQuery(this).parent().children("._display");
+		// 画像IDを保存するinputタグ
+    var w=jQuery(this).parent().children("._form").children('.__id')[0];
+    var u=wp.media({library:{type:'image'},multiple:false}).on('select', function(e){
+        u.state().get('selection').each(function(f){
+					d.children().remove();
+					d.append(jQuery('<img style="width:100%;mheight:auto">').attr('src',f.toJSON().url));
+					jQuery(w).val(f.toJSON().id).change();
+				});
+    });
+    u.open();
+});
+
+// 背景画像削除処理
+
+jQuery('.widget_media_btn_reset').click(function(e) {
+		// プレビュー画像を表示するdiv
+		var d=jQuery(this).parent().children("._display");
+		// 画像IDを保存するinputタグ
+		var w=jQuery(this).parent().children("._form").children('.__id')[0];
+
+		// プレビュー画像のimgタグを削除
+		d.children().remove();
+		// w.attr("value","");
+		jQuery(this).parent().children("._form").children('.__id').attr("value","").change();
+});
+// });
+</script>
+
+<?php
 	}
 
 
