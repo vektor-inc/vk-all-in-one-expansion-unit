@@ -95,7 +95,29 @@
 	width: 100%;
 	margin: 0.3em 0;
 }
-.admin_widget_thumb{
-	width:100%;
-	height:auto;
+.admin_widget_thumb_outer {
+	position: relative;
+	overflow: hidden;
+	z-index: 2;
+	margin: 3px 0;
+	min-height: 70px;
+	border:1px solid #e5e5e5;
+	background-color: #f5f5f5;
+	width: 100%;
+}
+.admin_widget_thumb_outer:before {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+	margin: -8px 0 0 -30px;
+	color: #999;
+	content: "No Image";
+}
+.admin_widget_thumb {
+	position: relative;
+	z-index: 3;
+	display: block;
+	width: 100%;
+	height: auto;
 }
