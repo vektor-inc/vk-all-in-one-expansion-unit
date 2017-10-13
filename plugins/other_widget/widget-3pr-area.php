@@ -64,7 +64,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				<label for="<?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label>
 
 				<div class="media_image_section">
-					<div class="_display" style="height:auto">
+					<div class="_display admin_widget_thumb_outer">
 					    <?php
 							if ( ! empty( $instance[ 'media_3pr_image_'.$i ] ) ): ?>
 					        <img class="media_image" src="<?php echo esc_url( $instance['media_3pr_image_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" style="width:100%;height:auto;" />
@@ -81,7 +81,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				<label for="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i );  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label>
 
 				<div class="media_image_section">
-					<div class="_display" style="height:auto">
+					<div class="_display admin_widget_thumb_outer">
 					    <?php
 							if ( ! empty( $instance[ 'media_3pr_image_sp_'.$i ] ) ): ?>
 					        <img class="media_image" src="<?php echo esc_url( $instance['media_3pr_image_sp_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" style="width:100%;height:auto;" />

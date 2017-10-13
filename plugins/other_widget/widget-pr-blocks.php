@@ -138,7 +138,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 ?>
 
 <div class="media_image_section">
-	<div class="_display" style="height:auto">
+	<div class="_display admin_widget_thumb_outer">
 	    <?php
 			if ( ! empty( $instance[ 'media_image_'.$i ] ) ): ?>
 	        <img src="<?php echo esc_url( $instance['media_image_'.$i] ); ?>" class="admin_widget_thumb" />
