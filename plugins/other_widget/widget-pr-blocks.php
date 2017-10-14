@@ -229,10 +229,11 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 					echo '<i class="fa '.esc_attr( $instance[ 'iconFont_class_'.$i ] ).' font_icon prBlock_icon"'.$icon_styles.'></i></div>'.PHP_EOL;
 
-					// image display
+				// image display
 				} else if ( ! empty( $instance[ 'media_image_'.$i ] ) ) {
-					echo '<div class="prBlock_image">'.PHP_EOL;
-					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />'.PHP_EOL.'</div><!--//.prBlock_image -->'.PHP_EOL;
+					echo '<div class="prBlock_image" style="background:url('.esc_url( $instance[ 'media_image_'.$i ] ).') no-repeat 50% center;background-size: cover;">';
+					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />';
+					echo '</div><!--//.prBlock_image -->';
 				}
 				// title text
 				echo '<h1 class="prBlock_title">';
