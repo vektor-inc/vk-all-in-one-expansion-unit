@@ -104,7 +104,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 		/*  Icon font
 		/*-------------------------------------------*/
-		echo '<h3 class="admin_widget_h3">'.__( 'Icon', 'vkExUnit' ).'</h3>';
+		echo '<h3 class="admin_widget_h3">'.__( 'Icon', 'vkExUnit' ).' '.$i.'</h3>';
 
 	// icon font class input
 	echo '<p><label for="'.$this->get_field_id( 'iconFont_'.$i ).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
@@ -132,7 +132,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	/*  PR Image
 	/*-------------------------------------------*/
 	// media uploader imageurl input area
-	echo '<h3 class="admin_widget_h3"><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'PR Image', 'vkExUnit' ).'</label></h3>';
+	echo '<h3 class="admin_widget_h3"><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'PR Image', 'vkExUnit' ).' '.$i.'</label></h3>';
 	echo '<p>'.__( 'When you have an image. Image is displayed with priority', 'vkExUnit' ).'</p>';
 
 ?>
