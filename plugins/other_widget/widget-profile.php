@@ -25,7 +25,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			'label' => __( 'Profile', 'vkExUnit' ),
 			'mediaFile' => '',
 			'mediaAlt' => '',
-			'mediaAlign_left' => '',
+			'mediaAlign_left' => '', // 'mediaAlign' に移行したので事実上廃止
+			'mediaAlign' => 'left',
 			'mediaRound' => '',
 			'mediaSize' => '',
 			'mediaFloat' => '',
@@ -76,7 +77,15 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </p>
 
 		<?php //image mediaAlign_left setting ?>
-<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>" name="<?php echo $this->get_field_name( 'mediaAlign_left' ); ?>" value="true" <?php echo ($instance['mediaAlign_left'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>"><?php _e( 'Image align left', 'vkExUnit' ); ?></label>
+
+<p>
+	<?php $image_align = self::image_align( $instance ); ?>
+	<?php $checked = ( $image_align === 'left' ) ? ' checked' : ''; ?>
+	<input type="radio" id="<?php echo $this->get_field_id( 'mediaAlign' ); ?>_left" name="<?php echo $this->get_field_name( 'mediaAlign' ); ?>" value="left"<?php echo $checked; ?> />
+	<label for="<?php echo $this->get_field_id( 'mediaAlign' ).'_left'; ?>"> <?php _e( 'Align left', 'vkExUnit' ); ?></label>
+	<?php $checked = ( $image_align === 'center' ) ? ' checked' : ''; ?>
+	<input type="radio" id="<?php echo $this->get_field_id( 'mediaAlign' ); ?>_center" name="<?php echo $this->get_field_name( 'mediaAlign' ); ?>" value="center"<?php echo $checked; ?> />
+	<label for="<?php echo $this->get_field_id( 'mediaAlign' ).'_center'; ?>"> <?php _e( 'Align center', 'vkExUnit' ); ?></label>
 </p>
 
 		<?php //image float setting ?>
@@ -152,6 +161,7 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		$instance['mediaAlt'] = $new_instance['mediaAlt'];
 		$instance['profile'] = $new_instance['profile'];
 		$instance['mediaAlign_left'] = $new_instance['mediaAlign_left'];
+		$instance['mediaAlign'] = $new_instance['mediaAlign'];
 		$instance['mediaRound'] = $new_instance['mediaRound'];
 		$instance['mediaSize'] = $new_instance['mediaSize'];
 		$instance['mediaFloat'] = $new_instance['mediaFloat'];
@@ -237,6 +247,59 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		return $icon_css;
 	}
 
+	/*
+		@seince 6.0.0
+	 */
+	static public function image_align( $instance )
+	{
+		$image_align = 'left';
+		// 新フィールド（media_align）未保存の場合
+		if ( ! isset( $instance['mediaAlign'] ) ) {
+			$image_align = 'center';
+			if ( isset( $instance['mediaAlign_left'] ) && $instance['mediaAlign_left'] ){
+				$image_align = 'left';
+			}
+		}
+
+		if ( isset( $instance['mediaAlign'] ) ) {
+			if ( $instance['mediaAlign'] == 'left' ){
+				$image_align = 'left';
+			} elseif ( $instance['mediaAlign'] == 'center' ) {
+				$image_align = 'center';
+			}
+		}
+		return $image_align;
+	} // static public function image_align( $instance )
+
+	static public function image_outer_size_css( $instance )
+	{
+
+		if( empty( $instance['mediaRound'] ) ){
+			/* ピン角の場合 */
+
+			if( empty( $instance['mediaSize'] ) ){
+				// 画像サイズ指定がない場合
+				$media_outer_size_css = '';
+
+			} elseif ( $instance['mediaSize'] ){
+				// 画像サイズ指定がある場合
+				$media_outer_size_css = 'width:'.esc_attr( mb_convert_kana( $instance['mediaSize'] ) ).'px;';
+			}
+
+		} elseif ( $instance['mediaRound'] ) {
+			// 丸抜き指定の場合
+			if ( isset( $instance['mediaSize'] ) && $instance['mediaSize'] ){
+				// サイズ指定がある場合
+				$media_outer_size_css = 'width:'.esc_attr( $instance['mediaSize'] ).'px;';
+				$media_outer_size_css .= 'height:'.esc_attr( $instance['mediaSize'] ).'px;';
+			} else {
+				$media_outer_size_css = '';
+			}
+
+		}
+
+		return $media_outer_size_css;
+	}
 
 	/*-------------------------------------------*/
 	/*  widget
@@ -254,23 +317,47 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 <div class="profile" >
 <?php // Display a profile image
 
-$mediaRound = isset( $instance['mediaRound'] ) ? ' media_round' : '' ;
-$mediaSize = isset( $instance['mediaSize'] ) ? mb_convert_kana( $instance['mediaSize'] ) : 'auto' ;
-$mediaClass = '';
+	if( ! empty( $instance['mediaFile'] ) ){
 
-if ( ! empty( $instance['mediaFloat'] ) ) {
-	$mediaClass .= ' media_float';
-}
-if ( ! empty( $instance['mediaAlign_left'] ) ) {
-	$mediaClass .= ' media_left';
-}
-if( ! empty( $instance['mediaFile'] ) ){
-	// 配置がフロート設定の場合 $mediaClass で該当のクラス付与
-	echo '<div class="media_class'.$mediaClass.'">';
-	//  画像が角丸設定の場合 $mediaRound でクラス付与
-	echo '<img class="profile_media'.$mediaRound.'" src="'.esc_url( $instance['mediaFile'] ).'" width="'.$mediaSize.'" alt="'.esc_attr( $instance['mediaAlt'] ).'" />';
-	echo '</div>';
-}
+		// $outer_css
+		/*-------------------------------------------*/
+		$outer_class = '';
+
+		if ( ! empty( $instance['mediaFloat'] ) ) {
+			$outer_class .= ' media_float';
+		}
+
+		if ( ! empty( $instance['mediaRound'] ) ) {
+			$outer_class .= ' media_round';
+		}
+
+		// image align
+		// 抜きなし / 中央 / サイズ指定なし の場合、画像で中央揃え
+		// 抜きあり / 中央 / サイズ指定なし の場合、外枠で中央揃え のため、外枠の class 基準でcssをあてる
+		$media_align = self::image_align( $instance );
+		if ( $media_align == 'center' ){
+			$outer_class .= ' media_center';
+		} elseif ( $media_align == 'left' ){
+			$outer_class .= ' media_left';
+		}
+
+		// $outer_css
+		/*-------------------------------------------*/
+		$outer_css = '';
+
+		// image size
+		$outer_css .= self::image_outer_size_css( $instance );
+
+		if ( ! empty( $instance['mediaRound'] ) ) {
+			$outer_css .= 'background:url('.esc_url( $instance[ 'mediaFile' ] ).') no-repeat 50% center;background-size: cover;';
+		}
+
+		echo '<div class="media_outer'.$outer_class.'" style="'.$outer_css.'">';
+		//  画像が角丸設定の場合 $mediaRound でクラス付与
+		echo '<img class="profile_media" src="'.esc_url( $instance['mediaFile'] ).'" alt="'.esc_attr( $instance['mediaAlt'] ).'" />';
+		echo '</div>';
+
+} // if( ! empty( $instance['mediaFile'] ) ){
 
 // Display a profile text
 if ( ! empty( $instance['profile'] ) ) {

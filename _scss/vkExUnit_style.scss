@@ -528,11 +528,31 @@ $section_pagelist_margin:2.5em 0 1em;
 /*-------------------------------------------*/
 .veu_profile {
 	.profile{ overflow: hidden; }
-	.profile_media{ display:block; margin: 0.8em auto;max-width: 100%;}
-	.media_round{ border-radius: 50%; }
-	.media_left .profile_media{ margin-left:0; }
-	.media_float{ float: left;padding-right: 10px;
-		.profile_media{ margin: 0.8em 0 0;}
+	.media_outer {
+		position: relative;
+		display: block;
+		overflow:hidden;
+		margin:0.8em 0 0.8em;
+		box-sizing: border-box;
+	}
+	.media_round{
+		border-radius: 50%;
+		width:120px;
+		height:120px;
+		position: relative;
+		img {
+			position: absolute;
+			left:-9999px;
+		}
+	}
+	.media_center {
+		margin-left:auto;margin-right:auto;
+		img {
+			display: block;
+			margin-left:auto;margin-right:auto;
+		}
+	}
+	.media_float{ float: left;margin-right: 1em;
 		&+.profile_text{ padding-top: 0.8em;}
 	}
 	.profile_text{ margin-bottom: 1em;font-size: 14px;}
