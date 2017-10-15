@@ -1252,7 +1252,7 @@ msgstr "PRブロック"
 
 #: plugins/other_widget/widget-pr-blocks.php:107
 msgid "Icon"
-msgstr ""
+msgstr "アイコン"
 
 #: plugins/other_widget/widget-pr-blocks.php:110
 msgid "Class name of the icon font you want to use:"
@@ -1283,9 +1283,6 @@ msgid "No background"
 msgstr "背景なし"
 
 #: plugins/other_widget/widget-pr-blocks.php:135
-#, fuzzy
-#| msgctxt "post format archive title"
-#| msgid "Images"
 msgid "PR Image"
 msgstr "画像"
 
