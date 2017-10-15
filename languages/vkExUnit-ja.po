@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-26 17:12+0900\n"
+"POT-Creation-Date: 2017-10-15 15:31+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -24,98 +24,6 @@ msgstr "メイン設定"
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
-
-#: common_helpers.php:109
-#, php-format
-msgid "Author: %s"
-msgstr "著者: %s"
-
-#: common_helpers.php:111 common_helpers.php:192
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr "年"
-
-#: common_helpers.php:113 common_helpers.php:196
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr "年月"
-
-#: common_helpers.php:115
-msgctxt "daily archives date format"
-msgid "F j, Y"
-msgstr "Y年F月j日"
-
-#: common_helpers.php:118
-#, fuzzy
-msgctxt "post format archive title"
-msgid "Asides"
-msgstr "サイド"
-
-#: common_helpers.php:120
-msgctxt "post format archive title"
-msgid "Galleries"
-msgstr "ギャラリー"
-
-#: common_helpers.php:122
-msgctxt "post format archive title"
-msgid "Images"
-msgstr "画像"
-
-#: common_helpers.php:124
-msgctxt "post format archive title"
-msgid "Videos"
-msgstr "ビデオ"
-
-#: common_helpers.php:126
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "引用"
-
-#: common_helpers.php:128
-msgctxt "post format archive title"
-msgid "Links"
-msgstr "リンク"
-
-#: common_helpers.php:130
-msgctxt "post format archive title"
-msgid "Statuses"
-msgstr "ステータス"
-
-#: common_helpers.php:132
-msgctxt "post format archive title"
-msgid "Audio"
-msgstr "オーディオ"
-
-#: common_helpers.php:134
-msgctxt "post format archive title"
-msgid "Chats"
-msgstr "チャット"
-
-#: common_helpers.php:150 plugins/other_widget/widget-taxonomies.php:100
-msgid "Archives"
-msgstr "アーカイブ"
-
-#: common_helpers.php:180 common_helpers.php:188
-#, php-format
-msgid "About %s"
-msgstr "%s について"
-
-#: common_helpers.php:193
-#, php-format
-msgctxt "Yearly archive description"
-msgid "Article of %s."
-msgstr "%s の記事"
-
-#: common_helpers.php:197 common_helpers.php:201 common_helpers.php:206
-#, php-format
-msgctxt "Archive description"
-msgid "Article of %s."
-msgstr "%s の記事"
-
-#: common_helpers.php:225 plugins/wp_title.php:59
-#, php-format
-msgid "Page of %s"
-msgstr "%sページ目"
 
 #: packages.php:70
 msgid "Print Bootstrap css ( grid / button / table )"
@@ -150,6 +58,15 @@ msgid "About favicon."
 msgstr ""
 "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
 "（ファビコン）を設定します。"
+
+#: packages.php:92
+msgid ""
+"This feature will be discontinued shortly.<br>You can set the site icon from "
+"\"Site Identity\" panel of \"Themes > Customize\"."
+msgstr ""
+"この機能は間もなく廃止されます。<br>\n"
+"サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
+"ます。"
 
 #: packages.php:102
 msgid "Rewrite the title tag"
@@ -330,11 +247,11 @@ msgstr "HTMLサイトマップの表示"
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: packages.php:295 plugins/call_to_action/view-adminsetting.php:10
+#: packages.php:295 plugins/call-to-action/view-adminsetting.php:19
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
-#: packages.php:297 plugins/call_to_action/view-adminsetting.php:11
+#: packages.php:297 plugins/call-to-action/view-adminsetting.php:20
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -342,7 +259,7 @@ msgstr ""
 "CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
 "情報を表示します。"
 
-#: packages.php:299 plugins/call_to_action/view-adminsetting.php:12
+#: packages.php:299 plugins/call-to-action/view-adminsetting.php:21
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -350,7 +267,7 @@ msgstr ""
 "例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
 "ンなどです。"
 
-#: packages.php:303 plugins/call_to_action/view-adminsetting.php:6
+#: packages.php:303 plugins/call-to-action/view-adminsetting.php:15
 msgid "Call To Action"
 msgstr "Call To Action"
 
@@ -440,151 +357,151 @@ msgstr "キーカラー"
 msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
-#: plugins/call_to_action/class.call_to_action.php:46
-#: plugins/call_to_action/view-actionbox.php:56
+#: plugins/call-to-action/class-vk-call-to-action.php:61
+#: plugins/call-to-action/view-actionbox.php:64
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
-#: plugins/call_to_action/class.call_to_action.php:47
+#: plugins/call-to-action/class-vk-call-to-action.php:62
 msgid "Add new CTA"
 msgstr "CTAの新規作成"
 
-#: plugins/call_to_action/class.call_to_action.php:48
+#: plugins/call-to-action/class-vk-call-to-action.php:63
 msgid "New CTA"
 msgstr "CTA 新規作成"
 
-#: plugins/call_to_action/class.call_to_action.php:75
-#: plugins/call_to_action/class.call_to_action.php:77
-#: plugins/call_to_action/class.call_to_action.php:78
+#: plugins/call-to-action/class-vk-call-to-action.php:91
+#: plugins/call-to-action/class-vk-call-to-action.php:93
+#: plugins/call-to-action/class-vk-call-to-action.php:94
 msgid "Call to Action setting"
 msgstr "CTA設定"
 
-#: plugins/call_to_action/class.call_to_action.php:80
+#: plugins/call-to-action/class-vk-call-to-action.php:96
 msgid "CTA Contents"
 msgstr "CTA Contents"
 
-#: plugins/call_to_action/class.call_to_action.php:90
-#: plugins/call_to_action/class.call_to_action.php:510
-#: plugins/call_to_action/widget.call_to_action.php:65
+#: plugins/call-to-action/class-vk-call-to-action.php:121
+#: plugins/call-to-action/class-vk-call-to-action.php:549
+#: plugins/call-to-action/widget-call-to-action.php:74
 msgid "Random"
 msgstr "ランダム表示"
 
-#: plugins/call_to_action/class.call_to_action.php:91
-#: plugins/call_to_action/class.call_to_action.php:512
+#: plugins/call-to-action/class-vk-call-to-action.php:122
+#: plugins/call-to-action/class-vk-call-to-action.php:551
 msgid "Disable display"
 msgstr "表示しない"
 
-#: plugins/call_to_action/class.call_to_action.php:92
+#: plugins/call-to-action/class-vk-call-to-action.php:123
 msgid "Follow common setting"
 msgstr "共通設定を使用"
 
-#: plugins/call_to_action/class.call_to_action.php:103
+#: plugins/call-to-action/class-vk-call-to-action.php:134
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: plugins/call_to_action/class.call_to_action.php:104
-#: plugins/call_to_action/view-adminsetting.php:22
-#: plugins/call_to_action/widget.call_to_action.php:76
+#: plugins/call-to-action/class-vk-call-to-action.php:135
+#: plugins/call-to-action/view-adminsetting.php:31
+#: plugins/call-to-action/widget-call-to-action.php:86
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
-#: plugins/call_to_action/class.call_to_action.php:169
+#: plugins/call-to-action/class-vk-call-to-action.php:203
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: plugins/call_to_action/class.call_to_action.php:175
+#: plugins/call-to-action/class-vk-call-to-action.php:209
 msgid "Add image"
 msgstr "画像を追加"
 
-#: plugins/call_to_action/class.call_to_action.php:176
+#: plugins/call-to-action/class-vk-call-to-action.php:210
 msgid "Change image"
 msgstr "画像を変更"
 
-#: plugins/call_to_action/class.call_to_action.php:177
+#: plugins/call-to-action/class-vk-call-to-action.php:211
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: plugins/call_to_action/class.call_to_action.php:182
+#: plugins/call-to-action/class-vk-call-to-action.php:216
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: plugins/call_to_action/class.call_to_action.php:185
+#: plugins/call-to-action/class-vk-call-to-action.php:219
 msgid "right"
 msgstr "右寄せ"
 
-#: plugins/call_to_action/class.call_to_action.php:186
+#: plugins/call-to-action/class-vk-call-to-action.php:220
 msgid "center"
 msgstr "中央"
 
-#: plugins/call_to_action/class.call_to_action.php:187
+#: plugins/call-to-action/class-vk-call-to-action.php:221
 msgid "left"
 msgstr "左寄せ"
 
-#: plugins/call_to_action/class.call_to_action.php:191
+#: plugins/call-to-action/class-vk-call-to-action.php:225
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call_to_action/class.call_to_action.php:195
+#: plugins/call-to-action/class-vk-call-to-action.php:229
 msgid "Button icon"
 msgstr "ボタンアイコン"
 
-#: plugins/call_to_action/class.call_to_action.php:196
+#: plugins/call-to-action/class-vk-call-to-action.php:230
 #: plugins/other_widget/widget-button.php:104
-#: plugins/other_widget/widget-pr-blocks.php:96
+#: plugins/other_widget/widget-pr-blocks.php:113
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: plugins/call_to_action/class.call_to_action.php:197
+#: plugins/call-to-action/class-vk-call-to-action.php:231
 #: plugins/other_widget/widget-button.php:105
 msgid "Before :"
 msgstr "文字の前 :"
 
-#: plugins/call_to_action/class.call_to_action.php:199
+#: plugins/call-to-action/class-vk-call-to-action.php:233
 #: plugins/other_widget/widget-button.php:107
 msgid "After :"
 msgstr "文字の後 :"
 
-#: plugins/call_to_action/class.call_to_action.php:201
+#: plugins/call-to-action/class-vk-call-to-action.php:235
 #: plugins/other_widget/widget-button.php:109
 msgid " ex:fa-arrow-circle-o-right"
 msgstr "例: fa-arrow-circle-o-right"
 
-#: plugins/call_to_action/class.call_to_action.php:206
+#: plugins/call-to-action/class-vk-call-to-action.php:240
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call_to_action/class.call_to_action.php:219
+#: plugins/call-to-action/class-vk-call-to-action.php:253
 msgid "Target window"
 msgstr "リンク先ターゲット"
 
-#: plugins/call_to_action/class.call_to_action.php:221
+#: plugins/call-to-action/class-vk-call-to-action.php:255
 msgid "Open in a self window"
 msgstr "同じウィンドウで開く"
 
-#: plugins/call_to_action/class.call_to_action.php:223
+#: plugins/call-to-action/class-vk-call-to-action.php:257
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call_to_action/class.call_to_action.php:229
-#: plugins/call_to_action/widget.call_to_action.php:77
+#: plugins/call-to-action/class-vk-call-to-action.php:263
+#: plugins/call-to-action/widget-call-to-action.php:89
 msgid "CTA setting"
 msgstr "CTA設定"
 
-#: plugins/call_to_action/view-adminsetting.php:14
+#: plugins/call-to-action/view-adminsetting.php:23
 msgid "How to use"
 msgstr "使い方"
 
-#: plugins/call_to_action/view-adminsetting.php:17
+#: plugins/call-to-action/view-adminsetting.php:26
 msgid ""
 "You register the contents on \"CTA\" that you want to display to bottom of "
 "the content."
 msgstr "まずは投稿タイプCTAで、本文の最後に表示させたい内容を登録します。"
 
-#: plugins/call_to_action/view-adminsetting.php:18
+#: plugins/call-to-action/view-adminsetting.php:27
 msgid "Choose the CTA to be displayed from the following."
 msgstr "下記のプルダウンで、投稿タイプ別に表示するCTAを選択して保存します。"
 
-#: plugins/call_to_action/view-adminsetting.php:19
+#: plugins/call-to-action/view-adminsetting.php:28
 msgid ""
 "If you want to switch the CTA to be displayed on each post, please set in "
 "the details page of such posting."
@@ -592,28 +509,28 @@ msgstr ""
 "投稿毎に表示するCTAを切り替えたい場合は、投稿などの詳細ページで設定してくださ"
 "い。"
 
-#: plugins/call_to_action/view-adminsetting.php:32
+#: plugins/call-to-action/view-adminsetting.php:41
 msgid "Show index page"
 msgstr "一覧ページを表示する"
 
-#: plugins/call_to_action/widget.call_to_action.php:13
+#: plugins/call-to-action/widget-call-to-action.php:21
 #, fuzzy
 msgid "CTA"
 msgstr "CTAの新規作成"
 
-#: plugins/call_to_action/widget.call_to_action.php:19
+#: plugins/call-to-action/widget-call-to-action.php:27
 msgid "Select CTA and display it."
 msgstr "CTAを選択して表示します。"
 
-#: plugins/call_to_action/widget.call_to_action.php:60
+#: plugins/call-to-action/widget-call-to-action.php:69
 msgid "Please select CTA to display."
 msgstr "表示するCTAを選択してください。"
 
-#: plugins/call_to_action/widget.call_to_action.php:69
+#: plugins/call-to-action/widget-call-to-action.php:78
 msgid "Please select"
 msgstr "選択してください"
 
-#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:185
+#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:193
 msgid "Read more"
 msgstr "詳しくはこちら"
 
@@ -751,6 +668,7 @@ msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
 #: plugins/contact_section.php:352 plugins/contact_section.php:374
+#: plugins/contact_section.php:395 plugins/contact_section.php:417
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -758,6 +676,10 @@ msgid ""
 msgstr ""
 "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
 "す。"
+
+#: plugins/contact_section.php:389
+msgid "Contact Section HTML"
+msgstr "お問い合わせバナー"
 
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:28
@@ -781,23 +703,6 @@ msgstr "CSSが保存されました"
 #: plugins/css_customize/css_customize.php:105
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
-
-#: plugins/customize.php:32
-msgid "ExUnit Settings"
-msgstr "ExUnit設定"
-
-#: plugins/customize.php:39 plugins/sns/sns_admin.php:1
-msgid "SNS Settings"
-msgstr "SNS設定"
-
-#: plugins/customize.php:53 plugins/other_widget/widget-pr-blocks.php:112
-#: plugins/other_widget/widget-profile.php:129
-msgid "No background"
-msgstr "背景なし"
-
-#: plugins/customize.php:69
-msgid "Btn color"
-msgstr "ボタンの色"
 
 #: plugins/footer_copyright_change.php:6
 msgid ""
@@ -849,15 +754,26 @@ msgstr "両タイプのコードを出力します。"
 msgid "icon setting"
 msgstr "アイコン設定"
 
-#: plugins/icons.php:73
+#: plugins/icons.php:74
+#, php-format
+msgid ""
+"This feature will be discontinued shortly.<br>You can set the site icon from "
+"\"Site Identity\" panel of [ <a href=%s>Themes > Customize</a> ] After "
+"updating the setting."
+msgstr ""
+"この機能は間もなく廃止されます。<br>\n"
+"サイトアイコンは「<a href=%s>外観 > カスタマイズ</a>」の「サイト基本情報」パ"
+"ネルから設定できます。"
+
+#: plugins/icons.php:81
 msgid "Favicon Setting"
 msgstr "ファビコン設定"
 
-#: plugins/icons.php:75
+#: plugins/icons.php:83
 msgid "Choose icon"
 msgstr "アイコンを選択"
 
-#: plugins/icons.php:76
+#: plugins/icons.php:84
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
@@ -984,24 +900,8 @@ msgstr "キーワードを複数入力する場合は , ( カンマ )で区切�
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
 
-#: plugins/other_widget/old/widget-rss-widget.php:9
-msgid "Displays entries list from a RSS feed link."
-msgstr "RSSフィードリンクからエントリーリストを表示します。"
-
-#: plugins/other_widget/old/widget-rss-widget.php:11
-msgid "RSS entries for top"
-msgstr "トップのRSSエントリー"
-
-#: plugins/other_widget/old/widget-rss-widget.php:25
-msgid "Blog entries"
-msgstr "ブログエントリー"
-
-#: plugins/other_widget/old/widget-rss-widget.php:30
-msgid "Heading title"
-msgstr "見出しタイトル"
-
 #: plugins/other_widget/widget-3pr-area.php:9
-#: plugins/other_widget/widget-3pr-area.php:148
+#: plugins/other_widget/widget-3pr-area.php:156
 msgid "3PR area"
 msgstr "3PR エリア"
 
@@ -1029,7 +929,7 @@ msgstr "3PR エリア設定"
 #: plugins/other_widget/widget-new-posts.php:204
 #: plugins/other_widget/widget-page.php:39
 #: plugins/other_widget/widget-pr-blocks.php:89
-#: plugins/other_widget/widget-profile.php:47
+#: plugins/other_widget/widget-profile.php:48
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -1038,39 +938,39 @@ msgstr "タイトル"
 msgid "Select image for PC:"
 msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 
-#: plugins/other_widget/widget-3pr-area.php:67
-#: plugins/other_widget/widget-3pr-area.php:84
-#: plugins/other_widget/widget-pr-blocks.php:123
-#: plugins/other_widget/widget-profile.php:55
+#: plugins/other_widget/widget-3pr-area.php:73
+#: plugins/other_widget/widget-3pr-area.php:90
+#: plugins/other_widget/widget-pr-blocks.php:147
+#: plugins/other_widget/widget-profile.php:62
 msgid "Select image"
 msgstr "画像を選択"
 
-#: plugins/other_widget/widget-3pr-area.php:68
-#: plugins/other_widget/widget-3pr-area.php:85
-#: plugins/other_widget/widget-pr-blocks.php:126
-#: plugins/other_widget/widget-profile.php:56
+#: plugins/other_widget/widget-3pr-area.php:74
+#: plugins/other_widget/widget-3pr-area.php:91
+#: plugins/other_widget/widget-pr-blocks.php:148
+#: plugins/other_widget/widget-profile.php:63
 msgid "Clear image"
 msgstr "画像クリア"
 
-#: plugins/other_widget/widget-3pr-area.php:78
+#: plugins/other_widget/widget-3pr-area.php:81
 msgid "Select image for Mobile:"
 msgstr ""
 "スマホ用（ウィンドウサイズが 768px 以下の場合）に表示される画像を選択（橫 "
 "690px 以上推奨。空欄も可）"
 
-#: plugins/other_widget/widget-3pr-area.php:94
-#: plugins/other_widget/widget-pr-blocks.php:137
+#: plugins/other_widget/widget-3pr-area.php:102
+#: plugins/other_widget/widget-pr-blocks.php:93
 msgid "Summary Text:"
 msgstr "概要となるテキスト"
 
-#: plugins/other_widget/widget-3pr-area.php:100
-#: plugins/other_widget/widget-pr-blocks.php:141
+#: plugins/other_widget/widget-3pr-area.php:108
+#: plugins/other_widget/widget-pr-blocks.php:98
 msgid "Link URL:"
 msgstr "リンク先ページのURL"
 
-#: plugins/other_widget/widget-3pr-area.php:103
+#: plugins/other_widget/widget-3pr-area.php:111
 #: plugins/other_widget/widget-banner.php:87
-#: plugins/other_widget/widget-pr-blocks.php:145
+#: plugins/other_widget/widget-pr-blocks.php:102
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
 
@@ -1346,38 +1246,50 @@ msgstr ""
 "す。それから編集画面を再度開くと列の入力フォームが増減します。"
 
 #: plugins/other_widget/widget-pr-blocks.php:86
-#: plugins/other_widget/widget-pr-blocks.php:234
+#: plugins/other_widget/widget-pr-blocks.php:243
 msgid "PR Block"
 msgstr "PRブロック"
 
-#: plugins/other_widget/widget-pr-blocks.php:93
+#: plugins/other_widget/widget-pr-blocks.php:107
+msgid "Icon"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:110
 msgid "Class name of the icon font you want to use:"
 msgstr "使用したいアイコンフォントのクラス名:"
 
-#: plugins/other_widget/widget-pr-blocks.php:96
+#: plugins/other_widget/widget-pr-blocks.php:113
 msgid " ex:fa-file-text-o"
 msgstr "例:fa-file-text-o"
 
-#: plugins/other_widget/widget-pr-blocks.php:100
-#: plugins/other_widget/widget-profile.php:135
+#: plugins/other_widget/widget-pr-blocks.php:117
+#: plugins/other_widget/widget-profile.php:149
 msgid "Icon color:"
 msgstr "アイコンの色:"
 
-#: plugins/other_widget/widget-pr-blocks.php:104
-#: plugins/other_widget/widget-profile.php:120
+#: plugins/other_widget/widget-pr-blocks.php:121
+#: plugins/other_widget/widget-profile.php:134
 msgid "Icon Background:"
 msgstr "アイコン背景:"
 
-#: plugins/other_widget/widget-pr-blocks.php:108
-#: plugins/other_widget/widget-profile.php:126
+#: plugins/other_widget/widget-pr-blocks.php:125
+#: plugins/other_widget/widget-profile.php:140
 msgid "Solid color"
 msgstr "塗りつぶし"
 
-#: plugins/other_widget/widget-pr-blocks.php:116
-msgid "Select image:"
-msgstr "画像を選択"
+#: plugins/other_widget/widget-pr-blocks.php:129
+#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:174
+msgid "No background"
+msgstr "背景なし"
 
-#: plugins/other_widget/widget-pr-blocks.php:127
+#: plugins/other_widget/widget-pr-blocks.php:135
+#, fuzzy
+#| msgctxt "post format archive title"
+#| msgid "Images"
+msgid "PR Image"
+msgstr "画像"
+
+#: plugins/other_widget/widget-pr-blocks.php:136
 msgid "When you have an image. Image is displayed with priority"
 msgstr "画像を設定するとアイコンフォントよりも画像が優先されます。"
 
@@ -1391,63 +1303,67 @@ msgid "Displays a your profile"
 msgstr ""
 "ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
 
-#: plugins/other_widget/widget-profile.php:32
+#: plugins/other_widget/widget-profile.php:33
 msgid "Profile Text"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:52
+#: plugins/other_widget/widget-profile.php:53
 msgid "Select Profile image:"
 msgstr "プロフィール用画像を選択"
 
-#: plugins/other_widget/widget-profile.php:65
+#: plugins/other_widget/widget-profile.php:71
 msgid "Cut out round the image."
 msgstr "画像を丸く切り抜いて表示する"
 
-#: plugins/other_widget/widget-profile.php:69
+#: plugins/other_widget/widget-profile.php:75
 msgid "Media size (Optional)"
 msgstr "画像の大きさ( 任意 )"
 
-#: plugins/other_widget/widget-profile.php:74
-msgid "Image align left"
-msgstr "画像を左揃えにする"
+#: plugins/other_widget/widget-profile.php:85
+msgid "Align left"
+msgstr "画像左揃え"
 
-#: plugins/other_widget/widget-profile.php:78
+#: plugins/other_widget/widget-profile.php:88
+msgid "Align center"
+msgstr "画像中央揃え"
+
+#: plugins/other_widget/widget-profile.php:92
 msgid "Text float to image."
 msgstr "テキストを画像に回りこませる"
 
-#: plugins/other_widget/widget-profile.php:82
+#: plugins/other_widget/widget-profile.php:96
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:86
+#: plugins/other_widget/widget-profile.php:100
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:91
+#: plugins/other_widget/widget-profile.php:105
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:96
+#: plugins/other_widget/widget-profile.php:110
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:101
+#: plugins/other_widget/widget-profile.php:115
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:106
+#: plugins/other_widget/widget-profile.php:120
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:111
+#: plugins/other_widget/widget-profile.php:125
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:115
+#: plugins/other_widget/widget-profile.php:129
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:131
+#: plugins/other_widget/widget-profile.php:145
 msgid ""
 "* When \"Icon Background: Fill\" is selected and \"Icon color\" is not "
 "specified, each brand color will be painted."
@@ -1483,13 +1399,14 @@ msgstr "投稿のない分類項目を表示しない"
 msgid "Blog"
 msgstr "ブログ"
 
+#: plugins/other_widget/widget-taxonomies.php:100
+#: plugins/template-tags/template-tags.php:135
+msgid "Archives"
+msgstr "アーカイブ"
+
 #: plugins/pageList_ancestor.php:79
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
-
-#: plugins/page_custom_field.php:11
-msgid "Setting of insert items"
-msgstr "挿入アイテムの設定"
 
 #: plugins/post-type-manager/class.post-type-manager.php:21
 #: plugins/post-type-manager/class.post-type-manager.php:22
@@ -1633,14 +1550,24 @@ msgstr ""
 "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
 "るタイトルを上書きすることができます"
 
-#: plugins/sns/sns.php:19
+#: plugins/sns/sns.php:17
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:113
+#: plugins/sns/sns.php:111
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
+
+#: plugins/sns/sns.php:160 plugins/sns/sns_admin.php:1
+msgid "SNS Settings"
+msgstr "SNS設定"
+
+#: plugins/sns/sns.php:190
+#, fuzzy
+#| msgid "Button color:"
+msgid "Btn color"
+msgstr "ボタンの色:"
 
 #: plugins/sns/sns_admin.php:13
 msgid "facebook application ID"
@@ -1767,27 +1694,124 @@ msgstr "Follow me box の見出しテキスト"
 
 #: plugins/sns/sns_admin.php:108
 msgid "Share button for display"
-msgstr "表示するシェアボタン"
+msgstr "表示するボタン"
 
 #: plugins/sns/sns_admin.php:111
+#, fuzzy
+#| msgid "Facebook URL:"
 msgid "Facebook"
-msgstr "Facebook"
+msgstr "Facebook リンク先ページのURL"
 
 #: plugins/sns/sns_admin.php:112
+#, fuzzy
+#| msgid "Twitter URL:"
 msgid "Twitter"
-msgstr "Twitter"
+msgstr "twitterリンク先ページのURL"
 
 #: plugins/sns/sns_admin.php:113
 msgid "Hatena"
-msgstr "Hatena"
+msgstr ""
 
 #: plugins/sns/sns_admin.php:114
 msgid "Pocket"
-msgstr "Pocket"
+msgstr ""
 
 #: plugins/sns/sns_admin.php:115
 msgid "LINE (mobile only)"
-msgstr "LINE (mobile only)"
+msgstr ""
+
+#: plugins/template-tags/template-tags.php:94
+#, php-format
+msgid "Author: %s"
+msgstr "著者: %s"
+
+#: plugins/template-tags/template-tags.php:96
+#: plugins/template-tags/template-tags.php:178
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "年"
+
+#: plugins/template-tags/template-tags.php:98
+#: plugins/template-tags/template-tags.php:182
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "年月"
+
+#: plugins/template-tags/template-tags.php:100
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr "Y年F月j日"
+
+#: plugins/template-tags/template-tags.php:103
+#, fuzzy
+msgctxt "post format archive title"
+msgid "Asides"
+msgstr "サイド"
+
+#: plugins/template-tags/template-tags.php:105
+msgctxt "post format archive title"
+msgid "Galleries"
+msgstr "ギャラリー"
+
+#: plugins/template-tags/template-tags.php:107
+msgctxt "post format archive title"
+msgid "Images"
+msgstr "画像"
+
+#: plugins/template-tags/template-tags.php:109
+msgctxt "post format archive title"
+msgid "Videos"
+msgstr "ビデオ"
+
+#: plugins/template-tags/template-tags.php:111
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr "引用"
+
+#: plugins/template-tags/template-tags.php:113
+msgctxt "post format archive title"
+msgid "Links"
+msgstr "リンク"
+
+#: plugins/template-tags/template-tags.php:115
+msgctxt "post format archive title"
+msgid "Statuses"
+msgstr "ステータス"
+
+#: plugins/template-tags/template-tags.php:117
+msgctxt "post format archive title"
+msgid "Audio"
+msgstr "オーディオ"
+
+#: plugins/template-tags/template-tags.php:119
+msgctxt "post format archive title"
+msgid "Chats"
+msgstr "チャット"
+
+#: plugins/template-tags/template-tags.php:166
+#: plugins/template-tags/template-tags.php:174
+#, php-format
+msgid "About %s"
+msgstr "%s について"
+
+#: plugins/template-tags/template-tags.php:179
+#, php-format
+msgctxt "Yearly archive description"
+msgid "Article of %s."
+msgstr "%s の記事"
+
+#: plugins/template-tags/template-tags.php:183
+#: plugins/template-tags/template-tags.php:187
+#: plugins/template-tags/template-tags.php:192
+#, php-format
+msgctxt "Archive description"
+msgid "Article of %s."
+msgstr "%s の記事"
+
+#: plugins/template-tags/template-tags.php:211 plugins/wp_title.php:59
+#, php-format
+msgid "Page of %s"
+msgstr "%sページ目"
 
 #: plugins/wp_title.php:47
 #, php-format
@@ -1861,6 +1885,16 @@ msgstr "有効化設定"
 msgid "Main Setting"
 msgstr "メイン設定"
 
+#: plugins_admin/content-meta-box.php:11
+msgid "Setting of insert items"
+msgstr "挿入アイテムの設定"
+
+#: plugins_admin/customize-panel.php:28
+#, fuzzy
+#| msgid "Extension Setting"
+msgid "ExUnit Settings"
+msgstr "拡張設定"
+
 #: plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
 msgstr "VK All in One Expansion Unit からのお知らせ"
@@ -1929,8 +1963,44 @@ msgstr "プラグイン設定オプション"
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
 
-#~ msgid "Do not fill background color."
-#~ msgstr "塗りつぶしなし"
+#~ msgid "Displays entries list from a RSS feed link."
+#~ msgstr "RSSフィードリンクからエントリーリストを表示します。"
+
+#~ msgid "RSS entries for top"
+#~ msgstr "トップのRSSエントリー"
+
+#~ msgid "Blog entries"
+#~ msgstr "ブログエントリー"
+
+#~ msgid "Heading title"
+#~ msgstr "見出しタイトル"
+
+#~ msgid "Select image:"
+#~ msgstr "画像を選択"
+
+#~ msgid ""
+#~ "This feature will be discontinued shortly.<br>You can set the site icon "
+#~ "from \"Site Identity\" panel of [ <a href=\""
+#~ msgstr ""
+#~ "この機能は間もなく廃止されます。<br>\n"
+#~ "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定"
+#~ "できます。"
+
+#, fuzzy
+#~| msgid ""
+#~| "About favicon.<br>This feature will be discontinued shortly.You can set "
+#~| "the site icon from \"Site Identity\" panel of \"Themes > Customize\"."
+#~ msgid ""
+#~ "About favicon.<br><p class=\"text-warning\">* * * * * * * * * * * * * * * "
+#~ "* * * * * * * * *  <br>This feature will be discontinued shortly.<br>You "
+#~ "can set the site icon from \"Site Identity\" panel of \"Themes > Customize"
+#~ "\".<br>* * * * * * * * * * * * * * * * * * * * * * * * </p>"
+#~ msgstr ""
+#~ "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコ"
+#~ "ン（ファビコン）を設定します。<br>\n"
+#~ "この機能は間もなく廃止されます。<br>\n"
+#~ "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定"
+#~ "できます。"
 
 #~ msgid "Current PHP Version is old."
 #~ msgstr "使用中のPHPのバージョンが古いです。"

@@ -19,13 +19,14 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	/*-------------------------------------------*/
 	/*  form
 	/*-------------------------------------------*/
-	function form( $instance ) 
+	function form( $instance )
 	{
 		$defaults = array(
 			'label' => __( 'Profile', 'vkExUnit' ),
 			'mediaFile' => '',
 			'mediaAlt' => '',
-			'mediaAlign_left' => '',
+			'mediaAlign_left' => '', // 'mediaAlign' に移行したので事実上廃止
+			'mediaAlign' => 'left',
 			'mediaRound' => '',
 			'mediaSize' => '',
 			'mediaFloat' => '',
@@ -45,21 +46,26 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 	<?php //title ?>
 <p><label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
 </p>
 
 		<?php //media uploader ?>
 <p><label for="<?php echo $this->get_field_id( 'profile' );  ?>"><?php _e( 'Select Profile image:', 'vkExUnit' ); ?></label><br/>
-<input type="hidden" class="media_url" id="<?php echo $this->get_field_id( 'mediaFile' ); ?>" name="<?php echo $this->get_field_name( 'mediaFile' ); ?>" value="<?php echo esc_attr( $instance['mediaFile'] ); ?>" />
-<input type="hidden" class="media_alt" id="<?php echo $this->get_field_id( 'mediaAlt' ); ?>" name="<?php echo $this->get_field_name( 'mediaAlt' ); ?>" value="<?php echo esc_attr( $instance['mediaAlt'] ); ?>" />
-<input type="button" class="media_select" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect(event.target);" />
-<input type="button" class="media_clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear(event.target);" />
-</p>
-<div class="media">
-	<?php if ( ! empty( $instance['mediaFile'] ) ) :  ?>
-	<img class="media_image" src="<?php echo esc_url( $instance['mediaFile'] ); ?>" alt="<?php echo esc_attr( $instance['mediaAlt'] ); ?>" />
-	<?php endif; ?>
-</div>
+
+<div class="media_image_section">
+	<div class="_display admin_widget_thumb_outer" style="height:auto">
+	    <?php
+			if ( ! empty( $instance[ 'mediaFile' ] ) ): ?>
+	        <img src="<?php echo esc_url( $instance['mediaFile'] ); ?>" class="admin_widget_thumb" />
+	    <?php endif; ?>
+	</div>
+	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e('Select image', 'vkExUnit' ); ?></button>
+	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
+	<div class="_form" style="line-height: 2em">
+	    <input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'mediaFile' ); ?>" value="<?php echo esc_attr( $instance['mediaFile'] ); ?>" />
+			<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'mediaAlt' ); ?>" value="<?php echo esc_attr( $instance['mediaAlt'] ); ?>" />
+	</div>
+</div><!-- [ /.media_image_section ] -->
 
 		<?php //image round setting ?>
 <p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaRound' ); ?>" name="<?php echo $this->get_field_name( 'mediaRound' ); ?>" value="true" <?php echo ($instance['mediaRound'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaRound' );  ?>"><?php _e( 'Cut out round the image.', 'vkExUnit' ); ?></label>
@@ -67,11 +73,19 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 		<?php //image size setting ?>
 <p><label for="<?php echo $this->get_field_id( 'mediaSize' );  ?>"><?php _e( 'Media size (Optional)', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'mediaSize' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'mediaSize' ); ?>" style="width:50px;" value="<?php echo esc_attr( $instance['mediaSize'] ); ?>" /> px
+<input type="text" id="<?php echo $this->get_field_id( 'mediaSize' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'mediaSize' ); ?>" style="width:50px;" value="<?php echo esc_attr( $instance['mediaSize'] ); ?>" /> px
 </p>
 
 		<?php //image mediaAlign_left setting ?>
-<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>" name="<?php echo $this->get_field_name( 'mediaAlign_left' ); ?>" value="true" <?php echo ($instance['mediaAlign_left'])? 'checked': '' ; ?> ><label for="<?php echo $this->get_field_id( 'mediaAlign_left' ); ?>"><?php _e( 'Image align left', 'vkExUnit' ); ?></label>
+
+<p>
+	<?php $image_align = self::image_align( $instance ); ?>
+	<?php $checked = ( $image_align === 'left' ) ? ' checked' : ''; ?>
+	<input type="radio" id="<?php echo $this->get_field_id( 'mediaAlign' ); ?>_left" name="<?php echo $this->get_field_name( 'mediaAlign' ); ?>" value="left"<?php echo $checked; ?> />
+	<label for="<?php echo $this->get_field_id( 'mediaAlign' ).'_left'; ?>"> <?php _e( 'Align left', 'vkExUnit' ); ?></label>
+	<?php $checked = ( $image_align === 'center' ) ? ' checked' : ''; ?>
+	<input type="radio" id="<?php echo $this->get_field_id( 'mediaAlign' ); ?>_center" name="<?php echo $this->get_field_name( 'mediaAlign' ); ?>" value="center"<?php echo $checked; ?> />
+	<label for="<?php echo $this->get_field_id( 'mediaAlign' ).'_center'; ?>"> <?php _e( 'Align center', 'vkExUnit' ); ?></label>
 </p>
 
 		<?php //image float setting ?>
@@ -80,40 +94,40 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 		<?php //profile text ?>
 <p><label for="<?php echo $this->get_field_id( 'profile' );  ?>"><?php _e( 'Profile Text:', 'vkExUnit' ); ?></label></p>
-<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'profile' ); ?>" class="prof_input textarea" name="<?php echo $this->get_field_name( 'profile' ); ?>"><?php echo esc_textarea( $instance['profile'] ); ?></textarea>
+<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'profile' ); ?>" class="admin_widget_input textarea" name="<?php echo $this->get_field_name( 'profile' ); ?>"><?php echo esc_textarea( $instance['profile'] ); ?></textarea>
 
 		<?php //facebook_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'facebook' );  ?>"><?php _e( 'Facebook URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'facebook' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'facebook' ); ?>" value="<?php echo esc_attr( $instance['facebook'] ); ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'facebook' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'facebook' ); ?>" value="<?php echo esc_attr( $instance['facebook'] ); ?>" />
 </p>
 
 		<?php //twitter_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'twitter' );  ?>"><?php _e( 'Twitter URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'twitter' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo esc_attr( $instance['twitter'] ); ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'twitter' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo esc_attr( $instance['twitter'] ); ?>" />
 </p>
 
 		<?php //mail_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'mail' ); ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo esc_attr( $instance['mail'] ); ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo esc_attr( $instance['mail'] ); ?>" />
 </p>
 
 		<?php //youtube_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'youtube' );  ?>"><?php _e( 'Youtube URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'youtube' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $instance['youtube'] ); ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'youtube' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $instance['youtube'] ); ?>" />
 </p>
 
 		<?php //rss_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'rss' ); ?>"><?php _e( 'RSS URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'rss' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'rss' ); ?>" value="<?php echo esc_attr( $instance['rss'] ); ?>" />
+<input type="text" id="<?php echo $this->get_field_id( 'rss' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'rss' ); ?>" value="<?php echo esc_attr( $instance['rss'] ); ?>" />
 </p>
 
 		<?php //instagram_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'instagram' );  ?>"><?php _e( 'instagram URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'instagram' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'instagram' ); ?>" value="<?php echo esc_attr( $instance['instagram'] ); ?>" /></p>
+<input type="text" id="<?php echo $this->get_field_id( 'instagram' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'instagram' ); ?>" value="<?php echo esc_attr( $instance['instagram'] ); ?>" /></p>
 
 		<?php //linkedin_URL ?>
 <p><label for="<?php echo $this->get_field_id( 'linkedin' );  ?>"><?php _e( 'linkedin URL:', 'vkExUnit' ); ?></label><br/>
-<input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>" class="prof_input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $instance['linkedin'] ); ?>" /></p>
+<input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $instance['linkedin'] ); ?>" /></p>
 
 <?php // icon font type ?>
 
@@ -137,7 +151,6 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 
 	<?php  }
 
-
 	/*-------------------------------------------*/
 	/*  update
 	/*-------------------------------------------*/
@@ -148,6 +161,7 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		$instance['mediaAlt'] = $new_instance['mediaAlt'];
 		$instance['profile'] = $new_instance['profile'];
 		$instance['mediaAlign_left'] = $new_instance['mediaAlign_left'];
+		$instance['mediaAlign'] = $new_instance['mediaAlign'];
 		$instance['mediaRound'] = $new_instance['mediaRound'];
 		$instance['mediaSize'] = $new_instance['mediaSize'];
 		$instance['mediaFloat'] = $new_instance['mediaFloat'];
@@ -162,9 +176,6 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		$instance['icon_color'] = $new_instance['icon_color'];
 		return $instance;
 	}
-
-
-
 	/*-------------------------------------------*/
 	/*  SNSアイコンに出力するCSSを出力する関数
 	/*-------------------------------------------*/
@@ -236,6 +247,59 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 		return $icon_css;
 	}
 
+	/*
+		@seince 6.0.0
+	 */
+	static public function image_align( $instance )
+	{
+		$image_align = 'left';
+		// 新フィールド（media_align）未保存の場合
+		if ( ! isset( $instance['mediaAlign'] ) ) {
+			$image_align = 'center';
+			if ( isset( $instance['mediaAlign_left'] ) && $instance['mediaAlign_left'] ){
+				$image_align = 'left';
+			}
+		}
+
+		if ( isset( $instance['mediaAlign'] ) ) {
+			if ( $instance['mediaAlign'] == 'left' ){
+				$image_align = 'left';
+			} elseif ( $instance['mediaAlign'] == 'center' ) {
+				$image_align = 'center';
+			}
+		}
+		return $image_align;
+	} // static public function image_align( $instance )
+
+	static public function image_outer_size_css( $instance )
+	{
+
+		if( empty( $instance['mediaRound'] ) ){
+			/* ピン角の場合 */
+
+			if( empty( $instance['mediaSize'] ) ){
+				// 画像サイズ指定がない場合
+				$media_outer_size_css = '';
+
+			} elseif ( $instance['mediaSize'] ){
+				// 画像サイズ指定がある場合
+				$media_outer_size_css = 'width:'.esc_attr( mb_convert_kana( $instance['mediaSize'] ) ).'px;';
+			}
+
+		} elseif ( $instance['mediaRound'] ) {
+			// 丸抜き指定の場合
+			if ( isset( $instance['mediaSize'] ) && $instance['mediaSize'] ){
+				// サイズ指定がある場合
+				$media_outer_size_css = 'width:'.esc_attr( $instance['mediaSize'] ).'px;';
+				$media_outer_size_css .= 'height:'.esc_attr( $instance['mediaSize'] ).'px;';
+			} else {
+				$media_outer_size_css = '';
+			}
+
+		}
+
+		return $media_outer_size_css;
+	}
 
 	/*-------------------------------------------*/
 	/*  widget
@@ -253,23 +317,47 @@ $checked = ( !isset( $instance[ 'iconFont_bgType' ] ) || !$instance[ 'iconFont_b
 <div class="profile" >
 <?php // Display a profile image
 
-$mediaRound = isset( $instance['mediaRound'] ) ? ' media_round' : '' ;
-$mediaSize = isset( $instance['mediaSize'] ) ? mb_convert_kana( $instance['mediaSize'] ) : 'auto' ;
-$mediaClass = '';
+	if( ! empty( $instance['mediaFile'] ) ){
 
-if ( ! empty( $instance['mediaFloat'] ) ) {
-	$mediaClass .= ' media_float';
-}
-if ( ! empty( $instance['mediaAlign_left'] ) ) {
-	$mediaClass .= ' media_left';
-}
-if( ! empty( $instance['mediaFile'] ) ){
-	// 配置がフロート設定の場合 $mediaClass で該当のクラス付与
-	echo '<div class="media_class'.$mediaClass.'">';
-	//  画像が角丸設定の場合 $mediaRound でクラス付与
-	echo '<img class="profile_media'.$mediaRound.'" src="'.esc_url( $instance['mediaFile'] ).'" width="'.$mediaSize.'" alt="'.esc_attr( $instance['mediaAlt'] ).'" />';
-	echo '</div>';
-}
+		// $outer_css
+		/*-------------------------------------------*/
+		$outer_class = '';
+
+		if ( ! empty( $instance['mediaFloat'] ) ) {
+			$outer_class .= ' media_float';
+		}
+
+		if ( ! empty( $instance['mediaRound'] ) ) {
+			$outer_class .= ' media_round';
+		}
+
+		// image align
+		// 抜きなし / 中央 / サイズ指定なし の場合、画像で中央揃え
+		// 抜きあり / 中央 / サイズ指定なし の場合、外枠で中央揃え のため、外枠の class 基準でcssをあてる
+		$media_align = self::image_align( $instance );
+		if ( $media_align == 'center' ){
+			$outer_class .= ' media_center';
+		} elseif ( $media_align == 'left' ){
+			$outer_class .= ' media_left';
+		}
+
+		// $outer_css
+		/*-------------------------------------------*/
+		$outer_css = '';
+
+		// image size
+		$outer_css .= self::image_outer_size_css( $instance );
+
+		if ( ! empty( $instance['mediaRound'] ) ) {
+			$outer_css .= 'background:url('.esc_url( $instance[ 'mediaFile' ] ).') no-repeat 50% center;background-size: cover;';
+		}
+
+		echo '<div class="media_outer'.$outer_class.'" style="'.$outer_css.'">';
+		//  画像が角丸設定の場合 $mediaRound でクラス付与
+		echo '<img class="profile_media" src="'.esc_url( $instance['mediaFile'] ).'" alt="'.esc_attr( $instance['mediaAlt'] ).'" />';
+		echo '</div>';
+
+} // if( ! empty( $instance['mediaFile'] ) ){
 
 // Display a profile text
 if ( ! empty( $instance['profile'] ) ) {
@@ -317,24 +405,10 @@ foreach ( $sns_names as $key => $sns_name ) {
 // Profile widget uploader js
 function vkExUnit_profile_admin_scripts() {
 	wp_enqueue_media();
-	wp_register_script( 'mediauploader', plugin_dir_url( __FILE__ ) . 'js/widget-prof-uploader.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'mediauploader' );
+	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+	wp_enqueue_script( 'vk-admin-widget' );
 }
 add_action( 'admin_print_scripts', 'vkExUnit_profile_admin_scripts' );
-
-// Profile widget CSS
-function vkExUnit_profile_admin_style() {
-	echo '<style>.prof_input{ width: 100%;}
-.media_select,.media_clear{ padding: 3px; border: none; border-radius: 3px; background: #00a0d2; color: #fff; font-size: 12px; cursor: pointer; outline: none;}
-.media_select:hover,.media_clear:hover{ background: #0073aa; }
-.media{ position: relative; z-index: 2; overflow: hidden; margin: 3px 0; min-height: 70px; max-height: 200px; width: 100%;
-border: 1px dashed #ccc; border-radius: 5px; background-color: rgba(212, 212, 212, 0.1);}
-.media:before{ position: absolute; top: 50%; left: 50%; z-index: 1; margin: -8px 0 0 -30px; color: #999; content: "No Image";}
-.media_image{ position: relative; z-index: 3; display: block; width: 100%; height: auto;}
-.prof_input.textarea{ margin-top: -1em; }</style>'.PHP_EOL;
-}
-add_action( 'admin_print_styles-widgets.php', 'vkExUnit_profile_admin_style' );
-
 
 add_action('widgets_init', 'vkExUnit_widget_register_profile');
 function vkExUnit_widget_register_profile(){
