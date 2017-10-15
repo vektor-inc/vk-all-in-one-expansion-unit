@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-06 17:31+0900\n"
+"POT-Creation-Date: 2017-10-15 14:59+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -539,7 +539,7 @@ msgstr "ボタンアイコン"
 
 #: plugins/call_to_action/class.call_to_action.php:196
 #: plugins/other_widget/widget-button.php:104
-#: plugins/other_widget/widget-pr-blocks.php:96
+#: plugins/other_widget/widget-pr-blocks.php:113
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
@@ -622,7 +622,7 @@ msgstr "表示するCTAを選択してください。"
 msgid "Please select"
 msgstr "選択してください"
 
-#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:185
+#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:193
 msgid "Read more"
 msgstr "詳しくはこちら"
 
@@ -992,24 +992,8 @@ msgstr "キーワードを複数入力する場合は , ( カンマ )で区切�
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
 
-#: plugins/other_widget/old/widget-rss-widget.php:9
-msgid "Displays entries list from a RSS feed link."
-msgstr "RSSフィードリンクからエントリーリストを表示します。"
-
-#: plugins/other_widget/old/widget-rss-widget.php:11
-msgid "RSS entries for top"
-msgstr "トップのRSSエントリー"
-
-#: plugins/other_widget/old/widget-rss-widget.php:25
-msgid "Blog entries"
-msgstr "ブログエントリー"
-
-#: plugins/other_widget/old/widget-rss-widget.php:30
-msgid "Heading title"
-msgstr "見出しタイトル"
-
 #: plugins/other_widget/widget-3pr-area.php:9
-#: plugins/other_widget/widget-3pr-area.php:148
+#: plugins/other_widget/widget-3pr-area.php:156
 msgid "3PR area"
 msgstr "3PR エリア"
 
@@ -1037,7 +1021,7 @@ msgstr "3PR エリア設定"
 #: plugins/other_widget/widget-new-posts.php:204
 #: plugins/other_widget/widget-page.php:39
 #: plugins/other_widget/widget-pr-blocks.php:89
-#: plugins/other_widget/widget-profile.php:47
+#: plugins/other_widget/widget-profile.php:48
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -1046,39 +1030,39 @@ msgstr "タイトル"
 msgid "Select image for PC:"
 msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 
-#: plugins/other_widget/widget-3pr-area.php:67
-#: plugins/other_widget/widget-3pr-area.php:84
-#: plugins/other_widget/widget-pr-blocks.php:123
-#: plugins/other_widget/widget-profile.php:55
+#: plugins/other_widget/widget-3pr-area.php:73
+#: plugins/other_widget/widget-3pr-area.php:90
+#: plugins/other_widget/widget-pr-blocks.php:147
+#: plugins/other_widget/widget-profile.php:62
 msgid "Select image"
 msgstr "画像を選択"
 
-#: plugins/other_widget/widget-3pr-area.php:68
-#: plugins/other_widget/widget-3pr-area.php:85
-#: plugins/other_widget/widget-pr-blocks.php:126
-#: plugins/other_widget/widget-profile.php:56
+#: plugins/other_widget/widget-3pr-area.php:74
+#: plugins/other_widget/widget-3pr-area.php:91
+#: plugins/other_widget/widget-pr-blocks.php:148
+#: plugins/other_widget/widget-profile.php:63
 msgid "Clear image"
 msgstr "画像クリア"
 
-#: plugins/other_widget/widget-3pr-area.php:78
+#: plugins/other_widget/widget-3pr-area.php:81
 msgid "Select image for Mobile:"
 msgstr ""
 "スマホ用（ウィンドウサイズが 768px 以下の場合）に表示される画像を選択（橫 "
 "690px 以上推奨。空欄も可）"
 
-#: plugins/other_widget/widget-3pr-area.php:94
-#: plugins/other_widget/widget-pr-blocks.php:137
+#: plugins/other_widget/widget-3pr-area.php:102
+#: plugins/other_widget/widget-pr-blocks.php:93
 msgid "Summary Text:"
 msgstr "概要となるテキスト"
 
-#: plugins/other_widget/widget-3pr-area.php:100
-#: plugins/other_widget/widget-pr-blocks.php:141
+#: plugins/other_widget/widget-3pr-area.php:108
+#: plugins/other_widget/widget-pr-blocks.php:98
 msgid "Link URL:"
 msgstr "リンク先ページのURL"
 
-#: plugins/other_widget/widget-3pr-area.php:103
+#: plugins/other_widget/widget-3pr-area.php:111
 #: plugins/other_widget/widget-banner.php:87
-#: plugins/other_widget/widget-pr-blocks.php:145
+#: plugins/other_widget/widget-pr-blocks.php:102
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
 
@@ -1354,43 +1338,50 @@ msgstr ""
 "す。それから編集画面を再度開くと列の入力フォームが増減します。"
 
 #: plugins/other_widget/widget-pr-blocks.php:86
-#: plugins/other_widget/widget-pr-blocks.php:234
+#: plugins/other_widget/widget-pr-blocks.php:243
 msgid "PR Block"
 msgstr "PRブロック"
 
-#: plugins/other_widget/widget-pr-blocks.php:93
+#: plugins/other_widget/widget-pr-blocks.php:107
+msgid "Icon"
+msgstr ""
+
+#: plugins/other_widget/widget-pr-blocks.php:110
 msgid "Class name of the icon font you want to use:"
 msgstr "使用したいアイコンフォントのクラス名:"
 
-#: plugins/other_widget/widget-pr-blocks.php:96
+#: plugins/other_widget/widget-pr-blocks.php:113
 msgid " ex:fa-file-text-o"
 msgstr "例:fa-file-text-o"
 
-#: plugins/other_widget/widget-pr-blocks.php:100
-#: plugins/other_widget/widget-profile.php:135
+#: plugins/other_widget/widget-pr-blocks.php:117
+#: plugins/other_widget/widget-profile.php:149
 msgid "Icon color:"
 msgstr "アイコンの色:"
 
-#: plugins/other_widget/widget-pr-blocks.php:104
-#: plugins/other_widget/widget-profile.php:120
+#: plugins/other_widget/widget-pr-blocks.php:121
+#: plugins/other_widget/widget-profile.php:134
 msgid "Icon Background:"
 msgstr "アイコン背景:"
 
-#: plugins/other_widget/widget-pr-blocks.php:108
-#: plugins/other_widget/widget-profile.php:126
+#: plugins/other_widget/widget-pr-blocks.php:125
+#: plugins/other_widget/widget-profile.php:140
 msgid "Solid color"
 msgstr "塗りつぶし"
 
-#: plugins/other_widget/widget-pr-blocks.php:112
-#: plugins/other_widget/widget-profile.php:129
+#: plugins/other_widget/widget-pr-blocks.php:129
+#: plugins/other_widget/widget-profile.php:143
 msgid "No background"
 msgstr "背景なし"
 
-#: plugins/other_widget/widget-pr-blocks.php:116
-msgid "Select image:"
-msgstr "画像を選択"
+#: plugins/other_widget/widget-pr-blocks.php:135
+#, fuzzy
+#| msgctxt "post format archive title"
+#| msgid "Images"
+msgid "PR Image"
+msgstr "画像"
 
-#: plugins/other_widget/widget-pr-blocks.php:127
+#: plugins/other_widget/widget-pr-blocks.php:136
 msgid "When you have an image. Image is displayed with priority"
 msgstr "画像を設定するとアイコンフォントよりも画像が優先されます。"
 
@@ -1404,63 +1395,67 @@ msgid "Displays a your profile"
 msgstr ""
 "ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
 
-#: plugins/other_widget/widget-profile.php:32
+#: plugins/other_widget/widget-profile.php:33
 msgid "Profile Text"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:52
+#: plugins/other_widget/widget-profile.php:53
 msgid "Select Profile image:"
 msgstr "プロフィール用画像を選択"
 
-#: plugins/other_widget/widget-profile.php:65
+#: plugins/other_widget/widget-profile.php:71
 msgid "Cut out round the image."
 msgstr "画像を丸く切り抜いて表示する"
 
-#: plugins/other_widget/widget-profile.php:69
+#: plugins/other_widget/widget-profile.php:75
 msgid "Media size (Optional)"
 msgstr "画像の大きさ( 任意 )"
 
-#: plugins/other_widget/widget-profile.php:74
-msgid "Image align left"
-msgstr "画像を左揃えにする"
+#: plugins/other_widget/widget-profile.php:85
+msgid "Align left"
+msgstr "画像左揃え"
 
-#: plugins/other_widget/widget-profile.php:78
+#: plugins/other_widget/widget-profile.php:88
+msgid "Align center"
+msgstr "画像中央揃え"
+
+#: plugins/other_widget/widget-profile.php:92
 msgid "Text float to image."
 msgstr "テキストを画像に回りこませる"
 
-#: plugins/other_widget/widget-profile.php:82
+#: plugins/other_widget/widget-profile.php:96
 msgid "Profile Text:"
 msgstr "プロフィールテキスト"
 
-#: plugins/other_widget/widget-profile.php:86
+#: plugins/other_widget/widget-profile.php:100
 msgid "Facebook URL:"
 msgstr "Facebook リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:91
+#: plugins/other_widget/widget-profile.php:105
 msgid "Twitter URL:"
 msgstr "twitterリンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:96
+#: plugins/other_widget/widget-profile.php:110
 msgid "Email Address:"
 msgstr "Email リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:101
+#: plugins/other_widget/widget-profile.php:115
 msgid "Youtube URL:"
 msgstr "Youtube リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:106
+#: plugins/other_widget/widget-profile.php:120
 msgid "RSS URL:"
 msgstr "RSS リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:111
+#: plugins/other_widget/widget-profile.php:125
 msgid "instagram URL:"
 msgstr "instagram リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:115
+#: plugins/other_widget/widget-profile.php:129
 msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
-#: plugins/other_widget/widget-profile.php:131
+#: plugins/other_widget/widget-profile.php:145
 msgid ""
 "* When \"Icon Background: Fill\" is selected and \"Icon color\" is not "
 "specified, each brand color will be painted."
@@ -1783,10 +1778,8 @@ msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
 #: plugins/sns/sns_admin.php:108
-#, fuzzy
-#| msgid "Label to display"
 msgid "Share button for display"
-msgstr "表示するラベル"
+msgstr "表示するボタン"
 
 #: plugins/sns/sns_admin.php:111
 #, fuzzy
@@ -1951,6 +1944,21 @@ msgstr "プラグイン設定オプション"
 #: vkExUnit_admin.php:94
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
+
+#~ msgid "Displays entries list from a RSS feed link."
+#~ msgstr "RSSフィードリンクからエントリーリストを表示します。"
+
+#~ msgid "RSS entries for top"
+#~ msgstr "トップのRSSエントリー"
+
+#~ msgid "Blog entries"
+#~ msgstr "ブログエントリー"
+
+#~ msgid "Heading title"
+#~ msgstr "見出しタイトル"
+
+#~ msgid "Select image:"
+#~ msgstr "画像を選択"
 
 #~ msgid ""
 #~ "This feature will be discontinued shortly.<br>You can set the site icon "

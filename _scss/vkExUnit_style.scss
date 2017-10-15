@@ -528,11 +528,31 @@ $section_pagelist_margin:2.5em 0 1em;
 /*-------------------------------------------*/
 .veu_profile {
 	.profile{ overflow: hidden; }
-	.profile_media{ display:block; margin: 0.8em auto;max-width: 100%;}
-	.media_round{ border-radius: 50%; }
-	.media_left .profile_media{ margin-left:0; }
-	.media_float{ float: left;padding-right: 10px;
-		.profile_media{ margin: 0.8em 0 0;}
+	.media_outer {
+		position: relative;
+		display: block;
+		overflow:hidden;
+		margin:0.8em 0 0.8em;
+		box-sizing: border-box;
+	}
+	.media_round{
+		border-radius: 50%;
+		width:120px;
+		height:120px;
+		position: relative;
+		img {
+			position: absolute;
+			left:-9999px;
+		}
+	}
+	.media_center {
+		margin-left:auto;margin-right:auto;
+		img {
+			display: block;
+			margin-left:auto;margin-right:auto;
+		}
+	}
+	.media_float{ float: left;margin-right: 1em;
 		&+.profile_text{ padding-top: 0.8em;}
 	}
 	.profile_text{ margin-bottom: 1em;font-size: 14px;}
@@ -602,9 +622,9 @@ $section_pagelist_margin:2.5em 0 1em;
 	}
 	.prBlock_icon_outer { display: table; margin: 0 auto ; width: 80px; height: 80px; border-radius: 50%; }
 	.prBlock_icon { display: table-cell; vertical-align: middle; text-align: center; font-size: 36px; }
-	.prBlock_title{ margin-top:0.8em;margin-bottom: 0.7em; text-align: center; font-size: 18px; line-height: 1.4em; }
-	.prBlock_image{ display: table; margin: 0 auto;
-		img{ display: table-cell; overflow: hidden; width: 120px; height: 120px; border-radius: 50%; vertical-align: middle; text-align: center; }
+	.prBlock_title{ margin-top:0.9em;margin-bottom: 0.7em; text-align: center; font-size: 18px; line-height: 1.4em; }
+	.prBlock_image{ position: relative; display: block; width: 120px; height:120px; margin: 0 auto;overflow: hidden;border-radius: 50%;
+		text-indent:-9999px;
 	}
 	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }
 }
