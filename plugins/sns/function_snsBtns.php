@@ -108,8 +108,17 @@ function veu_sns_icon_css( $options )
 
 
 function veu_add_sns_btns( $content ) {
+
+	// ウィジェットなら表示しない
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
+
+	// 抜粋でも表示しない
+	if ( function_exists('vk_is_excerpt') ){
+		if ( vk_is_excerpt() ) { return $content; }
+	}
+
+	// アーカイブページでも表示しない
 	if ( is_archive() ) { return $content; }
 
 	$options = veu_get_sns_options();
