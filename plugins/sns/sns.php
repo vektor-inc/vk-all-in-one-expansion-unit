@@ -69,16 +69,16 @@ function veu_get_sns_options_default() {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
-	$output['fbAppId']										= $input['fbAppId'];
-	$output['fbPageUrl']									= $input['fbPageUrl'];
-	$output['ogImage']										= $input['ogImage'];
-	$output['twitterId']									= $input['twitterId'];
+	$output['fbAppId']										= esc_attr( $input['fbAppId'] );
+	$output['fbPageUrl']									= esc_url( $input['fbPageUrl'] );
+	$output['ogImage']										= esc_url( $input['ogImage'] );
+	$output['twitterId']									= esc_attr( $input['twitterId'] );
 	$output['snsBtn_ignorePosts']					= preg_replace('/[^0-9,]/', '', $input['snsBtn_ignorePosts']);
-	$output['enableOGTags']  							= ( isset( $input['enableOGTags'] ) && isset( $input['enableOGTags'] ) == 'true' ) ? true: false;
-	$output['enableTwitterCardTags']  		= ( isset( $input['enableTwitterCardTags'] ) && isset( $input['enableTwitterCardTags'] ) == 'true' ) ? true: false;
-	$output['enableSnsBtns']   						= ( isset( $input['enableSnsBtns'] ) && isset( $input['enableSnsBtns'] ) == 'true' ) ? true: false;
+	$output['enableOGTags']  							= ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true: false;
+	$output['enableTwitterCardTags']  		= ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true: false;
+	$output['enableSnsBtns']   						= ( isset( $input['enableSnsBtns'] ) && $input['enableSnsBtns'] ) ? true: false;
 	$output['snsBtn_exclude_post_types']	= ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
-	$output['enableFollowMe']  						= ( isset( $input['enableFollowMe'] ) && isset( $input['enableFollowMe'] ) == 'true' )? true: false;
+	$output['enableFollowMe']  						= ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] )? true: false;
 	$output['followMe_title']							= $input['followMe_title'];
 	$output['useFacebook']								= ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
 	$output['useTwitter']									= ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
