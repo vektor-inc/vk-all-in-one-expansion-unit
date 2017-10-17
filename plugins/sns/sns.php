@@ -2,17 +2,24 @@
 /*-------------------------------------------*/
 /*  Options Init
 /*-------------------------------------------*/
+/*  validate
+/*-------------------------------------------*/
+/*  set global $vkExUnit_sns_options
+/*-------------------------------------------*/
 /*  Add facebook aprication id
 /*-------------------------------------------*/
 /*  SNSアイコンに出力するCSSを出力する関数
 /*-------------------------------------------*/
 /*  Add setting page
 /*-------------------------------------------*/
+/*  Add Customize Panel
+/*-------------------------------------------*/
 
 
 function veu_sns_options_init() {
 	if ( false === veu_get_sns_options() ) {
-		add_option( 'vkExUnit_sns_options', veu_get_sns_options_default() ); }
+		add_option( 'vkExUnit_sns_options', veu_get_sns_options_default() );
+	}
 	vkExUnit_register_setting(
 		__( 'SNS', 'vkExUnit' ), 	// tab label.
 		'vkExUnit_sns_options',			// name attr
@@ -33,24 +40,24 @@ function veu_get_sns_options() {
 
 function veu_get_sns_options_default() {
 	$default_options = array(
-		'fbAppId' 				=> '',
-		'fbPageUrl' 			=> '',
-		'ogImage' 				=> '',
-		'twitterId' 			=> '',
-		'enableOGTags' 			=> true,
-		'enableTwitterCardTags' => true,
-		'enableSnsBtns' 		=> true,
+		'fbAppId' 									=> '',
+		'fbPageUrl' 								=> '',
+		'ogImage' 									=> '',
+		'twitterId' 								=> '',
+		'enableOGTags' 							=> true,
+		'enableTwitterCardTags' 		=> true,
+		'enableSnsBtns' 						=> true,
 		'snsBtn_exclude_post_types' => array( 'post' => '', 'page' => '' ),
-		'snsBtn_ignorePosts'     => '',
-		'snsBtn_bg_fill_not'     => false,
-		'snsBtn_color'       => false,
-		'enableFollowMe' 		=> true,
-		'followMe_title'		=> 'Follow me!',
-		'useFacebook'           => true,
-		'useTwitter'            => true,
-		'useHatena'             => true,
-		'usePocket'             => true,
-		'useLine'               => true,
+		'snsBtn_ignorePosts'				=> '',
+		'snsBtn_bg_fill_not'				=> false,
+		'snsBtn_color'							=> false,
+		'enableFollowMe' 						=> true,
+		'followMe_title'						=> 'Follow me!',
+		'useFacebook'								=> true,
+		'useTwitter'								=> true,
+		'useHatena'									=> true,
+		'usePocket'									=> true,
+		'useLine'										=> true,
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -62,30 +69,36 @@ function veu_get_sns_options_default() {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
-	$output['fbAppId']					= $input['fbAppId'];
-	$output['fbPageUrl']				= $input['fbPageUrl'];
-	$output['ogImage']					= $input['ogImage'];
-	$output['twitterId']				= $input['twitterId'];
-	$output['snsBtn_ignorePosts']		= preg_replace('/[^0-9,]/', '', $input['snsBtn_ignorePosts']);
-	$output['enableOGTags']  			= ( isset( $input['enableOGTags'] ) && isset( $input['enableOGTags'] ) == 'true' )? true: false;
-	$output['enableTwitterCardTags']  	= ( isset( $input['enableTwitterCardTags'] ) && isset( $input['enableTwitterCardTags'] ) == 'true' )? true: false;
-	$output['enableSnsBtns']   			= ( isset( $input['enableSnsBtns'] ) && isset( $input['enableSnsBtns'] ) == 'true' )? true: false;
-	$output['snsBtn_exclude_post_types'] = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
-	$output['snsBtn_bg_fill_not']  			= ( isset( $input['snsBtn_bg_fill_not'] ) && isset( $input['snsBtn_bg_fill_not'] ) == 'true' )? true: false;
-	$output['snsBtn_color']  			= ( isset( $input['snsBtn_color'] ) && isset( $input['snsBtn_color'] ) )? 	sanitize_hex_color( $input['snsBtn_color'] ): false;
-	$output['enableFollowMe']  			= ( isset( $input['enableFollowMe'] ) && isset( $input['enableFollowMe'] ) == 'true' )? true: false;
-	$output['followMe_title']			= $input['followMe_title'];
-	$output['useFacebook']              = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
-	$output['useTwitter']               = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
-	$output['useHatena']                = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
-	$output['usePocket']                = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
-	$output['useLine']                  = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
+	$output['fbAppId']										= $input['fbAppId'];
+	$output['fbPageUrl']									= $input['fbPageUrl'];
+	$output['ogImage']										= $input['ogImage'];
+	$output['twitterId']									= $input['twitterId'];
+	$output['snsBtn_ignorePosts']					= preg_replace('/[^0-9,]/', '', $input['snsBtn_ignorePosts']);
+	$output['enableOGTags']  							= ( isset( $input['enableOGTags'] ) && isset( $input['enableOGTags'] ) == 'true' ) ? true: false;
+	$output['enableTwitterCardTags']  		= ( isset( $input['enableTwitterCardTags'] ) && isset( $input['enableTwitterCardTags'] ) == 'true' ) ? true: false;
+	$output['enableSnsBtns']   						= ( isset( $input['enableSnsBtns'] ) && isset( $input['enableSnsBtns'] ) == 'true' ) ? true: false;
+	$output['snsBtn_exclude_post_types']	= ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
+	$output['enableFollowMe']  						= ( isset( $input['enableFollowMe'] ) && isset( $input['enableFollowMe'] ) == 'true' )? true: false;
+	$output['followMe_title']							= $input['followMe_title'];
+	$output['useFacebook']								= ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
+	$output['useTwitter']									= ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
+	$output['useHatena']									= ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
+	$output['usePocket']									= ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
+	$output['useLine']										= ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
+
+	/*
+	SNSボタンの塗りつぶし関連は管理画面に値がないので、カスタマイザーで保存された値を入れる必要がある
+	既に保存されている値をアップデート用にそのまま返すだけなのでサニタイズしていない
+	 */
+	$options_old = get_option( 'vkExUnit_sns_options');
+	$output['snsBtn_bg_fill_not']	=	$options_old['snsBtn_bg_fill_not'];
+	$output['snsBtn_color']	=	$options_old['snsBtn_color'];
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }
 
 /*-------------------------------------------*/
-/*  set global
+/*  set global $vkExUnit_sns_options
 /*-------------------------------------------*/
 add_action( 'wp_head', 'vkExUnit_set_sns_options',1 );
 function vkExUnit_set_sns_options() {
@@ -154,7 +167,7 @@ if ( apply_filters('veu_customize_panel_activation', false ) ){
 function veu_customize_register_sns( $wp_customize ) {
 
  	/*-------------------------------------------*/
- 	/*	Design setting
+ 	/*	SNS Settings
  	/*-------------------------------------------*/
  	$wp_customize->add_section( 'veu_sns_setting', array(
  		'title'				=> __('SNS Settings', 'vkExUnit'),
