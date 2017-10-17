@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-15 15:31+0900\n"
+"POT-Creation-Date: 2017-10-17 17:39+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -530,11 +530,11 @@ msgstr "表示するCTAを選択してください。"
 msgid "Please select"
 msgstr "選択してください"
 
-#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:193
+#: plugins/child_page_index.php:41 plugins/other_widget/widget-3pr-area.php:193
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: plugins/child_page_index.php:91
+#: plugins/child_page_index.php:92
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -1537,6 +1537,10 @@ msgstr "タイムラインを表示"
 msgid "Follow me"
 msgstr "このサイトをフォローする"
 
+#: plugins/sns/function_follow.php:44
+msgid "Edit follow button"
+msgstr "Follow me box の編集"
+
 #: plugins/sns/function_meta_box.php:28
 msgid "Sns Title"
 msgstr "OGPタイトル"
@@ -1707,7 +1711,7 @@ msgstr "twitterリンク先ページのURL"
 
 #: plugins/sns/sns_admin.php:113
 msgid "Hatena"
-msgstr ""
+msgstr "はてな"
 
 #: plugins/sns/sns_admin.php:114
 msgid "Pocket"

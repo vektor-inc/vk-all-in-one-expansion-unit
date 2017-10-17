@@ -38,6 +38,12 @@ function vkExUnit_add_follow( $content ) {
 		$follow_html .= '</div><!-- [ /.followSet_body ] -->'."\n";
 		$follow_html .= '</section><!-- [ /.followSet ] -->'."\n";
 
+		global $post;
+		if ( $url = get_edit_post_link( $post->ID ) ) {
+			$url = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' );
+			$follow_html .= '<div class="veu_adminEdit"><a href="'.$url.'" class="btn btn-default" target="_blank">'.__( 'Edit follow button', 'vkExUnit' ).'</a></div>';
+		}
+
 		$content .= $follow_html;
 
 	endif; // if ( $postType == 'post' && is_single() ) :
