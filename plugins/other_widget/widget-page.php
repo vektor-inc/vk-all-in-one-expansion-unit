@@ -75,7 +75,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		foreach ( $pages as $page ) {  ?>
 		<option value="<?php echo $page->ID; ?>" <?php if ( $instance['page_id'] == $page->ID ) { echo 'selected="selected"'; } ?> ><?php echo $page->post_title; ?></option>
 		<?php } ?>
-        </select>
+    </select>
         <br/>
         </p>
 		<?php
