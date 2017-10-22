@@ -16,8 +16,22 @@ function vkExUnit_pageList_ancestor_loopend( $query ){
 
 
 function vkExUnit_pageList_ancestor_shortcode() {
-	global $post;
-	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) { return; }
+
+	global $is_pagewidget;
+
+	if ( $is_pagewidget ) {
+
+		global $widget_pageid;
+		global $post;
+		$post = get_post($widget_pageid);
+
+	} else {
+
+		global $post;
+		if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) { return; }
+
+	}
+
 
 	$pageList_ancestor_html = PHP_EOL.'<section class="veu_pageList_ancestor">'.PHP_EOL;
 
@@ -41,6 +55,8 @@ function vkExUnit_pageList_ancestor_shortcode() {
 			return '';
 		}
 	}
+	wp_reset_query();
+	wp_reset_postdata();
 	return $pageList_ancestor_html;
 }
 
@@ -72,7 +88,7 @@ function vkExUnit_pageList_ancestor_meta_box() {
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ); ?>
 
-<div>   
+<div>
 <input type="hidden" name="_nonce_vkExUnit__custom_field_pageList_ancestor" id="_nonce_vkExUnit__custom_field_pageList_ancestor" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) );?>" />
 <label for="vkExUnit_pageList_ancestor">
 	<input type="checkbox" id="vkExUnit_pageList_ancestor" name="vkExUnit_pageList_ancestor"<?php echo ($enable)? ' checked' : ''; ?> />

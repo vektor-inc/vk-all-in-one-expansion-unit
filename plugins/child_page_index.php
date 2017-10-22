@@ -7,10 +7,22 @@
 
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode() {
-	global $post;
-	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true ) ) { return false; }
 
-	$parentId = $post->ID;
+	global $is_pagewidget;
+
+	if ( $is_pagewidget ) {
+
+		global $widget_pageid;
+		$parentId = $widget_pageid;
+
+	} else {
+
+		global $post;
+		if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true ) ) { return false; }
+		$parentId = $post->ID;
+
+	}
+
 	$args = array(
 		'post_type'			=> 'page',
 		'posts_per_page'	=> -1,

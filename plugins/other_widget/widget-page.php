@@ -76,8 +76,28 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		<option value="<?php echo $page->ID; ?>" <?php if ( $instance['page_id'] == $page->ID ) { echo 'selected="selected"'; } ?> ><?php echo $page->post_title; ?></option>
 		<?php } ?>
     </select>
-        <br/>
-        </p>
+    </p>
+
+		<?php $options = vkExUnit_get_common_options(); ?>
+
+		<?php if ( ! empty( $options['active_childPageIndex'] ) ) :?>
+		<p>
+			<label for="<?php echo $this->get_field_name( 'child_page_index' ); ?>">
+				<input type="checkbox" id="<?php echo $this->get_field_name( 'child_page_index' ); ?>" name="<?php echo $this->get_field_name( 'child_page_index' ); ?>"<?php echo ( ! empty($instance['child_page_index'] ) ) ? ' checked' : ''; ?> />
+				<?php _e( 'Display a child page index', 'vkExUnit' );?>
+			</label>
+		</p>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $options['active_pageList_ancestor'] ) ) :?>
+		<p>
+			<label for="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>">
+				<input type="checkbox" id="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>" name="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>"<?php echo ( ! empty($instance['page_list_ancestor'] ) ) ? ' checked' : ''; ?> />
+				<?php _e( 'Display a page list from ancestor', 'vkExUnit' );?>
+			</label>
+		</p>
+		<?php endif; ?>
+
 		<?php
 	}
 
@@ -87,6 +107,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$instance['title'] = $new_instance['title'];
 		$instance['page_id'] = $new_instance['page_id'];
 		$instance['set_title'] = $new_instance['set_title'];
+		$instance['child_page_index'] = $new_instance['child_page_index'];
+		$instance['page_list_ancestor'] = $new_instance['page_list_ancestor'];
 		return $instance;
 	}
 
@@ -141,7 +163,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			$widget_title['display'] = false;
 		}
 
-		// Set title 
+		// Set title
 		/*-------------------------------------------*/
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
 		if ( $instance['set_title'] == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
@@ -157,8 +179,16 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 
+	/*-------------------------------------------*/
+	/*  display_page
+	/*-------------------------------------------*/
 	function display_page( $args, $instance ) {
 		$pageid = $instance['page_id'];
+
+		// 子ページインデックスや先祖階層リストに投げる
+		global $widget_pageid;
+		$widget_pageid = $pageid;
+
 		$page = get_page( $pageid );
 		echo $args['before_widget'];
 
@@ -169,6 +199,19 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
 		}
 		echo apply_filters( 'the_content', $page->post_content );
+
+
+		$options = vkExUnit_get_common_options();
+		if ( ! empty( $options['active_childPageIndex'] ) ){
+			if ( ! empty( $instance['child_page_index'] ) ){
+				echo "\n".apply_filters('the_content', '[vkExUnit_childs]' );
+			}
+		}
+		if ( ! empty( $options['active_pageList_ancestor'] ) ){
+			if ( ! empty( $instance['page_list_ancestor'] ) ){
+				echo "\n".apply_filters('the_content', '[pageList_ancestor]' );
+			}
+		}
 
 		if (  current_user_can( 'edit_pages' ) ) { ?>
     <div class="veu_adminEdit">
