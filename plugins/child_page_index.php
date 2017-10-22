@@ -60,7 +60,9 @@ function vkExUnit_chidPageIndex_loopend( $query ){
 	echo vkExUnit_childPageIndex_shortcode();
 }
 
-
+/*-------------------------------------------*/
+/*  Print Child Page Box
+/*-------------------------------------------*/
 function vkExUnit_childPageIndex_contentHook( $content ) {
 	if ( vkExUnit_is_excerpt() ) { return $content; }
 	global $is_pagewidget;
