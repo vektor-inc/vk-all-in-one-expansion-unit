@@ -83,11 +83,28 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// PR Block admin title
-	echo '<h5 class="pr_subTitle">'.__( 'PR Block'.$i.' setting', 'vkExUnit' ).'</h5>';
+	echo '<h2 class="admin_widget_h2">'.__( 'PR Block'.$i.' setting', 'vkExUnit' ).'</h2>';
 
 	// PR Block display title
 	echo '<p><label for="'.$this->get_field_id( 'label_'.$i ).'">'.__( 'Title:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'label_'.$i ).'-title" class="pr-input" name="'.$this->get_field_name( 'label_'.$i ).'" value="'. esc_attr( $instance[ 'label_'.$i ] ) .'" /></p>';
+		'<input type="text" id="'.$this->get_field_id( 'label_'.$i ).'-title" class="admin_widget_input" name="'.$this->get_field_name( 'label_'.$i ).'" value="'. esc_attr( $instance[ 'label_'.$i ] ) .'" /></p>';
+
+		// summary text
+		echo '<p><label for="'.$this->get_field_id( 'summary_'.$i ).'">'.__( 'Summary Text:', 'vkExUnit' ).'</label><br/>';
+		echo '<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="admin_widget_input" name="'.$this->get_field_name( 'summary_'.$i ).'">'. esc_textarea( $instance[ 'summary_'.$i ] ) .'</textarea>';
+		echo '</p>';
+
+		// link_URL
+		echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
+			'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="admin_widget_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'. esc_attr( $instance[ 'linkurl_'.$i ] ).'" style="margin-bottom:0.5em" />';
+		$checked = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' checked':'';
+		echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'"'.$checked.' />';
+		echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('Open link new tab.', 'vkExUnit').'</label>';
+		echo '</p>';
+
+		/*  Icon font
+		/*-------------------------------------------*/
+		echo '<h3 class="admin_widget_h3">'.__( 'Icon', 'vkExUnit' ).' '.$i.'</h3>';
 
 	// icon font class input
 	echo '<p><label for="'.$this->get_field_id( 'iconFont_'.$i ).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
@@ -112,39 +129,30 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	echo '<label for="'.$this->get_field_id( 'iconFont_bgType_'.$i ).'_no_paint">'.__( 'No background', 'vkExUnit' ).'</label>';
 	echo '</p>';
 
+	/*  PR Image
+	/*-------------------------------------------*/
 	// media uploader imageurl input area
-	echo '<p><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'Select image:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="hidden" class="pr_media_image  '.$this->get_field_id( 'media_image_'.$i ).'" id="'.$this->get_field_id( 'media_image_'.$i ).'-image" name="'.$this->get_field_name( 'media_image_'.$i ).'" value="'.esc_attr( $instance[ 'media_image_'.$i ] ).'" />';
+	echo '<h3 class="admin_widget_h3"><label for="'.$this->get_field_id( 'media_image_'.$i ).'">'.__( 'PR Image', 'vkExUnit' ).' '.$i.'</label></h3>';
+	echo '<p>'.__( 'When you have an image. Image is displayed with priority', 'vkExUnit' ).'</p>';
 
-	// media uploader imagealt input area
-	echo '<input type="hidden" class="pr_media_alt" id="'.$this->get_field_id( 'media_alt_'.$i ).'-alt" name="'.$this->get_field_name( 'media_alt_'.$i ).'" value="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />';
+?>
 
-	// media uploader select btn
-	echo '<input type="button" class="media_select" value="'.__( 'Select image', 'vkExUnit' ).'" onclick="clickSelectPrBroks(event.target);" />';
+<div class="media_image_section">
+	<div class="_display admin_widget_thumb_outer">
+	    <?php
+			if ( ! empty( $instance[ 'media_image_'.$i ] ) ): ?>
+	        <img src="<?php echo esc_url( $instance['media_image_'.$i] ); ?>" class="admin_widget_thumb" />
+	    <?php endif; ?>
+	</div>
+	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e('Select image', 'vkExUnit' ); ?></button>
+	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
+	<div class="_form" style="line-height: 2em">
+	    <input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'media_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_image_'.$i] ); ?>" />
+			<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'media_alt_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_alt_'.$i] ); ?>" />
+	</div>
+</div><!-- [ /.media_image_section ] -->
 
-	// media uploader clear btn
-	echo '<input type="button" class="media_clear" value="'.__( 'Clear image', 'vkExUnit' ).'" onclick="clickClearPrBroks(event.target);" />'.
-	'<br />'.__( 'When you have an image. Image is displayed with priority', 'vkExUnit' ).'</p>';
-
-	// media image display
-	echo '<div class="media image_pr">';
-	if ( ! empty( $instance[ 'media_image_'.$i ] ) ) {
-		echo '<img class="media_img" src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'. esc_attr( $instance[ 'media_alt_'.$i ] ).'" />';
-	}
-	echo '</div>';
-
-	// summary text
-	echo '<p><label for="'.$this->get_field_id( 'summary_'.$i ).'">'.__( 'Summary Text:', 'vkExUnit' ).'</label><br/></p>'.
-		'<textarea rows="4" cols="40" id="'.$this->get_field_id( 'summary_'.$i ).'_text" class="pr_input textarea" name="'.$this->get_field_name( 'summary_'.$i ).'">'. esc_textarea( $instance[ 'summary_'.$i ] ) .'</textarea>';
-
-	// link_URL
-	echo '<p><label for="'.$this->get_field_id( 'linkurl_'.$i ).'">'.__( 'Link URL:', 'vkExUnit' ).'</label><br/>'.
-		'<input type="text" id="'.$this->get_field_id( 'linkurl_'.$i ).'_title" class="pr_input" name="'.$this->get_field_name( 'linkurl_'.$i ).'" value="'. esc_attr( $instance[ 'linkurl_'.$i ] ).'" style="margin-bottom:0.5em" />';
-	$checked = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' checked':'';
-	echo '<input type="checkbox" value="true" id="'.$this->get_field_id('blank_'.$i).'" name="'.$this->get_field_name('blank_'.$i).'"'.$checked.' />';
-	echo '<label for="'.$this->get_field_id('blank_'.$i).'">'.__('Open link new tab.', 'vkExUnit').'</label>';
-	echo '</p>';
-
+<?php
 	$i++;
 }
 	}
@@ -221,10 +229,11 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 					echo '<i class="fa '.esc_attr( $instance[ 'iconFont_class_'.$i ] ).' font_icon prBlock_icon"'.$icon_styles.'></i></div>'.PHP_EOL;
 
-					// image display
+				// image display
 				} else if ( ! empty( $instance[ 'media_image_'.$i ] ) ) {
-					echo '<div class="prBlock_image">'.PHP_EOL;
-					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />'.PHP_EOL.'</div><!--//.prBlock_image -->'.PHP_EOL;
+					echo '<div class="prBlock_image" style="background:url('.esc_url( $instance[ 'media_image_'.$i ] ).') no-repeat 50% center;background-size: cover;">';
+					echo '<img src="'.esc_url( $instance[ 'media_image_'.$i ] ).'" alt="'.esc_attr( $instance[ 'media_alt_'.$i ] ).'" />';
+					echo '</div><!--//.prBlock_image -->';
 				}
 				// title text
 				echo '<h1 class="prBlock_title">';
@@ -258,17 +267,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
 function admin_scripts_pr_media() {
 	wp_enqueue_media();
-	wp_register_script( 'media-pr-blocks', plugin_dir_url( __FILE__ ) . 'js/widget-pr-blocks.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'media-pr-blocks' );
+	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+	wp_enqueue_script( 'vk-admin-widget' );
 }
-
-// PR blocks admin CSS
-add_action( 'admin_print_styles-widgets.php', 'style_prBlocks' );
-function style_prBlocks() {
-	echo '<style>.media.image_pr{ max-height: 170px; }
-.media_img{ max-width: 100%; height: auto; position: relative; z-index: 999;}</style>'.PHP_EOL;
-}
-
 
 add_action('widgets_init', 'vkExUnit_widget_register_prblocks');
 function vkExUnit_widget_register_prblocks(){

@@ -1,6 +1,6 @@
 <?php
 
-if( vkExUnit_content_filter_state() == 'content' )  add_filter( 'the_content', 'vkExUnit_add_relatedPosts_html' , 800 , 1 );
+if( veu_content_filter_state() == 'content' )  add_filter( 'the_content', 'vkExUnit_add_relatedPosts_html' , 800 , 1 );
 else add_action( 'loop_end', 'vkExUnit_add_related_loopend', 800, 1 );
 
 

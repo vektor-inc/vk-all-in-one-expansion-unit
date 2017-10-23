@@ -7,7 +7,7 @@ function vkExUnit_add_follow( $content ) {
 
 	if ( is_single() && $postType['slug'] == 'post' ) :
 
-		$options = vkExUnit_get_sns_options();
+		$options = veu_get_sns_options();
 		if ( ! $options['enableFollowMe'] ) {  return $content; }
 
 		if ( isset( $options['followMe_title'] ) && $options['followMe_title'] ) {
@@ -37,6 +37,12 @@ function vkExUnit_add_follow( $content ) {
 		$follow_html .= '<div class="follow_btn follow_feedly"><a href="http://cloud.feedly.com/#subscription/feed/'.home_url().'/feed/" target="blank"><img id="feedlyFollow" src="http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-small_2x.png" alt="follow us in feedly" width="66" height="20"></a></div>'."\n";
 		$follow_html .= '</div><!-- [ /.followSet_body ] -->'."\n";
 		$follow_html .= '</section><!-- [ /.followSet ] -->'."\n";
+
+		global $post;
+		if ( $url = get_edit_post_link( $post->ID ) ) {
+			$url = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' );
+			$follow_html .= '<div class="veu_adminEdit"><a href="'.$url.'" class="btn btn-default" target="_blank">'.__( 'Edit follow button', 'vkExUnit' ).'</a></div>';
+		}
 
 		$content .= $follow_html;
 

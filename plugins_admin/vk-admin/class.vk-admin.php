@@ -68,6 +68,8 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 	public static function get_news_body() {
 
+		$output = '';
+
 		include_once( ABSPATH . WPINC . '/feed.php' );
 
 		if ( 'ja' == get_locale() ) {

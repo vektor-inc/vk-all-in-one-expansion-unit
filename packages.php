@@ -315,7 +315,7 @@ $required_packages[] = array(
 		),
 	),
 	'default'     => true,
-	'include'     => 'call_to_action/call_to_action.php',
+	'include'     => 'call-to-action-config.php',
 );
 
 /*-------------------------------------------*/

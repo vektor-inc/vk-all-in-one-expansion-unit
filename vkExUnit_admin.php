@@ -83,7 +83,7 @@ foreach ( $vkExUnit_packages as $package ) :
 <!--
 <tr>
 <th><?php _e('Extention contents', 'vkExUnit'); ?></th>
-<td><label><input type="checkbox" name="vkExUnit_common_options[content_filter_state]" value="loop_enud" <?php if( vkExUnit_content_filter_state() == 'loop_end' ) echo 'checked'; ?> /><?php _e('set extension contents to loop_end hook', 'vkExUnit'); ?></label>
+<td><label><input type="checkbox" name="vkExUnit_common_options[content_filter_state]" value="loop_enud" <?php if( veu_content_filter_state() == 'loop_end' ) echo 'checked'; ?> /><?php _e('set extension contents to loop_end hook', 'vkExUnit'); ?></label>
 <?php do_action('vkExUnit_extention_contents_message');?>
 </td>
 </tr>

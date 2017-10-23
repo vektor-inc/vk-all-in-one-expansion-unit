@@ -1,12 +1,21 @@
 <?php
-namespace Vektor\ExUnit\Package\Cta;
 
-class CTA
+/*
+このファイルの元ファイルは
+https://github.com/vektor-inc/vektor-wp-libraries
+にあります。修正の際は上記リポジトリのデータを修正してください。
+*/
+
+// namespace Vektor\ExUnit\Package\Cta;
+
+if ( ! class_exists( 'Vk_Call_To_Action' ) )
+{
+
+class Vk_Call_To_Action
 {
 	const POST_TYPE = 'cta';
 
 	const CONTENT_NUMBER = 100;
-
 
 	public static function init()
 	{
@@ -14,10 +23,15 @@ class CTA
 		add_action( 'vkExUnit_package_init', array( __CLASS__, 'option_init' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'add_custom_field' ) );
 		add_action( 'save_post',  array( __CLASS__, 'save_custom_field' ) );
-		if( vkExUnit_content_filter_state() == 'content' )  add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
+		add_action( 'widgets_init', array( __CLASS__, 'widget_init' ) );
+		if( veu_content_filter_state() == 'content' )  add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
 		else add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
+		require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
 	}
 
+	public static function widget_init() {
+	    return register_widget( 'Widget_CTA' );
+	}
 
 	public static function set_content_loopend($query )
 	{
@@ -40,12 +54,13 @@ class CTA
 
 	public static function set_posttype()
 	{
+		global $vk_call_to_action_textdomain;
 		$labels = array(
 			'name'          => 'CTA',
 			'singular_name' => 'CTA',
-			'edit_item'     => __( 'Edit CTA', 'vkExUnit' ),
-			'add_new_item'  => __( 'Add new CTA', 'vkExUnit' ),
-			'new_item'      => __( 'New CTA', 'vkExUnit' ),
+			'edit_item'     => __( 'Edit CTA', $vk_call_to_action_textdomain ),
+			'add_new_item'  => __( 'Add new CTA', $vk_call_to_action_textdomain ),
+			'new_item'      => __( 'New CTA', $vk_call_to_action_textdomain ),
 		);
 
 		$args = array(
@@ -70,26 +85,42 @@ class CTA
 
 	public static function add_custom_field()
 	{
+		global $vk_call_to_action_textdomain;
 		$post_types = get_post_types( array( '_builtin' => false, 'public' => true ) );
 		while ( list($key, $post ) = each( $post_types ) ) {
-			add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', 'vkExUnit' ), array( __CLASS__, 'render_meta_box' ), $post, 'normal', 'high' );
+			add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), $post, 'normal', 'high' );
 		}
-		add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', 'vkExUnit' ), array( __CLASS__, 'render_meta_box' ), 'page', 'normal', 'high' );
-		add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', 'vkExUnit' ), array( __CLASS__, 'render_meta_box' ), 'post', 'normal', 'high' );
+		add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'page', 'normal', 'high' );
+		add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'post', 'normal', 'high' );
 
-		add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', 'vkExUnit' ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
+		add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
 	}
 
+	/**
+	 * CTAメイン設定画面のurl
+	 * ExUnitと単体プラグインなどによって変動する
+	 * @return [type] [description]
+	 */
+	public static function setting_page_url()
+	{
+		if ( veu_is_cta_active() ){
+			$setting_page_url = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' );
+		} else {
+			$setting_page_url = admin_url( 'options-general.php?page=vk_cta_options' );
+		}
+		return $setting_page_url;
+	}
 
 	public static function render_meta_box()
 	{
+		global $vk_call_to_action_textdomain;
 		echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
 
 		$ctas    = self::get_ctas( true, '  - ' );
 		// ランダムを先頭に追加
-		array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', 'vkExUnit' ) ) );
-		array_unshift( $ctas, array( 'key' => 'disable', 'label' => __( 'Disable display', 'vkExUnit' ) ) );
-		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Follow common setting', 'vkExUnit' ) ) );
+		array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', $vk_call_to_action_textdomain ) ) );
+		array_unshift( $ctas, array( 'key' => 'disable', 'label' => __( 'Disable display', $vk_call_to_action_textdomain ) ) );
+		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Follow common setting', $vk_call_to_action_textdomain ) ) );
 		$now     = get_post_meta( get_the_id(),'vkexunit_cta_each_option', true );
 		?>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
@@ -100,14 +131,17 @@ class CTA
 <?php endforeach; ?>
 </select>
 <p>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA common setting', 'vkExUnit' ); ?></a>
-<a href="<?php echo admin_url( 'edit.php?post_type=cta' ) ?>" class="button button-default" target="_blank"><?php _e( 'Show CTA index page', 'vkExUnit' ); ?></a>
+<a href="<?php echo self::setting_page_url(); ?>" class="button button-default" target="_blank"><?php _e( 'CTA common setting', $vk_call_to_action_textdomain ); ?></a>
+<a href="<?php echo admin_url( 'edit.php?post_type=cta' ) ?>" class="button button-default" target="_blank"><?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?></a>
 </p>
 		<?php
 	}
 
 
 	public static function render_meta_box_cta() {
+
+		global $vk_call_to_action_textdomain;
+
 		echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
 		$imgid = get_post_meta( get_the_id(), 'vkExUnit_cta_img', true );
 		$cta_image = wp_get_attachment_image_src( $imgid, 'large' );
@@ -166,44 +200,44 @@ jQuery(document).ready(function($){
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
 <table class="form-table">
 <tr>
-<th><?php _e( 'CTA image', 'vkExUnit' ); ?></th>
+<th><?php _e( 'CTA image', $vk_call_to_action_textdomain ); ?></th>
 <td>
     <div id="cta-thumbnail_box" >
 		<img id="cta-thumbnail_image" src="<?php echo ($cta_image)? $cta_image[0] : ''; ?>" class="<?php echo ($cta_image)? '' : 'noimage'; ?>" />
     </div>
 	<div id="cta-thumbnail_control" class="<?php echo ($cta_image)? 'change' : 'add'; ?>">
-		<button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e( 'Add image', 'vkExUnit' ); ?></button>
-		<button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e( 'Change image', 'vkExUnit' ); ?></button>
-		<button id="media_thumb_url_remove" class="button button-default"><?php _e( 'Remove image', 'vkExUnit' ); ?></button>
+		<button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e( 'Add image', $vk_call_to_action_textdomain ); ?></button>
+		<button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e( 'Change image', $vk_call_to_action_textdomain ); ?></button>
+		<button id="media_thumb_url_remove" class="button button-default"><?php _e( 'Remove image', $vk_call_to_action_textdomain ); ?></button>
     </div>
 	<input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
 </td>
 </tr>
-<tr><th><label for="vkExUnit_cta_img_position"><?php _e( 'CTA image position', 'vkExUnit' ); ?></label></th>
+<tr><th><label for="vkExUnit_cta_img_position"><?php _e( 'CTA image position', $vk_call_to_action_textdomain ); ?></label></th>
 <td>
     <select name="vkExUnit_cta_img_position" id="vkExUnit_cta_img_position">
-		<option value="right" <?php echo ($image_position == 'right')? 'selected' : ''; ?> ><?php _e( 'right', 'vkExUnit' ); ?></option>
-		<option value="center" <?php echo ($image_position == 'center')? 'selected' : ''; ?> ><?php _e( 'center', 'vkExUnit' ); ?></option>
-		<option value="left" <?php echo ($image_position == 'left')? 'selected' : ''; ?> ><?php _e( 'left', 'vkExUnit' ); ?></option>
+		<option value="right" <?php echo ($image_position == 'right')? 'selected' : ''; ?> ><?php _e( 'right', $vk_call_to_action_textdomain ); ?></option>
+		<option value="center" <?php echo ($image_position == 'center')? 'selected' : ''; ?> ><?php _e( 'center', $vk_call_to_action_textdomain ); ?></option>
+		<option value="left" <?php echo ($image_position == 'left')? 'selected' : ''; ?> ><?php _e( 'left', $vk_call_to_action_textdomain ); ?></option>
     </select>
 </td></tr>
 <tr><th>
-<label for="vkExUnit_cta_button_text"><?php _e( 'Button text', 'vkExUnit' ); ?></label></th><td>
+<label for="vkExUnit_cta_button_text"><?php _e( 'Button text', $vk_call_to_action_textdomain ); ?></label></th><td>
 <input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo esc_html( get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ) ); ?>" />
 </td></tr>
 <tr><th>
-<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', 'vkExUnit' ); ?></label></th><td>
-<p><?php _e( 'To choose your favorite icon, and enter the class.', 'vkExUnit' )?><br>
-<label for="icon_before"><?php _e('Before :','vkExUnit' );?>
+<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', $vk_call_to_action_textdomain ); ?></label></th><td>
+<p><?php _e( 'To choose your favorite icon, and enter the class.', $vk_call_to_action_textdomain )?><br>
+<label for="icon_before"><?php _e('Before :',$vk_call_to_action_textdomain );?>
 <input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /><br>
-<label for="icon_after"><?php _e('After :','vkExUnit' );?>
+<label for="icon_after"><?php _e('After :',$vk_call_to_action_textdomain );?>
 <input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /><br>
-<?php _e( ' ex:fa-arrow-circle-o-right', 'vkExUnit' )?><br>
+<?php _e( ' ex:fa-arrow-circle-o-right', $vk_call_to_action_textdomain )?><br>
 <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">[Font Awesome Icons]</a><br>
 </p>
 </td></tr>
 <tr><th>
-<label for="vkExUnit_cta_url"><?php _e( 'Button link url', 'vkExUnit' ); ?></label></th><td>
+<label for="vkExUnit_cta_url"><?php _e( 'Button link url', $vk_call_to_action_textdomain ); ?></label></th><td>
 <input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="http://" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_url', true ); ?>" />
 </td></tr>
 <tr><th>
@@ -216,17 +250,17 @@ if ( $target_blank == "window_self") {
 	$checked = '';
 }
 ?>
-<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', 'vkExUnit' ); ?></label></th><td>
+<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', $vk_call_to_action_textdomain ); ?></label></th><td>
 <input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php  echo $checked; ?> />
 <label for="vkExUnit_cta_url_blank"><?php _e('Open in a self window', 'vkExUnit'); ?></label>
 </td></tr>
-<tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vkExUnit' ); ?>
+<tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', $vk_call_to_action_textdomain ); ?>
 </th>
 <td>
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ); ?></textarea>
 </td></tr>
 </table>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vkExUnit' ); ?></a>
+<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?></a>
 		<?php
 	}
 
@@ -339,7 +373,7 @@ if ( $target_blank == "window_self") {
 		// たぶん何か必ず $post にはデータが返ってくるので事実上不要
 		if ( ! $post ) { return ''; }
 
-		include vkExUnit_get_directory() . '/plugins/call_to_action/view.actionbox.php';
+		include dirname( __FILE__ ) . '/view-actionbox.php';
 		return $content;
 	}
 
@@ -412,7 +446,11 @@ if ( $target_blank == "window_self") {
 		// Ligthning Advanced Unit のウィジェットだと...思う...
 		if ( self::is_contentsarea_posts_widget() ) { return $content; }
 		// 抜粋の場合
-		if ( vkExUnit_is_excerpt() ) { return $content; }
+		//
+		if ( vkExUnit_is_excerpt() ) {
+
+			return $content;
+		}
 		// 上記以外の場合に出力
 		$content .= self::render_cta_content( self::is_cta_id() );
 		return $content;
@@ -503,14 +541,19 @@ if ( $target_blank == "window_self") {
 
 	public static function render_configPage()
 	{
+		global $vk_call_to_action_textdomain;
 		$options = self::get_option();
 		$ctas    = self::get_ctas( true, '  - ' );
 
 		// ランダムを先頭に追加
-		array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', 'vkExUnit' ) ) );
+		array_unshift( $ctas, array( 'key' => 'random', 'label' => __( 'Random', $vk_call_to_action_textdomain ) ) );
 		// 表示しないを先頭に追加
-		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Disable display', 'vkExUnit' ) ) );
+		array_unshift( $ctas, array( 'key' => 0, 'label' => __( 'Disable display', $vk_call_to_action_textdomain ) ) );
 
-		include vkExUnit_get_directory() . '/plugins/call_to_action/view.adminsetting.php';
+		include dirname( __FILE__ ) . '/view-adminsetting.php';
 	}
 }
+
+Vk_Call_To_Action::init();
+
+} // if ( ! class_exists( 'Vk_Call_To_Action' ) )

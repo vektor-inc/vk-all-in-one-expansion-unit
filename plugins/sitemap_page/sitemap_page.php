@@ -69,7 +69,7 @@ function vkExUnit_sitemap_options_validate( $input ) {
 /*-------------------------------------------*/
 /*  insert sitemap page
 /*-------------------------------------------*/
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'show_sitemap', 7, 1 );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'show_sitemap', 7, 1 );
 else add_action( 'loop_end', 'vkExUnit_sitemap_loopend' );
 
 
@@ -216,7 +216,7 @@ function vkExUnit_sitemap( $atts ) {
 add_shortcode( 'vkExUnit_sitemap', 'vkExUnit_sitemap' );
 
 
-add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_sitemap_activate', 10, 1 );
+add_filter( 'veu_content_meta_box_activation', 'vkExUnit_sitemap_activate', 10, 1 );
 function vkExUnit_sitemap_activate( $flag ) {
 	return true;
 }
@@ -225,7 +225,7 @@ function vkExUnit_sitemap_activate( $flag ) {
 /*-------------------------------------------*/
 /*  admin _ meta box
 /*-------------------------------------------*/
-add_action( 'vkExUnit_customField_Page_box', 'vkExUnit_sitemap_meta_box' );
+add_action( 'veu_content_meta_box_content', 'vkExUnit_sitemap_meta_box' );
 function vkExUnit_sitemap_meta_box() {
 	global $post;
 	// sitemap display
