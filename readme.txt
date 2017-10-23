@@ -2,9 +2,9 @@
 Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 4.2
+Requires at least: 4.4
 Tested up to: 4.8.2
-Stable tag: 5.6.0
+Stable tag: 5.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,12 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 5.7.0 =
+* [ SNS Button ][ Add function ] Add color setting & fill or outline
+* [ Contact info widget ][ Add function ] New widget!!
+* [ 3PR / PR Block ][ bug fix ] reload response improvement.
+* [ Page Widget ][ Add function ] Can use child page index and ancestor page list display.
 
 = 5.5.0 =
 * [ Custom Post Type Manager ][ add Function ] Add taxonomy tag setting.
