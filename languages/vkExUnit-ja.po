@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-17 17:39+0900\n"
+"POT-Creation-Date: 2017-10-23 17:31+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -530,11 +530,11 @@ msgstr "表示するCTAを選択してください。"
 msgid "Please select"
 msgstr "選択してください"
 
-#: plugins/child_page_index.php:41 plugins/other_widget/widget-3pr-area.php:193
+#: plugins/child_page_index.php:53 plugins/other_widget/widget-3pr-area.php:193
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: plugins/child_page_index.php:92
+#: plugins/child_page_index.php:106 plugins/other_widget/widget-page.php:87
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -1196,7 +1196,11 @@ msgstr "タイトルを表示しない"
 msgid "Display page"
 msgstr "ページを表示"
 
-#: plugins/other_widget/widget-page.php:175
+#: plugins/other_widget/widget-page.php:96 plugins/pageList_ancestor.php:95
+msgid "Display a page list from ancestor"
+msgstr "現在のページの先祖階層からの子ページリストを表示"
+
+#: plugins/other_widget/widget-page.php:218
 msgid "Edit"
 msgstr "編集"
 
@@ -1278,7 +1282,7 @@ msgid "Solid color"
 msgstr "塗りつぶし"
 
 #: plugins/other_widget/widget-pr-blocks.php:129
-#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:174
+#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:187
 msgid "No background"
 msgstr "背景なし"
 
@@ -1400,10 +1404,6 @@ msgstr "ブログ"
 #: plugins/template-tags/template-tags.php:135
 msgid "Archives"
 msgstr "アーカイブ"
-
-#: plugins/pageList_ancestor.php:79
-msgid "Display a page list from ancestor"
-msgstr "現在のページの先祖階層からの子ページリストを表示"
 
 #: plugins/post-type-manager/class.post-type-manager.php:21
 #: plugins/post-type-manager/class.post-type-manager.php:22
@@ -1551,20 +1551,20 @@ msgstr ""
 "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
 "るタイトルを上書きすることができます"
 
-#: plugins/sns/sns.php:17
+#: plugins/sns/sns.php:24
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:111
+#: plugins/sns/sns.php:124
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
 
-#: plugins/sns/sns.php:160 plugins/sns/sns_admin.php:1
+#: plugins/sns/sns.php:173 plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr "SNS設定"
 
-#: plugins/sns/sns.php:190
+#: plugins/sns/sns.php:203
 #, fuzzy
 #| msgid "Button color:"
 msgid "Btn color"
@@ -1730,18 +1730,18 @@ msgstr "著者: %s"
 #: plugins/template-tags/template-tags.php:178
 msgctxt "yearly archives date format"
 msgid "Y"
-msgstr "年"
+msgstr "Y年"
 
 #: plugins/template-tags/template-tags.php:98
 #: plugins/template-tags/template-tags.php:182
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr "年月"
+msgstr "Y年F"
 
 #: plugins/template-tags/template-tags.php:100
 msgctxt "daily archives date format"
 msgid "F j, Y"
-msgstr "Y年F月j日"
+msgstr "Y年Fj日"
 
 #: plugins/template-tags/template-tags.php:103
 #, fuzzy
@@ -1904,7 +1904,7 @@ msgstr "VK All in One Expansion Unit からのお知らせ"
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class.vk-admin.php:98
+#: plugins_admin/vk-admin/class.vk-admin.php:100
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
