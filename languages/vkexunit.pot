@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-15 15:33+0900\n"
+"POT-Creation-Date: 2017-10-23 22:42+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor,Inc. <info@vektor-inc.co.jp>\n"
@@ -487,11 +487,11 @@ msgstr ""
 msgid "Please select"
 msgstr ""
 
-#: plugins/child_page_index.php:40 plugins/other_widget/widget-3pr-area.php:193
+#: plugins/child_page_index.php:53 plugins/other_widget/widget-3pr-area.php:193
 msgid "Read more"
 msgstr ""
 
-#: plugins/child_page_index.php:91
+#: plugins/child_page_index.php:106 plugins/other_widget/widget-page.php:87
 msgid "Display a child page index"
 msgstr ""
 
@@ -1114,7 +1114,11 @@ msgstr ""
 msgid "Display page"
 msgstr ""
 
-#: plugins/other_widget/widget-page.php:175
+#: plugins/other_widget/widget-page.php:96 plugins/pageList_ancestor.php:95
+msgid "Display a page list from ancestor"
+msgstr ""
+
+#: plugins/other_widget/widget-page.php:218
 msgid "Edit"
 msgstr ""
 
@@ -1194,7 +1198,7 @@ msgid "Solid color"
 msgstr ""
 
 #: plugins/other_widget/widget-pr-blocks.php:129
-#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:174
+#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:187
 msgid "No background"
 msgstr ""
 
@@ -1312,10 +1316,6 @@ msgstr ""
 #: plugins/other_widget/widget-taxonomies.php:100
 #: plugins/template-tags/template-tags.php:135
 msgid "Archives"
-msgstr ""
-
-#: plugins/pageList_ancestor.php:79
-msgid "Display a page list from ancestor"
 msgstr ""
 
 #: plugins/post-type-manager/class.post-type-manager.php:21
@@ -1449,6 +1449,10 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
+#: plugins/sns/function_follow.php:44
+msgid "Edit follow button"
+msgstr ""
+
 #: plugins/sns/function_meta_box.php:28
 msgid "Sns Title"
 msgstr ""
@@ -1457,20 +1461,20 @@ msgstr ""
 msgid "if filled this area then override title of OGP and Twitter Card"
 msgstr ""
 
-#: plugins/sns/sns.php:17
+#: plugins/sns/sns.php:24
 msgid "SNS"
 msgstr ""
 
-#: plugins/sns/sns.php:111
+#: plugins/sns/sns.php:124
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr ""
 
-#: plugins/sns/sns.php:160 plugins/sns/sns_admin.php:1
+#: plugins/sns/sns.php:173 plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr ""
 
-#: plugins/sns/sns.php:190
+#: plugins/sns/sns.php:203
 msgid "Btn color"
 msgstr ""
 
@@ -1780,7 +1784,7 @@ msgstr ""
 msgid "Edit Guide"
 msgstr ""
 
-#: plugins_admin/vk-admin/class.vk-admin.php:98
+#: plugins_admin/vk-admin/class.vk-admin.php:100
 msgid "Sorry, there is no post"
 msgstr ""
 
