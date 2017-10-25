@@ -40,7 +40,7 @@ function vkExUnit_childPageIndex_shortcode() {
 			// Set Excerpt
 			$postExcerpt = $children->post_excerpt;
 		if ( ! $postExcerpt ) {
-			$postExcerpt = esc_html( mb_substr( strip_tags( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
+			$postExcerpt = mb_substr( nl2br(esc_textarea( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
 			if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
 		}
 
@@ -49,7 +49,7 @@ function vkExUnit_childPageIndex_shortcode() {
 			$childPageList_html .= '<h3 class="childPage_list_title">'.esc_html( strip_tags( $children->post_title ) ).'</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters('veu_child_index_thumbnail',get_the_post_thumbnail( $children->ID, 'thumbnail' ));
-			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p>';
+			$childPageList_html .= '<p class="childPage_list_text">'.$postExcerpt.'</p>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">'.__( 'Read more', 'vkExUnit' ).'</span>';
 			$childPageList_html .= '</div>';
 
