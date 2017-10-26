@@ -38,9 +38,12 @@ function vkExUnit_childPageIndex_shortcode() {
 	foreach( $childrens as $children ):
 
 			// Set Excerpt
-			$postExcerpt = $children->post_excerpt;
+		$postExcerpt = nl2br( esc_textarea( strip_tags( $children->post_excerpt ) ) );
 		if ( ! $postExcerpt ) {
-			$postExcerpt = mb_substr( nl2br(esc_textarea( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
+			// $postExcerpt = mb_substr( nl2br(esc_textarea( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
+			$postExcerpt = esc_textarea( strip_tags($children->post_content ) );
+			$postExcerpt =  mb_substr( $postExcerpt, 0, 90 ); // kill tags and trim 120 chara
+
 			if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
 		}
 
