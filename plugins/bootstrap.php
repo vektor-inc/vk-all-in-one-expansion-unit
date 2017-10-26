@@ -44,11 +44,15 @@ add_action('customize_register', 'vkExUnit_bootstrap_customize_register' );
 
 function vkExUnit_bootstrap_custom_keycolor()
 {
-    $options = get_option('vkExUnit_colors');
+	$options = get_option('lightning_theme_options');
+	if ( empty( $options ) ) {
+		$options = get_option('vkExUnit_colors');
+	}
+
     $color_key = ( !empty($options['color_key']) )? esc_html($options['color_key']) : '#337ab7 ';
     $color_key_dark = ( !empty($options['color_key_dark'] ) )? esc_html($options['color_key_dark']) : '#2e6da4 ';
     ?>
-<!-- [ Lightning Common ] -->
+<!-- [ ExUnit Common ] -->
 <style type="text/css">
 .veu_color_txt_key { color:<?php echo $color_key_dark;?> ; }
 .veu_color_bg_key { background-color:<?php echo $color_key_dark;?> ; }
@@ -62,7 +66,7 @@ a:hover { color:<?php echo $color_key;?> ; }
 .btn-primary:focus,
 .btn-primary:hover { background-color:<?php echo $color_key_dark;?>;border-color:<?php echo $color_key;?>; }
 </style>
-<!-- [ / Lightning Common ] -->
+<!-- [ / ExUnit Common ] -->
     <?php
 
 }
