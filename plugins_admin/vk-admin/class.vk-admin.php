@@ -12,7 +12,7 @@ https://github.com/vektor-inc/vektor-wp-libraries
 class Vk_Admin {
 
 	public static $version = '1.2.1';
-	
+
 	static function init(){
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
 	}
@@ -48,7 +48,7 @@ class Vk_Admin {
 		$lang = ( get_locale() == 'ja' ) ? 'ja' : 'en' ;
 
 		if ( !is_plugin_active('vk-post-author-display/post-author-display.php') ){
-			$banner .= '<a href="//wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/post_author_display_bnr_'.$lang .'.jpg" alt="VK Post Author 
+			$banner .= '<a href="//wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/post_author_display_bnr_'.$lang .'.jpg" alt="VK Post Author
 			Display" /></a>';
 		}
 
@@ -68,12 +68,14 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 	public static function get_news_body() {
 
+		$output = '';
+
 		include_once( ABSPATH . WPINC . '/feed.php' );
 
 		if ( 'ja' == get_locale() ) {
-			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL_ja', 'http://ex-unit.vektor-inc.co.jp/ja/feed' );
+			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL_ja', 'https://ex-unit.nagoya/ja/feed' );
 		} else {
-			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL', 'http://ex-unit.vektor-inc.co.jp/feed' );
+			$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL', 'https://ex-unit.nagoya/feed' );
 		}
 
 		$my_feeds = array(
@@ -174,7 +176,7 @@ class Vk_Admin {
 			<?php echo Vk_Admin::admin_sub();?>
 
 		</div><!-- [ /.vkExUnit_admin_page ] -->
-	<?php 
+	<?php
 	}
 
 	public function __construct(){

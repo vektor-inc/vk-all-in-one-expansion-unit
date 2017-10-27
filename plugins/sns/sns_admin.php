@@ -1,6 +1,6 @@
 <h3><?php echo __( 'SNS Settings' );?></h3>
 <?php
-	$options = vkExUnit_get_sns_options();
+	$options = veu_get_sns_options();
 /*-------------------------------------------*/
 /*  SNS
 /*-------------------------------------------*/
@@ -26,9 +26,9 @@
 <th><?php _e( 'OG default image', 'vkExUnit' ); ?></th>
 <td><?php _e( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vkExUnit' ); ?><br />
 <?php _e( 'If a featured image is specified for the page, it takes precedence.', 'vkExUnit' ); ?><br />
-<input type="text" name="vkExUnit_sns_options[ogImage]" id="ogImage" value="<?php echo esc_attr( $options['ogImage'] ); ?>" /> 
+<input type="text" name="vkExUnit_sns_options[ogImage]" id="ogImage" value="<?php echo esc_attr( $options['ogImage'] ); ?>" />
 <button id="media_src_ogImage" class="media_btn button"><?php _e( 'Select an image', 'vkExUnit' ); ?></button><br />
-<span><?php _e( 'ex) ', 'vkExUnit' );?>http://www.vektor-inc.co.jp/images/ogImage.png</span><br />
+<span><?php _e( 'ex) ', 'vkExUnit' );?>https://www.vektor-inc.co.jp/images/ogImage.png</span><br />
 <?php _e( '* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit' ); ?>
 </td>
 </tr>
@@ -67,7 +67,7 @@ $post_types = get_post_types($args,'object');
 echo '<ul>';
 foreach ($post_types as $key => $value) {
 	if ( $key != 'attachment' ) {
-		$checked = ( isset( $options['snsBtn_exclude_post_types'][$key] ) && $options['snsBtn_exclude_post_types'][$key] == 'true' ) ? ' checked':''; 
+		$checked = ( isset( $options['snsBtn_exclude_post_types'][$key] ) && $options['snsBtn_exclude_post_types'][$key] == 'true' ) ? ' checked':'';
 		echo '<li><label>';
 		echo '<input type="checkbox" name="vkExUnit_sns_options[snsBtn_exclude_post_types]['.$key.']" id="snsBtn_exclude_post_types" value="true"'.$checked.' />'.$value->label;
 		echo '</label></li>';
@@ -103,6 +103,20 @@ _e( 'example', 'vkExUnit'); ?>
 </dl>
 </td>
 </tr>
+
+<tr>
+<th><label><?php _e('Share button for display', 'vkExUnit'); ?></label></th>
+<td><label></label>
+<ul>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useFacebook]" value="true" <?php if( $options['useFacebook'] ) echo 'checked' ?> /> <?php _e('Facebook', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useTwitter]" value="true" <?php if( $options['useTwitter'] ) echo 'checked' ?> /> <?php _e('Twitter', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true" <?php if( $options['useHatena'] ) echo 'checked' ?> /> <?php _e('Hatena', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[usePocket]" value="true" <?php if( $options['usePocket'] ) echo 'checked' ?> /> <?php _e('Pocket', 'vkExUnit'); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useLine]" value="true" <?php if( $options['useLine'] ) echo 'checked' ?> /> <?php _e('LINE (mobile only)', 'vkExUnit'); ?></label></li>
+</ul>
+</td>
+</tr>
+
 
 </table>
 

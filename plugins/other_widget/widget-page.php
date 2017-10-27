@@ -15,62 +15,209 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		);
 	}
 
-	function widget( $args, $instance ) {
-		global $is_pagewidget;
-		$is_pagewidget = true;
-		if ( isset( $instance['page_id'] ) && $instance['page_id'] ) {
-			$this->display_page( $instance['page_id'],$instance['set_title'],$args );
+	/*
+	$input 保存されてる値
+	$value 今のinputタグのvalueの値
+	*/
+	static public function echo_checked( $input, $value){
+		if ( $input === $value ) {
+			echo ' checked';
 		}
-		$is_pagewidget = false;
 	}
 
 	function form( $instance ) {
 		$defaults = array(
-			'page_id' => 2,
-			'set_title' => true,
+			'title'     => '',
+			'page_id'   => 2,
+			'set_title' => 'title-widget',
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
         <p>
+
+			<?php //タイトル ?>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
+			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
+	    	<br />
+			<br />
+
+			<?php /* タイトルの表示形式の選択 */ ?>
+
+			<label>
+				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-widget" <?php $this->echo_checked( $instance['set_title'] , "title-widget");?> />
+				<?php _e( 'Display the entered title', 'vkExUnit' ); ?></label><br/>
+
+			<label>
+				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-page" <?php $this->echo_checked( $instance['set_title'] , "title-page");?> />
+				<?php _e( 'Display the title of page', 'vkExUnit' ); ?></label><br/>
+
+			<label>
+				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-hidden" <?php $this->echo_checked( $instance['set_title'] , "title-hidden");?> />
+				<?php _e( 'Do not display titles', 'vkExUnit' ); ?></label><br/>
+        <br/>
+
 		<?php
+		// 固定ページ選択プルダウン
+		/*-------------------------------------------*/
+		// まずは固定ページの情報を取得する
+		// 取得する固定ページの条件
 		$args = array(
-			'post_status' => 'publish,private',
-		); 
-		$pages = get_pages($args);	?>
-		<label for="<?php echo $this->get_field_id( 'page_id' ); ?>"><?php _e( 'Display page', 'vkExUnit' ) ?></label>
-		<select name="<?php echo $this->get_field_name( 'page_id' ); ?>" >
-		<?php foreach ( $pages as $page ) {  ?>
+			'post_status' => 'publish,private', // 公開と非公開の記事
+		);
+		// 固定ページ情報の取得を実行
+		$pages = get_pages( $args );
+		?>
+		<label for="<?php echo $this->get_field_name( 'page_id' ); ?>"><?php _e( 'Display page', 'vkExUnit' ) ?></label>
+		<select name="<?php echo $this->get_field_name( 'page_id' ); ?>" id="<?php echo $this->get_field_name( 'page_id' ); ?>" >
+		<?php
+		// option項目の生成
+		// $pages に格納されている固定ページのデータをループしながらoptionを出力
+		foreach ( $pages as $page ) {  ?>
 		<option value="<?php echo $page->ID; ?>" <?php if ( $instance['page_id'] == $page->ID ) { echo 'selected="selected"'; } ?> ><?php echo $page->post_title; ?></option>
 		<?php } ?>
-        </select>
-        <br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="true" <?php echo ($instance['set_title'])? 'checked': '' ; ?> >
-		<label for="<?php echo $this->get_field_id( 'set_title' ); ?>"> <?php _e( 'display title', 'vkExUnit' ); ?></label>
-        </p>
+    </select>
+    </p>
+
+		<?php $options = vkExUnit_get_common_options(); ?>
+
+		<?php if ( ! empty( $options['active_childPageIndex'] ) ) :?>
+		<p>
+			<label for="<?php echo $this->get_field_name( 'child_page_index' ); ?>">
+				<input type="checkbox" id="<?php echo $this->get_field_name( 'child_page_index' ); ?>" name="<?php echo $this->get_field_name( 'child_page_index' ); ?>"<?php echo ( ! empty($instance['child_page_index'] ) ) ? ' checked' : ''; ?> />
+				<?php _e( 'Display a child page index', 'vkExUnit' );?>
+			</label>
+		</p>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $options['active_pageList_ancestor'] ) ) :?>
+		<p>
+			<label for="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>">
+				<input type="checkbox" id="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>" name="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>"<?php echo ( ! empty($instance['page_list_ancestor'] ) ) ? ' checked' : ''; ?> />
+				<?php _e( 'Display a page list from ancestor', 'vkExUnit' );?>
+			</label>
+		</p>
+		<?php endif; ?>
+
 		<?php
 	}
 
+	// 保存・更新する値
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
+		$instance['title'] = $new_instance['title'];
 		$instance['page_id'] = $new_instance['page_id'];
-		$instance['set_title'] = ($new_instance['set_title'] == 'true')? true : false;
+		$instance['set_title'] = $new_instance['set_title'];
+		$instance['child_page_index'] = $new_instance['child_page_index'];
+		$instance['page_list_ancestor'] = $new_instance['page_list_ancestor'];
 		return $instance;
 	}
 
-	function display_page( $pageid, $titleflag = false, $args ) {
-		echo $args['before_widget'];
+	function widget( $args, $instance ) {
+		global $is_pagewidget;
+		$is_pagewidget = true;
+		if ( isset( $instance['page_id'] ) && $instance['page_id'] ) {
+			$this->display_page( $args, $instance );
+		}
+		$is_pagewidget = false;
+	}
+
+	/*
+	ウィジェットのタイトルに関する情報を出力する関数
+	[ 返り値 ]
+	$widget_title['display'] : 表示するかどうか // → 5.4.3以降は不要のはず。
+	$widget_title['title'] : ウィジェットのタイトルとして表示する文字
+	*/
+	static public function widget_title( $instance ){
+
+		$pageid = $instance['page_id'];
 		$page = get_page( $pageid );
+
+		// Set display
+		/*-------------------------------------------*/
+		// 5.3以前のユーザーで、タイトル表示にチェックしていなかった場合
+		if ( $instance['set_title'] == null ){
+			$widget_title['display'] = false;
+
+		// 5.3以前のユーザーで、タイトル表示にチェックがはいっていた場合
+		} else if ( $instance['set_title'] === true ){
+			$widget_title['display'] = true;
+
+		} else if ( $instance['set_title'] == 'title-hidden' ){
+			$widget_title['display'] = false;
+
+		// ウィジェットのタイトルが選択されている場合は
+		} else if ( $instance['set_title'] == 'title-widget' ){
+
+			// ウィジェットタイトルが未入力の場合
+			if ( empty( $instance['title'] ) ){
+				$widget_title['display'] = false;
+			} else {
+				$widget_title['display'] = true;
+			}
+
+		// 固定ページのタイトルが選択されている場合は
+		} else if ( $instance['set_title'] == 'title-page' ){
+			$widget_title['display'] = true;
+
+		} else {
+			$widget_title['display'] = false;
+		}
+
+		// Set title
+		/*-------------------------------------------*/
+		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
+		if ( $instance['set_title'] == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
+			$widget_title['title'] = $instance['title'];
+		// 旧バージョンで　タイトルを表示になっていた場合に
+		// タイトル表示形式フラグに 固定ページのタイトルを表示するvalueにしておく
+		} else if ( ( $instance['set_title'] === true ) || ( $instance['set_title'] == 'title-page' ) ){
+			$widget_title['title'] = $page->post_title;
+		} else {
+			$widget_title['title'] = null;
+		}
+		return $widget_title;
+	}
+
+
+	/*-------------------------------------------*/
+	/*  display_page
+	/*-------------------------------------------*/
+	function display_page( $args, $instance ) {
+		$pageid = $instance['page_id'];
+
+		// 子ページインデックスや先祖階層リストに投げる
+		global $widget_pageid;
+		$widget_pageid = $pageid;
+
+		$page = get_page( $pageid );
+		echo $args['before_widget'];
+
+		$widget_title = $this->widget_title( $instance );
+
 		echo PHP_EOL.'<div id="widget-page-'.$pageid.'" class="widget_pageContent">' . PHP_EOL;
-		if ( $titleflag ) {  echo $args['before_title'] . $page->post_title . $args['after_title'] . PHP_EOL; }
+		if ( $widget_title['display'] ) {
+			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
+		}
 		echo apply_filters( 'the_content', $page->post_content );
 
-		if ( is_user_logged_in() == true ) {
-			if (  current_user_can( 'edit_pages' ) ) { ?>
+
+		$options = vkExUnit_get_common_options();
+		if ( ! empty( $options['active_childPageIndex'] ) ){
+			if ( ! empty( $instance['child_page_index'] ) ){
+				echo "\n".apply_filters('the_content', '[vkExUnit_childs]' );
+			}
+		}
+		if ( ! empty( $options['active_pageList_ancestor'] ) ){
+			if ( ! empty( $instance['page_list_ancestor'] ) ){
+				echo "\n".apply_filters('the_content', '[pageList_ancestor]' );
+			}
+		}
+
+		if (  current_user_can( 'edit_pages' ) ) { ?>
     <div class="veu_adminEdit">
 		<a href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $pageid ;?>&action=edit" class="btn btn-default btn-sm"><?php _e( 'Edit', 'vkExUnit' );?></a>
     </div>
 <?php }
-		}
 		echo '</div>'.PHP_EOL;
 		echo $args['after_widget'];
 	}

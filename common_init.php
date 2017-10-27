@@ -39,28 +39,19 @@ function vkExUnit_get_common_options_default() {
 
 function vkExUnit_common_options_validate( $input ) {
 	$output = $defaults = vkExUnit_get_common_options_default();
-	$output['active_bootstrap']         = (isset( $input['active_bootstrap'] )) ? true:false;
-	$output['active_fontawesome']       = (isset( $input['active_fontawesome'] )) ? true:false;
-	$output['active_metaDescription']   = (isset( $input['active_metaDescription'] )) ? true:false;
-	$output['active_metaKeyword']       = (isset( $input['active_metaKeyword'] )) ? true:false;
-	$output['active_icon']              = (isset( $input['active_icon'] )) ? true:false;
-	$output['active_wpTitle']           = (isset( $input['active_wpTitle'] )) ? true:false;
-	$output['active_sns']               = (isset( $input['active_sns'] )) ? true:false;
-	$output['active_ga']                = (isset( $input['active_ga'] )) ? true:false;
-	$output['active_relatedPosts']      = (isset( $input['active_relatedPosts'] )) ? true:false;
-	$output['active_otherWidgets']      = (isset( $input['active_otherWidgets'] )) ? true:false;
-	$output['active_css_customize']     = (isset( $input['active_css_customize'] )) ? true:false;
-	$output['active_call_to_action']    = (isset( $input['active_call_to_action'] )) ? true:false;
-	$output['delete_options_at_deactivate']             = (isset( $input['delete_options_at_deactivate'] )) ? true:false;
-	$output['content_filter_state']     = (isset( $input['content_filter_state'] )) ? 'loop_end': 'content';
+	$output['active_bootstrap']         = ( !empty( $input['active_bootstrap'] ) ) ? true:false;
+	$output['active_fontawesome']       = ( !empty( $input['active_fontawesome'] ) ) ? true:false;
+	$output['active_metaDescription']   = ( !empty( $input['active_metaDescription'] ) ) ? true:false;
+	$output['active_metaKeyword']       = ( !empty( $input['active_metaKeyword'] ) ) ? true:false;
+	$output['active_icon']              = ( !empty( $input['active_icon'] ) ) ? true:false;
+	$output['active_wpTitle']           = ( !empty( $input['active_wpTitle'] ) ) ? true:false;
+	$output['active_sns']               = ( !empty( $input['active_sns'] ) ) ? true:false;
+	$output['active_ga']                = ( !empty( $input['active_ga'] ) ) ? true:false;
+	$output['active_relatedPosts']      = ( !empty( $input['active_relatedPosts'] ) ) ? true:false;
+	$output['active_otherWidgets']      = ( !empty( $input['active_otherWidgets'] ) ) ? true:false;
+	$output['active_css_customize']     = ( !empty( $input['active_css_customize'] ) ) ? true:false;
+	$output['active_call_to_action']    = ( !empty( $input['active_call_to_action'] ) ) ? true:false;
+	$output['delete_options_at_deactivate'] = ( !empty( $input['delete_options_at_deactivate'] )) ? true:false;
+	$output['content_filter_state']     = ( !empty( $input['content_filter_state'] ) ) ? 'loop_end': 'content';
 	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
-}
-
-
-
-function vkExUnit_content_filter_state(){
-	// $opt = vkExUnit_get_common_options();
-	// return empty( $opt['content_filter_state'] )? 'content' : $opt['content_filter_state'];
-	// コンテンツループ下部に出力すると誤動作が多いので、一旦コンテンツ下部出力に強制変更
-	return 'content';
 }

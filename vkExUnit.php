@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: http://ex-unit.vektor-inc.co.jp
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 5.3.7
+* Version: 5.7.4
 * Author: Vektor,Inc.
 * Text Domain: vkExUnit
 * Domain Path: /languages
@@ -11,7 +11,7 @@
 * License: GPL2
 */
 /*
-Copyright 2015-2016 Vektor,Inc. ( email : kurudrive@gmail.com )
+Copyright 2015-2017 Vektor,Inc. ( email : kurudrive@gmail.com )
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -70,11 +70,11 @@ function vkExUnit_phpversion_error($val){
 	if (!current_user_can('activate_plugins')) return $val;
     ?>
 <div class="notice notice-error error is-dismissible"><p>
-<?php 
+<?php
 /*
 本来システム名は vkExUnit_get_little_short_name() で引っ張るが、PHPのバージョンが低くて vkExUnit_get_little_short_name() 関数が読み込まれていないので"VK ExUnit"直書き
 */
-printf( __("The current PHP version(%s) is too old, so VK ExUnit will not work.", 'vkExUnit'),  phpversion() 
+printf( __("The current PHP version(%s) is too old, so VK ExUnit will not work.", 'vkExUnit'),  phpversion()
     ); ?>
  <?php _e("VK ExUnit supports PHP5.6 or later.", 'vkExUnit'); ?>
 </p></div>
@@ -94,4 +94,3 @@ function vkExUnit_phpversion_warning_notice($val){
     <?php
     return $val;
 }
-

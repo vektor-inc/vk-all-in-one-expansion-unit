@@ -10,17 +10,8 @@ var jsmin = require('gulp-jsmin');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
 // sudo npm install gulp.spritesmith --save-dev
-var spritesmith = require('gulp.spritesmith');
+// var spritesmith = require('gulp.spritesmith');
 // http://blog.e-riverstyle.com/2014/02/gulpspritesmithcss-spritegulp.html
-
-// // Task
-// gulp.task('cssmin', function () {
-//   gulp.src('css/**/*.css')
-//   .pipe(plumber()) // エラーでも監視を続行
-//   .pipe(cssmin())
-//   .pipe(rename({suffix: '.min'}))
-//   .pipe(gulp.dest('css'));
-// });
 
 // ファイル結合
 gulp.task('scripts', function() {

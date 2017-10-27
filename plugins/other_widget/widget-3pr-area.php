@@ -53,48 +53,56 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 		for ( $i = 1; $i <= 3 ;) { ?>
 
-		<h5 class="pr_subTitle"><?php echo __( '3PR area setting', 'vkExUnit' ).' '.$i; ?></h5>
+		<h2 class="admin_widget_h2"><?php echo __( '3PR area setting', 'vkExUnit' ).' '.$i; ?></h2>
         <p>
 			<label for="<?php echo $this->get_field_id( 'label_'.$i );  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id( 'label_'.$i ); ?>-title" class="pr-input" name="<?php echo $this->get_field_name( 'label_'.$i ); ?>" value="<?php echo esc_attr( $instance['label_'.$i] ); ?>" />
         </p>
 
 		<?php // 3PR area 1 メディアアップローダー PC ?>
-        <p>
-			<label for="<?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label><br/>
-			<input type="hidden" class="media_image_3pr_pc <?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>" id="<?php echo $this->get_field_id( 'media_3pr_image_'.$i ); ?>-image" name="<?php echo $this->get_field_name( 'media_3pr_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_image_'.$i] ); ?>" />
-			<input type="hidden" class="media_alt_3pr_pc" id="<?php echo $this->get_field_id( 'media_3pr_alt_'.$i ); ?>-alt" name="<?php echo $this->get_field_name( 'media_3pr_alt_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" />
-			<input type="button" class="media_select select_3pr" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3pr(event.target);" />
-			<input type="button" class="media_clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3pr(event.target);" />
-        </p>
-        <div class="media image_3pr">
-	        <?php if ( ! empty( $instance['media_3pr_image_'.$i] ) ) :  ?>
-	        <img class="media_image image_3pr" src="<?php echo esc_url( $instance['media_3pr_image_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" />
-	        <?php endif; ?>
-        </div>
+
+				<label for="<?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label>
+
+				<div class="media_image_section">
+					<div class="_display admin_widget_thumb_outer">
+					    <?php
+							if ( ! empty( $instance[ 'media_3pr_image_'.$i ] ) ): ?>
+					        <img class="media_image" src="<?php echo esc_url( $instance['media_3pr_image_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" style="width:100%;height:auto;" />
+					    <?php endif; ?>
+					</div>
+					<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e('Select image', 'vkExUnit' ); ?></button>
+					<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
+					<div class="_form" style="line-height: 2em">
+							<input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'media_3pr_image_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_image_'.$i] ); ?>" />
+							<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'media_3pr_alt_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" />
+					</div>
+				</div><!-- [ /.media_image_section ] -->
+
+				<label for="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i );  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label>
+
+				<div class="media_image_section">
+					<div class="_display admin_widget_thumb_outer">
+					    <?php
+							if ( ! empty( $instance[ 'media_3pr_image_sp_'.$i ] ) ): ?>
+					        <img class="media_image" src="<?php echo esc_url( $instance['media_3pr_image_sp_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" style="width:100%;height:auto;" />
+					    <?php endif; ?>
+					</div>
+					<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e('Select image', 'vkExUnit' ); ?></button>
+					<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e('Clear image', 'vkExUnit' ); ?></button>
+					<div class="_form" style="line-height: 2em">
+							<input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'media_3pr_image_sp_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_image_sp_'.$i] ); ?>" />
+							<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'media_3pr_alt_sp_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_alt_sp_'.$i] ); ?>" />
+					</div>
+				</div><!-- [ /.media_image_section ] -->
 
         <?php // 3PR area 1 メディアアップローダー sp image ?>
-        <p>
-	        <label for="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i );  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label><br/>
-
-			<input type="hidden" class="media_image_3pr_sp" id="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i ); ?>_image" name="<?php echo $this->get_field_name( 'media_3pr_image_sp_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_image_sp_'.$i] ); ?>" />
-
-			<input type="hidden" class="media_alt_3pr_sp" id="<?php echo $this->get_field_id( 'media_3pr_alt_sp_'.$i ); ?>-alt" name="<?php echo $this->get_field_name( 'media_3pr_alt_sp_'.$i ); ?>" value="<?php echo esc_attr( $instance['media_3pr_alt_sp_'.$i] ); ?>" />
-
-			<input type="button" class="media_select" value="<?php _e( 'Select image', 'vkExUnit' ); ?>" onclick="clickSelect3prSP(event.target);" />
-			<input type="button" class="media_clear" value="<?php _e( 'Clear image', 'vkExUnit' ); ?>" onclick="clickClear3prSP(event.target);" />
-        </p>
-        <div class="media image_3pr_sp">
-	        <?php if ( ! empty( $instance['media_3pr_image_sp_'.$i] ) ) :  ?>
-	        <img class="media_image image_3pr_sp" src="<?php echo esc_url( $instance['media_3pr_image_sp_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_sp_'.$i] ); ?>" />
-	        <?php endif; ?>
-        </div>
+	       <br/>
 
 		<?php // 概要テキスト ?>
 		<p><label for="<?php echo $this->get_field_id( 'summary_'.$i );  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
         </p>
 
-		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_'.$i ); ?>_text" class="pr_input textarea" name="<?php echo $this->get_field_name( 'summary_'.$i ); ?>"><?php echo esc_textarea( $instance['summary_'.$i] ); ?></textarea>
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_'.$i ); ?>_text" class="admin_widget_input" name="<?php echo $this->get_field_name( 'summary_'.$i ); ?>"><?php echo esc_textarea( $instance['summary_'.$i] ); ?></textarea>
 
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_'.$i );  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
@@ -149,12 +157,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 				echo '</h1>';
 
-				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) && $instance['media_3pr_image_'.$i]) { 
+				$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' target="_blank" ':'';
+
+				if ( isset( $instance['media_3pr_image_'.$i], $instance['media_3pr_image_sp_'.$i] ) && $instance['media_3pr_image_'.$i]) {
 
 					// media_pr は現在不使用 近日削除
 					echo '<div class="media_pr veu_3prArea_image">';
-
-					$blank = ( isset( $instance['blank_'.$i] ) && $instance['blank_'.$i] ) ? ' target="_blank" ':'';
 
 					if ( ! empty( $instance['linkurl_'.$i] ) ) {
 						echo '<a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="veu_3prArea_image_link"'.$blank.'>';
@@ -177,10 +185,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 
 				if ( ! empty( $instance['summary_'.$i] ) ) {
-					echo '<p class="summary">'.nl2br( esc_attr( $instance['summary_'.$i] ) ).'</p>';
+
+					echo '<p class="summary">'.nl2br( wp_kses_post( $instance['summary_'.$i] ) ).'</p>';
+
 				}
 				if ( ! empty( $instance['linkurl_'.$i] ) ) {
-					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm"'.$blank.'>'.__( 'Read more', 'vkExUnit' ).'</a></p>';
+					echo '<p class="linkurl"><a href="'.esc_url( $instance['linkurl_'.$i] ).'" class="btn btn-default btn-sm"'.$blank.'>'.apply_filters( 'vkExUnit_widget_3pr_read_more_txt', __( 'Read more', 'vkExUnit' ) ).'</a></p>';
 				}
 
 				echo '</div>';
@@ -196,36 +206,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 }
 
 // メディアアップローダーjs
-function my_admin_scripts_3pr() {
+add_action( 'admin_print_scripts', 'admin_scripts_3pr_media' );
+function admin_scripts_3pr_media() {
 	wp_enqueue_media();
-	wp_register_script( 'mediauploader-3pr', plugin_dir_url( __FILE__ ) . 'js/widget-3pr-uploader.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'mediauploader-3pr' );
+	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+	wp_enqueue_script( 'vk-admin-widget' );
 }
-add_action( 'admin_print_scripts', 'my_admin_scripts_3pr' );
-
-// 3PR widget CSS
-function style_3PR() {
-	echo '<style>
-        .pr_subTitle{
-            box-sizing: border-box;
-            padding: 0.8em;
-            width: 100%;
-            border: solid 1px #ddd;
-            background: #EDEDED;
-            font-size: 1em;
-        }
-        .pr_input{
-            width: 100%;
-        }
-        .pr_input.text{
-            margin-bottom: 0.5em;
-        }
-        .pr_input.textarea{
-            margin-top: -1em;
-        }
-</style>'.PHP_EOL;
-}
-add_action( 'admin_print_styles-widgets.php', 'style_3PR' );
 
 add_action('widgets_init', 'vkExUnit_widget_register_3pr');
 function vkExUnit_widget_register_3pr(){

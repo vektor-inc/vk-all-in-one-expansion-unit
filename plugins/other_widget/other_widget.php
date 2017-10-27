@@ -11,6 +11,44 @@ require vkExUnit_get_directory() . '/plugins/other_widget/widget-button.php';
 require vkExUnit_get_directory() . '/plugins/other_widget/widget-banner.php';
 // require vkExUnit_get_directory() . '/plugins/other_widget/widget-child-page-list.php';
 
+/*-------------------------------------------*/
+/*  color picker
+/*-------------------------------------------*/
+// color picker js
+add_action( 'admin_enqueue_scripts', 'vkExUnit_admin_scripts_color_picker' );
+function vkExUnit_admin_scripts_color_picker() {
+	wp_enqueue_style( 'wp-color-picker' );
+	wp_enqueue_script( 'wp-color-picker' );
+}
+add_action( 'admin_footer-widgets.php', 'print_scripts_pr_color' );
+function print_scripts_pr_color() {
+	?>
+<script type="text/javascript">
+(function($){
+    function initColorPicker(widget) {
+        widget.find( '.color_picker' ).wpColorPicker( {
+            change: _.throttle( function() {
+                $(this).trigger('change');
+            }, 3000 )
+        });
+    }
+
+    function onFormUpdate(event, widget) {
+        initColorPicker(widget);
+    }
+    $(document).on('widget-added widget-updated', onFormUpdate );
+    $(document).ready( function() {
+        $('#widgets-right .widget:has(.color_picker)').each( function () {
+            initColorPicker( $(this) );
+        });
+    });
+}(jQuery));
+</script>
+<?php }
+
+/*-------------------------------------------*/
+/*  archives_where
+/*-------------------------------------------*/
 add_filter( 'getarchives_where', 'vkExUnit_info_getarchives_where', 10, 2 );
 function vkExUnit_info_getarchives_where( $where, $r ) {
 	global $my_archives_post_type;

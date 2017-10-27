@@ -89,7 +89,7 @@ $required_packages[] = array(
 $required_packages[] = array(
 	'name'        => 'icon',
 	'title'       => __( 'Favicon setting', 'vkExUnit' ),
-	'description' => __( 'About favicon.', 'vkExUnit' ),
+	'description' => __( 'About favicon.',  'vkExUnit') .'<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>'.__( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vkExUnit' ).'<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
 	'default'     => true,
 	'include'     => 'icons.php',
 );
@@ -104,7 +104,7 @@ $required_packages[] = array(
 	'attr'        => array(
 		array(
 			'name'        => __( 'Setting','vkExUnit' ),
-			'url'         => admin_url().'admin.php?page=vkExUnit_main_setting#vkExUnit_wp_title',
+			'url'         => admin_url('admin.php?page=vkExUnit_main_setting#vkExUnit_wp_title'),
 			'enable_only' => 1,
 		),
 	),
@@ -315,7 +315,7 @@ $required_packages[] = array(
 		),
 	),
 	'default'     => true,
-	'include'     => 'call_to_action/call_to_action.php',
+	'include'     => 'call-to-action-config.php',
 );
 
 /*-------------------------------------------*/

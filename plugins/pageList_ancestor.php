@@ -5,7 +5,7 @@
 
 add_shortcode( 'pageList_ancestor', 'vkExUnit_pageList_ancestor_shortcode' );
 
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_pageList_ancestor_contentHook', 10, 1 );
 else add_action( 'loop_end', 'vkExUnit_pageList_ancestor_loopend', 10, 1 );
 
 
@@ -16,8 +16,22 @@ function vkExUnit_pageList_ancestor_loopend( $query ){
 
 
 function vkExUnit_pageList_ancestor_shortcode() {
-	global $post;
-	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) { return; }
+
+	global $is_pagewidget;
+
+	if ( $is_pagewidget ) {
+
+		global $widget_pageid;
+		global $post;
+		$post = get_post($widget_pageid);
+
+	} else {
+
+		global $post;
+		if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) { return; }
+
+	}
+
 
 	$pageList_ancestor_html = PHP_EOL.'<section class="veu_pageList_ancestor">'.PHP_EOL;
 
@@ -41,6 +55,8 @@ function vkExUnit_pageList_ancestor_shortcode() {
 			return '';
 		}
 	}
+	wp_reset_query();
+	wp_reset_postdata();
 	return $pageList_ancestor_html;
 }
 
@@ -56,7 +72,7 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 	}
 	return $content;
 }
-add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_pageList_ancestor_activate_meta_box', 10, 1 );
+add_filter( 'veu_content_meta_box_activation', 'vkExUnit_pageList_ancestor_activate_meta_box', 10, 1 );
 function vkExUnit_pageList_ancestor_activate_meta_box( $flag ) {
 	return true;
 }
@@ -65,14 +81,14 @@ function vkExUnit_pageList_ancestor_activate_meta_box( $flag ) {
 
 // admin screen -------------------------------
 
-add_action( 'vkExUnit_customField_Page_box', 'vkExUnit_pageList_ancestor_meta_box' );
+add_action( 'veu_content_meta_box_content', 'vkExUnit_pageList_ancestor_meta_box' );
 add_action( 'save_post', 'vkExUnit_pageList_ancestor' );
 
 function vkExUnit_pageList_ancestor_meta_box() {
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ); ?>
 
-<div>   
+<div>
 <input type="hidden" name="_nonce_vkExUnit__custom_field_pageList_ancestor" id="_nonce_vkExUnit__custom_field_pageList_ancestor" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) );?>" />
 <label for="vkExUnit_pageList_ancestor">
 	<input type="checkbox" id="vkExUnit_pageList_ancestor" name="vkExUnit_pageList_ancestor"<?php echo ($enable)? ' checked' : ''; ?> />

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 このファイルの元ファイルは
@@ -68,7 +68,19 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
             global $post;
 
 		    //CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）
-		    wp_nonce_field( wp_create_nonce(__FILE__), 'noncename__post_type_manager' ); 
+		    wp_nonce_field( wp_create_nonce(__FILE__), 'noncename__post_type_manager' );
+
+		    ?>
+		    <style type="text/css">
+		    table.table { border-collapse: collapse; border-spacing: 0;width:100%; }
+		    table.table th,
+		    table.table td{ padding:0.5em 0.8em; }
+		    table.table th { background-color: #f5f5f5; }
+		    table.table-border,
+		    table.table-border th,
+		    table.table-border td { border:1px solid #e5e5e5; }
+		    </style>
+		    <?php
 
 		    // Post Type ID
             echo '<h4>'.__('Post Type ID(Required)', $vk_post_type_manager_textdomain).'</h4>';
@@ -76,7 +88,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
             echo '<input class="form-control" type="text" id="veu_post_type_id" name="veu_post_type_id" value="'.esc_attr($post->veu_post_type_id).'" size="30">';
             echo '<hr>';
 
-            $post_type_items_array = array( 
+            $post_type_items_array = array(
             	'title'     => __( 'title', $vk_post_type_manager_textdomain ),
 				'editor'    => __( 'editor', $vk_post_type_manager_textdomain ),
 				'author'    => __( 'author', $vk_post_type_manager_textdomain ),
@@ -108,35 +120,38 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			// Custom taxonomies
 			echo '<h4>'.__('Custom taxonomies(optional)', $vk_post_type_manager_textdomain).'</h4>';
 			$taxonomies = array( 'taxonomy_id', 'taxonomy_lavel');
-			echo '<table>';
-			echo '<tr>';
-			echo '<th></th>';
-			echo '<th>'.__('Custon taxonomy name(slug)', $vk_post_type_manager_textdomain ).'</th>';
-			echo '<th>'.__('Custon taxonomy label', $vk_post_type_manager_textdomain ).'</th>';
-			echo '</tr>';
-			// foreach ($variable as $key => $value) {
-			// 	# code...
-			// }
+			echo '<table class="table table-border">';
+
 			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
-			for ($i=1; $i <= 3; $i++) { 
-				echo '<tr>';
+			for ($i=1; $i <= 3; $i++) {
+				// echo '<tr>';
 				$slug = ( isset( $taxonomy[$i]['slug'] ) ) ? $taxonomy[$i]['slug'] : '';
 				$label = ( isset( $taxonomy[$i]['label'] ) ) ? $taxonomy[$i]['label'] : '';
-				echo '<td>'.$i.'</td>';
-				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="30"></td>';
-				echo '<td><input type="text" id="veu_taxonomy['.$i.'][label]" name="veu_taxonomy['.$i.'][label]" value="'.esc_attr($label).'" size="30"></td>';
-				
+				$tag = ( isset( $taxonomy[$i]['tag'] ) ) ? $taxonomy[$i]['tag'] : '';
+
+				echo '<tr>';
+				echo '<th rowspan="3">'.$i.'</th>';
+				echo '<td>'.__('Custon taxonomy name(slug)', $vk_post_type_manager_textdomain ).'</td>';
+				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="20"></td>';
+
+				echo '<tr>';
+				echo '<td>'.__('Custon taxonomy label', $vk_post_type_manager_textdomain ).'</td>';
+				echo '<td><input type="text" id="veu_taxonomy['.$i.'][label]" name="veu_taxonomy['.$i.'][label]" value="'.esc_attr($label).'" size="20"></td>';
+				echo '</tr>';
+
+				$checked = ( isset( $taxonomy[$i]['tag'] ) && $taxonomy[$i]['tag'] ) ? ' checked':'';
+
+				echo '<td>'.__('Hierarchy', $vk_post_type_manager_textdomain ).'</td>';
+				echo '<td><label><input type="checkbox" id="veu_taxonomy['.$i.'][tag]" name="veu_taxonomy['.$i.'][tag]" value="true"'.$checked.'> '.__('Make it a tag (do not hierarchize)',  $vk_post_type_manager_textdomain).'</label></td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 
 
-			echo '<hr>';
-
-			$taxonomy = array( 
+			$taxonomy = array(
 				array ( 'category' => 'カテゴリー' ),
 			 );
-            
+
         }
 
 		/*-------------------------------------------*/
@@ -150,13 +165,13 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 		    $noncename__post_type_manager = isset($_POST['noncename__post_type_manager']) ? $_POST['noncename__post_type_manager'] : null;
 
 		    //nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
-		    if(!wp_verify_nonce($noncename__post_type_manager, wp_create_nonce(__FILE__))) {  
+		    if(!wp_verify_nonce($noncename__post_type_manager, wp_create_nonce(__FILE__))) {
 		        return $post_id;
 		    }
 
 		    //自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）
 		    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { return $post_id; }
-		    
+
 		    $fields = array( 'veu_post_type_id','veu_post_type_items','veu_menu_position','veu_taxonomy' );
 
 		    foreach ($fields as $key => $field) {
@@ -182,14 +197,14 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				$html  = '<div class="notice-warning notice is-dismissible">';
 				$link = admin_url().'options-permalink.php';
 				// $html .= '<p>'.sprintf( __('設定を更新したら<a href="%s">パーマリンク設定</a>を保存してください。', $vk_post_type_manager_textdomain ),$link ).'</p>';
-				$html .= '<p>'.sprintf( __('Please save a <a href="%s">permanent link configuration</a> After updating the setting.', $vk_post_type_manager_textdomain ),$link ).'</p>';	
+				$html .= '<p>'.sprintf( __('Please save a <a href="%s">permanent link configuration</a> After updating the setting.', $vk_post_type_manager_textdomain ),$link ).'</p>';
 				$html .= '  <button type="button" class="notice-dismiss">';
 				$html .= '    <span class="screen-reader-text">この通知を非表示にする</span>';
 				$html .= '  </button>';
 				$html .= '</div>';
 
 				echo $html;
-			}	
+			}
 		}
 
 
@@ -204,7 +219,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				'post_status'      => 'publish',
 				'order'            => 'ASC',
 				'orderby'          => 'menu_order',
-				'suppress_filters' => true 
+				'suppress_filters' => true
 			);
 		    $custom_post_types = get_posts($args);
 		    if ( $custom_post_types ) {
@@ -245,18 +260,20 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 						foreach ($veu_taxonomies as $key => $taxonomy) {
 							// print '<pre style="text-align:left">';print_r($taxonomy);print '</pre>';
 							if ( $taxonomy['slug'] && $taxonomy['label']){
+
+								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 								register_taxonomy(
-										$taxonomy['slug'], 
+										$taxonomy['slug'],
 										$post_type_id,
 										array(
-											'hierarchical' => true,
+											'hierarchical' => $hierarchical_true,
 											'update_count_callback' => '_update_post_term_count',
 											'label' => $taxonomy['label'],
 											'singular_label' => $taxonomy['label'],
 											'public' => true,
 											'show_ui' => true,
 										)
-									);		
+									);
 							}
 
 						}
@@ -287,6 +304,5 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
     } // class Vk_post_type_manager
 
     $Vk_post_type_manager = new Vk_post_type_manager();
-    
+
 }
-    

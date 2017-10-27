@@ -7,7 +7,7 @@
 
 ## function名
 
-接頭辞は vkExUnit_ にする
+接頭辞は <del>vkExUnit_</del>veu_ にする
 
 - 他のプラグインなどと関数名がバッティングするのを避けるため
 

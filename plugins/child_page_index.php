@@ -4,13 +4,40 @@
 /*  Child page index
 /*-------------------------------------------*/
 
+function veu_child_page_excerpt( $post ){
+	// Set Excerpt
+
+	if ( ! isset( $post->post_excerpt ) ) { return; }
+	
+	$postExcerpt = nl2br( esc_textarea( strip_tags( $post->post_excerpt ) ) );
+	if ( ! $postExcerpt ) {
+		// $postExcerpt = mb_substr( nl2br(esc_textarea( $post->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
+		$postExcerpt = esc_textarea( strip_tags($post->post_content ) );
+		$postExcerpt =  mb_substr( $postExcerpt, 0, 90 ); // kill tags and trim 120 chara
+
+		if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
+	}
+	return $postExcerpt;
+}
 
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode() {
-	global $post;
-	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true ) ) { return false; }
 
-	$parentId = $post->ID;
+	global $is_pagewidget;
+
+	if ( $is_pagewidget ) {
+
+		global $widget_pageid;
+		$parentId = $widget_pageid;
+
+	} else {
+
+		global $post;
+		if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true ) ) { return false; }
+		$parentId = $post->ID;
+
+	}
+
 	$args = array(
 		'post_type'			=> 'page',
 		'posts_per_page'	=> -1,
@@ -25,18 +52,14 @@ function vkExUnit_childPageIndex_shortcode() {
 	$childPageList_html = PHP_EOL.'<div class="veu_childPage_list">'.PHP_EOL;
 	foreach( $childrens as $children ):
 
-			// Set Excerpt
-			$postExcerpt = $children->post_excerpt;
-		if ( ! $postExcerpt ) {
-			$postExcerpt = esc_html( mb_substr( strip_tags( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
-			if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
-		}
+			$postExcerpt = veu_child_page_excerpt( $children );
 
 			// Page Item build
 			$childPageList_html .= '<a href="'.esc_url( get_permalink( $children->ID ) ).'" class="childPage_list_box"><div class="childPage_list_box_inner">';
 			$childPageList_html .= '<h3 class="childPage_list_title">'.esc_html( strip_tags( $children->post_title ) ).'</h3>';
-			$childPageList_html .= '<div class="childPage_list_body">'.get_the_post_thumbnail( $children->ID, 'large' );
-			$childPageList_html .= '<p class="childPage_list_text">'.esc_html( $postExcerpt ).'</p>';
+			$childPageList_html .= '<div class="childPage_list_body">';
+			$childPageList_html .= apply_filters('veu_child_index_thumbnail',get_the_post_thumbnail( $children->ID, 'thumbnail' ));
+			$childPageList_html .= '<p class="childPage_list_text">'.$postExcerpt.'</p>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">'.__( 'Read more', 'vkExUnit' ).'</span>';
 			$childPageList_html .= '</div>';
 
@@ -50,7 +73,7 @@ function vkExUnit_childPageIndex_shortcode() {
 }
 
 
-if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1 );
+if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', 'vkExUnit_childPageIndex_contentHook', 7, 1 );
 else add_action( 'loop_end', 'vkExUnit_chidPageIndex_loopend', 10, 1 );
 
 
@@ -59,7 +82,9 @@ function vkExUnit_chidPageIndex_loopend( $query ){
 	echo vkExUnit_childPageIndex_shortcode();
 }
 
-
+/*-------------------------------------------*/
+/*  Print Child Page Box
+/*-------------------------------------------*/
 function vkExUnit_childPageIndex_contentHook( $content ) {
 	if ( vkExUnit_is_excerpt() ) { return $content; }
 	global $is_pagewidget;
@@ -73,13 +98,13 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 }
 
 
-add_filter( 'vkExUnit_customField_Page_activation', 'vkExUnit_childPageIndex_activate_meta_box', 10, 1 );
+add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_activate_meta_box', 10, 1 );
 function vkExUnit_childPageIndex_activate_meta_box( $flag ) {
 	return true;
 }
 
 
-add_action( 'vkExUnit_customField_Page_box', 'vkExUnit_childPageIndex_meta_box' );
+add_action( 'veu_content_meta_box_content', 'vkExUnit_childPageIndex_meta_box' );
 function vkExUnit_childPageIndex_meta_box() {
 	global $post;
 	// childPageIndex display

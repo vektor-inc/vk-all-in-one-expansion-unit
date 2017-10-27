@@ -32,10 +32,10 @@ class vExUnit_Contact {
 		add_action( 'vkExUnit_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		add_filter( 'vkExUnit_customField_Page_activation', array( $this, 'activate_metavox' ), 10, 1 );
-		add_action( 'vkExUnit_customField_Page_box', array( $this, 'render_meta_box' ) );
+		add_filter( 'veu_content_meta_box_activation', array( $this, 'activate_metavox' ), 10, 1 );
+		add_action( 'veu_content_meta_box_content', array( $this, 'render_meta_box' ) );
 
-		if( vkExUnit_content_filter_state() == 'content' ) add_filter( 'the_content', array( $this, 'set_content' ), 10,1 );
+		if( veu_content_filter_state() == 'content' ) add_filter( 'the_content', array( $this, 'set_content' ), 10,1 );
 		else add_action( 'loop_end', array( $this, 'set_content_loopend'), 10, 1);
 	}
 
@@ -43,7 +43,7 @@ class vExUnit_Contact {
 	public function set_content_loopend( $query )
 	{
 		if( ! $query->is_main_query() ) return;
-		echo self::render_contact_html();
+		echo self::render_contact_section_html();
 	}
 
 
@@ -221,25 +221,25 @@ class vExUnit_Contact {
 	{
 		// 固定ページウィジェットの場合出力しない
 		global $is_pagewidget;
-		if ( $is_pagewidget ) { 
+		if ( $is_pagewidget ) {
 			return false;
 		}
 
 		// 抜粋では表示しない
-		if ( vkExUnit_is_excerpt() ) { 
-			return false; 
+		if ( vkExUnit_is_excerpt() ) {
+			return false;
 		}
 
 		// 固定ページ以外では表示しない
 		if ( get_post_type() == 'page' ) {
 			// 固定ページで問い合わせ先情報にチェックが入っている時
-			if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) { 
+			if ( get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true ) ) {
 				return true;
 			}
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	public function set_content( $content )
@@ -255,7 +255,7 @@ class vExUnit_Contact {
 	/*  contact bottom html
 	/*-------------------------------------------*/
 
-	public static function render_contact_html()
+	public static function render_contact_section_html()
 	{
 		$options = self::get_option();
 		$cont = '';
@@ -305,7 +305,7 @@ class vExUnit_Contact {
 	/*  widget html
 	/*-------------------------------------------*/
 
-	public static function render_widget_html()
+	public static function render_widget_contact_btn_html()
 	{
 		$options = self::get_option();
 		$cont = '';
@@ -330,7 +330,7 @@ class vExUnit_Contact {
 
 
 	public function shortcode() {
-		return self::render_contact_html();
+		return self::render_contact_section_html();
 	}
 }
 
@@ -338,7 +338,7 @@ vExUnit_Contact::instance();
 
 
 /*-------------------------------------------*/
-/*  Contact widget
+/*  Contact Button Widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
@@ -358,7 +358,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
-		echo vExUnit_Contact::render_widget_html();
+		echo vExUnit_Contact::render_widget_contact_btn_html();
 		echo '</div>';
 		echo $args['after_widget'];
 	}
@@ -378,3 +378,46 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 }
 
 add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_contact_link");' ) );
+
+/*-------------------------------------------*/
+/*  Contact Section Widget
+/*-------------------------------------------*/
+class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
+
+	function __construct() {
+
+		$widget_name = vkExUnit_get_short_name().'_'.__( 'Contact Section HTML', 'vkExUnit' );
+
+		parent::__construct(
+			'vkExUnit_contact_section',
+			$widget_name,
+			array(
+				'description' => sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ),
+				)
+		);
+	}
+
+
+	function widget( $args, $instance ) {
+		echo $args['before_widget'];
+		echo '<div class="veu_contact">';
+		echo vExUnit_Contact::render_contact_section_html();
+		echo '</div>';
+		echo $args['after_widget'];
+	}
+
+
+	function update( $new_instance, $old_instance ) {
+		return $new_instance;
+	}
+
+
+	function form( $instance ) {
+		echo '<div style="padding:1em 0;">';
+		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ) );
+		echo '</div>';
+		return $instance;
+	}
+}
+
+add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_Contact_Section");' ) );

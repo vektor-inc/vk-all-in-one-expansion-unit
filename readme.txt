@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: vektor-inc,bizvektor,kurudrive,nc30,SaoriMiyazaki
+Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 4.2
-Tested up to: 4.7.2
-Stable tag: 5.3.7
+Requires at least: 4.4
+Tested up to: 4.8.2
+Stable tag: 5.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,30 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 5.7.0 =
+* [ SNS Button ][ Add function ] Add color setting & fill or outline
+* [ Contact info widget ][ Add function ] New widget!!
+* [ 3PR / PR Block ][ bug fix ] reload response improvement.
+* [ Page Widget ][ Add function ] Can use child page index and ancestor page list display.
+
+= 5.5.0 =
+* [ Custom Post Type Manager ][ add Function ] Add taxonomy tag setting.
+
+= 5.4.6 =
+* [ CTA Widget ][ add function ] Random display
+
+= 5.4.5 =
+* [ 3PR Widget ][ add filter ] read more text
+
+= 5.4.0 =
+* [ Package Manager ][ Bug fix ] Image height fix
+* [ Profile Widget ][ Add Function ] SNS Icon Color Change
+* [ Profile Widget ][ Specification change ] Allow html tag
+* [ Page Widget ][ Add Function ] Title text setting
+* [ New Posts Widget ][ Add Function ] More Link Text setting
+* [ CTA ][ Add Function ] Add Random display
+* [ Taxonomy Widget ][ Add Function ] Select null post term hide
 
 = 5.3.6 =
 * [ Child Page List ][ Bug fix ] Image height fix
@@ -150,7 +174,7 @@ e.g.
 
 = 4.1.0 =
 * [ Add Function ][ Add Widget ] Child Page list
-* [ Other ][ SNS Button ] Redesign 
+* [ Other ][ SNS Button ] Redesign
 
 = 4.0.0 =
 
