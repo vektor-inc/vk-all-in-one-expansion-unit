@@ -13,7 +13,7 @@ function veu_child_page_excerpt( $post ){
 	if ( ! $postExcerpt ) {
 		// $postExcerpt = mb_substr( nl2br(esc_textarea( $post->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
 		$postExcerpt = esc_textarea( strip_tags($post->post_content ) );
-		$postExcerpt =  mb_substr( $postExcerpt, 0, 90 ); // kill tags and trim 120 chara
+		$postExcerpt = mb_substr( $postExcerpt, 0, 5 ); // kill tags and trim 120 chara
 
 		if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
 	}

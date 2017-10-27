@@ -25,6 +25,11 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 				'excerpt' => '',
 				'correct' => '１２３４５６７８９０１２３４５６７８９０',
 			),
+			array(
+				'content' => '<p>１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０</p>',
+				'excerpt' => "",
+				'correct' => "１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０...",
+			),
 			// 抜粋の改行が効くかどうか
 			array(
 				'content' => '<p>１２３４５６７８９０１２３４５６７８９０</p>',
@@ -39,6 +44,11 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			),
 		);
 
+		print PHP_EOL;
+		print '------------------------------------'.PHP_EOL;
+		print 'test_chlild_page_excerpt'.PHP_EOL;
+		print '------------------------------------'.PHP_EOL;
+		
 		foreach ($test_array as $key => $value) {
 
 			// テスト用のデータを投稿する
@@ -46,9 +56,9 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			$post_data['post_excerpt'] = $value['excerpt'];
 			// 投稿が成功すると投稿IDが返ってくる
 			$post_id = wp_insert_post( $post_data );
-			print '<pre style="text-align:left">';print_r($post_id);print '</pre>';
-			print $key.PHP_EOL;
-			print $post_id.PHP_EOL;
+			// print '<pre style="text-align:left">';print_r($post_id);print '</pre>';
+			// print $key.PHP_EOL;
+			// print $post_id.PHP_EOL;
 
 			// 実際に投稿されたデータを取得する
 			$post = get_post( $post_id );
@@ -59,10 +69,6 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			// 返ってきた抜粋値と期待する結果が同じかどうかテスト
 			// $this->assertEquals( $value['correct'], $return );
 
-			print PHP_EOL;
-			print '------------------------------------'.PHP_EOL;
-			print 'test_chlild_page_excerpt'.PHP_EOL;
-			print '------------------------------------'.PHP_EOL;
 			// print $post->post_excerpt.PHP_EOL;
 			print 'return  :'.$return.PHP_EOL;
 			print 'correct :'.$value['correct'].PHP_EOL;
