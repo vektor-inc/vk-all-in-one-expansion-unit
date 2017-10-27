@@ -5,19 +5,36 @@
 /*-------------------------------------------*/
 
 function veu_child_page_excerpt( $post ){
-	// Set Excerpt
 
+	// そもそも post_excerpt が存在しなかったらreturn（ $post自体が正しく受け取れてない ）
 	if ( ! isset( $post->post_excerpt ) ) { return; }
-	
-	$postExcerpt = nl2br( esc_textarea( strip_tags( $post->post_excerpt ) ) );
-	if ( ! $postExcerpt ) {
-		// $postExcerpt = mb_substr( nl2br(esc_textarea( $post->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
-		$postExcerpt = esc_textarea( strip_tags($post->post_content ) );
-		$postExcerpt = mb_substr( $postExcerpt, 0, 5 ); // kill tags and trim 120 chara
 
-		if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
+	// 抜粋を取得
+	$page_excerpt = nl2br( esc_textarea( strip_tags( $post->post_excerpt ) ) );
+
+// echo '━━━━━━━━━━━━━━━━━━━━'."<br>\n";
+// 	print '<pre style="text-align:left">';print_r($page_excerpt);print '</pre>';
+// 	echo '━━━━━━━━━━━━━━━━━━━━'."<br>\n";
+
+	// 抜粋欄が未入力だった場合（本文欄の内容を引っ張る）
+	if ( ! $page_excerpt ) {
+
+		// 本文欄から取得し、タグを除去
+		$page_excerpt = esc_textarea( strip_tags($post->post_content ) );
+
+		if ( 90 < mb_strlen( $page_excerpt ) ) {
+			// 90文字でトリム
+			$page_excerpt = mb_substr( $page_excerpt, 0, 90 );
+			//  ... を追加
+			$page_excerpt .= '...';
+
+		}
+
 	}
-	return $postExcerpt;
+
+	$page_excerpt = str_replace(PHP_EOL, '', $page_excerpt);
+
+	return $page_excerpt;
 }
 
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
