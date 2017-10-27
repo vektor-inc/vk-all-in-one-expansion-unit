@@ -4,6 +4,21 @@
 /*  Child page index
 /*-------------------------------------------*/
 
+function veu_child_page_excerpt( $post ){
+	// Set Excerpt
+
+	if ( ! isset( $post->post_excerpt ) ) { return; }
+	
+	$postExcerpt = nl2br( esc_textarea( strip_tags( $post->post_excerpt ) ) );
+	if ( ! $postExcerpt ) {
+		// $postExcerpt = mb_substr( nl2br(esc_textarea( $post->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
+		$postExcerpt = esc_textarea( strip_tags($post->post_content ) );
+		$postExcerpt =  mb_substr( $postExcerpt, 0, 90 ); // kill tags and trim 120 chara
+
+		if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
+	}
+	return $postExcerpt;
+}
 
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode() {
@@ -37,15 +52,7 @@ function vkExUnit_childPageIndex_shortcode() {
 	$childPageList_html = PHP_EOL.'<div class="veu_childPage_list">'.PHP_EOL;
 	foreach( $childrens as $children ):
 
-			// Set Excerpt
-		$postExcerpt = nl2br( esc_textarea( strip_tags( $children->post_excerpt ) ) );
-		if ( ! $postExcerpt ) {
-			// $postExcerpt = mb_substr( nl2br(esc_textarea( $children->post_content ), 0, 90 ) ); // kill tags and trim 120 chara
-			$postExcerpt = esc_textarea( strip_tags($children->post_content ) );
-			$postExcerpt =  mb_substr( $postExcerpt, 0, 90 ); // kill tags and trim 120 chara
-
-			if ( mb_strlen( $postExcerpt ) >= 90  ) { $postExcerpt .= '...'; }
-		}
+			$postExcerpt = veu_child_page_excerpt( $children );
 
 			// Page Item build
 			$childPageList_html .= '<a href="'.esc_url( get_permalink( $children->ID ) ).'" class="childPage_list_box"><div class="childPage_list_box_inner">';
