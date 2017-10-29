@@ -11,7 +11,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		parent::__construct(
 			'WP_Widget_vkExUnit_profile',
 			$widget_name,
-			array( 'description' => __( 'Displays a your profile', 'biz-vektor' ) )
+			array( 'description' => __( 'Displays a your profile', 'vkExUnit' ) )
 		);
 	}
 

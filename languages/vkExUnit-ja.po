@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-23 17:31+0900\n"
+"POT-Creation-Date: 2017-10-29 23:01+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -530,11 +530,11 @@ msgstr "表示するCTAを選択してください。"
 msgid "Please select"
 msgstr "選択してください"
 
-#: plugins/child_page_index.php:53 plugins/other_widget/widget-3pr-area.php:193
+#: plugins/child_page_index.php:76 plugins/other_widget/widget-3pr-area.php:193
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: plugins/child_page_index.php:106 plugins/other_widget/widget-page.php:87
+#: plugins/child_page_index.php:133 plugins/other_widget/widget-page.php:90
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -667,8 +667,32 @@ msgstr "Contact情報を編集"
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
-#: plugins/contact_section.php:352 plugins/contact_section.php:374
-#: plugins/contact_section.php:395 plugins/contact_section.php:417
+#: plugins/contact_section.php:347
+msgid "Display contact button."
+msgstr "お問い合わせボタンを表示します。"
+
+#: plugins/contact_section.php:348 plugins/contact_section.php:376
+#: plugins/contact_section.php:394
+#, php-format
+msgid ""
+"It is necessary to set the \"%s\" -> \"Contact Information\" section in "
+"\"Main setting\" page."
+msgstr ""
+"「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
+
+#: plugins/contact_section.php:375
+msgid "Display contact button"
+msgstr "お問い合わせボタンを表示します。"
+
+#: plugins/contact_section.php:392
+msgid "Contact Section HTML"
+msgstr "お問い合わせ情報"
+
+#: plugins/contact_section.php:393
+msgid "Display Phone number and contact button etc."
+msgstr "電話番号とお問い合わせボタンなどを表示します。"
+
+#: plugins/contact_section.php:422
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -676,10 +700,6 @@ msgid ""
 msgstr ""
 "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
 "す。"
-
-#: plugins/contact_section.php:389
-msgid "Contact Section HTML"
-msgstr "お問い合わせバナー"
 
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:28
@@ -1196,11 +1216,11 @@ msgstr "タイトルを表示しない"
 msgid "Display page"
 msgstr "ページを表示"
 
-#: plugins/other_widget/widget-page.php:96 plugins/pageList_ancestor.php:95
+#: plugins/other_widget/widget-page.php:102 plugins/pageList_ancestor.php:96
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
-#: plugins/other_widget/widget-page.php:218
+#: plugins/other_widget/widget-page.php:224
 msgid "Edit"
 msgstr "編集"
 
@@ -1565,8 +1585,6 @@ msgid "SNS Settings"
 msgstr "SNS設定"
 
 #: plugins/sns/sns.php:203
-#, fuzzy
-#| msgid "Button color:"
 msgid "Btn color"
 msgstr "ボタンの色:"
 

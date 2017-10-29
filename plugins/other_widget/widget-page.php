@@ -80,7 +80,10 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 		<?php $options = vkExUnit_get_common_options(); ?>
 
-		<?php if ( ! empty( $options['active_childPageIndex'] ) ) :?>
+		<?php if (
+			! isset( $options['active_childPageIndex'] )|| // 5.7.4 以前を利用で一度も有効化設定を保存していないユーザー
+			isset( $options['active_childPageIndex'] ) && $options['active_childPageIndex'] // Activate User
+		  ) : ?>
 		<p>
 			<label for="<?php echo $this->get_field_name( 'child_page_index' ); ?>">
 				<input type="checkbox" id="<?php echo $this->get_field_name( 'child_page_index' ); ?>" name="<?php echo $this->get_field_name( 'child_page_index' ); ?>"<?php echo ( ! empty($instance['child_page_index'] ) ) ? ' checked' : ''; ?> />
@@ -89,7 +92,10 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		</p>
 		<?php endif; ?>
 
-		<?php if ( ! empty( $options['active_pageList_ancestor'] ) ) :?>
+		<?php if (
+			! isset( $options['active_pageList_ancestor'] )|| // 5.7.4 以前を利用で一度も有効化設定を保存していないユーザー
+			isset( $options['active_pageList_ancestor'] ) && $options['active_pageList_ancestor'] // Activate User
+		  ) : ?>
 		<p>
 			<label for="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>">
 				<input type="checkbox" id="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>" name="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>"<?php echo ( ! empty($instance['page_list_ancestor'] ) ) ? ' checked' : ''; ?> />

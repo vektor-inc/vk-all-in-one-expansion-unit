@@ -10,6 +10,12 @@ function vkExUnit_mce_before_init_insert_formats( $init_array ) {
 			'classes' => 'veu_leadTxt',
 			// 'wrapper' => false,
 		),
+ 		array( 
+			'title' => 'Dummy Image',  
+			'block' => 'div',  
+			'classes' => 'veu_dummyImage',
+			// 'wrapper' => false,
+		),
  	// 	array( 
 		// 	'title' => 'Table Width Auto',  
 		// 	'block' => 'table',  

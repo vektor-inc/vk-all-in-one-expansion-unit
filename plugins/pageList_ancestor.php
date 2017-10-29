@@ -72,19 +72,20 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 	}
 	return $content;
 }
-add_filter( 'veu_content_meta_box_activation', 'vkExUnit_pageList_ancestor_activate_meta_box', 10, 1 );
-function vkExUnit_pageList_ancestor_activate_meta_box( $flag ) {
+
+/*-------------------------------------------*/
+/* admin_metabox_activate
+/*-------------------------------------------*/
+add_filter( 'veu_content_meta_box_activation', 'veu_page_list_ancestor_admin_metabox_activate', 10, 1 );
+function veu_page_list_ancestor_admin_metabox_activate( $flag ) {
 	return true;
 }
 
-
-
-// admin screen -------------------------------
-
-add_action( 'veu_content_meta_box_content', 'vkExUnit_pageList_ancestor_meta_box' );
-add_action( 'save_post', 'vkExUnit_pageList_ancestor' );
-
-function vkExUnit_pageList_ancestor_meta_box() {
+/*-------------------------------------------*/
+/* admin_metabox_content
+/*-------------------------------------------*/
+add_action( 'veu_content_meta_box_content', 'vkExUnit_pageList_ancestor_admin_metabox_content' );
+function vkExUnit_pageList_ancestor_admin_metabox_content() {
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ); ?>
 
@@ -98,9 +99,12 @@ function vkExUnit_pageList_ancestor_meta_box() {
 <?php
 }
 
-// seve function -------------------------------
 
-function vkExUnit_pageList_ancestor( $post_id ) {
+/*-------------------------------------------*/
+/* save_custom_field
+/*-------------------------------------------*/
+add_action( 'save_post', 'veu_page_list_ancestor_save_custom_field' );
+function veu_page_list_ancestor_save_custom_field( $post_id ) {
 
 	$pageList_ancestor = isset( $_POST['_nonce_vkExUnit__custom_field_pageList_ancestor'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit__custom_field_pageList_ancestor'] ) : null;
 
