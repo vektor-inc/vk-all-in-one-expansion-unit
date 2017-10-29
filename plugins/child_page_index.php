@@ -12,10 +12,6 @@ function veu_child_page_excerpt( $post ){
 	// 抜粋を取得
 	$page_excerpt = nl2br( esc_textarea( strip_tags( $post->post_excerpt ) ) );
 
-// echo '━━━━━━━━━━━━━━━━━━━━'."<br>\n";
-// 	print '<pre style="text-align:left">';print_r($page_excerpt);print '</pre>';
-// 	echo '━━━━━━━━━━━━━━━━━━━━'."<br>\n";
-
 	// 抜粋欄が未入力だった場合（本文欄の内容を引っ張る）
 	if ( ! $page_excerpt ) {
 
@@ -114,15 +110,19 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 	return $content;
 }
 
-
-add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_activate_meta_box', 10, 1 );
-function vkExUnit_childPageIndex_activate_meta_box( $flag ) {
+/*-------------------------------------------*/
+/* admin_metabox_activate
+/*-------------------------------------------*/
+add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_admin_metabox_activate', 10, 1 );
+function vkExUnit_childPageIndex_admin_metabox_activate( $flag ) {
 	return true;
 }
 
-
-add_action( 'veu_content_meta_box_content', 'vkExUnit_childPageIndex_meta_box' );
-function vkExUnit_childPageIndex_meta_box() {
+/*-------------------------------------------*/
+/* admin_metabox_content
+/*-------------------------------------------*/
+add_action( 'veu_content_meta_box_content', 'veu_child_page_index_admin_metabox_content' );
+function veu_child_page_index_admin_metabox_content() {
 	global $post;
 	// childPageIndex display
 	$enable = get_post_meta( $post->ID, 'vkExUnit_childPageIndex', true );?>
@@ -133,14 +133,14 @@ function vkExUnit_childPageIndex_meta_box() {
 	<?php _e( 'Display a child page index', 'vkExUnit' );?>
 </label>
 </div>
-
 	<?php
 }
 
-
-// save custom field childPageIndex
-add_action( 'save_post', 'vkExUnit_save_custom_field_postdata' );
-function vkExUnit_save_custom_field_postdata( $post_id ) {
+/*-------------------------------------------*/
+/* save_custom_field
+/*-------------------------------------------*/
+add_action( 'save_post', 'veu_child_page_index_save_custom_field' );
+function veu_child_page_index_save_custom_field( $post_id ) {
 	$childPageIndex = isset( $_POST['_nonce_vkExUnit__custom_field_childPageIndex'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit__custom_field_childPageIndex'] ) : null;
 
 	if ( ! wp_verify_nonce( $childPageIndex, plugin_basename( __FILE__ ) ) ) {
