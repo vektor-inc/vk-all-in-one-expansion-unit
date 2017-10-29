@@ -26,6 +26,8 @@ function vkExUnit_get_common_options_default() {
 		'active_ga'                 => true,
 		'active_relatedPosts'       => true,
 		'active_call_to_action'     => true,
+		'active_pageList_ancestor'	=> true,
+		'active_childPageIndex'			=> true,
 		'delete_options_at_deactivate' => false,
 		'delete_options_with_bizvektors_common' => true,
 		'content_filter_state'      => 'content',
