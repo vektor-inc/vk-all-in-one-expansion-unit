@@ -343,13 +343,14 @@ vExUnit_Contact::instance();
 class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name().'_'.__( 'Contact Button', 'vkExUnit' );
-
+		$widget_name = veu_get_short_name().'_'.__( 'Contact Button', 'vkExUnit' );
+		$widget_description = __('Display contact button.', 'vkExUnit');
+		$widget_description .= ' ( '.sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),veu_get_little_short_name() ).' ) ';
 		parent::__construct(
 			'vkExUnit_contact',
 			$widget_name,
 			array(
-				'description' => sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ),
+				'description' => $widget_description,
 				)
 		);
 	}
@@ -371,7 +372,9 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
 	function form( $instance ) {
 		echo '<div style="padding:1em 0;">';
-		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ) );
+		$widget_description = __('Display contact button', 'vkExUnit');
+		$widget_description .= ' ( '.sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),veu_get_little_short_name() ).' ) ';
+		echo $widget_description;
 		echo '</div>';
 		return $instance;
 	}
@@ -386,13 +389,15 @@ class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
 
 	function __construct() {
 
-		$widget_name = vkExUnit_get_short_name().'_'.__( 'Contact Section HTML', 'vkExUnit' );
+		$widget_name = veu_get_short_name().'_'.__( 'Contact Section HTML', 'vkExUnit' );
+		$widget_description = __('Display Phone number and contact button etc.', 'vkExUnit');
+		$widget_description .= ' ( '.sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),veu_get_little_short_name() ).' ) ';
 
 		parent::__construct(
 			'vkExUnit_contact_section',
 			$widget_name,
 			array(
-				'description' => sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ),
+				'description' => $widget_description,
 				)
 		);
 	}
@@ -414,7 +419,7 @@ class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
 
 	function form( $instance ) {
 		echo '<div style="padding:1em 0;">';
-		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),vkExUnit_get_little_short_name() ) );
+		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ),veu_get_little_short_name() ) );
 		echo '</div>';
 		return $instance;
 	}
