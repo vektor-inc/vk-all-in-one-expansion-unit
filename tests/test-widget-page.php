@@ -13,6 +13,53 @@ class WidgetPage extends WP_UnitTestCase {
 	/**
 	 * A single example test.
 	 */
+
+	 // 子ページインデックス機能がアクティブかどうか
+	 function test_is_active_child_page_index(){
+		 $tests = array(
+			 array(
+				 'active_childPageIndex' => null, // 5.7.4 以前を利用で一度も有効化設定を保存していないユーザー
+				 'correct' => true,
+			 ),
+			 array(
+				 'active_childPageIndex' => true, // 有効化設定で保存している or 5.7.5以降のユーザー
+				 'correct' => true,
+			 ),
+			 array(
+				 'active_childPageIndex' => false, // 無効化しているユーザー
+				 'correct' => false,
+			 ),
+		 );
+
+		 foreach ($tests as $key => $value) {
+			 $resurt = WP_Widget_vkExUnit_widget_page::is_active_child_page_index( $value );
+			 $this->assertEquals( $value['correct'], $resurt );
+		 }
+	 }
+
+	 // 先祖階層からのページリスト表示機能がアクティブかどうか
+	 function test_is_active_page_list_ancestor(){
+		 $tests = array(
+			 array(
+				 'active_pageList_ancestor' => null, // 5.7.4 以前を利用で一度も有効化設定を保存していないユーザー
+				 'correct' => true,
+			 ),
+			 array(
+				 'active_pageList_ancestor' => true, // 有効化設定で保存している or 5.7.5以降のユーザー
+				 'correct' => true,
+			 ),
+			 array(
+				 'active_pageList_ancestor' => false, // 無効化しているユーザー
+				 'correct' => false,
+			 ),
+		 );
+
+		 foreach ($tests as $key => $value) {
+			 $resurt = WP_Widget_vkExUnit_widget_page::is_active_page_list_ancestor( $value );
+			 $this->assertEquals( $value['correct'], $resurt );
+		 }
+	 }
+
 	function test_widget_page() {
 		// テスト用の投稿を追加する
 
