@@ -89,11 +89,11 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	if ( !$related_posts ) { return $content; }
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
-
 	if ( $related_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
 		$relatedPostsHtml .= '<aside class="veu_relatedPosts veu_contentAddSection">';
-		$relatedPostTitle = apply_filters( 'veu_related_post_title', __( 'Related posts','vkExUnit' ) );
+		// $relatedPostTitle = apply_filters( 'veu_related_post_title', __( 'Related posts','vkExUnit' ) );
+		$relatedPostTitle = apply_filters( 'veu_related_post_title', 'vkExUnit_related_options[related_title]' );
 		$relatedPostsHtml .= '<h1 class="mainSection-title">'.$relatedPostTitle.'</h1>';
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
@@ -140,7 +140,7 @@ function veu_customize_register_related( $wp_customize ) {
 	) );
 	// セッティング
 	$wp_customize->add_setting( 'vkExUnit_related_options[related_title]', array(
-		'default'			=> '関連記事',
+		'default'			=> '',
 		 'type'				=> 'option', // 保存先 option or theme_mod
 		'capability'		=> 'edit_theme_options',
 		'sanitize_callback' => 'veu_sanitize_boolean',
