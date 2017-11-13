@@ -119,6 +119,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			// Custom taxonomies
 			echo '<h4>'.__('Custom taxonomies(optional)', $vk_post_type_manager_textdomain).'</h4>';
+      echo '<p>'.__( 'Please be sure to enter it with one-byte alphanumeric characters',$vk_post_type_manager_textdomain).'</p>';
 			$taxonomies = array( 'taxonomy_id', 'taxonomy_lavel');
 			echo '<table class="table table-border">';
 
