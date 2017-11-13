@@ -14,7 +14,7 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	$post_id = get_the_id();
 
 	$terms = get_the_terms( $post_id, $taxonomy );
-	
+
 	if ( ! $terms  || ! is_array( $terms ) ) { return $posts_array; }
 	$tags = array();
 	foreach ( $terms as $t ) { $tags[] = $t->term_id; }
@@ -48,7 +48,7 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	if ( $post_shortage > 0 ) {
 		$args = $args_base;
 		$args['posts_per_page'] = $post_shortage;
-		foreach ( $posts_array as $post ) { 
+		foreach ( $posts_array as $post ) {
 			$args['post__not_in'][] = $post->ID;
 		}
 		$args['tax_query'] = array( array(
@@ -123,6 +123,36 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	wp_reset_postdata();
 
 	return $content;
+}
+
+// カスタマイザーの設定
+
+if ( apply_filters('veu_customize_panel_activation', false ) ){
+	add_action( 'customize_register', 'veu_customize_register_related' );
+}
+
+function veu_customize_register_related( $wp_customize ) {
+  // セクション追加
+	$wp_customize->add_section( 'veu_related_setting', array(
+		'title'				=> __('Related Settings', 'vkExUnit'),
+		'priority'			=> 1000,
+		'panel'				=> 'veu_setting',
+	) );
+	// セッティング
+	$wp_customize->add_setting( 'vkExUnit_related_options[related_title]', array(
+		'default'			=> '関連記事',
+		 'type'				=> 'option', // 保存先 option or theme_mod
+		'capability'		=> 'edit_theme_options',
+		'sanitize_callback' => 'veu_sanitize_boolean',
+	) );
+  // コントロール
+	$wp_customize->add_control( 'related_title', array(
+		'label'		=> __( 'Title:', 'vkExUnit' ),
+		'section'	=> 'veu_related_setting',
+		'settings'  => 'vkExUnit_related_options[related_title]',
+		'type'		=> 'text',
+		'priority'	=> 1,
+	) );
 }
 
 /*
