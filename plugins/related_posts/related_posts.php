@@ -163,6 +163,13 @@ function veu_customize_register_related( $wp_customize ) {
 		'type'		=> 'text',
 		'priority'	=> 1,
 	) );
+	/*-------------------------------------------*/
+ /*	Add Edit Customize Link Btn
+ /*-------------------------------------------*/
+	$wp_customize->selective_refresh->add_partial( 'vkExUnit_related_options[related_title]', array(
+		'selector' => '.veu_relatedPosts',
+		'render_callback' => '',
+	) );
 }
 
 /*
