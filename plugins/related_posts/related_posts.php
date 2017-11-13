@@ -92,9 +92,19 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	if ( $related_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
 		$relatedPostsHtml .= '<aside class="veu_relatedPosts veu_contentAddSection">';
-		// $relatedPostTitle = apply_filters( 'veu_related_post_title', __( 'Related posts','vkExUnit' ) );
-		$relatedPostTitle = apply_filters( 'veu_related_post_title', 'vkExUnit_related_options[related_title]' );
+
+		$output = get_option( 'vkExUnit_related_options');
+    // テキストフィールドに値が入っていたら、表示させる。
+		if ( ! empty( $output['related_title'] ) ) {
+			$relatedPostTitle = $output['related_title'];
+		} else {
+		// 何も入っていなかったら既存のタイトルを表示させる。
+			$relatedPostTitle = __( 'Related posts','vkExUnit' );
+		}
+		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）
+		$relatedPostTitle = apply_filters( 'veu_related_post_title', $relatedPostTitle );
 		$relatedPostsHtml .= '<h1 class="mainSection-title">'.$relatedPostTitle.'</h1>';
+
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ( $related_posts as $key => $post ) {
@@ -143,7 +153,7 @@ function veu_customize_register_related( $wp_customize ) {
 		'default'			=> '',
 		 'type'				=> 'option', // 保存先 option or theme_mod
 		'capability'		=> 'edit_theme_options',
-		'sanitize_callback' => 'veu_sanitize_boolean',
+		'sanitize_callback' => 'sanitize_text_field',
 	) );
   // コントロール
 	$wp_customize->add_control( 'related_title', array(
