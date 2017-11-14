@@ -119,6 +119,13 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			// Custom taxonomies
 			echo '<h4>'.__('Custom taxonomies(optional)', $vk_post_type_manager_textdomain).'</h4>';
+
+			echo '<p>';
+			echo __('Custom taxonomy is like a category in post.',$vk_post_type_manager_textdomain ).'<br />';
+			echo __('However, it refers to the "category" itself, not to the “item” of the category.',$vk_post_type_manager_textdomain ).'<br />';
+			echo __('For example, if you create a post type "construction result", Custom taxonomy will be "construction type", "construction area", etc.',$vk_post_type_manager_textdomain );
+			echo '</p>';
+
 			$taxonomies = array( 'taxonomy_id', 'taxonomy_lavel');
 			echo '<table class="table table-border">';
 
@@ -132,7 +139,12 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				echo '<tr>';
 				echo '<th rowspan="3">'.$i.'</th>';
 				echo '<td>'.__('Custon taxonomy name(slug)', $vk_post_type_manager_textdomain ).'</td>';
-				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="20"></td>';
+				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="20">';
+				$locale = get_locale();
+				if ( ! in_array( $locale, array( 'en_US', 'en_CA', 'en_NZ', 'en_AU', 'en_ZA', 'en_GB' ) ) ){
+					echo '<div>'.__( '* Please be sure to enter it with one-byte alphanumeric characters',$vk_post_type_manager_textdomain).'</div>';
+				}
+				echo '</td>';
 
 				echo '<tr>';
 				echo '<td>'.__('Custon taxonomy label', $vk_post_type_manager_textdomain ).'</td>';

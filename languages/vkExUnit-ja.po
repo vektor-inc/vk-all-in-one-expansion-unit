@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-11-13 12:04+0900\n"
+"POT-Creation-Date: 2017-11-14 11:11+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -1484,23 +1484,45 @@ msgstr "数字を入力してください。数字が小さいほど上に表示
 msgid "Custom taxonomies(optional)"
 msgstr "カスタム分類（任意）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:134
+#: plugins/post-type-manager/class.post-type-manager.php:124
+msgid "Custom taxonomy is like a category in post."
+msgstr "カスタム分類とは投稿で言うカテゴリーです。"
+
+#: plugins/post-type-manager/class.post-type-manager.php:125
+msgid ""
+"However, it refers to the \"category\" itself, not to the “item” of the "
+"category."
+msgstr "しかし、カテゴリーの”項目”ではなく、”カテゴリー”そのものを指します。"
+
+#: plugins/post-type-manager/class.post-type-manager.php:126
+msgid ""
+"For example, if you create a post type \"construction result\", Custom "
+"taxonomy will be \"construction type\", \"construction area\", etc."
+msgstr ""
+"例えば「施工実績」という投稿タイプを作成した場合、カスタム分類は「施工タイ"
+"プ」「施工地域」等になります。"
+
+#: plugins/post-type-manager/class.post-type-manager.php:141
 msgid "Custon taxonomy name(slug)"
 msgstr "カスタム分類名（スラッグ）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:138
+#: plugins/post-type-manager/class.post-type-manager.php:145
+msgid "* Please be sure to enter it with one-byte alphanumeric characters"
+msgstr "※ 必ず半角英数字にて入力してください"
+
+#: plugins/post-type-manager/class.post-type-manager.php:150
 msgid "Custon taxonomy label"
 msgstr "カスタム分類名（表示名）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:144
+#: plugins/post-type-manager/class.post-type-manager.php:156
 msgid "Hierarchy"
 msgstr "階層"
 
-#: plugins/post-type-manager/class.post-type-manager.php:145
+#: plugins/post-type-manager/class.post-type-manager.php:157
 msgid "Make it a tag (do not hierarchize)"
 msgstr "タグにする（階層化しない）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:200
+#: plugins/post-type-manager/class.post-type-manager.php:212
 #, php-format
 msgid ""
 "Please save a <a href=\"%s\">permanent link configuration</a> After updating "
@@ -1914,10 +1936,8 @@ msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
 
 #: plugins_admin/customize-panel.php:28
-#, fuzzy
-#| msgid "Extension Setting"
 msgid "ExUnit Settings"
-msgstr "拡張設定"
+msgstr "ExUnit 設定"
 
 #: plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
