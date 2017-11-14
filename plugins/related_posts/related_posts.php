@@ -14,7 +14,7 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	$post_id = get_the_id();
 
 	$terms = get_the_terms( $post_id, $taxonomy );
-	
+
 	if ( ! $terms  || ! is_array( $terms ) ) { return $posts_array; }
 	$tags = array();
 	foreach ( $terms as $t ) { $tags[] = $t->term_id; }
@@ -48,7 +48,7 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	if ( $post_shortage > 0 ) {
 		$args = $args_base;
 		$args['posts_per_page'] = $post_shortage;
-		foreach ( $posts_array as $post ) { 
+		foreach ( $posts_array as $post ) {
 			$args['post__not_in'][] = $post->ID;
 		}
 		$args['tax_query'] = array( array(
@@ -89,12 +89,22 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	if ( !$related_posts ) { return $content; }
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
-
 	if ( $related_posts ) {
 		$relatedPostsHtml = '<!-- [ .relatedPosts ] -->';
 		$relatedPostsHtml .= '<aside class="veu_relatedPosts veu_contentAddSection">';
-		$relatedPostTitle = apply_filters( 'veu_related_post_title', __( 'Related posts','vkExUnit' ) );
+
+		$output = get_option( 'vkExUnit_related_options');
+    // テキストフィールドに値が入っていたら、表示させる。
+		if ( ! empty( $output['related_title'] ) ) {
+			$relatedPostTitle = $output['related_title'];
+		} else {
+		// 何も入っていなかったら既存のタイトルを表示させる。
+			$relatedPostTitle = __( 'Related posts','vkExUnit' );
+		}
+		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）
+		$relatedPostTitle = apply_filters( 'veu_related_post_title', $relatedPostTitle );
 		$relatedPostsHtml .= '<h1 class="mainSection-title">'.$relatedPostTitle.'</h1>';
+
 		$i = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ( $related_posts as $key => $post ) {
@@ -123,6 +133,43 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	wp_reset_postdata();
 
 	return $content;
+}
+
+// カスタマイザーの設定
+
+if ( apply_filters('veu_customize_panel_activation', false ) ){
+	add_action( 'customize_register', 'veu_customize_register_related' );
+}
+
+function veu_customize_register_related( $wp_customize ) {
+  // セクション追加
+	$wp_customize->add_section( 'veu_related_setting', array(
+		'title'				=> __('Related Settings', 'vkExUnit'),
+		'priority'			=> 1000,
+		'panel'				=> 'veu_setting',
+	) );
+	// セッティング
+	$wp_customize->add_setting( 'vkExUnit_related_options[related_title]', array(
+		'default'			=> '',
+		 'type'				=> 'option', // 保存先 option or theme_mod
+		'capability'		=> 'edit_theme_options',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+  // コントロール
+	$wp_customize->add_control( 'related_title', array(
+		'label'		=> __( 'Title:', 'vkExUnit' ),
+		'section'	=> 'veu_related_setting',
+		'settings'  => 'vkExUnit_related_options[related_title]',
+		'type'		=> 'text',
+		'priority'	=> 1,
+	) );
+	/*-------------------------------------------*/
+ /*	Add Edit Customize Link Btn
+ /*-------------------------------------------*/
+	$wp_customize->selective_refresh->add_partial( 'vkExUnit_related_options[related_title]', array(
+		'selector' => '.veu_relatedPosts',
+		'render_callback' => '',
+	) );
 }
 
 /*
