@@ -119,7 +119,6 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			// Custom taxonomies
 			echo '<h4>'.__('Custom taxonomies(optional)', $vk_post_type_manager_textdomain).'</h4>';
-      echo '<p>'.__( 'Please be sure to enter it with one-byte alphanumeric characters',$vk_post_type_manager_textdomain).'</p>';
 			$taxonomies = array( 'taxonomy_id', 'taxonomy_lavel');
 			echo '<table class="table table-border">';
 
@@ -133,7 +132,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				echo '<tr>';
 				echo '<th rowspan="3">'.$i.'</th>';
 				echo '<td>'.__('Custon taxonomy name(slug)', $vk_post_type_manager_textdomain ).'</td>';
-				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="20"></td>';
+				echo '<td><input type="text" id="veu_taxonomy['.$i.'][slug]" name="veu_taxonomy['.$i.'][slug]" value="'.esc_attr($slug).'" size="20">
+        <p>'.__( '* Please be sure to enter it with one-byte alphanumeric characters',$vk_post_type_manager_textdomain).'</p></td>';
 
 				echo '<tr>';
 				echo '<td>'.__('Custon taxonomy label', $vk_post_type_manager_textdomain ).'</td>';

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-11-14 08:47+0900\n"
+"POT-Creation-Date: 2017-11-14 10:16+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -1484,13 +1484,13 @@ msgstr "数字を入力してください。数字が小さいほど上に表示
 msgid "Custom taxonomies(optional)"
 msgstr "カスタム分類（任意）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:122
-msgid "Please be sure to enter it with one-byte alphanumeric characters"
-msgstr "必ず半角英数字にて入力してください"
-
-#: plugins/post-type-manager/class.post-type-manager.php:135
+#: plugins/post-type-manager/class.post-type-manager.php:134
 msgid "Custon taxonomy name(slug)"
 msgstr "カスタム分類名（スラッグ）"
+
+#: plugins/post-type-manager/class.post-type-manager.php:136
+msgid "* Please be sure to enter it with one-byte alphanumeric characters"
+msgstr "※ 必ず半角英数字にて入力してください"
 
 #: plugins/post-type-manager/class.post-type-manager.php:139
 msgid "Custon taxonomy label"
