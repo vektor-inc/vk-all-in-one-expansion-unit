@@ -96,12 +96,18 @@ function vkExUnit_chidPageIndex_loopend( $query ){
 }
 
 /*-------------------------------------------*/
-/*  Print Child Page Box
+/*  Print Child Page Box at Page
 /*-------------------------------------------*/
 function vkExUnit_childPageIndex_contentHook( $content ) {
+
+	// 抜粋だったらそのまま返す
 	if ( vkExUnit_is_excerpt() ) { return $content; }
+
+	// ウィジェットだったらそのまま返す
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }
+
+	// 固定ページじゅあないか、子ページインデックスを出力する設定でない場合はそのまま返す
 	global $post;
 	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_childPageIndex',true ) ) { return $content; }
 

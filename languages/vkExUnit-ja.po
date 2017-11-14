@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-10-29 23:01+0900\n"
+"POT-Creation-Date: 2017-11-14 11:11+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -283,7 +283,7 @@ msgstr "広告の挿入"
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: packages.php:343 plugins/related_posts/related_posts.php:96
+#: packages.php:343 plugins/related_posts/related_posts.php:102
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -534,7 +534,7 @@ msgstr "選択してください"
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: plugins/child_page_index.php:133 plugins/other_widget/widget-page.php:90
+#: plugins/child_page_index.php:139 plugins/other_widget/widget-page.php:174
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -947,9 +947,10 @@ msgstr "3PR エリア設定"
 
 #: plugins/other_widget/widget-3pr-area.php:58
 #: plugins/other_widget/widget-new-posts.php:204
-#: plugins/other_widget/widget-page.php:39
+#: plugins/other_widget/widget-page.php:126
 #: plugins/other_widget/widget-pr-blocks.php:89
 #: plugins/other_widget/widget-profile.php:48
+#: plugins/related_posts/related_posts.php:160
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -1199,28 +1200,28 @@ msgstr "固定ページ本文"
 msgid "Displays a page contents to widget."
 msgstr "選択したページの内容を表示します。"
 
-#: plugins/other_widget/widget-page.php:48
+#: plugins/other_widget/widget-page.php:135
 msgid "Display the entered title"
 msgstr "入力したタイトルを表示する"
 
-#: plugins/other_widget/widget-page.php:52
+#: plugins/other_widget/widget-page.php:139
 msgid "Display the title of page"
 msgstr "固定ページのタイトルを表示する"
 
-#: plugins/other_widget/widget-page.php:56
+#: plugins/other_widget/widget-page.php:143
 msgid "Do not display titles"
 msgstr "タイトルを表示しない"
 
-#: plugins/other_widget/widget-page.php:70
+#: plugins/other_widget/widget-page.php:157
 #: plugins/other_widget/widget-taxonomies.php:74
 msgid "Display page"
 msgstr "ページを表示"
 
-#: plugins/other_widget/widget-page.php:102 plugins/pageList_ancestor.php:96
+#: plugins/other_widget/widget-page.php:183 plugins/pageList_ancestor.php:96
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
-#: plugins/other_widget/widget-page.php:224
+#: plugins/other_widget/widget-page.php:253
 msgid "Edit"
 msgstr "編集"
 
@@ -1483,29 +1484,55 @@ msgstr "数字を入力してください。数字が小さいほど上に表示
 msgid "Custom taxonomies(optional)"
 msgstr "カスタム分類（任意）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:134
+#: plugins/post-type-manager/class.post-type-manager.php:124
+msgid "Custom taxonomy is like a category in post."
+msgstr "カスタム分類とは投稿で言うカテゴリーです。"
+
+#: plugins/post-type-manager/class.post-type-manager.php:125
+msgid ""
+"However, it refers to the \"category\" itself, not to the “item” of the "
+"category."
+msgstr "しかし、カテゴリーの”項目”ではなく、”カテゴリー”そのものを指します。"
+
+#: plugins/post-type-manager/class.post-type-manager.php:126
+msgid ""
+"For example, if you create a post type \"construction result\", Custom "
+"taxonomy will be \"construction type\", \"construction area\", etc."
+msgstr ""
+"例えば「施工実績」という投稿タイプを作成した場合、カスタム分類は「施工タイ"
+"プ」「施工地域」等になります。"
+
+#: plugins/post-type-manager/class.post-type-manager.php:141
 msgid "Custon taxonomy name(slug)"
 msgstr "カスタム分類名（スラッグ）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:138
+#: plugins/post-type-manager/class.post-type-manager.php:145
+msgid "* Please be sure to enter it with one-byte alphanumeric characters"
+msgstr "※ 必ず半角英数字にて入力してください"
+
+#: plugins/post-type-manager/class.post-type-manager.php:150
 msgid "Custon taxonomy label"
 msgstr "カスタム分類名（表示名）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:144
+#: plugins/post-type-manager/class.post-type-manager.php:156
 msgid "Hierarchy"
 msgstr "階層"
 
-#: plugins/post-type-manager/class.post-type-manager.php:145
+#: plugins/post-type-manager/class.post-type-manager.php:157
 msgid "Make it a tag (do not hierarchize)"
 msgstr "タグにする（階層化しない）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:200
+#: plugins/post-type-manager/class.post-type-manager.php:212
 #, php-format
 msgid ""
 "Please save a <a href=\"%s\">permanent link configuration</a> After updating "
 "the setting."
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
+
+#: plugins/related_posts/related_posts.php:147
+msgid "Related Settings"
+msgstr "関連記事設定"
 
 #: plugins/sitemap_page/sitemap_admin.php:9
 msgid "HTML Sitemap Settings"
@@ -1909,10 +1936,8 @@ msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
 
 #: plugins_admin/customize-panel.php:28
-#, fuzzy
-#| msgid "Extension Setting"
 msgid "ExUnit Settings"
-msgstr "拡張設定"
+msgstr "ExUnit 設定"
 
 #: plugins_admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
