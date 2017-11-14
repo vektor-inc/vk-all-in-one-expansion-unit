@@ -39,3 +39,35 @@ gulp.task('watch', function() {
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', ['scripts','watch']);
 gulp.task('compile', ['scripts','jsmin']);
+
+// copy dist ////////////////////////////////////////////////
+
+gulp.task('copy_dist', function() {
+    return gulp.src(
+            [
+                './**/*.php',
+                './**/*.txt',
+                './**/*.css',
+                './**/*.png',
+                './images/**',
+                './inc/**',
+                './js/**',
+                './languages/**',
+                './library/**',
+                "!./tests/**",
+                "!./dist/**",
+                "!./node_modules/**/*.*"
+            ],
+            { base: './' }
+        )
+        .pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
+} );
+// gulp.task('build:dist',function(){
+//     /* ここで、CSS とか JS をコンパイルする */
+// });
+
+gulp.task('dist', function(cb){
+    // return runSequence( 'build:dist', 'copy', cb );
+    // return runSequence( 'build:dist', 'copy_dist', cb );
+    return runSequence( 'copy_dist', cb );
+});
