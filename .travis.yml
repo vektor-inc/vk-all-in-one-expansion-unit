@@ -38,6 +38,7 @@ before_script:
   # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
   - npm install
   - npm install -g gulp
+  - npm install gulp
 
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
