@@ -38,7 +38,7 @@ before_script:
   # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
   - npm install
   - npm install -g gulp
-  - npm install gulp
+  - npm install gulp gulp-concat gulp-cssmin gulp-rename gulp-jsmin gulp-plumber gulp-sass gulp-clean-css gulp-merge-media-queries gulp-autoprefixer
 
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
