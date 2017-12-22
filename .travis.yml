@@ -19,7 +19,7 @@ cache:
 before_install:
   - gem install ruby
   - gem install sass
-  # - gem install compass
+  - gem install compass
 
 node_js:
   - '0.8'
