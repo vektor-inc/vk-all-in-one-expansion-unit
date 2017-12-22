@@ -34,8 +34,8 @@ before_script:
     else
       composer global require "phpunit/phpunit=4.8.*"
     fi
-  - nvm install 4.2
-  - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
+  # - nvm install 4.2
+  # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
   - npm install
 
 script:
@@ -43,4 +43,4 @@ script:
   - phpunit
   - gulp compile
   # - compass compile
-  - cd plugins_admin/vk-admin/ && compass compile && cd ../../
+  # - cd plugins_admin/vk-admin/ && compass compile && cd ../../
