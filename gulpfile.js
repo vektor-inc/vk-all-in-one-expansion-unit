@@ -63,4 +63,4 @@ gulp.task('watch', function() {
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', ['scripts','watch']);
-gulp.task('compile', ['scripts','jsmin']);
+gulp.task('compile', ['scripts','jsmin','sass']);
