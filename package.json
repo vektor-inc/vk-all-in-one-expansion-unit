@@ -6,6 +6,20 @@
   "directories": {
     "test": "tests"
   },
+  "path": {
+    "assetsDir": "./"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-merge-media-queries": "^0.2.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,16 +32,5 @@
   "bugs": {
     "url": "https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit/issues"
   },
-  "homepage": "https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit#readme",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-cssmin": "^0.2.0",
-    "gulp-jsmin": "^0.1.5",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2"
-  },
-  "dependencies": {
-    "compass": "^0.1.1"
-  }
+  "homepage": "https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit#readme"
 }
