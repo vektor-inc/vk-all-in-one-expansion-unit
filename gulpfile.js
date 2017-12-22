@@ -19,10 +19,10 @@ var cmq = require('gulp-merge-media-queries');
 // add vender prifix
 var autoprefixer = require('gulp-autoprefixer');
 
-var path = require('path');
-var fs = require('fs');
-var pkg = JSON.parse(fs.readFileSync('./package.json'));
-var assetsPath = path.resolve(pkg.path.assetsDir);
+// var path = require('path');
+// var fs = require('fs');
+// var pkg = JSON.parse(fs.readFileSync('./package.json'));
+// var assetsPath = path.resolve(pkg.path.assetsDir);
 var cleanCss = require('gulp-clean-css');
 // sudo npm install gulp.spritesmith --save-dev
 // var spritesmith = require('gulp.spritesmith');
