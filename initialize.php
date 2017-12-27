@@ -34,10 +34,11 @@ function vkExUnit_setting_menu_parent() {
 /*  Load master setting page
 /*-------------------------------------------*/
 function vkExUnit_add_setting_page() {
-    require dirname( __FILE__ ) . '/vkExUnit_admin.php';
+    require dirname( __FILE__ ) . '/admin_active_setting_page.php';
 }
 
-require_once( 'admin_wrapper.php' );
+require_once( 'admin_main_setting_page.php' );
+require_once( 'admin_other_functions.php' );
 
 /*-------------------------------------------*/
 /*  Load modules

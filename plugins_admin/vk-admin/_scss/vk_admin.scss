@@ -110,7 +110,11 @@
 
 	.adminSub { display:block; overflow:hidden;width:24%;float:right;padding-bottom:10px;
 		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff; }
-		.adminSub_title { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-top:0;margin-bottom:15px; }
+		.vk-metabox-sub-title { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-top:0;margin-bottom:15px;
+		}
+		.vk-metabox-more-link  {
+			display: none;
+		}
 		@media (max-width: 991px){
 			.adminMain table.form-table{
 				th,
@@ -121,6 +125,9 @@
 	}
 }
 
+/*-------------------------------------------*/
+/* Widget css
+/*-------------------------------------------*/
 .admin_widget_h2{
 	box-sizing: border-box;
 	padding: 0.8em;

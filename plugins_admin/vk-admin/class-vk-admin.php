@@ -47,9 +47,11 @@ class Vk_Admin {
 
 
 	/*--------------------------------------------------*/
-	/*  admin_banner
+	/*  get_admin_banner
 	/*--------------------------------------------------*/
-	/*  get_news_body_rss
+	/*  get_news_body_api
+	/*--------------------------------------------------*/
+	/*  get_news_from_rss
 	/*--------------------------------------------------*/
 	/*  admin _ Dashboard Widget
 	/*--------------------------------------------------*/
@@ -59,9 +61,9 @@ class Vk_Admin {
 	/*--------------------------------------------------*/
 
 	/*--------------------------------------------------*/
-	/*  admin_banner
+	/*  get_admin_banner
 	/*--------------------------------------------------*/
-	public static function admin_banner() {
+	public static function get_admin_banner() {
 		$banner = '';
 		$dir_url = self::admin_directory_url();
 		$lang = ( get_locale() == 'ja' ) ? 'ja' : 'en' ;
@@ -105,44 +107,64 @@ class Vk_Admin {
 
 		$banner .= '</div>';
 
-		echo apply_filters( 'vk_admin_banner_html' , $banner );
+		return apply_filters( 'vk_admin_banner_html' , $banner );
+	}
+
+	/*--------------------------------------------------*/
+	/*  get_news_body
+	/*--------------------------------------------------*/
+	public static function get_news_body(){
+		if ( 'ja' == get_locale() ) {
+			return Vk_Admin::get_news_from_rest_api();
+		}
+		// English
+		if ( 'ja' != get_locale() ){
+			return Vk_Admin::get_news_from_rss();
+		}
 	}
 
 	/*--------------------------------------------------*/
 	/*  get_news_body_api
 	/*--------------------------------------------------*/
 
-	public static function news_from_rest_api()
+	public static function get_news_from_rest_api()
 	{
 
-		$html = '<h3 class="vk-metabox-sub-title">';
+		$html = '<h4 class="vk-metabox-sub-title">';
 		$html .= 'Vektor WordPress Information';
 		$html .= '<a href="https://www.vektor-inc.co.jp/info-cat/vk-wp-info/" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
-		$html .= '</h3>';
+		$html .= '</h4>';
 		$html .= '<ul id="vk-wp-info" class="vk-metabox-post-list"></ul>';
 
-		$html .= '<h3 class="vk-metabox-sub-title">';
-		$html .= 'Vektor WordPress Blog';
+		$html .= '<h4 class="vk-metabox-sub-title">';
+		$html .= 'Vektor WordPress ブログ';
 		$html .= '<a href="https://www.vektor-inc.co.jp/category/wordpress-info/" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
-		$html .= '</h3>';
+		$html .= '</h4>';
 		$html .= '<ul id="vk-wp-blog" class="vk-metabox-post-list"></ul>';
 
-		$html .= '<h3 class="vk-metabox-sub-title">';
-		$html .= __( 'Vektor WordPress フォーラム' );
+		$html .= '<h4 class="vk-metabox-sub-title">';
+		$html .= 'Vektor WordPress フォーラム';
 		$html .= '<a href="http://forum.bizvektor.com/" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
-		$html .= '</h3>';
+		$html .= '</h4>';
 		$html .= '<ul id="vk-wp-forum" class="vk-metabox-post-list"></ul>';
 
 		$html = apply_filters( 'vk_admin_news_html' , $html );
-		echo $html;
-		?>
 
+		add_action( 'admin_footer', array( __CLASS__, 'load_rest_api_js') );
+
+		return $html;
+		?>
+		<?php
+	}
+
+	public static function load_rest_api_js()
+	{ ?>
 		<script>
 		/*-------------------------------------------*/
 		/* REST API でお知らせを取得
 		/*-------------------------------------------*/
 		;(function($){
-		jQuery(function() {
+			jQuery(document).ready(function($){
 
 				$.getJSON( "https://vektor-inc.co.jp/wp-json/wp/v2/info?info-cat=111&per_page=3",
 				function(results) {
@@ -180,14 +202,14 @@ class Vk_Admin {
 		});
 		})(jQuery);
 		</script>
-		<?php
+<?php
 	}
 
 	/*--------------------------------------------------*/
-	/*  get_news_body_rss
-	/*	RSS方針で現在は不使用
+	/*  get_news_from_rss
+	/*	RSS方針で現在は日本語以外でのみ使用
 	/*--------------------------------------------------*/
-	public static function get_news_body_rss() {
+	public static function get_news_from_rss() {
 
 		$output = '';
 
@@ -213,7 +235,7 @@ class Vk_Admin {
 				$maxitems = $rss->get_item_quantity( 5 ); //number of news to display (maximum)
 				$rss_items = $rss->get_items( 0, $maxitems );
 				$output .= '<div class="rss-widget">';
-				$output .= '<h4 class="adminSub_title">'.apply_filters( 'vk-admin-sub-title-text', 'Information' ).'</h4>';
+				$output .= '<h4 class="vk-metabox-sub-title">'.apply_filters( 'vk-admin-sub-title-text', 'Information' ).'</h4>';
 				$output .= '<ul>';
 
 				if ( $maxitems == 0 ) {
@@ -244,24 +266,36 @@ class Vk_Admin {
 
 		} // if ( ! is_wp_error( $rss ) ) {
 
-		return $output;
+		echo $output;
 	}
 
+	public static function is_dashboard_active() {
+		$flag = false;
+		if ( 'ja' == get_locale() ) $flag = true;
+		if ( is_plugin_active('vk-all-in-one-expansion-unit/vkExUnit.php') ) $flag = true;
+		if ( !is_plugin_active('vk-post-author-display/post-author-display.php') ) $flag = true;
+		$theme = wp_get_theme()->get('Template');
+		if ( $theme != 'lightning' ) $flag = true;
+
+		return apply_filters('vk-admin-is-dashboard-active',$flag);
+	}
 	/*--------------------------------------------------*/
 	/*  admin _ Dashboard Widget
 	/*--------------------------------------------------*/
 	public static function dashboard_widget() {
 		global $vk_admin_textdomain;
-		wp_add_dashboard_widget(
-			'vk_dashboard_widget',
-			__( 'Vektor WordPress Information',$vk_admin_textdomain ),
-			array( __CLASS__, 'dashboard_widget_body' )
-		);
+		if ( Vk_Admin::is_dashboard_active() ) {
+			wp_add_dashboard_widget(
+				'vk_dashboard_widget',
+				__( 'Vektor WordPress Information',$vk_admin_textdomain ),
+				array( __CLASS__, 'dashboard_widget_body' )
+			);
+		}
 	}
 
 	public static function dashboard_widget_body() {
-		Vk_Admin::news_from_rest_api();
-		Vk_Admin::admin_banner();
+		echo Vk_Admin::get_news_body();
+		echo Vk_Admin::get_admin_banner();
 	}
 
 	/*--------------------------------------------------*/
@@ -271,7 +305,7 @@ class Vk_Admin {
 	public static function admin_sub() {
 		$adminSub = '<div class="adminSub scrTracking">'."\n";
 		$adminSub .= '<div class="infoBox">'.Vk_Admin::get_news_body().'</div>'."\n";
-		$adminSub .= '<div class="vk-admin-banner">'.Vk_Admin::admin_banner().'</div>'."\n";
+		$adminSub .= '<div class="vk-admin-banner">'.Vk_Admin::get_admin_banner().'</div>'."\n";
 		$adminSub .= '</div><!-- [ /.adminSub ] -->'."\n";
 		return $adminSub;
 	}
