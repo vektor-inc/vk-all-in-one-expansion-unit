@@ -49,8 +49,6 @@ require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
-require vkExUnit_get_directory() . '/plugins_admin/dashboard_info_widget.php';
-
 require vkExUnit_get_directory() . '/plugins_admin/disable_guide.php';
 
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
