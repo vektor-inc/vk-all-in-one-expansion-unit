@@ -94,3 +94,9 @@ function vkExUnit_phpversion_warning_notice($val){
     <?php
     return $val;
 }
+
+// add_filter('vk-admin-is-dashboard-active','vk_dashboard_hidden');
+// function vk_dashboard_hidden(){
+// 	return false;
+// }
+// remove_action( 'wp_dashboard_setup',array( 'Vk_Admin', 'dashboard_widget'),1 );

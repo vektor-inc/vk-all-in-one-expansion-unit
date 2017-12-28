@@ -34,10 +34,11 @@ function vkExUnit_setting_menu_parent() {
 /*  Load master setting page
 /*-------------------------------------------*/
 function vkExUnit_add_setting_page() {
-    require dirname( __FILE__ ) . '/vkExUnit_admin.php';
+    require dirname( __FILE__ ) . '/admin_active_setting_page.php';
 }
 
-require_once( 'admin_wrapper.php' );
+require_once( 'admin_main_setting_page.php' );
+require_once( 'admin_other_functions.php' );
 
 /*-------------------------------------------*/
 /*  Load modules
@@ -48,8 +49,6 @@ require vkExUnit_get_directory() . '/package_manager.php';
 require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
-
-require vkExUnit_get_directory() . '/plugins_admin/dashboard_info_widget.php';
 
 require vkExUnit_get_directory() . '/plugins_admin/disable_guide.php';
 

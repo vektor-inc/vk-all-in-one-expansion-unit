@@ -8,7 +8,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) )
 	global $vk_post_type_manager_textdomain;
 	$vk_post_type_manager_textdomain = 'vkExUnit';
 
-	require_once( 'post-type-manager/class.post-type-manager.php' );
+	require( 'post-type-manager/class.post-type-manager.php' );
 
 	// /*  transrate
 	// /*-------------------------------------------*/

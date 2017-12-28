@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-11-14 11:11+0900\n"
+"POT-Creation-Date: 2017-12-27 22:46+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -16,11 +16,53 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
-#: admin_wrapper.php:7 admin_wrapper.php:8 plugins/meta_keyword.php:103
+#: admin_active_setting_page.php:3
+msgid "Enable setting"
+msgstr "有効化設定"
+
+#: admin_active_setting_page.php:16 admin_active_setting_page.php:74
+msgid "Select all"
+msgstr "全てを選択"
+
+#: admin_active_setting_page.php:16 admin_active_setting_page.php:74
+msgid "Function"
+msgstr "有効化"
+
+#: admin_active_setting_page.php:16 admin_active_setting_page.php:74
+msgid "Description"
+msgstr "説明"
+
+#: admin_active_setting_page.php:28 packages.php:354
+msgid "Automatic Eye Catch insert"
+msgstr "アイキャッチ画像自動挿入"
+
+#: admin_active_setting_page.php:80
+msgid "Extension Setting"
+msgstr "拡張設定"
+
+#: admin_active_setting_page.php:85
+#, fuzzy
+msgid "Extention contents"
+msgstr "記事に広告を挿入します"
+
+#: admin_active_setting_page.php:86
+msgid "set extension contents to loop_end hook"
+msgstr "ループ終了時にコンテンツを追加する"
+
+#: admin_active_setting_page.php:92
+msgid "Plugin setting options"
+msgstr "プラグイン設定オプション"
+
+#: admin_active_setting_page.php:94
+msgid "Delete myOptions when deactivate me."
+msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
+
+#: admin_main_setting_page.php:10 admin_main_setting_page.php:11
+#: plugins/meta_keyword.php:103
 msgid "Main setting"
 msgstr "メイン設定"
 
-#: admin_wrapper.php:39
+#: admin_main_setting_page.php:76
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
@@ -290,10 +332,6 @@ msgstr "関連記事を表示"
 #: packages.php:344
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
-
-#: packages.php:354 vkExUnit_admin.php:28
-msgid "Automatic Eye Catch insert"
-msgstr "アイキャッチ画像自動挿入"
 
 #: packages.php:355
 msgid "Display Eye Catch image at before content."
@@ -1432,69 +1470,77 @@ msgstr "アーカイブ"
 msgid "Custom Post Type Setting"
 msgstr "カスタム投稿タイプ設定"
 
-#: plugins/post-type-manager/class.post-type-manager.php:86
+#: plugins/post-type-manager/class.post-type-manager.php:87
 msgid "Post Type ID(Required)"
 msgstr "投稿タイプID（必須）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:87
+#: plugins/post-type-manager/class.post-type-manager.php:88
 msgid "20 characters or less in alphanumeric"
 msgstr "半角英数字20文字以内で入力ください"
 
-#: plugins/post-type-manager/class.post-type-manager.php:92
+#: plugins/post-type-manager/class.post-type-manager.php:93
 msgid "title"
 msgstr "タイトル"
 
-#: plugins/post-type-manager/class.post-type-manager.php:93
+#: plugins/post-type-manager/class.post-type-manager.php:94
 msgid "editor"
 msgstr "本文"
 
-#: plugins/post-type-manager/class.post-type-manager.php:94
+#: plugins/post-type-manager/class.post-type-manager.php:95
 msgid "author"
 msgstr "投稿者"
 
-#: plugins/post-type-manager/class.post-type-manager.php:95
+#: plugins/post-type-manager/class.post-type-manager.php:96
 msgid "thumbnail"
 msgstr "アイキャッチ画像"
 
-#: plugins/post-type-manager/class.post-type-manager.php:96
+#: plugins/post-type-manager/class.post-type-manager.php:97
 msgid "excerpt"
 msgstr "抜粋"
 
-#: plugins/post-type-manager/class.post-type-manager.php:97
+#: plugins/post-type-manager/class.post-type-manager.php:98
 msgid "comments"
 msgstr "コメント"
 
-#: plugins/post-type-manager/class.post-type-manager.php:98
+#: plugins/post-type-manager/class.post-type-manager.php:99
 msgid "revisions"
 msgstr "リビジョン"
 
-#: plugins/post-type-manager/class.post-type-manager.php:102
+#: plugins/post-type-manager/class.post-type-manager.php:104
 msgid "Supports(Required)"
 msgstr "有効にする項目（必須）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:114
+#: plugins/post-type-manager/class.post-type-manager.php:117
 msgid "Menu position(optional)"
 msgstr "メニューの位置( 任意 )"
 
-#: plugins/post-type-manager/class.post-type-manager.php:115
+#: plugins/post-type-manager/class.post-type-manager.php:118
 msgid "Please enter a number."
 msgstr "数字を入力してください。数字が小さいほど上に表示されます。"
 
-#: plugins/post-type-manager/class.post-type-manager.php:121
+#: plugins/post-type-manager/class.post-type-manager.php:125
+msgid "Export to REST API(optional)"
+msgstr "REST API に出力する( 任意 )"
+
+#: plugins/post-type-manager/class.post-type-manager.php:137
+msgid "Export to REST API"
+msgstr "REST API に出力する"
+
+#: plugins/post-type-manager/class.post-type-manager.php:142
 msgid "Custom taxonomies(optional)"
 msgstr "カスタム分類（任意）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:124
+#: plugins/post-type-manager/class.post-type-manager.php:145
 msgid "Custom taxonomy is like a category in post."
 msgstr "カスタム分類とは投稿で言うカテゴリーです。"
 
-#: plugins/post-type-manager/class.post-type-manager.php:125
+#: plugins/post-type-manager/class.post-type-manager.php:146
 msgid ""
 "However, it refers to the \"category\" itself, not to the “item” of the "
 "category."
 msgstr "しかし、カテゴリーの”項目”ではなく、”カテゴリー”そのものを指します。"
 
-#: plugins/post-type-manager/class.post-type-manager.php:126
+#: plugins/post-type-manager/class.post-type-manager.php:147
 msgid ""
 "For example, if you create a post type \"construction result\", Custom "
 "taxonomy will be \"construction type\", \"construction area\", etc."
@@ -1502,27 +1548,35 @@ msgstr ""
 "例えば「施工実績」という投稿タイプを作成した場合、カスタム分類は「施工タイ"
 "プ」「施工地域」等になります。"
 
-#: plugins/post-type-manager/class.post-type-manager.php:141
+#: plugins/post-type-manager/class.post-type-manager.php:171
 msgid "Custon taxonomy name(slug)"
 msgstr "カスタム分類名（スラッグ）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:145
+#: plugins/post-type-manager/class.post-type-manager.php:175
 msgid "* Please be sure to enter it with one-byte alphanumeric characters"
 msgstr "※ 必ず半角英数字にて入力してください"
 
-#: plugins/post-type-manager/class.post-type-manager.php:150
+#: plugins/post-type-manager/class.post-type-manager.php:181
 msgid "Custon taxonomy label"
 msgstr "カスタム分類名（表示名）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:156
+#: plugins/post-type-manager/class.post-type-manager.php:188
 msgid "Hierarchy"
 msgstr "階層"
 
-#: plugins/post-type-manager/class.post-type-manager.php:157
+#: plugins/post-type-manager/class.post-type-manager.php:189
 msgid "Make it a tag (do not hierarchize)"
 msgstr "タグにする（階層化しない）"
 
-#: plugins/post-type-manager/class.post-type-manager.php:212
+#: plugins/post-type-manager/class.post-type-manager.php:198
+msgid "REST API(optional)"
+msgstr "REST API ( 任意 )"
+
+#: plugins/post-type-manager/class.post-type-manager.php:199
+msgid "Use for REST API"
+msgstr "REST API に利用する"
+
+#: plugins/post-type-manager/class.post-type-manager.php:260
 #, php-format
 msgid ""
 "Please save a <a href=\"%s\">permanent link configuration</a> After updating "
@@ -1939,17 +1993,21 @@ msgstr "挿入アイテムの設定"
 msgid "ExUnit Settings"
 msgstr "ExUnit 設定"
 
-#: plugins_admin/dashboard_info_widget.php:18
-msgid "News from VK All in One Expansion Unit"
-msgstr "VK All in One Expansion Unit からのお知らせ"
-
 #: plugins_admin/disable_guide.php:17
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class.vk-admin.php:100
+#: plugins_admin/vk-admin/class-vk-admin.php:146
+msgid "Vektor WordPress フォーラム"
+msgstr ""
+
+#: plugins_admin/vk-admin/class-vk-admin.php:243
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
+
+#: plugins_admin/vk-admin/class-vk-admin.php:290
+msgid "Vektor WordPress Information"
+msgstr ""
 
 #: vkExUnit.php:77
 #, php-format
@@ -1970,42 +2028,8 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 msgid "%s supports PHP5.6 or later."
 msgstr "%s がサポートしているPHPのバージョンは5.6以降です。"
 
-#: vkExUnit_admin.php:3
-msgid "Enable setting"
-msgstr "有効化設定"
-
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:74
-msgid "Select all"
-msgstr "全てを選択"
-
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:74
-msgid "Function"
-msgstr "有効化"
-
-#: vkExUnit_admin.php:16 vkExUnit_admin.php:74
-msgid "Description"
-msgstr "説明"
-
-#: vkExUnit_admin.php:80
-msgid "Extension Setting"
-msgstr "拡張設定"
-
-#: vkExUnit_admin.php:85
-#, fuzzy
-msgid "Extention contents"
-msgstr "記事に広告を挿入します"
-
-#: vkExUnit_admin.php:86
-msgid "set extension contents to loop_end hook"
-msgstr "ループ終了時にコンテンツを追加する"
-
-#: vkExUnit_admin.php:92
-msgid "Plugin setting options"
-msgstr "プラグイン設定オプション"
-
-#: vkExUnit_admin.php:94
-msgid "Delete myOptions when deactivate me."
-msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
+#~ msgid "News from VK All in One Expansion Unit"
+#~ msgstr "VK All in One Expansion Unit からのお知らせ"
 
 #~ msgid "Displays entries list from a RSS feed link."
 #~ msgstr "RSSフィードリンクからエントリーリストを表示します。"
