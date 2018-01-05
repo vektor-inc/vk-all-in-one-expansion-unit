@@ -1,4 +1,10 @@
-// 背景画像登録処理
+/*-------------------------------------------*/
+/*  画像登録処理
+/*-------------------------------------------*/
+/*  画像削除処理
+/*-------------------------------------------*/
+
+// 画像登録処理（ ボタンに直接 onclick="javascript:vk_title_bg_image_addiditional(this);return false;" を記述している ）
 if ( vk_widget_image_add == undefined ){
 	var vk_widget_image_add = function(e){
 		// プレビュー画像を表示するdiv
@@ -26,7 +32,7 @@ if ( vk_widget_image_add == undefined ){
 };
 }
 
-// 背景画像削除処理
+// 画像削除処理（ ボタンに直接 onclick="javascript:vk_title_bg_image_delete(this);return false;" を記述している ）
 if ( vk_widget_image_del == undefined ){
 	var vk_widget_image_del = function(e){
 		// プレビュー画像を表示するdiv
