@@ -11,7 +11,11 @@ https://github.com/vektor-inc/vektor-wp-libraries
 
 if ( ! class_exists( 'Vk_Admin' ) )
 {
-
+/*
+congif.phpの方で既に ! class_exists( 'Vk_Admin' ) しているが、
+今後読み込みファイルが増えた時にVk-Adminの中で別のファイルを読み込むために
+このファイルにも更にclass_exists( 'Vk_Admin' ) がある。
+ */
 class Vk_Admin {
 
 	public static $version = '2.0.0';
@@ -71,9 +75,24 @@ class Vk_Admin {
 		$banner .= '<div class="vk-admin-banner">';
 		$banner .= '<div class="vk-admin-banner-grid">';
 
+		// プラグイン Link Target Controller を有効化していない人にバナーを表示
+		if ( !is_plugin_active('vk-link-target-controller/vk-link-target-controller.php') ){
+			if ( $lang == 'ja' ){
+				$bnr_file_name = 'vk-link-target-controller_bnr.jpg';
+			} else {
+				$bnr_file_name = 'vk-link-target-controller_notxt_bnr.jpg';
+			}
+			$banner .= '<a href="//wordpress.org/plugins/vk-link-target-controller/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/'.$bnr_file_name .'" alt="Link Target Controller" /></a>';
+		}
+
 		// プラグイン VK Aost Author Display を有効化していない人にバナーを表示
 		if ( !is_plugin_active('vk-post-author-display/post-author-display.php') ){
-			$banner .= '<a href="//wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/post_author_display_bnr_'.$lang .'.jpg" alt="VK Post Author
+			if ( $lang == 'ja' ){
+				$bnr_file_name = 'post_author_display_bnr_ja.jpg';
+			} else {
+				$bnr_file_name = 'post_author_display_bnr_en.jpg';
+			}
+			$banner .= '<a href="//wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/'.$bnr_file_name .'" alt="VK Post Author
 			Display" /></a>';
 		}
 
