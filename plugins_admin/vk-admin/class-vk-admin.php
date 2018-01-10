@@ -97,18 +97,20 @@ class Vk_Admin {
 		}
 
 		// 現在のテーマを取得
-		$theme = wp_get_theme()->get('Template');
-
-		// Lightningを使用していない人にLightningのバナーを表示
-		if ( $theme != 'lightning' ) {
+		$theme = get_template();
+		if(
+			$theme != 'Lightning' &&
+			$theme != 'lightning' &&
+			$theme != 'Lightning-master'
+		) {
 			if ( $lang == 'ja' ) {
 				$banner .= '<a href="//lightning.nagoya/ja/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
 			} else {
 				$banner .= '<a href="//lightning.nagoya/" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
-			}
+			} // if ( $lang == 'ja' ) {
 		} // if ( $theme != 'lightning' ) {
 
-		if ( $lang == 'ja' && $theme != 'bill-vektor' ) {
+		if ( $lang == 'ja' && $theme != 'bill-vektor' && $theme != 'bill-vektor-master' ) {
 				$banner .= '<a href="//billvektor.com" target="_blank" class="admin_banner"><img src="'.$dir_url.'images/billvektor_banner.png" alt="見積書・請求書管理用WordPressテーマ" /></a>';
 		}
 
