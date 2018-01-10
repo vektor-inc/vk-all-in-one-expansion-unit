@@ -99,5 +99,4 @@ function vkExUnit_phpversion_warning_notice($val){
 // function vk_dashboard_hidden(){
 // 	return false;
 // }
-
 // remove_action( 'wp_dashboard_setup',array( 'Vk_Admin', 'dashboard_widget'),1 );
