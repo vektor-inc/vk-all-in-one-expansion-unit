@@ -9,13 +9,34 @@ var concat = require('gulp-concat');
 var jsmin = require('gulp-jsmin');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
-// エラーでも監視を続行させる
-var plumber = require('gulp-plumber');
-// 同期的に処理してくれる
-var runSequence = require('run-sequence');
+// sass compiler
+var sass = require('gulp-sass');
+
+var cleanCss = require('gulp-clean-css');
+
+var cmq = require('gulp-merge-media-queries');
+// add vender prifix
+var autoprefixer = require('gulp-autoprefixer');
+
+// var path = require('path');
+// var fs = require('fs');
+// var pkg = JSON.parse(fs.readFileSync('./package.json'));
+// var assetsPath = path.resolve(pkg.path.assetsDir);
+var cleanCss = require('gulp-clean-css');
+
 // sudo npm install gulp.spritesmith --save-dev
 // var spritesmith = require('gulp.spritesmith');
 // http://blog.e-riverstyle.com/2014/02/gulpspritesmithcss-spritegulp.html
+
+gulp.task('sass', function() {
+    gulp.src(['_scss/*.scss'])
+        .pipe(plumber())
+        .pipe(sass())
+				.pipe(cmq({log:true}))
+        .pipe(autoprefixer())
+				.pipe(cleanCss())
+        .pipe(gulp.dest('./css/'));
+});
 
 // ファイル結合
 gulp.task('scripts', function() {
@@ -37,12 +58,13 @@ gulp.task('jsmin', function () {
 gulp.task('watch', function() {
     gulp.watch('js/master.js', ['scripts']);
     gulp.watch('js/all.js', ['jsmin']);
-    gulp.watch('_scss/style.scss', ['copy']);
+    gulp.watch('_scss/**/*.scss', ['sass']);
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', ['scripts','watch']);
-gulp.task('compile', ['scripts','jsmin']);
+
+gulp.task('compile', ['scripts','jsmin','sass']);
 
 // copy dist ////////////////////////////////////////////////
 

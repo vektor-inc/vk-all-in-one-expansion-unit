@@ -1,9 +1,70 @@
 @charset "utf-8";
-@import "compass";
+// @import "compass";
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
+.text-warning { color: #a94442;}
+
+#dashboard-widgets .vk-metabox-sub-title,
+.vk-metabox-sub-title {
+	display:block; overflow:hidden;
+	border-bottom:1px solid #e5e5e5;
+	margin-top:1em;
+	padding-bottom:0.3em;
+	.dashicons {
+		position: relative;
+		top:-2px;
+		margin-left:3px;
+	}
+}
+.vk-metabox-more-link {
+	float:right;
+	font-size:12px;
+}
+.vk-metabox-post-list {
+	margin-bottom:2em;
+	li {
+		border-bottom:1px dotted #ccc;
+		padding-bottom:3px;
+		display: flex;
+		.date {
+			font-size:11px;
+			margin-right:1em;
+			width:75px;
+			white-space: nowrap;
+		}
+		a { width:100%; }
+	}
+}
+
+.vk-admin-banner{
+	display:block; overflow:hidden;margin-right:1em;
+	margin-top: 1em;
+	a.admin_banner {
+		display: block;
+		margin-bottom:1em;border:1px solid #ccc;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);
+		img{ max-width: 100%;height: auto; display: block;
+			&:hover{ opacity: 0.7; }
+		}
+	}
+	.vektor_logo {
+		margin-top:1em;
+		img { width:150px;float:right;}
+	}
+}
+
+#vk_dashboard_widget {
+	.vk-admin-banner-grid {
+		width:100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		a.admin_banner {
+			width:48%;
+		}
+	}
+}
 
 .wp-core-ui .button-block { display:block;width:100%; text-align: center; }
 
@@ -47,23 +108,13 @@
 		}
 	}
 
-
 	.adminSub { display:block; overflow:hidden;width:24%;float:right;padding-bottom:10px;
 		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff; }
-		.adminBnr_section{
-			display:block; overflow:hidden;margin-right:1em;
-			margin-top: 1em;
-			a { display: block; }
-			a.admin_banner {  margin-bottom:1em;border:1px solid #ccc;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1); }
-			img{ max-width: 100%;height: auto; display: block;
-				&:hover{ opacity: 0.7; }
-			}
-			.vektor_logo {
-				margin-top:1em;
-				img { width:150px;float:right;}
-			}
+		.vk-metabox-sub-title { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-top:0;margin-bottom:15px;
 		}
-		.adminSub_title { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-top:0;margin-bottom:15px; }
+		.vk-metabox-more-link  {
+			display: none;
+		}
 		@media (max-width: 991px){
 			.adminMain table.form-table{
 				th,
@@ -74,6 +125,9 @@
 	}
 }
 
+/*-------------------------------------------*/
+/* Widget css
+/*-------------------------------------------*/
 .admin_widget_h2{
 	box-sizing: border-box;
 	padding: 0.8em;

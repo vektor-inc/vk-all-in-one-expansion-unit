@@ -1,5 +1,8 @@
 <?php
 
+/*-------------------------------------------*/
+/* Main Setting Page  _ メニューに追加
+/*-------------------------------------------*/
 function vkExUnit_add_main_setting() {
 	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
 	$custom_page = add_submenu_page(
@@ -9,13 +12,47 @@ function vkExUnit_add_main_setting() {
 		// $capability_required,
 		'activate_plugins',					// Capability
 		'vkExUnit_main_setting',			// ユニークなこのサブメニューページの識別子
-		'vkExUnit_render_main_config'		// メニューページのコンテンツを出力する関数
+		'vkExUnit_render_main_frame'		// メニューページのコンテンツを出力する関数
 	);
 	if ( ! $custom_page ) { return; }
 }
 add_action( 'admin_menu', 'vkExUnit_add_main_setting' );
 
 
+/*-------------------------------------------*/
+/* Main Setting Page  _ ページのフレーム
+/*-------------------------------------------*/
+function vkExUnit_render_main_frame() {
+
+	vkExUnit_save_main_config();
+
+	// Left menu area top Title
+	$get_page_title = 'ExUnit Main setting';
+
+	// Left menu area top logo
+	$get_logo_html = vkExUnit_get_systemlogo();
+
+	// $menu
+	/*--------------------------------------------------*/
+	global $vkExUnit_options;
+	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
+	$get_menu_html = '';
+	foreach ( $vkExUnit_options as $vkoption ) {
+		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
+		// $linkUrl = ($i == 0) ? 'wpwrap':$vkoption['option_name'];
+		$linkUrl = $vkoption['option_name'];
+		$get_menu_html .= '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
+		$get_menu_html .= $vkoption['tab_label'];
+		$get_menu_html .= '</a></li>';
+	}
+
+	Vk_Admin::admin_page_frame( $get_page_title, 'vkExUnit_the_main_setting_body', $get_logo_html, $get_menu_html );
+
+}
+
+/*-------------------------------------------*/
+/* Main Setting Page  _ ページのメインエリアの中身
+/*-------------------------------------------*/
 function vkExUnit_the_main_setting_body(){
 	global $vkExUnit_options;?>
 	<form method="post" action="">
@@ -42,32 +79,6 @@ function vkExUnit_the_main_setting_body(){
 	echo  '</form>';
 }
 
-
-function vkExUnit_render_main_config() {
-
-	vkExUnit_save_main_config();
-
-	$get_page_title = 'ExUnit Main setting';
-	$get_logo_html = vkExUnit_get_systemlogo();
-
-	// $menu
-	/*--------------------------------------------------*/
-	global $vkExUnit_options;
-	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
-	$get_menu_html = '';
-	foreach ( $vkExUnit_options as $vkoption ) {
-		if ( ! isset( $vkoption['render_page'] ) ) {  continue; }
-		// $linkUrl = ($i == 0) ? 'wpwrap':$vkoption['option_name'];
-		$linkUrl = $vkoption['option_name'];
-		$get_menu_html .= '<li id="btn_"'. $vkoption['option_name']. '" class="'.$vkoption['option_name'].'"><a href="#'. $linkUrl .'">';
-		$get_menu_html .= $vkoption['tab_label'];
-		$get_menu_html .= '</a></li>';
-	}
-
-	Vk_Admin::admin_page_frame( $get_page_title, 'vkExUnit_the_main_setting_body', $get_logo_html, $get_menu_html );
-
-}
-
 function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
 	global $vkExUnit_options;
 	if (!isset($vkExUnit_options)) $vkExUnit_options = array();
@@ -80,26 +91,9 @@ function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $san
 		);
 }
 
-
-add_action( 'admin_bar_menu', 'vkExUnit_package_adminbar', 43 );
-function vkExUnit_package_adminbar( $wp_admin_bar ) {
-
-	if ( ! current_user_can( 'activate_plugins' ) ) { return; }
-
-	global $vkExUnit_options;
-	if (!isset($vkExUnit_options) || !count($vkExUnit_options)) return;
-
-	foreach ($vkExUnit_options as $opt) {
-		$wp_admin_bar->add_node( array(
-			'parent' => 'veu_adminlink_main',
-			'title'  => $opt['tab_label'],
-			'id'     => 'vew_configbar_'.$opt['option_name'],
-			'href'   => admin_url() . 'admin.php?page=vkExUnit_main_setting#'.$opt['option_name']
-		));
-	}
-}
-
-
+/*-------------------------------------------*/
+/* Main Setting Page  _ 値をアップデート
+/*-------------------------------------------*/
 function vkExUnit_main_config_sanitaize( $post ) {
 	global $vkExUnit_options;
 
@@ -107,7 +101,7 @@ function vkExUnit_main_config_sanitaize( $post ) {
 		foreach ( $vkExUnit_options as $opt ) {
 
 			if ( ! empty( $opt['callback'] ) ) {
-				$before = ( ! empty( $post[ $opt['option_name'] ] )? $post[ $opt['option_name'] ]: null);
+				$before = ( ! empty( $post[ $opt['option_name'] ] ) ? $post[ $opt['option_name'] ]: null);
 				$option = call_user_func_array( $opt['callback'], array( $before ) );
 			}
 
@@ -115,7 +109,6 @@ function vkExUnit_main_config_sanitaize( $post ) {
 		}
 	}
 }
-
 
 function vkExUnit_save_main_config() {
 

@@ -5,7 +5,8 @@ php:
   # - 5.5
   # - 5.6
   - 7
-  # - 7.1.4
+  - 7.1.4
+  - 7.2
 
 branches:
   - master
@@ -28,6 +29,7 @@ cache:
     - .sass_cache
 
 before_install:
+  - gem install ruby
   - gem install sass
   - gem install compass
 
@@ -44,14 +46,16 @@ before_script:
     else
       composer global require "phpunit/phpunit=4.8.*"
     fi
-  - npm install -g gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
+  # - nvm install 4.2
+  # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
   - npm install
+  - npm install -g gulp
+  - npm install gulp gulp-concat gulp-cssmin gulp-rename gulp-jsmin gulp-plumber gulp-sass gulp-clean-css gulp-merge-media-queries gulp-autoprefixer
 
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - phpunit
   - gulp compile
-  - compass compile
   - cd plugins_admin/vk-admin/ && compass compile && cd ../../
 
 after_success:
