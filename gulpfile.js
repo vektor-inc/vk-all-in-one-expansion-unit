@@ -9,7 +9,6 @@ var concat = require('gulp-concat');
 var jsmin = require('gulp-jsmin');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
-
 // sass compiler
 var sass = require('gulp-sass');
 
@@ -24,6 +23,7 @@ var autoprefixer = require('gulp-autoprefixer');
 // var pkg = JSON.parse(fs.readFileSync('./package.json'));
 // var assetsPath = path.resolve(pkg.path.assetsDir);
 var cleanCss = require('gulp-clean-css');
+
 // sudo npm install gulp.spritesmith --save-dev
 // var spritesmith = require('gulp.spritesmith');
 // http://blog.e-riverstyle.com/2014/02/gulpspritesmithcss-spritegulp.html
@@ -63,4 +63,37 @@ gulp.task('watch', function() {
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', ['scripts','watch']);
+
 gulp.task('compile', ['scripts','jsmin','sass']);
+
+// copy dist ////////////////////////////////////////////////
+
+gulp.task('copy_dist', function() {
+    return gulp.src(
+            [
+                './**/*.php',
+                './**/*.txt',
+                './**/*.css',
+                './**/*.png',
+                './images/**',
+                './inc/**',
+                './js/**',
+                './languages/**',
+                './library/**',
+                "!./tests/**",
+                "!./dist/**",
+                "!./node_modules/**/*.*"
+            ],
+            { base: './' }
+        )
+        .pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
+} );
+// gulp.task('build:dist',function(){
+//     /* ここで、CSS とか JS をコンパイルする */
+// });
+
+gulp.task('dist', function(cb){
+    // return runSequence( 'build:dist', 'copy', cb );
+    // return runSequence( 'build:dist', 'copy_dist', cb );
+    return runSequence( 'copy_dist', cb );
+});

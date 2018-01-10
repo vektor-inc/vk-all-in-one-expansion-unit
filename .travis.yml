@@ -1,16 +1,27 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
+  # - 5.4
+  # - 5.5
+  # - 5.6
   - 7
-  - 7.1
+  - 7.1.4
   - 7.2
 
 branches:
   - master
   - develop
+  # - dist_test
+
+# https://torounit.com/blog/2016/01/20/2176/ 途中
+
+env:
+  global:
+    - GIT_COMMITTER_NAME=travis-ci
+    - GIT_COMMITTER_EMAIL=kurudrive@gmail.com
+    - GIT_AUTHOR_NAME=travis-ci
+    - GIT_AUTHOR_EMAIL=kurudrive@gmail.com
+    - secure: "MFQhkgDtY3B+oSEmEm6e7oqRHDicTbTw4aYCcBm3wNsJREPKzqkeNMbP8JhdKmh/nRaJEE7tTulBGhaHn94MA4OP4KPDwd1Ds98V7flhLRKgY6RapGXAlHc44mhHFx4uJQ/JXjJQz12JeQh9hdJOWzWqTmsc56EtneCUK2lYf7YZD01dDnqWWs+NQep1WklKGJnXPe8UKavdtDFkNt0rh+eHZr2cHakty8yteV0Gulr4a4AciZxBUpaO3Xgbz8snxgfX+ijmoDs7XE62n8D2xH9LBKXPE6YXuCxasl4SRdx+a3PjzXQxylI/UcWdkS4w7iVQ0lhqawZYkKciFMnc4hK8KRBSR+fjbtDyKCEkMqd9L0wHJF+wzlLx6LRbRjJ48Hr8HUJEAr9w2IuYMiJlmQma1LzXDISbjMDU6jAFGLcE/jEVRpVROFBB1zOwodTAWGrXz8kLkb5mjOElVk2tD53HqzvLTUifE1A3S+cx6mDcvX1NFkUzI0dhEhZy3x1FyRzxhxwvEBxoOeFHQxkd4Zryj+Gj2Pt7A2i5lH4WEP70SbhwPqrJssionWUIN3EDb5ay+SzX68CQBLe2vcka1SiFxmclFfZhkA0X0lO7e26QuX/QVJh4+Y63XxGwGuGZas8OdeUCcRV+akyAISFh8dY3DTiEwjKA4CmQouGTZ58="
 
 cache:
   directories:
@@ -22,9 +33,9 @@ before_install:
   - gem install sass
   - gem install compass
 
-node_js:
-  - '0.8'
-  - '0.10'
+# node_js:
+#   - '0.8'
+#   - '0.10'
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
@@ -45,5 +56,7 @@ script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - phpunit
   - gulp compile
-  # - compass compile
-  # - cd plugins_admin/vk-admin/ && compass compile && cd ../../
+  - cd plugins_admin/vk-admin/ && compass compile && cd ../../
+
+after_success:
+  - bash ./bin/deploy.sh
