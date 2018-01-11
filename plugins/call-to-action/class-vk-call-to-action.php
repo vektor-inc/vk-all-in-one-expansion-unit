@@ -24,8 +24,10 @@ class Vk_Call_To_Action
 		add_action( 'admin_menu', array( __CLASS__, 'add_custom_field' ) );
 		add_action( 'save_post',  array( __CLASS__, 'save_custom_field' ) );
 		add_action( 'widgets_init', array( __CLASS__, 'widget_init' ) );
-		if( veu_content_filter_state() == 'content' )  add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
-		else add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
+		if( veu_content_filter_state() == 'content' )
+			add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
+		else
+			add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
 		require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
 	}
 
@@ -446,9 +448,7 @@ if ( $target_blank == "window_self") {
 		// Ligthning Advanced Unit のウィジェットだと...思う...
 		if ( self::is_contentsarea_posts_widget() ) { return $content; }
 		// 抜粋の場合
-		//
 		if ( vkExUnit_is_excerpt() ) {
-
 			return $content;
 		}
 		// 上記以外の場合に出力
