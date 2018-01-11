@@ -56,7 +56,7 @@ script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - phpunit
   - gulp compile
-  - cd plugins_admin/vk-admin/ && compass compile && cd ../../
+  # - cd plugins_admin/vk-admin/ && compass compile && cd ../../
 
 after_success:
   - bash ./bin/deploy.sh
