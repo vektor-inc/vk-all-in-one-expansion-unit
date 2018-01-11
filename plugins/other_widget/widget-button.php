@@ -60,7 +60,7 @@ class WP_Widget_Button extends WP_Widget {
         <a type="button" class="<?php echo implode(' ', $classes); ?>" href="<?php echo $options['linkurl']; ?>" <?php if($options['blank']) echo 'target="_blank"'; ?> >
             <span class="button_mainText">
 
-            <?php 
+            <?php
             if ( isset( $instance[ 'icon_before' ] ) && $instance[ 'icon_before' ] ) {
                 echo '<i class="fa '.esc_attr( $instance[ 'icon_before' ] ).' font_icon"></i>';
             }
@@ -98,7 +98,7 @@ class WP_Widget_Button extends WP_Widget {
         <?php _e('Main text(Required):', 'vkExUnit'); ?>
         <input type="text" id="<?php echo $this->get_field_id('maintext'); ?>" name="<?php echo $this->get_field_name('maintext') ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo esc_attr( $instance['maintext'] ); ?>">
 
-        <?php 
+        <?php
     // icon font class input
 echo '<p>'.__( 'Class name of the icon font', 'vkExUnit' ).'</label><br/>';
 echo  __( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ).'<br>';
@@ -166,7 +166,7 @@ echo '</p>';
         __( 'Orange(.warning)', 'vkExUnit' );
         __( 'Red(.danger)', 'vkExUnit' );
     }
-}
+} // class WP_Widget_Button extends WP_Widget {
 
 add_action('widgets_init', 'vkExUnit_widget_button');
 function vkExUnit_widget_button(){

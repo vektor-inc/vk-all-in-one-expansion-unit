@@ -19,7 +19,10 @@ add_action( 'admin_enqueue_scripts', 'vkExUnit_admin_scripts_color_picker' );
 function vkExUnit_admin_scripts_color_picker() {
 	wp_enqueue_style( 'wp-color-picker' );
 	wp_enqueue_script( 'wp-color-picker' );
+	// カラーピッカー対象class指定 （　外観 > ウィジェット 画面で効かないので一旦コメントアウト ）
+	// wp_enqueue_script( 'colorpicker_script', plugins_url( 'js/admin-widget.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 }
+// 外観 > ウィジェット 画面で動作させるために必要
 add_action( 'admin_footer-widgets.php', 'print_scripts_pr_color' );
 function print_scripts_pr_color() {
 	?>
