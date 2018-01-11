@@ -28,6 +28,9 @@ var cleanCss = require('gulp-clean-css');
 // var spritesmith = require('gulp.spritesmith');
 // http://blog.e-riverstyle.com/2014/02/gulpspritesmithcss-spritegulp.html
 
+// 同期的に処理してくれる（ distで使用している ）
+var runSequence = require('run-sequence');
+
 gulp.task('sass', function() {
     gulp.src(['_scss/*.scss'])
         .pipe(plumber())

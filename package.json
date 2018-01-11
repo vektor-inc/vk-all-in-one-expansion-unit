@@ -18,7 +18,8 @@
     "gulp-jsmin": "^0.1.5",
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-plumber": "^1.1.0",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "run-sequence": "^2.2.1"
   },
   "scripts": {
     "dist": "gulp dist"
