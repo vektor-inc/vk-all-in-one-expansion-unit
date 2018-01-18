@@ -163,12 +163,13 @@ class Vk_Admin {
 		$html .= '</h4>';
 		$html .= '<ul id="vk-wp-blog" class="vk-metabox-post-list"></ul>';
 
+/*
 		$html .= '<h4 class="vk-metabox-sub-title">';
 		$html .= 'Vektor WordPress フォーラム';
 		$html .= '<a href="http://forum.bizvektor.com/" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
 		$html .= '</h4>';
 		$html .= '<ul id="vk-wp-forum" class="vk-metabox-post-list"></ul>';
-
+*/
 		$html = apply_filters( 'vk_admin_news_html' , $html );
 
 		add_action( 'admin_footer', array( __CLASS__, 'load_rest_api_js') );
@@ -211,14 +212,14 @@ class Vk_Admin {
 						});
 				});
 
-				$.getJSON( "http://forum.bizvektor.com/wp-json/wp/v2/topics/?per_page=5",
-				function(results) {
-						$.each(results, function(i, item) {
-							var date = new Date(item.date_gmt);
-							var formate_date = date.toLocaleDateString();
-							 $("ul#vk-wp-forum").append('<li><a href="' + item.link + '" target="_blank">' + item.title.rendered + '</a></li>');
-						});
-				});
+				// $.getJSON( "http://forum.bizvektor.com/wp-json/wp/v2/topics/?per_page=5",
+				// function(results) {
+				// 		$.each(results, function(i, item) {
+				// 			var date = new Date(item.date_gmt);
+				// 			var formate_date = date.toLocaleDateString();
+				// 			 $("ul#vk-wp-forum").append('<li><a href="' + item.link + '" target="_blank">' + item.title.rendered + '</a></li>');
+				// 		});
+				// });
 
 		});
 		})(jQuery);
