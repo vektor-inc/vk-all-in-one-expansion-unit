@@ -88,11 +88,13 @@ gulp.task('copy_dist', function() {
 							'./images/**',
 							'./inc/**',
 							'./js/**',
+							'./plugins/**',
+							'./plugins_admin/**',
 							'./languages/**',
 							'./library/**',
 							"!./tests/**",
 							"!./dist/**",
-							"!./node_modules/**/*.*"
+							"!./node_modules/**"
             ],
             { base: './' }
         )
