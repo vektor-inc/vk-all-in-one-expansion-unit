@@ -74,18 +74,25 @@ gulp.task('compile', ['scripts','jsmin','sass']);
 gulp.task('copy_dist', function() {
     return gulp.src(
             [
-                './**/*.php',
-                './**/*.txt',
-                './**/*.css',
-                './**/*.png',
-                './images/**',
-                './inc/**',
-                './js/**',
-                './languages/**',
-                './library/**',
-                "!./tests/**",
-                "!./dist/**",
-                "!./node_modules/**/*.*"
+							'./**/*.php',
+							'./**/*.txt',
+							'./**/*.css',
+							'./**/*.scss',
+							'./**/*.bat',
+							'./**/*.rb',
+							'./**/*.eot',
+							'./**/*.svg',
+							'./**/*.ttf',
+							'./**/*.woff',
+							'./**/*.png',
+							'./images/**',
+							'./inc/**',
+							'./js/**',
+							'./languages/**',
+							'./library/**',
+							"!./tests/**",
+							"!./dist/**",
+							"!./node_modules/**/*.*"
             ],
             { base: './' }
         )
