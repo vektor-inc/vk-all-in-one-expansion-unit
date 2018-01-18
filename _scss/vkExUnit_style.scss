@@ -502,6 +502,7 @@ $section_pagelist_margin:2.5em 0 1em;
 		overflow:hidden;
 		margin:0.8em 0 0.8em;
 		box-sizing: border-box;
+		img { max-width:100%;height:auto; }
 	}
 	.media_round{
 		border-radius: 50%;
