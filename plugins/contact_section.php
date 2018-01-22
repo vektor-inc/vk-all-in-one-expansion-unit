@@ -8,6 +8,29 @@
  * @since    26/Jun/2015
  */
 
+ /*-------------------------------------------*/
+ /*  vExUnit_Contact
+			public static function instance() {
+			private function __construct() {
+			protected function run_init() {
+			public function set_content_loopend( $query ) {
+			public function activate_metavox( $flag ) {
+			public function options_init() {
+			public static function get_option() {
+			public function options_page() {
+			public function option_sanitaize( $option ) {
+			public function render_meta_box() {
+			public function save_custom_field_postdata( $post_id ) {
+			public static function is_my_turn() {
+			public function set_content( $content ) {
+			public static function render_contact_section_html() {
+ /*-------------------------------------------*/
+ /*  Contact Section Widget
+ /*-------------------------------------------*/
+
+ /*-------------------------------------------*/
+ /*  vExUnit_Contact
+ /*-------------------------------------------*/
 class vExUnit_Contact {
 	// singleton instance
 	private static $instance;
@@ -284,7 +307,7 @@ if ( ! $options['contact_image'] and ! $options['contact_html'] ) {
 
 			if ( $options['contact_link'] && $options['button_text'] ) {
 				$cont .= '<a href="' . $options['contact_link'] . '" class="btn btn-primary btn-lg contact_bt">';
-				$cont .= '<span class="contact_bt_txt">' . $options['button_text'] . '</span>';
+				$cont .= '<span class="contact_bt_txt">' . wp_kses_post( $options['button_text'] ) . '</span>';
 
 				if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
 					$cont .= '<span class="contact_bt_subTxt">' . $options['button_text_small'] . '</span>';
