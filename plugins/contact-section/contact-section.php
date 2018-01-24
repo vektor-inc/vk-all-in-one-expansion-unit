@@ -339,7 +339,7 @@ if ( ! $options['contact_image'] and ! $options['contact_html'] ) {
 			( isset( $options['contact_link'] ) && $options['contact_link'] ) &&
 			( isset( $options['short_text'] ) && $options['short_text'] )
 			) {
-			$cont .= '<a href="' . $options['contact_link'] . '" class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
+			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '" class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 			$cont .= $options['short_text'];
 			$cont .= '</span>';
 			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
