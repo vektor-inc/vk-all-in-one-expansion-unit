@@ -1,20 +1,68 @@
 <?php
 
-if ( veu_content_filter_state() == 'content' ) {
-	add_filter( 'the_content', 'vkExUnit_add_relatedPosts_html', 800, 1 );
-} else {
-	add_action( 'loop_end', 'vkExUnit_add_related_loopend', 800, 1 );
+/*-------------------------------------------*/
+/*	非推奨タグ / Deprecated Tag
+/*-------------------------------------------*/
+/*	出力先
+/*-------------------------------------------*/
+/*	veu_get_related_posts()
+/*-------------------------------------------*/
+/*	veu_add_related_posts_item_html()
+/*-------------------------------------------*/
+/*	veu_add_related_posts_html()
+/*-------------------------------------------*/
+/*	Customizer
+/*-------------------------------------------*/
+
+/*-------------------------------------------*/
+/*	非推奨タグ / Deprecated Tag
+/*-------------------------------------------*/
+/*
+キャメルケースは非推奨なので関数名を変更したが、
+プラグイン外で関数が使用されているかもしれないので念の為旧関数でも動作するように
+※ いずれ完全に廃止するので、キャメルケースの関数は外部で使用しないでください。
+*/
+function vkExUnit_add_relatedPosts_item_html( $post ) {
+	veu_add_related_posts_item_html( $post );
+}
+function vkExUnit_add_related_loopend( $query ) {
+	veu_add_related_loopend( $query );
+}
+function vkExUnit_add_relatedPosts_html( $content ) {
+	veu_add_related_posts_html( $content );
+}
+function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag', $max_show_posts = 10 ) {
+	veu_get_related_posts( $post_type, $taxonomy, $max_show_posts );
 }
 
+/*-------------------------------------------*/
+/*	出力先
+/*-------------------------------------------*/
+/*
+loop_end でも出力出来るように一時期していたが、
+コンテンツエリアのタグより外に出力されるなどで、
+レイアウトの不具合が発生するので実質的には content にしかならないようになっている。
+ */
+if ( veu_content_filter_state() == 'content' ) {
+	add_filter( 'the_content', 'veu_add_related_posts_html', 800, 1 );
+} else {
+	add_action( 'loop_end', 'veu_add_related_loopend', 800, 1 );
+}
 
-function vkExUnit_add_related_loopend( $query ) {
+function veu_add_related_loopend( $query ) {
 	if ( ! $query->is_main_query() ) {
 		return;
 	}
-	echo vkExUnit_add_relatedPosts_html( '' );
+	echo veu_add_related_posts_html( '' );
 }
 
-function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag', $max_show_posts = 10 ) {
+/*-------------------------------------------*/
+/*	veu_get_related_posts()
+/*-------------------------------------------*/
+/*
+関連記事の投稿データを取得
+ */
+function veu_get_related_posts( $post_type = 'post', $taxonomy = 'post_tag', $max_show_posts = 10 ) {
 	$posts_array = '';
 	$post_id     = get_the_id();
 
@@ -79,7 +127,13 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	return $related_posts;
 }
 
-function vkExUnit_add_relatedPosts_item_html( $post ) {
+/*-------------------------------------------*/
+/*	veu_add_related_posts_item_html()
+/*-------------------------------------------*/
+/*
+関連記事の1件分のHTML
+ */
+function veu_add_related_posts_item_html( $post ) {
 	$post_item_html  = '<div class="col-sm-6 relatedPosts_item">';
 	$post_item_html .= '<div class="media">';
 	if ( has_post_thumbnail( $post->ID ) ) :
@@ -99,7 +153,13 @@ function vkExUnit_add_relatedPosts_item_html( $post ) {
 	return $post_item_html;
 }
 
-function vkExUnit_add_relatedPosts_html( $content ) {
+/*-------------------------------------------*/
+/*	veu_add_related_posts_html()
+/*-------------------------------------------*/
+/*
+関連記事のHTML
+ */
+function veu_add_related_posts_html( $content ) {
 
 	if ( ! is_single() ) {
 		return $content;
@@ -115,9 +175,6 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 		return $content;
 	}
 
-	/*-------------------------------------------*/
-	/*  Related posts
-	/*-------------------------------------------*/
 	$related_post_args = apply_filters(
 		'veu_related_post_args', array(
 			'post_type'      => 'post',
@@ -125,7 +182,7 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 			'max_show_posts' => 10,
 		)
 	);
-	$related_posts     = vkExUnit_get_relatedPosts( $related_post_args['post_type'], $related_post_args['taxonomy'], $related_post_args['max_show_posts'] );
+	$related_posts     = veu_get_related_posts( $related_post_args['post_type'], $related_post_args['taxonomy'], $related_post_args['max_show_posts'] );
 
 	if ( ! $related_posts ) {
 		return $content; }
@@ -150,7 +207,7 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 		$i                 = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ( $related_posts as $key => $post ) {
-			$relatedPostsHtml .= vkExUnit_add_relatedPosts_item_html( $post );
+			$relatedPostsHtml .= veu_add_related_posts_item_html( $post );
 			$i++;
 		} // foreach
 		$relatedPostsHtml .= '</div>';
@@ -163,7 +220,9 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 	return $content;
 }
 
-// カスタマイザーの設定
+/*-------------------------------------------*/
+/*	Customizer
+/*-------------------------------------------*/
 
 if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 	add_action( 'customize_register', 'veu_customize_register_related' );
