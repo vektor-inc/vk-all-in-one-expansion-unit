@@ -79,6 +79,26 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	return $related_posts;
 }
 
+function vkExUnit_add_relatedPosts_item_html( $post ) {
+	$post_item_html  = '<div class="col-sm-6 relatedPosts_item">';
+	$post_item_html .= '<div class="media">';
+	if ( has_post_thumbnail( $post->ID ) ) :
+		$post_item_html .= '<div class="media-left postList_thumbnail">';
+		$post_item_html .= '<a href="' . get_the_permalink( $post->ID ) . '">';
+		$post_item_html .= get_the_post_thumbnail( $post->ID, 'thumbnail' );
+		$post_item_html .= '</a>';
+		$post_item_html .= '</div>';
+	endif;
+	$post_item_html .= '<div class="media-body">';
+	$post_item_html .= '<div class="media-heading"><a href="' . get_the_permalink( $post->ID ) . '">' . $post->post_title . '</a></div>';
+	$post_item_html .= '<div class="media-date published"><i class="fa fa-calendar"></i>&nbsp;' . get_the_date( false, $post->ID ) . '</div>';
+	$post_item_html .= '</div>';
+	$post_item_html .= '</div>';
+	$post_item_html .= '</div>' . "\n";
+	$post_item_html  = apply_filters( 'veu_related_post_item', $post_item_html );
+	return $post_item_html;
+}
+
 function vkExUnit_add_relatedPosts_html( $content ) {
 
 	if ( ! is_single() ) {
@@ -130,21 +150,7 @@ function vkExUnit_add_relatedPosts_html( $content ) {
 		$i                 = 1;
 		$relatedPostsHtml .= '<div class="row">';
 		foreach ( $related_posts as $key => $post ) {
-			$relatedPostsHtml .= '<div class="col-sm-6 relatedPosts_item">';
-			$relatedPostsHtml .= '<div class="media">';
-			if ( has_post_thumbnail( $post->ID ) ) :
-				$relatedPostsHtml .= '<div class="media-left postList_thumbnail">';
-				$relatedPostsHtml .= '<a href="' . get_the_permalink( $post->ID ) . '">';
-				$relatedPostsHtml .= get_the_post_thumbnail( $post->ID, 'thumbnail' );
-				$relatedPostsHtml .= '</a>';
-				$relatedPostsHtml .= '</div>';
-			endif;
-			$relatedPostsHtml .= '<div class="media-body">';
-			$relatedPostsHtml .= '<div class="media-heading"><a href="' . get_the_permalink( $post->ID ) . '">' . $post->post_title . '</a></div>';
-			$relatedPostsHtml .= '<div><i class="fa fa-calendar"></i>&nbsp;' . get_the_date( false, $post->ID ) . '</div>';
-			$relatedPostsHtml .= '</div>';
-			$relatedPostsHtml .= '</div>';
-			$relatedPostsHtml .= '</div>' . "\n";
+			$relatedPostsHtml .= vkExUnit_add_relatedPosts_item_html( $post );
 			$i++;
 		} // foreach
 		$relatedPostsHtml .= '</div>';
