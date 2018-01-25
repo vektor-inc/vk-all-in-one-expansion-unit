@@ -40,7 +40,7 @@ function veu_customize_register_contact( $wp_customize ) {
  		'priority' => 1,
  	) );
 
-   // Tel
+   // Phone number
  	$wp_customize->add_setting( 'vkExUnit_contact[tel_number]', array(
  		'default'           => false,
     'type'              => 'option', // 保存先 option or theme_mod
@@ -49,14 +49,14 @@ function veu_customize_register_contact( $wp_customize ) {
  	) );
 
  	$wp_customize->add_control( 'tel_number', array(
- 		'label'    => __( 'Tel number', 'vkExUnit' ),
+ 		'label'    => __( 'Phone number', 'vkExUnit' ),
  		'section'  => 'veu_contact_setting',
  		'settings' => 'vkExUnit_contact[tel_number]',
  		'type'     => 'text',
  		'priority' => 1,
  	) );
 
-   // Business hours
+   // Office hours
  	$wp_customize->add_setting( 'vkExUnit_contact[contact_time]', array(
  		'default'           => false,
     'type'              => 'option', // 保存先 option or theme_mod
@@ -65,14 +65,14 @@ function veu_customize_register_contact( $wp_customize ) {
  	) );
 
  	$wp_customize->add_control( 'contact_time', array(
- 		'label'    => __( 'Business hours', 'vkExUnit' ),
+ 		'label'    => __( 'Office hours', 'vkExUnit' ),
  		'section'  => 'veu_contact_setting',
  		'settings' => 'vkExUnit_contact[contact_time]',
  		'type'     => 'text',
  		'priority' => 1,
  	) );
 
-   // Contact URL
+   // The contact page URL
  	$wp_customize->add_setting( 'vkExUnit_contact[contact_link]', array(
  		'default'           => false,
     'type'              => 'option', // 保存先 option or theme_mod
@@ -81,14 +81,14 @@ function veu_customize_register_contact( $wp_customize ) {
  	) );
 
  	$wp_customize->add_control( 'contact_link', array(
- 		'label'    => __( 'Contact URL', 'vkExUnit' ),
+ 		'label'    => __( 'The contact page URL', 'vkExUnit' ),
  		'section'  => 'veu_contact_setting',
  		'settings' => 'vkExUnit_contact[contact_link]',
  		'type'     => 'text',
  		'priority' => 1,
  	) );
 
-   // Text to display on the inquiry button
+   // Contact button Text
  	$wp_customize->add_setting( 'vkExUnit_contact[button_text]', array(
  		'default'           => false,
     'type'              => 'option', // 保存先 option or theme_mod
@@ -97,14 +97,14 @@ function veu_customize_register_contact( $wp_customize ) {
  	) );
 
  	$wp_customize->add_control( 'button_text', array(
- 		'label'    => __( 'Text to display on the inquiry button', 'vkExUnit' ),
+ 		'label'    => __( 'Contact button Text', 'vkExUnit' ),
  		'section'  => 'veu_contact_setting',
  		'settings' => 'vkExUnit_contact[button_text]',
  		'type'     => 'text',
  		'priority' => 1,
  	) );
 
-   // Text to display on the inquiry button 2(optional)
+   // Contact button text( sub )
  	$wp_customize->add_setting( 'vkExUnit_contact[button_text_small]', array(
  		'default'           => false,
     'type'              => 'option', // 保存先 option or theme_mod
@@ -113,14 +113,14 @@ function veu_customize_register_contact( $wp_customize ) {
  	) );
 
  	$wp_customize->add_control( 'button_text_small', array(
- 		'label'    => __( 'Text to display on the inquiry button 2(optional)', 'vkExUnit' ),
+ 		'label'    => __( 'Contact button text( sub )', 'vkExUnit' ),
  		'section'  => 'veu_contact_setting',
  		'settings' => 'vkExUnit_contact[button_text_small]',
  		'type'     => 'textarea',
  		'priority' => 1,
  	) );
 
-   // Text to display in the inquiry button widget
+   // Contact button short text for side widget
  	$wp_customize->add_setting( 'vkExUnit_contact[short_text]', array(
  		'default'           => false,
     'type'              => 'option', // 保存先 option or theme_mod
@@ -129,7 +129,7 @@ function veu_customize_register_contact( $wp_customize ) {
  	) );
 
  	$wp_customize->add_control( 'short_text', array(
- 		'label'    => __( 'Text to display in the inquiry button widget', 'vkExUnit' ),
+ 		'label'    => __( 'Contact button short text for side widget', 'vkExUnit' ),
  		'section'  => 'veu_contact_setting',
  		'settings' => 'vkExUnit_contact[short_text]',
  		'type'     => 'text',
@@ -167,7 +167,7 @@ function get_image_url(){
   return esc_url(get_theme_mod(contact_image));
 }
 
-// HTML to display as inquiry information
+// Display HTML message instead of the standard
 $wp_customize->add_setting( 'vkExUnit_contact[contact_html]', array(
  'default'           => false,
  'type'              => 'option', // 保存先 option or theme_mod
@@ -176,7 +176,7 @@ $wp_customize->add_setting( 'vkExUnit_contact[contact_html]', array(
 ) );
 
 $wp_customize->add_control( 'contact_html', array(
- 'label'    => __( 'HTML to display as inquiry information', 'vkExUnit' ),
+ 'label'    => __( 'Display HTML message instead of the standard', 'vkExUnit' ),
  'section'  => 'veu_contact_setting',
  'settings' => 'vkExUnit_contact[contact_html]',
  'type'     => 'textarea',
