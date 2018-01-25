@@ -69,10 +69,11 @@ function pagePluginReSize() {
 		$('.prArea > .summary').flatHeights();
 		// $('.childPage_list_title').flatHeights();
 	});
-	window.onload = function() {
+	// window.onload は複数使うと一つしか動作しなくなるので使用しない
+	window.addEventListener('DOMContentLoaded', function() {
 		$('.childPage_list_text').flatHeights();
 		// $('.childPage_list_box').flatHeights();
-	}
+	})
 })(jQuery);
 
 /*-------------------------------------------*/
