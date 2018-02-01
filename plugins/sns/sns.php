@@ -15,6 +15,8 @@
 /*  Add Customize Panel
 /*-------------------------------------------*/
 
+//hide_controller.phpを読み込む
+require_once(dirname(__FILE__)."/hide_controller.php");
 
 function veu_sns_options_init() {
 	if ( false === veu_get_sns_options() ) {
