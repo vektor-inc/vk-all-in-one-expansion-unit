@@ -15,7 +15,7 @@
 /*  Add Customize Panel
 /*-------------------------------------------*/
 
-//hide_controller.phpを読み込む
+// シェアボタンを表示する設定の読み込み
 require_once(dirname(__FILE__)."/hide_controller.php");
 
 function veu_sns_options_init() {
