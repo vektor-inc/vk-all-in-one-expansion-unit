@@ -14,9 +14,6 @@ function veu_sns_add_hide_meta_box() {
     return;
   }
 
-  // メタボックスを表示
-  $post_type = 'post';
-
   // 現在存在する投稿タイプを取得
   /*-------------------------------------------*/
   // 取得する条件
@@ -42,14 +39,6 @@ function veu_sns_add_hide_meta_box() {
 /*-------------------------------------------*/
 
 function veu_sns_share_botton_hide_meta_box_body(){
-// add_action( 'admin_menu', 'veu_sns_add_custom_field_user_view_group' );
-
-
-    // ExUnitのオプション（ vkExUnit_sns_options['snsBtn_exclude_post_types'] ）で、
-
-    // $options = get_option('vkExUnit_sns_options');
-
-    // 	// 非表示選択のメタボックス処理
 
     // SNS設定のオプション値を取得
     $options = veu_get_sns_options();
@@ -93,7 +82,7 @@ function veu_sns_share_botton_hide_meta_box_body(){
       } else {
         $checked = '';
       }
-;
+
       $label = __('Don\'t display share bottons.', 'vkExUnit' );
       echo '<ul>';
       echo '<li><label>'.'<input type="checkbox" id="sns_share_botton_hide" name="sns_share_botton_hide" value="true"'.$checked.'> '.$label.'</label></li>';
