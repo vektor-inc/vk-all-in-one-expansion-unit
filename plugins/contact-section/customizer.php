@@ -16,7 +16,7 @@ function veu_customize_panel_activation_contact(){
 function veu_customize_register_contact( $wp_customize ) {
 
  	/*-------------------------------------------*/
- 	/*	SNS Settings
+ 	/*	Contact Settings
  	/*-------------------------------------------*/
  	$wp_customize->add_section( 'veu_contact_setting', array(
  		'title'    => __('Contact Settings', 'vkExUnit'),
@@ -167,6 +167,7 @@ function get_image_url(){
   return esc_url(get_theme_mod(contact_image));
 }
 
+
 // Display HTML message instead of the standard
 $wp_customize->add_setting( 'vkExUnit_contact[contact_html]', array(
  'default'           => false,
@@ -181,8 +182,28 @@ $wp_customize->add_control( 'contact_html', array(
  'settings' => 'vkExUnit_contact[contact_html]',
  'type'     => 'textarea',
  'priority' => 1,
+ 'description' => __( 'HTML takes precedence over image', 'vkExUnit' ),
 ) );
 
+
+// image
+$wp_customize->add_setting( 'vkExUnit_contact[contact_image]',  array(
+	'default'        	=> '',
+	'type'           	=> 'option',
+	'capability'    	=> 'edit_theme_options',
+	'sanitize_callback' => 'esc_url_raw',
+	) );
+
+$wp_customize->add_control( new WP_Customize_Image_Control(
+	$wp_customize,
+	'contact_image',
+	array(
+		'label'     => __( 'Inquiry Banner image', 'vkExUnit' ),
+		'section'   => 'veu_contact_setting',
+		'settings'  => 'vkExUnit_contact[contact_image]',
+		'description' => __( 'Display the image instead of the above inquiry information', 'vkExUnit' ),
+	)
+) );
 
    // Btn color
   //  $wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_color]', array(
