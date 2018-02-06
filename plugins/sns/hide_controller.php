@@ -62,7 +62,7 @@ function veu_sns_share_botton_hide_meta_box_body(){
     if ( in_array( $post_type, $exclude_post_types) ){
 
       // 「この投稿タイプではシェアボタンを表示しないように設定されています。」を表示
-      echo __('この投稿タイプではシェアボタンを表示しない設定になっています。','vkExUnit').'<br>';
+      echo __('This post type is not set to display the share button.','vkExUnit').'<br>';
       echo' <a href="'.admin_url('/admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options').'" target="_blank">シェアボタンの表示設定</a>';
 
     } else {
