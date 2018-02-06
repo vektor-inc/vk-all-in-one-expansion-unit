@@ -201,6 +201,30 @@ function veu_customize_register_contact( $wp_customize ) {
 		return esc_url( get_theme_mod( contact_image ) );
 	}
 
+	// image up load
+	$wp_customize->add_setting(
+		'vkExUnit_contact[contact_image]', array(
+			'default'           => '',
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'contact_image',
+			array(
+				'label'       => __( 'Inquiry Banner image', 'vkExUnit' ),
+				'section'     => 'veu_contact_setting',
+				'settings'    => 'vkExUnit_contact[contact_image]',
+				'priority'    => 1,
+				'description' => __( 'Display the image instead of the above inquiry information', 'vkExUnit' ),
+			)
+		)
+	);
+
 	// Display HTML message instead of the standard
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_html]', array(
@@ -222,51 +246,13 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
-	// image
-	$wp_customize->add_setting(
-		'vkExUnit_contact[contact_image]', array(
-			'default'           => '',
-			'type'              => 'option',
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'esc_url_raw',
+	/*-------------------------------------------*/
+	/*	Add Edit Customize Link Btn
+	/*-------------------------------------------*/
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_contact[contact_txt]', array(
+			'selector'        => '.veu_contact',
+			'render_callback' => '',
 		)
 	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Image_Control(
-			$wp_customize,
-			'contact_image',
-			array(
-				'label'       => __( 'Inquiry Banner image', 'vkExUnit' ),
-				'section'     => 'veu_contact_setting',
-				'settings'    => 'vkExUnit_contact[contact_image]',
-				'description' => __( 'Display the image instead of the above inquiry information', 'vkExUnit' ),
-			)
-		)
-	);
-
-	// Btn color
-	//  $wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_color]', array(
-	//     'default'            => false,
-	//    'type'                => 'option', // 保存先 option or theme_mod
-	//     'capability'        => 'edit_theme_options',
-	//     'sanitize_callback' => 'sanitize_hex_color',
-	// ) );
-	//
-	//  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'snsBtn_color', array(
-	//    'label'    => __('Btn color', 'vkExUnit'),
-	//    'section'  => 'veu_contact_setting',
-	//    'settings' => 'vkExUnit_sns_options[snsBtn_color]',
-	//    'priority' => 2,
-	//  )));
-
-	// $wp_customize->get_setting( 'vkExUnit_sns_options[snsBtn_bg_fill_not]' )->transport        = 'postMessage';
-
-	/*-------------------------------------------*/
-	/*    Add Edit Customize Link Btn
-	/*-------------------------------------------*/
-	// $wp_customize->selective_refresh->add_partial( 'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
-	//   'selector' => '.veu_socialSet',
-	//   'render_callback' => '',
-	// ) );
 }

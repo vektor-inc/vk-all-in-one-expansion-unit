@@ -338,7 +338,7 @@ class vExUnit_Contact {
 			$cont .= '</div>';
 		}
 		$cont .= '</section>';
-		if ( current_user_can( 'edit_theme_options' ) ) {
+		if ( current_user_can( 'edit_theme_options' ) && ! is_customize_preview() ) {
 			$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vkExUnit' ) . '</a></div>';
 		}
 
