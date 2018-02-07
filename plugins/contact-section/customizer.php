@@ -166,41 +166,6 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
-	//画像をアップロードする関数
-	function set_image_cutomizer( $wp_customize ) {
-		// Inquiry Banner image
-		$wp_customize->add_section(
-			'vkExUnit_contact[contact_image]', array(
-				'default'           => '',
-				'type'              => 'option', // 保存先 option or theme_mod
-				'capability'        => 'edit_theme_options',
-				'sanitize_callback' => 'sanitize_text_field',
-			)
-		);
-
-		//テーマ設定のグループ
-		$wp_customize->add_setting( 'contact_image' );
-
-		//テーマカスタマイザー画面に表示されるフォームの入力要素
-		$wp_customize->add_control(
-			'contact_image', array(
-				'label'    => __( 'Inquiry Banner image', 'vkExUnit' ),
-				'section'  => 'veu_contact_setting',
-				'settings' => 'vkExUnit_contact[contact_image]',
-				'type'     => 'text',
-				'priority' => 1,
-			)
-		);
-	}
-
-	//カスタマイザーに登録
-	add_action( 'customize_register', 'set_image_cutomizer' );
-
-	//セットした画像のURLを取得
-	function get_image_url() {
-		return esc_url( get_theme_mod( contact_image ) );
-	}
-
 	// image up load
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_image]', array(
