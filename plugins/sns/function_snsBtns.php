@@ -109,6 +109,12 @@ function veu_sns_icon_css( $options )
 
 function veu_add_sns_btns( $content ) {
 
+	// 個別の記事で ボタンを表示しない指定にしてある場合
+	global $post;
+	if ( $post->sns_share_botton_hide ){
+		return $content;
+	}
+
 	// ウィジェットなら表示しない
 	global $is_pagewidget;
 	if ( $is_pagewidget ) { return $content; }

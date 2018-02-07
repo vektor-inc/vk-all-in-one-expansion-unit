@@ -274,7 +274,7 @@ $required_packages[] = array(
 		),
 	),
 	'default'     => true,
-	'include'     => 'contact_section.php',
+	'include'     => 'contact-section/contact-section.php',
 );
 
 /*-------------------------------------------*/
