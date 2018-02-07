@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-02-06 13:45+0900\n"
+"POT-Creation-Date: 2018-02-07 14:32+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -576,30 +576,32 @@ msgstr "詳しくはこちら"
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
-#: plugins/contact_section.php:82 plugins/contact_section.php:110
+#: plugins/contact-section/contact-section.php:96
+#: plugins/contact-section/contact-section.php:124
 msgid "Contact Information"
 msgstr "お問い合わせ情報"
 
-#: plugins/contact_section.php:92 plugins/contact_section.php:121
+#: plugins/contact-section/contact-section.php:106
+#: plugins/contact-section/contact-section.php:135
 msgid "Please feel free to inquire."
 msgstr "お気軽にお問い合わせください。"
 
-#: plugins/contact_section.php:94
+#: plugins/contact-section/contact-section.php:108
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 
-#: plugins/contact_section.php:98
+#: plugins/contact-section/contact-section.php:112
 msgid "Contact us"
 msgstr "お問い合わせ"
 
-#: plugins/contact_section.php:112
+#: plugins/contact-section/contact-section.php:126
 msgid ""
 "Contents input here are displayed on an \"Contact Button\" widget and each "
 "fixed page."
 msgstr ""
 "ここに入力された内容がお問い合わせウィジェットと各固定ページに表示されます。"
 
-#: plugins/contact_section.php:114
+#: plugins/contact-section/contact-section.php:128
 msgid ""
 "When I display it on the page, it is necessary to classify a check into "
 "\"Display Contact Section\" checkbox with the edit page of each page."
@@ -607,110 +609,128 @@ msgstr ""
 "固定ページに表示する場合は、各固定ページの編集画面で\"お問い合わせ情報の表示"
 "\"にチェックを入れる必要があります。"
 
-#: plugins/contact_section.php:118
+#: plugins/contact-section/contact-section.php:132
+#: plugins/contact-section/customizer.php:41
 msgid "Message"
 msgstr "メッセージ"
 
-#: plugins/contact_section.php:121 plugins/contact_section.php:128
-#: plugins/contact_section.php:135 plugins/contact_section.php:143
-#: plugins/contact_section.php:151 plugins/contact_section.php:159
+#: plugins/contact-section/contact-section.php:135
+#: plugins/contact-section/contact-section.php:142
+#: plugins/contact-section/contact-section.php:149
+#: plugins/contact-section/contact-section.php:157
+#: plugins/contact-section/contact-section.php:165
+#: plugins/contact-section/contact-section.php:173
 #: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
 msgid "ex) "
 msgstr "例: "
 
-#: plugins/contact_section.php:125
+#: plugins/contact-section/contact-section.php:139
+#: plugins/contact-section/customizer.php:61
 msgid "Phone number"
 msgstr "電話番号"
 
-#: plugins/contact_section.php:132 plugins/contact_section.php:135
+#: plugins/contact-section/contact-section.php:146
+#: plugins/contact-section/contact-section.php:149
+#: plugins/contact-section/customizer.php:81
 msgid "Office hours"
 msgstr "営業時間"
 
-#: plugins/contact_section.php:135
+#: plugins/contact-section/contact-section.php:149
 msgid "Weekdays except holidays"
 msgstr "土日・祝日除く"
 
-#: plugins/contact_section.php:140
+#: plugins/contact-section/contact-section.php:154
+#: plugins/contact-section/customizer.php:101
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
-#: plugins/contact_section.php:143
+#: plugins/contact-section/contact-section.php:157
 msgid "or"
 msgstr "もしくは"
 
-#: plugins/contact_section.php:144
+#: plugins/contact-section/contact-section.php:158
 msgid "* If you fill in the blank, widget's contact button does not appear."
 msgstr "※ 未入力の場合、お問い合わせウィジェットには何も表示されません。"
 
-#: plugins/contact_section.php:148
+#: plugins/contact-section/contact-section.php:162
+#: plugins/contact-section/customizer.php:121
 msgid "Contact button Text"
 msgstr "お問い合わせボタンに表示するテキスト"
 
-#: plugins/contact_section.php:151
+#: plugins/contact-section/contact-section.php:165
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
-#: plugins/contact_section.php:156
+#: plugins/contact-section/contact-section.php:170
+#: plugins/contact-section/customizer.php:141
 msgid "Contact button text( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
-#: plugins/contact_section.php:160
+#: plugins/contact-section/contact-section.php:174
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
-#: plugins/contact_section.php:165
+#: plugins/contact-section/contact-section.php:179
+#: plugins/contact-section/customizer.php:161
 msgid "Contact button short text for side widget"
 msgstr "お問い合わせボタンウィジェットに表示するテキスト"
 
-#: plugins/contact_section.php:169
+#: plugins/contact-section/contact-section.php:183
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
 "このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利"
 "用を想定していますので少ない文字数で設定してください。"
 
-#: plugins/contact_section.php:173
+#: plugins/contact-section/contact-section.php:187
 msgid "Advanced Setting"
 msgstr "高度な設定"
 
-#: plugins/contact_section.php:181
+#: plugins/contact-section/contact-section.php:196
+#: plugins/contact-section/customizer.php:187
+#: plugins/contact-section/customizer.php:219
 msgid "Inquiry Banner image"
 msgstr "お問い合わせバナー画像"
 
-#: plugins/contact_section.php:183
+#: plugins/contact-section/contact-section.php:198
 msgid "Select Image"
 msgstr "画像を選択"
 
-#: plugins/contact_section.php:184
+#: plugins/contact-section/contact-section.php:199
+#: plugins/contact-section/customizer.php:223
 msgid "Display the image instead of the above inquiry information"
 msgstr ""
 "画像が登録されている場合は標準のお問い合わせ情報ではなく画像が表示されます。"
 
-#: plugins/contact_section.php:188
+#: plugins/contact-section/contact-section.php:203
+#: plugins/contact-section/customizer.php:240
 msgid "Display HTML message instead of the standard"
 msgstr "お問い合わせ情報として表示するHTML"
 
-#: plugins/contact_section.php:190
+#: plugins/contact-section/contact-section.php:205
+#: plugins/contact-section/customizer.php:245
 msgid "HTML takes precedence over image"
 msgstr "HTMLが登録されている場合は画像より優先されます。"
 
-#: plugins/contact_section.php:212
+#: plugins/contact-section/contact-section.php:227
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: plugins/contact_section.php:322 plugins/contact_section.php:351
+#: plugins/contact-section/contact-section.php:342
+#: plugins/contact-section/contact-section.php:370
 msgid "Edit contact information"
 msgstr "Contact情報を編集"
 
-#: plugins/contact_section.php:371
+#: plugins/contact-section/contact-section.php:391
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
-#: plugins/contact_section.php:372
+#: plugins/contact-section/contact-section.php:392
 msgid "Display contact button."
 msgstr "お問い合わせボタンを表示します。"
 
-#: plugins/contact_section.php:373 plugins/contact_section.php:401
-#: plugins/contact_section.php:419
+#: plugins/contact-section/contact-section.php:393
+#: plugins/contact-section/contact-section.php:421
+#: plugins/contact-section/contact-section.php:440
 #, php-format
 msgid ""
 "It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -718,19 +738,19 @@ msgid ""
 msgstr ""
 "「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
-#: plugins/contact_section.php:400
+#: plugins/contact-section/contact-section.php:420
 msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
-#: plugins/contact_section.php:417
+#: plugins/contact-section/contact-section.php:438
 msgid "Contact Section HTML"
 msgstr "お問い合わせ情報"
 
-#: plugins/contact_section.php:418
+#: plugins/contact-section/contact-section.php:439
 msgid "Display Phone number and contact button etc."
 msgstr "電話番号とお問い合わせボタンなどを表示します。"
 
-#: plugins/contact_section.php:447
+#: plugins/contact-section/contact-section.php:468
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -738,6 +758,10 @@ msgid ""
 msgstr ""
 "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
 "す。"
+
+#: plugins/contact-section/customizer.php:23
+msgid "Contact Settings"
+msgstr "お問い合わせ情報"
 
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:28
@@ -1658,7 +1682,7 @@ msgstr "ソーシャルボタン"
 
 #: plugins/sns/hide_controller.php:65
 msgid "This post type is not set to display the share button."
-msgstr "この投稿タイプは共有ボタンを表示するように設定されていません。"
+msgstr "この投稿タイプはシェアボタンを表示するように設定されていません。"
 
 #: plugins/sns/hide_controller.php:86
 msgid "Don't display share bottons."
@@ -2001,7 +2025,7 @@ msgstr "メイン設定"
 msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
 
-#: plugins_admin/customize-panel.php:28
+#: plugins_admin/customize-panel.php:31
 msgid "ExUnit Settings"
 msgstr "ExUnit 設定"
 
@@ -2009,11 +2033,11 @@ msgstr "ExUnit 設定"
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:265
+#: plugins_admin/vk-admin/class-vk-admin.php:263
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:312
+#: plugins_admin/vk-admin/class-vk-admin.php:317
 msgid "Vektor WordPress Information"
 msgstr ""
 
