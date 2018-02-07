@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 4.9.2
-Stable tag: 5.8.2
+Stable tag: 5.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,7 +61,6 @@ e.g.
 
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
 
 == Frequently Asked Questions ==
 

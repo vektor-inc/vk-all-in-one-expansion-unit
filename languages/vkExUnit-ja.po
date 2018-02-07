@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-12-27 22:46+0900\n"
+"POT-Creation-Date: 2018-02-07 14:32+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -325,7 +325,7 @@ msgstr "広告の挿入"
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: packages.php:343 plugins/related_posts/related_posts.php:102
+#: packages.php:343 plugins/related_posts/related_posts.php:201
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -395,132 +395,132 @@ msgstr "キーカラー"
 msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:61
+#: plugins/call-to-action/class-vk-call-to-action.php:63
 #: plugins/call-to-action/view-actionbox.php:64
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:62
+#: plugins/call-to-action/class-vk-call-to-action.php:64
 msgid "Add new CTA"
 msgstr "CTAの新規作成"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:63
+#: plugins/call-to-action/class-vk-call-to-action.php:65
 msgid "New CTA"
 msgstr "CTA 新規作成"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:91
 #: plugins/call-to-action/class-vk-call-to-action.php:93
-#: plugins/call-to-action/class-vk-call-to-action.php:94
+#: plugins/call-to-action/class-vk-call-to-action.php:95
+#: plugins/call-to-action/class-vk-call-to-action.php:96
 msgid "Call to Action setting"
 msgstr "CTA設定"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:96
+#: plugins/call-to-action/class-vk-call-to-action.php:98
 msgid "CTA Contents"
 msgstr "CTA Contents"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:121
+#: plugins/call-to-action/class-vk-call-to-action.php:123
 #: plugins/call-to-action/class-vk-call-to-action.php:549
 #: plugins/call-to-action/widget-call-to-action.php:74
 msgid "Random"
 msgstr "ランダム表示"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:122
+#: plugins/call-to-action/class-vk-call-to-action.php:124
 #: plugins/call-to-action/class-vk-call-to-action.php:551
 msgid "Disable display"
 msgstr "表示しない"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:123
+#: plugins/call-to-action/class-vk-call-to-action.php:125
 msgid "Follow common setting"
 msgstr "共通設定を使用"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:134
+#: plugins/call-to-action/class-vk-call-to-action.php:136
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:135
+#: plugins/call-to-action/class-vk-call-to-action.php:137
 #: plugins/call-to-action/view-adminsetting.php:31
 #: plugins/call-to-action/widget-call-to-action.php:86
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:203
+#: plugins/call-to-action/class-vk-call-to-action.php:205
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:209
+#: plugins/call-to-action/class-vk-call-to-action.php:211
 msgid "Add image"
 msgstr "画像を追加"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:210
+#: plugins/call-to-action/class-vk-call-to-action.php:212
 msgid "Change image"
 msgstr "画像を変更"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:211
+#: plugins/call-to-action/class-vk-call-to-action.php:213
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:216
+#: plugins/call-to-action/class-vk-call-to-action.php:218
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:219
+#: plugins/call-to-action/class-vk-call-to-action.php:221
 msgid "right"
 msgstr "右寄せ"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:220
+#: plugins/call-to-action/class-vk-call-to-action.php:222
 msgid "center"
 msgstr "中央"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:221
+#: plugins/call-to-action/class-vk-call-to-action.php:223
 msgid "left"
 msgstr "左寄せ"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:225
+#: plugins/call-to-action/class-vk-call-to-action.php:227
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:229
+#: plugins/call-to-action/class-vk-call-to-action.php:231
 msgid "Button icon"
 msgstr "ボタンアイコン"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:230
+#: plugins/call-to-action/class-vk-call-to-action.php:232
 #: plugins/other_widget/widget-button.php:104
 #: plugins/other_widget/widget-pr-blocks.php:113
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:231
+#: plugins/call-to-action/class-vk-call-to-action.php:233
 #: plugins/other_widget/widget-button.php:105
 msgid "Before :"
 msgstr "文字の前 :"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:233
+#: plugins/call-to-action/class-vk-call-to-action.php:235
 #: plugins/other_widget/widget-button.php:107
 msgid "After :"
 msgstr "文字の後 :"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:235
+#: plugins/call-to-action/class-vk-call-to-action.php:237
 #: plugins/other_widget/widget-button.php:109
 msgid " ex:fa-arrow-circle-o-right"
 msgstr "例: fa-arrow-circle-o-right"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:240
+#: plugins/call-to-action/class-vk-call-to-action.php:242
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:253
+#: plugins/call-to-action/class-vk-call-to-action.php:255
 msgid "Target window"
 msgstr "リンク先ターゲット"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:255
+#: plugins/call-to-action/class-vk-call-to-action.php:257
 msgid "Open in a self window"
 msgstr "同じウィンドウで開く"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:257
+#: plugins/call-to-action/class-vk-call-to-action.php:259
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:263
+#: plugins/call-to-action/class-vk-call-to-action.php:265
 #: plugins/call-to-action/widget-call-to-action.php:89
 msgid "CTA setting"
 msgstr "CTA設定"
@@ -576,30 +576,32 @@ msgstr "詳しくはこちら"
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
-#: plugins/contact_section.php:59 plugins/contact_section.php:89
+#: plugins/contact-section/contact-section.php:96
+#: plugins/contact-section/contact-section.php:124
 msgid "Contact Information"
 msgstr "お問い合わせ情報"
 
-#: plugins/contact_section.php:70 plugins/contact_section.php:100
+#: plugins/contact-section/contact-section.php:106
+#: plugins/contact-section/contact-section.php:135
 msgid "Please feel free to inquire."
 msgstr "お気軽にお問い合わせください。"
 
-#: plugins/contact_section.php:72
+#: plugins/contact-section/contact-section.php:108
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 
-#: plugins/contact_section.php:76
+#: plugins/contact-section/contact-section.php:112
 msgid "Contact us"
 msgstr "お問い合わせ"
 
-#: plugins/contact_section.php:91
+#: plugins/contact-section/contact-section.php:126
 msgid ""
 "Contents input here are displayed on an \"Contact Button\" widget and each "
 "fixed page."
 msgstr ""
 "ここに入力された内容がお問い合わせウィジェットと各固定ページに表示されます。"
 
-#: plugins/contact_section.php:93
+#: plugins/contact-section/contact-section.php:128
 msgid ""
 "When I display it on the page, it is necessary to classify a check into "
 "\"Display Contact Section\" checkbox with the edit page of each page."
@@ -607,110 +609,128 @@ msgstr ""
 "固定ページに表示する場合は、各固定ページの編集画面で\"お問い合わせ情報の表示"
 "\"にチェックを入れる必要があります。"
 
-#: plugins/contact_section.php:97
+#: plugins/contact-section/contact-section.php:132
+#: plugins/contact-section/customizer.php:41
 msgid "Message"
 msgstr "メッセージ"
 
-#: plugins/contact_section.php:100 plugins/contact_section.php:107
-#: plugins/contact_section.php:114 plugins/contact_section.php:122
-#: plugins/contact_section.php:130 plugins/contact_section.php:138
+#: plugins/contact-section/contact-section.php:135
+#: plugins/contact-section/contact-section.php:142
+#: plugins/contact-section/contact-section.php:149
+#: plugins/contact-section/contact-section.php:157
+#: plugins/contact-section/contact-section.php:165
+#: plugins/contact-section/contact-section.php:173
 #: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
 msgid "ex) "
 msgstr "例: "
 
-#: plugins/contact_section.php:104
+#: plugins/contact-section/contact-section.php:139
+#: plugins/contact-section/customizer.php:61
 msgid "Phone number"
 msgstr "電話番号"
 
-#: plugins/contact_section.php:111 plugins/contact_section.php:114
+#: plugins/contact-section/contact-section.php:146
+#: plugins/contact-section/contact-section.php:149
+#: plugins/contact-section/customizer.php:81
 msgid "Office hours"
 msgstr "営業時間"
 
-#: plugins/contact_section.php:114
+#: plugins/contact-section/contact-section.php:149
 msgid "Weekdays except holidays"
 msgstr "土日・祝日除く"
 
-#: plugins/contact_section.php:119
+#: plugins/contact-section/contact-section.php:154
+#: plugins/contact-section/customizer.php:101
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
-#: plugins/contact_section.php:122
+#: plugins/contact-section/contact-section.php:157
 msgid "or"
 msgstr "もしくは"
 
-#: plugins/contact_section.php:123
+#: plugins/contact-section/contact-section.php:158
 msgid "* If you fill in the blank, widget's contact button does not appear."
 msgstr "※ 未入力の場合、お問い合わせウィジェットには何も表示されません。"
 
-#: plugins/contact_section.php:127
+#: plugins/contact-section/contact-section.php:162
+#: plugins/contact-section/customizer.php:121
 msgid "Contact button Text"
 msgstr "お問い合わせボタンに表示するテキスト"
 
-#: plugins/contact_section.php:130
+#: plugins/contact-section/contact-section.php:165
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
-#: plugins/contact_section.php:135
+#: plugins/contact-section/contact-section.php:170
+#: plugins/contact-section/customizer.php:141
 msgid "Contact button text( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
-#: plugins/contact_section.php:139
+#: plugins/contact-section/contact-section.php:174
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
-#: plugins/contact_section.php:144
+#: plugins/contact-section/contact-section.php:179
+#: plugins/contact-section/customizer.php:161
 msgid "Contact button short text for side widget"
 msgstr "お問い合わせボタンウィジェットに表示するテキスト"
 
-#: plugins/contact_section.php:148
+#: plugins/contact-section/contact-section.php:183
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
 "このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利"
 "用を想定していますので少ない文字数で設定してください。"
 
-#: plugins/contact_section.php:152
+#: plugins/contact-section/contact-section.php:187
 msgid "Advanced Setting"
 msgstr "高度な設定"
 
-#: plugins/contact_section.php:155
+#: plugins/contact-section/contact-section.php:196
+#: plugins/contact-section/customizer.php:187
+#: plugins/contact-section/customizer.php:219
 msgid "Inquiry Banner image"
 msgstr "お問い合わせバナー画像"
 
-#: plugins/contact_section.php:157
+#: plugins/contact-section/contact-section.php:198
 msgid "Select Image"
 msgstr "画像を選択"
 
-#: plugins/contact_section.php:158
+#: plugins/contact-section/contact-section.php:199
+#: plugins/contact-section/customizer.php:223
 msgid "Display the image instead of the above inquiry information"
 msgstr ""
 "画像が登録されている場合は標準のお問い合わせ情報ではなく画像が表示されます。"
 
-#: plugins/contact_section.php:162
+#: plugins/contact-section/contact-section.php:203
+#: plugins/contact-section/customizer.php:240
 msgid "Display HTML message instead of the standard"
 msgstr "お問い合わせ情報として表示するHTML"
 
-#: plugins/contact_section.php:164
+#: plugins/contact-section/contact-section.php:205
+#: plugins/contact-section/customizer.php:245
 msgid "HTML takes precedence over image"
 msgstr "HTMLが登録されている場合は画像より優先されます。"
 
-#: plugins/contact_section.php:187
+#: plugins/contact-section/contact-section.php:227
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: plugins/contact_section.php:296 plugins/contact_section.php:326
+#: plugins/contact-section/contact-section.php:342
+#: plugins/contact-section/contact-section.php:370
 msgid "Edit contact information"
 msgstr "Contact情報を編集"
 
-#: plugins/contact_section.php:346
+#: plugins/contact-section/contact-section.php:391
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
-#: plugins/contact_section.php:347
+#: plugins/contact-section/contact-section.php:392
 msgid "Display contact button."
 msgstr "お問い合わせボタンを表示します。"
 
-#: plugins/contact_section.php:348 plugins/contact_section.php:376
-#: plugins/contact_section.php:394
+#: plugins/contact-section/contact-section.php:393
+#: plugins/contact-section/contact-section.php:421
+#: plugins/contact-section/contact-section.php:440
 #, php-format
 msgid ""
 "It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -718,19 +738,19 @@ msgid ""
 msgstr ""
 "「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
-#: plugins/contact_section.php:375
+#: plugins/contact-section/contact-section.php:420
 msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
-#: plugins/contact_section.php:392
+#: plugins/contact-section/contact-section.php:438
 msgid "Contact Section HTML"
 msgstr "お問い合わせ情報"
 
-#: plugins/contact_section.php:393
+#: plugins/contact-section/contact-section.php:439
 msgid "Display Phone number and contact button etc."
 msgstr "電話番号とお問い合わせボタンなどを表示します。"
 
-#: plugins/contact_section.php:422
+#: plugins/contact-section/contact-section.php:468
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -738,6 +758,10 @@ msgid ""
 msgstr ""
 "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
 "す。"
+
+#: plugins/contact-section/customizer.php:23
+msgid "Contact Settings"
+msgstr "お問い合わせ情報"
 
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:28
@@ -988,7 +1012,7 @@ msgstr "3PR エリア設定"
 #: plugins/other_widget/widget-page.php:126
 #: plugins/other_widget/widget-pr-blocks.php:89
 #: plugins/other_widget/widget-profile.php:48
-#: plugins/related_posts/related_posts.php:160
+#: plugins/related_posts/related_posts.php:252
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -1341,7 +1365,7 @@ msgid "Solid color"
 msgstr "塗りつぶし"
 
 #: plugins/other_widget/widget-pr-blocks.php:129
-#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:187
+#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:189
 msgid "No background"
 msgstr "背景なし"
 
@@ -1584,7 +1608,7 @@ msgid ""
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
-#: plugins/related_posts/related_posts.php:147
+#: plugins/related_posts/related_posts.php:235
 msgid "Related Settings"
 msgstr "関連記事設定"
 
@@ -1652,20 +1676,32 @@ msgstr ""
 "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
 "るタイトルを上書きすることができます"
 
-#: plugins/sns/sns.php:24
+#: plugins/sns/hide_controller.php:28
+msgid "Share bottons"
+msgstr "ソーシャルボタン"
+
+#: plugins/sns/hide_controller.php:65
+msgid "This post type is not set to display the share button."
+msgstr "この投稿タイプはシェアボタンを表示するように設定されていません。"
+
+#: plugins/sns/hide_controller.php:86
+msgid "Don't display share bottons."
+msgstr "ソーシャルボタンを表示しない"
+
+#: plugins/sns/sns.php:26
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:124
+#: plugins/sns/sns.php:126
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
 
-#: plugins/sns/sns.php:173 plugins/sns/sns_admin.php:1
+#: plugins/sns/sns.php:175 plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr "SNS設定"
 
-#: plugins/sns/sns.php:203
+#: plugins/sns/sns.php:205
 msgid "Btn color"
 msgstr "ボタンの色:"
 
@@ -1989,7 +2025,7 @@ msgstr "メイン設定"
 msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
 
-#: plugins_admin/customize-panel.php:28
+#: plugins_admin/customize-panel.php:31
 msgid "ExUnit Settings"
 msgstr "ExUnit 設定"
 
@@ -1997,15 +2033,11 @@ msgstr "ExUnit 設定"
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:146
-msgid "Vektor WordPress フォーラム"
-msgstr ""
-
-#: plugins_admin/vk-admin/class-vk-admin.php:243
+#: plugins_admin/vk-admin/class-vk-admin.php:263
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:290
+#: plugins_admin/vk-admin/class-vk-admin.php:317
 msgid "Vektor WordPress Information"
 msgstr ""
 
@@ -2174,12 +2206,6 @@ msgstr "%s がサポートしているPHPのバージョンは5.6以降です。
 
 #~ msgid "OGP default image"
 #~ msgstr "OGP デフォルト画像"
-
-#~ msgid "Social buttons"
-#~ msgstr "ソーシャルボタン"
-
-#~ msgid "Please check the type of page that displays the social button."
-#~ msgstr "ページに表示するソーシャルボタンの種類を選択して下さい。"
 
 #~ msgid "Home page"
 #~ msgstr "トップページ"
