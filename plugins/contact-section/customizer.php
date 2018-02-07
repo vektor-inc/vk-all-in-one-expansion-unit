@@ -29,7 +29,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Message
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_txt]', array(
-			'default'           => false,
+			'default'           => __( 'Please feel free to inquire.', 'vkExUnit' ),
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -49,7 +49,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Phone number
 	$wp_customize->add_setting(
 		'vkExUnit_contact[tel_number]', array(
-			'default'           => false,
+			'default'           => '000-000-0000',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -69,7 +69,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Office hours
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_time]', array(
-			'default'           => false,
+			'default'           => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vkExUnit' ),
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -89,7 +89,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// The contact page URL
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_link]', array(
-			'default'           => false,
+			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -109,7 +109,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Contact button Text
 	$wp_customize->add_setting(
 		'vkExUnit_contact[button_text]', array(
-			'default'           => false,
+			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -129,7 +129,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Contact button text( sub )
 	$wp_customize->add_setting(
 		'vkExUnit_contact[button_text_small]', array(
-			'default'           => false,
+			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -149,7 +149,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Contact button short text for side widget
 	$wp_customize->add_setting(
 		'vkExUnit_contact[short_text]', array(
-			'default'           => false,
+			'default'           => __( 'Contact us', 'vkExUnit' ),
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -171,7 +171,7 @@ function veu_customize_register_contact( $wp_customize ) {
 		// Inquiry Banner image
 		$wp_customize->add_section(
 			'vkExUnit_contact[contact_image]', array(
-				'default'           => false,
+				'default'           => '',
 				'type'              => 'option', // 保存先 option or theme_mod
 				'capability'        => 'edit_theme_options',
 				'sanitize_callback' => 'sanitize_text_field',
@@ -228,7 +228,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Display HTML message instead of the standard
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_html]', array(
-			'default'           => false,
+			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'esc_textarea',
