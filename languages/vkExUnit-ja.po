@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-02-07 08:55+0900\n"
+"POT-Creation-Date: 2018-02-07 14:34+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -325,7 +325,7 @@ msgstr "広告の挿入"
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: packages.php:343 plugins/related_posts/related_posts.php:102
+#: packages.php:343 plugins/related_posts/related_posts.php:201
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -1012,7 +1012,7 @@ msgstr "3PR エリア設定"
 #: plugins/other_widget/widget-page.php:126
 #: plugins/other_widget/widget-pr-blocks.php:89
 #: plugins/other_widget/widget-profile.php:48
-#: plugins/related_posts/related_posts.php:160
+#: plugins/related_posts/related_posts.php:252
 #: plugins/sns/function_fbPagePlugin.php:79
 msgid "Title:"
 msgstr "タイトル"
@@ -1365,7 +1365,7 @@ msgid "Solid color"
 msgstr "塗りつぶし"
 
 #: plugins/other_widget/widget-pr-blocks.php:129
-#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:187
+#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:189
 msgid "No background"
 msgstr "背景なし"
 
@@ -1608,7 +1608,7 @@ msgid ""
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
-#: plugins/related_posts/related_posts.php:147
+#: plugins/related_posts/related_posts.php:235
 msgid "Related Settings"
 msgstr "関連記事設定"
 
@@ -1676,20 +1676,32 @@ msgstr ""
 "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
 "るタイトルを上書きすることができます"
 
-#: plugins/sns/sns.php:24
+#: plugins/sns/hide_controller.php:28
+msgid "Share bottons"
+msgstr "ソーシャルボタン"
+
+#: plugins/sns/hide_controller.php:65
+msgid "This post type is not set to display the share button."
+msgstr "この投稿タイプはシェアボタンを表示するように設定されていません。"
+
+#: plugins/sns/hide_controller.php:86
+msgid "Don't display share bottons."
+msgstr "ソーシャルボタンを表示しない"
+
+#: plugins/sns/sns.php:26
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:124
+#: plugins/sns/sns.php:126
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
 
-#: plugins/sns/sns.php:173 plugins/sns/sns_admin.php:1
+#: plugins/sns/sns.php:175 plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr "SNS設定"
 
-#: plugins/sns/sns.php:203
+#: plugins/sns/sns.php:205
 msgid "Btn color"
 msgstr "ボタンの色:"
 
@@ -2021,11 +2033,11 @@ msgstr "ExUnit 設定"
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:265
+#: plugins_admin/vk-admin/class-vk-admin.php:263
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:312
+#: plugins_admin/vk-admin/class-vk-admin.php:317
 msgid "Vektor WordPress Information"
 msgstr ""
 
@@ -2194,12 +2206,6 @@ msgstr "%s がサポートしているPHPのバージョンは5.6以降です。
 
 #~ msgid "OGP default image"
 #~ msgstr "OGP デフォルト画像"
-
-#~ msgid "Social buttons"
-#~ msgstr "ソーシャルボタン"
-
-#~ msgid "Please check the type of page that displays the social button."
-#~ msgstr "ページに表示するソーシャルボタンの種類を選択して下さい。"
 
 #~ msgid "Home page"
 #~ msgstr "トップページ"
