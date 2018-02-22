@@ -179,11 +179,11 @@ iframe.wp-embedded-content { width:100%; }
 	font-weight: normal;
 	font-style: normal;
 	font-family: 'vk_sns';
-	src:url('../plugins/sns/icons/fonts/vk_sns.eot?-bq20cj');
-	src:url('../plugins/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj') format('embedded-opentype'),
-		url('../plugins/sns/icons/fonts/vk_sns.woff?-bq20cj') format('woff'),
-		url('../plugins/sns/icons/fonts/vk_sns.ttf?-bq20cj') format('truetype'),
-		url('../plugins/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns') format('svg');
+	src:url('../../plugins/sns/icons/fonts/vk_sns.eot?-bq20cj');
+	src:url('../../plugins/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj') format('embedded-opentype'),
+		url('../../plugins/sns/icons/fonts/vk_sns.woff?-bq20cj') format('woff'),
+		url('../../plugins/sns/icons/fonts/vk_sns.ttf?-bq20cj') format('truetype'),
+		url('../../plugins/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns') format('svg');
 }
 
 [class^="vk_icon_w_r_sns_"], [class*=" vk_icon_w_r_sns_"] {
@@ -341,7 +341,7 @@ $section_pagelist_margin:2.5em 0 1em;
 	.contact_txt_time { display:block; overflow:hidden; }
 	.contact_txt_catch,
 	.contact_txt_time {font-size: 14px; line-height: 128.6%; }
-	.contact_txt_tel {padding-top:4px;padding-bottom:1px; font-size: 28px;line-height: 110%; }
+	.contact_txt_tel {padding:4px 0; font-size: 28px;line-height: 105%; }
 	.contact_bt_txt:before {margin-right:7px;content:"\f003"; font-family:FontAwesome; }
 	.contact_bt_txt:after {margin-left:7px;content:"\f18e"; font-family:FontAwesome; }
 	.contact_bt_subTxt { display:block; overflow:hidden;font-size:12px;margin-top:0.4rem; }
@@ -349,26 +349,11 @@ $section_pagelist_margin:2.5em 0 1em;
 	.contact_bt  { display: block; }
 } // .veu_contact
 
-// @media (min-width: 768px){
-// .veu_contact {
-// 	p.contact_txt { margin-bottom:0; }
-// 	.contact_txt { float:left; text-align: left; }
-// 	.contact_bt { float:right; }
-// 	.contact_bt_subTxt_side { font-size:12px; }
-// } // .veu_contact
-
-// @media (min-width: 992px){
-// 	.contact_txt { float:none; text-align: center; }
-// 	.contact_bt { float:none; }
-// 	// .contact_txt { text-align: center; }
-// 	.contact_bt  { display: block; }
-// }
-
 @media (min-width: 1200px){
 .veu_contact {
 		p.contact_txt { margin-bottom:0; }
 		.contact_txt { float:left; text-align: left; }
-		.contact_bt { float:right; }
+		.contact_bt { float:right; padding:0.7em 2em; }
 	}
 } // @media (min-width: 1200px){
 

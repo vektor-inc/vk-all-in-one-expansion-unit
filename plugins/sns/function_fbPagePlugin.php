@@ -107,4 +107,6 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		<?php
 	}
 } // class WP_Widget_top_list_post
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_fbPagePlugin");' ) );
+add_action( 'widgets_init', function() {
+	return register_widget( 'WP_Widget_vkExUnit_fbPagePlugin' );
+} );

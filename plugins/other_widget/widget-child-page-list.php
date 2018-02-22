@@ -57,4 +57,6 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 		return $instance;
 	}
 }
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_vkExUnit_child_page");' ) );
+add_action( 'widgets_init', function() {
+  return register_widget( 'WP_Widget_vkExUnit_child_page' );
+});
