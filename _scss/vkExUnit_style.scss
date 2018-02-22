@@ -349,26 +349,11 @@ $section_pagelist_margin:2.5em 0 1em;
 	.contact_bt  { display: block; }
 } // .veu_contact
 
-// @media (min-width: 768px){
-// .veu_contact {
-// 	p.contact_txt { margin-bottom:0; }
-// 	.contact_txt { float:left; text-align: left; }
-// 	.contact_bt { float:right; }
-// 	.contact_bt_subTxt_side { font-size:12px; }
-// } // .veu_contact
-
-// @media (min-width: 992px){
-// 	.contact_txt { float:none; text-align: center; }
-// 	.contact_bt { float:none; }
-// 	// .contact_txt { text-align: center; }
-// 	.contact_bt  { display: block; }
-// }
-
 @media (min-width: 1200px){
 .veu_contact {
 		p.contact_txt { margin-bottom:0; }
 		.contact_txt { float:left; text-align: left; }
-		.contact_bt { float:right; }
+		.contact_bt { float:right; padding:0.7em 2em; }
 	}
 } // @media (min-width: 1200px){
 
