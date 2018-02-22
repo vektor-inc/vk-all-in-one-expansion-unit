@@ -89,7 +89,7 @@ class Vk_Call_To_Action
 	{
 		global $vk_call_to_action_textdomain;
 		$post_types = get_post_types( array( '_builtin' => false, 'public' => true ) );
-		while ( list($key, $post ) = each( $post_types ) ) {
+		foreach ( $post_types as $key => $post ) {
 			add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), $post, 'normal', 'high' );
 		}
 		add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'page', 'normal', 'high' );
