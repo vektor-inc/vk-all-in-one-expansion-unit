@@ -1,27 +1,14 @@
 <?php
-/**
- * Plugin Name:     Vk Twitter Page Plugin
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     PLUGIN DESCRIPTION HERE
- * Author:          Vektor Inc.
- * Author URI:      YOUR SITE HERE
- * Text Domain:     vk-twitter-page-plugin
- * Domain Path:     /languages
- * Version:         0.1.0
- *
- * @package         VK_Twitter_Page_Plugin
- */
 
-
-class VK_Twitter_Page_Plugin extends WP_Widget {
+class VK_Twitter_Widget extends WP_Widget {
 
 	/**
 	 * ウィジェット名などを設定
 	 */
 	public function __construct() {
 		parent::__construct(
-			'vk_twitter_page_plugin', // Base ID
-			'VK_Twitter_Page_Plugin', // Name
+			'vk_twitter_widget', // Base ID
+			'VK_Twitter_Widget', // Name
 			array( 'description' => __( 'Display Twitter page plugin.', 'vkExUnit' ) ) // Args
 		);
 		// widget actual processes
@@ -157,14 +144,7 @@ class VK_Twitter_Page_Plugin extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', 'vkExUnit_widget_twitter_page_plugin' );
-function vkExUnit_widget_twitter_page_plugin() {
-	return register_widget( 'VK_Twitter_Page_Plugin' );
+add_action( 'widgets_init', 'vkExUnit_widget_set_twitter' );
+function vkExUnit_widget_set_twitter() {
+	return register_widget( 'VK_Twitter_Widget' );
 }
-
-
-// add_action(
-// 'widgets_init', function() {
-// register_widget( 'VK_Twitter_Page_Plugin' );
-// }
-// );

@@ -129,7 +129,8 @@ $fbAppId = (isset( $options['fbAppId'] )) ? $options['fbAppId'] : '';
 
 $vkExUnit_sns_options = veu_get_sns_options();
 
-require vkExUnit_get_directory() . '/plugins/sns/function_fbPagePlugin.php';
+require vkExUnit_get_directory() . '/plugins/sns/widget-fb-page-plugin.php';
+require vkExUnit_get_directory() . '/plugins/sns/widget-twitter.php';
 
 if ( $vkExUnit_sns_options['enableOGTags'] == true ) {
 	require vkExUnit_get_directory() . '/plugins/sns/function_og.php'; }
@@ -141,6 +142,7 @@ if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
 	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php'; }
 
 require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
+
 
 /*-------------------------------------------*/
 /*  Add setting page
