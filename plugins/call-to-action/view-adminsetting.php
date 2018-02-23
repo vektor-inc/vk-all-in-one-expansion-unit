@@ -31,7 +31,7 @@ global $vk_call_to_action_textdomain;
 <a href="<?php echo admin_url( 'edit.php?post_type=cta' ) ?>" class="button button-default" target="_blank"><?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?></a>
 
 <table class="form-table">
-<?php while ( list($type, $value) = each( $options ) ) :  ?>
+<?php foreach ( $options as $type => $value ) : ?>
 <tr><th><label ><?php echo get_post_type_object( $type )->label; ?></label></th>
 <td><select name="vkExUnit_cta_settings[<?php echo $type; ?>]" id="vkExUnit_cta_settings">
 <?php foreach ( $ctas as $cta ) :  ?>
@@ -40,7 +40,7 @@ global $vk_call_to_action_textdomain;
 </select>
 　<a href="<?php echo admin_url( 'edit.php?post_type=' . $type ) ?>" class="button button-default" target="_blank"><?php _e( 'Show index page', $vk_call_to_action_textdomain ); ?></a>
 </td></tr>
-<?php endwhile;?>
+<?php endforeach; ?>
 </table>
 <?php submit_button(); ?>
 </div>
