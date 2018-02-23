@@ -196,7 +196,7 @@ function veu_customize_register_contact( $wp_customize ) {
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'esc_textarea',
+			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
 
