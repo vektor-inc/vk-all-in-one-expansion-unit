@@ -539,6 +539,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			$default = self::get_default_option();
 			$option  = get_option( 'vkExUnit_cta_settings' );
 
+			// ↓ これであかんの？
+			// $output_option = wp_parse_args( $option, $default );
+
 			if ( ! $option || ! is_array( $option ) ) {
 				return $default; }
 
@@ -556,7 +559,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 			$output_option = array();
 			foreach ( $posttypes  as $key => $posttype ) {
-				$output_option[ $value ] = ( isset( $option[ $value ] ) ) ? $option[ $value ] : $default[ $value ];
+				$output_option[ $posttype ] = ( isset( $option[ $posttype ] ) ) ? $option[ $posttype ] : $default[ $posttype ];
 			}
 
 			return $output_option;
