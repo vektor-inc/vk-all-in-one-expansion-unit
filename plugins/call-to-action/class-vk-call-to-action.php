@@ -502,9 +502,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
 			if ( ! $option ) {
-				$current_option = self::get_default_option(); }
-
-			while ( list( $key, $value ) = each( $input ) ) {
+				$current_option = self::get_default_option();
+			}
+			foreach ( $input as $key => $value ) {
 				if ( $value == 'random' ) {
 					$option[ $key ] = 'random';
 				} else {
@@ -528,7 +528,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					), 'names'
 				)
 			);
-			while ( list($key, $posttype) = each( $posttypes ) ) {
+			foreach ( $posttypes  as $key => $posttype ) {
 				$option[ $posttype ] = false;
 			}
 			return $option;
@@ -538,6 +538,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function get_option( $show_label = false ) {
 			$default = self::get_default_option();
 			$option  = get_option( 'vkExUnit_cta_settings' );
+
+			// ↓ これであかんの？
+			// $output_option = wp_parse_args( $option, $default );
 
 			if ( ! $option || ! is_array( $option ) ) {
 				return $default; }
@@ -555,8 +558,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 
 			$output_option = array();
-			while ( list($key, $value) = each( $posttypes ) ) {
-				$output_option[ $value ] = ( isset( $option[ $value ] ) ) ? $option[ $value ] : $default[ $value ];
+			foreach ( $posttypes  as $key => $posttype ) {
+				$output_option[ $posttype ] = ( isset( $option[ $posttype ] ) ) ? $option[ $posttype ] : $default[ $posttype ];
 			}
 
 			return $output_option;
@@ -571,7 +574,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 			$query = new \WP_Query( $args );
 			$ctas  = array();
-			while ( list( $key, $post ) = each( $query->posts ) ) {
+			foreach ( $query->posts  as $key => $post ) {
 				if ( $show_label ) {
 					$ctas[] = array(
 						'key'   => $post->ID,
