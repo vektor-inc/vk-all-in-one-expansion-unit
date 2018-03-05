@@ -13,7 +13,7 @@
  /*-------------------------------------------*/
  /*  load files
  /*-------------------------------------------*/
- /*  vExUnit_Contact
+ /*  VkExUnit_Contact
 			public static function instance() {
 			private function __construct() {
 			protected function run_init() {
@@ -39,9 +39,9 @@
 require_once 'customizer.php';
 
  /*-------------------------------------------*/
- /*  vExUnit_Contact
+ /*  VkExUnit_Contact
  /*-------------------------------------------*/
-class vExUnit_Contact {
+class VkExUnit_Contact {
 
 	// singleton instance
 	private static $instance;
@@ -51,7 +51,7 @@ class vExUnit_Contact {
 			return self::$instance;
 		}
 
-		self::$instance = new vExUnit_Contact;
+		self::$instance = new VkExUnit_Contact;
 		self::$instance->run_init();
 		return self::$instance;
 	}
@@ -378,14 +378,13 @@ class vExUnit_Contact {
 	}
 }
 
-vExUnit_Contact::instance();
-
+VkExUnit_Contact::instance();
 
 /*-------------------------------------------*/
 /*  Contact Button Widget
 /*-------------------------------------------*/
-class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
+class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
 
 	function __construct() {
 		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Button', 'vkExUnit' );
@@ -404,7 +403,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
-		echo vExUnit_Contact::render_widget_contact_btn_html();
+		echo VkExUnit_Contact::render_widget_contact_btn_html();
 		echo '</div>';
 		echo $args['after_widget'];
 	}
@@ -425,15 +424,16 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', function() {
-	return register_widget( 'WP_Widget_vkExUnit_contact_link' );
-} );
+add_action( 'widgets_init', 'veu_widget_contact_button' );
+function veu_widget_contact_button() {
+	return register_widget( 'WP_Widget_VkExUnit_Contact_Button' );
+}
+
 
 /*-------------------------------------------*/
 /*  Contact Section Widget
 /*-------------------------------------------*/
-class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
-
+class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function __construct() {
 
@@ -454,7 +454,7 @@ class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
-		echo vExUnit_Contact::render_contact_section_html();
+		echo VkExUnit_Contact::render_contact_section_html();
 		echo '</div>';
 		echo $args['after_widget'];
 	}
@@ -473,6 +473,7 @@ class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', function() {
-	return register_widget( 'WP_Widget_vkExUnit_Contact_Section' );
-} );
+add_action( 'widgets_init', 'veu_widget_contact_section' );
+function veu_widget_contact_section() {
+	return register_widget( 'WP_Widget_VkExUnit_Contact_Section' );
+}
