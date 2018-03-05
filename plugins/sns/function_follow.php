@@ -60,61 +60,7 @@ function vkExUnit_add_follow( $content ) {
 		$follow_html .= '</div><!-- [ /.followSet_body ] -->
 		</div>'."\n";
 		// 記事がよかったらいいね　ここまで
-		?>
-<style>
-/*記事がよかったら、いいね*/
-.p-entry__push {
-margin: 30px 0;
-display: table;
-table-layout: fixed;
-width: 100%;
-background-color: #2b2b2b;
-color: #fff;
-}
-.p-entry__pushThumb {
-display: table-cell;
-min-width: 240px;
-background-position: center;
-background-size:cover;
-}
-.p-entry__pushLike {
-display: table-cell;
-padding: 20px;
-text-align: center;
-vertical-align: middle;
-line-height: 1.4;
-font-size: 20px;
-}
-@media (max-width: 480px) {
-	.p-entry__pushLike > p {
-		font-size: 12px;
-	}
-}
-@media (min-width: 481px) {
-	.p-entry__pushLike > p {
-		font-size: 18px;
-	}
-}
-.p-entry__pushButton {
-margin-top: 15px;
-display: block;
-width: 100%;
--webkit-transform: scale(1.2);
--ms-transform: scale(1.2);
-transform: scale(1.2);
-}
-.p-entry__pushButtonLike {
-line-height: 1;
-}
-.p-entry__tw-follow {
-width: 100%;
-padding: 15px 0 0;
-}
-.veu_followSet .follow_btn {
-	float: none;
-}
-</style>
-<?php
+
 		global $post;
 		if ( $url = get_edit_post_link( $post->ID ) ) {
 			$url = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' );
