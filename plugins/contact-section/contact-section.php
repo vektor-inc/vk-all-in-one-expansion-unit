@@ -18,7 +18,7 @@
 			private function __construct() {
 			protected function run_init() {
 			public function set_content_loopend( $query ) {
-			public function activate_metavox( $flag ) {
+			public function activate_metabox( $flag ) {
 			public function options_init() {
 			public static function get_option() {
 			public function options_page() {
@@ -27,16 +27,22 @@
 			public function save_custom_field_postdata( $post_id ) {
 			public static function is_my_turn() {
 			public function set_content( $content ) {
+
+			// View
 			public static function render_contact_section_html() {
- /*-------------------------------------------*/
- /*  Contact Section Widget
- /*-------------------------------------------*/
+			public static function render_widget_contact_btn_html() {
+/*-------------------------------------------*/
+/*  Contact Button Widget
+/*-------------------------------------------*/
+/*  Contact Section Widget
+/*-------------------------------------------*/
 
 
  /*-------------------------------------------*/
  /*  load files
  /*-------------------------------------------*/
 require_once 'customizer.php';
+
 
  /*-------------------------------------------*/
  /*  VkExUnit_Contact
@@ -67,7 +73,9 @@ class VkExUnit_Contact {
 		add_action( 'vkExUnit_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		add_filter( 'veu_content_meta_box_activation', array( $this, 'activate_metavox' ), 10, 1 );
+
+		// 固定ページ編集画にお問い合わせ情報を表示のチェックボックスを表示する
+		add_filter( 'veu_content_meta_box_activation', array( $this, 'activate_metabox' ), 10, 1 );
 		add_action( 'veu_content_meta_box_content', array( $this, 'render_meta_box' ) );
 
 		if ( veu_content_filter_state() == 'content' ) {
@@ -86,7 +94,7 @@ class VkExUnit_Contact {
 	}
 
 
-	public function activate_metavox( $flag ) {
+	public function activate_metabox( $flag ) {
 		return true;
 	}
 
@@ -295,7 +303,7 @@ class VkExUnit_Contact {
 
 
 	/*-------------------------------------------*/
-	/*  contact bottom html
+	/*  contact_section_html
 	/*-------------------------------------------*/
 
 	public static function render_contact_section_html() {
@@ -347,8 +355,11 @@ class VkExUnit_Contact {
 		return $cont;
 	}
 
+	public function shortcode() {
+		return self::render_contact_section_html();
+	}
 	/*-------------------------------------------*/
-	/*  widget html
+	/*  render_widget_contact_btn_html
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
@@ -372,10 +383,6 @@ class VkExUnit_Contact {
 		return $cont;
 	}
 
-
-	public function shortcode() {
-		return self::render_contact_section_html();
-	}
 }
 
 VkExUnit_Contact::instance();
