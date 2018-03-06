@@ -342,24 +342,31 @@ background-size:cover;
 }
 .p-entry__pushLike {
 display: table-cell;
-padding: 20px;
+padding: 15px;
 text-align: center;
 vertical-align: middle;
 line-height: 1.4;
 font-size: 20px;
 }
+@media (min-width: 481px) {
+	.p-entry__pushLike {
+	padding: 40px;
+	}
+}
 @media (max-width: 480px) {
 	.p-entry__pushLike > p {
 		font-size: 12px;
+		margin-bottom: 0;
 	}
 }
 @media (min-width: 481px) {
 	.p-entry__pushLike > p {
 		font-size: 18px;
+    margin-bottom: 10px;
 	}
 }
 .p-entry__pushButton {
-margin-top: 15px;
+margin-top: 0;
 display: block;
 width: 100%;
 -webkit-transform: scale(1.2);
