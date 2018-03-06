@@ -131,7 +131,7 @@ class VkExUnit_Contact {
 	?>
    <h3><?php _e( 'Contact Information', 'vkExUnit' ); ?></h3>
    <div id="meta_description" class="sectionBox">
-	<?php _e( 'Contents input here are displayed on an "Contact Button" widget and each fixed page.', 'vkExUnit' ); ?>
+	<?php _e( 'The contents entered here will be reflected in the bottom of each fixed page, the "Contact Section" widget, the "Contact Button" widget, etc.', 'vkExUnit' ); ?>
    <br/>
 	<?php _e( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vkExUnit' ); ?>
 
@@ -444,7 +444,7 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function __construct() {
 
-		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Section HTML', 'vkExUnit' );
+		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Section', 'vkExUnit' );
 		$widget_description  = __( 'Display Phone number and contact button etc.', 'vkExUnit' );
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ), veu_get_little_short_name() ) . ' ) ';
 

@@ -26,6 +26,39 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
+	/*	Add text control description
+	/*-------------------------------------------*/
+	class VkExUnit_Custom_Html extends WP_Customize_Control {
+		public $type        = 'customtext';
+		public $custom_html = ''; // we add this for the extra description
+		public function render_content() {
+		?>
+			<div><?php echo wp_kses_post( $this->description ); ?></div>
+		<?php
+		} // public function render_content() {
+	} // class VkExUnit_Custom_Html extends WP_Customize_Control
+
+	// Contact Description
+	$wp_customize->add_setting( 'veu_contact_description', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+
+	$custom_html  = '<p>';
+	$custom_html .= __( 'The contents entered here will be reflected in the bottom of each fixed page, the "Contact Section" widget, the "Contact Button" widget, etc.', 'vkExUnit' );
+	$custom_html .= '<br>';
+	$custom_html .= __( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vkExUnit' );
+	$custom_html .= '</p>';
+
+	$wp_customize->add_control(
+		new VkExUnit_Custom_Html(
+			$wp_customize, 'veu_contact_description', array(
+				// 'label'       => __( '', 'vkExUnit' ),
+				'section'     => 'veu_contact_setting',
+				'type'        => 'text',
+				'priority'    => 1,
+				'description' => $custom_html,
+			)
+		)
+	);
+
 	// Message
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_txt]', array(
