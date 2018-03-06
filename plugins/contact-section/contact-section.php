@@ -162,7 +162,7 @@ class VkExUnit_Contact {
    <th scope="row"><label for="contact_link"><?php _e( 'The contact page URL', 'vkExUnit' ); ?></label></th>
    <td>
    <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
-   <span><?php _e( 'ex) ', 'vkExUnit' ); ?>http://www.********.co.jp/contact/ <?php _e( 'or', 'vkExUnit' ); ?> /******/</span><br />
+   <span><?php _e( 'ex) ', 'vkExUnit' ); ?>http://www.********.com/contact/ <?php _e( 'or', 'vkExUnit' ); ?> /contact/</span><br />
 	<?php _e( '* If you fill in the blank, widget\'s contact button does not appear.', 'vkExUnit' ); ?>
    </td>
    </tr>

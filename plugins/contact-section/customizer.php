@@ -30,10 +30,10 @@ function veu_customize_register_contact( $wp_customize ) {
 	/*-------------------------------------------*/
 	class VkExUnit_Custom_Html extends WP_Customize_Control {
 		public $type        = 'customtext';
-		public $custom_html = ''; // we add this for the extra description
+		public $custom_html = ''; // we add this for the extra custom_html
 		public function render_content() {
 		?>
-			<div><?php echo wp_kses_post( $this->description ); ?></div>
+			<div><?php echo wp_kses_post( $this->custom_html ); ?></div>
 		<?php
 		} // public function render_content() {
 	} // class VkExUnit_Custom_Html extends WP_Customize_Control
@@ -54,7 +54,7 @@ function veu_customize_register_contact( $wp_customize ) {
 				'section'     => 'veu_contact_setting',
 				'type'        => 'text',
 				'priority'    => 1,
-				'description' => $custom_html,
+				'custom_html' => $custom_html,
 			)
 		)
 	);
@@ -71,11 +71,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'contact_txt', array(
-			'label'    => __( 'Message', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[contact_txt]',
-			'type'     => 'text',
-			'priority' => 1,
+			'label'       => __( 'Message', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[contact_txt]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . __( 'Please feel free to inquire.', 'vkExUnit' ),
 		)
 	);
 
@@ -91,11 +92,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'tel_number', array(
-			'label'    => __( 'Phone number', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[tel_number]',
-			'type'     => 'text',
-			'priority' => 1,
+			'label'       => __( 'Phone number', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[tel_number]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . '000-000-0000',
 		)
 	);
 
@@ -111,11 +113,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'contact_time', array(
-			'label'    => __( 'Office hours', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[contact_time]',
-			'type'     => 'text',
-			'priority' => 1,
+			'label'       => __( 'Office hours', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[contact_time]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . __( 'Office hours', 'vkExUnit' ) . ' 9:00 - 18:00 [ ' . __( 'Weekdays except holidays', 'vkExUnit' ) . ' ]',
 		)
 	);
 
@@ -131,11 +134,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'contact_link', array(
-			'label'    => __( 'The contact page URL', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[contact_link]',
-			'type'     => 'text',
-			'priority' => 1,
+			'label'       => __( 'The contact page URL', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[contact_link]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . 'https://www.********.com/contact/ ' . __( 'or', 'vkExUnit' ) . ' /contact/<br>' . __( '* If you fill in the blank, widget\'s contact button does not appear.', 'vkExUnit' ),
 		)
 	);
 
@@ -151,11 +155,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'button_text', array(
-			'label'    => __( 'Contact button Text', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[button_text]',
-			'type'     => 'text',
-			'priority' => 1,
+			'label'       => __( 'Contact button Text', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[button_text]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . __( 'Contact Us from email.', 'vkExUnit' ),
 		)
 	);
 
@@ -171,11 +176,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'button_text_small', array(
-			'label'    => __( 'Contact button text( sub )', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[button_text_small]',
-			'type'     => 'textarea',
-			'priority' => 1,
+			'label'       => __( 'Contact button text( sub )', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[button_text_small]',
+			'type'        => 'textarea',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . __( 'Email contact form', 'vkExUnit' ),
 		)
 	);
 
@@ -191,11 +197,12 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'short_text', array(
-			'label'    => __( 'Contact button short text for side widget', 'vkExUnit' ),
-			'section'  => 'veu_contact_setting',
-			'settings' => 'vkExUnit_contact[short_text]',
-			'type'     => 'text',
-			'priority' => 1,
+			'label'       => __( 'Contact button short text for side widget', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[short_text]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'This will used to "Contact Button" widget.', 'vkExUnit' ),
 		)
 	);
 
@@ -209,6 +216,11 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
+	$decription = __( 'Display the image instead of the above inquiry information', 'vkExUnit' );
+	$skin       = get_option( 'lightning_design_skin' );
+	if ( $skin == 'fort' || $skin == 'pale' ) {
+		$decription .= '<br>* ' . __( 'It is not reflected in the header.', 'vkExUnit' );
+	}
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
@@ -218,7 +230,7 @@ function veu_customize_register_contact( $wp_customize ) {
 				'section'     => 'veu_contact_setting',
 				'settings'    => 'vkExUnit_contact[contact_image]',
 				'priority'    => 1,
-				'description' => __( 'Display the image instead of the above inquiry information', 'vkExUnit' ),
+				'description' => $decription,
 			)
 		)
 	);
@@ -233,6 +245,11 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
+	$decription = __( 'HTML takes precedence over image', 'vkExUnit' );
+	$skin       = get_option( 'lightning_design_skin' );
+	if ( $skin == 'fort' || $skin == 'pale' ) {
+		$decription .= '<br>* ' . __( 'It is not reflected in the header.', 'vkExUnit' );
+	}
 	$wp_customize->add_control(
 		'contact_html', array(
 			'label'       => __( 'Display HTML message instead of the standard', 'vkExUnit' ),
@@ -240,7 +257,7 @@ function veu_customize_register_contact( $wp_customize ) {
 			'settings'    => 'vkExUnit_contact[contact_html]',
 			'type'        => 'textarea',
 			'priority'    => 1,
-			'description' => __( 'HTML takes precedence over image', 'vkExUnit' ),
+			'description' => $decription,
 		)
 	);
 
