@@ -13,12 +13,12 @@
  /*-------------------------------------------*/
  /*  load files
  /*-------------------------------------------*/
- /*  vExUnit_Contact
+ /*  VkExUnit_Contact
 			public static function instance() {
 			private function __construct() {
 			protected function run_init() {
 			public function set_content_loopend( $query ) {
-			public function activate_metavox( $flag ) {
+			public function activate_metabox( $flag ) {
 			public function options_init() {
 			public static function get_option() {
 			public function options_page() {
@@ -27,10 +27,15 @@
 			public function save_custom_field_postdata( $post_id ) {
 			public static function is_my_turn() {
 			public function set_content( $content ) {
+
+			// View
 			public static function render_contact_section_html() {
- /*-------------------------------------------*/
- /*  Contact Section Widget
- /*-------------------------------------------*/
+			public static function render_widget_contact_btn_html() {
+/*-------------------------------------------*/
+/*  Contact Button Widget
+/*-------------------------------------------*/
+/*  Contact Section Widget
+/*-------------------------------------------*/
 
 
  /*-------------------------------------------*/
@@ -38,10 +43,11 @@
  /*-------------------------------------------*/
 require_once 'customizer.php';
 
+
  /*-------------------------------------------*/
- /*  vExUnit_Contact
+ /*  VkExUnit_Contact
  /*-------------------------------------------*/
-class vExUnit_Contact {
+class VkExUnit_Contact {
 
 	// singleton instance
 	private static $instance;
@@ -51,7 +57,7 @@ class vExUnit_Contact {
 			return self::$instance;
 		}
 
-		self::$instance = new vExUnit_Contact;
+		self::$instance = new VkExUnit_Contact;
 		self::$instance->run_init();
 		return self::$instance;
 	}
@@ -67,7 +73,9 @@ class vExUnit_Contact {
 		add_action( 'vkExUnit_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		add_filter( 'veu_content_meta_box_activation', array( $this, 'activate_metavox' ), 10, 1 );
+
+		// 固定ページ編集画にお問い合わせ情報を表示のチェックボックスを表示する
+		add_filter( 'veu_content_meta_box_activation', array( $this, 'activate_metabox' ), 10, 1 );
 		add_action( 'veu_content_meta_box_content', array( $this, 'render_meta_box' ) );
 
 		if ( veu_content_filter_state() == 'content' ) {
@@ -86,7 +94,7 @@ class vExUnit_Contact {
 	}
 
 
-	public function activate_metavox( $flag ) {
+	public function activate_metabox( $flag ) {
 		return true;
 	}
 
@@ -123,7 +131,7 @@ class vExUnit_Contact {
 	?>
    <h3><?php _e( 'Contact Information', 'vkExUnit' ); ?></h3>
    <div id="meta_description" class="sectionBox">
-	<?php _e( 'Contents input here are displayed on an "Contact Button" widget and each fixed page.', 'vkExUnit' ); ?>
+	<?php _e( 'The contents entered here will be reflected in the bottom of each fixed page, the "Contact Section" widget, the "Contact Button" widget, etc.', 'vkExUnit' ); ?>
    <br/>
 	<?php _e( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vkExUnit' ); ?>
 
@@ -154,7 +162,7 @@ class vExUnit_Contact {
    <th scope="row"><label for="contact_link"><?php _e( 'The contact page URL', 'vkExUnit' ); ?></label></th>
    <td>
    <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
-   <span><?php _e( 'ex) ', 'vkExUnit' ); ?>http://www.********.co.jp/contact/ <?php _e( 'or', 'vkExUnit' ); ?> /******/</span><br />
+   <span><?php _e( 'ex) ', 'vkExUnit' ); ?>http://www.********.com/contact/ <?php _e( 'or', 'vkExUnit' ); ?> /contact/</span><br />
 	<?php _e( '* If you fill in the blank, widget\'s contact button does not appear.', 'vkExUnit' ); ?>
    </td>
    </tr>
@@ -295,7 +303,7 @@ class vExUnit_Contact {
 
 
 	/*-------------------------------------------*/
-	/*  contact bottom html
+	/*  contact_section_html
 	/*-------------------------------------------*/
 
 	public static function render_contact_section_html() {
@@ -347,8 +355,11 @@ class vExUnit_Contact {
 		return $cont;
 	}
 
+	public function shortcode() {
+		return self::render_contact_section_html();
+	}
 	/*-------------------------------------------*/
-	/*  widget html
+	/*  render_widget_contact_btn_html
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
@@ -372,20 +383,15 @@ class vExUnit_Contact {
 		return $cont;
 	}
 
-
-	public function shortcode() {
-		return self::render_contact_section_html();
-	}
 }
 
-vExUnit_Contact::instance();
-
+VkExUnit_Contact::instance();
 
 /*-------------------------------------------*/
 /*  Contact Button Widget
 /*-------------------------------------------*/
-class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 
+class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
 
 	function __construct() {
 		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Button', 'vkExUnit' );
@@ -404,7 +410,7 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
-		echo vExUnit_Contact::render_widget_contact_btn_html();
+		echo VkExUnit_Contact::render_widget_contact_btn_html();
 		echo '</div>';
 		echo $args['after_widget'];
 	}
@@ -425,19 +431,20 @@ class WP_Widget_vkExUnit_contact_link extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', function() {
-	return register_widget( 'WP_Widget_vkExUnit_contact_link' );
-} );
+add_action( 'widgets_init', 'veu_widget_contact_button' );
+function veu_widget_contact_button() {
+	return register_widget( 'WP_Widget_VkExUnit_Contact_Button' );
+}
+
 
 /*-------------------------------------------*/
 /*  Contact Section Widget
 /*-------------------------------------------*/
-class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
-
+class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function __construct() {
 
-		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Section HTML', 'vkExUnit' );
+		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Section', 'vkExUnit' );
 		$widget_description  = __( 'Display Phone number and contact button etc.', 'vkExUnit' );
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ), veu_get_little_short_name() ) . ' ) ';
 
@@ -454,7 +461,7 @@ class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
-		echo vExUnit_Contact::render_contact_section_html();
+		echo VkExUnit_Contact::render_contact_section_html();
 		echo '</div>';
 		echo $args['after_widget'];
 	}
@@ -473,6 +480,7 @@ class WP_Widget_vkExUnit_Contact_Section extends WP_Widget {
 	}
 }
 
-add_action( 'widgets_init', function() {
-	return register_widget( 'WP_Widget_vkExUnit_Contact_Section' );
-} );
+add_action( 'widgets_init', 'veu_widget_contact_section' );
+function veu_widget_contact_section() {
+	return register_widget( 'WP_Widget_VkExUnit_Contact_Section' );
+}
