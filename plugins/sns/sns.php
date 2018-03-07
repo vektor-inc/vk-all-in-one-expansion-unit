@@ -17,7 +17,7 @@
 
 // シェアボタンを表示する設定の読み込み
 require_once(dirname(__FILE__)."/hide_controller.php");
-require_once(dirname(__FILE__)."/customizer.php");
+require_once(dirname(__FILE__)."/sns_customizer.php");
 
 function veu_sns_options_init() {
 	if ( false === veu_get_sns_options() ) {
