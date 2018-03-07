@@ -69,7 +69,7 @@ foreach ($post_types as $key => $value) {
 	if ( $key != 'attachment' ) {
 		$checked = ( isset( $options['snsBtn_exclude_post_types'][$key] ) && $options['snsBtn_exclude_post_types'][$key] == 'true' ) ? ' checked':'';
 		echo '<li><label>';
-		echo '<input type="checkbox" name="vkExUnit_sns_options[snsBtn_exclude_post_types]['.$key.']" id="snsBtn_exclude_post_types" value="true"'.$checked.' />'.$value->label;
+		echo '<input type="checkbox" name="vkExUnit_sns_options[snsBtn_exclude_post_types]['.$key.']" id="snsBtn_exclude_post_types" value="true"'.$checked.' />'.esc_html( $value->label );
 		echo '</label></li>';
 	}
 }
