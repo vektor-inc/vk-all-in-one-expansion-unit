@@ -45,17 +45,16 @@ require_once( 'admin_other_functions.php' );
 /*-------------------------------------------*/
 
 require vkExUnit_get_directory() . '/common_init.php';
+require vkExUnit_get_directory() . '/common_helpers.php';
 require vkExUnit_get_directory() . '/package_manager.php';
 require vkExUnit_get_directory() . '/packages.php';
 $options = vkExUnit_get_common_options();
-require vkExUnit_get_directory() . '/common_helpers.php';
-
-require vkExUnit_get_directory() . '/plugins_admin/disable_guide.php';
 
 require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
 
+require vkExUnit_get_directory() . '/plugins_admin/disable_guide.php';
 require vkExUnit_get_directory() . '/plugins_admin/vk-admin-config.php';
-require vkExUnit_get_directory() . '/plugins_admin/customize-panel.php';
+require vkExUnit_get_directory() . '/plugins_admin/customizer.php';
 require vkExUnit_get_directory() . '/plugins_admin/content-meta-box.php';
 
 vkExUnit_package_include(); // package_manager.php
