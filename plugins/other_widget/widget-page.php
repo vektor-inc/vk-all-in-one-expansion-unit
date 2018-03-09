@@ -120,7 +120,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-        <p>
+      <p>
 
 			<?php //タイトル ?>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
@@ -143,16 +143,17 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 				<?php _e( 'Do not display titles', 'vkExUnit' ); ?></label><br/>
         <br/>
 
-
 			<?php
+			// 固定ページリスト
 			$selected = ( isset($instance['page_id']))? $instance['page_id']:'';
 			$args = array(
 				'name'     => $this->get_field_name( 'page_id' ),
-				'selected' => $selected,
+				'selected' => $selected, // 該当する ID のページを「selected」にし、そのページが選択された状態にする
 			  'sort_column' => 'menu_order', // 固定ページの順序でソート
-			  'post_status' => 'publish,private', // 公開と非公開の記事
+			  'post_status' => 'publish,private', // 公開と非公開の記事を取得
 			);
-			wp_dropdown_pages($args); ?>
+			wp_dropdown_pages($args); // ページのリストのセレクトボックス (つまり、ドロップダウン) を表示する関数
+			?>
     </p>
 
 		<?php $options = vkExUnit_get_common_options(); ?>
