@@ -120,7 +120,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-        <p>
+      <p>
 
 			<?php //タイトル ?>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
@@ -143,26 +143,17 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 				<?php _e( 'Do not display titles', 'vkExUnit' ); ?></label><br/>
         <br/>
 
-		<?php
-		// 固定ページ選択プルダウン
-		/*-------------------------------------------*/
-		// まずは固定ページの情報を取得する
-		// 取得する固定ページの条件
-		$args = array(
-			'post_status' => 'publish,private', // 公開と非公開の記事
-		);
-		// 固定ページ情報の取得を実行
-		$pages = get_pages( $args );
-		?>
-		<label for="<?php echo $this->get_field_name( 'page_id' ); ?>"><?php _e( 'Display page', 'vkExUnit' ) ?></label>
-		<select name="<?php echo $this->get_field_name( 'page_id' ); ?>" id="<?php echo $this->get_field_name( 'page_id' ); ?>" >
-		<?php
-		// option項目の生成
-		// $pages に格納されている固定ページのデータをループしながらoptionを出力
-		foreach ( $pages as $page ) {  ?>
-		<option value="<?php echo $page->ID; ?>" <?php if ( $instance['page_id'] == $page->ID ) { echo 'selected="selected"'; } ?> ><?php echo $page->post_title; ?></option>
-		<?php } ?>
-    </select>
+			<?php
+			// 固定ページリスト
+			$selected = ( isset($instance['page_id']))? $instance['page_id']:'';
+			$args = array(
+				'name'     => $this->get_field_name( 'page_id' ),
+				'selected' => $selected, // 該当する ID のページを「selected」にし、そのページが選択された状態にする
+			  'sort_column' => 'menu_order', // 固定ページの順序でソート
+			  'post_status' => 'publish,private', // 公開と非公開の記事を取得
+			);
+			wp_dropdown_pages($args); // ページのリストのセレクトボックス (つまり、ドロップダウン) を表示する関数
+			?>
     </p>
 
 		<?php $options = vkExUnit_get_common_options(); ?>
@@ -183,9 +174,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 				<?php _e( 'Display a page list from ancestor', 'vkExUnit' );?>
 			</label>
 		</p>
-		<?php endif; ?>
+		<?php endif;
 
-		<?php
 	}
 
 	// 保存・更新する値
