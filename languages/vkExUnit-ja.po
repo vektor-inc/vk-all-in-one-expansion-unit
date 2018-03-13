@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-06 17:35+0900\n"
+"POT-Creation-Date: 2018-03-13 09:15+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -41,9 +41,8 @@ msgid "Extension Setting"
 msgstr "拡張設定"
 
 #: admin_active_setting_page.php:85
-#, fuzzy
 msgid "Extention contents"
-msgstr "記事に広告を挿入します"
+msgstr "拡張コンテンツ"
 
 #: admin_active_setting_page.php:86
 msgid "set extension contents to loop_end hook"
@@ -552,9 +551,8 @@ msgid "Show index page"
 msgstr "一覧ページを表示する"
 
 #: plugins/call-to-action/widget-call-to-action.php:21
-#, fuzzy
 msgid "CTA"
-msgstr "CTAの新規作成"
+msgstr "CTA"
 
 #: plugins/call-to-action/widget-call-to-action.php:27
 msgid "Select CTA and display it."
@@ -572,7 +570,7 @@ msgstr "選択してください"
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: plugins/child_page_index.php:139 plugins/other_widget/widget-page.php:174
+#: plugins/child_page_index.php:139 plugins/other_widget/widget-page.php:165
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -1033,7 +1031,7 @@ msgstr "3PR エリア設定"
 #: plugins/other_widget/widget-pr-blocks.php:89
 #: plugins/other_widget/widget-profile.php:48
 #: plugins/related_posts/related_posts.php:252
-#: plugins/sns/function_fbPagePlugin.php:79
+#: plugins/sns/widget-fb-page-plugin.php:79 plugins/sns/widget-twitter.php:84
 msgid "Title:"
 msgstr "タイトル"
 
@@ -1294,16 +1292,11 @@ msgstr "固定ページのタイトルを表示する"
 msgid "Do not display titles"
 msgstr "タイトルを表示しない"
 
-#: plugins/other_widget/widget-page.php:157
-#: plugins/other_widget/widget-taxonomies.php:74
-msgid "Display page"
-msgstr "ページを表示"
-
-#: plugins/other_widget/widget-page.php:183 plugins/pageList_ancestor.php:96
+#: plugins/other_widget/widget-page.php:174 plugins/pageList_ancestor.php:96
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
-#: plugins/other_widget/widget-page.php:253
+#: plugins/other_widget/widget-page.php:242
 msgid "Edit"
 msgstr "編集"
 
@@ -1385,7 +1378,7 @@ msgid "Solid color"
 msgstr "塗りつぶし"
 
 #: plugins/other_widget/widget-pr-blocks.php:129
-#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:189
+#: plugins/other_widget/widget-profile.php:143 plugins/sns/sns.php:191
 msgid "No background"
 msgstr "背景なし"
 
@@ -1494,6 +1487,10 @@ msgstr "カテゴリーやカスタム分類のリストを表示します。"
 #: plugins/other_widget/widget-taxonomies.php:70
 msgid "Label to display"
 msgstr "表示するラベル"
+
+#: plugins/other_widget/widget-taxonomies.php:74
+msgid "Display page"
+msgstr "ページを表示"
 
 #: plugins/other_widget/widget-taxonomies.php:83
 msgid "Do not display terms without posts"
@@ -1658,26 +1655,6 @@ msgstr "HTMLサイトマップ"
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
-#: plugins/sns/function_fbPagePlugin.php:13
-msgid "Displays a Facebook Page Plugin"
-msgstr "Facebook ページプラグインを表示します。"
-
-#: plugins/sns/function_fbPagePlugin.php:89
-msgid "Height"
-msgstr "高さ"
-
-#: plugins/sns/function_fbPagePlugin.php:94
-msgid "Show Friend's Faces"
-msgstr "アイコンを表示する"
-
-#: plugins/sns/function_fbPagePlugin.php:99
-msgid "Hide Cover Photo"
-msgstr "カバー画像を表示しない"
-
-#: plugins/sns/function_fbPagePlugin.php:104
-msgid "Show Page Posts"
-msgstr "タイムラインを表示"
-
 #: plugins/sns/function_follow.php:16
 msgid "Follow me"
 msgstr "このサイトをフォローする"
@@ -1717,11 +1694,11 @@ msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
 
-#: plugins/sns/sns.php:175 plugins/sns/sns_admin.php:1
+#: plugins/sns/sns.php:177 plugins/sns/sns_admin.php:1
 msgid "SNS Settings"
 msgstr "SNS設定"
 
-#: plugins/sns/sns.php:205
+#: plugins/sns/sns.php:207
 msgid "Btn color"
 msgstr "ボタンの色:"
 
@@ -1853,16 +1830,12 @@ msgid "Share button for display"
 msgstr "表示するボタン"
 
 #: plugins/sns/sns_admin.php:111
-#, fuzzy
-#| msgid "Facebook URL:"
 msgid "Facebook"
-msgstr "Facebook リンク先ページのURL"
+msgstr ""
 
 #: plugins/sns/sns_admin.php:112
-#, fuzzy
-#| msgid "Twitter URL:"
 msgid "Twitter"
-msgstr "twitterリンク先ページのURL"
+msgstr ""
 
 #: plugins/sns/sns_admin.php:113
 msgid "Hatena"
@@ -1875,6 +1848,54 @@ msgstr ""
 #: plugins/sns/sns_admin.php:115
 msgid "LINE (mobile only)"
 msgstr ""
+
+#: plugins/sns/widget-fb-page-plugin.php:13
+msgid "Displays a Facebook Page Plugin"
+msgstr "Facebook ページプラグインを表示します。"
+
+#: plugins/sns/widget-fb-page-plugin.php:89
+msgid "Height"
+msgstr "高さ"
+
+#: plugins/sns/widget-fb-page-plugin.php:94
+msgid "Show Friend's Faces"
+msgstr "アイコンを表示する"
+
+#: plugins/sns/widget-fb-page-plugin.php:99
+msgid "Hide Cover Photo"
+msgstr "カバー画像を表示しない"
+
+#: plugins/sns/widget-fb-page-plugin.php:104
+msgid "Show Page Posts"
+msgstr "タイムラインを表示"
+
+#: plugins/sns/widget-twitter.php:9
+msgid "Twitter widget"
+msgstr "Twitter ウィジェット"
+
+#: plugins/sns/widget-twitter.php:13
+msgid "Display Twitter timeline."
+msgstr "Twitter のタイムラインを表示します。"
+
+#: plugins/sns/widget-twitter.php:89
+msgid "Account:<br>Please enter your Twitter account."
+msgstr "アカウント：<br>Twitter アカウントを入力してください。"
+
+#: plugins/sns/widget-twitter.php:90
+msgid "@"
+msgstr ""
+
+#: plugins/sns/widget-twitter.php:94
+msgid "Height:<br>Please enter an arbitrary number.(Example: 300)"
+msgstr "高さ：<br>任意の数値を入力してください(例：300)"
+
+#: plugins/sns/widget-twitter.php:99
+msgid "Background color:"
+msgstr "アイコンの色:"
+
+#: plugins/sns/widget-twitter.php:122
+msgid "Link color:"
+msgstr "リンクの色:"
 
 #: plugins/template-tags/template-tags.php:95
 #, php-format
@@ -1899,7 +1920,6 @@ msgid "F j, Y"
 msgstr "Y年Fj日"
 
 #: plugins/template-tags/template-tags.php:104
-#, fuzzy
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr "サイド"
@@ -2053,11 +2073,11 @@ msgstr "ExUnit 設定"
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:263
+#: plugins_admin/vk-admin/class-vk-admin.php:267
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:317
+#: plugins_admin/vk-admin/class-vk-admin.php:321
 msgid "Vektor WordPress Information"
 msgstr ""
 
@@ -2404,9 +2424,6 @@ msgstr "%s がサポートしているPHPのバージョンは5.6以降です。
 #, fuzzy
 #~ msgid "Media float setting:"
 #~ msgstr "メイン設定"
-
-#~ msgid "Other Widgets"
-#~ msgstr "Other ウィジェット"
 
 #~ msgid "Do not output the OG"
 #~ msgstr "OGタグ出力設定"

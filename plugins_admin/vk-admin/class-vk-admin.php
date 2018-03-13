@@ -117,6 +117,10 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				$banner .= '<a href="//lightning.nagoya/ja/plugins/ex_plugin/lightning-jpnstyle" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/jpnstyle-bnr.jpg" alt="" /></a>';
 			}
 
+			if ( $lang == 'ja' && ! is_plugin_active( 'lightning-skin-fort/lightning-skin-fort.php' ) ) {
+					$banner .= '<a href="//lightning.nagoya/ja/plugins/ex_plugin/lightning-fort" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/fort-bnr.jpg" alt="" /></a>';
+			}
+
 			if ( $lang == 'ja' && ! is_plugin_active( 'vk-all-in-one-expansion-unit/vkExUnit.php' ) ) {
 				$banner .= '<a href="https://ex-unit.nagoya/ja/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/ExUnit_bnr.png" alt="" /></a>';
 			}
