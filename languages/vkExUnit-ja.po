@@ -1887,7 +1887,7 @@ msgstr ""
 
 #: plugins/sns/widget-twitter.php:94
 msgid "Height:<br>Please enter an arbitrary number.(Example: 300)"
-msgstr "高さ：<br>任意の数値を入力してください<br>（例：300）"
+msgstr "高さ：<br>任意の数値を入力してください(例：300)"
 
 #: plugins/sns/widget-twitter.php:99
 msgid "Background color:"
