@@ -6,10 +6,11 @@ class VK_Twitter_Widget extends WP_Widget {
 	 * ウィジェット名などを設定
 	 */
 	public function __construct() {
+		$widget_name = vkExUnit_get_short_name() . '_' . __( 'Twitter widget', 'vkExUnit' );
 		parent::__construct(
 			'vk_twitter_widget', // Base ID
-			'VK_Twitter_Widget', // Name
-			array( 'description' => __( 'Display Twitter page plugin.', 'vkExUnit' ) ) // Args
+			$widget_name, // Name
+			array( 'description' => __( 'Display Twitter timeline.', 'vkExUnit' ) ) // Args
 		);
 		// widget actual processes
 	}
