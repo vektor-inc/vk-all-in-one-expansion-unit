@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-13 09:15+0900\n"
+"POT-Creation-Date: 2018-03-14 15:02+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -570,7 +570,7 @@ msgstr "選択してください"
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: plugins/child_page_index.php:139 plugins/other_widget/widget-page.php:165
+#: plugins/child_page_index.php:139 plugins/other_widget/widget-page.php:166
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -1292,11 +1292,11 @@ msgstr "固定ページのタイトルを表示する"
 msgid "Do not display titles"
 msgstr "タイトルを表示しない"
 
-#: plugins/other_widget/widget-page.php:174 plugins/pageList_ancestor.php:96
+#: plugins/other_widget/widget-page.php:175 plugins/pageList_ancestor.php:96
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
-#: plugins/other_widget/widget-page.php:242
+#: plugins/other_widget/widget-page.php:243
 msgid "Edit"
 msgstr "編集"
 
@@ -1833,7 +1833,7 @@ msgstr "表示するボタン"
 msgid "Facebook"
 msgstr ""
 
-#: plugins/sns/sns_admin.php:112
+#: plugins/sns/sns_admin.php:112 plugins/sns/widget-twitter.php:9
 msgid "Twitter"
 msgstr ""
 
@@ -1869,10 +1869,6 @@ msgstr "カバー画像を表示しない"
 msgid "Show Page Posts"
 msgstr "タイムラインを表示"
 
-#: plugins/sns/widget-twitter.php:9
-msgid "Twitter widget"
-msgstr "Twitter ウィジェット"
-
 #: plugins/sns/widget-twitter.php:13
 msgid "Display Twitter timeline."
 msgstr "Twitter のタイムラインを表示します。"
@@ -1891,7 +1887,7 @@ msgstr "高さ：<br>任意の数値を入力してください(例：300)"
 
 #: plugins/sns/widget-twitter.php:99
 msgid "Background color:"
-msgstr "アイコンの色:"
+msgstr "背景の色:"
 
 #: plugins/sns/widget-twitter.php:122
 msgid "Link color:"
@@ -2099,6 +2095,9 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 #, php-format
 msgid "%s supports PHP5.6 or later."
 msgstr "%s がサポートしているPHPのバージョンは5.6以降です。"
+
+#~ msgid "Twitter widget"
+#~ msgstr "Twitter ウィジェット"
 
 #~ msgid "millisecond"
 #~ msgstr "ミリ秒"
