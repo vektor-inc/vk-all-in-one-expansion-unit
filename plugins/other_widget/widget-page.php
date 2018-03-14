@@ -149,6 +149,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			$args     = array(
 				'name'        => $this->get_field_name( 'page_id' ),
 				'selected'    => $selected, // 該当する ID のページを「selected」にし、そのページが選択された状態にする
+				'sort_column' => 'menu_order', // 固定ページの順序でソート
 				'sort_order'  => 'ASC',
 				'post_status' => 'publish,private', // 公開と非公開の記事を取得
 			);
