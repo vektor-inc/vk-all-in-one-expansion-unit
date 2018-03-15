@@ -122,11 +122,16 @@ class biz_vektor_css_customize{
 	public function biz_vektor_css_customize_push_css() {
 
 		if ( get_option( 'vkExUnit_css_customize' ) ) {
+			$css_customize = get_option( 'vkExUnit_css_customize' );
+			// delete br
+			$css_customize = str_replace( PHP_EOL, '', $css_customize );
+			// delete tab
+			$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
+			// multi space convert to single space
+			$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
 		?>
-    <style type="text/css">
-	<?php echo get_option( 'vkExUnit_css_customize' ) ?>
-    </style>
-		<?php
-		}
-	}
+<style type="text/css">/* <?php echo vkExUnit_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo vkExUnit_get_short_name(); ?> CSS Customize */</style>
+			<?php
+		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
+	} // public function biz_vektor_css_customize_push_css() {
 }
