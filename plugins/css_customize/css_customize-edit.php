@@ -3,8 +3,7 @@
 	<div class="fileedit-sub"></div>
 	<?php echo $data['mess']; ?>
 	<p><?php _e( 'You can add custom CSS here.', 'vkExUnit' );?></p>
-	<?php $lang = ( get_locale() == 'ja' ) ? 'ja' : 'en';
-	if ( $lang == 'ja' ) { ?>
+	<?php if ( get_locale() == 'ja' ) { ?>
 		<p>CSSのカスタマイズについては、<a href="https://www.vektor-inc.co.jp/post/css_customize/" target="_blank">こちらのページ</a>を参照してください。</p>
 	<?php } ?>
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="template">
