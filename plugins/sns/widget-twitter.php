@@ -6,7 +6,7 @@ class VK_Twitter_Widget extends WP_Widget {
 	 * ウィジェット名などを設定
 	 */
 	public function __construct() {
-		$widget_name = vkExUnit_get_short_name() . '_' . __( 'Twitter widget', 'vkExUnit' );
+		$widget_name = vkExUnit_get_short_name() . '_' . __( 'Twitter', 'vkExUnit' );
 		parent::__construct(
 			'vk_twitter_widget', // Base ID
 			$widget_name, // Name

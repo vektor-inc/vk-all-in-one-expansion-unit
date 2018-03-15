@@ -4,7 +4,7 @@ $wp_theme = wp_get_theme();
 $customize = new biz_vektor_css_customize();
 
 
-class biz_vektor_css_customize{
+class biz_vektor_css_customize {
 
 	public function __construct() {
 		$this->set_hook();
@@ -12,9 +12,9 @@ class biz_vektor_css_customize{
 
 
 	public  function set_hook() {
-		add_action( 'admin_footer',  array( $this, 'css_customize_page_js_and_css' ) );
-		add_action( 'wp_head',       array( $this, 'biz_vektor_css_customize_push_css' ), 200 );
-		add_action( 'admin_menu',    array( $this, 'biz_vektor_css_customize_menu' ) );
+		add_action( 'admin_footer', array( $this, 'css_customize_page_js_and_css' ) );
+		add_action( 'wp_head', array( $this, 'biz_vektor_css_customize_push_css' ), 200 );
+		add_action( 'admin_menu', array( $this, 'biz_vektor_css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 	}
 
@@ -69,16 +69,16 @@ class biz_vektor_css_customize{
 			$hook_suffix == 'appearance_page_bv_grid_unit_options'
 			) {
 		?>
-     <script type="text/javascript">
-    jQuery(document).ready(function($){
-        jQuery("#tipsBody dl").each(function(){
-            var targetId = jQuery(this).attr("id");
-            var targetTxt = jQuery(this).find("dt").text();
-            var listItem = '<li><a href="#'+ targetId +'">'+ targetTxt +'</a></li>'
-            jQuery('#tipsList ul').append(listItem);
-        });
-    });
-    </script>
+	 <script type="text/javascript">
+	jQuery(document).ready(function($){
+		jQuery("#tipsBody dl").each(function(){
+			var targetId = jQuery(this).attr("id");
+			var targetTxt = jQuery(this).find("dt").text();
+			var listItem = '<li><a href="#'+ targetId +'">'+ targetTxt +'</a></li>'
+			jQuery('#tipsList ul').append(listItem);
+		});
+	});
+	</script>
 
 
 		<?php
@@ -89,7 +89,7 @@ class biz_vektor_css_customize{
 	public function biz_vektor_css_customize_valid_form() {
 
 		$data = array(
-			'mess' => '',
+			'mess'      => '',
 			'customCss' => '',
 		);
 
@@ -122,11 +122,16 @@ class biz_vektor_css_customize{
 	public function biz_vektor_css_customize_push_css() {
 
 		if ( get_option( 'vkExUnit_css_customize' ) ) {
+			$css_customize = get_option( 'vkExUnit_css_customize' );
+			// delete br
+			$css_customize = str_replace( PHP_EOL, '', $css_customize );
+			// delete tab
+			$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
+			// multi space convert to single space
+			$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
 		?>
-    <style type="text/css">
-	<?php echo get_option( 'vkExUnit_css_customize' ) ?>
-    </style>
-		<?php
-		}
-	}
+<style type="text/css">/* <?php echo vkExUnit_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo vkExUnit_get_short_name(); ?> CSS Customize */</style>
+			<?php
+		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
+	} // public function biz_vektor_css_customize_push_css() {
 }
