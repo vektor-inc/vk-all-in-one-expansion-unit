@@ -4,12 +4,9 @@
 	<?php echo $data['mess']; ?>
 	<p><?php _e( 'You can add custom CSS here.', 'vkExUnit' );?></p>
 	<?php $lang = ( get_locale() == 'ja' ) ? 'ja' : 'en';
-	if ( $lang == 'ja' ) {
-		$vkExUnit_css_customize = '<p>CSSのカスタマイズについては、<a href="https://www.vektor-inc.co.jp/post/css_customize/" target="_blank">こちらのページ</a>を参照してください。</p>';
-		echo $vkExUnit_css_customize;
-	} else {
-		$vkExUnit_css_customize = '';
-	} ?>
+	if ( $lang == 'ja' ) { ?>
+		<p>CSSのカスタマイズについては、<a href="https://www.vektor-inc.co.jp/post/css_customize/" target="_blank">こちらのページ</a>を参照してください。</p>
+	<?php } ?>
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="template">
 		<textarea name="bv-css-css" cols="70" rows="10" id="newcontent"><?php echo esc_attr($data['customCss']); ?></textarea>
 		<?php wp_nonce_field( 'biz-vektor-css-submit', 'biz-vektor-css-nonce'); ?>
