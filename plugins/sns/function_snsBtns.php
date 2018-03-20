@@ -131,7 +131,7 @@ function veu_add_sns_btns( $content ) {
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css = veu_sns_icon_css( $options );
 
-	$linkUrl = get_permalink();
+	$linkUrl = urlencode(get_permalink());
 
 	$pageTitle = '';
 	if ( is_single() || is_page() ) {
