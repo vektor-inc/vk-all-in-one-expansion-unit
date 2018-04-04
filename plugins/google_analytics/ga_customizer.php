@@ -38,7 +38,7 @@ function veu_customize_register_ga( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new ExUnit_Custom_Text_Control(
+		new Custom_Text_Control(
 			$wp_customize, 'gaId', array(
 				'label'    => __( 'Google Analytics ID', 'vkExUnit' ),
 				'section'  => 'veu_ga_setting',
