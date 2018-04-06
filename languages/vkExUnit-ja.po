@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-15 09:53+0900\n"
+"POT-Creation-Date: 2018-04-06 16:03+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -32,7 +32,7 @@ msgstr "有効化"
 msgid "Description"
 msgstr "説明"
 
-#: admin_active_setting_page.php:28 packages.php:354
+#: admin_active_setting_page.php:28 veu-packages.php:356
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
@@ -65,314 +65,6 @@ msgstr "メイン設定"
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
-
-#: packages.php:70
-msgid "Print Bootstrap css ( grid / button / table )"
-msgstr "Bootstrap の CSS（grid/button/tableのみ）を出力"
-
-#: packages.php:71
-msgid ""
-"If your using theme has already including Bootstrap, you deactivate this "
-"item."
-msgstr ""
-"BootstrapのCSSを読み込むためのタグを html head 内へ出力します。使用中のテーマ"
-"（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェック"
-"を外して下さい。"
-
-#: packages.php:81
-msgid "Print link fontawesome"
-msgstr "fontawesome link タグを出力"
-
-#: packages.php:82
-msgid "Print fontawesome link tag to html head."
-msgstr ""
-"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
-"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
-"さい。"
-
-#: packages.php:91
-msgid "Favicon setting"
-msgstr "ファビコン設定"
-
-#: packages.php:92
-msgid "About favicon."
-msgstr ""
-"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
-"（ファビコン）を設定します。"
-
-#: packages.php:92
-msgid ""
-"This feature will be discontinued shortly.<br>You can set the site icon from "
-"\"Site Identity\" panel of \"Themes > Customize\"."
-msgstr ""
-"この機能は間もなく廃止されます。<br>\n"
-"サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
-"ます。"
-
-#: packages.php:102
-msgid "Rewrite the title tag"
-msgstr "タイトルタグの書き換え"
-
-#: packages.php:103
-msgid "Print is rewritten by its own rules to html head."
-msgstr ""
-"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
-"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
-"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
-
-#: packages.php:106 packages.php:124 packages.php:163 packages.php:181
-#: packages.php:211 packages.php:229 packages.php:271 packages.php:307
-#: packages.php:330 packages.php:411
-msgid "Setting"
-msgstr "設定"
-
-#: packages.php:120
-msgid "Print meta Keyword"
-msgstr "メタキーワードを出力"
-
-#: packages.php:121
-msgid "Print meta Keyword to html head."
-msgstr "ヘッダーにメタキーワードを出力します。"
-
-#: packages.php:137
-msgid "Print meta description"
-msgstr "メタディスクリプションタグを出力"
-
-#: packages.php:138
-msgid "Print meta description to html head."
-msgstr ""
-"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
-"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
-"している場合はチェックを外して下さい。"
-
-#: packages.php:147
-msgid "Main setting page"
-msgstr "メイン設定画面"
-
-#: packages.php:149
-msgid "Print og tags to html head."
-msgstr "OG タグを html head 内へ出力します。"
-
-#: packages.php:150
-msgid "Print twitter card tags to html head."
-msgstr "Twitter カードタグを html head 内へ出力します。"
-
-#: packages.php:151
-msgid "Print social bookmark buttons."
-msgstr "ソーシャルブックマークボタンを表示します。"
-
-#: packages.php:152
-msgid "Facebook Page Plugin widget."
-msgstr "Facebookページプラグインウィジェット"
-
-#: packages.php:153
-msgid "Print Follow me box to content bottom."
-msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
-
-#: packages.php:155
-#, php-format
-msgid "* You can stop the function separately from the %s."
-msgstr "%s から個別に機能を停止する事ができます。"
-
-#: packages.php:159
-msgid "Social media cooperation"
-msgstr "ソーシャルメディア連携"
-
-#: packages.php:178
-msgid "Print Google Analytics tracking code."
-msgstr ""
-"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
-"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
-"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
-"合はチェックを外して下さい。"
-
-#: packages.php:194
-msgid "You can use various widgets."
-msgstr ""
-"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
-"→「ウィジェット」の設定画面より行って下さい。"
-
-#: packages.php:196
-msgid ""
-"VK_Recent Posts - display the link text and the date of the latest article "
-"title."
-msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
-
-#: packages.php:197
-msgid ""
-"VK_Page content to widget - display the contents of the page to the widgets."
-msgstr ""
-"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
-
-#: packages.php:198
-msgid "VK_Profile - display the profile entered in the widget."
-msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
-
-#: packages.php:199
-msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
-msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
-
-#: packages.php:200
-msgid "VK_3PR area - display the 3PR area."
-msgstr "VK_3PR エリア - 3PR エリアを表示します。"
-
-#: packages.php:201
-msgid "categories/tags list"
-msgstr "カテゴリー/タグ リスト"
-
-#: packages.php:201
-msgid "Displays a categories, tags or format list."
-msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
-
-#: packages.php:202 plugins/other_widget/widget-archives.php:9
-msgid "archive list"
-msgstr "アーカイブリスト"
-
-#: packages.php:202 plugins/other_widget/widget-archives.php:14
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
-msgstr ""
-"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
-"プを選択できます。"
-
-#: packages.php:207
-msgid "Widgets"
-msgstr "ウィジェット"
-
-#: packages.php:225
-msgid "CSS customize"
-msgstr "CSSカスタマイズ"
-
-#: packages.php:226
-msgid "You can set Customize CSS."
-msgstr ""
-"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
-"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
-"さい。"
-
-#: packages.php:244
-msgid "Child page index"
-msgstr "子ページの一覧表示"
-
-#: packages.php:245
-msgid ""
-"At the bottom of the specified page, it will display a list of the child "
-"page."
-msgstr ""
-"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
-"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
-
-#: packages.php:256
-msgid "Page list from ancestor"
-msgstr "先祖階層からの子ページリスト表示"
-
-#: packages.php:257
-msgid "Display Page list from ancestor at after content."
-msgstr ""
-"現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
-
-#: packages.php:267 plugins/contact-section/contact-section.php:447
-msgid "Contact Section"
-msgstr "お問い合わせ情報"
-
-#: packages.php:268
-msgid "Display Contact Section at after content."
-msgstr "お問い合わせ情報を本文の下に表示する"
-
-#: packages.php:285
-msgid "Display HTML Site Map"
-msgstr "HTMLサイトマップの表示"
-
-#: packages.php:286
-msgid "It displays a HTML Site Map to the specified page."
-msgstr "指定した固定ページにHTMLサイトマップを表示します。"
-
-#: packages.php:295 plugins/call-to-action/view-adminsetting.php:19
-msgid "Display the CTA at the end of the post content."
-msgstr "投稿内容の最後にCTAを表示します。"
-
-#: packages.php:297 plugins/call-to-action/view-adminsetting.php:20
-msgid ""
-"The CTA stands for \"Call to action\" and this is the area that prompts the "
-"user behavior."
-msgstr ""
-"CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
-"情報を表示します。"
-
-#: packages.php:299 plugins/call-to-action/view-adminsetting.php:21
-msgid ""
-"As an example, text message and a link button for induction to the free "
-"sample download page."
-msgstr ""
-"例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
-"ンなどです。"
-
-#: packages.php:303 plugins/call-to-action/view-adminsetting.php:15
-msgid "Call To Action"
-msgstr "Call To Action"
-
-#: packages.php:312
-msgid "Contents setting"
-msgstr "CTA表示内容設定"
-
-#: packages.php:326 plugins/insert_ads.php:37 plugins/insert_ads.php:137
-msgid "Insert ads"
-msgstr "広告の挿入"
-
-#: packages.php:327
-msgid "Insert ads to content."
-msgstr "記事に広告を挿入します"
-
-#: packages.php:343 plugins/related_posts/related_posts.php:201
-msgid "Related posts"
-msgstr "関連記事を表示"
-
-#: packages.php:344
-msgid "Print Related posts lists to post content bottom."
-msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
-
-#: packages.php:355
-msgid "Display Eye Catch image at before content."
-msgstr ""
-"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
-"す。"
-
-#: packages.php:365
-msgid "Disable ping back"
-msgstr "ping backを停止"
-
-#: packages.php:366
-msgid "Disable xmlrpc ping back."
-msgstr "xmlrpcを停止"
-
-#: packages.php:375 packages.php:376
-msgid "Disable dashbord"
-msgstr "ダッシュボードに最新情報を表示しない"
-
-#: packages.php:387
-msgid "TinyMCE Style Tags"
-msgstr "TinyMCE スタイルタグ"
-
-#: packages.php:388
-msgid "Add TinyMCE Editor to style tags."
-msgstr "スタイルタグにTinyMCEエディタを追加する"
-
-#: packages.php:396
-msgid "Admin bar manu"
-msgstr "管理バーメニュー"
-
-#: packages.php:397
-msgid "Add ExUnit menu to admin bar."
-msgstr "ExUnitのメニューを管理バーに表示する"
-
-#: packages.php:407
-msgid "Post Type Manager"
-msgstr "カスタム投稿タイプマネージャー"
-
-#: packages.php:408
-msgid "Add custom post types and custom taxonomies."
-msgstr "カスタム投稿タイプやカスタム分類を追加します。"
 
 #: plugins/auto_eyecatch.php:40
 msgid "Automatic EyeCatch"
@@ -523,6 +215,30 @@ msgstr "テキストメッセージ"
 #: plugins/call-to-action/widget-call-to-action.php:89
 msgid "CTA setting"
 msgstr "CTA設定"
+
+#: plugins/call-to-action/view-adminsetting.php:15 veu-packages.php:305
+msgid "Call To Action"
+msgstr "Call To Action"
+
+#: plugins/call-to-action/view-adminsetting.php:19 veu-packages.php:297
+msgid "Display the CTA at the end of the post content."
+msgstr "投稿内容の最後にCTAを表示します。"
+
+#: plugins/call-to-action/view-adminsetting.php:20 veu-packages.php:299
+msgid ""
+"The CTA stands for \"Call to action\" and this is the area that prompts the "
+"user behavior."
+msgstr ""
+"CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
+"情報を表示します。"
+
+#: plugins/call-to-action/view-adminsetting.php:21 veu-packages.php:301
+msgid ""
+"As an example, text message and a link button for induction to the free "
+"sample download page."
+msgstr ""
+"例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
+"ンなどです。"
 
 #: plugins/call-to-action/view-adminsetting.php:23
 msgid "How to use"
@@ -759,6 +475,10 @@ msgstr ""
 msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
+#: plugins/contact-section/contact-section.php:447 veu-packages.php:269
+msgid "Contact Section"
+msgstr "お問い合わせ情報"
+
 #: plugins/contact-section/contact-section.php:448
 msgid "Display Phone number and contact button etc."
 msgstr "電話番号とお問い合わせボタンなどを表示します。"
@@ -792,7 +512,7 @@ msgstr "CSSカスタマイズ"
 msgid "You can add custom CSS here."
 msgstr "デザインをカスタマイズする場合は下のテキストエリアにCSSを入力します"
 
-#: plugins/css_customize/css_customize-edit.php:17
+#: plugins/css_customize/css_customize-edit.php:13
 msgid "Save CSS"
 msgstr "CSSを保存する"
 
@@ -820,7 +540,7 @@ msgstr ""
 
 #: plugins/google_analytics/ga_admin.php:9
 #: plugins/google_analytics/ga_admin.php:13
-#: plugins/google_analytics/google_analytics.php:18
+#: plugins/google_analytics/google_analytics.php:22
 msgid "Google Analytics Settings"
 msgstr "Google Analytics設定"
 
@@ -839,16 +559,47 @@ msgstr ""
 "す )"
 
 #: plugins/google_analytics/ga_admin.php:23
+#: plugins/google_analytics/ga_customizer.php:70
 msgid "To output the Universal Analytics code (default)"
 msgstr "ユニバーサル アナリティクスのコードを出力します。( デフォルト )"
 
 #: plugins/google_analytics/ga_admin.php:24
+#: plugins/google_analytics/ga_customizer.php:71
 msgid "To output only normal code"
 msgstr "ノーマルのコードのみを出力します。"
 
 #: plugins/google_analytics/ga_admin.php:25
+#: plugins/google_analytics/ga_customizer.php:72
 msgid "To output both types"
 msgstr "両タイプのコードを出力します。"
+
+#: plugins/google_analytics/ga_customizer.php:23
+msgid "Google Analtics Settings"
+msgstr "Google Analytics設定"
+
+#: plugins/google_analytics/ga_customizer.php:43
+msgid "Google Analytics ID"
+msgstr "Google Analyticsの ID"
+
+#: plugins/google_analytics/ga_customizer.php:47
+msgid ""
+"Please fill in the Google Analytics ID from the Analytics embed code used in "
+"the site.<br>ex) XXXXXXXX-X"
+msgstr ""
+"このサイトで使用する Google アナリティクスの ID を入力して下さい。<br>例) "
+"XXXXXXXX-X"
+
+#: plugins/google_analytics/ga_customizer.php:64
+msgid "Select the type of Analytics code"
+msgstr "アナリティクスコードの種類を選択"
+
+#: plugins/google_analytics/ga_customizer.php:74
+msgid ""
+"Print the select the type of Analytics code.<br>(If you are unsure you can "
+"skip this.)"
+msgstr ""
+"アナリティクスコードの種類を選択して下さい。( 不明な場合この設定は省略できま"
+"す。)"
 
 #: plugins/icons.php:38 plugins/icons.php:68
 msgid "icon setting"
@@ -876,6 +627,10 @@ msgstr "アイコンを選択"
 #: plugins/icons.php:84
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
+
+#: plugins/insert_ads.php:37 plugins/insert_ads.php:137 veu-packages.php:328
+msgid "Insert ads"
+msgstr "広告の挿入"
 
 #: plugins/insert_ads.php:140
 msgid "Insert ads to post."
@@ -1074,6 +829,18 @@ msgstr "リンク先ページのURL"
 #: plugins/other_widget/widget-pr-blocks.php:102
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
+
+#: plugins/other_widget/widget-archives.php:9 veu-packages.php:204
+msgid "archive list"
+msgstr "アーカイブリスト"
+
+#: plugins/other_widget/widget-archives.php:14 veu-packages.php:204
+msgid ""
+"Displays a list of archives. You can choose the post type and also to "
+"display archives by month or by year."
+msgstr ""
+"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
+"プを選択できます。"
 
 #: plugins/other_widget/widget-archives.php:53
 #: plugins/other_widget/widget-archives.php:54
@@ -1625,6 +1392,10 @@ msgid ""
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
+#: plugins/related_posts/related_posts.php:201 veu-packages.php:345
+msgid "Related posts"
+msgstr "関連記事を表示"
+
 #: plugins/related_posts/related_posts.php:235
 msgid "Related Settings"
 msgstr "関連記事設定"
@@ -2077,6 +1848,276 @@ msgstr "お知らせはありません。"
 msgid "Vektor WordPress Information"
 msgstr ""
 
+#: veu-packages.php:72
+msgid "Print Bootstrap css ( grid / button / table )"
+msgstr "Bootstrap の CSS（grid/button/tableのみ）を出力"
+
+#: veu-packages.php:73
+msgid ""
+"If your using theme has already including Bootstrap, you deactivate this "
+"item."
+msgstr ""
+"BootstrapのCSSを読み込むためのタグを html head 内へ出力します。使用中のテーマ"
+"（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェック"
+"を外して下さい。"
+
+#: veu-packages.php:83
+msgid "Print link fontawesome"
+msgstr "fontawesome link タグを出力"
+
+#: veu-packages.php:84
+msgid "Print fontawesome link tag to html head."
+msgstr ""
+"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
+"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
+"さい。"
+
+#: veu-packages.php:93
+msgid "Favicon setting"
+msgstr "ファビコン設定"
+
+#: veu-packages.php:94
+msgid "About favicon."
+msgstr ""
+"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
+"（ファビコン）を設定します。"
+
+#: veu-packages.php:94
+msgid ""
+"This feature will be discontinued shortly.<br>You can set the site icon from "
+"\"Site Identity\" panel of \"Themes > Customize\"."
+msgstr ""
+"この機能は間もなく廃止されます。<br>\n"
+"サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
+"ます。"
+
+#: veu-packages.php:104
+msgid "Rewrite the title tag"
+msgstr "タイトルタグの書き換え"
+
+#: veu-packages.php:105
+msgid "Print is rewritten by its own rules to html head."
+msgstr ""
+"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+
+#: veu-packages.php:108 veu-packages.php:126 veu-packages.php:165
+#: veu-packages.php:183 veu-packages.php:213 veu-packages.php:231
+#: veu-packages.php:273 veu-packages.php:309 veu-packages.php:332
+#: veu-packages.php:413
+msgid "Setting"
+msgstr "設定"
+
+#: veu-packages.php:122
+msgid "Print meta Keyword"
+msgstr "メタキーワードを出力"
+
+#: veu-packages.php:123
+msgid "Print meta Keyword to html head."
+msgstr "ヘッダーにメタキーワードを出力します。"
+
+#: veu-packages.php:139
+msgid "Print meta description"
+msgstr "メタディスクリプションタグを出力"
+
+#: veu-packages.php:140
+msgid "Print meta description to html head."
+msgstr ""
+"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
+"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
+"している場合はチェックを外して下さい。"
+
+#: veu-packages.php:149
+msgid "Main setting page"
+msgstr "メイン設定画面"
+
+#: veu-packages.php:151
+msgid "Print og tags to html head."
+msgstr "OG タグを html head 内へ出力します。"
+
+#: veu-packages.php:152
+msgid "Print twitter card tags to html head."
+msgstr "Twitter カードタグを html head 内へ出力します。"
+
+#: veu-packages.php:153
+msgid "Print social bookmark buttons."
+msgstr "ソーシャルブックマークボタンを表示します。"
+
+#: veu-packages.php:154
+msgid "Facebook Page Plugin widget."
+msgstr "Facebookページプラグインウィジェット"
+
+#: veu-packages.php:155
+msgid "Print Follow me box to content bottom."
+msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
+
+#: veu-packages.php:157
+#, php-format
+msgid "* You can stop the function separately from the %s."
+msgstr "%s から個別に機能を停止する事ができます。"
+
+#: veu-packages.php:161
+msgid "Social media cooperation"
+msgstr "ソーシャルメディア連携"
+
+#: veu-packages.php:180
+msgid "Print Google Analytics tracking code."
+msgstr ""
+"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
+"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
+"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
+"合はチェックを外して下さい。"
+
+#: veu-packages.php:196
+msgid "You can use various widgets."
+msgstr ""
+"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
+"→「ウィジェット」の設定画面より行って下さい。"
+
+#: veu-packages.php:198
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
+
+#: veu-packages.php:199
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
+
+#: veu-packages.php:200
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
+
+#: veu-packages.php:201
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
+
+#: veu-packages.php:202
+msgid "VK_3PR area - display the 3PR area."
+msgstr "VK_3PR エリア - 3PR エリアを表示します。"
+
+#: veu-packages.php:203
+msgid "categories/tags list"
+msgstr "カテゴリー/タグ リスト"
+
+#: veu-packages.php:203
+msgid "Displays a categories, tags or format list."
+msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
+
+#: veu-packages.php:209
+msgid "Widgets"
+msgstr "ウィジェット"
+
+#: veu-packages.php:227
+msgid "CSS customize"
+msgstr "CSSカスタマイズ"
+
+#: veu-packages.php:228
+msgid "You can set Customize CSS."
+msgstr ""
+"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
+"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
+"さい。"
+
+#: veu-packages.php:246
+msgid "Child page index"
+msgstr "子ページの一覧表示"
+
+#: veu-packages.php:247
+msgid ""
+"At the bottom of the specified page, it will display a list of the child "
+"page."
+msgstr ""
+"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
+"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
+
+#: veu-packages.php:258
+msgid "Page list from ancestor"
+msgstr "先祖階層からの子ページリスト表示"
+
+#: veu-packages.php:259
+msgid "Display Page list from ancestor at after content."
+msgstr ""
+"現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
+
+#: veu-packages.php:270
+msgid "Display Contact Section at after content."
+msgstr "お問い合わせ情報を本文の下に表示する"
+
+#: veu-packages.php:287
+msgid "Display HTML Site Map"
+msgstr "HTMLサイトマップの表示"
+
+#: veu-packages.php:288
+msgid "It displays a HTML Site Map to the specified page."
+msgstr "指定した固定ページにHTMLサイトマップを表示します。"
+
+#: veu-packages.php:314
+msgid "Contents setting"
+msgstr "CTA表示内容設定"
+
+#: veu-packages.php:329
+msgid "Insert ads to content."
+msgstr "記事に広告を挿入します"
+
+#: veu-packages.php:346
+msgid "Print Related posts lists to post content bottom."
+msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
+
+#: veu-packages.php:357
+msgid "Display Eye Catch image at before content."
+msgstr ""
+"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
+"す。"
+
+#: veu-packages.php:367
+msgid "Disable ping back"
+msgstr "ping backを停止"
+
+#: veu-packages.php:368
+msgid "Disable xmlrpc ping back."
+msgstr "xmlrpcを停止"
+
+#: veu-packages.php:377 veu-packages.php:378
+msgid "Disable dashbord"
+msgstr "ダッシュボードに最新情報を表示しない"
+
+#: veu-packages.php:389
+msgid "TinyMCE Style Tags"
+msgstr "TinyMCE スタイルタグ"
+
+#: veu-packages.php:390
+msgid "Add TinyMCE Editor to style tags."
+msgstr "スタイルタグにTinyMCEエディタを追加する"
+
+#: veu-packages.php:398
+msgid "Admin bar manu"
+msgstr "管理バーメニュー"
+
+#: veu-packages.php:399
+msgid "Add ExUnit menu to admin bar."
+msgstr "ExUnitのメニューを管理バーに表示する"
+
+#: veu-packages.php:409
+msgid "Post Type Manager"
+msgstr "カスタム投稿タイプマネージャー"
+
+#: veu-packages.php:410
+msgid "Add custom post types and custom taxonomies."
+msgstr "カスタム投稿タイプやカスタム分類を追加します。"
+
+#: veu-packages.php:427
+msgid "Page Top Button"
+msgstr "ページトップへ戻るボタン"
+
+#: veu-packages.php:428
+msgid ""
+"The page top button is displayed in the lower right corner of the screen."
+msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
+
 #: vkExUnit.php:81
 #, php-format
 msgid "The current PHP version(%s) is too old, so VK ExUnit will not work."
@@ -2321,9 +2362,6 @@ msgstr "%s がサポートしているPHPのバージョンは5.6以降です。
 
 #~ msgid "Do not output OGP tags using BizVektor"
 #~ msgstr "BizVektor を使用して OGP タグを出力しない。"
-
-#~ msgid "Page top"
-#~ msgstr "ページ先頭へ"
 
 #~ msgid ""
 #~ "*It is necessary to set the \"%s\" -> \"Contact\" section in \"Main "
