@@ -45,8 +45,8 @@ require_once( 'admin_other_functions.php' );
 /*-------------------------------------------*/
 
 require vkExUnit_get_directory() . '/common_init.php';
-require vkExUnit_get_directory() . '/package_manager.php';
-require vkExUnit_get_directory() . '/packages.php';
+require vkExUnit_get_directory() . '/veu-package-manager.php';
+require vkExUnit_get_directory() . '/veu-packages.php';
 $options = vkExUnit_get_common_options();
 require vkExUnit_get_directory() . '/common_helpers.php';
 
