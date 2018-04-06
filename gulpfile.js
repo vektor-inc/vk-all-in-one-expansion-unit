@@ -43,7 +43,7 @@ gulp.task('sass', function() {
 
 // ファイル結合
 gulp.task('scripts', function() {
-  return gulp.src(['./js/jquery.flatheights.js','./js/master.js','./plugins/pagetop-btn/js/_pagetop-btn.js'])
+  return gulp.src(['./js/jquery.flatheights.js','./js/master.js','./plugins/pagetop-btn/js/pagetop-btn.js'])
     .pipe(concat('all.js'))
     .pipe(gulp.dest('./js/'));
 });
@@ -60,7 +60,7 @@ gulp.task('jsmin', function () {
 // Watch
 gulp.task('watch', function() {
     gulp.watch('js/master.js', ['scripts']);
-    gulp.watch('plugins/pagetop-btn/js/_pagetop-btn.js', ['scripts']);
+    gulp.watch('plugins/pagetop-btn/js/pagetop-btn.js', ['scripts']);
     gulp.watch('js/all.js', ['jsmin']);
     gulp.watch('_scss/**/*.scss', ['sass']);
 });
