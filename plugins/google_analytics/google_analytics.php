@@ -4,8 +4,12 @@
 /*-------------------------------------------*/
 
 function vkExUnit_add_ga_options_page() {
-	require dirname( __FILE__ ) . '/ga_admin.php';
+	// require dirname( __FILE__ ) . '/ga_admin.php';
+	require_once(dirname(__FILE__)."/ga_admin.php");
 }
+	// カスタマイザー読み込み
+	require_once(dirname(__FILE__)."/ga_customizer.php");
+
 
 /*-------------------------------------------*/
 /*  Options Init

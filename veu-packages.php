@@ -61,6 +61,8 @@ $required_packages[] = array(
 /*-------------------------------------------*/
 /*  TinyMCE Style Tags
 /*-------------------------------------------*/
+/*  Page Top Button
+/*-------------------------------------------*/
 
 /*-------------------------------------------*/
 /*  bootstrap
@@ -416,6 +418,18 @@ $required_packages[] = array(
 	'default'     => false,
 	'include'     => 'post-type-manager-config.php'
 );
+
+/*-------------------------------------------*/
+/*  Page Top Button
+/*-------------------------------------------*/
+$required_packages[] = array(
+	'name'        => 'pagetop_button',
+	'title'       => __( 'Page Top Button', 'vkExUnit' ),
+	'description' => __( 'The page top button is displayed in the lower right corner of the screen.', 'vkExUnit' ),
+	'default'     => false,
+	'include'     => 'pagetop-btn/pagetop-btn.php'
+);
+
 
 foreach ( $required_packages as $package ) {
 	vkExUnit_package_register( $package );
