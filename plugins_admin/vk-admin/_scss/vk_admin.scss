@@ -128,8 +128,16 @@
 /*-------------------------------------------*/
 /* Widget css
 /*-------------------------------------------*/
+.admin_widget_section {
+	display:block; overflow:hidden;
+	margin:1.5em 0;
+	p {
+		margin-top:0.5em;
+	}
+}
 .admin_widget_h2{
 	box-sizing: border-box;
+	margin:0 0 1em;
 	padding: 0.8em;
 	width: 100%;
 	border: solid 1px #ddd;
@@ -145,10 +153,13 @@
 	// background: #EDEDED;
 	font-size: 1em;
 }
-.admin_widget_input{
-	width: 100%;
-	margin: 0.3em 0;
+input[type=text], input[type=search], input[type=radio], input[type=tel], input[type=time], input[type=url], input[type=week], input[type=password], input[type=checkbox], input[type=color], input[type=date], input[type=datetime], input[type=datetime-local], input[type=email], input[type=month], input[type=number], select, textarea {
+	&.admin_widget_input{
+		width: 100%;
+		margin: 0.3em 0;
+	}
 }
+
 .admin_widget_thumb_outer {
 	position: relative;
 	overflow: hidden;
