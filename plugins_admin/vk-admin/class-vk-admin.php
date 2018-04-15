@@ -24,19 +24,14 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			add_action( 'wp_dashboard_setup', array( __CLASS__, 'dashboard_widget' ), 1 );
 		}
 
-		static function admin_directory_url() {
-			$vk_admin_url = plugin_dir_url( __FILE__ );
-			return $vk_admin_url;
-		}
-
 		static function admin_common_css() {
-			wp_enqueue_style( 'vk-admin-style', self::admin_directory_url() . 'css/vk_admin.css', array(), self::$version, 'all' );
+			wp_enqueue_style( 'vk-admin-style', plugin_dir_url( __FILE__ ) . 'css/vk_admin.css', array(), self::$version, 'all' );
 		}
 
 		static function admin_enqueue_scripts() {
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_media();
-			wp_enqueue_script( 'vk-admin-js', self::admin_directory_url() . 'js/vk_admin.js', array( 'jquery' ), self::$version );
+			wp_enqueue_script( 'vk-admin-js', plugin_dir_url( __FILE__ ) . 'js/vk_admin.js', array( 'jquery' ), self::$version );
 		}
 
 		// 管理画面用のjsを読み込むページを配列で指定する
@@ -68,7 +63,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		/*--------------------------------------------------*/
 		public static function get_admin_banner() {
 			$banner  = '';
-			$dir_url = self::admin_directory_url();
+			$dir_url = plugin_dir_url( __FILE__ );
 			$lang    = ( get_locale() == 'ja' ) ? 'ja' : 'en';
 
 			$banner .= '<div class="vk-admin-banner">';
