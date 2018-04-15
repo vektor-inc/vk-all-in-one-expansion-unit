@@ -86,6 +86,7 @@ gulp.task('copy_dist', function() {
 							'./**/*.ttf',
 							'./**/*.woff',
 							'./**/*.woff2',
+							'./**/*.otf',
 							'./**/*.png',
 							'./images/**',
 							'./inc/**',
