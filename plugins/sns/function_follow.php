@@ -54,6 +54,7 @@ function vkExUnit_add_follow( $content ) {
 		$follow_html .= '<div class="p-entry__tw-follow">' . "\n";
 		if ( $twitterId ) {
 			$follow_html .= '<a href="https://twitter.com/' . esc_html( $options['twitterId'] ) . '" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">@' . esc_html( $options['twitterId'] ) . '</a>		</div>' . "\n";
+			$follow_html .= '<a href="https://twitter.com/' . esc_html( $options['twitterId'] ) . '" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">@' . esc_html( $options['twitterId'] ) . '</a>		</div><!-- [ /.twitter ] -->' . "\n";
 		}
 		// feedly
 		$follow_html .= '<div class="follow_btn follow_feedly"><a href="http://cloud.feedly.com/#subscription/feed/' . home_url() . '/feed/" target="blank"><img id="feedlyFollow" src="http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-small_2x.png" alt="follow us in feedly" width="66" height="20"></a></div>' . "\n";
