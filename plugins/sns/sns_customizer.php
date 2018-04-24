@@ -103,7 +103,7 @@ function veu_customize_register_sns( $wp_customize ) {
 				'label'       => __( 'OG default image', 'vkExUnit' ),
 				'section'     => 'veu_sns_setting',
 				'settings'    => 'vkExUnit_sns_options[ogImage]',
-				'description' => __( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.<br>If a featured image is specified for the page, it takes precedence.<br>ex) https://www.vektor-inc.co.jp/images/ogImage.png<br>* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit' ),
+				'description' => __( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.<br>If a featured image is specified for the page, it takes precedence.<br>* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit' ),
 			)
 		)
 	);
