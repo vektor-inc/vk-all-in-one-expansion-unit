@@ -29,37 +29,34 @@ function vkExUnit_add_follow( $content ) {
 
 		$image_id  = get_post_thumbnail_id();
 		$image_url = wp_get_attachment_image_src( $image_id, true );
-		if ( has_post_thumbnail() ) :
-			$follow_thumbnail = $image_url[0];
-			$follow_thumbnail = '<div class="p-entry__pushThumb" style="background-image: url(\'' . $follow_thumbnail . '\')"></div>';
-		else :
-			$follow_thumbnail = '';
-		endif;
-		$follow_html .= '
-		<div class="p-entry__push">
-		' . "\n";
-		$follow_html .= $follow_thumbnail;
+
+		$follow_html .= '<div class="veu_followSet">';
+
+		// 画像
+		if ( has_post_thumbnail() ) {
+			$follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
+		}
 
 		$follow_html .= '
-		<div class="p-entry__pushLike">
-		<p>' . $title . '</p>' . "\n";
+		<div class="followSet_body">
+		<p class="followSet_title">' . $title . '</p>' . "\n";
 		// fb
 		if ( $fbPageUrl ) {
 			$follow_html .= '
-			<div class="p-entry__pushButton">
+			<div class="followSet_fb_page">
 			<div class="fb-like" data-href="' . esc_url( $options['fbPageUrl'] ) . '" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 			</div>' . "\n";
 		}
 		// twitter
-		$follow_html .= '<div class="p-entry__tw-follow">' . "\n";
 		if ( $twitterId ) {
-			$follow_html .= '<a href="https://twitter.com/' . esc_html( $options['twitterId'] ) . '" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">@' . esc_html( $options['twitterId'] ) . '</a>		</div>' . "\n";
+			$follow_html .= '<div class="followSet_tw_follow">' . "\n";
 			$follow_html .= '<a href="https://twitter.com/' . esc_html( $options['twitterId'] ) . '" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">@' . esc_html( $options['twitterId'] ) . '</a>		</div><!-- [ /.twitter ] -->' . "\n";
 		}
 		// feedly
-		$follow_html .= '<div class="follow_btn follow_feedly"><a href="http://cloud.feedly.com/#subscription/feed/' . home_url() . '/feed/" target="blank"><img id="feedlyFollow" src="http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-small_2x.png" alt="follow us in feedly" width="66" height="20"></a></div>' . "\n";
-		$follow_html .= '</div><!-- [ /.followSet_body ] -->
-		</div>' . "\n";
+		$follow_html .= '<div class="follow_feedly"><a href="http://cloud.feedly.com/#subscription/feed/' . home_url() . '/feed/" target="blank"><img id="feedlyFollow" src="http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-small_2x.png" alt="follow us in feedly" width="66" height="20"></a></div>' . "\n";
+		$follow_html .= '</div><!-- [ /.followSet_body ] -->';
+
+		$follow_html .= '</div>' . "\n";
 		// 記事がよかったらいいね　ここまで
 
 		global $post;

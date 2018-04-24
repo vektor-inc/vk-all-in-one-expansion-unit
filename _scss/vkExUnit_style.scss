@@ -322,69 +322,60 @@ $section_pagelist_margin:2.5em 0 1em;
 /*-------------------------------------------*/
 /* .veu_followSet
 /*-------------------------------------------*/
-.veu_followSet { @include veu_content_bottom_section; clear: both;
-	h1.followSet_title {  @include veu_content_bottom_section_title; }
-	.followSet_body {  @include veu_content_bottom_section_body; }
-	.follow_btn { float:left;margin-right:20px;margin-bottom:10px; }
-}
 /*記事がよかったら、いいね*/
-.p-entry__push {
-margin: 30px 0;
-display: table;
-table-layout: fixed;
-width: 100%;
-background-color: #2b2b2b;
-color: #fff;
-}
-.p-entry__pushThumb {
-display: table-cell;
-min-width: 240px;
-background-position: center;
-background-size:cover;
-}
-.p-entry__pushLike {
-display: table-cell;
-padding: 15px;
-text-align: center;
-vertical-align: middle;
-line-height: 1.4;
-font-size: 20px;
-}
-@media (min-width: 481px) {
-	.p-entry__pushLike {
-	padding: 40px;
+.veu_followSet {
+	margin: 30px 0;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	background-color: #2b2b2b;
+	color: #fff;
+
+	.followSet_img {
+		display: table-cell;
+		min-width: 240px;
+		background-position: center;
+		background-size:cover;
 	}
-}
-@media (max-width: 480px) {
-	.p-entry__pushLike > p {
-		font-size: 12px;
-		margin-bottom: 0;
+	.followSet_body {
+		display: table-cell;
+		padding: 15px;
+		@media (min-width: 481px) {padding: 40px;}
+		text-align: center;
+		vertical-align: middle;
+		line-height: 1.4;
+		font-size: 20px;
 	}
-}
-@media (min-width: 481px) {
-	.p-entry__pushLike > p {
-		font-size: 18px;
-    margin-bottom: 10px;
+
+	.followSet_title {
+		@media (max-width: 480px) {
+			font-size: 12px;
+			margin-bottom: 0;
+		}
+		@media (min-width: 481px) {
+			font-size: 18px;
+	    margin-bottom: 10px;
+		}
 	}
-}
-.p-entry__pushButton {
-margin-top: 0;
-display: block;
-width: 100%;
--webkit-transform: scale(1.2);
--ms-transform: scale(1.2);
-transform: scale(1.2);
-}
-.p-entry__pushButtonLike {
-line-height: 1;
-}
-.p-entry__tw-follow {
-width: 100%;
-padding: 15px 0 0;
-}
-.veu_followSet .follow_btn {
-	float: none;
-}
+
+	.followSet_fb_page {
+		margin-top: 0;
+		display: block;
+		width: 100%;
+		-webkit-transform: scale(1.2);
+		-ms-transform: scale(1.2);
+		transform: scale(1.2);
+	}
+	.followSet_tw_follow {
+		width: 100%;
+		padding: 15px 0 0;
+	}
+	.followSet_feedly {
+		text-align: center;
+	}
+
+} // .veu_followSet
+
 
 /*-------------------------------------------*/
 /* .veu_cta

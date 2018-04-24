@@ -508,12 +508,12 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 	//	Add Edit Customize Link Btn
-	$wp_customize->selective_refresh->add_partial(
-		'vkExUnit_sns_options[followMe_title]', array(
-			'selector'        => '.veu_relatedPosts',
-			'render_callback' => '',
-		)
-	);
+	// $wp_customize->selective_refresh->add_partial(
+	// 	'vkExUnit_sns_options[followMe_title]', array(
+	// 		'selector'        => '.veu_relatedPosts',
+	// 		'render_callback' => '',
+	// 	)
+	// );
 
 	/*-------------------------------------------*/
 	/*	Add Edit Customize Link Btn
