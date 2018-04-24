@@ -4,25 +4,26 @@
 /*  Add Customize Panel
 /*-------------------------------------------*/
 add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_sns' );
-function veu_customize_panel_activation_sns(){
+function veu_customize_panel_activation_sns() {
 	return true;
 }
 
-if ( apply_filters('veu_customize_panel_activation', false ) ){
-	add_action( 'customize_register', 'veu_customize_register_sns' ,20);
+if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
+	add_action( 'customize_register', 'veu_customize_register_sns', 20 );
 }
 
 function veu_customize_register_sns( $wp_customize ) {
 
- 	/*-------------------------------------------*/
- 	/*	SNS Settings
- 	/*-------------------------------------------*/
-  //1. テーマカスタマイザー上に新しいセクションを追加
- 	$wp_customize->add_section( 'veu_sns_setting',
+	/*-------------------------------------------*/
+	/*	SNS Settings
+	 /*-------------------------------------------*/
+	//1. テーマカスタマイザー上に新しいセクションを追加
+	$wp_customize->add_section(
+		'veu_sns_setting',
 		array(
-	 		'title'				=> __('SNS Settings', 'vkExUnit'),
-	 		'priority'		=> 1,
-	 		'panel'				=> 'veu_setting',
+			'title'    => __( 'SNS Settings', 'vkExUnit' ),
+			'priority' => 1,
+			'panel'    => 'veu_setting',
 		)
 	);
 
@@ -32,55 +33,60 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Facebook_application_ID_title', array(
-				'label'       => __( 'Facebook Settings', 'vkExUnit' ),
-				'section'     => 'veu_sns_setting',
-				'type'        => 'text',
+				'label'            => __( 'Facebook Settings', 'vkExUnit' ),
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
 				'custom_title_sub' => '',
-				'custom_html' => '',
+				'custom_html'      => '',
 			)
 		)
 	);
 
 	// Facebook application ID
- 	$wp_customize->add_setting( 'vkExUnit_sns_options[fbAppId]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[fbAppId]',
 		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
 		)
- 	);
+	);
 
- 	$wp_customize->add_control( 'fbAppId',
+	$wp_customize->add_control(
+		'fbAppId',
 		array(
 			'label'    => __( 'Facebook application ID', 'vkExUnit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[fbAppId]',
 			'type'     => 'text',
 		)
- 	);
+	);
 
 	// Facebook Page URL
- 	$wp_customize->add_setting( 'vkExUnit_sns_options[fbPageUrl]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[fbPageUrl]',
 		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
 		)
- 	);
+	);
 
- 	$wp_customize->add_control( 'fbPageUrl',
+	$wp_customize->add_control(
+		'fbPageUrl',
 		array(
 			'label'    => __( 'Facebook Page URL', 'vkExUnit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[fbPageUrl]',
 			'type'     => 'text',
 		)
- 	);
+	);
 
 	// OG default image
-	$wp_customize->add_setting( 'vkExUnit_sns_options[ogImage]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[ogImage]',
 		array(
 			'default'           => '',
 			'type'              => 'option',
@@ -89,7 +95,8 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_control( new WP_Customize_Image_Control(
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
 			$wp_customize,
 			'ogImage',
 			array(
@@ -106,52 +113,54 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Print the OG_title', array(
-				'label'       => __( 'OG Settings', 'vkExUnit' ),
-				'section'     => 'veu_sns_setting',
-				'type'        => 'text',
+				'label'            => __( 'OG Settings', 'vkExUnit' ),
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
 				'custom_title_sub' => '',
-				'custom_html' => '',
+				'custom_html'      => '',
 			)
 		)
 	);
 
 	// Print the OG tags
-	$wp_customize->add_setting('vkExUnit_sns_options[enableOGTags]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[enableOGTags]',
 		array(
-			'default'			      => false,
-			'type'				      => 'option', // 保存先 option or theme_mod
-			'capability'		    => 'edit_theme_options',
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 
-	$wp_customize->add_control( 'enableOGTags',
+	$wp_customize->add_control(
+		'enableOGTags',
 		array(
-			'label'		    => __( 'Print the OG tags', 'vkExUnit' ),
-			'section'	    => 'veu_sns_setting',
+			'label'       => __( 'Print the OG tags', 'vkExUnit' ),
+			'section'     => 'veu_sns_setting',
 			'settings'    => 'vkExUnit_sns_options[enableOGTags]',
-			'type'		    => 'checkbox',
+			'type'        => 'checkbox',
 			'description' => __( 'If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vkExUnit' ),
 		)
 	);
-
 
 	// Twitter_application_ID_title
 	$wp_customize->add_setting( 'Twitter_application_ID_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Twitter_application_ID_title', array(
-				'label'       => __( 'Twitter Settings', 'vkExUnit' ),
-				'section'     => 'veu_sns_setting',
-				'type'        => 'text',
+				'label'            => __( 'Twitter Settings', 'vkExUnit' ),
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
 				'custom_title_sub' => '',
-				'custom_html' => '',
+				'custom_html'      => '',
 			)
 		)
 	);
 
 	// Twitter ID
-	$wp_customize->add_setting( 'vkExUnit_sns_options[twitterId]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[twitterId]',
 		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
@@ -163,112 +172,115 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Text_Control(
 			$wp_customize, 'twitterId', array(
-				'label'    => __( 'Twitter ID', 'vkExUnit' ),
-				'section'  => 'veu_sns_setting',
-				'settings' => 'vkExUnit_sns_options[twitterId]',
-				'type'     => 'text',
-				'description' => '',
+				'label'        => __( 'Twitter ID', 'vkExUnit' ),
+				'section'      => 'veu_sns_setting',
+				'settings'     => 'vkExUnit_sns_options[twitterId]',
+				'type'         => 'text',
+				'description'  => '',
 				'input_before' => '@',
 			)
 		)
 	);
 
 	// Twitter Card tags
-	$wp_customize->add_setting('vkExUnit_sns_options[enableTwitterCardTags]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[enableTwitterCardTags]',
 		array(
-			'default'			      => false,
-			'type'				      => 'option', // 保存先 option or theme_mod
-			'capability'		    => 'edit_theme_options',
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 
-	$wp_customize->add_control( 'enableTwitterCardTags',
+	$wp_customize->add_control(
+		'enableTwitterCardTags',
 		array(
-			'label'		    => __( 'Twitter Card tags', 'vkExUnit' ),
-			'section'	    => 'veu_sns_setting',
+			'label'       => __( 'Twitter Card tags', 'vkExUnit' ),
+			'section'     => 'veu_sns_setting',
 			'settings'    => 'vkExUnit_sns_options[enableTwitterCardTags]',
-			'type'		    => 'checkbox',
+			'type'        => 'checkbox',
 			'description' => __( 'Print the Twitter Card tags', 'vkExUnit' ),
 		)
 	);
 
-
-
 	/*-------------------------------------------*/
- 	/*	Share_button
- 	/*-------------------------------------------*/
+	/*	Share_button
+	 /*-------------------------------------------*/
 
 	// share_button_title
 	$wp_customize->add_setting( 'share_button_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'share_button_title', array(
-				'label'       => __( 'Social bookmark buttons', 'vkExUnit' ),
-				'section'     => 'veu_sns_setting',
-				'type'        => 'text',
+				'label'            => __( 'Social bookmark buttons', 'vkExUnit' ),
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
 				'custom_title_sub' => '',
-				'custom_html' => '',
+				'custom_html'      => '',
 			)
 		)
 	);
 
 	// Social bookmark buttons
-	$wp_customize->add_setting('vkExUnit_sns_options[enableSnsBtns]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[enableSnsBtns]',
 		array(
-			'default'			      => false,
-			'type'				      => 'option', // 保存先 option or theme_mod
-			'capability'		    => 'edit_theme_options',
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 
-	$wp_customize->add_control( 'enableSnsBtns',
+	$wp_customize->add_control(
+		'enableSnsBtns',
 		array(
-			'label'		    => __( 'Print the social bookmark buttons', 'vkExUnit' ),
-			'section'	    => 'veu_sns_setting',
-			'settings'    => 'vkExUnit_sns_options[enableSnsBtns]',
-			'type'		    => 'checkbox',
+			'label'    => __( 'Print the social bookmark buttons', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[enableSnsBtns]',
+			'type'     => 'checkbox',
 		)
 	);
-
 
 	// share_button_title
 	$wp_customize->add_setting( 'share_button_exclude_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'share_button_exclude_title', array(
-				'label'       => '',
-				'section'     => 'veu_sns_setting',
-				'type'        => 'text',
-				'custom_title_sub' => __('Exclude Post Types', 'vkExUnit'),
-				'custom_html' => '',
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => __( 'Exclude Post Types', 'vkExUnit' ),
+				'custom_html'      => '',
 			)
 		)
 	);
 
-	$args = array(
-		'public'   => true,
+	$args       = array(
+		'public' => true,
 	);
-	$post_types = get_post_types($args,'object');
-	foreach ($post_types as $key => $value) {
+	$post_types = get_post_types( $args, 'object' );
+	foreach ( $post_types as $key => $value ) {
 		if ( $key != 'attachment' ) {
 			// Exclude Post Types(post,page)
-			$wp_customize->add_setting('vkExUnit_sns_options[snsBtn_exclude_post_types]['.$key.']',
+			$wp_customize->add_setting(
+				'vkExUnit_sns_options[snsBtn_exclude_post_types][' . $key . ']',
 				array(
-					'default'			      => false,
-					'type'				      => 'option', // 保存先 option or theme_mod
-					'capability'		    => 'edit_theme_options',
+					'default'           => false,
+					'type'              => 'option', // 保存先 option or theme_mod
+					'capability'        => 'edit_theme_options',
 					'sanitize_callback' => 'veu_sanitize_boolean',
 				)
 			);
 
-			$wp_customize->add_control( 'snsBtn_exclude_post_types_'.$key,
+			$wp_customize->add_control(
+				'snsBtn_exclude_post_types_' . $key,
 				array(
-					'label'		    => esc_html( $value->label ),
-					'section'	    => 'veu_sns_setting',
-					'settings'    => 'vkExUnit_sns_options[snsBtn_exclude_post_types]['.$key.']',
-					'type'		    => 'checkbox',
+					'label'    => esc_html( $value->label ),
+					'section'  => 'veu_sns_setting',
+					'settings' => 'vkExUnit_sns_options[snsBtn_exclude_post_types][' . $key . ']',
+					'type'     => 'checkbox',
 				)
 			);
 		}
@@ -279,196 +291,205 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'share_button_bg_title', array(
-				'label'       => '',
-				'section'     => 'veu_sns_setting',
-				'type'        => 'text',
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
 				'custom_title_sub' => __( 'Social button style setting', 'vkExUnit' ),
-				'custom_html' => '',
+				'custom_html'      => '',
 			)
 		)
 	);
 
 	// Bin bg fill
-	$wp_customize->add_setting('vkExUnit_sns_options[snsBtn_bg_fill_not]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_bg_fill_not]',
 		array(
-			'default'			      => false,
-			'type'				      => 'option', // 保存先 option or theme_mod
-			'capability'		    => 'edit_theme_options',
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 
-	$wp_customize->add_control( 'snsBtn_bg_fill_not',
+	$wp_customize->add_control(
+		'snsBtn_bg_fill_not',
 		array(
-			'label'		  => __( 'No background', 'vkExUnit' ),
-			'section'	  => 'veu_sns_setting',
-			'settings'  => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
-			'type'		  => 'checkbox',
+			'label'    => __( 'No background', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
+			'type'     => 'checkbox',
 		)
 	);
 
 	// Btn color
-	$wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_color]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_color]',
 		array(
-			'default'			      => false,
-			'type'				      => 'option', // 保存先 option or theme_mod
-			'capability'		    => 'edit_theme_options',
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 
-	 $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'snsBtn_color',
-		array(
-			'label'    => __('Btn color', 'vkExUnit'),
-			'section'  => 'veu_sns_setting',
-			'settings' => 'vkExUnit_sns_options[snsBtn_color]',
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize, 'snsBtn_color',
+			array(
+				'label'    => __( 'Btn color', 'vkExUnit' ),
+				'section'  => 'veu_sns_setting',
+				'settings' => 'vkExUnit_sns_options[snsBtn_color]',
+			)
 		)
-	 ));
+	);
 
 	 // Follow_me_box_use_title
 	 $wp_customize->add_setting( 'Follow_me_box_use_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
-	 $wp_customize->add_control(
-		 new ExUnit_Custom_Html(
-			 $wp_customize, 'Follow_me_box_use_title', array(
-				 'label'       => '',
-				 'section'     => 'veu_sns_setting',
-				 'type'        => 'text',
-				 'custom_title_sub' => __( 'Share button for display', 'vkExUnit' ),
-				 'custom_html' => '',
-			 )
-		 )
-	 );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize, 'Follow_me_box_use_title', array(
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => __( 'Share button for display', 'vkExUnit' ),
+				'custom_html'      => '',
+			)
+		)
+	);
 
 	 // Follow me box(Facebook)
-	 $wp_customize->add_setting('vkExUnit_sns_options[useFacebook]',
-		 array(
-			 'default'			      => false,
-			 'type'				      => 'option', // 保存先 option or theme_mod
-			 'capability'		    => 'edit_theme_options',
-			 'sanitize_callback' => 'veu_sanitize_boolean',
-		 )
-	 );
-
-	 $wp_customize->add_control( 'useFacebook',
-		 array(
-			 'label'		    => __( 'Facebook ', 'vkExUnit' ),
-			 'section'	    => 'veu_sns_setting',
-			 'settings'    => 'vkExUnit_sns_options[useFacebook]',
-			 'type'		    => 'checkbox',
-		 )
-	 );
-
-	 // Follow me box(Twitter)
-	 $wp_customize->add_setting('vkExUnit_sns_options[useTwitter]',
-		 array(
-			 'default'			      => false,
-			 'type'				      => 'option', // 保存先 option or theme_mod
-			 'capability'		    => 'edit_theme_options',
-			 'sanitize_callback' => 'veu_sanitize_boolean',
-		 )
-	 );
-
-	 $wp_customize->add_control( 'useTwitter',
-		 array(
-			 'label'		    => __( 'Twitter', 'vkExUnit' ),
-			 'section'	    => 'veu_sns_setting',
-			 'settings'    => 'vkExUnit_sns_options[useTwitter]',
-			 'type'		    => 'checkbox',
-		 )
-	 );
-
-	 // Follow me box(Hatena)
-	 $wp_customize->add_setting('vkExUnit_sns_options[useHatena]',
-		 array(
-			 'default'			      => false,
-			 'type'				      => 'option', // 保存先 option or theme_mod
-			 'capability'		    => 'edit_theme_options',
-			 'sanitize_callback' => 'veu_sanitize_boolean',
-		 )
-	 );
-
-	 $wp_customize->add_control( 'useHatena',
-		 array(
-			 'label'		    => __( 'Hatena', 'vkExUnit' ),
-			 'section'	    => 'veu_sns_setting',
-			 'settings'    => 'vkExUnit_sns_options[useHatena]',
-			 'type'		    => 'checkbox',
-		 )
-	 );
-
-	 // Follow me box(Pocket)
-	 $wp_customize->add_setting('vkExUnit_sns_options[usePocket]',
-		 array(
-			 'default'			      => false,
-			 'type'				      => 'option', // 保存先 option or theme_mod
-			 'capability'		    => 'edit_theme_options',
-			 'sanitize_callback' => 'veu_sanitize_boolean',
-		 )
-	 );
-
-	 $wp_customize->add_control( 'usePocket',
-		 array(
-			 'label'		    => __( 'Pocket', 'vkExUnit' ),
-			 'section'	    => 'veu_sns_setting',
-			 'settings'    => 'vkExUnit_sns_options[usePocket]',
-			 'type'		    => 'checkbox',
-		 )
-	 );
-
-	 // Follow me box(LINE)
-	 $wp_customize->add_setting('vkExUnit_sns_options[useLine]',
-		 array(
-			 'default'			      => false,
-			 'type'				      => 'option', // 保存先 option or theme_mod
-			 'capability'		    => 'edit_theme_options',
-			 'sanitize_callback' => 'veu_sanitize_boolean',
-		 )
-	 );
-
-	 $wp_customize->add_control( 'useLine',
-		 array(
-			 'label'		    => __( 'LINE (mobile only)', 'vkExUnit' ),
-			 'section'	    => 'veu_sns_setting',
-			 'settings'    => 'vkExUnit_sns_options[useLine]',
-			 'type'		    => 'checkbox',
-		 )
-	 );
-
-	 // Follow_me_box_title
-	 $wp_customize->add_setting( 'Follow_me_box_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
-	 $wp_customize->add_control(
-		 new ExUnit_Custom_Html(
-			 $wp_customize, 'Follow_me_box_title', array(
-				 'label'       => __( 'Follow me box', 'vkExUnit' ),
-				 'section'     => 'veu_sns_setting',
-				 'type'        => 'text',
-				 'custom_title_sub' => '',
-				 'custom_html' => '',
-			 )
-		 )
-	 );
-
-	// Follow me box
-	$wp_customize->add_setting('vkExUnit_sns_options[enableFollowMe]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useFacebook]',
 		array(
-			'default'			      => false,
-			'type'				      => 'option', // 保存先 option or theme_mod
-			'capability'		    => 'edit_theme_options',
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 
-	$wp_customize->add_control( 'enableFollowMe',
+	$wp_customize->add_control(
+		'useFacebook',
 		array(
-			'label'		    => __( 'Print the Follow me box', 'vkExUnit' ),
-			'section'	    => 'veu_sns_setting',
-			'settings'    => 'vkExUnit_sns_options[enableFollowMe]',
-			'type'		    => 'checkbox',
+			'label'    => __( 'Facebook ', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useFacebook]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	 // Follow me box(Twitter)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useTwitter]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'useTwitter',
+		array(
+			'label'    => __( 'Twitter', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useTwitter]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	 // Follow me box(Hatena)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useHatena]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'useHatena',
+		array(
+			'label'    => __( 'Hatena', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useHatena]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	 // Follow me box(Pocket)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[usePocket]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'usePocket',
+		array(
+			'label'    => __( 'Pocket', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[usePocket]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	 // Follow me box(LINE)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useLine]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'useLine',
+		array(
+			'label'    => __( 'LINE (mobile only)', 'vkExUnit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useLine]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	 // Follow_me_box_title
+	 $wp_customize->add_setting( 'Follow_me_box_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize, 'Follow_me_box_title', array(
+				'label'            => __( 'Follow me box', 'vkExUnit' ),
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => '',
+				'custom_html'      => '',
+			)
+		)
+	);
+
+	// Follow me box
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[enableFollowMe]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 
 	// Follow me box title
-	$wp_customize->add_setting( 'vkExUnit_sns_options[followMe_title]',
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[followMe_title]',
 		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
@@ -477,7 +498,8 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_control( 'followMe_title',
+	$wp_customize->add_control(
+		'followMe_title',
 		array(
 			'label'    => __( 'Follow me box title', 'vkExUnit' ),
 			'section'  => 'veu_sns_setting',
@@ -485,17 +507,21 @@ function veu_customize_register_sns( $wp_customize ) {
 			'type'     => 'text',
 		)
 	);
+	//	Add Edit Customize Link Btn
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_sns_options[followMe_title]', array(
+			'selector'        => '.veu_relatedPosts',
+			'render_callback' => '',
+		)
+	);
 
-
-
-
-
-
-   /*-------------------------------------------*/
- 	/*	Add Edit Customize Link Btn
- 	/*-------------------------------------------*/
-   $wp_customize->selective_refresh->add_partial( 'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
-     'selector' => '.veu_socialSet',
-     'render_callback' => '',
-   ) );
- }
+	/*-------------------------------------------*/
+	/*	Add Edit Customize Link Btn
+	 /*-------------------------------------------*/
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
+			'selector'        => '.veu_socialSet',
+			'render_callback' => '',
+		)
+	);
+}
