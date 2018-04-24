@@ -17,6 +17,7 @@
 
 // シェアボタンを表示する設定の読み込み
 require_once(dirname(__FILE__)."/hide_controller.php");
+require_once(dirname(__FILE__)."/sns_customizer.php");
 
 function veu_sns_options_init() {
 	if ( false === veu_get_sns_options() ) {
@@ -152,71 +153,5 @@ require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
 
 function vkExUnit_add_sns_options_page() {
 	require dirname( __FILE__ ) . '/sns_admin.php';
-	?>
-	<?php
+
 }
-
-/*-------------------------------------------*/
-/*  Add Customize Panel
-/*-------------------------------------------*/
-add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_sns' );
-function veu_customize_panel_activation_sns(){
-	return true;
-}
-
-if ( apply_filters('veu_customize_panel_activation', false ) ){
-	add_action( 'customize_register', 'veu_customize_register_sns' );
-}
-
-function veu_customize_register_sns( $wp_customize ) {
-
- 	/*-------------------------------------------*/
- 	/*	SNS Settings
- 	/*-------------------------------------------*/
- 	$wp_customize->add_section( 'veu_sns_setting', array(
- 		'title'				=> __('SNS Settings', 'vkExUnit'),
- 		'priority'			=> 1000,
- 		'panel'				=> 'veu_setting',
- 	) );
-
-   // Bin bg fill
- 	$wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
- 		'default'			=> false,
-     'type'				=> 'option', // 保存先 option or theme_mod
- 		'capability'		=> 'edit_theme_options',
- 		'sanitize_callback' => 'veu_sanitize_boolean',
- 	) );
-
- 	$wp_customize->add_control( 'snsBtn_bg_fill_not', array(
- 		'label'		=> __( 'No background', 'vkExUnit' ),
- 		'section'	=> 'veu_sns_setting',
- 		'settings'  => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
- 		'type'		=> 'checkbox',
- 		'priority'	=> 1,
- 	) );
-
-   // Btn color
-   $wp_customize->add_setting( 'vkExUnit_sns_options[snsBtn_color]', array(
- 		'default'			=> false,
-     'type'				=> 'option', // 保存先 option or theme_mod
- 		'capability'		=> 'edit_theme_options',
- 		'sanitize_callback' => 'sanitize_hex_color',
- 	) );
-
-   $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'snsBtn_color', array(
-     'label'    => __('Btn color', 'vkExUnit'),
-     'section'  => 'veu_sns_setting',
-     'settings' => 'vkExUnit_sns_options[snsBtn_color]',
-     'priority' => 2,
-   )));
-
-   // $wp_customize->get_setting( 'vkExUnit_sns_options[snsBtn_bg_fill_not]' )->transport        = 'postMessage';
-
-   /*-------------------------------------------*/
- 	/*	Add Edit Customize Link Btn
- 	/*-------------------------------------------*/
-   $wp_customize->selective_refresh->add_partial( 'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
-     'selector' => '.veu_socialSet',
-     'render_callback' => '',
-   ) );
- }

@@ -10,7 +10,7 @@ function veu_customize_panel_activation_contact() {
 
 // カスタマイズ関数を実行
 // if ( apply_filters('veu_customize_panel_activation', false ) ){
-	add_action( 'customize_register', 'veu_customize_register_contact' );
+	add_action( 'customize_register', 'veu_customize_register_contact',20 );
 // }
 
 function veu_customize_register_contact( $wp_customize ) {
@@ -26,18 +26,6 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
-	/*	Add text control description
-	/*-------------------------------------------*/
-	class VkExUnit_Custom_Html extends WP_Customize_Control {
-		public $type        = 'customtext';
-		public $custom_html = ''; // we add this for the extra custom_html
-		public function render_content() {
-		?>
-			<div><?php echo wp_kses_post( $this->custom_html ); ?></div>
-		<?php
-		} // public function render_content() {
-	} // class VkExUnit_Custom_Html extends WP_Customize_Control
-
 	// Contact Description
 	$wp_customize->add_setting( 'veu_contact_description', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 
@@ -48,7 +36,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	$custom_html .= '</p>';
 
 	$wp_customize->add_control(
-		new VkExUnit_Custom_Html(
+		new ExUnit_Custom_Html(
 			$wp_customize, 'veu_contact_description', array(
 				// 'label'       => __( '', 'vkExUnit' ),
 				'section'     => 'veu_contact_setting',

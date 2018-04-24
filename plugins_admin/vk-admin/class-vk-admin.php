@@ -229,7 +229,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		/*  RSS方針で現在は日本語以外でのみ使用
 		/*--------------------------------------------------*/
 		public static function get_news_from_rss() {
-
+			global $vk_admin_textdomain;
 			$output = '';
 
 			include_once( ABSPATH . WPINC . '/feed.php' );
@@ -259,7 +259,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 					if ( $maxitems == 0 ) {
 						$output .= '<li>';
-						$output .= __( 'Sorry, there is no post', 'vkExUnit' );
+						$output .= __( 'Sorry, there is no post', $vk_admin_textdomain );
 						$output .= '</li>';
 					} else {
 						foreach ( $rss_items as $item ) {
