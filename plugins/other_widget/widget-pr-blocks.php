@@ -108,7 +108,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 	// icon font class input
 	echo '<p><label for="'.$this->get_field_id( 'iconFont_'.$i ).'">'.__( 'Class name of the icon font you want to use:', 'vkExUnit' ).'</label><br/>'.
-		'[ <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> ]<br/>
+		'[ <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">Font Awesome Icons</a> ]<br/>
 			<input type="text" id="'.$this->get_field_id( 'iconFont_class_'.$i ).'-font" class="font_class" name="'.$this->get_field_name( 'iconFont_class_'.$i ).'" value="'. esc_attr( $instance[ 'iconFont_class_'.$i ] ) .'" /><br>'
 	.__( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ).'<br>'.__( ' ex:fa-file-text-o', 'vkExUnit' ).'</p>';
 

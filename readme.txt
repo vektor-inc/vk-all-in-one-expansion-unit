@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 4.9.5
-Stable tag: 6.1.2
+Stable tag: 6.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,10 +46,10 @@ Many features can be stopped individually.
 *   Insert Related Posts
 *   Insert Call to action
 *   Insert Child page List to page
-*	Insert Page list from ancestor
+*   Insert Page list from ancestor
 *   Insert Auto HTML Site Map
-*	Automatic Eye Catch insert
-*	Custom post type and custom taxonomy manager
+*	  Automatic Eye Catch insert
+*	  Custom post type and custom taxonomy manager
 
 and more.
 
@@ -72,6 +72,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 6.2.0 =
+* [ SNS ][ Follow Me Section ] Change design
+* [ SNS ][ Add function ] Add customizer setting
 
 = 6.1.0 =
 * [ Add Function ] Add Page Top Button
