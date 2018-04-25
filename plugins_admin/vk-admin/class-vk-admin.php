@@ -17,10 +17,11 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 	*/
 	class Vk_Admin {
 
-		public static $version = '2.0.0';
+		public static $version = '2.1.0';
 
 		static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
+			add_action( 'customize_register', array( __CLASS__, 'admin_common_css' ) );
 			add_action( 'wp_dashboard_setup', array( __CLASS__, 'dashboard_widget' ), 1 );
 		}
 

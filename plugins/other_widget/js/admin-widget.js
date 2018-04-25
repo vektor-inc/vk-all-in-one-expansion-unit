@@ -17,8 +17,8 @@ if ( vk_widget_image_add == undefined ){
 					// プレビュー画像の枠の中の要素を一旦削除
 					thumb_outer.children().remove();
 					// ウィジェットフォームでのプレビュー画像を設定
-					// thumb_outer.append(jQuery('<img class="admin_widget_thumb">').attr('src',f.toJSON().url).attr('alt',f.toJSON().url));
-					thumb_outer.append('<img class="admin_widget_thumb" src="'+ file.toJSON().url +'" alt="'+ file.toJSON().title +'" />');
+					// thumb_outer.append(jQuery('<img class="admin-custom-thumb">').attr('src',f.toJSON().url).attr('alt',f.toJSON().url));
+					thumb_outer.append('<img class="admin-custom-thumb" src="'+ file.toJSON().url +'" alt="'+ file.toJSON().title +'" />');
 					/*
 					file.toJSON().id で id
 					file.toJSON().title で titleが返せる

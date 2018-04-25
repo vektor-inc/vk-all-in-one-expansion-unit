@@ -21,16 +21,8 @@ function veu_add_customize_panel() {
 		add_action( 'customize_register', 'veu_customize_register' );
 		// パネルを表示する = カスタマイザーが利用されるので、独自のコントロールクラスを追加
 		add_action( 'customize_register', 'veu_customize_register_add_control', 10 );
-		// カスタマイザー用CSSの読み込み
-		add_action( 'customize_controls_enqueue_scripts', 'veu_customize_style' );
 	}
 }
-
-function veu_customize_style() {
-	wp_enqueue_style( 'veu-customize-style', vkExUnit_get_directory_uri() . '/css/vkExUnit_customize.css' );
-}
-
-
 
 
 // 「ExUnit設定」パネルを出力する関数
@@ -85,10 +77,11 @@ function veu_customize_register_add_control() {
 		public $custom_html      = ''; // we add this for the extra custom_html
 		public function render_content() {
 			if ( $this->label ) {
-				echo '<h3 class="section-title">' . wp_kses_post( $this->label ) . '</h3>';
+				// echo '<h2 class="admin-custom-h2">' . wp_kses_post( $this->label ) . '</h2>';
+				echo '<h2 class="admin-custom-h2">' . wp_kses_post( $this->label ) . '</h2>';
 			}
 			if ( $this->custom_title_sub ) {
-				echo '<h4 class="section-title-sub">' . wp_kses_post( $this->custom_title_sub ) . '</h4>';
+				echo '<h3 class="admin-custom-h3">' . wp_kses_post( $this->custom_title_sub ) . '</h3>';
 			}
 			if ( $this->custom_html ) {
 				echo '<div>' . wp_kses_post( $this->custom_html ) . '</div>';
