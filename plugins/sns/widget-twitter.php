@@ -82,7 +82,7 @@ class VK_Twitter_Widget extends WP_Widget {
 
 	<?php // title ?>
 	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br>
-	<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
+	<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 	</p>
 
 	<?php // account ?>
@@ -92,12 +92,12 @@ class VK_Twitter_Widget extends WP_Widget {
 
 	<?php // height ?>
 	<p><label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height:<br>Please enter an arbitrary number.(Example: 300)', 'vkExUnit' ); ?></label><br>
-	<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" class="admin_widget_input" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo esc_attr( $instance['height'] ); ?>" />
+	<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo esc_attr( $instance['height'] ); ?>" />
 	</p>
 
 	<?php // bg color ?>
 	<p><label for="<?php echo $this->get_field_id( 'bg_color' ); ?>"><?php _e( 'Background color:', 'vkExUnit' ); ?></label><br>
-	<select id="<?php echo $this->get_field_id( 'bg_color' ); ?>" name="<?php echo $this->get_field_name( 'bg_color' ); ?>" class="admin_widget_input">
+	<select id="<?php echo $this->get_field_id( 'bg_color' ); ?>" name="<?php echo $this->get_field_name( 'bg_color' ); ?>" class="admin-custom-input">
 	<?php
 	if ( ! isset( $instance['bg_color'] ) || ! $instance['bg_color'] ) {
 		$instance['bg_color'] = $default['bg_color'];
@@ -120,7 +120,7 @@ class VK_Twitter_Widget extends WP_Widget {
 	<?php // link color ?>
 	<p class="color_picker_wrap">
 	<label for="<?php echo $this->get_field_id( 'link_color' ); ?>"><?php _e( 'Link color:', 'vkExUnit' ); ?></label><br>
-	<input type="text" id="<?php echo $this->get_field_id( 'link_color' ); ?>" class="color_picker admin_widget_input" name="<?php echo $this->get_field_name( 'link_color' ); ?>" value="<?php if ( $instance['link_color'] ) {
+	<input type="text" id="<?php echo $this->get_field_id( 'link_color' ); ?>" class="color_picker admin-custom-input" name="<?php echo $this->get_field_name( 'link_color' ); ?>" value="<?php if ( $instance['link_color'] ) {
 		echo esc_attr( $instance['link_color'] );} ?>" />
 	</p>
 
