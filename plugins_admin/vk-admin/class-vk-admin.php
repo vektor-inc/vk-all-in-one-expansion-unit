@@ -17,10 +17,11 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 	*/
 	class Vk_Admin {
 
-		public static $version = '2.0.0';
+		public static $version = '2.1.0';
 
 		static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
+			add_action( 'customize_register', array( __CLASS__, 'admin_common_css' ) );
 			add_action( 'wp_dashboard_setup', array( __CLASS__, 'dashboard_widget' ), 1 );
 		}
 
@@ -42,7 +43,6 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				add_action( $hook, array( __CLASS__, 'admin_enqueue_scripts' ) );
 			}
 		}
-
 
 		/*--------------------------------------------------*/
 		/*  get_admin_banner
@@ -185,7 +185,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		;(function($){
 			jQuery(document).ready(function($){
 
-				$.getJSON( "https://vektor-inc.co.jp/wp-json/wp/v2/info?info-cat=111&per_page=3",
+				$.getJSON( "https://vektor-inc.co.jp/wp-json/wp/v2/info?info-cat=111&per_page=5",
 				function(results) {
 						// 取得したJSONの内容をループする
 						$.each(results, function(i, item) {
