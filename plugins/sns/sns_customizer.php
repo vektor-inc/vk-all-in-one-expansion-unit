@@ -28,11 +28,11 @@ function veu_customize_register_sns( $wp_customize ) {
 	);
 
 	//2. WPデータベースに新しいテーマ設定を追加
-	// Facebook_application_ID_title
-	$wp_customize->add_setting( 'Facebook_application_ID_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	// Facebook_title
+	$wp_customize->add_setting( 'Facebook_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
-			$wp_customize, 'Facebook_application_ID_title', array(
+			$wp_customize, 'Facebook_title', array(
 				'label'            => __( 'Facebook Settings', 'vkExUnit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',

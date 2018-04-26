@@ -53,7 +53,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 		for ( $i = 1; $i <= 3 ;) { ?>
 
-		<h2 class="admin_widget_h2"><?php echo __( '3PR area setting', 'vkExUnit' ).' '.$i; ?></h2>
+		<h2 class="admin-custom-h2"><?php echo __( '3PR area setting', 'vkExUnit' ).' '.$i; ?></h2>
         <p>
 			<label for="<?php echo $this->get_field_id( 'label_'.$i );  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id( 'label_'.$i ); ?>-title" class="pr-input" name="<?php echo $this->get_field_name( 'label_'.$i ); ?>" value="<?php echo esc_attr( $instance['label_'.$i] ); ?>" />
@@ -64,7 +64,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				<label for="<?php echo $this->get_field_id( 'media_3pr_image_'.$i );  ?>"><?php _e( 'Select image for PC:', 'vkExUnit' ); ?></label>
 
 				<div class="media_image_section">
-					<div class="_display admin_widget_thumb_outer">
+					<div class="_display admin-custom-thumb-outer">
 					    <?php
 							if ( ! empty( $instance[ 'media_3pr_image_'.$i ] ) ): ?>
 					        <img class="media_image" src="<?php echo esc_url( $instance['media_3pr_image_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" style="width:100%;height:auto;" />
@@ -81,7 +81,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				<label for="<?php echo $this->get_field_id( 'media_3pr_image_sp_'.$i );  ?>"><?php _e( 'Select image for Mobile:', 'vkExUnit' ); ?></label>
 
 				<div class="media_image_section">
-					<div class="_display admin_widget_thumb_outer">
+					<div class="_display admin-custom-thumb-outer">
 					    <?php
 							if ( ! empty( $instance[ 'media_3pr_image_sp_'.$i ] ) ): ?>
 					        <img class="media_image" src="<?php echo esc_url( $instance['media_3pr_image_sp_'.$i] ); ?>" alt="<?php echo esc_attr( $instance['media_3pr_alt_'.$i] ); ?>" style="width:100%;height:auto;" />
@@ -102,7 +102,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<p><label for="<?php echo $this->get_field_id( 'summary_'.$i );  ?>"><?php _e( 'Summary Text:', 'vkExUnit' ); ?></label><br/>
         </p>
 
-		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_'.$i ); ?>_text" class="admin_widget_input" name="<?php echo $this->get_field_name( 'summary_'.$i ); ?>"><?php echo esc_textarea( $instance['summary_'.$i] ); ?></textarea>
+		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_'.$i ); ?>_text" class="admin-custom-input" name="<?php echo $this->get_field_name( 'summary_'.$i ); ?>"><?php echo esc_textarea( $instance['summary_'.$i] ); ?></textarea>
 
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_'.$i );  ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
