@@ -44,7 +44,6 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			}
 		}
 
-
 		/*--------------------------------------------------*/
 		/*  get_admin_banner
 		/*--------------------------------------------------*/
@@ -186,7 +185,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		;(function($){
 			jQuery(document).ready(function($){
 
-				$.getJSON( "https://vektor-inc.co.jp/wp-json/wp/v2/info?info-cat=111&per_page=3",
+				$.getJSON( "https://vektor-inc.co.jp/wp-json/wp/v2/info?info-cat=111&per_page=5",
 				function(results) {
 						// 取得したJSONの内容をループする
 						$.each(results, function(i, item) {
