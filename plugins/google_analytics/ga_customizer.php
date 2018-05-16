@@ -56,7 +56,7 @@ function veu_customize_register_ga( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_ga_options[gaType]',
 		array(
-			'default'           => 'gaType_universal',
+			'default'           => 'gaType_gtag',
 			'type'              => 'option',
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'esc_attr',
@@ -71,9 +71,9 @@ function veu_customize_register_ga( $wp_customize ) {
 			'type'        => 'radio',
 			// 'priority' => $priority,
 			'choices'     => array(
-				'gaType_universal' => __( 'To output the Universal Analytics code (default)', 'vkExUnit' ),
-				'gaType_normal'    => __( 'To output only normal code', 'vkExUnit' ),
-				'gaType_both'      => __( 'To output both types', 'vkExUnit' ),
+				'gaType_gtag'      => __( 'Recommendation ( gtag )', 'vkExUnit' ),
+				'gaType_universal' => __( 'Universal Analytics code ( analytics.js )', 'vkExUnit' ),
+				'gaType_normal'    => __( 'Normal code ( analytics.js )', 'vkExUnit' ),
 			),
 			'description' => __( 'Print the select the type of Analytics code.<br>(If you are unsure you can skip this.)', 'vkExUnit' ),
 		)
