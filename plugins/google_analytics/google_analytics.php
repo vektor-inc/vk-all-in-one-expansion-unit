@@ -16,7 +16,8 @@ function vkExUnit_add_ga_options_page() {
 /*-------------------------------------------*/
 function vkExUnit_ga_options_init() {
 	if ( false === vkExUnit_get_ga_options() ) {
-		add_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() ); }
+		add_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() );
+	}
 
 	vkExUnit_register_setting(
 		__( 'Google Analytics Settings', 'vkExUnit' ), 	//  Immediately following form tag of edit page.
@@ -48,16 +49,14 @@ function vkExUnit_get_ga_options_default() {
 /*  validate
 /*-------------------------------------------*/
 function vkExUnit_ga_options_validate( $input ) {
-	$output = $defaults = vkExUnit_get_ga_options_default();
+	// デフォルト値を取得
+	$defaults = vkExUnit_get_ga_options_default();
+	// 入力された値とデフォルト値をマージ
+	$input = wp_parse_args( $input, $defaults );
 
-	$paras = array(
-			'gaId',
-			'gaType',
-			);
-
-	foreach ( $paras as $key => $value ) {
-		$output[ $value ] = (isset( $input[ $value ] )) ? $input[ $value ] : '';
-	}
+	// 入力値をサニタイズ
+	$output[ 'gaId' ] = esc_html($input[ 'gaId' ]);
+	$output[ 'gaType'] = esc_html($input[ 'gaType' ]);
 
 	return apply_filters( 'vkExUnit_ga_options_validate', $output, $input, $defaults );
 }
@@ -65,25 +64,21 @@ function vkExUnit_ga_options_validate( $input ) {
 /*-------------------------------------------*/
 /*  GoogleAnalytics
 /*-------------------------------------------*/
-add_action( 'wp_head', 'vkExUnit_googleAnalytics', 0 );
+$options = vkExUnit_get_ga_options();
+$gaType = esc_html( $options['gaType'] );
+if ( $gaType == 'gaType_gtag') {
+	$priority = 0;
+} else {
+	$priority = 10000;
+}
+
+add_action( 'wp_head', 'vkExUnit_googleAnalytics', $priority );
 function vkExUnit_googleAnalytics() {
 	$options = vkExUnit_get_ga_options();
 	$gaId = esc_html( $options['gaId'] );
 	$gaType = esc_html( $options['gaType'] );
+	// print '<pre style="text-align:left">';print_r($gaType);print '</pre>';
 	if ( $gaId ) {
-
-		if ( $gaType == 'gaType_gtag' ) { ?>
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-<?php echo $gaId ?>"></script>
-			<script>
-			 window.dataLayer = window.dataLayer || [];
-			 function gtag(){dataLayer.push(arguments);}
-			 gtag('js', new Date());
-
-			gtag('config', 'UA-<?php echo $gaId ?>');
-			</script>
-		<?php
-		} // if ( $gaType == 'gaType_gtag' ) {
 
 		if ( $gaType == 'gaType_universal' ) {
 			$domainUrl = home_url();
@@ -99,9 +94,8 @@ function vkExUnit_googleAnalytics() {
 			ga('send', 'pageview');
 			</script>
 			<?php
-		} // if ( $gaType == 'gaType_universal' ) {
 
-		if ( $gaType == 'gaType_normal' ) {  ?>
+		} else if ( $gaType == 'gaType_normal' ) {  ?>
 			<script type="text/javascript">
 
 			  var _gaq = _gaq || [];
@@ -115,6 +109,17 @@ function vkExUnit_googleAnalytics() {
 			  })();
 
 			</script>
-<?php } // if ( $gaType == 'gaType_normal' ) {
-	}
+<?php } else {
+	// $gaType == 'gaType_gtag'
+	?><!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-<?php echo $gaId ?>"></script>
+		<script>
+		 window.dataLayer = window.dataLayer || [];
+		 function gtag(){dataLayer.push(arguments);}
+		 gtag('js', new Date());
+
+		gtag('config', 'UA-<?php echo $gaId ?>');
+		</script>
+	<?php }
+} // if ( $gaId ) {
 }
