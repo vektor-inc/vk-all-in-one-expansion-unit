@@ -20,15 +20,15 @@
     <dd>
 <?php
 $vkExUnit_gaTypes = array(
-	'gaType_universal' => __( 'To output the Universal Analytics code (default)', 'vkExUnit' ),
-	'gaType_normal' => __( 'To output only normal code', 'vkExUnit' ),
-	'gaType_both' => __( 'To output both types', 'vkExUnit' ),
+	'gaType_gtag'      => __( 'Recommendation ( gtag )', 'vkExUnit' ),
+	'gaType_universal' => __( 'Universal Analytics code ( analytics.js )', 'vkExUnit' ),
+	'gaType_normal'    => __( 'Normal code ( analytics.js )', 'vkExUnit' ),
 	);
 foreach ( $vkExUnit_gaTypes as $vkExUnit_gaTypeValue => $vkExUnit_gaTypeLavel ) {
 	if ( $vkExUnit_gaTypeValue == $options['gaType'] ) { ?>
-	<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue ?>" checked> <?php echo $vkExUnit_gaTypeLavel ?></label><br />
+		<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue ?>" checked> <?php echo $vkExUnit_gaTypeLavel ?></label><br />
 	<?php } else { ?>
-	<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue ?>"> <?php echo $vkExUnit_gaTypeLavel ?></label><br />
+		<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue ?>"> <?php echo $vkExUnit_gaTypeLavel ?></label><br />
 	<?php }
 }
 ?>
