@@ -64,15 +64,19 @@ function vkExUnit_ga_options_validate( $input ) {
 /*-------------------------------------------*/
 /*  GoogleAnalytics
 /*-------------------------------------------*/
-$options = vkExUnit_get_ga_options();
-$gaType  = esc_html( $options['gaType'] );
-if ( $gaType == 'gaType_gtag' ) {
-	$priority = 0;
-} else {
-	$priority = 10000;
+
+add_action( 'init', 'vkExUnit_googleAnalytics_load' );
+function vkExUnit_googleAnalytics_load() {
+	$options = vkExUnit_get_ga_options();
+	$gaType  = esc_html( $options['gaType'] );
+	if ( $gaType == 'gaType_gtag' ) {
+		$priority = 0;
+	} else {
+		$priority = 10000;
+	}
+	add_action( 'wp_head', 'vkExUnit_googleAnalytics', $priority );
 }
 
-add_action( 'wp_head', 'vkExUnit_googleAnalytics', $priority );
 function vkExUnit_googleAnalytics() {
 	$options = vkExUnit_get_ga_options();
 	$gaId    = esc_html( $options['gaId'] );
