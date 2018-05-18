@@ -77,7 +77,6 @@ function vkExUnit_googleAnalytics() {
 	$options = vkExUnit_get_ga_options();
 	$gaId    = esc_html( $options['gaId'] );
 	$gaType  = esc_html( $options['gaType'] );
-	// print '<pre style="text-align:left">';print_r($gaType);print '</pre>';
 	if ( $gaId ) {
 
 		if ( $gaType == 'gaType_universal' ) {
