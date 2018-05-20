@@ -74,7 +74,7 @@ function vkExUnit_print_css() {
 		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
 	}
 	if ( isset( $options['active_fontawesome'] ) && $options['active_fontawesome'] ) {
-		wp_enqueue_style( 'font-awesome', vkExUnit_get_directory_uri() . '/libraries/font-awesome/css/font-awesome.min.css', array(), '4.7.0', 'all' );
+		require vkExUnit_get_directory() . '/plugins/font-awesome-config.php';
 	}
 }
 
