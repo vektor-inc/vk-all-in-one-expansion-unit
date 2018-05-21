@@ -73,9 +73,6 @@ function vkExUnit_print_css() {
 	} else {
 		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
 	}
-	if ( isset( $options['active_fontawesome'] ) && $options['active_fontawesome'] ) {
-		require vkExUnit_get_directory() . '/plugins/font-awesome-config.php';
-	}
 }
 
 function vkExUnit_print_editor_css() {
