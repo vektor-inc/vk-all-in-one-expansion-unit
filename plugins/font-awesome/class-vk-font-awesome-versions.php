@@ -7,7 +7,7 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			add_action( 'customize_register', array( __CLASS__, 'customize_register' ) );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_font_awesome' ) );
 			add_action( 'admin_init', array( __CLASS__, 'load_admin_font_awesome' ) );
-			add_action( 'wp_head', array( __CLASS__, 'edit_icon_css_change' ), 3 );
+			// add_action( 'wp_head', array( __CLASS__, 'edit_icon_css_change' ), 3 );
 		}
 
 		static function versions() {
