@@ -143,16 +143,15 @@ iframe.wp-embedded-content { width:100%; }
 		&.sb_icon a:hover{
 			box-shadow: none; transform: translate3d(0, 2px, 0); -webkit-transform: translate3d(0, 2px, 0);
 		}
-		&.sb_icon a .sns_txt { position: relative;top:-1px;  }
+		&.sb_icon a .sns_txt { position: relative;top:-1px; }
 		iframe	{ border:none; }
-		a .icon_sns,
-		a .fa-get-pocket { font-size:100%;padding: 5px 8px 5px 0; display: inline-block; }
+		a .icon_sns { font-size:100%;padding: 5px 8px 5px 0; display: inline-block; }
 		&.sb_icon.sb_facebook a{ background: #425dab; box-shadow: 0 4px 0 rgb(52, 78, 132); }
 		&.sb_icon.sb_hatena a { background: #007fc5; box-shadow: 0 4px 0 rgba(0,103,159,1); }
 		&.sb_icon.sb_twitter a	{ background:#00abec; box-shadow: 0 4px 0 rgba(0,126,170,1); }
 		&.sb_icon.sb_google a { background:#dd4b39; box-shadow: 0 4px 0 rgba(160,53,36,1); }
 		&.sb_icon.sb_line a { background:#6ebd30; box-shadow: 0 4px 0 #5b9c28; }
-		&.sb_pocket a { background: #ea4654; box-shadow: 0 4px 0 #c1303c; }//li.sb_pocket
+		&.sb_icon.sb_pocket a { background: #ea4654; box-shadow: 0 4px 0 #c1303c; }//li.sb_pocket
 	}//li
 }//.veu_socialSet ul
 
@@ -216,7 +215,9 @@ iframe.wp-embedded-content { width:100%; }
 .vk_icon_w_r_sns_fb:before {
 	content: "\e604";
 }
-
+.vk_icon_w_r_sns_pocket:before {
+	content: "\e605";
+}
 /*-------------------------------------------*/
 /* .veu_childPage_list
 /*-------------------------------------------*/
