@@ -193,13 +193,13 @@ class VkExUnit_Contact {
    </tr>
    </table>
    <button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e( 'Advanced Setting', 'vkExUnit' ); ?></button>
-   <table class="form-table" id="vkEx_contact_info" style="
-	<?php
-	if ( ! $options['contact_image'] and ! $options['contact_html'] ) {
-		echo 'display:none;';
-	}
-	?>
-   ">
+		<?php
+		$display = '';
+		if ( ! $options['contact_image'] and ! $options['contact_html'] ) {
+			$display = ' style="display:none;"';
+		}
+		?>
+   <table class="form-table" id="vkEx_contact_info"<?php echo $display; ?>>
    <tr>
    <th><?php _e( 'Inquiry Banner image', 'vkExUnit' ); ?></th>
 <td><input type="text" name="vkExUnit_contact[contact_image]" id="contact_image" value="<?php echo $options['contact_image']; ?>" style="width:60%;" />
