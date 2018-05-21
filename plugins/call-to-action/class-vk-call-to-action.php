@@ -252,7 +252,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<label for="icon_after"><?php _e( 'After :', $vk_call_to_action_textdomain ); ?>
 	<input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /><br>
 	<?php _e( ' ex:fa-arrow-circle-o-right', $vk_call_to_action_textdomain ); ?><br>
-	<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">[Font Awesome Icons]</a><br>
+	<a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">[Font Awesome Icons]</a><br>
 	</p>
 	</td></tr>
 	<tr><th>
