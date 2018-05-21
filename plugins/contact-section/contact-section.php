@@ -335,7 +335,25 @@ class VkExUnit_Contact {
 
 			if ( $options['contact_link'] && $options['button_text'] ) {
 				$cont .= '<a href="' . $options['contact_link'] . '" class="btn btn-primary btn-lg contact_bt">';
-				$cont .= '<span class="contact_bt_txt">' . wp_kses_post( $options['button_text'] ) . '</span>';
+				$cont .= '<span class="contact_bt_txt">';
+
+				// Envelope Icon
+				$class = 'fa fa-envelope-o';
+				if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+					$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-envelope' );
+				}
+				$cont .= '<i class="' . $class . '"></i> ';
+
+				$cont .= wp_kses_post( $options['button_text'] );
+
+				// Arrow Icon
+				$class = 'fa fa-arrow-circle-o-right';
+				if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+					$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-arrow-alt-circle-right' );
+				}
+				$cont .= ' <i class="' . $class . '"></i>';
+
+				$cont .= '</span>';
 
 				if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
 					$cont .= '<span class="contact_bt_subTxt">' . $options['button_text_small'] . '</span>';
@@ -369,8 +387,25 @@ class VkExUnit_Contact {
 		if ( ( isset( $options['contact_link'] ) && $options['contact_link'] )
 			&& ( isset( $options['short_text'] ) && $options['short_text'] )
 		) {
+
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '" class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
+
+			// Envelope Icon
+			$class = 'fa fa-envelope-o';
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-envelope' );
+			}
+			$cont .= '<i class="' . $class . '"></i> ';
+
 			$cont .= $options['short_text'];
+
+			// Arrow Icon
+			$class = 'fa fa-arrow-circle-o-right';
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-arrow-alt-circle-right' );
+			}
+			$cont .= ' <i class="' . $class . '"></i>';
+
 			$cont .= '</span>';
 			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
 				$cont .= '<span class="contact_bt_subTxt contact_bt_subTxt_side">' . $options['button_text_small'] . '</span>';
