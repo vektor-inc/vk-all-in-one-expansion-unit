@@ -5,6 +5,14 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
+	/*  Update
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
+
 	function __construct() {
 		$widget_name = vkExUnit_get_short_name() . '_' . __( 'PR Blocks', 'vkExUnit' );
 
@@ -63,6 +71,9 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
 	public function form( $instance ) {
 		$instance = self::default_options( $instance );
 	?>
@@ -71,13 +82,13 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 <p>
 <label for="<?php echo $this->get_field_id( 'block_count' ); ?>"><?php _e( 'The choice of the number of columns:', 'vkExUnit' ); ?></label><br/>
 <select name="<?php echo $this->get_field_name( 'block_count' ); ?>" id="<?php echo $this->get_field_id( 'block_count' ); ?>-count">
-	<option value="3" 
+	<option value="3"
 	<?php
 	if ( intval( $instance['block_count'] ) === 3 ) {
 		echo 'selected'; }
 ?>
 ><?php _e( '3column', 'vkExUnit' ); ?></option>
-	<option value="4" 
+	<option value="4"
 	<?php
 	if ( intval( $instance['block_count'] ) === 4 ) {
 		echo 'selected'; }
@@ -169,7 +180,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 }
 	}
 
-
+	/*-------------------------------------------*/
+	/*  Update
+	/*-------------------------------------------*/
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
@@ -191,6 +204,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	}
 
 
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
 	public function widget( $args, $instance ) {
 		$instance = self::default_options( $instance );
 		echo $args['before_widget'];
