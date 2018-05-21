@@ -378,7 +378,11 @@ class VkExUnit_Contact {
 			$cont .= '</a>';
 		}
 		if ( current_user_can( 'edit_theme_options' ) ) {
-			$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vkExUnit' ) . '</a></div>';
+			$class = 'fa fa-pencil-square-o';
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				$class = Vk_Font_Awesome_Versions::class_switch( $class, 'fas fa-edit' );
+			}
+			$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="' . $class . '"></i> ' . __( 'Edit contact information', 'vkExUnit' ) . '</a></div>';
 		}
 		return $cont;
 	}

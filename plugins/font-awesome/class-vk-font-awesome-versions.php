@@ -7,6 +7,7 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			add_action( 'customize_register', array( __CLASS__, 'customize_register' ) );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_font_awesome' ) );
 			add_action( 'admin_init', array( __CLASS__, 'load_admin_font_awesome' ) );
+			add_action( 'wp_head', array( __CLASS__, 'edit_icon_css_change' ), 3 );
 		}
 
 		static function versions() {
@@ -81,6 +82,32 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			$current = self::current_info();
 			if ( ! $current['type'] === 'web-fonts-with-css' ) {
 				add_editor_style( $current['css'] );
+			}
+		}
+
+		static function edit_icon_css_change() {
+			// $current     = self::current_info();
+			// $dynamic_css = '/* font-awesome */';
+			// if ( $current['version'] == '5.0' ) {
+			// 	$dynamic_css .= '.veu_adminEdit a.btn:before{content:"\f044";font-family:Font Awesome\ 5 Free;}';
+			// } else {
+			// 	$dynamic_css .= '.veu_adminEdit a.btn:before{content:"\f040";font-family:FontAwesome;}';
+			// }
+			// // delete before after space
+			// $dynamic_css = trim( $dynamic_css );
+			// // convert tab and br to space
+			// $dynamic_css = preg_replace( '/[\n\r\t]/', '', $dynamic_css );
+			// // Change multiple spaces to single space
+			// $dynamic_css = preg_replace( '/\s(?=\s)/', '', $dynamic_css );
+			// wp_add_inline_style( 'vkExUnit_common_style', $dynamic_css );
+		}
+
+		public static function class_switch( $class_v4 = '', $class_v5 = '' ) {
+			$current = self::current_info();
+			if ( $current['version'] == '5.0' ) {
+				return $class_v5;
+			} else {
+				return $class_v4;
 			}
 		}
 
