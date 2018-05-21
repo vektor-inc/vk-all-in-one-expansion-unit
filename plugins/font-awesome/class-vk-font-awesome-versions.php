@@ -48,9 +48,9 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			global $vk_font_awesome_version_textdomain;
 			$current = self::current_info();
 			if ( $current['version'] == '5.0' ) {
-				$ex_and_link = 'Font Awesome 5<br>' . __( 'Ex ) ', $vk_font_awesome_version_textdomain ) . 'far fa-file-alt [ <a href="//fontawesome.com/icons?d=gallery&m=free" target="_blank">Icon list</a> ]';
+				$ex_and_link = '<strong>Font Awesome 5</strong><br>' . __( 'Ex ) ', $vk_font_awesome_version_textdomain ) . 'far fa-file-alt [ <a href="//fontawesome.com/icons?d=gallery&m=free" target="_blank">Icon list</a> ]';
 			} else {
-				$ex_and_link = 'Font Awesome 4.7<br>' . __( 'Ex ) ', $vk_font_awesome_version_textdomain ) . 'fa-file-text-o [ <a href="//fontawesome.com/v4.7.0/icons/" target="_blank">Icon list</a> ]';
+				$ex_and_link = '<strong>Font Awesome 4.7</strong><br>' . __( 'Ex ) ', $vk_font_awesome_version_textdomain ) . 'fa-file-text-o [ <a href="//fontawesome.com/v4.7.0/icons/" target="_blank">Icon list</a> ]';
 			}
 			return $ex_and_link;
 		}

@@ -569,8 +569,7 @@ $section_pagelist_margin:2.5em 0 1em;
 	.sns_btns{ margin: 0;padding: 0;width: 100%;
 	    li{ float: left;margin-right: 0.45em;list-style: none;text-align: center; }
 	    a{
-	        display: block;
-	        display:table;
+	        display: block;position:relative;
 	        width: 40px;
 	        height: 40px;
 	        border-radius: 23px;
@@ -579,10 +578,8 @@ $section_pagelist_margin:2.5em 0 1em;
 	        font-size: 20px;
 	        &:hover{ color: #fff;text-decoration: none;opacity: 0.8;}
 	    }
-	    .fa{
-		 	display:table-cell;
-	        vertical-align:middle;
-	        text-align:center;
+	    .icon{
+		 		position:absolute; top:50%;left:50%; transform: translateY(-50%) translateX(-50%);
 	    }
 	    .facebook_btn a{ background: #3b5998; }
 	    .twitter_btn a{ background: #55acee; }
@@ -630,8 +627,8 @@ $section_pagelist_margin:2.5em 0 1em;
 		&:hover{ color: #333; text-decoration: none; }
 		.prBlock_summary:hover{ text-decoration: underline; }
 	}
-	.prBlock_icon_outer { display: block; margin: 0 auto ; width: 80px; height: 80px; border-radius: 50%; position:relative;}
-	.prBlock_icon { position:absolute;font-size: 36px; top:50%;left:50%; transform: translateY(-50%) translateX(-50%); }
+	.prBlock_icon_outer { display: block;position:relative; margin: 0 auto ; width: 80px; height: 80px; border-radius: 50%; }
+	.prBlock_icon { position:absolute; top:50%;left:50%; transform: translateY(-50%) translateX(-50%);font-size: 36px; }
 	.prBlock_title{ margin-top:0.8em;margin-bottom: 0.7em; text-align: center; font-size: 18px; line-height: 1.4em; }
 	.prBlock_image{ display: table; margin: 0 auto;
 	  img{ display: table-cell; overflow: hidden; width: 120px; height: 120px; border-radius: 50%; vertical-align: middle; text-align: center; }

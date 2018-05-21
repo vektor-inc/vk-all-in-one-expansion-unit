@@ -15,6 +15,14 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		);
 	}
 
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
+	/*  update
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
+
 
 	/*-------------------------------------------*/
 	/*  form
@@ -379,14 +387,33 @@ $icon_css  = $this->icon_css( $instance );
 <ul class="sns_btns">
 <?php
 $sns_names = array( 'facebook', 'twitter', 'mail', 'youtube', 'rss', 'instagram', 'linkedin' );
+if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+	$font_awesome = Vk_Font_Awesome_Versions::current_info();
+} else {
+	$font_awesome = array( 'version' => VEU_FONT_AWESOME_DEFAULT_VERSION );
+}
+
 foreach ( $sns_names as $key => $sns_name ) {
 	if ( ! empty( $instance[ $sns_name ] ) ) { // $instance[$sns_name] 入力されたURLが返ってくる
-		if ( $sns_name == 'mail' ) {
-			$sns_name_class = 'envelope';
+
+		// font awesome 4.7
+		if ( $font_awesome['version'] == 4.7 ) {
+			if ( $sns_name == 'mail' ) {
+				$sns_name_class = 'fa fa-envelope';
+			} else {
+				$sns_name_class = 'fa fa-' . $sns_name;
+			}
+
+			// font awesome 5
 		} else {
-			$sns_name_class = $sns_name;
+			if ( $sns_name == 'mail' ) {
+				$sns_name_class = 'fas fa-envelope';
+			} else {
+				$sns_name_class = 'fab fa-' . $sns_name;
+			}
 		}
-		echo '<li class="' . $sns_name . '_btn"><a href="' . esc_url( $instance[ $sns_name ] ) . '" target="_blank"' . $outer_css . '><i class="fa fa-' . $sns_name_class . '"' . $icon_css . '></i></a></li>';
+
+		echo '<li class="' . $sns_name . '_btn"><a href="' . esc_url( $instance[ $sns_name ] ) . '" target="_blank"' . $outer_css . '><i class="' . $sns_name_class . ' icon"' . $icon_css . '></i></a></li>';
 	} // if ( ! empty( $instance[$sns_name] ) ) :
 } // foreach ( $sns_names as $key => $sns_name ) {
 	?>
