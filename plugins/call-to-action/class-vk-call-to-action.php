@@ -160,7 +160,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function render_meta_box_cta() {
 
 			global $vk_call_to_action_textdomain;
-
 			echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />';
 			$imgid          = get_post_meta( get_the_id(), 'vkExUnit_cta_img', true );
 			$cta_image      = wp_get_attachment_image_src( $imgid, 'large' );
@@ -251,8 +250,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /><br>
 	<label for="icon_after"><?php _e( 'After :', $vk_call_to_action_textdomain ); ?>
 	<input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /><br>
-	<?php _e( ' ex:fa-arrow-circle-o-right', $vk_call_to_action_textdomain ); ?><br>
-	<a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">[Font Awesome Icons]</a><br>
+
+<?php
+if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+	echo Vk_Font_Awesome_Versions::ex_and_link();
+}
+?>
+
 	</p>
 	</td></tr>
 	<tr><th>
