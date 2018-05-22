@@ -39,6 +39,8 @@
 /*-------------------------------------------*/
 /* Widget .veu_prBlocks
 /*-------------------------------------------*/
+/* Widget .veu_button
+/*-------------------------------------------*/
 
 $color_font_default : #464646;
 $color_key : #337ab7;
@@ -648,7 +650,8 @@ $section_pagelist_margin:2.5em 0 1em;
 /* Widget .veu_button
 /*-------------------------------------------*/
 .veu_button {
-	i { margin-left:0.3em;margin-right:0.3em; }
+	i,
+	svg { margin-left:0.3em;margin-right:0.3em; }
 	.button_mainText,
 	.button_subText { display: block; }
 	.btn.btn-sm { padding-top:0.6em;padding-bottom:0.45em; }
