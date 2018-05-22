@@ -73,9 +73,6 @@ function vkExUnit_print_css() {
 	} else {
 		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
 	}
-	if ( isset( $options['active_fontawesome'] ) && $options['active_fontawesome'] ) {
-		wp_enqueue_style( 'font-awesome', vkExUnit_get_directory_uri() . '/libraries/font-awesome/css/font-awesome.min.css', array(), '4.7.0', 'all' );
-	}
 }
 
 function vkExUnit_print_editor_css() {
@@ -128,33 +125,4 @@ function vkExUnit_install_function() {
 	if ( ! $opt ) {
 		add_option( 'vkExUnit_common_options', vkExUnit_get_common_options_default() );
 	}
-}
-
-/*
-/*  Lightning Charm 1.2.0 での表示崩れ回避用
-/*  Lightning Charm 1.4.0 以降になったら削除
-*/
-add_action( 'wp_head', 'ltg_charm_1_2_fix_function', 2 );
-function ltg_charm_1_2_fix_function() {
-	$theme_opt = wp_get_theme( get_template() );
-	$skin      = get_option( 'lightning_design_skin' );
-	$theme     = $theme_opt->Name;
-
-	if ( $skin == 'charm' && $theme == 'Lightning' ) {
-
-		$charm_custom_css = '
-.veu_postList .postList .postList_item:first-child { border-top:none; }
-.mainSection .veu_postList.pt_0 .postList.postList_miniThumb { padding:0;margin-left:0;margin-right:0; }
-.mainSection .veu_postList.pt_0 .postList.postList_miniThumb postList_body { display:table-cell; }
-@media (max-width: 991px) {
-.mainSection .veu_postList.pt_0 .postList.postList_miniThumb .postList_thumbnail { float:none; }
-}
-@media (min-width: 992px) {
-.mainSection .veu_postList.pt_0 .postList_item .postList_thumbnail { width:50%;margin-left:0;margin-right:0;padding-right:30px; }
-.mainSection .veu_postList.pt_0 .postList_item.even .postList_thumbnail { margin-right:0; }
-}
-';
-		wp_add_inline_style( 'lightning-design-style', $charm_custom_css );
-
-	} // if ( $skin == 'charm' && $theme == 'Lightning' ){
 }

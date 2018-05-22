@@ -83,6 +83,7 @@ $required_packages[] = array(
 	'title'       => __( 'Print link fontawesome', 'vkExUnit' ),
 	'description' => __( 'Print fontawesome link tag to html head.', 'vkExUnit' ),
 	'default'     => false,
+	'include'     => 'font-awesome-config.php',
 );
 
 /*-------------------------------------------*/
