@@ -5,6 +5,14 @@
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
+	/*  Update
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
+
 	function __construct() {
 		$widget_name = vkExUnit_get_short_name() . '_' . __( 'PR Blocks', 'vkExUnit' );
 
@@ -63,6 +71,9 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 
+	/*-------------------------------------------*/
+	/*  form
+	/*-------------------------------------------*/
 	public function form( $instance ) {
 		$instance = self::default_options( $instance );
 	?>
@@ -71,13 +82,13 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 <p>
 <label for="<?php echo $this->get_field_id( 'block_count' ); ?>"><?php _e( 'The choice of the number of columns:', 'vkExUnit' ); ?></label><br/>
 <select name="<?php echo $this->get_field_name( 'block_count' ); ?>" id="<?php echo $this->get_field_id( 'block_count' ); ?>-count">
-	<option value="3" 
+	<option value="3"
 	<?php
 	if ( intval( $instance['block_count'] ) === 3 ) {
 		echo 'selected'; }
 ?>
 ><?php _e( '3column', 'vkExUnit' ); ?></option>
-	<option value="4" 
+	<option value="4"
 	<?php
 	if ( intval( $instance['block_count'] ) === 4 ) {
 		echo 'selected'; }
@@ -118,10 +129,14 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		echo '<h3 class="admin-custom-h3">' . __( 'Icon', 'vkExUnit' ) . ' ' . $i . '</h3>';
 
 	// icon font class input
-	echo '<p><label for="' . $this->get_field_id( 'iconFont_' . $i ) . '">' . __( 'Class name of the icon font you want to use:', 'vkExUnit' ) . '</label><br/>' .
-		'[ <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">Font Awesome Icons</a> ]<br/>
-			<input type="text" id="' . $this->get_field_id( 'iconFont_class_' . $i ) . '-font" class="font_class" name="' . $this->get_field_name( 'iconFont_class_' . $i ) . '" value="' . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . '" /><br>'
-	. __( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ) . '<br>' . __( ' ex:fa-file-text-o', 'vkExUnit' ) . '</p>';
+	echo '<p><label for="' . $this->get_field_id( 'iconFont_' . $i ) . '">' . __( 'Class name of the icon font you want to use:', 'vkExUnit' ) . '</label><br/>';
+	echo '<input type="text" id="' . $this->get_field_id( 'iconFont_class_' . $i ) . '-font" class="font_class" name="' . $this->get_field_name( 'iconFont_class_' . $i ) . '" value="' . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . '" /><br>';
+
+	if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+		echo Vk_Font_Awesome_Versions::ex_and_link();
+	}
+
+	echo '</p>';
 
 	// icon font color
 	echo '<p class="color_picker_wrap">' .
@@ -169,7 +184,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 }
 	}
 
-
+	/*-------------------------------------------*/
+	/*  Update
+	/*-------------------------------------------*/
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
@@ -191,6 +208,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	}
 
 
+	/*-------------------------------------------*/
+	/*  widget
+	/*-------------------------------------------*/
 	public function widget( $args, $instance ) {
 		$instance = self::default_options( $instance );
 		echo $args['before_widget'];
@@ -237,7 +257,11 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 						$icon_styles = ' style="color:#fff;"';
 					}
 
-					echo '<i class="fa ' . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . ' font_icon prBlock_icon"' . $icon_styles . '></i></div>' . PHP_EOL;
+					$fa = '';
+					if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+						$fa = Vk_Font_Awesome_Versions::print_fa();
+					}
+					echo '<i class="' . $fa . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . ' font_icon prBlock_icon"' . $icon_styles . '></i></div>' . PHP_EOL;
 
 					// image display
 				} elseif ( ! empty( $instance[ 'media_image_' . $i ] ) ) {

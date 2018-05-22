@@ -39,6 +39,8 @@
 /*-------------------------------------------*/
 /* Widget .veu_prBlocks
 /*-------------------------------------------*/
+/* Widget .veu_button
+/*-------------------------------------------*/
 
 $color_font_default : #464646;
 $color_key : #337ab7;
@@ -54,7 +56,6 @@ html { font-size: inherit; } /* reset bootstrap */
 iframe.wp-embedded-content { width:100%; }
 
 .veu_adminEdit { margin-top:5px; }
-.veu_adminEdit a.btn:before{margin-right:5px;content:"\f040";font-family:FontAwesome;}
 
 .veu_contentAddSection { display:block; clear:both; overflow:hidden; margin-top:20px; }
 
@@ -144,16 +145,15 @@ iframe.wp-embedded-content { width:100%; }
 		&.sb_icon a:hover{
 			box-shadow: none; transform: translate3d(0, 2px, 0); -webkit-transform: translate3d(0, 2px, 0);
 		}
-		&.sb_icon a .sns_txt { position: relative;top:-1px;  }
+		&.sb_icon a .sns_txt { position: relative;top:-1px; }
 		iframe	{ border:none; }
-		a .icon_sns,
-		a .fa-get-pocket { font-size:100%;padding: 5px 8px 5px 0; display: inline-block; }
+		a .icon_sns { font-size:100%;padding: 5px 8px 5px 0; display: inline-block; }
 		&.sb_icon.sb_facebook a{ background: #425dab; box-shadow: 0 4px 0 rgb(52, 78, 132); }
 		&.sb_icon.sb_hatena a { background: #007fc5; box-shadow: 0 4px 0 rgba(0,103,159,1); }
 		&.sb_icon.sb_twitter a	{ background:#00abec; box-shadow: 0 4px 0 rgba(0,126,170,1); }
 		&.sb_icon.sb_google a { background:#dd4b39; box-shadow: 0 4px 0 rgba(160,53,36,1); }
 		&.sb_icon.sb_line a { background:#6ebd30; box-shadow: 0 4px 0 #5b9c28; }
-		&.sb_pocket a { background: #ea4654; box-shadow: 0 4px 0 #c1303c; }//li.sb_pocket
+		&.sb_icon.sb_pocket a { background: #ea4654; box-shadow: 0 4px 0 #c1303c; }//li.sb_pocket
 	}//li
 }//.veu_socialSet ul
 
@@ -217,7 +217,9 @@ iframe.wp-embedded-content { width:100%; }
 .vk_icon_w_r_sns_fb:before {
 	content: "\e604";
 }
-
+.vk_icon_w_r_sns_pocket:before {
+	content: "\e605";
+}
 /*-------------------------------------------*/
 /* .veu_childPage_list
 /*-------------------------------------------*/
@@ -393,8 +395,6 @@ $section_pagelist_margin:2.5em 0 1em;
 	.contact_txt_catch,
 	.contact_txt_time {font-size: 14px; line-height: 128.6%; }
 	.contact_txt_tel {padding:4px 0; font-size: 28px;line-height: 105%; }
-	.contact_bt_txt:before {margin-right:7px;content:"\f003"; font-family:FontAwesome; }
-	.contact_bt_txt:after {margin-left:7px;content:"\f18e"; font-family:FontAwesome; }
 	.contact_bt_subTxt { display:block; overflow:hidden;font-size:12px;margin-top:0.4rem; }
 	.contact_txt { text-align: center; }
 	.contact_bt  { display: block; }
@@ -569,8 +569,7 @@ $section_pagelist_margin:2.5em 0 1em;
 	.sns_btns{ margin: 0;padding: 0;width: 100%;
 	    li{ float: left;margin-right: 0.45em;list-style: none;text-align: center; }
 	    a{
-	        display: block;
-	        display:table;
+	        display: block;position:relative;
 	        width: 40px;
 	        height: 40px;
 	        border-radius: 23px;
@@ -579,10 +578,8 @@ $section_pagelist_margin:2.5em 0 1em;
 	        font-size: 20px;
 	        &:hover{ color: #fff;text-decoration: none;opacity: 0.8;}
 	    }
-	    .fa{
-		 	display:table-cell;
-	        vertical-align:middle;
-	        text-align:center;
+	    .icon{
+		 		position:absolute; top:50%;left:50%; transform: translateY(-50%) translateX(-50%);
 	    }
 	    .facebook_btn a{ background: #3b5998; }
 	    .twitter_btn a{ background: #55acee; }
@@ -630,11 +627,11 @@ $section_pagelist_margin:2.5em 0 1em;
 		&:hover{ color: #333; text-decoration: none; }
 		.prBlock_summary:hover{ text-decoration: underline; }
 	}
-	.prBlock_icon_outer { display: table; margin: 0 auto ; width: 80px; height: 80px; border-radius: 50%; }
-	.prBlock_icon { display: table-cell; vertical-align: middle; text-align: center; font-size: 36px; }
-	.prBlock_title{ margin-top:0.9em;margin-bottom: 0.7em; text-align: center; font-size: 18px; line-height: 1.4em; }
-	.prBlock_image{ position: relative; display: block; width: 120px; height:120px; margin: 0 auto;overflow: hidden;border-radius: 50%;
-		text-indent:-9999px;
+	.prBlock_icon_outer { display: block;position:relative; margin: 0 auto ; width: 80px; height: 80px; border-radius: 50%; }
+	.prBlock_icon { position:absolute; top:50%;left:50%; transform: translateY(-50%) translateX(-50%);font-size: 36px; }
+	.prBlock_title{ margin-top:0.8em;margin-bottom: 0.7em; text-align: center; font-size: 18px; line-height: 1.4em; }
+	.prBlock_image{ display: table; margin: 0 auto;
+	  img{ display: table-cell; overflow: hidden; width: 120px; height: 120px; border-radius: 50%; vertical-align: middle; text-align: center; }
 	}
 	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }
 }
@@ -653,7 +650,8 @@ $section_pagelist_margin:2.5em 0 1em;
 /* Widget .veu_button
 /*-------------------------------------------*/
 .veu_button {
-	i { margin-left:0.3em;margin-right:0.3em; }
+	i,
+	svg { margin-left:0.3em;margin-right:0.3em; }
 	.button_mainText,
 	.button_subText { display: block; }
 	.btn.btn-sm { padding-top:0.6em;padding-bottom:0.45em; }

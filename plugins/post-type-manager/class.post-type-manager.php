@@ -35,9 +35,9 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			);
 		}
 
-			/*-------------------------------------------*/
-			/*  post_type_manage の編集権限を追加
-			/*-------------------------------------------*/
+		/*-------------------------------------------*/
+		/*  post_type_manage の編集権限を追加
+		/*-------------------------------------------*/
 		function add_cap_post_type_manage() {
 			$role           = get_role( 'administrator' );
 			$post_type_name = 'post_type_manage';
@@ -56,10 +56,10 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			$role->add_cap( 'publish_others_' . $post_type_name . 's' );
 		}
 
-			/*-------------------------------------------*/
-			/*  meta box を作成
-			/*-------------------------------------------*/
-			// add meta_box
+		/*-------------------------------------------*/
+		/*  meta box を作成
+		/*-------------------------------------------*/
+		// add meta_box
 		function add_meta_box() {
 			global $vk_post_type_manager_textdomain;
 			add_meta_box( 'meta_box_post_type_manage', __( 'Custom Post Type Setting', $vk_post_type_manager_textdomain ), array( $this, 'add_meta_box_action' ), 'post_type_manage', 'normal', 'high' );
@@ -376,9 +376,9 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 		}
 
-			/*-------------------------------------------*/
-			/*  実行
-			/*-------------------------------------------*/
+		/*-------------------------------------------*/
+		/*  実行
+		/*-------------------------------------------*/
 		public function __construct() {
 			add_action( 'init', array( $this, 'add_post_type_post_type_manage' ) );
 			add_action( 'admin_init', array( $this, 'add_cap_post_type_manage' ) );
@@ -391,6 +391,6 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 	} // class Vk_post_type_manager
 
-		$Vk_post_type_manager = new Vk_post_type_manager();
+	$Vk_post_type_manager = new Vk_post_type_manager();
 
 }

@@ -28,7 +28,6 @@ class WP_Widget_Button extends WP_Widget {
 		);
 	}
 
-
 	function __construct() {
 		$widget_name = 'VK_' . __( 'Button', 'vkExUnit' );
 
@@ -55,7 +54,7 @@ class WP_Widget_Button extends WP_Widget {
 	<?php echo $args['before_widget']; ?>
 	<?php if ( $options['linkurl'] && $options['maintext'] ) : ?>
 	<div class="veu_button">
-		<a type="button" class="<?php echo implode( ' ', $classes ); ?>" href="<?php echo $options['linkurl']; ?>" 
+		<a type="button" class="<?php echo implode( ' ', $classes ); ?>" href="<?php echo $options['linkurl']; ?>"
 											<?php
 											if ( $options['blank'] ) {
 												echo 'target="_blank"';}
@@ -64,14 +63,20 @@ class WP_Widget_Button extends WP_Widget {
 			<span class="button_mainText">
 
 			<?php
+
+			$fa = '';
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				$fa = Vk_Font_Awesome_Versions::print_fa();
+			}
+
 			if ( isset( $instance['icon_before'] ) && $instance['icon_before'] ) {
-				echo '<i class="fa ' . esc_attr( $instance['icon_before'] ) . ' font_icon"></i>';
+				echo '<i class="' . $fa . esc_attr( $instance['icon_before'] ) . ' font_icon"></i>';
 			}
 
 			echo esc_html( $options['maintext'] );
 
 			if ( isset( $instance['icon_after'] ) && $instance['icon_after'] ) {
-				echo '<i class="fa ' . esc_attr( $instance['icon_after'] ) . ' font_icon"></i>';
+				echo '<i class="' . $fa . esc_attr( $instance['icon_after'] ) . ' font_icon"></i>';
 			}
 			?>
 
@@ -108,8 +113,11 @@ class WP_Widget_Button extends WP_Widget {
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_before' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_before' ) . '" value="' . esc_attr( $instance['icon_before'] ) . '" /><br>';
 		echo '<label for="' . $this->get_field_id( 'icon_after' ) . '">' . __( 'After :', 'vkExUnit' );
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_after' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_after' ) . '" value="' . esc_attr( $instance['icon_after'] ) . '" />';
-		echo  __( ' ex:fa-arrow-circle-o-right', 'vkExUnit' ) . '<br>';
-		echo  '[ <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">Font Awesome Icons</a> ]<br>';
+
+		if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+			echo Vk_Font_Awesome_Versions::ex_and_link();
+		}
+
 		echo '</p>';
 ?>
 		<?php _e( 'Sub text:', 'vkExUnit' ); ?>
@@ -120,7 +128,7 @@ class WP_Widget_Button extends WP_Widget {
 		<input type="text" id="<?php echo $this->get_field_id( 'linkurl' ); ?>" name="<?php echo $this->get_field_name( 'linkurl' ); ?>" value="<?php echo esc_attr( $instance['linkurl'] ); ?>" style="width: 100%" />
 
 		<br/>
-		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank' ); ?>" name="<?php echo $this->get_field_name( 'blank' ); ?>" value="true" 
+		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank' ); ?>" name="<?php echo $this->get_field_name( 'blank' ); ?>" value="true"
 												<?php
 												if ( $instance['blank'] ) {
 													echo 'checked';}
@@ -131,19 +139,19 @@ class WP_Widget_Button extends WP_Widget {
 		<br/>
 		<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e( 'Size', 'vkExUnit' ); ?> :</label>
 		<select id="<?php echo $this->get_field_id( 'size' ); ?>" name="<?php echo $this->get_field_name( 'size' ); ?>">
-			<option value="sm" 
+			<option value="sm"
 			<?php
 			if ( $instance['size'] == 'sm' ) {
 				echo 'selected';}
 ?>
  ><?php _e( 'Small', 'vkExUnit' ); ?></option>
-			<option value="md" 
+			<option value="md"
 			<?php
 			if ( ! in_array( $instance['size'], array( 'sm', 'lg' ) ) ) {
 				echo 'selected';}
 ?>
  ><?php _e( 'Medium', 'vkExUnit' ); ?></option>
-			<option value="lg" 
+			<option value="lg"
 			<?php
 			if ( $instance['size'] == 'lg' ) {
 				echo 'selected';}
@@ -160,7 +168,7 @@ class WP_Widget_Button extends WP_Widget {
 		}
 		foreach ( static::button_otherlabels() as $key => $label ) :
 		?>
-			<option value="<?php echo $key; ?>" 
+			<option value="<?php echo $key; ?>"
 										<?php
 										if ( $instance['color'] == $key ) {
 											echo 'selected';}
