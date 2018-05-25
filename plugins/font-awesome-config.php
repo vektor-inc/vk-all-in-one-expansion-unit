@@ -10,4 +10,7 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 	global $vk_font_awesome_version_textdomain;
 	$vk_font_awesome_version_textdomain = 'vkExUnit';
+
+	global $set_enqueue_handle_style;
+	$set_enqueue_handle_style = 'vkExUnit_common_style';
 }
