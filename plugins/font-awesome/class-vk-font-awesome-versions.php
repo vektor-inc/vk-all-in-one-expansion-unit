@@ -81,18 +81,6 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			}
 		}
 
-		// public function add_inline_script( $handle, $data, $position = 'before' ) {
-		// 	$handle = 'font-awesome-js';
-		// 	$data   = 'FontAwesomeConfig = { searchPseudoElements: true };';
-		//
-		// 	$script   = (array) $this->get_data( $handle, $position );
-		// 	$script[] = $data;
-		//
-		// 	return $this->add_data( $handle, $position, $script );
-		// }
-
-
-
 		static function load_admin_font_awesome() {
 			$current = self::current_info();
 			if ( ! $current['type'] === 'web-fonts-with-css' ) {
