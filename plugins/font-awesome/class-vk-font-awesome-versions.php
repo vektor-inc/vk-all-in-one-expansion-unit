@@ -75,7 +75,8 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			$current = self::current_info();
 			if ( $current['type'] === 'svg-with-js' ) {
 				wp_enqueue_script( 'font-awesome-js', $current['url_js'], array(), $current['version'] );
-				wp_add_inline_script( 'font-awesome-js', 'FontAwesomeConfig = { searchPseudoElements: true };', 'before' );
+				// [ Danger ] This script now causes important errors
+				// wp_add_inline_script( 'font-awesome-js', 'FontAwesomeConfig = { searchPseudoElements: true };', 'before' );
 			} else {
 				wp_enqueue_style( 'font-awesome', $current['url_css'], array(), $current['version'] );
 			}
@@ -89,7 +90,7 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		}
 
 		/**
-	 * body class 端末識別クラス追加
+	 * add body class
 	 * @return [type] [description]
 	 */
 		static function add_body_class_fa_version( $class ) {
