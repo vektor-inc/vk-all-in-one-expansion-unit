@@ -21,20 +21,20 @@ class PackageManagerTest extends WP_UnitTestCase {
 		$test_array = array(
 			// どちらも未定義の場合（既存ユーザー）
 			array(
-				'name' => 'bootstrap',
+				'name'    => 'bootstrap',
 				'correct' => false,
 			),
 			array(
-				'name' => 'metaDescription',
+				'name'    => 'metaDescription',
 				'correct' => true,
 			),
 		);
 
 		print PHP_EOL;
-		print '------------------------------------'.PHP_EOL;
-		print 'test_package_manager'.PHP_EOL;
-		print '------------------------------------'.PHP_EOL;
-		foreach ( $test_array as $key => $test_value) {
+		print '------------------------------------' . PHP_EOL;
+		print 'test_package_manager' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		foreach ( $test_array as $key => $test_value ) {
 			// 判定結果
 			$result = vkExUnit_package_is_enable( $test_value['name'] );
 
@@ -42,8 +42,8 @@ class PackageManagerTest extends WP_UnitTestCase {
 			$this->assertEquals( $test_value['correct'], $result );
 
 			print PHP_EOL;
-			print 'Package         :'.$result.PHP_EOL;
-			print 'Package Correct :'.$test_value['correct'].PHP_EOL;
+			print 'Package         :' . $result . PHP_EOL;
+			print 'Package Correct :' . $test_value['correct'] . PHP_EOL;
 		}
 
 		/**
@@ -57,15 +57,15 @@ class PackageManagerTest extends WP_UnitTestCase {
 			),
 			array(
 				'active_bootstrap' => null,
-				'correct' => false,
+				'correct'          => false,
 			),
 			array(
 				'active_bootstrap' => '',
-				'correct' => false,
+				'correct'          => false,
 			),
 			array(
 				'active_bootstrap' => 1,
-				'correct' => true,
+				'correct'          => true,
 			),
 		);
 		foreach ( $test_array as $key => $test_value ) {
@@ -76,8 +76,8 @@ class PackageManagerTest extends WP_UnitTestCase {
 			$this->assertEquals( $test_value['correct'], $output['active_bootstrap'] );
 
 			print PHP_EOL;
-			print 'options_validate         :'.$output['active_bootstrap'].PHP_EOL;
-			print 'options_validate Correct :'.$test_value['correct'].PHP_EOL;
+			print 'options_validate         :' . $output['active_bootstrap'] . PHP_EOL;
+			print 'options_validate Correct :' . $test_value['correct'] . PHP_EOL;
 		}
 
 		// $this->assertTrue( true );
