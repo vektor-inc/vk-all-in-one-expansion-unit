@@ -10,7 +10,7 @@ function veu_customize_panel_activation_contact() {
 
 // カスタマイズ関数を実行
 // if ( apply_filters('veu_customize_panel_activation', false ) ){
-	add_action( 'customize_register', 'veu_customize_register_contact',20 );
+	add_action( 'customize_register', 'veu_customize_register_contact', 20 );
 // }
 
 function veu_customize_register_contact( $wp_customize ) {
@@ -113,7 +113,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// The contact page URL
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_link]', array(
-			'default'           => '',
+			'default'           => home_url( '/contact/' ),
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -134,7 +134,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	// Contact button Text
 	$wp_customize->add_setting(
 		'vkExUnit_contact[button_text]', array(
-			'default'           => '',
+			'default'           => __( 'Contact us', 'vkExUnit' ),
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
