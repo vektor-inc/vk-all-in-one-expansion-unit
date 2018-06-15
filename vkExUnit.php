@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: https://ex-unit.nagoya
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 6.4.8
+* Version: 6.4.9
 * Author: Vektor,Inc.
 * Text Domain: vkExUnit
 * Domain Path: /languages
@@ -34,7 +34,7 @@ $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
 global $vkExUnit_version;
 $vkExUnit_version = $data['version'];
 
-//include('plugins/css_customize/css-customize.php');
+// include('plugins/css_customize/css-customize.php');
 load_plugin_textdomain( 'vkExUnit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
@@ -57,7 +57,7 @@ function vkExUnit_uninstall_function() {
 }
 
 
-/// PHP Version check
+// PHP Version check
 if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
 	require_once vkExUnit_get_directory() . '/initialize.php';
 	if ( version_compare( phpversion(), '5.6' ) < 0 && is_admin() ) {
@@ -106,6 +106,6 @@ function vkExUnit_phpversion_warning_notice( $val ) {
 
 // add_filter('vk-admin-is-dashboard-active','vk_dashboard_hidden');
 // function vk_dashboard_hidden(){
-// 	return false;
+// return false;
 // }
 // remove_action( 'wp_dashboard_setup',array( 'Vk_Admin', 'dashboard_widget'),1 );
