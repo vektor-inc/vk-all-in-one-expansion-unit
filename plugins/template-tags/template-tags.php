@@ -213,7 +213,8 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		$page_description = apply_filters( 'vkExUnit_pageDescriptionCustom', $page_description );
 		$page_description = esc_html( strip_tags( $page_description ) );
 		// Delete Line break
-		$page_description = str_replace( array( "\r\n", "\r", "\n" ), '', $page_description );
+		$page_description = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $page_description );
+		$page_description = preg_replace( '/\[(.*?)\]/m', '', $page_description );
 		return $page_description;
 	}
 }

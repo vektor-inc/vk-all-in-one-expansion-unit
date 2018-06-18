@@ -31,6 +31,8 @@
 /*-------------------------------------------*/
 /* Widget .veu_fbPagePlugin
 /*-------------------------------------------*/
+/* Widget .twitter
+/*-------------------------------------------*/
 /* Widget .veu_postList
 /*-------------------------------------------*/
 /* Widget .veu_profile
@@ -489,7 +491,12 @@ $section_pagelist_margin:2.5em 0 1em;
 	}
 }
 
-.twitter-timeline iframe {margin-right:auto; margin-left:auto; }
+/*-------------------------------------------*/
+/* Widget .twitter
+/*-------------------------------------------*/
+
+// width の指定は iOS特有のバグで iframe が親要素の幅を超えてはみ出す事象に対応するために追加
+iframe.twitter-timeline {margin-right:auto; margin-left:auto; width: 740px !important;}
 
 /*-------------------------------------------*/
 /* Widget .veu_postList
