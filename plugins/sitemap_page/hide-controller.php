@@ -22,14 +22,9 @@ function vue_sitemap_hide_meta_box() {
 }
 
 
-
-
-
-
 /*-------------------------------------------*/
 /*  入力フィールドの生成
 /*-------------------------------------------*/
-
 
 function vue_sitemap_hide_controller_setting() {
 
@@ -60,6 +55,7 @@ function vue_sitemap_hide_controller_setting() {
 /*-------------------------------------------*/
 /*  入力された値の保存
 /*-------------------------------------------*/
+
 add_action('save_post', 'vue_sitemap_hide_controller_save');
 
 function vue_sitemap_hide_controller_save($post_id){
@@ -87,6 +83,14 @@ function vue_sitemap_hide_controller_save($post_id){
       delete_post_meta($post_id, $field , get_post_meta( $post_id, $field , true ));
   }
 
-
-
 } // function vue_sitemap_hide_controller_save(){
+
+
+/*-------------------------------------------*/
+/*  サイトマップで非表示にする
+/*-------------------------------------------*/
+
+add_filters( 'vkExUnit_sitemap_options_validate', 'veu_exclude_id' );
+function veu_exclude_id() {
+
+}

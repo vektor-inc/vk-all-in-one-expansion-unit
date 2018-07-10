@@ -63,6 +63,7 @@ gulp.task('watch', function() {
     gulp.watch('plugins/pagetop-btn/js/pagetop-btn.js', ['scripts']);
     gulp.watch('js/all.js', ['jsmin']);
     gulp.watch('_scss/**/*.scss', ['sass']);
+    gulp.watch('plugins/pagetop-btn/_scss/*.scss', ['sass']);
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
