@@ -95,7 +95,6 @@ gulp.task('copy_dist', function() {
 							'./plugins/**',
 							'./plugins_admin/**',
 							'./languages/**',
-							'./libraries/**',
 							"!./compile.bat",
 							"!./config.rb",
 							"!./tests/**",
