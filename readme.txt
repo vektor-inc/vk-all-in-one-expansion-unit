@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 4.9.6
-Stable tag: 6.5.0
+Stable tag: 6.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 6.5.1 =
+* [ Follow Me ][ bug fix ] feedly btn image url http to https.
+* [ Page Top ][ Specification change ] Abolish Font Awesome and change to original image loading.
 
 = 6.4.0 =
 * [ Font Awesome ] Corresponding to Font Awesome 5.0
