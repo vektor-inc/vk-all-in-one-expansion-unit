@@ -20,6 +20,9 @@
 function vkExUnit_add_sitemap_options_page() {
 	require dirname( __FILE__ ) . '/sitemap_admin.php';
 }
+
+require_once dirname( __FILE__ ) . '/hide-controller.php';
+
 /*-------------------------------------------*/
 /*  Options Init
 /*-------------------------------------------*/

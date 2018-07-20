@@ -90,7 +90,14 @@ function vue_sitemap_hide_controller_save($post_id){
 /*  サイトマップで非表示にする
 /*-------------------------------------------*/
 
-add_filters( 'vkExUnit_sitemap_options_validate', 'veu_exclude_id' );
+add_filters( 'the_content', 'veu_exclude_id' );
 function veu_exclude_id() {
 
+  global $post;
+  // カスタムフィールドの値を取得
+	$select = get_post_meta( get_the_ID(), 'sitemap_hide' );
+  // チェックが入っているかどうか
+  $select_value = ( isset( $select[0] ) ) ? $select[0] : '';
+
+  // サイトマップページで非表示にする
 }
