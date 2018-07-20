@@ -76,6 +76,7 @@ e.g.
 = 6.5.1 =
 * [ Follow Me ][ bug fix ] feedly btn image url http to https.
 * [ Page Top ][ Specification change ] Abolish Font Awesome and change to original image loading.
+* [ FontAwesome ] delete old files
 
 = 6.4.0 =
 * [ Font Awesome ] Corresponding to Font Awesome 5.0
