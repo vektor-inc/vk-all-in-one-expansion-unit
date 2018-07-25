@@ -5,17 +5,17 @@
 /*-------------------------------------------*/
 
 /** アクションフックを使用して作成した関数を登録 */
-add_action( 'admin_menu', 'vue_sitemap_hide_meta_box' );
+add_action( 'admin_menu', 'vue_sitemap_hide_menu' );
 
 /** メニュー作成用のコードを含む関数を作成 */
-function vue_sitemap_hide_meta_box() {
+function vue_sitemap_hide_menu() {
 
   // 現在存在する固定ページを取得
   /*-------------------------------------------*/
      add_meta_box(
       'sitemap-meta-box', // metaboxのID
       veu_get_little_short_name().' '. __( 'Site Map Hide', 'vkExUnit' ), // metaboxの表示名
-      'vue_sitemap_hide_controller_setting', // このメタボックスに表示する中身の関数名
+      'veu_sitemap_meta_box_callback', // このメタボックスに表示する中身の関数名
       'page', // このメタボックスをどの投稿タイプで表示するのか？
       'side' // 表示する位置
       );
@@ -26,7 +26,7 @@ function vue_sitemap_hide_meta_box() {
 /*  入力フィールドの生成
 /*-------------------------------------------*/
 
-function vue_sitemap_hide_controller_setting() {
+function veu_sitemap_meta_box_callback() {
 
   //CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__sitemap_hide」として設定）
   wp_nonce_field( wp_create_nonce(__FILE__), 'noncename__sitemap_hide' );
@@ -34,7 +34,7 @@ function vue_sitemap_hide_controller_setting() {
   global $post;
   // カスタムフィールド 'sitemap_hide' の値を取得
   $sitemap_hide = array();
-  $sitemap_hide = get_post_meta( $post->ID,'sitemap_hide',true );
+  $sitemap_hide = get_post_meta( $post->ID, 'sitemap_hide', true );
 
   // チェックが入っている場合（ 表示しない ）
   if ( $sitemap_hide ) {
@@ -68,7 +68,7 @@ function vue_sitemap_hide_controller_save($post_id){
   }
 
   //自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）
-  if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { return $post_id; }
+  // if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { return $post_id; }
 
   $field = 'sitemap_hide';
   $field_value = ( isset( $_POST[$field] ) ) ? $_POST[$field] : '';
@@ -90,14 +90,39 @@ function vue_sitemap_hide_controller_save($post_id){
 /*  サイトマップで非表示にする
 /*-------------------------------------------*/
 
-add_filters( 'the_content', 'veu_exclude_id' );
-function veu_exclude_id() {
+function veu_sitemap_exclude_page_ids() {
 
-  global $post;
-  // カスタムフィールドの値を取得
-	$select = get_post_meta( get_the_ID(), 'sitemap_hide' );
-  // チェックが入っているかどうか
-  $select_value = ( isset( $select[0] ) ) ? $select[0] : '';
+	// meta_key が　sitemap_hide が true で post_type が page の投稿を取得する
+  $args = array(
+   'posts_per_page' => -1, // 取得する数
+   'post_type' => 'page', // 投稿タイプ名
+   'meta_query' => array(
+		array(
+			'key' => 'sitemap_hide',
+			'value' => 'true',
+		)
+	)
+  );
+  $sitemap_hide_customPosts = get_posts($args);
 
-  // サイトマップページで非表示にする
-}
+
+ // 取得した投稿データをループして、id名を $excludes に追加していく
+ // 「sitemap_hide」フィールドの値が格納されていたら「$excludes」に ID を追加する処理を開始
+ if( $sitemap_hide_customPosts ) {
+   $excludes = '';
+   foreach( $sitemap_hide_customPosts as $key => $value ) {
+     // print_r($value);
+
+      if( ! $excludes ) {
+     		$excludes .= $value->ID;
+     	} else {
+     		$excludes .= ','.$value->ID;
+     	}
+
+     $excludes = esc_attr( $excludes );
+   }
+
+   return $excludes;
+ } // if( $sitemap_hide_customPosts ) {
+
+} // function veu_sitemap_exclude_page_ids() {
