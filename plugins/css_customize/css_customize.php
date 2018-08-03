@@ -16,6 +16,7 @@ class biz_vektor_css_customize {
 		add_action( 'wp_head', array( $this, 'biz_vektor_css_customize_push_css' ), 200 );
 		add_action( 'admin_menu', array( $this, 'biz_vektor_css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
+		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize_single.php' );
 	}
 
 
