@@ -10,18 +10,12 @@ global $vk_call_to_action_textdomain;
 
 $btn_text   = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
 $btn_before = get_post_meta( $id, 'vkExUnit_cta_button_icon_before', true );
-
-$fa = '';
-if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-	$fa = Vk_Font_Awesome_Versions::print_fa();
-}
-
 if ( $btn_before ) {
-		$btn_before = '<i class="' . $fa . esc_attr( $btn_before ) . ' font_icon"></i> ';
+		$btn_before = '<i class="fa ' . esc_attr( $btn_before ) . ' font_icon"></i> ';
 }
 $btn_after = get_post_meta( $id, 'vkExUnit_cta_button_icon_after', true );
 if ( $btn_after ) {
-		$btn_after = ' <i class="' . $fa . esc_attr( $btn_after ) . ' font_icon"></i>';
+		$btn_after = ' <i class="fa ' . esc_attr( $btn_after ) . ' font_icon"></i>';
 }
 $url   = get_post_meta( $id, 'vkExUnit_cta_url', true );
 $text  = get_post_meta( $id, 'vkExUnit_cta_text', true );
@@ -37,10 +31,22 @@ $content  = '';
 $content .= '<section class="veu_cta">';
 $content .= '<h1 class="cta_title">' . $post->post_title . '</h1>';
 $content .= '<div class="cta_body">';
+
+
+	////// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////
+		$target_blank = get_post_meta( $id, 'vkExUnit_cta_url_blank', true );
+		if ( $target_blank != 'window_self' ) {
+			$target = ' target="_blank"';
+		} else {
+			$target = '';
+		}
+	////////////////////////////////////////////////////////////
+
+
 if ( $imgid ) {
 	$cta_image = wp_get_attachment_image_src( $imgid, 'large' );
 	$content  .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
-	$content  .= ( $url ) ? '<a href="' . $url . '" target="_blank">' : '';
+	$content  .= ( $url ) ? '<a href="' . $url.'"' . $target .'>' : '';
 	$content  .= '<img src="' . $cta_image[0] . '" />';
 	$content  .= ( $url ) ? '</a>' : '';
 	$content  .= '</div>';
@@ -50,14 +56,6 @@ $content .= do_shortcode( $text );
 $content .= '</div>';
 if ( $url && $btn_text ) {
 	$content .= '<div class="cta_body_link">';
-
-	// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得
-	$target_blank = get_post_meta( $id, 'vkExUnit_cta_url_blank', true );
-	if ( $target_blank != 'window_self' ) {
-		$target = ' target="_blank"';
-	} else {
-		$target = '';
-	}
 
 	$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
 	$content .= $btn_before . $btn_text . $btn_after;
