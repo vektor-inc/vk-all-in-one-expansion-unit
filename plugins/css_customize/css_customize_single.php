@@ -52,7 +52,8 @@ function veu_save_custom_css( $post_id ) {
 
 	// wp_verify_nonce( $_POST['veu_custom_css_noncename'], 'veu_custom-css' )の引数は「（必須） 検証する nonce,（オプション） アクションの名前」
 	// nonce が正しいもので有効期限が切れていないことを、指定されたアクションとの関係も含めて確かめる処理
-	if ( ! wp_verify_nonce( $_POST['veu_custom_css_noncename'], 'veu_custom-css' ) ) {
+	$noonce = isset( $_POST['veu_custom_css_noncename'] ) ? htmlspecialchars( $_POST['veu_custom_css_noncename'] ) : null;
+	if ( ! wp_verify_nonce( $noonce, 'veu_custom-css' ) ) {
 		return $post_id;
 	}
 	// 自動保存時には処理をしないように
