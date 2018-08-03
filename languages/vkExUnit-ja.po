@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_ex:1,2c;_x:1,2c;_n:1,2;esc_attr__\n"
@@ -63,8 +63,7 @@ msgstr "メイン設定"
 
 #: admin_main_setting_page.php:76
 msgid "Activated Packages is noting. please activate some package."
-msgstr ""
-"有効化されているパッケージがありません。何かの機能を有効化してください。"
+msgstr "有効化されているパッケージがありません。何かの機能を有効化してください。"
 
 #: plugins/auto_eyecatch.php:40
 msgid "Automatic EyeCatch"
@@ -219,29 +218,19 @@ msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
 #: plugins/call-to-action/view-adminsetting.php:20 veu-packages.php:300
-msgid ""
-"The CTA stands for \"Call to action\" and this is the area that prompts the "
-"user behavior."
-msgstr ""
-"CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための"
-"情報を表示します。"
+msgid "The CTA stands for \"Call to action\" and this is the area that prompts the user behavior."
+msgstr "CTAは「Call To Action」の略で、ユーザーにとってもらいたい行動へ誘導するための情報を表示します。"
 
 #: plugins/call-to-action/view-adminsetting.php:21 veu-packages.php:302
-msgid ""
-"As an example, text message and a link button for induction to the free "
-"sample download page."
-msgstr ""
-"例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタ"
-"ンなどです。"
+msgid "As an example, text message and a link button for induction to the free sample download page."
+msgstr "例えば、無料サンプルのダウンロードページへの誘導のためのテキストやリンクボタンなどです。"
 
 #: plugins/call-to-action/view-adminsetting.php:23
 msgid "How to use"
 msgstr "使い方"
 
 #: plugins/call-to-action/view-adminsetting.php:26
-msgid ""
-"You register the contents on \"CTA\" that you want to display to bottom of "
-"the content."
+msgid "You register the contents on \"CTA\" that you want to display to bottom of the content."
 msgstr "まずは投稿タイプCTAで、本文の最後に表示させたい内容を登録します。"
 
 #: plugins/call-to-action/view-adminsetting.php:27
@@ -249,12 +238,8 @@ msgid "Choose the CTA to be displayed from the following."
 msgstr "下記のプルダウンで、投稿タイプ別に表示するCTAを選択して保存します。"
 
 #: plugins/call-to-action/view-adminsetting.php:28
-msgid ""
-"If you want to switch the CTA to be displayed on each post, please set in "
-"the details page of such posting."
-msgstr ""
-"投稿毎に表示するCTAを切り替えたい場合は、投稿などの詳細ページで設定してくださ"
-"い。"
+msgid "If you want to switch the CTA to be displayed on each post, please set in the details page of such posting."
+msgstr "投稿毎に表示するCTAを切り替えたい場合は、投稿などの詳細ページで設定してください。"
 
 #: plugins/call-to-action/view-adminsetting.php:41
 msgid "Show index page"
@@ -308,21 +293,13 @@ msgstr "お問い合わせ"
 
 #: plugins/contact-section/contact-section.php:134
 #: plugins/contact-section/customizer.php:33
-msgid ""
-"The contents entered here will be reflected in the bottom of each fixed "
-"page, the \"Contact Section\" widget, the \"Contact Button\" widget, etc."
-msgstr ""
-"ここに入力された内容が各固定ページ下部や『お問い合わせ情報』ウィジェット、"
-"『お問い合わせボタン』ウィジェットなどに反映されます。"
+msgid "The contents entered here will be reflected in the bottom of each fixed page, the \"Contact Section\" widget, the \"Contact Button\" widget, etc."
+msgstr "ここに入力された内容が各固定ページ下部や『お問い合わせ情報』ウィジェット、『お問い合わせボタン』ウィジェットなどに反映されます。"
 
 #: plugins/contact-section/contact-section.php:136
 #: plugins/contact-section/customizer.php:35
-msgid ""
-"When I display it on the page, it is necessary to classify a check into "
-"\"Display Contact Section\" checkbox with the edit page of each page."
-msgstr ""
-"固定ページに表示する場合は、各固定ページの編集画面で\"お問い合わせ情報の表示"
-"\"にチェックを入れる必要があります。"
+msgid "When I display it on the page, it is necessary to classify a check into \"Display Contact Section\" checkbox with the edit page of each page."
+msgstr "固定ページに表示する場合は、各固定ページの編集画面で\"お問い合わせ情報の表示\"にチェックを入れる必要があります。"
 
 #: plugins/contact-section/contact-section.php:140
 #: plugins/contact-section/customizer.php:62
@@ -405,9 +382,7 @@ msgstr "お問い合わせボタンウィジェットに表示するテキスト
 #: plugins/contact-section/contact-section.php:191
 #: plugins/contact-section/customizer.php:193
 msgid "This will used to \"Contact Button\" widget."
-msgstr ""
-"このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利"
-"用を想定していますので少ない文字数で設定してください。"
+msgstr "このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利用を想定していますので少ない文字数で設定してください。"
 
 #: plugins/contact-section/contact-section.php:195
 msgid "Advanced Setting"
@@ -425,8 +400,7 @@ msgstr "画像を選択"
 #: plugins/contact-section/contact-section.php:207
 #: plugins/contact-section/customizer.php:207
 msgid "Display the image instead of the above inquiry information"
-msgstr ""
-"画像が登録されている場合は標準のお問い合わせ情報ではなく画像が表示されます。"
+msgstr "画像が登録されている場合は標準のお問い合わせ情報ではなく画像が表示されます。"
 
 #: plugins/contact-section/contact-section.php:211
 #: plugins/contact-section/customizer.php:243
@@ -459,11 +433,8 @@ msgstr "お問い合わせボタンを表示します。"
 #: plugins/contact-section/contact-section.php:466
 #: plugins/contact-section/contact-section.php:488
 #, php-format
-msgid ""
-"It is necessary to set the \"%s\" -> \"Contact Information\" section in "
-"\"Main setting\" page."
-msgstr ""
-"「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
+msgid "It is necessary to set the \"%s\" -> \"Contact Information\" section in \"Main setting\" page."
+msgstr "「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
 #: plugins/contact-section/contact-section.php:465
 msgid "Display contact button"
@@ -479,12 +450,8 @@ msgstr "電話番号とお問い合わせボタンなどを表示します。"
 
 #: plugins/contact-section/contact-section.php:516
 #, php-format
-msgid ""
-"*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
-"\"Main setting\" page."
-msgstr ""
-"* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
-"す。"
+msgid "*It is necessary to set the \"%s\" -> \"Contact Information\" section in \"Main setting\" page."
+msgstr "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
 #: plugins/contact-section/customizer.php:23
 msgid "Contact Settings"
@@ -540,18 +507,8 @@ msgid "4.7 will be abolished in the near future."
 msgstr "4.7は将来的に廃止します。"
 
 #: plugins/footer_copyright_change.php:6
-msgid ""
-"<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
-"\"https://lightning.nagoya\" target=\"_blank\" title=\"Free WordPress Theme "
-"Lightning\"> Lightning Theme</a> &amp; <a href=\"https://ex-unit.nagoya\" "
-"target=\"_blank\">VK All in One Expansion Unit</a> by <a href=\"//www.vektor-"
-"inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology.</p>"
-msgstr ""
-"<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
-"\"https://lightning.nagoya/ja/“ target=\"_blank\" title=\"Free WordPress "
-"Theme Lightning\"> Lightning Theme</a> &amp; <a href=\"https://ex-unit."
-"nagoya/ja/“ target=\"_blank\">VK All in One Expansion Unit</a> by <a href="
-"\"//www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology.</p>"
+msgid "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href=\"https://lightning.nagoya\" target=\"_blank\" title=\"Free WordPress Theme Lightning\"> Lightning Theme</a> &amp; <a href=\"https://ex-unit.nagoya\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href=\"//www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology.</p>"
+msgstr "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href=\"https://lightning.nagoya/ja/\" target=\"_blank\" title=\"Free WordPress Theme Lightning\"> Lightning Theme</a> &amp; <a href=\"https://ex-unit.nagoya/ja/\" target=\"_blank\">VK All in One Expansion Unit</a> by <a href=\"//www.vektor-inc.co.jp\" target=\"_blank\">Vektor,Inc.</a> technology.</p>"
 
 #: plugins/google_analytics/ga_admin.php:9
 #: plugins/google_analytics/ga_admin.php:13
@@ -560,18 +517,12 @@ msgid "Google Analytics Settings"
 msgstr "Google Analytics設定"
 
 #: plugins/google_analytics/ga_admin.php:14
-msgid ""
-"Please fill in the Google Analytics ID from the Analytics embed code used in "
-"the site."
+msgid "Please fill in the Google Analytics ID from the Analytics embed code used in the site."
 msgstr "このサイトで使用する Google アナリティクスの ID を入力して下さい。"
 
 #: plugins/google_analytics/ga_admin.php:19
-msgid ""
-"Please select the type of Analytics code . (If you are unsure you can skip "
-"this.)"
-msgstr ""
-"アナリティクスコードの種類を選択して下さい。( 不明な場合この設定は省略できま"
-"す )"
+msgid "Please select the type of Analytics code . (If you are unsure you can skip this.)"
+msgstr "アナリティクスコードの種類を選択して下さい。( 不明な場合この設定は省略できます )"
 
 #: plugins/google_analytics/ga_admin.php:23
 #: plugins/google_analytics/ga_customizer.php:74
@@ -597,24 +548,16 @@ msgid "Google Analytics ID"
 msgstr "Google Analyticsの ID"
 
 #: plugins/google_analytics/ga_customizer.php:49
-msgid ""
-"Please fill in the Google Analytics ID from the Analytics embed code used in "
-"the site.<br>ex) XXXXXXXX-X"
-msgstr ""
-"このサイトで使用する Google アナリティクスの ID を入力して下さい。<br>例) "
-"XXXXXXXX-X"
+msgid "Please fill in the Google Analytics ID from the Analytics embed code used in the site.<br>ex) XXXXXXXX-X"
+msgstr "このサイトで使用する Google アナリティクスの ID を入力して下さい。<br>例) XXXXXXXX-X"
 
 #: plugins/google_analytics/ga_customizer.php:68
 msgid "Select the type of Analytics code"
 msgstr "アナリティクスコードの種類を選択"
 
 #: plugins/google_analytics/ga_customizer.php:78
-msgid ""
-"Print the select the type of Analytics code.<br>(If you are unsure you can "
-"skip this.)"
-msgstr ""
-"アナリティクスコードの種類を選択して下さい。( 不明な場合この設定は省略できま"
-"す。)"
+msgid "Print the select the type of Analytics code.<br>(If you are unsure you can skip this.)"
+msgstr "アナリティクスコードの種類を選択して下さい。( 不明な場合この設定は省略できます。)"
 
 #: plugins/icons.php:38 plugins/icons.php:68
 msgid "icon setting"
@@ -622,14 +565,10 @@ msgstr "アイコン設定"
 
 #: plugins/icons.php:74
 #, php-format
-msgid ""
-"This feature will be discontinued shortly.<br>You can set the site icon from "
-"\"Site Identity\" panel of [ <a href=%s>Themes > Customize</a> ] After "
-"updating the setting."
+msgid "This feature will be discontinued shortly.<br>You can set the site icon from \"Site Identity\" panel of [ <a href=%s>Themes > Customize</a> ] After updating the setting."
 msgstr ""
 "この機能は間もなく廃止されます。<br>\n"
-"サイトアイコンは「<a href=%s>外観 > カスタマイズ</a>」の「サイト基本情報」パ"
-"ネルから設定できます。"
+"サイトアイコンは「<a href=%s>外観 > カスタマイズ</a>」の「サイト基本情報」パネルから設定できます。"
 
 #: plugins/icons.php:81
 msgid "Favicon Setting"
@@ -677,42 +616,20 @@ msgid "Meta Description"
 msgstr "メタディスクリプション"
 
 #: plugins/meta_description.php:37
-msgid ""
-"What you have to complete the \"excerpt\" column of the edit screen of each "
-"page will be reflected in the description of the meta tag."
-msgstr ""
-"各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプションに"
-"反映されます"
+msgid "What you have to complete the \"excerpt\" column of the edit screen of each page will be reflected in the description of the meta tag."
+msgstr "各ページの編集画面の「抜粋」欄に記入した内容がmetaタグのディスクリプションに反映されます"
 
 #: plugins/meta_description.php:38
-msgid ""
-"Description of meta tags in the search results screen of search sites such "
-"as Google, will be Displayed, such as the bottom of the site title. If the "
-"excerpt column is blank, is 240 characters than text beginning of a sentence "
-"has become a specification that is applied as a description."
-msgstr ""
-"トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されま"
-"す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
-"内容が反映されます。"
+msgid "Description of meta tags in the search results screen of search sites such as Google, will be Displayed, such as the bottom of the site title. If the excerpt column is blank, is 240 characters than text beginning of a sentence has become a specification that is applied as a description."
+msgstr "トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されます。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその内容が反映されます。"
 
 #: plugins/meta_description.php:39
-msgid ""
-"The meta description of the top page is subject to the catchphrase of the "
-"site. However, its contents will be reflected if the excerpt is entered in "
-"fixed page that was set on the top page."
-msgstr ""
-"トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されま"
-"す。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその"
-"内容が反映されます。"
+msgid "The meta description of the top page is subject to the catchphrase of the site. However, its contents will be reflected if the excerpt is entered in fixed page that was set on the top page."
+msgstr "トップページのメタディスクリプションにはサイトのキャッチフレーズが適用されます。しかし、トップページに設定した固定ページに抜粋が記入されている場合はその内容が反映されます。"
 
 #: plugins/meta_description.php:40
-msgid ""
-"If \"excerpt\" column is not found, Click \"Display Option\" of page top at "
-"each article edit page, and check the expert column display."
-msgstr ""
-"抜粋欄が表示されていない場合は、編集画面の右上に「表示」というタブがあります"
-"ので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきますの"
-"で、チェックして下さい。"
+msgid "If \"excerpt\" column is not found, Click \"Display Option\" of page top at each article edit page, and check the expert column display."
+msgstr "抜粋欄が表示されていない場合は、編集画面の右上に「表示」というタブがありますので、そこをクリックすると「抜粋」欄を表示するチェックボックスが出てきますので、チェックして下さい。"
 
 #: plugins/meta_keyword.php:40 plugins/meta_keyword.php:91
 #: plugins/meta_keyword.php:93 plugins/meta_keyword.php:94
@@ -729,27 +646,16 @@ msgid "Common Keywords"
 msgstr "共通キーワード設定"
 
 #: plugins/meta_keyword.php:72
-msgid ""
-"Keywords for meta tag. This words will set Meta Keyword with post keywords. "
-"if you want multiple keywords, enter with separator of \",\"."
-msgstr ""
-"メタタグに入力するキーワードを入力します。ここでは全てのページで使用する共通"
-"のキーワードを設定します。複数ある場合は「,」で区切ってください。"
+msgid "Keywords for meta tag. This words will set Meta Keyword with post keywords. if you want multiple keywords, enter with separator of \",\"."
+msgstr "メタタグに入力するキーワードを入力します。ここでは全てのページで使用する共通のキーワードを設定します。複数ある場合は「,」で区切ってください。"
 
 #: plugins/meta_keyword.php:75
 msgid "This is not seriously, Because the SearchEngine does not care this."
-msgstr ""
-"あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要なファ"
-"クターとはなりません。"
+msgstr "あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要なファクターとはなりません。"
 
 #: plugins/meta_keyword.php:76
-msgid ""
-"For each page individual keyword is enter at the edit screen of each "
-"article. 10 keywords maximum, together with a each article keywords is "
-"desirable."
-msgstr ""
-"個々のページのキーワードはそれぞれの投稿ページのキーワード入力欄から追加して"
-"ください。それらと合わせて10個程度のキーワード数であることが望ましいです。"
+msgid "For each page individual keyword is enter at the edit screen of each article. 10 keywords maximum, together with a each article keywords is desirable."
+msgstr "個々のページのキーワードはそれぞれの投稿ページのキーワード入力欄から追加してください。それらと合わせて10個程度のキーワード数であることが望ましいです。"
 
 #: plugins/meta_keyword.php:77
 msgid "\",\" separator at end of the last keyword is do not need."
@@ -760,9 +666,7 @@ msgid "Example: WordPress,template,theme,free,GPL"
 msgstr "【例】 WordPress,テンプレート,テーマ,無料,GPL"
 
 #: plugins/meta_keyword.php:102
-msgid ""
-"To distinguish between individual keywords, please enter a , delimiter "
-"(optional)."
+msgid "To distinguish between individual keywords, please enter a , delimiter (optional)."
 msgstr "キーワードを複数入力する場合は , ( カンマ )で区切って下さい。"
 
 #: plugins/meta_keyword.php:104
@@ -825,9 +729,7 @@ msgstr "画像クリア"
 
 #: plugins/other_widget/widget-3pr-area.php:81
 msgid "Select image for Mobile:"
-msgstr ""
-"スマホ用（ウィンドウサイズが 768px 以下の場合）に表示される画像を選択（橫 "
-"690px 以上推奨。空欄も可）"
+msgstr "スマホ用（ウィンドウサイズが 768px 以下の場合）に表示される画像を選択（橫 690px 以上推奨。空欄も可）"
 
 #: plugins/other_widget/widget-3pr-area.php:102
 #: plugins/other_widget/widget-pr-blocks.php:115
@@ -850,12 +752,8 @@ msgid "archive list"
 msgstr "アーカイブリスト"
 
 #: plugins/other_widget/widget-archives.php:14 veu-packages.php:205
-msgid ""
-"Displays a list of archives. You can choose the post type and also to "
-"display archives by month or by year."
-msgstr ""
-"アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイ"
-"プを選択できます。"
+msgid "Displays a list of archives. You can choose the post type and also to display archives by month or by year."
+msgstr "アーカイブの一覧を表示します。月ごともしくは年ごとでの表示。また、ポストタイプを選択できます。"
 
 #: plugins/other_widget/widget-archives.php:53
 #: plugins/other_widget/widget-archives.php:54
@@ -889,9 +787,7 @@ msgid "Banner"
 msgstr "バナー"
 
 #: plugins/other_widget/widget-banner.php:22
-msgid ""
-"You can easily set up a banner simply by registering images and link "
-"destinations."
+msgid "You can easily set up a banner simply by registering images and link destinations."
 msgstr "画像とリンク先を登録するだけで簡単にバナーを設定できます。"
 
 #: plugins/other_widget/widget-banner.php:83
@@ -1038,9 +934,7 @@ msgstr "カテゴリー（タクソノミー）ID"
 
 #: plugins/other_widget/widget-new-posts.php:231
 msgid "if you need filtering by term, add the term ID separate by \",\"."
-msgstr ""
-"特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
-"します。"
+msgstr "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力します。"
 
 #: plugins/other_widget/widget-new-posts.php:233 plugins/sns/sns_admin.php:94
 msgid "if empty this area, I will do not filtering."
@@ -1119,13 +1013,8 @@ msgid "4column"
 msgstr "4列"
 
 #: plugins/other_widget/widget-pr-blocks.php:98
-msgid ""
-"If you change the number of columns, click to \"Save\" botton and exit the "
-"edit page. When restart the edit page, the column input form is increased or "
-"decreased."
-msgstr ""
-"列の数を変更する場合は「保存して公開」ボタンをクリックして編集画面を終了しま"
-"す。それから編集画面を再度開くと列の入力フォームが増減します。"
+msgid "If you change the number of columns, click to \"Save\" botton and exit the edit page. When restart the edit page, the column input form is increased or decreased."
+msgstr "列の数を変更する場合は「保存して公開」ボタンをクリックして編集画面を終了します。それから編集画面を再度開くと列の入力フォームが増減します。"
 
 #: plugins/other_widget/widget-pr-blocks.php:107
 #: plugins/other_widget/widget-pr-blocks.php:277
@@ -1176,8 +1065,7 @@ msgstr "プロフィール"
 
 #: plugins/other_widget/widget-profile.php:14
 msgid "Displays a your profile"
-msgstr ""
-"ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
+msgstr "ブログのサイドバーに運営者情報を表示したり、フッターに企業情報を表示します。"
 
 #: plugins/other_widget/widget-profile.php:40
 msgid "Profile Text"
@@ -1240,12 +1128,8 @@ msgid "linkedin URL:"
 msgstr "linkedin リンク先ページのURL"
 
 #: plugins/other_widget/widget-profile.php:153
-msgid ""
-"* When \"Icon Background: Fill\" is selected and \"Icon color\" is not "
-"specified, each brand color will be painted."
-msgstr ""
-"※ 「アイコン背景 : 塗りつぶし」を選択した場合で「アイコンの色」の指定がないと"
-"きは各ブランドカラーで塗りつぶしされます。"
+msgid "* When \"Icon Background: Fill\" is selected and \"Icon color\" is not specified, each brand color will be painted."
+msgstr "※ 「アイコン背景 : 塗りつぶし」を選択した場合で「アイコンの色」の指定がないときは各ブランドカラーで塗りつぶしされます。"
 
 #: plugins/other_widget/widget-side-child-page-list.php:12
 msgid "child pages list"
@@ -1355,18 +1239,12 @@ msgid "Custom taxonomy is like a category in post."
 msgstr "カスタム分類とは投稿で言うカテゴリーです。"
 
 #: plugins/post-type-manager/class.post-type-manager.php:147
-msgid ""
-"However, it refers to the \"category\" itself, not to the “item” of the "
-"category."
+msgid "However, it refers to the \"category\" itself, not to the “item” of the category."
 msgstr "しかし、カテゴリーの”項目”ではなく、”カテゴリー”そのものを指します。"
 
 #: plugins/post-type-manager/class.post-type-manager.php:148
-msgid ""
-"For example, if you create a post type \"construction result\", Custom "
-"taxonomy will be \"construction type\", \"construction area\", etc."
-msgstr ""
-"例えば「施工実績」という投稿タイプを作成した場合、カスタム分類は「施工タイ"
-"プ」「施工地域」等になります。"
+msgid "For example, if you create a post type \"construction result\", Custom taxonomy will be \"construction type\", \"construction area\", etc."
+msgstr "例えば「施工実績」という投稿タイプを作成した場合、カスタム分類は「施工タイプ」「施工地域」等になります。"
 
 #: plugins/post-type-manager/class.post-type-manager.php:172
 msgid "Custon taxonomy name(slug)"
@@ -1398,11 +1276,8 @@ msgstr "REST API に利用する"
 
 #: plugins/post-type-manager/class.post-type-manager.php:262
 #, php-format
-msgid ""
-"Please save a <a href=\"%s\">permanent link configuration</a> After updating "
-"the setting."
-msgstr ""
-"設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
+msgid "Please save a <a href=\"%s\">permanent link configuration</a> After updating the setting."
+msgstr "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
 #: plugins/related_posts/related_posts.php:201 veu-packages.php:346
 msgid "Related posts"
@@ -1425,9 +1300,7 @@ msgid "Input you want to exclude page id."
 msgstr "HTMLサイトマップから除外したい固定ページのIDを入力してください。"
 
 #: plugins/sitemap_page/sitemap_admin.php:17
-msgid ""
-"* Please enter separated by \",\"(commas) if there is more than one page ID "
-"that you want to exclude."
+msgid "* Please enter separated by \",\"(commas) if there is more than one page ID that you want to exclude."
 msgstr "複数のページを除外する場合は , （コンマ）で区切って入力してください。"
 
 #: plugins/sitemap_page/sitemap_page.php:31
@@ -1452,9 +1325,7 @@ msgstr "OGPタイトル"
 
 #: plugins/sns/function_meta_box.php:39
 msgid "if filled this area then override title of OGP and Twitter Card"
-msgstr ""
-"このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
-"るタイトルを上書きすることができます"
+msgstr "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力されるタイトルを上書きすることができます"
 
 #: plugins/sns/hide_controller.php:28
 msgid "Share bottons"
@@ -1490,20 +1361,12 @@ msgid "I will check and get the application ID"
 msgstr "アプリケーションIDを確認・取得する "
 
 #: plugins/sns/sns_admin.php:16
-msgid ""
-"* If an application ID is not specified, neither a Like button nor the "
-"comment field displays and operates correctly."
-msgstr ""
-"※アプリケーションIDを入力しないとボタンやコメント欄が表示・正しく動作しませ"
-"ん。"
+msgid "* If an application ID is not specified, neither a Like button nor the comment field displays and operates correctly."
+msgstr "※アプリケーションIDを入力しないとボタンやコメント欄が表示・正しく動作しません。"
 
 #: plugins/sns/sns_admin.php:17
-msgid ""
-"Please search for terms as [get Facebook application ID] If you do not know "
-"much about how to get application ID for Facebook."
-msgstr ""
-"facebookのアプリケーションIDの取得方法についてよくわからない場合は「facebook "
-"アプリケーションID 取得」などで検索して下さい。"
+msgid "Please search for terms as [get Facebook application ID] If you do not know much about how to get application ID for Facebook."
+msgstr "facebookのアプリケーションIDの取得方法についてよくわからない場合は「facebook アプリケーションID 取得」などで検索して下さい。"
 
 #: plugins/sns/sns_admin.php:21
 msgid "facebook page URL"
@@ -1514,27 +1377,19 @@ msgid "OG default image"
 msgstr "デフォルトのOGPイメージ"
 
 #: plugins/sns/sns_admin.php:27
-msgid ""
-"If, for example someone pressed the Facebook [Like] button, this is the "
-"image that appears on the Facebook timeline."
-msgstr ""
-"Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタイ"
-"ムラインに表示されます。"
+msgid "If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline."
+msgstr "Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタイムラインに表示されます。"
 
 #: plugins/sns/sns_admin.php:28
 msgid "If a featured image is specified for the page, it takes precedence."
-msgstr ""
-"ページにアイキャッチ画像が指定されている場合は、アイキャッチ画像が優先されま"
-"す。"
+msgstr "ページにアイキャッチ画像が指定されている場合は、アイキャッチ画像が優先されます。"
 
 #: plugins/sns/sns_admin.php:30
 msgid "Select an image"
 msgstr "画像を選択"
 
 #: plugins/sns/sns_admin.php:32
-msgid ""
-"* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is "
-"recommended."
+msgid "* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended."
 msgstr "画像サイズ 橫 1280px 縦 720px 以上、画像比率 16:9 を推奨します。"
 
 #: plugins/sns/sns_admin.php:36
@@ -1550,12 +1405,8 @@ msgid "Print the OG tags"
 msgstr "OGタグを出力する"
 
 #: plugins/sns/sns_admin.php:44 plugins/sns/sns_customizer.php:143
-msgid ""
-"If other plug-ins are used for the OG, do not output the OG using this "
-"plugin."
-msgstr ""
-"OGタグの出力を選択して下さい。もし他のプラグインやテーマでOGタグを出力してい"
-"る場合は、このプラグインでの出力は必要ありません。"
+msgid "If other plug-ins are used for the OG, do not output the OG using this plugin."
+msgstr "OGタグの出力を選択して下さい。もし他のプラグインやテーマでOGタグを出力している場合は、このプラグインでの出力は必要ありません。"
 
 #: plugins/sns/sns_admin.php:49 plugins/sns/sns_customizer.php:199
 msgid "Twitter Card tags"
@@ -1582,11 +1433,8 @@ msgid "Exclude Post ID"
 msgstr "シェアボタンを表示しない投稿のID"
 
 #: plugins/sns/sns_admin.php:92
-msgid ""
-"if you need filtering by post_ID, add the ignore post_ID separate by \",\"."
-msgstr ""
-"特定のポストのみSNSボタンを表示したくない場合、カンマ(,)区切りでポストIDを入"
-"力します。"
+msgid "if you need filtering by post_ID, add the ignore post_ID separate by \",\"."
+msgstr "特定のポストのみSNSボタンを表示したくない場合、カンマ(,)区切りでポストIDを入力します。"
 
 #: plugins/sns/sns_admin.php:96
 msgid "example"
@@ -1642,16 +1490,8 @@ msgid "Facebook Page URL"
 msgstr "FacebookページURL"
 
 #: plugins/sns/sns_customizer.php:106
-msgid ""
-"If, for example someone pressed the Facebook [Like] button, this is the "
-"image that appears on the Facebook timeline.<br>If a featured image is "
-"specified for the page, it takes precedence.<br>* Picture sizes are 1280x720 "
-"pixels or more and picture ratio 16:9 is recommended."
-msgstr ""
-"Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタイ"
-"ムラインに表示されます。<br>ページにアイキャッチ画像が指定されている場合は、"
-"アイキャッチ画像が優先されます。<br>画像サイズ 橫 1280px 縦 720px 以上、画像"
-"比率 16:9 程度を推奨します。"
+msgid "If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.<br>If a featured image is specified for the page, it takes precedence.<br>* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended."
+msgstr "Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタイムラインに表示されます。<br>ページにアイキャッチ画像が指定されている場合は、アイキャッチ画像が優先されます。<br>画像サイズ 橫 1280px 縦 720px 以上、画像比率 16:9 程度を推奨します。"
 
 #: plugins/sns/sns_customizer.php:116
 msgid "OG Settings"
@@ -1841,24 +1681,13 @@ msgstr "通常「%1$s」が全ページのタイトルタグに入ります。"
 
 #: plugins/wp_title.php:93
 #, php-format
-msgid ""
-"For example, it appears in the form of <br />&lt;title&gt;page title | "
-"%1$s&lt;/title&gt;<br /> if using a static page."
-msgstr ""
-"例えば固定ページであれば<br>&lt;title&gt;固定ページ名 | %1$s&lt;/title&gt;"
-"<br>というような形式で出力されます。"
+msgid "For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page."
+msgstr "例えば固定ページであれば<br>&lt;title&gt;固定ページ名 | %1$s&lt;/title&gt;<br>というような形式で出力されます。"
 
 #: plugins/wp_title.php:95
 #, php-format
-msgid ""
-"However, it might have negative impact on search engine rankings if the &lt;"
-"title&gt; is too long, <strong>therefore please include the most popular "
-"keywords in a summarized manner, keeping the %s as short as possible.</"
-"strong>"
-msgstr ""
-"しかし、&lt;title&gt;の文字数が長くなりすぎると検索エンジンからの評価が逆に悪"
-"くなるので、%s は一番検索されたいキーワードを盛り込みつつなるべく短くまとめる"
-"事が望ましいです。"
+msgid "However, it might have negative impact on search engine rankings if the &lt;title&gt; is too long, <strong>therefore please include the most popular keywords in a summarized manner, keeping the %s as short as possible.</strong>"
+msgstr "しかし、&lt;title&gt;の文字数が長くなりすぎると検索エンジンからの評価が逆に悪くなるので、%s は一番検索されたいキーワードを盛り込みつつなるべく短くまとめる事が望ましいです。"
 
 #: plugins/wp_title.php:97
 msgid "Tagline"
@@ -1866,20 +1695,12 @@ msgstr "キャッチフレーズ"
 
 #: plugins/wp_title.php:98
 #, php-format
-msgid ""
-"In the top page will be output usually in the form of <br />&lt;title&gt;"
-"%1$s | %2$s&lt;/title&gt;"
-msgstr ""
-"トップページでは<br>&lt;title&gt;%1$s | %2$s&lt;/title&gt;<br>というような形"
-"式で出力されます。"
+msgid "In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;"
+msgstr "トップページでは<br>&lt;title&gt;%1$s | %2$s&lt;/title&gt;<br>というような形式で出力されます。"
 
 #: plugins/wp_title.php:99
-msgid ""
-"However, it may be too long in the above format. If the input to the input "
-"field of the following, its contents will be reflected."
-msgstr ""
-"しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
-"力すれば、その内容が反映されます。"
+msgid "However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected."
+msgstr "しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入力すれば、その内容が反映されます。"
 
 #: plugins_admin/admin_bar.php:28
 msgid "Active Setting"
@@ -1914,13 +1735,8 @@ msgid "Print Bootstrap css ( grid / button / table )"
 msgstr "Bootstrap の CSS（grid/button/tableのみ）を出力"
 
 #: veu-packages.php:73
-msgid ""
-"If your using theme has already including Bootstrap, you deactivate this "
-"item."
-msgstr ""
-"BootstrapのCSSを読み込むためのタグを html head 内へ出力します。使用中のテーマ"
-"（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェック"
-"を外して下さい。"
+msgid "If your using theme has already including Bootstrap, you deactivate this item."
+msgstr "BootstrapのCSSを読み込むためのタグを html head 内へ出力します。使用中のテーマ（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェックを外して下さい。"
 
 #: veu-packages.php:83
 msgid "Print link fontawesome"
@@ -1928,10 +1744,7 @@ msgstr "fontawesome link タグを出力"
 
 #: veu-packages.php:84
 msgid "Print fontawesome link tag to html head."
-msgstr ""
-"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
-"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
-"さい。"
+msgstr "fontawesome を読み込むための link タグを html head 内へ出力します。使用中のテーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下さい。"
 
 #: veu-packages.php:94
 msgid "Favicon setting"
@@ -1939,18 +1752,13 @@ msgstr "ファビコン設定"
 
 #: veu-packages.php:95
 msgid "About favicon."
-msgstr ""
-"ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
-"（ファビコン）を設定します。"
+msgstr "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン（ファビコン）を設定します。"
 
 #: veu-packages.php:95
-msgid ""
-"This feature will be discontinued shortly.<br>You can set the site icon from "
-"\"Site Identity\" panel of \"Themes > Customize\"."
+msgid "This feature will be discontinued shortly.<br>You can set the site icon from \"Site Identity\" panel of \"Themes > Customize\"."
 msgstr ""
 "この機能は間もなく廃止されます。<br>\n"
-"サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
-"ます。"
+"サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定できます。"
 
 #: veu-packages.php:105
 msgid "Rewrite the title tag"
@@ -1958,10 +1766,7 @@ msgstr "タイトルタグの書き換え"
 
 #: veu-packages.php:106
 msgid "Print is rewritten by its own rules to html head."
-msgstr ""
-"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
-"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
-"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+msgstr "head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプラグインで title タグの内容を出力する場合はチェックを外して下さい。"
 
 #: veu-packages.php:109 veu-packages.php:127 veu-packages.php:166
 #: veu-packages.php:184 veu-packages.php:214 veu-packages.php:232
@@ -1984,10 +1789,7 @@ msgstr "メタディスクリプションタグを出力"
 
 #: veu-packages.php:141
 msgid "Print meta description to html head."
-msgstr ""
-"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
-"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
-"している場合はチェックを外して下さい。"
+msgstr "投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力している場合はチェックを外して下さい。"
 
 #: veu-packages.php:150
 msgid "Main setting page"
@@ -2024,29 +1826,19 @@ msgstr "ソーシャルメディア連携"
 
 #: veu-packages.php:181
 msgid "Print Google Analytics tracking code."
-msgstr ""
-"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
-"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
-"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
-"合はチェックを外して下さい。"
+msgstr "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」のリンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場合はチェックを外して下さい。"
 
 #: veu-packages.php:197
 msgid "You can use various widgets."
-msgstr ""
-"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
-"→「ウィジェット」の設定画面より行って下さい。"
+msgstr "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」→「ウィジェット」の設定画面より行って下さい。"
 
 #: veu-packages.php:199
-msgid ""
-"VK_Recent Posts - display the link text and the date of the latest article "
-"title."
+msgid "VK_Recent Posts - display the link text and the date of the latest article title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
 #: veu-packages.php:200
-msgid ""
-"VK_Page content to widget - display the contents of the page to the widgets."
-msgstr ""
-"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
+msgid "VK_Page content to widget - display the contents of the page to the widgets."
+msgstr "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
 #: veu-packages.php:201
 msgid "VK_Profile - display the profile entered in the widget."
@@ -2078,22 +1870,15 @@ msgstr "CSSカスタマイズ"
 
 #: veu-packages.php:229
 msgid "You can set Customize CSS."
-msgstr ""
-"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
-"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
-"さい。"
+msgstr "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下さい。"
 
 #: veu-packages.php:247
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
 #: veu-packages.php:248
-msgid ""
-"At the bottom of the specified page, it will display a list of the child "
-"page."
-msgstr ""
-"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
-"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
+msgid "At the bottom of the specified page, it will display a list of the child page."
+msgstr "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
 #: veu-packages.php:259
 msgid "Page list from ancestor"
@@ -2101,8 +1886,7 @@ msgstr "先祖階層からの子ページリスト表示"
 
 #: veu-packages.php:260
 msgid "Display Page list from ancestor at after content."
-msgstr ""
-"現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
+msgstr "現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
 
 #: veu-packages.php:271
 msgid "Display Contact Section at after content."
@@ -2130,9 +1914,7 @@ msgstr "関連記事を記事コンテンツ下のエリアへ表示します。
 
 #: veu-packages.php:358
 msgid "Display Eye Catch image at before content."
-msgstr ""
-"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
-"す。"
+msgstr "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ます。"
 
 #: veu-packages.php:368
 msgid "Disable ping back"
@@ -2175,8 +1957,7 @@ msgid "Page Top Button"
 msgstr "ページトップへ戻るボタン"
 
 #: veu-packages.php:429
-msgid ""
-"The page top button is displayed in the lower right corner of the screen."
+msgid "The page top button is displayed in the lower right corner of the screen."
 msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
 
 #: vkExUnit.php:81
@@ -2196,407 +1977,4 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 #: vkExUnit.php:101
 #, php-format
 msgid "%s supports PHP5.6 or later."
-msgstr "%s がサポートしているPHPのバージョンは5.6以降です。"
-
-#~ msgid " ex:fa-arrow-circle-o-right"
-#~ msgstr "例: fa-arrow-circle-o-right"
-
-#~ msgid " ex:fa-file-text-o"
-#~ msgstr "例:fa-file-text-o"
-
-#~ msgid "To output only normal code"
-#~ msgstr "ノーマルのコードのみを出力します。"
-
-#~ msgid "To output both types"
-#~ msgstr "両タイプのコードを出力します。"
-
-#~ msgid ""
-#~ "* Picture sizes are 300x300 pixels or more and picture ratio 16:9 is "
-#~ "recommended."
-#~ msgstr "画像サイズ 橫 300px 縦 300px 以上、画像比率 16:9 を推奨します。"
-
-#~ msgid ""
-#~ "If, for example someone pressed the Facebook [Like] button, this is the "
-#~ "image that appears on the Facebook timeline.<br>If a featured image is "
-#~ "specified for the page, it takes precedence.<br>ex) https://www.vektor-"
-#~ "inc.co.jp/images/ogImage.png<br>* Picture sizes are 300x300 pixels or "
-#~ "more and picture ratio 16:9 is recommended."
-#~ msgstr ""
-#~ "Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタ"
-#~ "イムラインに表示されます。<br>ページにアイキャッチ画像が指定されている場合"
-#~ "は、アイキャッチ画像が優先されます。<br>例: https://www.vektor-inc.co.jp/"
-#~ "images/ogImage.png<br>画像サイズ 橫 300px 縦 300px 以上、画像比率 16:9 を"
-#~ "推奨します。"
-
-#~ msgid ""
-#~ "For details on CSS customization, please refer to <a href=\"https://www."
-#~ "vektor-inc.co.jp/post/css_customize/\" target=\"_blank\">this page</a>."
-#~ msgstr ""
-#~ "CSSのカスタマイズについては、<a href=“https://www.vektor-inc.co.jp/post/"
-#~ "css_customize/“ target=“_blank”>こちらのページ</a>を参照してください。"
-
-#~ msgid "Twitter widget"
-#~ msgstr "Twitter ウィジェット"
-
-#~ msgid "millisecond"
-#~ msgstr "ミリ秒"
-
-#~ msgid "Contact Section HTML"
-#~ msgstr "お問い合わせ情報"
-
-#~ msgid "News from VK All in One Expansion Unit"
-#~ msgstr "VK All in One Expansion Unit からのお知らせ"
-
-#~ msgid "Displays entries list from a RSS feed link."
-#~ msgstr "RSSフィードリンクからエントリーリストを表示します。"
-
-#~ msgid "RSS entries for top"
-#~ msgstr "トップのRSSエントリー"
-
-#~ msgid "Blog entries"
-#~ msgstr "ブログエントリー"
-
-#~ msgid "Heading title"
-#~ msgstr "見出しタイトル"
-
-#~ msgid "Select image:"
-#~ msgstr "画像を選択"
-
-#~ msgid ""
-#~ "This feature will be discontinued shortly.<br>You can set the site icon "
-#~ "from \"Site Identity\" panel of [ <a href=\""
-#~ msgstr ""
-#~ "この機能は間もなく廃止されます。<br>\n"
-#~ "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定"
-#~ "できます。"
-
-#, fuzzy
-#~| msgid ""
-#~| "About favicon.<br>This feature will be discontinued shortly.You can set "
-#~| "the site icon from \"Site Identity\" panel of \"Themes > Customize\"."
-#~ msgid ""
-#~ "About favicon.<br><p class=\"text-warning\">* * * * * * * * * * * * * * * "
-#~ "* * * * * * * * *  <br>This feature will be discontinued shortly.<br>You "
-#~ "can set the site icon from \"Site Identity\" panel of \"Themes > Customize"
-#~ "\".<br>* * * * * * * * * * * * * * * * * * * * * * * * </p>"
-#~ msgstr ""
-#~ "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコ"
-#~ "ン（ファビコン）を設定します。<br>\n"
-#~ "この機能は間もなく廃止されます。<br>\n"
-#~ "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定"
-#~ "できます。"
-
-#~ msgid "Current PHP Version is old."
-#~ msgstr "使用中のPHPのバージョンが古いです。"
-
-#, fuzzy
-#~ msgid "Color:"
-#~ msgstr "色"
-
-#, fuzzy
-#~ msgid "Type"
-#~ msgstr "タイプ"
-
-#~ msgid "* If you fill in the blank, contact button does not appear."
-#~ msgstr "未入力の場合はお問い合わせボタンは表示されません。"
-
-#~ msgid "ignore postID for SNS buttons"
-#~ msgstr "SNSボタンの非表示設定"
-
-#~ msgid "3PR area2 setting"
-#~ msgstr "3PR エリア2 設定"
-
-#~ msgid "3PR area3 setting"
-#~ msgstr "3PR エリア3 設定"
-
-#, fuzzy
-#~ msgid "Custom Post Types Setting"
-#~ msgstr "3PR エリア1 設定"
-
-#, fuzzy
-#~ msgid "Custom Post Setting"
-#~ msgstr "CTA設定"
-
-#~ msgid "Normally, I will include the %1$s in the title tag."
-#~ msgstr "通常 %1$s が全ページのタイトルタグに入ります。"
-
-#~ msgid ""
-#~ "However, in the home page, as described above, other title will not be "
-#~ "added, it is possible to make the &lt;title&gt; little longer, which can "
-#~ "be set separately here."
-#~ msgstr ""
-#~ "ただ、トップページにおいては上記のように他のタイトルと連結されないので、も"
-#~ "う少し長めの&lt;title&gt;をつける事が出来るために、ここで別途設定する事が"
-#~ "出来るようになっています。"
-
-#~ msgid "*　It is necessary to set the Theme options page."
-#~ msgstr "* テーマオプションページで設定する必要があります。"
-
-#~ msgid "Social media"
-#~ msgstr "ソーシャルメディア"
-
-#~ msgid "If you are unsure, you can leave for later."
-#~ msgstr "不明な場合は後で設定することができます。"
-
-#~ msgid ""
-#~ "If you wish to link to a personal account or a Facebook page  banner will "
-#~ "be displayed if you enter the URL."
-#~ msgstr ""
-#~ "個人アカウントやFacebookページのバナーにリンクしたい場合は URL を入力して"
-#~ "下さい。"
-
-#~ msgid "Facebook user ID (optional)"
-#~ msgstr "Facebook ユーザーID( オプション )"
-
-#~ msgid "Please enter the Facebook user ID of the administrator."
-#~ msgstr "管理者のFacebookユーザーIDを入力してください。"
-
-#~ msgid "* It is not the application ID of the Facebook page."
-#~ msgstr "* FacebookページのアプリケーションIDではありません。"
-
-#~ msgid ""
-#~ "You can see the personal Facebook ID when you access the following url "
-#~ "http://graph.facebook.com/(own url name(example: hidekazu.ishikawa))."
-#~ msgstr ""
-#~ "このアドレス [ http://graph.facebook.com/( 自分の名前のURL (例 : hidekazu."
-#~ "ishikawa) ) ] にアクセスして個人の Facebook ID を確認できます。"
-
-#~ msgid ""
-#~ "Please search for terms as [find facebook user ID] if you are still not "
-#~ "sure."
-#~ msgstr ""
-#~ "まだ不明な場合は、[ FacebookのユーザーIDを検索 ] などのキーワードで検索し"
-#~ "て下さい。"
-
-#~ msgid "twitter account"
-#~ msgstr "Twitter アカウント"
-
-#~ msgid ""
-#~ "If you would like to link to a Twitter account, banner will be displayed "
-#~ "if you enter the account name."
-#~ msgstr ""
-#~ "Twitterアカウントをバナーにリンクしたい場合は、アカウント名を入力して下さ"
-#~ "い。"
-
-#~ msgid "widget"
-#~ msgstr "ウィジェット"
-
-#~ msgid ""
-#~ "* If you prefer to use Twitter widgets etc, this can be left blank, paste "
-#~ "the source code into a [text] %s here."
-#~ msgstr ""
-#~ "Twitter のウィジェットなどを使用する時、ここを空にできます。%s にソース"
-#~ "コードを貼り付けます。"
-
-#~ msgid "OGP default image"
-#~ msgstr "OGP デフォルト画像"
-
-#~ msgid "Home page"
-#~ msgstr "トップページ"
-
-#~ msgid "Page"
-#~ msgstr "ページ"
-
-#~ msgid "Post"
-#~ msgstr "投稿"
-
-#~ msgid ""
-#~ "Within the type of page that is checked, if there is a particular page "
-#~ "you do not wish to display, enter the Page ID. If multiple pages, please "
-#~ "separate by commas."
-#~ msgstr ""
-#~ "表示したくない特定のページが有る場合にページ ID を入力して下さい。複数の"
-#~ "ページがある場合は、カンマで区切って入力して下さい。"
-
-#~ msgid "facebook comments box"
-#~ msgstr "Facebookのコメントボックス"
-
-#~ msgid "Please check the type of the page to display Facebook comments."
-#~ msgstr "Facebook のコメントを表示するページタイプを確認して下さい。"
-
-#~ msgid "If you wish to use Facebook LikeBox, please check the location."
-#~ msgstr "Facebook のいいねボックスを使用する場合は、場所を確認して下さい。"
-
-#~ msgid "* Please be sure to set Facebook application ID."
-#~ msgstr "Facebook のアプリケーションIDを設定してください。"
-
-#~ msgid "Side bar"
-#~ msgstr "サイドバー"
-
-#~ msgid "URL of the Facebook page."
-#~ msgstr "Facebook ページの URL"
-
-#~ msgid "Display stream"
-#~ msgstr "タイムラインを表示する"
-
-#~ msgid "Display"
-#~ msgstr "表示"
-
-#~ msgid "Display faces"
-#~ msgstr "アイコンを表示する"
-
-#~ msgid "Height of LikeBox"
-#~ msgstr "いいねボックスの高さ"
-
-#~ msgid "Do not output the OGP"
-#~ msgstr "OGP を出力しません"
-
-#~ msgid ""
-#~ "If other plug-ins are used for the OGP, do not output the OGP using "
-#~ "BizVektor."
-#~ msgstr ""
-#~ "他の OGP プラグインを使用している場合は、BizVektor を使用して出力しませ"
-#~ "ん。"
-
-#~ msgid "I want to output the OGP tags using BizVektor"
-#~ msgstr "BizVektor を使用して OGP タグを出力したい。"
-
-#~ msgid "Do not output OGP tags using BizVektor"
-#~ msgstr "BizVektor を使用して OGP タグを出力しない。"
-
-#~ msgid ""
-#~ "*It is necessary to set the \"%s\" -> \"Contact\" section in \"Main "
-#~ "setting\" page."
-#~ msgstr ""
-#~ "* 「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要がありま"
-#~ "す。"
-
-#~ msgid "Choose Print Bootstrap css"
-#~ msgstr "Bootstrap の CSS を出力するか選択"
-
-#~ msgid "Choose Print link fontawesome."
-#~ msgstr "出力する fontawesome link を選択して下さい。"
-
-#~ msgid "Choose Print meta description."
-#~ msgstr "出力する meta description を選択して下さい。"
-
-#~ msgid "Choose Rewrite the title tag"
-#~ msgstr "タイトルタグの書き換えを選択する"
-
-#~ msgid "Choose Print meta Keyword."
-#~ msgstr "メタキーワードを選んでください。"
-
-#~ msgid "Choose Social media cooperation."
-#~ msgstr "連携するソーシャルメディアを選択します。"
-
-#~ msgid "Choose Print Google Analytics tracking code."
-#~ msgstr "出力する Google アナリティクスのトラッキングコードを選択します。"
-
-#~ msgid "Choose Related posts."
-#~ msgstr "関連記事を選択"
-
-#~ msgid "Choose display a child page index"
-#~ msgstr "子ページの一覧を表示するか選択"
-
-#~ msgid "page content for top"
-#~ msgstr "固定ページ本文"
-
-#~ msgid "if checked you will display a child page index "
-#~ msgstr ""
-#~ "チェックを入れると個別ページ下へ同じ親ページをもつ子ページ一覧を表示しま"
-#~ "す。"
-
-#~ msgid "PR Block1 title"
-#~ msgstr "PR ブロック1 タイトル"
-
-#~ msgid "PR Block2 title"
-#~ msgstr "PR ブロック2 タイトル"
-
-#~ msgid "PR Block3 title"
-#~ msgstr "PR ブロック3 タイトル"
-
-#~ msgid "PR Block4 title"
-#~ msgstr "PR ブロック4 タイトル"
-
-#~ msgid "if checked you will display a sitemap"
-#~ msgstr "チェックを入れるとHTMLサイトマップを表示します。"
-
-#~ msgid ""
-#~ "To choose your favorite icon, and enter the class. For example, the use "
-#~ "of 「fa-rocket」"
-#~ msgstr "気に入ったアイコンフォントのクラス名を入力します。"
-
-#~ msgid "Class of IconFont:"
-#~ msgstr "アイコンフォントの"
-
-#~ msgid ""
-#~ "Select the column. You click \"Save\" or \"Apply\". The column input "
-#~ "field is increased or decreased."
-#~ msgstr "列を選択したら一度保存して、"
-
-#~ msgid "You can select a block column:"
-#~ msgstr "PRブロックの列"
-
-#~ msgid "Choose display a child page index to posts."
-#~ msgstr "子ページの一覧を表示するか選択"
-
-#~ msgid "Insert Site Map"
-#~ msgstr "サイトマップを挿入する"
-
-#~ msgid "Choose other widgets."
-#~ msgstr "Other ウィジェットを選択"
-
-#, fuzzy
-#~ msgid "http://ex-unit.bizvektor.com/ja/?feed"
-#~ msgstr "http://ex-unit.bizvektor.com/ja/?feed"
-
-#~ msgid "http://ex-unit.bizvektor.com/?feed"
-#~ msgstr "http://ex-unit.bizvektor.com/ja/?feed"
-
-#~ msgid "AdWords"
-#~ msgstr "広告の挿入"
-
-#~ msgid "Site's Profile"
-#~ msgstr "プロフィール"
-
-#~ msgid "Media round setting:"
-#~ msgstr "画像を丸く切り抜くか:"
-
-#, fuzzy
-#~ msgid "Media float setting:"
-#~ msgstr "メイン設定"
-
-#~ msgid "Do not output the OG"
-#~ msgstr "OGタグ出力設定"
-
-#~ msgid "Output OG tags(default)"
-#~ msgstr "OGタグを出力する"
-
-#~ msgid "WebClip Setting"
-#~ msgstr "ウェブクリップ設定"
-
-#~ msgid ""
-#~ "Description of meta tags in the search results screen of search sites "
-#~ "such as Google, will be Displayed, such as the bottom of the site title.\n"
-#~ "If the excerpt column is blank, is 240 characters than text beginning of "
-#~ "a sentence has become a specification that is applied as a description."
-#~ msgstr ""
-#~ "メタタグのディスクリプションはGoogleなどの検索サイトの検索結果画面で、サイ"
-#~ "トタイトルの下などに表示されます。"
-
-#~ msgid "Displays a your site's profile"
-#~ msgstr "サイトのプロフィールを表示します"
-
-#~ msgid "Site's Profile Text"
-#~ msgstr "Site's Profile Text"
-
-#~ msgid "3PR area Title-1"
-#~ msgstr "3PR エリア1 タイトル"
-
-#~ msgid "3PR area Title-2"
-#~ msgstr "3PR エリア2 タイトル"
-
-#~ msgid "3PR area Title-3"
-#~ msgstr "3PR エリア3 タイトル"
-
-#~ msgid "3PR Box1 Setting"
-#~ msgstr "3PR ボックス1 設定"
-
-#~ msgid "3PR Box2 Setting"
-#~ msgstr "3PR ボックス2 設定"
-
-#~ msgid "3PR Box3 Setting"
-#~ msgstr "3PR ボックス3 設定"
-
-#~ msgid "VK Ex Unit"
-#~ msgstr "VK Ex Unit"
+msgstr "%s はPHP5.6以降をサポートしています。"
