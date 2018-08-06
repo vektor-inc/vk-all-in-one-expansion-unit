@@ -14,18 +14,18 @@ add_action( 'wp_head', 'veu_insert_custom_css', 50 );
 /* ------------------------------------------------ */
 function veu_custom_css_hooks() {
 
-	// 投稿ページ用のメタボックス
-	add_meta_box(
-		'veu_custom_css', // （必須） 編集画面セクションの HTML ID
-		__( 'Custom CSS', 'vkExUnit' ), // （必須） 編集画面セクションのタイトル、画面上に表示される
-		'veu_custom_css_input', // （必須） 編集画面セクションに HTML 出力する関数.
-		'post', // （オプション）編集画面セクションを表示する書き込み画面のタイプ（例： 'post'、 'page'、 'dashboard'、 'link'、 'attachment'、 'custom_post_type'、 'comment'）
-		'normal', // （オプション） 編集画面セクションが表示される部分 ('normal', 'advanced' または (2.7 以降) 'side')
-		'high' // （オプション） ボックスが表示される優先度 ('high', 'core', 'default' または 'low')
-	);
+	$post_types = get_post_types( array( 'public' => true ) );
 
-	// 固定ページ用のメタボックス
-	add_meta_box( 'veu_custom_css', __( 'Custom CSS', 'vkExUnit' ), 'veu_custom_css_input', 'page', 'normal', 'high' );
+	foreach ( $post_types as $post_type ) {
+		add_meta_box(
+			'veu_custom_css', // （必須） 編集画面セクションの HTML ID
+			__( 'Custom CSS', 'vkExUnit' ), // （必須） 編集画面セクションのタイトル、画面上に表示される
+			'veu_custom_css_input', // （必須） 編集画面セクションに HTML 出力する関数.
+			$post_type, // （オプション）編集画面セクションを表示する書き込み画面のタイプ（例： 'post'、 'page'、 'dashboard'、 'link'、 'attachment'、 'custom_post_type'、 'comment'）
+			'normal', // （オプション） 編集画面セクションが表示される部分 ('normal', 'advanced' または (2.7 以降) 'side')
+			'high' // （オプション） ボックスが表示される優先度 ('high', 'core', 'default' または 'low')
+		);
+	}
 
 } // function veu_custom_css_hooks() {
 
@@ -72,7 +72,7 @@ function veu_save_custom_css( $post_id ) {
 /* ------------------------------------------------ */
 function veu_insert_custom_css() {
 
-	if ( is_page() || is_single() ) {
+	if ( is_singular() ) {
 		// if 現在の WordPress クエリにループできる結果があるかどうか
 		// while 記事がある間ループして１件ずつ処理する
 		if ( have_posts() ) :
@@ -80,8 +80,8 @@ function veu_insert_custom_css() {
 				the_post();
 					// preg_replace で改行を削除して wp_kses_post でエスケープする
 					echo '<style type="text/css">' . wp_kses_post( preg_replace( '/(?:\n|\r|\r\n)/', '', get_post_meta( get_the_ID(), '_veu_custom_css', true ) ) ) . '</style>';
-		endwhile;
-endif;
+				endwhile;
+		endif;
 		// ページ上の別の場所で同じクエリを再利用するために、ループの投稿情報を巻き戻し、前回と同じ順序で先頭の投稿を取得できるように
 		rewind_posts();
 	}
