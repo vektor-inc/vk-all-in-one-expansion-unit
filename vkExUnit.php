@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: https://ex-unit.nagoya
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 6.5.4
+* Version: 6.6.0
 * Author: Vektor,Inc.
 * Text Domain: vkExUnit
 * Domain Path: /languages
@@ -72,17 +72,17 @@ function vkExUnit_phpversion_error( $val ) {
 		return $val;
 	}
 	?>
-<div class="notice notice-error error is-dismissible"><p>
-<?php
-/*
-本来システム名は vkExUnit_get_little_short_name() で引っ張るが、PHPのバージョンが低くて vkExUnit_get_little_short_name() 関数が読み込まれていないので"VK ExUnit"直書き
-*/
-printf(
-	__( 'The current PHP version(%s) is too old, so VK ExUnit will not work.', 'vkExUnit' ), phpversion()
-);
-	?>
-	<?php _e( 'VK ExUnit supports PHP5.6 or later.', 'vkExUnit' ); ?>
-</p></div>
+	<div class="notice notice-error error is-dismissible"><p>
+			<?php
+			/*
+			本来システム名は vkExUnit_get_little_short_name() で引っ張るが、PHPのバージョンが低くて vkExUnit_get_little_short_name() 関数が読み込まれていないので"VK ExUnit"直書き
+			*/
+			printf(
+				__( 'The current PHP version(%s) is too old, so VK ExUnit will not work.', 'vkExUnit' ), phpversion()
+			);
+			?>
+			<?php _e( 'VK ExUnit supports PHP5.6 or later.', 'vkExUnit' ); ?>
+		</p></div>
 	<?php
 	return $val;
 }
@@ -96,10 +96,10 @@ function vkExUnit_phpversion_warning_notice( $val ) {
 		return;
 	}
 	?>
-<div class="notice notice-warning is-dismissible"><p>
-<?php printf( __( 'Current PHP Version(%s) is old.', 'vkExUnit' ), phpversion() ); ?>
-	<?php printf( __( '%s supports PHP5.6 or later.', 'vkExUnit' ), vkExUnit_get_little_short_name() ); ?>
-</p></div>
+	<div class="notice notice-warning is-dismissible"><p>
+			<?php printf( __( 'Current PHP Version(%s) is old.', 'vkExUnit' ), phpversion() ); ?>
+			<?php printf( __( '%s supports PHP5.6 or later.', 'vkExUnit' ), vkExUnit_get_little_short_name() ); ?>
+		</p></div>
 	<?php
 	return $val;
 }

@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
-Tested up to: 4.9.6
-Stable tag: 6.5.4
+Tested up to: 4.9.8
+Stable tag: 6.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 6.6.0 =
+* [ Custom CSS ][ Add Function ] Singlur page custom css
+* [ SNS Btn ][ bug fix ] No background count color fix
 
 = 6.5.4 =
 * [ veu_flowBox ][ bug fix ] Allow image 404 fix
