@@ -153,7 +153,7 @@ function veu_add_sns_btns( $content ) {
 		$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook
 		if ( $options['useFacebook'] ) {
-			$socialSet .= '<li class="sb_facebook sb_icon"><a href="//www.facebook.com/sharer.php?src=bm&u=' . $linkUrl . '&amp;t=' . $pageTitle . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Facebook</span><span class="veu_count_sns_fb"></span></a></li>';
+			$socialSet .= '<li class="sb_facebook sb_icon"><a href="//www.facebook.com/sharer.php?src=bm&u=' . $linkUrl . '&amp;t=' . $pageTitle . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Facebook</span><span class="veu_count_sns_fb"' . $icon_css . '></span></a></li>';
 		}
 
 		// Twitter
@@ -163,7 +163,7 @@ function veu_add_sns_btns( $content ) {
 
 		// hatena
 		if ( $options['useHatena'] ) {
-			$socialSet .= '<li class="sb_hatena sb_icon"><a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $linkUrl . '&amp;title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Hatena</span><span class="veu_count_sns_hb"></span></a></li>';
+			$socialSet .= '<li class="sb_hatena sb_icon"><a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $linkUrl . '&amp;title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Hatena</span><span class="veu_count_sns_hb"' . $icon_css . '></span></a></li>';
 		}
 
 		// line

@@ -32,7 +32,7 @@ var cleanCss = require('gulp-clean-css');
 var runSequence = require('run-sequence');
 
 gulp.task('sass', function() {
-    gulp.src(['_scss/*.scss'])
+    gulp.src('_scss/*.scss',{ base: './_scss' })
         .pipe(plumber())
         .pipe(sass())
 				.pipe(cmq({log:true}))
@@ -96,7 +96,6 @@ gulp.task('copy_dist', function() {
 							'./plugins/**',
 							'./plugins_admin/**',
 							'./languages/**',
-							'./libraries/**',
 							"!./compile.bat",
 							"!./config.rb",
 							"!./tests/**",
