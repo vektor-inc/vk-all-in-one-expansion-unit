@@ -51,5 +51,5 @@ function vkExUnit_add_description_options_page() {
 add_filter( 'wp_head', 'vkExUnit_render_HeadDescription', 5 );
 function vkExUnit_render_HeadDescription() {
 
-	echo '<meta name="description" content="' . vkExUnit_get_pageDescription() . '" />';
+	echo '<meta name="description" content="' . vk_get_page_description() . '" />';
 }

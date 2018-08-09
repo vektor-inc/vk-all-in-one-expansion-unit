@@ -31,7 +31,7 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP .= '<meta property="og:site_name" content="' . get_bloginfo( 'name' ) . '" />' . "\n";
 	$vkExUnitOGP .= '<meta property="og:url" content="' . $linkUrl . '" />' . "\n";
 	$vkExUnitOGP .= '<meta property="og:title" content="' . $title . '" />' . "\n";
-	$vkExUnitOGP .= '<meta property="og:description" content="' . vkExUnit_get_pageDescription() . '" />' . "\n";
+	$vkExUnitOGP .= '<meta property="og:description" content="' . vk_get_page_description() . '" />' . "\n";
 	if ( isset( $vkExUnit_sns_options['fbAppId'] ) && $vkExUnit_sns_options['fbAppId'] ) {
 		$vkExUnitOGP = $vkExUnitOGP . '<meta property="fb:app_id" content="' . $vkExUnit_sns_options['fbAppId'] . '" />' . "\n";
 	}

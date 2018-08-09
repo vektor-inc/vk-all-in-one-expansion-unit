@@ -38,7 +38,7 @@ function vkExUnit_add_twitterCard() {
 	if ( isset( $vkExUnit_sns_options['twitterId'] ) && $vkExUnit_sns_options['twitterId'] ) :?>
 <!-- [ <?php echo vkExUnit_get_name(); ?> twitter card ] -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="<?php echo vkExUnit_get_pageDescription(); ?>">
+<meta name="twitter:description" content="<?php echo vk_get_page_description(); ?>">
 <meta name="twitter:title" content="<?php echo $title; ?>">
 <meta name="twitter:url" content="<?php echo $linkUrl; ?>">
 <?php if ( isset( $card_image_url ) && $card_image_url ) { ?>
