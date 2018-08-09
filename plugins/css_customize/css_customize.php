@@ -16,6 +16,7 @@ class biz_vektor_css_customize {
 		add_action( 'wp_head', array( $this, 'biz_vektor_css_customize_push_css' ), 200 );
 		add_action( 'admin_menu', array( $this, 'biz_vektor_css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
+		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-single.php' );
 	}
 
 
@@ -130,7 +131,7 @@ class biz_vektor_css_customize {
 			// multi space convert to single space
 			$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
 		?>
-<style type="text/css">/* <?php echo vkExUnit_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo vkExUnit_get_short_name(); ?> CSS Customize */</style>
+<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
 			<?php
 		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
 	} // public function biz_vektor_css_customize_push_css() {
