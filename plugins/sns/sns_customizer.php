@@ -226,7 +226,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[enableSnsBtns]',
 		array(
-			'default'           => false,
+			'default'           => true,
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',

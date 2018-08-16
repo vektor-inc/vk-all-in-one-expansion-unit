@@ -6,8 +6,7 @@ add_action( 'admin_menu', 'veu_sns_add_hide_meta_box' );
 
 // add meta_box
 function veu_sns_add_hide_meta_box() {
-
-	$options = get_option( 'vkExUnit_sns_options' );
+	$options = veu_get_sns_options();
 	// ExUnitのメイン設定画面で「シェアボタンを表示する」にチェックが入っていない場合
 	if ( empty( $options['enableSnsBtns'] ) ) {
 		// 何も表示しないで終了
