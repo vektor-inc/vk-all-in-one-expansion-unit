@@ -35,7 +35,7 @@ add_action( 'vkExUnit_package_init', 'veu_sns_options_init' );
 function veu_get_sns_options() {
 	$options         = get_option( 'vkExUnit_sns_options', veu_get_sns_options_default() );
 	$options_dafault = veu_get_sns_options_default();
-	$options         = wp_parse_args( $options, $defaults );
+	$options         = wp_parse_args( $options, $options_dafault );
 	return apply_filters( 'vkExUnit_sns_options', $options );
 }
 
