@@ -20,6 +20,12 @@
 function vkExUnit_add_sitemap_options_page() {
 	require dirname( __FILE__ ) . '/sitemap_admin.php';
 }
+
+require_once dirname( __FILE__ ) . '/hide-controller.php';
+
+
+
+
 /*-------------------------------------------*/
 /*  Options Init
 /*-------------------------------------------*/
@@ -98,10 +104,26 @@ function vkExUnit_sitemap( $atts ) {
 	), $atts));
 
 	$sitemap_html = '<div class="row veu_sitemap">'.PHP_EOL;
+
+	/*-------------------------------------------*/
+	/* Exclude Page ids by ExUnit Main Setting Page
+	/*-------------------------------------------*/
 	$options = vkExUnit_get_sitemap_options();
-	$exclude = esc_attr( $options['excludeId'] );
-	$exclude = str_replace( '，',',',$exclude );
-	$exclude = mb_convert_kana( $exclude, 'kvrn' );
+	$excludes = esc_attr( $options['excludeId'] );
+	$excludes = str_replace( '，',',',$excludes );
+	$excludes = mb_convert_kana( $excludes, 'kvrn' );
+
+	/*-------------------------------------------*/
+	/* Exclude Page ids by Page Edit meta box
+	/*-------------------------------------------*/
+	$veu_sitemap_exclude_page_ids = veu_sitemap_exclude_page_ids();
+	if( ! $excludes ) {
+		$excludes .= $veu_sitemap_exclude_page_ids;
+	} elseif( $excludes && $veu_sitemap_exclude_page_ids ) {
+		$excludes .= ','.$veu_sitemap_exclude_page_ids;
+	}
+
+
 
 	/*-------------------------------------------*/
 	/* pages
@@ -111,7 +133,7 @@ function vkExUnit_sitemap( $atts ) {
 	$args = array(
 		'title_li' 	=> '',
 		'echo'		=> 0,
-		'exclude_tree'	=> $exclude,
+		'exclude_tree'	=> $excludes,
 	);
 	$sitemap_html .= wp_list_pages( $args );
 
