@@ -95,8 +95,8 @@ function vkExUnit_sns_options_validate( $input ) {
 	既に保存されている値をアップデート用にそのまま返すだけなのでサニタイズしていない
 	 */
 	$options_old                  = get_option( 'vkExUnit_sns_options' );
-	$output['snsBtn_bg_fill_not'] = $options_old['snsBtn_bg_fill_not'];
-	$output['snsBtn_color']       = $options_old['snsBtn_color'];
+	$output['snsBtn_bg_fill_not'] = ( ! empty( $options_old['snsBtn_bg_fill_not'] ) ) ? $options_old['snsBtn_bg_fill_not'] : '';
+	$output['snsBtn_color']       = ( ! empty( $options_old['snsBtn_color'] ) ) ? $options_old['snsBtn_color'] : '';
 
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }

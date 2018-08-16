@@ -21,6 +21,7 @@ function veu_sns_add_hide_meta_box() {
 	);
 	// タイプの取得を実行
 	$post_types = get_post_types( $args );
+
 	foreach ( (array) $post_types as $post_type ) {
 		add_meta_box(
 			'sns', // metaboxのID
@@ -36,29 +37,36 @@ function veu_sns_add_hide_meta_box() {
 /*-------------------------------------------*/
 /*  入力フィールドの生成
 /*-------------------------------------------*/
-
-function veu_sns_share_botton_hide_meta_box_body() {
-
+function veu_sns_is_display_hide_chekbox( $post_type ) {
 	// SNS設定のオプション値を取得
 	$options = veu_get_sns_options();
 
-	// シェアボタンを表示しない投稿タイプの情報を格納する変数を定義
-	$exclude_post_types = array();
+	// 表示する にチェックが入っていない場合は 投稿詳細画面でボタン非表示のチェックボックスを表示しない
+	if ( empty( $options['enableSnsBtns'] ) ) {
+		return false;
+	}
 
 	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）
 	if ( isset( $options['snsBtn_exclude_post_types'] ) && is_array( $options['snsBtn_exclude_post_types'] ) ) {
-
-		// $exclude_post_typesに格納
 		foreach ( $options['snsBtn_exclude_post_types'] as $key => $value ) {
-			$exclude_post_types[] = $key;
+			// 非表示チェックが入っている場合
+			if ( $value ) {
+				// 今の投稿タイプと比較。同じだったら...
+				if ( $post_type == $key ) {
+					return false;
+				}
+			}
 		}
 	}
+	return true;
+}
+function veu_sns_share_botton_hide_meta_box_body() {
 
 	//今編集している投稿の投稿タイプを取得
 	$post_type = get_post_type();
 
 	  // 編集中のページの投稿タイプ が シェアボタンを表示しない投稿タイプに含まれている場合
-	if ( in_array( $post_type, $exclude_post_types ) ) {
+	if ( ! veu_sns_is_display_hide_chekbox( $post_type ) ) {
 
 		// 「この投稿タイプではシェアボタンを表示しないように設定されています。」を表示
 		echo __( 'This post type is not set to display the share button.', 'vkExUnit' ) . '<br>';
