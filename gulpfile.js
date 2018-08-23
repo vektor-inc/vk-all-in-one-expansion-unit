@@ -31,6 +31,14 @@ var cleanCss = require('gulp-clean-css');
 // 同期的に処理してくれる（ distで使用している ）
 var runSequence = require('run-sequence');
 
+var replace = require('gulp-replace');
+
+gulp.task('text-domain', function () {
+		gulp.src(['./plugins/font-awesome/*'])
+				.pipe(replace('vk_font_awesome_version_textdomain', 'vkExUnit'))
+				.pipe(gulp.dest('./plugins/font-awesome/'));
+});
+
 gulp.task('sass', function() {
     gulp.src('_scss/*.scss',{ base: './_scss' })
         .pipe(plumber())
@@ -67,9 +75,9 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
-gulp.task('default', ['scripts','watch']);
+gulp.task('default', ['scripts','text-domain','watch']);
 
-gulp.task('compile', ['scripts','jsmin','sass']);
+gulp.task('compile', ['scripts','text-domain','jsmin','sass']);
 
 // copy dist ////////////////////////////////////////////////
 
