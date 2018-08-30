@@ -174,13 +174,13 @@ $checked = ( ! isset( $instance['iconFont_bgType'] ) || ! $instance['iconFont_bg
 		$instance['mediaRound']      = $new_instance['mediaRound'];
 		$instance['mediaSize']       = $new_instance['mediaSize'];
 		$instance['mediaFloat']      = $new_instance['mediaFloat'];
-		$instance['facebook']        = $new_instance['facebook'];
-		$instance['twitter']         = $new_instance['twitter'];
-		$instance['mail']            = $new_instance['mail'];
-		$instance['youtube']         = $new_instance['youtube'];
-		$instance['rss']             = $new_instance['rss'];
-		$instance['instagram']       = $new_instance['instagram'];
-		$instance['linkedin']        = $new_instance['linkedin'];
+		$instance['facebook']        = esc_url( $new_instance['facebook'] );
+		$instance['twitter']         = esc_url( $new_instance['twitter'] );
+		$instance['mail']            = esc_attr( $new_instance['mail'] );
+		$instance['youtube']         = esc_url( $new_instance['youtube'] );
+		$instance['rss']             = esc_url( $new_instance['rss'] );
+		$instance['instagram']       = esc_url( $new_instance['instagram'] );
+		$instance['linkedin']        = esc_url( $new_instance['linkedin'] );
 		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
 		$instance['icon_color']      = $new_instance['icon_color'];
 		return $instance;
@@ -408,6 +408,8 @@ foreach ( $sns_names as $key => $sns_name ) {
 		} else {
 			if ( $sns_name == 'mail' ) {
 				$sns_name_class = 'fas fa-envelope';
+			} elseif ( $sns_name == 'rss' ) {
+					$sns_name_class = 'fas fa-rss';
 			} else {
 				$sns_name_class = 'fab fa-' . $sns_name;
 			}
