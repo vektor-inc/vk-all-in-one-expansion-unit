@@ -36,7 +36,7 @@ class WidgetBanner extends \WP_Widget {
 		}
 		echo $args['before_widget'];
 		if ( $instance['href'] ) {
-			echo '<a href="' . esc_url( $instance['href'] ) . '"' . ( ( $instance['blank'] ) ? ' target="_blank"' : '' ) . ' >';
+			echo '<a href="' . esc_url( $instance['href'] ) . '" class="veu_banner"' . ( ( $instance['blank'] ) ? ' target="_blank"' : '' ) . ' >';
 		}
 		echo '<img src="' . $image[0] . '" alt="' . $alt . '" />';
 		if ( $instance['href'] ) {
@@ -85,7 +85,7 @@ class WidgetBanner extends \WP_Widget {
 <div class="_form" style="line-height: 2em">
 	<input type="hidden" class="__id" name="<?php echo $this->get_field_name( 'id' ); ?>" value="<?php echo esc_attr( $instance['id'] ); ?>" />
 	<label>URL : <input type="text" name="<?php echo $this->get_field_name( 'href' ); ?>" style="width: 100%" value="<?php echo esc_attr( $instance['href'] ); ?>" /></label><br/>
-	<label><input type="checkbox" name="<?php echo $this->get_field_name( 'blank' ); ?>" value="true" 
+	<label><input type="checkbox" name="<?php echo $this->get_field_name( 'blank' ); ?>" value="true"
 													<?php
 													if ( $instance['blank'] ) {
 														echo 'checked';}
