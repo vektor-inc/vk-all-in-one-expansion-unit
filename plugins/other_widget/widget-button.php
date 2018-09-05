@@ -17,7 +17,7 @@ class WP_Widget_Button extends WP_Widget {
 
 	static function defaults() {
 		return array(
-			'maintext'    => '',
+			'title'       => '',
 			'icon_before' => '',
 			'icon_after'  => '',
 			'subtext'     => '',
@@ -29,7 +29,7 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	function __construct() {
-		$widget_name = 'VK_' . __( 'Button', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( 'Button', 'vkExUnit' );
 
 		parent::__construct(
 			'vkExUnit_button',
@@ -40,7 +40,7 @@ class WP_Widget_Button extends WP_Widget {
 
 
 	function widget( $args, $instance ) {
-		$options = self::default_options( $instance );
+		$options = self::get_btn_options( $instance );
 
 		$classes   = array(
 			'btn',
@@ -50,16 +50,17 @@ class WP_Widget_Button extends WP_Widget {
 		if ( in_array( $options['size'], array( 'sm', 'lg' ) ) ) {
 			$classes[] = 'btn-' . $options['size'];
 		}
-	?>
-	<?php echo $args['before_widget']; ?>
-	<?php if ( $options['linkurl'] && $options['maintext'] ) : ?>
-	<div class="veu_button">
-		<a type="button" class="<?php echo implode( ' ', $classes ); ?>" href="<?php echo $options['linkurl']; ?>"
-											<?php
-											if ( $options['blank'] ) {
-												echo 'target="_blank"';}
-?>
- >
+		echo $args['before_widget'];
+
+		if ( $options['blank'] ) {
+			$blank = ' target="_blank"';
+		} else {
+			$blank = '';
+		}
+
+		if ( $options['linkurl'] && $options['title'] ) : ?>
+		<div class="veu_button">
+			<a type="button" class="<?php echo implode( ' ', $classes ); ?>" href="<?php echo $options['linkurl']; ?>"<?php echo $blank; ?>>
 			<span class="button_mainText">
 
 			<?php
@@ -73,7 +74,7 @@ class WP_Widget_Button extends WP_Widget {
 				echo '<i class="' . $fa . esc_attr( $instance['icon_before'] ) . ' font_icon"></i>';
 			}
 
-			echo esc_html( $options['maintext'] );
+			echo wp_kses_post( $options['title'] );
 
 			if ( isset( $instance['icon_after'] ) && $instance['icon_after'] ) {
 				echo '<i class="' . $fa . esc_attr( $instance['icon_after'] ) . ' font_icon"></i>';
@@ -84,26 +85,36 @@ class WP_Widget_Button extends WP_Widget {
 			<?php if ( $options['subtext'] ) : ?>
 				<span class="veu_caption button_subText"><?php echo htmlspecialchars( $options['subtext'] ); ?></span>
 			<?php endif; ?>
-		</a>
-	</div>
-	<?php endif; ?>
+			</a>
+		</div>
+		<?php endif; ?>
 	<?php echo $args['after_widget']; ?>
 	<?php
 	}
 
-	public static function default_options( $option = array() ) {
-		return wp_parse_args( $option, static::defaults() );
+	public static function get_btn_options( $option = array() ) {
+		// 以前は maintext に格納していたが後から titile に変更した
+		// title が入力されてｋるか 空 の場合 そのままtitleに適用
+		if ( isset( $option['title'] ) ) {
+			$title = $option['title'];
+		} elseif ( ! empty( $option['maintext'] ) ) {
+			$title = $option['maintext'];
+		} else {
+			$title = '';
+		}
+		$defaults        = static::defaults();
+		$option['title'] = $title;
+		return wp_parse_args( $option, $defaults );
 	}
 
-
 	function form( $instance ) {
-		$instance = self::default_options( $instance );
+		$instance = self::get_btn_options( $instance );
 
 		?>
 		<div class="warp" style="padding: 1em 0;line-height: 2.5em;">
 
 		<?php _e( 'Main text(Required):', 'vkExUnit' ); ?>
-		<input type="text" id="<?php echo $this->get_field_id( 'maintext' ); ?>" name="<?php echo $this->get_field_name( 'maintext' ); ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo esc_attr( $instance['maintext'] ); ?>">
+		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['title']; ?>">
 
 		<?php
 		// icon font class input
@@ -112,7 +123,7 @@ class WP_Widget_Button extends WP_Widget {
 		echo '<label for="' . $this->get_field_id( 'icon_before' ) . '">' . __( 'Before :', 'vkExUnit' );
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_before' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_before' ) . '" value="' . esc_attr( $instance['icon_before'] ) . '" /><br>';
 		echo '<label for="' . $this->get_field_id( 'icon_after' ) . '">' . __( 'After :', 'vkExUnit' );
-		echo '<input type="text" id="' . $this->get_field_id( 'icon_after' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_after' ) . '" value="' . esc_attr( $instance['icon_after'] ) . '" />';
+		echo '<input type="text" id="' . $this->get_field_id( 'icon_after' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_after' ) . '" value="' . esc_attr( $instance['icon_after'] ) . '" /><br>';
 
 		if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			echo Vk_Font_Awesome_Versions::ex_and_link();
@@ -185,7 +196,7 @@ class WP_Widget_Button extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$opt                = array();
-		$opt['maintext']    = $new_instance['maintext'];
+		$opt['title']       = wp_kses_post( $new_instance['title'] );
 		$opt['icon_before'] = $new_instance['icon_before'];
 		$opt['icon_after']  = $new_instance['icon_after'];
 		$opt['subtext']     = $new_instance['subtext'];

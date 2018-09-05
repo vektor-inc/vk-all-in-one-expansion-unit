@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 4.9.8
-Stable tag: 6.6.5
+Stable tag: 6.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 6.6.6 =
+* [ Button Widget ][ Add Function ] Reflect the widget label
+* [ Banner Widget ][ Add Function ] Reflect the widget label
 
 = 6.6.3 =
 * [ Profile Widget ][ bug fix ] Font Awesome 5 RSS icon bug fix
