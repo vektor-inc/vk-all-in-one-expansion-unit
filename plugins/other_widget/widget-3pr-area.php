@@ -6,7 +6,7 @@
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name() . '_' . __( '3PR area', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( '3PR area', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_vkExUnit_3PR_area',
@@ -107,7 +107,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_' . $i ); ?>"><?php _e( 'Link URL:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'linkurl_' . $i ); ?>_title" class="pr_input text" name="<?php echo $this->get_field_name( 'linkurl_' . $i ); ?>" value="<?php echo esc_attr( $instance[ 'linkurl_' . $i ] ); ?>" style="margin-bottom:0.5em;" /><br/>
-		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank_' . $i ); ?>" class="pr_input checkbox" name="<?php echo $this->get_field_name( 'blank_' . $i ); ?>" 
+		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank_' . $i ); ?>" class="pr_input checkbox" name="<?php echo $this->get_field_name( 'blank_' . $i ); ?>"
 												<?php
 												if ( $instance[ 'blank_' . $i ] ) {
 													echo 'checked';}

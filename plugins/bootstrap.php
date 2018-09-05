@@ -6,7 +6,7 @@ function vkExUnit_bootstrap_customize_register( $wp_customize ) {
 	if ( is_null( $wp_customize->get_section( 'vkExUnit_settings' ) ) ) {
 		$wp_customize->add_section(
 			'vkExUnit_settings', array(
-				'title'    => vkExUnit_get_short_name() . '_' . __( 'Settings', 'vkExUnit' ),
+				'title'    => veu_get_short_name() . ' ' . __( 'Settings', 'vkExUnit' ),
 				'priority' => 500,
 			)
 		);
@@ -64,7 +64,7 @@ function vkExUnit_bootstrap_custom_keycolor() {
 	$color_key      = ( ! empty( $options['color_key'] ) ) ? esc_html( $options['color_key'] ) : '#337ab7 ';
 	$color_key_dark = ( ! empty( $options['color_key_dark'] ) ) ? esc_html( $options['color_key_dark'] ) : '#2e6da4 ';
 	?>
-<!-- [ ExUnit Common ] -->
+<!-- [ <?php echo esc_html( veu_get_name() ); ?> Common ] -->
 <style type="text/css">
 .veu_color_txt_key { color:<?php echo $color_key_dark; ?> ; }
 .veu_color_bg_key { background-color:<?php echo $color_key_dark; ?> ; }
@@ -78,7 +78,7 @@ a:hover { color:<?php echo $color_key; ?> ; }
 .btn-primary:focus,
 .btn-primary:hover { background-color:<?php echo $color_key_dark; ?>;border-color:<?php echo $color_key; ?>; }
 </style>
-<!-- [ / ExUnit Common ] -->
+<!-- [ / <?php echo esc_html( veu_get_name() ); ?> Common ] -->
 	<?php
 
 }

@@ -6,7 +6,7 @@
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name() . '_' . __( 'page content to widget', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( 'page content to widget', 'vkExUnit' );
 
 		parent::__construct(
 			'pudge',

@@ -8,7 +8,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	public $taxonomies = array( 'category' );
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name() . '_' . __( 'Recent Posts', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( 'Recent Posts', 'vkExUnit' );
 
 		parent::__construct(
 			'vkExUnit_post_list',
@@ -221,13 +221,13 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<br /><br />
 
 		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0" 
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"
 													<?php
 													if ( ! $instance['format'] ) {
 														echo 'checked'; }
 ?>
  /><?php echo __( 'Thumbnail', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ) . '/' . __( 'Date', 'vkExUnit' ); ?></label><br/>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1" 
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"
 													<?php
 													if ( $instance['format'] == 1 ) {
 														echo 'checked'; }
@@ -236,13 +236,13 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<br/><br/>
 
 		<?php echo _e( 'Order by', 'vkExUnit' ); ?>:<br/>
-		<label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="date" 
+		<label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="date"
 																					<?php
 																					if ( $instance['orderby'] != 'modified' ) {
 																						echo 'checked'; }
 ?>
  /><?php _e( 'Publish date', 'vkExUnit' ); ?></label><br/>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="modified" 
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="modified"
 													<?php
 													if ( $instance['orderby'] == 'modified' ) {
 														echo 'checked'; }

@@ -7,7 +7,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 	// ウィジェット定義
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name() . '_' . __( 'Categories/Custom taxonomies list', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( 'Categories/Custom taxonomies list', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_VK_taxonomy_list',
@@ -76,7 +76,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		<select name="<?php echo $this->get_field_name( 'tax_name' ); ?>" >
 
 		<?php foreach ( $taxs as $tax ) { ?>
-			<option value="<?php echo $tax->name; ?>" 
+			<option value="<?php echo $tax->name; ?>"
 										<?php
 										if ( $instance['tax_name'] == $tax->name ) {
 											echo 'selected="selected"'; }
@@ -85,7 +85,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		<?php } ?>
 		</select><br/><br/>
 
-		<input type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true" 
+		<input type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true"
 												<?php
 												if ( $instance['hide_empty'] ) {
 													echo 'checked';}

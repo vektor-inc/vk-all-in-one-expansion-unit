@@ -29,7 +29,7 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	function __construct() {
-		$widget_name = 'VK_' . __( 'Button', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( 'Button', 'vkExUnit' );
 
 		parent::__construct(
 			'vkExUnit_button',

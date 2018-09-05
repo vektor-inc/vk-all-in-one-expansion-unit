@@ -5,7 +5,7 @@
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name() . '_' . 'FB Page Plugin';
+		$widget_name = veu_get_short_name() . ' ' . 'FB Page Plugin';
 
 		parent::__construct(
 			'vkExUnit_fbPagePlugin',

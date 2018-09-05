@@ -6,7 +6,7 @@
 class WP_Widget_VK_archive_list extends WP_Widget {
 
 	function __construct() {
-		$widget_name = 'VK_' . __( 'archive list', 'vkExUnit' );
+		$widget_name = veu_get_short_name() . ' ' . __( 'archive list', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_VK_archive_list',
@@ -72,7 +72,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'vkExUnit' ); ?>:</label>
 		<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" >
 		<?php foreach ( $pages as $page ) { ?>
-		<option value="<?php echo $page; ?>" 
+		<option value="<?php echo $page; ?>"
 									<?php
 									if ( $instance['post_type'] == $page ) {
 										echo 'selected="selected"'; }
@@ -83,14 +83,14 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		<br/>
 		<label for="<?php echo $this->get_field_id( 'display_type' ); ?>">表示タイプ</label>
 		<select name="<?php echo $this->get_field_name( 'display_type' ); ?>" >
-			<option value="m" 
+			<option value="m"
 			<?php
 			if ( $instance['display_type'] != 'y' ) {
 				echo 'selected="selected"'; }
 ?>
  >
 			<?php _e( 'Monthly', 'vkExUnit' ); ?></option>
-			<option value="y" 
+			<option value="y"
 			<?php
 			if ( $instance['display_type'] == 'y' ) {
 				echo 'selected="selected"'; }
