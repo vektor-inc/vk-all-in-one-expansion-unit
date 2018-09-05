@@ -25,11 +25,11 @@ class WidgetBanner extends \WP_Widget {
 
 
 	public function widget( $args, $instance ) {
-		$instance = self::default_option( $instance );
+		$instance = self::get_bnr_option( $instance );
 		$image    = null;
 		if ( is_numeric( $instance['id'] ) ) {
 			$image = wp_get_attachment_image_src( $instance['id'], 'full' );
-			$alt   = ( $instance['alt'] ) ? esc_attr( $instance['alt'] ) : '';
+			$alt   = ( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		}
 		if ( ! $image ) {
 			return;
@@ -51,25 +51,38 @@ class WidgetBanner extends \WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance['id']    = $new_instance['id'];
 		$instance['href']  = $new_instance['href'];
-		$instance['alt']   = $new_instance['alt'];
+		$instance['title'] = $new_instance['title'];
 		$instance['blank'] = ( isset( $new_instance['blank'] ) && $new_instance['blank'] == 'true' );
 		return $new_instance;
 	}
 
 
-	public static function default_option( $instance = array() ) {
+	public static function get_bnr_option( $instance = array() ) {
+
+		// 以前は alt に格納していたが後から titile に変更した
+		// title が入力されてｋるか 空 の場合 そのままtitleに適用
+		if ( isset( $instance['title'] ) ) {
+			$title = $instance['title'];
+		} elseif ( ! empty( $instance['alt'] ) ) {
+			$title = $instance['alt'];
+		} else {
+			$title = '';
+		}
+		$instance['title'] = $title;
+
 		$defaults = array(
 			'id'    => null,
 			'href'  => '',
 			'blank' => false,
-			'alt'   => '',
+			'title' => '',
 		);
+
 		return wp_parse_args( $instance, $defaults );
 	}
 
 
 	public function form( $instance ) {
-		$instance = self::default_option( $instance );
+		$instance = self::get_bnr_option( $instance );
 		$image    = null;
 		if ( is_numeric( $instance['id'] ) ) {
 			$image = wp_get_attachment_image_src( $instance['id'], 'full' );
@@ -91,7 +104,9 @@ class WidgetBanner extends \WP_Widget {
 														echo 'checked';}
 ?>
  /> <?php _e( 'Open link new tab.', 'vkExUnit' ); ?></label><br/>
-	<label><?php _e( 'Alternative text', 'vkExUnit' ); ?> : <input type="text" name="<?php echo $this->get_field_name( 'alt' ); ?>" style="width: 100%" value="<?php echo esc_attr( $instance['alt'] ); ?>" /></label><br/>
+	<label><?php _e( 'Alternative text', 'vkExUnit' ); ?> :
+		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" style="width: 100%" value="<?php echo esc_attr( $instance['title'] ); ?>" />
+	</label><br/>
 </div>
 </div>
 <script type="text/javascript">
