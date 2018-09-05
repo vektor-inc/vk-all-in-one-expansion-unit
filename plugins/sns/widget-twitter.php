@@ -120,8 +120,12 @@ class VK_Twitter_Widget extends WP_Widget {
 	<?php // link color ?>
 	<p class="color_picker_wrap">
 	<label for="<?php echo $this->get_field_id( 'link_color' ); ?>"><?php _e( 'Link color:', 'vkExUnit' ); ?></label><br>
-	<input type="text" id="<?php echo $this->get_field_id( 'link_color' ); ?>" class="color_picker admin-custom-input" name="<?php echo $this->get_field_name( 'link_color' ); ?>" value="<?php if ( $instance['link_color'] ) {
-		echo esc_attr( $instance['link_color'] );} ?>" />
+	<input type="text" id="<?php echo $this->get_field_id( 'link_color' ); ?>" class="color_picker admin-custom-input" name="<?php echo $this->get_field_name( 'link_color' ); ?>" value="
+										<?php
+										if ( $instance['link_color'] ) {
+											echo esc_attr( $instance['link_color'] ); }
+?>
+" />
 	</p>
 
 <?php
