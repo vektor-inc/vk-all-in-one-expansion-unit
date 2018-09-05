@@ -433,7 +433,7 @@ VkExUnit_Contact::instance();
 class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
 
 	function __construct() {
-		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Button', 'vkExUnit' );
+		$widget_name         = veu_get_short_name() . ' ' . __( 'Contact Button', 'vkExUnit' );
 		$widget_description  = __( 'Display contact button.', 'vkExUnit' );
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ), veu_get_little_short_name() ) . ' ) ';
 		parent::__construct(
@@ -483,7 +483,7 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function __construct() {
 
-		$widget_name         = veu_get_short_name() . '_' . __( 'Contact Section', 'vkExUnit' );
+		$widget_name         = veu_get_short_name() . ' ' . __( 'Contact Section', 'vkExUnit' );
 		$widget_description  = __( 'Display Phone number and contact button etc.', 'vkExUnit' );
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vkExUnit' ), veu_get_little_short_name() ) . ' ) ';
 
