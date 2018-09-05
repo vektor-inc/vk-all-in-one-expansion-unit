@@ -12,7 +12,9 @@ p.veu_leadTxt { font-size:2em; }
 
 .veu_caption { font-size:0.8em; }
 
-.btn.btn-blank::after { margin-left:0.7em;font-family: FontAwesome;content: "\f08e"; }
+.fa_v4 .btn.btn-blank::after { margin-left:0.7em;font-family: FontAwesome;content: "\f08e"; }
+.fa_v5_css .btn.btn-blank::after { margin-left:0.7em;font-family: Font Awesome\ 5 Free;content: "\f35d";font-weight: 900;}
+.fa_v5_svg .btn.btn-blank::after {  }
 
 /*      .qaItem
 /*-------------------------------------------*/

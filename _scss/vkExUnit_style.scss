@@ -43,6 +43,8 @@
 /*-------------------------------------------*/
 /* Widget .veu_button
 /*-------------------------------------------*/
+/* Widget .veu_banner
+/*-------------------------------------------*/
 
 $color_font_default : #464646;
 $color_key : #337ab7;
@@ -664,4 +666,11 @@ iframe.twitter-timeline {margin-right:auto; margin-left:auto; width: 740px !impo
 	.btn.btn-sm { padding-top:0.6em;padding-bottom:0.45em; }
 	.btn { padding-top:0.8em;padding-bottom:0.6em; }
 	.btn.btn-lg { padding-top:0.8em;padding-bottom:0.7em; }
+}
+/*-------------------------------------------*/
+/* Widget .veu_banner
+/*-------------------------------------------*/
+.veu_banner {
+	text-align: center;
+	display:block; overflow:hidden;
 }
