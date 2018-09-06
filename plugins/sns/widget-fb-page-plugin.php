@@ -5,7 +5,7 @@
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function __construct() {
-		$widget_name = vkExUnit_get_short_name(). '_' . 'FB Page Plugin';
+		$widget_name = veu_get_short_name() . ' ' . 'FB Page Plugin';
 
 		parent::__construct(
 			'vkExUnit_fbPagePlugin',
@@ -24,11 +24,11 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 			echo $args['after_title'];
 		}
 
-		$page_url 	= ( isset( $instance['page_url'] ) && $instance['page_url'] ) ? $instance['page_url'] : '';
-		$height 	= ( isset( $instance['height'] ) && $instance['height'] ) ? $instance['height'] : 200;
-		$showFaces 	= ( isset( $instance['showFaces'] ) && $instance['showFaces'] ) ? $instance['showFaces'] : 'false';
-		$hideCover 	= ( isset( $instance['hideCover'] ) && $instance['hideCover'] ) ? $instance['hideCover'] : 'false';
-		$showPosts 	= ( isset( $instance['showPosts'] ) && $instance['showPosts'] ) ? $instance['showPosts'] : 'true';
+		$page_url  = ( isset( $instance['page_url'] ) && $instance['page_url'] ) ? $instance['page_url'] : '';
+		$height    = ( isset( $instance['height'] ) && $instance['height'] ) ? $instance['height'] : 200;
+		$showFaces = ( isset( $instance['showFaces'] ) && $instance['showFaces'] ) ? $instance['showFaces'] : 'false';
+		$hideCover = ( isset( $instance['hideCover'] ) && $instance['hideCover'] ) ? $instance['hideCover'] : 'false';
+		$showPosts = ( isset( $instance['showPosts'] ) && $instance['showPosts'] ) ? $instance['showPosts'] : 'true';
 		?>
 
 		<div class="fbPagePlugin_body">
@@ -49,13 +49,13 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 
 	function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-		$instance['label'] 			= $new_instance['label'];
-		$instance['page_url'] 		= $new_instance['page_url'];
-		$instance['height'] 		= $new_instance['height'];
-		$instance['showFaces'] 		= $new_instance['showFaces'];
-		$instance['hideCover'] 		= $new_instance['hideCover'];
-		$instance['showPosts'] 		= $new_instance['showPosts'];
+		$instance              = $old_instance;
+		$instance['label']     = $new_instance['label'];
+		$instance['page_url']  = $new_instance['page_url'];
+		$instance['height']    = $new_instance['height'];
+		$instance['showFaces'] = $new_instance['showFaces'];
+		$instance['hideCover'] = $new_instance['hideCover'];
+		$instance['showPosts'] = $new_instance['showPosts'];
 
 		return $instance;
 	}
@@ -64,9 +64,9 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 	function form( $instance ) {
 
 		$defaults = array(
-			'label' 	=> 'Facebook',
-			'page_url'	=> '',
-			'height'	=> 600,
+			'label'     => 'Facebook',
+			'page_url'  => '',
+			'height'    => 600,
 			'showFaces' => 'false',
 			'hideCover' => 'false',
 			'showPosts' => 'true',
@@ -76,37 +76,39 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		?>
 
 		<?php //タイトル ?>
-		<label for="<?php echo $this->get_field_id( 'label' );  ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
 		<br/>
 
 		<?php //URL ?>
-		<label for="<?php echo $this->get_field_id( 'page_url' );  ?>"><?php echo 'Facebook Page URL'; ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'page_url' ); ?>"><?php echo 'Facebook Page URL'; ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'page_url' ); ?>" name="<?php echo $this->get_field_name( 'page_url' ); ?>" value="<?php echo $instance['page_url']; ?>" />
 		<br/>
 
 		<?php //Height ?>
-		<label for="<?php echo $this->get_field_id( 'height' );  ?>"><?php _e( 'Height', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height', 'vkExUnit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo $instance['height']; ?>" />
 		<br/>
 
 		<?php //showFaces ?>
-		<label for="<?php echo $this->get_field_id( 'showFaces' );  ?>"><?php _e( "Show Friend's Faces", 'vkExUnit' ); ?></label><br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name( 'showFaces' ); ?>" value="true" <?php echo ($instance['showFaces'] == 'true')? 'checked': '' ; ?> >
+		<label for="<?php echo $this->get_field_id( 'showFaces' ); ?>"><?php _e( "Show Friend's Faces", 'vkExUnit' ); ?></label><br/>
+		<input type="checkbox" name="<?php echo $this->get_field_name( 'showFaces' ); ?>" value="true" <?php echo ( $instance['showFaces'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 
 		<?php //hideCover ?>
-		<label for="<?php echo $this->get_field_id( 'hideCover' );  ?>"><?php _e( 'Hide Cover Photo', 'vkExUnit' ); ?></label><br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name( 'hideCover' ); ?>" value="true" <?php echo ($instance['hideCover'] == 'true')? 'checked': '' ; ?> >
+		<label for="<?php echo $this->get_field_id( 'hideCover' ); ?>"><?php _e( 'Hide Cover Photo', 'vkExUnit' ); ?></label><br/>
+		<input type="checkbox" name="<?php echo $this->get_field_name( 'hideCover' ); ?>" value="true" <?php echo ( $instance['hideCover'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 
 		<?php //showPosts ?>
-		<label for="<?php echo $this->get_field_id( 'showPosts' );  ?>"><?php _e( 'Show Page Posts', 'vkExUnit' ); ?></label><br/>
-		<input type="checkbox" name="<?php echo $this->get_field_name( 'showPosts' ); ?>" value="true" <?php echo ($instance['showPosts'] == 'true')? 'checked': '' ; ?> >
+		<label for="<?php echo $this->get_field_id( 'showPosts' ); ?>"><?php _e( 'Show Page Posts', 'vkExUnit' ); ?></label><br/>
+		<input type="checkbox" name="<?php echo $this->get_field_name( 'showPosts' ); ?>" value="true" <?php echo ( $instance['showPosts'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 		<?php
 	}
 } // class WP_Widget_top_list_post
-add_action( 'widgets_init', function() {
-	return register_widget( 'WP_Widget_vkExUnit_fbPagePlugin' );
-} );
+add_action(
+	'widgets_init', function() {
+		return register_widget( 'WP_Widget_vkExUnit_fbPagePlugin' );
+	}
+);
