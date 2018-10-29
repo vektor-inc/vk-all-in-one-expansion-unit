@@ -42,8 +42,8 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - echo ${TRAVIS_PHP_VERSION}
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
-      composer global require "phpunit/phpunit=5.6.*"
+    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.*" ]]; then
+      composer global require "phpunit/phpunit=6.*.*"
     else
       composer global require "phpunit/phpunit=4.8.*"
     fi
