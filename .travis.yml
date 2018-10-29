@@ -55,6 +55,7 @@ before_script:
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - phpunit
+  - phpunit -v
   - gulp compile
   # - cd plugins_admin/vk-admin/ && compass compile && cd ../../
 
