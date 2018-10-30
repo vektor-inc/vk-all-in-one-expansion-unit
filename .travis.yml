@@ -4,12 +4,15 @@ php:
   - 5.4
   - 5.5
   - 5.6
-  - 7
+  - 7.0
   - 7.1
   - 7.2
   - 7.3
 
+sudo: false
+
 branches:
+  only:
   - master
   - develop
   # - dist_test
@@ -41,10 +44,11 @@ before_install:
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - echo ${TRAVIS_PHP_VERSION:0:3};
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then
-      composer global require "phpunit/phpunit=6.5.*"
+    if [[ ${TRAVIS_PHP_VERSION:0:3} =~ 7\.+[1-3] ]]; then
+      composer global require "phpunit/phpunit=7.*.*"
+    elif [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ||  ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]; then
+      composer global require "phpunit/phpunit=5.*.*"
     else
       composer global require "phpunit/phpunit=4.8.*"
     fi
