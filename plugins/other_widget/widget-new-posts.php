@@ -8,7 +8,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	public $taxonomies = array( 'category' );
 
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( 'Recent Posts', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Recent Posts', 'vkExUnit' );
 
 		parent::__construct(
 			'vkExUnit_post_list',

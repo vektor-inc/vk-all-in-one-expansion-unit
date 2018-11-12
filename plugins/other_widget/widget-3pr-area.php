@@ -6,7 +6,7 @@
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( '3PR area', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( '3PR area', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_vkExUnit_3PR_area',

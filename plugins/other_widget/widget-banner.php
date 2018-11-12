@@ -12,7 +12,7 @@ class WidgetBanner extends \WP_Widget {
 
 
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( 'Banner', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Banner', 'vkExUnit' );
 
 		parent::__construct(
 			'vkExUnit_banner',

@@ -7,7 +7,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 	// ウィジェット定義
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( 'Categories/Custom taxonomies list', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Categories/Custom taxonomies list', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_VK_taxonomy_list',

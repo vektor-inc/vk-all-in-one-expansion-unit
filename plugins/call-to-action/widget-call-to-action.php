@@ -17,7 +17,7 @@ class Widget_CTA extends \WP_Widget {
 
 	function __construct() {
 		global $vk_call_to_action_textdomain;
-		$widget_name = veu_get_short_name() . ' ' . __( 'CTA', $vk_call_to_action_textdomain );
+		$widget_name = veu_get_prefix() . __( 'CTA', $vk_call_to_action_textdomain );
 
 		parent::__construct(
 			'vkExUnit_cta',
