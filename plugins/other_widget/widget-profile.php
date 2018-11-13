@@ -6,7 +6,7 @@
 class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( 'Profile', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Profile', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_vkExUnit_profile',

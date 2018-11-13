@@ -118,66 +118,11 @@ jQuery(document).ready(function($){
 	jQuery('.child_page_block h4 a').flatHeights();
 });
 /*-------------------------------------------*/
-/*  Lightning Charm 1.2.0 での表示崩れ回避用
-/*  Lightning Charm 1.4.0 以降になったら削除
-/*-------------------------------------------*/
-(function($) {
-	// veu_postList のサムネイルがない場合にクラスを付与
-	$veu_postList = $('.veu_postList');
-	if ($veu_postList.length) {
-		var $postList_item_veu = $('.veu_postList .postList > .postList_item'),
-			cnt = 0;
-
-		$postList_item_veu.each(function() {
-			var $post_thumb = $(this).find('.postList_thumbnail');
-			if (!($post_thumb.length)) {
-				$(this).addClass('no_img');
-			} else {
-				cnt++;
-				if ((cnt % 2) == 0) {
-					$(this).addClass('even');
-				}
-			}
-		});
-	}
-})(jQuery);
-
-/*-------------------------------------------*/
-/*  facebookLikeBox
-/*-------------------------------------------*/
 /*  jquery.flatheights.js
 /*-------------------------------------------*/
 /*  snsCount
 /*-------------------------------------------*/
 
-pagePluginReSize();
-jQuery(window).resize(function() {
-	pagePluginReSize();
-});
-
-/*-------------------------------------------*/
-/*	facebookLikeBox
-/*-------------------------------------------*/
-function pagePluginReSize() {
-	// jQuery('.fb_iframe_widget').each(function(){
-	// 	var element = jQuery(this).parent().width();
-	// 	console.log(element);
-	// 	jQuery(this).attr('data-width',element);
-	// 	jQuery(this).children('span:first').css({"width":element});
-	// 	jQuery(this).children('span iframe.fb_ltr').css({"width":element});
-	// });
-}
-
-! function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0],
-		p = /^http:/.test(d.location) ? 'http' : 'https';
-	if (!d.getElementById(id)) {
-		js = d.createElement(s);
-		js.id = id;
-		js.src = p + '://platform.twitter.com/widgets.js';
-		fjs.parentNode.insertBefore(js, fjs);
-	}
-}(document, 'script', 'twitter-wjs');
 
 /*-------------------------------------------*/
 /*	jquery.flatheights.js
@@ -215,21 +160,6 @@ function pagePluginReSize() {
 			});
 		}
 	}
-
-	window.twttr = (function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0],
-			t = window.twttr || {};
-		if (d.getElementById(id)) return t;
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "https://platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js, fjs);
-		t._e = [];
-		t.ready = function(f) {
-			t._e.push(f);
-		};
-		return t;
-	}(document, "script", "twitter-wjs"));
 
 	var hatena = {
 		init: function() {
@@ -295,6 +225,7 @@ function pagePluginReSize() {
 		c = $('.veu_adminEdit');
 	});
 })(jQuery, document);
+
 /*----------------------------------------------------------*/
 /*	scroll btn
 /*----------------------------------------------------------*/

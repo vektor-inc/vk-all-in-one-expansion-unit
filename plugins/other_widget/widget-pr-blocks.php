@@ -14,7 +14,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	/*-------------------------------------------*/
 
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( 'PR Blocks', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'PR Blocks', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_vkExUnit_PR_Blocks',

@@ -1,6 +1,6 @@
 <div class="wrap vk_admin_page">
 <h2>
-<span class="pageTitleTxt">VK All in One Expansion Unit <?php _e( 'Enable setting', 'vkExUnit' ); ?></span>
+<span class="pageTitleTxt"><?php echo veu_get_name();?> <?php _e( 'Enable setting', 'vkExUnit' ); ?></span>
 </h2>
 
 <div class="adminMain">
@@ -34,7 +34,7 @@ foreach ( $vkExUnit_packages as $package ) :
 				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' >
 				<?php _e( 'Automatic Eye Catch insert', 'vkExUnit' ); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" 
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true"
 																						<?php
 																						if ( $active ) {
 																							echo 'checked'; }
@@ -98,7 +98,7 @@ foreach ( $vkExUnit_packages as $package ) :
 <!--
 <tr>
 <th><?php _e( 'Extention contents', 'vkExUnit' ); ?></th>
-<td><label><input type="checkbox" name="vkExUnit_common_options[content_filter_state]" value="loop_enud" 
+<td><label><input type="checkbox" name="vkExUnit_common_options[content_filter_state]" value="loop_enud"
 <?php
 if ( veu_content_filter_state() == 'loop_end' ) {
 	echo 'checked';}

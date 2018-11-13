@@ -95,7 +95,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			if (
 			$theme != 'Lightning' &&
 			$theme != 'lightning' &&
-			$theme != 'Lightning-master'
+			$theme != 'Lightning-master' &&
+			$theme != 'Lightning-pro' &&
+			$theme != 'lightning-pro'
 			) {
 				if ( $lang == 'ja' ) {
 					$banner .= '<a href="//lightning.nagoya/ja/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
@@ -108,12 +110,28 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				$banner .= '<a href="//billvektor.com" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/billvektor_banner.png" alt="見積書・請求書管理用WordPressテーマ" /></a>';
 			}
 
+			if (
+				$lang == 'ja' &&
+				$theme != 'Lightning-pro' &&
+				$theme != 'lightning-pro'
+			) {
+				$banner .= '<a href="https://lightning.nagoya/ja/expansion/lightning-pro" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning-pro-bnr.jpg" alt="" /></a>';
+			}
+
 			if ( $lang == 'ja' && ! is_plugin_active( 'lightning-skin-jpnstyle/lightning_skin_jpnstyle.php' ) ) {
-				$banner .= '<a href="//lightning.nagoya/ja/plugins/ex_plugin/lightning-jpnstyle" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/jpnstyle-bnr.jpg" alt="" /></a>';
+				$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-jpnstyle/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/jpnstyle-bnr.jpg" alt="" /></a>';
 			}
 
 			if ( $lang == 'ja' && ! is_plugin_active( 'lightning-skin-fort/lightning-skin-fort.php' ) ) {
-					$banner .= '<a href="//lightning.nagoya/ja/plugins/ex_plugin/lightning-fort" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/fort-bnr.jpg" alt="" /></a>';
+					$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-fort/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/fort-bnr.jpg" alt="" /></a>';
+			}
+
+			if ( $lang == 'ja' && ! is_plugin_active( 'lightning-skin-pale/lightning-skin-pale.php' ) ) {
+					$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-pale/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/pale-bnr.jpg" alt="" /></a>';
+			}
+
+			if ( $lang == 'ja' && ! is_plugin_active( 'lightning-skin-pale/lightning-skin-variety.php' ) ) {
+					$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-variety/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/variety-bnr.jpg" alt="" /></a>';
 			}
 
 			if ( $lang == 'ja' && ! is_plugin_active( 'vk-all-in-one-expansion-unit/vkExUnit.php' ) ) {
@@ -162,7 +180,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			$html .= '<h4 class="vk-metabox-sub-title">';
 			$html .= 'Vektor WordPress フォーラム';
-			$html .= '<a href="https://forum.vektor-inc.co.jp/?rel=vkadmin" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
+			$html .= '<a href="https://vws.vektor-inc.co.jp/forums/?rel=vkadmin" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
 			$html .= '</h4>';
 			$html .= '<ul id="vk-wp-forum" class="vk-metabox-post-list"></ul>';
 
@@ -185,6 +203,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		;(function($){
 			jQuery(document).ready(function($){
 
+				// お知らせ
 				$.getJSON( "https://vektor-inc.co.jp/wp-json/wp/v2/info?info-cat=111&per_page=5",
 				function(results) {
 						// 取得したJSONの内容をループする
@@ -197,6 +216,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 						});
 				});
 
+				// ブログ
 				$.getJSON( "https://www.vektor-inc.co.jp/wp-json/wp/v2/posts/?categories=55&per_page=3",
 				function(results) {
 						// 取得したJSONの内容をループする
@@ -209,7 +229,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 						});
 				});
 
-				$.getJSON( "https://forum.vektor-inc.co.jp/wp-json/wp/v2/topics/?per_page=5",
+				// フォーラム
+				$.getJSON( "https://vws.vektor-inc.co.jp/wp-json/wp/v2/topics/?per_page=5",
 				function(results) {
 						$.each(results, function(i, item) {
 							var date = new Date(item.date_gmt);
