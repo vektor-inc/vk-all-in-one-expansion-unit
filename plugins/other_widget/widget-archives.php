@@ -6,7 +6,7 @@
 class WP_Widget_VK_archive_list extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_short_name() . ' ' . __( 'archive list', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'archive list', 'vkExUnit' );
 
 		parent::__construct(
 			'WP_Widget_VK_archive_list',

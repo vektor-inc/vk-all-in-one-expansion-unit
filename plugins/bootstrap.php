@@ -6,7 +6,7 @@ function vkExUnit_bootstrap_customize_register( $wp_customize ) {
 	if ( is_null( $wp_customize->get_section( 'vkExUnit_settings' ) ) ) {
 		$wp_customize->add_section(
 			'vkExUnit_settings', array(
-				'title'    => veu_get_short_name() . ' ' . __( 'Settings', 'vkExUnit' ),
+				'title'    => veu_get_prefix() . __( 'Settings', 'vkExUnit' ),
 				'priority' => 500,
 			)
 		);
