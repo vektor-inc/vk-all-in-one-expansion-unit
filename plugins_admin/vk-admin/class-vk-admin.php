@@ -350,6 +350,10 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		/*--------------------------------------------------*/
 		// 2016.08.07 ExUnitの有効化ページでは直接 admin_subを呼び出しているので注意
 		public static function admin_sub() {
+			$display = apply_filters( 'vk_admin_sub_display', true );
+			if ( ! $display ) {
+				return;
+			}
 			$adminSub  = '<div class="adminSub scrTracking">' . "\n";
 			$adminSub .= '<div class="infoBox">' . Vk_Admin::get_news_body() . '</div>' . "\n";
 			$adminSub .= '<div class="vk-admin-banner">' . Vk_Admin::get_admin_banner() . '</div>' . "\n";
