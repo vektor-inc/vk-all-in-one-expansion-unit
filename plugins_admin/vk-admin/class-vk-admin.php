@@ -90,15 +90,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			Display" /></a>';
 			}
 
-			// 現在のテーマを取得
-			$theme = get_template();
-			if (
-			$theme != 'Lightning' &&
-			$theme != 'lightning' &&
-			$theme != 'Lightning-master' &&
-			$theme != 'Lightning-pro' &&
-			$theme != 'lightning-pro'
-			) {
+			// テーマがLightningじゃない場合にLighntingのバナーを表示
+			if ( ! function_exists( 'lightning_get_theme_name' ) ) {
 				if ( $lang == 'ja' ) {
 					$banner .= '<a href="//lightning.nagoya/ja/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
 				} else {
@@ -106,6 +99,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				} // if ( $lang == 'ja' ) {
 			} // if ( $theme != 'lightning' ) {
 
+			$theme = get_template();
 			if ( $lang == 'ja' && $theme != 'bill-vektor' && $theme != 'bill-vektor-master' ) {
 				$banner .= '<a href="//billvektor.com" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/billvektor_banner.png" alt="見積書・請求書管理用WordPressテーマ" /></a>';
 			}
@@ -350,6 +344,10 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		/*--------------------------------------------------*/
 		// 2016.08.07 ExUnitの有効化ページでは直接 admin_subを呼び出しているので注意
 		public static function admin_sub() {
+			$display = apply_filters( 'vk_admin_sub_display', true );
+			if ( ! $display ) {
+				return;
+			}
 			$adminSub  = '<div class="adminSub scrTracking">' . "\n";
 			$adminSub .= '<div class="infoBox">' . Vk_Admin::get_news_body() . '</div>' . "\n";
 			$adminSub .= '<div class="vk-admin-banner">' . Vk_Admin::get_admin_banner() . '</div>' . "\n";
