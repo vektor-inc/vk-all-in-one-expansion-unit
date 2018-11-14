@@ -19,32 +19,30 @@ class biz_vektor_css_customize {
 		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-single.php' );
 	}
 
-
-
 	public function admin_bar( $wp_admin_bar ) {
-		$wp_admin_bar->add_node(
-			array(
-				'parent' => 'veu_adminlink',
-				'id'     => 'veu_adminlink_css',
-				'title'  => __( 'CSS Customize', 'vkExUnit' ),
-				'href'   => admin_url() . 'admin.php?page=vkExUnit_css_customize',
-			)
-		);
+		// 「CSSカスタマイズ」は edit_theme_options 権限にはアクセスさせない
+		if ( current_user_can( 'activate_plugins' ) ) {
+			$wp_admin_bar->add_node(
+				array(
+					'parent' => 'veu_adminlink',
+					'id'     => 'veu_adminlink_css',
+					'title'  => __( 'CSS Customize', 'vkExUnit' ),
+					'href'   => admin_url() . 'admin.php?page=vkExUnit_css_customize',
+				)
+			);
+		}
 	}
-
-
 
 	/*-------------------------------------------*/
 	/*  CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
 	public function biz_vektor_css_customize_menu() {
-
-		$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
+		// $capability_required = veu_get_capability_required();
 		add_submenu_page(
 			'vkExUnit_setting_page',
 			__( 'CSS Customize', 'vkExUnit' ),
 			__( 'CSS Customize', 'vkExUnit' ),
-			// $capability_required,
+			// $capability_required, // edit_theme_optionsのユーザーにもアクセスさせないため
 			'activate_plugins',
 			'vkExUnit_css_customize',
 			array( $this, 'biz_vektor_css_customize_render_page' )
