@@ -99,6 +99,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				} // if ( $lang == 'ja' ) {
 			} // if ( $theme != 'lightning' ) {
 
+			$theme = get_template();
 			if ( $lang == 'ja' && $theme != 'bill-vektor' && $theme != 'bill-vektor-master' ) {
 				$banner .= '<a href="//billvektor.com" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/billvektor_banner.png" alt="見積書・請求書管理用WordPressテーマ" /></a>';
 			}
