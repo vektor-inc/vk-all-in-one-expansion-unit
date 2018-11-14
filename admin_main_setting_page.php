@@ -28,7 +28,7 @@ function vkExUnit_render_main_frame() {
 	vkExUnit_save_main_config();
 
 	// Left menu area top Title
-	$get_page_title = veu_get_short_name() . ' Main setting';
+	$get_page_title = veu_get_little_short_name() . ' Main setting';
 
 	// Left menu area top logo
 	$get_logo_html = veu_get_systemlogo_html();
