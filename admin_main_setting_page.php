@@ -4,13 +4,13 @@
 /* Main Setting Page  _ メニューに追加
 /*-------------------------------------------*/
 function vkExUnit_add_main_setting() {
-	$capability_required = add_filter( 'vkExUnit_ga_page_capability', vkExUnit_get_capability_required() );
-	$custom_page         = add_submenu_page(
+	// $capability_required = veu_get_capability_required();
+	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',            // parent
-		__( 'Main setting', 'vkExUnit' ),        // Name of page
-		__( 'Main setting', 'vkExUnit' ),        // Label in menu
-		// $capability_required,
-		'activate_plugins',                 // Capability
+		__( 'Main setting', 'vkExUnit' ),   // Name of page
+		__( 'Main setting', 'vkExUnit' ),   // Label in menu
+		'activate_plugins',               // veu_get_capability_required()でないのは edit_theme_options権限を付与したユーザーにもアクセスさせないためにactivate_pluginsにしている。
+		// $capability_required,          // Capability
 		'vkExUnit_main_setting',            // ユニークなこのサブメニューページの識別子
 		'vkExUnit_render_main_frame'        // メニューページのコンテンツを出力する関数
 	);
@@ -31,7 +31,7 @@ function vkExUnit_render_main_frame() {
 	$get_page_title = veu_get_short_name() . ' Main setting';
 
 	// Left menu area top logo
-	$get_logo_html = vkExUnit_get_systemlogo();
+	$get_logo_html = veu_get_systemlogo_html();
 
 	// $menu
 	/*--------------------------------------------------*/

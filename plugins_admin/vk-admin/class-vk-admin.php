@@ -90,15 +90,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			Display" /></a>';
 			}
 
-			// 現在のテーマを取得
-			$theme = get_template();
-			if (
-			$theme != 'Lightning' &&
-			$theme != 'lightning' &&
-			$theme != 'Lightning-master' &&
-			$theme != 'Lightning-pro' &&
-			$theme != 'lightning-pro'
-			) {
+			// テーマがLightningじゃない場合にLighntingのバナーを表示
+			if ( ! function_exists( 'lightning_get_theme_name' ) ) {
 				if ( $lang == 'ja' ) {
 					$banner .= '<a href="//lightning.nagoya/ja/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
 				} else {
