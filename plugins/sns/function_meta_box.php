@@ -19,7 +19,7 @@ class vkExUnit_sns_metabox {
 
 	protected function run_init() {
 		add_action( 'admin_menu', array( $this, 'add_custom_field' ) );
-		add_action( 'save_post' , array( $this, 'save_custom_field' ) );
+		add_action( 'save_post', array( $this, 'save_custom_field' ) );
 	}
 
 
@@ -34,9 +34,9 @@ class vkExUnit_sns_metabox {
 		global $post;
 		$disable_autoeyecatch = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
 
-		echo '<input type="hidden" name="_nonce_vkExUnit_sns_title" id="_nonce_vkExUnit_sns_title_noonce" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
-		echo '<input type=text name="vkExUnit_sns_title" value="'. $disable_autoeyecatch .'" size=50 />';
-		echo '<p>'. __( 'if filled this area then override title of OGP and Twitter Card', 'vkExUnit' ).'</p>';
+		echo '<input type="hidden" name="_nonce_vkExUnit_sns_title" id="_nonce_vkExUnit_sns_title_noonce" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />';
+		echo '<input type=text name="vkExUnit_sns_title" value="' . $disable_autoeyecatch . '" size=50 />';
+		echo '<p>' . __( 'if filled this area then override title of OGP and Twitter Card', 'vkExUnit' ) . '</p>';
 
 	}
 
