@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/alert/block.js:12
+msgid "Alert"
+msgstr ""
+
+#: src/balloon/block.js:117
+#: src/flow/block.js:111
+msgid "Select image"
+msgstr ""
+
+#: src/balloon/block.js:117
+#: src/flow/block.js:112
+msgid "Upload image"
+msgstr ""
+
+#: src/balloon/block.js:127
+msgid "Input text"
+msgstr ""
+
+#: src/balloon/block.js:32
+msgid "Ballon"
+msgstr ""
+
+#: src/balloon/block.js:77
+msgid "Balloon setting"
+msgstr ""
+
+#: src/balloon/block.js:79
+msgid "Position"
+msgstr ""
+
+#: src/balloon/block.js:80
+msgid "Please specify the layout of the balloon."
+msgstr ""
+
+#: src/balloon/block.js:83
+msgid "Left"
+msgstr ""
+
+#: src/balloon/block.js:84
+msgid "Right"
+msgstr ""
+
+#: src/balloon/block.js:89
+msgid "Type"
+msgstr ""
+
+#: src/balloon/block.js:90
+msgid "Please select the type of balloon."
+msgstr ""
+
+#: src/balloon/block.js:93
+msgid "Serif"
+msgstr ""
+
+#: src/balloon/block.js:94
+msgid "Thinking"
+msgstr ""
+
+#: src/faq/block.js:25
+msgid "FAQ"
+msgstr ""
+
+#: src/faq/block.js:61
+msgid "Please enter a question."
+msgstr ""
+
+#: src/faq/block.js:67
+msgid "Please enter a answer."
+msgstr ""
+
+#: src/flow/block.js:27
+msgid "Flow"
+msgstr ""
+
+#: src/flow/block.js:70
+msgid "Display of arrow"
+msgstr ""
+
+#: src/flow/block.js:74
+msgid "Arrow display"
+msgstr ""
+
+#: src/flow/block.js:75
+msgid "Arrow hidden"
+msgstr ""
+
+#: src/flow/block.js:90
+msgid "Input title"
+msgstr ""
+
+#: src/flow/block.js:97
+msgid "Input content"
+msgstr ""
