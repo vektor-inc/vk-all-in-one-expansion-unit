@@ -87,6 +87,17 @@ function vkExUnit_get_packages() {
 	);
 
 	/*-------------------------------------------*/
+	/*  VK Blocks
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'vk-blocks',
+		'title'       => __( 'VK Blocks ( Beta )', 'vkExUnit' ),
+		'description' => __( 'Extends Gutenberg\'s blocks.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'vk-blocks-config.php',
+	);
+
+	/*-------------------------------------------*/
 	/*  icon
 	/*-------------------------------------------*/
 	$required_packages[] = array(

@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 4.9.8
-Stable tag: 6.7.0
+Stable tag: 6.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,13 @@ Many features can be stopped individually.
 *   Image Banner widget
 *   Text Button widget
 *   Contact Button widget
+
+[ Gutenberg Blocks ]
+
+* alert
+* Faq
+* balloon
+* Flow
 
 [ Social media ]
 
@@ -72,6 +79,12 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 6.8.0 =
+* [ Add function ][ VK Blocks ] Add Gutenberg Blocks!
+
+= 6.7.1 =
+* [ Main Setting Page ][ Bug fix ] Media Upload bug fix
 
 = 6.6.6 =
 * [ Button Widget ][ Add Function ] Reflect the widget label

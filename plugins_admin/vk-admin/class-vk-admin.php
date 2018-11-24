@@ -21,6 +21,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
+			// メイン設定画面などで画像アップロードに必要
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 			add_action( 'customize_register', array( __CLASS__, 'admin_common_css' ) );
 			add_action( 'wp_dashboard_setup', array( __CLASS__, 'dashboard_widget' ), 1 );
 		}
