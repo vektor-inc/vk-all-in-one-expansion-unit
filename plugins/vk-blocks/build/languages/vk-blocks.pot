@@ -7,17 +7,21 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: src/balloon/block.js:117
+#: src/balloon/block.js:122
 #: src/flow/block.js:111
 msgid "Select image"
 msgstr ""
 
-#: src/balloon/block.js:117
+#: src/balloon/block.js:122
 #: src/flow/block.js:112
 msgid "Upload image"
 msgstr ""
 
-#: src/balloon/block.js:127
+#: src/balloon/block.js:131
+msgid "Icon Name"
+msgstr ""
+
+#: src/balloon/block.js:140
 msgid "Input text"
 msgstr ""
 
@@ -25,39 +29,39 @@ msgstr ""
 msgid "Ballon"
 msgstr ""
 
-#: src/balloon/block.js:77
+#: src/balloon/block.js:82
 msgid "Balloon setting"
 msgstr ""
 
-#: src/balloon/block.js:79
+#: src/balloon/block.js:84
 msgid "Position"
 msgstr ""
 
-#: src/balloon/block.js:80
+#: src/balloon/block.js:85
 msgid "Please specify the layout of the balloon."
 msgstr ""
 
-#: src/balloon/block.js:83
+#: src/balloon/block.js:88
 msgid "Left"
 msgstr ""
 
-#: src/balloon/block.js:84
+#: src/balloon/block.js:89
 msgid "Right"
 msgstr ""
 
-#: src/balloon/block.js:89
+#: src/balloon/block.js:94
 msgid "Type"
 msgstr ""
 
-#: src/balloon/block.js:90
+#: src/balloon/block.js:95
 msgid "Please select the type of balloon."
 msgstr ""
 
-#: src/balloon/block.js:93
+#: src/balloon/block.js:98
 msgid "Serif"
 msgstr ""
 
-#: src/balloon/block.js:94
+#: src/balloon/block.js:99
 msgid "Thinking"
 msgstr ""
 
@@ -65,11 +69,11 @@ msgstr ""
 msgid "FAQ"
 msgstr ""
 
-#: src/faq/block.js:61
+#: src/faq/block.js:62
 msgid "Please enter a question."
 msgstr ""
 
-#: src/faq/block.js:67
+#: src/faq/block.js:69
 msgid "Please enter a answer."
 msgstr ""
 
