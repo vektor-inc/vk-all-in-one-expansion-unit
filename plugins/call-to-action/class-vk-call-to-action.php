@@ -287,7 +287,11 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		<?php
 		}
 
-
+		/**
+		 * [save_custom_field description]
+		 * @param  [type] $post_id [description]
+		 * @return [type]          [description]
+		 */
 		public static function save_custom_field( $post_id ) {
 			if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) {
 				return $post_id; }
@@ -373,6 +377,11 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		}
 
 
+		/**
+		 * [get_cta_post description]
+		 * @param  [type] $id [description]
+		 * @return [type]     [description]
+		 */
 		public static function get_cta_post( $id ) {
 			$args  = array(
 				'post_type'  => self::POST_TYPE,
