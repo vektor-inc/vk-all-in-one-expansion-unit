@@ -5,10 +5,10 @@
 /*-------------------------------------------*/
 
 /** アクションフックを使用して作成した関数を登録 */
-add_action( 'admin_menu', 'vue_sitemap_hide_menu' );
+add_action( 'admin_menu', 'veu_sitemap_hide_menu' );
 
 /** メニュー作成用のコードを含む関数を作成 */
-function vue_sitemap_hide_menu() {
+function veu_sitemap_hide_menu() {
 
 	// 現在存在する固定ページを取得
 	/*-------------------------------------------*/
@@ -55,9 +55,9 @@ function veu_sitemap_meta_box_callback() {
 /*  入力された値の保存
 /*-------------------------------------------*/
 
-add_action( 'save_post', 'vue_sitemap_hide_controller_save' );
+add_action( 'save_post', 'veu_sitemap_hide_controller_save' );
 
-function vue_sitemap_hide_controller_save( $post_id ) {
+function veu_sitemap_hide_controller_save( $post_id ) {
 	global $post;
 	//設定したnonce を取得（CSRF対策）
 	$noncename__sitemap_hide = isset( $_POST['noncename__sitemap_hide'] ) ? $_POST['noncename__sitemap_hide'] : null;
@@ -82,7 +82,7 @@ function vue_sitemap_hide_controller_save( $post_id ) {
 		delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 	}
 
-} // function vue_sitemap_hide_controller_save(){
+} // function veu_sitemap_hide_controller_save(){
 
 
 /*-------------------------------------------*/

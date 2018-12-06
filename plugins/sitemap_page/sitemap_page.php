@@ -17,41 +17,38 @@
 /*  Add setting page
 /*-------------------------------------------*/
 
-function vkExUnit_add_sitemap_options_page() {
+function veu_add_sitemap_options_page() {
 	require dirname( __FILE__ ) . '/sitemap_admin.php';
 }
 
 require_once dirname( __FILE__ ) . '/hide-controller.php';
 
-
-
-
 /*-------------------------------------------*/
 /*  Options Init
 /*-------------------------------------------*/
 function vkExUnit_sitemap_options_init() {
-	if ( false === vkExUnit_get_sitemap_options() ) {
-		add_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() ); }
+	if ( false === veu_get_sitemap_options() ) {
+		add_option( 'vkExUnit_sitemap_options', veu_get_sitemap_options_default() ); }
 
 	vkExUnit_register_setting(
 		__( 'HTML Sitemap', 'vkExUnit' ),
 		'vkExUnit_sitemap_options',
-		'vkExUnit_sitemap_options_validate',
-		'vkExUnit_add_sitemap_options_page'
+		'veu_sitemap_options_validate',
+		'veu_add_sitemap_options_page'
 	);
 }
 add_action( 'vkExUnit_package_init', 'vkExUnit_sitemap_options_init' );
 
-function vkExUnit_get_sitemap_options() {
-	$options         = get_option( 'vkExUnit_sitemap_options', vkExUnit_get_sitemap_options_default() );
-	$options_dafault = vkExUnit_get_sitemap_options_default();
+function veu_get_sitemap_options() {
+	$options         = get_option( 'vkExUnit_sitemap_options', veu_get_sitemap_options_default() );
+	$options_dafault = veu_get_sitemap_options_default();
 	foreach ( $options_dafault as $key => $value ) {
 		$options[ $key ] = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $options_dafault[ $key ];
 	}
 	return apply_filters( 'vkExUnit_sitemap_options', $options );
 }
 
-function vkExUnit_get_sitemap_options_default() {
+function veu_get_sitemap_options_default() {
 	$default_options = array(
 		'excludeId' => '',
 	);
@@ -61,36 +58,48 @@ function vkExUnit_get_sitemap_options_default() {
 /*-------------------------------------------*/
 /*  validate
 /*-------------------------------------------*/
-function vkExUnit_sitemap_options_validate( $input ) {
-	$output = $defaults = vkExUnit_get_sitemap_options_default();
+function veu_sitemap_options_validate( $input ) {
+	$output = $defaults = veu_get_sitemap_options_default();
 
 	$paras = array( 'excludeId' );
 
 	foreach ( $paras as $key => $value ) {
 		$output[ $value ] = ( isset( $input[ $value ] ) ) ? $input[ $value ] : '';
 	}
-	return apply_filters( 'vkExUnit_sitemap_options_validate', $output, $input, $defaults );
+	return apply_filters( 'veu_sitemap_options_validate', $output, $input, $defaults );
 }
 
 /*-------------------------------------------*/
 /*  insert sitemap page
 /*-------------------------------------------*/
 if ( veu_content_filter_state() == 'content' ) {
-	add_filter( 'the_content', 'show_sitemap', 7, 1 );
+	add_filter( 'the_content', 'veu_show_sitemap', 7, 1 );
 } else {
-	add_action( 'loop_end', 'vkExUnit_sitemap_loopend' );
+	add_action( 'loop_end', 'veu_sitemap_loopend' );
 }
 
-
-function vkExUnit_sitemap_loopend( $query ) {
+function veu_sitemap_loopend( $query ) {
 	if ( ! $query->is_main_query() ) {
 		return;
 	}
-	echo show_sitemap( '' );
+	echo veu_show_sitemap( '' );
 }
 
-
+/**
+ * 現在は veu_show_sitemap() に変更になっているのが、旧 show_sitemap で飛び出された時用
+ * @param  [type] $content [description]
+ * @return [type]          [description]
+ */
 function show_sitemap( $content ) {
+	veu_show_sitemap( $content );
+}
+/**
+ * [veu_show_sitemap description]
+ * @since  7.0
+ * @param  [type] $content [description]
+ * @return [type]          [description]
+ */
+function veu_show_sitemap( $content ) {
 	global $is_pagewidget;
 	if ( $is_pagewidget ) {
 		return $content; }
@@ -118,7 +127,7 @@ function vkExUnit_sitemap( $atts ) {
 	/*-------------------------------------------*/
 	/* Exclude Page ids by ExUnit Main Setting Page
 	/*-------------------------------------------*/
-	$options  = vkExUnit_get_sitemap_options();
+	$options  = veu_get_sitemap_options();
 	$excludes = esc_attr( $options['excludeId'] );
 	$excludes = str_replace( '，', ',', $excludes );
 	$excludes = mb_convert_kana( $excludes, 'kvrn' );
