@@ -1,8 +1,16 @@
 <?php
 
-add_filter( 'the_content', 'vkExUnit_add_follow' );
+add_filter( 'the_content', 'veu_add_follow' );
 
-function vkExUnit_add_follow( $content ) {
+// 旧関数名
+function vkExUnit_add_follow() {
+	veu_add_follow();
+}
+/**
+ * @since 7.0.0 -
+ * @param [type] $content [description]
+ */
+function veu_add_follow( $content ) {
 	$postType = vkExUnit_get_post_type();
 
 	if ( is_single() && $postType['slug'] == 'post' ) :
