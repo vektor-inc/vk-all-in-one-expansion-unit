@@ -43,15 +43,18 @@ before_install:
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - echo ${TRAVIS_PHP_VERSION:0:3}
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} =~ 7.+[0-2] ]]; then
+    if [[ ${TRAVIS_PHP_VERSION:0:3} =~ 7\.[0-1] ]]; then
       composer global require "phpunit/phpunit=6.*.*"
     elif [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then
       composer global require "phpunit/phpunit=5.*.*"
     else
       composer global require "phpunit/phpunit=4.8.*"
     fi
-  # - nvm install 4.2
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then composer install; fi
+
+# - nvm install 4.2
   # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
   - npm install
   - npm install -g gulp
@@ -59,7 +62,8 @@ before_script:
 
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
-  - phpunit
+  - phpunit --version
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then ./vendor/bin/phpunit; else phpunit; fi
   - gulp compile
   # - cd plugins_admin/vk-admin/ && compass compile && cd ../../
 
