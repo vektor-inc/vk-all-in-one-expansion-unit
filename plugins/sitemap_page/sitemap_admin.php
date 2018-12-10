@@ -1,5 +1,5 @@
 <?php
-$options = vkExUnit_get_sitemap_options();
+$options = veu_get_sitemap_options();
 // $options_default = veu_get_sns_options_default();
 /*-------------------------------------------*/
 /*  sitemap page
