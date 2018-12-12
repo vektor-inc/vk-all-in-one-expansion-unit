@@ -111,8 +111,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function display_pattern_0( $is_modified = false ) {
 	?>
-<!-- [ .postList は近日削除されます ] -->
-<div class="postList postList_item" id="post-<?php the_ID(); ?>">
+<div class="postList_item" id="post-<?php the_ID(); ?>">
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="postList_thumbnail">
 		<a href="<?php the_permalink(); ?>">
