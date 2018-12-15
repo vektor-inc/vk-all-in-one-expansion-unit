@@ -384,7 +384,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			add_action( 'admin_init', array( $this, 'add_cap_post_type_manage' ) );
 			add_action( 'save_post', array( $this, 'save_cf_value' ) );
 			add_action( 'admin_menu', array( $this, 'add_meta_box' ) );
-			add_action( 'init', array( $this, 'add_post_type' ), 0 );
+			add_action( 'after_setup_theme', array( $this, 'add_post_type' ), 0 );
 			// add_action( 'save_post', array( $this, 'add_post_notice' ) );
 			add_action( 'admin_notices', array( $this, 'add_post_notice' ) );
 		}
