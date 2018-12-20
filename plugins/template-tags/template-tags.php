@@ -155,7 +155,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 				$page_description = get_bloginfo( 'description' );
 			}
 		} elseif ( is_home() ) {
-			$page_for_posts = vkExUnit_get_page_for_posts();
+			$page_for_posts = vk_get_page_for_posts();
 			if ( $page_for_posts['post_top_use'] ) {
 				$page             = get_post( $page_for_posts['post_top_id'] );
 				$page_description = $page->post_excerpt;
@@ -211,7 +211,20 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			$page_description = '[' . sprintf( __( 'Page of %s', 'vkExUnit' ), $paged ) . '] ' . $page_description;
 		}
 		$page_description = apply_filters( 'vkExUnit_pageDescriptionCustom', $page_description );
+
+		/*
+		いままで
+		* 画像ギャラリーなどのショートコードがそのまま表示される
+		* ショートコードの中の引数の "" が入るとタグの終了がおかしくなりシェアやRSSで問題が出る
+		という理由で do_shortcode で実行した後 html タグを除去していた
 		$page_description = esc_html( strip_tags( do_shortcode( $page_description ) ) );
+		しかし、ここで do_shortcode 入れるとWooCommerceなどのエラーメッセージが正常に表示されなくなる。
+		なので、ショートコードの実行は行わないが、不具合の原因となる " は 全角に変換する ... と、
+		この関数はそもそもディスクリプションを出力するためだけで " をそのまま出力したい時もありえる事から、
+		タグの属性として使う側で esc_attr などのエスケープを実施する
+		そもそもショートコードが出るなら適切に抜粋欄に記入して運用でカバーする。
+		*/
+		$page_description = esc_html( strip_tags( $page_description ) );
 		// Delete Line break
 		$page_description = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $page_description );
 		$page_description = preg_replace( '/\[(.*?)\]/m', '', $page_description );
