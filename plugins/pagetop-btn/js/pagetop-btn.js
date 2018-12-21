@@ -1,23 +1,12 @@
 /*----------------------------------------------------------*/
-/*	scroll btn
+/*	scroll
 /*----------------------------------------------------------*/
-(function($) {
-$(function(){
-
-	// スクロールボタン
-	var $page_top = $('#page_top');
-	$(window).on('scroll', function(){
-		if ($(this).scrollTop() > 100) {
-            $page_top.fadeIn();
-		} else {
-			$page_top.stop(true, true).fadeOut();
-		}
-	});
-	$page_top.click(function () {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 800);
-		return false;
-	});
+// Scroll function
+$(window).scroll(function() {
+	var scroll = $(this).scrollTop();
+	if ($(this).scrollTop() > 1) {
+		$('body').addClass('scrolled');
+	} else {
+		$('body').removeClass('scrolled');
+	}
 });
-})(jQuery);

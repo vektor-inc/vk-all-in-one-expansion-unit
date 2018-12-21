@@ -118,10 +118,33 @@ jQuery(document).ready(function($){
 	jQuery('.child_page_block h4 a').flatHeights();
 });
 /*-------------------------------------------*/
+/*  ページ内するするスクロール
+/*-------------------------------------------*/
 /*  jquery.flatheights.js
 /*-------------------------------------------*/
 /*  snsCount
 /*-------------------------------------------*/
+
+/*-------------------------------------------*/
+/*  ページ内するするスクロール
+/*-------------------------------------------*/
+(function($) {
+// #にダブルクォーテーションが必要
+$('a[href^="#"]').click(function() {
+	if ( id )
+	 var speed = 400;
+	 var href= $(this).attr("href");
+	 var target = $(href == "#" || href == "" ? 'html' : href);
+	 var id = jQuery(this).attr('id');
+ 	if ( id == 'page_top' ){
+ 		var position = 0;
+ 	} else {
+ 		var position = target.offset().top;
+ 	}
+	 $('body,html').animate({scrollTop:position}, speed, 'swing');
+	 return false;
+})
+})(jQuery);
 
 
 /*-------------------------------------------*/
@@ -227,25 +250,14 @@ jQuery(document).ready(function($){
 })(jQuery, document);
 
 /*----------------------------------------------------------*/
-/*	scroll btn
+/*	scroll
 /*----------------------------------------------------------*/
-(function($) {
-$(function(){
-
-	// スクロールボタン
-	var $page_top = $('#page_top');
-	$(window).on('scroll', function(){
-		if ($(this).scrollTop() > 100) {
-            $page_top.fadeIn();
-		} else {
-			$page_top.stop(true, true).fadeOut();
-		}
-	});
-	$page_top.click(function () {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 800);
-		return false;
-	});
+// Scroll function
+$(window).scroll(function() {
+	var scroll = $(this).scrollTop();
+	if ($(this).scrollTop() > 1) {
+		$('body').addClass('scrolled');
+	} else {
+		$('body').removeClass('scrolled');
+	}
 });
-})(jQuery);
