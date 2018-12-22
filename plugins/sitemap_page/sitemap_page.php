@@ -174,11 +174,14 @@ function vkExUnit_sitemap( $atts ) {
 	if ( empty( $p ) ) {
 		unset( $allPostTypes['post'] );
 	}
+	unset( $allPostTypes['page'] );
+	unset( $allPostTypes['attachment'] );
 
 	foreach ( $allPostTypes as $postType ) {
 		$post_type_object = get_post_type_object( $postType );
 
 		if ( $post_type_object ) {
+			$sitemap_html .= '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
 			$postType_name = esc_html( $post_type_object->name );
 			// post-type is post
 			if ( $postType_name === 'post' ) {
@@ -198,7 +201,7 @@ function vkExUnit_sitemap( $atts ) {
 							$postTypeTopUrl = get_the_permalink( $page_for_posts['post_top_id'] );
 						} else {
 							$postTypeName   = $post_type_object->labels->name;
-							$postTypeTopUrl = home_url() . '/?post_type=' . $postType;
+							$postTypeTopUrl = get_post_type_archive_link( $postType );
 						}
 						$sitemap_html .= '<h4><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
 
@@ -223,13 +226,13 @@ function vkExUnit_sitemap( $atts ) {
 									$sitemap_html .= '<ul class="link-list">' . $tax_sitemap_html . '</ul>';
 								}
 							}
-						}
+						} // foreach ( $taxonomies as $key => $taxonomy ) {
 					} // end if($post_type_object)
 				} // end foreach ($postTypes as $key => $postType)
 			} // end post-type is post
 			// not page_type and post_type
 			elseif ( $postType_name !== 'page' && $postType_name !== 'attachment' ) {
-				$customPost_url = home_url() . '/?post_type=' . $postType_name;
+				$customPost_url = get_post_type_archive_link( $postType );
 				$sitemap_html  .= '<h4><a href="' . $customPost_url . '">' . $post_type_object->labels->name . '</a></h4>' . PHP_EOL;
 
 				$termNames = get_object_taxonomies( $postType_name );
@@ -247,8 +250,9 @@ function vkExUnit_sitemap( $atts ) {
 													);
 													$sitemap_html .= wp_list_categories( $args );
 													$sitemap_html .= '</ul>' . PHP_EOL;
-				}
+				} // foreach ( $termNames as $termName ) {
 			} // end not page_type and post_type
+			$sitemap_html .= '</div>' . PHP_EOL;
 		} // end if($post_type_object)
 	} // end foreach ($allPostTypes as $postType)
 	$sitemap_html .= '</div>' . PHP_EOL; // <!-- [ /.sectionBox ] -->

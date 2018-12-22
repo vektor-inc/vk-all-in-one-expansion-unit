@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
-Tested up to: 5.0.0
-Stable tag: 6.11.0
+Tested up to: 5.0.2
+Stable tag: 7.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,13 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 7.0.0 =
+* [ Specification change ][ vk_get_page_description ] delete do_shortcode 6 movt escape point.
+* [ Specification change ][ Page Top Button ] Change system.
+* [ Specification change ][ Site Map ] Add Post type class to print html.
+* [ Specification change ][ CTA ] Add id to outer tag.
+* [ Add function ][ Insert Ads  ] Add function of add Ads to custom post types.
 
 = 6.11.0 =
 * [ Specification change ][ PostTypeManager ] Change add action point 'init' to 'after_setup_theme'
