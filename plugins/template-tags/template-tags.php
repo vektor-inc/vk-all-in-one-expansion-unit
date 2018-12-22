@@ -266,3 +266,33 @@ if ( ! function_exists( 'veu_sanitize_radio' ) ) {
 		return esc_attr( $input );
 	}
 }
+
+/*-------------------------------------------*/
+/*  Post Type Check Box
+/*-------------------------------------------*/
+/**
+ * 投稿タイプのチェックボックスを表示する関数
+ * @param  [type] $args 取得する投稿タイプ情報の判別や保存されてる値の情報など
+ * @return [type]       [description]
+ */
+function vk_the_post_type_check_list( $args ) {
+	$default    = array(
+		'post_types_args' => array(
+			'public' => true,
+		),
+		'name'            => '',
+		'checked'         => '',
+	);
+	$args       = wp_parse_args( $args, $default );
+	$post_types = get_post_types( $args['post_types_args'], 'object' );
+	echo '<ul>';
+	foreach ( $post_types as $key => $value ) {
+		if ( $key != 'attachment' ) {
+			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
+			echo '<li><label>';
+			echo '<input type="checkbox" name="' . $args['name'] . '[' . $key . ']" id="snsBtn_exclude_post_types" value="true"' . $checked . ' />' . esc_html( $value->label );
+			echo '</label></li>';
+		}
+	}
+	echo '</ul>';
+}

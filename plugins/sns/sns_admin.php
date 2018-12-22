@@ -60,20 +60,11 @@
 <dt><?php _e( 'Exclude Post Types', 'vkExUnit' ); ?></dt>
 <dd>
 <?php
-$args       = array(
-	'public' => true,
+$args = array(
+	'name'    => 'vkExUnit_sns_options[snsBtn_exclude_post_types]',
+	'checked' => $options['snsBtn_exclude_post_types'],
 );
-$post_types = get_post_types( $args, 'object' );
-echo '<ul>';
-foreach ( $post_types as $key => $value ) {
-	if ( $key != 'attachment' ) {
-		$checked = ( isset( $options['snsBtn_exclude_post_types'][ $key ] ) && $options['snsBtn_exclude_post_types'][ $key ] == 'true' ) ? ' checked' : '';
-		echo '<li><label>';
-		echo '<input type="checkbox" name="vkExUnit_sns_options[snsBtn_exclude_post_types][' . $key . ']" id="snsBtn_exclude_post_types" value="true"' . $checked . ' />' . esc_html( $value->label );
-		echo '</label></li>';
-	}
-}
-echo '</ul>';
+vk_the_post_type_check_list( $args );
 ?>
 </dd>
 </dl>
