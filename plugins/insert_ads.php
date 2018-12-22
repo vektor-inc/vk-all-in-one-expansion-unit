@@ -43,20 +43,44 @@ class vExUnit_Ads {
 
 
 	public function set_content( $content ) {
+
 		if ( vkExUnit_is_excerpt() ) {
 			return $content; }
+
 		global $is_pagewidget;
 		if ( $is_pagewidget ) {
 			return $content; }
-		$option     = $this->get_option();
-		$post_types = array( 'post' );
-		$post_types = apply_filters( 'veu_add_ad', $post_types );
-		foreach ( $post_types as $key => $post_type ) {
-			if ( get_post_type() == $post_type ) {
+
+		$option        = $this->get_option();
+		$post_types    = $option['post_types'];
+		$post_types    = apply_filters( 'veu_add_ad', $post_types );
+		$post_type_now = get_post_type();
+
+		$print = '';
+		if ( ! empty( $post_types[ $post_type_now ] ) ) {
+			$print = true;
+		}
+		/*
+		以前は
+		$post_types[0][post]
+		という配列の持ち方だったが、
+		後から作った関数 vk_the_post_type_check_list() の帰り値は
+		$post_types[post][true]
+		という形式に変更になったので、
+		旧形式の配列でフックされた時用
+		*/
+		foreach ( $post_types as $key => $value ) {
+			if ( is_numeric( $key ) ) {
+				if ( get_post_type() == $value ) {
+					$print = true;
+				}
+			}
+		}
+
+		if ( $print ) {
 				$content  = preg_replace( '/(<span id="more-[0-9]+"><\/span>)/', '$1' . '[vkExUnit_ad area=more]', $content );
 				$content  = '[vkExUnit_ad area=before]' . $content;
 				$content .= '[vkExUnit_ad area=after]';
-			}
 		}
 
 		return $content;
@@ -98,6 +122,7 @@ class vExUnit_Ads {
 
 
 	public function sanitize_config( $input ) {
+		$option              = $input;
 		$option['before'][0] = stripslashes( $input['before'][0] );
 		$option['before'][1] = stripslashes( $input['before'][1] );
 		$option['more'][0]   = stripslashes( $input['more'][0] );
@@ -131,13 +156,17 @@ class vExUnit_Ads {
 
 
 	public static function get_option() {
-		$option              = get_option(
-			'vkExUnit_Ads', array(
-				'before' => array( '' ),
-				'more'   => array( '' ),
-				'after'  => array( '' ),
-			)
+		$default = array(
+			'before'     => array( '' ),
+			'more'       => array( '' ),
+			'after'      => array( '' ),
+			'post_types' => array( 'post' => true ),
 		);
+		$option  = get_option( 'vkExUnit_Ads', $default );
+
+		// post_types を後で追加したので、option値に保存されてない時にデフォルトの post とマージする
+		$option = wp_parse_args( $option, $default );
+
 		$option['before'][0] = ( isset( $option['before'][0] ) ) ? $option['before'][0] : '';
 		$option['more'][0]   = ( isset( $option['more'][0] ) ) ? $option['more'][0] : '';
 		$option['after'][0]  = ( isset( $option['after'][0] ) ) ? $option['after'][0] : '';
@@ -147,41 +176,54 @@ class vExUnit_Ads {
 
 	public function render_configPage() {
 		$option = $this->get_option();
-?>
-<h3><?php _e( 'Insert ads', 'vkExUnit' ); ?></h3>
+	?>
+	<h3><?php _e( 'Insert ads', 'vkExUnit' ); ?></h3>
 <div id="vkExUnit_Ads" class="sectionBox">
 <table class="form-table">
 <tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
 </th><td style="max-width:80em;">
 <?php _e( 'Insert ads to before content and more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
-	<dl>
-		<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vkExUnit' ); ?></label></dt>
-		<dd>
-		<textarea rows="5" name="vkExUnit_Ads[before][]" id="ad_content_before" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['before'][0] ) && $option['before'][0] ) ? $option['before'][0] : ''; ?></textarea>
-		<br/>
-		<textarea rows="5" name="vkExUnit_Ads[before][]" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['before'][1] ) && $option['before'][1] ) ? $option['before'][1] : ''; ?></textarea>
-		</dd>
-	</dl>
-	<dl>
-		<dt><label for="ad_content_moretag"><?php _e( 'insert the ad [ more tag ]', 'vkExUnit' ); ?></label></dt>
-		<dd>
-		<textarea rows="5" name="vkExUnit_Ads[more][]" id="ad_content_moretag" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['more'][0] ) && $option['more'][0] ) ? $option['more'][0] : ''; ?></textarea>
-		<br/>
-		<textarea rows="5" name="vkExUnit_Ads[more][]" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['more'][1] ) && $option['more'][1] ) ? $option['more'][1] : ''; ?></textarea>
-		</dd>
-	</dl>
-	<dl>
-		<dt><label for="ad_content_after"><?php _e( 'insert the ad [ after content ]', 'vkExUnit' ); ?></label></dt>
-		<dd>
-		<textarea rows="5" name="vkExUnit_Ads[after][]" id="ad_content_after" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['after'][0] ) && $option['after'][0] ) ? $option['after'][0] : ''; ?></textarea>
-		<br/>
-		<textarea rows="5" name="vkExUnit_Ads[after][]" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['after'][1] ) && $option['after'][1] ) ? $option['after'][1] : ''; ?></textarea>
-		</dd>
-	</dl>
-</td></tr></table>
-<?php submit_button(); ?>
-</div>
-<?php
+<dl>
+	<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vkExUnit' ); ?></label></dt>
+	<dd>
+	<textarea rows="5" name="vkExUnit_Ads[before][]" id="ad_content_before" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['before'][0] ) && $option['before'][0] ) ? $option['before'][0] : ''; ?></textarea>
+	<br/>
+	<textarea rows="5" name="vkExUnit_Ads[before][]" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['before'][1] ) && $option['before'][1] ) ? $option['before'][1] : ''; ?></textarea>
+	</dd>
+</dl>
+<dl>
+	<dt><label for="ad_content_moretag"><?php _e( 'insert the ad [ more tag ]', 'vkExUnit' ); ?></label></dt>
+	<dd>
+	<textarea rows="5" name="vkExUnit_Ads[more][]" id="ad_content_moretag" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['more'][0] ) && $option['more'][0] ) ? $option['more'][0] : ''; ?></textarea>
+	<br/>
+	<textarea rows="5" name="vkExUnit_Ads[more][]" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['more'][1] ) && $option['more'][1] ) ? $option['more'][1] : ''; ?></textarea>
+	</dd>
+</dl>
+<dl>
+	<dt><label for="ad_content_after"><?php _e( 'insert the ad [ after content ]', 'vkExUnit' ); ?></label></dt>
+	<dd>
+	<textarea rows="5" name="vkExUnit_Ads[after][]" id="ad_content_after" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['after'][0] ) && $option['after'][0] ) ? $option['after'][0] : ''; ?></textarea>
+	<br/>
+	<textarea rows="5" name="vkExUnit_Ads[after][]" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['after'][1] ) && $option['after'][1] ) ? $option['after'][1] : ''; ?></textarea>
+	</dd>
+</dl>
+</td></tr>
+<tr>
+<th>表示する投稿タイプ</th>
+<td>
+		<?php
+		$args = array(
+			'name'    => 'vkExUnit_Ads[post_types]',
+			'checked' => $option['post_types'],
+		);
+		vk_the_post_type_check_list( $args );
+		?>
+		</td>
+	</tr>
+	</table>
+	<?php submit_button(); ?>
+	</div>
+	<?php
 	}
 }
 
