@@ -253,6 +253,7 @@ $('a[href^="#"]').click(function() {
 /*	scroll
 /*----------------------------------------------------------*/
 // Scroll function
+(function($) {
 $(window).scroll(function() {
 	var scroll = $(this).scrollTop();
 	if ($(this).scrollTop() > 1) {
@@ -261,3 +262,4 @@ $(window).scroll(function() {
 		$('body').removeClass('scrolled');
 	}
 });
+})(jQuery);
