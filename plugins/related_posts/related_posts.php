@@ -175,11 +175,19 @@ function veu_add_related_posts_html( $content ) {
 		return $content;
 	}
 
+	$output = get_option( 'vkExUnit_related_options' );
+
+	if ( ! empty( $output['related_display_count'] ) ) {
+		$count = vk_sanitize_number( $output['related_display_count'] );
+	} else {
+		$count = 10;
+	}
+
 	$related_post_args = apply_filters(
 		'veu_related_post_args', array(
 			'post_type'      => 'post',
 			'taxonomy'       => 'post_tag',
-			'max_show_posts' => 10,
+			'max_show_posts' => $count,
 		)
 	);
 	$related_posts     = veu_get_related_posts( $related_post_args['post_type'], $related_post_args['taxonomy'], $related_post_args['max_show_posts'] );
@@ -193,6 +201,7 @@ function veu_add_related_posts_html( $content ) {
 		$relatedPostsHtml .= '<aside class="veu_relatedPosts veu_contentAddSection">';
 
 		$output = get_option( 'vkExUnit_related_options' );
+
 		// テキストフィールドに値が入っていたら、表示させる。
 		if ( ! empty( $output['related_title'] ) ) {
 			$relatedPostTitle = $output['related_title'];
@@ -256,6 +265,27 @@ function veu_customize_register_related( $wp_customize ) {
 			'priority' => 1,
 		)
 	);
+
+	// セッティング _ 表示件数
+	$wp_customize->add_setting(
+		'vkExUnit_related_options[related_display_count]', array(
+			'default'           => '',
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'vk_sanitize_number',
+		)
+	);
+	// コントロール _ 表示件数
+	$wp_customize->add_control(
+		'related_display_count', array(
+			'label'    => __( 'Display count', 'vkExUnit' ),
+			'section'  => 'veu_related_setting',
+			'settings' => 'vkExUnit_related_options[related_display_count]',
+			'type'     => 'text',
+			'priority' => 1,
+		)
+	);
+
 	/*-------------------------------------------*/
 	/*	Add Edit Customize Link Btn
 	/*-------------------------------------------*/

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-24 01:42+0900\n"
+"POT-Creation-Date: 2018-12-27 04:04+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -36,7 +36,7 @@ msgid "Description"
 msgstr "説明"
 
 #: admin_active_setting_page.php:35 dist/admin_active_setting_page.php:35
-#: dist/veu-packages.php:355 veu-packages.php:366
+#: dist/veu-packages.php:366 veu-packages.php:366
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
@@ -93,9 +93,9 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: dist/plugins/call-to-action/class-vk-call-to-action.php:63
-#: dist/plugins/call-to-action/view-actionbox.php:69
+#: dist/plugins/call-to-action/view-actionbox.php:73
 #: plugins/call-to-action/class-vk-call-to-action.php:63
-#: plugins/call-to-action/view-actionbox.php:69
+#: plugins/call-to-action/view-actionbox.php:73
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
@@ -124,18 +124,18 @@ msgid "CTA Contents"
 msgstr "CTA Contents"
 
 #: dist/plugins/call-to-action/class-vk-call-to-action.php:128
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:604
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:613
 #: dist/plugins/call-to-action/widget-call-to-action.php:74
 #: plugins/call-to-action/class-vk-call-to-action.php:128
-#: plugins/call-to-action/class-vk-call-to-action.php:604
+#: plugins/call-to-action/class-vk-call-to-action.php:613
 #: plugins/call-to-action/widget-call-to-action.php:74
 msgid "Random"
 msgstr "ランダム表示"
 
 #: dist/plugins/call-to-action/class-vk-call-to-action.php:134
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:611
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:620
 #: plugins/call-to-action/class-vk-call-to-action.php:134
-#: plugins/call-to-action/class-vk-call-to-action.php:611
+#: plugins/call-to-action/class-vk-call-to-action.php:620
 msgid "Disable display"
 msgstr "表示しない"
 
@@ -257,19 +257,19 @@ msgid "CTA setting"
 msgstr "CTA設定"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:15
-#: dist/veu-packages.php:304 plugins/call-to-action/view-adminsetting.php:15
+#: dist/veu-packages.php:315 plugins/call-to-action/view-adminsetting.php:15
 #: veu-packages.php:315
 msgid "Call To Action"
 msgstr "Call To Action"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:19
-#: dist/veu-packages.php:296 plugins/call-to-action/view-adminsetting.php:19
+#: dist/veu-packages.php:307 plugins/call-to-action/view-adminsetting.php:19
 #: veu-packages.php:307
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:20
-#: dist/veu-packages.php:298 plugins/call-to-action/view-adminsetting.php:20
+#: dist/veu-packages.php:309 plugins/call-to-action/view-adminsetting.php:20
 #: veu-packages.php:309
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
@@ -279,7 +279,7 @@ msgstr ""
 "情報を表示します。"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:21
-#: dist/veu-packages.php:300 plugins/call-to-action/view-adminsetting.php:21
+#: dist/veu-packages.php:311 plugins/call-to-action/view-adminsetting.php:21
 #: veu-packages.php:311
 msgid ""
 "As an example, text message and a link button for induction to the free "
@@ -339,15 +339,15 @@ msgstr "表示するCTAを選択してください。"
 msgid "Please select"
 msgstr "選択してください"
 
-#: dist/plugins/child_page_index.php:76
+#: dist/plugins/child_page_index.php:79
 #: dist/plugins/other_widget/widget-3pr-area.php:198
-#: plugins/child_page_index.php:76 plugins/other_widget/widget-3pr-area.php:198
+#: plugins/child_page_index.php:79 plugins/other_widget/widget-3pr-area.php:198
 msgid "Read more"
 msgstr "詳しくはこちら"
 
-#: dist/plugins/child_page_index.php:139
+#: dist/plugins/child_page_index.php:150
 #: dist/plugins/other_widget/widget-page.php:166
-#: plugins/child_page_index.php:139 plugins/other_widget/widget-page.php:166
+#: plugins/child_page_index.php:150 plugins/other_widget/widget-page.php:166
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
@@ -616,7 +616,7 @@ msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
 #: dist/plugins/contact-section/contact-section.php:486
-#: dist/veu-packages.php:269 plugins/contact-section/contact-section.php:486
+#: dist/veu-packages.php:280 plugins/contact-section/contact-section.php:486
 #: veu-packages.php:280
 msgid "Contact Section"
 msgstr "お問い合わせ情報"
@@ -684,30 +684,32 @@ msgstr "CSSが保存されました"
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
 
-#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:21
-#: plugins/font-awesome/class-vk-font-awesome-versions.php:21
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:22
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:37
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:22
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:37
 msgid "Not recommended"
 msgstr "非推奨"
 
-#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:55
-#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:57
-#: plugins/font-awesome/class-vk-font-awesome-versions.php:55
-#: plugins/font-awesome/class-vk-font-awesome-versions.php:57
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:69
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:71
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:69
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:71
 msgid "Ex ) "
 msgstr "例 ) "
 
-#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:152
-#: plugins/font-awesome/class-vk-font-awesome-versions.php:152
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:169
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:169
 msgid "Font Awesome"
 msgstr ""
 
-#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:173
-#: plugins/font-awesome/class-vk-font-awesome-versions.php:173
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:190
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:190
 msgid "Font Awesome Version"
 msgstr ""
 
-#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:176
-#: plugins/font-awesome/class-vk-font-awesome-versions.php:176
+#: dist/plugins/font-awesome/class-vk-font-awesome-versions.php:193
+#: plugins/font-awesome/class-vk-font-awesome-versions.php:193
 msgid "4.7 will be abolished in the near future."
 msgstr "4.7は将来的に廃止します。"
 
@@ -833,33 +835,33 @@ msgstr "アイコンを選択"
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
-#: dist/plugins/insert_ads.php:37 dist/plugins/insert_ads.php:137
-#: dist/veu-packages.php:327 plugins/insert_ads.php:37
-#: plugins/insert_ads.php:137 veu-packages.php:338
+#: dist/plugins/insert_ads.php:37 dist/plugins/insert_ads.php:180
+#: dist/veu-packages.php:338 plugins/insert_ads.php:37
+#: plugins/insert_ads.php:180 veu-packages.php:338
 msgid "Insert ads"
 msgstr "広告の挿入"
 
-#: dist/plugins/insert_ads.php:140 plugins/insert_ads.php:140
+#: dist/plugins/insert_ads.php:183 plugins/insert_ads.php:183
 msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
-#: dist/plugins/insert_ads.php:142 plugins/insert_ads.php:142
+#: dist/plugins/insert_ads.php:185 plugins/insert_ads.php:185
 msgid "Insert ads to before content and more tag and after content."
 msgstr "記事の直前 / moreタグの直後 / 記事の最後に広告を挿入できます。"
 
-#: dist/plugins/insert_ads.php:142 plugins/insert_ads.php:142
+#: dist/plugins/insert_ads.php:185 plugins/insert_ads.php:185
 msgid "If you want to separate ads area, you fill two fields."
 msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
 
-#: dist/plugins/insert_ads.php:144 plugins/insert_ads.php:144
+#: dist/plugins/insert_ads.php:187 plugins/insert_ads.php:187
 msgid "insert the ad [ before content ]"
 msgstr "広告を挿入 [ 記事の最初 ]"
 
-#: dist/plugins/insert_ads.php:152 plugins/insert_ads.php:152
+#: dist/plugins/insert_ads.php:195 plugins/insert_ads.php:195
 msgid "insert the ad [ more tag ]"
 msgstr "広告を挿入 [ moreタグ ]"
 
-#: dist/plugins/insert_ads.php:160 plugins/insert_ads.php:160
+#: dist/plugins/insert_ads.php:203 plugins/insert_ads.php:203
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 
@@ -998,7 +1000,7 @@ msgid "3PR area setting"
 msgstr "3PR エリア設定"
 
 #: dist/plugins/other_widget/widget-3pr-area.php:56
-#: dist/plugins/other_widget/widget-new-posts.php:219
+#: dist/plugins/other_widget/widget-new-posts.php:218
 #: dist/plugins/other_widget/widget-page.php:126
 #: dist/plugins/other_widget/widget-pr-blocks.php:111
 #: dist/plugins/other_widget/widget-profile.php:55
@@ -1006,11 +1008,11 @@ msgstr "3PR エリア設定"
 #: dist/plugins/sns/widget-fb-page-plugin.php:79
 #: dist/plugins/sns/widget-twitter.php:84
 #: plugins/other_widget/widget-3pr-area.php:56
-#: plugins/other_widget/widget-new-posts.php:219
+#: plugins/other_widget/widget-new-posts.php:218
 #: plugins/other_widget/widget-page.php:126
 #: plugins/other_widget/widget-pr-blocks.php:111
 #: plugins/other_widget/widget-profile.php:55
-#: plugins/related_posts/related_posts.php:252
+#: plugins/related_posts/related_posts.php:261
 #: plugins/sns/widget-fb-page-plugin.php:79 plugins/sns/widget-twitter.php:84
 msgid "Title:"
 msgstr "タイトル"
@@ -1072,12 +1074,12 @@ msgstr "リンク先ページのURL"
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
 
-#: dist/plugins/other_widget/widget-archives.php:9 dist/veu-packages.php:205
+#: dist/plugins/other_widget/widget-archives.php:9 dist/veu-packages.php:216
 #: plugins/other_widget/widget-archives.php:9 veu-packages.php:216
 msgid "archive list"
 msgstr "アーカイブリスト"
 
-#: dist/plugins/other_widget/widget-archives.php:14 dist/veu-packages.php:205
+#: dist/plugins/other_widget/widget-archives.php:14 dist/veu-packages.php:216
 #: plugins/other_widget/widget-archives.php:14 veu-packages.php:216
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
@@ -1094,11 +1096,11 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: dist/plugins/other_widget/widget-archives.php:68
-#: dist/plugins/other_widget/widget-new-posts.php:229
-#: dist/plugins/other_widget/widget-new-posts.php:235
+#: dist/plugins/other_widget/widget-new-posts.php:228
+#: dist/plugins/other_widget/widget-new-posts.php:234
 #: plugins/other_widget/widget-archives.php:68
-#: plugins/other_widget/widget-new-posts.php:229
-#: plugins/other_widget/widget-new-posts.php:235
+#: plugins/other_widget/widget-new-posts.php:228
+#: plugins/other_widget/widget-new-posts.php:234
 msgid "Title"
 msgstr "タイトル"
 
@@ -1247,9 +1249,9 @@ msgid "Display the child pages list from ancestor page."
 msgstr "表示しているページの先祖階層からの子ページリストを表示します。"
 
 #: dist/plugins/other_widget/widget-new-posts.php:11
-#: dist/plugins/other_widget/widget-new-posts.php:196
+#: dist/plugins/other_widget/widget-new-posts.php:195
 #: plugins/other_widget/widget-new-posts.php:11
-#: plugins/other_widget/widget-new-posts.php:196
+#: plugins/other_widget/widget-new-posts.php:195
 msgid "Recent Posts"
 msgstr "最新記事"
 
@@ -1258,84 +1260,85 @@ msgstr "最新記事"
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:223
-#: plugins/other_widget/widget-new-posts.php:223
+#: dist/plugins/other_widget/widget-new-posts.php:222
+#: plugins/other_widget/widget-new-posts.php:222
 msgid "Display Format"
 msgstr "表示形式"
 
-#: dist/plugins/other_widget/widget-new-posts.php:229
-#: plugins/other_widget/widget-new-posts.php:229
+#: dist/plugins/other_widget/widget-new-posts.php:228
+#: plugins/other_widget/widget-new-posts.php:228
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: dist/plugins/other_widget/widget-new-posts.php:229
-#: dist/plugins/other_widget/widget-new-posts.php:235
-#: plugins/other_widget/widget-new-posts.php:229
-#: plugins/other_widget/widget-new-posts.php:235
+#: dist/plugins/other_widget/widget-new-posts.php:228
+#: dist/plugins/other_widget/widget-new-posts.php:234
+#: plugins/other_widget/widget-new-posts.php:228
+#: plugins/other_widget/widget-new-posts.php:234
 msgid "Date"
 msgstr "日付"
 
-#: dist/plugins/other_widget/widget-new-posts.php:235
+#: dist/plugins/other_widget/widget-new-posts.php:234
 #: dist/plugins/other_widget/widget-taxonomies.php:26
 #: dist/plugins/other_widget/widget-taxonomies.php:56
 #: dist/plugins/other_widget/widget-taxonomies.php:57
-#: plugins/other_widget/widget-new-posts.php:235
+#: plugins/other_widget/widget-new-posts.php:234
 #: plugins/other_widget/widget-taxonomies.php:26
 #: plugins/other_widget/widget-taxonomies.php:56
 #: plugins/other_widget/widget-taxonomies.php:57
 msgid "Category"
 msgstr "カテゴリー"
 
-#: dist/plugins/other_widget/widget-new-posts.php:238
-#: plugins/other_widget/widget-new-posts.php:238
+#: dist/plugins/other_widget/widget-new-posts.php:237
+#: plugins/other_widget/widget-new-posts.php:237
 msgid "Order by"
 msgstr "表示順"
 
-#: dist/plugins/other_widget/widget-new-posts.php:244
-#: plugins/other_widget/widget-new-posts.php:244
+#: dist/plugins/other_widget/widget-new-posts.php:243
+#: plugins/other_widget/widget-new-posts.php:243
 msgid "Publish date"
 msgstr "公開日"
 
-#: dist/plugins/other_widget/widget-new-posts.php:250
-#: plugins/other_widget/widget-new-posts.php:250
+#: dist/plugins/other_widget/widget-new-posts.php:249
+#: plugins/other_widget/widget-new-posts.php:249
 msgid "Modified date"
 msgstr "最終更新日"
 
-#: dist/plugins/other_widget/widget-new-posts.php:254
-#: plugins/other_widget/widget-new-posts.php:254
+#: dist/plugins/other_widget/widget-new-posts.php:253
+#: plugins/other_widget/widget-new-posts.php:253
+#: plugins/related_posts/related_posts.php:281
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: dist/plugins/other_widget/widget-new-posts.php:259
-#: plugins/other_widget/widget-new-posts.php:259
+#: dist/plugins/other_widget/widget-new-posts.php:258
+#: plugins/other_widget/widget-new-posts.php:258
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: dist/plugins/other_widget/widget-new-posts.php:264
-#: plugins/other_widget/widget-new-posts.php:264
+#: dist/plugins/other_widget/widget-new-posts.php:263
+#: plugins/other_widget/widget-new-posts.php:263
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: dist/plugins/other_widget/widget-new-posts.php:267
-#: plugins/other_widget/widget-new-posts.php:267
+#: dist/plugins/other_widget/widget-new-posts.php:266
+#: plugins/other_widget/widget-new-posts.php:266
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:269
-#: dist/plugins/sns/sns_admin.php:94
-#: plugins/other_widget/widget-new-posts.php:269 plugins/sns/sns_admin.php:94
+#: dist/plugins/other_widget/widget-new-posts.php:268
+#: dist/plugins/sns/sns_admin.php:85
+#: plugins/other_widget/widget-new-posts.php:268 plugins/sns/sns_admin.php:85
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:274
-#: plugins/other_widget/widget-new-posts.php:274
+#: dist/plugins/other_widget/widget-new-posts.php:273
+#: plugins/other_widget/widget-new-posts.php:273
 msgid "Destination URL:"
 msgstr "リンク先URL:"
 
-#: dist/plugins/other_widget/widget-new-posts.php:277
-#: plugins/other_widget/widget-new-posts.php:277
+#: dist/plugins/other_widget/widget-new-posts.php:276
+#: plugins/other_widget/widget-new-posts.php:276
 msgid "Notation text:"
 msgstr "表記テキスト:"
 
@@ -1780,13 +1783,13 @@ msgid ""
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
-#: dist/plugins/related_posts/related_posts.php:201 dist/veu-packages.php:344
-#: plugins/related_posts/related_posts.php:201 veu-packages.php:355
+#: dist/plugins/related_posts/related_posts.php:201 dist/veu-packages.php:355
+#: plugins/related_posts/related_posts.php:210 veu-packages.php:355
 msgid "Related posts"
 msgstr "関連記事を表示"
 
 #: dist/plugins/related_posts/related_posts.php:235
-#: plugins/related_posts/related_posts.php:235
+#: plugins/related_posts/related_posts.php:244
 msgid "Related Settings"
 msgstr "関連記事設定"
 
@@ -1822,21 +1825,21 @@ msgid ""
 "that you want to exclude."
 msgstr "複数のページを除外する場合は , （コンマ）で区切って入力してください。"
 
-#: dist/plugins/sitemap_page/sitemap_page.php:37
-#: plugins/sitemap_page/sitemap_page.php:37
+#: dist/plugins/sitemap_page/sitemap_page.php:34
+#: plugins/sitemap_page/sitemap_page.php:34
 msgid "HTML Sitemap"
 msgstr "HTMLサイトマップ"
 
-#: dist/plugins/sitemap_page/sitemap_page.php:260
-#: plugins/sitemap_page/sitemap_page.php:260
+#: dist/plugins/sitemap_page/sitemap_page.php:261
+#: plugins/sitemap_page/sitemap_page.php:261
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
-#: dist/plugins/sns/function_follow.php:17 plugins/sns/function_follow.php:17
+#: dist/plugins/sns/function_follow.php:25 plugins/sns/function_follow.php:25
 msgid "Follow me"
 msgstr "このサイトをフォローする"
 
-#: dist/plugins/sns/function_follow.php:65 plugins/sns/function_follow.php:65
+#: dist/plugins/sns/function_follow.php:73 plugins/sns/function_follow.php:73
 msgid "Edit follow button"
 msgstr "Follow me box の編集"
 
@@ -1982,62 +1985,62 @@ msgstr "ソーシャルブックマーク（シェアボタンやtweetボタン�
 msgid "Exclude Post Types"
 msgstr "シェアボタンを表示しない投稿タイプ"
 
-#: dist/plugins/sns/sns_admin.php:82 plugins/sns/sns_admin.php:82
+#: dist/plugins/sns/sns_admin.php:73 plugins/sns/sns_admin.php:73
 msgid "Exclude Post ID"
 msgstr "シェアボタンを表示しない投稿のID"
 
-#: dist/plugins/sns/sns_admin.php:92 plugins/sns/sns_admin.php:92
+#: dist/plugins/sns/sns_admin.php:83 plugins/sns/sns_admin.php:83
 msgid ""
 "if you need filtering by post_ID, add the ignore post_ID separate by \",\"."
 msgstr ""
 "特定のポストのみSNSボタンを表示したくない場合、カンマ(,)区切りでポストIDを入"
 "力します。"
 
-#: dist/plugins/sns/sns_admin.php:96 plugins/sns/sns_admin.php:96
+#: dist/plugins/sns/sns_admin.php:87 plugins/sns/sns_admin.php:87
 msgid "example"
 msgstr "例"
 
-#: dist/plugins/sns/sns_admin.php:105 dist/plugins/sns/sns_customizer.php:470
-#: plugins/sns/sns_admin.php:105 plugins/sns/sns_customizer.php:470
+#: dist/plugins/sns/sns_admin.php:96 dist/plugins/sns/sns_customizer.php:470
+#: plugins/sns/sns_admin.php:96 plugins/sns/sns_customizer.php:470
 msgid "Follow me box"
 msgstr "Follow me box"
 
-#: dist/plugins/sns/sns_admin.php:106 plugins/sns/sns_admin.php:106
+#: dist/plugins/sns/sns_admin.php:97 plugins/sns/sns_admin.php:97
 msgid "Print the Follow me box"
 msgstr "Follow me ユニットを本文の下に表示する"
 
-#: dist/plugins/sns/sns_admin.php:108 dist/plugins/sns/sns_customizer.php:504
-#: plugins/sns/sns_admin.php:108 plugins/sns/sns_customizer.php:504
+#: dist/plugins/sns/sns_admin.php:99 dist/plugins/sns/sns_customizer.php:504
+#: plugins/sns/sns_admin.php:99 plugins/sns/sns_customizer.php:504
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
-#: dist/plugins/sns/sns_admin.php:115 dist/plugins/sns/sns_customizer.php:354
-#: plugins/sns/sns_admin.php:115 plugins/sns/sns_customizer.php:354
+#: dist/plugins/sns/sns_admin.php:106 dist/plugins/sns/sns_customizer.php:354
+#: plugins/sns/sns_admin.php:106 plugins/sns/sns_customizer.php:354
 msgid "Share button for display"
 msgstr "表示するボタン"
 
-#: dist/plugins/sns/sns_admin.php:123 plugins/sns/sns_admin.php:123
+#: dist/plugins/sns/sns_admin.php:114 plugins/sns/sns_admin.php:114
 msgid "Facebook"
 msgstr "Facebook"
 
-#: dist/plugins/sns/sns_admin.php:129 dist/plugins/sns/sns_customizer.php:395
-#: dist/plugins/sns/widget-twitter.php:9 plugins/sns/sns_admin.php:129
+#: dist/plugins/sns/sns_admin.php:120 dist/plugins/sns/sns_customizer.php:395
+#: dist/plugins/sns/widget-twitter.php:9 plugins/sns/sns_admin.php:120
 #: plugins/sns/sns_customizer.php:395 plugins/sns/widget-twitter.php:9
 msgid "Twitter"
 msgstr "Twitter"
 
-#: dist/plugins/sns/sns_admin.php:135 dist/plugins/sns/sns_customizer.php:416
-#: plugins/sns/sns_admin.php:135 plugins/sns/sns_customizer.php:416
+#: dist/plugins/sns/sns_admin.php:126 dist/plugins/sns/sns_customizer.php:416
+#: plugins/sns/sns_admin.php:126 plugins/sns/sns_customizer.php:416
 msgid "Hatena"
 msgstr "はてな"
 
-#: dist/plugins/sns/sns_admin.php:141 dist/plugins/sns/sns_customizer.php:437
-#: plugins/sns/sns_admin.php:141 plugins/sns/sns_customizer.php:437
+#: dist/plugins/sns/sns_admin.php:132 dist/plugins/sns/sns_customizer.php:437
+#: plugins/sns/sns_admin.php:132 plugins/sns/sns_customizer.php:437
 msgid "Pocket"
 msgstr "Pocket"
 
-#: dist/plugins/sns/sns_admin.php:147 dist/plugins/sns/sns_customizer.php:458
-#: plugins/sns/sns_admin.php:147 plugins/sns/sns_customizer.php:458
+#: dist/plugins/sns/sns_admin.php:138 dist/plugins/sns/sns_customizer.php:458
+#: plugins/sns/sns_admin.php:138 plugins/sns/sns_customizer.php:458
 msgid "LINE (mobile only)"
 msgstr "LINE (mobile only)"
 
@@ -2257,6 +2260,11 @@ msgstr "%s の記事"
 msgid "Page of %s"
 msgstr "%sページ目"
 
+#: dist/plugins/vk-blocks/vk-blocks-functions.php:68
+#: plugins/vk-blocks/vk-blocks-functions.php:68
+msgid "Blocks（Beta）"
+msgstr ""
+
 #: dist/plugins/wp_title.php:47 plugins/wp_title.php:47
 #, php-format
 msgid "Search Results for : %s"
@@ -2374,17 +2382,25 @@ msgstr ""
 "テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
 "さい。"
 
-#: dist/veu-packages.php:94 veu-packages.php:105
+#: dist/veu-packages.php:94 veu-packages.php:94
+msgid "VK Blocks ( Beta )"
+msgstr ""
+
+#: dist/veu-packages.php:95 veu-packages.php:95
+msgid "Extends Gutenberg's blocks."
+msgstr "Gutenbergのブロックを拡張します。"
+
+#: dist/veu-packages.php:105 veu-packages.php:105
 msgid "Favicon setting"
 msgstr "ファビコン設定"
 
-#: dist/veu-packages.php:95 veu-packages.php:106
+#: dist/veu-packages.php:106 veu-packages.php:106
 msgid "About favicon."
 msgstr ""
 "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
 "（ファビコン）を設定します。"
 
-#: dist/veu-packages.php:95 veu-packages.php:106
+#: dist/veu-packages.php:106 veu-packages.php:106
 msgid ""
 "This feature will be discontinued shortly.<br>You can set the site icon from "
 "\"Site Identity\" panel of \"Themes > Customize\"."
@@ -2393,81 +2409,81 @@ msgstr ""
 "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
 "ます。"
 
-#: dist/veu-packages.php:105 veu-packages.php:116
+#: dist/veu-packages.php:116 veu-packages.php:116
 msgid "Rewrite the title tag"
 msgstr "タイトルタグの書き換え"
 
-#: dist/veu-packages.php:106 veu-packages.php:117
+#: dist/veu-packages.php:117 veu-packages.php:117
 msgid "Print is rewritten by its own rules to html head."
 msgstr ""
 "head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
 "EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
 "ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
 
-#: dist/veu-packages.php:109 dist/veu-packages.php:127
-#: dist/veu-packages.php:166 dist/veu-packages.php:184
-#: dist/veu-packages.php:214 dist/veu-packages.php:232
-#: dist/veu-packages.php:273 dist/veu-packages.php:308
-#: dist/veu-packages.php:331 dist/veu-packages.php:410 veu-packages.php:120
+#: dist/veu-packages.php:120 dist/veu-packages.php:138
+#: dist/veu-packages.php:177 dist/veu-packages.php:195
+#: dist/veu-packages.php:225 dist/veu-packages.php:243
+#: dist/veu-packages.php:284 dist/veu-packages.php:319
+#: dist/veu-packages.php:342 dist/veu-packages.php:421 veu-packages.php:120
 #: veu-packages.php:138 veu-packages.php:177 veu-packages.php:195
 #: veu-packages.php:225 veu-packages.php:243 veu-packages.php:284
 #: veu-packages.php:319 veu-packages.php:342 veu-packages.php:421
 msgid "Setting"
 msgstr "設定"
 
-#: dist/veu-packages.php:123 veu-packages.php:134
+#: dist/veu-packages.php:134 veu-packages.php:134
 msgid "Print meta Keyword"
 msgstr "メタキーワードを出力"
 
-#: dist/veu-packages.php:124 veu-packages.php:135
+#: dist/veu-packages.php:135 veu-packages.php:135
 msgid "Print meta Keyword to html head."
 msgstr "ヘッダーにメタキーワードを出力します。"
 
-#: dist/veu-packages.php:140 veu-packages.php:151
+#: dist/veu-packages.php:151 veu-packages.php:151
 msgid "Print meta description"
 msgstr "メタディスクリプションタグを出力"
 
-#: dist/veu-packages.php:141 veu-packages.php:152
+#: dist/veu-packages.php:152 veu-packages.php:152
 msgid "Print meta description to html head."
 msgstr ""
 "投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
 "head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
 "している場合はチェックを外して下さい。"
 
-#: dist/veu-packages.php:150 veu-packages.php:161
+#: dist/veu-packages.php:161 veu-packages.php:161
 msgid "Main setting page"
 msgstr "メイン設定画面"
 
-#: dist/veu-packages.php:152 veu-packages.php:163
+#: dist/veu-packages.php:163 veu-packages.php:163
 msgid "Print og tags to html head."
 msgstr "OG タグを html head 内へ出力します。"
 
-#: dist/veu-packages.php:153 veu-packages.php:164
+#: dist/veu-packages.php:164 veu-packages.php:164
 msgid "Print twitter card tags to html head."
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: dist/veu-packages.php:154 veu-packages.php:165
+#: dist/veu-packages.php:165 veu-packages.php:165
 msgid "Print social bookmark buttons."
 msgstr "ソーシャルブックマークボタンを表示します。"
 
-#: dist/veu-packages.php:155 veu-packages.php:166
+#: dist/veu-packages.php:166 veu-packages.php:166
 msgid "Facebook Page Plugin widget."
 msgstr "Facebookページプラグインウィジェット"
 
-#: dist/veu-packages.php:156 veu-packages.php:167
+#: dist/veu-packages.php:167 veu-packages.php:167
 msgid "Print Follow me box to content bottom."
 msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
 
-#: dist/veu-packages.php:158 veu-packages.php:169
+#: dist/veu-packages.php:169 veu-packages.php:169
 #, php-format
 msgid "* You can stop the function separately from the %s."
 msgstr "%s から個別に機能を停止する事ができます。"
 
-#: dist/veu-packages.php:162 veu-packages.php:173
+#: dist/veu-packages.php:173 veu-packages.php:173
 msgid "Social media cooperation"
 msgstr "ソーシャルメディア連携"
 
-#: dist/veu-packages.php:181 veu-packages.php:192
+#: dist/veu-packages.php:192 veu-packages.php:192
 msgid "Print Google Analytics tracking code."
 msgstr ""
 "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
@@ -2475,64 +2491,64 @@ msgstr ""
 "のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
 "合はチェックを外して下さい。"
 
-#: dist/veu-packages.php:197 veu-packages.php:208
+#: dist/veu-packages.php:208 veu-packages.php:208
 msgid "You can use various widgets."
 msgstr ""
 "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
 "→「ウィジェット」の設定画面より行って下さい。"
 
-#: dist/veu-packages.php:199 veu-packages.php:210
+#: dist/veu-packages.php:210 veu-packages.php:210
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
-#: dist/veu-packages.php:200 veu-packages.php:211
+#: dist/veu-packages.php:211 veu-packages.php:211
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
-#: dist/veu-packages.php:201 veu-packages.php:212
+#: dist/veu-packages.php:212 veu-packages.php:212
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
 
-#: dist/veu-packages.php:202 veu-packages.php:213
+#: dist/veu-packages.php:213 veu-packages.php:213
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
 
-#: dist/veu-packages.php:203 veu-packages.php:214
+#: dist/veu-packages.php:214 veu-packages.php:214
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: dist/veu-packages.php:204 veu-packages.php:215
+#: dist/veu-packages.php:215 veu-packages.php:215
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: dist/veu-packages.php:204 veu-packages.php:215
+#: dist/veu-packages.php:215 veu-packages.php:215
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
-#: dist/veu-packages.php:210 veu-packages.php:221
+#: dist/veu-packages.php:221 veu-packages.php:221
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: dist/veu-packages.php:228 veu-packages.php:239
+#: dist/veu-packages.php:239 veu-packages.php:239
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: dist/veu-packages.php:229 veu-packages.php:240
+#: dist/veu-packages.php:240 veu-packages.php:240
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: dist/veu-packages.php:247 veu-packages.php:258
+#: dist/veu-packages.php:258 veu-packages.php:258
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
-#: dist/veu-packages.php:248 veu-packages.php:259
+#: dist/veu-packages.php:259 veu-packages.php:259
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
@@ -2540,87 +2556,87 @@ msgstr ""
 "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
 "サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
-#: dist/veu-packages.php:258 veu-packages.php:269
+#: dist/veu-packages.php:269 veu-packages.php:269
 msgid "Page list from ancestor"
 msgstr "先祖階層からの子ページリスト表示"
 
-#: dist/veu-packages.php:259 veu-packages.php:270
+#: dist/veu-packages.php:270 veu-packages.php:270
 msgid "Display Page list from ancestor at after content."
 msgstr ""
 "現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
 
-#: dist/veu-packages.php:270 veu-packages.php:281
+#: dist/veu-packages.php:281 veu-packages.php:281
 msgid "Display Contact Section at after content."
 msgstr "お問い合わせ情報を本文の下に表示する"
 
-#: dist/veu-packages.php:287 veu-packages.php:298
+#: dist/veu-packages.php:298 veu-packages.php:298
 msgid "Display HTML Site Map"
 msgstr "HTMLサイトマップの表示"
 
-#: dist/veu-packages.php:288 veu-packages.php:299
+#: dist/veu-packages.php:299 veu-packages.php:299
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: dist/veu-packages.php:313 veu-packages.php:324
+#: dist/veu-packages.php:324 veu-packages.php:324
 msgid "Contents setting"
 msgstr "CTA表示内容設定"
 
-#: dist/veu-packages.php:328 veu-packages.php:339
+#: dist/veu-packages.php:339 veu-packages.php:339
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: dist/veu-packages.php:345 veu-packages.php:356
+#: dist/veu-packages.php:356 veu-packages.php:356
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: dist/veu-packages.php:356 veu-packages.php:367
+#: dist/veu-packages.php:367 veu-packages.php:367
 msgid "Display Eye Catch image at before content."
 msgstr ""
 "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
 "す。"
 
-#: dist/veu-packages.php:366 veu-packages.php:377
+#: dist/veu-packages.php:377 veu-packages.php:377
 msgid "Disable ping back"
 msgstr "ping backを停止"
 
-#: dist/veu-packages.php:367 veu-packages.php:378
+#: dist/veu-packages.php:378 veu-packages.php:378
 msgid "Disable xmlrpc ping back."
 msgstr "xmlrpcを停止"
 
-#: dist/veu-packages.php:375 dist/veu-packages.php:376 veu-packages.php:386
+#: dist/veu-packages.php:386 dist/veu-packages.php:387 veu-packages.php:386
 #: veu-packages.php:387
 msgid "Disable dashbord"
 msgstr "ダッシュボードに最新情報を表示しない"
 
-#: dist/veu-packages.php:387 veu-packages.php:398
+#: dist/veu-packages.php:398 veu-packages.php:398
 msgid "TinyMCE Style Tags"
 msgstr "TinyMCE スタイルタグ"
 
-#: dist/veu-packages.php:388 veu-packages.php:399
+#: dist/veu-packages.php:399 veu-packages.php:399
 msgid "Add TinyMCE Editor to style tags."
 msgstr "スタイルタグにTinyMCEエディタを追加する"
 
-#: dist/veu-packages.php:395 veu-packages.php:406
+#: dist/veu-packages.php:406 veu-packages.php:406
 msgid "Admin bar manu"
 msgstr "管理バーメニュー"
 
-#: dist/veu-packages.php:396 veu-packages.php:407
+#: dist/veu-packages.php:407 veu-packages.php:407
 msgid "Add ExUnit menu to admin bar."
 msgstr "ExUnitのメニューを管理バーに表示する"
 
-#: dist/veu-packages.php:406 veu-packages.php:417
+#: dist/veu-packages.php:417 veu-packages.php:417
 msgid "Post Type Manager"
 msgstr "カスタム投稿タイプマネージャー"
 
-#: dist/veu-packages.php:407 veu-packages.php:418
+#: dist/veu-packages.php:418 veu-packages.php:418
 msgid "Add custom post types and custom taxonomies."
 msgstr "カスタム投稿タイプやカスタム分類を追加します。"
 
-#: dist/veu-packages.php:424 veu-packages.php:435
+#: dist/veu-packages.php:435 veu-packages.php:435
 msgid "Page Top Button"
 msgstr "ページトップへ戻るボタン"
 
-#: dist/veu-packages.php:425 veu-packages.php:436
+#: dist/veu-packages.php:436 veu-packages.php:436
 msgid ""
 "The page top button is displayed in the lower right corner of the screen."
 msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
@@ -2644,17 +2660,10 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
 
-#: plugins/vk-blocks/vk-blocks-functions.php:74
-msgid "VK Blocks（Beta）"
-msgstr ""
-
-#: veu-packages.php:94
-msgid "VK Blocks ( Beta )"
-msgstr ""
-
-#: veu-packages.php:95
-msgid "Extends Gutenberg's blocks."
-msgstr "Gutenbergのブロックを拡張します。"
+#, fuzzy
+#~| msgid "Display count"
+#~ msgid "Display count:"
+#~ msgstr "表示する記事数"
 
 #~ msgid "ExUnit Settings"
 #~ msgstr "ExUnit 設定"

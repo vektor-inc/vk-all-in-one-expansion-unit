@@ -267,6 +267,13 @@ if ( ! function_exists( 'veu_sanitize_radio' ) ) {
 	}
 }
 
+if ( ! function_exists( 'vk_sanitize_number' ) ) {
+	function vk_sanitize_number( $input ) {
+		$return = intval( mb_convert_kana( $input, 'n' ) );
+		return esc_attr( $return );
+	}
+}
+
 /*-------------------------------------------*/
 /*  Post Type Check Box
 /*-------------------------------------------*/
