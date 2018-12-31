@@ -9,11 +9,13 @@ msgstr ""
 
 #: src/balloon/block.js:122
 #: src/flow/block.js:111
+#: src/pr-blocks/block.js:324
 msgid "Select image"
 msgstr ""
 
 #: src/balloon/block.js:122
 #: src/flow/block.js:112
+#: src/pr-blocks/block.js:326
 msgid "Upload image"
 msgstr ""
 
@@ -22,6 +24,7 @@ msgid "Icon Name"
 msgstr ""
 
 #: src/balloon/block.js:140
+#: src/button/block.js:225
 msgid "Input text"
 msgstr ""
 
@@ -42,10 +45,12 @@ msgid "Please specify the layout of the balloon."
 msgstr ""
 
 #: src/balloon/block.js:88
+#: src/button/block.js:149
 msgid "Left"
 msgstr ""
 
 #: src/balloon/block.js:89
+#: src/button/block.js:151
 msgid "Right"
 msgstr ""
 
@@ -65,15 +70,144 @@ msgstr ""
 msgid "Thinking"
 msgstr ""
 
-#: src/faq/block.js:25
+#: src/button/block.js:129
+msgid "Button setting"
+msgstr ""
+
+#: src/button/block.js:131
+#: src/pr-blocks/block.js:276
+msgid "Open link new tab."
+msgstr ""
+
+#: src/button/block.js:136
+msgid "Button Size:"
+msgstr ""
+
+#: src/button/block.js:139
+msgid "Large"
+msgstr ""
+
+#: src/button/block.js:140
+msgid "normal"
+msgstr ""
+
+#: src/button/block.js:141
+msgid "Small"
+msgstr ""
+
+#: src/button/block.js:146
+msgid "Button Position:"
+msgstr ""
+
+#: src/button/block.js:150
+msgid "Center"
+msgstr ""
+
+#: src/button/block.js:152
+msgid "Block"
+msgstr ""
+
+#: src/button/block.js:157
+msgid "Button Style:"
+msgstr ""
+
+#: src/button/block.js:160
+#: src/pr-blocks/block.js:305
+msgid "Solid color"
+msgstr ""
+
+#: src/button/block.js:161
+#: src/pr-blocks/block.js:306
+msgid "No background"
+msgstr ""
+
+#: src/button/block.js:163
+msgid "If you select \"No background\", that you need to select a Custom Color."
+msgstr ""
+
+#: src/button/block.js:167
+msgid "Default Color:"
+msgstr ""
+
+#: src/button/block.js:170
+msgid "Primary"
+msgstr ""
+
+#: src/button/block.js:171
+msgid "Secondary"
+msgstr ""
+
+#: src/button/block.js:172
+msgid "Success"
+msgstr ""
+
+#: src/button/block.js:173
+msgid "Info"
+msgstr ""
+
+#: src/button/block.js:174
+msgid "Warning"
+msgstr ""
+
+#: src/button/block.js:175
+msgid "Danger"
+msgstr ""
+
+#: src/button/block.js:176
+msgid "Light"
+msgstr ""
+
+#: src/button/block.js:177
+msgid "Dark"
+msgstr ""
+
+#: src/button/block.js:182
+msgid "Custom Color"
+msgstr ""
+
+#: src/button/block.js:183
+msgid ""
+"This custom color overrides the default color. If you want to use the "
+"default color, click the clear button."
+msgstr ""
+
+#: src/button/block.js:191
+msgid "Font Awesome:"
+msgstr ""
+
+#: src/button/block.js:195
+msgid "Before text"
+msgstr ""
+
+#: src/button/block.js:196
+msgid "Enter Font Awesome Class.This icon will appear before text."
+msgstr ""
+
+#: src/button/block.js:202
+msgid "After text"
+msgstr ""
+
+#: src/button/block.js:203
+msgid "Enter Font Awesome Class.This icon will appear after text."
+msgstr ""
+
+#: src/button/block.js:240
+msgid "Apply"
+msgstr ""
+
+#: src/button/block.js:58
+msgid "Button"
+msgstr ""
+
+#: src/faq/block.js:40
 msgid "FAQ"
 msgstr ""
 
-#: src/faq/block.js:62
+#: src/faq/block.js:77
 msgid "Please enter a question."
 msgstr ""
 
-#: src/faq/block.js:69
+#: src/faq/block.js:84
 msgid "Please enter a answer."
 msgstr ""
 
@@ -94,9 +228,71 @@ msgid "Arrow hidden"
 msgstr ""
 
 #: src/flow/block.js:90
+#: src/pr-blocks/block.js:500
 msgid "Input title"
 msgstr ""
 
 #: src/flow/block.js:97
+#: src/pr-blocks/block.js:507
 msgid "Input content"
+msgstr ""
+
+#: src/pr-blocks/block.js:137
+msgid "PR Block1 Setting"
+msgstr ""
+
+#: src/pr-blocks/block.js:152
+msgid "Icon 1"
+msgstr ""
+
+#: src/pr-blocks/block.js:182
+msgid "PR Image 1"
+msgstr ""
+
+#: src/pr-blocks/block.js:183
+msgid "When you have an image. Image is displayed with priority"
+msgstr ""
+
+#: src/pr-blocks/block.js:202
+msgid "PR Block2 Setting"
+msgstr ""
+
+#: src/pr-blocks/block.js:217
+msgid "Icon 2"
+msgstr ""
+
+#: src/pr-blocks/block.js:247
+msgid "PR Image 2"
+msgstr ""
+
+#: src/pr-blocks/block.js:267
+msgid "PR Block3 Setting"
+msgstr ""
+
+#: src/pr-blocks/block.js:269
+msgid "Link URL:"
+msgstr ""
+
+#: src/pr-blocks/block.js:282
+msgid "Icon 3"
+msgstr ""
+
+#: src/pr-blocks/block.js:285
+msgid "Class name of the Font Awesome icon font you want to use:"
+msgstr ""
+
+#: src/pr-blocks/block.js:302
+msgid "Icon Background:"
+msgstr ""
+
+#: src/pr-blocks/block.js:312
+msgid "PR Image 3"
+msgstr ""
+
+#: src/pr-blocks/block.js:313
+msgid "When you have an image. Image is displayed with priority."
+msgstr ""
+
+#: src/pr-blocks/block.js:91
+msgid "PR Blocks (Beta)"
 msgstr ""
