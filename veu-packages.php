@@ -437,6 +437,18 @@ function vkExUnit_get_packages() {
 		'default'     => false,
 		'include'     => 'pagetop-btn/pagetop-btn.php',
 	);
+
+	/*-------------------------------------------*/
+	/*  Page Top Button
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'add_body_class',
+		'title'       => __( 'Add body class', 'vkExUnit' ),
+		'description' => __( 'Add "Post type", "Page slug" etc class name to the body class.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'add-body-class.php',
+	);
+
 	return $required_packages;
 } // function vkExUnit_get_packages(){
 

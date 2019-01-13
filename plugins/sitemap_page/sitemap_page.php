@@ -162,7 +162,7 @@ function vkExUnit_sitemap( $atts ) {
 	/*-------------------------------------------*/
 	$sitemap_html .= '<div class="col-md-6 sitemap-col">' . PHP_EOL;
 
-	$page_for_posts = vkExUnit_get_page_for_posts();
+	$page_for_posts = vk_get_page_for_posts();
 	$allPostTypes   = get_post_types( array( 'public' => true ) );
 
 	$p = get_posts(
@@ -174,84 +174,61 @@ function vkExUnit_sitemap( $atts ) {
 	if ( empty( $p ) ) {
 		unset( $allPostTypes['post'] );
 	}
+	unset( $allPostTypes['page'] );
+	unset( $allPostTypes['attachment'] );
 
 	foreach ( $allPostTypes as $postType ) {
 		$post_type_object = get_post_type_object( $postType );
-
 		if ( $post_type_object ) {
-			$postType_name = esc_html( $post_type_object->name );
-			// post-type is post
-			if ( $postType_name === 'post' ) {
+			$sitemap_html .= '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
+			$sitemap_html .= '<div class="sectionBox">' . PHP_EOL;
 
-				$postTypes  = array( 'post' );
-				$taxonomies = get_taxonomies();
-				// Loop all post types
-				foreach ( $postTypes as $key => $postType ) {
+			/* Post type name
+			/*-------------------------------------------*/
+			if ( $postType == 'post' && $page_for_posts['post_top_use'] ) {
+				$postTypeName   = $page_for_posts['post_top_name'];
+				$postTypeTopUrl = get_the_permalink( $page_for_posts['post_top_id'] );
+			} else {
+				$postTypeName   = $post_type_object->labels->name;
+				$postTypeTopUrl = get_post_type_archive_link( $postType );
+			}
+			$sitemap_html .= '<h4><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
 
-					$sitemap_html    .= '<div class="sectionBox">' . PHP_EOL;
-					$post_type_object = get_post_type_object( $postType );
-					if ( $post_type_object ) {
+			/* Taxonomy name
+			/*-------------------------------------------*/
+			// 投稿タイプに紐付いている taxonomy名だけ配列で取得
+			$taxonomies = get_object_taxonomies( $postType );
 
-						// Post type name
-						if ( $postType == 'post' && $page_for_posts['post_top_use'] ) {
-							$postTypeName   = $page_for_posts['post_top_name'];
-							$postTypeTopUrl = get_the_permalink( $page_for_posts['post_top_id'] );
-						} else {
-							$postTypeName   = $post_type_object->labels->name;
-							$postTypeTopUrl = home_url() . '/?post_type=' . $postType;
-						}
-						$sitemap_html .= '<h4><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
+			foreach ( $taxonomies as $taxonomy ) {
+				// taxonomyの詳細情報を取得
+				$taxonomy_object = get_taxonomy( $taxonomy );
 
-						// Loop for all taxonomies
-						foreach ( $taxonomies as $key => $taxonomy ) {
-							$taxonomy_info = get_taxonomy( $taxonomy );
+				// 管理画面のUIに表示させているものだけに限定
+				if ( $taxonomy_object->show_in_menu ) {
+					$sitemap_html .= '<h5>' . $taxonomy_object->label . '</h5>' . PHP_EOL;
 
-							// Get tax related post type
-							$taxonomy_postType = $taxonomy_info->object_type[0];
-							if ( $taxonomy_postType == $postType && ( $taxonomy_info->name != 'post_format' ) ) {
-								$args             = array(
-									'taxonomy'         => $taxonomy,
-									'title_li'         => '',
-									'orderby'          => 'order',
-									'echo'             => 0,
-									'show_option_none' => '',
-								);
-								$tax_sitemap_html = wp_list_categories( $args );
+					/* Term
+					/*-------------------------------------------*/
+					$sitemap_html                     .= '<ul class="link-list">' . PHP_EOL;
+										$args          = array(
+											'taxonomy' => $taxonomy_object->name,
+											'title_li' => '',
+											'orderby'  => 'order',
+											'echo'     => 0,
+											'show_option_none' => '',
+										);
+										$sitemap_html .= wp_list_categories( $args );
+										$sitemap_html .= '</ul>' . PHP_EOL;
+				} // if ( $taxonomy_object->show_in_menu ) {
 
-								if ( $tax_sitemap_html ) {
-									$sitemap_html .= '<h5>' . $taxonomy_info->labels->name . '</h5>';
-									$sitemap_html .= '<ul class="link-list">' . $tax_sitemap_html . '</ul>';
-								}
-							}
-						}
-					} // end if($post_type_object)
-				} // end foreach ($postTypes as $key => $postType)
-			} // end post-type is post
-			// not page_type and post_type
-			elseif ( $postType_name !== 'page' && $postType_name !== 'attachment' ) {
-				$customPost_url = home_url() . '/?post_type=' . $postType_name;
-				$sitemap_html  .= '<h4><a href="' . $customPost_url . '">' . $post_type_object->labels->name . '</a></h4>' . PHP_EOL;
+			} // foreach ( $taxonomies as $taxonomy ) {
 
-				$termNames = get_object_taxonomies( $postType_name );
+			$sitemap_html .= '</div><!-- [ /.sectionBox ] -->' . PHP_EOL;
+			$sitemap_html .= '</div>' . PHP_EOL;
 
-				foreach ( $termNames as $termName ) {
-					$termDate                                      = get_taxonomy( $termName );
-					$sitemap_html                                 .= '<h5>' . $termDate->label . '</h5>' . PHP_EOL;
-								$sitemap_html                     .= '<ul class="link-list">' . PHP_EOL;
-													$args          = array(
-														'taxonomy' => $termDate->name,
-														'title_li' => '',
-														'orderby' => 'order',
-														'echo'  => 0,
-														'show_option_none' => '',
-													);
-													$sitemap_html .= wp_list_categories( $args );
-													$sitemap_html .= '</ul>' . PHP_EOL;
-				}
-			} // end not page_type and post_type
-		} // end if($post_type_object)
-	} // end foreach ($allPostTypes as $postType)
-	$sitemap_html .= '</div>' . PHP_EOL; // <!-- [ /.sectionBox ] -->
+		} // if ( $post_type_object ) {
+	} // foreach ( $allPostTypes as $postType ) {
+
 	$sitemap_html .= '</div>' . PHP_EOL; // <!-- [ /.sitemap-col ] -->
 	$sitemap_html .= '</div>' . PHP_EOL; // <!-- [ /.sitemap ] -->
 

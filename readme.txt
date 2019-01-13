@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
-Tested up to: 5.0.0
-Stable tag: 6.9.2
+Tested up to: 5.0.2
+Stable tag: 7.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,10 +33,12 @@ Many features can be stopped individually.
 
 [ Gutenberg Blocks ]
 
-* alert
+* Alert
 * Faq
 * balloon
 * Flow
+* Button
+* PR Blocks
 
 [ Social media ]
 
@@ -79,6 +81,31 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 7.2.0 =
+* [ Add function ] Add body class.
+
+= 7.1.0 =
+* [ Add function ][ VK Blocks ] Add Button & PR Blocks block.
+
+= 7.0.2 =
+* [ bug fix ][ Site Map ] Excrude no show ui taxonomy.
+
+= 7.0.1 =
+* [ bug fix ][ Page Top Button ] js error fixed.
+
+= 7.0.0 =
+* [ Specification change ][ vk_get_page_description ] delete do_shortcode 6 movt escape point.
+* [ Specification change ][ Page Top Button ] Change system.
+* [ Specification change ][ Site Map ] Add Post type class to print html.
+* [ Specification change ][ CTA ] Add id to outer tag.
+* [ Add function ][ Insert Ads  ] Add function of add Ads to custom post types.
+
+= 6.11.0 =
+* [ Specification change ][ PostTypeManager ] Change add action point 'init' to 'after_setup_theme'
+
+= 6.10.0 =
+* [ FontAwesome ] Version up to 5.6
 
 = 6.9.2 =
 * [ bug fix ][ vk blocks ] Fixed bug that becomes unusable in WordPress 5.0

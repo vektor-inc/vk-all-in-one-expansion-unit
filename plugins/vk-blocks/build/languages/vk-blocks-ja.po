@@ -19,15 +19,19 @@ msgstr ""
 msgid "Alert"
 msgstr "アラート"
 
-#: src/balloon/block.js:117 src/flow/block.js:111
+#: src/balloon/block.js:122 src/flow/block.js:111 src/pr-blocks/block.js:302
 msgid "Select image"
 msgstr "画像を選択"
 
-#: src/balloon/block.js:117 src/flow/block.js:112
+#: src/balloon/block.js:122 src/flow/block.js:112 src/pr-blocks/block.js:304
 msgid "Upload image"
 msgstr "画像をアップロード"
 
-#: src/balloon/block.js:127
+#: src/balloon/block.js:131
+msgid "Icon Name"
+msgstr ""
+
+#: src/balloon/block.js:140 src/button/block.js:224
 msgid "Input text"
 msgstr "文字を入力"
 
@@ -35,51 +39,173 @@ msgstr "文字を入力"
 msgid "Ballon"
 msgstr "フキダシ"
 
-#: src/balloon/block.js:77
+#: src/balloon/block.js:82
 msgid "Balloon setting"
 msgstr "フキダシ設定"
 
-#: src/balloon/block.js:79
+#: src/balloon/block.js:84
 msgid "Position"
 msgstr "位置"
 
-#: src/balloon/block.js:80
+#: src/balloon/block.js:85
 msgid "Please specify the layout of the balloon."
 msgstr "吹き出しの配置を指定してください。"
 
-#: src/balloon/block.js:83
+#: src/balloon/block.js:88 src/button/block.js:149
 msgid "Left"
 msgstr "左"
 
-#: src/balloon/block.js:84
+#: src/balloon/block.js:89 src/button/block.js:151
 msgid "Right"
 msgstr "右"
 
-#: src/balloon/block.js:89
+#: src/balloon/block.js:94
 msgid "Type"
 msgstr "タイプ"
 
-#: src/balloon/block.js:90
+#: src/balloon/block.js:95
 msgid "Please select the type of balloon."
 msgstr "吹き出しのタイプを指定してください。"
 
-#: src/balloon/block.js:93
+#: src/balloon/block.js:98
 msgid "Serif"
 msgstr "セリフ"
 
-#: src/balloon/block.js:94
+#: src/balloon/block.js:99
 msgid "Thinking"
 msgstr "吹き出し"
 
-#: src/faq/block.js:25
+#: src/button/block.js:129
+msgid "Button setting"
+msgstr "ボタン設定"
+
+#: src/button/block.js:131 src/pr-blocks/block.js:261
+msgid "Open link new tab."
+msgstr "リンクを別ウィンドウで開く"
+
+#: src/button/block.js:136
+msgid "Button Size:"
+msgstr "ボタンサイズ:"
+
+#: src/button/block.js:139
+msgid "Large"
+msgstr "大"
+
+#: src/button/block.js:140
+msgid "normal"
+msgstr "標準"
+
+#: src/button/block.js:141
+msgid "Small"
+msgstr "小"
+
+#: src/button/block.js:146
+msgid "Button Position:"
+msgstr "ボタンの位置:"
+
+#: src/button/block.js:150
+msgid "Center"
+msgstr "中央"
+
+#: src/button/block.js:152
+msgid "Block"
+msgstr "ブロック（全幅）"
+
+#: src/button/block.js:157
+msgid "Button Style:"
+msgstr "ボタンスタイル:"
+
+#: src/button/block.js:160 src/pr-blocks/block.js:283
+msgid "Solid color"
+msgstr "ベタ塗り"
+
+#: src/button/block.js:161 src/pr-blocks/block.js:284
+msgid "No background"
+msgstr "背景なし"
+
+#: src/button/block.js:163
+msgid ""
+"If you select \"No background\", that you need to select a Custom Color."
+msgstr ""
+"もし「背景なし」を選択した場合はカスタムカラーで色を指定してください。"
+
+#: src/button/block.js:167
+msgid "Default Color:"
+msgstr "標準色:"
+
+#: src/button/block.js:170
+msgid "Primary"
+msgstr ""
+
+#: src/button/block.js:172
+msgid "Success"
+msgstr ""
+
+#: src/button/block.js:173
+msgid "Info"
+msgstr ""
+
+#: src/button/block.js:174
+msgid "Warning"
+msgstr ""
+
+#: src/button/block.js:175
+msgid "Danger"
+msgstr ""
+
+#: src/button/block.js:182
+msgid "Custom Color"
+msgstr "カスタムカラー"
+
+#: src/button/block.js:183
+msgid ""
+"This custom color overrides the default color. If you want to use the "
+"default color, click the clear button."
+msgstr ""
+"このカスタムカラーはデフォルトのカラーを上書きします。 デフォルトの色を使"
+"用したい場合は、クリアボタンをクリックしてください。"
+
+#: src/button/block.js:191
+msgid "Font Awesome:"
+msgstr ""
+
+#: src/button/block.js:195
+msgid "Before text"
+msgstr "文字の前"
+
+#: src/button/block.js:196
+msgid "Enter Font Awesome Class.This icon will appear before text."
+msgstr ""
+"Font Awesome の class 名を入力してください。このアイコンは文字の前に表示さ"
+"れます。"
+
+#: src/button/block.js:202
+msgid "After text"
+msgstr "文字の後"
+
+#: src/button/block.js:203
+msgid "Enter Font Awesome Class.This icon will appear after text."
+msgstr ""
+"Font Awesome の class 名を入力してください。このアイコンは文字の後に表示さ"
+"れます。"
+
+#: src/button/block.js:239
+msgid "Apply"
+msgstr ""
+
+#: src/button/block.js:58
+msgid "Button"
+msgstr "ボタン"
+
+#: src/faq/block.js:40
 msgid "FAQ"
 msgstr "質問と解答"
 
-#: src/faq/block.js:61
+#: src/faq/block.js:77
 msgid "Please enter a question."
 msgstr "質問を入力してください。"
 
-#: src/faq/block.js:67
+#: src/faq/block.js:84
 msgid "Please enter a answer."
 msgstr "回答を入力してください。"
 
@@ -99,10 +225,73 @@ msgstr "矢印を表示する"
 msgid "Arrow hidden"
 msgstr "矢印を表示しない"
 
-#: src/flow/block.js:90
+#: src/flow/block.js:90 src/pr-blocks/block.js:473
 msgid "Input title"
 msgstr "タイトルを入力"
 
-#: src/flow/block.js:97
+#: src/flow/block.js:97 src/pr-blocks/block.js:480
 msgid "Input content"
 msgstr "説明を入力"
+
+#: src/pr-blocks/block.js:136
+msgid "PR Block1 Setting"
+msgstr "PR Block1 設定"
+
+#: src/pr-blocks/block.js:151
+msgid "Icon 1"
+msgstr "アイコン 1"
+
+#: src/pr-blocks/block.js:174
+msgid "PR Image 1"
+msgstr "PR 画像 1"
+
+#: src/pr-blocks/block.js:194
+msgid "PR Block2 Setting"
+msgstr "PR Block2 設定"
+
+#: src/pr-blocks/block.js:209
+msgid "Icon 2"
+msgstr "アイコン 2"
+
+#: src/pr-blocks/block.js:232
+msgid "PR Image 2"
+msgstr "PR 画像 2"
+
+#: src/pr-blocks/block.js:233
+msgid "When you have an image. Image is displayed with priority"
+msgstr "画像を設定した場合は画像が優先して表示されます。"
+
+#: src/pr-blocks/block.js:252
+msgid "PR Block3 Setting"
+msgstr "PR Block3 設定"
+
+#: src/pr-blocks/block.js:254
+msgid "Link URL:"
+msgstr "リンクURL:"
+
+#: src/pr-blocks/block.js:267
+msgid "Icon 3"
+msgstr "アイコン 3"
+
+#: src/pr-blocks/block.js:270
+msgid "Class name of the Font Awesome icon font you want to use:"
+msgstr "アイコンを使う場合は Font Awesome のアイコンのclass名:"
+
+#: src/pr-blocks/block.js:280
+msgid "Icon Background:"
+msgstr "アイコン背景:"
+
+#: src/pr-blocks/block.js:290
+msgid "PR Image 3"
+msgstr "PR 画像 3"
+
+#: src/pr-blocks/block.js:291
+msgid "When you have an image. Image is displayed with priority."
+msgstr "画像を設定した場合は画像が優先して表示されます。"
+
+#: src/pr-blocks/block.js:91
+msgid "PR Block"
+msgstr "PR Block"
+
+#~ msgid "Setting"
+#~ msgstr "設定"

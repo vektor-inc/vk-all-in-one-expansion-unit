@@ -33,7 +33,7 @@ if ( ! $image_position ) {
 	$image_position = 'right'; }
 
 $content  = '';
-$content .= '<section class="veu_cta">';
+$content .= '<section class="veu_cta" id="veu_cta-' . $id . '">';
 $content .= '<h1 class="cta_title">' . $post->post_title . '</h1>';
 $content .= '<div class="cta_body">';
 

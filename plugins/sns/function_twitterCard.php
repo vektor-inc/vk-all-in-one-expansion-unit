@@ -36,17 +36,17 @@ function vkExUnit_add_twitterCard() {
 	preg_match( '/https?:\/\/(.+?)\//i', admin_url(), $match );
 	// image size
 	if ( isset( $vkExUnit_sns_options['twitterId'] ) && $vkExUnit_sns_options['twitterId'] ) :?>
-<!-- [ <?php echo vkExUnit_get_name(); ?> twitter card ] -->
+<!-- [ <?php echo veu_get_name(); ?> twitter card ] -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="<?php echo vk_get_page_description(); ?>">
-<meta name="twitter:title" content="<?php echo $title; ?>">
-<meta name="twitter:url" content="<?php echo $linkUrl; ?>">
+<meta name="twitter:description" content="<?php echo esc_attr( vk_get_page_description() ); ?>">
+<meta name="twitter:title" content="<?php echo esc_attr( $title ); ?>">
+<meta name="twitter:url" content="<?php echo esc_url( $linkUrl ); ?>">
 <?php if ( isset( $card_image_url ) && $card_image_url ) { ?>
 <meta name="twitter:image" content="<?php echo esc_url( $card_image_url ); ?>">
 <?php } ?>
-<meta name="twitter:domain" content="<?php echo $match[1]; ?>">
-<meta name="twitter:site" content="@<?php echo $vkExUnit_sns_options['twitterId']; ?>">
-<!-- [ / <?php echo vkExUnit_get_name(); ?> twitter card ] -->
+<meta name="twitter:domain" content="<?php echo esc_attr( $match[1] ); ?>">
+<meta name="twitter:site" content="@<?php echo esc_attr( $vkExUnit_sns_options['twitterId'] ); ?>">
+<!-- [ / <?php echo veu_get_name(); ?> twitter card ] -->
 	<?php
 	endif;
 }
