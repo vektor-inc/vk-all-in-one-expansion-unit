@@ -131,6 +131,9 @@ jQuery(document).ready(function($){
 (function($) {
 // #にダブルクォーテーションが必要
 $('a[href^="#"]').click(function() {
+	if ( jQuery(this).attr("href") === "#" ){
+		return;
+	}
 	// .carousel-control を除外しないとLightningのスライダーの左右ボタンでページトップになってしまう。
 	if ( ! $(this).hasClass('carousel-control') ){
 		if ( id )
