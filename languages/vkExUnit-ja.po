@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-27 04:04+0900\n"
+"POT-Creation-Date: 2019-01-23 02:37+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -36,7 +36,7 @@ msgid "Description"
 msgstr "説明"
 
 #: admin_active_setting_page.php:35 dist/admin_active_setting_page.php:35
-#: dist/veu-packages.php:366 veu-packages.php:366
+#: dist/veu-packages.php:366 veu-packages.php:368
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
@@ -258,19 +258,19 @@ msgstr "CTA設定"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:15
 #: dist/veu-packages.php:315 plugins/call-to-action/view-adminsetting.php:15
-#: veu-packages.php:315
+#: veu-packages.php:317
 msgid "Call To Action"
 msgstr "Call To Action"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:19
 #: dist/veu-packages.php:307 plugins/call-to-action/view-adminsetting.php:19
-#: veu-packages.php:307
+#: veu-packages.php:309
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:20
 #: dist/veu-packages.php:309 plugins/call-to-action/view-adminsetting.php:20
-#: veu-packages.php:309
+#: veu-packages.php:311
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -280,7 +280,7 @@ msgstr ""
 
 #: dist/plugins/call-to-action/view-adminsetting.php:21
 #: dist/veu-packages.php:311 plugins/call-to-action/view-adminsetting.php:21
-#: veu-packages.php:311
+#: veu-packages.php:313
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -617,7 +617,7 @@ msgstr "お問い合わせボタンを表示します。"
 
 #: dist/plugins/contact-section/contact-section.php:486
 #: dist/veu-packages.php:280 plugins/contact-section/contact-section.php:486
-#: veu-packages.php:280
+#: veu-packages.php:282
 msgid "Contact Section"
 msgstr "お問い合わせ情報"
 
@@ -837,7 +837,7 @@ msgstr "作成したicoファイルをアップロードしてください"
 
 #: dist/plugins/insert_ads.php:37 dist/plugins/insert_ads.php:180
 #: dist/veu-packages.php:338 plugins/insert_ads.php:37
-#: plugins/insert_ads.php:180 veu-packages.php:338
+#: plugins/insert_ads.php:180 veu-packages.php:340
 msgid "Insert ads"
 msgstr "広告の挿入"
 
@@ -1004,7 +1004,7 @@ msgstr "3PR エリア設定"
 #: dist/plugins/other_widget/widget-page.php:126
 #: dist/plugins/other_widget/widget-pr-blocks.php:111
 #: dist/plugins/other_widget/widget-profile.php:55
-#: dist/plugins/related_posts/related_posts.php:252
+#: dist/plugins/related_posts/related_posts.php:261
 #: dist/plugins/sns/widget-fb-page-plugin.php:79
 #: dist/plugins/sns/widget-twitter.php:84
 #: plugins/other_widget/widget-3pr-area.php:56
@@ -1075,12 +1075,12 @@ msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
 
 #: dist/plugins/other_widget/widget-archives.php:9 dist/veu-packages.php:216
-#: plugins/other_widget/widget-archives.php:9 veu-packages.php:216
+#: plugins/other_widget/widget-archives.php:9 veu-packages.php:218
 msgid "archive list"
 msgstr "アーカイブリスト"
 
 #: dist/plugins/other_widget/widget-archives.php:14 dist/veu-packages.php:216
-#: plugins/other_widget/widget-archives.php:14 veu-packages.php:216
+#: plugins/other_widget/widget-archives.php:14 veu-packages.php:218
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
@@ -1304,6 +1304,7 @@ msgid "Modified date"
 msgstr "最終更新日"
 
 #: dist/plugins/other_widget/widget-new-posts.php:253
+#: dist/plugins/related_posts/related_posts.php:281
 #: plugins/other_widget/widget-new-posts.php:253
 #: plugins/related_posts/related_posts.php:281
 msgid "Display count"
@@ -1783,12 +1784,12 @@ msgid ""
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
-#: dist/plugins/related_posts/related_posts.php:201 dist/veu-packages.php:355
-#: plugins/related_posts/related_posts.php:210 veu-packages.php:355
+#: dist/plugins/related_posts/related_posts.php:210 dist/veu-packages.php:355
+#: plugins/related_posts/related_posts.php:210 veu-packages.php:357
 msgid "Related posts"
 msgstr "関連記事を表示"
 
-#: dist/plugins/related_posts/related_posts.php:235
+#: dist/plugins/related_posts/related_posts.php:244
 #: plugins/related_posts/related_posts.php:244
 msgid "Related Settings"
 msgstr "関連記事設定"
@@ -2260,8 +2261,8 @@ msgstr "%s の記事"
 msgid "Page of %s"
 msgstr "%sページ目"
 
-#: dist/plugins/vk-blocks/vk-blocks-functions.php:68
-#: plugins/vk-blocks/vk-blocks-functions.php:68
+#: dist/plugins/vk-blocks/vk-blocks-functions.php:85
+#: plugins/vk-blocks/vk-blocks-functions.php:85
 msgid "Blocks（Beta）"
 msgstr ""
 
@@ -2358,11 +2359,11 @@ msgstr "お知らせはありません。"
 msgid "Vektor WordPress Information"
 msgstr ""
 
-#: dist/veu-packages.php:72 veu-packages.php:72
+#: dist/veu-packages.php:72 veu-packages.php:74
 msgid "Print Bootstrap css ( grid / button / table )"
 msgstr "Bootstrap の CSS（grid/button/tableのみ）を出力"
 
-#: dist/veu-packages.php:73 veu-packages.php:73
+#: dist/veu-packages.php:73 veu-packages.php:75
 msgid ""
 "If your using theme has already including Bootstrap, you deactivate this "
 "item."
@@ -2371,36 +2372,36 @@ msgstr ""
 "（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェック"
 "を外して下さい。"
 
-#: dist/veu-packages.php:83 veu-packages.php:83
+#: dist/veu-packages.php:83 veu-packages.php:85
 msgid "Print link fontawesome"
 msgstr "fontawesome link タグを出力"
 
-#: dist/veu-packages.php:84 veu-packages.php:84
+#: dist/veu-packages.php:84 veu-packages.php:86
 msgid "Print fontawesome link tag to html head."
 msgstr ""
 "fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
 "テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
 "さい。"
 
-#: dist/veu-packages.php:94 veu-packages.php:94
+#: dist/veu-packages.php:94 veu-packages.php:96
 msgid "VK Blocks ( Beta )"
 msgstr ""
 
-#: dist/veu-packages.php:95 veu-packages.php:95
+#: dist/veu-packages.php:95 veu-packages.php:97
 msgid "Extends Gutenberg's blocks."
 msgstr "Gutenbergのブロックを拡張します。"
 
-#: dist/veu-packages.php:105 veu-packages.php:105
+#: dist/veu-packages.php:105 veu-packages.php:107
 msgid "Favicon setting"
 msgstr "ファビコン設定"
 
-#: dist/veu-packages.php:106 veu-packages.php:106
+#: dist/veu-packages.php:106 veu-packages.php:108
 msgid "About favicon."
 msgstr ""
 "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
 "（ファビコン）を設定します。"
 
-#: dist/veu-packages.php:106 veu-packages.php:106
+#: dist/veu-packages.php:106 veu-packages.php:108
 msgid ""
 "This feature will be discontinued shortly.<br>You can set the site icon from "
 "\"Site Identity\" panel of \"Themes > Customize\"."
@@ -2409,11 +2410,11 @@ msgstr ""
 "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
 "ます。"
 
-#: dist/veu-packages.php:116 veu-packages.php:116
+#: dist/veu-packages.php:116 veu-packages.php:118
 msgid "Rewrite the title tag"
 msgstr "タイトルタグの書き換え"
 
-#: dist/veu-packages.php:117 veu-packages.php:117
+#: dist/veu-packages.php:117 veu-packages.php:119
 msgid "Print is rewritten by its own rules to html head."
 msgstr ""
 "head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
@@ -2424,66 +2425,66 @@ msgstr ""
 #: dist/veu-packages.php:177 dist/veu-packages.php:195
 #: dist/veu-packages.php:225 dist/veu-packages.php:243
 #: dist/veu-packages.php:284 dist/veu-packages.php:319
-#: dist/veu-packages.php:342 dist/veu-packages.php:421 veu-packages.php:120
-#: veu-packages.php:138 veu-packages.php:177 veu-packages.php:195
-#: veu-packages.php:225 veu-packages.php:243 veu-packages.php:284
-#: veu-packages.php:319 veu-packages.php:342 veu-packages.php:421
+#: dist/veu-packages.php:342 dist/veu-packages.php:421 veu-packages.php:122
+#: veu-packages.php:140 veu-packages.php:179 veu-packages.php:197
+#: veu-packages.php:227 veu-packages.php:245 veu-packages.php:286
+#: veu-packages.php:321 veu-packages.php:344 veu-packages.php:423
 msgid "Setting"
 msgstr "設定"
 
-#: dist/veu-packages.php:134 veu-packages.php:134
+#: dist/veu-packages.php:134 veu-packages.php:136
 msgid "Print meta Keyword"
 msgstr "メタキーワードを出力"
 
-#: dist/veu-packages.php:135 veu-packages.php:135
+#: dist/veu-packages.php:135 veu-packages.php:137
 msgid "Print meta Keyword to html head."
 msgstr "ヘッダーにメタキーワードを出力します。"
 
-#: dist/veu-packages.php:151 veu-packages.php:151
+#: dist/veu-packages.php:151 veu-packages.php:153
 msgid "Print meta description"
 msgstr "メタディスクリプションタグを出力"
 
-#: dist/veu-packages.php:152 veu-packages.php:152
+#: dist/veu-packages.php:152 veu-packages.php:154
 msgid "Print meta description to html head."
 msgstr ""
 "投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
 "head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
 "している場合はチェックを外して下さい。"
 
-#: dist/veu-packages.php:161 veu-packages.php:161
+#: dist/veu-packages.php:161 veu-packages.php:163
 msgid "Main setting page"
 msgstr "メイン設定画面"
 
-#: dist/veu-packages.php:163 veu-packages.php:163
+#: dist/veu-packages.php:163 veu-packages.php:165
 msgid "Print og tags to html head."
 msgstr "OG タグを html head 内へ出力します。"
 
-#: dist/veu-packages.php:164 veu-packages.php:164
+#: dist/veu-packages.php:164 veu-packages.php:166
 msgid "Print twitter card tags to html head."
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: dist/veu-packages.php:165 veu-packages.php:165
+#: dist/veu-packages.php:165 veu-packages.php:167
 msgid "Print social bookmark buttons."
 msgstr "ソーシャルブックマークボタンを表示します。"
 
-#: dist/veu-packages.php:166 veu-packages.php:166
+#: dist/veu-packages.php:166 veu-packages.php:168
 msgid "Facebook Page Plugin widget."
 msgstr "Facebookページプラグインウィジェット"
 
-#: dist/veu-packages.php:167 veu-packages.php:167
+#: dist/veu-packages.php:167 veu-packages.php:169
 msgid "Print Follow me box to content bottom."
 msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
 
-#: dist/veu-packages.php:169 veu-packages.php:169
+#: dist/veu-packages.php:169 veu-packages.php:171
 #, php-format
 msgid "* You can stop the function separately from the %s."
 msgstr "%s から個別に機能を停止する事ができます。"
 
-#: dist/veu-packages.php:173 veu-packages.php:173
+#: dist/veu-packages.php:173 veu-packages.php:175
 msgid "Social media cooperation"
 msgstr "ソーシャルメディア連携"
 
-#: dist/veu-packages.php:192 veu-packages.php:192
+#: dist/veu-packages.php:192 veu-packages.php:194
 msgid "Print Google Analytics tracking code."
 msgstr ""
 "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
@@ -2491,64 +2492,64 @@ msgstr ""
 "のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
 "合はチェックを外して下さい。"
 
-#: dist/veu-packages.php:208 veu-packages.php:208
+#: dist/veu-packages.php:208 veu-packages.php:210
 msgid "You can use various widgets."
 msgstr ""
 "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
 "→「ウィジェット」の設定画面より行って下さい。"
 
-#: dist/veu-packages.php:210 veu-packages.php:210
+#: dist/veu-packages.php:210 veu-packages.php:212
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
-#: dist/veu-packages.php:211 veu-packages.php:211
+#: dist/veu-packages.php:211 veu-packages.php:213
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
-#: dist/veu-packages.php:212 veu-packages.php:212
+#: dist/veu-packages.php:212 veu-packages.php:214
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
 
-#: dist/veu-packages.php:213 veu-packages.php:213
+#: dist/veu-packages.php:213 veu-packages.php:215
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
 
-#: dist/veu-packages.php:214 veu-packages.php:214
+#: dist/veu-packages.php:214 veu-packages.php:216
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: dist/veu-packages.php:215 veu-packages.php:215
+#: dist/veu-packages.php:215 veu-packages.php:217
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: dist/veu-packages.php:215 veu-packages.php:215
+#: dist/veu-packages.php:215 veu-packages.php:217
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
-#: dist/veu-packages.php:221 veu-packages.php:221
+#: dist/veu-packages.php:221 veu-packages.php:223
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: dist/veu-packages.php:239 veu-packages.php:239
+#: dist/veu-packages.php:239 veu-packages.php:241
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: dist/veu-packages.php:240 veu-packages.php:240
+#: dist/veu-packages.php:240 veu-packages.php:242
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: dist/veu-packages.php:258 veu-packages.php:258
+#: dist/veu-packages.php:258 veu-packages.php:260
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
-#: dist/veu-packages.php:259 veu-packages.php:259
+#: dist/veu-packages.php:259 veu-packages.php:261
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
@@ -2556,90 +2557,98 @@ msgstr ""
 "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
 "サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
-#: dist/veu-packages.php:269 veu-packages.php:269
+#: dist/veu-packages.php:269 veu-packages.php:271
 msgid "Page list from ancestor"
 msgstr "先祖階層からの子ページリスト表示"
 
-#: dist/veu-packages.php:270 veu-packages.php:270
+#: dist/veu-packages.php:270 veu-packages.php:272
 msgid "Display Page list from ancestor at after content."
 msgstr ""
 "現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
 
-#: dist/veu-packages.php:281 veu-packages.php:281
+#: dist/veu-packages.php:281 veu-packages.php:283
 msgid "Display Contact Section at after content."
 msgstr "お問い合わせ情報を本文の下に表示する"
 
-#: dist/veu-packages.php:298 veu-packages.php:298
+#: dist/veu-packages.php:298 veu-packages.php:300
 msgid "Display HTML Site Map"
 msgstr "HTMLサイトマップの表示"
 
-#: dist/veu-packages.php:299 veu-packages.php:299
+#: dist/veu-packages.php:299 veu-packages.php:301
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: dist/veu-packages.php:324 veu-packages.php:324
+#: dist/veu-packages.php:324 veu-packages.php:326
 msgid "Contents setting"
 msgstr "CTA表示内容設定"
 
-#: dist/veu-packages.php:339 veu-packages.php:339
+#: dist/veu-packages.php:339 veu-packages.php:341
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: dist/veu-packages.php:356 veu-packages.php:356
+#: dist/veu-packages.php:356 veu-packages.php:358
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: dist/veu-packages.php:367 veu-packages.php:367
+#: dist/veu-packages.php:367 veu-packages.php:369
 msgid "Display Eye Catch image at before content."
 msgstr ""
 "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
 "す。"
 
-#: dist/veu-packages.php:377 veu-packages.php:377
+#: dist/veu-packages.php:377 veu-packages.php:379
 msgid "Disable ping back"
 msgstr "ping backを停止"
 
-#: dist/veu-packages.php:378 veu-packages.php:378
+#: dist/veu-packages.php:378 veu-packages.php:380
 msgid "Disable xmlrpc ping back."
 msgstr "xmlrpcを停止"
 
-#: dist/veu-packages.php:386 dist/veu-packages.php:387 veu-packages.php:386
-#: veu-packages.php:387
+#: dist/veu-packages.php:386 dist/veu-packages.php:387 veu-packages.php:388
+#: veu-packages.php:389
 msgid "Disable dashbord"
 msgstr "ダッシュボードに最新情報を表示しない"
 
-#: dist/veu-packages.php:398 veu-packages.php:398
+#: dist/veu-packages.php:398 veu-packages.php:400
 msgid "TinyMCE Style Tags"
 msgstr "TinyMCE スタイルタグ"
 
-#: dist/veu-packages.php:399 veu-packages.php:399
+#: dist/veu-packages.php:399 veu-packages.php:401
 msgid "Add TinyMCE Editor to style tags."
 msgstr "スタイルタグにTinyMCEエディタを追加する"
 
-#: dist/veu-packages.php:406 veu-packages.php:406
+#: dist/veu-packages.php:406 veu-packages.php:408
 msgid "Admin bar manu"
 msgstr "管理バーメニュー"
 
-#: dist/veu-packages.php:407 veu-packages.php:407
+#: dist/veu-packages.php:407 veu-packages.php:409
 msgid "Add ExUnit menu to admin bar."
 msgstr "ExUnitのメニューを管理バーに表示する"
 
-#: dist/veu-packages.php:417 veu-packages.php:417
+#: dist/veu-packages.php:417 veu-packages.php:419
 msgid "Post Type Manager"
 msgstr "カスタム投稿タイプマネージャー"
 
-#: dist/veu-packages.php:418 veu-packages.php:418
+#: dist/veu-packages.php:418 veu-packages.php:420
 msgid "Add custom post types and custom taxonomies."
 msgstr "カスタム投稿タイプやカスタム分類を追加します。"
 
-#: dist/veu-packages.php:435 veu-packages.php:435
+#: dist/veu-packages.php:435 veu-packages.php:437
 msgid "Page Top Button"
 msgstr "ページトップへ戻るボタン"
 
-#: dist/veu-packages.php:436 veu-packages.php:436
+#: dist/veu-packages.php:436 veu-packages.php:438
 msgid ""
 "The page top button is displayed in the lower right corner of the screen."
 msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
+
+#: dist/veu-packages.php:446 veu-packages.php:448
+msgid "Add body class"
+msgstr "Body class の追加"
+
+#: dist/veu-packages.php:447 veu-packages.php:449
+msgid "Add \"Post type\", \"Page slug\" etc class name to the body class."
+msgstr "投稿タイプ名や固定ページのスラッグ名をbodyタグのクラスに追加します。"
 
 #: dist/vkExUnit.php:81 vkExUnit.php:81
 #, php-format
@@ -2659,6 +2668,17 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 #, php-format
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
+
+#: veu-packages.php:459
+msgid "Navi menu class custom"
+msgstr "ナビメニューclassの改変"
+
+#: veu-packages.php:460
+msgid "Current class tuning of navi menu."
+msgstr ""
+"メニューに投稿トップやカスタム投稿タイプアーカイブページが設定された時に、詳"
+"細ページや関連するカスタム分類ページを表示している時でも適切にcurrentクラスが"
+"追加されるように調整します。"
 
 #, fuzzy
 #~| msgid "Display count"

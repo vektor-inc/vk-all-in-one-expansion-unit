@@ -451,6 +451,17 @@ function vkExUnit_get_packages() {
 		'include'     => 'add-body-class.php',
 	);
 
+	/*-------------------------------------------*/
+	/*  Nav Menu Class Custom
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'nav_menu_class_custom',
+		'title'       => __( 'Navi menu class custom', 'vkExUnit' ),
+		'description' => __( 'Current class tuning of navi menu.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'nav-menu-class-custom.php',
+	);
+
 	return $required_packages;
 } // function vkExUnit_get_packages(){
 
