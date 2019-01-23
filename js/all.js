@@ -137,7 +137,7 @@ $('a[href^="#"]').click(function() {
 	if ( jQuery(this).attr("role") === "tab"  ){
 		return;
 	}
-	if ( jQuery(this).attr("data-toggle") === "collapse"  ){
+	if ( jQuery(this).attr("data-toggle") ){
 		return;
 	}
 
