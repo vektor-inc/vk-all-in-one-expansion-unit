@@ -44,7 +44,7 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 
 	/*  メニューがカスタムリンクでリンク先がカスタム投稿タイプのアーカイブの時
 	/*-------------------------------------------*/
-	if ( $item->object == 'custom' && $item->type == 'post_type_archive' ) {
+	if ( $item->type == 'custom' || $item->type == 'post_type_archive' ) {
 
 		// リライトルールを取得
 		$rewrite_rules = get_option( 'rewrite_rules' );
@@ -54,16 +54,8 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 
 			// メニューに記載されているURLから投稿タイプ名を判別する
 
-			// メニューのURLにマッチするリライトルールを席表現で抽出する。
-			// しかし、$key の 中の / がそのまだと正規表現の終了となってしまうので、\/ に一度変換する
-			$string      = $key;
-			$pattern     = '/(\/)/';
-			$replacement = '\/';
-			// / を \/ に変換して改めて $key に代入
-			$key = preg_replace( $pattern, $replacement, $string );
-
-			// 改めて正規表現で メニューのURLと合致するリライトルールを検出
-			$pattern = '/' . $key . '/';
+			// ループ中のりライトルールがメニューのURLと合致するか正規表現で検出
+			$pattern = '{' . $key . '}';
 			$subject = $item->url;
 			preg_match( $pattern, $subject, $matches );
 
