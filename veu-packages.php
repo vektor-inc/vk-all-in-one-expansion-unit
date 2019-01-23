@@ -63,6 +63,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	/*  Page Top Button
 	/*-------------------------------------------*/
+	/*  Add Body Class
+	/*-------------------------------------------*/
 
 	/*-------------------------------------------*/
 	/*  bootstrap
@@ -439,7 +441,7 @@ function vkExUnit_get_packages() {
 	);
 
 	/*-------------------------------------------*/
-	/*  Page Top Button
+	/*  Add Body Class
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'add_body_class',
@@ -447,6 +449,17 @@ function vkExUnit_get_packages() {
 		'description' => __( 'Add "Post type", "Page slug" etc class name to the body class.', 'vkExUnit' ),
 		'default'     => true,
 		'include'     => 'add-body-class.php',
+	);
+
+	/*-------------------------------------------*/
+	/*  Nav Menu Class Custom
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'nav_menu_class_custom',
+		'title'       => __( 'Navi menu class custom', 'vkExUnit' ),
+		'description' => __( 'Current class tuning of navi menu.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'nav-menu-class-custom.php',
 	);
 
 	return $required_packages;
