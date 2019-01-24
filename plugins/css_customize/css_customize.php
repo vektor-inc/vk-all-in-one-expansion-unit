@@ -1,10 +1,10 @@
 <?php
 $wp_theme = wp_get_theme();
 
-$customize = new biz_vektor_css_customize();
+$customize = new veu_css_customize();
 
 
-class biz_vektor_css_customize {
+class veu_css_customize {
 
 	public function __construct() {
 		$this->set_hook();
@@ -13,8 +13,8 @@ class biz_vektor_css_customize {
 
 	public  function set_hook() {
 		add_action( 'admin_footer', array( $this, 'css_customize_page_js_and_css' ) );
-		add_action( 'wp_head', array( $this, 'biz_vektor_css_customize_push_css' ), 200 );
-		add_action( 'admin_menu', array( $this, 'biz_vektor_css_customize_menu' ) );
+		add_action( 'wp_head', array( $this, 'css_customize_push_css' ), 200 );
+		add_action( 'admin_menu', array( $this, 'css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-single.php' );
 	}
@@ -36,7 +36,7 @@ class biz_vektor_css_customize {
 	/*-------------------------------------------*/
 	/*  CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
-	public function biz_vektor_css_customize_menu() {
+	public function css_customize_menu() {
 		// $capability_required = veu_get_capability_required();
 		add_submenu_page(
 			'vkExUnit_setting_page',
@@ -45,14 +45,14 @@ class biz_vektor_css_customize {
 			// $capability_required, // edit_theme_optionsのユーザーにもアクセスさせないため
 			'activate_plugins',
 			'vkExUnit_css_customize',
-			array( $this, 'biz_vektor_css_customize_render_page' )
+			array( $this, 'css_customize_render_page' )
 		);
 	}
 
 
-	public function biz_vektor_css_customize_render_page() {
+	public function css_customize_render_page() {
 
-		$data = $this->biz_vektor_css_customize_valid_form();
+		$data = $this->css_customize_valid_form();
 
 		include( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-edit.php' );
 	}
@@ -85,7 +85,7 @@ class biz_vektor_css_customize {
 	}
 
 
-	public function biz_vektor_css_customize_valid_form() {
+	public function css_customize_valid_form() {
 
 		$data = array(
 			'mess'      => '',
@@ -104,13 +104,13 @@ class biz_vektor_css_customize {
 				$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>'; }
 		}
 
-		$data['customCss'] = $this->biz_vektor_css_customize_get_css();
+		$data['customCss'] = $this->css_customize_get_css();
 
 		return $data;
 	}
 
 
-	public function biz_vektor_css_customize_get_css() {
+	public function css_customize_get_css() {
 
 		if ( get_option( 'vkExUnit_css_customize' ) ) {
 			return get_option( 'vkExUnit_css_customize' ); } else {
@@ -118,7 +118,7 @@ class biz_vektor_css_customize {
 	}
 
 
-	public function biz_vektor_css_customize_push_css() {
+	public function css_customize_push_css() {
 
 		if ( get_option( 'vkExUnit_css_customize' ) ) {
 			$css_customize = get_option( 'vkExUnit_css_customize' );
@@ -132,5 +132,5 @@ class biz_vektor_css_customize {
 <style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
 			<?php
 		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
-	} // public function biz_vektor_css_customize_push_css() {
+	} // public function css_customize_push_css() {
 }
