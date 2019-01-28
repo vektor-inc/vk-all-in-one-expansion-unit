@@ -42,46 +42,71 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 		}
 	}
 
-	/*  メニューがカスタムリンクでリンク先がカスタム投稿タイプのアーカイブの時
+	/*	カスタムメニューに設定されたURLの投稿タイプ名を取得する
 	/*-------------------------------------------*/
+
+	//   メニューがカスタムリンクでリンク先がカスタム投稿タイプのアーカイブの時
+
 	if ( $item->type == 'custom' || $item->type == 'post_type_archive' ) {
 
 		// リライトルールを取得
 		$rewrite_rules = get_option( 'rewrite_rules' );
 
-		// リライトルールをループ
-		foreach ( $rewrite_rules as $key => $value ) {
+		if ( ! $rewrite_rules || ! is_array( $rewrite_rules ) ) {
 
-			// メニューに記載されているURLから投稿タイプ名を判別する
+				// リライトルールを無指定で使っている場合
 
-			// ループ中のりライトルールがメニューのURLと合致するか正規表現で検出
-			$pattern = '{' . $key . '}';
+			$pattern = '/.*post_type=(.*)/';
 			$subject = $item->url;
 			preg_match( $pattern, $subject, $matches );
 
-			// マッチした場合
-			if ( $matches ) {
+			// メニューの投稿タイプが取得できたら
+			if ( isset( $matches[1] ) ) {
+				$menu_url_post_type = $matches[1];
+			} else {
+				$menu_url_post_type = '';
+			}// if ( isset( $matches[1] ) ) {
 
-				// マッチした $value の URL （　index.php?post_type=custom　など ） から投稿タイプが判別できる
-				// 正規表現で post_type= の値を抽出する
+		} else {
 
-				$pattern = '/index.php\?post_type=(.*)/';
-				$subject = $value;
+			// リライトルールが普通に保存されている場合
+
+			// リライトルールをループ
+			foreach ( $rewrite_rules as $key => $value ) {
+
+				// メニューに記載されているURLから投稿タイプ名を判別する
+
+				// ループ中のりライトルールがメニューのURLと合致するか正規表現で検出
+				$pattern = '{' . $key . '}';
+				$subject = $item->url;
 				preg_match( $pattern, $subject, $matches );
 
-				// メニューの投稿タイプが取得できたら
-				if ( isset( $matches[1] ) ) {
+				// マッチした場合
+				if ( $matches ) {
 
-						// 今表示しているページの投稿タイプとメニューに記入されているURLの投稿タイプっが同じ場合
-					if ( isset( $post_type_info['slug'] ) && $post_type_info['slug'] === $matches[1] ) {
-						$classes[] = $add_current_class_name;
+					// マッチした $value の URL （　index.php?post_type=custom　など ） から投稿タイプが判別できる
+					// 正規表現で post_type= の値を抽出する
+
+					$pattern = '/index.php\?post_type=(.*)/';
+					$subject = $value;
+					preg_match( $pattern, $subject, $matches );
+
+					// メニューの投稿タイプが取得できたら
+					if ( isset( $matches[1] ) ) {
+						$menu_url_post_type = $matches[1];
 						// 最初にマッチしてクラスを付与したら抜ける
 						break;
-					}
-				} // if ( isset( $matches[1] ) ) {
-			} // if ( $matches ) {
-		} // foreach ( $rewrite_rules as $key => $value ) {
+					} // if ( isset( $matches[1] ) ) {
+				} // if ( $matches ) {
+			} // foreach ( $rewrite_rules as $key => $value ) {
+		}
 
+		// 今表示しているページの投稿タイプとメニューに記入されているURLの投稿タイプが同じ場合
+		if ( isset( $menu_url_post_type ) && isset( $post_type_info['slug'] ) ) {
+			if ( $post_type_info['slug'] === $menu_url_post_type ) {
+				$classes[] = $add_current_class_name;
+			}
+		}
 	} // if ( $item->object == 'custom' && $item->type == 'post_type_archive' ) {
 
 	return $classes;
