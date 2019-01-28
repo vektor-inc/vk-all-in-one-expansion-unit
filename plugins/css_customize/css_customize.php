@@ -1,20 +1,22 @@
 <?php
 $wp_theme = wp_get_theme();
 
-$customize = new biz_vektor_css_customize();
+$customize = new veu_css_customize();
 
-
-class biz_vektor_css_customize {
+class veu_css_customize {
 
 	public function __construct() {
 		$this->set_hook();
 	}
 
-
 	public  function set_hook() {
 		add_action( 'admin_footer', array( $this, 'css_customize_page_js_and_css' ) );
-		add_action( 'wp_head', array( $this, 'biz_vektor_css_customize_push_css' ), 200 );
-		add_action( 'admin_menu', array( $this, 'biz_vektor_css_customize_menu' ) );
+		add_action( 'wp_head', array( $this, 'css_customize_push_css' ), 200 );
+
+		// 編集画面への反映
+		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
+
+		add_action( 'admin_menu', array( $this, 'css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-single.php' );
 	}
@@ -36,7 +38,7 @@ class biz_vektor_css_customize {
 	/*-------------------------------------------*/
 	/*  CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
-	public function biz_vektor_css_customize_menu() {
+	public function css_customize_menu() {
 		// $capability_required = veu_get_capability_required();
 		add_submenu_page(
 			'vkExUnit_setting_page',
@@ -45,14 +47,14 @@ class biz_vektor_css_customize {
 			// $capability_required, // edit_theme_optionsのユーザーにもアクセスさせないため
 			'activate_plugins',
 			'vkExUnit_css_customize',
-			array( $this, 'biz_vektor_css_customize_render_page' )
+			array( $this, 'css_customize_render_page' )
 		);
 	}
 
 
-	public function biz_vektor_css_customize_render_page() {
+	public function css_customize_render_page() {
 
-		$data = $this->biz_vektor_css_customize_valid_form();
+		$data = $this->css_customize_valid_form();
 
 		include( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-edit.php' );
 	}
@@ -78,14 +80,12 @@ class biz_vektor_css_customize {
 		});
 	});
 	</script>
-
-
 		<?php
 		}
 	}
 
 
-	public function biz_vektor_css_customize_valid_form() {
+	public function css_customize_valid_form() {
 
 		$data = array(
 			'mess'      => '',
@@ -104,33 +104,56 @@ class biz_vektor_css_customize {
 				$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>'; }
 		}
 
-		$data['customCss'] = $this->biz_vektor_css_customize_get_css();
+		$data['customCss'] = $this->css_customize_get_css();
 
 		return $data;
 	}
 
 
-	public function biz_vektor_css_customize_get_css() {
+	public function css_customize_get_css() {
 
 		if ( get_option( 'vkExUnit_css_customize' ) ) {
 			return get_option( 'vkExUnit_css_customize' ); } else {
 			return ''; }
 	}
 
+	public function css_customize_get_css_min() {
 
-	public function biz_vektor_css_customize_push_css() {
+		$css_customize = $this->css_customize_get_css();
 
-		if ( get_option( 'vkExUnit_css_customize' ) ) {
-			$css_customize = get_option( 'vkExUnit_css_customize' );
+		if ( $css_customize ) {
 			// delete br
 			$css_customize = str_replace( PHP_EOL, '', $css_customize );
 			// delete tab
 			$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
 			// multi space convert to single space
 			$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
+		}
+		return $css_customize;
+
+	}
+
+	public function css_customize_push_css() {
+		$css_customize = $this->css_customize_get_css_min();
+		if ( $css_customize ) {
 		?>
-<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
+<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo esc_html( $css_customize ); ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
 			<?php
 		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
-	} // public function biz_vektor_css_customize_push_css() {
+	} // public function css_customize_push_css() {
+
+	// public function css_customize_push_editor_css( $settings ) {
+	// 	$css_customize = $this->css_customize_get_css_min();
+	//
+	// 	.editor-styles-wrapper h2 { font-size:30px; }
+	//
+	// 	if ( isset( $settings['content_style'] ) ) {
+	// 		$settings['content_style'] .= $css_customize;
+	// 	} else {
+	// 		$settings['content_style'] = $css_customize;
+	// 	}
+	// 	$settings['content_style'] = $css_customize;
+	// 	return $settings;
+	// }
+
 }

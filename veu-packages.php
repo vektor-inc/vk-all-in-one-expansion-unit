@@ -21,11 +21,7 @@ function vkExUnit_get_packages() {
 	*/
 
 	/*-------------------------------------------*/
-	/*  bootstrap
-	/*-------------------------------------------*/
 	/*  fontawesome
-	/*-------------------------------------------*/
-	/*  icon
 	/*-------------------------------------------*/
 	/*  wpTitle
 	/*-------------------------------------------*/
@@ -55,27 +51,24 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	/*  relatedPosts
 	/*-------------------------------------------*/
-	/*  auto_eyecatch
-	/*-------------------------------------------*/
 	/*  disable_ping-back
-	/*-------------------------------------------*/
-	/*  TinyMCE Style Tags
 	/*-------------------------------------------*/
 	/*  Page Top Button
 	/*-------------------------------------------*/
+	/*  Smooth Scroll
+	/*-------------------------------------------*/
 	/*  Add Body Class
 	/*-------------------------------------------*/
-
+	/*  Nav Menu Class Custom
+	/*-------------------------------------------*/
+	/*  auto_eyecatch
+	/*-------------------------------------------*/
+	/*  TinyMCE Style Tags
 	/*-------------------------------------------*/
 	/*  bootstrap
 	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'bootstrap',
-		'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vkExUnit' ),
-		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vkExUnit' ),
-		'default'     => false,
-		'include'     => 'bootstrap.php',
-	);
+	/*  icon
+	/*-------------------------------------------*/
 
 	/*-------------------------------------------*/
 	/*  fontawesome
@@ -97,17 +90,6 @@ function vkExUnit_get_packages() {
 		'description' => __( 'Extends Gutenberg\'s blocks.', 'vkExUnit' ),
 		'default'     => true,
 		'include'     => 'vk-blocks-config.php',
-	);
-
-	/*-------------------------------------------*/
-	/*  icon
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'icon',
-		'title'       => __( 'Favicon setting', 'vkExUnit' ),
-		'description' => __( 'About favicon.', 'vkExUnit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vkExUnit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
-		'default'     => true,
-		'include'     => 'icons.php',
 	);
 
 	/*-------------------------------------------*/
@@ -361,17 +343,6 @@ function vkExUnit_get_packages() {
 	);
 
 	/*-------------------------------------------*/
-	/*  auto_eyecatch
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'auto_eyecatch',
-		'title'       => __( 'Automatic Eye Catch insert', 'vkExUnit' ),
-		'description' => __( 'Display Eye Catch image at before content.', 'vkExUnit' ),
-		'default'     => false,
-		'include'     => 'auto_eyecatch.php',
-	);
-
-	/*-------------------------------------------*/
 	/*  disable_ping-back
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -390,17 +361,6 @@ function vkExUnit_get_packages() {
 		'default'     => false,
 		'include'     => 'disable_dashbord.php',
 		'hidden'      => true,
-	);
-
-	/*-------------------------------------------*/
-	/*  TinyMCE Style Tags
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'tiny_mce_style_tags',
-		'title'       => __( 'TinyMCE Style Tags', 'vkExUnit' ),
-		'description' => __( 'Add TinyMCE Editor to style tags.', 'vkExUnit' ),
-		'default'     => true,
-		'include'     => 'tiny_mce_style_tags.php',
 	);
 
 	$required_packages[] = array(
@@ -441,6 +401,17 @@ function vkExUnit_get_packages() {
 	);
 
 	/*-------------------------------------------*/
+	/*  Smooth Scroll
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'smooth_scroll',
+		'title'       => __( 'Smooth scroll', 'vkExUnit' ),
+		'description' => __( 'Add smooth scroll at anchor link in same page.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'smooth-scroll/smooth-scroll.php',
+	);
+
+	/*-------------------------------------------*/
 	/*  Add Body Class
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -460,6 +431,50 @@ function vkExUnit_get_packages() {
 		'description' => __( 'Current class tuning of navi menu.', 'vkExUnit' ),
 		'default'     => true,
 		'include'     => 'nav-menu-class-custom.php',
+	);
+
+	/*-------------------------------------------*/
+	/*  auto_eyecatch
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'auto_eyecatch',
+		'title'       => __( 'Automatic Eye Catch insert', 'vkExUnit' ),
+		'description' => __( 'Display Eye Catch image at before content.', 'vkExUnit' ),
+		'default'     => false,
+		'include'     => 'auto_eyecatch.php',
+	);
+
+	/*-------------------------------------------*/
+	/*  TinyMCE Style Tags
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'tiny_mce_style_tags',
+		'title'       => __( 'TinyMCE Style Tags', 'vkExUnit' ),
+		'description' => __( 'Add TinyMCE Editor to style tags.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'tiny_mce_style_tags.php',
+	);
+
+	/*-------------------------------------------*/
+	/*  bootstrap
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'bootstrap',
+		'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vkExUnit' ),
+		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vkExUnit' ),
+		'default'     => false,
+		'include'     => 'bootstrap.php',
+	);
+
+	/*-------------------------------------------*/
+	/*  icon
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'icon',
+		'title'       => __( 'Favicon setting', 'vkExUnit' ),
+		'description' => __( 'About favicon.', 'vkExUnit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vkExUnit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
+		'default'     => false,
+		'include'     => 'icons.php',
 	);
 
 	return $required_packages;
