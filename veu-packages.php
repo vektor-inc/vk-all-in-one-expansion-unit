@@ -63,7 +63,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	/*  Page Top Button
 	/*-------------------------------------------*/
+	/*  Smooth Scroll
+	/*-------------------------------------------*/
 	/*  Add Body Class
+	/*-------------------------------------------*/
+	/*  Nav Menu Class Custom
 	/*-------------------------------------------*/
 
 	/*-------------------------------------------*/
@@ -438,6 +442,17 @@ function vkExUnit_get_packages() {
 		'description' => __( 'The page top button is displayed in the lower right corner of the screen.', 'vkExUnit' ),
 		'default'     => false,
 		'include'     => 'pagetop-btn/pagetop-btn.php',
+	);
+
+	/*-------------------------------------------*/
+	/*  Smooth Scroll
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'smooth_scroll',
+		'title'       => __( 'Smooth scroll', 'vkExUnit' ),
+		'description' => __( 'Add smooth scroll at anchor link in same page.', 'vkExUnit' ),
+		'default'     => true,
+		'include'     => 'smooth-scroll/smooth-scroll.php',
 	);
 
 	/*-------------------------------------------*/

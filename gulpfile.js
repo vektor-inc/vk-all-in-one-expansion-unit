@@ -63,6 +63,11 @@ gulp.task('jsmin', function () {
   .pipe(jsmin())
   .pipe(rename({suffix: '.min'}))
   .pipe(gulp.dest('./js'));
+	gulp.src(['./plugins/smooth-scroll/js/smooth-scroll.js'])
+  .pipe(plumber()) // エラーでも監視を続行
+  .pipe(jsmin())
+  .pipe(rename({suffix: '.min'}))
+  .pipe(gulp.dest('./plugins/smooth-scroll/js'));
 });
 
 // Watch
@@ -70,6 +75,7 @@ gulp.task('watch', function() {
     gulp.watch('js/master.js', ['scripts']);
     gulp.watch('plugins/pagetop-btn/js/pagetop-btn.js', ['scripts']);
     gulp.watch('js/all.js', ['jsmin']);
+    gulp.watch('**/*.js', ['jsmin']);
     gulp.watch('_scss/**/*.scss', ['sass']);
     gulp.watch('plugins/pagetop-btn/_scss/*.scss', ['sass']);
 });
