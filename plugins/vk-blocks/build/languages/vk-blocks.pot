@@ -9,13 +9,17 @@ msgstr ""
 
 #: src/balloon/block.js:122
 #: src/flow/block.js:111
+#: src/outer/block.js:118
 #: src/pr-blocks/block.js:324
+#: src/pr-content/component.js:100
 msgid "Select image"
 msgstr ""
 
 #: src/balloon/block.js:122
 #: src/flow/block.js:112
+#: src/outer/block.js:120
 #: src/pr-blocks/block.js:326
+#: src/pr-content/component.js:104
 msgid "Upload image"
 msgstr ""
 
@@ -46,15 +50,18 @@ msgstr ""
 
 #: src/balloon/block.js:88
 #: src/button/block.js:149
+#: src/pr-content/block.js:192
 msgid "Left"
 msgstr ""
 
 #: src/balloon/block.js:89
 #: src/button/block.js:151
+#: src/pr-content/block.js:191
 msgid "Right"
 msgstr ""
 
 #: src/balloon/block.js:94
+#: src/outer/block.js:174
 msgid "Type"
 msgstr ""
 
@@ -76,6 +83,7 @@ msgstr ""
 
 #: src/button/block.js:131
 #: src/pr-blocks/block.js:276
+#: src/pr-content/block.js:131
 msgid "Open link new tab."
 msgstr ""
 
@@ -88,6 +96,7 @@ msgid "Large"
 msgstr ""
 
 #: src/button/block.js:140
+#: src/outer/block.js:129
 msgid "normal"
 msgstr ""
 
@@ -126,38 +135,47 @@ msgid "If you select \"No background\", that you need to select a Custom Color."
 msgstr ""
 
 #: src/button/block.js:167
+#: src/pr-content/block.js:146
 msgid "Default Color:"
 msgstr ""
 
 #: src/button/block.js:170
+#: src/pr-content/block.js:149
 msgid "Primary"
 msgstr ""
 
 #: src/button/block.js:171
+#: src/pr-content/block.js:150
 msgid "Secondary"
 msgstr ""
 
 #: src/button/block.js:172
+#: src/pr-content/block.js:151
 msgid "Success"
 msgstr ""
 
 #: src/button/block.js:173
+#: src/pr-content/block.js:152
 msgid "Info"
 msgstr ""
 
 #: src/button/block.js:174
+#: src/pr-content/block.js:153
 msgid "Warning"
 msgstr ""
 
 #: src/button/block.js:175
+#: src/pr-content/block.js:154
 msgid "Danger"
 msgstr ""
 
 #: src/button/block.js:176
+#: src/pr-content/block.js:155
 msgid "Light"
 msgstr ""
 
 #: src/button/block.js:177
+#: src/pr-content/block.js:156
 msgid "Dark"
 msgstr ""
 
@@ -172,23 +190,37 @@ msgid ""
 msgstr ""
 
 #: src/button/block.js:191
+#: src/pr-content/block.js:167
 msgid "Font Awesome:"
 msgstr ""
 
+#: src/button/block.js:192
+#: src/pr-content/block.js:168
+msgid "Font Awesome icon list"
+msgstr ""
+
 #: src/button/block.js:195
+#: src/pr-content/block.js:171
 msgid "Before text"
 msgstr ""
 
 #: src/button/block.js:196
-msgid "Enter Font Awesome Class.This icon will appear before text."
+#: src/pr-content/block.js:172
+msgid ""
+"Enter Font Awesome Class.This icon will appear before text. Ex) fas "
+"fa-arrow-circle-right"
 msgstr ""
 
 #: src/button/block.js:202
+#: src/pr-content/block.js:178
 msgid "After text"
 msgstr ""
 
 #: src/button/block.js:203
-msgid "Enter Font Awesome Class.This icon will appear after text."
+#: src/pr-content/block.js:179
+msgid ""
+"Enter Font Awesome Class.This icon will appear after text. Ex) fas "
+"fa-external-link-alt"
 msgstr ""
 
 #: src/button/block.js:240
@@ -235,6 +267,114 @@ msgstr ""
 #: src/flow/block.js:97
 #: src/pr-blocks/block.js:507
 msgid "Input content"
+msgstr ""
+
+#: src/outer/block.js:106
+msgid "Background Image"
+msgstr ""
+
+#: src/outer/block.js:126
+msgid "Background Position"
+msgstr ""
+
+#: src/outer/block.js:130
+msgid "Fixed"
+msgstr ""
+
+#: src/outer/block.js:131
+msgid "Parallax (It will not work in preview)"
+msgstr ""
+
+#: src/outer/block.js:139
+#: src/pr-content/block.js:186
+msgid "Layout Setting"
+msgstr ""
+
+#: src/outer/block.js:143
+msgid "Outer width"
+msgstr ""
+
+#: src/outer/block.js:146
+msgid "Normal"
+msgstr ""
+
+#: src/outer/block.js:147
+msgid "Full Wide"
+msgstr ""
+
+#: src/outer/block.js:152
+msgid "Padding (left and right)"
+msgstr ""
+
+#: src/outer/block.js:156
+msgid "Do not use default padding (When it is full width etc.)."
+msgstr ""
+
+#: src/outer/block.js:161
+msgid "Padding (top and bottom)"
+msgstr ""
+
+#: src/outer/block.js:164
+msgid "Use default padding"
+msgstr ""
+
+#: src/outer/block.js:165
+msgid "Do not use default padding (Set it yourself using a spacer block etc.)."
+msgstr ""
+
+#: src/outer/block.js:171
+msgid "Divider Setting"
+msgstr ""
+
+#: src/outer/block.js:180
+msgid "Tilt"
+msgstr ""
+
+#: src/outer/block.js:184
+msgid "Curve"
+msgstr ""
+
+#: src/outer/block.js:188
+msgid "Wave"
+msgstr ""
+
+#: src/outer/block.js:192
+msgid "Triangle"
+msgstr ""
+
+#: src/outer/block.js:197
+msgid "Upper Divider Level"
+msgstr ""
+
+#: src/outer/block.js:204
+msgid "Lower Divider Level"
+msgstr ""
+
+#: src/outer/block.js:224
+msgid "This block is only for users who bought Lightning Pro."
+msgstr ""
+
+#: src/outer/block.js:51
+msgid "Outer"
+msgstr ""
+
+#: src/outer/block.js:82
+msgid "Background Setting"
+msgstr ""
+
+#: src/outer/block.js:84
+#: src/pr-content/block.js:89
+msgid "Color Setting"
+msgstr ""
+
+#: src/outer/block.js:85
+msgid ""
+"Color will overcome background image. If you want to display image, clear "
+"background color or set opacity 0."
+msgstr ""
+
+#: src/outer/block.js:93
+msgid "Opacity Setting"
 msgstr ""
 
 #: src/pr-blocks/block.js:137
@@ -295,4 +435,60 @@ msgstr ""
 
 #: src/pr-blocks/block.js:91
 msgid "PR Blocks (Beta)"
+msgstr ""
+
+#: src/pr-content/block.js:103
+msgid "Image Border Color"
+msgstr ""
+
+#: src/pr-content/block.js:111
+msgid "Button Setting"
+msgstr ""
+
+#: src/pr-content/block.js:113
+msgid "Button Text"
+msgstr ""
+
+#: src/pr-content/block.js:122
+msgid "Link URL"
+msgstr ""
+
+#: src/pr-content/block.js:135
+msgid "Button Type"
+msgstr ""
+
+#: src/pr-content/block.js:139
+msgid "Solid"
+msgstr ""
+
+#: src/pr-content/block.js:140
+msgid "Ghost"
+msgstr ""
+
+#: src/pr-content/block.js:160
+msgid "Button Color"
+msgstr ""
+
+#: src/pr-content/block.js:188
+msgid "Layout Type"
+msgstr ""
+
+#: src/pr-content/block.js:58
+msgid "PR Content"
+msgstr ""
+
+#: src/pr-content/block.js:90
+msgid "Title Color"
+msgstr ""
+
+#: src/pr-content/block.js:96
+msgid "Content Color"
+msgstr ""
+
+#: src/pr-content/component.js:120
+msgid "Input title."
+msgstr ""
+
+#: src/pr-content/component.js:128
+msgid "Input content."
 msgstr ""
