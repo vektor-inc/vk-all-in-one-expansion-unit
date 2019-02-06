@@ -26,13 +26,16 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 
 		} else {
 			// 今表示しているページの投稿タイプが post 以外の場合
+
 			// 現在配列に入っているclassをループ
 			for ( $i = 1; $i <= count( $classes ); $i++ ) {
 
-				// currentがあった場合
-				if ( $classes[ $i ] == $add_current_class_name || $classes[ $i ] == 'current_page_parent' ) {
-					// そのクラスをキーごと削除
-					unset( $classes[ $i ] );
+				if ( isset( $classes[ $i ] ) ) {
+					// currentがあった場合
+					if ( $classes[ $i ] == $add_current_class_name || $classes[ $i ] == 'current_page_parent' ) {
+						// そのクラスをキーごと削除
+						unset( $classes[ $i ] );
+					}
 				}
 			}
 
