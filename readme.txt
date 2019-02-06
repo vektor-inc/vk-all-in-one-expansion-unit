@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.0.3
-Stable tag: 7.4.0
+Stable tag: 7.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,47 +18,49 @@ Many features can be stopped individually.
 
 [ Powerful　Widgets ]
 
-*   Recent Posts - display the link text and the date of the latest article title.
-*   Page content to widget - display the contents of the page to the widgets.
-*   Profile - display the profile entered in the widget.
-*   FB Page Plugin - display the Facebook Page Plugin.
-*   3PR area - display the 3PR area.
-*   PR Blocks - display the PR Blocks.
-*   Categories/tags list - Displays a categories, tags or format list.
-*   Archive list - Displays a list of archives. You can choose the post type and also to display archives by month or by year.
-*   Facebook Page Plugin widget
-*   Image Banner widget
-*   Text Button widget
-*   Contact Button widget
+* Recent Posts - display the link text and the date of the latest article title.
+* Page content to widget - display the contents of the page to the widgets.
+* Profile - display the profile entered in the widget.
+* FB Page Plugin - display the Facebook Page Plugin.
+* 3PR area - display the 3PR area.
+* PR Blocks - display the PR Blocks.
+* Categories/tags list - Displays a categories, tags or format list.
+* Archive list - Displays a list of archives. You can choose the post type and also to display archives by month or by year.
+* Facebook Page Plugin widget
+* Image Banner widget
+* Text Button widget
+* Contact Button widget
 
 [ Gutenberg Blocks ]
 
+* Outer
 * Alert
 * Faq
 * balloon
 * Flow
 * Button
 * PR Blocks
+* PR Content
 
 [ Social media ]
 
-*   Print Social Bookmarks
-*   Print OG Tags
-*   Print Twitter Card Tags
+* Print Social Bookmarks
+* Print OG Tags
+* Print Twitter Card Tags
 
 [ Others ]
 
-*   Print Google Analytics tag
-*   Print meta keyword tag
-*   Print meta description tag
-*   Rewrite the title tag
-*   Insert Related Posts
-*   Insert Call to action
-*   Insert Child page List to page
-*   Insert Page list from ancestor
-*   Insert Auto HTML Site Map
-*	  Automatic Eye Catch insert
-*	  Custom post type and custom taxonomy manager
+* Print Google Analytics tag
+* Print meta keyword tag
+* Print meta description tag
+* Rewrite the title tag
+* Insert Related Posts
+* Insert Call to action
+* Insert Child page List to page
+* Insert Page list from ancestor
+* Insert Auto HTML Site Map
+* Automatic Eye Catch insert
+* Custom post type and custom taxonomy manager
 
 and more.
 
@@ -81,6 +83,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 7.5.0 =
+* [ Add function ][ VK Blocks ] Add Outer & PR Content block.
 
 = 7.4.0 =
 * [ Bug fix ][ Nav menu ] Default permalink bug fix
