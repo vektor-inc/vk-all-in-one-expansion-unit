@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-01-28 23:36+0900\n"
+"POT-Creation-Date: 2019-02-08 15:03+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -36,7 +36,7 @@ msgid "Description"
 msgstr "説明"
 
 #: admin_active_setting_page.php:35 dist/admin_active_setting_page.php:35
-#: dist/veu-packages.php:368 veu-packages.php:372
+#: dist/veu-packages.php:441 veu-packages.php:441
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
@@ -257,20 +257,20 @@ msgid "CTA setting"
 msgstr "CTA設定"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:15
-#: dist/veu-packages.php:317 plugins/call-to-action/view-adminsetting.php:15
-#: veu-packages.php:321
+#: dist/veu-packages.php:299 plugins/call-to-action/view-adminsetting.php:15
+#: veu-packages.php:299
 msgid "Call To Action"
 msgstr "Call To Action"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:19
-#: dist/veu-packages.php:309 plugins/call-to-action/view-adminsetting.php:19
-#: veu-packages.php:313
+#: dist/veu-packages.php:291 plugins/call-to-action/view-adminsetting.php:19
+#: veu-packages.php:291
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:20
-#: dist/veu-packages.php:311 plugins/call-to-action/view-adminsetting.php:20
-#: veu-packages.php:315
+#: dist/veu-packages.php:293 plugins/call-to-action/view-adminsetting.php:20
+#: veu-packages.php:293
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -279,8 +279,8 @@ msgstr ""
 "情報を表示します。"
 
 #: dist/plugins/call-to-action/view-adminsetting.php:21
-#: dist/veu-packages.php:313 plugins/call-to-action/view-adminsetting.php:21
-#: veu-packages.php:317
+#: dist/veu-packages.php:295 plugins/call-to-action/view-adminsetting.php:21
+#: veu-packages.php:295
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -354,7 +354,7 @@ msgstr "子ページ一覧の表示"
 #: dist/plugins/contact-section/contact-section.php:104
 #: dist/plugins/contact-section/contact-section.php:132
 #: plugins/contact-section/contact-section.php:104
-#: plugins/contact-section/contact-section.php:132
+#: plugins/contact-section/contact-section.php:133
 msgid "Contact Information"
 msgstr "お問い合わせ情報"
 
@@ -363,7 +363,7 @@ msgstr "お問い合わせ情報"
 #: dist/plugins/contact-section/customizer.php:53
 #: dist/plugins/contact-section/customizer.php:67
 #: plugins/contact-section/contact-section.php:114
-#: plugins/contact-section/contact-section.php:143
+#: plugins/contact-section/contact-section.php:144
 #: plugins/contact-section/customizer.php:53
 #: plugins/contact-section/customizer.php:67
 msgid "Please feel free to inquire."
@@ -371,8 +371,8 @@ msgstr "お気軽にお問い合わせください。"
 
 #: dist/plugins/contact-section/contact-section.php:116
 #: dist/plugins/contact-section/customizer.php:95
-#: plugins/contact-section/contact-section.php:116
-#: plugins/contact-section/customizer.php:95
+#: plugins/contact-section/contact-section.php:117
+#: plugins/contact-section/customizer.php:116
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 
@@ -380,16 +380,16 @@ msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 #: dist/plugins/contact-section/contact-section.php:120
 #: dist/plugins/contact-section/customizer.php:137
 #: dist/plugins/contact-section/customizer.php:179
-#: plugins/contact-section/contact-section.php:118
-#: plugins/contact-section/contact-section.php:120
-#: plugins/contact-section/customizer.php:137
-#: plugins/contact-section/customizer.php:179
+#: plugins/contact-section/contact-section.php:119
+#: plugins/contact-section/contact-section.php:121
+#: plugins/contact-section/customizer.php:158
+#: plugins/contact-section/customizer.php:200
 msgid "Contact us"
 msgstr "お問い合わせ"
 
 #: dist/plugins/contact-section/contact-section.php:134
 #: dist/plugins/contact-section/customizer.php:33
-#: plugins/contact-section/contact-section.php:134
+#: plugins/contact-section/contact-section.php:135
 #: plugins/contact-section/customizer.php:33
 msgid ""
 "The contents entered here will be reflected in the bottom of each fixed "
@@ -400,7 +400,7 @@ msgstr ""
 
 #: dist/plugins/contact-section/contact-section.php:136
 #: dist/plugins/contact-section/customizer.php:35
-#: plugins/contact-section/contact-section.php:136
+#: plugins/contact-section/contact-section.php:137
 #: plugins/contact-section/customizer.php:35
 msgid ""
 "When I display it on the page, it is necessary to classify a check into "
@@ -411,7 +411,7 @@ msgstr ""
 
 #: dist/plugins/contact-section/contact-section.php:140
 #: dist/plugins/contact-section/customizer.php:62
-#: plugins/contact-section/contact-section.php:140
+#: plugins/contact-section/contact-section.php:141
 #: plugins/contact-section/customizer.php:62
 msgid "Message"
 msgstr "メッセージ"
@@ -430,25 +430,27 @@ msgstr "メッセージ"
 #: dist/plugins/contact-section/customizer.php:172
 #: dist/plugins/google_analytics/ga_admin.php:16
 #: dist/plugins/sns/sns_admin.php:31
-#: plugins/contact-section/contact-section.php:143
-#: plugins/contact-section/contact-section.php:150
-#: plugins/contact-section/contact-section.php:157
+#: plugins/contact-section/contact-section.php:144
+#: plugins/contact-section/contact-section.php:151
+#: plugins/contact-section/contact-section.php:158
 #: plugins/contact-section/contact-section.php:165
 #: plugins/contact-section/contact-section.php:173
 #: plugins/contact-section/contact-section.php:181
+#: plugins/contact-section/contact-section.php:189
 #: plugins/contact-section/customizer.php:67
 #: plugins/contact-section/customizer.php:88
 #: plugins/contact-section/customizer.php:109
 #: plugins/contact-section/customizer.php:130
 #: plugins/contact-section/customizer.php:151
 #: plugins/contact-section/customizer.php:172
+#: plugins/contact-section/customizer.php:193
 #: plugins/google_analytics/ga_admin.php:16 plugins/sns/sns_admin.php:31
 msgid "ex) "
 msgstr "例) "
 
 #: dist/plugins/contact-section/contact-section.php:147
 #: dist/plugins/contact-section/customizer.php:83
-#: plugins/contact-section/contact-section.php:147
+#: plugins/contact-section/contact-section.php:148
 #: plugins/contact-section/customizer.php:83
 msgid "Phone number"
 msgstr "電話番号"
@@ -457,152 +459,152 @@ msgstr "電話番号"
 #: dist/plugins/contact-section/contact-section.php:157
 #: dist/plugins/contact-section/customizer.php:104
 #: dist/plugins/contact-section/customizer.php:109
-#: plugins/contact-section/contact-section.php:154
-#: plugins/contact-section/contact-section.php:157
-#: plugins/contact-section/customizer.php:104
-#: plugins/contact-section/customizer.php:109
+#: plugins/contact-section/contact-section.php:162
+#: plugins/contact-section/contact-section.php:165
+#: plugins/contact-section/customizer.php:125
+#: plugins/contact-section/customizer.php:130
 msgid "Office hours"
 msgstr "営業時間"
 
 #: dist/plugins/contact-section/contact-section.php:157
 #: dist/plugins/contact-section/customizer.php:109
-#: plugins/contact-section/contact-section.php:157
-#: plugins/contact-section/customizer.php:109
+#: plugins/contact-section/contact-section.php:165
+#: plugins/contact-section/customizer.php:130
 msgid "Weekdays except holidays"
 msgstr "土日・祝日除く"
 
 #: dist/plugins/contact-section/contact-section.php:162
 #: dist/plugins/contact-section/customizer.php:125
-#: plugins/contact-section/contact-section.php:162
-#: plugins/contact-section/customizer.php:125
+#: plugins/contact-section/contact-section.php:170
+#: plugins/contact-section/customizer.php:146
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
 #: dist/plugins/contact-section/contact-section.php:165
 #: dist/plugins/contact-section/customizer.php:130
-#: plugins/contact-section/contact-section.php:165
-#: plugins/contact-section/customizer.php:130
+#: plugins/contact-section/contact-section.php:173
+#: plugins/contact-section/customizer.php:151
 msgid "or"
 msgstr "もしくは"
 
 #: dist/plugins/contact-section/contact-section.php:166
 #: dist/plugins/contact-section/customizer.php:130
-#: plugins/contact-section/contact-section.php:166
-#: plugins/contact-section/customizer.php:130
+#: plugins/contact-section/contact-section.php:174
+#: plugins/contact-section/customizer.php:151
 msgid "* If you fill in the blank, widget's contact button does not appear."
 msgstr "※ 未入力の場合、お問い合わせウィジェットには何も表示されません。"
 
 #: dist/plugins/contact-section/contact-section.php:170
 #: dist/plugins/contact-section/customizer.php:146
-#: plugins/contact-section/contact-section.php:170
-#: plugins/contact-section/customizer.php:146
+#: plugins/contact-section/contact-section.php:178
+#: plugins/contact-section/customizer.php:167
 msgid "Contact button Text"
 msgstr "お問い合わせボタンに表示するテキスト"
 
 #: dist/plugins/contact-section/contact-section.php:173
 #: dist/plugins/contact-section/customizer.php:151
-#: plugins/contact-section/contact-section.php:173
-#: plugins/contact-section/customizer.php:151
+#: plugins/contact-section/contact-section.php:181
+#: plugins/contact-section/customizer.php:172
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
 #: dist/plugins/contact-section/contact-section.php:178
 #: dist/plugins/contact-section/customizer.php:167
-#: plugins/contact-section/contact-section.php:178
-#: plugins/contact-section/customizer.php:167
+#: plugins/contact-section/contact-section.php:186
+#: plugins/contact-section/customizer.php:188
 msgid "Contact button text( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
 #: dist/plugins/contact-section/contact-section.php:182
 #: dist/plugins/contact-section/customizer.php:172
-#: plugins/contact-section/contact-section.php:182
-#: plugins/contact-section/customizer.php:172
+#: plugins/contact-section/contact-section.php:190
+#: plugins/contact-section/customizer.php:193
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
 #: dist/plugins/contact-section/contact-section.php:187
 #: dist/plugins/contact-section/customizer.php:188
-#: plugins/contact-section/contact-section.php:187
-#: plugins/contact-section/customizer.php:188
+#: plugins/contact-section/contact-section.php:195
+#: plugins/contact-section/customizer.php:209
 msgid "Contact button short text for side widget"
 msgstr "お問い合わせボタンウィジェットに表示するテキスト"
 
 #: dist/plugins/contact-section/contact-section.php:191
 #: dist/plugins/contact-section/customizer.php:193
-#: plugins/contact-section/contact-section.php:191
-#: plugins/contact-section/customizer.php:193
+#: plugins/contact-section/contact-section.php:199
+#: plugins/contact-section/customizer.php:214
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
 "このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利"
 "用を想定していますので少ない文字数で設定してください。"
 
 #: dist/plugins/contact-section/contact-section.php:195
-#: plugins/contact-section/contact-section.php:195
+#: plugins/contact-section/contact-section.php:203
 msgid "Advanced Setting"
 msgstr "高度な設定"
 
 #: dist/plugins/contact-section/contact-section.php:204
 #: dist/plugins/contact-section/customizer.php:217
-#: plugins/contact-section/contact-section.php:204
-#: plugins/contact-section/customizer.php:217
+#: plugins/contact-section/contact-section.php:212
+#: plugins/contact-section/customizer.php:238
 msgid "Inquiry Banner image"
 msgstr "お問い合わせバナー画像"
 
 #: dist/plugins/contact-section/contact-section.php:206
-#: plugins/contact-section/contact-section.php:206
+#: plugins/contact-section/contact-section.php:214
 msgid "Select Image"
 msgstr "画像を選択"
 
 #: dist/plugins/contact-section/contact-section.php:207
 #: dist/plugins/contact-section/customizer.php:207
-#: plugins/contact-section/contact-section.php:207
-#: plugins/contact-section/customizer.php:207
+#: plugins/contact-section/contact-section.php:215
+#: plugins/contact-section/customizer.php:228
 msgid "Display the image instead of the above inquiry information"
 msgstr ""
 "画像が登録されている場合は標準のお問い合わせ情報ではなく画像が表示されます。"
 
 #: dist/plugins/contact-section/contact-section.php:211
 #: dist/plugins/contact-section/customizer.php:243
-#: plugins/contact-section/contact-section.php:211
-#: plugins/contact-section/customizer.php:243
+#: plugins/contact-section/contact-section.php:219
+#: plugins/contact-section/customizer.php:264
 msgid "Display HTML message instead of the standard"
 msgstr "お問い合わせ情報として表示するHTML"
 
 #: dist/plugins/contact-section/contact-section.php:213
 #: dist/plugins/contact-section/customizer.php:236
-#: plugins/contact-section/contact-section.php:213
-#: plugins/contact-section/customizer.php:236
+#: plugins/contact-section/contact-section.php:221
+#: plugins/contact-section/customizer.php:257
 msgid "HTML takes precedence over image"
 msgstr "HTMLが登録されている場合は画像より優先されます。"
 
 #: dist/plugins/contact-section/contact-section.php:235
-#: plugins/contact-section/contact-section.php:235
+#: plugins/contact-section/contact-section.php:243
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
 #: dist/plugins/contact-section/contact-section.php:368
 #: dist/plugins/contact-section/contact-section.php:420
-#: plugins/contact-section/contact-section.php:368
-#: plugins/contact-section/contact-section.php:420
+#: plugins/contact-section/contact-section.php:382
+#: plugins/contact-section/contact-section.php:434
 msgid "Edit contact information"
 msgstr "Contact情報を編集"
 
 #: dist/plugins/contact-section/contact-section.php:436
-#: plugins/contact-section/contact-section.php:436
+#: plugins/contact-section/contact-section.php:450
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
 #: dist/plugins/contact-section/contact-section.php:437
-#: plugins/contact-section/contact-section.php:437
+#: plugins/contact-section/contact-section.php:451
 msgid "Display contact button."
 msgstr "お問い合わせボタンを表示します。"
 
 #: dist/plugins/contact-section/contact-section.php:438
 #: dist/plugins/contact-section/contact-section.php:466
 #: dist/plugins/contact-section/contact-section.php:488
-#: plugins/contact-section/contact-section.php:438
-#: plugins/contact-section/contact-section.php:466
-#: plugins/contact-section/contact-section.php:488
+#: plugins/contact-section/contact-section.php:452
+#: plugins/contact-section/contact-section.php:480
+#: plugins/contact-section/contact-section.php:502
 #, php-format
 msgid ""
 "It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -611,23 +613,23 @@ msgstr ""
 "「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
 #: dist/plugins/contact-section/contact-section.php:465
-#: plugins/contact-section/contact-section.php:465
+#: plugins/contact-section/contact-section.php:479
 msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
 #: dist/plugins/contact-section/contact-section.php:486
-#: dist/veu-packages.php:282 plugins/contact-section/contact-section.php:486
-#: veu-packages.php:286
+#: dist/veu-packages.php:264 plugins/contact-section/contact-section.php:500
+#: veu-packages.php:264
 msgid "Contact Section"
 msgstr "お問い合わせ情報"
 
 #: dist/plugins/contact-section/contact-section.php:487
-#: plugins/contact-section/contact-section.php:487
+#: plugins/contact-section/contact-section.php:501
 msgid "Display Phone number and contact button etc."
 msgstr "電話番号とお問い合わせボタンなどを表示します。"
 
 #: dist/plugins/contact-section/contact-section.php:516
-#: plugins/contact-section/contact-section.php:516
+#: plugins/contact-section/contact-section.php:530
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -643,15 +645,15 @@ msgstr "お問い合わせ情報"
 
 #: dist/plugins/contact-section/customizer.php:210
 #: dist/plugins/contact-section/customizer.php:239
-#: plugins/contact-section/customizer.php:210
-#: plugins/contact-section/customizer.php:239
+#: plugins/contact-section/customizer.php:231
+#: plugins/contact-section/customizer.php:260
 msgid "It is not reflected in the header."
 msgstr "ヘッダーには反映されません。"
 
 #: dist/plugins/css_customize/css_customize-edit.php:2
-#: dist/plugins/css_customize/css_customize.php:29
-#: dist/plugins/css_customize/css_customize.php:43
-#: dist/plugins/css_customize/css_customize.php:44
+#: dist/plugins/css_customize/css_customize.php:31
+#: dist/plugins/css_customize/css_customize.php:45
+#: dist/plugins/css_customize/css_customize.php:46
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:31
 #: plugins/css_customize/css_customize.php:45
@@ -836,8 +838,8 @@ msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
 #: dist/plugins/insert_ads.php:37 dist/plugins/insert_ads.php:180
-#: dist/veu-packages.php:340 plugins/insert_ads.php:37
-#: plugins/insert_ads.php:180 veu-packages.php:344
+#: dist/veu-packages.php:322 plugins/insert_ads.php:37
+#: plugins/insert_ads.php:180 veu-packages.php:322
 msgid "Insert ads"
 msgstr "広告の挿入"
 
@@ -1074,13 +1076,13 @@ msgstr "リンク先ページのURL"
 msgid "Open link new tab."
 msgstr "リンクを別ウィンドウで開く"
 
-#: dist/plugins/other_widget/widget-archives.php:9 dist/veu-packages.php:218
-#: plugins/other_widget/widget-archives.php:9 veu-packages.php:222
+#: dist/plugins/other_widget/widget-archives.php:9 dist/veu-packages.php:200
+#: plugins/other_widget/widget-archives.php:9 veu-packages.php:200
 msgid "archive list"
 msgstr "アーカイブリスト"
 
-#: dist/plugins/other_widget/widget-archives.php:14 dist/veu-packages.php:218
-#: plugins/other_widget/widget-archives.php:14 veu-packages.php:222
+#: dist/plugins/other_widget/widget-archives.php:14 dist/veu-packages.php:200
+#: plugins/other_widget/widget-archives.php:14 veu-packages.php:200
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
@@ -1784,8 +1786,8 @@ msgid ""
 msgstr ""
 "設定を更新したら<a href=\"%s\">パーマリンク設定</a>を保存してください。"
 
-#: dist/plugins/related_posts/related_posts.php:210 dist/veu-packages.php:357
-#: plugins/related_posts/related_posts.php:210 veu-packages.php:361
+#: dist/plugins/related_posts/related_posts.php:210 dist/veu-packages.php:339
+#: plugins/related_posts/related_posts.php:210 veu-packages.php:339
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -2261,9 +2263,14 @@ msgstr "%s の記事"
 msgid "Page of %s"
 msgstr "%sページ目"
 
-#: dist/plugins/vk-blocks/vk-blocks-functions.php:85
-#: plugins/vk-blocks/vk-blocks-functions.php:85
+#: dist/plugins/vk-blocks/vk-blocks-functions.php:58
+#: plugins/vk-blocks/vk-blocks-functions.php:58
 msgid "Blocks（Beta）"
+msgstr ""
+
+#: dist/plugins/vk-blocks/vk-blocks-functions.php:63
+#: plugins/vk-blocks/vk-blocks-functions.php:63
+msgid "Blocks Layout（Beta）"
 msgstr ""
 
 #: dist/plugins/wp_title.php:47 plugins/wp_title.php:47
@@ -2359,11 +2366,292 @@ msgstr "お知らせはありません。"
 msgid "Vektor WordPress Information"
 msgstr ""
 
-#: dist/veu-packages.php:74 veu-packages.php:78
+#: dist/veu-packages.php:78 veu-packages.php:78
+msgid "Print link fontawesome"
+msgstr "fontawesome link タグを出力"
+
+#: dist/veu-packages.php:79 veu-packages.php:79
+msgid "Print fontawesome link tag to html head."
+msgstr ""
+"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
+"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
+"さい。"
+
+#: dist/veu-packages.php:89 veu-packages.php:89
+msgid "VK Blocks ( Beta )"
+msgstr ""
+
+#: dist/veu-packages.php:90 veu-packages.php:90
+msgid "Extends Gutenberg's blocks."
+msgstr "Gutenbergのブロックを拡張します。"
+
+#: dist/veu-packages.php:100 veu-packages.php:100
+msgid "Rewrite the title tag"
+msgstr "タイトルタグの書き換え"
+
+#: dist/veu-packages.php:101 veu-packages.php:101
+msgid "Print is rewritten by its own rules to html head."
+msgstr ""
+"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
+"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
+"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
+
+#: dist/veu-packages.php:104 dist/veu-packages.php:122
+#: dist/veu-packages.php:161 dist/veu-packages.php:179
+#: dist/veu-packages.php:209 dist/veu-packages.php:227
+#: dist/veu-packages.php:268 dist/veu-packages.php:303
+#: dist/veu-packages.php:326 dist/veu-packages.php:383 veu-packages.php:104
+#: veu-packages.php:122 veu-packages.php:161 veu-packages.php:179
+#: veu-packages.php:209 veu-packages.php:227 veu-packages.php:268
+#: veu-packages.php:303 veu-packages.php:326 veu-packages.php:383
+msgid "Setting"
+msgstr "設定"
+
+#: dist/veu-packages.php:118 veu-packages.php:118
+msgid "Print meta Keyword"
+msgstr "メタキーワードを出力"
+
+#: dist/veu-packages.php:119 veu-packages.php:119
+msgid "Print meta Keyword to html head."
+msgstr "ヘッダーにメタキーワードを出力します。"
+
+#: dist/veu-packages.php:135 veu-packages.php:135
+msgid "Print meta description"
+msgstr "メタディスクリプションタグを出力"
+
+#: dist/veu-packages.php:136 veu-packages.php:136
+msgid "Print meta description to html head."
+msgstr ""
+"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
+"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
+"している場合はチェックを外して下さい。"
+
+#: dist/veu-packages.php:145 veu-packages.php:145
+msgid "Main setting page"
+msgstr "メイン設定画面"
+
+#: dist/veu-packages.php:147 veu-packages.php:147
+msgid "Print og tags to html head."
+msgstr "OG タグを html head 内へ出力します。"
+
+#: dist/veu-packages.php:148 veu-packages.php:148
+msgid "Print twitter card tags to html head."
+msgstr "Twitter カードタグを html head 内へ出力します。"
+
+#: dist/veu-packages.php:149 veu-packages.php:149
+msgid "Print social bookmark buttons."
+msgstr "ソーシャルブックマークボタンを表示します。"
+
+#: dist/veu-packages.php:150 veu-packages.php:150
+msgid "Facebook Page Plugin widget."
+msgstr "Facebookページプラグインウィジェット"
+
+#: dist/veu-packages.php:151 veu-packages.php:151
+msgid "Print Follow me box to content bottom."
+msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
+
+#: dist/veu-packages.php:153 veu-packages.php:153
+#, php-format
+msgid "* You can stop the function separately from the %s."
+msgstr "%s から個別に機能を停止する事ができます。"
+
+#: dist/veu-packages.php:157 veu-packages.php:157
+msgid "Social media cooperation"
+msgstr "ソーシャルメディア連携"
+
+#: dist/veu-packages.php:176 veu-packages.php:176
+msgid "Print Google Analytics tracking code."
+msgstr ""
+"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
+"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
+"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
+"合はチェックを外して下さい。"
+
+#: dist/veu-packages.php:192 veu-packages.php:192
+msgid "You can use various widgets."
+msgstr ""
+"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
+"→「ウィジェット」の設定画面より行って下さい。"
+
+#: dist/veu-packages.php:194 veu-packages.php:194
+msgid ""
+"VK_Recent Posts - display the link text and the date of the latest article "
+"title."
+msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
+
+#: dist/veu-packages.php:195 veu-packages.php:195
+msgid ""
+"VK_Page content to widget - display the contents of the page to the widgets."
+msgstr ""
+"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
+
+#: dist/veu-packages.php:196 veu-packages.php:196
+msgid "VK_Profile - display the profile entered in the widget."
+msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
+
+#: dist/veu-packages.php:197 veu-packages.php:197
+msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
+msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
+
+#: dist/veu-packages.php:198 veu-packages.php:198
+msgid "VK_3PR area - display the 3PR area."
+msgstr "VK_3PR エリア - 3PR エリアを表示します。"
+
+#: dist/veu-packages.php:199 veu-packages.php:199
+msgid "categories/tags list"
+msgstr "カテゴリー/タグ リスト"
+
+#: dist/veu-packages.php:199 veu-packages.php:199
+msgid "Displays a categories, tags or format list."
+msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
+
+#: dist/veu-packages.php:205 veu-packages.php:205
+msgid "Widgets"
+msgstr "ウィジェット"
+
+#: dist/veu-packages.php:223 veu-packages.php:223
+msgid "CSS customize"
+msgstr "CSSカスタマイズ"
+
+#: dist/veu-packages.php:224 veu-packages.php:224
+msgid "You can set Customize CSS."
+msgstr ""
+"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
+"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
+"さい。"
+
+#: dist/veu-packages.php:242 veu-packages.php:242
+msgid "Child page index"
+msgstr "子ページの一覧表示"
+
+#: dist/veu-packages.php:243 veu-packages.php:243
+msgid ""
+"At the bottom of the specified page, it will display a list of the child "
+"page."
+msgstr ""
+"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
+"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
+
+#: dist/veu-packages.php:253 veu-packages.php:253
+msgid "Page list from ancestor"
+msgstr "先祖階層からの子ページリスト表示"
+
+#: dist/veu-packages.php:254 veu-packages.php:254
+msgid "Display Page list from ancestor at after content."
+msgstr ""
+"現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
+
+#: dist/veu-packages.php:265 veu-packages.php:265
+msgid "Display Contact Section at after content."
+msgstr "お問い合わせ情報を本文の下に表示する"
+
+#: dist/veu-packages.php:282 veu-packages.php:282
+msgid "Display HTML Site Map"
+msgstr "HTMLサイトマップの表示"
+
+#: dist/veu-packages.php:283 veu-packages.php:283
+msgid "It displays a HTML Site Map to the specified page."
+msgstr "指定した固定ページにHTMLサイトマップを表示します。"
+
+#: dist/veu-packages.php:308 veu-packages.php:308
+msgid "Contents setting"
+msgstr "CTA表示内容設定"
+
+#: dist/veu-packages.php:323 veu-packages.php:323
+msgid "Insert ads to content."
+msgstr "記事に広告を挿入します"
+
+#: dist/veu-packages.php:340 veu-packages.php:340
+msgid "Print Related posts lists to post content bottom."
+msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
+
+#: dist/veu-packages.php:350 veu-packages.php:350
+msgid "Disable ping back"
+msgstr "ping backを停止"
+
+#: dist/veu-packages.php:351 veu-packages.php:351
+msgid "Disable xmlrpc ping back."
+msgstr "xmlrpcを停止"
+
+#: dist/veu-packages.php:359 dist/veu-packages.php:360 veu-packages.php:359
+#: veu-packages.php:360
+msgid "Disable dashbord"
+msgstr "ダッシュボードに最新情報を表示しない"
+
+#: dist/veu-packages.php:368 veu-packages.php:368
+msgid "Admin bar manu"
+msgstr "管理バーメニュー"
+
+#: dist/veu-packages.php:369 veu-packages.php:369
+msgid "Add ExUnit menu to admin bar."
+msgstr "ExUnitのメニューを管理バーに表示する"
+
+#: dist/veu-packages.php:379 veu-packages.php:379
+msgid "Post Type Manager"
+msgstr "カスタム投稿タイプマネージャー"
+
+#: dist/veu-packages.php:380 veu-packages.php:380
+msgid "Add custom post types and custom taxonomies."
+msgstr "カスタム投稿タイプやカスタム分類を追加します。"
+
+#: dist/veu-packages.php:397 veu-packages.php:397
+msgid "Page Top Button"
+msgstr "ページトップへ戻るボタン"
+
+#: dist/veu-packages.php:398 veu-packages.php:398
+msgid ""
+"The page top button is displayed in the lower right corner of the screen."
+msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
+
+#: dist/veu-packages.php:408 veu-packages.php:408
+msgid "Smooth scroll"
+msgstr "スムーススクロール"
+
+#: dist/veu-packages.php:409 veu-packages.php:409
+msgid "Add smooth scroll at anchor link in same page."
+msgstr ""
+"ページ内のアンカーリンククリックした際にスムーズにスクロースします。<br>※他の"
+"jsと干渉する事があります。独自にjsで制御している箇所をクリックしても正しく動"
+"作しない場合はこの機能を停止してみてください。"
+
+#: dist/veu-packages.php:419 veu-packages.php:419
+msgid "Add body class"
+msgstr "Body class の追加"
+
+#: dist/veu-packages.php:420 veu-packages.php:420
+msgid "Add \"Post type\", \"Page slug\" etc class name to the body class."
+msgstr "投稿タイプ名や固定ページのスラッグ名をbodyタグのクラスに追加します。"
+
+#: dist/veu-packages.php:430 veu-packages.php:430
+msgid "Navi menu class custom"
+msgstr "ナビメニューclassの改変"
+
+#: dist/veu-packages.php:431 veu-packages.php:431
+msgid "Current class tuning of navi menu."
+msgstr ""
+"メニューに投稿トップやカスタム投稿タイプアーカイブページが設定された時に、詳"
+"細ページや関連するカスタム分類ページを表示している時でも適切にcurrentクラスが"
+"追加されるように調整します。"
+
+#: dist/veu-packages.php:442 veu-packages.php:442
+msgid "Display Eye Catch image at before content."
+msgstr ""
+"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
+"す。"
+
+#: dist/veu-packages.php:452 veu-packages.php:452
+msgid "TinyMCE Style Tags"
+msgstr "TinyMCE スタイルタグ"
+
+#: dist/veu-packages.php:453 veu-packages.php:453
+msgid "Add TinyMCE Editor to style tags."
+msgstr "スタイルタグにTinyMCEエディタを追加する"
+
+#: dist/veu-packages.php:463 veu-packages.php:463
 msgid "Print Bootstrap css ( grid / button / table )"
 msgstr "Bootstrap の CSS（grid/button/tableのみ）を出力"
 
-#: dist/veu-packages.php:75 veu-packages.php:79
+#: dist/veu-packages.php:464 veu-packages.php:464
 msgid ""
 "If your using theme has already including Bootstrap, you deactivate this "
 "item."
@@ -2372,36 +2660,17 @@ msgstr ""
 "（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェック"
 "を外して下さい。"
 
-#: dist/veu-packages.php:85 veu-packages.php:89
-msgid "Print link fontawesome"
-msgstr "fontawesome link タグを出力"
-
-#: dist/veu-packages.php:86 veu-packages.php:90
-msgid "Print fontawesome link tag to html head."
-msgstr ""
-"fontawesome を読み込むための link タグを html head 内へ出力します。使用中の"
-"テーマやプラグインで fontawesome を既に読み込んでいる場合はチェックを外して下"
-"さい。"
-
-#: dist/veu-packages.php:96 veu-packages.php:100
-msgid "VK Blocks ( Beta )"
-msgstr ""
-
-#: dist/veu-packages.php:97 veu-packages.php:101
-msgid "Extends Gutenberg's blocks."
-msgstr "Gutenbergのブロックを拡張します。"
-
-#: dist/veu-packages.php:107 veu-packages.php:111
+#: dist/veu-packages.php:474 veu-packages.php:474
 msgid "Favicon setting"
 msgstr "ファビコン設定"
 
-#: dist/veu-packages.php:108 veu-packages.php:112
+#: dist/veu-packages.php:475 veu-packages.php:475
 msgid "About favicon."
 msgstr ""
 "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
 "（ファビコン）を設定します。"
 
-#: dist/veu-packages.php:108 veu-packages.php:112
+#: dist/veu-packages.php:475 veu-packages.php:475
 msgid ""
 "This feature will be discontinued shortly.<br>You can set the site icon from "
 "\"Site Identity\" panel of \"Themes > Customize\"."
@@ -2409,257 +2678,6 @@ msgstr ""
 "この機能は間もなく廃止されます。<br>\n"
 "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
 "ます。"
-
-#: dist/veu-packages.php:118 veu-packages.php:122
-msgid "Rewrite the title tag"
-msgstr "タイトルタグの書き換え"
-
-#: dist/veu-packages.php:119 veu-packages.php:123
-msgid "Print is rewritten by its own rules to html head."
-msgstr ""
-"head title タグ内へ出力される内容を VK EX Unit のルールで出力します。 ( VK "
-"EX Unit 側で wp_title() をフィルターフックでカスタマイズ ) 使用中のテーマやプ"
-"ラグインで title タグの内容を出力する場合はチェックを外して下さい。"
-
-#: dist/veu-packages.php:122 dist/veu-packages.php:140
-#: dist/veu-packages.php:179 dist/veu-packages.php:197
-#: dist/veu-packages.php:227 dist/veu-packages.php:245
-#: dist/veu-packages.php:286 dist/veu-packages.php:321
-#: dist/veu-packages.php:344 dist/veu-packages.php:423 veu-packages.php:126
-#: veu-packages.php:144 veu-packages.php:183 veu-packages.php:201
-#: veu-packages.php:231 veu-packages.php:249 veu-packages.php:290
-#: veu-packages.php:325 veu-packages.php:348 veu-packages.php:427
-msgid "Setting"
-msgstr "設定"
-
-#: dist/veu-packages.php:136 veu-packages.php:140
-msgid "Print meta Keyword"
-msgstr "メタキーワードを出力"
-
-#: dist/veu-packages.php:137 veu-packages.php:141
-msgid "Print meta Keyword to html head."
-msgstr "ヘッダーにメタキーワードを出力します。"
-
-#: dist/veu-packages.php:153 veu-packages.php:157
-msgid "Print meta description"
-msgstr "メタディスクリプションタグを出力"
-
-#: dist/veu-packages.php:154 veu-packages.php:158
-msgid "Print meta description to html head."
-msgstr ""
-"投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
-"head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
-"している場合はチェックを外して下さい。"
-
-#: dist/veu-packages.php:163 veu-packages.php:167
-msgid "Main setting page"
-msgstr "メイン設定画面"
-
-#: dist/veu-packages.php:165 veu-packages.php:169
-msgid "Print og tags to html head."
-msgstr "OG タグを html head 内へ出力します。"
-
-#: dist/veu-packages.php:166 veu-packages.php:170
-msgid "Print twitter card tags to html head."
-msgstr "Twitter カードタグを html head 内へ出力します。"
-
-#: dist/veu-packages.php:167 veu-packages.php:171
-msgid "Print social bookmark buttons."
-msgstr "ソーシャルブックマークボタンを表示します。"
-
-#: dist/veu-packages.php:168 veu-packages.php:172
-msgid "Facebook Page Plugin widget."
-msgstr "Facebookページプラグインウィジェット"
-
-#: dist/veu-packages.php:169 veu-packages.php:173
-msgid "Print Follow me box to content bottom."
-msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
-
-#: dist/veu-packages.php:171 veu-packages.php:175
-#, php-format
-msgid "* You can stop the function separately from the %s."
-msgstr "%s から個別に機能を停止する事ができます。"
-
-#: dist/veu-packages.php:175 veu-packages.php:179
-msgid "Social media cooperation"
-msgstr "ソーシャルメディア連携"
-
-#: dist/veu-packages.php:194 veu-packages.php:198
-msgid "Print Google Analytics tracking code."
-msgstr ""
-"Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
-"リンクより設定画面へすすみ Google アナリティクス ID を入力して下さい。使用中"
-"のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
-"合はチェックを外して下さい。"
-
-#: dist/veu-packages.php:210 veu-packages.php:214
-msgid "You can use various widgets."
-msgstr ""
-"以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
-"→「ウィジェット」の設定画面より行って下さい。"
-
-#: dist/veu-packages.php:212 veu-packages.php:216
-msgid ""
-"VK_Recent Posts - display the link text and the date of the latest article "
-"title."
-msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
-
-#: dist/veu-packages.php:213 veu-packages.php:217
-msgid ""
-"VK_Page content to widget - display the contents of the page to the widgets."
-msgstr ""
-"VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
-
-#: dist/veu-packages.php:214 veu-packages.php:218
-msgid "VK_Profile - display the profile entered in the widget."
-msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
-
-#: dist/veu-packages.php:215 veu-packages.php:219
-msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
-msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
-
-#: dist/veu-packages.php:216 veu-packages.php:220
-msgid "VK_3PR area - display the 3PR area."
-msgstr "VK_3PR エリア - 3PR エリアを表示します。"
-
-#: dist/veu-packages.php:217 veu-packages.php:221
-msgid "categories/tags list"
-msgstr "カテゴリー/タグ リスト"
-
-#: dist/veu-packages.php:217 veu-packages.php:221
-msgid "Displays a categories, tags or format list."
-msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
-
-#: dist/veu-packages.php:223 veu-packages.php:227
-msgid "Widgets"
-msgstr "ウィジェット"
-
-#: dist/veu-packages.php:241 veu-packages.php:245
-msgid "CSS customize"
-msgstr "CSSカスタマイズ"
-
-#: dist/veu-packages.php:242 veu-packages.php:246
-msgid "You can set Customize CSS."
-msgstr ""
-"テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
-"追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
-"さい。"
-
-#: dist/veu-packages.php:260 veu-packages.php:264
-msgid "Child page index"
-msgstr "子ページの一覧表示"
-
-#: dist/veu-packages.php:261 veu-packages.php:265
-msgid ""
-"At the bottom of the specified page, it will display a list of the child "
-"page."
-msgstr ""
-"指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
-"サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
-
-#: dist/veu-packages.php:271 veu-packages.php:275
-msgid "Page list from ancestor"
-msgstr "先祖階層からの子ページリスト表示"
-
-#: dist/veu-packages.php:272 veu-packages.php:276
-msgid "Display Page list from ancestor at after content."
-msgstr ""
-"現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
-
-#: dist/veu-packages.php:283 veu-packages.php:287
-msgid "Display Contact Section at after content."
-msgstr "お問い合わせ情報を本文の下に表示する"
-
-#: dist/veu-packages.php:300 veu-packages.php:304
-msgid "Display HTML Site Map"
-msgstr "HTMLサイトマップの表示"
-
-#: dist/veu-packages.php:301 veu-packages.php:305
-msgid "It displays a HTML Site Map to the specified page."
-msgstr "指定した固定ページにHTMLサイトマップを表示します。"
-
-#: dist/veu-packages.php:326 veu-packages.php:330
-msgid "Contents setting"
-msgstr "CTA表示内容設定"
-
-#: dist/veu-packages.php:341 veu-packages.php:345
-msgid "Insert ads to content."
-msgstr "記事に広告を挿入します"
-
-#: dist/veu-packages.php:358 veu-packages.php:362
-msgid "Print Related posts lists to post content bottom."
-msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
-
-#: dist/veu-packages.php:369 veu-packages.php:373
-msgid "Display Eye Catch image at before content."
-msgstr ""
-"アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
-"す。"
-
-#: dist/veu-packages.php:379 veu-packages.php:383
-msgid "Disable ping back"
-msgstr "ping backを停止"
-
-#: dist/veu-packages.php:380 veu-packages.php:384
-msgid "Disable xmlrpc ping back."
-msgstr "xmlrpcを停止"
-
-#: dist/veu-packages.php:388 dist/veu-packages.php:389 veu-packages.php:392
-#: veu-packages.php:393
-msgid "Disable dashbord"
-msgstr "ダッシュボードに最新情報を表示しない"
-
-#: dist/veu-packages.php:400 veu-packages.php:404
-msgid "TinyMCE Style Tags"
-msgstr "TinyMCE スタイルタグ"
-
-#: dist/veu-packages.php:401 veu-packages.php:405
-msgid "Add TinyMCE Editor to style tags."
-msgstr "スタイルタグにTinyMCEエディタを追加する"
-
-#: dist/veu-packages.php:408 veu-packages.php:412
-msgid "Admin bar manu"
-msgstr "管理バーメニュー"
-
-#: dist/veu-packages.php:409 veu-packages.php:413
-msgid "Add ExUnit menu to admin bar."
-msgstr "ExUnitのメニューを管理バーに表示する"
-
-#: dist/veu-packages.php:419 veu-packages.php:423
-msgid "Post Type Manager"
-msgstr "カスタム投稿タイプマネージャー"
-
-#: dist/veu-packages.php:420 veu-packages.php:424
-msgid "Add custom post types and custom taxonomies."
-msgstr "カスタム投稿タイプやカスタム分類を追加します。"
-
-#: dist/veu-packages.php:437 veu-packages.php:441
-msgid "Page Top Button"
-msgstr "ページトップへ戻るボタン"
-
-#: dist/veu-packages.php:438 veu-packages.php:442
-msgid ""
-"The page top button is displayed in the lower right corner of the screen."
-msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
-
-#: dist/veu-packages.php:448 veu-packages.php:463
-msgid "Add body class"
-msgstr "Body class の追加"
-
-#: dist/veu-packages.php:449 veu-packages.php:464
-msgid "Add \"Post type\", \"Page slug\" etc class name to the body class."
-msgstr "投稿タイプ名や固定ページのスラッグ名をbodyタグのクラスに追加します。"
-
-#: dist/veu-packages.php:459 veu-packages.php:474
-msgid "Navi menu class custom"
-msgstr "ナビメニューclassの改変"
-
-#: dist/veu-packages.php:460 veu-packages.php:475
-msgid "Current class tuning of navi menu."
-msgstr ""
-"メニューに投稿トップやカスタム投稿タイプアーカイブページが設定された時に、詳"
-"細ページや関連するカスタム分類ページを表示している時でも適切にcurrentクラスが"
-"追加されるように調整します。"
 
 #: dist/vkExUnit.php:81 vkExUnit.php:81
 #, php-format
@@ -2680,16 +2698,10 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
 
-#: veu-packages.php:452
-msgid "Smooth scroll"
-msgstr "スムーススクロール"
-
-#: veu-packages.php:453
-msgid "Add smooth scroll at anchor link in same page."
-msgstr ""
-"ページ内のアンカーリンククリックした際にスムーズにスクロースします。<br>※他の"
-"jsと干渉する事があります。独自にjsで制御している箇所をクリックしても正しく動"
-"作しない場合はこの機能を停止してみてください。"
+#: plugins/contact-section/contact-section.php:155
+#: plugins/contact-section/customizer.php:104
+msgid "Phone icon"
+msgstr "電話アイコン"
 
 #, fuzzy
 #~| msgid "Display count"
