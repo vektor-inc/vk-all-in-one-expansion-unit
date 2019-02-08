@@ -112,6 +112,7 @@ class VkExUnit_Contact {
 	public static function get_option() {
 		$default = array(
 			'contact_txt'       => __( 'Please feel free to inquire.', 'vkExUnit' ),
+			'tel_icon'          => '',
 			'tel_number'        => '000-000-0000',
 			'contact_time'      => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vkExUnit' ),
 			'contact_link'      => home_url(),
@@ -148,6 +149,13 @@ class VkExUnit_Contact {
    <td>
    <input type="text" name="vkExUnit_contact[tel_number]" id="tel_number" value="<?php echo esc_attr( $options['tel_number'] ); ?>" style="width:50%;" /><br />
    <span><?php _e( 'ex) ', 'vkExUnit' ); ?>000-000-0000</span>
+   </td>
+   </tr>
+	 <tr>
+   <th scope="row"><label for="tel_icon"><?php _e( 'Phone icon', 'vkExUnit' ); ?></label></th>
+   <td>
+   <input type="text" name="vkExUnit_contact[tel_icon]" id="tel_icon" value="<?php echo esc_attr( $options['tel_icon'] ); ?>" style="width:50%;" /><br />
+   <span><?php _e( 'ex) ', 'vkExUnit' ); ?>fas fa-phone-square  [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
    </td>
    </tr>
    <tr>
@@ -309,7 +317,7 @@ class VkExUnit_Contact {
 	public static function render_contact_section_html() {
 		$options = self::get_option();
 		$cont    = '';
-		$cont   .= '<section class="veu_contact veu_contentAddSection">';
+		$cont   .= '<section class="veu_contact veu_contentAddSection vk_contact">';
 
 		if ( $options['contact_html'] ) {
 			$cont .= $options['contact_html'];
@@ -323,10 +331,16 @@ class VkExUnit_Contact {
 			$cont .= '<div class="contact_frame">';
 			$cont .= '<p class="contact_txt">';
 			$cont .= '<span class="contact_txt_catch">' . nl2br( esc_textarea( $options['contact_txt'] ) ) . '</span>';
+
+			$tel_icon = '';
+			if ( ! empty( $options['tel_icon'] ) ) {
+				$tel_icon = '<i class="' . esc_attr( $options['tel_icon'] ) . '"></i> ';
+			}
+
 			if ( wp_is_mobile() ) {
 				$cont .= '<a href="tel:' . $options['tel_number'] . '" >';
 			}
-			$cont .= '<span class="contact_txt_tel veu_color_txt_key">' . $options['tel_number'] . '</span>';
+			$cont .= '<span class="contact_txt_tel veu_color_txt_key">' . $tel_icon . esc_html( $options['tel_number'] ) . '</span>';
 			if ( wp_is_mobile() ) {
 				$cont .= '</a>';
 			}

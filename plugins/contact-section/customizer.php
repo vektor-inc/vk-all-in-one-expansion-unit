@@ -89,6 +89,27 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
+	// Phone icon
+	$wp_customize->add_setting(
+		'vkExUnit_contact[tel_icon]', array(
+			'default'           => '',
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'tel_icon', array(
+			'label'       => __( 'Phone icon', 'vkExUnit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[tel_icon]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => __( 'ex) ', 'vkExUnit' ) . 'fas fa-phone-square [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]',
+		)
+	);
+
 	// Office hours
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_time]', array(
