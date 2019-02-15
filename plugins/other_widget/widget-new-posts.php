@@ -201,7 +201,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	static function default_options( $instance = array() ) {
 		$defaults = array(
 			'count'     => 10,
-			'label'     => __( 'Recent Posts', 'vkExUnit' ),
+			// 'label'     => __( 'Recent Posts', 'vkExUnit' ),
 			'title'     => __( 'Recent Posts', 'vkExUnit' ),
 			'post_type' => 'post',
 			'orderby'   => 'date',
@@ -237,13 +237,21 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<br /><br />
 
 		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"
-													<?php
-													if ( ! $instance['format'] ) {
-														echo 'checked'; }
-?>
- /><?php echo __( 'Thumbnail', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ) . '/' . __( 'Date', 'vkExUnit' ); ?></label><br/>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"
+		<?php
+		$checked = '';
+		if ( ! $instance['format'] ) {
+			$checked = ' checked';
+		}
+		?>
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"<?php echo $checked; ?>/><?php echo __( 'Thumbnail', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ) . '/' . __( 'Date', 'vkExUnit' ); ?></label><br/>
+			<?php
+			$checked = '';
+			if ( $instance['format'] == 1 ) {
+				$checked = ' checked';
+			}
+			?>
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vkExUnit' ) . '/' . __( 'Category', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ); ?></label>
+		<br/><br/>
 													<?php
 													if ( $instance['format'] == 1 ) {
 														echo 'checked'; }
