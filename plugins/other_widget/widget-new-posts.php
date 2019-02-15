@@ -33,7 +33,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 	function widget( $args, $instance ) {
-		$instance = static::default_options( $instance );
+		$instance = static::get_options( $instance );
 
 		$title = '';
 		if ( isset( $instance['title'] ) && $instance['title'] ) {
@@ -92,7 +92,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 				echo '<div class="postList postList_miniThumb">';
 				while ( $post_loop->have_posts() ) :
 					$post_loop->the_post();
-					$this->display_pattern_0( $is_modified );
+					$this->display_pattern_0( $is_modified, $instance );
 				endwhile;
 				echo '</div>';
 			} else {
@@ -118,15 +118,23 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 
-	function display_pattern_0( $is_modified = false ) {
+	function display_pattern_0( $is_modified = false, $instance ) {
 	?>
 <div class="postList_item" id="post-<?php the_ID(); ?>">
-	<?php if ( has_post_thumbnail() ) : ?>
+	<?php if ( has_post_thumbnail() || $instance['media_id'] ) : ?>
 		<div class="postList_thumbnail">
 		<a href="<?php the_permalink(); ?>">
 			<?php
+			if ( has_post_thumbnail() ) {
 				$thumbnail_size = 'thumbnail';
 				the_post_thumbnail( apply_filters( 'vk_post_list_widget_thumbnail', esc_attr( $thumbnail_size ) ) );
+			} else {
+				$attr = array(
+					'class' => 'attachment-thumbnail size-thumbnail wp-post-image',
+					'alt'   => trim( strip_tags( get_post_meta( $instance['media_id'], '_wp_attachment_image_alt', true ) ) ),
+				);
+				echo wp_get_attachment_image( $instance['media_id'], 'thumbnail', '', $attr );
+			}
 			?>
 		</a>
 		</div><!-- [ /.postList_thumbnail ] -->
@@ -198,11 +206,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return '';
 	}
 
-	static function default_options( $instance = array() ) {
+	static function get_options( $instance = array() ) {
 		$defaults = array(
 			'count'     => 10,
 			// 'label'     => __( 'Recent Posts', 'vkExUnit' ),
 			'title'     => __( 'Recent Posts', 'vkExUnit' ),
+			'media_url' => '',
+			'media_id'  => '',
+			'media_alt' => '',
 			'post_type' => 'post',
 			'orderby'   => 'date',
 			'terms'     => '',
@@ -217,11 +228,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function form( $instance ) {
 		/*
-		 下記 default_options($instance) が無いと Charm テスト環境ではエラーが発生する
+		 下記 get_options($instance) が無いと Charm テスト環境ではエラーが発生する
 		 但し、これがある事で過去にnotice が出た経緯があるようなので、要調査
 		 ※20行目付近にも同様の記述あり
 		*/
-		$instance = static::default_options( $instance );
+		$instance = static::get_options( $instance );
 		?>
 		<br />
 		<?php //タイトル ?>
@@ -252,14 +263,40 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			?>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vkExUnit' ) . '/' . __( 'Category', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ); ?></label>
 		<br/><br/>
-													<?php
-													if ( $instance['format'] == 1 ) {
-														echo 'checked'; }
-?>
-/><?php echo __( 'Date', 'vkExUnit' ) . '/' . __( 'Category', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ); ?></label>
-		<br/><br/>
 
-		<?php echo _e( 'Order by', 'vkExUnit' ); ?>:<br/>
+<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vkExUnit' ); ?></label><br/>
+
+<?php
+/*  media uploader
+/*-------------------------------------------*/
+$args = array(
+	'media_url' => 'media_url',
+	'media_id'  => 'media_id',
+	'media_alt' => 'media_alt',
+);
+?>
+<div class="media_image_section">
+<div class="_display admin-custom-thumb-outer" style="height:auto">
+<?php
+if ( ! empty( $instance[ $args['media_url'] ] ) ) :
+	?>
+	<img src="<?php echo esc_url( $instance[ $args['media_url'] ] ); ?>" class="admin-custom-thumb" />
+<?php endif; ?>
+</div>
+<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vkExUnit' ); ?></button>
+<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vkExUnit' ); ?></button>
+<div class="_form" style="line-height: 2em">
+<input type="hidden" class="_id" name="<?php echo $this->get_field_name( $args['media_id'] ); ?>" value="<?php echo esc_attr( $instance[ $args['media_id'] ] ); ?>" />
+<input type="hidden" class="_url" name="<?php echo $this->get_field_name( $args['media_url'] ); ?>" value="<?php echo esc_attr( $instance[ $args['media_url'] ] ); ?>" />
+<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( $args['media_alt'] ); ?>" value="<?php echo esc_attr( $instance[ $args['media_alt'] ] ); ?>" />
+</div>
+</div><!-- [ /.media_image_section ] -->
+
+
+<br/>
+
+		<?php echo _e( 'Order by', 'vkExUnit' ); ?>
+		:<br/>
 		<label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="date"
 																					<?php
 																					if ( $instance['orderby'] != 'modified' ) {
@@ -306,12 +343,13 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
-		$instance           = $old_instance;
-		$instance['format'] = $new_instance['format'];
-		$instance['count']  = $new_instance['count'];
-		// label は ウィジェット一覧で名前が反映されないので title に以降
-		// $instance['label']     = $new_instance['label'];
+		$instance              = $old_instance;
+		$instance['format']    = $new_instance['format'];
+		$instance['count']     = $new_instance['count'];
 		$instance['title']     = wp_kses_post( $new_instance['title'] );
+		$instance['media_url'] = esc_url( $new_instance['media_url'] );
+		$instance['media_id']  = esc_attr( $new_instance['media_id'] );
+		$instance['media_alt'] = esc_attr( $new_instance['media_alt'] );
 		$instance['orderby']   = in_array( $new_instance['orderby'], array( 'date', 'modified' ) ) ? $new_instance['orderby'] : 'date';
 		$instance['post_type'] = ! empty( $new_instance['post_type'] ) ? strip_tags( $new_instance['post_type'] ) : 'post';
 		$instance['terms']     = preg_replace( '/([^0-9,]+)/', '', $new_instance['terms'] );
