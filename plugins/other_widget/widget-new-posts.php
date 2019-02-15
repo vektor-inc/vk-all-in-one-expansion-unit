@@ -35,14 +35,23 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	function widget( $args, $instance ) {
 		$instance = static::default_options( $instance );
 
+		$title = '';
+		if ( isset( $instance['title'] ) && $instance['title'] ) {
+			$title = $instance['title'];
+		} elseif ( $instance['label'] ) {
+			// title が未記入で label は入力されている場合
+			$title = $instance['label'];
+		}
+
 		if ( ! isset( $instance['format'] ) ) {
 			$instance['format'] = 0; }
 
 		echo $args['before_widget'];
 		echo '<div class="veu_postList pt_' . $instance['format'] . '">';
-		if ( ! empty( $instance['label'] ) ) {
+
+		if ( ! empty( $title ) ) {
 			echo $args['before_title'];
-			echo $instance['label'];
+			echo $title;
 			echo $args['after_title'];
 		}
 
@@ -193,6 +202,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$defaults = array(
 			'count'     => 10,
 			'label'     => __( 'Recent Posts', 'vkExUnit' ),
+			'title'     => __( 'Recent Posts', 'vkExUnit' ),
 			'post_type' => 'post',
 			'orderby'   => 'date',
 			'terms'     => '',
@@ -215,8 +225,15 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		?>
 		<br />
 		<?php //タイトル ?>
-		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
+		<?php
+		if ( isset( $instance['title'] ) && $instance['title'] ) {
+			$title = $instance['title'];
+		} else {
+			$title = $instance['label'];
+		}
+		?>
+		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		<br /><br />
 
 		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
@@ -281,10 +298,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
-		$instance              = $old_instance;
-		$instance['format']    = $new_instance['format'];
-		$instance['count']     = $new_instance['count'];
-		$instance['label']     = $new_instance['label'];
+		$instance           = $old_instance;
+		$instance['format'] = $new_instance['format'];
+		$instance['count']  = $new_instance['count'];
+		// label は ウィジェット一覧で名前が反映されないので title に以降
+		// $instance['label']     = $new_instance['label'];
+		$instance['title']     = wp_kses_post( $new_instance['title'] );
 		$instance['orderby']   = in_array( $new_instance['orderby'], array( 'date', 'modified' ) ) ? $new_instance['orderby'] : 'date';
 		$instance['post_type'] = ! empty( $new_instance['post_type'] ) ? strip_tags( $new_instance['post_type'] ) : 'post';
 		$instance['terms']     = preg_replace( '/([^0-9,]+)/', '', $new_instance['terms'] );
