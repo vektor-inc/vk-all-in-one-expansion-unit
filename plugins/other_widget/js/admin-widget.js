@@ -10,6 +10,7 @@ if ( vk_widget_image_add == undefined ){
 		// プレビュー画像を表示するdiv
     var thumb_outer=jQuery(e).parent().children("._display");
 		// 画像IDを保存するinputタグ
+    var thumb_id=jQuery(e).parent().children("._form").children('._id')[0];
     var thumb_url=jQuery(e).parent().children("._form").children('._url')[0];
 		var thumb_alt=jQuery(e).parent().children("._form").children('._alt')[0];
     var u=wp.media({library:{type:'image'},multiple:false}).on('select', function(e){
@@ -24,6 +25,7 @@ if ( vk_widget_image_add == undefined ){
 					file.toJSON().title で titleが返せる
 					 */
 					// hiddeになってるinputタグのvalueも変更
+					jQuery(thumb_id).val(file.toJSON().id);
 					jQuery(thumb_url).val(file.toJSON().url);
 					jQuery(thumb_alt).val(file.toJSON().title).change();
 				});
@@ -38,11 +40,14 @@ if ( vk_widget_image_del == undefined ){
 		// プレビュー画像を表示するdiv
 		var thumb_outer=jQuery(e).parent().children("._display");
 		// 画像IDを保存するinputタグ
+		var thumb_input=jQuery(e).parent().children("._form").children('._id')[0];
+		// 画像URLを保存するinputタグ
 		var thumb_input=jQuery(e).parent().children("._form").children('._url')[0];
 		// プレビュー画像のimgタグを削除
 		thumb_outer.children().remove();
 		// w.attr("value","");
-		jQuery(e).parent().children("._form").children('._alt').attr("value","");
+		jQuery(e).parent().children("._form").children('._id').attr("value","").change();
 		jQuery(e).parent().children("._form").children('._url').attr("value","").change();
+		jQuery(e).parent().children("._form").children('._alt').attr("value","");
 	};
 }
