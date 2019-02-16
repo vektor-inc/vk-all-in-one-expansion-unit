@@ -79,7 +79,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				'has_archive'        => false,
 				'hierarchical'       => false,
 				'taxonomies'         => array(),
-				'supports'           => array( 'title' ),
+				'supports'           => array( 'title', 'editor' ),
+				'show_in_rest'       => true,
 			);
 			register_post_type( self::POST_TYPE, $args );
 		}
@@ -216,6 +217,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	});
 	</script>
 	<input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
+	<p><?php _e( 'You can create it with a free layout in the content field using, such as Outer block and PR Content block in VK Blocks.', $vk_call_to_action_textdomain ); ?><br>
+	<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?>
+	</p>
 	<table class="form-table">
 	<tr>
 	<th><?php _e( 'CTA image', $vk_call_to_action_textdomain ); ?></th>
@@ -397,6 +401,9 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 
 		public static function render_cta_content( $id ) {
+
+			global $vk_call_to_action_textdomain;
+
 			if ( ! $id ) {
 				return ''; }
 			$post = self::get_cta_post( $id );
@@ -405,7 +412,17 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			if ( ! $post ) {
 				return ''; }
 
-			include dirname( __FILE__ ) . '/view-actionbox.php';
+			// 本文に入力がある場合は本文を表示
+			$cta_content = $post->post_content;
+			if ( $cta_content ) {
+				$content = $cta_content;
+			} else {
+				// 旧 CTA レイアウト
+				include dirname( __FILE__ ) . '/view-actionbox.php';
+			}
+			if ( $url = get_edit_post_link( $post->ID ) ) {
+				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
+			}
 			return $content;
 		}
 

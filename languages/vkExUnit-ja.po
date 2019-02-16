@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-16 02:53+0900\n"
+"POT-Creation-Date: 2019-02-16 11:24+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -87,7 +87,7 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: plugins/call-to-action/class-vk-call-to-action.php:63
-#: plugins/call-to-action/view-actionbox.php:73
+#: plugins/call-to-action/class-vk-call-to-action.php:421
 msgid "Edit CTA"
 msgstr "CTAの編集"
 
@@ -99,113 +99,129 @@ msgstr "CTAの新規作成"
 msgid "New CTA"
 msgstr "CTA 新規作成"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:97
-#: plugins/call-to-action/class-vk-call-to-action.php:99
+#: plugins/call-to-action/class-vk-call-to-action.php:98
 #: plugins/call-to-action/class-vk-call-to-action.php:100
+#: plugins/call-to-action/class-vk-call-to-action.php:101
 msgid "Call to Action setting"
 msgstr "CTA設定"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:102
+#: plugins/call-to-action/class-vk-call-to-action.php:103
 msgid "CTA Contents"
 msgstr "CTA Contents"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:128
-#: plugins/call-to-action/class-vk-call-to-action.php:613
+#: plugins/call-to-action/class-vk-call-to-action.php:129
+#: plugins/call-to-action/class-vk-call-to-action.php:627
 #: plugins/call-to-action/widget-call-to-action.php:74
 msgid "Random"
 msgstr "ランダム表示"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:134
-#: plugins/call-to-action/class-vk-call-to-action.php:620
+#: plugins/call-to-action/class-vk-call-to-action.php:135
+#: plugins/call-to-action/class-vk-call-to-action.php:634
 msgid "Disable display"
 msgstr "表示しない"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:140
+#: plugins/call-to-action/class-vk-call-to-action.php:141
 msgid "Follow common setting"
 msgstr "共通設定を使用"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:153
+#: plugins/call-to-action/class-vk-call-to-action.php:154
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:154
+#: plugins/call-to-action/class-vk-call-to-action.php:155
 #: plugins/call-to-action/view-adminsetting.php:31
 #: plugins/call-to-action/widget-call-to-action.php:88
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
+#: plugins/call-to-action/class-vk-call-to-action.php:220
+msgid ""
+"You can create it with a free layout in the content field using, such as "
+"Outer block and PR Content block in VK Blocks."
+msgstr ""
+"VK Blocks の アウターブロックやPR Content ブロックを使って本文欄に自由なレイ"
+"アウトで作成する事もできます。"
+
 #: plugins/call-to-action/class-vk-call-to-action.php:221
+msgid ""
+"If the contents field is entered, the contents of the body will be displayed "
+"with priority, so the following contents will be ignored."
+msgstr ""
+"本文欄が入力されている場合は本文の内容が優先して表示されるので以下の内容は無"
+"視されます。"
+
+#: plugins/call-to-action/class-vk-call-to-action.php:225
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:227
+#: plugins/call-to-action/class-vk-call-to-action.php:231
 msgid "Add image"
 msgstr "画像を追加"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:228
+#: plugins/call-to-action/class-vk-call-to-action.php:232
 msgid "Change image"
 msgstr "画像を変更"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:229
+#: plugins/call-to-action/class-vk-call-to-action.php:233
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:234
+#: plugins/call-to-action/class-vk-call-to-action.php:238
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:237
+#: plugins/call-to-action/class-vk-call-to-action.php:241
 msgid "right"
 msgstr "右寄せ"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:238
+#: plugins/call-to-action/class-vk-call-to-action.php:242
 msgid "center"
 msgstr "中央"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:239
+#: plugins/call-to-action/class-vk-call-to-action.php:243
 msgid "left"
 msgstr "左寄せ"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:243
+#: plugins/call-to-action/class-vk-call-to-action.php:247
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:247
+#: plugins/call-to-action/class-vk-call-to-action.php:251
 msgid "Button icon"
 msgstr "ボタンアイコン"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:248
+#: plugins/call-to-action/class-vk-call-to-action.php:252
 #: plugins/other_widget/widget-button.php:122
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:249
+#: plugins/call-to-action/class-vk-call-to-action.php:253
 #: plugins/other_widget/widget-button.php:123
 msgid "Before :"
 msgstr "文字の前 :"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:251
+#: plugins/call-to-action/class-vk-call-to-action.php:255
 #: plugins/other_widget/widget-button.php:125
 msgid "After :"
 msgstr "文字の後 :"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:263
+#: plugins/call-to-action/class-vk-call-to-action.php:267
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:276
+#: plugins/call-to-action/class-vk-call-to-action.php:280
 msgid "Target window"
 msgstr "リンク先ターゲット"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:278
+#: plugins/call-to-action/class-vk-call-to-action.php:282
 msgid "Open in a self window"
 msgstr "同じウィンドウで開く"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:280
+#: plugins/call-to-action/class-vk-call-to-action.php:284
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:286
+#: plugins/call-to-action/class-vk-call-to-action.php:290
 #: plugins/call-to-action/widget-call-to-action.php:91
 msgid "CTA setting"
 msgstr "CTA設定"
@@ -521,7 +537,7 @@ msgstr "CSSを保存する"
 
 #: plugins/css_customize/css_customize-single.php:22
 msgid "Custom CSS"
-msgstr ""
+msgstr "カスタムCSS"
 
 #: plugins/css_customize/css_customize.php:101
 msgid "Your custom CSS was saved."
@@ -543,11 +559,11 @@ msgstr "例 ) "
 
 #: plugins/font-awesome/class-vk-font-awesome-versions.php:169
 msgid "Font Awesome"
-msgstr ""
+msgstr "Font Awesome"
 
 #: plugins/font-awesome/class-vk-font-awesome-versions.php:190
 msgid "Font Awesome Version"
-msgstr ""
+msgstr "Font Awesome Version"
 
 #: plugins/font-awesome/class-vk-font-awesome-versions.php:193
 msgid "4.7 will be abolished in the near future."
@@ -1740,7 +1756,7 @@ msgstr "アカウント：<br>Twitter アカウントを入力してください
 
 #: plugins/sns/widget-twitter.php:90
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: plugins/sns/widget-twitter.php:94
 msgid "Height:<br>Please enter an arbitrary number.(Example: 300)"
