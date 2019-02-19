@@ -9,11 +9,11 @@
  */
 
 
-
+ /*
+   load files
  /*-------------------------------------------*/
- /*  load files
- /*-------------------------------------------*/
- /*  VkExUnit_Contact
+ /*
+   VkExUnit_Contact
 			public static function instance() {
 			private function __construct() {
 			protected function run_init() {
@@ -31,21 +31,24 @@
 			// View
 			public static function render_contact_section_html() {
 			public static function render_widget_contact_btn_html() {
-/*-------------------------------------------*/
-/*  Contact Button Widget
-/*-------------------------------------------*/
-/*  Contact Section Widget
+/*
+/*
+  Contact Button Widget
+/*
+  Contact Section Widget
 /*-------------------------------------------*/
 
 
- /*-------------------------------------------*/
- /*  load files
+
+ /*
+   load files
  /*-------------------------------------------*/
 require_once 'customizer.php';
 
 
- /*-------------------------------------------*/
- /*  VkExUnit_Contact
+
+ /*
+   VkExUnit_Contact
  /*-------------------------------------------*/
 class VkExUnit_Contact {
 
@@ -65,7 +68,7 @@ class VkExUnit_Contact {
 	private function __construct() {
 		/***
 	* do noting
-***/
+*/
 	}
 
 
@@ -310,8 +313,9 @@ class VkExUnit_Contact {
 	}
 
 
-	/*-------------------------------------------*/
-	/*  contact_section_html
+
+	/*
+	  contact_section_html
 	/*-------------------------------------------*/
 
 	public static function render_contact_section_html() {
@@ -334,7 +338,7 @@ class VkExUnit_Contact {
 
 			$tel_icon = '';
 			if ( ! empty( $options['tel_icon'] ) ) {
-				$tel_icon = '<i class="' . esc_attr( $options['tel_icon'] ) . '"></i> ';
+				$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
 			}
 
 			if ( wp_is_mobile() ) {
@@ -390,8 +394,9 @@ class VkExUnit_Contact {
 	public function shortcode() {
 		return self::render_contact_section_html();
 	}
-	/*-------------------------------------------*/
-	/*  render_widget_contact_btn_html
+
+	/*
+	  render_widget_contact_btn_html
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
@@ -440,8 +445,8 @@ class VkExUnit_Contact {
 
 VkExUnit_Contact::instance();
 
-/*-------------------------------------------*/
-/*  Contact Button Widget
+/*
+  Contact Button Widget
 /*-------------------------------------------*/
 
 class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
@@ -490,8 +495,8 @@ function veu_widget_contact_button() {
 }
 
 
-/*-------------------------------------------*/
-/*  Contact Section Widget
+/*
+  Contact Section Widget
 /*-------------------------------------------*/
 class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 

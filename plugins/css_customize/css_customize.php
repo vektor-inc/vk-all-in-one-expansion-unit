@@ -15,7 +15,6 @@ class veu_css_customize {
 
 		// 編集画面への反映
 		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
-
 		add_action( 'admin_menu', array( $this, 'css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-single.php' );
@@ -35,8 +34,8 @@ class veu_css_customize {
 		}
 	}
 
-	/*-------------------------------------------*/
-	/*  CSSカスタマイズ」のメニュー
+	/*
+	  CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
 	public function css_customize_menu() {
 		// $capability_required = veu_get_capability_required();
@@ -60,8 +59,8 @@ class veu_css_customize {
 	}
 
 
-	/*-------------------------------------------*/
-	/*  設定画面のCSSとJS
+	/*
+	  設定画面のCSSとJS
 	/*-------------------------------------------*/
 	public function css_customize_page_js_and_css( $hook_suffix ) {
 		global $hook_suffix;
@@ -137,23 +136,22 @@ class veu_css_customize {
 		$css_customize = $this->css_customize_get_css_min();
 		if ( $css_customize ) {
 		?>
-<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo esc_html( $css_customize ); ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
+<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo wp_kses_post( $css_customize ); ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
 			<?php
 		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
 	} // public function css_customize_push_css() {
 
 	// public function css_customize_push_editor_css( $settings ) {
-	// 	$css_customize = $this->css_customize_get_css_min();
+	// $css_customize = $this->css_customize_get_css_min();
 	//
-	// 	.editor-styles-wrapper h2 { font-size:30px; }
+	// .editor-styles-wrapper h2 { font-size:30px; }
 	//
-	// 	if ( isset( $settings['content_style'] ) ) {
-	// 		$settings['content_style'] .= $css_customize;
-	// 	} else {
-	// 		$settings['content_style'] = $css_customize;
-	// 	}
-	// 	$settings['content_style'] = $css_customize;
-	// 	return $settings;
+	// if ( isset( $settings['content_style'] ) ) {
+	// $settings['content_style'] .= $css_customize;
+	// } else {
+	// $settings['content_style'] = $css_customize;
 	// }
-
+	// $settings['content_style'] = $css_customize;
+	// return $settings;
+	// }
 }
