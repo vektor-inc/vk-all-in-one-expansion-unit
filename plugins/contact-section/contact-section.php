@@ -338,7 +338,7 @@ class VkExUnit_Contact {
 
 			$tel_icon = '';
 			if ( ! empty( $options['tel_icon'] ) ) {
-				$tel_icon = '<i class="' . esc_attr( $options['tel_icon'] ) . '"></i> ';
+				$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
 			}
 
 			if ( wp_is_mobile() ) {
