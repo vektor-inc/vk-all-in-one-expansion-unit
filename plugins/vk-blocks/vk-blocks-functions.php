@@ -22,8 +22,8 @@ function vkblocks_blocks_assets() {
 	$theme = wp_get_theme();
 	if ( $theme->exists() ) {
 		// 親テーマのテンプレートを取得
-		$theme_slug = $theme->get( 'Template' );
-		if ( $theme_slug == 'lightning-pro' ) {
+		// 親テーマが lightning-pro か テーマ名が Lightning Pro の時
+		if ( $theme->get( 'Template' ) == 'lightning-pro' || $theme->get( 'Name' ) == 'Lightning Pro' ) {
 			wp_localize_script( 'vk-blocks-build-js', 'vk_blocks_check', array( 'is_pro' => true ) );
 		} else {
 			wp_localize_script( 'vk-blocks-build-js', 'vk_blocks_check', array( 'is_pro' => false ) );

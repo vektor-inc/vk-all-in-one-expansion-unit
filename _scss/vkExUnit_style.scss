@@ -398,7 +398,8 @@ $section_pagelist_margin:2.5em 0 1em;
 	.contact_txt_time { display:block; overflow:hidden; }
 	.contact_txt_catch,
 	.contact_txt_time {font-size: 14px; line-height: 128.6%; }
-	.contact_txt_tel {padding:4px 0; font-size: 28px;line-height: 105%; }
+	.contact_txt_tel {padding:4px 0; font-size: 28px;line-height: 105%;font-weight: 700;}
+	.contact_txt_tel_icon { margin-right:0.3rem; }
 	.contact_bt_subTxt { display:block; overflow:hidden;font-size:12px;margin-top:0.4rem; }
 	.contact_txt { text-align: center; }
 	.contact_bt  { display: block; }
