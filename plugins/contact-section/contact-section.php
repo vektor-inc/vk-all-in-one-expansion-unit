@@ -115,7 +115,7 @@ class VkExUnit_Contact {
 	public static function get_option() {
 		$default = array(
 			'contact_txt'       => __( 'Please feel free to inquire.', 'vkExUnit' ),
-			'tel_icon'          => '',
+			'tel_icon'          => 'fas fa-phone-square',
 			'tel_number'        => '000-000-0000',
 			'contact_time'      => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vkExUnit' ),
 			'contact_link'      => home_url(),
@@ -125,7 +125,9 @@ class VkExUnit_Contact {
 			'contact_image'     => '',
 			'contact_html'      => '',
 		);
-		$option  = get_option( 'vkExUnit_contact' );
+		$option  = get_option( 'vkExUnit_contact', $default );
+		// オプション値が無い時は get_option の第２引数で登録されるが、
+		// 既に値が存在しているが、項目があとから追加された時用に wp_parse_args をしている
 		return wp_parse_args( $option, $default );
 	}
 
