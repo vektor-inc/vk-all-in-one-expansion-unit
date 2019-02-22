@@ -19,12 +19,12 @@ msgstr ""
 msgid "Alert"
 msgstr "アラート"
 
-#: src/balloon/block.js:122 src/flow/block.js:111 src/outer/block.js:123
+#: src/balloon/block.js:122 src/flow/block.js:111 src/outer/block.js:126
 #: src/pr-blocks/block.js:324 src/pr-content/component.js:102
 msgid "Select image"
 msgstr "画像を選択"
 
-#: src/balloon/block.js:122 src/flow/block.js:112 src/outer/block.js:125
+#: src/balloon/block.js:122 src/flow/block.js:112 src/outer/block.js:128
 #: src/pr-blocks/block.js:326 src/pr-content/component.js:106
 msgid "Upload image"
 msgstr "画像をアップロード"
@@ -45,7 +45,7 @@ msgstr "フキダシ"
 msgid "Balloon setting"
 msgstr "フキダシ設定"
 
-#: src/balloon/block.js:84
+#: src/balloon/block.js:84 src/heading/block.js:171
 msgid "Position"
 msgstr "位置"
 
@@ -61,7 +61,7 @@ msgstr "左"
 msgid "Right"
 msgstr "右"
 
-#: src/balloon/block.js:94 src/outer/block.js:190
+#: src/balloon/block.js:94 src/outer/block.js:193
 msgid "Type"
 msgstr "タイプ"
 
@@ -83,7 +83,7 @@ msgstr "ボタン設定"
 
 #: src/button/block.js:137
 msgid "Sub Caption"
-msgstr ""
+msgstr "サブテキスト"
 
 #: src/button/block.js:143 src/pr-blocks/block.js:276
 #: src/pr-content/block.js:131
@@ -98,7 +98,7 @@ msgstr "ボタンサイズ:"
 msgid "Large"
 msgstr "大"
 
-#: src/button/block.js:152 src/outer/block.js:139
+#: src/button/block.js:152 src/outer/block.js:142
 msgid "normal"
 msgstr "標準"
 
@@ -259,49 +259,122 @@ msgstr "タイトルを入力"
 msgid "Input content"
 msgstr "説明を入力"
 
-#: src/outer/block.js:111
+#: src/heading/block.js:116
+msgid "Style Settings"
+msgstr "スタイル設定"
+
+#: src/heading/block.js:118
+msgid "Heading style"
+msgstr "見出しスタイル"
+
+#: src/heading/block.js:122
+msgid "Default"
+msgstr "標準"
+
+#: src/heading/block.js:123
+msgid "Plain"
+msgstr "装飾無し"
+
+#: src/heading/block.js:126
+msgid "Margin bottom size (rem)"
+msgstr "下部の余白"
+
+#: src/heading/block.js:136
+msgid "Heading Settings"
+msgstr "見出し設定"
+
+#: src/heading/block.js:137
+msgid "Level"
+msgstr "レベル"
+
+#: src/heading/block.js:139
+msgid "Text Alignment"
+msgstr "テキストの水平位置"
+
+#: src/heading/block.js:155
+msgid "Heading margin bottom size (rem)"
+msgstr "見出し下部の余白 (rem)"
+
+#: src/heading/block.js:169
+msgid "Sub Text Settings"
+msgstr "サブテキスト設定"
+
+#: src/heading/block.js:174
+msgid "Display"
+msgstr "表示"
+
+#: src/heading/block.js:175
+msgid "Hide"
+msgstr "非表示"
+
+#: src/heading/block.js:179
+msgid "Text size (rem)"
+msgstr "文字サイズ (rem)"
+
+#: src/heading/block.js:205
+msgid "Input title…"
+msgstr "タイトルを入力"
+
+#: src/heading/block.js:218
+msgid "Input sub text…"
+msgstr "サブテキストを入力"
+
+#: src/heading/block.js:62
+msgid "Heading"
+msgstr "見出し"
+
+# %s: heading level e.g: "1", "2", "3"
+#: src/heading/heading-toolbar.js:17
+msgid "Heading %d"
+msgstr ""
+
+#: src/outer/block.js:101
+msgid "Opacity Setting"
+msgstr "透過設定"
+
+#: src/outer/block.js:114
 msgid "Background Image"
 msgstr "背景画像"
 
-#: src/outer/block.js:132
+#: src/outer/block.js:135
 msgid "Background image Position"
 msgstr "背景画像の位置"
 
-#: src/outer/block.js:140
+#: src/outer/block.js:143
 msgid "Fixed"
 msgstr "固定"
 
-#: src/outer/block.js:141
+#: src/outer/block.js:144
 msgid "Parallax (It will not work in preview)"
 msgstr "パララックス（編集画面では反映されません）"
 
-#: src/outer/block.js:147 src/pr-content/block.js:186
+#: src/outer/block.js:150 src/pr-content/block.js:186
 msgid "Layout Setting"
 msgstr "レイアウト設定"
 
-#: src/outer/block.js:150
+#: src/outer/block.js:153
 msgid "Outer width"
 msgstr "アウターの幅"
 
-#: src/outer/block.js:153
+#: src/outer/block.js:156
 msgid "Normal"
 msgstr "標準"
 
-#: src/outer/block.js:154
+#: src/outer/block.js:157
 msgid "Full Wide"
 msgstr "全幅"
 
-#: src/outer/block.js:159
+#: src/outer/block.js:162
 msgid "Contents area padding (left and right)"
 msgstr "コンテンツエリアの余白 (左右)"
 
-#: src/outer/block.js:163
+#: src/outer/block.js:166
 msgid ""
 "Do not use contents area default padding (When case of full width etc.)."
 msgstr ""
 "コンテンツエリア内の左右に標準の余白を使用しない（全幅で利用の場合など）。"
 
-#: src/outer/block.js:167
+#: src/outer/block.js:170
 msgid ""
 "Use contents area default padding (When case of not full width and use "
 "background etc.)."
@@ -309,103 +382,103 @@ msgstr ""
 "コンテンツエリア内の左右に標準の余白を使用する（全幅でない標準幅で背景色を指"
 "定する場合など）。"
 
-#: src/outer/block.js:174
+#: src/outer/block.js:177
 msgid "Padding (top and bottom)"
 msgstr "余白 (上下)"
 
-#: src/outer/block.js:177
+#: src/outer/block.js:180
 msgid "Use default padding"
 msgstr "標準の余白を使用"
 
-#: src/outer/block.js:179
+#: src/outer/block.js:182
 msgid "Do not use default padding (Set it yourself using a spacer block etc.)."
 msgstr "標準の余白を使用しない（スペーサーブロックなどで独自に指定する）。"
 
-#: src/outer/block.js:187
+#: src/outer/block.js:190
 msgid "Divider Setting"
 msgstr "区切りの設定"
 
-#: src/outer/block.js:196
+#: src/outer/block.js:199
 msgid "Tilt"
 msgstr "傾斜"
 
-#: src/outer/block.js:200
+#: src/outer/block.js:203
 msgid "Curve"
 msgstr "カーブ"
 
-#: src/outer/block.js:204
+#: src/outer/block.js:207
 msgid "Wave"
 msgstr "波状"
 
-#: src/outer/block.js:208
+#: src/outer/block.js:211
 msgid "Triangle"
 msgstr "三角"
 
-#: src/outer/block.js:213
+#: src/outer/block.js:217
 msgid "Upper Divider Level"
 msgstr "上部区切りレベル"
 
-#: src/outer/block.js:224
+#: src/outer/block.js:233
 msgid "Lower Divider Level"
 msgstr "下部区切りレベル"
 
-#: src/outer/block.js:236
+#: src/outer/block.js:249
 msgid "Border Setting"
 msgstr "枠線の設定"
 
-#: src/outer/block.js:240
+#: src/outer/block.js:253
 msgid "Border will disappear when divider effect is applied."
 msgstr "枠線は区切りレベルを適用すると表示されなくなります。"
 
-#: src/outer/block.js:242
+#: src/outer/block.js:255
 msgid "Border type"
 msgstr "枠線の種類"
 
-#: src/outer/block.js:248
+#: src/outer/block.js:261
 msgid "None"
 msgstr ""
 
-#: src/outer/block.js:252 src/pr-content/block.js:139
+#: src/outer/block.js:265 src/pr-content/block.js:139
 msgid "Solid"
 msgstr ""
 
-#: src/outer/block.js:256
+#: src/outer/block.js:269
 msgid "Dotted"
 msgstr ""
 
-#: src/outer/block.js:260
+#: src/outer/block.js:273
 msgid "Dashed"
 msgstr ""
 
-#: src/outer/block.js:264
+#: src/outer/block.js:277
 msgid "Double"
 msgstr ""
 
-#: src/outer/block.js:268
+#: src/outer/block.js:281
 msgid "Groove"
 msgstr ""
 
-#: src/outer/block.js:272
+#: src/outer/block.js:285
 msgid "Ridge"
 msgstr ""
 
-#: src/outer/block.js:276
+#: src/outer/block.js:289
 msgid "Inset"
 msgstr ""
 
-#: src/outer/block.js:280
+#: src/outer/block.js:293
 msgid "Outset"
 msgstr ""
 
-#: src/outer/block.js:289
+#: src/outer/block.js:305
 msgid "Border width"
 msgstr "枠線の幅"
 
-#: src/outer/block.js:295
+#: src/outer/block.js:314
 msgid "Border radius"
 msgstr "枠線のRの大きさ"
 
-#: src/outer/block.js:311
+#: src/outer/block.js:332
 msgid "This block is only for users who bought Lightning Pro."
 msgstr "このブロックは Lightning Pro 専用です。"
 
@@ -413,25 +486,21 @@ msgstr "このブロックは Lightning Pro 専用です。"
 msgid "Outer"
 msgstr "Outer"
 
-#: src/outer/block.js:87
+#: src/outer/block.js:90
 msgid "Background Setting"
 msgstr "背景設定設定"
 
-#: src/outer/block.js:89 src/pr-content/block.js:89
+#: src/outer/block.js:92 src/pr-content/block.js:89
 msgid "Color Setting"
 msgstr "色設定"
 
-#: src/outer/block.js:90
+#: src/outer/block.js:93
 msgid ""
 "Color will overcome background image. If you want to display image, clear "
 "background color or set opacity 0."
 msgstr ""
 "色を指定すると画像よりも優先されます。画像を表示したい場合は、背景色をクリア"
 "するか、不透明度を0に設定します。"
-
-#: src/outer/block.js:98
-msgid "Opacity Setting"
-msgstr "透過設定"
 
 #: src/pr-blocks/block.js:137
 msgid "PR Block1 Setting"
@@ -545,14 +614,51 @@ msgstr "タイトルを入力してください。"
 msgid "Input content."
 msgstr "本文を入力してください。"
 
+#: src/spacer/block.js:100
+msgid "Mobile"
+msgstr "モバイル"
+
+#: src/spacer/block.js:40
+msgid "Responsive Spacer"
+msgstr "レスポンシブスペーサー"
+
+#: src/spacer/block.js:66
+msgid "Unit Type"
+msgstr "単位"
+
+#: src/spacer/block.js:72
+msgid "px"
+msgstr ""
+
+#: src/spacer/block.js:76
+msgid "em"
+msgstr ""
+
+#: src/spacer/block.js:80
+msgid "rem"
+msgstr ""
+
+#: src/spacer/block.js:84
+msgid "vw"
+msgstr ""
+
+#: src/spacer/block.js:88
+msgid "Height for each device."
+msgstr "デバイス毎の高さ"
+
+#: src/spacer/block.js:90
+msgid "PC"
+msgstr ""
+
+#: src/spacer/block.js:95
+msgid "Tablet"
+msgstr "タブレット"
+
 #~ msgid "Border color"
 #~ msgstr "枠線の色"
 
 #~ msgid "Use contents area default padding"
 #~ msgstr "コンテンツエリアの左右に標準の余白を使用"
-
-#~ msgid "Padding"
-#~ msgstr "余白"
 
 #~ msgid "Link target"
 #~ msgstr "リンクターゲット"
@@ -581,11 +687,6 @@ msgstr "本文を入力してください。"
 
 #~ msgid "Button Url"
 #~ msgstr "リンクURL"
-
-#, fuzzy
-#~| msgid "Type"
-#~ msgid "URL Type"
-#~ msgstr "タイプ"
 
 #~ msgid "PR Block"
 #~ msgstr "PR Block"
