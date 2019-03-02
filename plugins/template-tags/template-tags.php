@@ -6,6 +6,18 @@ https://github.com/vektor-inc/vektor-wp-libraries
 にあります。修正の際は上記リポジトリのデータを修正してください。
 */
 
+/*
+  Chack use post top page
+  Chack post type info
+  Archive title
+  Page description
+  vk_is_plugin_active
+  Sanitize
+  Post Type Check Box
+	vk_is_checked
+*/
+
+
 
 if ( ! function_exists( 'vk_is_excerpt' ) ) {
 	function vk_is_excerpt() {
@@ -17,8 +29,8 @@ if ( ! function_exists( 'vk_is_excerpt' ) ) {
 }
 
 
-/*-------------------------------------------*/
-/*  Chack use post top page
+/*
+  Chack use post top page
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 	function vk_get_page_for_posts() {
@@ -36,8 +48,8 @@ if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 }
 
 
-/*-------------------------------------------*/
-/*  Chack post type info
+/*
+  Chack post type info
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_post_type' ) ) {
 	function vk_get_post_type() {
@@ -82,8 +94,8 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 	}
 }
 
-/*-------------------------------------------*/
-/*  Archive title
+/*
+  Archive title
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 	function vk_get_the_archive_title() {
@@ -141,8 +153,8 @@ if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 }
 
 
-/*-------------------------------------------*/
-/*  Page description
+/*
+  Page description
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_page_description' ) ) {
 	function vk_get_page_description() {
@@ -232,8 +244,8 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 	}
 }
 
-/*-------------------------------------------*/
-/*  vk_is_plugin_active
+/*
+  vk_is_plugin_active
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_is_plugin_active' ) ) {
 	function vk_is_plugin_active( $plugin_path = '' ) {
@@ -248,8 +260,8 @@ if ( ! function_exists( 'vk_is_plugin_active' ) ) {
 	}
 }
 
-/*-------------------------------------------*/
-/*  Sanitize
+/*
+  Sanitize
 /*-------------------------------------------*/
 if ( ! function_exists( 'veu_sanitize_boolean' ) ) {
 	function veu_sanitize_boolean( $input ) {
@@ -274,11 +286,12 @@ if ( ! function_exists( 'vk_sanitize_number' ) ) {
 	}
 }
 
-/*-------------------------------------------*/
-/*  Post Type Check Box
+/*
+  Post Type Check Box
 /*-------------------------------------------*/
 /**
  * 投稿タイプのチェックボックスを表示する関数
+ *
  * @param  [type] $args 取得する投稿タイプ情報の判別や保存されてる値の情報など
  * @return [type]       [description]
  */
@@ -302,4 +315,24 @@ function vk_the_post_type_check_list( $args ) {
 		}
 	}
 	echo '</ul>';
+}
+
+/*
+	vk_is_checked
+/*-------------------------------------------*/
+/**
+ * [vk_is_checked description]
+ *
+ * @param  string  $checked_value checkedにする場合の値
+ * @param  string  $value 保存値
+ * @return boolean        [description]
+ */
+if ( ! function_exists( 'vk_is_checked' ) ) {
+	function vk_is_checked( $checked_value = '', $value = '' ) {
+		$checked = '';
+		if ( $checked_value == $value ) {
+			$checked = ' checked';
+		}
+		echo $checked;
+	}
 }

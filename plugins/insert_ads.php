@@ -22,13 +22,14 @@ class vExUnit_Ads {
 	}
 
 	private function __construct() {
-		/***    do noting    ***/
+		/***    do noting    */
 	}
 
 
 	protected function run_init() {
 		add_action( 'vkExUnit_package_init', array( $this, 'option_init' ) );
 		add_filter( 'the_content', array( $this, 'set_content' ), 10, 1 );
+		add_action( 'wp_head', array( $this, 'print_google_auto_ad' ) );
 		add_shortcode( 'vkExUnit_ad', array( $this, 'shortcode' ) );
 	}
 
@@ -120,15 +121,39 @@ class vExUnit_Ads {
 		return $content;
 	}
 
+	public function print_google_auto_ad() {
+		$option = $this->get_option();
+		if ( $option['google-ads-active'] && $option['google-pub-id'] ) {
+
+			$overlay = ',overlays: {bottom: true}';
+?><!-- [ <?php echo veu_get_name(); ?> GoogleAd ] -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	 (adsbygoogle = window.adsbygoogle || []).push({
+		  google_ad_client: "ca-pub-<?php echo esc_attr( $option['google-pub-id'] ); ?>",
+		  enable_page_level_ads: true
+			<?php
+			if ( $option['google-ads-overlays-bottom'] ) {
+				echo $overlay;}
+?>
+	 });
+</script>
+<!-- [ / <?php echo veu_get_name(); ?> GoogleAd ] -->
+		<?php
+		}
+	}
 
 	public function sanitize_config( $input ) {
-		$option              = $input;
-		$option['before'][0] = stripslashes( $input['before'][0] );
-		$option['before'][1] = stripslashes( $input['before'][1] );
-		$option['more'][0]   = stripslashes( $input['more'][0] );
-		$option['more'][1]   = stripslashes( $input['more'][1] );
-		$option['after'][0]  = stripslashes( $input['after'][0] );
-		$option['after'][1]  = stripslashes( $input['after'][1] );
+		$option                               = $input;
+		$option['google-ads-active']          = esc_attr( $input['google-ads-active'] );
+		$option['google-ads-overlays-bottom'] = esc_attr( $input['google-ads-overlays-bottom'] );
+		$option['google-pub-id']              = esc_attr( $input['google-pub-id'] );
+		$option['before'][0]                  = stripslashes( $input['before'][0] );
+		$option['before'][1]                  = stripslashes( $input['before'][1] );
+		$option['more'][0]                    = stripslashes( $input['more'][0] );
+		$option['more'][1]                    = stripslashes( $input['more'][1] );
+		$option['after'][0]                   = stripslashes( $input['after'][0] );
+		$option['after'][1]                   = stripslashes( $input['after'][1] );
 
 		if ( ! $option['before'][0] && $option['before'][1] ) {
 			$option['before'][0] = $option['before'][1];
@@ -157,10 +182,13 @@ class vExUnit_Ads {
 
 	public static function get_option() {
 		$default = array(
-			'before'     => array( '' ),
-			'more'       => array( '' ),
-			'after'      => array( '' ),
-			'post_types' => array( 'post' => true ),
+			'google-ads-active'          => false,
+			'google-ads-overlays-bottom' => true,
+			'google-pub-id'              => '',
+			'before'                     => array( '' ),
+			'more'                       => array( '' ),
+			'after'                      => array( '' ),
+			'post_types'                 => array( 'post' => true ),
 		);
 		$option  = get_option( 'vkExUnit_Ads', $default );
 
@@ -173,13 +201,38 @@ class vExUnit_Ads {
 		return $option;
 	}
 
-
 	public function render_configPage() {
 		$option = $this->get_option();
 	?>
 	<h3><?php _e( 'Insert ads', 'vkExUnit' ); ?></h3>
 <div id="vkExUnit_Ads" class="sectionBox">
+
 <table class="form-table">
+<tr>
+	<th><?php _e( 'Google Auto ads', 'vkExUnit' ); ?><br>
+		<?php
+		$lang          = ( get_locale() == 'ja' ) ? 'ja' : 'en';
+		$Google_ad_url = 'https://support.google.com/adsense/answer/7478040?hl=' . $lang;
+		?>
+		[ <a href="<?php echo $Google_ad_url; ?>" target="_blank"><?php _e( 'About Google Auto ads', 'vkExUnit' ); ?></a> ]
+	</th>
+	<td>
+		<?php _e( 'If you would like to set to Google Auto ads,Please fill in Publisher ID.', 'vkExUnit' ); ?>
+		<p><label>
+			<input type="checkbox" name="vkExUnit_Ads[google-ads-active]" id="google-ads-active" value="true"<?php vk_is_checked( 'true', $option['google-ads-active'] ); ?>> <?php _e( 'Enable Google Auto ads', 'vkExUnit' ); ?></label></p>
+		<p>
+		<label><?php _e( 'Publisher ID', 'vkExUnit' ); ?></label><br>
+		pub-<input type="text" name="vkExUnit_Ads[google-pub-id]" id="gaId" value="<?php echo esc_attr( $option['google-pub-id'] ); ?>" style="width:90%;">
+	</p>
+	<?php
+	$link = '<a href="https://www.google.com/adsense/" target="_blank">' . __( 'Google AdSense dashboard', 'vkExUnit' ) . '</a>';
+	?>
+	<p>* <?php printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vkExUnit' ), $link ); ?>
+	</p>
+	<p><label>
+		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php vk_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vkExUnit' ); ?></label></p>
+	</td>
+</tr>
 <tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
 </th><td style="max-width:80em;">
 <?php _e( 'Insert ads to before content and more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
