@@ -208,6 +208,11 @@ class vExUnit_Ads {
 <div id="vkExUnit_Ads" class="sectionBox">
 
 <table class="form-table">
+<?php
+/*
+  Google Auto ads
+/*--------------------------------------------------*/
+	?>
 <tr>
 	<th><?php _e( 'Google Auto ads', 'vkExUnit' ); ?><br>
 		<?php
@@ -231,8 +236,15 @@ class vExUnit_Ads {
 	</p>
 	<p><label>
 		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php vk_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vkExUnit' ); ?></label></p>
+
+	<p>* <?php _e( 'The layout may collapse by inserting Google Auto ads, but the correspondence varies depending on the kind, specification, theme etc. of advertisement, so please write CSS according to your needs about the display collapse and correct it.', 'vkExUnit' ); ?></p>
 	</td>
 </tr>
+<?php
+/*
+  Manual set Ads
+/*--------------------------------------------------*/
+	?>
 <tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
 </th><td style="max-width:80em;">
 <?php _e( 'Insert ads to before content and more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
