@@ -67,6 +67,19 @@ function veu_save_custom_css( $post_id ) {
 } // function veu_save_custom_css($post_id) {
 
 
+function veu_get_the_custom_css_single( $post ) {
+	$css_customize = get_post_meta( $post->ID, '_veu_custom_css', true );
+	if ( $css_customize ) {
+		// delete br
+		$css_customize = str_replace( PHP_EOL, '', $css_customize );
+		// delete tab
+		$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
+		// multi space convert to single space
+		$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
+	}
+	return strip_tags( $css_customize );
+}
+
 /*
  入力された CSS をソースに出力
 /* ------------------------------------------------ */
@@ -78,8 +91,7 @@ function veu_insert_custom_css() {
 		if ( have_posts() ) :
 			while ( have_posts() ) :
 				the_post();
-					// preg_replace で改行を削除して wp_kses_post でエスケープする
-					echo '<style type="text/css">' . wp_kses_post( preg_replace( '/(?:\n|\r|\r\n)/', '', get_post_meta( get_the_ID(), '_veu_custom_css', true ) ) ) . '</style>';
+					echo '<style type="text/css">' . veu_get_the_custom_css_single() . '</style>';
 				endwhile;
 		endif;
 		// ページ上の別の場所で同じクエリを再利用するために、ループの投稿情報を巻き戻し、前回と同じ順序で先頭の投稿を取得できるように
