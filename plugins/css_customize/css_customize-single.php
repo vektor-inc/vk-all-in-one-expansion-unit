@@ -91,7 +91,8 @@ function veu_insert_custom_css() {
 		if ( have_posts() ) :
 			while ( have_posts() ) :
 				the_post();
-					echo '<style type="text/css">' . veu_get_the_custom_css_single() . '</style>';
+					global $post;
+					echo '<style type="text/css">' . veu_get_the_custom_css_single( $post ) . '</style>';
 				endwhile;
 		endif;
 		// ページ上の別の場所で同じクエリを再利用するために、ループの投稿情報を巻き戻し、前回と同じ順序で先頭の投稿を取得できるように
