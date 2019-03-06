@@ -6,7 +6,7 @@
 add_action( 'admin_menu', 'veu_custom_css_hooks' );
 add_action( 'save_post', 'veu_save_custom_css' );
 // </head>タグの直上に出力させたいので第三引数に 50 を設定
-add_action( 'wp_head', 'veu_insert_custom_css', 50 );
+add_action( 'wp_head', 'veu_insert_custom_css', 201 );
 
 
 /*
