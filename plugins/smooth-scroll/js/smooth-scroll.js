@@ -30,7 +30,19 @@ $('a[href^="#"]').click(function() {
  	if ( id == 'page_top' ){
  		var position = 0;
  	} else {
- 		var position = target.offset().top;
+		// ヘッダ-固定の時用オフセット
+		var header_height = 0;
+		if ( jQuery('body').hasClass('headfix') ){
+			header_height = jQuery('body > header').outerHeight();
+			console.log(header_height);
+		}
+		// 管理バー分オフセット
+		var admin_bar_height = 0;
+		if ( jQuery('body').hasClass('admin-bar') ){
+			admin_bar_height = jQuery('#wpadminbar').outerHeight();
+		}
+
+ 		var position = target.offset().top - header_height - admin_bar_height;
  	}
 	$('body,html').animate({scrollTop:position}, speed, 'swing');
 	return false;
