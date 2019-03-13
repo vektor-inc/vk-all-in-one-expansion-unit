@@ -31,17 +31,20 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return $more_link_html;
 	}
 
-
-	function widget( $args, $instance ) {
-		$instance = static::get_options( $instance );
-
+	static public function get_widget_title( $instance ) {
 		$title = '';
 		if ( isset( $instance['title'] ) && $instance['title'] ) {
 			$title = $instance['title'];
-		} elseif ( $instance['label'] ) {
+		} elseif ( isset( $instance['label'] ) && $instance['label'] ) {
 			// title が未記入で label は入力されている場合
 			$title = $instance['label'];
 		}
+		return $title;
+	}
+
+	function widget( $args, $instance ) {
+		$instance = static::get_options( $instance );
+		$title    = $this->get_widget_title( $instance );
 
 		if ( ! isset( $instance['format'] ) ) {
 			$instance['format'] = 0; }
