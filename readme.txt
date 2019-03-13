@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
-Tested up to: 5.0.3
-Stable tag: 7.9.1
+Tested up to: 5.1.1
+Stable tag: 8.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,10 @@ e.g.
 
 == Changelog ==
 
+= 8.0.0 =
+[Bug fix][ PR Blocks ] When link url not set that no print a Tags
+[Specification change][ PR Blocks ] Change outer tag article to div
+[Specification change][ PR Blocks ] Change h1 tag to h3 tag
 
 = 7.9.1 =
 [ Bug fix ][ CSS Customize ] encode bug fix
