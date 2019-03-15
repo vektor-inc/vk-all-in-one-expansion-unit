@@ -302,15 +302,26 @@ function vk_the_post_type_check_list( $args ) {
 		),
 		'name'            => '',
 		'checked'         => '',
+		'id'              => '',
 	);
 	$args       = wp_parse_args( $args, $default );
 	$post_types = get_post_types( $args['post_types_args'], 'object' );
 	echo '<ul>';
 	foreach ( $post_types as $key => $value ) {
 		if ( $key != 'attachment' ) {
+
 			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
+
+			if ( $args['id'] ) {
+				$id = 'id="' . esc_attr( $args['id'] ) . '"';
+			} elseif ( $args['name'] ) {
+				$id = 'id="' . esc_attr( $args['name'] ) . '"';
+			} else {
+				$id = '';
+			}
+
 			echo '<li><label>';
-			echo '<input type="checkbox" name="' . $args['name'] . '[' . $key . ']" id="snsBtn_exclude_post_types" value="true"' . $checked . ' />' . esc_html( $value->label );
+			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . $key . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
 			echo '</label></li>';
 		}
 	}
