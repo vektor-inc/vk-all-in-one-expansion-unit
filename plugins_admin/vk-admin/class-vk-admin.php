@@ -21,8 +21,6 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
-			// メイン設定画面などで画像アップロードに必要
-			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 			add_action( 'customize_register', array( __CLASS__, 'admin_common_css' ) );
 			add_action( 'wp_dashboard_setup', array( __CLASS__, 'dashboard_widget' ), 1 );
 		}
@@ -46,22 +44,27 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			}
 		}
 
+		/*
+		  get_admin_banner
 		/*--------------------------------------------------*/
-		/*  get_admin_banner
+		/*
+		  get_news_body_api
 		/*--------------------------------------------------*/
-		/*  get_news_body_api
+		/*
+		  get_news_from_rss
 		/*--------------------------------------------------*/
-		/*  get_news_from_rss
+		/*
+		  admin _ Dashboard Widget
 		/*--------------------------------------------------*/
-		/*  admin _ Dashboard Widget
+		/*
+		  admin _ sub
 		/*--------------------------------------------------*/
-		/*  admin _ sub
-		/*--------------------------------------------------*/
-		/*  admin _ page_frame
+		/*
+		  admin _ page_frame
 		/*--------------------------------------------------*/
 
-		/*--------------------------------------------------*/
-		/*  get_admin_banner
+		/*
+		  get_admin_banner
 		/*--------------------------------------------------*/
 		public static function get_admin_banner() {
 			$banner  = '';
@@ -69,6 +72,14 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			$lang    = ( get_locale() == 'ja' ) ? 'ja' : 'en';
 
 			$banner .= '<div class="vk-admin-banner">';
+			if ( $lang == 'ja' ) {
+				$banner .= '<a class="admin_banner" href="https://recruit.vektor-inc.co.jp/?rel=vkadmin" target="_blank">';
+				$banner .= '<img src="' . $dir_url . 'images/admin_banner_recruit.jpg" alt="[ Vektor,Inc. 採用情報 ]" />';
+				$banner .= '</a>';
+			} else {
+				$banner .= '<a href="https://lightning.nagoya/lightning_copyright_customizer/?rel=vkadmin" target="_blank" class="button button-primary button-primary button-block" style="margin-bottom:1em;">Lightning Copyright Customizer <span class="screen-reader-text">(opens in a new tab)</span><span aria-hidden="true" class="dashicons dashicons-external" style="position:relative;top:3px;"></span></a>';
+			}
+
 			$banner .= '<div class="vk-admin-banner-grid">';
 
 			// プラグイン Link Target Controller を有効化していない人にバナーを表示
@@ -143,8 +154,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			return apply_filters( 'vk_admin_banner_html', $banner );
 		}
 
-		/*--------------------------------------------------*/
-		/*  get_news_body
+		/*
+		  get_news_body
 		/*--------------------------------------------------*/
 		public static function get_news_body() {
 			if ( 'ja' == get_locale() ) {
@@ -156,8 +167,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			}
 		}
 
-		/*--------------------------------------------------*/
-		/*  get_news_body_api
+		/*
+		  get_news_body_api
 		/*--------------------------------------------------*/
 
 		public static function get_news_from_rest_api() {
@@ -241,8 +252,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 	<?php
 		}
 
-		/*--------------------------------------------------*/
-		/*  get_news_from_rss
+		/*
+		  get_news_from_rss
 		/*  RSS方針で現在は日本語以外でのみ使用
 		/*--------------------------------------------------*/
 		public static function get_news_from_rss() {
@@ -268,7 +279,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				if ( ! is_wp_error( $rss ) ) {
 					$output = '';
 
-					$maxitems  = $rss->get_item_quantity( 5 ); //number of news to display (maximum)
+					$maxitems  = $rss->get_item_quantity( 5 ); // number of news to display (maximum)
 					$rss_items = $rss->get_items( 0, $maxitems );
 					$output   .= '<div class="rss-widget">';
 					$output   .= '<h4 class="vk-metabox-sub-title">' . apply_filters( 'vk-admin-sub-title-text', 'Information' ) . '</h4>';
@@ -322,8 +333,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			return apply_filters( 'vk-admin-is-dashboard-active', $flag );
 		}
-		/*--------------------------------------------------*/
-		/*  admin _ Dashboard Widget
+		/*
+		  admin _ Dashboard Widget
 		/*--------------------------------------------------*/
 		public static function dashboard_widget() {
 			global $vk_admin_textdomain;
@@ -341,8 +352,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			echo Vk_Admin::get_admin_banner();
 		}
 
-		/*--------------------------------------------------*/
-		/*  admin _ sub
+		/*
+		  admin _ sub
 		/*--------------------------------------------------*/
 		// 2016.08.07 ExUnitの有効化ページでは直接 admin_subを呼び出しているので注意
 		public static function admin_sub() {
@@ -357,8 +368,8 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			return $adminSub;
 		}
 
-		/*--------------------------------------------------*/
-		/*  admin _ page_frame
+		/*
+		  admin _ page_frame
 		/*--------------------------------------------------*/
 		public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '', $get_menu_html = '', $get_layout = 'column_3' ) {
 	?>
