@@ -313,9 +313,9 @@ function vk_the_post_type_check_list( $args ) {
 			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
 
 			if ( $args['id'] ) {
-				$id = 'id="' . esc_attr( $args['id'] ) . '"';
+				$id = ' id="' . esc_attr( $args['id'] ) . '"';
 			} elseif ( $args['name'] ) {
-				$id = 'id="' . esc_attr( $args['name'] ) . '"';
+				$id = ' id="' . esc_attr( $args['name'] ) . '"';
 			} else {
 				$id = '';
 			}
