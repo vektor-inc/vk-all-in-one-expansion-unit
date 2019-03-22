@@ -86,7 +86,7 @@ e.g.
 
 == Changelog ==
 
-= 8.0.1 =
+= 8.0.2 =
 [ Other ][ dashboard ] Add Link banner
 
 = 8.0.0 =
