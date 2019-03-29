@@ -53,20 +53,29 @@ if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_post_type' ) ) {
 	function vk_get_post_type() {
-
+		global $wp_query;
 		$page_for_posts = vk_get_page_for_posts();
 
-		// Get post type slug
 		/*-------------------------------------------*/
 		$postType['slug'] = get_post_type();
 		if ( ! $postType['slug'] ) {
-			global $wp_query;
+
 			if ( $wp_query->query_vars['post_type'] ) {
+
 				$postType['slug'] = $wp_query->query_vars['post_type'];
+
 			} else {
-				// Case of tax archive and no posts
-				$taxonomy         = get_queried_object()->taxonomy;
-				$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];
+				// Case of no post type query
+				if ( ! empty( $wp_query->queried_object->taxonomy ) ) {
+					// Case of tax archive and no posts
+					$taxonomy         = $wp_query->queried_object->taxonomy;
+					$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];
+
+				} else {
+					// Case of no tax query and no post type query and no posts
+					$postType['slug'] = 'post';
+
+				} // if ( ! empty( $wp_query->queried_object->taxonomy ) ) {
 			}
 		}
 
