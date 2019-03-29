@@ -209,11 +209,10 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 				}
 			}
 		} elseif ( is_page() || is_single() ) {
-			$metaExcerpt = $post->post_excerpt;
-			if ( $metaExcerpt ) {
-				$page_description = $metaExcerpt;
+			if ( $post->post_excerpt ) {
+				$page_description = $post->post_excerpt;
 			} else {
-				$page_description = mb_substr( strip_tags( $post->post_content ), 0, 240 ); // kill tags and trim 240 chara
+				$page_description = $post->post_content;
 			}
 		} else {
 			$page_description = get_bloginfo( 'description' );
@@ -222,6 +221,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		if ( $paged != '0' ) {
 			$page_description = '[' . sprintf( __( 'Page of %s', 'vkExUnit' ), $paged ) . '] ' . $page_description;
 		}
+		// This filter (vkExUnit_pageDescriptionCustom) is deprecated.
 		$page_description = apply_filters( 'vkExUnit_pageDescriptionCustom', $page_description );
 
 		/*
@@ -230,17 +230,24 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		* ショートコードの中の引数の "" が入るとタグの終了がおかしくなりシェアやRSSで問題が出る
 		という理由で do_shortcode で実行した後 html タグを除去していた
 		$page_description = esc_html( strip_tags( do_shortcode( $page_description ) ) );
+
 		しかし、ここで do_shortcode 入れるとWooCommerceなどのエラーメッセージが正常に表示されなくなる。
-		なので、ショートコードの実行は行わないが、不具合の原因となる " は 全角に変換する ... と、
-		この関数はそもそもディスクリプションを出力するためだけで " をそのまま出力したい時もありえる事から、
-		タグの属性として使う側で esc_attr などのエスケープを実施する
-		そもそもショートコードが出るなら適切に抜粋欄に記入して運用でカバーする。
+		なので、ショートコードの実行は行わないが、ショートコードの引き値としての " は不具合の原因となるので
+		 " esc_attr でエスケープを実施する
+		本来ショートコードが出る場合は適切に抜粋欄に記入して運用でカバーする。
 		*/
-		$page_description = esc_html( strip_tags( $page_description ) );
+		// この関数は get_the_ ではないので関数内では esc_attr() は行わない
+		$page_description = strip_tags( $page_description );
+		$page_description = strip_shortcodes( $page_description );
+
+		if ( is_singular() ) {
+			$page_description = mb_substr( $page_description, 0, 240 ); // kill tags and trim 240 chara
+		}
+
 		// Delete Line break
 		$page_description = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $page_description );
-		$page_description = preg_replace( '/\[(.*?)\]/m', '', $page_description );
-		return $page_description;
+
+		return apply_filters( 'vk_get_page_description', $page_description );
 	}
 }
 
