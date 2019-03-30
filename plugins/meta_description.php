@@ -44,12 +44,10 @@ function vkExUnit_add_description_options_page() {
 <?php
 }
 
-
-/*-------------------------------------------*/
-/*  head_description
+/*
+  head_description
 /*-------------------------------------------*/
 add_filter( 'wp_head', 'vkExUnit_render_HeadDescription', 5 );
 function vkExUnit_render_HeadDescription() {
-
-	echo '<meta name="description" content="' . vk_get_page_description() . '" />';
+	echo '<meta name="description" content="' . esc_attr( vk_get_page_description() ) . '" />';
 }

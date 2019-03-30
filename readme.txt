@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.1.1
-Stable tag: 8.0.0
+Stable tag: 8.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,10 +86,17 @@ e.g.
 
 == Changelog ==
 
+= 8.0.3 =
+[ Bug fix ][ template-tags ][ vk get_post_type ] no post bug fix
+[ Specification change ][ template-tags ][ meta description ] escape & add_filter
+
+= 8.0.2 =
+[ Other ][ dashboard ] Add Link banner
+
 = 8.0.0 =
-[Bug fix][ PR Blocks ] When link url not set that no print a Tags
-[Specification change][ PR Blocks ] Change outer tag article to div
-[Specification change][ PR Blocks ] Change h1 tag to h3 tag
+[ Bug fix ][ PR Blocks ] When link url not set that no print a Tags
+[ Specification change ][ PR Blocks ] Change outer tag article to div
+[ Specification change ][ PR Blocks ] Change h1 tag to h3 tag
 
 = 7.9.1 =
 [ Bug fix ][ CSS Customize ] encode bug fix

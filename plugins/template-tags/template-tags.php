@@ -53,20 +53,29 @@ if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_post_type' ) ) {
 	function vk_get_post_type() {
-
+		global $wp_query;
 		$page_for_posts = vk_get_page_for_posts();
 
-		// Get post type slug
 		/*-------------------------------------------*/
 		$postType['slug'] = get_post_type();
 		if ( ! $postType['slug'] ) {
-			global $wp_query;
+
 			if ( $wp_query->query_vars['post_type'] ) {
+
 				$postType['slug'] = $wp_query->query_vars['post_type'];
+
 			} else {
-				// Case of tax archive and no posts
-				$taxonomy         = get_queried_object()->taxonomy;
-				$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];
+				// Case of no post type query
+				if ( ! empty( $wp_query->queried_object->taxonomy ) ) {
+					// Case of tax archive and no posts
+					$taxonomy         = $wp_query->queried_object->taxonomy;
+					$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];
+
+				} else {
+					// Case of no tax query and no post type query and no posts
+					$postType['slug'] = 'post';
+
+				} // if ( ! empty( $wp_query->queried_object->taxonomy ) ) {
 			}
 		}
 
@@ -209,11 +218,10 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 				}
 			}
 		} elseif ( is_page() || is_single() ) {
-			$metaExcerpt = $post->post_excerpt;
-			if ( $metaExcerpt ) {
-				$page_description = $metaExcerpt;
+			if ( $post->post_excerpt ) {
+				$page_description = $post->post_excerpt;
 			} else {
-				$page_description = mb_substr( strip_tags( $post->post_content ), 0, 240 ); // kill tags and trim 240 chara
+				$page_description = $post->post_content;
 			}
 		} else {
 			$page_description = get_bloginfo( 'description' );
@@ -222,6 +230,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		if ( $paged != '0' ) {
 			$page_description = '[' . sprintf( __( 'Page of %s', 'vkExUnit' ), $paged ) . '] ' . $page_description;
 		}
+		// This filter (vkExUnit_pageDescriptionCustom) is deprecated.
 		$page_description = apply_filters( 'vkExUnit_pageDescriptionCustom', $page_description );
 
 		/*
@@ -230,17 +239,24 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		* ショートコードの中の引数の "" が入るとタグの終了がおかしくなりシェアやRSSで問題が出る
 		という理由で do_shortcode で実行した後 html タグを除去していた
 		$page_description = esc_html( strip_tags( do_shortcode( $page_description ) ) );
+
 		しかし、ここで do_shortcode 入れるとWooCommerceなどのエラーメッセージが正常に表示されなくなる。
-		なので、ショートコードの実行は行わないが、不具合の原因となる " は 全角に変換する ... と、
-		この関数はそもそもディスクリプションを出力するためだけで " をそのまま出力したい時もありえる事から、
-		タグの属性として使う側で esc_attr などのエスケープを実施する
-		そもそもショートコードが出るなら適切に抜粋欄に記入して運用でカバーする。
+		なので、ショートコードの実行は行わないが、ショートコードの引き値としての " は不具合の原因となるので
+		 " esc_attr でエスケープを実施する
+		本来ショートコードが出る場合は適切に抜粋欄に記入して運用でカバーする。
 		*/
-		$page_description = esc_html( strip_tags( $page_description ) );
+		// この関数は get_the_ ではないので関数内では esc_attr() は行わない
+		$page_description = strip_tags( $page_description );
+		$page_description = strip_shortcodes( $page_description );
+
+		if ( is_singular() ) {
+			$page_description = mb_substr( $page_description, 0, 240 ); // kill tags and trim 240 chara
+		}
+
 		// Delete Line break
 		$page_description = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $page_description );
-		$page_description = preg_replace( '/\[(.*?)\]/m', '', $page_description );
-		return $page_description;
+
+		return apply_filters( 'vk_get_page_description', $page_description );
 	}
 }
 
@@ -302,15 +318,26 @@ function vk_the_post_type_check_list( $args ) {
 		),
 		'name'            => '',
 		'checked'         => '',
+		'id'              => '',
 	);
 	$args       = wp_parse_args( $args, $default );
 	$post_types = get_post_types( $args['post_types_args'], 'object' );
 	echo '<ul>';
 	foreach ( $post_types as $key => $value ) {
 		if ( $key != 'attachment' ) {
+
 			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
+
+			if ( $args['id'] ) {
+				$id = ' id="' . esc_attr( $args['id'] ) . '"';
+			} elseif ( $args['name'] ) {
+				$id = ' id="' . esc_attr( $args['name'] ) . '"';
+			} else {
+				$id = '';
+			}
+
 			echo '<li><label>';
-			echo '<input type="checkbox" name="' . $args['name'] . '[' . $key . ']" id="snsBtn_exclude_post_types" value="true"' . $checked . ' />' . esc_html( $value->label );
+			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . $key . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
 			echo '</label></li>';
 		}
 	}
