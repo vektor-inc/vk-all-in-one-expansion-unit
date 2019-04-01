@@ -24,7 +24,7 @@ $vk_admin_textdomain = 'vkExUnit';
 // }
 $admin_pages = array(
 	'toplevel_page_vkExUnit_setting_page',
-	'vk-exunit_page_vkExUnit_main_setting',
+	'exunit_page_vkExUnit_main_setting',
 	'widgets-php',
 	'index.php',
 );
