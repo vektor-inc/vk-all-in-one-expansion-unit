@@ -133,7 +133,7 @@ function navMove( default_offset, contentHeight ){
 /* ページ内リンクで頭出しの余白を適切にする
 /*-------------------------------------------*/
 jQuery(document).ready(function(){
-    if(!jQuery('body').hasClass('vk-exunit_page_vkExUnit_main_setting')){ return; }
+    if(!jQuery('body').hasClass('exunit_page_vkExUnit_main_setting')){ return; }
     // 一つ目のセクションの位置を取得
     var default_offset = jQuery('.adminMain section:first-child').offset();
 
