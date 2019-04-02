@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/* Main Setting Page  _ メニューに追加
+/*
+ Main Setting Page  _ メニューに追加
 /*-------------------------------------------*/
 function vkExUnit_add_main_setting() {
 	// $capability_required = veu_get_capability_required();
@@ -20,8 +20,8 @@ function vkExUnit_add_main_setting() {
 add_action( 'admin_menu', 'vkExUnit_add_main_setting' );
 
 
-/*-------------------------------------------*/
-/* Main Setting Page  _ ページのフレーム
+/*
+ Main Setting Page  _ ページのフレーム
 /*-------------------------------------------*/
 function vkExUnit_render_main_frame() {
 
@@ -54,8 +54,8 @@ function vkExUnit_render_main_frame() {
 
 }
 
-/*-------------------------------------------*/
-/* Main Setting Page  _ ページのメインエリアの中身
+/*
+ Main Setting Page  _ ページのメインエリアの中身
 /*-------------------------------------------*/
 function vkExUnit_the_main_setting_body() {
 	global $vkExUnit_options;?>
@@ -99,8 +99,8 @@ function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $san
 		);
 }
 
-/*-------------------------------------------*/
-/* Main Setting Page  _ 値をアップデート
+/*
+ Main Setting Page  _ 値をアップデート
 /*-------------------------------------------*/
 function vkExUnit_main_config_sanitaize( $post ) {
 	global $vkExUnit_options;

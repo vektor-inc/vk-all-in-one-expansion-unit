@@ -1,18 +1,15 @@
 <?php
-/*-------------------------------------------*/
-/*  Add Parent menu
-/*-------------------------------------------*/
-/*  Load master setting page
-/*-------------------------------------------*/
-/*  Load modules
-/*-------------------------------------------*/
-/*  Add vkExUnit css
-/*-------------------------------------------*/
-/*  Add vkExUnit js
+/*
+  Add Parent menu
+  Load master setting page
+  Load modules
+  Add vkExUnit css
+  Add vkExUnit js
 /*-------------------------------------------*/
 
-/*-------------------------------------------*/
-/*  Add Parent menu
+
+/*
+  Add Parent menu
 /*-------------------------------------------*/
 add_action( 'admin_menu', 'vkExUnit_setting_menu_parent' );
 function vkExUnit_setting_menu_parent() {
@@ -31,8 +28,9 @@ function vkExUnit_setting_menu_parent() {
 		return; }
 }
 
-/*-------------------------------------------*/
-/*  Load master setting page
+
+/*
+  Load master setting page
 /*-------------------------------------------*/
 function vkExUnit_add_setting_page() {
 	require dirname( __FILE__ ) . '/admin_active_setting_page.php';
@@ -41,8 +39,9 @@ function vkExUnit_add_setting_page() {
 require_once( 'admin_main_setting_page.php' );
 require_once( 'admin_other_functions.php' );
 
-/*-------------------------------------------*/
-/*  Load modules
+
+/*
+  Load modules
 /*-------------------------------------------*/
 
 require vkExUnit_get_directory() . '/common_init.php';
@@ -60,10 +59,10 @@ require vkExUnit_get_directory() . '/plugins_admin/content-meta-box.php';
 
 vkExUnit_package_include(); // package_manager.php
 
+
+/*
+  Add vkExUnit css
 /*-------------------------------------------*/
-/*  Add vkExUnit css
-/*-------------------------------------------*/
-// Add vkExUnit css
 add_action( 'wp_enqueue_scripts', 'vkExUnit_print_css' );
 function vkExUnit_print_css() {
 	global $vkExUnit_version;
@@ -80,8 +79,9 @@ function vkExUnit_print_editor_css() {
 }
 add_action( 'after_setup_theme', 'vkExUnit_print_editor_css' );
 
-/*-------------------------------------------*/
-/*  Add vkExUnit js
+
+/*
+  Add vkExUnit js
 /*-------------------------------------------*/
 add_action( 'wp_head', 'vkExUnit_addJs' );
 function vkExUnit_addJs() {
@@ -91,10 +91,11 @@ function vkExUnit_addJs() {
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
 
+
+/*
+  Print admin js
 /*-------------------------------------------*/
-/*  Print admin js
-/*-------------------------------------------*/
-add_action( 'admin_print_scripts-vk-exunit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js' );
+add_action( 'admin_print_scripts-exunit_page_vkExUnit_main_setting', 'vkExUnit_admin_add_js' );
 function vkExUnit_admin_add_js( $hook_suffix ) {
 	global $vkExUnit_version;
 	wp_enqueue_media();
@@ -103,20 +104,19 @@ function vkExUnit_admin_add_js( $hook_suffix ) {
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
 
-/*-------------------------------------------*/
-/*  管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
+
+/*
+  管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
 /*-------------------------------------------*/
 
 // add_action("admin_head", 'vkExUnit_suffix2console');
 // function vkExUnit_suffix2console() {
-//     global $hook_suffix;
-//     if (is_user_logged_in()) {
-//         $str = "<script type=\"text/javascript\">console.log('%s')</script>";
-//         printf($str, $hook_suffix);
-//     }
+// global $hook_suffix;
+// if (is_user_logged_in()) {
+// $str = "<script type=\"text/javascript\">console.log('%s')</script>";
+// printf($str, $hook_suffix);
 // }
-
-
+// }
 if ( function_exists( 'register_activation_hook' ) ) {
 	register_activation_hook( __FILE__, 'vkExUnit_install_function' );
 }
