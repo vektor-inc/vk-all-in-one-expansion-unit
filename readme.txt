@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.1.1
-Stable tag: 8.0.4
+Stable tag: 8.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,8 +86,11 @@ e.g.
 
 == Changelog ==
 
+= 8.0.5 =
+[ Bug fix ][ main setting page ] Admin page image uploader select button not transrated
+
 = 8.0.4 =
-[ bug fix ][ main setting page ] media uploader bug fix ( Cope with main setting page suffix changed )
+[ Bug fix ][ main setting page ] media uploader bug fix ( Cope with main setting page suffix changed )
 
 = 8.0.3 =
 [ Bug fix ][ template-tags ][ vk get_post_type ] no post bug fix
