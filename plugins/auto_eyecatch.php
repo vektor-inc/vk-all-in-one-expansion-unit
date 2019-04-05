@@ -11,8 +11,6 @@
 class vExUnit_eyecatch {
 	private static $instance;
 
-	public static $allowed_post_types = array( 'post', 'page' );
-
 	public static function instance() {
 		if ( isset( self::$instance ) ) {
 			return self::$instance; }
@@ -21,7 +19,6 @@ class vExUnit_eyecatch {
 		self::$instance->run_init();
 		return self::$instance;
 	}
-
 
 	private function __construct() {
 		/***    do noting    */
@@ -34,9 +31,16 @@ class vExUnit_eyecatch {
 		add_filter( 'the_content', array( $this, 'set_eyecatch' ), 1 );
 	}
 
+	public static function post_types() {
+		$allowed_post_types = array( 'post', 'page' );
+		return apply_filters( 'veu_auto_eye_chatch_post_types', $allowed_post_types );
+	}
 
 	public function add_custom_field() {
-		foreach ( self::$allowed_post_types as $post_type ) {
+
+		$post_types = self::post_types();
+
+		foreach ( $post_types as $post_type ) {
 			add_meta_box( 'vkExUnit_EyeCatch', __( 'Automatic EyeCatch', 'vkExUnit' ), array( $this, 'render_meta_box' ), $post_type, 'normal', 'high' );
 		}
 	}
@@ -84,7 +88,9 @@ class vExUnit_eyecatch {
 
 		if ( get_the_id() ) {
 
-			if ( in_array( get_post_type( get_the_id() ), self::$allowed_post_types ) ) {
+			$post_types = self::post_types();
+
+			if ( in_array( get_post_type( get_the_id() ), $post_types ) ) {
 
 				if ( has_post_thumbnail( get_the_id() ) ) {
 
