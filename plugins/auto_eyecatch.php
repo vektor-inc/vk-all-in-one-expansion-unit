@@ -24,14 +24,14 @@ class vExUnit_eyecatch {
 
 
 	private function __construct() {
-		/***    do noting    ***/
+		/***    do noting    */
 	}
 
 
 	protected function run_init() {
 		add_action( 'admin_menu', array( $this, 'add_custom_field' ) );
-		add_action( 'save_post' , array( $this, 'save_custom_field' ) );
-		add_filter( 'the_content',    array( $this, 'set_eyecatch' ), 1 );
+		add_action( 'save_post', array( $this, 'save_custom_field' ) );
+		add_filter( 'the_content', array( $this, 'set_eyecatch' ), 1 );
 	}
 
 
@@ -46,8 +46,8 @@ class vExUnit_eyecatch {
 		global $post;
 		$disable_autoeyecatch = get_post_meta( get_the_id(), 'vkExUnit_EyeCatch_disable', true );
 
-		echo '<input type="hidden" name="_nonce_vkExUnit__custom_auto_eyecatch" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="'.wp_create_nonce( "vkEx_AYC_" . get_the_id() ).'" />';
-		echo '<label ><input type="checkbox" name="vkExUnit_auto_eyecatch" value="true" ' . ( ($disable_autoeyecatch)? 'checked' : '' ) . ' />'.__( 'Do not set eyecatch image automatic.', 'vkExUnit' ).'</label>';
+		echo '<input type="hidden" name="_nonce_vkExUnit__custom_auto_eyecatch" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="' . wp_create_nonce( 'vkEx_AYC_' . get_the_id() ) . '" />';
+		echo '<label ><input type="checkbox" name="vkExUnit_auto_eyecatch" value="true" ' . ( ( $disable_autoeyecatch ) ? 'checked' : '' ) . ' />' . __( 'Do not set eyecatch image automatic.', 'vkExUnit' ) . '</label>';
 
 	}
 
@@ -62,7 +62,7 @@ class vExUnit_eyecatch {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id; }
 
-		if ( ! wp_verify_nonce( $metaKeyword, "vkEx_AYC_" . $post_id ) ) {
+		if ( ! wp_verify_nonce( $metaKeyword, 'vkEx_AYC_' . $post_id ) ) {
 			return $post_id;
 		}
 
@@ -75,10 +75,12 @@ class vExUnit_eyecatch {
 
 	public static function is_my_turn() {
 
-		if ( vkExUnit_is_excerpt() ) { return false; }
+		if ( vkExUnit_is_excerpt() ) {
+			return false; }
 
 		global $is_pagewidget;
-		if( $is_pagewidget ){ return false; }
+		if ( $is_pagewidget ) {
+			return false; }
 
 		if ( get_the_id() ) {
 
@@ -100,7 +102,8 @@ class vExUnit_eyecatch {
 
 	public function set_eyecatch( $content ) {
 
-		if ( ! self::is_my_turn() ) {  return $content; }
+		if ( ! self::is_my_turn() ) {
+			return $content; }
 
 		$imageHtml = self::render_eyecatch( get_the_id() );
 
