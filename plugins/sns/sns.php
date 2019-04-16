@@ -1,18 +1,12 @@
 <?php
-/*-------------------------------------------*/
-/*  Options Init
-/*-------------------------------------------*/
-/*  validate
-/*-------------------------------------------*/
-/*  set global $vkExUnit_sns_options
-/*-------------------------------------------*/
-/*  Add facebook aprication id
-/*-------------------------------------------*/
-/*  SNSアイコンに出力するCSSを出力する関数
-/*-------------------------------------------*/
-/*  Add setting page
-/*-------------------------------------------*/
-/*  Add Customize Panel
+/*
+  Options Init
+  validate
+  set global $vkExUnit_sns_options
+  Add facebook aprication id
+  SNSアイコンに出力するCSSを出力する関数
+  Add setting page
+  Add Customize Panel
 /*-------------------------------------------*/
 
 // シェアボタンを表示する設定の読み込み
@@ -41,33 +35,50 @@ function veu_get_sns_options() {
 
 function veu_get_sns_options_default() {
 	$default_options = array(
-		'fbAppId'                   => '',
-		'fbPageUrl'                 => '',
-		'ogImage'                   => '',
-		'twitterId'                 => '',
-		'enableOGTags'              => true,
-		'enableTwitterCardTags'     => true,
-		'enableSnsBtns'             => true,
-		'snsBtn_exclude_post_types' => array(
+		'fbAppId'                     => '',
+		'fbPageUrl'                   => '',
+		'ogImage'                     => '',
+		'twitterId'                   => '',
+		'enableOGTags'                => true,
+		'snsTitle_use_only_postTitle' => false,
+		'enableTwitterCardTags'       => true,
+		'enableSnsBtns'               => true,
+		'snsBtn_exclude_post_types'   => array(
 			'post' => '',
 			'page' => '',
 		),
-		'snsBtn_ignorePosts'        => '',
-		'snsBtn_bg_fill_not'        => false,
-		'snsBtn_color'              => false,
-		'enableFollowMe'            => true,
-		'followMe_title'            => 'Follow me!',
-		'useFacebook'               => true,
-		'useTwitter'                => true,
-		'useHatena'                 => true,
-		'usePocket'                 => true,
-		'useLine'                   => true,
+		'snsBtn_ignorePosts'          => '',
+		'snsBtn_bg_fill_not'          => false,
+		'snsBtn_color'                => false,
+		'enableFollowMe'              => true,
+		'followMe_title'              => 'Follow me!',
+		'useFacebook'                 => true,
+		'useTwitter'                  => true,
+		'useHatena'                   => true,
+		'usePocket'                   => true,
+		'useLine'                     => true,
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
 
-/*-------------------------------------------*/
-/*  validate
+function veu_get_the_sns_title() {
+	$options = veu_get_sns_options();
+
+	$title = '';
+	if ( is_singular() ) {
+		$title = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
+	}
+	if ( ! $title ) {
+		if ( is_singular() && $options['snsTitle_use_only_postTitle'] ) {
+			$title = get_the_title();
+		}
+		$title = wp_title( '', false );
+	}
+	return strip_tags( $title );
+}
+
+/*
+  validate
 /*-------------------------------------------*/
 
 function vkExUnit_sns_options_validate( $input ) {
@@ -101,8 +112,8 @@ function vkExUnit_sns_options_validate( $input ) {
 	return apply_filters( 'vkExUnit_sns_options_validate', $output, $input, $defaults );
 }
 
-/*-------------------------------------------*/
-/*  set global $vkExUnit_sns_options
+/*
+  set global $vkExUnit_sns_options
 /*-------------------------------------------*/
 add_action( 'wp_head', 'vkExUnit_set_sns_options', 1 );
 function vkExUnit_set_sns_options() {
@@ -110,8 +121,8 @@ function vkExUnit_set_sns_options() {
 	$vkExUnit_sns_options = veu_get_sns_options();
 }
 
-/*-------------------------------------------*/
-/*  Add facebook aprication id
+/*
+  Add facebook aprication id
 /*-------------------------------------------*/
 add_action( 'wp_footer', 'exUnit_print_fbId_script' );
 function exUnit_print_fbId_script() {
@@ -129,7 +140,7 @@ $fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 	<?php
-	//endif;
+	// endif;
 }
 
 $vkExUnit_sns_options = veu_get_sns_options();
@@ -149,8 +160,8 @@ if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
 require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
 
 
-/*-------------------------------------------*/
-/*  Add setting page
+/*
+  Add setting page
 /*-------------------------------------------*/
 
 function vkExUnit_add_sns_options_page() {
