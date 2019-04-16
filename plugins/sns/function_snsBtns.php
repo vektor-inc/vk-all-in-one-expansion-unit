@@ -17,11 +17,10 @@ function veu_add_sns_btns_loopend( $query ) {
 }
 
 // function veu_sns_set_location_option( $opt ){
-// 	if( ! veu_is_sns_btns_display() ) return $opt;
-// 	$opt['sns_linkurl'] = veu_sns_get_url();
-// 	return $opt;
+// if( ! veu_is_sns_btns_display() ) return $opt;
+// $opt['sns_linkurl'] = veu_sns_get_url();
+// return $opt;
 // }
-
 function veu_is_sns_btns_display() {
 	global $post;
 	$options     = veu_get_sns_options();
@@ -42,8 +41,10 @@ function veu_is_sns_btns_display() {
 	}
 }
 
-/*-------------------------------------------*/
-/*  SNSアイコンに出力するCSSを出力する関数
+/*
+-------------------------------------------*/
+/*
+  SNSアイコンに出力するCSSを出力する関数
 /*-------------------------------------------*/
 
 function veu_sns_outer_css( $options ) {
@@ -118,15 +119,8 @@ function veu_get_sns_btns() {
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
 
-	$linkUrl = urlencode( get_permalink() );
-
-	$pageTitle = '';
-	if ( is_single() || is_page() ) {
-		$pageTitle = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
-	}
-	if ( empty( $pageTitle ) ) {
-		$pageTitle = urlencode( strip_tags( wp_title( '', false ) ) );
-	}
+	$linkUrl   = urlencode( get_permalink() );
+	$pageTitle = urlencode( veu_get_the_sns_title() );
 
 	$socialSet = '<div class="veu_socialSet veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 	// facebook
@@ -150,7 +144,6 @@ function veu_get_sns_btns() {
 	<a href="line://msg/text/' . $pageTitle . ' ' . $linkUrl . '" ' . $outer_css . '><span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>LINE</span></a></li>';
 	endif;
 	// pocket
-
 	if ( $options['usePocket'] ) {
 		$socialSet .= '<li class="sb_pocket sb_icon"><a href="//getpocket.com/edit?url=' . $linkUrl . '&title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Pocket</span><span class="veu_count_sns_pocket"' . $icon_css . '></span></a></li>';
 	}
