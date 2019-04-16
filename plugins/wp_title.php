@@ -39,7 +39,7 @@ function vkExUnit_get_wp_head_title() {
 		} else {
 			$title = get_the_title() . $sep . get_bloginfo( 'name' );
 		}
-	} elseif ( is_single() || is_attachment() ) {
+	} elseif ( is_singular() ) {
 		$title = get_the_title() . $sep . get_bloginfo( 'name' );
 
 		// Search
@@ -60,7 +60,6 @@ function vkExUnit_get_wp_head_title() {
 	}
 
 	$title = apply_filters( 'vkExUnit_get_wp_head_title', $title );
-
 	// Remove Tags(ex:<i>) & return
 	return strip_tags( $title );
 }

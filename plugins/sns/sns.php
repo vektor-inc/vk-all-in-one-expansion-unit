@@ -61,18 +61,28 @@ function veu_get_sns_options_default() {
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
 
-function veu_get_the_sns_title() {
+/**
+ * [veu_get_the_sns_title description]
+ * @return [type] [description]
+ */
+function veu_get_the_sns_title( $post_id = '' ) {
+
+	if ( ! $post_id ) {
+		$post_id = get_the_id();
+	}
 	$options = veu_get_sns_options();
 
 	$title = '';
+
 	if ( is_singular() ) {
-		$title = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
+		$title = get_post_meta( $post_id, 'vkExUnit_sns_title', true );
 	}
 	if ( ! $title ) {
 		if ( is_singular() && $options['snsTitle_use_only_postTitle'] ) {
-			$title = get_the_title();
+			$title = get_the_title( $post_id );
+		} else {
+			$title = wp_title( '', false );
 		}
-		$title = wp_title( '', false );
 	}
 	return strip_tags( $title );
 }
