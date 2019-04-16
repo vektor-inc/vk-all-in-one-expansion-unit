@@ -68,7 +68,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 					'post_status'  => 'publish',
 					'post_content' => 'content',
 				);
-				$post_id = wp_insert_post( $post, $wp_error );
+				$post_id = wp_insert_post( $post );
 
 				// Add sns title
 			if ( $test_value['vkExUnit_sns_title'] !== null ) {
