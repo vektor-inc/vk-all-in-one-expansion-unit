@@ -1,14 +1,21 @@
 <h3><?php echo __( 'SNS Settings' ); ?></h3>
 <?php
 	$options = veu_get_sns_options();
-/*-------------------------------------------*/
-/*  SNS
+
+/*
+  SNS
 /*-------------------------------------------*/
 ?>
 <div id="snsSetting" class="sectionBox">
 
 <!-- OGP hidden -->
 <table class="form-table">
+<tr>
+<th><?php _e( 'Post title custom for SNS', 'vkExUnit' ); ?></th>
+<td><label>
+<input type="checkbox" name="vkExUnit_sns_options[snsTitle_use_only_postTitle]" id="snsTitle_use_only_postTitle" value="true" <?php echo ( $options['snsTitle_use_only_postTitle'] ) ? 'checked' : ''; ?> /><?php _e( 'For SNS title be composed by post title only.', 'vkExUnit' ); ?></label>
+</td>
+</tr>
 <tr>
 <th><?php _e( 'facebook application ID', 'vkExUnit' ); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[fbAppId]" id="fbAppId" value="<?php echo esc_attr( $options['fbAppId'] ); ?>" /><br />

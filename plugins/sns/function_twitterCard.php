@@ -25,13 +25,6 @@ function vkExUnit_add_twitterCard() {
 		$card_image_url = ( isset( $vkExUnit_sns_options['ogImage'] ) ) ? $vkExUnit_sns_options['ogImage'] : '';
 	}
 
-	$title = '';
-	if ( is_single() || is_page() ) {
-		$title = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
-	}
-	if ( ! $title ) {
-		$title = strip_tags( wp_title( '', false ) );
-	}
 	// domain
 	preg_match( '/https?:\/\/(.+?)\//i', admin_url(), $match );
 	// image size
@@ -39,7 +32,7 @@ function vkExUnit_add_twitterCard() {
 <!-- [ <?php echo veu_get_name(); ?> twitter card ] -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:description" content="<?php echo esc_attr( vk_get_page_description() ); ?>">
-<meta name="twitter:title" content="<?php echo esc_attr( $title ); ?>">
+<meta name="twitter:title" content="<?php echo esc_attr( veu_get_the_sns_title() ); ?>">
 <meta name="twitter:url" content="<?php echo esc_url( $linkUrl ); ?>">
 <?php if ( isset( $card_image_url ) && $card_image_url ) { ?>
 <meta name="twitter:image" content="<?php echo esc_url( $card_image_url ); ?>">

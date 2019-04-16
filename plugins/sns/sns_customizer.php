@@ -1,7 +1,9 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Add Customize Panel
+/*
+-------------------------------------------*/
+/*
+  Add Customize Panel
 /*-------------------------------------------*/
 add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_sns' );
 function veu_customize_panel_activation_sns() {
@@ -14,10 +16,10 @@ if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 
 function veu_customize_register_sns( $wp_customize ) {
 
-	/*-------------------------------------------*/
-	/*	SNS Settings
+	/*
+	  SNS Settings
 	 /*-------------------------------------------*/
-	//1. テーマカスタマイザー上に新しいセクションを追加
+	// 1. テーマカスタマイザー上に新しいセクションを追加
 	$wp_customize->add_section(
 		'veu_sns_setting',
 		array(
@@ -27,7 +29,42 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	//2. WPデータベースに新しいテーマ設定を追加
+	// 2. WPデータベースに新しいテーマ設定を追加
+	$wp_customize->add_setting( 'Post_title_custom_for_SNS', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize, 'Post_title_custom_for_SNS', array(
+				'label'            => __( 'Post title custom for SNS', 'vkExUnit' ),
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => '',
+				'custom_html'      => '',
+			)
+		)
+	);
+	// Print the OG tags
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsTitle_use_only_postTitle]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'snsTitle_use_only_postTitle',
+		array(
+			'label'       => __( 'For SNS title be composed by post title only.', 'vkExUnit' ),
+			'section'     => 'veu_sns_setting',
+			'settings'    => 'vkExUnit_sns_options[snsTitle_use_only_postTitle]',
+			'type'        => 'checkbox',
+			'description' => '',
+		)
+	);
+
+	// 2. WPデータベースに新しいテーマ設定を追加
 	// Facebook_title
 	$wp_customize->add_setting( 'Facebook_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
@@ -204,8 +241,10 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	/*-------------------------------------------*/
-	/*	Share_button
+	/*
+	-------------------------------------------*/
+	/*
+	  Share_button
 	 /*-------------------------------------------*/
 
 	// share_button_title
@@ -507,7 +546,7 @@ function veu_customize_register_sns( $wp_customize ) {
 			'type'     => 'text',
 		)
 	);
-	//	Add Edit Customize Link Btn
+	// Add Edit Customize Link Btn
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_sns_options[followMe_title]', array(
 			'selector'        => '.followSet_title',
@@ -515,8 +554,10 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	/*-------------------------------------------*/
-	/*	Add Edit Customize Link Btn
+	/*
+	-------------------------------------------*/
+	/*
+	  Add Edit Customize Link Btn
 	 /*-------------------------------------------*/
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(

@@ -2,22 +2,15 @@
 
 add_post_type_support( 'page', 'excerpt' ); // add excerpt
 
-/*-------------------------------------------*/
-/*  Add OGP
+/*
+  Add OGP
 /*-------------------------------------------*/
 add_action( 'wp_head', 'vkExUnit_print_og', 20 );
 function vkExUnit_print_og() {
 	global $vkExUnit_sns_options;
-	$title = '';
-	if ( is_single() || is_page() ) {
-		$title = get_post_meta( get_the_id(), 'vkExUnit_sns_title', true );
-	}
-	if ( ! $title ) {
-		$title = strip_tags( wp_title( '', false ) );
-	}
 
-	//$ogImage = $vkExUnit_sns_options['ogImage'];
-	//$fbAppId = $vkExUnit_sns_options['fbAppId'];
+	// $ogImage = $vkExUnit_sns_options['ogImage'];
+	// $fbAppId = $vkExUnit_sns_options['fbAppId'];
 	global $wp_query;
 	$post = $wp_query->get_queried_object();
 	if ( is_home() || is_front_page() ) {
@@ -30,7 +23,7 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP  = '<!-- [ ' . veu_get_name() . ' OGP ] -->' . "\n";
 	$vkExUnitOGP .= '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '" />' . "\n";
 	$vkExUnitOGP .= '<meta property="og:url" content="' . $linkUrl . '" />' . "\n";
-	$vkExUnitOGP .= '<meta property="og:title" content="' . $title . '" />' . "\n";
+	$vkExUnitOGP .= '<meta property="og:title" content="' . veu_get_the_sns_title() . '" />' . "\n";
 	$vkExUnitOGP .= '<meta property="og:description" content="' . esc_attr( vk_get_page_description() ) . '" />' . "\n";
 	if ( isset( $vkExUnit_sns_options['fbAppId'] ) && $vkExUnit_sns_options['fbAppId'] ) {
 		$vkExUnitOGP = $vkExUnitOGP . '<meta property="fb:app_id" content="' . $vkExUnit_sns_options['fbAppId'] . '" />' . "\n";

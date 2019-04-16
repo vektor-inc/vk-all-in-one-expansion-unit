@@ -4,9 +4,6 @@ class vkExUnit_sns_metabox {
 
 	private static $instance;
 
-	public static $allowed_post_types = array( 'post', 'page' );
-
-
 	public static function instance() {
 		if ( isset( self::$instance ) ) {
 			return self::$instance; }
@@ -24,8 +21,12 @@ class vkExUnit_sns_metabox {
 
 
 	public function add_custom_field() {
-		foreach ( self::$allowed_post_types as $post_type ) {
-			add_meta_box( 'vkExUnit_SnsTitle', __( 'Sns Title', 'vkExUnit' ), array( $this, 'render_meta_box' ), $post_type, 'normal', 'high' );
+		$args       = array(
+			'public' => true,
+		);
+		$post_types = get_post_types( $args, 'object' );
+		foreach ( $post_types as $key => $post_type ) {
+			add_meta_box( 'vkExUnit_SnsTitle', __( 'Sns Title', 'vkExUnit' ), array( $this, 'render_meta_box' ), $key, 'normal', 'high' );
 		}
 	}
 

@@ -33,7 +33,13 @@ class vExUnit_eyecatch {
 
 	public static function post_types() {
 		$allowed_post_types = array( 'post', 'page' );
-		return apply_filters( 'veu_auto_eye_chatch_post_types', $allowed_post_types );
+
+		// 綴間違いでリリースしてしまったので こちらは近日削除
+		$allowed_post_types = apply_filters( 'veu_auto_eye_chatch_post_types', $allowed_post_types );
+
+		$allowed_post_types = apply_filters( 'veu_auto_eye_catch_post_types', $allowed_post_types );
+
+		return $allowed_post_types;
 	}
 
 	public function add_custom_field() {
