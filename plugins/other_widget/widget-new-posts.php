@@ -19,8 +19,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	/*
-	-------------------------------------------*/
-	/*
 	  一覧へのリンクhtmlを出力する関数
 	/*-------------------------------------------*/
 	static public function more_link_html( $instance ) {
