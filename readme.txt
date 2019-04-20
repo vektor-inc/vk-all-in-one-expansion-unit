@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.1.1
-Stable tag: 8.1.1
+Stable tag: 8.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 8.1.2 =
+[ bugfix ][ new-posts-widget ] Undefined variable error fixed
 
 = 8.1.1 =
 [ bug fix ] sns title custom value do not save bug fix
