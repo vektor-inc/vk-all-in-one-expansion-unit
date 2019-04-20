@@ -268,8 +268,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vkExUnit' ) . '/' . __( 'Category', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ); ?></label>
 		<br/><br/>
 
-<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vkExUnit' ); ?></label><br/>
-
 <?php
 /*
   media uploader
@@ -280,6 +278,7 @@ $args = array(
 	'media_alt' => 'media_alt',
 );
 ?>
+<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vkExUnit' ); ?></label><br/>
 <div class="media_image_section">
 <div class="_display admin-custom-thumb-outer" style="height:auto">
 <?php
