@@ -1,8 +1,9 @@
 <?php
+/*
+  Side Post list widget
+/*-------------------------------------------*/
 
-/*-------------------------------------------*/
-/*  Side Post list widget
-/*-------------------------------------------*/
+
 class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	public $taxonomies = array( 'category' );
@@ -17,8 +18,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		);
 	}
 
-	/*-------------------------------------------*/
-	/*  一覧へのリンクhtmlを出力する関数
+	/*
+	  一覧へのリンクhtmlを出力する関数
 	/*-------------------------------------------*/
 	static public function more_link_html( $instance ) {
 		if ( ! empty( $instance['more_text'] ) && ! empty( $instance['more_url'] ) ) {
@@ -238,7 +239,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$instance = static::get_options( $instance );
 		?>
 		<br />
-		<?php //タイトル ?>
+		<?php // タイトル ?>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
 		<?php
 		if ( isset( $instance['title'] ) && $instance['title'] ) {
@@ -267,10 +268,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vkExUnit' ) . '/' . __( 'Category', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ); ?></label>
 		<br/><br/>
 
-<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vkExUnit' ); ?></label><br/>
-
 <?php
-/*  media uploader
+/*
+  media uploader
 /*-------------------------------------------*/
 $args = array(
 	'media_url' => 'media_url',
@@ -278,6 +278,7 @@ $args = array(
 	'media_alt' => 'media_alt',
 );
 ?>
+<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vkExUnit' ); ?></label><br/>
 <div class="media_image_section">
 <div class="_display admin-custom-thumb-outer" style="height:auto">
 <?php
@@ -314,12 +315,12 @@ if ( ! empty( $instance[ $args['media_url'] ] ) ) :
 /><?php _e( 'Modified date', 'vkExUnit' ); ?></label>
 		<br/><br/>
 
-		<?php //表示件数 ?>
+		<?php // 表示件数 ?>
 		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Display count', 'vkExUnit' ); ?>:</label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo esc_attr( $instance['count'] ); ?>" />
 		<br /><br />
 
-		<?php //投稿タイプ ?>
+		<?php // 投稿タイプ ?>
 		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Slug for the custom type you want to display', 'vkExUnit' ); ?>:</label><br />
 		<input type="text" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>" value="<?php echo esc_attr( $instance['post_type'] ); ?>" />
 		<br/><br/>

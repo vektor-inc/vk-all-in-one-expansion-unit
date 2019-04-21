@@ -63,6 +63,7 @@ function veu_get_sns_options_default() {
 
 /**
  * [veu_get_the_sns_title description]
+ *
  * @return [type] [description]
  */
 function veu_get_the_sns_title( $post_id = '' ) {
@@ -94,22 +95,23 @@ function veu_get_the_sns_title( $post_id = '' ) {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
-	$output['fbAppId']                   = esc_attr( $input['fbAppId'] );
-	$output['fbPageUrl']                 = esc_url( $input['fbPageUrl'] );
-	$output['ogImage']                   = esc_url( $input['ogImage'] );
-	$output['twitterId']                 = esc_attr( $input['twitterId'] );
-	$output['snsBtn_ignorePosts']        = preg_replace( '/[^0-9,]/', '', $input['snsBtn_ignorePosts'] );
-	$output['enableOGTags']              = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
-	$output['enableTwitterCardTags']     = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
-	$output['enableSnsBtns']             = ( isset( $input['enableSnsBtns'] ) && $input['enableSnsBtns'] ) ? true : false;
-	$output['snsBtn_exclude_post_types'] = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
-	$output['enableFollowMe']            = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;
-	$output['followMe_title']            = $input['followMe_title'];
-	$output['useFacebook']               = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
-	$output['useTwitter']                = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
-	$output['useHatena']                 = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
-	$output['usePocket']                 = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
-	$output['useLine']                   = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
+	$output['fbAppId']                     = esc_attr( $input['fbAppId'] );
+	$output['fbPageUrl']                   = esc_url( $input['fbPageUrl'] );
+	$output['ogImage']                     = esc_url( $input['ogImage'] );
+	$output['twitterId']                   = esc_attr( $input['twitterId'] );
+	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', $input['snsBtn_ignorePosts'] );
+	$output['snsTitle_use_only_postTitle'] = ( isset( $input['snsTitle_use_only_postTitle'] ) && $input['snsTitle_use_only_postTitle'] ) ? true : false;
+	$output['enableOGTags']                = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
+	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
+	$output['enableSnsBtns']               = ( isset( $input['enableSnsBtns'] ) && $input['enableSnsBtns'] ) ? true : false;
+	$output['snsBtn_exclude_post_types']   = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
+	$output['enableFollowMe']              = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;
+	$output['followMe_title']              = $input['followMe_title'];
+	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
+	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
+	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
+	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
+	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
 
 	/*
 	SNSボタンの塗りつぶし関連は管理画面に値がないので、カスタマイザーで保存された値を入れる必要がある
