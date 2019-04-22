@@ -14,6 +14,32 @@ bash bin/install-wp-tests.sh wordpress_test root 'WordPress' localhost latest
 class InsertAdsTest extends WP_UnitTestCase {
 
 	function test_vExUnit_Ads_get_option() {
+
+		$tests = array(
+			// 投稿タイプ指定が存在しなかった（投稿タイプ選択機能実装後に保存された事がない）時用
+			array(
+				'option'  => array(),
+				'correct' => array( 'post' => true ),
+			),
+			// 固定ページにチェックがはいっている場合
+			array(
+				'option'  => array(
+					'post_types' => array( 'page' => true ),
+				),
+				'correct' => array( 'page' => true ),
+			),
+			// 投稿にチェックがはいっている場合
+			array(
+				'option'  => array(
+					'post_types' => array( 'post' => true ),
+				),
+				'correct' => array( 'post' => true ),
+			),
+		);
+
+		$before_option = get_option( 'vkExUnit_Ads' );
+		delete_option( 'vkExUnit_Ads' );
+
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print 'test_vExUnit_Ads_get_option' . PHP_EOL;
