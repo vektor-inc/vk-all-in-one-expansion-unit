@@ -188,7 +188,7 @@ class vExUnit_Ads {
 			'before'                     => array( '' ),
 			'more'                       => array( '' ),
 			'after'                      => array( '' ),
-			'post_types'                 => array( 'post' => true ),
+			'post_types'                 => array( '' ),
 		);
 		$option  = get_option( 'vkExUnit_Ads', $default );
 
