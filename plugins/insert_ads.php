@@ -145,16 +145,26 @@ class vExUnit_Ads {
 
 	public function sanitize_config( $input ) {
 		$option                               = $input;
-		$option['google-ads-active']          = esc_attr( $input['google-ads-active'] );
-		$option['google-ads-overlays-bottom'] = esc_attr( $input['google-ads-overlays-bottom'] );
-		$option['google-pub-id']              = esc_attr( $input['google-pub-id'] );
+		$option['google-ads-active']          = ( isset( $input['google-ads-active'] ) ) ? esc_attr( $input['google-ads-active'] ) : '';
+		$option['google-ads-overlays-bottom'] = ( isset( $input['google-ads-overlays-bottom'] ) ) ? esc_attr( $input['google-ads-overlays-bottom'] ) : '';
+		$option['google-pub-id']              = ( isset( $input['google-pub-id'] ) ) ? esc_attr( $input['google-pub-id'] ) : '';
 		$option['before'][0]                  = stripslashes( $input['before'][0] );
 		$option['before'][1]                  = stripslashes( $input['before'][1] );
 		$option['more'][0]                    = stripslashes( $input['more'][0] );
 		$option['more'][1]                    = stripslashes( $input['more'][1] );
 		$option['after'][0]                   = stripslashes( $input['after'][0] );
 		$option['after'][1]                   = stripslashes( $input['after'][1] );
-		$option['post_types']                 = $input['post_types'];
+
+		if ( isset( $input['post_types'] ) && is_array( $input['post_types'] ) ) {
+			foreach ( $input['post_types'] as $key => $value ) {
+				$option['post_types'][ $key ] = esc_attr( $value );
+			}
+		} else {
+			// 'post_types' 自体が存在しないと、デフォルト値として ['post_types']['post'] = true が返って、
+			// チェックボックスのチェックが外れなくなるので
+			// チェックが全部外れている時に 'post' => false をいれておく
+			$option['post_types']['post'] = false;
+		}
 
 		if ( ! $option['before'][0] && $option['before'][1] ) {
 			$option['before'][0] = $option['before'][1];
