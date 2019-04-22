@@ -154,6 +154,7 @@ class vExUnit_Ads {
 		$option['more'][1]                    = stripslashes( $input['more'][1] );
 		$option['after'][0]                   = stripslashes( $input['after'][0] );
 		$option['after'][1]                   = stripslashes( $input['after'][1] );
+		$option['post_types']                 = $input['post_types'];
 
 		if ( ! $option['before'][0] && $option['before'][1] ) {
 			$option['before'][0] = $option['before'][1];
@@ -188,9 +189,9 @@ class vExUnit_Ads {
 			'before'                     => array( '' ),
 			'more'                       => array( '' ),
 			'after'                      => array( '' ),
-			'post_types'                 => array( '' ),
+			'post_types'                 => array( 'post' => true ),
 		);
-		$option  = get_option( 'vkExUnit_Ads', $default );
+		$option  = get_option( 'vkExUnit_Ads' );
 
 		// post_types を後で追加したので、option値に保存されてない時にデフォルトの post とマージする
 		$option = wp_parse_args( $option, $default );
