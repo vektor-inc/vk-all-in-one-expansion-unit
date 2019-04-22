@@ -206,6 +206,14 @@ class vExUnit_Ads {
 		// post_types を後で追加したので、option値に保存されてない時にデフォルトの post とマージする
 		$option = wp_parse_args( $option, $default );
 
+		/*
+		構造変更の過程で $option['post_types'] == array( '' ) でDBに保存されているものもあるので、
+		 */
+		// if ( $option['post_types'] == array( '' ) ) {
+		// $option['post_types'] = array( 'post' => false );
+		// }
+		//
+		//
 		$option['before'][0] = ( isset( $option['before'][0] ) ) ? $option['before'][0] : '';
 		$option['more'][0]   = ( isset( $option['more'][0] ) ) ? $option['more'][0] : '';
 		$option['after'][0]  = ( isset( $option['after'][0] ) ) ? $option['after'][0] : '';
@@ -288,6 +296,9 @@ class vExUnit_Ads {
 <th>表示する投稿タイプ</th>
 <td>
 		<?php
+		print '<pre style="text-align:left">';
+		print_r( $option );
+		print '</pre>';
 		$args = array(
 			'name'    => 'vkExUnit_Ads[post_types]',
 			'checked' => $option['post_types'],

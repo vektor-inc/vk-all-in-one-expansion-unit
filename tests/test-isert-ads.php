@@ -21,6 +21,12 @@ class InsertAdsTest extends WP_UnitTestCase {
 				'option'  => array(),
 				'correct' => array( 'post' => true ),
 			),
+			array(
+				'option'  => array(
+					'post_types' => array( 'post' => false ),
+				),
+				'correct' => array( 'post' => false ),
+			),
 			// 固定ページにチェックがはいっている場合
 			array(
 				'option'  => array(
@@ -55,12 +61,16 @@ class InsertAdsTest extends WP_UnitTestCase {
 			print 'return    :' . $return['post_types'] . PHP_EOL;
 			print 'correct   :' . $test_value['correct'] . PHP_EOL;
 
-			// // .php test
+			// echo '━━━━━━━━━━━━━━━━━━━━' . "<br>\n";
+			// print '<pre style="text-align:left">';
+			// print_r( $return );
+			// print '</pre>';
+			//
+			// // // .php test
 			// print '<pre style="text-align:left">';
 			// print_r( $return['post_types'] ) . PHP_EOL;
 			// print_r( $test_value['correct'] );
 			// print '</pre>';
-
 			delete_option( 'vkExUnit_Ads' );
 		}
 		update_option( 'vkExUnit_Ads', $before_option );
