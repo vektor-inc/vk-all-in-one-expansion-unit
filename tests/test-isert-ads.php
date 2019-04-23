@@ -58,15 +58,10 @@ class InsertAdsTest extends WP_UnitTestCase {
 			// PHPunit
 			$this->assertEquals( $test_value['correct'], $return['post_types'] );
 			print PHP_EOL;
-			print 'return    :' . $return['post_types'] . PHP_EOL;
-			print 'correct   :' . $test_value['correct'] . PHP_EOL;
-
-			// echo '━━━━━━━━━━━━━━━━━━━━' . "<br>\n";
-			// print '<pre style="text-align:left">';
-			// print_r( $return );
-			// print '</pre>';
-			//
-			// // // .php test
+			// 帰り値が配列だから print してもエラーになるだけなのでコメントアウト
+			// print 'return    :' . $return['post_types'] . PHP_EOL;
+			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
+			// // .php test
 			// print '<pre style="text-align:left">';
 			// print_r( $return['post_types'] ) . PHP_EOL;
 			// print_r( $test_value['correct'] );
