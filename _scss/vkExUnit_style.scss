@@ -645,11 +645,6 @@ iframe.twitter-timeline {margin-right:auto; margin-left:auto; width: 740px !impo
 	}
 	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }
 }
-/*
-入れ子にするとLightning テーマ埋め込みの３ＰＲブロックのアイコンカラーが負けるので、各スキンの方で継承を強くするまで旦軽くする為に個別記載とする
-*/
-.prBlock_icon { color: #fff; }
-// }
 
 @media screen and (max-width:992px){
 // .veu_prBlocks{
