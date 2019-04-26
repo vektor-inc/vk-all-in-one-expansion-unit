@@ -12,7 +12,6 @@ if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 }
 
 function veu_customize_register_sns( $wp_customize ) {
-
 	/*
 	  SNS Settings
 	 /*-------------------------------------------*/
@@ -26,7 +25,10 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	// 2. WPデータベースに新しいテーマ設定を追加
+	/*
+	  Change OG Title
+	/*-------------------------------------------*/
+	// Customize inner title
 	$wp_customize->add_setting( 'Post_title_custom_for_SNS', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
@@ -61,7 +63,9 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	// 2. WPデータベースに新しいテーマ設定を追加
+	/*
+	  Facebook Settings
+	/*-------------------------------------------*/
 	// Facebook_title
 	$wp_customize->add_setting( 'Facebook_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
@@ -142,6 +146,9 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+	/*
+	  OG Setting
+	/*-------------------------------------------*/
 	// Print the OG_title
 	$wp_customize->add_setting( 'Print the OG_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
@@ -178,6 +185,9 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+	/*
+	  Twitter Settings
+	/*-------------------------------------------*/
 	// Twitter_application_ID_title
 	$wp_customize->add_setting( 'Twitter_application_ID_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
@@ -277,7 +287,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	// share_button_title
+	// Exclude Post Types ///////////////////////////
 	$wp_customize->add_setting( 'share_button_exclude_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
@@ -320,11 +330,11 @@ function veu_customize_register_sns( $wp_customize ) {
 		}
 	}
 
-	// share_button_bg_title
-	$wp_customize->add_setting( 'share_button_bg_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	// Social button style setting ///////////////////////////
+	$wp_customize->add_setting( 'share_button_style', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
-			$wp_customize, 'share_button_bg_title', array(
+			$wp_customize, 'share_button_style', array(
 				'label'            => '',
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
@@ -377,8 +387,8 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow_me_box_use_title
-	 $wp_customize->add_setting( 'Follow_me_box_use_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	// Share button for display  ///////////////////////////
+	$wp_customize->add_setting( 'Follow_me_box_use_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Follow_me_box_use_title', array(
@@ -496,8 +506,11 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow_me_box_title
-	 $wp_customize->add_setting( 'Follow_me_box_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	/*
+	  Follow me box
+	/*-------------------------------------------*/
+	// Follow_me_box_title
+	$wp_customize->add_setting( 'Follow_me_box_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Follow_me_box_title', array(
@@ -531,7 +544,6 @@ function veu_customize_register_sns( $wp_customize ) {
 			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
-
 	$wp_customize->add_control(
 		'followMe_title',
 		array(
@@ -541,7 +553,10 @@ function veu_customize_register_sns( $wp_customize ) {
 			'type'     => 'text',
 		)
 	);
-	// Add Edit Customize Link Btn
+
+	/*
+	  Add Edit Customize Link Btn
+	/*-------------------------------------------*/
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_sns_options[followMe_title]', array(
 			'selector'        => '.followSet_title',
@@ -551,11 +566,12 @@ function veu_customize_register_sns( $wp_customize ) {
 
 	/*
 	  Add Edit Customize Link Btn
-	 /*-------------------------------------------*/
+	/*-------------------------------------------*/
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
 			'selector'        => '.veu_socialSet',
 			'render_callback' => '',
 		)
 	);
+
 }
