@@ -100,16 +100,6 @@ _e( 'example', 'vk-all-in-one-expansion-unit' );
 </tr>
 
 <tr>
-<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
-<dl>
-<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
-<dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
-</dl>
-</td>
-</tr>
-
-<tr>
 <th><label><?php _e( 'Share button for display', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label></label>
 <ul>
@@ -147,6 +137,35 @@ if ( $options['useLine'] ) {
 </td>
 </tr>
 
+<tr>
+<th><label><?php _e( 'Share button display Position', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><label></label>
+<ul>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_position][before]" value="true"
+<?php
+if ( ! empty( $options['snsBtn_position']['before'] ) ) {
+	echo 'checked';}
+?>
+ /> <?php _e( 'Before content', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_position][after]" value="true"
+<?php
+if ( ! empty( $options['snsBtn_position']['after'] ) ) {
+	echo 'checked';}
+?>
+ /> <?php _e( 'After content', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
+<dl>
+<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
+</dl>
+</td>
+</tr>
 
 </table>
 

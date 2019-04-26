@@ -47,6 +47,10 @@ function veu_get_sns_options_default() {
 			'post' => '',
 			'page' => '',
 		),
+		'snsBtn_position'             => array(
+			'before' => false,
+			'after'  => true,
+		),
 		'snsBtn_ignorePosts'          => '',
 		'snsBtn_bg_fill_not'          => false,
 		'snsBtn_color'                => false,
@@ -105,6 +109,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
 	$output['enableSnsBtns']               = ( isset( $input['enableSnsBtns'] ) && $input['enableSnsBtns'] ) ? true : false;
 	$output['snsBtn_exclude_post_types']   = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
+	$output['snsBtn_position']             = ( isset( $input['snsBtn_position'] ) ) ? $input['snsBtn_position'] : '';
 	$output['enableFollowMe']              = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;
 	$output['followMe_title']              = $input['followMe_title'];
 	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );

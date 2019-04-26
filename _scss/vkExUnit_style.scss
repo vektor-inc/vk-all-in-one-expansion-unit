@@ -139,7 +139,11 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .veu_socialSet
 /*-------------------------------------------*/
-.veu_socialSet { margin-top:3em; }
+/* 通常タイトルと本文の間に一定の余白があるが、余白分離れてSNSボタンが表示されると微妙なのでマイナスオフセットで余白を詰めている */
+.veu_socialSet-position-before {
+	margin-top:-1em;margin-bottom:2em
+}
+.veu_socialSet-position-after { margin-top:3em; }
 /*
 .veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
 */
