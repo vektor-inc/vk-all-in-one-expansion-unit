@@ -287,6 +287,60 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+	// Share button display Position ///////////////////////////
+	$wp_customize->add_setting( 'share_button_position', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize, 'share_button_position', array(
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => __( 'Share button display Position', 'vk-all-in-one-expansion-unit' ),
+				'custom_html'      => '',
+			)
+		)
+	);
+
+	// snsBtn_position before
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_position][before]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'snsBtn_position_before',
+		array(
+			'label'    => __( 'Before content', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[snsBtn_position][before]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	// snsBtn_position after
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_position][after]',
+		array(
+			'default'           => true,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'snsBtn_position_after',
+		array(
+			'label'    => __( 'After content', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[snsBtn_position][after]',
+			'type'     => 'checkbox',
+		)
+	);
+
 	// Exclude Post Types ///////////////////////////
 	$wp_customize->add_setting( 'share_button_exclude_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
