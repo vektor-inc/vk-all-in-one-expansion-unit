@@ -23,7 +23,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_section(
 		'veu_sns_setting',
 		array(
-			'title'    => __( 'SNS Settings', 'vkExUnit' ),
+			'title'    => __( 'SNS Settings', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1,
 			'panel'    => 'veu_setting',
 		)
@@ -34,7 +34,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Post_title_custom_for_SNS', array(
-				'label'            => __( 'Post title custom for SNS', 'vkExUnit' ),
+				'label'            => __( 'Post title custom for SNS', 'vk-all-in-one-expansion-unit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
 				'custom_title_sub' => '',
@@ -56,7 +56,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'snsTitle_use_only_postTitle',
 		array(
-			'label'       => __( 'For SNS title be composed by post title only.', 'vkExUnit' ),
+			'label'       => __( 'For SNS title be composed by post title only.', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_sns_setting',
 			'settings'    => 'vkExUnit_sns_options[snsTitle_use_only_postTitle]',
 			'type'        => 'checkbox',
@@ -70,7 +70,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Facebook_title', array(
-				'label'            => __( 'Facebook Settings', 'vkExUnit' ),
+				'label'            => __( 'Facebook Settings', 'vk-all-in-one-expansion-unit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
 				'custom_title_sub' => '',
@@ -93,7 +93,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'fbAppId',
 		array(
-			'label'    => __( 'Facebook application ID', 'vkExUnit' ),
+			'label'    => __( 'Facebook application ID', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[fbAppId]',
 			'type'     => 'text',
@@ -114,7 +114,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'fbPageUrl',
 		array(
-			'label'    => __( 'Facebook Page URL', 'vkExUnit' ),
+			'label'    => __( 'Facebook Page URL', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[fbPageUrl]',
 			'type'     => 'text',
@@ -137,10 +137,10 @@ function veu_customize_register_sns( $wp_customize ) {
 			$wp_customize,
 			'ogImage',
 			array(
-				'label'       => __( 'OG default image', 'vkExUnit' ),
+				'label'       => __( 'OG default image', 'vk-all-in-one-expansion-unit' ),
 				'section'     => 'veu_sns_setting',
 				'settings'    => 'vkExUnit_sns_options[ogImage]',
-				'description' => __( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.<br>If a featured image is specified for the page, it takes precedence.<br>* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit' ),
+				'description' => __( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.<br>If a featured image is specified for the page, it takes precedence.<br>* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended.', 'vk-all-in-one-expansion-unit' ),
 			)
 		)
 	);
@@ -150,7 +150,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Print the OG_title', array(
-				'label'            => __( 'OG Settings', 'vkExUnit' ),
+				'label'            => __( 'OG Settings', 'vk-all-in-one-expansion-unit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
 				'custom_title_sub' => '',
@@ -173,11 +173,11 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'enableOGTags',
 		array(
-			'label'       => __( 'Print the OG tags', 'vkExUnit' ),
+			'label'       => __( 'Print the OG tags', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_sns_setting',
 			'settings'    => 'vkExUnit_sns_options[enableOGTags]',
 			'type'        => 'checkbox',
-			'description' => __( 'If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vkExUnit' ),
+			'description' => __( 'If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 
@@ -186,7 +186,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Twitter_application_ID_title', array(
-				'label'            => __( 'Twitter Settings', 'vkExUnit' ),
+				'label'            => __( 'Twitter Settings', 'vk-all-in-one-expansion-unit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
 				'custom_title_sub' => '',
@@ -209,7 +209,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Text_Control(
 			$wp_customize, 'twitterId', array(
-				'label'        => __( 'Twitter ID', 'vkExUnit' ),
+				'label'        => __( 'Twitter ID', 'vk-all-in-one-expansion-unit' ),
 				'section'      => 'veu_sns_setting',
 				'settings'     => 'vkExUnit_sns_options[twitterId]',
 				'type'         => 'text',
@@ -233,11 +233,11 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'enableTwitterCardTags',
 		array(
-			'label'       => __( 'Twitter Card tags', 'vkExUnit' ),
+			'label'       => __( 'Twitter Card tags', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_sns_setting',
 			'settings'    => 'vkExUnit_sns_options[enableTwitterCardTags]',
 			'type'        => 'checkbox',
-			'description' => __( 'Print the Twitter Card tags', 'vkExUnit' ),
+			'description' => __( 'Print the Twitter Card tags', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 
@@ -252,7 +252,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'share_button_title', array(
-				'label'            => __( 'Social bookmark buttons', 'vkExUnit' ),
+				'label'            => __( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
 				'custom_title_sub' => '',
@@ -275,7 +275,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'enableSnsBtns',
 		array(
-			'label'    => __( 'Print the social bookmark buttons', 'vkExUnit' ),
+			'label'    => __( 'Print the social bookmark buttons', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[enableSnsBtns]',
 			'type'     => 'checkbox',
@@ -290,7 +290,7 @@ function veu_customize_register_sns( $wp_customize ) {
 				'label'            => '',
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
-				'custom_title_sub' => __( 'Exclude Post Types', 'vkExUnit' ),
+				'custom_title_sub' => __( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ),
 				'custom_html'      => '',
 			)
 		)
@@ -333,7 +333,7 @@ function veu_customize_register_sns( $wp_customize ) {
 				'label'            => '',
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
-				'custom_title_sub' => __( 'Social button style setting', 'vkExUnit' ),
+				'custom_title_sub' => __( 'Social button style setting', 'vk-all-in-one-expansion-unit' ),
 				'custom_html'      => '',
 			)
 		)
@@ -353,7 +353,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'snsBtn_bg_fill_not',
 		array(
-			'label'    => __( 'No background', 'vkExUnit' ),
+			'label'    => __( 'No background', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
 			'type'     => 'checkbox',
@@ -375,7 +375,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		new WP_Customize_Color_Control(
 			$wp_customize, 'snsBtn_color',
 			array(
-				'label'    => __( 'Btn color', 'vkExUnit' ),
+				'label'    => __( 'Btn color', 'vk-all-in-one-expansion-unit' ),
 				'section'  => 'veu_sns_setting',
 				'settings' => 'vkExUnit_sns_options[snsBtn_color]',
 			)
@@ -390,7 +390,7 @@ function veu_customize_register_sns( $wp_customize ) {
 				'label'            => '',
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
-				'custom_title_sub' => __( 'Share button for display', 'vkExUnit' ),
+				'custom_title_sub' => __( 'Share button for display', 'vk-all-in-one-expansion-unit' ),
 				'custom_html'      => '',
 			)
 		)
@@ -410,7 +410,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'useFacebook',
 		array(
-			'label'    => __( 'Facebook ', 'vkExUnit' ),
+			'label'    => __( 'Facebook ', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useFacebook]',
 			'type'     => 'checkbox',
@@ -431,7 +431,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'useTwitter',
 		array(
-			'label'    => __( 'Twitter', 'vkExUnit' ),
+			'label'    => __( 'Twitter', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useTwitter]',
 			'type'     => 'checkbox',
@@ -452,7 +452,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'useHatena',
 		array(
-			'label'    => __( 'Hatena', 'vkExUnit' ),
+			'label'    => __( 'Hatena', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useHatena]',
 			'type'     => 'checkbox',
@@ -473,7 +473,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'usePocket',
 		array(
-			'label'    => __( 'Pocket', 'vkExUnit' ),
+			'label'    => __( 'Pocket', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[usePocket]',
 			'type'     => 'checkbox',
@@ -494,7 +494,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'useLine',
 		array(
-			'label'    => __( 'LINE (mobile only)', 'vkExUnit' ),
+			'label'    => __( 'LINE (mobile only)', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useLine]',
 			'type'     => 'checkbox',
@@ -506,7 +506,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Html(
 			$wp_customize, 'Follow_me_box_title', array(
-				'label'            => __( 'Follow me box', 'vkExUnit' ),
+				'label'            => __( 'Follow me box', 'vk-all-in-one-expansion-unit' ),
 				'section'          => 'veu_sns_setting',
 				'type'             => 'text',
 				'custom_title_sub' => '',
@@ -540,7 +540,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'followMe_title',
 		array(
-			'label'    => __( 'Follow me box title', 'vkExUnit' ),
+			'label'    => __( 'Follow me box title', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[followMe_title]',
 			'type'     => 'text',

@@ -20,7 +20,7 @@ function vkExUnit_ga_options_init() {
 	}
 
 	vkExUnit_register_setting(
-		__( 'Google Analytics Settings', 'vkExUnit' ),  //  Immediately following form tag of edit page.
+		__( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ),  //  Immediately following form tag of edit page.
 		'vkExUnit_ga_options',          // name attr
 		'vkExUnit_ga_options_validate',
 		'vkExUnit_add_ga_options_page'

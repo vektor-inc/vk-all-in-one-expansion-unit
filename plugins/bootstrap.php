@@ -6,7 +6,7 @@ function vkExUnit_bootstrap_customize_register( $wp_customize ) {
 	if ( is_null( $wp_customize->get_section( 'vkExUnit_settings' ) ) ) {
 		$wp_customize->add_section(
 			'vkExUnit_settings', array(
-				'title'    => veu_get_prefix() . __( 'Settings', 'vkExUnit' ),
+				'title'    => veu_get_prefix() . __( 'Settings', 'vk-all-in-one-expansion-unit' ),
 				'priority' => 500,
 			)
 		);
@@ -33,7 +33,7 @@ function vkExUnit_bootstrap_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		new WP_Customize_Color_Control(
 			$wp_customize, 'color_key', array(
-				'label'    => __( 'Key color', 'vkExUnit' ),
+				'label'    => __( 'Key color', 'vk-all-in-one-expansion-unit' ),
 				'section'  => 'vkExUnit_settings',
 				'settings' => 'vkExUnit_colors[color_key]',
 				'priority' => 502,
@@ -44,7 +44,7 @@ function vkExUnit_bootstrap_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		new WP_Customize_Color_Control(
 			$wp_customize, 'color_key_dark', array(
-				'label'    => __( 'Key color(dark)', 'vkExUnit' ),
+				'label'    => __( 'Key color(dark)', 'vk-all-in-one-expansion-unit' ),
 				'section'  => 'vkExUnit_settings',
 				'settings' => 'vkExUnit_colors[color_key_dark]',
 				'priority' => 503,

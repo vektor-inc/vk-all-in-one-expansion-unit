@@ -12,13 +12,13 @@ class WidgetBanner extends \WP_Widget {
 
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Banner', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Banner', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'vkExUnit_banner',
 			$widget_name,
 			array(
-				'description' => sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vkExUnit' ), vkExUnit_get_little_short_name() ),
+				'description' => sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ),
 			)
 		);
 	}
@@ -94,7 +94,7 @@ class WidgetBanner extends \WP_Widget {
 		<img src="<?php echo $image[0]; ?>" style="width:100%;height:auto;" />
 	<?php endif; ?>
 </div>
-<button class="button button-default button-block" style="display:block;width:100%;text-align: center; margin:4px 0;" onclick="javascript:vkEx_banner_addiditional(this);return false;"><?php _e( 'Set image', 'vkExUnit' ); ?></button>
+<button class="button button-default button-block" style="display:block;width:100%;text-align: center; margin:4px 0;" onclick="javascript:vkEx_banner_addiditional(this);return false;"><?php _e( 'Set image', 'vk-all-in-one-expansion-unit' ); ?></button>
 <div class="_form" style="line-height: 2em">
 	<input type="hidden" class="__id" name="<?php echo $this->get_field_name( 'id' ); ?>" value="<?php echo esc_attr( $instance['id'] ); ?>" />
 	<label>URL : <input type="text" name="<?php echo $this->get_field_name( 'href' ); ?>" style="width: 100%" value="<?php echo esc_attr( $instance['href'] ); ?>" /></label><br/>
@@ -103,8 +103,8 @@ class WidgetBanner extends \WP_Widget {
 													if ( $instance['blank'] ) {
 														echo 'checked';}
 ?>
- /> <?php _e( 'Open link new tab.', 'vkExUnit' ); ?></label><br/>
-	<label><?php _e( 'Alternative text', 'vkExUnit' ); ?> :
+ /> <?php _e( 'Open link new tab.', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><?php _e( 'Alternative text', 'vk-all-in-one-expansion-unit' ); ?> :
 		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" style="width: 100%" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 	</label><br/>
 </div>

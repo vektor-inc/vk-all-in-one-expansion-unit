@@ -6,12 +6,12 @@
 class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Profile', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Profile', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'WP_Widget_vkExUnit_profile',
 			$widget_name,
-			array( 'description' => __( 'Displays a your profile', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a your profile', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -29,7 +29,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	/*-------------------------------------------*/
 	function form( $instance ) {
 		$defaults = array(
-			'label'           => __( 'Profile', 'vkExUnit' ),
+			'label'           => __( 'Profile', 'vk-all-in-one-expansion-unit' ),
 			'mediaFile'       => '',
 			'mediaAlt'        => '',
 			'mediaAlign_left' => '', // 'mediaAlign' に移行したので事実上廃止
@@ -37,7 +37,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			'mediaRound'      => '',
 			'mediaSize'       => '',
 			'mediaFloat'      => '',
-			'profile'         => __( 'Profile Text', 'vkExUnit' ),
+			'profile'         => __( 'Profile Text', 'vk-all-in-one-expansion-unit' ),
 			'facebook'        => '',
 			'twitter'         => '',
 			'mail'            => '',
@@ -52,12 +52,12 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	?>
 
 	<?php //title ?>
-<p><label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" />
 </p>
 
 		<?php //media uploader ?>
-<p><label for="<?php echo $this->get_field_id( 'profile' ); ?>"><?php _e( 'Select Profile image:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'profile' ); ?>"><?php _e( 'Select Profile image:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 
 <div class="media_image_section">
 	<div class="_display admin-custom-thumb-outer" style="height:auto">
@@ -67,8 +67,8 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			<img src="<?php echo esc_url( $instance['mediaFile'] ); ?>" class="admin-custom-thumb" />
 		<?php endif; ?>
 	</div>
-	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vkExUnit' ); ?></button>
-	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vkExUnit' ); ?></button>
+	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vk-all-in-one-expansion-unit' ); ?></button>
+	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
 	<div class="_form" style="line-height: 2em">
 		<input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'mediaFile' ); ?>" value="<?php echo esc_attr( $instance['mediaFile'] ); ?>" />
 			<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'mediaAlt' ); ?>" value="<?php echo esc_attr( $instance['mediaAlt'] ); ?>" />
@@ -76,11 +76,11 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </div><!-- [ /.media_image_section ] -->
 
 		<?php //image round setting ?>
-<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaRound' ); ?>" name="<?php echo $this->get_field_name( 'mediaRound' ); ?>" value="true" <?php echo ( $instance['mediaRound'] ) ? 'checked' : ''; ?> ><label for="<?php echo $this->get_field_id( 'mediaRound' ); ?>"><?php _e( 'Cut out round the image.', 'vkExUnit' ); ?></label>
+<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaRound' ); ?>" name="<?php echo $this->get_field_name( 'mediaRound' ); ?>" value="true" <?php echo ( $instance['mediaRound'] ) ? 'checked' : ''; ?> ><label for="<?php echo $this->get_field_id( 'mediaRound' ); ?>"><?php _e( 'Cut out round the image.', 'vk-all-in-one-expansion-unit' ); ?></label>
 </p>
 
 		<?php //image size setting ?>
-<p><label for="<?php echo $this->get_field_id( 'mediaSize' ); ?>"><?php _e( 'Media size (Optional)', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'mediaSize' ); ?>"><?php _e( 'Media size (Optional)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'mediaSize' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'mediaSize' ); ?>" style="width:50px;" value="<?php echo esc_attr( $instance['mediaSize'] ); ?>" /> px
 </p>
 
@@ -90,71 +90,71 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	<?php $image_align = self::image_align( $instance ); ?>
 	<?php $checked     = ( $image_align === 'left' ) ? ' checked' : ''; ?>
 	<input type="radio" id="<?php echo $this->get_field_id( 'mediaAlign' ); ?>_left" name="<?php echo $this->get_field_name( 'mediaAlign' ); ?>" value="left"<?php echo $checked; ?> />
-	<label for="<?php echo $this->get_field_id( 'mediaAlign' ) . '_left'; ?>"> <?php _e( 'Align left', 'vkExUnit' ); ?></label>
+	<label for="<?php echo $this->get_field_id( 'mediaAlign' ) . '_left'; ?>"> <?php _e( 'Align left', 'vk-all-in-one-expansion-unit' ); ?></label>
 	<?php $checked = ( $image_align === 'center' ) ? ' checked' : ''; ?>
 	<input type="radio" id="<?php echo $this->get_field_id( 'mediaAlign' ); ?>_center" name="<?php echo $this->get_field_name( 'mediaAlign' ); ?>" value="center"<?php echo $checked; ?> />
-	<label for="<?php echo $this->get_field_id( 'mediaAlign' ) . '_center'; ?>"> <?php _e( 'Align center', 'vkExUnit' ); ?></label>
+	<label for="<?php echo $this->get_field_id( 'mediaAlign' ) . '_center'; ?>"> <?php _e( 'Align center', 'vk-all-in-one-expansion-unit' ); ?></label>
 </p>
 
 		<?php //image float setting ?>
-<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaFloat' ); ?>" name="<?php echo $this->get_field_name( 'mediaFloat' ); ?>" value="true" <?php echo ( $instance['mediaFloat'] ) ? 'checked' : ''; ?> ><label for="<?php echo $this->get_field_id( 'mediaFloat' ); ?>"><?php _e( 'Text float to image.', 'vkExUnit' ); ?></label><br/>
+<p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaFloat' ); ?>" name="<?php echo $this->get_field_name( 'mediaFloat' ); ?>" value="true" <?php echo ( $instance['mediaFloat'] ) ? 'checked' : ''; ?> ><label for="<?php echo $this->get_field_id( 'mediaFloat' ); ?>"><?php _e( 'Text float to image.', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 </p>
 
 		<?php //profile text ?>
-<p><label for="<?php echo $this->get_field_id( 'profile' ); ?>"><?php _e( 'Profile Text:', 'vkExUnit' ); ?></label></p>
+<p><label for="<?php echo $this->get_field_id( 'profile' ); ?>"><?php _e( 'Profile Text:', 'vk-all-in-one-expansion-unit' ); ?></label></p>
 <textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'profile' ); ?>" class="admin-custom-input textarea" name="<?php echo $this->get_field_name( 'profile' ); ?>"><?php echo esc_textarea( $instance['profile'] ); ?></textarea>
 
 		<?php //facebook_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'facebook' ); ?>"><?php _e( 'Facebook URL:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'facebook' ); ?>"><?php _e( 'Facebook URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'facebook' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'facebook' ); ?>" value="<?php echo esc_attr( $instance['facebook'] ); ?>" />
 </p>
 
 		<?php //twitter_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter URL:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'twitter' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo esc_attr( $instance['twitter'] ); ?>" />
 </p>
 
 		<?php //mail_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'mail' ); ?>"><?php _e( 'Email Address:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'mail' ); ?>"><?php _e( 'Email Address:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'mail' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'mail' ); ?>" value="<?php echo esc_attr( $instance['mail'] ); ?>" />
 </p>
 
 		<?php //youtube_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'youtube' ); ?>"><?php _e( 'Youtube URL:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'youtube' ); ?>"><?php _e( 'Youtube URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'youtube' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $instance['youtube'] ); ?>" />
 </p>
 
 		<?php //rss_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'rss' ); ?>"><?php _e( 'RSS URL:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'rss' ); ?>"><?php _e( 'RSS URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'rss' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'rss' ); ?>" value="<?php echo esc_attr( $instance['rss'] ); ?>" />
 </p>
 
 		<?php //instagram_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'instagram URL:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'instagram URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'instagram' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'instagram' ); ?>" value="<?php echo esc_attr( $instance['instagram'] ); ?>" /></p>
 
 		<?php //linkedin_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'linkedin' ); ?>"><?php _e( 'linkedin URL:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'linkedin' ); ?>"><?php _e( 'linkedin URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'linkedin' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $instance['linkedin'] ); ?>" /></p>
 
 <?php // icon font type ?>
 
-<p><?php _e( 'Icon Background:', 'vkExUnit' ); ?><br>
+<p><?php _e( 'Icon Background:', 'vk-all-in-one-expansion-unit' ); ?><br>
 
 <?php
 $checked = ( ! isset( $instance['iconFont_bgType'] ) || ! $instance['iconFont_bgType'] ) ? ' checked' : '';
 ?>
 <input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_solid'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value=""<?php echo $checked; ?> />
-<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_solid'; ?>"> <?php _e( 'Solid color', 'vkExUnit' ); ?></label>
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_solid'; ?>"> <?php _e( 'Solid color', 'vk-all-in-one-expansion-unit' ); ?></label>
 <?php $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType'] === 'no_paint' ) ? ' checked' : ''; ?>
 <input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint"<?php echo $checked; ?> />
-<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint'; ?>"><?php _e( 'No background', 'vkExUnit' ); ?></label>
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint'; ?>"><?php _e( 'No background', 'vk-all-in-one-expansion-unit' ); ?></label>
 </p>
-<p><?php _e( '* When "Icon Background: Fill" is selected and "Icon color" is not specified, each brand color will be painted.', 'vkExUnit' ); ?></p>
+<p><?php _e( '* When "Icon Background: Fill" is selected and "Icon color" is not specified, each brand color will be painted.', 'vk-all-in-one-expansion-unit' ); ?></p>
 
 <?php // icon font color ?>
 <p class="color_picker_wrap">
-<label for="<?php echo $this->get_field_id( 'icon_color' ); ?>"><?php _e( 'Icon color:', 'vkExUnit' ); ?></label><br/>
+<label for="<?php echo $this->get_field_id( 'icon_color' ); ?>"><?php _e( 'Icon color:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'icon_color' ); ?>" class="color_picker" name="<?php echo $this->get_field_name( 'icon_color' ); ?>" value="<?php echo esc_attr( $instance['icon_color'] ); ?>" /></p>
 
 	<?php

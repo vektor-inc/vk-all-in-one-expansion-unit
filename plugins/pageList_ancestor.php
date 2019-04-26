@@ -93,7 +93,7 @@ function vkExUnit_pageList_ancestor_admin_metabox_content() {
 <input type="hidden" name="_nonce_vkExUnit__custom_field_pageList_ancestor" id="_nonce_vkExUnit__custom_field_pageList_ancestor" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) );?>" />
 <label for="vkExUnit_pageList_ancestor">
 	<input type="checkbox" id="vkExUnit_pageList_ancestor" name="vkExUnit_pageList_ancestor"<?php echo ($enable)? ' checked' : ''; ?> />
-	<?php _e( 'Display a page list from ancestor', 'vkExUnit' );?>
+	<?php _e( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' );?>
 </label>
 </div>
 <?php

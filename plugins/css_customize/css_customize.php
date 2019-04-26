@@ -27,7 +27,7 @@ class veu_css_customize {
 				array(
 					'parent' => 'veu_adminlink',
 					'id'     => 'veu_adminlink_css',
-					'title'  => __( 'CSS Customize', 'vkExUnit' ),
+					'title'  => __( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
 					'href'   => admin_url() . 'admin.php?page=vkExUnit_css_customize',
 				)
 			);
@@ -41,8 +41,8 @@ class veu_css_customize {
 		// $capability_required = veu_get_capability_required();
 		add_submenu_page(
 			'vkExUnit_setting_page',
-			__( 'CSS Customize', 'vkExUnit' ),
-			__( 'CSS Customize', 'vkExUnit' ),
+			__( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
+			__( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
 			// $capability_required, // edit_theme_optionsのユーザーにもアクセスさせないため
 			'activate_plugins',
 			'vkExUnit_css_customize',

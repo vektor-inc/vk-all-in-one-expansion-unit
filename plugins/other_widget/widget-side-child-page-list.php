@@ -9,12 +9,12 @@ function vkExUnit_widget_register_childpages() {
 class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'child pages list', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'child pages list', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'vkExUnit_childPageList',
 			$widget_name,
-			array( 'description' => __( 'Displays list of child page for the current page.', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays list of child page for the current page.', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 

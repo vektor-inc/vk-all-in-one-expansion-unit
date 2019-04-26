@@ -280,7 +280,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 	?>
 	<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', $vk_call_to_action_textdomain ); ?></label></th><td>
 <input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php echo $checked; ?> />
-<label for="vkExUnit_cta_url_blank"><?php _e( 'Open in a self window', 'vkExUnit' ); ?></label>
+<label for="vkExUnit_cta_url_blank"><?php _e( 'Open in a self window', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td></tr>
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', $vk_call_to_action_textdomain ); ?>
 </th>

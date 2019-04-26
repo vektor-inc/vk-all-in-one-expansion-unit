@@ -18,7 +18,7 @@ function veu_sns_options_init() {
 		add_option( 'vkExUnit_sns_options', veu_get_sns_options_default() );
 	}
 	vkExUnit_register_setting(
-		__( 'SNS', 'vkExUnit' ),    // tab label.
+		__( 'SNS', 'vk-all-in-one-expansion-unit' ),    // tab label.
 		'vkExUnit_sns_options',         // name attr
 		'vkExUnit_sns_options_validate', // sanitaise function name
 		'vkExUnit_add_sns_options_page'  // setting_page function name
@@ -148,7 +148,7 @@ $fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
 	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vkExUnit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
+	js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 	<?php

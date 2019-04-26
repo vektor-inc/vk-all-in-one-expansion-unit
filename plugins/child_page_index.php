@@ -76,7 +76,7 @@ function vkExUnit_childPageIndex_shortcode() {
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ) );
 			$childPageList_html .= '<p class="childPage_list_text">' . $postExcerpt . '</p>';
-			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . __( 'Read more', 'vkExUnit' ) . '</span>';
+			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . __( 'Read more', 'vk-all-in-one-expansion-unit' ) . '</span>';
 			$childPageList_html .= '</div>';
 
 			$childPageList_html .= '</div></a>' . PHP_EOL;
@@ -147,7 +147,7 @@ function veu_child_page_index_admin_metabox_content() {
 <input type="hidden" name="_nonce_vkExUnit__custom_field_childPageIndex" id="_nonce_vkExUnit__custom_field_childPageIndex" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
 <label for="vkExUnit_childPageIndex">
 	<input type="checkbox" id="vkExUnit_childPageIndex" name="vkExUnit_childPageIndex"<?php echo ( $enable ) ? ' checked' : ''; ?> />
-	<?php _e( 'Display a child page index', 'vkExUnit' ); ?>
+	<?php _e( 'Display a child page index', 'vk-all-in-one-expansion-unit' ); ?>
 </label>
 </div>
 	<?php

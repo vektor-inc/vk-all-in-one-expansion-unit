@@ -11,60 +11,60 @@
 <!-- OGP hidden -->
 <table class="form-table">
 <tr>
-<th><?php _e( 'Post title custom for SNS', 'vkExUnit' ); ?></th>
+<th><?php _e( 'Post title custom for SNS', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><label>
-<input type="checkbox" name="vkExUnit_sns_options[snsTitle_use_only_postTitle]" id="snsTitle_use_only_postTitle" value="true" <?php echo ( $options['snsTitle_use_only_postTitle'] ) ? 'checked' : ''; ?> /><?php _e( 'For SNS title be composed by post title only.', 'vkExUnit' ); ?></label>
+<input type="checkbox" name="vkExUnit_sns_options[snsTitle_use_only_postTitle]" id="snsTitle_use_only_postTitle" value="true" <?php echo ( $options['snsTitle_use_only_postTitle'] ) ? 'checked' : ''; ?> /><?php _e( 'For SNS title be composed by post title only.', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td>
 </tr>
 <tr>
-<th><?php _e( 'facebook application ID', 'vkExUnit' ); ?></th>
+<th><?php _e( 'facebook application ID', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[fbAppId]" id="fbAppId" value="<?php echo esc_attr( $options['fbAppId'] ); ?>" /><br />
-<span>[ <a href="https://developers.facebook.com/apps" target="_blank">&raquo; <?php _e( 'I will check and get the application ID', 'vkExUnit' ); ?></a> ]</span><br />
-<?php _e( '* If an application ID is not specified, neither a Like button nor the comment field displays and operates correctly.', 'vkExUnit' ); ?><br />
-<?php _e( 'Please search for terms as [get Facebook application ID] If you do not know much about how to get application ID for Facebook.', 'vkExUnit' ); ?>
+<span>[ <a href="https://developers.facebook.com/apps" target="_blank">&raquo; <?php _e( 'I will check and get the application ID', 'vk-all-in-one-expansion-unit' ); ?></a> ]</span><br />
+<?php _e( '* If an application ID is not specified, neither a Like button nor the comment field displays and operates correctly.', 'vk-all-in-one-expansion-unit' ); ?><br />
+<?php _e( 'Please search for terms as [get Facebook application ID] If you do not know much about how to get application ID for Facebook.', 'vk-all-in-one-expansion-unit' ); ?>
 </td>
 </tr>
 <tr>
-<th><?php _e( 'facebook page URL', 'vkExUnit' ); ?></th>
+<th><?php _e( 'facebook page URL', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[fbPageUrl]" id="fbPageUrl" value="<?php echo esc_url( $options['fbPageUrl'] ); ?>" /></td>
 </tr>
 <!-- OGP -->
 <tr>
-<th><?php _e( 'OG default image', 'vkExUnit' ); ?></th>
-<td><?php _e( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vkExUnit' ); ?><br />
-<?php _e( 'If a featured image is specified for the page, it takes precedence.', 'vkExUnit' ); ?><br />
+<th><?php _e( 'OG default image', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td><?php _e( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vk-all-in-one-expansion-unit' ); ?><br />
+<?php _e( 'If a featured image is specified for the page, it takes precedence.', 'vk-all-in-one-expansion-unit' ); ?><br />
 <input type="text" name="vkExUnit_sns_options[ogImage]" id="ogImage" value="<?php echo esc_attr( $options['ogImage'] ); ?>" />
-<button id="media_src_ogImage" class="media_btn button"><?php _e( 'Select an image', 'vkExUnit' ); ?></button><br />
-<span><?php _e( 'ex) ', 'vkExUnit' ); ?>https://www.vektor-inc.co.jp/images/ogImage.png</span><br />
-<?php _e( '* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended.', 'vkExUnit' ); ?>
+<button id="media_src_ogImage" class="media_btn button"><?php _e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button><br />
+<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>https://www.vektor-inc.co.jp/images/ogImage.png</span><br />
+<?php _e( '* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended.', 'vk-all-in-one-expansion-unit' ); ?>
 </td>
 </tr>
 <tr>
-<th><?php _e( 'twitter ID', 'vkExUnit' ); ?></th>
+<th><?php _e( 'twitter ID', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>@<input type="text" name="vkExUnit_sns_options[twitterId]" id="twitterId" value="<?php echo esc_attr( $options['twitterId'] ); ?>" /></td>
 </tr>
 
 <tr>
-<th><?php _e( 'OG tags', 'vkExUnit' ); ?></th>
+<th><?php _e( 'OG tags', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><label>
-<input type="checkbox" name="vkExUnit_sns_options[enableOGTags]" id="enableOGTags" value="true" <?php echo ( $options['enableOGTags'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the OG tags', 'vkExUnit' ); ?></label>
-<p><?php _e( 'If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vkExUnit' ); ?></p>
+<input type="checkbox" name="vkExUnit_sns_options[enableOGTags]" id="enableOGTags" value="true" <?php echo ( $options['enableOGTags'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the OG tags', 'vk-all-in-one-expansion-unit' ); ?></label>
+<p><?php _e( 'If other plug-ins are used for the OG, do not output the OG using this plugin.', 'vk-all-in-one-expansion-unit' ); ?></p>
 </td>
 </tr>
 
 <tr>
-<th><?php _e( 'Twitter Card tags', 'vkExUnit' ); ?></th>
+<th><?php _e( 'Twitter Card tags', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><label>
-<input type="checkbox" name="vkExUnit_sns_options[enableTwitterCardTags]" id="enableTwitterCardTags" value="true" <?php echo ( $options['enableTwitterCardTags'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Twitter Card tags', 'vkExUnit' ); ?></label>
+<input type="checkbox" name="vkExUnit_sns_options[enableTwitterCardTags]" id="enableTwitterCardTags" value="true" <?php echo ( $options['enableTwitterCardTags'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Twitter Card tags', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td>
 </tr>
 
 <tr>
-<th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vkExUnit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the social bookmark buttons', 'vkExUnit' ); ?></label>
+<th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label>
 
 <dl>
-<dt><?php _e( 'Exclude Post Types', 'vkExUnit' ); ?></dt>
+<dt><?php _e( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
 <?php
 $args = array(
@@ -77,7 +77,7 @@ vk_the_post_type_check_list( $args );
 </dl>
 
 <dl>
-<dt><?php _e( 'Exclude Post ID', 'vkExUnit' ); ?></dt>
+<dt><?php _e( 'Exclude Post ID', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
 <input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="
 <?php
@@ -87,11 +87,11 @@ if ( isset( $options['snsBtn_ignorePosts'] ) ) {
 " />
 <br/>
 <?php
-_e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vkExUnit' );
+_e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vk-all-in-one-expansion-unit' );
 echo '<br/>';
-_e( 'if empty this area, I will do not filtering.', 'vkExUnit' );
+_e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-unit' );
 echo '<br/>';
-_e( 'example', 'vkExUnit' );
+_e( 'example', 'vk-all-in-one-expansion-unit' );
 ?>
   (12,31,553)
 </dd>
@@ -100,17 +100,17 @@ _e( 'example', 'vkExUnit' );
 </tr>
 
 <tr>
-<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vkExUnit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vkExUnit' ); ?></label>
+<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
 <dl>
-<dt><?php _e( 'Follow me box title', 'vkExUnit' ); ?></dt>
+<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
 </dl>
 </td>
 </tr>
 
 <tr>
-<th><label><?php _e( 'Share button for display', 'vkExUnit' ); ?></label></th>
+<th><label><?php _e( 'Share button for display', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label></label>
 <ul>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useFacebook]" value="true"
@@ -118,31 +118,31 @@ _e( 'example', 'vkExUnit' );
 if ( $options['useFacebook'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Facebook', 'vkExUnit' ); ?></label></li>
+ /> <?php _e( 'Facebook', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useTwitter]" value="true"
 <?php
 if ( $options['useTwitter'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Twitter', 'vkExUnit' ); ?></label></li>
+ /> <?php _e( 'Twitter', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php
 if ( $options['useHatena'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Hatena', 'vkExUnit' ); ?></label></li>
+ /> <?php _e( 'Hatena', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[usePocket]" value="true"
 <?php
 if ( $options['usePocket'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Pocket', 'vkExUnit' ); ?></label></li>
+ /> <?php _e( 'Pocket', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useLine]" value="true"
 <?php
 if ( $options['useLine'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'LINE (mobile only)', 'vkExUnit' ); ?></label></li>
+ /> <?php _e( 'LINE (mobile only)', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 </ul>
 </td>
 </tr>

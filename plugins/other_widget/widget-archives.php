@@ -6,12 +6,12 @@
 class WP_Widget_VK_archive_list extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'archive list', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'archive list', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'WP_Widget_VK_archive_list',
 			$widget_name,
-			array( 'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -50,8 +50,8 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		$defaults = array(
 			'post_type'    => 'post',
 			'display_type' => 'm',
-			'label'        => __( 'Monthly archives', 'vkExUnit' ),
-			'hide'         => __( 'Monthly archives', 'vkExUnit' ),
+			'label'        => __( 'Monthly archives', 'vk-all-in-one-expansion-unit' ),
+			'hide'         => __( 'Monthly archives', 'vk-all-in-one-expansion-unit' ),
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -65,11 +65,11 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		?>
 		<p>
 
-		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title', 'vkExUnit' ); ?>:</label>
+		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" ><br/>
 		<input type="hidden" name="<?php echo $this->get_field_name( 'hide' ); ?>" ><br/>
 
-		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'vkExUnit' ); ?>:</label>
+		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 		<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" >
 		<?php foreach ( $pages as $page ) { ?>
 		<option value="<?php echo $page; ?>"
@@ -89,14 +89,14 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				echo 'selected="selected"'; }
 ?>
  >
-			<?php _e( 'Monthly', 'vkExUnit' ); ?></option>
+			<?php _e( 'Monthly', 'vk-all-in-one-expansion-unit' ); ?></option>
 			<option value="y"
 			<?php
 			if ( $instance['display_type'] == 'y' ) {
 				echo 'selected="selected"'; }
 ?>
  >
-			<?php _e( 'Yearly', 'vkExUnit' ); ?></option>
+			<?php _e( 'Yearly', 'vk-all-in-one-expansion-unit' ); ?></option>
 		</select>
 		</p>
 		<script type="text/javascript">
@@ -114,7 +114,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			var posttype = jQuery("[name=\"<?php echo $this->get_field_name( 'post_type' ); ?>\"]");
 			var lablfeld = jQuery("[name=\"<?php echo $this->get_field_name( 'label' ); ?>\"]");
 			posttype.change(function(){
-				lablfeld.val(post_labels[posttype.val()]+'<?php _e( 'archive', 'vkExUnit' ); ?>');
+				lablfeld.val(post_labels[posttype.val()]+'<?php _e( 'archive', 'vk-all-in-one-expansion-unit' ); ?>');
 			});
 		});
 		</script>

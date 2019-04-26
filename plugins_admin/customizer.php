@@ -35,7 +35,7 @@ function veu_customize_register( $wp_customize ) {
 			'priority'       => 1000,
 			'capability'     => 'edit_theme_options',
 			'theme_supports' => '',
-			'title'          => veu_get_prefix_customize_panel() . ' ' . __( 'Settings', 'vkExUnit' ),
+			'title'          => veu_get_prefix_customize_panel() . ' ' . __( 'Settings', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 

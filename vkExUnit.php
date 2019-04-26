@@ -35,7 +35,7 @@ global $vkExUnit_version;
 $vkExUnit_version = $data['version'];
 
 // include('plugins/css_customize/css-customize.php');
-load_plugin_textdomain( 'vkExUnit', false, basename( dirname( __FILE__ ) ) . '/languages' );
+load_plugin_textdomain( 'vk-all-in-one-expansion-unit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
 function vkExUnit_get_directory( $path = '' ) {
@@ -78,10 +78,10 @@ function vkExUnit_phpversion_error( $val ) {
 			本来システム名は vkExUnit_get_little_short_name() で引っ張るが、PHPのバージョンが低くて vkExUnit_get_little_short_name() 関数が読み込まれていないので"VK ExUnit"直書き
 			*/
 			printf(
-				__( 'The current PHP version(%s) is too old, so VK ExUnit will not work.', 'vkExUnit' ), phpversion()
+				__( 'The current PHP version(%s) is too old, so VK ExUnit will not work.', 'vk-all-in-one-expansion-unit' ), phpversion()
 			);
 			?>
-			<?php _e( 'VK ExUnit supports PHP5.6 or later.', 'vkExUnit' ); ?>
+			<?php _e( 'VK ExUnit supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p></div>
 	<?php
 	return $val;
@@ -92,13 +92,13 @@ function vkExUnit_phpversion_warning_notice( $val ) {
 		return $val;
 	}
 	global $hook_suffix;
-	if ( strpos( $hook_suffix, 'vkExUnit' ) == false ) {
+	if ( strpos( $hook_suffix, 'vk-all-in-one-expansion-unit' ) == false ) {
 		return;
 	}
 	?>
 	<div class="notice notice-warning is-dismissible"><p>
-			<?php printf( __( 'Current PHP Version(%s) is old.', 'vkExUnit' ), phpversion() ); ?>
-			<?php printf( __( '%s supports PHP5.6 or later.', 'vkExUnit' ), vkExUnit_get_little_short_name() ); ?>
+			<?php printf( __( 'Current PHP Version(%s) is old.', 'vk-all-in-one-expansion-unit' ), phpversion() ); ?>
+			<?php printf( __( '%s supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ); ?>
 		</p></div>
 	<?php
 	return $val;

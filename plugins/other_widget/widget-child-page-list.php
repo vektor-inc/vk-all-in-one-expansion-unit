@@ -7,12 +7,12 @@
 class WP_Widget_vkExUnit_child_page extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Child Page List', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Child Page List', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'vkExUnit_child_pages',
 			$widget_name,
-			array( 'description' => __( 'Display the child pages list from ancestor page.', 'vkExUnit' ) )
+			array( 'description' => __( 'Display the child pages list from ancestor page.', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -56,7 +56,7 @@ class WP_Widget_vkExUnit_child_page extends WP_Widget {
 	function form( $instance ) {
 		?>
 <div style="padding:0.6em 0;">
-<?php _e( 'Display the child pages list from ancestor page.', 'vkExUnit' ); ?>
+<?php _e( 'Display the child pages list from ancestor page.', 'vk-all-in-one-expansion-unit' ); ?>
 </div>
 		<?php
 	}
