@@ -527,10 +527,19 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[enableFollowMe]',
 		array(
-			'default'           => false,
+			'default'           => true,
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'enableFollowMe',
+		array(
+			'label'    => __( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[enableFollowMe]',
+			'type'     => 'checkbox',
 		)
 	);
 
