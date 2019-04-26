@@ -35,7 +35,7 @@ class vExUnit_Ads {
 
 	public function option_init() {
 		vkExUnit_register_setting(
-			__( 'Insert ads', 'vkExUnit' ),           // tab label.
+			__( 'Insert ads', 'vk-all-in-one-expansion-unit' ),           // tab label.
 			'vkExUnit_Ads',                         // name attr
 			array( $this, 'sanitize_config' ),      // sanitaise function name
 			array( $this, 'render_configPage' )     // setting_page function name
@@ -145,15 +145,26 @@ class vExUnit_Ads {
 
 	public function sanitize_config( $input ) {
 		$option                               = $input;
-		$option['google-ads-active']          = esc_attr( $input['google-ads-active'] );
-		$option['google-ads-overlays-bottom'] = esc_attr( $input['google-ads-overlays-bottom'] );
-		$option['google-pub-id']              = esc_attr( $input['google-pub-id'] );
+		$option['google-ads-active']          = ( isset( $input['google-ads-active'] ) ) ? esc_attr( $input['google-ads-active'] ) : '';
+		$option['google-ads-overlays-bottom'] = ( isset( $input['google-ads-overlays-bottom'] ) ) ? esc_attr( $input['google-ads-overlays-bottom'] ) : '';
+		$option['google-pub-id']              = ( isset( $input['google-pub-id'] ) ) ? esc_attr( $input['google-pub-id'] ) : '';
 		$option['before'][0]                  = stripslashes( $input['before'][0] );
 		$option['before'][1]                  = stripslashes( $input['before'][1] );
 		$option['more'][0]                    = stripslashes( $input['more'][0] );
 		$option['more'][1]                    = stripslashes( $input['more'][1] );
 		$option['after'][0]                   = stripslashes( $input['after'][0] );
 		$option['after'][1]                   = stripslashes( $input['after'][1] );
+
+		if ( isset( $input['post_types'] ) && is_array( $input['post_types'] ) ) {
+			foreach ( $input['post_types'] as $key => $value ) {
+				$option['post_types'][ $key ] = esc_attr( $value );
+			}
+		} else {
+			// 'post_types' 自体が存在しないと、デフォルト値として ['post_types']['post'] = true を返すように作ってあり、
+			// チェックボックスのチェックが外れなくなるので
+			// チェックが全部外れている時に 'post' => false をいれておく
+			$option['post_types']['post'] = false;
+		}
 
 		if ( ! $option['before'][0] && $option['before'][1] ) {
 			$option['before'][0] = $option['before'][1];
@@ -190,7 +201,7 @@ class vExUnit_Ads {
 			'after'                      => array( '' ),
 			'post_types'                 => array( 'post' => true ),
 		);
-		$option  = get_option( 'vkExUnit_Ads', $default );
+		$option  = get_option( 'vkExUnit_Ads' );
 
 		// post_types を後で追加したので、option値に保存されてない時にデフォルトの post とマージする
 		$option = wp_parse_args( $option, $default );
@@ -204,7 +215,7 @@ class vExUnit_Ads {
 	public function render_configPage() {
 		$option = $this->get_option();
 	?>
-	<h3><?php _e( 'Insert ads', 'vkExUnit' ); ?></h3>
+	<h3><?php _e( 'Insert ads', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <div id="vkExUnit_Ads" class="sectionBox">
 
 <table class="form-table">
@@ -214,30 +225,30 @@ class vExUnit_Ads {
 /*--------------------------------------------------*/
 	?>
 <tr>
-	<th><?php _e( 'Google Auto ads', 'vkExUnit' ); ?><br>
+	<th><?php _e( 'Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?><br>
 		<?php
 		$lang          = ( get_locale() == 'ja' ) ? 'ja' : 'en';
 		$Google_ad_url = 'https://support.google.com/adsense/answer/7478040?hl=' . $lang;
 		?>
-		[ <a href="<?php echo $Google_ad_url; ?>" target="_blank"><?php _e( 'About Google Auto ads', 'vkExUnit' ); ?></a> ]
+		[ <a href="<?php echo $Google_ad_url; ?>" target="_blank"><?php _e( 'About Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?></a> ]
 	</th>
 	<td>
-		<?php _e( 'If you would like to set to Google Auto ads,Please fill in Publisher ID.', 'vkExUnit' ); ?>
+		<?php _e( 'If you would like to set to Google Auto ads,Please fill in Publisher ID.', 'vk-all-in-one-expansion-unit' ); ?>
 		<p><label>
-			<input type="checkbox" name="vkExUnit_Ads[google-ads-active]" id="google-ads-active" value="true"<?php vk_is_checked( 'true', $option['google-ads-active'] ); ?>> <?php _e( 'Enable Google Auto ads', 'vkExUnit' ); ?></label></p>
+			<input type="checkbox" name="vkExUnit_Ads[google-ads-active]" id="google-ads-active" value="true"<?php vk_is_checked( 'true', $option['google-ads-active'] ); ?>> <?php _e( 'Enable Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?></label></p>
 		<p>
-		<label><?php _e( 'Publisher ID', 'vkExUnit' ); ?></label><br>
+		<label><?php _e( 'Publisher ID', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 		pub-<input type="text" name="vkExUnit_Ads[google-pub-id]" id="gaId" value="<?php echo esc_attr( $option['google-pub-id'] ); ?>" style="width:90%;">
 	</p>
 	<?php
-	$link = '<a href="https://www.google.com/adsense/" target="_blank">' . __( 'Google AdSense dashboard', 'vkExUnit' ) . '</a>';
+	$link = '<a href="https://www.google.com/adsense/" target="_blank">' . __( 'Google AdSense dashboard', 'vk-all-in-one-expansion-unit' ) . '</a>';
 	?>
-	<p>* <?php printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vkExUnit' ), $link ); ?>
+	<p>* <?php printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vk-all-in-one-expansion-unit' ), $link ); ?>
 	</p>
 	<p><label>
-		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php vk_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vkExUnit' ); ?></label></p>
+		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php vk_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vk-all-in-one-expansion-unit' ); ?></label></p>
 
-	<p>* <?php _e( 'The layout may collapse by inserting Google Auto ads, but the correspondence varies depending on the kind, specification, theme etc. of advertisement, so please write CSS according to your needs about the display collapse and correct it.', 'vkExUnit' ); ?></p>
+	<p>* <?php _e( 'The layout may collapse by inserting Google Auto ads, but the correspondence varies depending on the kind, specification, theme etc. of advertisement, so please write CSS according to your needs about the display collapse and correct it.', 'vk-all-in-one-expansion-unit' ); ?></p>
 	</td>
 </tr>
 <?php
@@ -245,11 +256,11 @@ class vExUnit_Ads {
   Manual set Ads
 /*--------------------------------------------------*/
 	?>
-<tr><th><?php _e( 'Insert ads to post.', 'vkExUnit' ); ?>
+<tr><th><?php _e( 'Insert ads to post.', 'vk-all-in-one-expansion-unit' ); ?>
 </th><td style="max-width:80em;">
-<?php _e( 'Insert ads to before content and more tag and after content.', 'vkExUnit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vkExUnit' ); ?>
+<?php _e( 'Insert ads to before content and more tag and after content.', 'vk-all-in-one-expansion-unit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vk-all-in-one-expansion-unit' ); ?>
 <dl>
-	<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vkExUnit' ); ?></label></dt>
+	<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
 	<dd>
 	<textarea rows="5" name="vkExUnit_Ads[before][]" id="ad_content_before" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['before'][0] ) && $option['before'][0] ) ? $option['before'][0] : ''; ?></textarea>
 	<br/>
@@ -257,7 +268,7 @@ class vExUnit_Ads {
 	</dd>
 </dl>
 <dl>
-	<dt><label for="ad_content_moretag"><?php _e( 'insert the ad [ more tag ]', 'vkExUnit' ); ?></label></dt>
+	<dt><label for="ad_content_moretag"><?php _e( 'insert the ad [ more tag ]', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
 	<dd>
 	<textarea rows="5" name="vkExUnit_Ads[more][]" id="ad_content_moretag" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['more'][0] ) && $option['more'][0] ) ? $option['more'][0] : ''; ?></textarea>
 	<br/>
@@ -265,7 +276,7 @@ class vExUnit_Ads {
 	</dd>
 </dl>
 <dl>
-	<dt><label for="ad_content_after"><?php _e( 'insert the ad [ after content ]', 'vkExUnit' ); ?></label></dt>
+	<dt><label for="ad_content_after"><?php _e( 'insert the ad [ after content ]', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
 	<dd>
 	<textarea rows="5" name="vkExUnit_Ads[after][]" id="ad_content_after" value="" style="width:100%;max-width:50em;" /><?php echo ( isset( $option['after'][0] ) && $option['after'][0] ) ? $option['after'][0] : ''; ?></textarea>
 	<br/>

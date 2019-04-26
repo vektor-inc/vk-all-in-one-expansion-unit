@@ -5,11 +5,11 @@ function vkExUnit_get_packages() {
 	Example :
 	$required_packages[] = array(
 	'name'        => 'auto_eyecatch',
-	'title'       => __('Automatic Eye Catch insert', 'vkExUnit'),
-	'description' => __('Display Eye Catch image at before content.', 'vkExUnit'),
+	'title'       => __('Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
+	'description' => __('Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 	'attr'        => array(
 		array(
-			'name'        =>__('Setting','vkExUnit'),
+			'name'        =>__('Setting', 'vk-all-in-one-expansion-unit' ),
 			'url'         => admin_url().'admin.php?page=vkExUnit_css_customize',
 			'enable_only' => 1,
 		)
@@ -75,8 +75,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'fontawesome',
-		'title'       => __( 'Print link fontawesome', 'vkExUnit' ),
-		'description' => __( 'Print fontawesome link tag to html head.', 'vkExUnit' ),
+		'title'       => __( 'Print link fontawesome', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print fontawesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'font-awesome-config.php',
 	);
@@ -86,8 +86,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'vk-blocks',
-		'title'       => __( 'VK Blocks ( Beta )', 'vkExUnit' ),
-		'description' => __( 'Extends Gutenberg\'s blocks.', 'vkExUnit' ),
+		'title'       => __( 'VK Blocks ( Beta )', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Extends Gutenberg\'s blocks.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'vk-blocks-config.php',
 	);
@@ -97,11 +97,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'wpTitle',
-		'title'       => __( 'Rewrite the title tag', 'vkExUnit' ),
-		'description' => __( 'Print is rewritten by its own rules to html head.', 'vkExUnit' ),
+		'title'       => __( 'Rewrite the title tag', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print is rewritten by its own rules to html head.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_wp_title' ),
 				'enable_only' => 1,
 			),
@@ -115,11 +115,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'metaKeyword',
-		'title'       => __( 'Print meta Keyword', 'vkExUnit' ),
-		'description' => __( 'Print meta Keyword to html head.', 'vkExUnit' ),
+		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
 				'enable_only' => 1,
 			),
@@ -132,8 +132,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'metaDescription',
-		'title'       => __( 'Print meta description', 'vkExUnit' ),
-		'description' => __( 'Print meta description to html head.', 'vkExUnit' ),
+		'title'       => __( 'Print meta description', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'meta_description.php',
 	);
@@ -144,21 +144,21 @@ function vkExUnit_get_packages() {
 	$deskSns     = array();
 	$settingPage = '<a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">' . __( 'Main setting page' ) . '</a>';
 	$deskSns[]   = '<ul>';
-	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vkExUnit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print twitter card tags to html head.', 'vkExUnit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vkExUnit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Facebook Page Plugin widget.', 'vkExUnit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vkExUnit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print twitter card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '</ul>';
-	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vkExUnit' ), $settingPage ) . '</p>';
+	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vk-all-in-one-expansion-unit' ), $settingPage ) . '</p>';
 
 	$required_packages[] = array(
 		'name'        => 'sns',
-		'title'       => __( 'Social media cooperation', 'vkExUnit' ),
+		'title'       => __( 'Social media cooperation', 'vk-all-in-one-expansion-unit' ),
 		'description' => $deskSns,
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options',
 				'enable_only' => 1,
 			),
@@ -173,10 +173,10 @@ function vkExUnit_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'ga',
 		'title'       => 'Google Analytics',
-		'description' => __( 'Print Google Analytics tracking code.', 'vkExUnit' ),
+		'description' => __( 'Print Google Analytics tracking code.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options',
 				'enable_only' => 1,
 			),
@@ -189,24 +189,24 @@ function vkExUnit_get_packages() {
 	/*  otherWidgets
 	/*-------------------------------------------*/
 	$desk   = array();
-	$desk[] = '<p>' . __( 'You can use various widgets.', 'vkExUnit' ) . '</p>';
+	$desk[] = '<p>' . __( 'You can use various widgets.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 	$desk[] = '<ul>';
-	$desk[] = '<li>' . __( 'VK_Recent Posts - display the link text and the date of the latest article title.', 'vkExUnit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_Page content to widget - display the contents of the page to the widgets.', 'vkExUnit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_Profile - display the profile entered in the widget.', 'vkExUnit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin.', 'vkExUnit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_3PR area - display the 3PR area.', 'vkExUnit' ) . '</li>';
-	$desk[] = '<li>VK_' . __( 'categories/tags list', 'vkExUnit' ) . __( 'Displays a categories, tags or format list.', 'vkExUnit' ) . '</li>';
-	$desk[] = '<li>VK_' . __( 'archive list', 'vkExUnit' ) . __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vkExUnit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_Recent Posts - display the link text and the date of the latest article title.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_Page content to widget - display the contents of the page to the widgets.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_Profile - display the profile entered in the widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_3PR area - display the 3PR area.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>VK_' . __( 'categories/tags list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a categories, tags or format list.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>VK_' . __( 'archive list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$desk[] = '</ul>';
 
 	$required_packages[] = array(
 		'name'        => 'otherWidgets',
-		'title'       => __( 'Widgets', 'vkExUnit' ),
+		'title'       => __( 'Widgets', 'vk-all-in-one-expansion-unit' ),
 		'description' => $desk,
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'widgets.php',
 				'enable_only' => 1,
 			),
@@ -220,11 +220,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'css_customize',
-		'title'       => __( 'CSS customize', 'vkExUnit' ),
-		'description' => __( 'You can set Customize CSS.', 'vkExUnit' ),
+		'title'       => __( 'CSS customize', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Customize CSS.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_css_customize',
 				'enable_only' => 1,
 			),
@@ -239,8 +239,8 @@ function vkExUnit_get_packages() {
 
 	$required_packages[] = array(
 		'name'        => 'childPageIndex',
-		'title'       => __( 'Child page index', 'vkExUnit' ),
-		'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vkExUnit' ),
+		'title'       => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'child_page_index.php',
 	);
@@ -250,8 +250,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'pageList_ancestor',
-		'title'       => __( 'Page list from ancestor', 'vkExUnit' ),
-		'description' => __( 'Display Page list from ancestor at after content.', 'vkExUnit' ),
+		'title'       => __( 'Page list from ancestor', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Display Page list from ancestor at after content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'pageList_ancestor.php',
 	);
@@ -261,11 +261,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'contact_section',
-		'title'       => __( 'Contact Section', 'vkExUnit' ),
-		'description' => __( 'Display Contact Section at after content.', 'vkExUnit' ),
+		'title'       => __( 'Contact Section', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Display Contact Section at after content.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
 				'enable_only' => 1,
 			),
@@ -279,8 +279,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'sitemap_page',
-		'title'       => __( 'Display HTML Site Map', 'vkExUnit' ),
-		'description' => __( 'It displays a HTML Site Map to the specified page.', 'vkExUnit' ),
+		'title'       => __( 'Display HTML Site Map', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'It displays a HTML Site Map to the specified page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'sitemap_page/sitemap_page.php',
 	);
@@ -288,24 +288,24 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	/*  Call To Action
 	/*-------------------------------------------*/
-	$cta_description  = __( 'Display the CTA at the end of the post content.', 'vkExUnit' );
+	$cta_description  = __( 'Display the CTA at the end of the post content.', 'vk-all-in-one-expansion-unit' );
 	$cta_description .= '<br>';
-	$cta_description .= __( 'The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vkExUnit' );
+	$cta_description .= __( 'The CTA stands for "Call to action" and this is the area that prompts the user behavior.', 'vk-all-in-one-expansion-unit' );
 	$cta_description .= '<br>';
-	$cta_description .= __( 'As an example, text message and a link button for induction to the free sample download page.', 'vkExUnit' );
+	$cta_description .= __( 'As an example, text message and a link button for induction to the free sample download page.', 'vk-all-in-one-expansion-unit' );
 
 	$required_packages[] = array(
 		'name'        => 'call_to_action',
-		'title'       => __( 'Call To Action', 'vkExUnit' ),
+		'title'       => __( 'Call To Action', 'vk-all-in-one-expansion-unit' ),
 		'description' => $cta_description,
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings',
 				'enable_only' => 1,
 			),
 			array(
-				'name'        => __( 'Contents setting', 'vkExUnit' ),
+				'name'        => __( 'Contents setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'edit.php?post_type=cta',
 				'enable_only' => 1,
 			),
@@ -319,11 +319,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'insert_ads',
-		'title'       => __( 'Insert ads', 'vkExUnit' ),
-		'description' => __( 'Insert ads to content.', 'vkExUnit' ),
+		'title'       => __( 'Insert ads', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Insert ads to content.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_Ads',
 				'enable_only' => 1,
 			),
@@ -336,8 +336,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'relatedPosts',
-		'title'       => __( 'Related posts', 'vkExUnit' ),
-		'description' => __( 'Print Related posts lists to post content bottom.', 'vkExUnit' ),
+		'title'       => __( 'Related posts', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print Related posts lists to post content bottom.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'related_posts/related_posts.php',
 	);
@@ -347,8 +347,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'disable_ping-back',
-		'title'       => __( 'Disable ping back', 'vkExUnit' ),
-		'description' => __( 'Disable xmlrpc ping back.', 'vkExUnit' ),
+		'title'       => __( 'Disable ping back', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Disable xmlrpc ping back.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'disable_ping-back.php',
 		'hidden'      => true,
@@ -356,8 +356,8 @@ function vkExUnit_get_packages() {
 
 	$required_packages[] = array(
 		'name'        => 'disable_dashbord',
-		'title'       => __( 'Disable dashbord', 'vkExUnit' ),
-		'description' => __( 'Disable dashbord', 'vkExUnit' ),
+		'title'       => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'disable_dashbord.php',
 		'hidden'      => true,
@@ -365,8 +365,8 @@ function vkExUnit_get_packages() {
 
 	$required_packages[] = array(
 		'name'        => 'admin_bar',
-		'title'       => __( 'Admin bar manu', 'vkExUnit' ),
-		'description' => __( 'Add ExUnit menu to admin bar.', 'vkExUnit' ),
+		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add ExUnit menu to admin bar.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => '../plugins_admin/admin_bar.php',
 	);
@@ -376,11 +376,11 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'post_type_manager',
-		'title'       => __( 'Post Type Manager', 'vkExUnit' ),
-		'description' => __( 'Add custom post types and custom taxonomies.', 'vkExUnit' ),
+		'title'       => __( 'Post Type Manager', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add custom post types and custom taxonomies.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vkExUnit' ),
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
 				'enable_only' => 1,
 			),
@@ -394,8 +394,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'pagetop_button',
-		'title'       => __( 'Page Top Button', 'vkExUnit' ),
-		'description' => __( 'The page top button is displayed in the lower right corner of the screen.', 'vkExUnit' ),
+		'title'       => __( 'Page Top Button', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'The page top button is displayed in the lower right corner of the screen.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'pagetop-btn/pagetop-btn.php',
 	);
@@ -405,8 +405,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'smooth_scroll',
-		'title'       => __( 'Smooth scroll', 'vkExUnit' ),
-		'description' => __( 'Add smooth scroll at anchor link in same page.', 'vkExUnit' ),
+		'title'       => __( 'Smooth scroll', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add smooth scroll at anchor link in same page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'smooth-scroll/smooth-scroll.php',
 	);
@@ -416,8 +416,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'add_body_class',
-		'title'       => __( 'Add body class', 'vkExUnit' ),
-		'description' => __( 'Add "Post type", "Page slug" etc class name to the body class.', 'vkExUnit' ),
+		'title'       => __( 'Add body class', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add "Post type", "Page slug" etc class name to the body class.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'add-body-class.php',
 	);
@@ -427,8 +427,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'nav_menu_class_custom',
-		'title'       => __( 'Navi menu class custom', 'vkExUnit' ),
-		'description' => __( 'Current class tuning of navi menu.', 'vkExUnit' ),
+		'title'       => __( 'Navi menu class custom', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Current class tuning of navi menu.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'nav-menu-class-custom.php',
 	);
@@ -438,8 +438,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'auto_eyecatch',
-		'title'       => __( 'Automatic Eye Catch insert', 'vkExUnit' ),
-		'description' => __( 'Display Eye Catch image at before content.', 'vkExUnit' ),
+		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'auto_eyecatch.php',
 	);
@@ -449,8 +449,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'tiny_mce_style_tags',
-		'title'       => __( 'TinyMCE Style Tags', 'vkExUnit' ),
-		'description' => __( 'Add TinyMCE Editor to style tags.', 'vkExUnit' ),
+		'title'       => __( 'TinyMCE Style Tags', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'tiny_mce_style_tags.php',
 	);
@@ -460,8 +460,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'bootstrap',
-		'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vkExUnit' ),
-		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vkExUnit' ),
+		'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'bootstrap.php',
 	);
@@ -471,8 +471,8 @@ function vkExUnit_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'icon',
-		'title'       => __( 'Favicon setting', 'vkExUnit' ),
-		'description' => __( 'About favicon.', 'vkExUnit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vkExUnit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
+		'title'       => __( 'Favicon setting', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'About favicon.', 'vk-all-in-one-expansion-unit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
 		'default'     => false,
 		'include'     => 'icons.php',
 	);

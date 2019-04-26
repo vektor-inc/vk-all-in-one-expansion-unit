@@ -9,12 +9,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	public $taxonomies = array( 'category' );
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Recent Posts', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Recent Posts', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'vkExUnit_post_list',
 			$widget_name,
-			array( 'description' => __( 'Displays a list of your most recent posts', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a list of your most recent posts', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -213,8 +213,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	static function get_options( $instance = array() ) {
 		$defaults = array(
 			'count'     => 10,
-			// 'label'     => __( 'Recent Posts', 'vkExUnit' ),
-			'title'     => __( 'Recent Posts', 'vkExUnit' ),
+			// 'label'     => __( 'Recent Posts', 'vk-all-in-one-expansion-unit' ),
+			'title'     => __( 'Recent Posts', 'vk-all-in-one-expansion-unit' ),
 			'media_url' => '',
 			'media_id'  => '',
 			'media_alt' => '',
@@ -251,21 +251,21 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		<br /><br />
 
-		<?php echo _e( 'Display Format', 'vkExUnit' ); ?>:<br/>
+		<?php echo _e( 'Display Format', 'vk-all-in-one-expansion-unit' ); ?>:<br/>
 		<?php
 		$checked = '';
 		if ( ! $instance['format'] ) {
 			$checked = ' checked';
 		}
 		?>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"<?php echo $checked; ?>/><?php echo __( 'Thumbnail', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ) . '/' . __( 'Date', 'vkExUnit' ); ?></label><br/>
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"<?php echo $checked; ?>/><?php echo __( 'Thumbnail', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Date', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 			<?php
 			$checked = '';
 			if ( $instance['format'] == 1 ) {
 				$checked = ' checked';
 			}
 			?>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vkExUnit' ) . '/' . __( 'Category', 'vkExUnit' ) . '/' . __( 'Title', 'vkExUnit' ); ?></label>
+		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Category', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ); ?></label>
 		<br/><br/>
 
 <?php
@@ -278,7 +278,7 @@ $args = array(
 	'media_alt' => 'media_alt',
 );
 ?>
-<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vkExUnit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <div class="media_image_section">
 <div class="_display admin-custom-thumb-outer" style="height:auto">
 <?php
@@ -287,8 +287,8 @@ if ( ! empty( $instance[ $args['media_url'] ] ) ) :
 	<img src="<?php echo esc_url( $instance[ $args['media_url'] ] ); ?>" class="admin-custom-thumb" />
 <?php endif; ?>
 </div>
-<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vkExUnit' ); ?></button>
-<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vkExUnit' ); ?></button>
+<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vk-all-in-one-expansion-unit' ); ?></button>
+<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
 <div class="_form" style="line-height: 2em">
 <input type="hidden" class="_id" name="<?php echo $this->get_field_name( $args['media_id'] ); ?>" value="<?php echo esc_attr( $instance[ $args['media_id'] ] ); ?>" />
 <input type="hidden" class="_url" name="<?php echo $this->get_field_name( $args['media_url'] ); ?>" value="<?php echo esc_attr( $instance[ $args['media_url'] ] ); ?>" />
@@ -299,47 +299,47 @@ if ( ! empty( $instance[ $args['media_url'] ] ) ) :
 
 <br/>
 
-		<?php echo _e( 'Order by', 'vkExUnit' ); ?>
+		<?php echo _e( 'Order by', 'vk-all-in-one-expansion-unit' ); ?>
 		:<br/>
 		<label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="date"
 																					<?php
 																					if ( $instance['orderby'] != 'modified' ) {
 																						echo 'checked'; }
 ?>
- /><?php _e( 'Publish date', 'vkExUnit' ); ?></label><br/>
+ /><?php _e( 'Publish date', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="modified"
 													<?php
 													if ( $instance['orderby'] == 'modified' ) {
 														echo 'checked'; }
 ?>
-/><?php _e( 'Modified date', 'vkExUnit' ); ?></label>
+/><?php _e( 'Modified date', 'vk-all-in-one-expansion-unit' ); ?></label>
 		<br/><br/>
 
 		<?php // 表示件数 ?>
-		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Display count', 'vkExUnit' ); ?>:</label><br/>
+		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Display count', 'vk-all-in-one-expansion-unit' ); ?>:</label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo esc_attr( $instance['count'] ); ?>" />
 		<br /><br />
 
 		<?php // 投稿タイプ ?>
-		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Slug for the custom type you want to display', 'vkExUnit' ); ?>:</label><br />
+		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Slug for the custom type you want to display', 'vk-all-in-one-expansion-unit' ); ?>:</label><br />
 		<input type="text" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>" value="<?php echo esc_attr( $instance['post_type'] ); ?>" />
 		<br/><br/>
 
 		<?php // Terms ?>
-		<label for="<?php echo $this->get_field_id( 'terms' ); ?>"><?php _e( 'taxonomy ID', 'vkExUnit' ); ?>:</label><br />
+		<label for="<?php echo $this->get_field_id( 'terms' ); ?>"><?php _e( 'taxonomy ID', 'vk-all-in-one-expansion-unit' ); ?>:</label><br />
 		<input type="text" id="<?php echo $this->get_field_id( 'terms' ); ?>" name="<?php echo $this->get_field_name( 'terms' ); ?>" value="<?php echo esc_attr( $instance['terms'] ); ?>" /><br />
 		<?php
-		_e( 'if you need filtering by term, add the term ID separate by ",".', 'vkExUnit' );
+		_e( 'if you need filtering by term, add the term ID separate by ",".', 'vk-all-in-one-expansion-unit' );
 		echo '<br/>';
-		_e( 'if empty this area, I will do not filtering.', 'vkExUnit' );
+		_e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-unit' );
 		?>
 		<br/><br/>
 
 		<?php // Read more ?>
-		<label for="<?php echo $this->get_field_id( 'more_url' ); ?>"><?php _e( 'Destination URL:', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'more_url' ); ?>"><?php _e( 'Destination URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'more_url' ); ?>" name="<?php echo $this->get_field_name( 'more_url' ); ?>" value="<?php echo esc_attr( $instance['more_url'] ); ?>" />
 		<br /><br />
-		<label for="<?php echo $this->get_field_id( 'more_text' ); ?>"><?php _e( 'Notation text:', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'more_text' ); ?>"><?php _e( 'Notation text:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" placeholder="最新記事一覧 ≫" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
 				<br /><br />
 

@@ -22,7 +22,7 @@ function veu_add_follow( $content ) {
 		if ( isset( $options['followMe_title'] ) && $options['followMe_title'] ) {
 			$title = $options['followMe_title'];
 		} else {
-			$title = __( 'Follow me', 'vkExUnit' ) . '!';
+			$title = __( 'Follow me', 'vk-all-in-one-expansion-unit' ) . '!';
 		}
 
 		// https://about.twitter.com/resources/buttons#follow
@@ -70,7 +70,7 @@ function veu_add_follow( $content ) {
 		global $post;
 		if ( $url = get_edit_post_link( $post->ID ) ) {
 			$url          = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' );
-			$follow_html .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit follow button', 'vkExUnit' ) . '</a></div>';
+			$follow_html .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit follow button', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 		}
 
 		$content .= $follow_html;

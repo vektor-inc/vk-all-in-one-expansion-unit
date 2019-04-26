@@ -25,7 +25,7 @@ function veu_sns_add_hide_meta_box() {
 	foreach ( (array) $post_types as $post_type ) {
 		add_meta_box(
 			'sns', // metaboxのID
-			veu_get_little_short_name() . ' ' . __( 'Share bottons', 'vkExUnit' ), // metaboxの表示名
+			veu_get_little_short_name() . ' ' . __( 'Share bottons', 'vk-all-in-one-expansion-unit' ), // metaboxの表示名
 			'veu_sns_share_botton_hide_meta_box_body', // このメタボックスに表示する中身の関数名
 			$post_type, // このメタボックスをどの投稿タイプで表示するのか？
 			'side' // 表示する位置
@@ -69,7 +69,7 @@ function veu_sns_share_botton_hide_meta_box_body() {
 	if ( ! veu_sns_is_display_hide_chekbox( $post_type ) ) {
 
 		// 「この投稿タイプではシェアボタンを表示しないように設定されています。」を表示
-		echo __( 'This post type is not set to display the share button.', 'vkExUnit' ) . '<br>';
+		echo __( 'This post type is not set to display the share button.', 'vk-all-in-one-expansion-unit' ) . '<br>';
 		echo' <a href="' . admin_url( '/admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' ) . '" target="_blank">シェアボタンの表示設定</a>';
 
 	} else {
@@ -90,7 +90,7 @@ function veu_sns_share_botton_hide_meta_box_body() {
 			$checked = '';
 		}
 
-		$label = __( 'Don\'t display share bottons.', 'vkExUnit' );
+		$label = __( 'Don\'t display share bottons.', 'vk-all-in-one-expansion-unit' );
 		echo '<ul>';
 		echo '<li><label>' . '<input type="checkbox" id="sns_share_botton_hide" name="sns_share_botton_hide" value="true"' . $checked . '> ' . $label . '</label></li>';
 		echo '</ul>';

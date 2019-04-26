@@ -18,7 +18,7 @@ function veu_sns_options_init() {
 		add_option( 'vkExUnit_sns_options', veu_get_sns_options_default() );
 	}
 	vkExUnit_register_setting(
-		__( 'SNS', 'vkExUnit' ),    // tab label.
+		__( 'SNS', 'vk-all-in-one-expansion-unit' ),    // tab label.
 		'vkExUnit_sns_options',         // name attr
 		'vkExUnit_sns_options_validate', // sanitaise function name
 		'vkExUnit_add_sns_options_page'  // setting_page function name
@@ -46,6 +46,10 @@ function veu_get_sns_options_default() {
 		'snsBtn_exclude_post_types'   => array(
 			'post' => '',
 			'page' => '',
+		),
+		'snsBtn_position'             => array(
+			'before' => false,
+			'after'  => true,
 		),
 		'snsBtn_ignorePosts'          => '',
 		'snsBtn_bg_fill_not'          => false,
@@ -105,6 +109,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
 	$output['enableSnsBtns']               = ( isset( $input['enableSnsBtns'] ) && $input['enableSnsBtns'] ) ? true : false;
 	$output['snsBtn_exclude_post_types']   = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
+	$output['snsBtn_position']             = ( isset( $input['snsBtn_position'] ) ) ? $input['snsBtn_position'] : '';
 	$output['enableFollowMe']              = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;
 	$output['followMe_title']              = $input['followMe_title'];
 	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
@@ -148,7 +153,7 @@ $fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
 	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vkExUnit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
+	js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 	<?php

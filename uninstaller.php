@@ -1,7 +1,8 @@
 <?php
 
 $vkExUnit_options = vkExUnit_get_common_options();
-if ( ! $vkExUnit_options['delete_options_at_deactivate'] ) { return; }
+if ( ! $vkExUnit_options['delete_options_at_deactivate'] ) {
+	return; }
 
 $delete_options = array(
 	'vkExUnit_common_options',
@@ -15,7 +16,7 @@ $delete_options = array(
 	'vkExUnit_Ads',
 	'vkExUnit_description_options',
 	'vkExUnit_common_keywords',
-	'vkExUnit_colors'
+	'vkExUnit_colors',
 );
 
 $delete_customfields = array(

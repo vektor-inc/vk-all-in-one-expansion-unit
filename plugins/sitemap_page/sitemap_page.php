@@ -31,7 +31,7 @@ function vkExUnit_sitemap_options_init() {
 		add_option( 'vkExUnit_sitemap_options', veu_get_sitemap_options_default() ); }
 
 	vkExUnit_register_setting(
-		__( 'HTML Sitemap', 'vkExUnit' ),
+		__( 'HTML Sitemap', 'vk-all-in-one-expansion-unit' ),
 		'vkExUnit_sitemap_options',
 		'veu_sitemap_options_validate',
 		'veu_add_sitemap_options_page'
@@ -258,7 +258,7 @@ function vkExUnit_sitemap_meta_box() {
 <input type="hidden" name="_nonce_vkExUnit__custom_field_sitemap" id="_nonce_vkExUnit__custom_field_sitemap" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
 <label for="vkExUnit_sitemap">
 	<input type="checkbox" id="vkExUnit_sitemap" name="vkExUnit_sitemap" <?php echo ( $enable ) ? ' checked' : ''; ?> />
-	<?php _e( 'Display a HTML sitemap', 'vkExUnit' ); ?>
+	<?php _e( 'Display a HTML sitemap', 'vk-all-in-one-expansion-unit' ); ?>
 </label>
 </div>
 

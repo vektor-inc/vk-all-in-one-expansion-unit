@@ -207,7 +207,7 @@ function veu_add_related_posts_html( $content ) {
 			$relatedPostTitle = $output['related_title'];
 		} else {
 			// 何も入っていなかったら既存のタイトルを表示させる。
-			$relatedPostTitle = __( 'Related posts', 'vkExUnit' );
+			$relatedPostTitle = __( 'Related posts', 'vk-all-in-one-expansion-unit' );
 		}
 		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）
 		$relatedPostTitle  = apply_filters( 'veu_related_post_title', $relatedPostTitle );
@@ -241,7 +241,7 @@ function veu_customize_register_related( $wp_customize ) {
 	// セクション追加
 	$wp_customize->add_section(
 		'veu_related_setting', array(
-			'title'    => __( 'Related Settings', 'vkExUnit' ),
+			'title'    => __( 'Related Settings', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1000,
 			'panel'    => 'veu_setting',
 		)
@@ -258,7 +258,7 @@ function veu_customize_register_related( $wp_customize ) {
 	// コントロール
 	$wp_customize->add_control(
 		'related_title', array(
-			'label'    => __( 'Title:', 'vkExUnit' ),
+			'label'    => __( 'Title:', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_related_setting',
 			'settings' => 'vkExUnit_related_options[related_title]',
 			'type'     => 'text',
@@ -278,7 +278,7 @@ function veu_customize_register_related( $wp_customize ) {
 	// コントロール _ 表示件数
 	$wp_customize->add_control(
 		'related_display_count', array(
-			'label'    => __( 'Display count', 'vkExUnit' ),
+			'label'    => __( 'Display count', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_related_setting',
 			'settings' => 'vkExUnit_related_options[related_display_count]',
 			'type'     => 'text',

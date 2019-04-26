@@ -21,7 +21,7 @@ function veu_customize_register_ga( $wp_customize ) {
 	$wp_customize->add_section(
 		'veu_ga_setting',
 		array(
-			'title'    => __( 'Google Analtics Settings', 'vkExUnit' ),
+			'title'    => __( 'Google Analtics Settings', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1,
 			'panel'    => 'veu_setting',
 		)
@@ -42,11 +42,11 @@ function veu_customize_register_ga( $wp_customize ) {
 	$wp_customize->add_control(
 		new ExUnit_Custom_Text_Control(
 			$wp_customize, 'gaId', array(
-				'label'        => __( 'Google Analytics ID', 'vkExUnit' ),
+				'label'        => __( 'Google Analytics ID', 'vk-all-in-one-expansion-unit' ),
 				'section'      => 'veu_ga_setting',
 				'settings'     => 'vkExUnit_ga_options[gaId]',
 				'type'         => 'text',
-				'description'  => __( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.<br>ex) XXXXXXXX-X', 'vkExUnit' ),
+				'description'  => __( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.<br>ex) XXXXXXXX-X', 'vk-all-in-one-expansion-unit' ),
 				'input_before' => 'UA-',
 			)
 		)
@@ -65,17 +65,17 @@ function veu_customize_register_ga( $wp_customize ) {
 	$wp_customize->add_control(
 		'gaType',
 		array(
-			'label'       => __( 'Select the type of Analytics code', 'vkExUnit' ),
+			'label'       => __( 'Select the type of Analytics code', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_ga_setting',
 			'settings'    => 'vkExUnit_ga_options[gaType]',
 			'type'        => 'radio',
 			// 'priority' => $priority,
 			'choices'     => array(
-				'gaType_gtag'      => __( 'Recommendation ( gtag )', 'vkExUnit' ),
-				'gaType_universal' => __( 'Universal Analytics code ( analytics.js )', 'vkExUnit' ),
-				'gaType_normal'    => __( 'Normal code ( analytics.js )', 'vkExUnit' ),
+				'gaType_gtag'      => __( 'Recommendation ( gtag )', 'vk-all-in-one-expansion-unit' ),
+				'gaType_universal' => __( 'Universal Analytics code ( analytics.js )', 'vk-all-in-one-expansion-unit' ),
+				'gaType_normal'    => __( 'Normal code ( analytics.js )', 'vk-all-in-one-expansion-unit' ),
 			),
-			'description' => __( 'Print the select the type of Analytics code.<br>(If you are unsure you can skip this.)', 'vkExUnit' ),
+			'description' => __( 'Print the select the type of Analytics code.<br>(If you are unsure you can skip this.)', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 

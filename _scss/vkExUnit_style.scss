@@ -139,7 +139,11 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 /* .veu_socialSet
 /*-------------------------------------------*/
-.veu_socialSet { margin-top:3em; }
+/* 通常タイトルと本文の間に一定の余白があるが、余白分離れてSNSボタンが表示されると微妙なのでマイナスオフセットで余白を詰めている */
+.veu_socialSet-position-before {
+	margin-top:-1em;margin-bottom:2em
+}
+.veu_socialSet-position-after { margin-top:3em; }
 /*
 .veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
 */
@@ -645,11 +649,6 @@ iframe.twitter-timeline {margin-right:auto; margin-left:auto; width: 740px !impo
 	}
 	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }
 }
-/*
-入れ子にするとLightning テーマ埋め込みの３ＰＲブロックのアイコンカラーが負けるので、各スキンの方で継承を強くするまで旦軽くする為に個別記載とする
-*/
-.prBlock_icon { color: #fff; }
-// }
 
 @media screen and (max-width:992px){
 // .veu_prBlocks{
