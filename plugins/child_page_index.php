@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Child page index
+/*
+  Child page index
 /*-------------------------------------------*/
 
 function veu_child_page_excerpt( $post ) {
@@ -22,7 +22,7 @@ function veu_child_page_excerpt( $post ) {
 		if ( 90 < mb_strlen( $page_excerpt ) ) {
 			// 90文字でトリム
 			$page_excerpt = mb_substr( $page_excerpt, 0, 90 );
-			//  ... を追加
+			// ... を追加
 			$page_excerpt .= '...';
 
 		}
@@ -103,8 +103,8 @@ function vkExUnit_chidPageIndex_loopend( $query ) {
 	echo vkExUnit_childPageIndex_shortcode();
 }
 
-/*-------------------------------------------*/
-/*  Print Child Page Box at Page
+/*
+  Print Child Page Box at Page
 /*-------------------------------------------*/
 function vkExUnit_childPageIndex_contentHook( $content ) {
 
@@ -127,16 +127,16 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 	return $content;
 }
 
-/*-------------------------------------------*/
-/* admin_metabox_activate
+/*
+ admin_metabox_activate
 /*-------------------------------------------*/
 add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_admin_metabox_activate', 10, 1 );
 function vkExUnit_childPageIndex_admin_metabox_activate( $flag ) {
 	return true;
 }
 
-/*-------------------------------------------*/
-/* admin_metabox_content
+/*
+ admin_metabox_content
 /*-------------------------------------------*/
 add_action( 'veu_content_meta_box_content', 'veu_child_page_index_admin_metabox_content' );
 function veu_child_page_index_admin_metabox_content() {
@@ -153,8 +153,8 @@ function veu_child_page_index_admin_metabox_content() {
 	<?php
 }
 
-/*-------------------------------------------*/
-/* save_custom_field
+/*
+ save_custom_field
 /*-------------------------------------------*/
 add_action( 'save_post', 'veu_child_page_index_save_custom_field' );
 function veu_child_page_index_save_custom_field( $post_id ) {
