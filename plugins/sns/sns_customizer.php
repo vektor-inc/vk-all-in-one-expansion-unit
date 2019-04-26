@@ -287,6 +287,63 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+	// Social button style setting ///////////////////////////
+	$wp_customize->add_setting( 'share_button_style', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize, 'share_button_style', array(
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => __( 'Social button style setting', 'vk-all-in-one-expansion-unit' ),
+				'custom_html'      => '',
+			)
+		)
+	);
+
+	// Bin bg fill
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_bg_fill_not]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'snsBtn_bg_fill_not',
+		array(
+			'label'    => __( 'No background', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	// Btn color
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_color]',
+		array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize, 'snsBtn_color',
+			array(
+				'label'    => __( 'Btn color', 'vk-all-in-one-expansion-unit' ),
+				'section'  => 'veu_sns_setting',
+				'settings' => 'vkExUnit_sns_options[snsBtn_color]',
+			)
+		)
+	);
+
 	// Share button display Position ///////////////////////////
 	$wp_customize->add_setting( 'share_button_position', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
@@ -383,63 +440,6 @@ function veu_customize_register_sns( $wp_customize ) {
 			);
 		}
 	}
-
-	// Social button style setting ///////////////////////////
-	$wp_customize->add_setting( 'share_button_style', array( 'sanitize_callback' => 'sanitize_text_field' ) );
-	$wp_customize->add_control(
-		new ExUnit_Custom_Html(
-			$wp_customize, 'share_button_style', array(
-				'label'            => '',
-				'section'          => 'veu_sns_setting',
-				'type'             => 'text',
-				'custom_title_sub' => __( 'Social button style setting', 'vk-all-in-one-expansion-unit' ),
-				'custom_html'      => '',
-			)
-		)
-	);
-
-	// Bin bg fill
-	$wp_customize->add_setting(
-		'vkExUnit_sns_options[snsBtn_bg_fill_not]',
-		array(
-			'default'           => false,
-			'type'              => 'option', // 保存先 option or theme_mod
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'veu_sanitize_boolean',
-		)
-	);
-
-	$wp_customize->add_control(
-		'snsBtn_bg_fill_not',
-		array(
-			'label'    => __( 'No background', 'vk-all-in-one-expansion-unit' ),
-			'section'  => 'veu_sns_setting',
-			'settings' => 'vkExUnit_sns_options[snsBtn_bg_fill_not]',
-			'type'     => 'checkbox',
-		)
-	);
-
-	// Btn color
-	$wp_customize->add_setting(
-		'vkExUnit_sns_options[snsBtn_color]',
-		array(
-			'default'           => false,
-			'type'              => 'option', // 保存先 option or theme_mod
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'sanitize_hex_color',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
-			$wp_customize, 'snsBtn_color',
-			array(
-				'label'    => __( 'Btn color', 'vk-all-in-one-expansion-unit' ),
-				'section'  => 'veu_sns_setting',
-				'settings' => 'vkExUnit_sns_options[snsBtn_color]',
-			)
-		)
-	);
 
 	// Share button for display  ///////////////////////////
 	$wp_customize->add_setting( 'Follow_me_box_use_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );

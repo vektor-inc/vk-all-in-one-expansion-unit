@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-04-26 15:53+0900\n"
+"POT-Creation-Date: 2019-04-27 00:43+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -1572,7 +1572,7 @@ msgstr "塗りつぶし"
 #: dist/plugins/sns/sns_customizer.php:356
 #: plugins/other_widget/widget-pr-blocks.php:155
 #: plugins/other_widget/widget-profile.php:151
-#: plugins/sns/sns_customizer.php:356
+#: plugins/sns/sns_customizer.php:318
 msgid "No background"
 msgstr "背景なし"
 
@@ -1967,23 +1967,23 @@ msgstr "ソーシャルボタンを表示しない"
 msgid "SNS"
 msgstr "SNS"
 
-#: dist/plugins/sns/sns.php:151 plugins/sns/sns.php:151
+#: dist/plugins/sns/sns.php:151 plugins/sns/sns.php:156
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
 
 #: dist/plugins/sns/sns_admin.php:1 dist/plugins/sns/sns_customizer.php:26
-#: plugins/sns/sns_admin.php:1 plugins/sns/sns_customizer.php:26
+#: plugins/sns/sns_admin.php:1 plugins/sns/sns_customizer.php:22
 msgid "SNS Settings"
 msgstr "SNS設定"
 
 #: dist/plugins/sns/sns_admin.php:14 dist/plugins/sns/sns_customizer.php:37
-#: plugins/sns/sns_admin.php:14 plugins/sns/sns_customizer.php:37
+#: plugins/sns/sns_admin.php:14 plugins/sns/sns_customizer.php:36
 msgid "Post title custom for SNS"
 msgstr "OGPなどの投稿タイトルの変更"
 
 #: dist/plugins/sns/sns_admin.php:16 dist/plugins/sns/sns_customizer.php:59
-#: plugins/sns/sns_admin.php:16 plugins/sns/sns_customizer.php:59
+#: plugins/sns/sns_admin.php:16 plugins/sns/sns_customizer.php:58
 msgid "For SNS title be composed by post title only."
 msgstr "投稿タイトルだけにする（サイトタイトルなど含めない）。"
 
@@ -2016,7 +2016,7 @@ msgid "facebook page URL"
 msgstr "FacebookページURL"
 
 #: dist/plugins/sns/sns_admin.php:33 dist/plugins/sns/sns_customizer.php:140
-#: plugins/sns/sns_admin.php:33 plugins/sns/sns_customizer.php:140
+#: plugins/sns/sns_admin.php:33 plugins/sns/sns_customizer.php:141
 msgid "OG default image"
 msgstr "デフォルトのOGPイメージ"
 
@@ -2053,12 +2053,12 @@ msgid "OG tags"
 msgstr "OGタグ"
 
 #: dist/plugins/sns/sns_admin.php:50 dist/plugins/sns/sns_customizer.php:176
-#: plugins/sns/sns_admin.php:50 plugins/sns/sns_customizer.php:176
+#: plugins/sns/sns_admin.php:50 plugins/sns/sns_customizer.php:180
 msgid "Print the OG tags"
 msgstr "OGタグを出力する"
 
 #: dist/plugins/sns/sns_admin.php:51 dist/plugins/sns/sns_customizer.php:180
-#: plugins/sns/sns_admin.php:51 plugins/sns/sns_customizer.php:180
+#: plugins/sns/sns_admin.php:51 plugins/sns/sns_customizer.php:184
 msgid ""
 "If other plug-ins are used for the OG, do not output the OG using this "
 "plugin."
@@ -2067,27 +2067,27 @@ msgstr ""
 "る場合は、このプラグインでの出力は必要ありません。"
 
 #: dist/plugins/sns/sns_admin.php:56 dist/plugins/sns/sns_customizer.php:236
-#: plugins/sns/sns_admin.php:56 plugins/sns/sns_customizer.php:236
+#: plugins/sns/sns_admin.php:56 plugins/sns/sns_customizer.php:243
 msgid "Twitter Card tags"
 msgstr "Twitterカードタグ"
 
 #: dist/plugins/sns/sns_admin.php:58 dist/plugins/sns/sns_customizer.php:240
-#: plugins/sns/sns_admin.php:58 plugins/sns/sns_customizer.php:240
+#: plugins/sns/sns_admin.php:58 plugins/sns/sns_customizer.php:247
 msgid "Print the Twitter Card tags"
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
 #: dist/plugins/sns/sns_admin.php:63 dist/plugins/sns/sns_customizer.php:255
-#: plugins/sns/sns_admin.php:63 plugins/sns/sns_customizer.php:255
+#: plugins/sns/sns_admin.php:63 plugins/sns/sns_customizer.php:260
 msgid "Social bookmark buttons"
 msgstr "ソーシャルボタン"
 
 #: dist/plugins/sns/sns_admin.php:64 dist/plugins/sns/sns_customizer.php:278
-#: plugins/sns/sns_admin.php:64 plugins/sns/sns_customizer.php:278
+#: plugins/sns/sns_admin.php:64 plugins/sns/sns_customizer.php:283
 msgid "Print the social bookmark buttons"
 msgstr "ソーシャルブックマーク（シェアボタンやtweetボタン）を表示します。"
 
 #: dist/plugins/sns/sns_admin.php:67 dist/plugins/sns/sns_customizer.php:293
-#: plugins/sns/sns_admin.php:67 plugins/sns/sns_customizer.php:293
+#: plugins/sns/sns_admin.php:67 plugins/sns/sns_customizer.php:409
 msgid "Exclude Post Types"
 msgstr "シェアボタンを表示しない投稿タイプ"
 
@@ -2107,62 +2107,63 @@ msgid "example"
 msgstr "例"
 
 #: dist/plugins/sns/sns_admin.php:103 dist/plugins/sns/sns_customizer.php:509
-#: plugins/sns/sns_admin.php:103 plugins/sns/sns_customizer.php:509
+#: plugins/sns/sns_admin.php:161 plugins/sns/sns_customizer.php:571
 msgid "Follow me box"
 msgstr "Follow me box"
 
-#: dist/plugins/sns/sns_admin.php:104 plugins/sns/sns_admin.php:104
+#: dist/plugins/sns/sns_admin.php:104 plugins/sns/sns_admin.php:162
+#: plugins/sns/sns_customizer.php:593
 msgid "Print the Follow me box"
 msgstr "Follow me ユニットを本文の下に表示する"
 
 #: dist/plugins/sns/sns_admin.php:106 dist/plugins/sns/sns_customizer.php:543
-#: plugins/sns/sns_admin.php:106 plugins/sns/sns_customizer.php:543
+#: plugins/sns/sns_admin.php:164 plugins/sns/sns_customizer.php:613
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
 #: dist/plugins/sns/sns_admin.php:113 dist/plugins/sns/sns_customizer.php:393
-#: plugins/sns/sns_admin.php:113 plugins/sns/sns_customizer.php:393
+#: plugins/sns/sns_admin.php:103 plugins/sns/sns_customizer.php:452
 msgid "Share button for display"
 msgstr "表示するボタン"
 
-#: dist/plugins/sns/sns_admin.php:121 plugins/sns/sns_admin.php:121
+#: dist/plugins/sns/sns_admin.php:121 plugins/sns/sns_admin.php:111
 msgid "Facebook"
 msgstr "Facebook"
 
 #: dist/plugins/sns/sns_admin.php:127 dist/plugins/sns/sns_customizer.php:434
-#: dist/plugins/sns/widget-twitter.php:9 plugins/sns/sns_admin.php:127
-#: plugins/sns/sns_customizer.php:434 plugins/sns/widget-twitter.php:9
+#: dist/plugins/sns/widget-twitter.php:9 plugins/sns/sns_admin.php:117
+#: plugins/sns/sns_customizer.php:493 plugins/sns/widget-twitter.php:9
 msgid "Twitter"
 msgstr "Twitter"
 
 #: dist/plugins/sns/sns_admin.php:133 dist/plugins/sns/sns_customizer.php:455
-#: plugins/sns/sns_admin.php:133 plugins/sns/sns_customizer.php:455
+#: plugins/sns/sns_admin.php:123 plugins/sns/sns_customizer.php:514
 msgid "Hatena"
 msgstr "はてな"
 
 #: dist/plugins/sns/sns_admin.php:139 dist/plugins/sns/sns_customizer.php:476
-#: plugins/sns/sns_admin.php:139 plugins/sns/sns_customizer.php:476
+#: plugins/sns/sns_admin.php:129 plugins/sns/sns_customizer.php:535
 msgid "Pocket"
 msgstr "Pocket"
 
 #: dist/plugins/sns/sns_admin.php:145 dist/plugins/sns/sns_customizer.php:497
-#: plugins/sns/sns_admin.php:145 plugins/sns/sns_customizer.php:497
+#: plugins/sns/sns_admin.php:135 plugins/sns/sns_customizer.php:556
 msgid "LINE (mobile only)"
 msgstr "LINE (mobile only)"
 
-#: dist/plugins/sns/sns_customizer.php:73 plugins/sns/sns_customizer.php:73
+#: dist/plugins/sns/sns_customizer.php:73 plugins/sns/sns_customizer.php:74
 msgid "Facebook Settings"
 msgstr "Facebook 設定"
 
-#: dist/plugins/sns/sns_customizer.php:96 plugins/sns/sns_customizer.php:96
+#: dist/plugins/sns/sns_customizer.php:96 plugins/sns/sns_customizer.php:97
 msgid "Facebook application ID"
 msgstr "facebookアプリケーションID"
 
-#: dist/plugins/sns/sns_customizer.php:117 plugins/sns/sns_customizer.php:117
+#: dist/plugins/sns/sns_customizer.php:117 plugins/sns/sns_customizer.php:118
 msgid "Facebook Page URL"
 msgstr "FacebookページURL"
 
-#: dist/plugins/sns/sns_customizer.php:143 plugins/sns/sns_customizer.php:143
+#: dist/plugins/sns/sns_customizer.php:143 plugins/sns/sns_customizer.php:144
 msgid ""
 "If, for example someone pressed the Facebook [Like] button, this is the "
 "image that appears on the Facebook timeline.<br>If a featured image is "
@@ -2174,29 +2175,29 @@ msgstr ""
 "アイキャッチ画像が優先されます。<br>画像サイズ 橫 1280px 縦 720px 以上、画像"
 "比率 16:9 程度を推奨します。"
 
-#: dist/plugins/sns/sns_customizer.php:153 plugins/sns/sns_customizer.php:153
+#: dist/plugins/sns/sns_customizer.php:153 plugins/sns/sns_customizer.php:157
 msgid "OG Settings"
 msgstr "OG 設定"
 
-#: dist/plugins/sns/sns_customizer.php:189 plugins/sns/sns_customizer.php:189
+#: dist/plugins/sns/sns_customizer.php:189 plugins/sns/sns_customizer.php:196
 msgid "Twitter Settings"
 msgstr "Twitter 設定"
 
-#: dist/plugins/sns/sns_customizer.php:212 plugins/sns/sns_customizer.php:212
+#: dist/plugins/sns/sns_customizer.php:212 plugins/sns/sns_customizer.php:219
 #, fuzzy
 #| msgid "twitter ID"
 msgid "Twitter ID"
 msgstr "twitterアカウント"
 
-#: dist/plugins/sns/sns_customizer.php:336 plugins/sns/sns_customizer.php:336
+#: dist/plugins/sns/sns_customizer.php:336 plugins/sns/sns_customizer.php:298
 msgid "Social button style setting"
 msgstr "ソーシャルボタンのスタイル設定"
 
-#: dist/plugins/sns/sns_customizer.php:378 plugins/sns/sns_customizer.php:378
+#: dist/plugins/sns/sns_customizer.php:378 plugins/sns/sns_customizer.php:340
 msgid "Btn color"
 msgstr "ボタンの色:"
 
-#: dist/plugins/sns/sns_customizer.php:413 plugins/sns/sns_customizer.php:413
+#: dist/plugins/sns/sns_customizer.php:413 plugins/sns/sns_customizer.php:472
 #, fuzzy
 #| msgid "Facebook URL:"
 msgid "Facebook "
@@ -2800,6 +2801,18 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 #, php-format
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
+
+#: plugins/sns/sns_admin.php:141 plugins/sns/sns_customizer.php:355
+msgid "Share button display Position"
+msgstr "シェアボタンの表示位置"
+
+#: plugins/sns/sns_admin.php:149 plugins/sns/sns_customizer.php:374
+msgid "Before content"
+msgstr "本文の前"
+
+#: plugins/sns/sns_admin.php:155 plugins/sns/sns_customizer.php:394
+msgid "After content"
+msgstr "本文の後"
 
 #, fuzzy
 #~| msgid "Display count"
