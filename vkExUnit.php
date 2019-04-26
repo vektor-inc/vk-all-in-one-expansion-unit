@@ -52,7 +52,7 @@ if ( function_exists( 'register_deactivation_hook' ) ) {
 }
 
 function vkExUnit_uninstall_function() {
-
+	require_once vkExUnit_get_directory() . '/initialize.php';
 	include vkExUnit_get_directory( '/uninstaller.php' );
 }
 
