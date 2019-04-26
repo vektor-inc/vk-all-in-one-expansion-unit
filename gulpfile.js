@@ -35,7 +35,7 @@ var replace = require('gulp-replace');
 
 gulp.task('text-domain', function () {
 		gulp.src(['./plugins/font-awesome/*'])
-				.pipe(replace('vk_font_awesome_version_textdomain', 'vkExUnit'))
+				.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
 				.pipe(gulp.dest('./plugins/font-awesome/'));
 });
 

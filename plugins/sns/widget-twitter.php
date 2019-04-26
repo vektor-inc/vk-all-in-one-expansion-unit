@@ -6,11 +6,11 @@ class VK_Twitter_Widget extends WP_Widget {
 	 * ウィジェット名などを設定
 	 */
 	public function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Twitter', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Twitter', 'vk-all-in-one-expansion-unit' );
 		parent::__construct(
 			'vk_twitter_widget', // Base ID
 			$widget_name, // Name
-			array( 'description' => __( 'Display Twitter timeline.', 'vkExUnit' ) ) // Args
+			array( 'description' => __( 'Display Twitter timeline.', 'vk-all-in-one-expansion-unit' ) ) // Args
 		);
 		// widget actual processes
 	}
@@ -81,22 +81,22 @@ class VK_Twitter_Widget extends WP_Widget {
 	?>
 
 	<?php // title ?>
-	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br>
+	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 	</p>
 
 	<?php // account ?>
-	<p><label for="<?php echo $this->get_field_id( 'account' ); ?>"><?php _e( 'Account:<br>Please enter your Twitter account.', 'vkExUnit' ); ?></label><br>
-	<?php _e( '@', 'vkExUnit' ); ?><input type="" id="<?php echo $this->get_field_id( 'account' ); ?>" class="" name="<?php echo $this->get_field_name( 'account' ); ?>" value="<?php echo esc_attr( $instance['account'] ); ?>" />
+	<p><label for="<?php echo $this->get_field_id( 'account' ); ?>"><?php _e( 'Account:<br>Please enter your Twitter account.', 'vk-all-in-one-expansion-unit' ); ?></label><br>
+	<?php _e( '@', 'vk-all-in-one-expansion-unit' ); ?><input type="" id="<?php echo $this->get_field_id( 'account' ); ?>" class="" name="<?php echo $this->get_field_name( 'account' ); ?>" value="<?php echo esc_attr( $instance['account'] ); ?>" />
 	</p>
 
 	<?php // height ?>
-	<p><label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height:<br>Please enter an arbitrary number.(Example: 300)', 'vkExUnit' ); ?></label><br>
+	<p><label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height:<br>Please enter an arbitrary number.(Example: 300)', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo esc_attr( $instance['height'] ); ?>" />
 	</p>
 
 	<?php // bg color ?>
-	<p><label for="<?php echo $this->get_field_id( 'bg_color' ); ?>"><?php _e( 'Background color:', 'vkExUnit' ); ?></label><br>
+	<p><label for="<?php echo $this->get_field_id( 'bg_color' ); ?>"><?php _e( 'Background color:', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<select id="<?php echo $this->get_field_id( 'bg_color' ); ?>" name="<?php echo $this->get_field_name( 'bg_color' ); ?>" class="admin-custom-input">
 	<?php
 	if ( ! isset( $instance['bg_color'] ) || ! $instance['bg_color'] ) {
@@ -111,7 +111,7 @@ class VK_Twitter_Widget extends WP_Widget {
 		}
 	?>
 	>
-		<?php _e( $label, 'vkExUnit' ); ?>
+		<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
 	</option>
 	<?php endforeach; ?>
 	</select>
@@ -119,7 +119,7 @@ class VK_Twitter_Widget extends WP_Widget {
 
 	<?php // link color ?>
 	<p class="color_picker_wrap">
-	<label for="<?php echo $this->get_field_id( 'link_color' ); ?>"><?php _e( 'Link color:', 'vkExUnit' ); ?></label><br>
+	<label for="<?php echo $this->get_field_id( 'link_color' ); ?>"><?php _e( 'Link color:', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="text" id="<?php echo $this->get_field_id( 'link_color' ); ?>" class="color_picker admin-custom-input" name="<?php echo $this->get_field_name( 'link_color' ); ?>" value="
 										<?php
 										if ( $instance['link_color'] ) {

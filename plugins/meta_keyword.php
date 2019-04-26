@@ -37,7 +37,7 @@ class vExUnit_meta_keywords {
 
 	public function option_init() {
 		vkExUnit_register_setting(
-			__( 'Meta Keywords', 'vkExUnit' ), 	    // tab label.
+			__( 'Meta Keywords', 'vk-all-in-one-expansion-unit' ), 	    // tab label.
 			'vkExUnit_common_keywords',			    // name attr
 			array( $this, 'sanitize_config' ),      // sanitaise function name
 			array( $this, 'render_configPage' )     // setting_page function name
@@ -65,17 +65,17 @@ class vExUnit_meta_keywords {
 
 	public function render_configPage() {
 ?>
-<h3><?php _e( 'Meta Keyword', 'vkExUnit' ); ?></h3>
+<h3><?php _e( 'Meta Keyword', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <div id="meta_keyword" class="sectionBox">
 <table class="form-table">
-<tr><th><?php _e( 'Common Keywords','vkExUnit' ); ?></th>
-<td><?php _e( 'Keywords for meta tag. This words will set Meta Keyword with post keywords. if you want multiple keywords, enter with separator of ",".','vkExUnit' ); ?><br />
+<tr><th><?php _e( 'Common Keywords', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td><?php _e( 'Keywords for meta tag. This words will set Meta Keyword with post keywords. if you want multiple keywords, enter with separator of ",".', 'vk-all-in-one-expansion-unit' ); ?><br />
 <input type="text" name="vkExUnit_common_keywords" id="commonKeyWords" value="<?php echo self::get_option(); ?>" style="width:90%;" /><br />
 
-* <?php _e( 'This is not seriously, Because the SearchEngine does not care this.','vkExUnit' ) ?><br/>
-* <?php _e( 'For each page individual keyword is enter at the edit screen of each article. 10 keywords maximum, together with a each article keywords is desirable.','vkExUnit' ) ?><br/>
-* <?php _e( '"," separator at end of the last keyword is do not need.','vkExUnit' ) ?><br/>
-<?php _e( 'Example: WordPress,template,theme,free,GPL','vkExUnit' ); ?></td></tr>
+* <?php _e( 'This is not seriously, Because the SearchEngine does not care this.', 'vk-all-in-one-expansion-unit' ) ?><br/>
+* <?php _e( 'For each page individual keyword is enter at the edit screen of each article. 10 keywords maximum, together with a each article keywords is desirable.', 'vk-all-in-one-expansion-unit' ) ?><br/>
+* <?php _e( '"," separator at end of the last keyword is do not need.', 'vk-all-in-one-expansion-unit' ) ?><br/>
+<?php _e( 'Example: WordPress,template,theme,free,GPL', 'vk-all-in-one-expansion-unit' ); ?></td></tr>
 </table>
 <?php submit_button(); ?>
 </div>
@@ -88,10 +88,10 @@ class vExUnit_meta_keywords {
 		foreach ( $post_types as $post ) {
 			if ( $post->_builtin ) { continue; }
 			if ( ! $post->public ) { continue; }
-			add_meta_box( 'div1', __( 'Meta Keywords', 'vkExUnit' ), array( $this, 'render_meta_box' ), $post->name, 'normal', 'high' );
+			add_meta_box( 'div1', __( 'Meta Keywords', 'vk-all-in-one-expansion-unit' ), array( $this, 'render_meta_box' ), $post->name, 'normal', 'high' );
 		}
-		add_meta_box( 'div1', __( 'Meta Keywords', 'vkExUnit' ), array( $this, 'render_meta_box' ), 'page', 'normal', 'high' );
-		add_meta_box( 'div1', __( 'Meta Keywords', 'vkExUnit' ), array( $this, 'render_meta_box' ), 'post', 'normal', 'high' );
+		add_meta_box( 'div1', __( 'Meta Keywords', 'vk-all-in-one-expansion-unit' ), array( $this, 'render_meta_box' ), 'page', 'normal', 'high' );
+		add_meta_box( 'div1', __( 'Meta Keywords', 'vk-all-in-one-expansion-unit' ), array( $this, 'render_meta_box' ), 'post', 'normal', 'high' );
 	}
 
 
@@ -99,9 +99,9 @@ class vExUnit_meta_keywords {
 		global $post;
 		echo '<input type="hidden" name="_nonce_vkExUnit__custom_field_metaKeyword" id="_nonce_vkExUnit__custom_field_metaKeyword" value="'.wp_create_nonce( plugin_basename( __FILE__ ) ).'" />';
 		echo '<label class="hidden" for="vkExUnit_metaKeyword">'.__( 'Meta Keywords', 'biz-vektor' ).'</label><input type="text" id="vkExUnit_metaKeyword" name="vkExUnit_metaKeyword" size="50" value="'.get_post_meta( $post->ID, 'vkExUnit_metaKeyword', true ).'" />';
-		echo '<p>'.__( 'To distinguish between individual keywords, please enter a , delimiter (optional).', 'vkExUnit' ).'<br />';
-		$theme_option_seo_link = '<a href="'.get_admin_url().'/admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords" target="_blank">'.vkExUnit_get_name().' '.__( 'Main setting', 'vkExUnit' ).'</a>';
-		echo sprintf( __( '* keywords common to the entire site can be set from %s.', 'vkExUnit' ),$theme_option_seo_link );
+		echo '<p>'.__( 'To distinguish between individual keywords, please enter a , delimiter (optional).', 'vk-all-in-one-expansion-unit' ).'<br />';
+		$theme_option_seo_link = '<a href="'.get_admin_url().'/admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords" target="_blank">'.vkExUnit_get_name().' '.__( 'Main setting', 'vk-all-in-one-expansion-unit' ).'</a>';
+		echo sprintf( __( '* keywords common to the entire site can be set from %s.', 'vk-all-in-one-expansion-unit' ),$theme_option_seo_link );
 		echo '</p>';
 	}
 

@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.1.1
-Stable tag: 8.1.2
+Stable tag: 8.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,16 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 8.3.0 =
+[ Add function ][ SNS Button ] Insert sns btns to before content 
+
+= 8.2.0 =
+[ Child Page index ][ Add filter ] veu_childPage_list_read_more_txt
+[ Specification change ][ textdomain ] step to GlotPress
+
+= 8.1.3 =
+[ bugfix ][ insert ads ] can't remove post type check box
 
 = 8.1.2 =
 [ bugfix ][ new-posts-widget ] Undefined variable error fixed

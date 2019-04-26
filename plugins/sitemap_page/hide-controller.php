@@ -14,7 +14,7 @@ function veu_sitemap_hide_menu() {
 	/*-------------------------------------------*/
 	add_meta_box(
 		'sitemap-meta-box', // metaboxのID
-		veu_get_little_short_name() . ' ' . __( 'Site Map Hide', 'vkExUnit' ), // metaboxの表示名
+		veu_get_little_short_name() . ' ' . __( 'Site Map Hide', 'vk-all-in-one-expansion-unit' ), // metaboxの表示名
 		'veu_sitemap_meta_box_callback', // このメタボックスに表示する中身の関数名
 		'page', // このメタボックスをどの投稿タイプで表示するのか？
 		'side' // 表示する位置
@@ -43,7 +43,7 @@ function veu_sitemap_meta_box_callback() {
 		$checked = '';
 	}
 
-	$label = __( 'Don\'t display on Sitemap.', 'vkExUnit' );
+	$label = __( 'Don\'t display on Sitemap.', 'vk-all-in-one-expansion-unit' );
 	echo '<ul>';
 	echo '<li><label>' . '<input type="checkbox" id="sitemap_hide" name="sitemap_hide" value="true"' . $checked . '> ' . $label . '</label></li>';
 	echo '</ul>';

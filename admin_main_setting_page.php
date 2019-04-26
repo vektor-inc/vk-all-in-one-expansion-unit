@@ -7,8 +7,8 @@ function vkExUnit_add_main_setting() {
 	// $capability_required = veu_get_capability_required();
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',            // parent
-		__( 'Main setting', 'vkExUnit' ),   // Name of page
-		__( 'Main setting', 'vkExUnit' ),   // Label in menu
+		__( 'Main setting', 'vk-all-in-one-expansion-unit' ),   // Name of page
+		__( 'Main setting', 'vk-all-in-one-expansion-unit' ),   // Label in menu
 		'activate_plugins',               // veu_get_capability_required()でないのは edit_theme_options権限を付与したユーザーにもアクセスさせないためにactivate_pluginsにしている。
 		// $capability_required,          // Capability
 		'vkExUnit_main_setting',            // ユニークなこのサブメニューページの識別子
@@ -79,7 +79,7 @@ function vkExUnit_the_main_setting_body() {
 
 	} else {
 
-		echo  __( 'Activated Packages is noting. please activate some package.', 'vkExUnit' );
+		echo  __( 'Activated Packages is noting. please activate some package.', 'vk-all-in-one-expansion-unit' );
 
 	}
 	echo  '</form>';

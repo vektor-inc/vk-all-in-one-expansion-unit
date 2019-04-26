@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Child page index
+/*
+  Child page index
 /*-------------------------------------------*/
 
 function veu_child_page_excerpt( $post ) {
@@ -22,7 +22,7 @@ function veu_child_page_excerpt( $post ) {
 		if ( 90 < mb_strlen( $page_excerpt ) ) {
 			// 90文字でトリム
 			$page_excerpt = mb_substr( $page_excerpt, 0, 90 );
-			//  ... を追加
+			// ... を追加
 			$page_excerpt .= '...';
 
 		}
@@ -76,13 +76,13 @@ function vkExUnit_childPageIndex_shortcode() {
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ) );
 			$childPageList_html .= '<p class="childPage_list_text">' . $postExcerpt . '</p>';
-			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . __( 'Read more', 'vkExUnit' ) . '</span>';
+			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . apply_filters( 'veu_childPage_list_read_more_txt', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</span>';
 			$childPageList_html .= '</div>';
 
 			$childPageList_html .= '</div></a>' . PHP_EOL;
 	endforeach;
 
-	$childPageList_html .= PHP_EOL . '</div><!-- [ /.childPage_list ] -->' . PHP_EOL;
+	$childPageList_html .= PHP_EOL . '</div><!-- [ /.veu_childPage_list ] -->' . PHP_EOL;
 	wp_reset_query();
 
 	return $childPageList_html;
@@ -103,8 +103,8 @@ function vkExUnit_chidPageIndex_loopend( $query ) {
 	echo vkExUnit_childPageIndex_shortcode();
 }
 
-/*-------------------------------------------*/
-/*  Print Child Page Box at Page
+/*
+  Print Child Page Box at Page
 /*-------------------------------------------*/
 function vkExUnit_childPageIndex_contentHook( $content ) {
 
@@ -127,16 +127,16 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 	return $content;
 }
 
-/*-------------------------------------------*/
-/* admin_metabox_activate
+/*
+ admin_metabox_activate
 /*-------------------------------------------*/
 add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_admin_metabox_activate', 10, 1 );
 function vkExUnit_childPageIndex_admin_metabox_activate( $flag ) {
 	return true;
 }
 
-/*-------------------------------------------*/
-/* admin_metabox_content
+/*
+ admin_metabox_content
 /*-------------------------------------------*/
 add_action( 'veu_content_meta_box_content', 'veu_child_page_index_admin_metabox_content' );
 function veu_child_page_index_admin_metabox_content() {
@@ -147,14 +147,14 @@ function veu_child_page_index_admin_metabox_content() {
 <input type="hidden" name="_nonce_vkExUnit__custom_field_childPageIndex" id="_nonce_vkExUnit__custom_field_childPageIndex" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
 <label for="vkExUnit_childPageIndex">
 	<input type="checkbox" id="vkExUnit_childPageIndex" name="vkExUnit_childPageIndex"<?php echo ( $enable ) ? ' checked' : ''; ?> />
-	<?php _e( 'Display a child page index', 'vkExUnit' ); ?>
+	<?php _e( 'Display a child page index', 'vk-all-in-one-expansion-unit' ); ?>
 </label>
 </div>
 	<?php
 }
 
-/*-------------------------------------------*/
-/* save_custom_field
+/*
+ save_custom_field
 /*-------------------------------------------*/
 add_action( 'save_post', 'veu_child_page_index_save_custom_field' );
 function veu_child_page_index_save_custom_field( $post_id ) {

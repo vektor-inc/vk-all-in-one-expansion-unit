@@ -29,12 +29,12 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Button', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'vkExUnit_button',
 			$widget_name,
-			array( 'description' => __( 'You can set buttons for arbitrary text.', 'vkExUnit' ) )
+			array( 'description' => __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -113,16 +113,16 @@ class WP_Widget_Button extends WP_Widget {
 		?>
 		<div class="warp" style="padding: 1em 0;line-height: 2.5em;">
 
-		<?php _e( 'Main text(Required):', 'vkExUnit' ); ?>
+		<?php _e( 'Main text(Required):', 'vk-all-in-one-expansion-unit' ); ?>
 		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo $instance['title']; ?>">
 
 		<?php
 		// icon font class input
-		echo '<p>' . __( 'Class name of the icon font', 'vkExUnit' ) . '</label><br/>';
-		echo  __( 'To choose your favorite icon, and enter the class.', 'vkExUnit' ) . '<br>';
-		echo '<label for="' . $this->get_field_id( 'icon_before' ) . '">' . __( 'Before :', 'vkExUnit' );
+		echo '<p>' . __( 'Class name of the icon font', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
+		echo  __( 'To choose your favorite icon, and enter the class.', 'vk-all-in-one-expansion-unit' ) . '<br>';
+		echo '<label for="' . $this->get_field_id( 'icon_before' ) . '">' . __( 'Before :', 'vk-all-in-one-expansion-unit' );
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_before' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_before' ) . '" value="' . esc_attr( $instance['icon_before'] ) . '" /><br>';
-		echo '<label for="' . $this->get_field_id( 'icon_after' ) . '">' . __( 'After :', 'vkExUnit' );
+		echo '<label for="' . $this->get_field_id( 'icon_after' ) . '">' . __( 'After :', 'vk-all-in-one-expansion-unit' );
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_after' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_after' ) . '" value="' . esc_attr( $instance['icon_after'] ) . '" /><br>';
 
 		if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
@@ -131,11 +131,11 @@ class WP_Widget_Button extends WP_Widget {
 
 		echo '</p>';
 ?>
-		<?php _e( 'Sub text:', 'vkExUnit' ); ?>
+		<?php _e( 'Sub text:', 'vk-all-in-one-expansion-unit' ); ?>
 		<input type="text" id="<?php echo $this->get_field_id( 'subtext' ); ?>" name="<?php echo $this->get_field_name( 'subtext' ); ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo esc_attr( $instance['subtext'] ); ?>">
 
 		<br/>
-			<?php _e( 'Link URL(Required):', 'vkExUnit' ); ?>
+			<?php _e( 'Link URL(Required):', 'vk-all-in-one-expansion-unit' ); ?>
 		<input type="text" id="<?php echo $this->get_field_id( 'linkurl' ); ?>" name="<?php echo $this->get_field_name( 'linkurl' ); ?>" value="<?php echo esc_attr( $instance['linkurl'] ); ?>" style="width: 100%" />
 
 		<br/>
@@ -145,33 +145,33 @@ class WP_Widget_Button extends WP_Widget {
 													echo 'checked';}
 ?>
   />
-		<label for="<?php echo $this->get_field_id( 'blank' ); ?>"><?php _e( 'Open with new tab', 'vkExUnit' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'blank' ); ?>"><?php _e( 'Open with new tab', 'vk-all-in-one-expansion-unit' ); ?></label>
 
 		<br/>
-		<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e( 'Size', 'vkExUnit' ); ?> :</label>
+		<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e( 'Size', 'vk-all-in-one-expansion-unit' ); ?> :</label>
 		<select id="<?php echo $this->get_field_id( 'size' ); ?>" name="<?php echo $this->get_field_name( 'size' ); ?>">
 			<option value="sm"
 			<?php
 			if ( $instance['size'] == 'sm' ) {
 				echo 'selected';}
 ?>
- ><?php _e( 'Small', 'vkExUnit' ); ?></option>
+ ><?php _e( 'Small', 'vk-all-in-one-expansion-unit' ); ?></option>
 			<option value="md"
 			<?php
 			if ( ! in_array( $instance['size'], array( 'sm', 'lg' ) ) ) {
 				echo 'selected';}
 ?>
- ><?php _e( 'Medium', 'vkExUnit' ); ?></option>
+ ><?php _e( 'Medium', 'vk-all-in-one-expansion-unit' ); ?></option>
 			<option value="lg"
 			<?php
 			if ( $instance['size'] == 'lg' ) {
 				echo 'selected';}
 ?>
- ><?php _e( 'Large', 'vkExUnit' ); ?></option>
+ ><?php _e( 'Large', 'vk-all-in-one-expansion-unit' ); ?></option>
 		</select>
 
 		<br/>
-		<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e( 'Button color:', 'vkExUnit' ); ?> </label>
+		<label for="<?php echo $this->get_field_id( 'size' ); ?>"><?php _e( 'Button color:', 'vk-all-in-one-expansion-unit' ); ?> </label>
 		<select id="<?php echo $this->get_field_id( 'color' ); ?>" name="<?php echo $this->get_field_name( 'color' ); ?>">
 		<?php
 		if ( ! isset( $instance['color'] ) || ! $instance['color'] ) {
@@ -185,7 +185,7 @@ class WP_Widget_Button extends WP_Widget {
 											echo 'selected';}
 ?>
  >
-			<?php _e( $label, 'vkExUnit' ); ?>
+			<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
 			</option>
 		<?php endforeach; ?>
 		</select>
@@ -208,12 +208,12 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	public static function dummy() {
-		__( 'Key Color(.primary)', 'vkExUnit' );
-		__( 'No paint(.default)', 'vkExUnit' );
-		__( 'Light green(.success)', 'vkExUnit' );
-		__( 'Light blue(.info)', 'vkExUnit' );
-		__( 'Orange(.warning)', 'vkExUnit' );
-		__( 'Red(.danger)', 'vkExUnit' );
+		__( 'Key Color(.primary)', 'vk-all-in-one-expansion-unit' );
+		__( 'No paint(.default)', 'vk-all-in-one-expansion-unit' );
+		__( 'Light green(.success)', 'vk-all-in-one-expansion-unit' );
+		__( 'Light blue(.info)', 'vk-all-in-one-expansion-unit' );
+		__( 'Orange(.warning)', 'vk-all-in-one-expansion-unit' );
+		__( 'Red(.danger)', 'vk-all-in-one-expansion-unit' );
 	}
 } // class WP_Widget_Button extends WP_Widget {
 

@@ -44,10 +44,10 @@ function vkExUnit_get_wp_head_title() {
 
 		// Search
 	} elseif ( is_search() ) {
-		$title = sprintf( __( 'Search Results for : %s', 'vkExUnit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );
+		$title = sprintf( __( 'Search Results for : %s', 'vk-all-in-one-expansion-unit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );
 		// 404
 	} elseif ( is_404() ) {
-		$title = __( 'Not found', 'vkExUnit' ) . $sep . get_bloginfo( 'name' );
+		$title = __( 'Not found', 'vk-all-in-one-expansion-unit' ) . $sep . get_bloginfo( 'name' );
 		// Other
 	} else {
 		$title = get_bloginfo( 'name' );
@@ -56,7 +56,7 @@ function vkExUnit_get_wp_head_title() {
 	// Add Page numner.
 	global $paged;
 	if ( $paged >= 2 ) {
-		$title = '[' . sprintf( __( 'Page of %s', 'vkExUnit' ), $paged ) . '] ' . $title;
+		$title = '[' . sprintf( __( 'Page of %s', 'vk-all-in-one-expansion-unit' ), $paged ) . '] ' . $title;
 	}
 
 	$title = apply_filters( 'vkExUnit_get_wp_head_title', $title );
@@ -67,7 +67,7 @@ function vkExUnit_get_wp_head_title() {
 
 function vkExUnit_wp_title_init() {
 	vkExUnit_register_setting(
-		__( '&lt;title&gt; tag of homepage', 'vkExUnit' ),
+		__( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ),
 		'vkExUnit_wp_title',
 		'vkExUnit_wp_title_validate',
 		'vkExUnit_add_wp_title_page'
@@ -79,30 +79,30 @@ function vkExUnit_add_wp_title_page() {
 	$options = vkExUnit_get_wp_title_options();
 ?>
 <div id="seoSetting" class="sectionBox">
-<h3><?php _e( '&lt;title&gt; tag of homepage', 'vkExUnit' ); ?></h3>
+<h3><?php _e( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <table class="form-table">
 <!-- Google Analytics -->
 <tr>
-<th><?php _e( '&lt;title&gt; tag of homepage', 'vkExUnit' ); ?></th>
+<th><?php _e( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
 <p>
 <?php
-$sitetitle_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'title of the site', 'vkExUnit' ) . '</a>';
-printf( __( 'Normally "%1$s" is placed in the title tags of all the pages.', 'vkExUnit' ), $sitetitle_link );
+$sitetitle_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'title of the site', 'vk-all-in-one-expansion-unit' ) . '</a>';
+printf( __( 'Normally "%1$s" is placed in the title tags of all the pages.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link );
 ?>
 <br />
-<?php printf( __( 'For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vkExUnit' ), $sitetitle_link ); ?><br />
+<?php printf( __( 'For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link ); ?><br />
 <?php
-printf( __( 'However, it might have negative impact on search engine rankings if the &lt;title&gt; is too long, <strong>therefore please include the most popular keywords in a summarized manner, keeping the %s as short as possible.</strong>', 'vkExUnit' ), $sitetitle_link );
+printf( __( 'However, it might have negative impact on search engine rankings if the &lt;title&gt; is too long, <strong>therefore please include the most popular keywords in a summarized manner, keeping the %s as short as possible.</strong>', 'vk-all-in-one-expansion-unit' ), $sitetitle_link );
 ?>
 <br />
 <?php
-$tagline_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'Tagline', 'vkExUnit' ) . '</a>';
-printf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vkExUnit' ), $sitetitle_link, $tagline_link );
+$tagline_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'Tagline', 'vk-all-in-one-expansion-unit' ) . '</a>';
+printf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vk-all-in-one-expansion-unit' ), $sitetitle_link, $tagline_link );
 ?>
 <br />
-<?php _e( 'However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vkExUnit' ); ?>
-<?php /*_e('However, in the home page, as described above, other title will not be added, it is possible to make the &lt;title&gt; little longer, which can be set separately here.', 'vkExUnit');*/ ?></p>
+<?php _e( 'However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vk-all-in-one-expansion-unit' ); ?>
+<?php /*_e('However, in the home page, as described above, other title will not be added, it is possible to make the &lt;title&gt; little longer, which can be set separately here.', 'vk-all-in-one-expansion-unit' );*/ ?></p>
 
 
 <input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo  $options['extend_frontTitle']; ?>" />

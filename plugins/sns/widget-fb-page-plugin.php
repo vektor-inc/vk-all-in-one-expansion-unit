@@ -10,7 +10,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_fbPagePlugin',
 			$widget_name,
-			array( 'description' => __( 'Displays a Facebook Page Plugin', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a Facebook Page Plugin', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -76,7 +76,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		?>
 
 		<?php //タイトル ?>
-		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
 		<br/>
 
@@ -86,22 +86,22 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		<br/>
 
 		<?php //Height ?>
-		<label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo $instance['height']; ?>" />
 		<br/>
 
 		<?php //showFaces ?>
-		<label for="<?php echo $this->get_field_id( 'showFaces' ); ?>"><?php _e( "Show Friend's Faces", 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'showFaces' ); ?>"><?php _e( "Show Friend's Faces", 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name( 'showFaces' ); ?>" value="true" <?php echo ( $instance['showFaces'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 
 		<?php //hideCover ?>
-		<label for="<?php echo $this->get_field_id( 'hideCover' ); ?>"><?php _e( 'Hide Cover Photo', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'hideCover' ); ?>"><?php _e( 'Hide Cover Photo', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name( 'hideCover' ); ?>" value="true" <?php echo ( $instance['hideCover'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 
 		<?php //showPosts ?>
-		<label for="<?php echo $this->get_field_id( 'showPosts' ); ?>"><?php _e( 'Show Page Posts', 'vkExUnit' ); ?></label><br/>
+		<label for="<?php echo $this->get_field_id( 'showPosts' ); ?>"><?php _e( 'Show Page Posts', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name( 'showPosts' ); ?>" value="true" <?php echo ( $instance['showPosts'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 		<?php

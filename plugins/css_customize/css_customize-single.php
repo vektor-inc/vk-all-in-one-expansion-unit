@@ -19,7 +19,7 @@ function veu_custom_css_hooks() {
 	foreach ( $post_types as $post_type ) {
 		add_meta_box(
 			'veu_custom_css', // （必須） 編集画面セクションの HTML ID
-			__( 'Custom CSS', 'vkExUnit' ), // （必須） 編集画面セクションのタイトル、画面上に表示される
+			__( 'Custom CSS', 'vk-all-in-one-expansion-unit' ), // （必須） 編集画面セクションのタイトル、画面上に表示される
 			'veu_custom_css_input', // （必須） 編集画面セクションに HTML 出力する関数.
 			$post_type, // （オプション）編集画面セクションを表示する書き込み画面のタイプ（例： 'post'、 'page'、 'dashboard'、 'link'、 'attachment'、 'custom_post_type'、 'comment'）
 			'normal', // （オプション） 編集画面セクションが表示される部分 ('normal', 'advanced' または (2.7 以降) 'side')

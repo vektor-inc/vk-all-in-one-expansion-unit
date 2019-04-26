@@ -26,7 +26,7 @@ class vkExUnit_sns_metabox {
 		);
 		$post_types = get_post_types( $args, 'object' );
 		foreach ( $post_types as $key => $post_type ) {
-			add_meta_box( 'vkExUnit_SnsTitle', __( 'Sns Title', 'vkExUnit' ), array( $this, 'render_meta_box' ), $key, 'normal', 'high' );
+			add_meta_box( 'vkExUnit_SnsTitle', __( 'Sns Title', 'vk-all-in-one-expansion-unit' ), array( $this, 'render_meta_box' ), $key, 'normal', 'high' );
 		}
 	}
 
@@ -37,7 +37,7 @@ class vkExUnit_sns_metabox {
 
 		echo '<input type="hidden" name="_nonce_vkExUnit_sns_title" id="_nonce_vkExUnit_sns_title_noonce" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />';
 		echo '<input type=text name="vkExUnit_sns_title" value="' . $disable_autoeyecatch . '" size=50 />';
-		echo '<p>' . __( 'if filled this area then override title of OGP and Twitter Card', 'vkExUnit' ) . '</p>';
+		echo '<p>' . __( 'if filled this area then override title of OGP and Twitter Card', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
 	}
 

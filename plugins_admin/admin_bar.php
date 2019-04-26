@@ -30,7 +30,7 @@ function vkExUnit_adminbar_link( $wp_admin_bar ) {
 			array(
 				'parent' => 'veu_adminlink',
 				'id'     => 'veu_adminlink_active',
-				'title'  => __( 'Active Setting', 'vkExUnit' ),
+				'title'  => __( 'Active Setting', 'vk-all-in-one-expansion-unit' ),
 				'href'   => admin_url() . 'admin.php?page=vkExUnit_setting_page',
 			)
 		);
@@ -41,7 +41,7 @@ function vkExUnit_adminbar_link( $wp_admin_bar ) {
 		array(
 			'parent' => 'veu_adminlink',
 			'id'     => 'veu_adminlink_main',
-			'title'  => __( 'Main Setting', 'vkExUnit' ),
+			'title'  => __( 'Main Setting', 'vk-all-in-one-expansion-unit' ),
 			'href'   => admin_url() . 'admin.php?page=vkExUnit_main_setting',
 		)
 	);

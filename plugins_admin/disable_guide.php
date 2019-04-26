@@ -14,7 +14,7 @@ function vkExUnit_adminbar_disable( $wp_admin_bar ) {
     if ( is_user_logged_in() && ! is_admin() && current_user_can( 'administrator' ) || current_user_can( 'editor' ) ) {
         $args = array(
             'id'    => 'veu_disable_admin_edit',
-            'title' => __( 'Edit Guide', 'vkExUnit' ).' : <span class="_show">SHOW</span><span class="_hide">HIDE</span>',
+            'title' => __( 'Edit Guide', 'vk-all-in-one-expansion-unit' ).' : <span class="_show">SHOW</span><span class="_hide">HIDE</span>',
             'meta'  => array( 'class' => 'veu_admin_bar_disable_button' , 'onClick' => 'javascript:void(0);' ),
         );
         $wp_admin_bar->add_node( $args );

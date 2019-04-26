@@ -6,12 +6,12 @@
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'page content to widget', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'page content to widget', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'pudge',
 			$widget_name,
-			array( 'description' => __( 'Displays a page contents to widget.', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a page contents to widget.', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -132,15 +132,15 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 			<label>
 				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-widget" <?php $this->echo_checked( $instance['set_title'], 'title-widget' ); ?> />
-				<?php _e( 'Display the entered title', 'vkExUnit' ); ?></label><br/>
+				<?php _e( 'Display the entered title', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 
 			<label>
 				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-page" <?php $this->echo_checked( $instance['set_title'], 'title-page' ); ?> />
-				<?php _e( 'Display the title of page', 'vkExUnit' ); ?></label><br/>
+				<?php _e( 'Display the title of page', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 
 			<label>
 				<input type="radio" name="<?php echo $this->get_field_name( 'set_title' ); ?>" value="title-hidden" <?php $this->echo_checked( $instance['set_title'], 'title-hidden' ); ?> />
-				<?php _e( 'Do not display titles', 'vkExUnit' ); ?></label><br/>
+				<?php _e( 'Do not display titles', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<br/>
 
 			<?php
@@ -163,7 +163,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_name( 'child_page_index' ); ?>">
 				<input type="checkbox" id="<?php echo $this->get_field_name( 'child_page_index' ); ?>" name="<?php echo $this->get_field_name( 'child_page_index' ); ?>"<?php echo ( ! empty( $instance['child_page_index'] ) ) ? ' checked' : ''; ?> />
-				<?php _e( 'Display a child page index', 'vkExUnit' ); ?>
+				<?php _e( 'Display a child page index', 'vk-all-in-one-expansion-unit' ); ?>
 			</label>
 		</p>
 		<?php endif; ?>
@@ -172,7 +172,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>">
 				<input type="checkbox" id="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>" name="<?php echo $this->get_field_name( 'page_list_ancestor' ); ?>"<?php echo ( ! empty( $instance['page_list_ancestor'] ) ) ? ' checked' : ''; ?> />
-				<?php _e( 'Display a page list from ancestor', 'vkExUnit' ); ?>
+				<?php _e( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' ); ?>
 			</label>
 		</p>
 		<?php
@@ -240,7 +240,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		if ( current_user_can( 'edit_pages' ) ) {
 		?>
 	<div class="veu_adminEdit">
-		<a href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $pageid; ?>&action=edit" class="btn btn-default btn-sm"><?php _e( 'Edit', 'vkExUnit' ); ?></a>
+		<a href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $pageid; ?>&action=edit" class="btn btn-default btn-sm"><?php _e( 'Edit', 'vk-all-in-one-expansion-unit' ); ?></a>
 	</div>
 <?php
 		}

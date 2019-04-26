@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-04-16 20:51+0900\n"
+"POT-Creation-Date: 2019-04-27 00:43+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -71,11 +71,11 @@ msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
 
-#: dist/plugins/auto_eyecatch.php:40 plugins/auto_eyecatch.php:50
+#: dist/plugins/auto_eyecatch.php:50 plugins/auto_eyecatch.php:50
 msgid "Automatic EyeCatch"
 msgstr "アイキャッチ自動挿入"
 
-#: dist/plugins/auto_eyecatch.php:50 plugins/auto_eyecatch.php:60
+#: dist/plugins/auto_eyecatch.php:60 plugins/auto_eyecatch.php:60
 msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
 
@@ -93,7 +93,7 @@ msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
 #: dist/plugins/call-to-action/class-vk-call-to-action.php:63
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:424
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:425
 #: plugins/call-to-action/class-vk-call-to-action.php:63
 #: plugins/call-to-action/class-vk-call-to-action.php:425
 msgid "Edit CTA"
@@ -124,7 +124,7 @@ msgid "CTA Contents"
 msgstr "CTA Contents"
 
 #: dist/plugins/call-to-action/class-vk-call-to-action.php:129
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:630
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:631
 #: dist/plugins/call-to-action/widget-call-to-action.php:74
 #: plugins/call-to-action/class-vk-call-to-action.php:129
 #: plugins/call-to-action/class-vk-call-to-action.php:631
@@ -133,7 +133,7 @@ msgid "Random"
 msgstr "ランダム表示"
 
 #: dist/plugins/call-to-action/class-vk-call-to-action.php:135
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:637
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:638
 #: plugins/call-to-action/class-vk-call-to-action.php:135
 #: plugins/call-to-action/class-vk-call-to-action.php:638
 msgid "Disable display"
@@ -176,98 +176,107 @@ msgstr ""
 "本文欄が入力されている場合は本文の内容が優先して表示されるので以下の内容は無"
 "視されます。"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:225
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:222
+#: plugins/call-to-action/class-vk-call-to-action.php:222
+msgid ""
+"The entered contents are displayed directly. You can not use short codes, "
+"reuse blocks, etc."
+msgstr ""
+"入力された内容は直接表示されます。 ショートコードや再利用ブロックなどは使用で"
+"きません。"
+
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:226
 #: plugins/call-to-action/class-vk-call-to-action.php:226
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:231
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:232
 #: plugins/call-to-action/class-vk-call-to-action.php:232
 msgid "Add image"
 msgstr "画像を追加"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:232
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:233
 #: plugins/call-to-action/class-vk-call-to-action.php:233
 msgid "Change image"
 msgstr "画像を変更"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:233
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:234
 #: plugins/call-to-action/class-vk-call-to-action.php:234
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:238
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:239
 #: plugins/call-to-action/class-vk-call-to-action.php:239
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:241
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:242
 #: plugins/call-to-action/class-vk-call-to-action.php:242
 msgid "right"
 msgstr "右寄せ"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:242
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:243
 #: plugins/call-to-action/class-vk-call-to-action.php:243
 msgid "center"
 msgstr "中央"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:243
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:244
 #: plugins/call-to-action/class-vk-call-to-action.php:244
 msgid "left"
 msgstr "左寄せ"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:247
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:248
 #: plugins/call-to-action/class-vk-call-to-action.php:248
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:251
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:252
 #: plugins/call-to-action/class-vk-call-to-action.php:252
 msgid "Button icon"
 msgstr "ボタンアイコン"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:252
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:253
 #: dist/plugins/other_widget/widget-button.php:122
 #: plugins/call-to-action/class-vk-call-to-action.php:253
 #: plugins/other_widget/widget-button.php:122
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:253
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:254
 #: dist/plugins/other_widget/widget-button.php:123
 #: plugins/call-to-action/class-vk-call-to-action.php:254
 #: plugins/other_widget/widget-button.php:123
 msgid "Before :"
 msgstr "文字の前 :"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:255
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:256
 #: dist/plugins/other_widget/widget-button.php:125
 #: plugins/call-to-action/class-vk-call-to-action.php:256
 #: plugins/other_widget/widget-button.php:125
 msgid "After :"
 msgstr "文字の後 :"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:267
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:268
 #: plugins/call-to-action/class-vk-call-to-action.php:268
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:280
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:281
 #: plugins/call-to-action/class-vk-call-to-action.php:281
 msgid "Target window"
 msgstr "リンク先ターゲット"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:282
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:283
 #: plugins/call-to-action/class-vk-call-to-action.php:283
 msgid "Open in a self window"
 msgstr "同じウィンドウで開く"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:284
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:285
 #: plugins/call-to-action/class-vk-call-to-action.php:285
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: dist/plugins/call-to-action/class-vk-call-to-action.php:290
+#: dist/plugins/call-to-action/class-vk-call-to-action.php:291
 #: dist/plugins/call-to-action/widget-call-to-action.php:91
 #: plugins/call-to-action/class-vk-call-to-action.php:291
 #: plugins/call-to-action/widget-call-to-action.php:91
@@ -369,15 +378,15 @@ msgstr "詳しくはこちら"
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
-#: dist/plugins/contact-section/contact-section.php:104
-#: dist/plugins/contact-section/contact-section.php:133
+#: dist/plugins/contact-section/contact-section.php:107
+#: dist/plugins/contact-section/contact-section.php:138
 #: plugins/contact-section/contact-section.php:107
 #: plugins/contact-section/contact-section.php:138
 msgid "Contact Information"
 msgstr "お問い合わせ情報"
 
-#: dist/plugins/contact-section/contact-section.php:114
-#: dist/plugins/contact-section/contact-section.php:144
+#: dist/plugins/contact-section/contact-section.php:117
+#: dist/plugins/contact-section/contact-section.php:149
 #: dist/plugins/contact-section/customizer.php:53
 #: dist/plugins/contact-section/customizer.php:67
 #: plugins/contact-section/contact-section.php:117
@@ -387,15 +396,15 @@ msgstr "お問い合わせ情報"
 msgid "Please feel free to inquire."
 msgstr "お気軽にお問い合わせください。"
 
-#: dist/plugins/contact-section/contact-section.php:117
+#: dist/plugins/contact-section/contact-section.php:120
 #: dist/plugins/contact-section/customizer.php:116
 #: plugins/contact-section/contact-section.php:120
 #: plugins/contact-section/customizer.php:116
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 
-#: dist/plugins/contact-section/contact-section.php:119
-#: dist/plugins/contact-section/contact-section.php:121
+#: dist/plugins/contact-section/contact-section.php:122
+#: dist/plugins/contact-section/contact-section.php:124
 #: dist/plugins/contact-section/customizer.php:158
 #: dist/plugins/contact-section/customizer.php:200
 #: plugins/contact-section/contact-section.php:122
@@ -405,7 +414,7 @@ msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 msgid "Contact us"
 msgstr "お問い合わせ"
 
-#: dist/plugins/contact-section/contact-section.php:135
+#: dist/plugins/contact-section/contact-section.php:140
 #: dist/plugins/contact-section/customizer.php:33
 #: plugins/contact-section/contact-section.php:140
 #: plugins/contact-section/customizer.php:33
@@ -416,7 +425,7 @@ msgstr ""
 "ここに入力された内容が各固定ページ下部や『お問い合わせ情報』ウィジェット、"
 "『お問い合わせボタン』ウィジェットなどに反映されます。"
 
-#: dist/plugins/contact-section/contact-section.php:137
+#: dist/plugins/contact-section/contact-section.php:142
 #: dist/plugins/contact-section/customizer.php:35
 #: plugins/contact-section/contact-section.php:142
 #: plugins/contact-section/customizer.php:35
@@ -427,20 +436,20 @@ msgstr ""
 "固定ページに表示する場合は、各固定ページの編集画面で\"お問い合わせ情報の表示"
 "\"にチェックを入れる必要があります。"
 
-#: dist/plugins/contact-section/contact-section.php:141
+#: dist/plugins/contact-section/contact-section.php:146
 #: dist/plugins/contact-section/customizer.php:62
 #: plugins/contact-section/contact-section.php:146
 #: plugins/contact-section/customizer.php:62
 msgid "Message"
 msgstr "メッセージ"
 
-#: dist/plugins/contact-section/contact-section.php:144
-#: dist/plugins/contact-section/contact-section.php:151
-#: dist/plugins/contact-section/contact-section.php:158
-#: dist/plugins/contact-section/contact-section.php:165
-#: dist/plugins/contact-section/contact-section.php:173
-#: dist/plugins/contact-section/contact-section.php:181
-#: dist/plugins/contact-section/contact-section.php:189
+#: dist/plugins/contact-section/contact-section.php:149
+#: dist/plugins/contact-section/contact-section.php:156
+#: dist/plugins/contact-section/contact-section.php:163
+#: dist/plugins/contact-section/contact-section.php:170
+#: dist/plugins/contact-section/contact-section.php:178
+#: dist/plugins/contact-section/contact-section.php:186
+#: dist/plugins/contact-section/contact-section.php:194
 #: dist/plugins/contact-section/customizer.php:67
 #: dist/plugins/contact-section/customizer.php:88
 #: dist/plugins/contact-section/customizer.php:109
@@ -449,7 +458,7 @@ msgstr "メッセージ"
 #: dist/plugins/contact-section/customizer.php:172
 #: dist/plugins/contact-section/customizer.php:193
 #: dist/plugins/google_analytics/ga_admin.php:16
-#: dist/plugins/sns/sns_admin.php:31
+#: dist/plugins/sns/sns_admin.php:38
 #: plugins/contact-section/contact-section.php:149
 #: plugins/contact-section/contact-section.php:156
 #: plugins/contact-section/contact-section.php:163
@@ -468,22 +477,22 @@ msgstr "メッセージ"
 msgid "ex) "
 msgstr "例) "
 
-#: dist/plugins/contact-section/contact-section.php:148
+#: dist/plugins/contact-section/contact-section.php:153
 #: dist/plugins/contact-section/customizer.php:83
 #: plugins/contact-section/contact-section.php:153
 #: plugins/contact-section/customizer.php:83
 msgid "Phone number"
 msgstr "電話番号"
 
-#: dist/plugins/contact-section/contact-section.php:155
+#: dist/plugins/contact-section/contact-section.php:160
 #: dist/plugins/contact-section/customizer.php:104
 #: plugins/contact-section/contact-section.php:160
 #: plugins/contact-section/customizer.php:104
 msgid "Phone icon"
 msgstr "電話アイコン"
 
-#: dist/plugins/contact-section/contact-section.php:162
-#: dist/plugins/contact-section/contact-section.php:165
+#: dist/plugins/contact-section/contact-section.php:167
+#: dist/plugins/contact-section/contact-section.php:170
 #: dist/plugins/contact-section/customizer.php:125
 #: dist/plugins/contact-section/customizer.php:130
 #: plugins/contact-section/contact-section.php:167
@@ -493,70 +502,70 @@ msgstr "電話アイコン"
 msgid "Office hours"
 msgstr "営業時間"
 
-#: dist/plugins/contact-section/contact-section.php:165
+#: dist/plugins/contact-section/contact-section.php:170
 #: dist/plugins/contact-section/customizer.php:130
 #: plugins/contact-section/contact-section.php:170
 #: plugins/contact-section/customizer.php:130
 msgid "Weekdays except holidays"
 msgstr "土日・祝日除く"
 
-#: dist/plugins/contact-section/contact-section.php:170
+#: dist/plugins/contact-section/contact-section.php:175
 #: dist/plugins/contact-section/customizer.php:146
 #: plugins/contact-section/contact-section.php:175
 #: plugins/contact-section/customizer.php:146
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
-#: dist/plugins/contact-section/contact-section.php:173
+#: dist/plugins/contact-section/contact-section.php:178
 #: dist/plugins/contact-section/customizer.php:151
 #: plugins/contact-section/contact-section.php:178
 #: plugins/contact-section/customizer.php:151
 msgid "or"
 msgstr "もしくは"
 
-#: dist/plugins/contact-section/contact-section.php:174
+#: dist/plugins/contact-section/contact-section.php:179
 #: dist/plugins/contact-section/customizer.php:151
 #: plugins/contact-section/contact-section.php:179
 #: plugins/contact-section/customizer.php:151
 msgid "* If you fill in the blank, widget's contact button does not appear."
 msgstr "※ 未入力の場合、お問い合わせウィジェットには何も表示されません。"
 
-#: dist/plugins/contact-section/contact-section.php:178
+#: dist/plugins/contact-section/contact-section.php:183
 #: dist/plugins/contact-section/customizer.php:167
 #: plugins/contact-section/contact-section.php:183
 #: plugins/contact-section/customizer.php:167
 msgid "Contact button Text"
 msgstr "お問い合わせボタンに表示するテキスト"
 
-#: dist/plugins/contact-section/contact-section.php:181
+#: dist/plugins/contact-section/contact-section.php:186
 #: dist/plugins/contact-section/customizer.php:172
 #: plugins/contact-section/contact-section.php:186
 #: plugins/contact-section/customizer.php:172
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
-#: dist/plugins/contact-section/contact-section.php:186
+#: dist/plugins/contact-section/contact-section.php:191
 #: dist/plugins/contact-section/customizer.php:188
 #: plugins/contact-section/contact-section.php:191
 #: plugins/contact-section/customizer.php:188
 msgid "Contact button text( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
-#: dist/plugins/contact-section/contact-section.php:190
+#: dist/plugins/contact-section/contact-section.php:195
 #: dist/plugins/contact-section/customizer.php:193
 #: plugins/contact-section/contact-section.php:195
 #: plugins/contact-section/customizer.php:193
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
-#: dist/plugins/contact-section/contact-section.php:195
+#: dist/plugins/contact-section/contact-section.php:200
 #: dist/plugins/contact-section/customizer.php:209
 #: plugins/contact-section/contact-section.php:200
 #: plugins/contact-section/customizer.php:209
 msgid "Contact button short text for side widget"
 msgstr "お問い合わせボタンウィジェットに表示するテキスト"
 
-#: dist/plugins/contact-section/contact-section.php:199
+#: dist/plugins/contact-section/contact-section.php:204
 #: dist/plugins/contact-section/customizer.php:214
 #: plugins/contact-section/contact-section.php:204
 #: plugins/contact-section/customizer.php:214
@@ -565,24 +574,24 @@ msgstr ""
 "このテキストはお問い合わせボタンウィジェットで使用されます。サイドバーでの利"
 "用を想定していますので少ない文字数で設定してください。"
 
-#: dist/plugins/contact-section/contact-section.php:203
+#: dist/plugins/contact-section/contact-section.php:208
 #: plugins/contact-section/contact-section.php:208
 msgid "Advanced Setting"
 msgstr "高度な設定"
 
-#: dist/plugins/contact-section/contact-section.php:212
+#: dist/plugins/contact-section/contact-section.php:217
 #: dist/plugins/contact-section/customizer.php:238
 #: plugins/contact-section/contact-section.php:217
 #: plugins/contact-section/customizer.php:238
 msgid "Inquiry Banner image"
 msgstr "お問い合わせバナー画像"
 
-#: dist/plugins/contact-section/contact-section.php:214
+#: dist/plugins/contact-section/contact-section.php:219
 #: plugins/contact-section/contact-section.php:219
 msgid "Select Image"
 msgstr "画像を選択"
 
-#: dist/plugins/contact-section/contact-section.php:215
+#: dist/plugins/contact-section/contact-section.php:220
 #: dist/plugins/contact-section/customizer.php:228
 #: plugins/contact-section/contact-section.php:220
 #: plugins/contact-section/customizer.php:228
@@ -590,45 +599,45 @@ msgid "Display the image instead of the above inquiry information"
 msgstr ""
 "画像が登録されている場合は標準のお問い合わせ情報ではなく画像が表示されます。"
 
-#: dist/plugins/contact-section/contact-section.php:219
+#: dist/plugins/contact-section/contact-section.php:224
 #: dist/plugins/contact-section/customizer.php:264
 #: plugins/contact-section/contact-section.php:224
 #: plugins/contact-section/customizer.php:264
 msgid "Display HTML message instead of the standard"
 msgstr "お問い合わせ情報として表示するHTML"
 
-#: dist/plugins/contact-section/contact-section.php:221
+#: dist/plugins/contact-section/contact-section.php:226
 #: dist/plugins/contact-section/customizer.php:257
 #: plugins/contact-section/contact-section.php:226
 #: plugins/contact-section/customizer.php:257
 msgid "HTML takes precedence over image"
 msgstr "HTMLが登録されている場合は画像より優先されます。"
 
-#: dist/plugins/contact-section/contact-section.php:243
+#: dist/plugins/contact-section/contact-section.php:248
 #: plugins/contact-section/contact-section.php:248
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
-#: dist/plugins/contact-section/contact-section.php:382
-#: dist/plugins/contact-section/contact-section.php:434
+#: dist/plugins/contact-section/contact-section.php:388
+#: dist/plugins/contact-section/contact-section.php:441
 #: plugins/contact-section/contact-section.php:388
 #: plugins/contact-section/contact-section.php:441
 msgid "Edit contact information"
 msgstr "Contact情報を編集"
 
-#: dist/plugins/contact-section/contact-section.php:450
+#: dist/plugins/contact-section/contact-section.php:457
 #: plugins/contact-section/contact-section.php:457
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
-#: dist/plugins/contact-section/contact-section.php:451
+#: dist/plugins/contact-section/contact-section.php:458
 #: plugins/contact-section/contact-section.php:458
 msgid "Display contact button."
 msgstr "お問い合わせボタンを表示します。"
 
-#: dist/plugins/contact-section/contact-section.php:452
-#: dist/plugins/contact-section/contact-section.php:480
-#: dist/plugins/contact-section/contact-section.php:502
+#: dist/plugins/contact-section/contact-section.php:459
+#: dist/plugins/contact-section/contact-section.php:487
+#: dist/plugins/contact-section/contact-section.php:509
 #: plugins/contact-section/contact-section.php:459
 #: plugins/contact-section/contact-section.php:487
 #: plugins/contact-section/contact-section.php:509
@@ -639,23 +648,23 @@ msgid ""
 msgstr ""
 "「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
-#: dist/plugins/contact-section/contact-section.php:479
+#: dist/plugins/contact-section/contact-section.php:486
 #: plugins/contact-section/contact-section.php:486
 msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
-#: dist/plugins/contact-section/contact-section.php:500
+#: dist/plugins/contact-section/contact-section.php:507
 #: dist/veu-packages.php:264 plugins/contact-section/contact-section.php:507
 #: veu-packages.php:264
 msgid "Contact Section"
 msgstr "お問い合わせ情報"
 
-#: dist/plugins/contact-section/contact-section.php:501
+#: dist/plugins/contact-section/contact-section.php:508
 #: plugins/contact-section/contact-section.php:508
 msgid "Display Phone number and contact button etc."
 msgstr "電話番号とお問い合わせボタンなどを表示します。"
 
-#: dist/plugins/contact-section/contact-section.php:530
+#: dist/plugins/contact-section/contact-section.php:537
 #: plugins/contact-section/contact-section.php:537
 #, php-format
 msgid ""
@@ -678,9 +687,9 @@ msgid "It is not reflected in the header."
 msgstr "ヘッダーには反映されません。"
 
 #: dist/plugins/css_customize/css_customize-edit.php:2
-#: dist/plugins/css_customize/css_customize.php:31
+#: dist/plugins/css_customize/css_customize.php:30
+#: dist/plugins/css_customize/css_customize.php:44
 #: dist/plugins/css_customize/css_customize.php:45
-#: dist/plugins/css_customize/css_customize.php:46
 #: plugins/css_customize/css_customize-edit.php:2
 #: plugins/css_customize/css_customize.php:30
 #: plugins/css_customize/css_customize.php:44
@@ -703,12 +712,12 @@ msgstr "CSSを保存する"
 msgid "Custom CSS"
 msgstr "カスタムCSS"
 
-#: dist/plugins/css_customize/css_customize.php:101
+#: dist/plugins/css_customize/css_customize.php:100
 #: plugins/css_customize/css_customize.php:100
 msgid "Your custom CSS was saved."
 msgstr "CSSが保存されました"
 
-#: dist/plugins/css_customize/css_customize.php:104
+#: dist/plugins/css_customize/css_customize.php:103
 #: plugins/css_customize/css_customize.php:103
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
@@ -864,33 +873,81 @@ msgstr "アイコンを選択"
 msgid "Please upload your \".ico\" file"
 msgstr "作成したicoファイルをアップロードしてください"
 
-#: dist/plugins/insert_ads.php:37 dist/plugins/insert_ads.php:180
+#: dist/plugins/insert_ads.php:38 dist/plugins/insert_ads.php:218
 #: dist/veu-packages.php:322 plugins/insert_ads.php:38
-#: plugins/insert_ads.php:207 veu-packages.php:322
+#: plugins/insert_ads.php:218 veu-packages.php:322
 msgid "Insert ads"
 msgstr "広告の挿入"
 
-#: dist/plugins/insert_ads.php:183 plugins/insert_ads.php:248
+#: dist/plugins/insert_ads.php:228 plugins/insert_ads.php:228
+msgid "Google Auto ads"
+msgstr "Google自動広告"
+
+#: dist/plugins/insert_ads.php:233 plugins/insert_ads.php:233
+msgid "About Google Auto ads"
+msgstr "Google自動広告について"
+
+#: dist/plugins/insert_ads.php:236 plugins/insert_ads.php:236
+msgid ""
+"If you would like to set to Google Auto ads,Please fill in Publisher ID."
+msgstr ""
+"Google自動広告を設定する場合はチェックを入れて、サイト運営者IDを入力してくだ"
+"さい。"
+
+#: dist/plugins/insert_ads.php:238 plugins/insert_ads.php:238
+msgid "Enable Google Auto ads"
+msgstr "Google自動広告を有効にする"
+
+#: dist/plugins/insert_ads.php:240 plugins/insert_ads.php:240
+msgid "Publisher ID"
+msgstr "サイト運営者ID"
+
+#: dist/plugins/insert_ads.php:244 plugins/insert_ads.php:244
+msgid "Google AdSense dashboard"
+msgstr "Google AdSense 管理画面"
+
+#: dist/plugins/insert_ads.php:246 plugins/insert_ads.php:246
+#, php-format
+msgid ""
+"Publisher ID is you can investigate from the %s > Account information page."
+msgstr "サイト運営者IDは %s > アカウント情報 から確認できます。"
+
+#: dist/plugins/insert_ads.php:249 plugins/insert_ads.php:249
+msgid "Designate anchor ads at the bottom."
+msgstr "アンカー広告を下部に指定する"
+
+#: dist/plugins/insert_ads.php:251 plugins/insert_ads.php:251
+msgid ""
+"The layout may collapse by inserting Google Auto ads, but the correspondence "
+"varies depending on the kind, specification, theme etc. of advertisement, so "
+"please write CSS according to your needs about the display collapse and "
+"correct it."
+msgstr ""
+"自動広告の挿入によりレイアウトが崩れる事がありますが、広告の種類・仕様・利用"
+"中のテーマなどにより対応は様々ですので、表示崩れについては各自必要に応じてCSS"
+"を書いて修正してください。"
+
+#: dist/plugins/insert_ads.php:259 plugins/insert_ads.php:259
 msgid "Insert ads to post."
 msgstr "投稿に広告を挿入"
 
-#: dist/plugins/insert_ads.php:185 plugins/insert_ads.php:250
+#: dist/plugins/insert_ads.php:261 plugins/insert_ads.php:261
 msgid "Insert ads to before content and more tag and after content."
 msgstr "記事の直前 / moreタグの直後 / 記事の最後に広告を挿入できます。"
 
-#: dist/plugins/insert_ads.php:185 plugins/insert_ads.php:250
+#: dist/plugins/insert_ads.php:261 plugins/insert_ads.php:261
 msgid "If you want to separate ads area, you fill two fields."
 msgstr "２つのフィールドに分けて挿入すると、横並び（col-md-6）に表示されます。"
 
-#: dist/plugins/insert_ads.php:187 plugins/insert_ads.php:252
+#: dist/plugins/insert_ads.php:263 plugins/insert_ads.php:263
 msgid "insert the ad [ before content ]"
 msgstr "広告を挿入 [ 記事の最初 ]"
 
-#: dist/plugins/insert_ads.php:195 plugins/insert_ads.php:260
+#: dist/plugins/insert_ads.php:271 plugins/insert_ads.php:271
 msgid "insert the ad [ more tag ]"
 msgstr "広告を挿入 [ moreタグ ]"
 
-#: dist/plugins/insert_ads.php:203 plugins/insert_ads.php:268
+#: dist/plugins/insert_ads.php:279 plugins/insert_ads.php:279
 msgid "insert the ad [ after content ]"
 msgstr "広告を挿入 [ 記事の最後 ]"
 
@@ -1029,7 +1086,7 @@ msgid "3PR area setting"
 msgstr "3PR エリア設定"
 
 #: dist/plugins/other_widget/widget-3pr-area.php:56
-#: dist/plugins/other_widget/widget-new-posts.php:239
+#: dist/plugins/other_widget/widget-new-posts.php:243
 #: dist/plugins/other_widget/widget-page.php:126
 #: dist/plugins/other_widget/widget-pr-blocks.php:111
 #: dist/plugins/other_widget/widget-profile.php:55
@@ -1037,7 +1094,7 @@ msgstr "3PR エリア設定"
 #: dist/plugins/sns/widget-fb-page-plugin.php:79
 #: dist/plugins/sns/widget-twitter.php:84
 #: plugins/other_widget/widget-3pr-area.php:56
-#: plugins/other_widget/widget-new-posts.php:242
+#: plugins/other_widget/widget-new-posts.php:243
 #: plugins/other_widget/widget-page.php:126
 #: plugins/other_widget/widget-pr-blocks.php:111
 #: plugins/other_widget/widget-profile.php:55
@@ -1053,12 +1110,12 @@ msgstr "PC 用に表示される画像を選択（横 300px 程度推奨）"
 
 #: dist/plugins/other_widget/widget-3pr-area.php:72
 #: dist/plugins/other_widget/widget-3pr-area.php:90
-#: dist/plugins/other_widget/widget-new-posts.php:286
+#: dist/plugins/other_widget/widget-new-posts.php:290
 #: dist/plugins/other_widget/widget-pr-blocks.php:174
 #: dist/plugins/other_widget/widget-profile.php:70
 #: plugins/other_widget/widget-3pr-area.php:72
 #: plugins/other_widget/widget-3pr-area.php:90
-#: plugins/other_widget/widget-new-posts.php:289
+#: plugins/other_widget/widget-new-posts.php:290
 #: plugins/other_widget/widget-pr-blocks.php:174
 #: plugins/other_widget/widget-profile.php:70
 msgid "Select image"
@@ -1066,12 +1123,12 @@ msgstr "画像を選択"
 
 #: dist/plugins/other_widget/widget-3pr-area.php:73
 #: dist/plugins/other_widget/widget-3pr-area.php:91
-#: dist/plugins/other_widget/widget-new-posts.php:287
+#: dist/plugins/other_widget/widget-new-posts.php:291
 #: dist/plugins/other_widget/widget-pr-blocks.php:175
 #: dist/plugins/other_widget/widget-profile.php:71
 #: plugins/other_widget/widget-3pr-area.php:73
 #: plugins/other_widget/widget-3pr-area.php:91
-#: plugins/other_widget/widget-new-posts.php:290
+#: plugins/other_widget/widget-new-posts.php:291
 #: plugins/other_widget/widget-pr-blocks.php:175
 #: plugins/other_widget/widget-profile.php:71
 msgid "Clear image"
@@ -1129,11 +1186,11 @@ msgid "Monthly archives"
 msgstr "月別アーカイブ"
 
 #: dist/plugins/other_widget/widget-archives.php:68
-#: dist/plugins/other_widget/widget-new-posts.php:257
-#: dist/plugins/other_widget/widget-new-posts.php:264
+#: dist/plugins/other_widget/widget-new-posts.php:261
+#: dist/plugins/other_widget/widget-new-posts.php:268
 #: plugins/other_widget/widget-archives.php:68
-#: plugins/other_widget/widget-new-posts.php:260
-#: plugins/other_widget/widget-new-posts.php:267
+#: plugins/other_widget/widget-new-posts.php:261
+#: plugins/other_widget/widget-new-posts.php:268
 msgid "Title"
 msgstr "タイトル"
 
@@ -1281,103 +1338,103 @@ msgstr "子ページのリスト"
 msgid "Display the child pages list from ancestor page."
 msgstr "表示しているページの先祖階層からの子ページリストを表示します。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:11
-#: dist/plugins/other_widget/widget-new-posts.php:213
-#: plugins/other_widget/widget-new-posts.php:11
-#: plugins/other_widget/widget-new-posts.php:216
+#: dist/plugins/other_widget/widget-new-posts.php:12
+#: dist/plugins/other_widget/widget-new-posts.php:217
+#: plugins/other_widget/widget-new-posts.php:12
+#: plugins/other_widget/widget-new-posts.php:217
 msgid "Recent Posts"
 msgstr "最新記事"
 
-#: dist/plugins/other_widget/widget-new-posts.php:16
-#: plugins/other_widget/widget-new-posts.php:16
+#: dist/plugins/other_widget/widget-new-posts.php:17
+#: plugins/other_widget/widget-new-posts.php:17
 msgid "Displays a list of your most recent posts"
 msgstr "最新の投稿記事リストを表示します。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:250
-#: plugins/other_widget/widget-new-posts.php:253
+#: dist/plugins/other_widget/widget-new-posts.php:254
+#: plugins/other_widget/widget-new-posts.php:254
 msgid "Display Format"
 msgstr "表示形式"
 
-#: dist/plugins/other_widget/widget-new-posts.php:257
-#: plugins/other_widget/widget-new-posts.php:260
+#: dist/plugins/other_widget/widget-new-posts.php:261
+#: plugins/other_widget/widget-new-posts.php:261
 msgid "Thumbnail"
 msgstr "サムネイル画像"
 
-#: dist/plugins/other_widget/widget-new-posts.php:257
-#: dist/plugins/other_widget/widget-new-posts.php:264
-#: plugins/other_widget/widget-new-posts.php:260
-#: plugins/other_widget/widget-new-posts.php:267
+#: dist/plugins/other_widget/widget-new-posts.php:261
+#: dist/plugins/other_widget/widget-new-posts.php:268
+#: plugins/other_widget/widget-new-posts.php:261
+#: plugins/other_widget/widget-new-posts.php:268
 msgid "Date"
 msgstr "日付"
 
-#: dist/plugins/other_widget/widget-new-posts.php:264
+#: dist/plugins/other_widget/widget-new-posts.php:268
 #: dist/plugins/other_widget/widget-taxonomies.php:26
 #: dist/plugins/other_widget/widget-taxonomies.php:56
 #: dist/plugins/other_widget/widget-taxonomies.php:57
-#: plugins/other_widget/widget-new-posts.php:267
+#: plugins/other_widget/widget-new-posts.php:268
 #: plugins/other_widget/widget-taxonomies.php:26
 #: plugins/other_widget/widget-taxonomies.php:56
 #: plugins/other_widget/widget-taxonomies.php:57
 msgid "Category"
 msgstr "カテゴリー"
 
-#: dist/plugins/other_widget/widget-new-posts.php:267
-#: plugins/other_widget/widget-new-posts.php:270
+#: dist/plugins/other_widget/widget-new-posts.php:281
+#: plugins/other_widget/widget-new-posts.php:281
 msgid "Default thumbnail image:"
 msgstr "デフォルトのサムネイル画像:"
 
-#: dist/plugins/other_widget/widget-new-posts.php:298
-#: plugins/other_widget/widget-new-posts.php:301
+#: dist/plugins/other_widget/widget-new-posts.php:302
+#: plugins/other_widget/widget-new-posts.php:302
 msgid "Order by"
 msgstr "表示順"
 
-#: dist/plugins/other_widget/widget-new-posts.php:305
-#: plugins/other_widget/widget-new-posts.php:308
+#: dist/plugins/other_widget/widget-new-posts.php:309
+#: plugins/other_widget/widget-new-posts.php:309
 msgid "Publish date"
 msgstr "公開日"
 
-#: dist/plugins/other_widget/widget-new-posts.php:311
-#: plugins/other_widget/widget-new-posts.php:314
+#: dist/plugins/other_widget/widget-new-posts.php:315
+#: plugins/other_widget/widget-new-posts.php:315
 msgid "Modified date"
 msgstr "最終更新日"
 
-#: dist/plugins/other_widget/widget-new-posts.php:315
+#: dist/plugins/other_widget/widget-new-posts.php:319
 #: dist/plugins/related_posts/related_posts.php:281
-#: plugins/other_widget/widget-new-posts.php:318
+#: plugins/other_widget/widget-new-posts.php:319
 #: plugins/related_posts/related_posts.php:281
 msgid "Display count"
 msgstr "表示する記事数"
 
-#: dist/plugins/other_widget/widget-new-posts.php:320
-#: plugins/other_widget/widget-new-posts.php:323
+#: dist/plugins/other_widget/widget-new-posts.php:324
+#: plugins/other_widget/widget-new-posts.php:324
 msgid "Slug for the custom type you want to display"
 msgstr "表示したい記事タイプ"
 
-#: dist/plugins/other_widget/widget-new-posts.php:325
-#: plugins/other_widget/widget-new-posts.php:328
+#: dist/plugins/other_widget/widget-new-posts.php:329
+#: plugins/other_widget/widget-new-posts.php:329
 msgid "taxonomy ID"
 msgstr "カテゴリー（タクソノミー）ID"
 
-#: dist/plugins/other_widget/widget-new-posts.php:328
-#: plugins/other_widget/widget-new-posts.php:331
+#: dist/plugins/other_widget/widget-new-posts.php:332
+#: plugins/other_widget/widget-new-posts.php:332
 msgid "if you need filtering by term, add the term ID separate by \",\"."
 msgstr ""
 "特定のカテゴリーのみ表示したい場合は<br/>カンマ(,)区切りでカテゴリーIDを入力"
 "します。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:330
-#: dist/plugins/sns/sns_admin.php:85
-#: plugins/other_widget/widget-new-posts.php:333 plugins/sns/sns_admin.php:92
+#: dist/plugins/other_widget/widget-new-posts.php:334
+#: dist/plugins/sns/sns_admin.php:92
+#: plugins/other_widget/widget-new-posts.php:334 plugins/sns/sns_admin.php:92
 msgid "if empty this area, I will do not filtering."
 msgstr "空欄の場合はフィルタリングは行いません。"
 
-#: dist/plugins/other_widget/widget-new-posts.php:335
-#: plugins/other_widget/widget-new-posts.php:338
+#: dist/plugins/other_widget/widget-new-posts.php:339
+#: plugins/other_widget/widget-new-posts.php:339
 msgid "Destination URL:"
 msgstr "リンク先URL:"
 
-#: dist/plugins/other_widget/widget-new-posts.php:338
-#: plugins/other_widget/widget-new-posts.php:341
+#: dist/plugins/other_widget/widget-new-posts.php:342
+#: plugins/other_widget/widget-new-posts.php:342
 msgid "Notation text:"
 msgstr "表記テキスト:"
 
@@ -1512,10 +1569,10 @@ msgstr "塗りつぶし"
 
 #: dist/plugins/other_widget/widget-pr-blocks.php:155
 #: dist/plugins/other_widget/widget-profile.php:151
-#: dist/plugins/sns/sns_customizer.php:317
+#: dist/plugins/sns/sns_customizer.php:356
 #: plugins/other_widget/widget-pr-blocks.php:155
 #: plugins/other_widget/widget-profile.php:151
-#: plugins/sns/sns_customizer.php:356
+#: plugins/sns/sns_customizer.php:318
 msgid "No background"
 msgstr "背景なし"
 
@@ -1667,7 +1724,7 @@ msgid "Blog"
 msgstr "ブログ"
 
 #: dist/plugins/other_widget/widget-taxonomies.php:111
-#: dist/plugins/template-tags/template-tags.php:136
+#: dist/plugins/template-tags/template-tags.php:157
 #: plugins/other_widget/widget-taxonomies.php:111
 #: plugins/template-tags/template-tags.php:157
 msgid "Archives"
@@ -1882,12 +1939,12 @@ msgstr "このサイトをフォローする"
 msgid "Edit follow button"
 msgstr "Follow me box の編集"
 
-#: dist/plugins/sns/function_meta_box.php:28
+#: dist/plugins/sns/function_meta_box.php:29
 #: plugins/sns/function_meta_box.php:29
 msgid "Sns Title"
 msgstr "OGPタイトル"
 
-#: dist/plugins/sns/function_meta_box.php:39
+#: dist/plugins/sns/function_meta_box.php:40
 #: plugins/sns/function_meta_box.php:40
 msgid "if filled this area then override title of OGP and Twitter Card"
 msgstr ""
@@ -1906,29 +1963,39 @@ msgstr "この投稿タイプはシェアボタンを表示するように設定
 msgid "Don't display share bottons."
 msgstr "ソーシャルボタンを表示しない"
 
-#: dist/plugins/sns/sns.php:27 plugins/sns/sns.php:21
+#: dist/plugins/sns/sns.php:21 plugins/sns/sns.php:21
 msgid "SNS"
 msgstr "SNS"
 
-#: dist/plugins/sns/sns.php:128 plugins/sns/sns.php:149
+#: dist/plugins/sns/sns.php:151 plugins/sns/sns.php:156
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
 
-#: dist/plugins/sns/sns_admin.php:1 dist/plugins/sns/sns_customizer.php:24
-#: plugins/sns/sns_admin.php:1 plugins/sns/sns_customizer.php:26
+#: dist/plugins/sns/sns_admin.php:1 dist/plugins/sns/sns_customizer.php:26
+#: plugins/sns/sns_admin.php:1 plugins/sns/sns_customizer.php:22
 msgid "SNS Settings"
 msgstr "SNS設定"
 
-#: dist/plugins/sns/sns_admin.php:13 plugins/sns/sns_admin.php:20
+#: dist/plugins/sns/sns_admin.php:14 dist/plugins/sns/sns_customizer.php:37
+#: plugins/sns/sns_admin.php:14 plugins/sns/sns_customizer.php:36
+msgid "Post title custom for SNS"
+msgstr "OGPなどの投稿タイトルの変更"
+
+#: dist/plugins/sns/sns_admin.php:16 dist/plugins/sns/sns_customizer.php:59
+#: plugins/sns/sns_admin.php:16 plugins/sns/sns_customizer.php:58
+msgid "For SNS title be composed by post title only."
+msgstr "投稿タイトルだけにする（サイトタイトルなど含めない）。"
+
+#: dist/plugins/sns/sns_admin.php:20 plugins/sns/sns_admin.php:20
 msgid "facebook application ID"
 msgstr "facebookアプリケーションID"
 
-#: dist/plugins/sns/sns_admin.php:15 plugins/sns/sns_admin.php:22
+#: dist/plugins/sns/sns_admin.php:22 plugins/sns/sns_admin.php:22
 msgid "I will check and get the application ID"
 msgstr "アプリケーションIDを確認・取得する "
 
-#: dist/plugins/sns/sns_admin.php:16 plugins/sns/sns_admin.php:23
+#: dist/plugins/sns/sns_admin.php:23 plugins/sns/sns_admin.php:23
 msgid ""
 "* If an application ID is not specified, neither a Like button nor the "
 "comment field displays and operates correctly."
@@ -1936,7 +2003,7 @@ msgstr ""
 "※アプリケーションIDを入力しないとボタンやコメント欄が表示・正しく動作しませ"
 "ん。"
 
-#: dist/plugins/sns/sns_admin.php:17 plugins/sns/sns_admin.php:24
+#: dist/plugins/sns/sns_admin.php:24 plugins/sns/sns_admin.php:24
 msgid ""
 "Please search for terms as [get Facebook application ID] If you do not know "
 "much about how to get application ID for Facebook."
@@ -1944,16 +2011,16 @@ msgstr ""
 "facebookのアプリケーションIDの取得方法についてよくわからない場合は「facebook "
 "アプリケーションID 取得」などで検索して下さい。"
 
-#: dist/plugins/sns/sns_admin.php:21 plugins/sns/sns_admin.php:28
+#: dist/plugins/sns/sns_admin.php:28 plugins/sns/sns_admin.php:28
 msgid "facebook page URL"
 msgstr "FacebookページURL"
 
-#: dist/plugins/sns/sns_admin.php:26 dist/plugins/sns/sns_customizer.php:103
-#: plugins/sns/sns_admin.php:33 plugins/sns/sns_customizer.php:140
+#: dist/plugins/sns/sns_admin.php:33 dist/plugins/sns/sns_customizer.php:140
+#: plugins/sns/sns_admin.php:33 plugins/sns/sns_customizer.php:141
 msgid "OG default image"
 msgstr "デフォルトのOGPイメージ"
 
-#: dist/plugins/sns/sns_admin.php:27 plugins/sns/sns_admin.php:34
+#: dist/plugins/sns/sns_admin.php:34 plugins/sns/sns_admin.php:34
 msgid ""
 "If, for example someone pressed the Facebook [Like] button, this is the "
 "image that appears on the Facebook timeline."
@@ -1961,37 +2028,37 @@ msgstr ""
 "Facebookの「いいね！」ボタンを押した際、ここで設定した画像が Facebook のタイ"
 "ムラインに表示されます。"
 
-#: dist/plugins/sns/sns_admin.php:28 plugins/sns/sns_admin.php:35
+#: dist/plugins/sns/sns_admin.php:35 plugins/sns/sns_admin.php:35
 msgid "If a featured image is specified for the page, it takes precedence."
 msgstr ""
 "ページにアイキャッチ画像が指定されている場合は、アイキャッチ画像が優先されま"
 "す。"
 
-#: dist/plugins/sns/sns_admin.php:30 plugins/sns/sns_admin.php:37
+#: dist/plugins/sns/sns_admin.php:37 plugins/sns/sns_admin.php:37
 msgid "Select an image"
 msgstr "画像を選択"
 
-#: dist/plugins/sns/sns_admin.php:32 plugins/sns/sns_admin.php:39
+#: dist/plugins/sns/sns_admin.php:39 plugins/sns/sns_admin.php:39
 msgid ""
 "* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is "
 "recommended."
 msgstr "画像サイズ 橫 1280px 縦 720px 以上、画像比率 16:9 を推奨します。"
 
-#: dist/plugins/sns/sns_admin.php:36 plugins/sns/sns_admin.php:43
+#: dist/plugins/sns/sns_admin.php:43 plugins/sns/sns_admin.php:43
 msgid "twitter ID"
 msgstr "twitterアカウント"
 
-#: dist/plugins/sns/sns_admin.php:41 plugins/sns/sns_admin.php:48
+#: dist/plugins/sns/sns_admin.php:48 plugins/sns/sns_admin.php:48
 msgid "OG tags"
 msgstr "OGタグ"
 
-#: dist/plugins/sns/sns_admin.php:43 dist/plugins/sns/sns_customizer.php:139
-#: plugins/sns/sns_admin.php:50 plugins/sns/sns_customizer.php:176
+#: dist/plugins/sns/sns_admin.php:50 dist/plugins/sns/sns_customizer.php:176
+#: plugins/sns/sns_admin.php:50 plugins/sns/sns_customizer.php:180
 msgid "Print the OG tags"
 msgstr "OGタグを出力する"
 
-#: dist/plugins/sns/sns_admin.php:44 dist/plugins/sns/sns_customizer.php:143
-#: plugins/sns/sns_admin.php:51 plugins/sns/sns_customizer.php:180
+#: dist/plugins/sns/sns_admin.php:51 dist/plugins/sns/sns_customizer.php:180
+#: plugins/sns/sns_admin.php:51 plugins/sns/sns_customizer.php:184
 msgid ""
 "If other plug-ins are used for the OG, do not output the OG using this "
 "plugin."
@@ -1999,103 +2066,104 @@ msgstr ""
 "OGタグの出力を選択して下さい。もし他のプラグインやテーマでOGタグを出力してい"
 "る場合は、このプラグインでの出力は必要ありません。"
 
-#: dist/plugins/sns/sns_admin.php:49 dist/plugins/sns/sns_customizer.php:199
-#: plugins/sns/sns_admin.php:56 plugins/sns/sns_customizer.php:236
+#: dist/plugins/sns/sns_admin.php:56 dist/plugins/sns/sns_customizer.php:236
+#: plugins/sns/sns_admin.php:56 plugins/sns/sns_customizer.php:243
 msgid "Twitter Card tags"
 msgstr "Twitterカードタグ"
 
-#: dist/plugins/sns/sns_admin.php:51 dist/plugins/sns/sns_customizer.php:203
-#: plugins/sns/sns_admin.php:58 plugins/sns/sns_customizer.php:240
+#: dist/plugins/sns/sns_admin.php:58 dist/plugins/sns/sns_customizer.php:240
+#: plugins/sns/sns_admin.php:58 plugins/sns/sns_customizer.php:247
 msgid "Print the Twitter Card tags"
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: dist/plugins/sns/sns_admin.php:56 dist/plugins/sns/sns_customizer.php:216
-#: plugins/sns/sns_admin.php:63 plugins/sns/sns_customizer.php:255
+#: dist/plugins/sns/sns_admin.php:63 dist/plugins/sns/sns_customizer.php:255
+#: plugins/sns/sns_admin.php:63 plugins/sns/sns_customizer.php:260
 msgid "Social bookmark buttons"
 msgstr "ソーシャルボタン"
 
-#: dist/plugins/sns/sns_admin.php:57 dist/plugins/sns/sns_customizer.php:239
-#: plugins/sns/sns_admin.php:64 plugins/sns/sns_customizer.php:278
+#: dist/plugins/sns/sns_admin.php:64 dist/plugins/sns/sns_customizer.php:278
+#: plugins/sns/sns_admin.php:64 plugins/sns/sns_customizer.php:283
 msgid "Print the social bookmark buttons"
 msgstr "ソーシャルブックマーク（シェアボタンやtweetボタン）を表示します。"
 
-#: dist/plugins/sns/sns_admin.php:60 dist/plugins/sns/sns_customizer.php:254
-#: plugins/sns/sns_admin.php:67 plugins/sns/sns_customizer.php:293
+#: dist/plugins/sns/sns_admin.php:67 dist/plugins/sns/sns_customizer.php:293
+#: plugins/sns/sns_admin.php:67 plugins/sns/sns_customizer.php:409
 msgid "Exclude Post Types"
 msgstr "シェアボタンを表示しない投稿タイプ"
 
-#: dist/plugins/sns/sns_admin.php:73 plugins/sns/sns_admin.php:80
+#: dist/plugins/sns/sns_admin.php:80 plugins/sns/sns_admin.php:80
 msgid "Exclude Post ID"
 msgstr "シェアボタンを表示しない投稿のID"
 
-#: dist/plugins/sns/sns_admin.php:83 plugins/sns/sns_admin.php:90
+#: dist/plugins/sns/sns_admin.php:90 plugins/sns/sns_admin.php:90
 msgid ""
 "if you need filtering by post_ID, add the ignore post_ID separate by \",\"."
 msgstr ""
 "特定のポストのみSNSボタンを表示したくない場合、カンマ(,)区切りでポストIDを入"
 "力します。"
 
-#: dist/plugins/sns/sns_admin.php:87 plugins/sns/sns_admin.php:94
+#: dist/plugins/sns/sns_admin.php:94 plugins/sns/sns_admin.php:94
 msgid "example"
 msgstr "例"
 
-#: dist/plugins/sns/sns_admin.php:96 dist/plugins/sns/sns_customizer.php:470
-#: plugins/sns/sns_admin.php:103 plugins/sns/sns_customizer.php:509
+#: dist/plugins/sns/sns_admin.php:103 dist/plugins/sns/sns_customizer.php:509
+#: plugins/sns/sns_admin.php:161 plugins/sns/sns_customizer.php:571
 msgid "Follow me box"
 msgstr "Follow me box"
 
-#: dist/plugins/sns/sns_admin.php:97 plugins/sns/sns_admin.php:104
+#: dist/plugins/sns/sns_admin.php:104 plugins/sns/sns_admin.php:162
+#: plugins/sns/sns_customizer.php:593
 msgid "Print the Follow me box"
 msgstr "Follow me ユニットを本文の下に表示する"
 
-#: dist/plugins/sns/sns_admin.php:99 dist/plugins/sns/sns_customizer.php:504
-#: plugins/sns/sns_admin.php:106 plugins/sns/sns_customizer.php:543
+#: dist/plugins/sns/sns_admin.php:106 dist/plugins/sns/sns_customizer.php:543
+#: plugins/sns/sns_admin.php:164 plugins/sns/sns_customizer.php:613
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
 
-#: dist/plugins/sns/sns_admin.php:106 dist/plugins/sns/sns_customizer.php:354
-#: plugins/sns/sns_admin.php:113 plugins/sns/sns_customizer.php:393
+#: dist/plugins/sns/sns_admin.php:113 dist/plugins/sns/sns_customizer.php:393
+#: plugins/sns/sns_admin.php:103 plugins/sns/sns_customizer.php:452
 msgid "Share button for display"
 msgstr "表示するボタン"
 
-#: dist/plugins/sns/sns_admin.php:114 plugins/sns/sns_admin.php:121
+#: dist/plugins/sns/sns_admin.php:121 plugins/sns/sns_admin.php:111
 msgid "Facebook"
 msgstr "Facebook"
 
-#: dist/plugins/sns/sns_admin.php:120 dist/plugins/sns/sns_customizer.php:395
-#: dist/plugins/sns/widget-twitter.php:9 plugins/sns/sns_admin.php:127
-#: plugins/sns/sns_customizer.php:434 plugins/sns/widget-twitter.php:9
+#: dist/plugins/sns/sns_admin.php:127 dist/plugins/sns/sns_customizer.php:434
+#: dist/plugins/sns/widget-twitter.php:9 plugins/sns/sns_admin.php:117
+#: plugins/sns/sns_customizer.php:493 plugins/sns/widget-twitter.php:9
 msgid "Twitter"
 msgstr "Twitter"
 
-#: dist/plugins/sns/sns_admin.php:126 dist/plugins/sns/sns_customizer.php:416
-#: plugins/sns/sns_admin.php:133 plugins/sns/sns_customizer.php:455
+#: dist/plugins/sns/sns_admin.php:133 dist/plugins/sns/sns_customizer.php:455
+#: plugins/sns/sns_admin.php:123 plugins/sns/sns_customizer.php:514
 msgid "Hatena"
 msgstr "はてな"
 
-#: dist/plugins/sns/sns_admin.php:132 dist/plugins/sns/sns_customizer.php:437
-#: plugins/sns/sns_admin.php:139 plugins/sns/sns_customizer.php:476
+#: dist/plugins/sns/sns_admin.php:139 dist/plugins/sns/sns_customizer.php:476
+#: plugins/sns/sns_admin.php:129 plugins/sns/sns_customizer.php:535
 msgid "Pocket"
 msgstr "Pocket"
 
-#: dist/plugins/sns/sns_admin.php:138 dist/plugins/sns/sns_customizer.php:458
-#: plugins/sns/sns_admin.php:145 plugins/sns/sns_customizer.php:497
+#: dist/plugins/sns/sns_admin.php:145 dist/plugins/sns/sns_customizer.php:497
+#: plugins/sns/sns_admin.php:135 plugins/sns/sns_customizer.php:556
 msgid "LINE (mobile only)"
 msgstr "LINE (mobile only)"
 
-#: dist/plugins/sns/sns_customizer.php:36 plugins/sns/sns_customizer.php:73
+#: dist/plugins/sns/sns_customizer.php:73 plugins/sns/sns_customizer.php:74
 msgid "Facebook Settings"
 msgstr "Facebook 設定"
 
-#: dist/plugins/sns/sns_customizer.php:59 plugins/sns/sns_customizer.php:96
+#: dist/plugins/sns/sns_customizer.php:96 plugins/sns/sns_customizer.php:97
 msgid "Facebook application ID"
 msgstr "facebookアプリケーションID"
 
-#: dist/plugins/sns/sns_customizer.php:80 plugins/sns/sns_customizer.php:117
+#: dist/plugins/sns/sns_customizer.php:117 plugins/sns/sns_customizer.php:118
 msgid "Facebook Page URL"
 msgstr "FacebookページURL"
 
-#: dist/plugins/sns/sns_customizer.php:106 plugins/sns/sns_customizer.php:143
+#: dist/plugins/sns/sns_customizer.php:143 plugins/sns/sns_customizer.php:144
 msgid ""
 "If, for example someone pressed the Facebook [Like] button, this is the "
 "image that appears on the Facebook timeline.<br>If a featured image is "
@@ -2107,29 +2175,29 @@ msgstr ""
 "アイキャッチ画像が優先されます。<br>画像サイズ 橫 1280px 縦 720px 以上、画像"
 "比率 16:9 程度を推奨します。"
 
-#: dist/plugins/sns/sns_customizer.php:116 plugins/sns/sns_customizer.php:153
+#: dist/plugins/sns/sns_customizer.php:153 plugins/sns/sns_customizer.php:157
 msgid "OG Settings"
 msgstr "OG 設定"
 
-#: dist/plugins/sns/sns_customizer.php:152 plugins/sns/sns_customizer.php:189
+#: dist/plugins/sns/sns_customizer.php:189 plugins/sns/sns_customizer.php:196
 msgid "Twitter Settings"
 msgstr "Twitter 設定"
 
-#: dist/plugins/sns/sns_customizer.php:175 plugins/sns/sns_customizer.php:212
+#: dist/plugins/sns/sns_customizer.php:212 plugins/sns/sns_customizer.php:219
 #, fuzzy
 #| msgid "twitter ID"
 msgid "Twitter ID"
 msgstr "twitterアカウント"
 
-#: dist/plugins/sns/sns_customizer.php:297 plugins/sns/sns_customizer.php:336
+#: dist/plugins/sns/sns_customizer.php:336 plugins/sns/sns_customizer.php:298
 msgid "Social button style setting"
 msgstr "ソーシャルボタンのスタイル設定"
 
-#: dist/plugins/sns/sns_customizer.php:339 plugins/sns/sns_customizer.php:378
+#: dist/plugins/sns/sns_customizer.php:378 plugins/sns/sns_customizer.php:340
 msgid "Btn color"
 msgstr "ボタンの色:"
 
-#: dist/plugins/sns/sns_customizer.php:374 plugins/sns/sns_customizer.php:413
+#: dist/plugins/sns/sns_customizer.php:413 plugins/sns/sns_customizer.php:472
 #, fuzzy
 #| msgid "Facebook URL:"
 msgid "Facebook "
@@ -2184,106 +2252,106 @@ msgstr "背景の色:"
 msgid "Link color:"
 msgstr "リンクの色:"
 
-#: dist/plugins/template-tags/template-tags.php:95
+#: dist/plugins/template-tags/template-tags.php:116
 #: plugins/template-tags/template-tags.php:116
 #, php-format
 msgid "Author: %s"
 msgstr "著者: %s"
 
-#: dist/plugins/template-tags/template-tags.php:97
-#: dist/plugins/template-tags/template-tags.php:179
+#: dist/plugins/template-tags/template-tags.php:118
+#: dist/plugins/template-tags/template-tags.php:200
 #: plugins/template-tags/template-tags.php:118
 #: plugins/template-tags/template-tags.php:200
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "Y年"
 
-#: dist/plugins/template-tags/template-tags.php:99
-#: dist/plugins/template-tags/template-tags.php:183
+#: dist/plugins/template-tags/template-tags.php:120
+#: dist/plugins/template-tags/template-tags.php:204
 #: plugins/template-tags/template-tags.php:120
 #: plugins/template-tags/template-tags.php:204
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr "Y年F"
 
-#: dist/plugins/template-tags/template-tags.php:101
+#: dist/plugins/template-tags/template-tags.php:122
 #: plugins/template-tags/template-tags.php:122
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "Y年Fj日"
 
-#: dist/plugins/template-tags/template-tags.php:104
+#: dist/plugins/template-tags/template-tags.php:125
 #: plugins/template-tags/template-tags.php:125
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr "サイド"
 
-#: dist/plugins/template-tags/template-tags.php:106
+#: dist/plugins/template-tags/template-tags.php:127
 #: plugins/template-tags/template-tags.php:127
 msgctxt "post format archive title"
 msgid "Galleries"
 msgstr "ギャラリー"
 
-#: dist/plugins/template-tags/template-tags.php:108
+#: dist/plugins/template-tags/template-tags.php:129
 #: plugins/template-tags/template-tags.php:129
 msgctxt "post format archive title"
 msgid "Images"
 msgstr "画像"
 
-#: dist/plugins/template-tags/template-tags.php:110
+#: dist/plugins/template-tags/template-tags.php:131
 #: plugins/template-tags/template-tags.php:131
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "ビデオ"
 
-#: dist/plugins/template-tags/template-tags.php:112
+#: dist/plugins/template-tags/template-tags.php:133
 #: plugins/template-tags/template-tags.php:133
 msgctxt "post format archive title"
 msgid "Quotes"
 msgstr "引用"
 
-#: dist/plugins/template-tags/template-tags.php:114
+#: dist/plugins/template-tags/template-tags.php:135
 #: plugins/template-tags/template-tags.php:135
 msgctxt "post format archive title"
 msgid "Links"
 msgstr "リンク"
 
-#: dist/plugins/template-tags/template-tags.php:116
+#: dist/plugins/template-tags/template-tags.php:137
 #: plugins/template-tags/template-tags.php:137
 msgctxt "post format archive title"
 msgid "Statuses"
 msgstr "ステータス"
 
-#: dist/plugins/template-tags/template-tags.php:118
+#: dist/plugins/template-tags/template-tags.php:139
 #: plugins/template-tags/template-tags.php:139
 msgctxt "post format archive title"
 msgid "Audio"
 msgstr "オーディオ"
 
-#: dist/plugins/template-tags/template-tags.php:120
+#: dist/plugins/template-tags/template-tags.php:141
 #: plugins/template-tags/template-tags.php:141
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "チャット"
 
-#: dist/plugins/template-tags/template-tags.php:167
-#: dist/plugins/template-tags/template-tags.php:175
+#: dist/plugins/template-tags/template-tags.php:188
+#: dist/plugins/template-tags/template-tags.php:196
 #: plugins/template-tags/template-tags.php:188
 #: plugins/template-tags/template-tags.php:196
 #, php-format
 msgid "About %s"
 msgstr "%s について"
 
-#: dist/plugins/template-tags/template-tags.php:180
+#: dist/plugins/template-tags/template-tags.php:201
 #: plugins/template-tags/template-tags.php:201
 #, php-format
 msgctxt "Yearly archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: dist/plugins/template-tags/template-tags.php:184
-#: dist/plugins/template-tags/template-tags.php:188
-#: dist/plugins/template-tags/template-tags.php:193
+#: dist/plugins/template-tags/template-tags.php:205
+#: dist/plugins/template-tags/template-tags.php:209
+#: dist/plugins/template-tags/template-tags.php:214
 #: plugins/template-tags/template-tags.php:205
 #: plugins/template-tags/template-tags.php:209
 #: plugins/template-tags/template-tags.php:214
@@ -2292,7 +2360,7 @@ msgctxt "Archive description"
 msgid "Article of %s."
 msgstr "%s の記事"
 
-#: dist/plugins/template-tags/template-tags.php:211
+#: dist/plugins/template-tags/template-tags.php:231
 #: dist/plugins/wp_title.php:59 plugins/template-tags/template-tags.php:231
 #: plugins/wp_title.php:59
 #, php-format
@@ -2318,22 +2386,22 @@ msgstr "検索結果 : %s"
 msgid "Not found"
 msgstr "見つかりません"
 
-#: dist/plugins/wp_title.php:71 dist/plugins/wp_title.php:83
-#: dist/plugins/wp_title.php:87 plugins/wp_title.php:70 plugins/wp_title.php:82
+#: dist/plugins/wp_title.php:70 dist/plugins/wp_title.php:82
+#: dist/plugins/wp_title.php:86 plugins/wp_title.php:70 plugins/wp_title.php:82
 #: plugins/wp_title.php:86
 msgid "&lt;title&gt; tag of homepage"
 msgstr "トップページの&lt;title&gt;タグ"
 
-#: dist/plugins/wp_title.php:91 plugins/wp_title.php:90
+#: dist/plugins/wp_title.php:90 plugins/wp_title.php:90
 msgid "title of the site"
 msgstr "サイトのタイトル"
 
-#: dist/plugins/wp_title.php:92 plugins/wp_title.php:91
+#: dist/plugins/wp_title.php:91 plugins/wp_title.php:91
 #, php-format
 msgid "Normally \"%1$s\" is placed in the title tags of all the pages."
 msgstr "通常「%1$s」が全ページのタイトルタグに入ります。"
 
-#: dist/plugins/wp_title.php:93 plugins/wp_title.php:94
+#: dist/plugins/wp_title.php:94 plugins/wp_title.php:94
 #, php-format
 msgid ""
 "For example, it appears in the form of <br />&lt;title&gt;page title | "
@@ -2342,7 +2410,7 @@ msgstr ""
 "例えば固定ページであれば<br>&lt;title&gt;固定ページ名 | %1$s&lt;/title&gt;"
 "<br>というような形式で出力されます。"
 
-#: dist/plugins/wp_title.php:95 plugins/wp_title.php:96
+#: dist/plugins/wp_title.php:96 plugins/wp_title.php:96
 #, php-format
 msgid ""
 "However, it might have negative impact on search engine rankings if the &lt;"
@@ -2354,11 +2422,11 @@ msgstr ""
 "くなるので、%s は一番検索されたいキーワードを盛り込みつつなるべく短くまとめる"
 "事が望ましいです。"
 
-#: dist/plugins/wp_title.php:97 plugins/wp_title.php:100
+#: dist/plugins/wp_title.php:100 plugins/wp_title.php:100
 msgid "Tagline"
 msgstr "キャッチフレーズ"
 
-#: dist/plugins/wp_title.php:98 plugins/wp_title.php:101
+#: dist/plugins/wp_title.php:101 plugins/wp_title.php:101
 #, php-format
 msgid ""
 "In the top page will be output usually in the form of <br />&lt;title&gt;"
@@ -2367,7 +2435,7 @@ msgstr ""
 "トップページでは<br>&lt;title&gt;%1$s | %2$s&lt;/title&gt;<br>というような形"
 "式で出力されます。"
 
-#: dist/plugins/wp_title.php:99 plugins/wp_title.php:104
+#: dist/plugins/wp_title.php:104 plugins/wp_title.php:104
 msgid ""
 "However, it may be too long in the above format. If the input to the input "
 "field of the following, its contents will be reflected."
@@ -2392,12 +2460,12 @@ msgstr "挿入アイテムの設定"
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: dist/plugins_admin/vk-admin/class-vk-admin.php:279
+#: dist/plugins_admin/vk-admin/class-vk-admin.php:290
 #: plugins_admin/vk-admin/class-vk-admin.php:290
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: dist/plugins_admin/vk-admin/class-vk-admin.php:333
+#: dist/plugins_admin/vk-admin/class-vk-admin.php:344
 #: plugins_admin/vk-admin/class-vk-admin.php:344
 msgid "Vektor WordPress Information"
 msgstr "Vektor WordPress Information"
@@ -2734,69 +2802,17 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
 
-#: plugins/call-to-action/class-vk-call-to-action.php:222
-msgid ""
-"The entered contents are displayed directly. You can not use short codes, "
-"reuse blocks, etc."
-msgstr ""
-"入力された内容は直接表示されます。 ショートコードや再利用ブロックなどは使用で"
-"きません。"
+#: plugins/sns/sns_admin.php:141 plugins/sns/sns_customizer.php:355
+msgid "Share button display Position"
+msgstr "シェアボタンの表示位置"
 
-#: plugins/insert_ads.php:217
-msgid "Google Auto ads"
-msgstr "Google自動広告"
+#: plugins/sns/sns_admin.php:149 plugins/sns/sns_customizer.php:374
+msgid "Before content"
+msgstr "本文の前"
 
-#: plugins/insert_ads.php:222
-msgid "About Google Auto ads"
-msgstr "Google自動広告について"
-
-#: plugins/insert_ads.php:225
-msgid ""
-"If you would like to set to Google Auto ads,Please fill in Publisher ID."
-msgstr ""
-"Google自動広告を設定する場合はチェックを入れて、サイト運営者IDを入力してくだ"
-"さい。"
-
-#: plugins/insert_ads.php:227
-msgid "Enable Google Auto ads"
-msgstr "Google自動広告を有効にする"
-
-#: plugins/insert_ads.php:229
-msgid "Publisher ID"
-msgstr "サイト運営者ID"
-
-#: plugins/insert_ads.php:233
-msgid "Google AdSense dashboard"
-msgstr "Google AdSense 管理画面"
-
-#: plugins/insert_ads.php:235
-#, php-format
-msgid ""
-"Publisher ID is you can investigate from the %s > Account information page."
-msgstr "サイト運営者IDは %s > アカウント情報 から確認できます。"
-
-#: plugins/insert_ads.php:238
-msgid "Designate anchor ads at the bottom."
-msgstr "アンカー広告を下部に指定する"
-
-#: plugins/insert_ads.php:240
-msgid ""
-"The layout may collapse by inserting Google Auto ads, but the correspondence "
-"varies depending on the kind, specification, theme etc. of advertisement, so "
-"please write CSS according to your needs about the display collapse and "
-"correct it."
-msgstr ""
-"自動広告の挿入によりレイアウトが崩れる事がありますが、広告の種類・仕様・利用"
-"中のテーマなどにより対応は様々ですので、表示崩れについては各自必要に応じてCSS"
-"を書いて修正してください。"
-
-#: plugins/sns/sns_admin.php:14 plugins/sns/sns_customizer.php:37
-msgid "Post title custom for SNS"
-msgstr "OGPなどの投稿タイトルの変更"
-
-#: plugins/sns/sns_admin.php:16 plugins/sns/sns_customizer.php:59
-msgid "For SNS title be composed by post title only."
-msgstr "投稿タイトルだけにする（サイトタイトルなど含めない）。"
+#: plugins/sns/sns_admin.php:155 plugins/sns/sns_customizer.php:394
+msgid "After content"
+msgstr "本文の後"
 
 #, fuzzy
 #~| msgid "Display count"

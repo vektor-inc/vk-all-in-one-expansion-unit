@@ -7,12 +7,12 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 	// ウィジェット定義
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Categories/Custom taxonomies list', 'vkExUnit' );
+		$widget_name = veu_get_prefix() . __( 'Categories/Custom taxonomies list', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'WP_Widget_VK_taxonomy_list',
 			$widget_name,
-			array( 'description' => __( 'Displays a categories and custom taxonomies list.', 'vkExUnit' ) )
+			array( 'description' => __( 'Displays a categories and custom taxonomies list.', 'vk-all-in-one-expansion-unit' ) )
 		);
 	}
 
@@ -23,7 +23,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			$instance['tax_name'] = 'category';
 		}
 		if ( ! isset( $instance['label'] ) ) {
-			$instance['label'] = __( 'Category', 'vkExUnit' );
+			$instance['label'] = __( 'Category', 'vk-all-in-one-expansion-unit' );
 		}
 		$arg = array(
 			'echo'            => 1,
@@ -53,8 +53,8 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	public static function get_defaults( $instance = array() ) {
 		$defaults = array(
 			'tax_name'   => 'category',
-			'label'      => __( 'Category', 'vkExUnit' ),
-			'hide'       => __( 'Category', 'vkExUnit' ),
+			'label'      => __( 'Category', 'vk-all-in-one-expansion-unit' ),
+			'hide'       => __( 'Category', 'vk-all-in-one-expansion-unit' ),
 			'title'      => 'Category',
 			'hide_empty' => false,
 			'_builtin'   => false,
@@ -68,11 +68,11 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		$taxs     = get_taxonomies( array( 'public' => true ), 'objects' );
 		?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label to display', 'vkExUnit' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label to display', 'vk-all-in-one-expansion-unit' ); ?></label>
 		<input type="text"  id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" ><br/>
 		<input type="hidden" name="<?php echo $this->get_field_name( 'hide' ); ?>" ><br/>
 
-		<label for="<?php echo $this->get_field_id( 'tax_name' ); ?>"><?php _e( 'Display page', 'vkExUnit' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'tax_name' ); ?>"><?php _e( 'Display page', 'vk-all-in-one-expansion-unit' ); ?></label>
 		<select name="<?php echo $this->get_field_name( 'tax_name' ); ?>" >
 
 		<?php foreach ( $taxs as $tax ) { ?>
@@ -91,7 +91,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 													echo 'checked';}
 ?>
  />
-		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Do not display terms without posts', 'vkExUnit' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Do not display terms without posts', 'vk-all-in-one-expansion-unit' ); ?></label>
 		</p>
 
 		<script type="text/javascript">
@@ -103,12 +103,12 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 					echo 'post_labels["' . $tax->name . '"] = "' . $tax->labels->name . '";';
 				}
 			}
-				echo 'post_labels["blog"] = "' . __( 'Blog', 'vkExUnit' ) . '";' . "\n";
+				echo 'post_labels["blog"] = "' . __( 'Blog', 'vk-all-in-one-expansion-unit' ) . '";' . "\n";
 			?>
 			var posttype = jQuery("[name=\"<?php echo $this->get_field_name( 'tax_name' ); ?>\"]");
 			var lablfeld = jQuery("[name=\"<?php echo $this->get_field_name( 'label' ); ?>\"]");
 			posttype.change(function(){
-				lablfeld.val(post_labels[posttype.val()]+" <?php _e( 'Archives', 'vkExUnit' ); ?>");
+				lablfeld.val(post_labels[posttype.val()]+" <?php _e( 'Archives', 'vk-all-in-one-expansion-unit' ); ?>");
 			});
 		});
 		</script>

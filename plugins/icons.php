@@ -35,7 +35,7 @@ class vExUnit_icons {
 
 	public function option_init() {
 		vkExUnit_register_setting(
-			__( 'icon setting', 'vkExUnit' ), 	// tab label.
+			__( 'icon setting', 'vk-all-in-one-expansion-unit' ), 	// tab label.
 			'vkExUnit_icon_settings',			// name attr
 			array( $this, 'sanitize_config' ), // sanitaise function name
 			array( $this, 'render_configPage' )  // setting_page function name
@@ -65,23 +65,23 @@ class vExUnit_icons {
 	public function render_configPage() {
 		$options = self::get_option();
 ?>
-<h3><?php _e( 'icon setting', 'vkExUnit' ); ?></h3>
+<h3><?php _e( 'icon setting', 'vk-all-in-one-expansion-unit' ); ?></h3>
 
 <div id="on_setting" class="sectionBox">
 		<p class="text-warning">
 			<?php
 			$href = '"'.admin_url('customize.php').'"';
-			printf( __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of [ <a href=%s>Themes > Customize</a> ] After updating the setting.', 'vkExUnit' ), $href );
+			printf( __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of [ <a href=%s>Themes > Customize</a> ] After updating the setting.', 'vk-all-in-one-expansion-unit' ), $href );
 			?>
 		</p>
 
 <table class="form-table">
     <!-- Favicon -->
     <tr>
-	<th><?php _e( 'Favicon Setting', 'vkExUnit' ); ?></th>
+	<th><?php _e( 'Favicon Setting', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td><input type="text" name="vkExUnit_icon_settings" id="favicon" value="<?php echo $options ?>" style="width:60%;" />
-	<button id="media_src_favicon" class="media_btn button button-default"><?php _e( 'Choose icon', 'vkExUnit' ); ?></button>
-	<p><?php _e( 'Please upload your ".ico" file','vkExUnit' ); ?></p>
+	<button id="media_src_favicon" class="media_btn button button-default"><?php _e( 'Choose icon', 'vk-all-in-one-expansion-unit' ); ?></button>
+	<p><?php _e( 'Please upload your ".ico" file', 'vk-all-in-one-expansion-unit' ); ?></p>
     </td>
     </tr>
 </table>

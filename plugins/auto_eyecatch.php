@@ -47,7 +47,7 @@ class vExUnit_eyecatch {
 		$post_types = self::post_types();
 
 		foreach ( $post_types as $post_type ) {
-			add_meta_box( 'vkExUnit_EyeCatch', __( 'Automatic EyeCatch', 'vkExUnit' ), array( $this, 'render_meta_box' ), $post_type, 'normal', 'high' );
+			add_meta_box( 'vkExUnit_EyeCatch', __( 'Automatic EyeCatch', 'vk-all-in-one-expansion-unit' ), array( $this, 'render_meta_box' ), $post_type, 'normal', 'high' );
 		}
 	}
 
@@ -57,7 +57,7 @@ class vExUnit_eyecatch {
 		$disable_autoeyecatch = get_post_meta( get_the_id(), 'vkExUnit_EyeCatch_disable', true );
 
 		echo '<input type="hidden" name="_nonce_vkExUnit__custom_auto_eyecatch" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="' . wp_create_nonce( 'vkEx_AYC_' . get_the_id() ) . '" />';
-		echo '<label ><input type="checkbox" name="vkExUnit_auto_eyecatch" value="true" ' . ( ( $disable_autoeyecatch ) ? 'checked' : '' ) . ' />' . __( 'Do not set eyecatch image automatic.', 'vkExUnit' ) . '</label>';
+		echo '<label ><input type="checkbox" name="vkExUnit_auto_eyecatch" value="true" ' . ( ( $disable_autoeyecatch ) ? 'checked' : '' ) . ' />' . __( 'Do not set eyecatch image automatic.', 'vk-all-in-one-expansion-unit' ) . '</label>';
 
 	}
 
