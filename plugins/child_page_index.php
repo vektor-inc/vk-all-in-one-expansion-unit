@@ -76,7 +76,7 @@ function vkExUnit_childPageIndex_shortcode() {
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ) );
 			$childPageList_html .= '<p class="childPage_list_text">' . $postExcerpt . '</p>';
-			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . __( 'Read more', 'vk-all-in-one-expansion-unit' ) . '</span>';
+			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . apply_filters( 'veu_read_more_text', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</span>';
 			$childPageList_html .= '</div>';
 
 			$childPageList_html .= '</div></a>' . PHP_EOL;
