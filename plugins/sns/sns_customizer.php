@@ -1,7 +1,4 @@
 <?php
-
-/*
--------------------------------------------*/
 /*
   Add Customize Panel
 /*-------------------------------------------*/
@@ -242,10 +239,8 @@ function veu_customize_register_sns( $wp_customize ) {
 	);
 
 	/*
-	-------------------------------------------*/
-	/*
 	  Share_button
-	 /*-------------------------------------------*/
+	/*-------------------------------------------*/
 
 	// share_button_title
 	$wp_customize->add_setting( 'share_button_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
@@ -396,7 +391,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow me box(Facebook)
+	 // SNS Btn (Facebook)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useFacebook]',
 		array(
@@ -417,7 +412,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow me box(Twitter)
+	 // SNS Btn (Twitter)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useTwitter]',
 		array(
@@ -438,7 +433,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow me box(Hatena)
+	 // SNS Btn (Hatena)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useHatena]',
 		array(
@@ -459,7 +454,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow me box(Pocket)
+	 // SNS Btn (Pocket)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[usePocket]',
 		array(
@@ -480,7 +475,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	 // Follow me box(LINE)
+	 // SNS Btn (LINE)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useLine]',
 		array(
@@ -554,8 +549,6 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	/*
-	-------------------------------------------*/
 	/*
 	  Add Edit Customize Link Btn
 	 /*-------------------------------------------*/
