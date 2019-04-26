@@ -149,7 +149,7 @@ iframe.wp-embedded-content { width:100%; }
 */
 .veu_socialSet.veu_contentAddSection ul { margin:0px;padding:0;display: flex;
 	li { position:relative; display:block;overflow:visible; width: 50%; margin:3px; padding:0px; background:none;
-		&.sb_icon a {display:block; overflow:hidden; padding: 7px 10px;border-radius: 4px; color:#fff;text-decoration: none; line-height: 100%; font-size: 90%;}
+		&.sb_icon a {display:block; overflow:hidden; padding: 5px 10px;border-radius: 4px; color:#fff;text-decoration: none; line-height: 100%; font-size: 90%;}
 		&.sb_icon a:hover{
 			box-shadow: none; transform: translate3d(0, 2px, 0); -webkit-transform: translate3d(0, 2px, 0);
 		}
