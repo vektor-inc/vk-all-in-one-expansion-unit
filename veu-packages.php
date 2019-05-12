@@ -55,7 +55,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Print link fontawesome', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Print fontawesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'font-awesome-config.php',
+		'include'     => 'font-awesome/font-awesome-config.php',
 	);
 
 	/*
@@ -66,7 +66,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'VK Blocks ( Beta )', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Extends Gutenberg\'s blocks.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'vk-blocks-config.php',
+		'include'     => 'vk-blocks/vk-blocks-config.php',
 	);
 
 	/*
@@ -288,7 +288,7 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'call-to-action-config.php',
+		'include'     => 'call-to-action/call-to-action-config.php',
 	);
 
 	/*
@@ -363,7 +363,7 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => false,
-		'include'     => 'post-type-manager-config.php',
+		'include'     => 'post-type-manager/post-type-manager-config.php',
 	);
 
 	/*

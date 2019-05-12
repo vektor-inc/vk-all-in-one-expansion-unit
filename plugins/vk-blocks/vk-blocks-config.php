@@ -1,11 +1,11 @@
 <?php
-/*-------------------------------------------*/
-/*  Load modules
+/*
+  Load modules
 /*-------------------------------------------*/
 if ( ! function_exists( 'vkblocks_active' ) ) {
 	require_once( 'vk-blocks/vk-blocks-functions.php' );
 	// Set asset URL.
-	define( 'VK_BLOCKS_URL', plugin_dir_url( __FILE__ ) . 'vk-blocks/' );
+	define( 'VK_BLOCKS_URL', plugin_dir_url( __FILE__ ) . 'package/' );
 	// Set version number.
 	define( 'VK_BLOCKS_VERSION', '0.6.0' );
 
@@ -14,7 +14,7 @@ if ( ! function_exists( 'vkblocks_active' ) ) {
 
 	add_action(
 		'plugins_loaded', function () {
-			//Load language files.
+			// Load language files.
 			load_plugin_textdomain( 'vk-blocks', false, 'vk-all-in-one-expansion-unit/plugins/vk-blocks/build/languages' );
 		}
 	);
