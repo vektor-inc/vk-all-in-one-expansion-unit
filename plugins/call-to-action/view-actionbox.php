@@ -38,16 +38,13 @@ $content .= '<h1 class="cta_title">' . $post->post_title . '</h1>';
 $content .= '<div class="cta_body">';
 
 
-////// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////
+// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////
 $target_blank = get_post_meta( $id, 'vkExUnit_cta_url_blank', true );
 if ( $target_blank != 'window_self' ) {
 	$target = ' target="_blank"';
 } else {
 	$target = '';
 }
-////////////////////////////////////////////////////////////
-
-
 if ( $imgid ) {
 	$cta_image = wp_get_attachment_image_src( $imgid, 'large' );
 	$content  .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';

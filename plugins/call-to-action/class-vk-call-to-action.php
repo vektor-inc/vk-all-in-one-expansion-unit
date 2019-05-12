@@ -7,7 +7,6 @@ https://github.com/vektor-inc/vektor-wp-libraries
 */
 
 // namespace Vektor\ExUnit\Package\Cta;
-
 if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 	class Vk_Call_To_Action {
@@ -104,10 +103,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 		/**
-	 * CTAメイン設定画面のurl
-	 * ExUnitと単体プラグインなどによって変動する
-	 * @return [type] [description]
-	 */
+		 * CTAメイン設定画面のurl
+		 * ExUnitと単体プラグインなどによって変動する
+		 *
+		 * @return [type] [description]
+		 */
 		public static function setting_page_url() {
 			if ( veu_is_cta_active() ) {
 				$setting_page_url = admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' );
@@ -294,6 +294,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 		/**
 		 * [save_custom_field description]
+		 *
 		 * @param  [type] $post_id [description]
 		 * @return [type]          [description]
 		 */
@@ -384,6 +385,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 		/**
 		 * [get_cta_post description]
+		 *
 		 * @param  [type] $id [description]
 		 * @return [type]     [description]
 		 */
@@ -401,6 +403,12 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		}
 
 
+		/**
+		 * CTAとして返す内容の処理
+		 *
+		 * @param  [type] $id [description]
+		 * @return [type]     [description]
+		 */
 		public static function render_cta_content( $id ) {
 
 			global $vk_call_to_action_textdomain;
@@ -421,6 +429,8 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				// 旧 CTA レイアウト
 				include dirname( __FILE__ ) . '/view-actionbox.php';
 			}
+
+			// Display Edit Button
 			if ( $url = get_edit_post_link( $post->ID ) ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
 			}
@@ -431,7 +441,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			// ランダムに抽出したCTAの投稿IDを返す
 			// CTAの投稿をランダムで１件取得
 			$args     = array(
-				'post_type'      => self::POST_TYPE, //投稿タイプを指定
+				'post_type'      => self::POST_TYPE, // 投稿タイプを指定
 				'posts_per_page' => 1, // １ページでの表示件数を指定
 				'orderby'        => 'rand', // 表示順をランダムで取得
 			);
@@ -467,9 +477,9 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				return $post_config;
 			}
 
-			////////////////////////////////////////
+			//
 			// 共通設定を使用の場合
-			////////////////////////////////////////
+			//
 			// 今表示している記事の投稿タイプを取得
 			$post_type = get_post_type( $id );
 			// 投稿タイプ別にどのCTAを共通設定として表示するかの情報を取得
@@ -572,7 +582,6 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 			// ↓ これであかんの？
 			// $output_option = wp_parse_args( $option, $default );
-
 			if ( ! $option || ! is_array( $option ) ) {
 				return $default; }
 
