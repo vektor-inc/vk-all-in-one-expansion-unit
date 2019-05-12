@@ -54,7 +54,7 @@ if ( $imgid ) {
 	$content  .= '</div>';
 }
 $content .= '<div class="cta_body_txt ' . ( ( $imgid ) ? 'image_exist' : 'image_no' ) . '">';
-$content .= do_shortcode( $text );
+$content .= wp_kses_post( do_shortcode( $text ) );
 $content .= '</div>';
 if ( $url && $btn_text ) {
 	$content .= '<div class="cta_body_link">';

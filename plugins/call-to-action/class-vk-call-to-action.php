@@ -219,7 +219,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
 	<p><?php _e( 'You can create it with a free layout in the content field using, such as Outer block and PR Content block in VK Blocks.', $vk_call_to_action_textdomain ); ?><br>
 	<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?><br>
-	* <?php _e( 'The entered contents are displayed directly. You can not use short codes, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
+	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
 	</p>
 	<table class="form-table">
 	<tr>
@@ -434,7 +434,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			if ( $url = get_edit_post_link( $post->ID ) ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
 			}
-			return $content;
+			return wp_kses_post( do_shortcode( $content ) );
 		}
 
 		public static function cta_id_random() {
