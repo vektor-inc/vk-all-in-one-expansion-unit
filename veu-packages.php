@@ -320,6 +320,17 @@ function vkExUnit_get_packages() {
 	);
 
 	/*
+	  noindex
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'noindex',
+		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print noindex tag to html head.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'noindex.php',
+	);
+
+	/*
 	  disable_ping-back
 	/*-------------------------------------------*/
 	$required_packages[] = array(
