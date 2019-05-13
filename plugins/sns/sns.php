@@ -10,7 +10,7 @@
 /*-------------------------------------------*/
 
 // シェアボタンを表示する設定の読み込み
-require_once( dirname( __FILE__ ) . '/hide_controller.php' );
+require_once( dirname( __FILE__ ) . '/sns_admin_hide_controller.php' );
 require_once( dirname( __FILE__ ) . '/sns_customizer.php' );
 
 function veu_sns_options_init() {
