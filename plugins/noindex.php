@@ -27,7 +27,7 @@ add_action( 'veu_content_meta_box_content', 'veu_noindex_metabox_body' );
 function veu_noindex_metabox_body() {
 	global $post;
 
-	echo '<h3 class="admin-custom-h3">Noindex setting</h3>';
+	echo '<h3 class="admin-custom-h3">' . __( 'Noindex setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 
 	// CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__noindex_print」として設定）
 	wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__noindex_print' );
@@ -42,7 +42,7 @@ function veu_noindex_metabox_body() {
 		$checked = '';
 	}
 
-	$label = __( 'Print noindex.', 'vk-all-in-one-expansion-unit' );
+	$label = __( 'Print noindex tag.', 'vk-all-in-one-expansion-unit' );
 	echo '<ul>';
 	echo '<li><label>' . '<input type="checkbox" id="_vk_print_noindex" name="_vk_print_noindex" value="true"' . $checked . '> ' . $label . '</label></li>';
 	echo '</ul>';
