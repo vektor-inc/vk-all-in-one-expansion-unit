@@ -30,27 +30,3 @@ add_action( 'admin_menu', 'veu_add_content_meta_box' );
 function veu_post_metabox_body() {
 	do_action( 'veu_post_metabox_body' );
 }
-
-
-function veu_metabox_section( $args ) {
-
-	// Outer class
-	$outer_class = '';
-	if ( ! empty( $args['slug'] ) ) {
-		$outer_class = ' ' . $args['slug'];
-	}
-	echo '<div class="veu_metabox_section' . $outer_class . '">';
-
-	// Section title
-	if ( ! empty( $args['title'] ) ) {
-		echo '<h3 class="veu_metabox_section_title">' . $args['title'] . '</h3>';
-	}
-
-	// Section body
-	if ( ! empty( $args['body'] ) ) {
-		echo '<div class="veu_metabox_section_body">';
-		echo $args['body'];
-		echo '</div><!-- [ /.veu_metabox_section_body ] -->';
-	}
-	echo '</div><!-- [ /.veu_metabox_section ] -->';
-}
