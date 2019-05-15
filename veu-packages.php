@@ -207,7 +207,7 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'css_customize/css_customize.php',
+		'include'     => 'css-customize/css-customize.php',
 	);
 
 	/*

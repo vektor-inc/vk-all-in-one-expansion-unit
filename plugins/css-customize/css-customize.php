@@ -15,9 +15,11 @@ class veu_css_customize {
 
 		// 編集画面への反映
 		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
+		//
 		add_action( 'admin_menu', array( $this, 'css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
-		require_once( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-single.php' );
+		require_once( dirname( __FILE__ ) . '/css-customize-single.php' );
+		require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
 	}
 
 	public function admin_bar( $wp_admin_bar ) {
@@ -35,7 +37,7 @@ class veu_css_customize {
 	}
 
 	/*
-	  CSSカスタマイズ」のメニュー
+	  「CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
 	public function css_customize_menu() {
 		// $capability_required = veu_get_capability_required();
@@ -55,7 +57,7 @@ class veu_css_customize {
 
 		$data = $this->css_customize_valid_form();
 
-		include( vkExUnit_get_directory() . '/plugins/css_customize/css_customize-edit.php' );
+		include( vkExUnit_get_directory() . '/plugins/css-customize/css-customize-edit.php' );
 	}
 
 
