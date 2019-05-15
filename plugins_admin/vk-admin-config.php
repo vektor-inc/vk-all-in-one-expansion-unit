@@ -8,7 +8,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 }
 
 global $vk_admin_textdomain;
-$vk_admin_textdomain = 'vkExUnit';
+$vk_admin_textdomain = 'vk-all-in-one-expansion-unit';
 
 /*
   $admin_pages の配列にいれる識別値は下記をコメントアウトすればとれる

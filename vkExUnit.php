@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 4.7 );
+define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5.6 );
 
 // Get Plugin version
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );

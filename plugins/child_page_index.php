@@ -138,7 +138,7 @@ function vkExUnit_childPageIndex_admin_metabox_activate( $flag ) {
 /*
  admin_metabox_content
 /*-------------------------------------------*/
-add_action( 'veu_content_meta_box_content', 'veu_child_page_index_admin_metabox_content' );
+add_action( 'veu_post_metabox_body', 'veu_child_page_index_admin_metabox_content' );
 function veu_child_page_index_admin_metabox_content() {
 	global $post;
 	// childPageIndex display

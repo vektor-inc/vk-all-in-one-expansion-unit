@@ -84,7 +84,7 @@ function veu_page_list_ancestor_admin_metabox_activate( $flag ) {
 /*-------------------------------------------*/
 /* admin_metabox_content
 /*-------------------------------------------*/
-add_action( 'veu_content_meta_box_content', 'vkExUnit_pageList_ancestor_admin_metabox_content' );
+add_action( 'veu_post_metabox_body', 'vkExUnit_pageList_ancestor_admin_metabox_content' );
 function vkExUnit_pageList_ancestor_admin_metabox_content() {
 	global $post;
 	$enable = get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ); ?>

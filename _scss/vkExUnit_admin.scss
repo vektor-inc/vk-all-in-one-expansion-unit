@@ -4,3 +4,33 @@
 .wrap.debug_mode{
 	tr.dev_object{ display:table-row; }
 }
+#veu_content_meta_box {
+	.handlediv {
+		position: relative;
+		z-index: 100;
+	}
+	h2 {
+		position: relative;
+		z-index: 1;
+		background-color: #f5f5f5;
+	}
+}
+.veu_metabox_section {
+	margin-bottom:15px;
+	&_title {
+		border:1px solid #e5e5e5;
+		padding: 7px 1rem;
+		background-color: #f5f5f5;
+		border-radius: 5px;
+
+	}
+	&_body {
+		padding: 0 1rem;
+	}
+}
+
+.veu_sns_title {
+	input[type="text"] {
+		width: 100%;
+	}
+}

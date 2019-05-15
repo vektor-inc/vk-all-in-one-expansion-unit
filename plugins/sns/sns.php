@@ -9,8 +9,6 @@
   Add Customize Panel
 /*-------------------------------------------*/
 
-// シェアボタンを表示する設定の読み込み
-require_once( dirname( __FILE__ ) . '/sns_admin_hide_controller.php' );
 require_once( dirname( __FILE__ ) . '/sns_customizer.php' );
 
 function veu_sns_options_init() {
@@ -164,17 +162,26 @@ $vkExUnit_sns_options = veu_get_sns_options();
 
 require vkExUnit_get_directory() . '/plugins/sns/widget-fb-page-plugin.php';
 require vkExUnit_get_directory() . '/plugins/sns/widget-twitter.php';
+require vkExUnit_get_directory() . '/plugins/sns/class-veu-metabox-sns-title.php';
 
 if ( $vkExUnit_sns_options['enableOGTags'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_og.php'; }
+	require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
+}
 if ( $vkExUnit_sns_options['enableSnsBtns'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php'; }
+	require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php';
+	require vkExUnit_get_directory() . '/plugins/sns/class-veu-metabox-sns-button.php';
+	// シェアボタンを表示する設定の読み込み
+	// require_once( dirname( __FILE__ ) . '/function_snsBtns.php' );
+	// require_once( dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php' );
+}
 if ( $vkExUnit_sns_options['enableTwitterCardTags'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php'; }
+	require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
+}
 if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php'; }
+	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
+}
 
-require vkExUnit_get_directory() . '/plugins/sns/function_meta_box.php';
+
 
 
 /*

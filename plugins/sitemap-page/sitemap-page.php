@@ -18,10 +18,10 @@
 /*-------------------------------------------*/
 
 function veu_add_sitemap_options_page() {
-	require dirname( __FILE__ ) . '/sitemap_admin.php';
+	require dirname( __FILE__ ) . '/sitemap-admin.php';
 }
 
-require_once dirname( __FILE__ ) . '/hide-controller.php';
+require_once( dirname( __FILE__ ) . '/class-veu-metabox-sitemap.php' );
 
 /*-------------------------------------------*/
 /*  Options Init
@@ -248,7 +248,7 @@ function vkExUnit_sitemap_activate( $flag ) {
 /*-------------------------------------------*/
 /*  admin _ meta box
 /*-------------------------------------------*/
-add_action( 'veu_content_meta_box_content', 'vkExUnit_sitemap_meta_box' );
+add_action( 'veu_post_metabox_body', 'vkExUnit_sitemap_meta_box' );
 function vkExUnit_sitemap_meta_box() {
 	global $post;
 	// sitemap display
@@ -293,3 +293,45 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 		delete_post_meta( $post_id, 'vkExUnit_sitemap' );
 	}
 }
+
+
+
+
+/*-------------------------------------------*/
+/*  サイトマップで非表示にする
+/*-------------------------------------------*/
+
+function veu_sitemap_exclude_page_ids() {
+	// meta_key が　sitemap_hide が true で post_type が page の投稿を取得する
+	$args                     = array(
+		'posts_per_page' => -1, // 取得する数
+		'post_type'      => 'page', // 投稿タイプ名
+		'meta_query'     => array(
+			array(
+				'key'   => 'sitemap_hide',
+				'value' => 'true',
+			),
+		),
+	);
+	$sitemap_hide_customPosts = get_posts( $args );
+
+	// 取得した投稿データをループして、id名を $excludes に追加していく
+	// 「sitemap_hide」フィールドの値が格納されていたら「$excludes」に ID を追加する処理を開始
+	if ( $sitemap_hide_customPosts ) {
+		$excludes = '';
+		foreach ( $sitemap_hide_customPosts as $key => $value ) {
+			// print_r($value);
+
+			if ( ! $excludes ) {
+				 $excludes .= $value->ID;
+			} else {
+				$excludes .= ',' . $value->ID;
+			}
+
+			$excludes = esc_attr( $excludes );
+		}
+
+		return $excludes;
+	} // if( $sitemap_hide_customPosts ) {
+
+} // function veu_sitemap_exclude_page_ids() {

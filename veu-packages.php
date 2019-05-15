@@ -259,7 +259,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Display HTML Site Map', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'It displays a HTML Site Map to the specified page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'sitemap_page/sitemap_page.php',
+		'include'     => 'sitemap-page/sitemap-page.php',
 	);
 
 	/*
@@ -327,7 +327,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Print noindex tag to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'noindex.php',
+		'include'     => 'noindex/noindex.php',
 	);
 
 	/*

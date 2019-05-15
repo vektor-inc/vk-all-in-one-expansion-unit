@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-13 15:03+0900\n"
+"POT-Creation-Date: 2019-05-15 02:05+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -856,11 +856,11 @@ msgstr "キーワードを複数入力する場合は , ( カンマ )で区切�
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
 
-#: plugins/noindex.php:30
+#: plugins/noindex/class-veu-metabox-noindex.php:15
 msgid "Noindex setting"
 msgstr "noindex設定"
 
-#: plugins/noindex.php:45
+#: plugins/noindex/class-veu-metabox-noindex.php:69
 msgid "Print noindex tag."
 msgstr "noindexタグを出力する。"
 
@@ -1513,39 +1513,65 @@ msgstr "関連記事を表示"
 msgid "Related Settings"
 msgstr "関連記事設定"
 
-#: plugins/sitemap_page/hide-controller.php:17
-msgid "Site Map Hide"
-msgstr "サイトマップ非表示設定"
+#: plugins/sitemap-page/class-veu-metabox-sitemap.php:15
+msgid "Hide setting of HTML sitemap"
+msgstr "HTMLサイトマップの非表示設定"
 
-#: plugins/sitemap_page/hide-controller.php:46
-msgid "Don't display on Sitemap."
-msgstr "サイトマップに表示しない"
+#: plugins/sitemap-page/class-veu-metabox-sitemap.php:67
+msgid "Hide this page to HTML Sitemap."
+msgstr "このページをHTMLサイトマップに表示しない。"
 
-#: plugins/sitemap_page/sitemap_admin.php:9
+#: plugins/sitemap-page/sitemap-admin.php:9
 msgid "HTML Sitemap Settings"
 msgstr "HTMLサイトマップ設定"
 
-#: plugins/sitemap_page/sitemap_admin.php:13
+#: plugins/sitemap-page/sitemap-admin.php:13
 msgid "Exclude page Settings"
 msgstr "除外ページ設定"
 
-#: plugins/sitemap_page/sitemap_admin.php:15
+#: plugins/sitemap-page/sitemap-admin.php:15
 msgid "Input you want to exclude page id."
 msgstr "HTMLサイトマップから除外したい固定ページのIDを入力してください。"
 
-#: plugins/sitemap_page/sitemap_admin.php:17
+#: plugins/sitemap-page/sitemap-admin.php:17
 msgid ""
 "* Please enter separated by \",\"(commas) if there is more than one page ID "
 "that you want to exclude."
 msgstr "複数のページを除外する場合は , （コンマ）で区切って入力してください。"
 
-#: plugins/sitemap_page/sitemap_page.php:34
+#: plugins/sitemap-page/sitemap-page.php:34
 msgid "HTML Sitemap"
 msgstr "HTMLサイトマップ"
 
-#: plugins/sitemap_page/sitemap_page.php:261
+#: plugins/sitemap-page/sitemap-page.php:261
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
+
+#: plugins/sns/class-veu-metabox-sns-button.php:15
+msgid "Hide setting of share button"
+msgstr "シェアボタンの非表示設定"
+
+#: plugins/sns/class-veu-metabox-sns-button.php:71
+msgid "This post type is not set to display the share button."
+msgstr "この投稿タイプはシェアボタンを表示するように設定されていません。"
+
+#: plugins/sns/class-veu-metabox-sns-button.php:72
+msgid "Display setting of share button"
+msgstr "ソーシャルボタンの表示設定"
+
+#: plugins/sns/class-veu-metabox-sns-button.php:82
+msgid "Don't display share bottons."
+msgstr "ソーシャルボタンを表示しない"
+
+#: plugins/sns/class-veu-metabox-sns-title.php:15
+msgid "SNS Title"
+msgstr "OGPタイトル"
+
+#: plugins/sns/class-veu-metabox-sns-title.php:62
+msgid "if filled this area then override title of OGP and Twitter Card"
+msgstr ""
+"このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
+"るタイトルを上書きすることができます"
 
 #: plugins/sns/function_follow.php:25
 msgid "Follow me"
@@ -1555,21 +1581,11 @@ msgstr "このサイトをフォローする"
 msgid "Edit follow button"
 msgstr "Follow me box の編集"
 
-#: plugins/sns/function_meta_box.php:29
-msgid "Sns Title"
-msgstr "OGPタイトル"
-
-#: plugins/sns/function_meta_box.php:40
-msgid "if filled this area then override title of OGP and Twitter Card"
-msgstr ""
-"このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
-"るタイトルを上書きすることができます"
-
-#: plugins/sns/sns.php:21
+#: plugins/sns/sns.php:19
 msgid "SNS"
 msgstr "SNS"
 
-#: plugins/sns/sns.php:156
+#: plugins/sns/sns.php:154
 msgctxt "facebook language code"
 msgid "en_US"
 msgstr "ja_JP"
@@ -1745,18 +1761,6 @@ msgstr "Follow me ユニットを本文の下に表示する"
 #: plugins/sns/sns_admin.php:164 plugins/sns/sns_customizer.php:613
 msgid "Follow me box title"
 msgstr "Follow me box の見出しテキスト"
-
-#: plugins/sns/sns_admin_hide_controller.php:28
-msgid "Share bottons"
-msgstr "ソーシャルボタン"
-
-#: plugins/sns/sns_admin_hide_controller.php:72
-msgid "This post type is not set to display the share button."
-msgstr "この投稿タイプはシェアボタンを表示するように設定されていません。"
-
-#: plugins/sns/sns_admin_hide_controller.php:93
-msgid "Don't display share bottons."
-msgstr "ソーシャルボタンを表示しない"
 
 #: plugins/sns/sns_customizer.php:74
 msgid "Facebook Settings"
@@ -2025,10 +2029,6 @@ msgstr "有効化設定"
 #: plugins_admin/admin_bar.php:44
 msgid "Main Setting"
 msgstr "メイン設定"
-
-#: plugins_admin/content-meta-box.php:11
-msgid "Setting of insert items"
-msgstr "挿入アイテムの設定"
 
 #: plugins_admin/disable_guide.php:17
 msgid "Edit Guide"
@@ -2376,6 +2376,18 @@ msgstr "使用中のPHPのバージョン(%s) が古いです。"
 #, php-format
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
+
+#~ msgid "Site Map Hide"
+#~ msgstr "サイトマップ非表示設定"
+
+#~ msgid "Don't display on Sitemap."
+#~ msgstr "サイトマップに表示しない"
+
+#~ msgid "Share bottons"
+#~ msgstr "ソーシャルボタン"
+
+#~ msgid "Setting of insert items"
+#~ msgstr "挿入アイテムの設定"
 
 #, fuzzy
 #~| msgid "Display count"
