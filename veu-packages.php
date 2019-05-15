@@ -429,7 +429,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'auto_eyecatch.php',
+		'include'     => 'auto-eyecatch/auto-eyecatch.php',
 	);
 
 	/*
