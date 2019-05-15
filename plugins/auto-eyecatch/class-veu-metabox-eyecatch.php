@@ -9,7 +9,6 @@ class VEU_Metabox_Eyecatch extends VEU_Metabox {
 			'cf_name'    => 'vkExUnit_EyeCatch_disable',
 			'title'      => __( 'Automatic EyeCatch', 'vk-all-in-one-expansion-unit' ),
 			'priority'   => 50,
-			'individual' => false,
 			'post_types' => apply_filters( 'veu_auto_eye_catch_post_types', array( 'post', 'page' ) ),
 		);
 
@@ -43,4 +42,4 @@ class VEU_Metabox_Eyecatch extends VEU_Metabox {
 
 } // class VEU_Metabox_Eyecatch {
 
-$veu_metabox_sitemap = new VEU_Metabox_Eyecatch();
+$veu_metabox_eyecatch = new VEU_Metabox_Eyecatch();
