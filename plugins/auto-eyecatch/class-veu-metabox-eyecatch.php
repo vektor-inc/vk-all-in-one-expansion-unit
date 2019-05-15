@@ -8,6 +8,7 @@ class VEU_Metabox_Eyecatch extends VEU_Metabox {
 			'slug'       => 'veu_eyecatch',
 			'cf_name'    => 'vkExUnit_EyeCatch_disable',
 			'title'      => __( 'Automatic EyeCatch', 'vk-all-in-one-expansion-unit' ),
+			'priority'   => 50,
 			'individual' => false,
 			'post_types' => apply_filters( 'veu_auto_eye_catch_post_types', array( 'post', 'page' ) ),
 		);

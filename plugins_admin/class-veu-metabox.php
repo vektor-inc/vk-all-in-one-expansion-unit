@@ -14,6 +14,7 @@ class VEU_Metabox {
 			'slug'       => '',
 			'cf_name'    => '',
 			'title'      => '',
+			'priority'   => 10,
 			'individual' => false,
 			'post_types' => get_post_types( $post_type_paras ),
 		);
@@ -23,7 +24,7 @@ class VEU_Metabox {
 		if ( $this->args['individual'] ) {
 			add_action( 'admin_menu', array( $this, 'add_individual_metabox' ) );
 		} else {
-			add_action( 'veu_post_metabox_body', array( $this, 'the_meta_section' ), 50 );
+			add_action( 'veu_post_metabox_body', array( $this, 'the_meta_section' ), $this->args['priority'] );
 		}
 		add_action( 'save_post', array( $this, 'save_custom_field' ) );
 	}
