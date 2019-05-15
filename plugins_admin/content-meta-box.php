@@ -1,9 +1,9 @@
 <?php
 /*
--------------------------------------------*/
-/*
   add page custom field
 /*-------------------------------------------*/
+
+require_once( dirname( __FILE__ ) . '/class-veu-metabox.php' );
 
 /**
  * Add Content meta box use for "Child Page List" , "Sitemap" , "Contact section" and more fields
