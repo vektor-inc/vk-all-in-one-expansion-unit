@@ -27,6 +27,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
 			}
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
+			require_once dirname( __FILE__ ) . '/class-veu-metabox-cta.php';
 		}
 
 		public static function widget_init() {
@@ -87,17 +88,17 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		public static function add_custom_field() {
 			global $vk_call_to_action_textdomain;
-			$post_types = get_post_types(
-				array(
-					'_builtin' => false,
-					'public'   => true,
-				)
-			);
-			foreach ( $post_types as $key => $post ) {
-				add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), $post, 'normal', 'high' );
-			}
-			add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'page', 'normal', 'high' );
-			add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'post', 'normal', 'high' );
+			// $post_types = get_post_types(
+			// 	array(
+			// 		'_builtin' => false,
+			// 		'public'   => true,
+			// 	)
+			// );
+			// foreach ( $post_types as $key => $post ) {
+			// 	add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), $post, 'normal', 'high' );
+			// }
+			// add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'page', 'normal', 'high' );
+			// add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'post', 'normal', 'high' );
 
 			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
 		}
