@@ -1,22 +1,33 @@
 (function($) {
 	$(function() {
+		//	サブセクションタイトルがクリックされたらセクションに open class をつける
 		$('.veu_metabox_section .veu_metabox_section_title').each(function(){
 				jQuery(this).click(function() {
-					if ( ! jQuery(this).next().hasClass('veu_metabox_section_body-open') ) {
-						jQuery(this).next().addClass('veu_metabox_section_body-open');
+					if ( ! jQuery(this).parent().hasClass('open') ) {
+						jQuery(this).parent().addClass('open');
 					} else {
-						jQuery(this).next().removeClass('veu_metabox_section_body-open');
+						jQuery(this).parent().removeClass('open');
 					}
 				});
 		});
-		jQuery('.veu_metabox_section_toggle_open').click(function() {
-			jQuery('.veu_metabox_section_body').each(function(){
-					jQuery(this).addClass('veu_metabox_section_body-open');
+
+		// 全展開ボタン
+		jQuery('.veu_metabox_all_section_toggle_btn_open').click(function() {
+			// 開閉ボタンの親クラス処理
+			jQuery(this).parent().removeClass('veu_metabox_all_section_toggle_close');
+			jQuery(this).parent().addClass('veu_metabox_all_section_toggle_open');
+			// 各セクションのouter
+			jQuery('.veu_metabox_section').each(function(){
+					jQuery(this).addClass('open');
 			});
 		});
-		jQuery('.veu_metabox_section_toggle_close').click(function() {
-			jQuery('.veu_metabox_section_body').each(function(){
-					jQuery(this).removeClass('veu_metabox_section_body-open');
+		jQuery('.veu_metabox_all_section_toggle_btn_close').click(function() {
+			// 開閉ボタンの親クラス処理
+			jQuery(this).parent().removeClass('veu_metabox_all_section_toggle_open');
+			jQuery(this).parent().addClass('veu_metabox_all_section_toggle_close');
+			// 各セクションのouter
+			jQuery('.veu_metabox_section').each(function(){
+					jQuery(this).removeClass('open');
 			});
 		});
 	}); // $(function() {

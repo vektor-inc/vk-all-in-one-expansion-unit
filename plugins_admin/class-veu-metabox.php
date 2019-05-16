@@ -59,7 +59,10 @@ class VEU_Metabox {
 			echo '<div class="veu_metabox_section' . $outer_class . '">';
 			// Section title
 			if ( ! empty( $this->args['title'] ) ) {
-				echo '<h3 class="veu_metabox_section_title">' . wp_kses_post( $this->args['title'] ) . '</h3>';
+				echo '<h3 class="veu_metabox_section_title">' . wp_kses_post( $this->args['title'] ) . '';
+				echo '<span class="veu_metabox_section_title_status_btn close"><i class="fas fa-caret-down"></i></span>';
+				echo '<span class="veu_metabox_section_title_status_btn open"><i class="fas fa-caret-up"></i></span>';
+				echo '</h3>';
 			}
 			echo '<div class="veu_metabox_section_body">';
 			echo $this->metabox_body( false );

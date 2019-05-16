@@ -29,9 +29,10 @@ add_action( 'admin_menu', 'veu_add_content_meta_box' );
  * Insert ExUnit Settings.
  */
 function veu_post_metabox_body() {
-	echo '<p>';
-	echo '<button class="button button-default veu_metabox_section_toggle_open">すべて展開</button> ';
-	echo '<button class="button button-default veu_metabox_section_toggle_close">すべて閉じる</button>';
+
+	echo '<p class="veu_metabox_all_section_toggle_close">';
+	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_open">すべて展開 <i class="fas fa-caret-down"></i></button> ';
+	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_close">すべて閉じる <i class="fas fa-caret-up"></i></button>';
 	echo '</p>';
 	do_action( 'veu_post_metabox_body' );
 }
