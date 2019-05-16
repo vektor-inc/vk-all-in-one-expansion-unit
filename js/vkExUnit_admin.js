@@ -14,8 +14,8 @@
 		// 全展開ボタン
 		jQuery('.veu_metabox_all_section_toggle_btn_open').click(function() {
 			// 開閉ボタンの親クラス処理
-			jQuery(this).parent().removeClass('veu_metabox_all_section_toggle_close');
-			jQuery(this).parent().addClass('veu_metabox_all_section_toggle_open');
+			jQuery(this).parent().removeClass('close');
+			jQuery(this).parent().addClass('open');
 			// 各セクションのouter
 			jQuery('.veu_metabox_section').each(function(){
 					jQuery(this).addClass('open');
@@ -23,8 +23,8 @@
 		});
 		jQuery('.veu_metabox_all_section_toggle_btn_close').click(function() {
 			// 開閉ボタンの親クラス処理
-			jQuery(this).parent().removeClass('veu_metabox_all_section_toggle_open');
-			jQuery(this).parent().addClass('veu_metabox_all_section_toggle_close');
+			jQuery(this).parent().removeClass('open');
+			jQuery(this).parent().addClass('close');
 			// 各セクションのouter
 			jQuery('.veu_metabox_section').each(function(){
 					jQuery(this).removeClass('open');

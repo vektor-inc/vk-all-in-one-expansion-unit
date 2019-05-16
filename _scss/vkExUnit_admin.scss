@@ -15,11 +15,28 @@
 		// background-color: #f5f5f5;
 	}
 }
-.veu_metabox_all_section_toggle_close {
+.veu_metabox_nav {
+	position: relative;
+	.veu_metabox_all_section_toggle {
+		position: relative;
+		right:0;
+		top:0;
+	}
+}
+.veu_metabox_footer {
+	padding-top:5px;
+	.logo_exUnit {
+		text-align: right;
+		border: none;
+		img { width:100px; }
+	}
+}
+
+.veu_metabox_all_section_toggle.close {
 	.veu_metabox_all_section_toggle_btn_open { display: block; }
 	.veu_metabox_all_section_toggle_btn_close { display: none; }
 }
-.veu_metabox_all_section_toggle_open {
+.veu_metabox_all_section_toggle.open {
 	.veu_metabox_all_section_toggle_btn_open { display: none; }
 	.veu_metabox_all_section_toggle_btn_close { display: block; }
 }
