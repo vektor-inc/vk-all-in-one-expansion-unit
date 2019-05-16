@@ -79,7 +79,7 @@ class VkExUnit_Contact {
 
 		// 固定ページ編集画にお問い合わせ情報を表示のチェックボックスを表示する
 		add_filter( 'veu_content_meta_box_activation', array( $this, 'activate_metabox' ), 10, 1 );
-		add_action( 'veu_post_metabox_body', array( $this, 'render_meta_box' ) );
+		add_action( 'veu_metabox_insert_items', array( $this, 'render_meta_box' ) );
 
 		if ( veu_content_filter_state() == 'content' ) {
 			add_filter( 'the_content', array( $this, 'set_content' ), 10, 1 );

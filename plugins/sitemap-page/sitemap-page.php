@@ -248,7 +248,7 @@ function vkExUnit_sitemap_activate( $flag ) {
 /*-------------------------------------------*/
 /*  admin _ meta box
 /*-------------------------------------------*/
-add_action( 'veu_post_metabox_body', 'vkExUnit_sitemap_meta_box' );
+add_action( 'veu_metabox_insert_items', 'vkExUnit_sitemap_meta_box' );
 function vkExUnit_sitemap_meta_box() {
 	global $post;
 	// sitemap display

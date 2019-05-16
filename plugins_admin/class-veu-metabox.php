@@ -77,7 +77,6 @@ class VEU_Metabox {
 	 */
 	public function metabox_body( $display = true ) {
 
-		global $post;
 		$cf_value = get_post_meta( get_the_id(), $this->args['cf_name'], true );
 
 		$body  = '';
