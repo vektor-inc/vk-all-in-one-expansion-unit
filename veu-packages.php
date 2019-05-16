@@ -356,7 +356,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add ExUnit menu to admin bar.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => '../plugins_admin/admin_bar.php',
+		'include'     => '../admin/admin_bar.php',
 	);
 
 	/*

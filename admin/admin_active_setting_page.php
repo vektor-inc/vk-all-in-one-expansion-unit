@@ -1,6 +1,6 @@
 <div class="wrap vk_admin_page">
 <h2>
-<span class="pageTitleTxt"><?php echo veu_get_name();?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
+<span class="pageTitleTxt"><?php echo veu_get_name(); ?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
 </h2>
 
 <div class="adminMain">

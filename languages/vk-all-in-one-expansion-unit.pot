@@ -1760,31 +1760,31 @@ msgid ""
 "field of the following, its contents will be reflected."
 msgstr ""
 
-#: plugins_admin/admin_bar.php:28
+#: admin/admin_bar.php:28
 msgid "Active Setting"
 msgstr ""
 
-#: plugins_admin/admin_bar.php:36
+#: admin/admin_bar.php:36
 msgid "Main Setting"
 msgstr ""
 
-#: plugins_admin/content-meta-box.php:11
+#: admin/content-meta-box.php:11
 msgid "Setting of insert items"
 msgstr ""
 
-#: plugins_admin/customize-panel.php:28
+#: admin/customize-panel.php:28
 msgid "ExUnit Settings"
 msgstr ""
 
-#: plugins_admin/dashboard_info_widget.php:18
+#: admin/dashboard_info_widget.php:18
 msgid "News from VK All in One Expansion Unit"
 msgstr ""
 
-#: plugins_admin/disable_guide.php:17
+#: admin/disable_guide.php:17
 msgid "Edit Guide"
 msgstr ""
 
-#: plugins_admin/vk-admin/class.vk-admin.php:100
+#: admin/vk-admin/class.vk-admin.php:100
 msgid "Sorry, there is no post"
 msgstr ""
 

@@ -74,7 +74,7 @@ msgstr "アイキャッチ自動挿入"
 msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
 
-#: plugins/bootstrap.php:9 plugins_admin/customizer.php:38
+#: plugins/bootstrap.php:9 admin/customizer.php:38
 msgid "Settings"
 msgstr "設定"
 
@@ -2022,23 +2022,23 @@ msgstr ""
 "しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
 "力すれば、その内容が反映されます。"
 
-#: plugins_admin/admin_bar.php:33
+#: admin/admin_bar.php:33
 msgid "Active Setting"
 msgstr "有効化設定"
 
-#: plugins_admin/admin_bar.php:44
+#: admin/admin_bar.php:44
 msgid "Main Setting"
 msgstr "メイン設定"
 
-#: plugins_admin/disable_guide.php:17
+#: admin/disable_guide.php:17
 msgid "Edit Guide"
 msgstr "編集ガイド"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:290
+#: admin/vk-admin/class-vk-admin.php:290
 msgid "Sorry, there is no post"
 msgstr "お知らせはありません。"
 
-#: plugins_admin/vk-admin/class-vk-admin.php:344
+#: admin/vk-admin/class-vk-admin.php:344
 msgid "Vektor WordPress Information"
 msgstr "Vektor WordPress Information"
 
