@@ -31,8 +31,8 @@ add_action( 'admin_menu', 'veu_add_content_meta_box' );
 function veu_post_metabox_body() {
 	echo '<div class="veu_metabox_nav">';
 	echo '<p class="veu_metabox_all_section_toggle close">';
-	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_open">すべて展開 <i class="fas fa-caret-down"></i></button> ';
-	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_close">すべて閉じる <i class="fas fa-caret-up"></i></button>';
+	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_open">' . __( 'Open all', 'vk-all-in-one-expansion-unit' ) . ' <i class="fas fa-caret-down"></i></button> ';
+	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_close">' . __( 'Close all', 'vk-all-in-one-expansion-unit' ) . ' <i class="fas fa-caret-up"></i></button>';
 	echo '</p>';
 	echo '</div>';
 	do_action( 'veu_post_metabox_body' );
