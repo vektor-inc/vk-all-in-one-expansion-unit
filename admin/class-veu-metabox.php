@@ -27,6 +27,14 @@ class VEU_Metabox {
 			add_action( 'veu_post_metabox_body', array( $this, 'the_meta_section' ), $this->args['priority'] );
 		}
 		add_action( 'save_post', array( $this, 'save_custom_field' ) );
+
+		// Parent metabox activate
+		add_filter( 'veu_content_meta_box_activation', array( $this, 'metabox_activate' ), 10, 1 );
+
+	}
+
+	public function metabox_activate( $flag ) {
+		return true;
 	}
 
 	/**
