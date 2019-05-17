@@ -7,10 +7,11 @@ class VEU_Metabox_Insert_Items extends VEU_Metabox {
 	public function __construct( $args = array() ) {
 
 		$this->args = array(
-			'slug'     => 'veu_insert_items',
-			'cf_name'  => '',
-			'title'    => __( 'Setting of insert items', 'vk-all-in-one-expansion-unit' ),
-			'priority' => 10,
+			'slug'       => 'veu_insert_items',
+			'cf_name'    => '',
+			'title'      => __( 'Setting of insert items', 'vk-all-in-one-expansion-unit' ),
+			'priority'   => 10,
+			'post_types' => array( 'page' ),
 		);
 
 		parent::__construct( $this->args );

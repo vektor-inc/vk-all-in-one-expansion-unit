@@ -160,25 +160,43 @@ $fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
 
 $vkExUnit_sns_options = veu_get_sns_options();
 
-require vkExUnit_get_directory() . '/plugins/sns/widget-fb-page-plugin.php';
-require vkExUnit_get_directory() . '/plugins/sns/widget-twitter.php';
-require vkExUnit_get_directory() . '/plugins/sns/class-veu-metabox-sns-title.php';
+require dirname( __FILE__ ) . '/widget-fb-page-plugin.php';
+require dirname( __FILE__ ) . '/widget-twitter.php';
+
+
+/*
+VEU_Metabox 内の get_post_type が実行タイミングによっては
+カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+admin_menu のタイミングで読み込んでいる
+ */
+add_action(
+	'admin_menu', function() {
+		require dirname( __FILE__ ) . '/class-veu-metabox-sns-title.php';
+	}
+);
 
 if ( $vkExUnit_sns_options['enableOGTags'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_og.php';
+	require dirname( __FILE__ ) . '/function_og.php';
 }
 if ( $vkExUnit_sns_options['enableSnsBtns'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_snsBtns.php';
-	require vkExUnit_get_directory() . '/plugins/sns/class-veu-metabox-sns-button.php';
 	// シェアボタンを表示する設定の読み込み
-	// require_once( dirname( __FILE__ ) . '/function_snsBtns.php' );
-	// require_once( dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php' );
+	require dirname( __FILE__ ) . '/function_snsBtns.php';
+	/*
+	VEU_Metabox 内の get_post_type が実行タイミングによっては
+	カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+	admin_menu のタイミングで読み込んでいる
+	 */
+	add_action(
+		'admin_menu', function() {
+			require dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php';
+		}
+	);
 }
 if ( $vkExUnit_sns_options['enableTwitterCardTags'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_twitterCard.php';
+	require dirname( __FILE__ ) . '/function_twitterCard.php';
 }
 if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
-	require vkExUnit_get_directory() . '/plugins/sns/function_follow.php';
+	require dirname( __FILE__ ) . '/function_follow.php';
 }
 
 

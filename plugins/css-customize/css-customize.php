@@ -19,7 +19,18 @@ class veu_css_customize {
 		add_action( 'admin_menu', array( $this, 'css_customize_menu' ) );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( dirname( __FILE__ ) . '/css-customize-single.php' );
-		require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
+
+		/*
+		VEU_Metabox 内の get_post_type が実行タイミングによっては
+		カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+		admin_menu のタイミングで読み込んでいる
+		 */
+		add_action(
+			'admin_menu', function() {
+				require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
+			}
+		);
+
 	}
 
 	public function admin_bar( $wp_admin_bar ) {
