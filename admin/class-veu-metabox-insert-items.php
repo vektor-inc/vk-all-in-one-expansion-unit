@@ -1,5 +1,7 @@
 <?php
 
+require_once( vkExUnit_get_directory() . '/admin/class-veu-metabox.php' );
+
 class VEU_Metabox_Insert_Items extends VEU_Metabox {
 
 	public function __construct( $args = array() ) {

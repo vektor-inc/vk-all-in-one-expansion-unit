@@ -4,23 +4,30 @@
 /*-------------------------------------------*/
 
 require_once( dirname( __FILE__ ) . '/class-veu-metabox.php' );
-require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
 
 /**
  * Add Content meta box use for "Child Page List" , "Sitemap" , "Contact section" and more fields
  */
 function veu_add_content_meta_box() {
 	if ( apply_filters( 'veu_content_meta_box_activation', false ) ) {
+
 		$meta_box_name = veu_get_name();
 
 		$args       = array(
 			'public' => true,
 		);
 		$post_types = get_post_types( $args );
-
 		foreach ( $post_types as $key => $post_type ) {
 			add_meta_box( 'veu_content_meta_box', $meta_box_name, 'veu_post_metabox_body', $post_type, 'normal', 'high' );
 		}
+
+		/*
+		VEU_Metabox 内の get_post_type が実行タイミングによっては
+		カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+		admin_menu のタイミングで読み込んでいる
+		 */
+		require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
+
 	}
 }
 add_action( 'admin_menu', 'veu_add_content_meta_box' );

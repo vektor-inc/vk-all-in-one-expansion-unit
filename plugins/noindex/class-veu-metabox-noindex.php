@@ -1,9 +1,5 @@
 <?php
 
-if ( ! class_exists( 'VEU_Metabox' ) ) {
-	return;
-}
-
 class VEU_Metabox_Noindex extends VEU_Metabox {
 
 	public function __construct( $args = array() ) {
