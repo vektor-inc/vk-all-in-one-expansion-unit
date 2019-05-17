@@ -31,7 +31,7 @@ class VEU_Metabox_Noindex extends VEU_Metabox {
 			$checked = '';
 		}
 
-		$label = __( 'Print noindex tag.', 'vk-all-in-one-expansion-unit' );
+		$label = __( 'Print noindex tag that to be do not display on search result.', 'vk-all-in-one-expansion-unit' );
 
 		$form .= '<ul>';
 		$form .= '<li><label>' . '<input type="checkbox" id="' . esc_attr( $this->args['cf_name'] ) . '" name="' . esc_attr( $this->args['cf_name'] ) . '" value="true"' . $checked . '> ' . $label . '</label></li>';

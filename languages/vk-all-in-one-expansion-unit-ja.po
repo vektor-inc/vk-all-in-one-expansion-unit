@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-15 02:05+0900\n"
+"POT-Creation-Date: 2019-05-18 00:41+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -16,67 +16,107 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
-#: admin_active_setting_page.php:3
+#: admin/admin_active_setting_page.php:3
 msgid "Enable setting"
 msgstr "有効化設定"
 
-#: admin_active_setting_page.php:16 admin_active_setting_page.php:89
+#: admin/admin_active_setting_page.php:16
+#: admin/admin_active_setting_page.php:89
 msgid "Select all"
 msgstr "全てを選択"
 
-#: admin_active_setting_page.php:16 admin_active_setting_page.php:89
+#: admin/admin_active_setting_page.php:16
+#: admin/admin_active_setting_page.php:89
 msgid "Function"
 msgstr "有効化"
 
-#: admin_active_setting_page.php:16 admin_active_setting_page.php:89
+#: admin/admin_active_setting_page.php:16
+#: admin/admin_active_setting_page.php:89
 msgid "Description"
 msgstr "説明"
 
-#: admin_active_setting_page.php:35 veu-packages.php:429
+#: admin/admin_active_setting_page.php:35 veu-packages.php:429
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
-#: admin_active_setting_page.php:95
+#: admin/admin_active_setting_page.php:95
 msgid "Extension Setting"
 msgstr "拡張設定"
 
-#: admin_active_setting_page.php:100
+#: admin/admin_active_setting_page.php:100
 msgid "Extention contents"
 msgstr "拡張コンテンツ"
 
-#: admin_active_setting_page.php:106
+#: admin/admin_active_setting_page.php:106
 msgid "set extension contents to loop_end hook"
 msgstr "ループ終了時にコンテンツを追加する"
 
-#: admin_active_setting_page.php:112
+#: admin/admin_active_setting_page.php:112
 msgid "Plugin setting options"
 msgstr "プラグイン設定オプション"
 
-#: admin_active_setting_page.php:114
+#: admin/admin_active_setting_page.php:114
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
 
-#: admin_main_setting_page.php:10 admin_main_setting_page.php:11
+#: admin/admin_bar.php:33
+msgid "Active Setting"
+msgstr "有効化設定"
+
+#: admin/admin_bar.php:44
+msgid "Main Setting"
+msgstr "メイン設定"
+
+#: admin/admin_main_setting_page.php:10 admin/admin_main_setting_page.php:11
 #: plugins/meta_keyword.php:103
 msgid "Main setting"
 msgstr "メイン設定"
 
-#: admin_main_setting_page.php:82
+#: admin/admin_main_setting_page.php:82
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
 
-#: plugins/auto_eyecatch.php:50
+#: admin/class-veu-metabox-insert-items.php:12
+msgid "Setting of insert items"
+msgstr "挿入アイテムの設定"
+
+#: admin/class-veu-metabox.php:119
+#: plugins/sitemap-page/class-veu-metabox-sitemap.php:38
+msgid "Hide this page to HTML Sitemap."
+msgstr "このページをHTMLサイトマップに表示しない。"
+
+#: admin/content-meta-box.php:49
+msgid "Open all"
+msgstr "すべて開く"
+
+#: admin/content-meta-box.php:50
+msgid "Close all"
+msgstr "全て閉じる"
+
+#: admin/customizer.php:38 plugins/bootstrap.php:9
+msgid "Settings"
+msgstr "設定"
+
+#: admin/disable_guide.php:17
+msgid "Edit Guide"
+msgstr "編集ガイド"
+
+#: admin/vk-admin/package/class-vk-admin.php:290
+msgid "Sorry, there is no post"
+msgstr "お知らせはありません。"
+
+#: admin/vk-admin/package/class-vk-admin.php:344
+msgid "Vektor WordPress Information"
+msgstr "Vektor WordPress Information"
+
+#: plugins/auto-eyecatch/class-veu-metabox-eyecatch.php:10
 msgid "Automatic EyeCatch"
 msgstr "アイキャッチ自動挿入"
 
-#: plugins/auto_eyecatch.php:60
+#: plugins/auto-eyecatch/class-veu-metabox-eyecatch.php:33
 msgid "Do not set eyecatch image automatic."
 msgstr "アイキャッチ画像を自動挿入しない"
-
-#: plugins/bootstrap.php:9 admin/customizer.php:38
-msgid "Settings"
-msgstr "設定"
 
 #: plugins/bootstrap.php:36
 msgid "Key color"
@@ -86,55 +126,53 @@ msgstr "キーカラー"
 msgid "Key color(dark)"
 msgstr "キーカラー（暗）"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:62
-#: plugins/call-to-action/package/class-vk-call-to-action.php:435
-msgid "Edit CTA"
-msgstr "CTAの編集"
-
-#: plugins/call-to-action/package/class-vk-call-to-action.php:63
-msgid "Add new CTA"
-msgstr "CTAの新規作成"
-
-#: plugins/call-to-action/package/class-vk-call-to-action.php:64
-msgid "New CTA"
-msgstr "CTA 新規作成"
-
-#: plugins/call-to-action/package/class-vk-call-to-action.php:97
-#: plugins/call-to-action/package/class-vk-call-to-action.php:99
-#: plugins/call-to-action/package/class-vk-call-to-action.php:100
+#: plugins/call-to-action/package/class-veu-metabox-cta.php:14
 msgid "Call to Action setting"
 msgstr "CTA設定"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:102
-msgid "CTA Contents"
-msgstr "CTA Contents"
-
-#: plugins/call-to-action/package/class-vk-call-to-action.php:129
-#: plugins/call-to-action/package/class-vk-call-to-action.php:640
+#: plugins/call-to-action/package/class-veu-metabox-cta.php:39
+#: plugins/call-to-action/package/class-vk-call-to-action.php:599
 #: plugins/call-to-action/package/widget-call-to-action.php:74
 msgid "Random"
 msgstr "ランダム表示"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:135
-#: plugins/call-to-action/package/class-vk-call-to-action.php:647
+#: plugins/call-to-action/package/class-veu-metabox-cta.php:45
+#: plugins/call-to-action/package/class-vk-call-to-action.php:606
 msgid "Disable display"
 msgstr "表示しない"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:141
+#: plugins/call-to-action/package/class-veu-metabox-cta.php:51
 msgid "Follow common setting"
 msgstr "共通設定を使用"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:154
+#: plugins/call-to-action/package/class-veu-metabox-cta.php:62
 msgid "CTA common setting"
 msgstr "CTA共通設定"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:155
+#: plugins/call-to-action/package/class-veu-metabox-cta.php:63
 #: plugins/call-to-action/package/view-adminsetting.php:31
 #: plugins/call-to-action/package/widget-call-to-action.php:88
 msgid "Show CTA index page"
 msgstr "CTAの一覧を表示"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:220
+#: plugins/call-to-action/package/class-vk-call-to-action.php:63
+#: plugins/call-to-action/package/class-vk-call-to-action.php:394
+msgid "Edit CTA"
+msgstr "CTAの編集"
+
+#: plugins/call-to-action/package/class-vk-call-to-action.php:64
+msgid "Add new CTA"
+msgstr "CTAの新規作成"
+
+#: plugins/call-to-action/package/class-vk-call-to-action.php:65
+msgid "New CTA"
+msgstr "CTA 新規作成"
+
+#: plugins/call-to-action/package/class-vk-call-to-action.php:92
+msgid "CTA Contents"
+msgstr "CTA Contents"
+
+#: plugins/call-to-action/package/class-vk-call-to-action.php:268
 msgid ""
 "You can create it with a free layout in the content field using, such as "
 "Outer block and PR Content block in VK Blocks."
@@ -142,7 +180,7 @@ msgstr ""
 "VK Blocks の アウターブロックやPR Content ブロックを使って本文欄に自由なレイ"
 "アウトで作成する事もできます。"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:221
+#: plugins/call-to-action/package/class-vk-call-to-action.php:269
 msgid ""
 "If the contents field is entered, the contents of the body will be displayed "
 "with priority, so the following contents will be ignored."
@@ -150,7 +188,7 @@ msgstr ""
 "本文欄が入力されている場合は本文の内容が優先して表示されるので以下の内容は無"
 "視されます。"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:222
+#: plugins/call-to-action/package/class-vk-call-to-action.php:270
 msgid ""
 "The entered contents are displayed directly. You can not use Dynamic blocks, "
 "reuse blocks, etc."
@@ -158,78 +196,78 @@ msgstr ""
 "入力された内容は直接表示されます。 動的ブロックや再利用ブロックなどは使用でき"
 "ません。"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:226
+#: plugins/call-to-action/package/class-vk-call-to-action.php:274
 msgid "CTA image"
 msgstr "CTA画像"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:232
+#: plugins/call-to-action/package/class-vk-call-to-action.php:280
 msgid "Add image"
 msgstr "画像を追加"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:233
+#: plugins/call-to-action/package/class-vk-call-to-action.php:281
 msgid "Change image"
 msgstr "画像を変更"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:234
+#: plugins/call-to-action/package/class-vk-call-to-action.php:282
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:239
+#: plugins/call-to-action/package/class-vk-call-to-action.php:287
 msgid "CTA image position"
 msgstr "CTA画像の位置"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:242
+#: plugins/call-to-action/package/class-vk-call-to-action.php:290
 msgid "right"
 msgstr "右寄せ"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:243
+#: plugins/call-to-action/package/class-vk-call-to-action.php:291
 msgid "center"
 msgstr "中央"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:244
+#: plugins/call-to-action/package/class-vk-call-to-action.php:292
 msgid "left"
 msgstr "左寄せ"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:248
+#: plugins/call-to-action/package/class-vk-call-to-action.php:296
 msgid "Button text"
 msgstr "ボタンの表記文言"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:252
+#: plugins/call-to-action/package/class-vk-call-to-action.php:300
 msgid "Button icon"
 msgstr "ボタンアイコン"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:253
+#: plugins/call-to-action/package/class-vk-call-to-action.php:301
 #: plugins/other_widget/widget-button.php:122
 msgid "To choose your favorite icon, and enter the class."
 msgstr "アイコンフォントを選んでそのクラス名を入力してください。"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:254
+#: plugins/call-to-action/package/class-vk-call-to-action.php:302
 #: plugins/other_widget/widget-button.php:123
 msgid "Before :"
 msgstr "文字の前 :"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:256
+#: plugins/call-to-action/package/class-vk-call-to-action.php:304
 #: plugins/other_widget/widget-button.php:125
 msgid "After :"
 msgstr "文字の後 :"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:268
+#: plugins/call-to-action/package/class-vk-call-to-action.php:316
 msgid "Button link url"
 msgstr "ボタンのリンク先URL"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:281
+#: plugins/call-to-action/package/class-vk-call-to-action.php:329
 msgid "Target window"
 msgstr "リンク先ターゲット"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:283
+#: plugins/call-to-action/package/class-vk-call-to-action.php:331
 msgid "Open in a self window"
 msgstr "同じウィンドウで開く"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:285
+#: plugins/call-to-action/package/class-vk-call-to-action.php:333
 msgid "Text message"
 msgstr "テキストメッセージ"
 
-#: plugins/call-to-action/package/class-vk-call-to-action.php:291
+#: plugins/call-to-action/package/class-vk-call-to-action.php:339
 #: plugins/call-to-action/package/widget-call-to-action.php:91
 msgid "CTA setting"
 msgstr "CTA設定"
@@ -528,30 +566,30 @@ msgstr "お問い合わせ情報"
 msgid "It is not reflected in the header."
 msgstr "ヘッダーには反映されません。"
 
-#: plugins/css_customize/css_customize-edit.php:2
-#: plugins/css_customize/css_customize.php:30
-#: plugins/css_customize/css_customize.php:44
-#: plugins/css_customize/css_customize.php:45
-msgid "CSS Customize"
-msgstr "CSSカスタマイズ"
-
-#: plugins/css_customize/css_customize-edit.php:5
-msgid "You can add custom CSS here."
-msgstr "デザインをカスタマイズする場合は下のテキストエリアにCSSを入力します"
-
-#: plugins/css_customize/css_customize-edit.php:13
-msgid "Save CSS"
-msgstr "CSSを保存する"
-
-#: plugins/css_customize/css_customize-single.php:22
+#: plugins/css-customize/class-veu-metabox-css-customize.php:14
 msgid "Custom CSS"
 msgstr "カスタムCSS"
 
-#: plugins/css_customize/css_customize.php:100
+#: plugins/css-customize/css-customize-edit.php:2
+#: plugins/css-customize/css-customize.php:43
+#: plugins/css-customize/css-customize.php:57
+#: plugins/css-customize/css-customize.php:58
+msgid "CSS Customize"
+msgstr "CSSカスタマイズ"
+
+#: plugins/css-customize/css-customize-edit.php:5
+msgid "You can add custom CSS here."
+msgstr "デザインをカスタマイズする場合は下のテキストエリアにCSSを入力します"
+
+#: plugins/css-customize/css-customize-edit.php:13
+msgid "Save CSS"
+msgstr "CSSを保存する"
+
+#: plugins/css-customize/css-customize.php:113
 msgid "Your custom CSS was saved."
 msgstr "CSSが保存されました"
 
-#: plugins/css_customize/css_customize.php:103
+#: plugins/css-customize/css-customize.php:116
 msgid "Error occured. Please try again."
 msgstr "何らかのエラー!! また試してみてください"
 
@@ -856,13 +894,13 @@ msgstr "キーワードを複数入力する場合は , ( カンマ )で区切�
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
 
-#: plugins/noindex/class-veu-metabox-noindex.php:15
+#: plugins/noindex/class-veu-metabox-noindex.php:10
 msgid "Noindex setting"
 msgstr "noindex設定"
 
-#: plugins/noindex/class-veu-metabox-noindex.php:69
-msgid "Print noindex tag."
-msgstr "noindexタグを出力する。"
+#: plugins/noindex/class-veu-metabox-noindex.php:34
+msgid "Print noindex tag that to be do not display on search result."
+msgstr "検索結果に表示されないようにnoindexタグを出力する。"
 
 #: plugins/other_widget/widget-3pr-area.php:9
 #: plugins/other_widget/widget-3pr-area.php:161
@@ -1175,7 +1213,7 @@ msgstr "固定ページのタイトルを表示する"
 msgid "Do not display titles"
 msgstr "タイトルを表示しない"
 
-#: plugins/other_widget/widget-page.php:175 plugins/pageList_ancestor.php:96
+#: plugins/other_widget/widget-page.php:175 plugins/pageList_ancestor.php:101
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
@@ -1513,61 +1551,57 @@ msgstr "関連記事を表示"
 msgid "Related Settings"
 msgstr "関連記事設定"
 
-#: plugins/sitemap-page/class-veu-metabox-sitemap.php:15
+#: plugins/sitemap-page/class-veu-metabox-sitemap.php:14
 msgid "Hide setting of HTML sitemap"
 msgstr "HTMLサイトマップの非表示設定"
 
-#: plugins/sitemap-page/class-veu-metabox-sitemap.php:67
-msgid "Hide this page to HTML Sitemap."
-msgstr "このページをHTMLサイトマップに表示しない。"
+#: plugins/sitemap-page/sitemap-page-admin-main-setting.php:8
+msgid "HTML Sitemap"
+msgstr "HTMLサイトマップ"
 
-#: plugins/sitemap-page/sitemap-admin.php:9
+#: plugins/sitemap-page/sitemap-page-admin-main-setting.php:39
 msgid "HTML Sitemap Settings"
 msgstr "HTMLサイトマップ設定"
 
-#: plugins/sitemap-page/sitemap-admin.php:13
+#: plugins/sitemap-page/sitemap-page-admin-main-setting.php:43
 msgid "Exclude page Settings"
 msgstr "除外ページ設定"
 
-#: plugins/sitemap-page/sitemap-admin.php:15
+#: plugins/sitemap-page/sitemap-page-admin-main-setting.php:45
 msgid "Input you want to exclude page id."
 msgstr "HTMLサイトマップから除外したい固定ページのIDを入力してください。"
 
-#: plugins/sitemap-page/sitemap-admin.php:17
+#: plugins/sitemap-page/sitemap-page-admin-main-setting.php:47
 msgid ""
 "* Please enter separated by \",\"(commas) if there is more than one page ID "
 "that you want to exclude."
 msgstr "複数のページを除外する場合は , （コンマ）で区切って入力してください。"
 
-#: plugins/sitemap-page/sitemap-page.php:34
-msgid "HTML Sitemap"
-msgstr "HTMLサイトマップ"
-
-#: plugins/sitemap-page/sitemap-page.php:261
+#: plugins/sitemap-page/sitemap-page.php:224
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
-#: plugins/sns/class-veu-metabox-sns-button.php:15
+#: plugins/sns/class-veu-metabox-sns-button.php:14
 msgid "Hide setting of share button"
 msgstr "シェアボタンの非表示設定"
 
-#: plugins/sns/class-veu-metabox-sns-button.php:71
+#: plugins/sns/class-veu-metabox-sns-button.php:38
 msgid "This post type is not set to display the share button."
 msgstr "この投稿タイプはシェアボタンを表示するように設定されていません。"
 
-#: plugins/sns/class-veu-metabox-sns-button.php:72
+#: plugins/sns/class-veu-metabox-sns-button.php:39
 msgid "Display setting of share button"
 msgstr "ソーシャルボタンの表示設定"
 
-#: plugins/sns/class-veu-metabox-sns-button.php:82
+#: plugins/sns/class-veu-metabox-sns-button.php:49
 msgid "Don't display share bottons."
 msgstr "ソーシャルボタンを表示しない"
 
-#: plugins/sns/class-veu-metabox-sns-title.php:15
+#: plugins/sns/class-veu-metabox-sns-title.php:14
 msgid "SNS Title"
 msgstr "OGPタイトル"
 
-#: plugins/sns/class-veu-metabox-sns-title.php:62
+#: plugins/sns/class-veu-metabox-sns-title.php:32
 msgid "if filled this area then override title of OGP and Twitter Card"
 msgstr ""
 "このエリアにタイトルを入力すると、このページのOGP,ツイッターカードに出力され"
@@ -2022,26 +2056,6 @@ msgstr ""
 "しかし、上記の形式では長くなりすぎる事があります。その場合は下記の入力欄に入"
 "力すれば、その内容が反映されます。"
 
-#: admin/admin_bar.php:33
-msgid "Active Setting"
-msgstr "有効化設定"
-
-#: admin/admin_bar.php:44
-msgid "Main Setting"
-msgstr "メイン設定"
-
-#: admin/disable_guide.php:17
-msgid "Edit Guide"
-msgstr "編集ガイド"
-
-#: admin/vk-admin/class-vk-admin.php:290
-msgid "Sorry, there is no post"
-msgstr "お知らせはありません。"
-
-#: admin/vk-admin/class-vk-admin.php:344
-msgid "Vektor WordPress Information"
-msgstr "Vektor WordPress Information"
-
 #: veu-packages.php:55
 msgid "Print link fontawesome"
 msgstr "fontawesome link タグを出力"
@@ -2358,24 +2372,27 @@ msgstr ""
 "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
 "ます。"
 
-#: vkExUnit.php:81
+#: vkExUnit.php:83
 #, php-format
 msgid "The current PHP version(%s) is too old, so VK ExUnit will not work."
 msgstr "使用中のPHPのバージョン(%s) が古すぎるので VK ExUnit は動作しません。"
 
-#: vkExUnit.php:84
+#: vkExUnit.php:86
 msgid "VK ExUnit supports PHP5.6 or later."
 msgstr "VKExUnit がサポートしているPHPのバージョンは5.6以降です"
 
-#: vkExUnit.php:100
+#: vkExUnit.php:102
 #, php-format
 msgid "Current PHP Version(%s) is old."
 msgstr "使用中のPHPのバージョン(%s) が古いです。"
 
-#: vkExUnit.php:101
+#: vkExUnit.php:103
 #, php-format
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
+
+#~ msgid "Print noindex tag."
+#~ msgstr "noindexタグを出力する。"
 
 #~ msgid "Site Map Hide"
 #~ msgstr "サイトマップ非表示設定"
@@ -2385,9 +2402,6 @@ msgstr "%s はPHP5.6以降をサポートしています。"
 
 #~ msgid "Share bottons"
 #~ msgstr "ソーシャルボタン"
-
-#~ msgid "Setting of insert items"
-#~ msgstr "挿入アイテムの設定"
 
 #, fuzzy
 #~| msgid "Display count"

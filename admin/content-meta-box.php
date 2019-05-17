@@ -13,6 +13,14 @@ function veu_add_content_meta_box() {
 
 		$meta_box_name = veu_get_name();
 
+		/*
+		Original Brand Unit で 名前を未入力にされた時にメタボックスが表示されなくなってしまうので、
+		とりあえずスペースを代入
+		 */
+		if ( ! $meta_box_name ) {
+			$meta_box_name = ' ';
+		}
+
 		$args       = array(
 			'public' => true,
 		);
