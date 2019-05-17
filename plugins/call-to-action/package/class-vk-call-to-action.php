@@ -1,11 +1,5 @@
 <?php
 
-/*
-このファイルの元ファイルは
-https://github.com/vektor-inc/vektor-wp-libraries
-にあります。修正の際は上記リポジトリのデータを修正してください。
-*/
-
 // namespace Vektor\ExUnit\Package\Cta;
 if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
@@ -16,9 +10,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		const CONTENT_NUMBER = 100;
 
 		public static function init() {
-			add_action( 'init', array( __CLASS__, 'set_posttype' ) );
 			add_action( 'vkExUnit_package_init', array( __CLASS__, 'option_init' ) );
-			add_action( 'admin_menu', array( __CLASS__, 'add_custom_field' ) );
+			add_action( 'init', array( __CLASS__, 'set_posttype' ) );
+			add_action( 'admin_menu', array( __CLASS__, 'add_metabox_cta_register' ) );
 			add_action( 'save_post', array( __CLASS__, 'save_custom_field' ) );
 			add_action( 'widgets_init', array( __CLASS__, 'widget_init' ) );
 			if ( veu_content_filter_state() == 'content' ) {
@@ -28,10 +22,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
 			require_once dirname( __FILE__ ) . '/class-veu-metabox-cta.php';
-		}
-
-		public static function widget_init() {
-			return register_widget( 'Widget_CTA' );
 		}
 
 		public static function set_content_loopend( $query ) {
@@ -44,6 +34,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			echo self::content_filter( '' );
 		}
 
+		//////////////////////////////////////////////////////
 
 		public static function option_init() {
 			vkExUnit_register_setting(
@@ -53,7 +44,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				array( __CLASS__, 'render_configPage' )     // setting_page function name
 			);
 		}
-
 
 		public static function set_posttype() {
 			global $vk_call_to_action_textdomain;
@@ -86,21 +76,109 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 
-		public static function add_custom_field() {
+		public static function add_metabox_cta_register() {
 			global $vk_call_to_action_textdomain;
-			// $post_types = get_post_types(
-			// 	array(
-			// 		'_builtin' => false,
-			// 		'public'   => true,
-			// 	)
-			// );
-			// foreach ( $post_types as $key => $post ) {
-			// 	add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), $post, 'normal', 'high' );
-			// }
-			// add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'page', 'normal', 'high' );
-			// add_meta_box( 'vkExUnit_cta', __( 'Call to Action setting', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box' ), 'post', 'normal', 'high' );
-
+			// Meta box of CTA edit and register page
 			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
+		}
+
+
+		/**
+	 * [save_custom_field description]
+	 *
+	 * @param  [type] $post_id [description]
+	 * @return [type]          [description]
+	 */
+		public static function save_custom_field( $post_id ) {
+			if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) {
+				return $post_id; }
+			$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_custom_cta'] ) : null;
+
+			// if autosave is to deny
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+				return $post_id; }
+
+			if ( ! wp_verify_nonce( $noonce, plugin_basename( __FILE__ ) ) ) {
+				return $post_id;
+			}
+
+			if ( $_POST['_vkExUnit_cta_switch'] == 'cta_number' ) {
+				$data = $_POST['vkexunit_cta_each_option'];
+
+				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
+					add_post_meta( $post_id, 'vkexunit_cta_each_option', $data, true );
+				} elseif ( $data != get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) ) {
+					update_post_meta( $post_id, 'vkexunit_cta_each_option', $data );
+				} elseif ( ! $data ) {
+					delete_post_meta( $post_id, 'vkexunit_cta_each_option', get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) );
+				}
+				return $post_id;
+			} elseif ( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ) {
+
+				// カスタムフィールドの設定
+				$custom_fields = array(
+					'vkExUnit_cta_img'                => array(
+						'escape_type' => '',
+					),
+					'vkExUnit_cta_img_position'       => array(
+						'escape_type' => '',
+					),
+					'vkExUnit_cta_button_text'        => array(
+						'escape_type' => 'stripslashes',
+					),
+					'vkExUnit_cta_button_icon'        => array(
+						'escape_type' => 'stripslashes',
+					),
+					'vkExUnit_cta_button_icon_before' => array(
+						'escape_type' => 'stripslashes',
+					),
+					'vkExUnit_cta_button_icon_after'  => array(
+						'escape_type' => 'stripslashes',
+					),
+					'vkExUnit_cta_url'                => array(
+						'escape_type' => '',
+					),
+					'vkExUnit_cta_url_blank'          => array(
+						'escape_type' => '',
+					),
+					'vkExUnit_cta_text'               => array(
+						'escape_type' => 'stripslashes',
+					),
+				);
+
+				// カスタムフィールドの保存
+				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
+
+					if ( isset( $_POST[ $custom_field_name ] ) ) {
+						if ( isset( $custom_field_name['escape_type'] ) && $custom_field_name['escape_type'] == 'stripslashes' ) {
+							$data = stripslashes( $_POST[ $custom_field_name ] );
+						} else {
+							$data = $_POST[ $custom_field_name ];
+						}
+					}
+
+					if ( get_post_meta( $post_id, $custom_field_name ) == '' ) {
+						// データが今までなかったらカスタムフィールドに新規保存
+						add_post_meta( $post_id, $custom_field_name, $data, true );
+					} elseif ( $data != get_post_meta( $post_id, $custom_field_name, true ) ) {
+						// 保存されてたデータと送信されてきたデータが違ったら更新
+						update_post_meta( $post_id, $custom_field_name, $data );
+					} elseif ( ! $data ) {
+						// データが送信されてこなかった（空のデータが送られてきた）らフィールドの値を削除
+						delete_post_meta( $post_id, $custom_field_name, get_post_meta( $post_id, $custom_field_name, true ) );
+					}
+				} // foreach ( $custom_fields as $key => $custom_field_name ) {
+
+				return $post_id;
+			}
+		} // public static function save_custom_field( $post_id ) {
+
+		/**
+	 * [widget_init description]
+	 * @return [type] [description]
+	 */
+		public static function widget_init() {
+			return register_widget( 'Widget_CTA' );
 		}
 
 		/**
@@ -117,47 +195,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 			return $setting_page_url;
 		}
-
-		public static function render_meta_box() {
-			global $vk_call_to_action_textdomain;
-			echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />';
-
-			$ctas = self::get_ctas( true, '  - ' );
-			// ランダムを先頭に追加
-			array_unshift(
-				$ctas, array(
-					'key'   => 'random',
-					'label' => __( 'Random', $vk_call_to_action_textdomain ),
-				)
-			);
-			array_unshift(
-				$ctas, array(
-					'key'   => 'disable',
-					'label' => __( 'Disable display', $vk_call_to_action_textdomain ),
-				)
-			);
-			array_unshift(
-				$ctas, array(
-					'key'   => 0,
-					'label' => __( 'Follow common setting', $vk_call_to_action_textdomain ),
-				)
-			);
-			$now = get_post_meta( get_the_id(), 'vkexunit_cta_each_option', true );
-			?>
-	<input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
-
-	<select name="vkexunit_cta_each_option" id="vkexunit_cta_each_option">
-	<?php foreach ( $ctas as $cta ) : ?>
-		<option value="<?php echo $cta['key']; ?>" <?php echo( $cta['key'] == $now ) ? 'selected' : ''; ?> ><?php echo $cta['label']; ?></option>
-	<?php endforeach; ?>
-	</select>
-	<p>
-	<a href="<?php echo self::setting_page_url(); ?>" class="button button-default" target="_blank"><?php _e( 'CTA common setting', $vk_call_to_action_textdomain ); ?></a>
-	<a href="<?php echo admin_url( 'edit.php?post_type=cta' ); ?>" class="button button-default" target="_blank"><?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?></a>
-	</p>
-		<?php
-		}
-
 
 		public static function render_meta_box_cta() {
 
@@ -293,95 +330,6 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		<?php
 		}
 
-		/**
-		 * [save_custom_field description]
-		 *
-		 * @param  [type] $post_id [description]
-		 * @return [type]          [description]
-		 */
-		public static function save_custom_field( $post_id ) {
-			if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) {
-				return $post_id; }
-			$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_custom_cta'] ) : null;
-
-			// if autosave is to deny
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return $post_id; }
-
-			if ( ! wp_verify_nonce( $noonce, plugin_basename( __FILE__ ) ) ) {
-				return $post_id;
-			}
-
-			if ( $_POST['_vkExUnit_cta_switch'] == 'cta_number' ) {
-				$data = $_POST['vkexunit_cta_each_option'];
-
-				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
-					add_post_meta( $post_id, 'vkexunit_cta_each_option', $data, true );
-				} elseif ( $data != get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) ) {
-					update_post_meta( $post_id, 'vkexunit_cta_each_option', $data );
-				} elseif ( ! $data ) {
-					delete_post_meta( $post_id, 'vkexunit_cta_each_option', get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) );
-				}
-				return $post_id;
-			} elseif ( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ) {
-
-				// カスタムフィールドの設定
-				$custom_fields = array(
-					'vkExUnit_cta_img'                => array(
-						'escape_type' => '',
-					),
-					'vkExUnit_cta_img_position'       => array(
-						'escape_type' => '',
-					),
-					'vkExUnit_cta_button_text'        => array(
-						'escape_type' => 'stripslashes',
-					),
-					'vkExUnit_cta_button_icon'        => array(
-						'escape_type' => 'stripslashes',
-					),
-					'vkExUnit_cta_button_icon_before' => array(
-						'escape_type' => 'stripslashes',
-					),
-					'vkExUnit_cta_button_icon_after'  => array(
-						'escape_type' => 'stripslashes',
-					),
-					'vkExUnit_cta_url'                => array(
-						'escape_type' => '',
-					),
-					'vkExUnit_cta_url_blank'          => array(
-						'escape_type' => '',
-					),
-					'vkExUnit_cta_text'               => array(
-						'escape_type' => 'stripslashes',
-					),
-				);
-
-				// カスタムフィールドの保存
-				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
-
-					if ( isset( $_POST[ $custom_field_name ] ) ) {
-						if ( isset( $custom_field_name['escape_type'] ) && $custom_field_name['escape_type'] == 'stripslashes' ) {
-							$data = stripslashes( $_POST[ $custom_field_name ] );
-						} else {
-							$data = $_POST[ $custom_field_name ];
-						}
-					}
-
-					if ( get_post_meta( $post_id, $custom_field_name ) == '' ) {
-						// データが今までなかったらカスタムフィールドに新規保存
-						add_post_meta( $post_id, $custom_field_name, $data, true );
-					} elseif ( $data != get_post_meta( $post_id, $custom_field_name, true ) ) {
-						// 保存されてたデータと送信されてきたデータが違ったら更新
-						update_post_meta( $post_id, $custom_field_name, $data );
-					} elseif ( ! $data ) {
-						// データが送信されてこなかった（空のデータが送られてきた）らフィールドの値を削除
-						delete_post_meta( $post_id, $custom_field_name, get_post_meta( $post_id, $custom_field_name, true ) );
-					}
-				} // foreach ( $custom_fields as $key => $custom_field_name ) {
-
-				return $post_id;
-			}
-		}
 
 
 		/**
