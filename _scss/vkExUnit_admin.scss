@@ -17,10 +17,14 @@
 }
 .veu_metabox_nav {
 	position: relative;
+	display:block; overflow:hidden;
 	.veu_metabox_all_section_toggle {
 		position: relative;
 		right:0;
 		top:0;
+		// 以下スキンなどによって負けないように指定しているので消さないように
+		opacity: 1;
+		float:none; 
 	}
 }
 .veu_metabox_footer {
