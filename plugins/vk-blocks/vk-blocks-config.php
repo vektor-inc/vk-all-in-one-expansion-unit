@@ -3,7 +3,7 @@
   Load modules
 /*-------------------------------------------*/
 if ( ! function_exists( 'vkblocks_active' ) ) {
-	require_once( 'vk-blocks/package/vk-blocks-functions.php' );
+	require_once( 'package/vk-blocks-functions.php' );
 	// Set asset URL.
 	define( 'VK_BLOCKS_URL', plugin_dir_url( __FILE__ ) . 'package/' );
 	// Set version number.
