@@ -4,7 +4,7 @@
   Load modules
 /*-------------------------------------------*/
 if ( ! class_exists( 'Vk_Admin' ) ) {
-	require_once( 'vk-admin/class-vk-admin.php' );
+	require_once( 'package/class-vk-admin.php' );
 }
 
 global $vk_admin_textdomain;
