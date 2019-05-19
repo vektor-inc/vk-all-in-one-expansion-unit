@@ -33,6 +33,7 @@ function veu_render_main_frame() {
 
 	// nonce
 	if ( isset( $_POST['_nonce_vkExUnit'] ) && wp_verify_nonce( $_POST['_nonce_vkExUnit'], 'standing_on_the_shoulder_of_giants' ) ) {
+
 		// sanitize & update
 		veu_main_sanitaize_and_update( $_POST );
 	}
@@ -98,26 +99,36 @@ function vkExUnit_the_main_setting_body() {
 
 /*
  Main Setting Page  _ 値をアップデート
+ Main Setting Page で複数のoption値が送信される。
+ それらをループしながらサニタイズしながらアップデートする
 /*-------------------------------------------*/
-function veu_main_sanitaize_and_update( $post ) {
+function veu_main_sanitaize_and_update( $_post ) {
+
+	// ExUnitで利用しているoption項目の配列
 	global $vkExUnit_options;
 
 	if ( ! empty( $vkExUnit_options ) ) {
 
-		// $vkExUnit_options をループしながらサニタイズ＆アップデートする
-		foreach ( $vkExUnit_options as $opt ) {
+		// ExUnitで利用しているoption項目をループしながらサニタイズ＆アップデートする
+		foreach ( $vkExUnit_options as $veu_option ) {
 
 			// サニタイズ Call back が登録されている場合にサニタイズ実行
-			if ( ! empty( $opt['callback'] ) ) {
+			if ( ! empty( $veu_option['callback'] ) ) {
 
-				// コールバック関数にわたすパラメーターを指定
-				$before = ( ! empty( $post[ $opt['option_name'] ] ) ? $post[ $opt['option_name'] ] : null );
+				// コールバック関数にわたす入力値を指定
+				$option_name = $veu_option['option_name'];
+
+				if ( ! empty( $_post[ $option_name ] ) ) {
+					$before = $_post[ $option_name ];
+				} else {
+					$before = null;
+				} // if ( ! empty( $_post[ $option_name ] ){
 
 				// サニタイズコールバックを実行
-				$option = call_user_func_array( $opt['callback'], array( $before ) );
-			}
+				$option = call_user_func_array( $veu_option['callback'], array( $before ) );
+			} // if ( ! empty( $veu_option['callback'] ) ) {
 
-			update_option( $opt['option_name'], $option );
+			update_option( $veu_option['option_name'], $option );
 		}
 	}
 }

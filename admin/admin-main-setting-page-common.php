@@ -7,7 +7,7 @@ function veu_main_setting_add_common() {
 	vkExUnit_register_setting(
 		__( 'Common setting', 'vk-all-in-one-expansion-unit' ),
 		'vkExUnit_common_options',
-		'',
+		'veu_common_metabox_options_validate',
 		'veu_add_common_setting_page'
 	);
 }
@@ -16,16 +16,18 @@ add_action( 'vkExUnit_package_init', 'veu_main_setting_add_common' );
 /*-------------------------------------------*/
 /*  validate
 /*-------------------------------------------*/
-// function veu_sitemap_options_validate( $input ) {
-// 	$output = $defaults = veu_get_sitemap_options_default();
-//
-// 	$paras = array( 'excludeId' );
-//
-// 	foreach ( $paras as $key => $value ) {
-// 		$output[ $value ] = ( isset( $input[ $value ] ) ) ? $input[ $value ] : '';
-// 	}
-// 	return apply_filters( 'veu_sitemap_options_validate', $output, $input, $defaults );
-// }
+function veu_common_metabox_options_validate( $input ) {
+	print '<pre style="text-align:left">';
+	print_r( $input );
+	print '</pre>';
+	die();
+	// $output = $defaults = veu_get_sitemap_options_default();
+
+	// $paras = array( 'excludeId' );
+	//
+	// wp_parse_args();
+	return apply_filters( 'veu_sitemap_options_validate', $output, $input, $defaults );
+}
 
 
 function veu_add_common_setting_page() {

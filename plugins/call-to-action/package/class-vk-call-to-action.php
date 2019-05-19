@@ -504,13 +504,16 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			if ( ! $option ) {
 				$current_option = self::get_default_option();
 			}
-			foreach ( $input as $key => $value ) {
-				if ( $value == 'random' ) {
-					$option[ $key ] = 'random';
-				} else {
-					$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
+			if ( is_array( $input ) ) {
+				foreach ( $input as $key => $value ) {
+					if ( $value == 'random' ) {
+						$option[ $key ] = 'random';
+					} else {
+						$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
+					}
 				}
 			}
+
 			return $option;
 		}
 
