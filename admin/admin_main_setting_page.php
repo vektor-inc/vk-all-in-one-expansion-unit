@@ -46,6 +46,7 @@ function veu_render_main_frame() {
 		$vkExUnit_options = array();
 	}
 	$get_menu_html = '';
+
 	foreach ( $vkExUnit_options as $vkoption ) {
 		if ( ! isset( $vkoption['render_page'] ) ) {
 			continue; }
@@ -112,10 +113,17 @@ function vkExUnit_main_config_sanitaize( $post ) {
 	global $vkExUnit_options;
 
 	if ( ! empty( $vkExUnit_options ) ) {
+
+		// $vkExUnit_options をループしながらサニタイズ＆アップデートする
 		foreach ( $vkExUnit_options as $opt ) {
 
+			// サニタイズ Call back が登録されている場合にサニタイズ実行
 			if ( ! empty( $opt['callback'] ) ) {
+
+				// コールバック関数にわたすパラメーターを指定
 				$before = ( ! empty( $post[ $opt['option_name'] ] ) ? $post[ $opt['option_name'] ] : null );
+
+				// サニタイズコールバックを実行
 				$option = call_user_func_array( $opt['callback'], array( $before ) );
 			}
 
