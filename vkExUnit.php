@@ -53,13 +53,11 @@ if ( function_exists( 'register_deactivation_hook' ) ) {
 
 function vkExUnit_uninstall_function() {
 	require_once vkExUnit_get_directory() . '/initialize.php';
-	require_once vkExUnit_get_directory() . '/admin/admin.php';
 	include vkExUnit_get_directory( '/uninstaller.php' );
 }
 
 // PHP Version check
 if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
-	require_once vkExUnit_get_directory() . '/admin/admin.php';
 	require_once vkExUnit_get_directory() . '/initialize.php';
 
 	if ( version_compare( phpversion(), '5.6' ) < 0 && is_admin() ) {

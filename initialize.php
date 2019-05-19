@@ -5,6 +5,7 @@
   Add vkExUnit js
 /*-------------------------------------------*/
 
+require_once vkExUnit_get_directory() . '/admin/admin.php';
 
 /*
   Load modules
