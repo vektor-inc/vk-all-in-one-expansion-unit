@@ -79,14 +79,6 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 }
 
 /*-------------------------------------------*/
-/* admin_metabox_activate
-/*-------------------------------------------*/
-add_filter( 'veu_parent_metabox_activation', 'veu_page_list_ancestor_admin_metabox_activate', 10, 1 );
-function veu_page_list_ancestor_admin_metabox_activate( $flag ) {
-	return true;
-}
-
-/*-------------------------------------------*/
 /* admin_metabox_content
 /*-------------------------------------------*/
 add_action( 'veu_metabox_insert_items', 'vkExUnit_pageList_ancestor_admin_metabox_content' );

@@ -200,13 +200,6 @@ function vkExUnit_sitemap( $atts ) {
 }
 add_shortcode( 'vkExUnit_sitemap', 'vkExUnit_sitemap' );
 
-
-add_filter( 'veu_parent_metabox_activation', 'vkExUnit_sitemap_activate', 10, 1 );
-function vkExUnit_sitemap_activate( $flag ) {
-	return true;
-}
-
-
 /*-------------------------------------------*/
 /*  admin _ meta box
 /*	こちらは非表示設定ではなく サイトマップ自体を表示するかどうか

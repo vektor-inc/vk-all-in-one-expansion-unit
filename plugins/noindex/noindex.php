@@ -8,15 +8,6 @@
  * @since    13/May/2019
  */
 
-
-/*
-	admin_metabox_activate
-/*-------------------------------------------*/
-add_filter( 'veu_parent_metabox_activation', 'veu_noindex_metabox_activate', 10, 1 );
-function veu_noindex_metabox_activate( $flag ) {
-	return true;
-}
-
 /*
 VEU_Metabox 内の get_post_type が実行タイミングによっては
 カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために

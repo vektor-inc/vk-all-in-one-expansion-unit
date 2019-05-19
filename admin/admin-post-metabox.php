@@ -28,15 +28,13 @@ function veu_add_parent_metabox() {
 		foreach ( $post_types as $key => $post_type ) {
 			add_meta_box( 'veu_parent_post_metabox', $meta_box_name, 'veu_parent_metabox_body', $post_type, 'normal', 'high' );
 		}
-
-		/*
-		VEU_Metabox 内の get_post_type が実行タイミングによっては
-		カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
-		admin_menu のタイミングで読み込んでいる
-		 */
-		require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
-
 	}
+	/*
+	VEU_Metabox 内の get_post_type が実行タイミングによっては
+	カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+	admin_menu のタイミングで読み込んでいる
+	 */
+	require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
 }
 add_action( 'admin_menu', 'veu_add_parent_metabox' );
 
