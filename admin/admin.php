@@ -5,6 +5,20 @@
   Print admin js
 */
 
+add_action( 'plugins_loaded', 'veu_admin_loadfile' );
+function veu_admin_loadfile() {
+	require dirname( __FILE__ ) . '/admin-common-init.php';
+	require dirname( __FILE__ ) . '/admin-main-setting-page.php';
+	require dirname( __FILE__ ) . '/disable_guide.php';
+	require dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
+	require dirname( __FILE__ ) . '/customizer.php';
+}
+
+/*
+plugins_loaded の位置だとmetaboxを統合しない設定にしても個別のmetaboxが表示されない
+ */
+require dirname( __FILE__ ) . '/content-meta-box.php';
+
 /*
   Add Parent menu
 /*-------------------------------------------*/
@@ -31,18 +45,6 @@ function veu_setting_menu_parent() {
 function vkExUnit_add_setting_page() {
 	require dirname( __FILE__ ) . '/admin-active-setting-page.php';
 }
-
-
-add_action( 'plugins_loaded', 'veu_admin_loadfile' );
-function veu_admin_loadfile() {
-	require dirname( __FILE__ ) . '/admin-common-init.php';
-	require dirname( __FILE__ ) . '/admin-main-setting-page.php';
-	require dirname( __FILE__ ) . '/disable_guide.php';
-	require dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
-	require dirname( __FILE__ ) . '/customizer.php';
-	require dirname( __FILE__ ) . '/content-meta-box.php';
-}
-
 
 /*
   Print admin js

@@ -6,6 +6,8 @@ class VEU_Metabox {
 
 	public function __construct( $args = array() ) {
 
+		$veu_get_common_options = veu_get_common_options();
+
 		$post_type_paras = array(
 			'public' => true,
 		);
@@ -15,21 +17,24 @@ class VEU_Metabox {
 			'cf_name'    => '',
 			'title'      => '',
 			'priority'   => 10,
-			'individual' => false,
+			'individual' => $veu_get_common_options['post_metabox_individual'],
 			'post_types' => get_post_types( $post_type_paras ),
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
 
 		if ( $this->args['individual'] ) {
-			add_action( 'admin_menu', array( $this, 'add_individual_metabox' ) );
+			// 通常メタボックスの追加タイミングは admin_menu だが,
+			// ここでは admin_init でないと反映されないため
+			add_action( 'admin_init', array( $this, 'add_individual_metabox' ) );
 		} else {
+			// Parent metabox activate
+			add_filter( 'veu_content_meta_box_activation', array( $this, 'metabox_activate' ), 10, 1 );
+			// 共通のメタボックスの中身を呼び込む
 			add_action( 'veu_post_metabox_body', array( $this, 'the_meta_section' ), $this->args['priority'] );
 		}
-		add_action( 'save_post', array( $this, 'save_custom_field' ) );
 
-		// Parent metabox activate
-		add_filter( 'veu_content_meta_box_activation', array( $this, 'metabox_activate' ), 10, 1 );
+		add_action( 'save_post', array( $this, 'save_custom_field' ) );
 
 	}
 
@@ -42,8 +47,9 @@ class VEU_Metabox {
 	 * === Now use common metabox that this function is not used
 	 */
 	public function add_individual_metabox() {
+		// add_meta_box( 'aaa', 'ArrayIterator', array( $this, 'metabox_body' ), 'page', 'normal', 'high' );
 		foreach ( $this->args['post_types'] as $key => $post_type ) {
-			add_meta_box( $this->args['slug'], $this->args['title'], array( $this, 'metabox_body' ), 'page', 'normal', 'high' );
+			add_meta_box( $this->args['slug'], $this->args['title'], array( $this, 'metabox_body' ), $post_type, 'normal', 'high' );
 		}
 	}
 
