@@ -96,20 +96,6 @@ function vkExUnit_the_main_setting_body() {
 	echo  '</form>';
 }
 
-function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
-	global $vkExUnit_options;
-	if ( ! isset( $vkExUnit_options ) ) {
-		$vkExUnit_options = array();
-	}
-	$vkExUnit_options[] =
-		array(
-			'option_name' => $option_name,
-			'callback'    => $sanitize_callback,
-			'tab_label'   => $tab_label,
-			'render_page' => $render_page,
-		);
-}
-
 /*
  Main Setting Page  _ 値をアップデート
 /*-------------------------------------------*/
