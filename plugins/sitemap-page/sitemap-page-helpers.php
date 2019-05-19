@@ -9,6 +9,11 @@ function veu_get_sitemap_options() {
 	return apply_filters( 'vkExUnit_sitemap_options', $options );
 }
 
+function veu_get_sitemap_options_default() {
+	$default_options['excludeId'] = '';
+	return apply_filters( 'vkExUnit_sitemap_options_default', $default_options );
+}
+
 /*-------------------------------------------*/
 /*  サイトマップで非表示にする
 /*-------------------------------------------*/
