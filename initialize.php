@@ -12,11 +12,12 @@ require_once vkExUnit_get_directory() . '/admin/admin.php';
 /*-------------------------------------------*/
 add_action( 'plugins_loaded', 'veu_loadfile' );
 function veu_loadfile() {
-	require vkExUnit_get_directory() . '/common_init.php';
-	require vkExUnit_get_directory() . '/common_helpers.php';
 	require vkExUnit_get_directory() . '/veu-package-manager.php';
 	require vkExUnit_get_directory() . '/veu-packages.php';
 	require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
+	require_once( vkExUnit_get_directory() . '/plugins/template-tags/template-tags.php' );
+	require_once( vkExUnit_get_directory() . '/plugins/template-tags/template-tags-veu.php' );
+	require_once( vkExUnit_get_directory() . '/plugins/template-tags/template-tags-veu-old.php' );
 	vkExUnit_package_include(); // package_manager.php
 }
 

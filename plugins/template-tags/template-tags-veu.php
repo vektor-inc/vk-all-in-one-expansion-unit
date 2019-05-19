@@ -7,8 +7,24 @@ https://github.com/vektor-inc/vektor-wp-libraries
 */
 
 /**
- * ExUnit固有の関数だが、ExUnitの機能を複製しているために独立化したプラグインにも使用される関数
+ * ExUnit固有の関数だが、ExUnitの機能を複製している他のプラグインにも使用されるものもある
  */
+
+if ( ! function_exists( 'veu_get_capability_required' ) ) {
+	function veu_get_capability_required() {
+		return add_filter( 'veu_get_capability_required', 'edit_theme_options' );
+	}
+}
+
+if ( ! function_exists( 'veu_get_systemlogo_html' ) ) {
+	function veu_get_systemlogo_html() {
+		$logo  = '<div class="logo_exUnit">';
+		$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', vkExUnit_get_directory_uri( '/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" />';
+		$logo .= '</div>';
+		$logo  = apply_filters( 'veu_get_systemlogo_html', $logo );
+		return $logo;
+	}
+}
 
 if ( ! function_exists( 'veu_content_filter_state' ) ) {
 	function veu_content_filter_state() {
