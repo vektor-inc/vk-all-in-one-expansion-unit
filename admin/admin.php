@@ -7,10 +7,10 @@
 /*
   Add Parent menu
 /*-------------------------------------------*/
-add_action( 'admin_menu', 'vkExUnit_setting_menu_parent' );
-function vkExUnit_setting_menu_parent() {
+add_action( 'admin_menu', 'veu_setting_menu_parent' );
+function veu_setting_menu_parent() {
 	global $menu;
-	$parent_name         = vkExUnit_get_little_short_name();
+	$parent_name         = veu_get_little_short_name();
 	$Capability_required = 'activate_plugins';
 
 	$custom_page = add_menu_page(
@@ -28,7 +28,7 @@ function vkExUnit_setting_menu_parent() {
   Load master setting page
 /*-------------------------------------------*/
 function vkExUnit_add_setting_page() {
-	require dirname( __FILE__ ) . '/admin_active_setting_page.php';
+	require dirname( __FILE__ ) . '/admin-active-setting-page.php';
 }
 
 

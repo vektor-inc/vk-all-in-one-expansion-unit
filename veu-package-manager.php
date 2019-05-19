@@ -36,7 +36,7 @@ function vkExUnit_package_is_enable( $package_name ) {
 		return null; }
 
 	// 共通設定（有効化情報）を読み込む
-	$options = vkExUnit_get_common_options();
+	$options = veu_get_common_options();
 
 	// 保存されている共通設定データにパッケージ名が存在しない場合
 	if ( ! isset( $options[ 'active_' . $package_name ] ) ) {
@@ -60,7 +60,7 @@ function vkExUnit_package_include() {
 	global $vkExUnit_packages;
 	if ( ! count( $vkExUnit_packages ) || ! is_array( $vkExUnit_packages ) ) {
 		return $output; }
-	$options      = vkExUnit_get_common_options();
+	$options      = veu_get_common_options();
 	$include_base = vkExUnit_get_directory() . '/plugins/';
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
@@ -89,8 +89,8 @@ function vkExUnit_package_default() {
 }
 
 
-add_filter( 'vkExUnit_common_options_validate', 'vkExUnit_common_package_options_validate', 10, 2 );
-function vkExUnit_common_package_options_validate( $output, $input ) {
+add_filter( 'vkExUnit_common_options_validate', 'veu_common_package_options_validate', 10, 2 );
+function veu_common_package_options_validate( $output, $input ) {
 	global $vkExUnit_packages;
 	if ( ! count( $vkExUnit_packages ) || ! is_array( $vkExUnit_packages ) ) {
 		return $output; }

@@ -22,10 +22,10 @@ function veu_loadfile() {
 /*
   Add vkExUnit css
 /*-------------------------------------------*/
-add_action( 'wp_enqueue_scripts', 'vkExUnit_print_css' );
-function vkExUnit_print_css() {
+add_action( 'wp_enqueue_scripts', 'veu_print_css' );
+function veu_print_css() {
 	global $vkExUnit_version;
-	$options = vkExUnit_get_common_options();
+	$options = veu_get_common_options();
 	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
 		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/css/vkExUnit_style_in_bs.css', array(), $vkExUnit_version, 'all' );
 	} else {
@@ -33,17 +33,17 @@ function vkExUnit_print_css() {
 	}
 }
 
-function vkExUnit_print_editor_css() {
+function veu_print_editor_css() {
 	add_editor_style( plugins_url( '', __FILE__ ) . '/css/vkExUnit_editor_style.css' );
 }
-add_action( 'after_setup_theme', 'vkExUnit_print_editor_css' );
+add_action( 'after_setup_theme', 'veu_print_editor_css' );
 
 
 /*
   Add vkExUnit js
 /*-------------------------------------------*/
-add_action( 'wp_head', 'vkExUnit_addJs' );
-function vkExUnit_addJs() {
+add_action( 'wp_head', 'veu_print_js' );
+function veu_print_js() {
 	global $vkExUnit_version;
 	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) ) );
@@ -51,11 +51,11 @@ function vkExUnit_addJs() {
 }
 
 if ( function_exists( 'register_activation_hook' ) ) {
-	register_activation_hook( __FILE__, 'vkExUnit_install_function' );
+	register_activation_hook( __FILE__, 'veu_install_function' );
 }
-function vkExUnit_install_function() {
+function veu_install_function() {
 	$opt = get_option( 'vkExUnit_common_options' );
 	if ( ! $opt ) {
-		add_option( 'vkExUnit_common_options', vkExUnit_get_common_options_default() );
+		add_option( 'vkExUnit_common_options', veu_get_common_options_default() );
 	}
 }
