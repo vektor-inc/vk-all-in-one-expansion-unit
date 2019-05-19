@@ -17,7 +17,7 @@ function veu_admin_loadfile() {
 /*
 plugins_loaded の位置だとmetaboxを統合しない設定にしても個別のmetaboxが表示されない
  */
-require dirname( __FILE__ ) . '/post-metabox.php';
+require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
 /*
   Add Parent menu
