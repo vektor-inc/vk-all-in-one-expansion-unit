@@ -7,7 +7,7 @@
 <form method="post" action="options.php">
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
-	$options = vkExUnit_get_common_options();
+	$options = veu_get_common_options();
 ?>
 
 <table class="wp-list-table widefat plugins" style="width:auto;">

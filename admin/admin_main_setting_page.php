@@ -1,29 +1,35 @@
 <?php
+/*
+ Main Setting Page  _ ExUnit > メイン設定 メニューを追加
+ Main Setting Page  _ ページのフレーム（ メニューとメインエリア両方 ）
+ Main Setting Page  _ メインエリアの中身
+
+
 
 /*
- Main Setting Page  _ メニューに追加
+ Main Setting Page  _ ExUnit > メイン設定 メニューを追加
 /*-------------------------------------------*/
-function vkExUnit_add_main_setting() {
+function veu_add_main_setting() {
 	// $capability_required = veu_get_capability_required();
 	$custom_page = add_submenu_page(
 		'vkExUnit_setting_page',            // parent
 		__( 'Main setting', 'vk-all-in-one-expansion-unit' ),   // Name of page
 		__( 'Main setting', 'vk-all-in-one-expansion-unit' ),   // Label in menu
-		'activate_plugins',               // veu_get_capability_required()でないのは edit_theme_options権限を付与したユーザーにもアクセスさせないためにactivate_pluginsにしている。
-		// $capability_required,          // Capability
-		'vkExUnit_main_setting',            // ユニークなこのサブメニューページの識別子
-		'vkExUnit_render_main_frame'        // メニューページのコンテンツを出力する関数
+		'activate_plugins',                         // veu_get_capability_required()でないのは edit_theme_options権限を付与したユーザーにもアクセスさせないためにactivate_pluginsにしている。
+		// $capability_required,		// Capability
+		'vkExUnit_main_setting',        // ユニークなこのサブメニューページの識別子
+		'veu_render_main_frame'         // メニューページのコンテンツを出力する関数
 	);
 	if ( ! $custom_page ) {
 		return; }
 }
-add_action( 'admin_menu', 'vkExUnit_add_main_setting' );
+add_action( 'admin_menu', 'veu_add_main_setting' );
 
 
 /*
- Main Setting Page  _ ページのフレーム
+ Main Setting Page  _ ページのフレーム（ メニューとメインエリア両方 ）
 /*-------------------------------------------*/
-function vkExUnit_render_main_frame() {
+function veu_render_main_frame() {
 
 	vkExUnit_save_main_config();
 
@@ -55,7 +61,7 @@ function vkExUnit_render_main_frame() {
 }
 
 /*
- Main Setting Page  _ ページのメインエリアの中身
+ Main Setting Page  _ メインエリアの中身
 /*-------------------------------------------*/
 function vkExUnit_the_main_setting_body() {
 	global $vkExUnit_options;?>
