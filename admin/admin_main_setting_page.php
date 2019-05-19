@@ -31,7 +31,11 @@ add_action( 'admin_menu', 'veu_add_main_setting' );
 /*-------------------------------------------*/
 function veu_render_main_frame() {
 
-	vkExUnit_save_main_config();
+	// nonce
+	if ( isset( $_POST['_nonce_vkExUnit'] ) && wp_verify_nonce( $_POST['_nonce_vkExUnit'], 'standing_on_the_shoulder_of_giants' ) ) {
+		// sanitize & update
+		veu_main_sanitaize_and_update( $_POST );
+	}
 
 	// Left menu area top Title
 	$get_page_title = veu_get_little_short_name() . ' Main setting';
@@ -109,7 +113,7 @@ function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $san
 /*
  Main Setting Page  _ 値をアップデート
 /*-------------------------------------------*/
-function vkExUnit_main_config_sanitaize( $post ) {
+function veu_main_sanitaize_and_update( $post ) {
 	global $vkExUnit_options;
 
 	if ( ! empty( $vkExUnit_options ) ) {
@@ -132,15 +136,19 @@ function vkExUnit_main_config_sanitaize( $post ) {
 	}
 }
 
-function vkExUnit_save_main_config() {
-
-	// nonce
-	if ( ! isset( $_POST['_nonce_vkExUnit'] ) ) {
-		return;
+/*
+global $vkExUnit_options に各種値を登録するための関数
+ */
+function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
+	global $vkExUnit_options;
+	if ( ! isset( $vkExUnit_options ) ) {
+		$vkExUnit_options = array();
 	}
-	if ( ! wp_verify_nonce( $_POST['_nonce_vkExUnit'], 'standing_on_the_shoulder_of_giants' ) ) {
-		return;
-	}
-
-	vkExUnit_main_config_sanitaize( $_POST );
+	$vkExUnit_options[] =
+		array(
+			'option_name' => $option_name,
+			'callback'    => $sanitize_callback,
+			'tab_label'   => $tab_label,
+			'render_page' => $render_page,
+		);
 }

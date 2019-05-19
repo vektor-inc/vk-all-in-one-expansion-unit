@@ -35,6 +35,7 @@ function vkExUnit_add_setting_page() {
 add_action( 'plugins_loaded', 'veu_admin_loadfile' );
 function veu_admin_loadfile() {
 	require dirname( __FILE__ ) . '/admin_main_setting_page.php';
+	// require dirname( __FILE__ ) . '/admin-main-setting-page-common.php';
 	require dirname( __FILE__ ) . '/disable_guide.php';
 	require dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
 	require dirname( __FILE__ ) . '/customizer.php';
