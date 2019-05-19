@@ -109,6 +109,11 @@ if ( veu_content_filter_state() == 'loop_end' ) {
 </tr>
 -->
 <tr>
+<th><?php _e( 'Post edit page metabox settings', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td><label><input type="checkbox" name="vkExUnit_common_options[post_metabox_individual]" value="true" <?php echo ( isset( $options['post_metabox_individual'] ) && $options['post_metabox_individual'] ) ? 'checked' : ''; ?> />
+<?php _e( 'Do not combine ExUnit\'s meta box', 'vk-all-in-one-expansion-unit' ); ?></label></td>
+</tr>
+<tr>
 <th><?php _e( 'Plugin setting options', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><label><input type="checkbox" name="vkExUnit_common_options[delete_options_at_deactivate]" value="true" <?php echo ( isset( $options['delete_options_at_deactivate'] ) && $options['delete_options_at_deactivate'] ) ? 'checked' : ''; ?> />
 <?php _e( 'Delete myOptions when deactivate me.', 'vk-all-in-one-expansion-unit' ); ?></label></td>
