@@ -130,7 +130,7 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 /*
  admin_metabox_activate
 /*-------------------------------------------*/
-add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_admin_metabox_activate', 10, 1 );
+add_filter( 'veu_parent_metabox_activation', 'vkExUnit_childPageIndex_admin_metabox_activate', 10, 1 );
 function vkExUnit_childPageIndex_admin_metabox_activate( $flag ) {
 	return true;
 }

@@ -30,7 +30,7 @@ class VEU_Metabox {
 			add_action( 'admin_init', array( $this, 'add_individual_metabox' ) );
 		} else {
 			// Parent metabox activate
-			add_filter( 'veu_content_meta_box_activation', array( $this, 'metabox_activate' ), 10, 1 );
+			add_filter( 'veu_parent_metabox_activation', array( $this, 'metabox_activate' ), 10, 1 );
 			// 共通のメタボックスの中身を呼び込む
 			add_action( 'veu_post_metabox_body', array( $this, 'the_meta_section' ), $this->args['priority'] );
 		}
