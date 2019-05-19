@@ -3,10 +3,11 @@
 class VEU_Metabox {
 
 	public $args;
+	public $veu_get_common_options;
 
 	public function __construct( $args = array() ) {
 
-		$veu_get_common_options = veu_get_common_options();
+		$this->veu_get_common_options = veu_get_common_options();
 
 		$post_type_paras = array(
 			'public' => true,
@@ -17,7 +18,7 @@ class VEU_Metabox {
 			'cf_name'    => '',
 			'title'      => '',
 			'priority'   => 10,
-			'individual' => $veu_get_common_options['post_metabox_individual'],
+			'individual' => $this->veu_get_common_options['post_metabox_individual'],
 			'post_types' => get_post_types( $post_type_paras ),
 		);
 
