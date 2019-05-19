@@ -13,7 +13,6 @@ class VEU_Metabox_Sitemap extends VEU_Metabox {
 			'cf_name'    => 'sitemap_hide',
 			'title'      => __( 'Hide setting of HTML sitemap', 'vk-all-in-one-expansion-unit' ),
 			'priority'   => 50,
-			'individual' => false,
 			'post_types' => array( 'page' => 'page' ),
 		);
 
