@@ -10,8 +10,8 @@ require_once vkExUnit_get_directory() . '/admin/admin.php';
 /*
   Load modules
 /*-------------------------------------------*/
-add_action( 'plugins_loaded', 'veu_loadfile' );
-function veu_loadfile() {
+add_action( 'plugins_loaded', 'veu_load_files' );
+function veu_load_files() {
 	require vkExUnit_get_directory() . '/veu-package-manager.php';
 	require vkExUnit_get_directory() . '/veu-packages.php';
 	require vkExUnit_get_directory() . '/plugins/footer_copyright_change.php';
