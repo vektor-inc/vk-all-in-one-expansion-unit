@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-19 16:46+0900\n"
+"POT-Creation-Date: 2019-05-20 02:20+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kurudrive <kurudrive@gmail.com>\n"
 "Language-Team: Vektor translate Team <info@vektor-inc.co.jp>\n"
@@ -44,7 +44,7 @@ msgstr "説明"
 
 #: admin/admin-active-setting-page.php:35
 #: dist/vk-all-in-one-expansion-unit/admin/admin_active_setting_page.php:35
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:429 veu-packages.php:429
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:429 veu-packages.php:412
 msgid "Automatic Eye Catch insert"
 msgstr "アイキャッチ画像自動挿入"
 
@@ -64,12 +64,10 @@ msgid "set extension contents to loop_end hook"
 msgstr "ループ終了時にコンテンツを追加する"
 
 #: admin/admin-active-setting-page.php:112
-#: admin/admin-main-setting-page-common.php:45
 msgid "Post edit page metabox settings"
 msgstr "投稿編集画面metabox設定"
 
 #: admin/admin-active-setting-page.php:114
-#: admin/admin-main-setting-page-common.php:52
 msgid "Do not combine ExUnit's meta box"
 msgstr "ExUnitのmetaboxを統合しない"
 
@@ -83,23 +81,11 @@ msgstr "プラグイン設定オプション"
 msgid "Delete myOptions when deactivate me."
 msgstr "プラグインを無効化する際にDBに保存したオプション項目を削除します。"
 
-#: admin/admin-main-setting-page-common.php:8
-#, fuzzy
-#| msgid "CTA common setting"
-msgid "Common setting"
-msgstr "CTA共通設定"
-
-#: admin/admin-main-setting-page-common.php:41
-#, fuzzy
-#| msgid "CTA common setting"
-msgid "Common Settings"
-msgstr "CTA共通設定"
-
 #: admin/admin-main-setting-page.php:16 admin/admin-main-setting-page.php:17
 #: dist/vk-all-in-one-expansion-unit/admin/admin_main_setting_page.php:10
 #: dist/vk-all-in-one-expansion-unit/admin/admin_main_setting_page.php:11
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:103
-#: plugins/meta_keyword.php:103
+#: plugins/meta-keyword/class-veu-metabox-meta-keyword.php:30
 msgid "Main setting"
 msgstr "メイン設定"
 
@@ -108,6 +94,16 @@ msgstr "メイン設定"
 msgid "Activated Packages is noting. please activate some package."
 msgstr ""
 "有効化されているパッケージがありません。何かの機能を有効化してください。"
+
+#: admin/admin-post-metabox.php:47
+#: dist/vk-all-in-one-expansion-unit/admin/content-meta-box.php:49
+msgid "Open all"
+msgstr "すべて開く"
+
+#: admin/admin-post-metabox.php:48
+#: dist/vk-all-in-one-expansion-unit/admin/content-meta-box.php:50
+msgid "Close all"
+msgstr "全て閉じる"
 
 #: admin/admin_bar.php:33
 #: dist/vk-all-in-one-expansion-unit/admin/admin_bar.php:33
@@ -124,22 +120,12 @@ msgstr "メイン設定"
 msgid "Setting of insert items"
 msgstr "挿入アイテムの設定"
 
-#: admin/class-veu-metabox.php:119
+#: admin/class-veu-metabox.php:126
 #: dist/vk-all-in-one-expansion-unit/admin/class-veu-metabox.php:119
 #: dist/vk-all-in-one-expansion-unit/plugins/sitemap-page/class-veu-metabox-sitemap.php:38
-#: plugins/sitemap-page/class-veu-metabox-sitemap.php:38
+#: plugins/sitemap-page/class-veu-metabox-sitemap.php:37
 msgid "Hide this page to HTML Sitemap."
 msgstr "このページをHTMLサイトマップに表示しない。"
-
-#: admin/content-meta-box.php:49
-#: dist/vk-all-in-one-expansion-unit/admin/content-meta-box.php:49
-msgid "Open all"
-msgstr "すべて開く"
-
-#: admin/content-meta-box.php:50
-#: dist/vk-all-in-one-expansion-unit/admin/content-meta-box.php:50
-msgid "Close all"
-msgstr "全て閉じる"
 
 #: admin/customizer.php:38
 #: dist/vk-all-in-one-expansion-unit/admin/customizer.php:38
@@ -372,19 +358,19 @@ msgstr "CTA設定"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/call-to-action/package/view-adminsetting.php:15
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:276
-#: plugins/call-to-action/package/view-adminsetting.php:15 veu-packages.php:276
+#: plugins/call-to-action/package/view-adminsetting.php:15 veu-packages.php:259
 msgid "Call To Action"
 msgstr "Call To Action"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/call-to-action/package/view-adminsetting.php:19
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:268
-#: plugins/call-to-action/package/view-adminsetting.php:19 veu-packages.php:268
+#: plugins/call-to-action/package/view-adminsetting.php:19 veu-packages.php:251
 msgid "Display the CTA at the end of the post content."
 msgstr "投稿内容の最後にCTAを表示します。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/call-to-action/package/view-adminsetting.php:20
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:270
-#: plugins/call-to-action/package/view-adminsetting.php:20 veu-packages.php:270
+#: plugins/call-to-action/package/view-adminsetting.php:20 veu-packages.php:253
 msgid ""
 "The CTA stands for \"Call to action\" and this is the area that prompts the "
 "user behavior."
@@ -394,7 +380,7 @@ msgstr ""
 
 #: dist/vk-all-in-one-expansion-unit/plugins/call-to-action/package/view-adminsetting.php:21
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:272
-#: plugins/call-to-action/package/view-adminsetting.php:21 veu-packages.php:272
+#: plugins/call-to-action/package/view-adminsetting.php:21 veu-packages.php:255
 msgid ""
 "As an example, text message and a link button for induction to the free "
 "sample download page."
@@ -461,14 +447,14 @@ msgstr "詳しくはこちら"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/child_page_index.php:150
 #: dist/vk-all-in-one-expansion-unit/plugins/other_widget/widget-page.php:166
-#: plugins/child_page_index.php:150 plugins/other_widget/widget-page.php:166
+#: plugins/child_page_index.php:142 plugins/other_widget/widget-page.php:166
 msgid "Display a child page index"
 msgstr "子ページ一覧の表示"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:107
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:138
-#: plugins/contact-section/contact-section.php:107
-#: plugins/contact-section/contact-section.php:138
+#: plugins/contact-section/contact-section.php:106
+#: plugins/contact-section/contact-section.php:137
 msgid "Contact Information"
 msgstr "お問い合わせ情報"
 
@@ -476,8 +462,8 @@ msgstr "お問い合わせ情報"
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:149
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:53
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:67
-#: plugins/contact-section/contact-section.php:117
-#: plugins/contact-section/contact-section.php:149
+#: plugins/contact-section/contact-section.php:116
+#: plugins/contact-section/contact-section.php:148
 #: plugins/contact-section/customizer.php:53
 #: plugins/contact-section/customizer.php:67
 msgid "Please feel free to inquire."
@@ -485,7 +471,7 @@ msgstr "お気軽にお問い合わせください。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:120
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:116
-#: plugins/contact-section/contact-section.php:120
+#: plugins/contact-section/contact-section.php:119
 #: plugins/contact-section/customizer.php:116
 msgid "Office hours 9:00 - 18:00 [ Weekdays except holidays ]"
 msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
@@ -494,8 +480,8 @@ msgstr "受付時間 9:00-18:00 [ 土・日・祝日除く ]"
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:124
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:158
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:200
-#: plugins/contact-section/contact-section.php:122
-#: plugins/contact-section/contact-section.php:124
+#: plugins/contact-section/contact-section.php:121
+#: plugins/contact-section/contact-section.php:123
 #: plugins/contact-section/customizer.php:158
 #: plugins/contact-section/customizer.php:200
 msgid "Contact us"
@@ -503,7 +489,7 @@ msgstr "お問い合わせ"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:140
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:33
-#: plugins/contact-section/contact-section.php:140
+#: plugins/contact-section/contact-section.php:139
 #: plugins/contact-section/customizer.php:33
 msgid ""
 "The contents entered here will be reflected in the bottom of each fixed "
@@ -514,7 +500,7 @@ msgstr ""
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:142
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:35
-#: plugins/contact-section/contact-section.php:142
+#: plugins/contact-section/contact-section.php:141
 #: plugins/contact-section/customizer.php:35
 msgid ""
 "When I display it on the page, it is necessary to classify a check into "
@@ -525,7 +511,7 @@ msgstr ""
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:146
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:62
-#: plugins/contact-section/contact-section.php:146
+#: plugins/contact-section/contact-section.php:145
 #: plugins/contact-section/customizer.php:62
 msgid "Message"
 msgstr "メッセージ"
@@ -546,13 +532,13 @@ msgstr "メッセージ"
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:193
 #: dist/vk-all-in-one-expansion-unit/plugins/google_analytics/ga_admin.php:16
 #: dist/vk-all-in-one-expansion-unit/plugins/sns/sns_admin.php:38
-#: plugins/contact-section/contact-section.php:149
-#: plugins/contact-section/contact-section.php:156
-#: plugins/contact-section/contact-section.php:163
-#: plugins/contact-section/contact-section.php:170
-#: plugins/contact-section/contact-section.php:178
-#: plugins/contact-section/contact-section.php:186
-#: plugins/contact-section/contact-section.php:194
+#: plugins/contact-section/contact-section.php:148
+#: plugins/contact-section/contact-section.php:155
+#: plugins/contact-section/contact-section.php:162
+#: plugins/contact-section/contact-section.php:169
+#: plugins/contact-section/contact-section.php:177
+#: plugins/contact-section/contact-section.php:185
+#: plugins/contact-section/contact-section.php:193
 #: plugins/contact-section/customizer.php:67
 #: plugins/contact-section/customizer.php:88
 #: plugins/contact-section/customizer.php:109
@@ -566,14 +552,14 @@ msgstr "例) "
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:153
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:83
-#: plugins/contact-section/contact-section.php:153
+#: plugins/contact-section/contact-section.php:152
 #: plugins/contact-section/customizer.php:83
 msgid "Phone number"
 msgstr "電話番号"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:160
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:104
-#: plugins/contact-section/contact-section.php:160
+#: plugins/contact-section/contact-section.php:159
 #: plugins/contact-section/customizer.php:104
 msgid "Phone icon"
 msgstr "電話アイコン"
@@ -582,8 +568,8 @@ msgstr "電話アイコン"
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:170
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:125
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:130
-#: plugins/contact-section/contact-section.php:167
-#: plugins/contact-section/contact-section.php:170
+#: plugins/contact-section/contact-section.php:166
+#: plugins/contact-section/contact-section.php:169
 #: plugins/contact-section/customizer.php:125
 #: plugins/contact-section/customizer.php:130
 msgid "Office hours"
@@ -591,70 +577,70 @@ msgstr "営業時間"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:170
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:130
-#: plugins/contact-section/contact-section.php:170
+#: plugins/contact-section/contact-section.php:169
 #: plugins/contact-section/customizer.php:130
 msgid "Weekdays except holidays"
 msgstr "土日・祝日除く"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:175
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:146
-#: plugins/contact-section/contact-section.php:175
+#: plugins/contact-section/contact-section.php:174
 #: plugins/contact-section/customizer.php:146
 msgid "The contact page URL"
 msgstr "お問い合わせ先URL"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:178
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:151
-#: plugins/contact-section/contact-section.php:178
+#: plugins/contact-section/contact-section.php:177
 #: plugins/contact-section/customizer.php:151
 msgid "or"
 msgstr "もしくは"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:179
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:151
-#: plugins/contact-section/contact-section.php:179
+#: plugins/contact-section/contact-section.php:178
 #: plugins/contact-section/customizer.php:151
 msgid "* If you fill in the blank, widget's contact button does not appear."
 msgstr "※ 未入力の場合、お問い合わせウィジェットには何も表示されません。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:183
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:167
-#: plugins/contact-section/contact-section.php:183
+#: plugins/contact-section/contact-section.php:182
 #: plugins/contact-section/customizer.php:167
 msgid "Contact button Text"
 msgstr "お問い合わせボタンに表示するテキスト"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:186
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:172
-#: plugins/contact-section/contact-section.php:186
+#: plugins/contact-section/contact-section.php:185
 #: plugins/contact-section/customizer.php:172
 msgid "Contact Us from email."
 msgstr "メールでのお問い合わせはこちら"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:191
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:188
-#: plugins/contact-section/contact-section.php:191
+#: plugins/contact-section/contact-section.php:190
 #: plugins/contact-section/customizer.php:188
 msgid "Contact button text( sub )"
 msgstr "お問い合わせボタンに表示するテキスト2（オプション）"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:195
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:193
-#: plugins/contact-section/contact-section.php:195
+#: plugins/contact-section/contact-section.php:194
 #: plugins/contact-section/customizer.php:193
 msgid "Email contact form"
 msgstr "お気軽にお問い合わせください。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:200
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:209
-#: plugins/contact-section/contact-section.php:200
+#: plugins/contact-section/contact-section.php:199
 #: plugins/contact-section/customizer.php:209
 msgid "Contact button short text for side widget"
 msgstr "お問い合わせボタンウィジェットに表示するテキスト"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:204
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:214
-#: plugins/contact-section/contact-section.php:204
+#: plugins/contact-section/contact-section.php:203
 #: plugins/contact-section/customizer.php:214
 msgid "This will used to \"Contact Button\" widget."
 msgstr ""
@@ -662,25 +648,25 @@ msgstr ""
 "用を想定していますので少ない文字数で設定してください。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:208
-#: plugins/contact-section/contact-section.php:208
+#: plugins/contact-section/contact-section.php:207
 msgid "Advanced Setting"
 msgstr "高度な設定"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:217
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:238
-#: plugins/contact-section/contact-section.php:217
+#: plugins/contact-section/contact-section.php:216
 #: plugins/contact-section/customizer.php:238
 msgid "Inquiry Banner image"
 msgstr "お問い合わせバナー画像"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:219
-#: plugins/contact-section/contact-section.php:219
+#: plugins/contact-section/contact-section.php:218
 msgid "Select Image"
 msgstr "画像を選択"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:220
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:228
-#: plugins/contact-section/contact-section.php:220
+#: plugins/contact-section/contact-section.php:219
 #: plugins/contact-section/customizer.php:228
 msgid "Display the image instead of the above inquiry information"
 msgstr ""
@@ -688,46 +674,46 @@ msgstr ""
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:224
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:264
-#: plugins/contact-section/contact-section.php:224
+#: plugins/contact-section/contact-section.php:223
 #: plugins/contact-section/customizer.php:264
 msgid "Display HTML message instead of the standard"
 msgstr "お問い合わせ情報として表示するHTML"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:226
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/customizer.php:257
-#: plugins/contact-section/contact-section.php:226
+#: plugins/contact-section/contact-section.php:225
 #: plugins/contact-section/customizer.php:257
 msgid "HTML takes precedence over image"
 msgstr "HTMLが登録されている場合は画像より優先されます。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:248
-#: plugins/contact-section/contact-section.php:248
+#: plugins/contact-section/contact-section.php:247
 msgid "Display Contact Section"
 msgstr "お問い合わせ情報の表示"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:388
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:441
-#: plugins/contact-section/contact-section.php:388
-#: plugins/contact-section/contact-section.php:441
+#: plugins/contact-section/contact-section.php:387
+#: plugins/contact-section/contact-section.php:440
 msgid "Edit contact information"
 msgstr "Contact情報を編集"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:457
-#: plugins/contact-section/contact-section.php:457
+#: plugins/contact-section/contact-section.php:456
 msgid "Contact Button"
 msgstr "お問い合わせボタン"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:458
-#: plugins/contact-section/contact-section.php:458
+#: plugins/contact-section/contact-section.php:457
 msgid "Display contact button."
 msgstr "お問い合わせボタンを表示します。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:459
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:487
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:509
-#: plugins/contact-section/contact-section.php:459
-#: plugins/contact-section/contact-section.php:487
-#: plugins/contact-section/contact-section.php:509
+#: plugins/contact-section/contact-section.php:458
+#: plugins/contact-section/contact-section.php:486
+#: plugins/contact-section/contact-section.php:508
 #, php-format
 msgid ""
 "It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -736,23 +722,23 @@ msgstr ""
 "「%s」→ 「メイン設定」ページで『お問い合わせ情報』を設定する必要があります。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:486
-#: plugins/contact-section/contact-section.php:486
+#: plugins/contact-section/contact-section.php:485
 msgid "Display contact button"
 msgstr "お問い合わせボタンを表示します。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:507
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:241
-#: plugins/contact-section/contact-section.php:507 veu-packages.php:241
+#: plugins/contact-section/contact-section.php:506 veu-packages.php:224
 msgid "Contact Section"
 msgstr "お問い合わせ情報"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:508
-#: plugins/contact-section/contact-section.php:508
+#: plugins/contact-section/contact-section.php:507
 msgid "Display Phone number and contact button etc."
 msgstr "電話番号とお問い合わせボタンなどを表示します。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/contact-section/contact-section.php:537
-#: plugins/contact-section/contact-section.php:537
+#: plugins/contact-section/contact-section.php:536
 #, php-format
 msgid ""
 "*It is necessary to set the \"%s\" -> \"Contact Information\" section in "
@@ -964,7 +950,7 @@ msgstr "作成したicoファイルをアップロードしてください"
 #: dist/vk-all-in-one-expansion-unit/plugins/insert_ads.php:38
 #: dist/vk-all-in-one-expansion-unit/plugins/insert_ads.php:218
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:299
-#: plugins/insert_ads.php:38 plugins/insert_ads.php:218 veu-packages.php:299
+#: plugins/insert_ads.php:38 plugins/insert_ads.php:218 veu-packages.php:282
 msgid "Insert ads"
 msgstr "広告の挿入"
 
@@ -1110,24 +1096,23 @@ msgstr ""
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:93
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:94
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:101
-#: plugins/meta_keyword.php:40 plugins/meta_keyword.php:91
-#: plugins/meta_keyword.php:93 plugins/meta_keyword.php:94
-#: plugins/meta_keyword.php:101
+#: plugins/meta-keyword/class-veu-metabox-meta-keyword.php:14
+#: plugins/meta-keyword/meta-keyword.php:51
 msgid "Meta Keywords"
 msgstr "メタキーワード"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:68
-#: plugins/meta_keyword.php:68
+#: plugins/meta-keyword/meta-keyword.php:79
 msgid "Meta Keyword"
 msgstr "メタキーワード"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:71
-#: plugins/meta_keyword.php:71
+#: plugins/meta-keyword/meta-keyword.php:82
 msgid "Common Keywords"
 msgstr "共通キーワード設定"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:72
-#: plugins/meta_keyword.php:72
+#: plugins/meta-keyword/meta-keyword.php:83
 msgid ""
 "Keywords for meta tag. This words will set Meta Keyword with post keywords. "
 "if you want multiple keywords, enter with separator of \",\"."
@@ -1136,14 +1121,14 @@ msgstr ""
 "のキーワードを設定します。複数ある場合は「,」で区切ってください。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:75
-#: plugins/meta_keyword.php:75
+#: plugins/meta-keyword/meta-keyword.php:86
 msgid "This is not seriously, Because the SearchEngine does not care this."
 msgstr ""
 "あまり深く考える必要はありません。現状のサーチエンジンではそこまで重要なファ"
 "クターとはなりません。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:76
-#: plugins/meta_keyword.php:76
+#: plugins/meta-keyword/meta-keyword.php:87
 msgid ""
 "For each page individual keyword is enter at the edit screen of each "
 "article. 10 keywords maximum, together with a each article keywords is "
@@ -1153,24 +1138,24 @@ msgstr ""
 "ください。それらと合わせて10個程度のキーワード数であることが望ましいです。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:77
-#: plugins/meta_keyword.php:77
+#: plugins/meta-keyword/meta-keyword.php:88
 msgid "\",\" separator at end of the last keyword is do not need."
 msgstr "最後のキーワードの後ろに「,」は必要ありません。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:78
-#: plugins/meta_keyword.php:78
+#: plugins/meta-keyword/meta-keyword.php:89
 msgid "Example: WordPress,template,theme,free,GPL"
 msgstr "【例】 WordPress,テンプレート,テーマ,無料,GPL"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:102
-#: plugins/meta_keyword.php:102
+#: plugins/meta-keyword/class-veu-metabox-meta-keyword.php:34
 msgid ""
 "To distinguish between individual keywords, please enter a , delimiter "
 "(optional)."
 msgstr "キーワードを複数入力する場合は , ( カンマ )で区切って下さい。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/meta_keyword.php:104
-#: plugins/meta_keyword.php:104
+#: plugins/meta-keyword/class-veu-metabox-meta-keyword.php:35
 #, php-format
 msgid "* keywords common to the entire site can be set from %s."
 msgstr "サイト全体のキーワードは %s より設定することができます。"
@@ -1298,13 +1283,13 @@ msgstr "リンクを別ウィンドウで開く"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/other_widget/widget-archives.php:9
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:177
-#: plugins/other_widget/widget-archives.php:9 veu-packages.php:177
+#: plugins/other_widget/widget-archives.php:9 veu-packages.php:160
 msgid "archive list"
 msgstr "アーカイブリスト"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/other_widget/widget-archives.php:14
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:177
-#: plugins/other_widget/widget-archives.php:14 veu-packages.php:177
+#: plugins/other_widget/widget-archives.php:14 veu-packages.php:160
 msgid ""
 "Displays a list of archives. You can choose the post type and also to "
 "display archives by month or by year."
@@ -1599,7 +1584,7 @@ msgstr "タイトルを表示しない"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/other_widget/widget-page.php:175
 #: dist/vk-all-in-one-expansion-unit/plugins/pageList_ancestor.php:101
-#: plugins/other_widget/widget-page.php:175 plugins/pageList_ancestor.php:101
+#: plugins/other_widget/widget-page.php:175 plugins/pageList_ancestor.php:93
 msgid "Display a page list from ancestor"
 msgstr "現在のページの先祖階層からの子ページリストを表示"
 
@@ -2015,7 +2000,7 @@ msgstr ""
 
 #: dist/vk-all-in-one-expansion-unit/plugins/related_posts/related_posts.php:210
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:316
-#: plugins/related_posts/related_posts.php:210 veu-packages.php:316
+#: plugins/related_posts/related_posts.php:210 veu-packages.php:299
 msgid "Related posts"
 msgstr "関連記事を表示"
 
@@ -2057,7 +2042,7 @@ msgid ""
 msgstr "複数のページを除外する場合は , （コンマ）で区切って入力してください。"
 
 #: dist/vk-all-in-one-expansion-unit/plugins/sitemap-page/sitemap-page.php:224
-#: plugins/sitemap-page/sitemap-page.php:224
+#: plugins/sitemap-page/sitemap-page.php:217
 msgid "Display a HTML sitemap"
 msgstr "HTMLサイトマップの表示"
 
@@ -2704,65 +2689,65 @@ msgstr ""
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:280
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:303
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:371 veu-packages.php:81
-#: veu-packages.php:99 veu-packages.php:138 veu-packages.php:156
-#: veu-packages.php:186 veu-packages.php:204 veu-packages.php:245
-#: veu-packages.php:280 veu-packages.php:303 veu-packages.php:371
+#: veu-packages.php:121 veu-packages.php:139 veu-packages.php:169
+#: veu-packages.php:187 veu-packages.php:228 veu-packages.php:263
+#: veu-packages.php:286 veu-packages.php:354 veu-packages.php:449
 msgid "Setting"
 msgstr "設定"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:95 veu-packages.php:95
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:95 veu-packages.php:445
 msgid "Print meta Keyword"
 msgstr "メタキーワードを出力"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:96 veu-packages.php:96
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:96 veu-packages.php:446
 msgid "Print meta Keyword to html head."
 msgstr "ヘッダーにメタキーワードを出力します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:112 veu-packages.php:112
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:112 veu-packages.php:95
 msgid "Print meta description"
 msgstr "メタディスクリプションタグを出力"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:113 veu-packages.php:113
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:113 veu-packages.php:96
 msgid "Print meta description to html head."
 msgstr ""
 "投稿画面「抜粋」欄に入力されたテキストを meta description タグとして html "
 "head 内へ出力します。使用中のテーマやプラグインで meta description タグを出力"
 "している場合はチェックを外して下さい。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:122 veu-packages.php:122
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:122 veu-packages.php:105
 msgid "Main setting page"
 msgstr "メイン設定画面"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:124 veu-packages.php:124
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:124 veu-packages.php:107
 msgid "Print og tags to html head."
 msgstr "OG タグを html head 内へ出力します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:125 veu-packages.php:125
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:125 veu-packages.php:108
 msgid "Print twitter card tags to html head."
 msgstr "Twitter カードタグを html head 内へ出力します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:126 veu-packages.php:126
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:126 veu-packages.php:109
 msgid "Print social bookmark buttons."
 msgstr "ソーシャルブックマークボタンを表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:127 veu-packages.php:127
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:127 veu-packages.php:110
 msgid "Facebook Page Plugin widget."
 msgstr "Facebookページプラグインウィジェット"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:128 veu-packages.php:128
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:128 veu-packages.php:111
 msgid "Print Follow me box to content bottom."
 msgstr "Follow me box を記事コンテンツ下のエリアへ表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:130 veu-packages.php:130
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:130 veu-packages.php:113
 #, php-format
 msgid "* You can stop the function separately from the %s."
 msgstr "%s から個別に機能を停止する事ができます。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:134 veu-packages.php:134
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:134 veu-packages.php:117
 msgid "Social media cooperation"
 msgstr "ソーシャルメディア連携"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:153 veu-packages.php:153
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:153 veu-packages.php:136
 msgid "Print Google Analytics tracking code."
 msgstr ""
 "Google アナリティクスのトラッキングコードを出力します。有効化した後「設定」の"
@@ -2770,64 +2755,64 @@ msgstr ""
 "のテーマやプラグインで Google アナリティクスのトラッキングコードを埋め込む場"
 "合はチェックを外して下さい。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:169 veu-packages.php:169
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:169 veu-packages.php:152
 msgid "You can use various widgets."
 msgstr ""
 "以下の機能を持ったウィジェットを追加します。各ウィジェットの設定は「外観」"
 "→「ウィジェット」の設定画面より行って下さい。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:171 veu-packages.php:171
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:171 veu-packages.php:154
 msgid ""
 "VK_Recent Posts - display the link text and the date of the latest article "
 "title."
 msgstr "VK_最新記事 - 最新記事タイトルのリンクテキストと日付を表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:172 veu-packages.php:172
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:172 veu-packages.php:155
 msgid ""
 "VK_Page content to widget - display the contents of the page to the widgets."
 msgstr ""
 "VK_固定ページ本文 - 固定ページのコンテンツ部分をウィジェットに表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:173 veu-packages.php:173
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:173 veu-packages.php:156
 msgid "VK_Profile - display the profile entered in the widget."
 msgstr "VK_プロフィール - ウィジェットに入力されたプロフィールを表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:174 veu-packages.php:174
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:174 veu-packages.php:157
 msgid "VK_FB Page Plugin - display the Facebook Page Plugin."
 msgstr "VK_FB Page Plugin - Facebook ページプラグインを表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:175 veu-packages.php:175
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:175 veu-packages.php:158
 msgid "VK_3PR area - display the 3PR area."
 msgstr "VK_3PR エリア - 3PR エリアを表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:176 veu-packages.php:176
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:176 veu-packages.php:159
 msgid "categories/tags list"
 msgstr "カテゴリー/タグ リスト"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:176 veu-packages.php:176
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:176 veu-packages.php:159
 msgid "Displays a categories, tags or format list."
 msgstr "カテゴリ・タグまたは、フォーマットリストを表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:182 veu-packages.php:182
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:182 veu-packages.php:165
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:200 veu-packages.php:200
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:200 veu-packages.php:183
 msgid "CSS customize"
 msgstr "CSSカスタマイズ"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:201 veu-packages.php:201
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:201 veu-packages.php:184
 msgid "You can set Customize CSS."
 msgstr ""
 "テーマデザインをカスタマイズする CSS を管理画面より追加できるようになります。"
 "追加する CSS コードは「VK Ex Unit」→「CSS カスタマイズ」の画面にて入力して下"
 "さい。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:219 veu-packages.php:219
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:219 veu-packages.php:202
 msgid "Child page index"
 msgstr "子ページの一覧表示"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:220 veu-packages.php:220
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:220 veu-packages.php:203
 msgid ""
 "At the bottom of the specified page, it will display a list of the child "
 "page."
@@ -2835,135 +2820,135 @@ msgstr ""
 "指定した固定ページの下部へ、その固定ページの下層子ページの「ページタイトル / "
 "サムネイル / 抜粋文 / 該当ページへのリンク」をセットで一覧表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:230 veu-packages.php:230
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:230 veu-packages.php:213
 msgid "Page list from ancestor"
 msgstr "先祖階層からの子ページリスト表示"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:231 veu-packages.php:231
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:231 veu-packages.php:214
 msgid "Display Page list from ancestor at after content."
 msgstr ""
 "現在のページの先祖階層からの子ページリストをページ本文の下に表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:242 veu-packages.php:242
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:242 veu-packages.php:225
 msgid "Display Contact Section at after content."
 msgstr "お問い合わせ情報を本文の下に表示する"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:259 veu-packages.php:259
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:259 veu-packages.php:242
 msgid "Display HTML Site Map"
 msgstr "HTMLサイトマップの表示"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:260 veu-packages.php:260
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:260 veu-packages.php:243
 msgid "It displays a HTML Site Map to the specified page."
 msgstr "指定した固定ページにHTMLサイトマップを表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:285 veu-packages.php:285
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:285 veu-packages.php:268
 msgid "Contents setting"
 msgstr "CTA表示内容設定"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:300 veu-packages.php:300
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:300 veu-packages.php:283
 msgid "Insert ads to content."
 msgstr "記事に広告を挿入します"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:317 veu-packages.php:317
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:317 veu-packages.php:300
 msgid "Print Related posts lists to post content bottom."
 msgstr "関連記事を記事コンテンツ下のエリアへ表示します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:327 veu-packages.php:327
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:327 veu-packages.php:310
 msgid "Noindex additional function"
 msgstr "noindex 追加機能"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:328 veu-packages.php:328
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:328 veu-packages.php:311
 msgid "Print noindex tag to html head."
 msgstr "noindex タグを html head 内へ出力します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:338 veu-packages.php:338
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:338 veu-packages.php:321
 msgid "Disable ping back"
 msgstr "ping backを停止"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:339 veu-packages.php:339
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:339 veu-packages.php:322
 msgid "Disable xmlrpc ping back."
 msgstr "xmlrpcを停止"
 
 #: dist/vk-all-in-one-expansion-unit/veu-packages.php:347
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:348 veu-packages.php:347
-#: veu-packages.php:348
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:348 veu-packages.php:330
+#: veu-packages.php:331
 msgid "Disable dashbord"
 msgstr "ダッシュボードに最新情報を表示しない"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:356 veu-packages.php:356
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:356 veu-packages.php:339
 msgid "Admin bar manu"
 msgstr "管理バーメニュー"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:357 veu-packages.php:357
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:357 veu-packages.php:340
 msgid "Add ExUnit menu to admin bar."
 msgstr "ExUnitのメニューを管理バーに表示する"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:367 veu-packages.php:367
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:367 veu-packages.php:350
 msgid "Post Type Manager"
 msgstr "カスタム投稿タイプマネージャー"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:368 veu-packages.php:368
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:368 veu-packages.php:351
 msgid "Add custom post types and custom taxonomies."
 msgstr "カスタム投稿タイプやカスタム分類を追加します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:385 veu-packages.php:385
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:385 veu-packages.php:368
 msgid "Page Top Button"
 msgstr "ページトップへ戻るボタン"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:386 veu-packages.php:386
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:386 veu-packages.php:369
 msgid ""
 "The page top button is displayed in the lower right corner of the screen."
 msgstr "ページトップへ戻るボタンは、画面の右下隅に表示されます。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:396 veu-packages.php:396
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:396 veu-packages.php:379
 msgid "Smooth scroll"
 msgstr "スムーススクロール"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:397 veu-packages.php:397
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:397 veu-packages.php:380
 msgid "Add smooth scroll at anchor link in same page."
 msgstr ""
 "ページ内のアンカーリンククリックした際にスムーズにスクロースします。<br>※他の"
 "jsと干渉する事があります。独自にjsで制御している箇所をクリックしても正しく動"
 "作しない場合はこの機能を停止してみてください。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:407 veu-packages.php:407
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:407 veu-packages.php:390
 msgid "Add body class"
 msgstr "Body class の追加"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:408 veu-packages.php:408
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:408 veu-packages.php:391
 msgid "Add \"Post type\", \"Page slug\" etc class name to the body class."
 msgstr "投稿タイプ名や固定ページのスラッグ名をbodyタグのクラスに追加します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:418 veu-packages.php:418
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:418 veu-packages.php:401
 msgid "Navi menu class custom"
 msgstr "ナビメニューclassの改変"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:419 veu-packages.php:419
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:419 veu-packages.php:402
 msgid "Current class tuning of navi menu."
 msgstr ""
 "メニューに投稿トップやカスタム投稿タイプアーカイブページが設定された時に、詳"
 "細ページや関連するカスタム分類ページを表示している時でも適切にcurrentクラスが"
 "追加されるように調整します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:430 veu-packages.php:430
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:430 veu-packages.php:413
 msgid "Display Eye Catch image at before content."
 msgstr ""
 "アイキャッチ画像を本文の最初に表示します。各記事毎に非表示にする事も出来ま"
 "す。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:440 veu-packages.php:440
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:440 veu-packages.php:423
 msgid "TinyMCE Style Tags"
 msgstr "TinyMCE スタイルタグ"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:441 veu-packages.php:441
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:441 veu-packages.php:424
 msgid "Add TinyMCE Editor to style tags."
 msgstr "スタイルタグにTinyMCEエディタを追加する"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:451 veu-packages.php:451
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:451 veu-packages.php:434
 msgid "Print Bootstrap css ( grid / button / table )"
 msgstr "Bootstrap の CSS（grid/button/tableのみ）を出力"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:452 veu-packages.php:452
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:452 veu-packages.php:435
 msgid ""
 "If your using theme has already including Bootstrap, you deactivate this "
 "item."
@@ -2972,17 +2957,17 @@ msgstr ""
 "（Lightningなど）やプラグインで Bootstrap を既に読み込んでいる場合はチェック"
 "を外して下さい。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:462 veu-packages.php:462
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:462 veu-packages.php:463
 msgid "Favicon setting"
 msgstr "ファビコン設定"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:463 veu-packages.php:463
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:463 veu-packages.php:464
 msgid "About favicon."
 msgstr ""
 "ブラウザでページを表示した際にタブやウィンドウのタイトルに表示されるアイコン"
 "（ファビコン）を設定します。"
 
-#: dist/vk-all-in-one-expansion-unit/veu-packages.php:463 veu-packages.php:463
+#: dist/vk-all-in-one-expansion-unit/veu-packages.php:463 veu-packages.php:464
 msgid ""
 "This feature will be discontinued shortly.<br>You can set the site icon from "
 "\"Site Identity\" panel of \"Themes > Customize\"."
@@ -2991,24 +2976,38 @@ msgstr ""
 "サイトアイコンは「外観 > カスタマイズ」の「サイト基本情報」パネルから設定でき"
 "ます。"
 
-#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:83 vkExUnit.php:83
+#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:83 vkExUnit.php:81
 #, php-format
 msgid "The current PHP version(%s) is too old, so VK ExUnit will not work."
 msgstr "使用中のPHPのバージョン(%s) が古すぎるので VK ExUnit は動作しません。"
 
-#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:86 vkExUnit.php:86
+#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:86 vkExUnit.php:84
 msgid "VK ExUnit supports PHP5.6 or later."
 msgstr "VKExUnit がサポートしているPHPのバージョンは5.6以降です"
 
-#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:102 vkExUnit.php:102
+#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:102 vkExUnit.php:100
 #, php-format
 msgid "Current PHP Version(%s) is old."
 msgstr "使用中のPHPのバージョン(%s) が古いです。"
 
-#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:103 vkExUnit.php:103
+#: dist/vk-all-in-one-expansion-unit/vkExUnit.php:103 vkExUnit.php:101
 #, php-format
 msgid "%s supports PHP5.6 or later."
 msgstr "%s はPHP5.6以降をサポートしています。"
+
+#: veu-packages.php:446
+msgid "This feature will be discontinued shortly."
+msgstr "この機能は間もなく廃止されます。"
+
+#, fuzzy
+#~| msgid "CTA common setting"
+#~ msgid "Common setting"
+#~ msgstr "CTA共通設定"
+
+#, fuzzy
+#~| msgid "CTA common setting"
+#~ msgid "Common Settings"
+#~ msgstr "CTA共通設定"
 
 #~ msgid "Print noindex tag."
 #~ msgstr "noindexタグを出力する。"

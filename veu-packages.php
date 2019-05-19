@@ -88,23 +88,6 @@ function vkExUnit_get_packages() {
 	);
 
 	/*
-	  metaKeyword
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'metaKeyword',
-		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => true,
-		'include'     => 'meta_keyword.php',
-	);
-	/*
 	  metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -452,6 +435,24 @@ function vkExUnit_get_packages() {
 		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'bootstrap.php',
+	);
+
+	/*
+	  metaKeyword
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'metaKeyword',
+		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => false,
+		'include'     => 'meta-keyword/meta-keyword.php',
 	);
 
 	/*
