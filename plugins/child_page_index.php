@@ -128,17 +128,9 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 }
 
 /*
- admin_metabox_activate
-/*-------------------------------------------*/
-add_filter( 'veu_content_meta_box_activation', 'vkExUnit_childPageIndex_admin_metabox_activate', 10, 1 );
-function vkExUnit_childPageIndex_admin_metabox_activate( $flag ) {
-	return true;
-}
-
-/*
  admin_metabox_content
 /*-------------------------------------------*/
-add_action( 'veu_content_meta_box_content', 'veu_child_page_index_admin_metabox_content' );
+add_action( 'veu_metabox_insert_items', 'veu_child_page_index_admin_metabox_content' );
 function veu_child_page_index_admin_metabox_content() {
 	global $post;
 	// childPageIndex display

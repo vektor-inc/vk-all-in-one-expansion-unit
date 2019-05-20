@@ -1,13 +1,13 @@
 <div class="wrap vk_admin_page">
 <h2>
-<span class="pageTitleTxt"><?php echo veu_get_name();?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
+<span class="pageTitleTxt"><?php echo veu_get_name(); ?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
 </h2>
 
 <div class="adminMain">
 <form method="post" action="options.php">
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
-	$options = vkExUnit_get_common_options();
+	$options = veu_get_common_options();
 ?>
 
 <table class="wp-list-table widefat plugins" style="width:auto;">
@@ -108,6 +108,11 @@ if ( veu_content_filter_state() == 'loop_end' ) {
 </td>
 </tr>
 -->
+<tr>
+<th><?php _e( 'Post edit page metabox settings', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td><label><input type="checkbox" name="vkExUnit_common_options[post_metabox_individual]" value="true" <?php echo ( isset( $options['post_metabox_individual'] ) && $options['post_metabox_individual'] ) ? 'checked' : ''; ?> />
+<?php _e( 'Do not combine ExUnit\'s meta box', 'vk-all-in-one-expansion-unit' ); ?></label></td>
+</tr>
 <tr>
 <th><?php _e( 'Plugin setting options', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><label><input type="checkbox" name="vkExUnit_common_options[delete_options_at_deactivate]" value="true" <?php echo ( isset( $options['delete_options_at_deactivate'] ) && $options['delete_options_at_deactivate'] ) ? 'checked' : ''; ?> />

@@ -49,11 +49,11 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 	}
 
-	function test_vkExUnit_common_options_validate() {
+	function test_veu_common_options_validate() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_vkExUnit_common_options_validate' . PHP_EOL;
+		print 'test_veu_common_options_validate' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 		/**
@@ -81,7 +81,7 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 		foreach ( $test_array as $key => $test_value ) {
 			// 判定結果
-			$output = vkExUnit_common_options_validate( $test_value );
+			$output = veu_common_options_validate( $test_value );
 
 			print PHP_EOL;
 			print 'options_validate         :' . $output['active_bootstrap'] . PHP_EOL;
@@ -132,7 +132,7 @@ class PackageManagerTest extends WP_UnitTestCase {
 			}
 
 			// 判定結果
-			$output = vkExUnit_common_options_validate( $options );
+			$output = veu_common_options_validate( $options );
 
 			print PHP_EOL;
 			print 'options_validate 2         :' . $output[ $key ] . PHP_EOL;

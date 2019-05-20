@@ -41,8 +41,30 @@ function veu_is_sns_btns_display() {
 	}
 }
 
-/*
--------------------------------------------*/
+function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
+	// SNS設定のオプション値を取得
+	$options = veu_get_sns_options();
+
+	// 表示する にチェックが入っていない場合は 投稿詳細画面でボタン非表示のチェックボックスを表示しない
+	if ( empty( $options['enableSnsBtns'] ) ) {
+		return false;
+	}
+
+	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）
+	if ( isset( $options['snsBtn_exclude_post_types'] ) && is_array( $options['snsBtn_exclude_post_types'] ) ) {
+		foreach ( $options['snsBtn_exclude_post_types'] as $key => $value ) {
+			// 非表示チェックが入っている場合
+			if ( $value ) {
+				// 今の投稿タイプと比較。同じだったら...
+				if ( $post_type == $key ) {
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
 /*
   SNSアイコンに出力するCSSを出力する関数
 /*-------------------------------------------*/

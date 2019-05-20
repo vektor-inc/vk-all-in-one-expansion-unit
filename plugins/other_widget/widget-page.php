@@ -157,7 +157,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			?>
 	</p>
 
-		<?php $options = vkExUnit_get_common_options(); ?>
+		<?php $options = veu_get_common_options(); ?>
 
 		<?php if ( $this->is_active_child_page_index( $options ) ) : ?>
 		<p>
@@ -225,7 +225,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		}
 		echo apply_filters( 'the_content', $page->post_content );
 
-		$options = vkExUnit_get_common_options();
+		$options = veu_get_common_options();
 		if ( $this->is_active_child_page_index( $options ) ) {
 			if ( ! empty( $instance['child_page_index'] ) ) {
 				echo "\n" . apply_filters( 'the_content', '[vkExUnit_childs]' );

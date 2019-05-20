@@ -17,11 +17,10 @@
 /*  Add setting page
 /*-------------------------------------------*/
 
-function veu_add_sitemap_options_page() {
-	require dirname( __FILE__ ) . '/sitemap_admin.php';
-}
+require_once( dirname( __FILE__ ) . '/class-veu-metabox-sitemap.php' );
+require_once( dirname( __FILE__ ) . '/sitemap-page-admin-main-setting.php' );
+require_once( dirname( __FILE__ ) . '/sitemap-page-helpers.php' );
 
-require_once dirname( __FILE__ ) . '/hide-controller.php';
 
 /*-------------------------------------------*/
 /*  Options Init
@@ -29,45 +28,8 @@ require_once dirname( __FILE__ ) . '/hide-controller.php';
 function vkExUnit_sitemap_options_init() {
 	if ( false === veu_get_sitemap_options() ) {
 		add_option( 'vkExUnit_sitemap_options', veu_get_sitemap_options_default() ); }
-
-	vkExUnit_register_setting(
-		__( 'HTML Sitemap', 'vk-all-in-one-expansion-unit' ),
-		'vkExUnit_sitemap_options',
-		'veu_sitemap_options_validate',
-		'veu_add_sitemap_options_page'
-	);
 }
 add_action( 'vkExUnit_package_init', 'vkExUnit_sitemap_options_init' );
-
-function veu_get_sitemap_options() {
-	$options         = get_option( 'vkExUnit_sitemap_options', veu_get_sitemap_options_default() );
-	$options_dafault = veu_get_sitemap_options_default();
-	foreach ( $options_dafault as $key => $value ) {
-		$options[ $key ] = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $options_dafault[ $key ];
-	}
-	return apply_filters( 'vkExUnit_sitemap_options', $options );
-}
-
-function veu_get_sitemap_options_default() {
-	$default_options = array(
-		'excludeId' => '',
-	);
-	return apply_filters( 'vkExUnit_sitemap_options_default', $default_options );
-}
-
-/*-------------------------------------------*/
-/*  validate
-/*-------------------------------------------*/
-function veu_sitemap_options_validate( $input ) {
-	$output = $defaults = veu_get_sitemap_options_default();
-
-	$paras = array( 'excludeId' );
-
-	foreach ( $paras as $key => $value ) {
-		$output[ $value ] = ( isset( $input[ $value ] ) ) ? $input[ $value ] : '';
-	}
-	return apply_filters( 'veu_sitemap_options_validate', $output, $input, $defaults );
-}
 
 /*-------------------------------------------*/
 /*  insert sitemap page
@@ -238,17 +200,11 @@ function vkExUnit_sitemap( $atts ) {
 }
 add_shortcode( 'vkExUnit_sitemap', 'vkExUnit_sitemap' );
 
-
-add_filter( 'veu_content_meta_box_activation', 'vkExUnit_sitemap_activate', 10, 1 );
-function vkExUnit_sitemap_activate( $flag ) {
-	return true;
-}
-
-
 /*-------------------------------------------*/
 /*  admin _ meta box
+/*	こちらは非表示設定ではなく サイトマップ自体を表示するかどうか
 /*-------------------------------------------*/
-add_action( 'veu_content_meta_box_content', 'vkExUnit_sitemap_meta_box' );
+add_action( 'veu_metabox_insert_items', 'vkExUnit_sitemap_meta_box' );
 function vkExUnit_sitemap_meta_box() {
 	global $post;
 	// sitemap display

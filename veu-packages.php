@@ -88,23 +88,6 @@ function vkExUnit_get_packages() {
 	);
 
 	/*
-	  metaKeyword
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'metaKeyword',
-		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => true,
-		'include'     => 'meta_keyword.php',
-	);
-	/*
 	  metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -207,7 +190,7 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'css_customize/css_customize.php',
+		'include'     => 'css-customize/css-customize.php',
 	);
 
 	/*
@@ -259,7 +242,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Display HTML Site Map', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'It displays a HTML Site Map to the specified page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'sitemap_page/sitemap_page.php',
+		'include'     => 'sitemap-page/sitemap-page.php',
 	);
 
 	/*
@@ -320,6 +303,17 @@ function vkExUnit_get_packages() {
 	);
 
 	/*
+	  noindex
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'noindex',
+		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print noindex tag to html head.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'noindex/noindex.php',
+	);
+
+	/*
 	  disable_ping-back
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -345,7 +339,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add ExUnit menu to admin bar.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => '../plugins_admin/admin_bar.php',
+		'include'     => '../admin/admin_bar.php',
 	);
 
 	/*
@@ -418,7 +412,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'auto_eyecatch.php',
+		'include'     => 'auto-eyecatch/auto-eyecatch.php',
 	);
 
 	/*
@@ -441,6 +435,24 @@ function vkExUnit_get_packages() {
 		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'bootstrap.php',
+	);
+
+	/*
+	  metaKeyword
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'metaKeyword',
+		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => false,
+		'include'     => 'meta-keyword/meta-keyword.php',
 	);
 
 	/*

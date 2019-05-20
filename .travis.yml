@@ -65,7 +65,7 @@ script:
   - phpunit --version
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then ./vendor/bin/phpunit; else phpunit; fi
   - gulp compile
-  # - cd plugins_admin/vk-admin/ && compass compile && cd ../../
+  # - cd admin/vk-admin/ && compass compile && cd ../../
 
 after_success:
   - bash ./bin/deploy.sh
