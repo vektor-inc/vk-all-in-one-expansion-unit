@@ -423,7 +423,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'TinyMCE Style Tags', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'tiny-mce-style-tags.php',
+		'include'     => 'tiny-mce-styletags.php',
 	);
 
 	/*
