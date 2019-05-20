@@ -472,5 +472,5 @@ function vkExUnit_get_packages() {
 $required_packages = vkExUnit_get_packages();
 
 foreach ( $required_packages as $package ) {
-	vkExUnit_package_register( $package );
+	veu_package_register( $package );
 }

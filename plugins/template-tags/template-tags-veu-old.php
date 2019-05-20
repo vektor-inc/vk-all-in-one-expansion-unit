@@ -6,6 +6,13 @@ https://github.com/vektor-inc/vektor-wp-libraries
 にあります。修正の際は上記リポジトリのデータを修正してください。
 */
 
+function vkExUnit_get_directory( $path = '' ) {
+	return veu_get_directory( $path );
+}
+function vkExUnit_get_directory_uri( $path = '' ) {
+	return veu_get_directory_uri( $path );
+}
+
 if ( ! function_exists( 'vkExUnit_get_common_options' ) ) {
 	function vkExUnit_get_common_options() {
 		return veu_get_common_options();

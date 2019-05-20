@@ -47,8 +47,8 @@ function veu_package_is_enable( $package_name ) {
 }
 
 
-function vkExUnit_package_register( $args ) {
-	$defaults = vkExUnit_package_default();
+function veu_package_register( $args ) {
+	$defaults = veu_package_default();
 	$args     = wp_parse_args( $args, $defaults );
 
 	global $vkExUnit_packages;
@@ -56,12 +56,12 @@ function vkExUnit_package_register( $args ) {
 }
 
 
-function vkExUnit_package_include() {
+function veu_package_include() {
 	global $vkExUnit_packages;
 	if ( ! count( $vkExUnit_packages ) || ! is_array( $vkExUnit_packages ) ) {
 		return $output; }
 	$options      = veu_get_common_options();
-	$include_base = vkExUnit_get_directory() . '/plugins/';
+	$include_base = veu_get_directory() . '/plugins/';
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
 			$package['include'] and
@@ -76,7 +76,7 @@ function vkExUnit_package_include() {
 }
 
 
-function vkExUnit_package_default() {
+function veu_package_default() {
 	return array(
 		'name'        => null,
 		'title'       => 'noting',

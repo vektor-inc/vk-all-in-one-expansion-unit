@@ -1,15 +1,15 @@
 <?php
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-new-posts.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-profile.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-3pr-area.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-page.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-taxonomies.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-archives.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-pr-blocks.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-side-child-page-list.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-button.php';
-require vkExUnit_get_directory() . '/plugins/other_widget/widget-banner.php';
-// require vkExUnit_get_directory() . '/plugins/other_widget/widget-child-page-list.php';
+require veu_get_directory() . '/plugins/other_widget/widget-new-posts.php';
+require veu_get_directory() . '/plugins/other_widget/widget-profile.php';
+require veu_get_directory() . '/plugins/other_widget/widget-3pr-area.php';
+require veu_get_directory() . '/plugins/other_widget/widget-page.php';
+require veu_get_directory() . '/plugins/other_widget/widget-taxonomies.php';
+require veu_get_directory() . '/plugins/other_widget/widget-archives.php';
+require veu_get_directory() . '/plugins/other_widget/widget-pr-blocks.php';
+require veu_get_directory() . '/plugins/other_widget/widget-side-child-page-list.php';
+require veu_get_directory() . '/plugins/other_widget/widget-button.php';
+require veu_get_directory() . '/plugins/other_widget/widget-banner.php';
+// require veu_get_directory() . '/plugins/other_widget/widget-child-page-list.php';
 
 /*-------------------------------------------*/
 /*  color picker
