@@ -11,7 +11,7 @@ function veu_sitemap_set_main_setting() {
 		'veu_add_sitemap_options_page'
 	);
 }
-add_action( 'vkExUnit_package_init', 'veu_sitemap_set_main_setting' );
+add_action( 'veu_package_init', 'veu_sitemap_set_main_setting' );
 
 /*-------------------------------------------*/
 /*  validate

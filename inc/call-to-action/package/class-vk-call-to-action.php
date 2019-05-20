@@ -10,7 +10,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		const CONTENT_NUMBER = 100;
 
 		public static function init() {
-			add_action( 'vkExUnit_package_init', array( __CLASS__, 'option_init' ) );
+			add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
 			add_action( 'init', array( __CLASS__, 'set_posttype' ) );
 			add_action( 'admin_menu', array( __CLASS__, 'add_metabox_cta_register' ) );
 			add_action( 'save_post', array( __CLASS__, 'save_custom_field' ) );

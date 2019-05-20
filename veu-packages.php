@@ -84,7 +84,7 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'wp_title.php',
+		'include'     => 'wp-title.php',
 	);
 
 	/*
@@ -95,7 +95,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Print meta description', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'meta_description.php',
+		'include'     => 'meta-description.php',
 	);
 
 	/*
@@ -202,7 +202,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'child_page_index.php',
+		'include'     => 'child-page-index.php',
 	);
 
 	/*
@@ -213,7 +213,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Page list from ancestor', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display Page list from ancestor at after content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'pageList_ancestor.php',
+		'include'     => 'page-list-ancestor.php',
 	);
 
 	/*
@@ -289,7 +289,7 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'insert_ads.php',
+		'include'     => 'insert-ads.php',
 	);
 	/*
 	  relatedPosts
@@ -330,7 +330,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'disable_dashbord.php',
+		'include'     => 'disable-dashbord.php',
 		'hidden'      => true,
 	);
 
@@ -423,7 +423,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'TinyMCE Style Tags', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'tiny_mce_style_tags.php',
+		'include'     => 'tiny-mce-styletags.php',
 	);
 
 	/*
@@ -472,5 +472,5 @@ function vkExUnit_get_packages() {
 $required_packages = vkExUnit_get_packages();
 
 foreach ( $required_packages as $package ) {
-	vkExUnit_package_register( $package );
+	veu_package_register( $package );
 }

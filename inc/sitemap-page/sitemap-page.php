@@ -29,7 +29,7 @@ function vkExUnit_sitemap_options_init() {
 	if ( false === veu_get_sitemap_options() ) {
 		add_option( 'vkExUnit_sitemap_options', veu_get_sitemap_options_default() ); }
 }
-add_action( 'vkExUnit_package_init', 'vkExUnit_sitemap_options_init' );
+add_action( 'veu_package_init', 'vkExUnit_sitemap_options_init' );
 
 /*-------------------------------------------*/
 /*  insert sitemap page

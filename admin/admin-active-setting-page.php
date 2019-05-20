@@ -21,7 +21,7 @@
 <?php
 global $vkExUnit_packages;
 foreach ( $vkExUnit_packages as $package ) :
-	$active = vkExUnit_package_is_enable( $package['name'] );
+	$active = veu_package_is_enable( $package['name'] );
 	?>
 		<tr class="
 		<?php

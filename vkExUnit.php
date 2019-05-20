@@ -38,36 +38,36 @@ $vkExUnit_version = $data['version'];
 load_plugin_textdomain( 'vk-all-in-one-expansion-unit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
-function vkExUnit_get_directory( $path = '' ) {
+
+function veu_get_directory( $path = '' ) {
 	return $dirctory = dirname( __FILE__ ) . $path;
 }
-
-function vkExUnit_get_directory_uri( $path = '' ) {
+function veu_get_directory_uri( $path = '' ) {
 	return plugins_url( $path, __FILE__ );
 }
 
 
 if ( function_exists( 'register_deactivation_hook' ) ) {
-	register_deactivation_hook( __FILE__, 'vkExUnit_uninstall_function' );
+	register_deactivation_hook( __FILE__, 'veu_uninstall_function' );
 }
 
-function vkExUnit_uninstall_function() {
-	require_once vkExUnit_get_directory() . '/initialize.php';
-	include vkExUnit_get_directory( '/uninstaller.php' );
+function veu_uninstall_function() {
+	require_once veu_get_directory() . '/initialize.php';
+	include veu_get_directory( '/uninstaller.php' );
 }
 
 // PHP Version check
 if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
-	require_once vkExUnit_get_directory() . '/initialize.php';
+	require_once veu_get_directory() . '/initialize.php';
 
 	if ( version_compare( phpversion(), '5.6' ) < 0 && is_admin() ) {
-		add_filter( 'admin_notices', 'vkExUnit_phpversion_warning_notice' );
+		add_filter( 'admin_notices', 'veu_phpversion_warning_notice' );
 	}
 } else {
-	add_filter( 'admin_notices', 'vkExUnit_phpversion_error' );
+	add_filter( 'admin_notices', 'veu_phpversion_error' );
 }
 
-function vkExUnit_phpversion_error( $val ) {
+function veu_phpversion_error( $val ) {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return $val;
 	}
@@ -87,7 +87,7 @@ function vkExUnit_phpversion_error( $val ) {
 	return $val;
 }
 
-function vkExUnit_phpversion_warning_notice( $val ) {
+function veu_phpversion_warning_notice( $val ) {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return $val;
 	}
@@ -98,7 +98,7 @@ function vkExUnit_phpversion_warning_notice( $val ) {
 	?>
 	<div class="notice notice-warning is-dismissible"><p>
 			<?php printf( __( 'Current PHP Version(%s) is old.', 'vk-all-in-one-expansion-unit' ), phpversion() ); ?>
-			<?php printf( __( '%s supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ); ?>
+			<?php printf( __( '%s supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ); ?>
 		</p></div>
 	<?php
 	return $val;

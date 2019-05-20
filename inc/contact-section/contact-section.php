@@ -73,7 +73,7 @@ class VkExUnit_Contact {
 
 
 	protected function run_init() {
-		add_action( 'vkExUnit_package_init', array( $this, 'options_init' ) );
+		add_action( 'veu_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
 
