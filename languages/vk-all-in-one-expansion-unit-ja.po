@@ -824,8 +824,8 @@ msgstr "Font Awesome Version"
 msgid "4.7 will be abolished in the near future."
 msgstr "4.7は将来的に廃止します。"
 
-#: dist/vk-all-in-one-expansion-unit/plugins/footer_copyright_change.php:6
-#: plugins/footer_copyright_change.php:6
+#: dist/vk-all-in-one-expansion-unit/plugins/footer-copyright-change.php:6
+#: plugins/footer-copyright-change.php:6
 msgid ""
 "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
 "\"https://lightning.nagoya\" target=\"_blank\" title=\"Free WordPress Theme "

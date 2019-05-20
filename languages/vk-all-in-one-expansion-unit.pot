@@ -653,7 +653,7 @@ msgstr ""
 msgid "Error occured. Please try again."
 msgstr ""
 
-#: plugins/footer_copyright_change.php:6
+#: plugins/footer-copyright-change.php:6
 msgid ""
 "<p>Powered by <a href=\"https://wordpress.org/\">WordPress</a> with <a href="
 "\"https://lightning.nagoya\" target=\"_blank\" title=\"Free WordPress Theme "

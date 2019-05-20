@@ -14,10 +14,10 @@ add_action( 'plugins_loaded', 'veu_load_files' );
 function veu_load_files() {
 	require veu_get_directory() . '/veu-package-manager.php';
 	require veu_get_directory() . '/veu-packages.php';
-	require veu_get_directory() . '/plugins/footer_copyright_change.php';
-	require_once( veu_get_directory() . '/plugins/template-tags/template-tags.php' );
-	require_once( veu_get_directory() . '/plugins/template-tags/template-tags-veu.php' );
-	require_once( veu_get_directory() . '/plugins/template-tags/template-tags-veu-old.php' );
+	require veu_get_directory() . '/inc/footer-copyright-change.php';
+	require_once( veu_get_directory() . '/inc/template-tags/template-tags.php' );
+	require_once( veu_get_directory() . '/inc/template-tags/template-tags-veu.php' );
+	require_once( veu_get_directory() . '/inc/template-tags/template-tags-veu-old.php' );
 	veu_package_include(); // package_manager.php
 }
 

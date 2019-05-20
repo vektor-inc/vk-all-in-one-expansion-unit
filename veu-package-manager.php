@@ -61,7 +61,7 @@ function veu_package_include() {
 	if ( ! count( $vkExUnit_packages ) || ! is_array( $vkExUnit_packages ) ) {
 		return $output; }
 	$options      = veu_get_common_options();
-	$include_base = veu_get_directory() . '/plugins/';
+	$include_base = veu_get_directory() . '/inc/';
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
 			$package['include'] and
