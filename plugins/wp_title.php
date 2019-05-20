@@ -73,7 +73,7 @@ function vkExUnit_wp_title_init() {
 		'vkExUnit_add_wp_title_page'
 	);
 }
-add_action( 'vkExUnit_package_init', 'vkExUnit_wp_title_init' );
+add_action( 'veu_package_init', 'vkExUnit_wp_title_init' );
 
 function vkExUnit_add_wp_title_page() {
 	$options = vkExUnit_get_wp_title_options();

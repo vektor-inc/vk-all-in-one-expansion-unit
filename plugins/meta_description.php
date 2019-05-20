@@ -23,7 +23,7 @@ function vkExUnit_description_options_init() {
 		'vkExUnit_add_description_options_page'  // setting_page function name
 	);
 }
-add_action( 'vkExUnit_package_init', 'vkExUnit_description_options_init' );
+add_action( 'veu_package_init', 'vkExUnit_description_options_init' );
 
 
 function vkExUnit_add_description_options_page() {

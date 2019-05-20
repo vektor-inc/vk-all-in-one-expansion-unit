@@ -26,7 +26,7 @@ function vkExUnit_ga_options_init() {
 		'vkExUnit_add_ga_options_page'
 	);
 }
-add_action( 'vkExUnit_package_init', 'vkExUnit_ga_options_init' );
+add_action( 'veu_package_init', 'vkExUnit_ga_options_init' );
 
 function vkExUnit_get_ga_options() {
 	$options         = get_option( 'vkExUnit_ga_options', vkExUnit_get_ga_options_default() );

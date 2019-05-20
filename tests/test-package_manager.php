@@ -37,7 +37,7 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 		foreach ( $test_array as $key => $test_value ) {
 			// 判定結果
-			$result = vkExUnit_package_is_enable( $test_value['name'] );
+			$result = veu_package_is_enable( $test_value['name'] );
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $test_value['correct'], $result );

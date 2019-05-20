@@ -7,10 +7,10 @@
  * @since    6/Aug/2015
  */
 
-vkExUnit_package_initilate();
+veu_package_initilate();
 
 
-function vkExUnit_package_initilate() {
+function veu_package_initilate() {
 	global $vkExUnit_packages;
 	if ( ! is_array( $vkExUnit_packages ) ) {
 		$vkExUnit_packages = array();
@@ -18,16 +18,16 @@ function vkExUnit_package_initilate() {
 }
 
 
-add_action( 'init', 'vkExUnit_package_init' );
-function vkExUnit_package_init() {
+add_action( 'init', 'veu_package_init' );
+function veu_package_init() {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return;
 	}
-	do_action( 'vkExUnit_package_init' );
+	do_action( 'veu_package_init' );
 }
 
 
-function vkExUnit_package_is_enable( $package_name ) {
+function veu_package_is_enable( $package_name ) {
 	// パッケージ情報を取得
 	global $vkExUnit_packages;
 

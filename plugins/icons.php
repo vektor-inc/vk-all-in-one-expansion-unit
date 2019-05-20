@@ -28,7 +28,7 @@ class vExUnit_icons {
 
 
 	protected function run_init() {
-		add_action( 'vkExUnit_package_init', array( $this, 'option_init' ) );
+		add_action( 'veu_package_init', array( $this, 'option_init' ) );
 		add_action( 'wp_head',    array( $this, 'output_tag' ) );
 	}
 
