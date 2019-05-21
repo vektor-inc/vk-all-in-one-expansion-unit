@@ -46,7 +46,7 @@ gulp.task('sass', function() {
 				.pipe(cmq({log:true}))
         .pipe(autoprefixer())
 				.pipe(cleanCss())
-        .pipe(gulp.dest('./assets/'));
+        .pipe(gulp.dest('./assets/css/'));
 });
 
 // ファイル結合
