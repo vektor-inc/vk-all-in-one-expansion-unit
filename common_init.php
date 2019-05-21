@@ -1,7 +1,7 @@
 <?php
 function vkExUnit_common_options_init() {
 	register_setting(
-		'vkExUnit_common_options_fields',   //  Immediately following form tag of edit page.
+		'vkExUnit_common_options_fields',   // Immediately following form tag of edit page.
 		'vkExUnit_common_options',          // name attr
 		'vkExUnit_common_options_validate'
 	);
@@ -29,8 +29,9 @@ function vkExUnit_get_common_options_default() {
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
 
-/*-------------------------------------------*/
-/*  validate
+
+/*
+  validate
 /*-------------------------------------------*/
 
 function vkExUnit_common_options_validate( $input ) {
