@@ -29,14 +29,14 @@ function veu_print_css() {
 	global $vkExUnit_version;
 	$options = veu_get_common_options();
 	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
-		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/css/vkExUnit_style_in_bs.css', array(), $vkExUnit_version, 'all' );
+		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style_in_bs.css', array(), $vkExUnit_version, 'all' );
 	} else {
-		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
+		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
 	}
 }
 
 function veu_print_editor_css() {
-	add_editor_style( plugins_url( '', __FILE__ ) . '/css/vkExUnit_editor_style.css' );
+	add_editor_style( plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_editor_style.css' );
 }
 add_action( 'after_setup_theme', 'veu_print_editor_css' );
 
@@ -47,7 +47,7 @@ add_action( 'after_setup_theme', 'veu_print_editor_css' );
 add_action( 'wp_head', 'veu_print_js' );
 function veu_print_js() {
 	global $vkExUnit_version;
-	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
+	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }

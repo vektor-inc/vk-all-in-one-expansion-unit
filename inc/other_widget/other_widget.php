@@ -9,7 +9,7 @@ require dirname( __FILE__ ) . '/widget-pr-blocks.php';
 require dirname( __FILE__ ) . '/widget-side-child-page-list.php';
 require dirname( __FILE__ ) . '/widget-button.php';
 require dirname( __FILE__ ) . '/widget-banner.php';
-// require veu_get_directory() . '/plugins/other_widget/widget-child-page-list.php';
+// require veu_get_directory() . '/inc/other_widget/widget-child-page-list.php';
 
 /*-------------------------------------------*/
 /*  color picker

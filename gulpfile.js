@@ -34,50 +34,50 @@ var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
 
 gulp.task('text-domain', function () {
-		gulp.src(['./plugins/font-awesome/*'])
+		gulp.src(['./inc/font-awesome/*'])
 				.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
-				.pipe(gulp.dest('./plugins/font-awesome/'));
+				.pipe(gulp.dest('./inc/font-awesome/'));
 });
 
 gulp.task('sass', function() {
-    gulp.src('_scss/*.scss',{ base: './_scss' })
+    gulp.src('./assets/_scss/*.scss',{ base: './assets/_scss' })
         .pipe(plumber())
         .pipe(sass())
 				.pipe(cmq({log:true}))
         .pipe(autoprefixer())
 				.pipe(cleanCss())
-        .pipe(gulp.dest('./css/'));
+        .pipe(gulp.dest('./assets/css/'));
 });
 
 // ファイル結合
 gulp.task('scripts', function() {
-  return gulp.src(['./js/jquery.flatheights.js','./js/master.js','./plugins/pagetop-btn/js/pagetop-btn.js'])
+  return gulp.src(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'])
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('./js/'));
+    .pipe(gulp.dest('./assets/js/'));
 });
 
 // js最小化
 gulp.task('jsmin', function () {
-  gulp.src(['./js/all.js'])
+  gulp.src(['./assets/js/all.js'])
   .pipe(plumber()) // エラーでも監視を続行
   .pipe(jsmin())
   .pipe(rename({suffix: '.min'}))
-  .pipe(gulp.dest('./js'));
-	gulp.src(['./plugins/smooth-scroll/js/smooth-scroll.js'])
+  .pipe(gulp.dest('./assets/js'));
+	gulp.src(['./inc/smooth-scroll/js/smooth-scroll.js'])
   .pipe(plumber()) // エラーでも監視を続行
   .pipe(jsmin())
   .pipe(rename({suffix: '.min'}))
-  .pipe(gulp.dest('./plugins/smooth-scroll/js'));
+  .pipe(gulp.dest('./inc/smooth-scroll/js'));
 });
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch('js/master.js', ['scripts']);
-    gulp.watch('plugins/pagetop-btn/js/pagetop-btn.js', ['scripts']);
-    gulp.watch('js/all.js', ['jsmin']);
+    gulp.watch('./assets/js/master.js', ['scripts']);
+    gulp.watch('./inc/pagetop-btn/js/pagetop-btn.js', ['scripts']);
+    gulp.watch('./assets/js/all.js', ['jsmin']);
     gulp.watch('**/*.js', ['jsmin']);
-    gulp.watch('_scss/**/*.scss', ['sass']);
-    gulp.watch('plugins/pagetop-btn/_scss/*.scss', ['sass']);
+    gulp.watch('./assets/_scss/**/*.scss', ['sass']);
+    gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', ['sass']);
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
@@ -106,7 +106,7 @@ gulp.task('copy_dist', function() {
 							'./**/*.png',
 							'./images/**',
 							'./inc/**',
-							'./js/**',
+							'./assets/**',
 							'./admin/**',
 							'./languages/**',
 							"!./compile.bat",
