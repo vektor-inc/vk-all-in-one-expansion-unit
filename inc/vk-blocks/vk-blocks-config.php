@@ -15,7 +15,7 @@ if ( ! function_exists( 'vkblocks_active' ) ) {
 	add_action(
 		'plugins_loaded', function () {
 			// Load language files.
-			load_plugin_textdomain( 'vk-blocks', false, 'vk-all-in-one-expansion-unit/plugins/vk-blocks/build/languages' );
+			load_plugin_textdomain( 'vk-blocks', false, 'vk-all-in-one-expansion-unit/inc/vk-blocks/build/languages' );
 		}
 	);
 
