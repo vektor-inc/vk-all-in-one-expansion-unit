@@ -25,6 +25,7 @@ function vkExUnit_get_common_options_default() {
 		$default_options[ 'active_' . $name ] = $value['default'];
 	}
 	$default_options['delete_options_at_deactivate'] = false;
+	$default_options['active_test_update']           = false;
 	$default_options['content_filter_state']         = 'content';
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
