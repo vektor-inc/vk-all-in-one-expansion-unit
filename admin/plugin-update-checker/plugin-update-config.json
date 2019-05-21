@@ -1,6 +1,6 @@
 {
 	"name": "VK All in One Expansion Unit",
-	"version": "8.8.0",
+	"version": "8.8.1",
 	"download_url": "https://lightning.nagoya/wp-content/vk-data-files/vk-all-in-one-expansion-unit/vk-all-in-one-expansion-unit.zip",
 
 	"homepage": "https://ex-unit.nagoya/ja/",
@@ -15,13 +15,13 @@
 	"sections": {
 		"description": "This plugin is an extended slide for WordPress theme Lightning.",
 		"installation": "",
-		"changelog": "<h4>8.8.0</h4><ul><li>[ 機能追加 ] 管理画面からのアップデート対応</li></ul>",
+		"changelog": "<h4>8.8.1</h4><ul><li>[ 翻訳 ] 未翻訳部分翻訳</li></ul><h4>8.8.0</h4><ul><li>[ 機能追加 ] 管理画面からのアップデート対応</li></ul>",
 		"custom_section": ""
 	},
 
-	"rating": 80,
+	"rating": 100,
 	"num_ratings": 5,
 
 	"downloaded": 1234,
-	"active_installs": 1000000
+	"active_installs": 50000
 }
