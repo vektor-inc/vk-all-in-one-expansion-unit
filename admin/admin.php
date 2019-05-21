@@ -54,7 +54,7 @@ add_action( 'admin_enqueue_scripts', 'veu_admin_add_js' );
 function veu_admin_add_js( $hook_suffix ) {
 	global $vkExUnit_version;
 	wp_enqueue_media();
-	wp_register_script( 'vkExUnit_admin_js', veu_get_directory_uri() . '/js/vkExUnit_admin.js', array( 'jquery' ), $vkExUnit_version );
+	wp_register_script( 'vkExUnit_admin_js', veu_get_directory_uri() . '/assets/js/vkExUnit_admin.js', array( 'jquery' ), $vkExUnit_version );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
@@ -62,7 +62,7 @@ function veu_admin_add_js( $hook_suffix ) {
 add_action( 'admin_enqueue_scripts', 'veu_admin_css' );
 function veu_admin_css() {
 	global $vkExUnit_version;
-	wp_enqueue_style( 'veu_admin_css', veu_get_directory_uri() . '/css/vkExUnit_admin.css', array(), $vkExUnit_version, 'all' );
+	wp_enqueue_style( 'veu_admin_css', veu_get_directory_uri() . '/assets/css/vkExUnit_admin.css', array(), $vkExUnit_version, 'all' );
 }
 
 /*
