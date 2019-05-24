@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.2.0
-Stable tag: 8.9.0
+Stable tag: 8.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,7 @@ Many features can be stopped individually.
 
 [ Gutenberg Blocks ]
 
+* Staff
 * Outer
 * Alert
 * Faq
@@ -85,6 +86,13 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 8.9.1 =
+[ Bug fix ][ Block ][ title ] When title margin set that Title align not work.
+
+= 8.9.0 =
+[ Add function ][VK Blocks][Add New Block] Staff Block
+
 
 = 8.3.0 =
 [ Add function ][ SNS Button ] Insert sns btns to before content
