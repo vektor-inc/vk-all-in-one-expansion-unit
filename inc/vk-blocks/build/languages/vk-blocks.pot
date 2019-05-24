@@ -333,11 +333,11 @@ msgstr ""
 msgid "Heading"
 msgstr ""
 
-#: src/heading/component.js:105
+#: src/heading/component.js:106
 msgid "Input sub text…"
 msgstr ""
 
-#: src/heading/component.js:88
+#: src/heading/component.js:89
 msgid "Input title…"
 msgstr ""
 
