@@ -1,6 +1,6 @@
 {
 	"name": "VK All in One Expansion Unit",
-	"version": "8.9.1",
+	"version": "8.9.2",
 	"download_url": "https://lightning.nagoya/wp-content/vk-data-files/vk-all-in-one-expansion-unit/vk-all-in-one-expansion-unit.zip",
 
 	"homepage": "https://ex-unit.nagoya/ja/",
@@ -15,7 +15,7 @@
 	"sections": {
 		"description": "This plugin is an extended slide for WordPress theme Lightning.",
 		"installation": "",
-		"changelog": "<h4>8.9.1</h4><ul><li>[ 不具合修正 ][ VK Blocks ] Titleブロックで見出しに余白指定するとalignが効かなくなる不具合修正</li></ul><h4>8.9.0</h4><ul><li>[ 機能追加 ][ VK Blocks ] Staffブロック追加</li></ul><h4>8.8.1</h4><ul><li>[ 翻訳 ] 未翻訳部分翻訳</li></ul><h4>8.8.0</h4><ul><li>[ 機能追加 ] 管理画面からのアップデート対応</li></ul>",
+		"changelog": "<h4>8.9.2</h4><ul><li>[ 不具合修正 ][ VK Blocks ] ブロック読み込み不具合修正</li></ul><h4>8.9.1</h4><ul><li>[ 不具合修正 ][ VK Blocks ] Titleブロックで見出しに余白指定するとalignが効かなくなる不具合修正</li></ul><h4>8.9.0</h4><ul><li>[ 機能追加 ][ VK Blocks ] Staffブロック追加</li></ul><h4>8.8.1</h4><ul><li>[ 翻訳 ] 未翻訳部分翻訳</li></ul><h4>8.8.0</h4><ul><li>[ 機能追加 ] 管理画面からのアップデート対応</li></ul>",
 		"custom_section": ""
 	},
 
