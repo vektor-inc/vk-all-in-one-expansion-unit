@@ -1,0 +1,742 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/alert/block.js:13
+msgid "Alert"
+msgstr ""
+
+#: src/balloon/block.js:122
+#: src/flow/block.js:112
+#: src/outer/block.js:127
+#: src/pr-blocks/block.js:343
+#: src/pr-content/component.js:116
+#: src/pr-content/deprecated/component-deprecated.js:102
+#: src/staff/component.js:88
+msgid "Select image"
+msgstr ""
+
+#: src/balloon/block.js:122
+#: src/flow/block.js:113
+#: src/outer/block.js:129
+#: src/pr-blocks/block.js:345
+#: src/pr-content/component.js:120
+#: src/pr-content/deprecated/component-deprecated.js:106
+msgid "Upload image"
+msgstr ""
+
+#: src/balloon/block.js:131
+msgid "Icon Name"
+msgstr ""
+
+#: src/balloon/block.js:140
+#: src/button/block.js:250
+msgid "Input text"
+msgstr ""
+
+#: src/balloon/block.js:32
+msgid "Ballon"
+msgstr ""
+
+#: src/balloon/block.js:82
+msgid "Balloon setting"
+msgstr ""
+
+#: src/balloon/block.js:84
+#: src/heading/block.js:177
+msgid "Position"
+msgstr ""
+
+#: src/balloon/block.js:85
+msgid "Please specify the layout of the balloon."
+msgstr ""
+
+#: src/balloon/block.js:88
+#: src/button/block.js:174
+#: src/pr-content/block.js:195
+msgid "Left"
+msgstr ""
+
+#: src/balloon/block.js:89
+#: src/button/block.js:176
+#: src/pr-content/block.js:194
+msgid "Right"
+msgstr ""
+
+#: src/balloon/block.js:94
+#: src/outer/block.js:194
+msgid "Type"
+msgstr ""
+
+#: src/balloon/block.js:95
+msgid "Please select the type of balloon."
+msgstr ""
+
+#: src/balloon/block.js:98
+msgid "Serif"
+msgstr ""
+
+#: src/balloon/block.js:99
+msgid "Thinking"
+msgstr ""
+
+#: src/button/block.js:148
+msgid "Button setting"
+msgstr ""
+
+#: src/button/block.js:150
+msgid "Sub Caption"
+msgstr ""
+
+#: src/button/block.js:156
+#: src/pr-blocks/block.js:293
+#: src/pr-content/block.js:134
+msgid "Open link new tab."
+msgstr ""
+
+#: src/button/block.js:161
+msgid "Button Size:"
+msgstr ""
+
+#: src/button/block.js:164
+msgid "Large"
+msgstr ""
+
+#: src/button/block.js:165
+#: src/outer/block.js:143
+msgid "normal"
+msgstr ""
+
+#: src/button/block.js:166
+msgid "Small"
+msgstr ""
+
+#: src/button/block.js:171
+msgid "Button Position:"
+msgstr ""
+
+#: src/button/block.js:175
+msgid "Center"
+msgstr ""
+
+#: src/button/block.js:177
+msgid "Block"
+msgstr ""
+
+#: src/button/block.js:182
+msgid "Button Style:"
+msgstr ""
+
+#: src/button/block.js:185
+#: src/pr-blocks/block.js:324
+msgid "Solid color"
+msgstr ""
+
+#: src/button/block.js:186
+#: src/pr-blocks/block.js:325
+msgid "No background"
+msgstr ""
+
+#: src/button/block.js:188
+msgid "If you select \"No background\", that you need to select a Custom Color."
+msgstr ""
+
+#: src/button/block.js:192
+#: src/pr-content/block.js:149
+msgid "Default Color:"
+msgstr ""
+
+#: src/button/block.js:195
+#: src/pr-content/block.js:152
+msgid "Primary"
+msgstr ""
+
+#: src/button/block.js:196
+#: src/pr-content/block.js:153
+msgid "Secondary"
+msgstr ""
+
+#: src/button/block.js:197
+#: src/pr-content/block.js:154
+msgid "Success"
+msgstr ""
+
+#: src/button/block.js:198
+#: src/pr-content/block.js:155
+msgid "Info"
+msgstr ""
+
+#: src/button/block.js:199
+#: src/pr-content/block.js:156
+msgid "Warning"
+msgstr ""
+
+#: src/button/block.js:200
+#: src/pr-content/block.js:157
+msgid "Danger"
+msgstr ""
+
+#: src/button/block.js:201
+#: src/pr-content/block.js:158
+msgid "Light"
+msgstr ""
+
+#: src/button/block.js:202
+#: src/pr-content/block.js:159
+msgid "Dark"
+msgstr ""
+
+#: src/button/block.js:207
+msgid "Custom Color"
+msgstr ""
+
+#: src/button/block.js:208
+msgid ""
+"This custom color overrides the default color. If you want to use the "
+"default color, click the clear button."
+msgstr ""
+
+#: src/button/block.js:216
+#: src/pr-content/block.js:170
+msgid "Font Awesome:"
+msgstr ""
+
+#: src/button/block.js:217
+#: src/pr-blocks/block.js:307
+#: src/pr-content/block.js:171
+msgid "Font Awesome icon list"
+msgstr ""
+
+#: src/button/block.js:220
+#: src/pr-content/block.js:174
+msgid "Before text"
+msgstr ""
+
+#: src/button/block.js:221
+#: src/pr-content/block.js:175
+msgid ""
+"Enter Font Awesome Class.This icon will appear before text. Ex) fas "
+"fa-arrow-circle-right"
+msgstr ""
+
+#: src/button/block.js:227
+#: src/pr-content/block.js:181
+msgid "After text"
+msgstr ""
+
+#: src/button/block.js:228
+#: src/pr-content/block.js:182
+msgid ""
+"Enter Font Awesome Class.This icon will appear after text. Ex) fas "
+"fa-external-link-alt"
+msgstr ""
+
+#: src/button/block.js:265
+msgid "Apply"
+msgstr ""
+
+#: src/button/block.js:59
+msgid "Button"
+msgstr ""
+
+#: src/faq/block.js:42
+msgid "FAQ"
+msgstr ""
+
+#: src/faq/block.js:79
+msgid "Please enter a question."
+msgstr ""
+
+#: src/faq/block.js:86
+msgid "Please enter a answer."
+msgstr ""
+
+#: src/flow/block.js:28
+msgid "Flow"
+msgstr ""
+
+#: src/flow/block.js:71
+msgid "Display of arrow"
+msgstr ""
+
+#: src/flow/block.js:75
+msgid "Arrow display"
+msgstr ""
+
+#: src/flow/block.js:76
+msgid "Arrow hidden"
+msgstr ""
+
+#: src/flow/block.js:91
+msgid "Input title"
+msgstr ""
+
+#: src/flow/block.js:98
+msgid "Input content"
+msgstr ""
+
+#: src/heading/block.js:119
+msgid "Style Settings"
+msgstr ""
+
+#: src/heading/block.js:121
+msgid "Heading style"
+msgstr ""
+
+#: src/heading/block.js:125
+#: src/staff/block.js:105
+msgid "Default"
+msgstr ""
+
+#: src/heading/block.js:126
+msgid "Plain"
+msgstr ""
+
+#: src/heading/block.js:129
+msgid "Margin bottom size (rem)"
+msgstr ""
+
+#: src/heading/block.js:140
+msgid "Heading Settings"
+msgstr ""
+
+#: src/heading/block.js:141
+msgid "Level"
+msgstr ""
+
+#: src/heading/block.js:143
+msgid "Text Alignment"
+msgstr ""
+
+#: src/heading/block.js:160
+msgid "Heading margin bottom size (rem)"
+msgstr ""
+
+#: src/heading/block.js:175
+msgid "Sub Text Settings"
+msgstr ""
+
+#: src/heading/block.js:180
+msgid "Display"
+msgstr ""
+
+#: src/heading/block.js:181
+msgid "Hide"
+msgstr ""
+
+#: src/heading/block.js:185
+msgid "Text size (rem)"
+msgstr ""
+
+#: src/heading/block.js:66
+msgid "Heading"
+msgstr ""
+
+#: src/heading/component.js:105
+msgid "Input sub text…"
+msgstr ""
+
+#: src/heading/component.js:88
+msgid "Input title…"
+msgstr ""
+
+# %s: heading level e.g: "1", "2", "3"
+#: src/heading/heading-toolbar.js:17
+msgid "Heading %d"
+msgstr ""
+
+#: src/outer/block.js:102
+msgid "Opacity Setting"
+msgstr ""
+
+#: src/outer/block.js:115
+msgid "Background Image"
+msgstr ""
+
+#: src/outer/block.js:136
+msgid "Background image Position"
+msgstr ""
+
+#: src/outer/block.js:144
+msgid "Fixed"
+msgstr ""
+
+#: src/outer/block.js:145
+msgid "Parallax (It will not work in preview)"
+msgstr ""
+
+#: src/outer/block.js:151
+#: src/pr-content/block.js:189
+msgid "Layout Setting"
+msgstr ""
+
+#: src/outer/block.js:154
+msgid "Outer width"
+msgstr ""
+
+#: src/outer/block.js:157
+msgid "Normal"
+msgstr ""
+
+#: src/outer/block.js:158
+msgid "Full Wide"
+msgstr ""
+
+#: src/outer/block.js:163
+msgid "Contents area padding (left and right)"
+msgstr ""
+
+#: src/outer/block.js:167
+msgid "Do not use contents area default padding (When case of full width etc.)."
+msgstr ""
+
+#: src/outer/block.js:171
+msgid ""
+"Use contents area default padding (When case of not full width and use "
+"background etc.)."
+msgstr ""
+
+#: src/outer/block.js:178
+msgid "Padding (top and bottom)"
+msgstr ""
+
+#: src/outer/block.js:181
+msgid "Use default padding"
+msgstr ""
+
+#: src/outer/block.js:183
+msgid "Do not use default padding (Set it yourself using a spacer block etc.)."
+msgstr ""
+
+#: src/outer/block.js:191
+msgid "Divider Setting"
+msgstr ""
+
+#: src/outer/block.js:200
+msgid "Tilt"
+msgstr ""
+
+#: src/outer/block.js:204
+msgid "Curve"
+msgstr ""
+
+#: src/outer/block.js:208
+msgid "Wave"
+msgstr ""
+
+#: src/outer/block.js:212
+msgid "Triangle"
+msgstr ""
+
+#: src/outer/block.js:218
+msgid "Upper Divider Level"
+msgstr ""
+
+#: src/outer/block.js:234
+msgid "Lower Divider Level"
+msgstr ""
+
+#: src/outer/block.js:250
+msgid "Border Setting"
+msgstr ""
+
+#: src/outer/block.js:254
+msgid "Border will disappear when divider effect is applied."
+msgstr ""
+
+#: src/outer/block.js:256
+msgid "Border type"
+msgstr ""
+
+#: src/outer/block.js:262
+#: src/staff/block.js:109
+msgid "None"
+msgstr ""
+
+#: src/outer/block.js:266
+#: src/pr-content/block.js:142
+msgid "Solid"
+msgstr ""
+
+#: src/outer/block.js:270
+msgid "Dotted"
+msgstr ""
+
+#: src/outer/block.js:274
+msgid "Dashed"
+msgstr ""
+
+#: src/outer/block.js:278
+msgid "Double"
+msgstr ""
+
+#: src/outer/block.js:282
+msgid "Groove"
+msgstr ""
+
+#: src/outer/block.js:286
+msgid "Ridge"
+msgstr ""
+
+#: src/outer/block.js:290
+msgid "Inset"
+msgstr ""
+
+#: src/outer/block.js:294
+msgid "Outset"
+msgstr ""
+
+#: src/outer/block.js:306
+msgid "Border width"
+msgstr ""
+
+#: src/outer/block.js:315
+msgid "Border radius"
+msgstr ""
+
+#: src/outer/block.js:334
+msgid "This block is only for users who bought Lightning Pro."
+msgstr ""
+
+#: src/outer/block.js:52
+msgid "Outer"
+msgstr ""
+
+#: src/outer/block.js:91
+msgid "Background Setting"
+msgstr ""
+
+#: src/outer/block.js:93
+#: src/pr-content/block.js:92
+msgid "Color Setting"
+msgstr ""
+
+#: src/outer/block.js:94
+msgid ""
+"Color will overcome background image. If you want to display image, clear "
+"background color or set opacity 0."
+msgstr ""
+
+#: src/pr-blocks/block.js:149
+msgid "PR Block1 Setting"
+msgstr ""
+
+#: src/pr-blocks/block.js:164
+msgid "Icon 1"
+msgstr ""
+
+#: src/pr-blocks/block.js:197
+msgid "PR Image 1"
+msgstr ""
+
+#: src/pr-blocks/block.js:198
+msgid "When you have an image. Image is displayed with priority"
+msgstr ""
+
+#: src/pr-blocks/block.js:217
+msgid "PR Block2 Setting"
+msgstr ""
+
+#: src/pr-blocks/block.js:232
+msgid "Icon 2"
+msgstr ""
+
+#: src/pr-blocks/block.js:264
+msgid "PR Image 2"
+msgstr ""
+
+#: src/pr-blocks/block.js:284
+msgid "PR Block3 Setting"
+msgstr ""
+
+#: src/pr-blocks/block.js:286
+msgid "Link URL:"
+msgstr ""
+
+#: src/pr-blocks/block.js:299
+msgid "Icon 3"
+msgstr ""
+
+#: src/pr-blocks/block.js:302
+msgid "Class name of the Font Awesome icon font you want to use:"
+msgstr ""
+
+#: src/pr-blocks/block.js:321
+msgid "Icon Background:"
+msgstr ""
+
+#: src/pr-blocks/block.js:331
+msgid "PR Image 3"
+msgstr ""
+
+#: src/pr-blocks/block.js:332
+msgid "When you have an image. Image is displayed with priority."
+msgstr ""
+
+#: src/pr-blocks/block.js:96
+msgid "PR Blocks (Beta)"
+msgstr ""
+
+#: src/pr-blocks/component-block.js:144
+#: src/pr-blocks/deprecated/component-block.js:144
+msgid "Input Title"
+msgstr ""
+
+#: src/pr-blocks/component-block.js:151
+#: src/pr-blocks/deprecated/component-block.js:151
+msgid "Input Content"
+msgstr ""
+
+#: src/pr-content/block.js:106
+msgid "Image Border Color"
+msgstr ""
+
+#: src/pr-content/block.js:114
+msgid "Button Setting"
+msgstr ""
+
+#: src/pr-content/block.js:116
+msgid "Button Text"
+msgstr ""
+
+#: src/pr-content/block.js:125
+msgid "Link URL"
+msgstr ""
+
+#: src/pr-content/block.js:138
+msgid "Button Type"
+msgstr ""
+
+#: src/pr-content/block.js:143
+msgid "Ghost"
+msgstr ""
+
+#: src/pr-content/block.js:163
+msgid "Button Color"
+msgstr ""
+
+#: src/pr-content/block.js:191
+msgid "Layout Type"
+msgstr ""
+
+#: src/pr-content/block.js:61
+msgid "PR Content"
+msgstr ""
+
+#: src/pr-content/block.js:93
+msgid "Title Color"
+msgstr ""
+
+#: src/pr-content/block.js:99
+msgid "Content Color"
+msgstr ""
+
+#: src/pr-content/component.js:136
+#: src/pr-content/deprecated/component-deprecated.js:122
+msgid "Input title."
+msgstr ""
+
+#: src/pr-content/component.js:144
+#: src/pr-content/deprecated/component-deprecated.js:130
+msgid "Input content."
+msgstr ""
+
+#: src/spacer/block.js:103
+msgid "Mobile"
+msgstr ""
+
+#: src/spacer/block.js:41
+msgid "Responsive Spacer"
+msgstr ""
+
+#: src/spacer/block.js:67
+msgid "Unit Type"
+msgstr ""
+
+#: src/spacer/block.js:73
+msgid "px"
+msgstr ""
+
+#: src/spacer/block.js:77
+msgid "em"
+msgstr ""
+
+#: src/spacer/block.js:81
+msgid "rem"
+msgstr ""
+
+#: src/spacer/block.js:85
+msgid "vw"
+msgstr ""
+
+#: src/spacer/block.js:89
+msgid "Height for each device."
+msgstr ""
+
+#: src/spacer/block.js:91
+msgid "PC"
+msgstr ""
+
+#: src/spacer/block.js:97
+msgid "Tablet"
+msgstr ""
+
+#: src/staff/block.js:114
+msgid "Alt text"
+msgstr ""
+
+#: src/staff/block.js:116
+msgid "Set the alt text for profile image"
+msgstr ""
+
+#: src/staff/block.js:124
+msgid "Color"
+msgstr ""
+
+#: src/staff/block.js:126
+msgid "Staff name"
+msgstr ""
+
+#: src/staff/block.js:134
+msgid "Name caption"
+msgstr ""
+
+#: src/staff/block.js:142
+#: src/staff/component.js:58
+msgid "Role position"
+msgstr ""
+
+#: src/staff/block.js:150
+#: src/staff/component.js:66
+msgid "Profile title"
+msgstr ""
+
+#: src/staff/block.js:158
+#: src/staff/component.js:74
+msgid "Profile text"
+msgstr ""
+
+#: src/staff/block.js:54
+msgid "Staff"
+msgstr ""
+
+#: src/staff/block.js:82
+msgid "Layout"
+msgstr ""
+
+#: src/staff/block.js:93
+msgid "Image left"
+msgstr ""
+
+#: src/staff/block.js:98
+msgid "Image border"
+msgstr ""
+
+#: src/staff/component.js:42
+msgid "Your Name"
+msgstr ""
+
+#: src/staff/component.js:50
+msgid "Caption"
+msgstr ""
