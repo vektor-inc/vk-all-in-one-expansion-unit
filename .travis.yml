@@ -69,3 +69,5 @@ script:
 
 after_success:
   - bash ./bin/deploy.sh
+
+allow_failure: true
