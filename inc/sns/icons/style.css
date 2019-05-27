@@ -1,0 +1,47 @@
+/* vkExUnit_style.scssに同じ内容を貼り付けてあるのでこちらは現在読み込まれていない */
+/* 自動結合していないのは結合時にファイルパスがズレたりするため */
+
+@font-face {
+  font-family: 'vk_sns';
+  src:  url('fonts/vk_sns.eot?vb7g90');
+  src:  url('fonts/vk_sns.eot?vb7g90#iefix') format('embedded-opentype'),
+    url('fonts/vk_sns.ttf?vb7g90') format('truetype'),
+    url('fonts/vk_sns.woff?vb7g90') format('woff'),
+    url('fonts/vk_sns.svg?vb7g90#vk_sns') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'vk_sns' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-vk_w_r_sns_pocket:before {
+  content: "\e605";
+}
+.icon-vk_w_r_sns_twitter:before {
+  content: "\e600";
+}
+.icon-vk_w_r_sns_line:before {
+  content: "\e601";
+}
+.icon-vk_w_r_sns_hatena:before {
+  content: "\e602";
+}
+.icon-vk_w_r_sns_google:before {
+  content: "\e603";
+}
+.icon-vk_w_r_sns_fb:before {
+  content: "\e604";
+}

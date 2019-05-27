@@ -1,6 +1,6 @@
 <?php
 
-$vkExUnit_options = vkExUnit_get_common_options();
+$vkExUnit_options = veu_get_common_options();
 if ( ! $vkExUnit_options['delete_options_at_deactivate'] ) {
 	return; }
 
