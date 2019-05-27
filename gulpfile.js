@@ -34,7 +34,7 @@ var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
 
 gulp.task('text-domain', function () {
-		gulp.src(['./inc/font-awesome/*'])
+		gulp.src(['./inc/font-awesome/**/*'])
 				.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
 				.pipe(gulp.dest('./inc/font-awesome/'));
 });

@@ -1,4 +1,5 @@
 <?php
+
 function veu_common_options_init() {
 	register_setting(
 		'vkExUnit_common_options_fields',   //  Immediately following form tag of edit page.
