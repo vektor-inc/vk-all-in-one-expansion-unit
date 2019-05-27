@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.2.1
-Stable tag: 8.9.4
+Stable tag: 9.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,18 @@ e.g.
 = 8.9.0 =
 [ Add function ][VK Blocks][Add New Block] Staff Block
 
+= 8.4.0 =
+[ Specification change ] marge meta box & refactaring
+
+= 8.4.0 =
+[ Specification change ] marge meta box & refactaring
+[ Add Function ] Add no index tag setting.
+
+= 8.3.2 =
+[ Add Function ] Add beta tester.
+
+= 8.3.1 =
+[ Design tuning ][ SNS Button ] Insert sns btns to before content
 
 = 8.3.0 =
 [ Add function ][ SNS Button ] Insert sns btns to before content
