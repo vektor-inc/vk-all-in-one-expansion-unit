@@ -30,7 +30,6 @@ jQuery(document).ready(function($){
             library: {
                 type: 'image'
             },
-						// 指定しないとデフォルトで「選択」になる
             // button: {
             //     text: 'Choose Image'
             // },
