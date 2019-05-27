@@ -38,4 +38,4 @@
 例2) 投稿ページの本文にフックする関連記事、Follow Me Section、CTAなどは隣接  
 - vkExUnit.php に機能の有効化部分を書き込む時には上記同様なるべくグルーピングする。  
 ※ ただし、この順番は表示には影響しないので絶対きれいに並べておかないといけないわけではない。
-- vkExUnit.php に機能の有効化部分を書き込む時には vkExUnit_package_is_enable() を使用する。
+- vkExUnit.php に機能の有効化部分を書き込む時には veu_package_is_enable() を使用する。

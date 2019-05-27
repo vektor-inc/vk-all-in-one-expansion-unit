@@ -7,10 +7,10 @@
  * @since    6/Aug/2015
  */
 
-vkExUnit_package_initilate();
+veu_package_initilate();
 
 
-function vkExUnit_package_initilate() {
+function veu_package_initilate() {
 	global $vkExUnit_packages;
 	if ( ! is_array( $vkExUnit_packages ) ) {
 		$vkExUnit_packages = array();
@@ -18,16 +18,16 @@ function vkExUnit_package_initilate() {
 }
 
 
-add_action( 'init', 'vkExUnit_package_init' );
-function vkExUnit_package_init() {
+add_action( 'init', 'veu_package_init' );
+function veu_package_init() {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return;
 	}
-	do_action( 'vkExUnit_package_init' );
+	do_action( 'veu_package_init' );
 }
 
 
-function vkExUnit_package_is_enable( $package_name ) {
+function veu_package_is_enable( $package_name ) {
 	// パッケージ情報を取得
 	global $vkExUnit_packages;
 
@@ -36,7 +36,7 @@ function vkExUnit_package_is_enable( $package_name ) {
 		return null; }
 
 	// 共通設定（有効化情報）を読み込む
-	$options = vkExUnit_get_common_options();
+	$options = veu_get_common_options();
 
 	// 保存されている共通設定データにパッケージ名が存在しない場合
 	if ( ! isset( $options[ 'active_' . $package_name ] ) ) {
@@ -47,8 +47,8 @@ function vkExUnit_package_is_enable( $package_name ) {
 }
 
 
-function vkExUnit_package_register( $args ) {
-	$defaults = vkExUnit_package_default();
+function veu_package_register( $args ) {
+	$defaults = veu_package_default();
 	$args     = wp_parse_args( $args, $defaults );
 
 	global $vkExUnit_packages;
@@ -56,12 +56,12 @@ function vkExUnit_package_register( $args ) {
 }
 
 
-function vkExUnit_package_include() {
+function veu_package_include() {
 	global $vkExUnit_packages;
 	if ( ! count( $vkExUnit_packages ) || ! is_array( $vkExUnit_packages ) ) {
 		return $output; }
-	$options      = vkExUnit_get_common_options();
-	$include_base = vkExUnit_get_directory() . '/plugins/';
+	$options      = veu_get_common_options();
+	$include_base = veu_get_directory() . '/inc/';
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
 			$package['include'] and
@@ -76,7 +76,7 @@ function vkExUnit_package_include() {
 }
 
 
-function vkExUnit_package_default() {
+function veu_package_default() {
 	return array(
 		'name'        => null,
 		'title'       => 'noting',
@@ -89,8 +89,8 @@ function vkExUnit_package_default() {
 }
 
 
-add_filter( 'vkExUnit_common_options_validate', 'vkExUnit_common_package_options_validate', 10, 2 );
-function vkExUnit_common_package_options_validate( $output, $input ) {
+add_filter( 'vkExUnit_common_options_validate', 'veu_common_package_options_validate', 10, 2 );
+function veu_common_package_options_validate( $output, $input ) {
 	global $vkExUnit_packages;
 	if ( ! count( $vkExUnit_packages ) || ! is_array( $vkExUnit_packages ) ) {
 		return $output; }

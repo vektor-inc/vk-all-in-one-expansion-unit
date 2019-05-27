@@ -3,15 +3,15 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: https://ex-unit.nagoya
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 8.3.0
+* Version: 9.0.0
 * Author: Vektor,Inc.
-* Text Domain: vkExUnit
+* Text Domain: vk-all-in-one-expansion-unit
 * Domain Path: /languages
 * Author URI: https://vektor-inc.co.jp
 * License: GPL2
 */
 /*
-Copyright 2015-2018 Vektor,Inc. ( email : kurudrive@gmail.com )
+Copyright 2015-2019 Vektor,Inc. ( email : kurudrive@gmail.com )
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -27,7 +27,22 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 4.7 );
+/*
+ ---------------------------------------------
+	Test updater
+--------------------------------------------- */
+// テストアップデートが有効になっていたらRC版のアップデートを有効にする
+$options = get_option( 'vkExUnit_common_options' );
+if ( ! empty( $options['active_test_update'] ) ) {
+	require 'admin/plugin-update-checker/plugin-update-checker.php';
+	$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://lightning.nagoya/wp-content/vk-data-files/vk-all-in-one-expansion-unit/plugin-update-config.json',
+		__FILE__,
+		'vk-all-in-one-expansion-unit'
+	);
+}
+
+define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5.6 );
 
 // Get Plugin version
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
@@ -38,36 +53,36 @@ $vkExUnit_version = $data['version'];
 load_plugin_textdomain( 'vk-all-in-one-expansion-unit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
-function vkExUnit_get_directory( $path = '' ) {
+
+function veu_get_directory( $path = '' ) {
 	return $dirctory = dirname( __FILE__ ) . $path;
 }
-
-function vkExUnit_get_directory_uri( $path = '' ) {
+function veu_get_directory_uri( $path = '' ) {
 	return plugins_url( $path, __FILE__ );
 }
 
 
 if ( function_exists( 'register_deactivation_hook' ) ) {
-	register_deactivation_hook( __FILE__, 'vkExUnit_uninstall_function' );
+	register_deactivation_hook( __FILE__, 'veu_uninstall_function' );
 }
 
-function vkExUnit_uninstall_function() {
-	require_once vkExUnit_get_directory() . '/initialize.php';
-	include vkExUnit_get_directory( '/uninstaller.php' );
+function veu_uninstall_function() {
+	require_once veu_get_directory() . '/initialize.php';
+	include veu_get_directory( '/uninstaller.php' );
 }
-
 
 // PHP Version check
 if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
-	require_once vkExUnit_get_directory() . '/initialize.php';
+	require_once veu_get_directory() . '/initialize.php';
+
 	if ( version_compare( phpversion(), '5.6' ) < 0 && is_admin() ) {
-		add_filter( 'admin_notices', 'vkExUnit_phpversion_warning_notice' );
+		add_filter( 'admin_notices', 'veu_phpversion_warning_notice' );
 	}
 } else {
-	add_filter( 'admin_notices', 'vkExUnit_phpversion_error' );
+	add_filter( 'admin_notices', 'veu_phpversion_error' );
 }
 
-function vkExUnit_phpversion_error( $val ) {
+function veu_phpversion_error( $val ) {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return $val;
 	}
@@ -87,7 +102,7 @@ function vkExUnit_phpversion_error( $val ) {
 	return $val;
 }
 
-function vkExUnit_phpversion_warning_notice( $val ) {
+function veu_phpversion_warning_notice( $val ) {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return $val;
 	}
@@ -98,7 +113,7 @@ function vkExUnit_phpversion_warning_notice( $val ) {
 	?>
 	<div class="notice notice-warning is-dismissible"><p>
 			<?php printf( __( 'Current PHP Version(%s) is old.', 'vk-all-in-one-expansion-unit' ), phpversion() ); ?>
-			<?php printf( __( '%s supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ); ?>
+			<?php printf( __( '%s supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ); ?>
 		</p></div>
 	<?php
 	return $val;

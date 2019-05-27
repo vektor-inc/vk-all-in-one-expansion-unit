@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
-Tested up to: 5.1.1
-Stable tag: 8.3.0
+Tested up to: 5.2.1
+Stable tag: 9.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,7 @@ Many features can be stopped individually.
 
 [ Gutenberg Blocks ]
 
+* Staff
 * Outer
 * Alert
 * Faq
@@ -86,8 +87,36 @@ e.g.
 
 == Changelog ==
 
+= 8.9.4 =
+[ Specification change ][ VK Blocks ][ Staff ] font style tuning.
+
+= 8.9.3 =
+[ Specification change ][ VK Blocks ][ Staff ] Change H tag and deal with Lightning 1 column template.
+
+= 8.9.2 =
+[ Bug fix ][ VK Blocks ] Load block failed.
+
+= 8.9.1 =
+[ Bug fix ][ Block ][ title ] When title margin set that Title align not work.
+
+= 8.9.0 =
+[ Add function ][VK Blocks][Add New Block] Staff Block
+
+= 8.4.0 =
+[ Specification change ] marge meta box & refactaring
+
+= 8.4.0 =
+[ Specification change ] marge meta box & refactaring
+[ Add Function ] Add no index tag setting.
+
+= 8.3.2 =
+[ Add Function ] Add beta tester.
+
+= 8.3.1 =
+[ Design tuning ][ SNS Button ] Insert sns btns to before content
+
 = 8.3.0 =
-[ Add function ][ SNS Button ] Insert sns btns to before content 
+[ Add function ][ SNS Button ] Insert sns btns to before content
 
 = 8.2.0 =
 [ Child Page index ][ Add filter ] veu_childPage_list_read_more_txt

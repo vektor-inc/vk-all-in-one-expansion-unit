@@ -57,7 +57,7 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			$vkExUnit_sns_options['snsBtn_exclude_post_types'] = $test_value['vkExUnit_sns_options__snsBtn_exclude_post_types'];
 			update_option( 'vkExUnit_sns_options', $vkExUnit_sns_options );
 
-			$return = veu_sns_is_display_hide_chekbox( $test_value['post_type'] );
+			$return = veu_sns_is_sns_btns_meta_chekbox_hide( $test_value['post_type'] );
 
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct'], $return );

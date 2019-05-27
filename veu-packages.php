@@ -8,11 +8,11 @@ function vkExUnit_get_packages() {
 	'title'       => __('Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
 	'description' => __('Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 	'attr'        => array(
-		array(
-			'name'        =>__('Setting', 'vk-all-in-one-expansion-unit' ),
-			'url'         => admin_url().'admin.php?page=vkExUnit_css_customize',
-			'enable_only' => 1,
-		)
+	array(
+		'name'        =>__('Setting', 'vk-all-in-one-expansion-unit' ),
+		'url'         => admin_url().'admin.php?page=vkExUnit_css_customize',
+		'enable_only' => 1,
+	)
 	),
 	'default'     => false,
 	'include'     => '/auto_eyecatch.php',
@@ -20,80 +20,57 @@ function vkExUnit_get_packages() {
 
 	*/
 
-	/*-------------------------------------------*/
-	/*  fontawesome
-	/*-------------------------------------------*/
-	/*  wpTitle
-	/*-------------------------------------------*/
-	/*  metaKeyword
-	/*-------------------------------------------*/
-	/*  metaDescription
-	/*-------------------------------------------*/
-	/*  sns
-	/*-------------------------------------------*/
-	/*  ga
-	/*-------------------------------------------*/
-	/*  otherWidgets
-	/*-------------------------------------------*/
-	/*  css_customize
-	/*-------------------------------------------*/
-	/*  Contact Section
-	/*-------------------------------------------*/
-	/*  ChildPageIndex
-	/*-------------------------------------------*/
-	/*  pageList_ancestor
-	/*-------------------------------------------*/
-	/*  Sitemap_page
-	/*-------------------------------------------*/
-	/*  Call To Action
-	/*-------------------------------------------*/
-	/*  insert_ads
-	/*-------------------------------------------*/
-	/*  relatedPosts
-	/*-------------------------------------------*/
-	/*  disable_ping-back
-	/*-------------------------------------------*/
-	/*  Page Top Button
-	/*-------------------------------------------*/
-	/*  Smooth Scroll
-	/*-------------------------------------------*/
-	/*  Add Body Class
-	/*-------------------------------------------*/
-	/*  Nav Menu Class Custom
-	/*-------------------------------------------*/
-	/*  auto_eyecatch
-	/*-------------------------------------------*/
-	/*  TinyMCE Style Tags
-	/*-------------------------------------------*/
-	/*  bootstrap
-	/*-------------------------------------------*/
-	/*  icon
+	/*
+	  fontawesome
+	  wpTitle
+	  metaKeyword
+	  metaDescription
+	  sns
+	  ga
+	  otherWidgets
+	  css_customize
+	  Contact Section
+	  ChildPageIndex
+	  pageList_ancestor
+	  Sitemap_page
+	  Call To Action
+	  insert_ads
+	  relatedPosts
+	  disable_ping-back
+	  Page Top Button
+	  Smooth Scroll
+	  Add Body Class
+	  Nav Menu Class Custom
+	  auto_eyecatch
+	  TinyMCE Style Tags
+	  bootstrap
+	  icon
 	/*-------------------------------------------*/
 
-	/*-------------------------------------------*/
-	/*  fontawesome
+	/*
+	  fontawesome
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'fontawesome',
 		'title'       => __( 'Print link fontawesome', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Print fontawesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'font-awesome-config.php',
+		'include'     => 'font-awesome/font-awesome-config.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  VK Blocks
+	/*
+	  VK Blocks
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'vk-blocks',
 		'title'       => __( 'VK Blocks ( Beta )', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Extends Gutenberg\'s blocks.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'vk-blocks-config.php',
+		'include'     => 'vk-blocks/vk-blocks-config.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  wpTitle
+	/*
+	  wpTitle
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'wpTitle',
@@ -107,39 +84,22 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'wp_title.php',
+		'include'     => 'wp-title.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  metaKeyword
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'metaKeyword',
-		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => true,
-		'include'     => 'meta_keyword.php',
-	);
-	/*-------------------------------------------*/
-	/*  metaDescription
+	/*
+	  metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'metaDescription',
 		'title'       => __( 'Print meta description', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'meta_description.php',
+		'include'     => 'meta-description.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  sns
+	/*
+	  sns
 	/*-------------------------------------------*/
 	$deskSns     = array();
 	$settingPage = '<a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">' . __( 'Main setting page' ) . '</a>';
@@ -167,8 +127,8 @@ function vkExUnit_get_packages() {
 		'include'     => 'sns/sns.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  ga
+	/*
+	  ga
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'ga',
@@ -185,8 +145,8 @@ function vkExUnit_get_packages() {
 		'include'     => 'google_analytics/google_analytics.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  otherWidgets
+	/*
+	  otherWidgets
 	/*-------------------------------------------*/
 	$desk   = array();
 	$desk[] = '<p>' . __( 'You can use various widgets.', 'vk-all-in-one-expansion-unit' ) . '</p>';
@@ -215,8 +175,8 @@ function vkExUnit_get_packages() {
 		'include'     => 'other_widget/other_widget.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  css_customize
+	/*
+	  css_customize
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'css_customize',
@@ -230,11 +190,11 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'css_customize/css_customize.php',
+		'include'     => 'css-customize/css-customize.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  ChildPageIndex
+	/*
+	  ChildPageIndex
 	/*-------------------------------------------*/
 
 	$required_packages[] = array(
@@ -242,22 +202,22 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'child_page_index.php',
+		'include'     => 'child-page-index.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  pageList_ancestor
+	/*
+	  pageList_ancestor
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'pageList_ancestor',
 		'title'       => __( 'Page list from ancestor', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display Page list from ancestor at after content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'pageList_ancestor.php',
+		'include'     => 'page-list-ancestor.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Contact Section
+	/*
+	  Contact Section
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'contact_section',
@@ -274,19 +234,19 @@ function vkExUnit_get_packages() {
 		'include'     => 'contact-section/contact-section.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Sitemap_page
+	/*
+	  Sitemap_page
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'sitemap_page',
 		'title'       => __( 'Display HTML Site Map', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'It displays a HTML Site Map to the specified page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'sitemap_page/sitemap_page.php',
+		'include'     => 'sitemap-page/sitemap-page.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Call To Action
+	/*
+	  Call To Action
 	/*-------------------------------------------*/
 	$cta_description  = __( 'Display the CTA at the end of the post content.', 'vk-all-in-one-expansion-unit' );
 	$cta_description .= '<br>';
@@ -311,11 +271,11 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'call-to-action-config.php',
+		'include'     => 'call-to-action/call-to-action-config.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  insert_ads
+	/*
+	  insert_ads
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'insert_ads',
@@ -329,10 +289,10 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'insert_ads.php',
+		'include'     => 'insert-ads.php',
 	);
-	/*-------------------------------------------*/
-	/*  relatedPosts
+	/*
+	  relatedPosts
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'relatedPosts',
@@ -342,8 +302,19 @@ function vkExUnit_get_packages() {
 		'include'     => 'related_posts/related_posts.php',
 	);
 
+	/*
+	  noindex
 	/*-------------------------------------------*/
-	/*  disable_ping-back
+	$required_packages[] = array(
+		'name'        => 'noindex',
+		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print noindex tag to html head.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'noindex/noindex.php',
+	);
+
+	/*
+	  disable_ping-back
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'disable_ping-back',
@@ -359,7 +330,7 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'disable_dashbord.php',
+		'include'     => 'disable-dashbord.php',
 		'hidden'      => true,
 	);
 
@@ -368,11 +339,11 @@ function vkExUnit_get_packages() {
 		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add ExUnit menu to admin bar.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => '../plugins_admin/admin_bar.php',
+		'include'     => '../admin/admin_bar.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  post_type_manager
+	/*
+	  post_type_manager
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'post_type_manager',
@@ -386,11 +357,11 @@ function vkExUnit_get_packages() {
 			),
 		),
 		'default'     => false,
-		'include'     => 'post-type-manager-config.php',
+		'include'     => 'post-type-manager/post-type-manager-config.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Page Top Button
+	/*
+	  Page Top Button
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'pagetop_button',
@@ -400,8 +371,8 @@ function vkExUnit_get_packages() {
 		'include'     => 'pagetop-btn/pagetop-btn.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Smooth Scroll
+	/*
+	  Smooth Scroll
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'smooth_scroll',
@@ -411,8 +382,8 @@ function vkExUnit_get_packages() {
 		'include'     => 'smooth-scroll/smooth-scroll.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Add Body Class
+	/*
+	  Add Body Class
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'add_body_class',
@@ -422,8 +393,8 @@ function vkExUnit_get_packages() {
 		'include'     => 'add-body-class.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  Nav Menu Class Custom
+	/*
+	  Nav Menu Class Custom
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'nav_menu_class_custom',
@@ -433,30 +404,30 @@ function vkExUnit_get_packages() {
 		'include'     => 'nav-menu-class-custom.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  auto_eyecatch
+	/*
+	  auto_eyecatch
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'auto_eyecatch',
 		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'auto_eyecatch.php',
+		'include'     => 'auto-eyecatch/auto-eyecatch.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  TinyMCE Style Tags
+	/*
+	  TinyMCE Style Tags
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'tiny_mce_style_tags',
 		'title'       => __( 'TinyMCE Style Tags', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'tiny_mce_style_tags.php',
+		'include'     => 'tiny-mce-styletags.php',
 	);
 
-	/*-------------------------------------------*/
-	/*  bootstrap
+	/*
+	  bootstrap
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'bootstrap',
@@ -466,8 +437,26 @@ function vkExUnit_get_packages() {
 		'include'     => 'bootstrap.php',
 	);
 
+	/*
+	  metaKeyword
 	/*-------------------------------------------*/
-	/*  icon
+	$required_packages[] = array(
+		'name'        => 'metaKeyword',
+		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => false,
+		'include'     => 'meta-keyword/meta-keyword.php',
+	);
+
+	/*
+	  icon
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'icon',
@@ -483,5 +472,5 @@ function vkExUnit_get_packages() {
 $required_packages = vkExUnit_get_packages();
 
 foreach ( $required_packages as $package ) {
-	vkExUnit_package_register( $package );
+	veu_package_register( $package );
 }
