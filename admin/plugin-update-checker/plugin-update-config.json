@@ -15,7 +15,7 @@
 	"sections": {
 		"description": "This plugin is an extended slide for WordPress theme Lightning.",
 		"installation": "",
-		"changelog": "<h4>9.0.2</h4><ul><li>[ 仕様変更 ][ SNSボタン ] CSS指定がきつすぎるので少し軽くなるように調整</li></ul><h4>8.9.4</h4><ul><li>[ 仕様変更 ][ VK Blocks ][ スタッフブロック ] フォント再調整</li></ul><h4>8.9.3</h4><ul><li>[ 仕様変更 ][ VK Blocks ] スタッフブロックのHタグ変更 & Lightningの１カラムテンプレート対応</li></ul><h4>8.9.2</h4><ul><li>[ 不具合修正 ][ VK Blocks ] ブロック読み込み不具合修正</li></ul><h4>8.9.1</h4><ul><li>[ 不具合修正 ][ VK Blocks ] Titleブロックで見出しに余白指定するとalignが効かなくなる不具合修正</li></ul><h4>8.9.0</h4><ul><li>[ 機能追加 ][ VK Blocks ] Staffブロック追加</li></ul><h4>8.8.1</h4><ul><li>[ 翻訳 ] 未翻訳部分翻訳</li></ul><h4>8.8.0</h4><ul><li>[ 機能追加 ] 管理画面からのアップデート対応</li></ul>",
+		"changelog": "<h4>9.0.3</h4><ul><li>[ デザイン調整 ][ 管理画面 ] ExUnitのmetaboxのCSS調整</li></ul><h4>9.0.2</h4><ul><li>[ 仕様変更 ][ SNSボタン ] CSS指定がきつすぎるので少し軽くなるように調整</li></ul><h4>8.9.4</h4><ul><li>[ 仕様変更 ][ VK Blocks ][ スタッフブロック ] フォント再調整</li></ul><h4>8.9.3</h4><ul><li>[ 仕様変更 ][ VK Blocks ] スタッフブロックのHタグ変更 & Lightningの１カラムテンプレート対応</li></ul><h4>8.9.2</h4><ul><li>[ 不具合修正 ][ VK Blocks ] ブロック読み込み不具合修正</li></ul><h4>8.9.1</h4><ul><li>[ 不具合修正 ][ VK Blocks ] Titleブロックで見出しに余白指定するとalignが効かなくなる不具合修正</li></ul><h4>8.9.0</h4><ul><li>[ 機能追加 ][ VK Blocks ] Staffブロック追加</li></ul><h4>8.8.1</h4><ul><li>[ 翻訳 ] 未翻訳部分翻訳</li></ul><h4>8.8.0</h4><ul><li>[ 機能追加 ] 管理画面からのアップデート対応</li></ul>",
 		"custom_section": ""
 	},
 
