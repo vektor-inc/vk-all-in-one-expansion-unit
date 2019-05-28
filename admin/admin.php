@@ -5,14 +5,6 @@
   Print admin js
 */
 
-require dirname( __FILE__ ) . '/admin-common-init.php';
-require dirname( __FILE__ ) . '/admin-main-setting-page.php';
-require dirname( __FILE__ ) . '/disable-guide.php';
-require dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
-require dirname( __FILE__ ) . '/customizer.php';
-// plugins_loaded の位置だとmetaboxを統合しない設定にしても個別のmetaboxが表示されない
-require dirname( __FILE__ ) . '/admin-post-metabox.php';
-
 /*
   Add Parent menu
 /*-------------------------------------------*/
@@ -41,6 +33,14 @@ function veu_setting_menu_parent() {
 function vkExUnit_add_setting_page() {
 	require dirname( __FILE__ ) . '/admin-active-setting-page.php';
 }
+
+require dirname( __FILE__ ) . '/admin-common-init.php';
+require dirname( __FILE__ ) . '/admin-main-setting-page.php';
+require dirname( __FILE__ ) . '/disable-guide.php';
+require dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
+require dirname( __FILE__ ) . '/customizer.php';
+// plugins_loaded の位置だとmetaboxを統合しない設定にしても個別のmetaboxが表示されない
+require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
 /*
   Print admin js
