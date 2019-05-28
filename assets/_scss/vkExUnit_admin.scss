@@ -36,6 +36,18 @@
 
 
 .veu_metabox_section {
+	label {
+		font-weight: normal;
+	}
+	input[type=checkbox] {
+		margin-top:0;
+		margin-right:4px;
+	}
+	input,
+	select,
+	textarea {
+		margin-bottom:5px;
+	}
 	&_title {
 		position: relative;
 		border:1px solid #e5e5e5;
