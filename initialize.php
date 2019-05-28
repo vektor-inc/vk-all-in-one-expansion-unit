@@ -8,13 +8,12 @@
 /*
   Load modules
 /*-------------------------------------------*/
-require_once( veu_get_directory() . '/admin/admin.php' );
-require_once( veu_get_directory() . '/inc/template-tags/template-tags.php' );
-require_once( veu_get_directory() . '/inc/template-tags/template-tags-veu.php' );
-require_once( veu_get_directory() . '/inc/template-tags/template-tags-veu-old.php' );
-require_once( veu_get_directory() . '/veu-package-manager.php' );
-require_once( veu_get_directory() . '/veu-packages.php' );
-require_once( veu_get_directory() . '/inc/footer-copyright-change.php' );
+require veu_get_directory() . '/admin/admin.php';
+require veu_get_directory() . '/inc/template-tags/template-tags.php';
+require veu_get_directory() . '/inc/template-tags/template-tags-veu.php';
+require veu_get_directory() . '/inc/template-tags/template-tags-veu-old.php';
+require veu_get_directory() . '/veu-package-manager.php';
+require veu_get_directory() . '/inc/footer-copyright-change.php';
 
 veu_package_include(); // package_manager.php
 
