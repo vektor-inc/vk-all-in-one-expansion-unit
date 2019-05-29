@@ -16,7 +16,7 @@ class veu_css_customize {
 		// 編集画面への反映
 		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
 		//
-		add_action( 'admin_menu', array( $this, 'css_customize_menu' ) );
+		add_action( 'admin_menu', array( $this, 'css_customize_menu' ), 20 );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( dirname( __FILE__ ) . '/css-customize-single.php' );
 

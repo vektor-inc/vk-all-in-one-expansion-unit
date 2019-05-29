@@ -7,6 +7,8 @@
  * @since    6/Aug/2015
  */
 
+require veu_get_directory() . '/veu-packages.php';
+
 veu_package_initilate();
 
 
@@ -103,4 +105,8 @@ function veu_common_package_options_validate( $output, $input ) {
 		$output[ 'active_' . $package['name'] ] = ( isset( $input[ 'active_' . $package['name'] ] ) ) ? true : false;
 	}
 	return $output;
+}
+
+foreach ( $required_packages as $package ) {
+	veu_package_register( $package );
 }
