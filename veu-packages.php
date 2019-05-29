@@ -1,5 +1,5 @@
 <?php
-function vkExUnit_get_packages() {
+function veu_get_packages() {
 	$required_packages = array();
 	/*
 	Example :
@@ -467,10 +467,10 @@ function vkExUnit_get_packages() {
 	);
 
 	return $required_packages;
-} // function vkExUnit_get_packages(){
+} // function veu_get_packages(){
 
-$required_packages = vkExUnit_get_packages();
 
-foreach ( $required_packages as $package ) {
-	veu_package_register( $package );
+$required_packages = veu_get_packages();
+function vkExUnit_get_packages() {
+	return veu_get_packages();
 }
