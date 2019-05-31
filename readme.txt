@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.2.1
-Stable tag: 9.0.6
+Stable tag: 9.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.0.7 =
+[ Specification change ][ New Posts Widget ] Change title escape wp_kses().
 
 = 9.0.6 =
 [ bug fix ] Can not access ExUnit admin page bug fix.
