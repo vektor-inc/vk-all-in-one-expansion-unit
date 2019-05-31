@@ -146,7 +146,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	<div class="postList_body">
 		<?php
 			do_action( 'vk_post_list_widget_media_body_prepend' );
-			$media_body_output = '<div class="postList_title entry-title"><a href="' . esc_url( get_the_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></div>';
+
+			$allowed_html = array(
+				'span'   => array( 'class' => array() ),
+				'b'      => array(),
+				'strong' => array(),
+			);
+
+			$media_body_output = '<div class="postList_title entry-title"><a href="' . esc_url( get_the_permalink() ) . '">' . wp_kses( get_the_title(), $allowed_html ) . '</a></div>';
 		if ( $is_modified ) {
 			$media_body_output .= '<div class="modified postList_date postList_meta_items">' . esc_html( get_the_modified_date() ) . '</div>';
 		} else {
@@ -179,7 +186,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$li_items_output = '<span class="published postList_date postList_meta_items">' . esc_html( get_the_date() ) . '</span>';
 	}
 		$li_items_output .= '<span class="postList_terms postList_meta_items">' . $this->taxonomy_list( get_the_id(), '', '', '' ) . '</span>';
-		$li_items_output .= '<span class="postList_title entry-title"><a href="' . esc_url( get_the_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></span>';
+
+		$allowed_html = array(
+			'span'   => array( 'class' => array() ),
+			'b'      => array(),
+			'strong' => array(),
+		);
+
+		$li_items_output .= '<span class="postList_title entry-title"><a href="' . esc_url( get_the_permalink() ) . '">' . wp_kses( get_the_title(), $allowed_html ) . '</a></span>';
 		echo apply_filters( 'vk_post_list_widget_li_items', $li_items_output );
 		do_action( 'vk_post_list_widget_li_append' );
 	?>
