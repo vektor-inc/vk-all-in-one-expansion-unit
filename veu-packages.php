@@ -172,7 +172,7 @@ function veu_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'other_widget/other_widget.php',
+		'include'     => 'other-widget/other-widget.php',
 	);
 
 	/*
