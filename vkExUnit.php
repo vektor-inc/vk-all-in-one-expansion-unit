@@ -42,7 +42,7 @@ if ( ! empty( $options['active_test_update'] ) ) {
 	);
 }
 
-define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5.6 );
+define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 4.7 );
 
 // Get Plugin version
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
