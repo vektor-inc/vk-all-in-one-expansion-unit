@@ -27,21 +27,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*
- ---------------------------------------------
-	Test updater
---------------------------------------------- */
-// テストアップデートが有効になっていたらRC版のアップデートを有効にする
-$options = get_option( 'vkExUnit_common_options' );
-if ( ! empty( $options['active_test_update'] ) ) {
-	require 'admin/plugin-update-checker/plugin-update-checker.php';
-	$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://lightning.nagoya/wp-content/vk-data-files/vk-all-in-one-expansion-unit/plugin-update-config.json',
-		__FILE__,
-		'vk-all-in-one-expansion-unit'
-	);
-}
-
 define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 4.7 );
 
 // Get Plugin version
