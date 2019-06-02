@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: https://ex-unit.nagoya
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 9.0.6
+* Version: 9.1.0
 * Author: Vektor,Inc.
 * Text Domain: vk-all-in-one-expansion-unit
 * Domain Path: /languages
@@ -27,22 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*
- ---------------------------------------------
-	Test updater
---------------------------------------------- */
-// テストアップデートが有効になっていたらRC版のアップデートを有効にする
-$options = get_option( 'vkExUnit_common_options' );
-if ( ! empty( $options['active_test_update'] ) ) {
-	require 'admin/plugin-update-checker/plugin-update-checker.php';
-	$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://lightning.nagoya/wp-content/vk-data-files/vk-all-in-one-expansion-unit/plugin-update-config.json',
-		__FILE__,
-		'vk-all-in-one-expansion-unit'
-	);
-}
-
-define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5.6 );
+define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 4.7 );
 
 // Get Plugin version
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
