@@ -3,6 +3,17 @@
 add_filter( 'wp_title', 'vkExUnit_get_wp_head_title', 11 );
 //WordPress 4.4 ->
 add_filter( 'pre_get_document_title', 'vkExUnit_get_wp_head_title', 11 );
+
+function vkExUnit_wp_title_init() {
+	vkExUnit_register_setting(
+		__( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ),
+		'vkExUnit_wp_title',
+		'vkExUnit_wp_title_validate',
+		'vkExUnit_add_wp_title_page'
+	);
+}
+add_action( 'veu_package_init', 'vkExUnit_wp_title_init' );
+
 /*-------------------------------------------*/
 /*  Head title
 /*-------------------------------------------*/
@@ -63,17 +74,6 @@ function vkExUnit_get_wp_head_title() {
 	// Remove Tags(ex:<i>) & return
 	return strip_tags( $title );
 }
-
-
-function vkExUnit_wp_title_init() {
-	vkExUnit_register_setting(
-		__( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ),
-		'vkExUnit_wp_title',
-		'vkExUnit_wp_title_validate',
-		'vkExUnit_add_wp_title_page'
-	);
-}
-add_action( 'veu_package_init', 'vkExUnit_wp_title_init' );
 
 function vkExUnit_add_wp_title_page() {
 	$options = vkExUnit_get_wp_title_options();
