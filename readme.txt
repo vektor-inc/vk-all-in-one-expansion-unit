@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
 Tested up to: 5.2.1
-Stable tag: 9.2.0.4
+Stable tag: 9.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,18 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.2.0.6( Beta ) =
+Restore version 9
+
+= 9.1.3(8.3.1) =
+add GitHub information
+
+= 9.1.2(8.3.1) =
+Back version to 8.3.1
+
+= 9.1.1 =
+[ Delete function ] test version update checker.
 
 = 9.1.1 =
 [ Delete function ] test version update checker.
