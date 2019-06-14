@@ -62,7 +62,7 @@ function vkblocks_blocks_assets() {
 				);
 
 				if ( ! is_admin() ) {
-					wp_enqueue_script( 'vk-blocks-toc-helper-js', VK_BLOCKS_URL . '../../src/table-of-contents/viewHelper.js', array(), VK_BLOCKS_VERSION, true );
+					wp_enqueue_script( 'vk-blocks-toc-helper-js', VK_BLOCKS_URL . 'build/viewHelper.js', array(), VK_BLOCKS_VERSION, true );
 				}
 			} else {
 
