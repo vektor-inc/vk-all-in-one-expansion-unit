@@ -34,15 +34,47 @@ function vkblocks_blocks_assets() {
 	global $wp_version;
 	if ( defined( 'GUTENBERG_VERSION' ) || version_compare( $wp_version, '5.0', '>=' ) ) {
 
-		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer' ,'spacer' ,'heading','staff');//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+		// $arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer', 'spacer', 'heading', 'staff', 'table-of-contents', 'simple-table', 'tr', 'th', 'td' );//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer', 'spacer', 'heading', 'staff', 'table-of-contents' );//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
 		foreach ( $arr as $value ) {
-			register_block_type(
-				'vk-blocks/' . $value, array(
-					'style'         => 'vk-blocks-build-css',
-					'editor_style'  => 'vk-blocks-build-editor-css',
-					'editor_script' => 'vk-blocks-build-js',
-				)
-			);
+
+			if ( $value === 'table-of-contents' ) {
+
+				register_block_type(
+					'vk-blocks/' . $value, array(
+						'style'           => 'vk-blocks-build-css',
+						'editor_style'    => 'vk-blocks-build-editor-css',
+						'editor_script'   => 'vk-blocks-build-js',
+						'attributes'      => [
+							'style'      => [
+								'type'    => 'string',
+								'default' => '',
+							],
+							'renderHtml' => [
+								'type'    => 'string',
+								'default' => '',
+							],
+						],
+						'render_callback' => function ( $attributes ) {
+							return $attributes['renderHtml'];
+						},
+					)
+				);
+
+				if ( ! is_admin() ) {
+					wp_enqueue_script( 'vk-blocks-toc-helper-js', VK_BLOCKS_URL . 'build/viewHelper.js', array(), VK_BLOCKS_VERSION, true );
+				}
+			} else {
+
+				register_block_type(
+					'vk-blocks/' . $value, array(
+						'style'         => 'vk-blocks-build-css',
+						'editor_style'  => 'vk-blocks-build-editor-css',
+						'editor_script' => 'vk-blocks-build-js',
+					)
+				);
+
+			}
 		}
 	}
 }

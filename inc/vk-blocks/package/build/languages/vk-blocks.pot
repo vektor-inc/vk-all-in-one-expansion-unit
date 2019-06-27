@@ -9,7 +9,7 @@ msgstr ""
 
 #: src/balloon/block.js:122
 #: src/flow/block.js:112
-#: src/outer/block.js:127
+#: src/outer/block.js:119
 #: src/pr-blocks/block.js:343
 #: src/pr-content/component.js:116
 #: src/pr-content/deprecated/component-deprecated.js:102
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/balloon/block.js:122
 #: src/flow/block.js:113
-#: src/outer/block.js:129
+#: src/outer/block.js:121
 #: src/pr-blocks/block.js:345
 #: src/pr-content/component.js:120
 #: src/pr-content/deprecated/component-deprecated.js:106
@@ -65,7 +65,7 @@ msgid "Right"
 msgstr ""
 
 #: src/balloon/block.js:94
-#: src/outer/block.js:194
+#: src/outer/block.js:186
 msgid "Type"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgid "Large"
 msgstr ""
 
 #: src/button/block.js:165
-#: src/outer/block.js:143
+#: src/outer/block.js:135
 msgid "normal"
 msgstr ""
 
@@ -286,6 +286,7 @@ msgstr ""
 
 #: src/heading/block.js:125
 #: src/staff/block.js:105
+#: src/table-of-contents/block.js:106
 msgid "Default"
 msgstr ""
 
@@ -346,176 +347,177 @@ msgstr ""
 msgid "Heading %d"
 msgstr ""
 
-#: src/outer/block.js:102
-msgid "Opacity Setting"
-msgstr ""
-
-#: src/outer/block.js:115
+#: src/outer/block.js:107
 msgid "Background Image"
 msgstr ""
 
-#: src/outer/block.js:136
+#: src/outer/block.js:128
 msgid "Background image Position"
 msgstr ""
 
-#: src/outer/block.js:144
+#: src/outer/block.js:136
 msgid "Fixed"
 msgstr ""
 
-#: src/outer/block.js:145
+#: src/outer/block.js:137
 msgid "Parallax (It will not work in preview)"
 msgstr ""
 
-#: src/outer/block.js:151
+#: src/outer/block.js:143
 #: src/pr-content/block.js:189
 msgid "Layout Setting"
 msgstr ""
 
-#: src/outer/block.js:154
+#: src/outer/block.js:146
 msgid "Outer width"
 msgstr ""
 
-#: src/outer/block.js:157
+#: src/outer/block.js:149
 msgid "Normal"
 msgstr ""
 
-#: src/outer/block.js:158
+#: src/outer/block.js:150
 msgid "Full Wide"
 msgstr ""
 
-#: src/outer/block.js:163
+#: src/outer/block.js:155
 msgid "Contents area padding (left and right)"
 msgstr ""
 
-#: src/outer/block.js:167
+#: src/outer/block.js:159
 msgid "Do not use contents area default padding (When case of full width etc.)."
 msgstr ""
 
-#: src/outer/block.js:171
+#: src/outer/block.js:163
 msgid ""
 "Use contents area default padding (When case of not full width and use "
 "background etc.)."
 msgstr ""
 
-#: src/outer/block.js:178
+#: src/outer/block.js:170
 msgid "Padding (top and bottom)"
 msgstr ""
 
-#: src/outer/block.js:181
+#: src/outer/block.js:173
 msgid "Use default padding"
 msgstr ""
 
-#: src/outer/block.js:183
+#: src/outer/block.js:175
 msgid "Do not use default padding (Set it yourself using a spacer block etc.)."
 msgstr ""
 
-#: src/outer/block.js:191
+#: src/outer/block.js:183
 msgid "Divider Setting"
 msgstr ""
 
-#: src/outer/block.js:200
+#: src/outer/block.js:192
 msgid "Tilt"
 msgstr ""
 
-#: src/outer/block.js:204
+#: src/outer/block.js:196
 msgid "Curve"
 msgstr ""
 
-#: src/outer/block.js:208
+#: src/outer/block.js:200
 msgid "Wave"
 msgstr ""
 
-#: src/outer/block.js:212
+#: src/outer/block.js:204
 msgid "Triangle"
 msgstr ""
 
-#: src/outer/block.js:218
+#: src/outer/block.js:210
 msgid "Upper Divider Level"
 msgstr ""
 
-#: src/outer/block.js:234
+#: src/outer/block.js:226
 msgid "Lower Divider Level"
 msgstr ""
 
-#: src/outer/block.js:250
+#: src/outer/block.js:242
 msgid "Border Setting"
 msgstr ""
 
-#: src/outer/block.js:254
+#: src/outer/block.js:246
 msgid "Border will disappear when divider effect is applied."
 msgstr ""
 
-#: src/outer/block.js:256
+#: src/outer/block.js:248
 msgid "Border type"
 msgstr ""
 
-#: src/outer/block.js:262
+#: src/outer/block.js:254
 #: src/staff/block.js:109
 msgid "None"
 msgstr ""
 
-#: src/outer/block.js:266
+#: src/outer/block.js:258
 #: src/pr-content/block.js:142
 msgid "Solid"
 msgstr ""
 
-#: src/outer/block.js:270
+#: src/outer/block.js:262
 msgid "Dotted"
 msgstr ""
 
-#: src/outer/block.js:274
+#: src/outer/block.js:266
 msgid "Dashed"
 msgstr ""
 
-#: src/outer/block.js:278
+#: src/outer/block.js:270
 msgid "Double"
 msgstr ""
 
-#: src/outer/block.js:282
+#: src/outer/block.js:274
 msgid "Groove"
 msgstr ""
 
-#: src/outer/block.js:286
+#: src/outer/block.js:278
 msgid "Ridge"
 msgstr ""
 
-#: src/outer/block.js:290
+#: src/outer/block.js:282
 msgid "Inset"
 msgstr ""
 
-#: src/outer/block.js:294
+#: src/outer/block.js:286
 msgid "Outset"
 msgstr ""
 
-#: src/outer/block.js:306
+#: src/outer/block.js:298
 msgid "Border width"
 msgstr ""
 
-#: src/outer/block.js:315
+#: src/outer/block.js:307
 msgid "Border radius"
 msgstr ""
 
-#: src/outer/block.js:334
+#: src/outer/block.js:326
+#: src/table-of-contents/block.js:125
 msgid "This block is only for users who bought Lightning Pro."
 msgstr ""
 
-#: src/outer/block.js:52
+#: src/outer/block.js:44
 msgid "Outer"
 msgstr ""
 
-#: src/outer/block.js:91
+#: src/outer/block.js:83
 msgid "Background Setting"
 msgstr ""
 
-#: src/outer/block.js:93
+#: src/outer/block.js:85
 #: src/pr-content/block.js:92
 msgid "Color Setting"
 msgstr ""
 
-#: src/outer/block.js:94
+#: src/outer/block.js:86
 msgid ""
 "Color will overcome background image. If you want to display image, clear "
 "background color or set opacity 0."
+msgstr ""
+
+#: src/outer/block.js:94
+msgid "Opacity Setting"
 msgstr ""
 
 #: src/pr-blocks/block.js:149
@@ -739,4 +741,17 @@ msgstr ""
 
 #: src/staff/component.js:50
 msgid "Caption"
+msgstr ""
+
+#: src/table-of-contents/TableOfContents.js:84
+#: src/table-of-contents/block.js:55
+msgid "Table of Contents"
+msgstr ""
+
+#: src/table-of-contents/block.js:110
+msgid "No frame"
+msgstr ""
+
+#: src/table-of-contents/block.js:97
+msgid "Style"
 msgstr ""

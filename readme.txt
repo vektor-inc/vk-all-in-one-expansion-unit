@@ -87,6 +87,9 @@ e.g.
 
 == Changelog ==
 
+= 9.3.0( Beta ) =
+[ Add function ][ VK Blocks ] Add table of contents block ( pro version )
+
 = 9.2.0.6( Beta ) =
 Restore version 9
 
