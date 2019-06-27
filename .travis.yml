@@ -60,14 +60,11 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - echo ${TRAVIS_PHP_VERSION:0:3}
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} =~ 7\.[0-1] ]]; then
-      composer global require "phpunit/phpunit=6.*.*"
-    elif [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then
-      composer global require "phpunit/phpunit=5.*.*"
+    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then
+      composer global require "phpunit/phpunit=5.6.*"
     else
       composer global require "phpunit/phpunit=4.8.*"
     fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then composer install; fi
 
 # - nvm install 4.2
   # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
@@ -78,9 +75,7 @@ before_script:
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - phpunit --version
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then ./vendor/bin/phpunit; else phpunit; fi
   - gulp compile
-  # - cd admin/vk-admin/ && compass compile && cd ../../
 
 after_success:
   - bash ./bin/deploy.sh
