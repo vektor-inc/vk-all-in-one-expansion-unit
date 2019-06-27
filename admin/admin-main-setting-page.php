@@ -104,7 +104,7 @@ function vkExUnit_the_main_setting_body() {
 /*-------------------------------------------*/
 function veu_main_sanitaize_and_update( $_post ) {
 
-	// ExUnitで利用しているoption項目の配列
+	// ExUnitで保存しているoption項目の配列
 	global $vkExUnit_options;
 
 	if ( ! empty( $vkExUnit_options ) ) {
@@ -113,6 +113,7 @@ function veu_main_sanitaize_and_update( $_post ) {
 		foreach ( $vkExUnit_options as $veu_option ) {
 
 			// サニタイズ Call back が登録されている場合にサニタイズ実行
+			// ※サニタイズ call back がないものは保存されない
 			if ( ! empty( $veu_option['callback'] ) ) {
 
 				// コールバック関数にわたす入力値を指定
@@ -135,6 +136,14 @@ function veu_main_sanitaize_and_update( $_post ) {
 
 /*
 global $vkExUnit_options に各種値を登録するための関数
+ */
+/**
+ * [vkExUnit_register_setting description]
+ * @param  string $tab_label         管理画面に表示される機能の名前
+ * @param  string $option_name       option保存値
+ * @param  string $sanitize_callback 保存時のサニタイズ関数
+ * @param  string $render_page       メイン設定画面を出力する関数
+ * @return [type]                    [description]
  */
 function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
 	global $vkExUnit_options;
