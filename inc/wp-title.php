@@ -4,25 +4,16 @@ add_filter( 'wp_title', 'vkExUnit_get_wp_head_title', 11 );
 //WordPress 4.4 ->
 add_filter( 'pre_get_document_title', 'vkExUnit_get_wp_head_title', 11 );
 
+/**
+ * ExUnitの機能管理パッケージに登録
+ * @return [type] [description]
+ */
 function vkExUnit_wp_title_init() {
-
-	global $vkExUnit_options;
-	if ( ! isset( $vkExUnit_options ) ) {
-		$vkExUnit_options = array();
-	}
-	$vkExUnit_options[] =
-		array(
-			'option_name' => __( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ),
-			'callback'    => 'vkExUnit_wp_title',
-			'tab_label'   => 'vkExUnit_wp_title_validate',
-			'render_page' => 'vkExUnit_add_wp_title_page',
-		);
-	// vkExUnit_register_setting(
-	// 	__( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' ),
-	// 	'vkExUnit_wp_title',
-	// 	'vkExUnit_wp_title_validate',
-	// 	'vkExUnit_add_wp_title_page'
-	// );
+	$tab_label         = __( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' );
+	$option_name       = 'vkExUnit_wp_title';
+	$sanitize_callback = 'vkExUnit_wp_title_validate';
+	$render_page       = 'vkExUnit_add_wp_title_page';
+	vkExUnit_register_setting( $tab_label, $option_name, $sanitize_callback, $render_page );
 }
 add_action( 'veu_package_init', 'vkExUnit_wp_title_init' );
 
@@ -134,16 +125,12 @@ function vkExUnit_get_wp_title_options() {
 	return $options;
 }
 
-
-
 function vkExUnit_get_wp_title_default() {
 	$default_options = array(
 		'extend_frontTitle' => '',
 	);
 	return apply_filters( 'vkExUnit_wp_title_default', $default_options );
 }
-
-
 
 function vkExUnit_wp_title_validate( $input ) {
 	$output                      = array();

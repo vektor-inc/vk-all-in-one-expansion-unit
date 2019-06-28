@@ -91,7 +91,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 				$return = veu_get_the_sns_title( $post_id );
 
 				// 取得できたHTMLが、意図したHTMLと等しいかテスト
-				// $this->assertEquals( $test_value['correct'], $return );
+				$this->assertEquals( $test_value['correct'], $return );
 
 				print PHP_EOL;
 

@@ -45,6 +45,6 @@ $('a[href^="#"]').click(function() {
  		var position = target.offset().top - header_height - admin_bar_height;
  	}
 	$('body,html').animate({scrollTop:position}, speed, 'swing');
-	return false;
+	return;
 })
 })(jQuery);

@@ -19,14 +19,14 @@ msgstr ""
 msgid "Alert"
 msgstr "アラート"
 
-#: src/balloon/block.js:122 src/flow/block.js:112 src/outer/block.js:127
+#: src/balloon/block.js:122 src/flow/block.js:112 src/outer/block.js:119
 #: src/pr-blocks/block.js:343 src/pr-content/component.js:116
 #: src/pr-content/deprecated/component-deprecated.js:102
 #: src/staff/component.js:88
 msgid "Select image"
 msgstr "画像を選択"
 
-#: src/balloon/block.js:122 src/flow/block.js:113 src/outer/block.js:129
+#: src/balloon/block.js:122 src/flow/block.js:113 src/outer/block.js:121
 #: src/pr-blocks/block.js:345 src/pr-content/component.js:120
 #: src/pr-content/deprecated/component-deprecated.js:106
 msgid "Upload image"
@@ -64,7 +64,7 @@ msgstr "左"
 msgid "Right"
 msgstr "右"
 
-#: src/balloon/block.js:94 src/outer/block.js:194
+#: src/balloon/block.js:94 src/outer/block.js:186
 msgid "Type"
 msgstr "タイプ"
 
@@ -101,7 +101,7 @@ msgstr "ボタンサイズ:"
 msgid "Large"
 msgstr "大"
 
-#: src/button/block.js:165 src/outer/block.js:143
+#: src/button/block.js:165 src/outer/block.js:135
 msgid "normal"
 msgstr "標準"
 
@@ -272,6 +272,7 @@ msgid "Heading style"
 msgstr "見出しスタイル"
 
 #: src/heading/block.js:125 src/staff/block.js:105
+#: src/table-of-contents/block.js:106
 msgid "Default"
 msgstr "標準"
 
@@ -319,66 +320,62 @@ msgstr "文字サイズ (rem)"
 msgid "Heading"
 msgstr "見出し"
 
-#: src/heading/component.js:105
+#: src/heading/component.js:106
 msgid "Input sub text…"
 msgstr "サブテキストを入力"
 
-#: src/heading/component.js:88
+#: src/heading/component.js:89
 msgid "Input title…"
 msgstr "タイトルを入力"
 
 # %s: heading level e.g: "1", "2", "3"
 #: src/heading/heading-toolbar.js:17
 msgid "Heading %d"
-msgstr ""
+msgstr "見出し %d"
 
-#: src/outer/block.js:102
-msgid "Opacity Setting"
-msgstr "透過設定"
-
-#: src/outer/block.js:115
+#: src/outer/block.js:107
 msgid "Background Image"
 msgstr "背景画像"
 
-#: src/outer/block.js:136
+#: src/outer/block.js:128
 msgid "Background image Position"
 msgstr "背景画像の位置"
 
-#: src/outer/block.js:144
+#: src/outer/block.js:136
 msgid "Fixed"
 msgstr "固定"
 
-#: src/outer/block.js:145
+#: src/outer/block.js:137
 msgid "Parallax (It will not work in preview)"
 msgstr "パララックス（編集画面では反映されません）"
 
-#: src/outer/block.js:151 src/pr-content/block.js:189
+#: src/outer/block.js:143 src/pr-content/block.js:189
 msgid "Layout Setting"
 msgstr "レイアウト設定"
 
-#: src/outer/block.js:154
+#: src/outer/block.js:146
 msgid "Outer width"
 msgstr "アウターの幅"
 
-#: src/outer/block.js:157
+#: src/outer/block.js:149
 msgid "Normal"
 msgstr "標準"
 
-#: src/outer/block.js:158
+#: src/outer/block.js:150
 msgid "Full Wide"
 msgstr "全幅"
 
-#: src/outer/block.js:163
+#: src/outer/block.js:155
 msgid "Contents area padding (left and right)"
 msgstr "コンテンツエリアの余白 (左右)"
 
-#: src/outer/block.js:167
+#: src/outer/block.js:159
 msgid ""
 "Do not use contents area default padding (When case of full width etc.)."
 msgstr ""
 "コンテンツエリア内の左右に標準の余白を使用しない（全幅で利用の場合など）。"
 
-#: src/outer/block.js:171
+#: src/outer/block.js:163
 msgid ""
 "Use contents area default padding (When case of not full width and use "
 "background etc.)."
@@ -386,125 +383,130 @@ msgstr ""
 "コンテンツエリア内の左右に標準の余白を使用する（全幅でない標準幅で背景色を指"
 "定する場合など）。"
 
-#: src/outer/block.js:178
+#: src/outer/block.js:170
 msgid "Padding (top and bottom)"
 msgstr "余白 (上下)"
 
-#: src/outer/block.js:181
+#: src/outer/block.js:173
 msgid "Use default padding"
 msgstr "標準の余白を使用"
 
-#: src/outer/block.js:183
+#: src/outer/block.js:175
 msgid "Do not use default padding (Set it yourself using a spacer block etc.)."
 msgstr "標準の余白を使用しない（スペーサーブロックなどで独自に指定する）。"
 
-#: src/outer/block.js:191
+#: src/outer/block.js:183
 msgid "Divider Setting"
 msgstr "区切りの設定"
 
-#: src/outer/block.js:200
+#: src/outer/block.js:192
 msgid "Tilt"
 msgstr "傾斜"
 
-#: src/outer/block.js:204
+#: src/outer/block.js:196
 msgid "Curve"
 msgstr "カーブ"
 
-#: src/outer/block.js:208
+#: src/outer/block.js:200
 msgid "Wave"
 msgstr "波状"
 
-#: src/outer/block.js:212
+#: src/outer/block.js:204
 msgid "Triangle"
 msgstr "三角"
 
-#: src/outer/block.js:218
+#: src/outer/block.js:210
 msgid "Upper Divider Level"
 msgstr "上部区切りレベル"
 
-#: src/outer/block.js:234
+#: src/outer/block.js:226
 msgid "Lower Divider Level"
 msgstr "下部区切りレベル"
 
-#: src/outer/block.js:250
+#: src/outer/block.js:242
 msgid "Border Setting"
 msgstr "枠線の設定"
 
-#: src/outer/block.js:254
+#: src/outer/block.js:246
 msgid "Border will disappear when divider effect is applied."
 msgstr "枠線は区切りレベルを適用すると表示されなくなります。"
 
-#: src/outer/block.js:256
+#: src/outer/block.js:248
 msgid "Border type"
 msgstr "枠線の種類"
 
-#: src/outer/block.js:262 src/staff/block.js:109
+#: src/outer/block.js:254 src/staff/block.js:109
 msgid "None"
 msgstr "なし"
 
-#: src/outer/block.js:266 src/pr-content/block.js:142
+#: src/outer/block.js:258 src/pr-content/block.js:142
 msgid "Solid"
 msgstr "直線"
 
-#: src/outer/block.js:270
+#: src/outer/block.js:262
 msgid "Dotted"
 msgstr "点線"
 
-#: src/outer/block.js:274
+#: src/outer/block.js:266
 msgid "Dashed"
 msgstr "Dashed"
 
-#: src/outer/block.js:278
+#: src/outer/block.js:270
 msgid "Double"
 msgstr "二重線"
 
-#: src/outer/block.js:282
+#: src/outer/block.js:274
 msgid "Groove"
 msgstr "Groove"
 
-#: src/outer/block.js:286
+#: src/outer/block.js:278
 msgid "Ridge"
 msgstr "Ridge"
 
-#: src/outer/block.js:290
+#: src/outer/block.js:282
 msgid "Inset"
 msgstr "Inset"
 
-#: src/outer/block.js:294
+#: src/outer/block.js:286
 msgid "Outset"
 msgstr "Outset"
 
-#: src/outer/block.js:306
+#: src/outer/block.js:298
 msgid "Border width"
 msgstr "枠線の幅"
 
-#: src/outer/block.js:315
+#: src/outer/block.js:307
 msgid "Border radius"
 msgstr "枠線のRの大きさ"
 
-#: src/outer/block.js:334
+#: src/outer/block.js:326 src/simple-table/block.js:114
+#: src/table-of-contents/block.js:125
 msgid "This block is only for users who bought Lightning Pro."
 msgstr "このブロックは Lightning Pro 専用です。"
 
-#: src/outer/block.js:52
+#: src/outer/block.js:44
 msgid "Outer"
 msgstr "Outer"
 
-#: src/outer/block.js:91
+#: src/outer/block.js:83
 msgid "Background Setting"
 msgstr "背景設定設定"
 
-#: src/outer/block.js:93 src/pr-content/block.js:92
+#: src/outer/block.js:85 src/pr-content/block.js:92
 msgid "Color Setting"
 msgstr "色設定"
 
-#: src/outer/block.js:94
+#: src/outer/block.js:86
 msgid ""
 "Color will overcome background image. If you want to display image, clear "
 "background color or set opacity 0."
 msgstr ""
 "色を指定すると画像よりも優先されます。画像を表示したい場合は、背景色をクリア"
 "するか、不透明度を0に設定します。"
+
+#: src/outer/block.js:94
+msgid "Opacity Setting"
+msgstr "透過設定"
 
 #: src/pr-blocks/block.js:149
 msgid "PR Block1 Setting"
@@ -568,17 +570,13 @@ msgstr "PR Blocks (Beta)"
 
 #: src/pr-blocks/component-block.js:144
 #: src/pr-blocks/deprecated/component-block.js:144
-#, fuzzy
-#| msgid "Input title"
 msgid "Input Title"
 msgstr "タイトルを入力"
 
 #: src/pr-blocks/component-block.js:151
 #: src/pr-blocks/deprecated/component-block.js:151
-#, fuzzy
-#| msgid "Input content"
 msgid "Input Content"
-msgstr "説明を入力"
+msgstr "文章を入力してください"
 
 #: src/pr-content/block.js:106
 msgid "Image Border Color"
@@ -633,6 +631,34 @@ msgstr "タイトルを入力してください。"
 #: src/pr-content/deprecated/component-deprecated.js:130
 msgid "Input content."
 msgstr "本文を入力してください。"
+
+#: src/simple-table/block.js:37
+msgid "Simple Table"
+msgstr "Simple Table"
+
+#: src/simple-table/block.js:75
+msgid "Simple Table Setting"
+msgstr "Simple Table 設定"
+
+#: src/simple-table/block.js:76
+msgid "Row Number"
+msgstr "行数"
+
+#: src/simple-table/block.js:84
+msgid "Setting layout in mobile"
+msgstr "モバイルでのレイアウト設定"
+
+#: src/simple-table/block.js:86
+msgid "Display one column"
+msgstr "1カラム表示にする"
+
+#: src/simple-table/block.js:94
+msgid "Styles"
+msgstr "スタイル"
+
+#: src/simple-table/block.js:96
+msgid "Set the stripe"
+msgstr "ストライプ"
 
 #: src/spacer/block.js:103
 msgid "Mobile"
@@ -729,6 +755,39 @@ msgstr "名前"
 #: src/staff/component.js:50
 msgid "Caption"
 msgstr "キャプション"
+
+#: src/table-of-contents/TableOfContents.js:84
+#: src/table-of-contents/block.js:55
+msgid "Table of Contents"
+msgstr "目次"
+
+#: src/table-of-contents/block.js:110
+msgid "No frame"
+msgstr "枠無し"
+
+#: src/table-of-contents/block.js:97
+msgid "Style"
+msgstr "スタイル"
+
+#: src/td/block.js:35
+msgid "Td"
+msgstr ""
+
+#: src/th/block.js:37
+msgid "Th"
+msgstr ""
+
+#: src/th/block.js:66
+msgid "Text Overflow Setting"
+msgstr "テキスト改行設定"
+
+#: src/th/block.js:68
+msgid "ON"
+msgstr ""
+
+#: src/tr/block.js:29
+msgid "Tr"
+msgstr ""
 
 #~ msgid "Profile Title"
 #~ msgstr "プロフィールタイトル"
