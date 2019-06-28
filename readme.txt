@@ -87,6 +87,9 @@ e.g.
 
 == Changelog ==
 
+= 9.3.2.0( Beta ) =
+[ Desing tuning ] customize panel design tuning
+
 = 9.3.1( Beta ) =
 [ Bug fix ][ title ] Save bug fix
 [ Bug fix ][ smooth scroll ] wooCommerce error fix
