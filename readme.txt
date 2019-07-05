@@ -87,6 +87,9 @@ e.g.
 
 == Changelog ==
 
+= 9.3.3.0( Beta ) =
+[ Bugfix ][ OG title ] When front-page that to be single page title, not blog name bug fixed.
+
 = 9.3.2.0( Beta ) =
 [ Desing tuning ] customize panel design tuning
 
