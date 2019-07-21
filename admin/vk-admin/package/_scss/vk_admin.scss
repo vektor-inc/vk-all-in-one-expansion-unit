@@ -144,13 +144,14 @@
 .admin_widget_h2,
 .admin-custom-h2{
 	box-sizing: border-box;
-	margin:0 0 1em;
+	margin:1em 0 1em;
 	padding: 0.8em 1em;
 	width: 100%;
 	border: solid 1px #ddd;
+	border-radius: 5px;
 	background: #555;
 	color:#fff;
-	font-size: 1em;
+	font-size: 1.1em;
 }
 .admin_widget_h3,
 .admin-custom-h3{

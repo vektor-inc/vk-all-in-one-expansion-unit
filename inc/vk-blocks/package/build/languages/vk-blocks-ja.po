@@ -333,6 +333,14 @@ msgstr "タイトルを入力"
 msgid "Heading %d"
 msgstr "見出し %d"
 
+#: src/highlighter/block.js:81
+msgid "Highlight Color"
+msgstr "ハイライトカラー"
+
+#: src/highlighter/block.js:93
+msgid "Highlighter"
+msgstr "蛍光マーカー"
+
 #: src/outer/block.js:107
 msgid "Background Image"
 msgstr "背景画像"
@@ -479,8 +487,7 @@ msgstr "枠線の幅"
 msgid "Border radius"
 msgstr "枠線のRの大きさ"
 
-#: src/outer/block.js:326 src/simple-table/block.js:114
-#: src/table-of-contents/block.js:125
+#: src/outer/block.js:326 src/table-of-contents/block.js:125
 msgid "This block is only for users who bought Lightning Pro."
 msgstr "このブロックは Lightning Pro 専用です。"
 
@@ -632,34 +639,6 @@ msgstr "タイトルを入力してください。"
 msgid "Input content."
 msgstr "本文を入力してください。"
 
-#: src/simple-table/block.js:37
-msgid "Simple Table"
-msgstr "Simple Table"
-
-#: src/simple-table/block.js:75
-msgid "Simple Table Setting"
-msgstr "Simple Table 設定"
-
-#: src/simple-table/block.js:76
-msgid "Row Number"
-msgstr "行数"
-
-#: src/simple-table/block.js:84
-msgid "Setting layout in mobile"
-msgstr "モバイルでのレイアウト設定"
-
-#: src/simple-table/block.js:86
-msgid "Display one column"
-msgstr "1カラム表示にする"
-
-#: src/simple-table/block.js:94
-msgid "Styles"
-msgstr "スタイル"
-
-#: src/simple-table/block.js:96
-msgid "Set the stripe"
-msgstr "ストライプ"
-
 #: src/spacer/block.js:103
 msgid "Mobile"
 msgstr "モバイル"
@@ -769,25 +748,34 @@ msgstr "枠無し"
 msgid "Style"
 msgstr "スタイル"
 
-#: src/td/block.js:35
-msgid "Td"
-msgstr ""
+#, fuzzy
+#~| msgid "Default Color:"
+#~ msgid "Selected Color"
+#~ msgstr "標準色:"
 
-#: src/th/block.js:37
-msgid "Th"
-msgstr ""
+#~ msgid "Simple Table"
+#~ msgstr "Simple Table"
 
-#: src/th/block.js:66
-msgid "Text Overflow Setting"
-msgstr "テキスト改行設定"
+#~ msgid "Simple Table Setting"
+#~ msgstr "Simple Table 設定"
 
-#: src/th/block.js:68
-msgid "ON"
-msgstr ""
+#~ msgid "Row Number"
+#~ msgstr "行数"
 
-#: src/tr/block.js:29
-msgid "Tr"
-msgstr ""
+#~ msgid "Setting layout in mobile"
+#~ msgstr "モバイルでのレイアウト設定"
+
+#~ msgid "Display one column"
+#~ msgstr "1カラム表示にする"
+
+#~ msgid "Styles"
+#~ msgstr "スタイル"
+
+#~ msgid "Set the stripe"
+#~ msgstr "ストライプ"
+
+#~ msgid "Text Overflow Setting"
+#~ msgstr "テキスト改行設定"
 
 #~ msgid "Profile Title"
 #~ msgstr "プロフィールタイトル"
