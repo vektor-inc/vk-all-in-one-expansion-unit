@@ -77,9 +77,17 @@ function veu_get_the_sns_title( $post_id = '' ) {
 
 	$title = '';
 
-	if ( is_singular() ) {
+	if ( is_front_page() ) {
+		$options = get_option( 'vkExUnit_wp_title' );
+		if ( ! empty( $options['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
+			$title = $options['extend_frontTitle'];
+		} else {
+			$title = get_bloginfo( 'name' );
+		}
+	} elseif ( is_singular() ) {
 		$title = get_post_meta( $post_id, 'vkExUnit_sns_title', true );
 	}
+
 	if ( ! $title ) {
 		if ( is_singular() && $options['snsTitle_use_only_postTitle'] ) {
 			$title = get_the_title( $post_id );
@@ -87,6 +95,7 @@ function veu_get_the_sns_title( $post_id = '' ) {
 			$title = wp_title( '', false );
 		}
 	}
+
 	return strip_tags( $title );
 }
 
