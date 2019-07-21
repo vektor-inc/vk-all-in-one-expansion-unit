@@ -34,8 +34,8 @@ function vkblocks_blocks_assets() {
 	global $wp_version;
 	if ( defined( 'GUTENBERG_VERSION' ) || version_compare( $wp_version, '5.0', '>=' ) ) {
 
-		// $arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer', 'spacer', 'heading', 'staff', 'table-of-contents', 'simple-table', 'tr', 'th', 'td' );//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
-		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer', 'spacer', 'heading', 'staff', 'table-of-contents' );//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+		// $arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer', 'spacer', 'heading', 'staff', 'table-of-contents', 'simple-table', 'tr', 'th', 'td' ,'highlighter');//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'outer', 'spacer', 'heading', 'staff', 'table-of-contents' ,'highlighter');//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
 		foreach ( $arr as $value ) {
 
 			if ( $value === 'table-of-contents' ) {
@@ -81,22 +81,27 @@ function vkblocks_blocks_assets() {
 add_action( 'init', 'vkblocks_blocks_assets' );
 
 // Add Block Category,
-function vkblocks_blocks_categories( $categories, $post ) {
-	global $vk_blocks_prefix;
-	return array_merge(
-		$categories,
-		array(
+if ( ! function_exists( 'vkblocks_blocks_categories' ) ) {
+
+	function vkblocks_blocks_categories( $categories, $post ) {
+		global $vk_blocks_prefix;
+
+		return array_merge(
+			$categories,
 			array(
-				'slug'  => 'vk-blocks-cat',
-				'title' => $vk_blocks_prefix . __( 'Blocks（Beta）', 'vk-blocks' ),
-				'icon'  => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
-			),
-			array(
-				'slug'  => 'vk-blocks-cat-layout',
-				'title' => $vk_blocks_prefix . __( 'Blocks Layout（Beta）', 'vk-blocks' ),
-				'icon'  => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
-			),
-		)
-	);
+				array(
+					'slug'  => 'vk-blocks-cat',
+					'title' => $vk_blocks_prefix . __( 'Blocks（Beta）', 'vk-blocks' ),
+					'icon'  => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
+				),
+				array(
+					'slug'  => 'vk-blocks-cat-layout',
+					'title' => $vk_blocks_prefix . __( 'Blocks Layout（Beta）', 'vk-blocks' ),
+					'icon'  => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
+				),
+			)
+		);
+	}
+
+	add_filter( 'block_categories', 'vkblocks_blocks_categories', 10, 2 );
 }
-add_filter( 'block_categories', 'vkblocks_blocks_categories', 10, 2 );

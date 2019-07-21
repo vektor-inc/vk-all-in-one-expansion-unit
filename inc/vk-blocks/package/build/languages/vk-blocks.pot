@@ -347,6 +347,14 @@ msgstr ""
 msgid "Heading %d"
 msgstr ""
 
+#: src/highlighter/block.js:81
+msgid "Highlight Color"
+msgstr ""
+
+#: src/highlighter/block.js:93
+msgid "Highlighter"
+msgstr ""
+
 #: src/outer/block.js:107
 msgid "Background Image"
 msgstr ""
