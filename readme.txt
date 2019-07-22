@@ -3,7 +3,7 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 4.4
-Tested up to: 5.2.1
+Tested up to: 5.2.2
 Stable tag: 9.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -86,6 +86,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.4.0.0( Beta ) =
+[ Add Function ][ VK Blocks ] Add marker
 
 = 9.3.3.0( Beta ) =
 [ Bugfix ][ OG title ] When front-page that to be single page title, not blog name bug fixed.
