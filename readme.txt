@@ -87,6 +87,9 @@ e.g.
 
 == Changelog ==
 
+= 9.4.2.0( Beta ) =
+[ Bug fix ][ VK Blocks ][ title ] no style bug fix
+
 = 9.4.1.0( Beta ) =
 [ Bug fix ][ VK Blocks ][ baloon ] mobile layout bug fix
 
