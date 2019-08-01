@@ -39,8 +39,7 @@
 }
 
 .vk-admin-banner{
-	display:block; overflow:hidden;margin-right:1em;
-	margin-top: 1em;
+	display:block; overflow:hidden;
 	a.admin_banner {
 		display: block;
 		margin-bottom:1em;border:1px solid #ccc;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,1);
@@ -100,7 +99,7 @@
 	.adminMain { display:block; overflow:hidden;width:74%;float:left;
 		#adminContent_sub { display:block; overflow:hidden;width:23%;float:left;padding-bottom:10px;
 		}
-		#adminContent_main { display:block; overflow:hidden;width:74%;float:right;
+		#adminContent_main { display:block; overflow:hidden;width:74%;float:right;min-height: 300px;
 			.form_horizontal_item { margin-right:1em; }
 		}
 		&.column_2 {
@@ -109,7 +108,7 @@
 	}
 
 	.adminSub { display:block; overflow:hidden;width:24%;float:right;padding-bottom:10px;
-		.infoBox { display:block; overflow:hidden;padding: 1em;margin-right:1em; background-color: #fff; }
+		.infoBox { display:block; overflow:hidden;padding: 1em;margin-bottom:1em; background-color: #fff; }
 		.vk-metabox-sub-title { background-color: #ccc;width:auto; padding: 5px 10px; border-radius: 3px;margin-top:0;margin-bottom:15px;
 		}
 		.vk-metabox-more-link  {
