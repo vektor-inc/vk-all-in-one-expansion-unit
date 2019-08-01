@@ -87,6 +87,9 @@ e.g.
 
 == Changelog ==
 
+= 9.4.3.0( Beta ) =
+[ Bug fix ][ admin information ] Bug fix of setting page on english version
+
 = 9.4.2.0( Beta ) =
 [ Bug fix ][ VK Blocks ][ title ] no style bug fix
 
