@@ -87,6 +87,15 @@ e.g.
 
 == Changelog ==
 
+= 9.4.3.0( Beta ) =
+[ Bug fix ][ admin information ] Bug fix of setting page on english version
+
+= 9.4.2.0( Beta ) =
+[ Bug fix ][ VK Blocks ][ title ] no style bug fix
+
+= 9.4.1.0( Beta ) =
+[ Bug fix ][ VK Blocks ][ baloon ] mobile layout bug fix
+
 = 9.4.0.0( Beta ) =
 [ Add Function ][ VK Blocks ] Add marker
 

@@ -497,7 +497,7 @@ msgstr "Outer"
 
 #: src/outer/block.js:83
 msgid "Background Setting"
-msgstr "背景設定設定"
+msgstr "背景設定"
 
 #: src/outer/block.js:85 src/pr-content/block.js:92
 msgid "Color Setting"
