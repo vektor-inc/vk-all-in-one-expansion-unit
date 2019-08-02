@@ -73,9 +73,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			$banner .= '<div class="vk-admin-banner">';
 			if ( $lang == 'ja' ) {
-				$banner .= '<a class="admin_banner" href="https://recruit.vektor-inc.co.jp/?rel=vkadmin" target="_blank">';
-				$banner .= '<img src="' . $dir_url . 'images/admin_banner_recruit.jpg" alt="[ Vektor,Inc. 採用情報 ]" />';
-				$banner .= '</a>';
+				// $banner .= '<a class="admin_banner" href="https://recruit.vektor-inc.co.jp/?rel=vkadmin" target="_blank">';
+				// $banner .= '<img src="' . $dir_url . 'images/admin_banner_recruit.jpg" alt="[ Vektor,Inc. 採用情報 ]" />';
+				// $banner .= '</a>';
 			} else {
 				$banner .= '<a href="https://lightning.nagoya/lightning_copyright_customizer/?rel=vkadmin" target="_blank" class="button button-primary button-primary button-block" style="margin-bottom:1em;">Lightning Copyright Customizer <span class="screen-reader-text">(opens in a new tab)</span><span aria-hidden="true" class="dashicons dashicons-external" style="position:relative;top:3px;"></span></a>';
 			}
@@ -312,7 +312,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				}
 			} // if ( ! is_wp_error( $rss ) ) {
 
-			echo $output;
+			return $output;
 		}
 
 		public static function is_dashboard_active() {
@@ -348,7 +348,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		public static function dashboard_widget_body() {
-			echo Vk_Admin::get_news_body();
+			if ( 'ja' == get_locale() ) {
+				echo Vk_Admin::get_news_body();
+			}
 			echo Vk_Admin::get_admin_banner();
 		}
 
@@ -361,9 +363,12 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			if ( ! $display ) {
 				return;
 			}
-			$adminSub  = '<div class="adminSub scrTracking">' . "\n";
-			$adminSub .= '<div class="infoBox">' . Vk_Admin::get_news_body() . '</div>' . "\n";
+			$adminSub = '<div class="adminSub scrTracking">' . "\n";
+			if ( 'ja' == get_locale() ) {
+				$adminSub .= '<div class="infoBox">' . Vk_Admin::get_news_body() . '</div>' . "\n";
+			}
 			$adminSub .= '<div class="vk-admin-banner">' . Vk_Admin::get_admin_banner() . '</div>' . "\n";
+
 			$adminSub .= '</div><!-- [ /.adminSub ] -->' . "\n";
 			return $adminSub;
 		}
