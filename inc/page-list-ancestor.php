@@ -37,8 +37,6 @@ function vkExUnit_pageList_ancestor_shortcode() {
 			return; }
 	}
 
-	$pageList_ancestor_html = PHP_EOL . '<section class="veu_pageList_ancestor">' . PHP_EOL;
-
 	if ( $post->ancestors ) {
 		foreach ( $post->ancestors as $post_anc_id ) {
 			$post_id = $post_anc_id;
@@ -50,10 +48,13 @@ function vkExUnit_pageList_ancestor_shortcode() {
 	if ( $post_id ) {
 			$children = wp_list_pages( 'title_li=&child_of=' . $post_id . '&echo=0' );
 		if ( $children ) {
-			$pageList_ancestor_html .= '<h3 class="section_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
+			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card">';
+			$pageList_ancestor_html .= '<div class="veu_card_inner">';
+			$pageList_ancestor_html .= '<h3 class="pageList_ancestor_title veu_card_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
 			$pageList_ancestor_html .= $children;
 			$pageList_ancestor_html .= '</ul>';
+			$pageList_ancestor_html .= '</div>';
 			$pageList_ancestor_html .= '</section>';
 		} else {
 			return '';
