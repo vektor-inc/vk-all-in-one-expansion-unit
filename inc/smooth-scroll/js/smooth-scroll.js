@@ -34,7 +34,7 @@ $('a[href^="#"]').click(function() {
 		var header_height = 0;
 		if ( jQuery('body').hasClass('headfix') ){
 			header_height = jQuery('body > header').outerHeight();
-			console.log(header_height);
+			// console.log(header_height);
 		}
 		// 管理バー分オフセット
 		var admin_bar_height = 0;

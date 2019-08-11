@@ -213,18 +213,18 @@ function veu_add_sns_btns( $content ) {
 	return $content;
 }
 
-add_action( 'wp_ajax_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
-add_action( 'wp_ajax_nopriv_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
-function veu_sns_pocket_tunnel() {
-	ini_set( 'display_errors', 0 );
-	$linkurl = urldecode( filter_input( INPUT_POST, 'linkurl' ) );
-	if ( $s['host'] != $p['host'] ) {
-		echo '0';
-		die(); }
-	$r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl . '&title=title&src=' . $linkurl . '&r=' . rand( 1, 100 ) );
-	if ( is_wp_error( $r ) ) {
-		echo '0';
-		die(); }
-	echo $r['body'];
-	die();
-}
+// add_action( 'wp_ajax_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
+// add_action( 'wp_ajax_nopriv_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
+// function veu_sns_pocket_tunnel() {
+// 	ini_set( 'display_errors', 0 );
+// 	$linkurl = urldecode( filter_input( INPUT_POST, 'linkurl' ) );
+// 	if ( $s['host'] != $p['host'] ) {
+// 		echo '0';
+// 		die(); }
+// 	$r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl . '&title=title&src=' . $linkurl . '&r=' . rand( 1, 100 ) );
+// 	if ( is_wp_error( $r ) ) {
+// 		echo '0';
+// 		die(); }
+// 	echo $r['body'];
+// 	die();
+// }

@@ -178,27 +178,27 @@ jQuery(document).ready(function($){
 			});
 		}
 	}
-	var pocket = {
-		init: function() {
-			$.ajax({
-				url: vkExOpt.ajax_url,
-				type: 'POST',
-				data: {
-					'action': 'vkex_pocket_tunnel',
-					'linkurl': linkurl
-				},
-				dataType: 'html',
-				success: function(response) {
-					var count = $(response).find("#cnt").html();
-					if (count === undefined) return;
-					socials.find('.veu_count_sns_pocket').html(count);
-				}
-			})
-		}
-	}
+	// var pocket = {
+	// 	init: function() {
+	// 		$.ajax({
+	// 			url: vkExOpt.ajax_url,
+	// 			type: 'POST',
+	// 			data: {
+	// 				'action': 'vkex_pocket_tunnel',
+	// 				'linkurl': linkurl
+	// 			},
+	// 			dataType: 'html',
+	// 			success: function(response) {
+	// 				var count = $(response).find("#cnt").html();
+	// 				if (count === undefined) return;
+	// 				socials.find('.veu_count_sns_pocket').html(count);
+	// 			}
+	// 		})
+	// 	}
+	// }
 	facebook.init();
 	hatena.init();
-	pocket.init();
+	// pocket.init();
 })(jQuery);
 
 
