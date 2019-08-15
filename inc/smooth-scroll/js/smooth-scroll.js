@@ -13,6 +13,9 @@ $('a[href^="#"]').click(function() {
 	if ( jQuery(this).attr("role") === "tab"  ){
 		return;
 	}
+	if ( jQuery(this).attr("role") === "button"  ){
+		return;
+	}
 	// bootstrapのアコーディオンコンポーネント
 	if ( jQuery(this).attr("data-toggle") ){
 		return;
