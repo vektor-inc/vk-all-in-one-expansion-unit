@@ -2,9 +2,9 @@
 Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 4.4
+Requires at least: 5.1.0
 Tested up to: 5.2.2
-Stable tag: 9.4.3.1
+Stable tag: 9.5.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,16 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+
+= 9.5.3.0 =
+Chhhange requires at least: 5.1.0
+
+= 9.5.1.0 =
+[ Bug fix ][ font awesome ] css and js path bug fix
+
+= 9.5.0.0 =
+[ Specification change ][ Child Page list / Page list from ancestor / contact section ] CSS priority change
 
 = 9.4.3.1 =
 Merely Version Change

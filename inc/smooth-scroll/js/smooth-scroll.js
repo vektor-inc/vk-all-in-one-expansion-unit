@@ -13,6 +13,9 @@ $('a[href^="#"]').click(function() {
 	if ( jQuery(this).attr("role") === "tab"  ){
 		return;
 	}
+	if ( jQuery(this).attr("role") === "button"  ){
+		return;
+	}
 	// bootstrapのアコーディオンコンポーネント
 	if ( jQuery(this).attr("data-toggle") ){
 		return;
@@ -34,7 +37,7 @@ $('a[href^="#"]').click(function() {
 		var header_height = 0;
 		if ( jQuery('body').hasClass('headfix') ){
 			header_height = jQuery('body > header').outerHeight();
-			console.log(header_height);
+			// console.log(header_height);
 		}
 		// 管理バー分オフセット
 		var admin_bar_height = 0;
