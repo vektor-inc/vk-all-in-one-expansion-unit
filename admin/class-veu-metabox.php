@@ -25,10 +25,13 @@ class VEU_Metabox {
 		$this->args = wp_parse_args( $args, $defaults );
 
 		if ( $this->args['individual'] ) {
+			// 各機能毎に独立metaboxを表示
 			// 通常メタボックスの追加タイミングは admin_menu だが,
 			// ここでは admin_init でないと反映されないため
 			add_action( 'admin_init', array( $this, 'add_individual_metabox' ) );
+
 		} else {
+
 			// Parent metabox activate
 			add_filter( 'veu_parent_metabox_activation', array( $this, 'metabox_activate' ), 10, 1 );
 			// 共通のメタボックスの中身を呼び込む
