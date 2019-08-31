@@ -10,6 +10,7 @@ require dirname( __FILE__ ) . '/disable-guide.php';
 require dirname( __FILE__ ) . '/customizer.php';
 
 // plugins_loaded の位置ではmetaboxを統合しない設定にしても個別のmetaboxが表示されない
+// 統合親メタボックスの読み込み
 require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
 // 親メニューが出力される前に フックを通さずに直接読み込むとページが表示されなくなる
