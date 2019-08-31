@@ -33,17 +33,35 @@ class VEU_Metabox {
 		} else {
 
 			// Parent metabox activate
+			// 実行タイミングで正常に動作しないのでコメントアウト
 			add_filter( 'veu_parent_metabox_activation', array( $this, 'metabox_activate' ), 10, 1 );
 			// 共通のメタボックスの中身を呼び込む
 			add_action( 'veu_post_metabox_body', array( $this, 'the_meta_section' ), $this->args['priority'] );
+
+			/*
+			VEU_Metabox 内の get_post_type が実行タイミングによっては
+			カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+			admin_menu のタイミングで読み込んでいる
+			*/
+			add_action( 'admin_menu', array( $this, 'add_sub_parent_metabox_insert_items' ) );
 		}
 
 		add_action( 'save_post', array( $this, 'save_custom_field' ) );
 
 	}
 
+	public function add_sub_parent_metabox_insert_items() {
+		// 子ページリストやサイトマップなど「挿入アイテムの設定」を読み込むための子metaboxを読み込む
+		require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
+	}
+
+
+	// 実行タイミングで正常に動作しない事があるため
+	// veu_is_parent_metabox_display_maual() で手動補正している
 	public function metabox_activate( $flag ) {
-		return true;
+		foreach ( $this->args['post_types'] as $key => $post_type ) {
+			return true;
+		}
 	}
 
 	/**
