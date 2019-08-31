@@ -10,6 +10,52 @@ https://github.com/vektor-inc/vektor-wp-libraries
  * ExUnit固有の関数だが、ExUnitの機能を複製している他のプラグインにも使用されるものもある
  */
 
+function veu_get_common_options() {
+	$dafault = veu_get_common_options_default();
+	$options = get_option( 'vkExUnit_common_options' );
+	$options = wp_parse_args( $options, $dafault );
+	return apply_filters( 'vkExUnit_common_options', $options );
+}
+
+function veu_get_common_options_default() {
+	// hook veu_package_is_enable()
+	// パッケージの情報を取得してデフォルトの配列を作成
+	$defaults = array();
+	$packages = veu_get_packages();
+	foreach ( $packages as $key => $value ) {
+		$name                                 = $value['name'];
+		$default_options[ 'active_' . $name ] = $value['default'];
+	}
+	$default_options['post_metabox_individual']      = false;
+	$default_options['delete_options_at_deactivate'] = false;
+	$default_options['content_filter_state']         = 'content';
+	return apply_filters( 'vkExUnit_common_options_default', $default_options );
+}
+
+ /*-------------------------------------------*/
+ /*  validate
+ /*-------------------------------------------*/
+
+function veu_common_options_validate( $input ) {
+	/*
+	 入力された値の無害化
+	 ここでは機能の有効化有無に関する項目が殆どで、手動で項目を記載すると機能の増減の際に項目の編集漏れが出るため、
+	 veu_get_common_options_default() の中で package に登録してある項目・デフォルト値を読み込み、それをループ処理する
+	*/
+	$defaults = veu_get_common_options_default();
+	foreach ( $defaults as $key => $default_value ) {
+		// 'content_filter_state'　以外は true か false しか返ってこない
+		if ( $key != 'content_filter_state' ) {
+				$output[ $key ] = ( isset( $input[ $key ] ) ) ? esc_html( $input[ $key ] ) : $default_value;
+		} else {
+				$output['content_filter_state'] = ( ! empty( $input['content_filter_state'] ) ) ? 'loop_end' : 'content';
+		}
+	}
+
+	return apply_filters( 'vkExUnit_common_options_validate', $output, $input, $defaults );
+}
+
+
 if ( ! function_exists( 'veu_get_capability_required' ) ) {
 	function veu_get_capability_required() {
 		return add_filter( 'veu_get_capability_required', 'edit_theme_options' );
@@ -86,3 +132,109 @@ if ( ! function_exists( 'veu_is_cta_active' ) ) {
 }
 
 require_once( 'template-tags-veu-old.php' );
+
+
+function veu_is_parent_metabox_display() {
+	$flag = apply_filters( 'veu_parent_metabox_activation', false );
+	if ( ! $flag ) {
+		$flag = veu_is_parent_metabox_display_maual();
+	}
+	return $flag;
+}
+
+function veu_is_insert_item_metabox_display() {
+	$options         = veu_get_common_options();
+	$admin_post_type = vk_get_post_type();
+
+	/*  childPageIndex
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_childPageIndex'] ) && $admin_post_type['slug'] == 'page' ) {
+		return true;
+	}
+	/*  pageList_ancestor
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_pageList_ancestor'] ) && $admin_post_type['slug'] == 'page' ) {
+		return true;
+	}
+	/*  contact_section
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_contact_section'] ) && $admin_post_type['slug'] == 'page' ) {
+		return true;
+	}
+	/*  HTML Sitemap
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_sitemap_page'] ) && $admin_post_type['slug'] == 'page' ) {
+		return true;
+	}
+}
+
+function veu_is_parent_metabox_display_maual() {
+	$flag            = false;
+	$options         = veu_get_common_options();
+	$admin_post_type = vk_get_post_type();
+
+	$insert_item_metabox_display = veu_is_insert_item_metabox_display();
+	if ( $insert_item_metabox_display ) {
+		return true;
+	}
+
+	/*  Meta KeyWords
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_metaKeyword'] ) ) {
+		return true;
+	}
+
+	/*  CSS Customize
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_css_customize'] ) ) {
+		return true;
+	}
+
+	/*  CTA
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_call_to_action'] ) ) {
+		return true;
+	}
+
+	/*  NoIndex
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_noindex'] ) ) {
+		return true;
+	}
+
+	/*  Auto Eye Catch
+	/*-------------------------------------------*/
+	if ( ! empty( $options['active_auto_eyecatch'] ) ) {
+		return true;
+	}
+
+	/*  SNS
+	/*-------------------------------------------*/
+
+	if ( ! empty( $options['active_sns'] ) ) {
+		$sns_options = veu_get_sns_options();
+
+		// OGタグ出力機能がONの時は タイトルタグ 書き換え欄の出力が必要
+		if ( ! empty( $sns_options['enableOGTags'] ) || ! empty( $sns_options['enableTwitterCardTagss'] ) ) {
+			return true;
+		}
+		// シェアボタンの表示
+		if ( ! empty( $sns_options['enableSnsBtns'] ) ) {
+			// 表示除外投稿タイプの配列指定がある場合
+			if ( is_array( $sns_options['snsBtn_exclude_post_types'] ) ) {
+					// 表示除外投稿タイプをループ
+				foreach ( $sns_options['snsBtn_exclude_post_types'] as $loop_post_type => $value ) {
+					// 除外対象じゃない投稿タイプの時
+					if ( ! $value && $admin_post_type['slug'] == $loop_post_type ) {
+						return true;
+					}
+				}
+			} else {
+				// SNSを表示しない投稿タイプの指定がない場合
+				return true;
+			}
+		}
+	}
+
+	return $flag;
+}

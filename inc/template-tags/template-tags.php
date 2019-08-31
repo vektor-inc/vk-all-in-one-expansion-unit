@@ -53,14 +53,28 @@ if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_post_type' ) ) {
 	function vk_get_post_type() {
-		global $wp_query;
-		$page_for_posts = vk_get_page_for_posts();
+
+		$postType = array();
+
+		// 管理画面の投稿タイプ
+		if ( is_admin() ) {
+			global $post;
+			$postType['slug'] = get_post_type( $post );
+			if ( ! $postType['slug'] ) {
+				if ( ! empty( $_GET['post_type'] ) ) {
+					$postType['slug'] = $_GET['post_type'];
+				}
+			}
+			return $postType;
+		}
 
 		/*-------------------------------------------*/
+		global $wp_query;
+		$page_for_posts   = vk_get_page_for_posts();
 		$postType['slug'] = get_post_type();
 		if ( ! $postType['slug'] ) {
 
-			if ( $wp_query->query_vars['post_type'] ) {
+			if ( isset( $wp_query->query_vars['post_type'] ) && $wp_query->query_vars['post_type'] ) {
 
 				$postType['slug'] = $wp_query->query_vars['post_type'];
 

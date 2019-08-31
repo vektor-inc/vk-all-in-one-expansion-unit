@@ -25,17 +25,17 @@ if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			$versions = array(
 				'5_SVG_JS'       => array(
 					'label'   => '5 SVG with JS ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )',
-					'version' => '5.6',
+					'version' => '5.10.1',
 					'type'    => 'svg-with-js',
 					/* [ Notice ] use editor css*/
-					'url_css' => $font_awesome_directory_uri . 'versions/5.6.0/css/all.min.css',
-					'url_js'  => $font_awesome_directory_uri . 'versions/5.6.0/js/all.min.js',
+					'url_css' => $font_awesome_directory_uri . 'versions/5/css/all.min.css',
+					'url_js'  => $font_awesome_directory_uri . 'versions/5/js/all.min.js',
 				),
 				'5_WebFonts_CSS' => array(
 					'label'   => '5 Web Fonts with CSS',
-					'version' => '5.6',
+					'version' => '5.10.1',
 					'type'    => 'web-fonts-with-css',
-					'url_css' => $font_awesome_directory_uri . 'versions/5.6.0/css/all.min.css',
+					'url_css' => $font_awesome_directory_uri . 'versions/5/css/all.min.css',
 					'url_js'  => '',
 				),
 				'4.7'            => array(

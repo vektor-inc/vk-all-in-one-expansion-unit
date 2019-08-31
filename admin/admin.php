@@ -1,15 +1,25 @@
 <?php
+
 /*
   Add Parent menu
   Load master setting page
   Print admin js
 */
 
-require dirname( __FILE__ ) . '/admin-common-init.php';
+function veu_common_options_init() {
+	register_setting(
+		'vkExUnit_common_options_fields',   //  Immediately following form tag of edit page.
+		'vkExUnit_common_options',          // name attr
+		'veu_common_options_validate'
+	);
+}
+add_action( 'admin_init', 'veu_common_options_init' );
+
 require dirname( __FILE__ ) . '/disable-guide.php';
 require dirname( __FILE__ ) . '/customizer.php';
 
 // plugins_loaded の位置ではmetaboxを統合しない設定にしても個別のmetaboxが表示されない
+// 統合親メタボックスの読み込み
 require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
 // 親メニューが出力される前に フックを通さずに直接読み込むとページが表示されなくなる
