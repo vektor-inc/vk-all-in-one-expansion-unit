@@ -5,11 +5,11 @@
 
 require_once( dirname( __FILE__ ) . '/class-veu-metabox.php' );
 
-/**
- * Add Content meta box use for "Child Page List" , "Sitemap" , "Contact section" and more fields
- */
 function veu_add_parent_metabox() {
-	if ( apply_filters( 'veu_parent_metabox_activation', false ) ) {
+
+	// parent metabox（統合metabox）を出力する
+
+	if ( veu_is_parent_metabox_display() ) {
 
 		$meta_box_name = veu_get_name();
 
@@ -38,7 +38,9 @@ function veu_add_parent_metabox() {
 	admin_menu のタイミングで読み込んでいる
 	*/
 	// 子ページリストやサイトマップなど「挿入アイテムの設定」を読み込むための子metaboxを読み込む
-	require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
+	if ( veu_is_insert_item_metabox_display() ) {
+		require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
+	}
 }
 
 add_action( 'admin_menu', 'veu_add_parent_metabox' );
