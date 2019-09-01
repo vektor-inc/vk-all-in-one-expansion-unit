@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: https://ex-unit.nagoya
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 9.5.3.0
+* Version: 9.6.0.0
 * Author: Vektor,Inc.
 * Text Domain: vk-all-in-one-expansion-unit
 * Domain Path: /languages
@@ -49,16 +49,6 @@ function veu_get_directory_uri( $path = '' ) {
 	return plugins_url( $path, __FILE__ );
 }
 
-
-if ( function_exists( 'register_deactivation_hook' ) ) {
-	register_deactivation_hook( __FILE__, 'veu_uninstall_function' );
-}
-
-function veu_uninstall_function() {
-	require_once veu_get_directory() . '/initialize.php';
-	include veu_get_directory( '/uninstaller.php' );
-}
-
 // PHP Version check
 if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
 	require_once veu_get_directory() . '/initialize.php';
@@ -68,6 +58,15 @@ if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
 	}
 } else {
 	add_filter( 'admin_notices', 'veu_phpversion_error' );
+}
+
+if ( function_exists( 'register_deactivation_hook' ) ) {
+	register_deactivation_hook( __FILE__, 'veu_uninstall_function' );
+}
+
+function veu_uninstall_function() {
+	require_once veu_get_directory() . '/initialize.php';
+	include veu_get_directory( '/uninstaller.php' );
 }
 
 function veu_phpversion_error( $val ) {
