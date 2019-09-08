@@ -1,6 +1,5 @@
 <?php
 /**
- * Class SnsTitleTest
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
@@ -13,9 +12,6 @@ cd $(wp plugin path --dir vk-all-in-one-expansion-unit)
 phpunit
 */
 
-/**
- * SNS title test case.
- */
 class ParentMetaBoxDisplayManualTest extends WP_UnitTestCase {
 
 	/**
@@ -51,6 +47,23 @@ class ParentMetaBoxDisplayManualTest extends WP_UnitTestCase {
 					'active_sns'               => '',
 					'active_css_customize'     => true,
 					'active_childPageIndex'    => '',
+					'active_pageList_ancestor' => '',
+					'active_contact_section'   => '',
+					'active_sitemap_page'      => '',
+					'active_call_to_action'    => '',
+					'active_noindex'           => '',
+					'active_auto_eyecatch'     => '',
+					'active_metaKeyword'       => '',
+				),
+				// 'current_page_post_type'  => 'post',
+				'test_url'                => admin_url( '/post-new.php?post_type=page' ),
+				'correct'                 => true,
+			),
+			array(
+				'vkExUnit_common_options' => array(
+					'active_sns'               => '',
+					'active_css_customize'     => '',
+					'active_childPageIndex'    => true,
 					'active_pageList_ancestor' => '',
 					'active_contact_section'   => '',
 					'active_sitemap_page'      => '',
