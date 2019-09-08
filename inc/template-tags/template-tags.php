@@ -63,6 +63,11 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 			if ( ! $postType['slug'] ) {
 				if ( ! empty( $_GET['post_type'] ) ) {
 					$postType['slug'] = $_GET['post_type'];
+				} elseif ( ! empty( $_GET['post'] ) ) {
+					$admin_post = get_post( $_GET['post'] );
+					if ( ! empty( $admin_post->post_type ) ) {
+						$postType['slug'] = $admin_post->post_type;
+					}
 				}
 			}
 			return $postType;
