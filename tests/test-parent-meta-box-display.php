@@ -90,7 +90,6 @@ class ParentMetaBoxDisplayManualTest extends WP_UnitTestCase {
 
 			$return = veu_is_parent_metabox_display_maual();
 
-			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct'], $return );
 
 			print PHP_EOL;

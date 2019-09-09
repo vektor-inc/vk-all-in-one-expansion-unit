@@ -63,12 +63,11 @@ class InsertItemMetaBoxDisplayTest extends WP_UnitTestCase {
 					'active_sitemap_page'      => '',
 				),
 				'post'                    => array(
-					'ID'           => 99999,
 					'post_type'    => 'page',
 					'post_title'   => 'Test Title',
 					'post_content' => 'Test Content',
 				),
-				'test_url'                => admin_url( '/post.php?post=99999&action=edit' ),
+				'test_url'                => '',
 				'correct'                 => true,
 			),
 
@@ -82,15 +81,15 @@ class InsertItemMetaBoxDisplayTest extends WP_UnitTestCase {
 			update_option( 'vkExUnit_common_options', $test_value['vkExUnit_common_options'] );
 
 			if ( ! empty( $test_value['post'] ) && is_array( $test_value['post'] ) ) {
-				$post_id = wp_update_post( $test_value['post'] );
+				$posted_id              = wp_insert_post( $test_value['post'], true );
+				$test_value['test_url'] = admin_url( '/post.php?post=' . $posted_id . '&action=edit' );
 			}
 
 			$this->go_to( $test_value['test_url'] );
 
 			$return = veu_is_insert_item_metabox_display();
 
-			// 取得できたHTMLが、意図したHTMLと等しいかテスト
-			// $this->assertEquals( $test_value['correct'], $return );
+			$this->assertEquals( $test_value['correct'], $return );
 
 			print PHP_EOL;
 
@@ -98,10 +97,14 @@ class InsertItemMetaBoxDisplayTest extends WP_UnitTestCase {
 			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
 			print 'return  ::::' . $return . PHP_EOL;
 
+			// テスト用投稿を削除
+			if ( ! empty( $posted_id ) ) {
+				wp_delete_post( $posted_id, true );
+			}
 		}
 
 		// もとの値に戻す
 		update_option( 'vkExUnit_common_options', $before_vkExUnit_common_options );
-		wp_delete_post( 99999, true );
+
 	}
 }

@@ -56,8 +56,11 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 
 		$postType = array();
 
+		$url = $_SERVER['REQUEST_URI'];
+
 		// 管理画面の投稿タイプ
-		if ( is_admin() ) {
+		// ※ phpunitで is_admin()判定が効かない場合のため strpos( $url, 'wp-admin' ) を使用
+		if ( is_admin() || strpos( $url, 'wp-admin' ) ) {
 			global $post;
 			$postType['slug'] = get_post_type( $post );
 			if ( ! $postType['slug'] ) {
