@@ -1,8 +1,6 @@
 <?php
-
 function veu_get_sitemap_options() {
 	$default_options = array(
-		'excludeId'        => '',
 		'excludePostTypes' => array(),
 	);
 	$options         = get_option( 'vkExUnit_sitemap_options', $default_options );
