@@ -136,6 +136,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			}
 
 			echo '<label>' . '<input type="checkbox" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . $checked . '> ' . __( 'Export to REST API' ) . '</label>';
+			echo '<p>' . __( 'If you want to use the block editor that, you have to use the REST API.', $vk_post_type_manager_textdomain ) . '</p>';
 			echo '<hr>';
 
 			/* Custom taxonomies

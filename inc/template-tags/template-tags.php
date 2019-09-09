@@ -56,13 +56,21 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 
 		$postType = array();
 
+		$url = $_SERVER['REQUEST_URI'];
+
 		// 管理画面の投稿タイプ
-		if ( is_admin() ) {
+		// ※ phpunitで is_admin()判定が効かない場合のため strpos( $url, 'wp-admin' ) を使用
+		if ( is_admin() || strpos( $url, 'wp-admin' ) ) {
 			global $post;
 			$postType['slug'] = get_post_type( $post );
 			if ( ! $postType['slug'] ) {
 				if ( ! empty( $_GET['post_type'] ) ) {
 					$postType['slug'] = $_GET['post_type'];
+				} elseif ( ! empty( $_GET['post'] ) ) {
+					$admin_post = get_post( $_GET['post'] );
+					if ( ! empty( $admin_post->post_type ) ) {
+						$postType['slug'] = $admin_post->post_type;
+					}
 				}
 			}
 			return $postType;
@@ -331,18 +339,20 @@ if ( ! function_exists( 'vk_sanitize_number' ) ) {
  */
 function vk_the_post_type_check_list( $args ) {
 	$default    = array(
-		'post_types_args' => array(
+		'post_types_args'    => array(
 			'public' => true,
 		),
-		'name'            => '',
-		'checked'         => '',
-		'id'              => '',
+		'name'               => '',
+		'checked'            => '',
+		'id'                 => '',
+		'exclude_post_types' => array( 'attachment' ),
 	);
 	$args       = wp_parse_args( $args, $default );
 	$post_types = get_post_types( $args['post_types_args'], 'object' );
 	echo '<ul>';
 	foreach ( $post_types as $key => $value ) {
-		if ( $key != 'attachment' ) {
+
+		if ( ! in_array( $key, $args['exclude_post_types'] ) ) {
 
 			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
 

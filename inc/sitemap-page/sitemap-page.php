@@ -5,8 +5,6 @@
 /*-------------------------------------------*/
 /*  Options Init
 /*-------------------------------------------*/
-/*  validate
-/*-------------------------------------------*/
 /*  insert sitemap page
 /*-------------------------------------------*/
 /*  admin _ meta box
@@ -138,6 +136,15 @@ function vkExUnit_sitemap( $atts ) {
 	}
 	unset( $allPostTypes['page'] );
 	unset( $allPostTypes['attachment'] );
+
+	// 除外投稿タイプ処理
+	if ( isset( $options['excludePostTypes'] ) && is_array( $options['excludePostTypes'] ) ) {
+		foreach ( $options['excludePostTypes'] as $key => $value ) {
+			if ( $value ) {
+				unset( $allPostTypes[ $key ] );
+			}
+		}
+	}
 
 	foreach ( $allPostTypes as $postType ) {
 		$post_type_object = get_post_type_object( $postType );
