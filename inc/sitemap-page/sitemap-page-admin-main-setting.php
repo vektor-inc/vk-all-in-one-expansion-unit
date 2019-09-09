@@ -19,18 +19,26 @@ add_action( 'veu_package_init', 'veu_sitemap_set_main_setting' );
 function veu_sitemap_options_validate( $input ) {
 	$output = $defaults = veu_get_sitemap_options_default();
 
-	$paras = array( 'excludeId' );
+	$paras = array( 'excludeId', 'excludePostTypes' );
 
 	foreach ( $paras as $key => $value ) {
-		$output[ $value ] = ( isset( $input[ $value ] ) ) ? $input[ $value ] : '';
-	}
-	return apply_filters( 'veu_sitemap_options_validate', $output, $input, $defaults );
+		if ( isset( $input[ $value ] ) ) {
+			if ( is_array( $input[ $value ] ) ) {
+				foreach ( $input[ $value ] as $post_typ => $post_type_boolean ) {
+					$output[ $value ][ $post_typ ] = esc_html( $post_type_boolean );
+				}
+			} else {
+				$output[ $value ] = ( isset( $input[ $value ] ) ) ? esc_html( $input[ $value ] ) : '';
+			}
+		} // if ( isset( $input[ $value ] ) {
+	} // foreach ( $paras as $key => $value ) {
+	return apply_filters( 'veu_sitemap_options_validate', $output );
 }
 
 
 function veu_add_sitemap_options_page() {
 	$options = veu_get_sitemap_options();
-	// $options_default = veu_get_sns_options_default();
+
 	/*-------------------------------------------*/
 	/*  sitemap page
 	/*-------------------------------------------*/
@@ -47,6 +55,18 @@ function veu_add_sitemap_options_page() {
 	<?php _e( '* Please enter separated by ","(commas) if there is more than one page ID that you want to exclude.', 'vk-all-in-one-expansion-unit' ); ?>
 	</td>
 	</tr>
+	<tr>
+	<th><?php _e( 'Exclude post type Settings', 'vk-all-in-one-expansion-unit' ); ?></th>
+	<td>
+			<?php
+			$args = array(
+				'name'    => 'vkExUnit_sitemap_options[excludePostTypes]',
+				'checked' => $options['excludePostTypes'],
+			);
+			vk_the_post_type_check_list( $args );
+			?>
+			</td>
+		</tr>
 	</table>
 	<?php submit_button(); ?>
 	</div>
