@@ -60,8 +60,9 @@ function veu_add_sitemap_options_page() {
 	<td>
 			<?php
 			$args = array(
-				'name'    => 'vkExUnit_sitemap_options[excludePostTypes]',
-				'checked' => $options['excludePostTypes'],
+				'name'               => 'vkExUnit_sitemap_options[excludePostTypes]',
+				'checked'            => $options['excludePostTypes'],
+				'exclude_post_types' => array( 'page', 'attachment' ),
 			);
 			vk_the_post_type_check_list( $args );
 			?>
