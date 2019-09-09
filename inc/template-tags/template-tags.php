@@ -339,18 +339,20 @@ if ( ! function_exists( 'vk_sanitize_number' ) ) {
  */
 function vk_the_post_type_check_list( $args ) {
 	$default    = array(
-		'post_types_args' => array(
+		'post_types_args'    => array(
 			'public' => true,
 		),
-		'name'            => '',
-		'checked'         => '',
-		'id'              => '',
+		'name'               => '',
+		'checked'            => '',
+		'id'                 => '',
+		'exclude_post_types' => array( 'attachment' ),
 	);
 	$args       = wp_parse_args( $args, $default );
 	$post_types = get_post_types( $args['post_types_args'], 'object' );
 	echo '<ul>';
 	foreach ( $post_types as $key => $value ) {
-		if ( $key != 'attachment' ) {
+
+		if ( ! in_array( $key, $args['exclude_post_types'] ) ) {
 
 			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
 
