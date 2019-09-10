@@ -88,9 +88,12 @@ function vkExUnit_sitemap( $atts ) {
 	/* Exclude Page ids by ExUnit Main Setting Page
 	/*-------------------------------------------*/
 	$options  = veu_get_sitemap_options();
-	$excludes = esc_attr( $options['excludeId'] );
-	$excludes = str_replace( '，', ',', $excludes );
-	$excludes = mb_convert_kana( $excludes, 'kvrn' );
+	$excludes = '';
+	if ( isset( $options['excludeId'] ) ) {
+		$excludes = esc_attr( $options['excludeId'] );
+		$excludes = str_replace( '，', ',', $excludes );
+		$excludes = mb_convert_kana( $excludes, 'kvrn' );
+	}
 
 	/*-------------------------------------------*/
 	/* Exclude Page ids by Page Edit meta box
