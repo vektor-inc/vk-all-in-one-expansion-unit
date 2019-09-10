@@ -161,7 +161,7 @@ function vkExUnit_sitemap( $atts ) {
 				$postTypeName   = $post_type_object->labels->name;
 				$postTypeTopUrl = get_post_type_archive_link( $postType );
 			}
-			$sitemap_html .= '<h4><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
+			$sitemap_html .= '<h4 class="sitemap-post-type-' . $postType . '"><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
 
 			/* Taxonomy name
 			/*-------------------------------------------*/
@@ -174,11 +174,12 @@ function vkExUnit_sitemap( $atts ) {
 
 				// 管理画面のUIに表示させているものだけに限定
 				if ( $taxonomy_object->show_in_menu ) {
-					$sitemap_html .= '<h5>' . $taxonomy_object->label . '</h5>' . PHP_EOL;
+					$sitemap_html .= '<h5 class="sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
 
 					/* Term
 					/*-------------------------------------------*/
-					$sitemap_html                     .= '<ul class="link-list">' . PHP_EOL;
+
+					$sitemap_html                     .= '<ul class="sitemap-terms-' . esc_attr( $taxonomy_object->name ) . ' link-list ">' . PHP_EOL;
 										$args          = array(
 											'taxonomy' => $taxonomy_object->name,
 											'title_li' => '',
