@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.1.0
 Tested up to: 5.2.2
-Stable tag: 9.6.1.0
+Stable tag: 9.6.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.6.2.0 =
+[ Specification change ][ HTML SiteMap ] Add class name.
+[ bug fix ][ HTML SiteMap ] PHP undefined error
 
 = 9.6.1.0 =
 [ Add function ][ HTML SiteMap ] Exclude post type
