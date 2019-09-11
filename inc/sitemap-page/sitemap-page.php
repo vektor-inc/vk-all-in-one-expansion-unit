@@ -177,12 +177,12 @@ function vkExUnit_sitemap( $atts ) {
 
 				// 管理画面のUIに表示させているものだけに限定
 				if ( $taxonomy_object->show_in_menu ) {
-					$sitemap_html .= '<h5 class="sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
+					$sitemap_html .= '<h5 class="sitemap-taxonomy-title sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
 
 					/* Term
 					/*-------------------------------------------*/
 
-					$sitemap_html                     .= '<ul class="sitemap-terms-' . esc_attr( $taxonomy_object->name ) . ' link-list ">' . PHP_EOL;
+					$sitemap_html                     .= '<ul class="sitemap-term-list sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . ' link-list">' . PHP_EOL;
 										$args          = array(
 											'taxonomy' => $taxonomy_object->name,
 											'title_li' => '',
