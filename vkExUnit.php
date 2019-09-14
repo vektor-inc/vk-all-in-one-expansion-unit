@@ -3,7 +3,7 @@
 * Plugin Name: VK All in One Expansion Unit
 * Plugin URI: https://ex-unit.nagoya
 * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 9.6.3.0
+* Version: 9.6.4.0
 * Author: Vektor,Inc.
 * Text Domain: vk-all-in-one-expansion-unit
 * Domain Path: /languages
@@ -111,3 +111,16 @@ function veu_phpversion_warning_notice( $val ) {
 // return false;
 // }
 // remove_action( 'wp_dashboard_setup',array( 'Vk_Admin', 'dashboard_widget'),1 );
+//
+
+/**
+ * Modify the height of a specific CSS class to fix an issue in Chrome 77 with Gutenberg.
+ *
+ * @see https://github.com/WordPress/gutenberg/issues/17406
+ */
+add_action(
+	'admin_head',
+	function() {
+		echo '<style>.block-editor-writing-flow { height: auto; }</style>'; // phpcs:ignore
+	}
+);
