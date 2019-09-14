@@ -342,8 +342,8 @@ msgstr ""
 msgid "Input title…"
 msgstr ""
 
-# %s: heading level e.g: "1", "2", "3"
 #: src/heading/heading-toolbar.js:17
+#. %s: heading level e.g: "1", "2", "3"
 msgid "Heading %d"
 msgstr ""
 
