@@ -111,3 +111,16 @@ function veu_phpversion_warning_notice( $val ) {
 // return false;
 // }
 // remove_action( 'wp_dashboard_setup',array( 'Vk_Admin', 'dashboard_widget'),1 );
+//
+
+/**
+ * Modify the height of a specific CSS class to fix an issue in Chrome 77 with Gutenberg.
+ *
+ * @see https://github.com/WordPress/gutenberg/issues/17406
+ */
+add_action(
+	'admin_head',
+	function() {
+		echo '<style>.block-editor-writing-flow { height: auto; }</style>'; // phpcs:ignore
+	}
+);
