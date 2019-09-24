@@ -495,13 +495,9 @@ iframe.wp-embedded-content { width:100%; }
 /*-------------------------------------------*/
 .veu_relatedPosts{
 	& > .row{
-		display: -ms-flexbox;
-		display: -webkit-flex;
 		display: flex;
 		margin: 0;
 		margin-right: -3%;
-		-ms-flex-wrap:wrap;
-		-webkit-flex-wrap:wrap;
 		flex-wrap:wrap;
 	}
 	.relatedPosts_item{
@@ -511,6 +507,7 @@ iframe.wp-embedded-content { width:100%; }
 		padding-left: 0;
 		width: 47%;
 		border-bottom: solid 1px #e5e5e5;
+		flex: initial;
 		& > .media:first-child{
 			border: none;
 		}
