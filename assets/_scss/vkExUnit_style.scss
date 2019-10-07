@@ -508,6 +508,9 @@ iframe.wp-embedded-content { width:100%; }
 		width: 47%;
 		border-bottom: solid 1px #e5e5e5;
 		flex: initial;
+		@media (max-width: 768px){
+			max-width: 100%;
+		}
 		& > .media:first-child{
 			border: none;
 		}
