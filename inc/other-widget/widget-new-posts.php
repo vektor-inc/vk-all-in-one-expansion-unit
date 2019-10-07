@@ -3,10 +3,7 @@
   Side Post list widget
 /*-------------------------------------------*/
 
-
 class WP_Widget_vkExUnit_post_list extends WP_Widget {
-
-	public $taxonomies = array( 'category' );
 
 	function __construct() {
 		$widget_name = veu_get_prefix() . __( 'Recent Posts', 'vk-all-in-one-expansion-unit' );
@@ -65,10 +62,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified' );
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
-		if ( $instance['format'] ) {
-			$this->_taxonomy_init( $post_type );
-		}
-
 		$p_args = array(
 			'post_type'      => $post_type,
 			'posts_per_page' => $count,
@@ -94,39 +87,18 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$post_loop = new WP_Query( $p_args );
 
 		if ( $post_loop->have_posts() ) :
-
-			// クエリでターム指定がない場合に存在しているカスタム分類を取得する
-			// ※ 各記事で get_the_terms() する時に $taxonomy が必要なため
-			// ※ get_the_taxonomies() は 該当 term が ２つの場合「〇〇と〇〇」というように『と』が入ってしまう
-			if ( empty( $taxonomies ) ) {
-				// まずはカスタム分類を取得
-				$taxonomies_objects = get_taxonomies(
-					array(
-						'public'  => true,
-						'show_ui' => true,
-					),
-					'objects'
-				);
-				// 階層のあるものだけ $taxonomies に格納
-				foreach ( $taxonomies_objects as $key => $value ) {
-					if ( $value->hierarchical ) {
-						$taxonomies[] = $key;
-					}
-				}
-			}
-
 			if ( ! $instance['format'] ) {
 				echo '<div class="postList postList_miniThumb">';
 				while ( $post_loop->have_posts() ) :
 					$post_loop->the_post();
-					$this->display_pattern_0( $is_modified, $instance, $taxonomies );
+					$this->display_pattern_0( $is_modified, $instance );
 				endwhile;
 				echo '</div>';
 			} else {
 				echo '<ul class="postList">';
 				while ( $post_loop->have_posts() ) :
 					$post_loop->the_post();
-					$this->display_pattern_1( $is_modified, $instance, $taxonomies );
+					$this->display_pattern_1( $is_modified, $instance );
 				endwhile;
 				echo '</ul>';
 			}
@@ -145,7 +117,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 
-	function display_pattern_0( $is_modified = false, $instance, $taxonomies ) {
+	function display_pattern_0( $is_modified = false, $instance ) {
 	?>
 <div class="postList_item" id="post-<?php the_ID(); ?>">
 	<?php if ( has_post_thumbnail() || $instance['media_id'] ) : ?>
@@ -190,7 +162,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 <?php
 	}
 
-	function display_pattern_1( $is_modified = false, $instance, $taxonomies ) {
+	/**
+	 * [display_pattern_1 description]
+	 * @param  boolean $is_modified [description]
+	 * @param  [type]  $instance    [description]
+	 * @param  [type]  $taxonomies  [description]
+	 * @return [type]               [description]
+	 */
+	public static function display_pattern_1( $is_modified = false, $instance ) {
 	?>
 <li id="post-<?php the_ID(); ?>">
 
@@ -202,11 +181,30 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		.published
 		.modified
 		*/
-		$li_items_output = '';
+	$li_items_output = '';
 	if ( $is_modified ) {
 		$li_items_output .= '<span class="modified postList_date postList_meta_items">' . esc_html( get_the_modified_date() ) . '</span>';
 	} else {
 		$li_items_output = '<span class="published postList_date postList_meta_items">' . esc_html( get_the_date() ) . '</span>';
+	}
+
+	// クエリでターム指定がない場合に存在しているカスタム分類を取得する
+	// ※ 各記事で get_the_terms() する時に $taxonomy が必要なため
+	// ※ get_the_taxonomies() は 該当 term が ２つの場合「〇〇と〇〇」というように『と』が入ってしまう
+
+	// まずはカスタム分類を取得
+	$taxonomies_object = get_taxonomies(
+		array(
+			'public'  => true,
+			'show_ui' => true,
+		),
+		'objects'
+	);
+	// 階層のあるものだけ $taxonomies に格納
+	foreach ( $taxonomies_object as $key => $value ) {
+		if ( $value->hierarchical ) {
+			$taxonomies[] = $key;
+		}
 	}
 
 	// taxonomy
@@ -214,15 +212,15 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	foreach ( $taxonomies as $taxonomy ) {
 		$terms = get_the_terms( get_the_ID(), $taxonomy );
-		print '<pre style="text-align:left">';
-		print_r( $terms );
-		print '</pre>';
-		// $term_url = esc_url( get_term_link( $terms[0]->term_id, $taxonomy ) );
+		if ( is_array( $terms ) ) {
+			foreach ( $terms as $term ) {
+					$link             = get_term_link( $term->term_id );
+					$li_items_output .= '<a href="' . $link . '" target="_blank">' . $term->name . '</a>';
+			}
+		}
 	}
 
-		$li_items_output .= $this->taxonomy_list( get_the_id(), '', '', '' );
-
-		$li_items_output .= '</span>';
+	$li_items_output .= '</span>';
 
 		$allowed_html = array(
 			'span'   => array( 'class' => array() ),
@@ -238,33 +236,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 <?php
 	}
 
-	function _taxonomy_init( $post_type ) {
-		if ( $post_type == 'post' ) {
-			return;
-		}
-		$this->taxonomies = get_object_taxonomies( $post_type );
-	}
+	// function _taxonomy_init( $post_type ) {
+	// 	if ( $post_type == 'post' ) {
+	// 		return;
+	// 	}
+	// 	$this->taxonomies = get_object_taxonomies( $post_type );
+	// }
 
-	function taxonomy_list( $post_id = 0, $before = ' ', $sep = ',', $after = '' ) {
 
-		if ( ! $post_id ) {
-			$post_id = get_the_ID();
-		}
-
-		$taxo_catelist = array();
-
-		foreach ( $this->taxonomies as $taxonomy ) {
-			$terms = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
-			if ( $terms ) {
-				$taxo_catelist[] = $terms;
-			}
-		}
-
-		if ( count( $taxo_catelist ) ) {
-			return join( $taxo_catelist, $sep );
-		}
-		return '';
-	}
 
 	static function get_options( $instance = array() ) {
 		$defaults = array(
