@@ -48,7 +48,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$title    = $this->get_widget_title( $instance );
 
 		if ( ! isset( $instance['format'] ) ) {
-			$instance['format'] = 0; }
+			$instance['format'] = 0;
+		}
 
 		echo $args['before_widget'];
 		echo '<div class="veu_postList pt_' . $instance['format'] . '">';
@@ -65,7 +66,8 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
 		if ( $instance['format'] ) {
-			$this->_taxonomy_init( $post_type ); }
+			$this->_taxonomy_init( $post_type );
+		}
 
 		$p_args = array(
 			'post_type'      => $post_type,
@@ -203,24 +205,28 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function _taxonomy_init( $post_type ) {
 		if ( $post_type == 'post' ) {
-			return; }
+			return;
+		}
 		$this->taxonomies = get_object_taxonomies( $post_type );
 	}
 
 	function taxonomy_list( $post_id = 0, $before = ' ', $sep = ',', $after = '' ) {
 		if ( ! $post_id ) {
-			$post_id = get_the_ID(); }
+			$post_id = get_the_ID();
+		}
 
 		$taxo_catelist = array();
 
 		foreach ( $this->taxonomies as $taxonomy ) {
 			$terms = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
 			if ( $terms ) {
-				$taxo_catelist[] = $terms; }
+				$taxo_catelist[] = $terms;
+			}
 		}
 
 		if ( count( $taxo_catelist ) ) {
-			return join( $taxo_catelist, $sep ); }
+			return join( $taxo_catelist, $sep );
+		}
 		return '';
 	}
 
