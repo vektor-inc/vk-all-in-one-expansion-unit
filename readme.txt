@@ -87,6 +87,10 @@ e.g.
 
 == Changelog ==
 
+= 9.6.5.0 =
+[ bug fix ][ New Posts Widget ] Term display
+[ bug fix ][ Related Posts ] Lightning BS4 Layout
+
 = 9.6.4.0 =
 [ bug fix ] Chrome metabox position fix
 
