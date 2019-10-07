@@ -63,6 +63,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
 		$p_args = array(
+			'order'          => 'DESC',
 			'post_type'      => $post_type,
 			'posts_per_page' => $count,
 			'orderby'        => $orderby,
