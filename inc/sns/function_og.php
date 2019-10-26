@@ -47,7 +47,7 @@ function vkExUnit_print_og() {
 			//image:width,image:height INSERT
 			$addImageTag = array(
 				'type'   => 'id',
-				'width'  => $mage_url[1],
+				'width'  => $image_url[1],
 				'height' => $image_url[2],
 			);
 
