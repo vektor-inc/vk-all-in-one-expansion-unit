@@ -332,6 +332,17 @@ if ( ! function_exists( 'vk_sanitize_number' ) ) {
 		return esc_attr( $return );
 	}
 }
+if ( ! function_exists( 'vk_sanitize_array' ) ) {
+	function vk_sanitize_array( $input ) {
+		if ( is_array( $input ) ) {
+			$return = array();
+			foreach ( $input as $key => $value ) {
+				$return[ $key ] = wp_kses_post( $value );
+			}
+		}
+		return $return;
+	}
+}
 
 /*
   Post Type Check Box
@@ -348,23 +359,24 @@ function vk_the_post_type_check_list( $args ) {
 			'public' => true,
 		),
 		'name'               => '',
-		'checked'            => '',
+		'checked'            => array( 'post' => true ),
 		'id'                 => '',
 		'exclude_post_types' => array( 'attachment' ),
 	);
 	$args       = wp_parse_args( $args, $default );
 	$post_types = get_post_types( $args['post_types_args'], 'object' );
+
 	echo '<ul>';
 	foreach ( $post_types as $key => $value ) {
 
 		if ( ! in_array( $key, $args['exclude_post_types'] ) ) {
 
-			$checked = ( isset( $args['checked'][ $key ] ) && $args['checked'][ $key ] == 'true' ) ? ' checked' : '';
+			$checked = ( isset( $args['checked'][ $key ] ) && ( $args['checked'][ $key ] ) ) ? ' checked' : '';
 
-			if ( $args['id'] ) {
-				$id = ' id="' . esc_attr( $args['id'] ) . '"';
-			} elseif ( $args['name'] ) {
-				$id = ' id="' . esc_attr( $args['name'] ) . '"';
+			if ( ! empty( $args['id'][ $key ] ) ) {
+				$id = ' id="' . esc_attr( $args['id'][ $key ] ) . '"';
+			} elseif ( ! empty( $args['name'][ $key ] ) ) {
+				$id = ' id="' . esc_attr( $args['name'][ $key ] ) . '"';
 			} else {
 				$id = '';
 			}
@@ -375,6 +387,23 @@ function vk_the_post_type_check_list( $args ) {
 		}
 	}
 	echo '</ul>';
+}
+
+/**
+ * vk_the_post_type_check_list で保存される配列が、キーに投稿タイプ名が入る微妙な仕様のため、投稿タイプだけを配列で返すように変換
+ * @param  [type] $post_types : array( 'post' => 'true', 'info' => '' );
+ * @return [type] $return : array( 'post' );
+ */
+function vk_the_post_type_check_list_saved_array_convert( $post_types ) {
+	$return = array();
+	if ( is_array( $post_types ) ) {
+		foreach ( $post_types as $post_type => $value ) {
+			if ( $value ) {
+				$return[] = $post_type;
+			}
+		}
+	}
+	return$return;
 }
 
 /*
