@@ -17,6 +17,11 @@ https://github.com/vektor-inc/vektor-wp-libraries
 	vk_is_checked
 */
 
+if ( ! function_exists( 'vk_is_template_tags_exist' ) ) {
+	function vk_is_template_tags_exist() {
+		return true;
+	}
+}
 
 
 if ( ! function_exists( 'vk_is_excerpt' ) ) {
@@ -364,9 +369,9 @@ function vk_the_post_type_check_list( $args ) {
 				$id = '';
 			}
 
-			echo '<li><label>';
-			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . $key . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
-			echo '</label></li>';
+			 echo '<li><label>';
+			 echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . $key . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+			 echo '</label></li>';
 		}
 	}
 	echo '</ul>';
