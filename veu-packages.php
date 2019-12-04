@@ -63,7 +63,7 @@ function veu_get_packages() {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'vk-blocks',
-		'title'       => __( 'VK Blocks ( Beta )', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'VK Blocks', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Extends Gutenberg\'s blocks.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'vk-blocks/vk-blocks-config.php',

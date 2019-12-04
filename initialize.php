@@ -49,7 +49,7 @@ function veu_print_js() {
 }
 
 if ( function_exists( 'register_activation_hook' ) ) {
-	register_activation_hook( __FILE__, 'veu_install_function' );
+	register_activation_hook( dirname(__FILE__). '/vkExUnit.php', 'veu_install_function' );
 }
 function veu_install_function() {
 	$opt = get_option( 'vkExUnit_common_options' );
