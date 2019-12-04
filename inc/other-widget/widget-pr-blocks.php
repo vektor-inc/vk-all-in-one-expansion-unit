@@ -78,25 +78,28 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 		$instance = self::default_options( $instance );
 	?>
 
-<?php // select Block count	?>
-<p>
-<label for="<?php echo $this->get_field_id( 'block_count' ); ?>"><?php _e( 'The choice of the number of columns:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-<select name="<?php echo $this->get_field_name( 'block_count' ); ?>" id="<?php echo $this->get_field_id( 'block_count' ); ?>-count">
-	<option value="3"
-	<?php
-	if ( intval( $instance['block_count'] ) === 3 ) {
-		echo 'selected'; }
-?>
-><?php _e( '3column', 'vk-all-in-one-expansion-unit' ); ?></option>
-	<option value="4"
-	<?php
-	if ( intval( $instance['block_count'] ) === 4 ) {
-		echo 'selected'; }
-?>
-><?php _e( '4column', 'vk-all-in-one-expansion-unit' ); ?></option>
-</select><br>
-<?php _e( 'If you change the number of columns, click to "Save" botton and exit the edit page. When restart the edit page, the column input form is increased or decreased.', 'vk-all-in-one-expansion-unit' ); ?>
-</p>
+	<?php if ( is_customize_preview() ) { ?>
+		<p><?php _e( 'If you want to change the number of columns, please change from Appearance -> Widgets screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
+	<?php } else { ?>
+	<p>
+	<label for="<?php echo $this->get_field_id( 'block_count' ); ?>"><?php _e( 'The choice of the number of columns:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<select name="<?php echo $this->get_field_name( 'block_count' ); ?>" id="<?php echo $this->get_field_id( 'block_count' ); ?>">
+		<?php
+		$selected = '';
+		if ( intval( $instance['block_count'] ) === 3 ) {
+			$selected = ' selected';
+		}
+		echo '<option value="3"' . $selected . '>' . __( '3column', 'vk-all-in-one-expansion-unit' ) . '</option>';
+		$selected = '';
+		if ( intval( $instance['block_count'] ) === 4 ) {
+			$selected = ' selected';
+		}
+		echo '<option value="4"' . $selected . '>' . __( '4column', 'vk-all-in-one-expansion-unit' ) . '</option>';
+		?>
+		</select><br>
+		<?php _e( 'If you change the number of columns, click to "Save" botton and exit the edit page. When restart the edit page, the column input form is increased or decreased.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+	<?php } ?>
 
 <?php
 // PR Blocks
@@ -190,7 +193,9 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['block_count'] = $new_instance['block_count'];
+		if ( ! empty( $new_instance['block_count'] ) ) {
+			$instance['block_count'] = $new_instance['block_count'];
+		}
 
 		for ( $i = 1; $i <= 4; ) {
 			$instance[ 'label_' . $i ]            = $new_instance[ 'label_' . $i ];
