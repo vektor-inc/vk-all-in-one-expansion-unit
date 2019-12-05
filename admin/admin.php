@@ -23,10 +23,12 @@ require dirname( __FILE__ ) . '/customizer.php';
 require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
 // 親メニューが出力される前に フックを通さずに直接読み込むとページが表示されなくなる
-add_action( 'plugin_loaded', 'veu_load_main_setting_page' );
+add_action( 'init', 'veu_load_main_setting_page' );
 function veu_load_main_setting_page() {
-	require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
-	require_once dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
+	if(is_admin()){
+		require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
+		require_once dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
+	}
 }
 
 /*
