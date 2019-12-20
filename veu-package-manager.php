@@ -20,7 +20,7 @@ function veu_package_initilate() {
 }
 
 
-add_action( 'init', 'veu_package_init' );
+add_action( 'init', 'veu_package_init', 99 );
 function veu_package_init() {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return;
