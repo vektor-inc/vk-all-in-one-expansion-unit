@@ -219,7 +219,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 		$widget_title = $this->widget_title( $instance );
 
-		echo PHP_EOL . '<div id="widget-page-' . $pageid . '" class="widget_pageContent">' . PHP_EOL;
+		echo PHP_EOL . '<div id="widget-page-' . $pageid . '" class="widget_pageContent entry-body">' . PHP_EOL;
 		if ( $widget_title['display'] ) {
 			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
 		}
