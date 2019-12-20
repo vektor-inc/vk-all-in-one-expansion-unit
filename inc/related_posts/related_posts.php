@@ -225,6 +225,7 @@ function veu_add_related_posts_html( $content ) {
 	}
 
 	wp_reset_postdata();
+	wp_reset_query();
 
 	return $content;
 }
