@@ -1,7 +1,6 @@
 language: php
 
 branches:
-  - master
   - develop
 
 env:
