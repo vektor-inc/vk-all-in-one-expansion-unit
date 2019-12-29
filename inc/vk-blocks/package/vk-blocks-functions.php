@@ -49,7 +49,7 @@ function vkblocks_blocks_assets() {
 
 	if ( defined( 'GUTENBERG_VERSION' ) || version_compare( $wp_version, '5.0', '>=' ) ) {
 
-		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'spacer', 'heading', 'staff', 'highlighter', 'list-style', 'group-style' );//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'spacer', 'heading', 'staff', 'highlighter', 'list-style', 'group-style' ,'child-page');//REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
 
 		foreach ( $arr as $value ) {
 
@@ -84,6 +84,9 @@ function vkblocks_blocks_assets() {
 					register_block_type(
 						'vk-blocks/' . $value, array(
 							'attributes'      => array(
+								'name'            => array(
+									'type'    => 'string',
+								),
 								'layout'            => array(
 									'type'    => 'string',
 									'default' => 'card',
@@ -118,11 +121,11 @@ function vkblocks_blocks_assets() {
 								),
 								'display_excerpt'   => array(
 									'type'    => 'boolean',
-									'default' => false,
+									'default' => true,
 								),
 								'display_date'      => array(
 									'type'    => 'boolean',
-									'default' => true,
+									'default' => false,
 								),
 								'display_new'       => array(
 									'type'    => 'boolean',
@@ -171,7 +174,104 @@ function vkblocks_blocks_assets() {
 							'render_callback' => 'vk_blocks_render_post_list',
 						)
 					); // register_block_type(
+			} elseif ( $value == 'child-page' ) {
 
+				register_block_type(
+					'vk-blocks/' . $value, array(
+						'attributes'      => array(
+							'selectId' => array(
+								'type'    => 'number',
+							),
+							'name'     => array(
+								'type'    => 'string',
+							),
+							'layout'   => array(
+								'type'    => 'string',
+								'default' => 'card',
+							),
+							'col_xs'   => array(
+								'type'    => 'number',
+								'default' => 1,
+							),
+							'col_sm'   => array(
+								'type'    => 'number',
+								'default' => 2,
+							),
+							'col_md'            => array(
+								'type'    => 'number',
+								'default' => 3,
+							),
+							'col_lg'            => array(
+								'type'    => 'number',
+								'default' => 3,
+							),
+							'col_xl'            => array(
+								'type'    => 'number',
+								'default' => 3,
+							),
+							'display_image'     => array(
+								'type'    => 'boolean',
+								'default' => true,
+							),
+							'display_image_overlay_term' => array(
+								'type'    => 'boolean',
+								'default' => true,
+							),
+							'display_excerpt'   => array(
+								'type'    => 'boolean',
+								'default' => true,
+							),
+							'display_date'      => array(
+								'type'    => 'boolean',
+								'default' => false,
+							),
+							'display_new'       => array(
+								'type'    => 'boolean',
+								'default' => true,
+							),
+							'display_btn'       => array(
+								'type'    => 'boolean',
+								'default' => true,
+							),
+							'new_date'          => array(
+								'type'    => 'number',
+								'default' => 7,
+							),
+							'new_text'          => array(
+								'type'    => 'string',
+								'default' => 'New!!',
+							),
+							'btn_text'          => array(
+								'type'    => 'string',
+								'default' => 'Read more',
+							),
+							'btn_align'         => array(
+								'type'    => 'string',
+								'default' => 'text-right',
+							),
+							'numberPosts'       => array(
+								'type'    => 'number',
+								'default' => 6,
+							),
+							'isCheckedPostType' => array(
+								'type'    => 'string',
+								'default' => '["post"]',
+							),
+							'coreTerms'         => array(
+								'type'    => 'string',
+								'default' => '{}',
+							),
+							'isCheckedTerms'    => array(
+								'type'    => 'string',
+								'default' => '[]',
+							),
+						),
+						'style'           => 'vk-blocks-build-css',
+						'editor_style'    => 'vk-blocks-build-editor-css',
+						'editor_script'   => 'vk-blocks-build-js',
+						'render_callback' => 'vk_blocks_render_post_list',
+					)
+				); // register_block_type(
 			} else {
 
 				register_block_type(

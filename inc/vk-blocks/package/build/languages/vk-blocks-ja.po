@@ -29,6 +29,138 @@ msgstr ""
 msgid "Font Awesome icon list"
 msgstr "Font Awesome アイコンリスト"
 
+#: src/_helper/post-list.js:175
+msgid "Display conditions"
+msgstr "表示条件"
+
+#: src/_helper/post-list.js:179
+msgid "Filter by PostTypes"
+msgstr "投稿タイプ"
+
+#: src/_helper/post-list.js:186
+msgid "Filter by Taxonomy Terms"
+msgstr "分類"
+
+#: src/_helper/post-list.js:193
+msgid "Number of Posts"
+msgstr "表示件数"
+
+#: src/_helper/post-list.js:222 src/_pro/outer/block.js:280
+#: src/_pro/step-item/block.js:120 src/_pro/timeline-item/block.js:103
+#: src/staff/block.js:109
+msgid "None"
+msgstr "なし"
+
+#: src/_helper/post-list.js:230
+msgid "Display type and columns"
+msgstr "表示タイプとカラム"
+
+#: src/_helper/post-list.js:234
+msgid "Display type"
+msgstr "表示タイプ"
+
+#: src/_helper/post-list.js:242
+msgid "Card"
+msgstr "カード"
+
+#: src/_helper/post-list.js:246
+msgid "Card Horizontal"
+msgstr "カード（水平）"
+
+#: src/_helper/post-list.js:250
+msgid "Media"
+msgstr "メディア"
+
+#: src/_helper/post-list.js:256
+msgid "Column ( Screen size : Extra small )"
+msgstr "カラム ( 画面サイズ : Extra small )"
+
+#: src/_helper/post-list.js:266
+msgid "Column ( Screen size : Small )"
+msgstr "カラム ( 画面サイズ : Small )"
+
+#: src/_helper/post-list.js:276
+msgid "Column ( Screen size : Medium )"
+msgstr "カラム ( 画面サイズ : Medium )"
+
+#: src/_helper/post-list.js:286
+msgid "Column ( Screen size : Large )"
+msgstr "カラム ( 画面サイズ : Large )"
+
+#: src/_helper/post-list.js:296
+msgid "Column ( Screen size : Extra large )"
+msgstr "カラム ( 画面サイズ : Extra large )"
+
+#: src/_helper/post-list.js:308
+msgid "Display item"
+msgstr "表示要素"
+
+#: src/_helper/post-list.js:312
+msgid "Image"
+msgstr "画像"
+
+#: src/_helper/post-list.js:317
+msgid "Term name"
+msgstr "分類名"
+
+#: src/_helper/post-list.js:322
+msgid "Excerpt"
+msgstr "抜粋"
+
+#: src/_helper/post-list.js:327
+msgid "Date"
+msgstr "日付"
+
+#: src/_helper/post-list.js:334
+msgid "New mark"
+msgstr "新着表示"
+
+#: src/_helper/post-list.js:340 src/button/block.js:59
+msgid "Button"
+msgstr "ボタン"
+
+#: src/_helper/post-list.js:344
+msgid "New mark option"
+msgstr "新着表示オプション"
+
+#: src/_helper/post-list.js:346
+msgid "Number of days to display the new post mark"
+msgstr "新着表示日数"
+
+#: src/_helper/post-list.js:352
+msgid "New post mark"
+msgstr "新着表示"
+
+#: src/_helper/post-list.js:357
+msgid "Button option"
+msgstr "ボタンオプション"
+
+#: src/_helper/post-list.js:359
+msgid "Button text"
+msgstr "ボタンの文字"
+
+#: src/_helper/post-list.js:365
+msgid "Button align"
+msgstr "ボタンの位置"
+
+#: src/_helper/post-list.js:373 src/balloon/block.js:88 src/button/block.js:174
+#: src/pr-content/block.js:195
+msgid "Left"
+msgstr "左"
+
+#: src/_helper/post-list.js:377 src/button/block.js:175
+msgid "Center"
+msgstr "中央"
+
+#: src/_helper/post-list.js:381 src/balloon/block.js:89 src/button/block.js:176
+#: src/pr-content/block.js:194
+msgid "Right"
+msgstr "右"
+
+#: src/_pro/child-page/block.js:37
+msgid "Child page list"
+msgstr "子ページリスト"
+
 #: src/_pro/outer/block.js:101 src/pr-content/block.js:92
 msgid "Color Setting"
 msgstr "色設定"
@@ -162,26 +294,21 @@ msgstr "枠線は区切りレベルを適用すると表示されなくなりま
 msgid "Border type"
 msgstr "枠線の種類"
 
-#: src/_pro/outer/block.js:280 src/_pro/step-item/block.js:120
-#: src/_pro/timeline-item/block.js:103 src/staff/block.js:109
-msgid "None"
-msgstr "なし"
-
 #: src/_pro/outer/block.js:284 src/_pro/step-item/block.js:97
-#: src/_pro/timeline-item/block.js:84 src/group-style/block.js:103
+#: src/_pro/timeline-item/block.js:84 src/group-style/block.js:95
 #: src/pr-content/block.js:142
 msgid "Solid"
 msgstr "直線"
 
-#: src/_pro/outer/block.js:288 src/group-style/block.js:107
+#: src/_pro/outer/block.js:288 src/group-style/block.js:103
 msgid "Dotted"
 msgstr "点線"
 
-#: src/_pro/outer/block.js:292 src/group-style/block.js:111
+#: src/_pro/outer/block.js:292 src/group-style/block.js:107
 msgid "Dashed"
 msgstr "Dashed"
 
-#: src/_pro/outer/block.js:296 src/group-style/block.js:115
+#: src/_pro/outer/block.js:296 src/group-style/block.js:111
 msgid "Double"
 msgstr "二重線"
 
@@ -221,129 +348,7 @@ msgstr "Outer"
 msgid "Background Setting"
 msgstr "背景設定"
 
-#: src/_pro/post-list/block.js:233
-msgid "Display conditions"
-msgstr "表示条件"
-
-#: src/_pro/post-list/block.js:237
-msgid "Filter by PostTypes"
-msgstr "投稿タイプ"
-
-#: src/_pro/post-list/block.js:244
-msgid "Filter by Taxonomy Terms"
-msgstr "分類"
-
-#: src/_pro/post-list/block.js:251
-msgid "Number of Posts"
-msgstr "表示件数"
-
-#: src/_pro/post-list/block.js:262
-msgid "Display type and columns"
-msgstr "表示タイプとカラム"
-
-#: src/_pro/post-list/block.js:266
-msgid "Display type"
-msgstr "表示タイプ"
-
-#: src/_pro/post-list/block.js:274
-msgid "Card"
-msgstr "カード"
-
-#: src/_pro/post-list/block.js:278
-msgid "Card Horizontal"
-msgstr "カード（水平）"
-
-#: src/_pro/post-list/block.js:282
-msgid "Media"
-msgstr "メディア"
-
-#: src/_pro/post-list/block.js:288
-msgid "Column ( Screen size : Extra small )"
-msgstr "カラム ( 画面サイズ : Extra small )"
-
-#: src/_pro/post-list/block.js:298
-msgid "Column ( Screen size : Small )"
-msgstr "カラム ( 画面サイズ : Small )"
-
-#: src/_pro/post-list/block.js:308
-msgid "Column ( Screen size : Medium )"
-msgstr "カラム ( 画面サイズ : Medium )"
-
-#: src/_pro/post-list/block.js:318
-msgid "Column ( Screen size : Large )"
-msgstr "カラム ( 画面サイズ : Large )"
-
-#: src/_pro/post-list/block.js:328
-msgid "Column ( Screen size : Extra large )"
-msgstr "カラム ( 画面サイズ : Extra large )"
-
-#: src/_pro/post-list/block.js:340
-msgid "Display item"
-msgstr "表示要素"
-
-#: src/_pro/post-list/block.js:344
-msgid "Image"
-msgstr "画像"
-
-#: src/_pro/post-list/block.js:349
-msgid "Term name"
-msgstr "分類名"
-
-#: src/_pro/post-list/block.js:354
-msgid "Excerpt"
-msgstr "抜粋"
-
-#: src/_pro/post-list/block.js:359
-msgid "Date"
-msgstr "日付"
-
-#: src/_pro/post-list/block.js:364
-msgid "New mark"
-msgstr "新着表示"
-
-#: src/_pro/post-list/block.js:369 src/button/block.js:59
-msgid "Button"
-msgstr "ボタン"
-
-#: src/_pro/post-list/block.js:373
-msgid "New mark option"
-msgstr "新着表示オプション"
-
-#: src/_pro/post-list/block.js:375
-msgid "Number of days to display the new post mark"
-msgstr "新着表示日数"
-
-#: src/_pro/post-list/block.js:381
-msgid "New post mark"
-msgstr "新着表示"
-
-#: src/_pro/post-list/block.js:386
-msgid "Button option"
-msgstr "ボタンオプション"
-
-#: src/_pro/post-list/block.js:388
-msgid "Button text"
-msgstr "ボタンの文字"
-
-#: src/_pro/post-list/block.js:394
-msgid "Button align"
-msgstr "ボタンの位置"
-
-#: src/_pro/post-list/block.js:402 src/balloon/block.js:88
-#: src/button/block.js:174 src/pr-content/block.js:195
-msgid "Left"
-msgstr "左"
-
-#: src/_pro/post-list/block.js:406 src/button/block.js:175
-msgid "Center"
-msgstr "中央"
-
-#: src/_pro/post-list/block.js:410 src/balloon/block.js:89
-#: src/button/block.js:176 src/pr-content/block.js:194
-msgid "Right"
-msgstr "右"
-
-#: src/_pro/post-list/block.js:53
+#: src/_pro/post-list/block.js:35
 msgid "Post list"
 msgstr "投稿リスト"
 
@@ -352,7 +357,7 @@ msgid "Outlined"
 msgstr "アウトライン"
 
 #: src/_pro/step-item/block.js:116 src/_pro/table-of-contents/block.js:113
-#: src/_pro/timeline-item/block.js:99 src/heading-style/block.js:47
+#: src/_pro/timeline-item/block.js:99 src/heading-style/block.js:33
 #: src/heading/block.js:124 src/list-style/block.js:104 src/staff/block.js:105
 msgid "Default"
 msgstr "標準"
@@ -618,57 +623,61 @@ msgstr "タイトルを入力"
 msgid "Input content"
 msgstr "説明を入力"
 
-#: src/group-style/block.js:119
+#: src/group-style/block.js:115
 msgid "Stitch"
 msgstr "スティッチ"
 
-#: src/group-style/block.js:123
-msgid "top-bottom-border"
-msgstr "上下線"
+#: src/group-style/block.js:119
+msgid "Border Top Bottom"
+msgstr "直線 上下"
 
-#: src/group-style/block.js:127
+#: src/group-style/block.js:123
 msgid "Shadow"
 msgstr "シャドウ"
 
-#: src/group-style/block.js:58
+#: src/group-style/block.js:50
 msgid "Border Color"
 msgstr "線の色"
 
-#: src/heading-style/block.js:100
-msgid "Solid border top and bottom black"
-msgstr "直線 上下 黒"
+#: src/group-style/block.js:99
+msgid "Solid Roundcorner"
+msgstr "直線 角丸"
 
-#: src/heading-style/block.js:108
-msgid "Solid border bottom black"
-msgstr "直線 下線 黒"
-
-#: src/heading-style/block.js:116
+#: src/heading-style/block.js:102
 msgid "Dotted border bottom black"
 msgstr "点線 下線 黒"
 
-#: src/heading-style/block.js:120
+#: src/heading-style/block.js:106
 msgid "Both ends"
 msgstr "左右線"
 
-#: src/heading-style/block.js:140
+#: src/heading-style/block.js:126
 msgid "Brackets black"
 msgstr "括弧 黒"
 
-#: src/heading-style/block.js:52 src/heading/block.js:125
+#: src/heading-style/block.js:38 src/heading/block.js:125
 msgid "Plain"
 msgstr "装飾無し"
 
-#: src/heading-style/block.js:68
+#: src/heading-style/block.js:54
 msgid "Background fill lightgray"
 msgstr "背景塗り 灰色"
 
-#: src/heading-style/block.js:84
+#: src/heading-style/block.js:70
 msgid "Double border top and bottom black"
 msgstr "二重線 上下線 黒"
 
-#: src/heading-style/block.js:92
+#: src/heading-style/block.js:78
 msgid "Double border bottom black"
 msgstr "二重線 下線 黒"
+
+#: src/heading-style/block.js:86
+msgid "Solid border top and bottom black"
+msgstr "直線 上下 黒"
+
+#: src/heading-style/block.js:94
+msgid "Solid border bottom black"
+msgstr "直線 下線 黒"
 
 #: src/heading/block.js:118
 msgid "Style Settings"
@@ -917,6 +926,10 @@ msgid "Input content."
 msgstr "本文を入力してください。"
 
 #: src/spacer/block.js:103
+msgid "Tablet"
+msgstr "タブレット"
+
+#: src/spacer/block.js:109
 msgid "Mobile"
 msgstr "モバイル"
 
@@ -924,37 +937,33 @@ msgstr "モバイル"
 msgid "Responsive Spacer"
 msgstr "レスポンシブスペーサー"
 
-#: src/spacer/block.js:67
+#: src/spacer/block.js:73
 msgid "Unit Type"
 msgstr "単位"
 
-#: src/spacer/block.js:73
+#: src/spacer/block.js:79
 msgid "px"
 msgstr "px"
 
-#: src/spacer/block.js:77
+#: src/spacer/block.js:83
 msgid "em"
 msgstr "em"
 
-#: src/spacer/block.js:81
+#: src/spacer/block.js:87
 msgid "rem"
 msgstr "rem"
 
-#: src/spacer/block.js:85
+#: src/spacer/block.js:91
 msgid "vw"
 msgstr "vw"
 
-#: src/spacer/block.js:89
+#: src/spacer/block.js:95
 msgid "Height for each device."
 msgstr "デバイス毎の高さ"
 
-#: src/spacer/block.js:91
+#: src/spacer/block.js:97
 msgid "PC"
 msgstr "PC"
-
-#: src/spacer/block.js:97
-msgid "Tablet"
-msgstr "タブレット"
 
 #: src/staff/block.js:114
 msgid "Alt text"
@@ -1007,6 +1016,9 @@ msgstr "名前"
 #: src/staff/component.js:50
 msgid "Caption"
 msgstr "キャプション"
+
+#~ msgid "top-bottom-border"
+#~ msgstr "上下線"
 
 #~ msgid "Solid black"
 #~ msgstr "直線 黒"

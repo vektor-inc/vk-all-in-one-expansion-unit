@@ -93,6 +93,9 @@ e.g.
 
 == Changelog ==
 
+= 9.8.0.0 =
+vk blocks 0.17.2 update
+
 = 9.7.1.0 =
 [ Bugfix ][ content widget ] Cope with title style from block.
 
