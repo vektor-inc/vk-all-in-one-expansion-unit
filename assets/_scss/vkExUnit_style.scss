@@ -1,0 +1,732 @@
+@charset "utf-8";
+// @import "compass";
+@import "contents_option_style";
+
+/*-------------------------------------------------*/
+/* ex_unit
+/*-------------------------------------------------*/
+/* .common
+/*-------------------------------------------*/
+/* .veu_card
+/*-------------------------------------------*/
+/* .veu_autoEyeCatchBox
+/*-------------------------------------------*/
+/* .veu_sitemap
+/*-------------------------------------------*/
+/* .veu_socialSet
+/*-------------------------------------------*/
+/* .veu_childPage_list
+/*-------------------------------------------*/
+/* .veu_pageList_ancestor
+/*-------------------------------------------*/
+/* .veu_followSet
+/*-------------------------------------------*/
+/* .veu_cta
+/*-------------------------------------------*/
+/* .veu_contact
+/*-------------------------------------------*/
+/* .veu_insertAds
+/*-------------------------------------------*/
+/* .veu_relatedPosts
+/*-------------------------------------------*/
+/* .veu_pagetop-btn
+/*-------------------------------------------*/
+/* Widget .veu_fbPagePlugin
+/*-------------------------------------------*/
+/* Widget .twitter
+/*-------------------------------------------*/
+/* Widget .veu_postList
+/*-------------------------------------------*/
+/* Widget .veu_profile
+/*-------------------------------------------*/
+/* Widget .veu_3prArea
+/*-------------------------------------------*/
+/* Widget .veu_prBlocks
+/*-------------------------------------------*/
+/* Widget .veu_button
+/*-------------------------------------------*/
+/* Widget .veu_banner
+/*-------------------------------------------*/
+
+$color_font_default : #464646;
+$color_key : #337ab7;
+$border_primary : 1px solid #e5e5e5;
+$section_margin : 30px;
+
+/*-------------------------------------------*/
+/* .common
+/*-------------------------------------------*/
+
+.link-list li { padding:0.5em; }
+iframe.wp-embedded-content { width:100%; }
+
+.veu_adminEdit { margin-top:5px; }
+
+.veu_contentAddSection { display:block; clear:both; overflow:hidden; margin-top:20px; }
+
+.btn { white-space: inherit; }
+
+/*      .media(bootstrap)
+/*-------------------------------------------*/
+.media { border-bottom:$border_primary;padding:2em 0;margin-top:0;
+	&:first-child { border-top:$border_primary; }
+	.postList_thumbnail { width:160px;margin-bottom:0.5em;padding-right:30px; display:block; overflow:hidden;float:left;
+	a { position: relative;display:block; overflow:hidden; }
+		img { width: 100%;height:auto; }
+		.postList_cateLabel {
+		  position: absolute;
+		  bottom: 0;
+		  left: 0;
+		}
+	}
+	.media-heading { font-size:1.8em;line-height:1.3em;margin-top:0; margin-bottom:0.5em;font-weight: normal;
+	  a { color:$color_font_default;
+	    &:hover { text-decoration: none; }
+	  }
+	}
+	p { margin-bottom:0; }
+	a.media-body_excerpt { color:$color_font_default; }
+}
+@media (max-width: 767px){
+.media {
+  .postList_thumbnail { padding-right:20px; }
+  .media-body {
+    .media-heading { font-size:1.2em;line-height:1.3em; margin-bottom:0.5em; }
+    } // .media-body
+  } // .media
+} // @media (max-width: 767px){
+@media (max-width: 500px){
+.media {
+  .postList_thumbnail { width:100px; }
+  } // .media
+} // @media (max-width: 767px){
+
+@mixin clear(){
+	content:none;
+}
+
+/*-------------------------------------------*/
+/* .veu_card
+/*-------------------------------------------*/
+.veu_card{
+	border: 3px solid #efefef;
+	.veu_card_inner{
+		position: relative;
+		display:block; overflow:hidden;
+		padding: 1.5rem;box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,0.5);
+	}
+	.veu_card_title{
+		color:$color_font_default;font-size: 16px;line-height: 1.4;
+		/* ↓ Lightninng Pro の見出し変更機能を打ち消し */
+		border:none;
+		background: none;
+		padding: 0 0 0.4em;
+		margin:0 0 1em;
+		display: block;
+		text-align: left;
+		a {
+			color:$color_font_default;
+		}
+		&::before,
+		&::after {
+			content:"";
+			border:none;
+			border-right:none;
+			margin:0;
+			background: none;
+			height:0;
+			left:inherit;
+		}
+		/* ↑ Lightninng Pro の見出し変更機能を打ち消し */
+		border-bottom: $border_primary;
+	}
+}
+
+/*-------------------------------------------*/
+/* .relatedPosts
+/*-------------------------------------------*/
+.relatedPosts {
+	h2 { margin-bottom:10px; }
+}
+
+/*-------------------------------------------*/
+/* .veu_autoEyeCatchBox
+/*-------------------------------------------*/
+
+.veu_autoEyeCatchBox { display:block; overflow:hidden;margin-bottom:2em; }
+
+/*-------------------------------------------*/
+/* .veu_sitemap
+/*-------------------------------------------*/
+
+.veu_sitemap {
+	.sectionBox { padding-top:0; }
+	.sitemap-col { padding-bottom:2em; }
+	.sitemap-col{
+		margin-top: 1em;
+		.link-list{
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		.page_item{
+			padding: 0;
+		}
+		.cat-item{
+			padding: 0;
+		}
+	}
+}
+
+/*-------------------------------------------*/
+/* .veu_socialSet
+/*-------------------------------------------*/
+/* 通常タイトルと本文の間に一定の余白があるが、余白分離れてSNSボタンが表示されると微妙なのでマイナスオフセットで余白を詰めている */
+.veu_socialSet-position-before {
+	margin-top:-1em;margin-bottom:2em
+}
+.veu_socialSet-position-after { margin-top:3em; }
+
+.veu_socialSet {
+	ul {
+		display: flex;
+	}
+	li { width: 50%;background:none;position:relative; display:block;overflow:visible;box-sizing: border-box; }
+	.sb_icon a {display:block; overflow:hidden; padding: 5px 10px;border-radius: 4px; color:#fff;text-decoration: none; line-height: 100%; font-size: 90%;}
+	.sb_icon a:hover{
+		box-shadow: none; transform: translate3d(0, 2px, 0); -webkit-transform: translate3d(0, 2px, 0);
+	}
+	.sb_icon a .sns_txt { position: relative;top:-1px; }
+	iframe	{ border:none; }
+	a .icon_sns { font-size:100%;padding: 5px 8px 5px 0; display: inline-block; }
+	.sb_icon.sb_facebook a{ background: #425dab; box-shadow: 0 4px 0 rgb(52, 78, 132); }
+	.sb_icon.sb_hatena a { background: #007fc5; box-shadow: 0 4px 0 rgba(0,103,159,1); }
+	.sb_icon.sb_twitter a	{ background:#00abec; box-shadow: 0 4px 0 rgba(0,126,170,1); }
+	.sb_icon.sb_google a { background:#dd4b39; box-shadow: 0 4px 0 rgba(160,53,36,1); }
+	.sb_icon.sb_line a { background:#6ebd30; box-shadow: 0 4px 0 #5b9c28; }
+	.sb_icon.sb_pocket a { background: #ea4654; box-shadow: 0 4px 0 #c1303c; }//li.sb_pocket
+}//.veu_socialSet ul
+
+.veu_count_sns_pocket,
+.veu_count_sns_fb,
+.veu_count_sns_hb { position: absolute; bottom: 5px; right: 5px; font-size:77%; line-height:1;font-weight: bold;
+}
+
+@media (max-width: 767px){
+	.veu_socialSet {
+		ul { flex-wrap:wrap; }
+		li { width:calc( 50% - 6px); }
+		.veu_count_sns_pocket,
+		.veu_count_sns_fb,
+		.veu_count_sns_hb { bottom: 2px; }
+		.sb_icon a { padding: 8px 10px; }
+	}
+}
+
+/*
+.veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
+*/
+.veu_socialSet.veu_contentAddSection ul {
+	margin:0px;padding:0;
+	li {  margin:3px; padding:0px; }//li
+}
+@media (max-width: 767px){
+	.veu_socialSet.veu_contentAddSection ul li {
+		margin-bottom: 9px;
+	}
+}
+
+
+/*-------------------------------------------*/
+/*			import icon
+/*-------------------------------------------*/
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'vk_sns';
+	src:url('../../inc/sns/icons/fonts/vk_sns.eot?-bq20cj');
+	src:url('../../inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj') format('embedded-opentype'),
+		url('../../inc/sns/icons/fonts/vk_sns.woff?-bq20cj') format('woff'),
+		url('../../inc/sns/icons/fonts/vk_sns.ttf?-bq20cj') format('truetype'),
+		url('../../inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns') format('svg');
+}
+
+[class^="vk_icon_w_r_sns_"], [class*=" vk_icon_w_r_sns_"] {
+	text-transform: none;
+	font-weight: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-family: 'vk_sns';
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.vk_icon_w_r_sns_twitter:before {
+	content: "\e600";
+}
+.vk_icon_w_r_sns_line:before {
+	content: "\e601";
+}
+.vk_icon_w_r_sns_hatena:before {
+	content: "\e602";
+}
+.vk_icon_w_r_sns_google:before {
+	content: "\e603";
+}
+.vk_icon_w_r_sns_fb:before {
+	content: "\e604";
+}
+.vk_icon_w_r_sns_pocket:before {
+	content: "\e605";
+}
+/*-------------------------------------------*/
+/* .veu_childPage_list
+/*-------------------------------------------*/
+.veu_childPage_list {
+	margin-top:2.5em;
+	.childPage_list_box { display:block;margin-bottom:1.5em; width: 100%;text-decoration: none; }
+	// .childPage_list_box_inner{ @extend .veu_card_inner; }
+	// .childPage_list_title{
+	// 	@extend .veu_card_title;
+	// 	&::before,
+	// 	&::after {
+	// 		@include clear();
+	// 	}
+	// }
+	.wp-post-image{ float: left; margin-right: 1em; margin-bottom:1em; width: 30%; height:auto;border: solid 1px #ddd; }
+	.childPage_list_body{ overflow: hidden;color: #333; font-size: 14px;
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+	p { line-height: 1.5em; }
+	.childPage_list_text{ overflow: hidden;margin-bottom: 1em;}
+	.childPage_list_more{ float: right; }
+}
+
+@media (max-width: 767px){
+.veu_childPage_list {
+	.wp-post-image{ width: 25%; }
+}
+} // @media (max-width: 767px){
+@media (min-width: 541px){
+.veu_childPage_list {
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap; /* Safari */
+	justify-content:         space-between;
+	-webkit-justify-content: space-between; /* Safari */
+	.childPage_list_box { width: 48%;	}
+}
+} // @media (max-width: 767px){
+
+/*-------------------------------------------*/
+/* .veu_pageList_ancestor
+/*-------------------------------------------*/
+
+.veu_pageList_ancestor{ clear: both;
+	margin: 2.5em 0 1em;
+	.pageList_ancestor_title {
+		margin-bottom:0.5em;
+	}
+	.pageList{
+		margin-top:0;
+		margin-bottom:0;
+		padding-left: 0;
+		a {
+			display: block;
+			padding: 8px 5px;
+			border-bottom: solid 1px #ddd;
+			color: #333;
+			font-size: 14px;
+		}
+		a:hover { text-decoration: underline; }
+		& > .page_item {
+			list-style: none;
+		}
+		li { margin-bottom: 0; }
+		ul { margin: 0;padding-left: 0px;padding-bottom:0;
+			li { position: relative; list-style: none;
+				&:before{
+					position: absolute;
+					top: 0.26em;
+					left: 5px;
+					display: inline-block;
+					// content: "・";
+				}
+			}
+			li a { padding-left: 20px; }
+			li li a { padding-left:30px; }
+			li li li a { padding-left:40px; }
+		}
+	}
+	.current_page_item > a{
+		// background-color: #F0F0F0;
+		// box-shadow: inset 0 0 5px #eee;
+		font-weight: bold;
+	}
+
+}
+// 1カラムの時に表示されないと困るので非表示解除
+// @media screen and (max-width:992px){
+// 	.page-template-default .veu_pageList_ancestor{
+// 		display: none;
+// 	}
+// } // @media screen and (max-width:992px){
+
+@mixin veu_content_bottom_section { display:block; overflow:hidden;margin-top:$section_margin;margin-bottom:$section_margin;background-color: #efefef; }
+@mixin veu_content_bottom_section_title { display:block; overflow:hidden;margin:0;padding: 12px 20px 10px;background-color: #333;color:#fff;font-size:22px;line-height: 1.2em; }
+@mixin veu_content_bottom_section_body { display:block; overflow:hidden; padding:1.5em 1.5em 2em; }
+
+/*-------------------------------------------*/
+/* .veu_followSet
+/*-------------------------------------------*/
+/*記事がよかったら、いいね*/
+.veu_followSet {
+	margin: 30px 0;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	background-color: #2b2b2b;
+	color: #fff;
+
+	.followSet_img {
+		display: table-cell;
+		min-width: 240px;
+		background-position: center;
+		background-size:cover;
+	}
+	.followSet_body {
+		display: table-cell;
+		padding: 15px;
+		@media (min-width: 481px) {padding: 40px;}
+		text-align: center;
+		vertical-align: middle;
+		line-height: 1.4;
+		font-size: 20px;
+	}
+
+	.followSet_title {
+		@media (max-width: 480px) {
+			font-size: 12px;
+			margin-bottom: 0;
+		}
+		@media (min-width: 481px) {
+			font-size: 18px;
+	    margin-bottom: 10px;
+		}
+	}
+
+	.followSet_fb_page {
+		margin-top: 0;
+		display: block;
+		width: 100%;
+		-webkit-transform: scale(1.2);
+		-ms-transform: scale(1.2);
+		transform: scale(1.2);
+	}
+	.followSet_tw_follow {
+		width: 100%;
+		padding: 15px 0 0;
+	}
+	.followSet_feedly {
+		text-align: center;
+	}
+
+} // .veu_followSet
+
+
+/*-------------------------------------------*/
+/* .veu_cta
+/*-------------------------------------------*/
+@import "../../inc/call-to-action/package/_scss/_call-to-action";
+
+/*-------------------------------------------*/
+/* .veu_contact
+/*-------------------------------------------*/
+.veu_contact {
+	.contact_frame { display:block; overflow:hidden;
+		// padding:25px 24px 21px;
+		background-color: #f9f9f9;
+		}
+	.contact_txt_catch,
+	.contact_txt_tel,
+	.contact_txt_time { display:block; overflow:hidden; }
+	.contact_txt_catch,
+	.contact_txt_time {font-size: 14px; line-height: 128.6%; }
+	.contact_txt_tel {padding:4px 0; font-size: 28px;line-height: 105%;font-weight: 700;}
+	.contact_txt_tel_icon { margin-right:0.3rem; }
+	.contact_bt_subTxt { display:block; overflow:hidden;font-size:12px;margin-top:0.4rem; }
+	.contact_txt { text-align: center; }
+	.contact_bt  { display: block; }
+} // .veu_contact
+
+@media (min-width: 1200px){
+.veu_contact {
+		p.contact_txt { margin-bottom:0; }
+		.contact_txt { float:left; text-align: left; }
+		.contact_bt { float:right; padding:0.7em 1.5em; }
+	}
+} // @media (min-width: 1200px){
+
+
+.widget {
+	.veu_contact > .contact_bt {display: inline-block;float:none; }
+}
+
+
+
+
+/*-------------------------------------------*/
+/* .veu_insertAds
+/*-------------------------------------------*/
+.veu_insertAds { margin-top:1em;margin-bottom:2em; }
+@media (max-width: 971px){
+	.veu_insertAds { margin-bottom:0.5em; }
+	.veu_insertAds .col-md-6 {margin-bottom:1em; }
+}
+
+/*-------------------------------------------*/
+/* .veu_relatedPosts
+/*-------------------------------------------*/
+.veu_relatedPosts{
+	& > .row{
+		display: flex;
+		margin: 0;
+		margin-right: -3%;
+		flex-wrap:wrap;
+	}
+	.relatedPosts_item{
+		float: none;
+		margin-right: 2.9%;
+		padding-right: 0;
+		padding-left: 0;
+		width: 47%;
+		border-bottom: solid 1px #e5e5e5;
+		flex: initial;
+		@media (max-width: 768px){
+			max-width: 100%;
+		}
+		& > .media:first-child{
+			border: none;
+		}
+		& > .media{ padding:1em 0 0.8em;margin-top:0;
+			border: none;
+			.media-body { font-size:14px; }
+			.postList_thumbnail { width:80px;padding-right:15px;margin-bottom:0; }
+			.media-heading { font-size:14px; }
+		}
+	}
+	.relatedPosts_item:nth-child(1){ border-top: solid 1px #e5e5e5; }
+	.relatedPosts_item:nth-child(2){ border-top: solid 1px #e5e5e5; }
+}
+
+@media (max-width: 768px){
+.veu_relatedPosts{
+	.relatedPosts_item{
+		display: block;
+		width: 100%;
+	}
+	.relatedPosts_item:nth-child(2){
+		border-top: none;
+	}
+}
+}
+/*-------------------------------------------*/
+/* .veu_pagetop-btn
+/*-------------------------------------------*/
+@import "../../inc/pagetop-btn/_scss/_pagetop-btn.scss";
+
+/*-------------------------------------------*/
+/* Widget .veu_fbPagePlugin
+/*-------------------------------------------*/
+
+.veu_fbPagePlugin {
+	.fbPagePlugin_body {
+		margin: 0 auto;
+		border: 4px solid #efefef;
+		background-color: #f9f9f9;
+		text-align: center;
+	}
+}
+
+/*-------------------------------------------*/
+/* Widget .twitter
+/*-------------------------------------------*/
+
+// width の指定は iOS特有のバグで iframe が親要素の幅を超えてはみ出す事象に対応するために追加
+iframe.twitter-timeline {margin-right:auto; margin-left:auto; width: 740px !important;}
+
+/*-------------------------------------------*/
+/* Widget .veu_postList
+/*-------------------------------------------*/
+.veu_postList {
+	margin-bottom:$section_margin;
+	h1.mainSection-title,
+	.subSection-title { margin-bottom:0; }
+	ul.postList { margin:0; padding:0;
+		li { display:block;clear:both; overflow:hidden;margin:0;padding:15px 0;border-bottom:1px dotted #666;line-height:1.4em; }
+	}
+	.postList a { color:$color_font_default; text-decoration:none; }
+	.postList a:hover { text-decoration:underline; }
+	.postList_title { display: block; clear:both;margin:3px 0 0; }
+	.postList_meta_items { font-size:14px;color:#666; }
+	.postList_date { margin-right:10px;color:#d44950; }
+	.postList_date:before { content:"";margin-right:0; }
+	.postList_terms a {margin-right:3px; padding: 2px 5px 1px; border-radius:3px; background-color: #efefef;font-size:12px; }
+	.postList_more { margin: 10px 5px 0 0; text-align: right; }
+
+	// postList_miniThumb
+
+	.postList_miniThumb {
+		.postList_item { display:block; overflow:hidden;clear:both; position:relative; padding:15px 0 ;border-bottom:1px dotted #666;margin-bottom:0; }
+		.postList_thumbnail { float:left;margin-right:15px; }
+		.postList_thumbnail a { position: relative; display: block; overflow: hidden; border: 1px solid #e5e5e5; }
+		.postList_thumbnail img { width:80px; height:auto;}
+		.postList_body { display:block; overflow:hidden;width:auto; }
+		.postList_title { font-size:14px; }
+	}
+}
+
+/*
+/*  Lightning Charm 1.2.0 での表示崩れ回避用
+/*  Lightning Charm 1.4.0 以降になったら削除
+*/
+.mainSection .veu_postList.pt_0 .postList.postList_miniThumb { padding:0;margin-left:0;margin-right:0; }
+@media (min-width: 992px) {
+.mainSection .veu_postList.pt_0.postList_item .postList_thumbnail { margin-right:30px;margin-left:0; }
+.mainSection .veu_postList.pt_0.postList_item.even .postList_thumbnail { margin-left:30px;margin-right:0; }
+}
+
+/*-------------------------------------------*/
+/* Widget .veu_profile
+/*-------------------------------------------*/
+.veu_profile {
+	.profile{ overflow: hidden; }
+	.media_outer {
+		position: relative;
+		display: block;
+		overflow:hidden;
+		margin:0.8em 0 0.8em;
+		box-sizing: border-box;
+		img { max-width:100%;height:auto; }
+	}
+	.media_round{
+		border-radius: 50%;
+		width:120px;
+		height:120px;
+		position: relative;
+		img {
+			position: absolute;
+			left:-9999px;
+		}
+	}
+	.media_center {
+		margin-left:auto;margin-right:auto;
+		img {
+			display: block;
+			margin-left:auto;margin-right:auto;
+		}
+	}
+	.media_float{ float: left;margin-right: 1em;
+		&+.profile_text{ padding-top: 0.8em;}
+	}
+	.profile_text{ margin-bottom: 1em;font-size: 14px;}
+	.sns_btns{ margin: 0;padding: 0;width: 100%;
+	    li{ float: left;margin-right: 0.45em;list-style: none;text-align: center; }
+	    a{
+	        display: block;position:relative;
+	        width: 40px;
+	        height: 40px;
+	        border-radius: 23px;
+	        color: #fff;
+	        text-decoration: none;
+	        font-size: 20px;
+	        &:hover{ color: #fff;text-decoration: none;opacity: 0.8;}
+	    }
+	    .icon{
+		 		position:absolute; top:50%;left:50%; transform: translateY(-50%) translateX(-50%);
+	    }
+	    .facebook_btn a{ background: #3b5998; }
+	    .twitter_btn a{ background: #55acee; }
+	    .mail_btn a{ background: #2F915F; }
+	    .youtube_btn a{ background: #C81D1C; }
+	    .rss_btn a{ background: #f26522; }
+	    .instagram_btn a{ background: #3f729b; }
+	    .linkedin_btn a{ background: #0077b5; }
+	}
+}
+
+/*-------------------------------------------*/
+/* Widget .veu_3prArea
+/*-------------------------------------------*/
+.veu_3prArea{
+	.subSection-title{ font-size: 18px;margin-top: 0.8em; }
+	.summary{ margin-bottom: 0.5em; font-size: 14px; line-height: 1.6em; }
+	.linkurl a{ text-decoration: none; }
+}
+.veu_3prArea_image {
+	margin-bottom: 0.8em;
+	.image_pc{ display: block; }
+	.image_sp{ display: none; }
+	border:1px solid #e5e5e5;
+	img { width:100%; }
+}
+.veu_3prArea_image_link { border:1px solid #fff;display:block; overflow:hidden; }
+
+@media screen and (max-width:768px){
+.veu_3prArea{
+	.prArea{ margin-bottom: 1em;display:block; overflow:hidden; }
+	.image_pc{ display: none; }
+	.image_sp{ display: block; }
+	.linkurl { margin-bottom: 1.5em; }
+}
+.veu_3prArea_image { width:138px;margin:0 1em 0 0; float:left; }
+}
+
+/*-------------------------------------------*/
+/* Widget .veu_prBlocks
+/*-------------------------------------------*/
+// .veu_prBlocks{
+.prBlock {
+	a{ color: #333;
+		&:hover{ color: #333; text-decoration: none; }
+		.prBlock_summary:hover{ text-decoration: underline; }
+	}
+	.prBlock_icon_outer { display: block;position:relative; margin: 0 auto ; width: 80px; height: 80px; border-radius: 50%; }
+	.prBlock_icon { position:absolute; top:50%;left:50%; transform: translateY(-50%) translateX(-50%);font-size: 36px; }
+	.prBlock_title{ margin-top:0.9em;margin-bottom: 0.7em; text-align: center; font-size: 18px; line-height: 1.4em; }
+	.prBlock_image{ position: relative; display: block; width: 120px; height:120px; margin: 0 auto;overflow: hidden;border-radius: 50%;
+		text-indent:-9999px;
+	}
+	.prBlock_summary{ margin-bottom: 0.5em; text-align: center; font-size: 14px; line-height: 1.6em; }
+}
+
+@media screen and (max-width:992px){
+// .veu_prBlocks{
+.prBlock{ margin-bottom: 1.5em; }
+// }
+}
+/*-------------------------------------------*/
+/* Widget .veu_button
+/*-------------------------------------------*/
+.veu_button {
+	i,
+	svg { margin-left:0.3em;margin-right:0.3em; }
+	.button_mainText,
+	.button_subText { display: block; }
+	.btn.btn-sm { padding-top:0.6em;padding-bottom:0.45em; }
+	.btn { padding-top:0.8em;padding-bottom:0.6em; }
+	.btn.btn-lg { padding-top:0.8em;padding-bottom:0.7em; }
+}
+/*-------------------------------------------*/
+/* Widget .veu_banner
+/*-------------------------------------------*/
+.veu_banner {
+	text-align: center;
+	display:block; overflow:hidden;
+}

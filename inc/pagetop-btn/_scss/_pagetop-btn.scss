@@ -1,0 +1,27 @@
+// page top btn
+.page_top_btn {
+	position: fixed;
+	right: 2%;
+	bottom: 3%;
+	z-index: 99999;
+	width: 40px;
+	height: 38px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	border: none;
+	background: rgba(0,0,0,0.8);
+	outline: 1px solid rgba(0, 0, 0, 0.8);
+	border: 1px solid rgba(255,255,255,0.8);
+	background-image: url(../images/to-top-btn-icon.svg);
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0;
+	transition: opacity 0.3s;
+    &:hover {  transition: opacity 0.3s; }
+}
+.scrolled .page_top_btn{
+	display: block;
+	opacity: 1;
+}
