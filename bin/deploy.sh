@@ -12,9 +12,9 @@ fi
 set -e
 
 ## -b オプションはチェックアウト
-git clone -b dist --quiet "https://github.com/${TRAVIS_REPO_SLUG}.git" dist
+git clone -b develop --quiet "https://github.com/${TRAVIS_REPO_SLUG}.git" master
 npm run dist
-cd master
+cd dist
 ## すべての変更を含むワークツリーの内容をインデックスに追加.
 git add -A
 git commit -m "Update from travis $TRAVIS_COMMIT"
