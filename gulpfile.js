@@ -53,16 +53,14 @@ gulp.task('sass', function() {
 gulp.task('scripts', function() {
   return gulp.src(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'])
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('./assets/js/'));
+    .pipe(gulp.dest('./assets/js/'))
+    .pipe(jsmin())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('./assets/js'));
 });
 
 // js最小化
-gulp.task('jsmin', function () {
-  gulp.src(['./assets/js/all.js'])
-  .pipe(plumber()) // エラーでも監視を続行
-  .pipe(jsmin())
-  .pipe(rename({suffix: '.min'}))
-  .pipe(gulp.dest('./assets/js'));
+gulp.task('jsmin_scroll', function () {
 	gulp.src(['./inc/smooth-scroll/js/smooth-scroll.js'])
   .pipe(plumber()) // エラーでも監視を続行
   .pipe(jsmin())
@@ -72,10 +70,8 @@ gulp.task('jsmin', function () {
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch('./assets/js/master.js', ['scripts']);
-    gulp.watch('./inc/pagetop-btn/js/pagetop-btn.js', ['scripts']);
-    gulp.watch('./assets/js/all.js', ['jsmin']);
-    gulp.watch('**/*.js', ['jsmin']);
+    gulp.watch(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'], ['scripts']);
+    gulp.watch(['./inc/smooth-scroll/js/smooth-scroll.js'], ['jsmin_scroll']);
     gulp.watch('./assets/_scss/**/*.scss', ['sass']);
     gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', ['sass']);
 });
