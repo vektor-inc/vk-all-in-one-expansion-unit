@@ -77,7 +77,7 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
-gulp.task('default', ['scripts','text-domain','watch']);
+gulp.task('default', ['text-domain','watch']);
 
 gulp.task('compile', ['scripts','text-domain','jsmin','sass']);
 
