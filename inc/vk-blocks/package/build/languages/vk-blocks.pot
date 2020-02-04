@@ -7,68 +7,77 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: src/balloon/block.js:111
+#: src/balloon/block.js:103
+msgid "Type"
+msgstr ""
+
+#: src/balloon/block.js:104
+msgid "Please select the type of balloon."
+msgstr ""
+
+#: src/balloon/block.js:107
+msgid "Serif"
+msgstr ""
+
+#: src/balloon/block.js:108
+msgid "Thinking"
+msgstr ""
+
+#: src/balloon/block.js:136
 #: src/flow/block.js:112
 #: src/pr-blocks/block.js:179
-#: src/pr-content/component.js:144
+#: src/pr-content/component.js:166
 #: src/pr-content/deprecated/component-deprecated.js:102
 #: src/pr-content/deprecated/component-no-boder-color.js:116
 #: src/staff/component.js:88
 msgid "Select image"
 msgstr ""
 
-#: src/balloon/block.js:123
+#: src/balloon/block.js:141
+#: src/flow/block.js:113
+#: src/pr-blocks/block.js:175
+#: src/pr-content/component.js:173
+#: src/pr-content/deprecated/component-deprecated.js:106
+#: src/pr-content/deprecated/component-no-boder-color.js:120
+msgid "Upload image"
+msgstr ""
+
+#: src/balloon/block.js:152
+msgid "Icon Name"
+msgstr ""
+
+#: src/balloon/block.js:161
+#: src/button/block.js:250
+msgid "Input text"
+msgstr ""
+
+#: src/balloon/block.js:38
+msgid "Ballon"
+msgstr ""
+
+#: src/balloon/block.js:88
 msgid "Balloon setting"
 msgstr ""
 
-#: src/balloon/block.js:125
+#: src/balloon/block.js:90
 #: src/heading/block.js:176
 msgid "Position"
 msgstr ""
 
-#: src/balloon/block.js:126
+#: src/balloon/block.js:91
 msgid "Please specify the layout of the balloon."
 msgstr ""
 
-#: src/balloon/block.js:129
+#: src/balloon/block.js:97
 #: src/button/block.js:175
 #: src/pr-content/block.js:202
 msgid "Left"
 msgstr ""
 
-#: src/balloon/block.js:130
+#: src/balloon/block.js:98
 #: src/button/block.js:177
 #: src/pr-content/block.js:201
 msgid "Right"
-msgstr ""
-
-#: src/balloon/block.js:135
-msgid "Type"
-msgstr ""
-
-#: src/balloon/block.js:136
-msgid "Please select the type of balloon."
-msgstr ""
-
-#: src/balloon/block.js:139
-msgid "Serif"
-msgstr ""
-
-#: src/balloon/block.js:140
-msgid "Thinking"
-msgstr ""
-
-#: src/balloon/block.js:161
-msgid "Icon Name"
-msgstr ""
-
-#: src/balloon/block.js:170
-#: src/button/block.js:250
-msgid "Input text"
-msgstr ""
-
-#: src/balloon/block.js:32
-msgid "Ballon"
 msgstr ""
 
 #: src/button/block.js:149
@@ -229,24 +238,16 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: src/faq/block.js:42
-msgid "FAQ"
-msgstr ""
-
-#: src/faq/block.js:79
-msgid "Please enter a question."
-msgstr ""
-
-#: src/faq/block.js:86
+#: src/faq/block.js:100
 msgid "Please enter a answer."
 msgstr ""
 
-#: src/flow/block.js:113
-#: src/pr-blocks/block.js:175
-#: src/pr-content/component.js:149
-#: src/pr-content/deprecated/component-deprecated.js:106
-#: src/pr-content/deprecated/component-no-boder-color.js:120
-msgid "Upload image"
+#: src/faq/block.js:56
+msgid "FAQ"
+msgstr ""
+
+#: src/faq/block.js:93
+msgid "Please enter a question."
 msgstr ""
 
 #: src/flow/block.js:28
@@ -601,13 +602,17 @@ msgstr ""
 msgid "Title Color"
 msgstr ""
 
-#: src/pr-content/component.js:179
+#: src/pr-content/component.js:156
+msgid "Something wrong with your image. Please insert it again."
+msgstr ""
+
+#: src/pr-content/component.js:209
 #: src/pr-content/deprecated/component-deprecated.js:122
 #: src/pr-content/deprecated/component-no-boder-color.js:136
 msgid "Input title."
 msgstr ""
 
-#: src/pr-content/component.js:187
+#: src/pr-content/component.js:217
 #: src/pr-content/deprecated/component-deprecated.js:130
 #: src/pr-content/deprecated/component-no-boder-color.js:144
 msgid "Input content."
