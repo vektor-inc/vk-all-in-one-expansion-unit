@@ -2,9 +2,9 @@
 Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 5.1.0
-Tested up to: 5.3.0
-Stable tag: 9.10.0.0
+Requires at least: 5.0.0
+Tested up to: 5.3.2
+Stable tag: 9.10.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
