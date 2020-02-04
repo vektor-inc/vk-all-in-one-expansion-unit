@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.1.0
 Tested up to: 5.3.0
-Stable tag: 9.9.0.0
+Stable tag: 9.10.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,8 +93,10 @@ e.g.
 
 == Changelog ==
 
-= 9.9.0.0 =
+= 9.10.0.0 =
+[ Specification change ] load ExUnit css on footer from header
 
+= 9.9.0.0 =
 [ Specification change ] load block css awesome on footer from header
 [ Specification change ] load font awesome on footer from header
 
