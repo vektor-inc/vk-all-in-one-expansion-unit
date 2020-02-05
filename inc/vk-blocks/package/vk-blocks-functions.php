@@ -16,7 +16,7 @@ if ( ! function_exists( 'vkblocks_add_footer_styles' ) ) {
 		wp_enqueue_style( 'vk-blocks-build-css' );
 	};
 }
-add_action( 'wp_footer', 'vkblocks_add_footer_styles' );
+add_action( 'wp_enqueue_scripts', 'vkblocks_add_footer_styles' );
 
 function vkblocks_blocks_assets() {
 

@@ -20,7 +20,7 @@ veu_package_include(); // package_manager.php
 /*
   Add vkExUnit css
 /*-------------------------------------------*/
-add_action( 'wp_footer', 'veu_print_css' );
+add_action( 'wp_enqueue_scripts', 'veu_print_css' );
 function veu_print_css() {
 	global $vkExUnit_version;
 	$options = veu_get_common_options();
