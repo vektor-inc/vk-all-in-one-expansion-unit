@@ -20,7 +20,11 @@ veu_package_include(); // package_manager.php
 /*
   Add vkExUnit css
 /*-------------------------------------------*/
-add_action( 'wp_enqueue_scripts', 'veu_print_css' );
+add_action( 'after_setup_theme', 'veu_load_css_action' ); 
+function veu_load_css_action(){
+	$hook_point = apply_filters( 'veu_common_css_enqueue_point', 'wp_enqueue_scripts' );
+	add_action( $hook_point, 'veu_print_css' );
+}
 function veu_print_css() {
 	global $vkExUnit_version;
 	$options = veu_get_common_options();
@@ -56,4 +60,32 @@ function veu_install_function() {
 	if ( ! $opt ) {
 		add_option( 'vkExUnit_common_options', veu_get_common_options_default() );
 	}
+}
+
+
+add_action( 'after_setup_theme', 'veu_change_enqueue_point_run_filter', 5 );
+function veu_change_enqueue_point_run_filter() {
+	$default = array(
+		'common' =>  false,
+	);
+	$option = get_option('vkExUnit_pagespeeding',$default);
+	$option = wp_parse_args( $option, $default );
+	if ( $option['common'] ){
+
+		// font awesome
+		add_filter( 'vkfa_enqueue_point', 'veu_change_enqueue_point_to_footer' );
+
+		// common css
+		add_filter( 'veu_common_css_enqueue_point', 'veu_change_enqueue_point_to_footer' );
+
+		// vk blocks css
+		add_filter( 'vkblocks_enqueue_point', 'veu_change_enqueue_point_to_footer' );
+	
+	}
+
+}
+
+function veu_change_enqueue_point_to_footer( $enqueue_point ) {
+	$enqueue_point = 'wp_footer';
+	return $enqueue_point;
 }
