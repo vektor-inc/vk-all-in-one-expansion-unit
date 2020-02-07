@@ -113,15 +113,16 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 			'default'           => false,
 			'type'              => 'option',
 			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'lightning_sanitize_checkbox',
+			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
 	$wp_customize->add_control(
 		'vkExUnit_pagespeeding[common]', array(
-			'label'    => __( 'Enable speeding up', 'lightning' ),
-			'section'  => 'veu_speeding_setting',
-			'settings' => 'vkExUnit_pagespeeding[common]',
-			'type'     => 'checkbox',
+			'label'       => __( 'Enable speeding up', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_speeding_setting',
+			'settings'    => 'vkExUnit_pagespeeding[common]',
+			'type'        => 'checkbox',
+			'description' => __( 'If you enable this setting that ExUnit\'s css is loaded from footer', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 
