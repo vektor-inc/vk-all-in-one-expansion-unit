@@ -1,0 +1,32 @@
+{
+  "name": "vk-all-in-one-expansion-unit",
+  "version": "1.0.0",
+  "description": "This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!",
+  "scripts": {
+    "compile": "gulp compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vektor-inc/vk-all-in-one-expansion-unit.git"
+  },
+  "author": "Vektor, Inc.",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues"
+  },
+  "homepage": "https://ex-unit.nagoya",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-merge-media-queries": "^0.2.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.2",
+    "run-sequence": "^2.2.1"
+  }
+}
