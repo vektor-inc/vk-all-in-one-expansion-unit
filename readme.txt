@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.3.2
-Stable tag: 9.10.1.0
+Stable tag: 9.11.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.11.0.0 =
+[ Add function ] Speeding setting ( load point controll of css file and css customize ) 
+[ Specification change ][ vk blocks ] YouTube display width : 100%
 
 = 9.10.1.0 =
 [ Specification change ] load ExUnit css and block css on header from footer
