@@ -122,7 +122,7 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 			'section'     => 'veu_speeding_setting',
 			'settings'    => 'vkExUnit_pagespeeding[common]',
 			'type'        => 'checkbox',
-			'description' => __( 'If you enable this setting that ExUnit\'s css is loaded from footer', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'If you enable this setting that ExUnit\'s css file and css customize will be loaded from footer.', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 
