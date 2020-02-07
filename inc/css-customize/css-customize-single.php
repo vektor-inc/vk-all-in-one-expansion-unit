@@ -3,8 +3,12 @@
   Custom CSS
 /* ------------------------------------------- */
 
-// </head>タグの直上に出力させたいので第三引数に 50 を設定
-add_action( 'wp_head', 'veu_insert_custom_css', 201 );
+function veu_css_customize_single_load(){
+	$hook_point = apply_filters( 'veu_enqueue_point_css_customize_single', 'wp_head' );
+	add_action( $hook_point, 'veu_insert_custom_css', 201 );
+}
+
+add_action( 'after_setup_theme', 'veu_css_customize_single_load' );
 
 /*
  入力された CSS をソースに出力
@@ -18,13 +22,15 @@ function veu_insert_custom_css() {
 			while ( have_posts() ) :
 				the_post();
 					global $post;
-					echo '<style type="text/css">' . veu_get_the_custom_css_single( $post ) . '</style>';
+					$css = veu_get_the_custom_css_single( $post );
+					if ( $css ){
+						echo '<style type="text/css">/* '. esc_html( veu_get_short_name() ).' CSS Customize Single */' . $css . '</style>';
+					}
 				endwhile;
 		endif;
 		// ページ上の別の場所で同じクエリを再利用するために、ループの投稿情報を巻き戻し、前回と同じ順序で先頭の投稿を取得できるように
 		rewind_posts();
 	}
-
 } // function veu_insert_custom_css() {
 
 function veu_get_the_custom_css_single( $post ) {

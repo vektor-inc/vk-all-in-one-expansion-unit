@@ -22,7 +22,7 @@ veu_package_include(); // package_manager.php
 /*-------------------------------------------*/
 add_action( 'after_setup_theme', 'veu_load_css_action' ); 
 function veu_load_css_action(){
-	$hook_point = apply_filters( 'veu_common_css_enqueue_point', 'wp_enqueue_scripts' );
+	$hook_point = apply_filters( 'veu_enqueue_point_common_css', 'wp_enqueue_scripts' );
 	add_action( $hook_point, 'veu_print_css' );
 }
 function veu_print_css() {
@@ -75,12 +75,16 @@ function veu_change_enqueue_point_run_filter() {
 		// font awesome
 		add_filter( 'vkfa_enqueue_point', 'veu_change_enqueue_point_to_footer' );
 
-		// common css
-		add_filter( 'veu_common_css_enqueue_point', 'veu_change_enqueue_point_to_footer' );
-
 		// vk blocks css
 		add_filter( 'vkblocks_enqueue_point', 'veu_change_enqueue_point_to_footer' );
-	
+
+		// common css
+		add_filter( 'veu_enqueue_point_common_css', 'veu_change_enqueue_point_to_footer' );
+
+		// css customize
+		add_filter( 'veu_enqueue_point_css_customize_common', 'veu_change_enqueue_point_to_footer' );
+		add_filter( 'veu_enqueue_point_css_customize_single', 'veu_change_enqueue_point_to_footer' );
+
 	}
 
 }
