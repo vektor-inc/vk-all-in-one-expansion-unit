@@ -1,4 +1,109 @@
 <?php
+
+function vew_widget_packages() {
+	return [
+		[
+			'id' => 1,
+			'priority' => 10,
+			'name' => __( 'Recent Posts', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a list of your most recent posts', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-new-posts.php'
+		],
+		[
+			'id' => 2,
+			'priority' => 10,
+			'name' => __( 'Profile', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a your profile', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-profile.php'
+		],
+		[
+			'id' => 3,
+			'priority' => 10,
+			'name' => __( '3PR area', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a 3PR area', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-3pr-area.php'
+		],
+		[
+			'id' => 4,
+			'priority' => 10,
+			'name' => __( 'page content to widget', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a page contents to widget.', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-page.php'
+		],
+		[
+			'id' => 5,
+			'priority' => 10,
+			'name' => __( 'Categories/Custom taxonomies list', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a categories and custom taxonomies list.', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-taxonomies.php'
+		],
+		[
+			'id' => 6,
+			'priority' => 10,
+			'name' => __( 'archive list', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-archives.php'
+		],
+		[
+			'id' => 7,
+			'priority' => 10,
+			'name' => __( 'PR Blocks', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays a circle image or icon font for pr blocks', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-pr-blocks.php'
+		],
+		[
+			'id' => 8,
+			'priority' => 10,
+			'name' => __( 'child pages list', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Displays list of child page for the current page.', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-side-child-page-list.php'
+		],
+		[
+			'id' => 9,
+			'priority' => 10,
+			'name' => __( 'Button', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-button.php'
+		],
+		[
+			'id' => 10,
+			'priority' => 10,
+			'name' => __( 'Banner', 'vk-all-in-one-expansion-unit' ),
+			'description' => sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ),
+			'include' => 'widget-banner.php'
+		],
+	];
+}
+
+
+
+add_action( 'vew_admin_setting_block', 'veu_widget_admin_enablation_table' );
+function veu_widget_admin_enablation_table() {
+?>
+<h2>Table Enablation</h2>
+<table class="wp-list-table widefat plugins" style="width:auto;">
+	<thead>
+		<tr>
+			<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col' id='description' class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
+		</tr>
+	</thead>
+
+	<tbody id="the-list">
+		<?php foreach(vew_widget_packages() as $package) : ?>
+		<tr>
+			<td><input type="checkbox" name="vew_enable_widgets[<?php echo $package['name']; ?>]" id="vew_input_<?php echo $package['name']; ?>" /></td>
+			<td><label for="vew_input_<?php echo $package['name']; ?>" ><?php echo $package['name']; ?></label></td>
+			<td><?php echo $package['description'] ?></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+
+</table>
+<br/>
+<?php
+}
+
+
 require dirname( __FILE__ ) . '/widget-new-posts.php';
 require dirname( __FILE__ ) . '/widget-profile.php';
 require dirname( __FILE__ ) . '/widget-3pr-area.php';
