@@ -16,13 +16,16 @@ class VkBlocksPostList {
 
 			$name = esc_html( $attributes['name'] );
 			if ( $name === 'vk-blocks/child-page' ) {
-				$wp_query = $this->get_loop_query_child( $attributes );
+				$wp_query     = $this->get_loop_query_child( $attributes );
+				$options_loop = array( 'class_loop_outer' => 'vk_childPage' );
 
 			} elseif ( $name === 'vk-blocks/post-list' ) {
-				$wp_query = $this->get_loop_query( $attributes );
+				$wp_query     = $this->get_loop_query( $attributes );
+				$options_loop = array( 'class_loop_outer' => 'vk_postList' );
 			}
 		} else {
-			$wp_query = $this->get_loop_query( $attributes );
+			$wp_query     = $this->get_loop_query( $attributes );
+			$options_loop = array( 'class_loop_outer' => '' );
 		}
 
 		if ( $wp_query === false || $wp_query === 'false' || $wp_query->posts === array() ) {
@@ -49,13 +52,6 @@ class VkBlocksPostList {
 			'body_prepend'               => '',
 			'body_append'                => '',
 		);
-
-		if ( $name === 'vk-blocks/child-page' ) {
-			$options_loop = array( 'class_loop_outer' => 'vk_childPage' );
-
-		} elseif ( $name === 'vk-blocks/post-list' ) {
-			$options_loop = array( 'class_loop_outer' => 'vk_postList' );
-		}
 
 		$elm = VK_Component_Posts::get_loop( $wp_query, $options, $options_loop );
 
