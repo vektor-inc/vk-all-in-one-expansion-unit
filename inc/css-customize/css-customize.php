@@ -7,11 +7,22 @@ class veu_css_customize {
 
 	public function __construct() {
 		$this->set_hook();
+		/**
+		 * Reason of Using through the after_setup_theme is 
+		 * to be able to change the action hook point of css load from theme..
+		 */
+		add_action( 'after_setup_theme', array( get_called_class(), 'load_css_action' ) );
+	}
+
+	public static function load_css_action() {
+		$hook_point = apply_filters( 'veu_enqueue_point_css_customize_common', 'wp_head' );
+		// get_called_class()じゃないと外しにくい
+		add_action( $hook_point, array( get_called_class(), 'css_customize_push_css' ), 200 );
 	}
 
 	public  function set_hook() {
 		add_action( 'admin_footer', array( $this, 'css_customize_page_js_and_css' ) );
-		add_action( 'wp_head', array( $this, 'css_customize_push_css' ), 200 );
+		
 
 		// 編集画面への反映
 		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
