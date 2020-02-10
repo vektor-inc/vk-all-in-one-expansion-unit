@@ -19,7 +19,6 @@ var cleanCss = require('gulp-clean-css')
 var runSequence = require('run-sequence')
 var replace = require('gulp-replace')
 
-gulp.task('default', (done) => {done()})
 
 gulp.task('text-domain', (done) => {
     gulp.src(['./inc/font-awesome/**/*'])
