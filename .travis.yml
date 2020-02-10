@@ -50,10 +50,6 @@ before_install:
   - gem install sass
   - gem install compass
 
-# node_js:
-#   - '0.8'
-#   - '0.10'
-
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -65,14 +61,10 @@ before_script:
       composer global require "phpunit/phpunit=4.8.*"
     fi
 
-# - nvm install 4.2
-  # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
-  - npm install
-  - npm install -g gulp
-  - npm install gulp gulp-concat gulp-cssmin gulp-rename gulp-jsmin gulp-plumber gulp-sass gulp-clean-css gulp-merge-media-queries gulp-autoprefixer
+  - npm install -D
 
 script:
-  - find ./ -name '*.php'|xargs -I {} php -l {}
+  - find ./ -name '*.php'|xargs -I @ php -l @
   - phpunit --version
   # - gulp compile
 
