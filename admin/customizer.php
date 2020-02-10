@@ -16,12 +16,12 @@ add_action( 'after_setup_theme', 'veu_add_customize_panel' );
 // カスタマイズパネルを出力するかどうかの判別
 function veu_add_customize_panel() {
 	// 基本的にはカスタマイズ画面で「ExUnit設定」パネルは表示されない
-	if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
+	// if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 		// 各機能からカスタマイザー機能を有効化する指定がされてたら、親パネルである「ExUnit設定」を出力する関数を実行する
 		add_action( 'customize_register', 'veu_customize_register' );
 		// パネルを表示する = カスタマイザーが利用されるので、独自のコントロールクラスを追加
 		add_action( 'customize_register', 'veu_customize_register_add_control', 10 );
-	}
+	// }
 }
 
 
