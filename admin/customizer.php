@@ -24,14 +24,14 @@ function veu_add_customize_panel() {
 	// }
 }
 
-
 // 「ExUnit設定」パネルを出力する関数
 function veu_customize_register( $wp_customize ) {
-	/*-------------------------------------------*/
-	/*	ExUnit Panel
+	/*
+	  ExUnit Panel
 	 /*-------------------------------------------*/
 	$wp_customize->add_panel(
-		'veu_setting', array(
+		'veu_setting',
+		array(
 			'priority'       => 1000,
 			'capability'     => 'edit_theme_options',
 			'theme_supports' => '',
@@ -41,12 +41,13 @@ function veu_customize_register( $wp_customize ) {
 
 }
 
-/*-------------------------------------------*/
-/*	ExUnit Original Controls
+/*
+  ExUnit Original Controls
 /*-------------------------------------------*/
 function veu_customize_register_add_control() {
 
-	/*	Add text control description
+	/*
+	  Add text control description
 	/*-------------------------------------------*/
 	class ExUnit_Custom_Text_Control extends WP_Customize_Control {
 		public $type         = 'customtext';
@@ -54,7 +55,7 @@ function veu_customize_register_add_control() {
 		public $input_before = '';
 		public $input_after  = '';
 		public function render_content() {
-		?>
+			?>
 		<label>
 		  <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 			<?php $style = ( $this->input_before || $this->input_after ) ? ' style="width:50%"' : ''; ?>
@@ -65,11 +66,12 @@ function veu_customize_register_add_control() {
 		  </div>
 		  <span><?php echo $this->description; ?></span>
 		</label>
-		<?php
+			<?php
 		} // public function render_content() {
 	} // class Custom_Text_Control extends WP_Customize_Control
 
-	/*	Add text control description
+	/*
+	  Add text control description
 	/*-------------------------------------------*/
 	class ExUnit_Custom_Html extends WP_Customize_Control {
 		public $type             = 'customtext';
@@ -86,8 +88,8 @@ function veu_customize_register_add_control() {
 			if ( $this->custom_html ) {
 				echo '<div>' . wp_kses_post( $this->custom_html ) . '</div>';
 			}
-		?>
-		<?php
+			?>
+			<?php
 		} // public function render_content() {
 	} // class VkExUnit_Custom_Html extends WP_Customize_Control
 
@@ -97,11 +99,12 @@ function veu_customize_register_add_control() {
 add_action( 'customize_register', 'veu_customize_register_pagespeed' );
 function veu_customize_register_pagespeed( $wp_customize ) {
 
-	/*-------------------------------------------*/
-	/*    Page speedind setting
+	/*
+		Page speedind setting
 	/*-------------------------------------------*/
 	$wp_customize->add_section(
-		'veu_speeding_setting', array(
+		'veu_speeding_setting',
+		array(
 			'title'    => __( 'Page Speedind Setting', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1,
 			'panel'    => 'veu_setting',
@@ -109,7 +112,8 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'vkExUnit_pagespeeding[common]', array(
+		'vkExUnit_pagespeeding[common]',
+		array(
 			'default'           => false,
 			'type'              => 'option',
 			'capability'        => 'edit_theme_options',
@@ -117,7 +121,8 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 		)
 	);
 	$wp_customize->add_control(
-		'vkExUnit_pagespeeding[common]', array(
+		'vkExUnit_pagespeeding[common]',
+		array(
 			'label'       => __( 'Enable speeding up', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_speeding_setting',
 			'settings'    => 'vkExUnit_pagespeeding[common]',
