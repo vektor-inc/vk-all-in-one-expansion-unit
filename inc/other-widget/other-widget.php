@@ -1,6 +1,50 @@
 <?php
 
+class VEU_Other_Widget_Admin_Control {
+	function __construct() {
+		add_action('admin_init', array($this, 'add_hooks'));
+	}
+
+	function add_hooks() {
+		add_action( 'vew_admin_setting_block', array($this, 'admin_setting'));
+	}
+
+	function admin_setting() {
+		var_dump( VEU_Widget_Controll::load_widgets() );
+		include dirname( __FILE__ ) . '/template/admin_setting.php';
+	}
+}
+
+class VEU_Widget_Controll {
+	public static function default_options() {
+		$_buf = array();
+		foreach(vew_widget_packages() as $v) {
+			array_push($_buf, $v['id']);
+		}
+		return $_buf;
+	}
+
+	public static function enable_widget_ids() {
+		return get_option('vkExUnit_enable_widgets', self::default_options());
+	}
+
+	public static function load_widgets() {
+		$enable_packages = self::enable_widget_ids();
+		foreach(vew_widget_packages() as $package) {
+			if (!in_array($package['id'], $enable_packages)) {
+				continue;
+			}
+			require_once veu_get_directory() . '/inc/other-widget/' . $package['include'];
+		}
+	}
+}
+VEU_Widget_Controll::load_widgets();
+
+new VEU_Other_Widget_Admin_Control();
+
 function vew_widget_packages() {
+
+
 	return [
 		[
 			'id' => 1,
@@ -72,49 +116,15 @@ function vew_widget_packages() {
 			'description' => sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ),
 			'include' => 'widget-banner.php'
 		],
+		[
+			'id' => 11,
+			'priority' => 10,
+			'name' => __( 'Child Page List', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Display the child pages list from ancestor page.', 'vk-all-in-one-expansion-unit' ),
+			'include' => 'widget-child-page-list.php'
+		]
 	];
 }
-
-
-
-add_action( 'vew_admin_setting_block', 'veu_widget_admin_enablation_table' );
-function veu_widget_admin_enablation_table() {
-?>
-<h2>Table Enablation</h2>
-<table class="wp-list-table widefat plugins" style="width:auto;">
-	<thead>
-		<tr>
-			<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col' id='description' class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
-		</tr>
-	</thead>
-
-	<tbody id="the-list">
-		<?php foreach(vew_widget_packages() as $package) : ?>
-		<tr>
-			<td><input type="checkbox" name="vew_enable_widgets[<?php echo $package['name']; ?>]" id="vew_input_<?php echo $package['name']; ?>" /></td>
-			<td><label for="vew_input_<?php echo $package['name']; ?>" ><?php echo $package['name']; ?></label></td>
-			<td><?php echo $package['description'] ?></td>
-		</tr>
-		<?php endforeach; ?>
-	</tbody>
-
-</table>
-<br/>
-<?php
-}
-
-
-require dirname( __FILE__ ) . '/widget-new-posts.php';
-require dirname( __FILE__ ) . '/widget-profile.php';
-require dirname( __FILE__ ) . '/widget-3pr-area.php';
-require dirname( __FILE__ ) . '/widget-page.php';
-require dirname( __FILE__ ) . '/widget-taxonomies.php';
-require dirname( __FILE__ ) . '/widget-archives.php';
-require dirname( __FILE__ ) . '/widget-pr-blocks.php';
-require dirname( __FILE__ ) . '/widget-side-child-page-list.php';
-require dirname( __FILE__ ) . '/widget-button.php';
-require dirname( __FILE__ ) . '/widget-banner.php';
-// require veu_get_directory() . '/inc/other_widget/widget-child-page-list.php';
 
 /*-------------------------------------------*/
 /*  color picker
