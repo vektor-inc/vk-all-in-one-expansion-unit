@@ -10,7 +10,7 @@
 	settings_fields( 'vkExUnit_common_options_fields' );
 	$options = veu_get_common_options();
 
-	do_action( 'vew_admin_setting_block' );
+	do_action( 'vew_admin_setting_block', $options);
 ?>
 
 <table class="wp-list-table widefat plugins" style="width:auto;">

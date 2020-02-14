@@ -6,16 +6,32 @@ class VEU_Other_Widget_Admin_Control {
 	}
 
 	function add_hooks() {
-		add_action( 'vew_admin_setting_block', array($this, 'admin_setting'));
+		add_action( 'vew_admin_setting_block', array($this, 'admin_setting'), 10, 1);
+		add_filter('vkExUnit_common_options_validate', array($this, 'admin_config_validate'), 10, 3);
 	}
 
-	function admin_setting() {
-		var_dump( VEU_Widget_Controll::load_widgets() );
+	public function admin_config_validate($output, $input, $defaults) {
+		$_v = array();
+		foreach($input['enable_widgets'] as $v ) {
+			if (is_numeric($v)) {
+				array_push($_v, (int) $v);
+			}
+		}
+
+		VEU_Widget_Controll::update_options($_v);
+		return $output;
+	}
+
+	public function admin_setting($options) {
 		include dirname( __FILE__ ) . '/template/admin_setting.php';
 	}
 }
 
 class VEU_Widget_Controll {
+	public static function update_options($options) {
+		update_option('vkExUnit_enable_widgets', $options, true);
+	}
+
 	public static function default_options() {
 		$_buf = array();
 		foreach(vew_widget_packages() as $v) {
@@ -26,15 +42,16 @@ class VEU_Widget_Controll {
 
 	public static function enable_widget_ids() {
 		return get_option('vkExUnit_enable_widgets', self::default_options());
+		$mother = veu_get_common_options();
+		return $mother['enable_widgets'];
 	}
 
 	public static function load_widgets() {
 		$enable_packages = self::enable_widget_ids();
 		foreach(vew_widget_packages() as $package) {
-			if (!in_array($package['id'], $enable_packages)) {
-				continue;
+			if( in_array($package['id'], $enable_packages) ) {
+				require_once veu_get_directory() . '/inc/other-widget/' . $package['include'];
 			}
-			require_once veu_get_directory() . '/inc/other-widget/' . $package['include'];
 		}
 	}
 }

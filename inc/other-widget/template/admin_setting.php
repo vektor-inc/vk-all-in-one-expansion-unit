@@ -1,5 +1,5 @@
 <?php
-$_enable_ids = VEU_Widget_Controll::enable_widget_ids();
+    $_enable_ids = VEU_Widget_Controll::enable_widget_ids();
 ?>
 
 <h2>Table Enablation</h2>
@@ -11,10 +11,11 @@ $_enable_ids = VEU_Widget_Controll::enable_widget_ids();
     </thead>
 
     <tbody id="the-list">
+        <input type="checkbox" name="vkExUnit_common_options[enable_widget_idas]" value="aaaa" />
         <?php foreach(vew_widget_packages() as $package) : ?>
         <tr>
-            <td><input type="checkbox" name="vew_enable_widgets[<?php echo $package['name']; ?>]" id="vew_input_<?php echo $package['name']; ?>" <?php if ( in_array($package['id'], $_enable_ids) ) { echo 'checked'; } ?> /></td>
-            <td><label for="vew_input_<?php echo $package['name']; ?>" ><?php echo $package['name']; ?></label></td>
+            <td><input type="checkbox" name="vkExUnit_common_options[enable_widgets][]" value="<?php echo $package['id']; ?>" id="vew_input_<?php echo $package['id']; ?>" <?php if ( in_array($package['id'], $_enable_ids) ) { echo 'checked'; } ?> /></td>
+            <td><label for="vew_input_<?php echo $package['id']; ?>" ><?php echo $package['name']; ?></label></td>
             <td><?php echo $package['description'] ?></td>
         </tr>
         <?php endforeach; ?>
