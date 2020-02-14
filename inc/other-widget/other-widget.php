@@ -3,7 +3,7 @@ require_once veu_get_directory() . '/inc/other-widget/class-veu-widget-control.p
 require_once veu_get_directory() . '/inc/other-widget/common.php';
 
 if (is_admin()) {
-	require_once veu_get_directory() . '/inc/other-widget/class-vew-other-widget-admin-control.php';
+	require_once veu_get_directory() . '/inc/other-widget/class-veu-other-widget-admin-control.php';
 	new VEU_Other_Widget_Admin_Control();
 }
 
