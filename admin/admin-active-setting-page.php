@@ -9,8 +9,6 @@
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
 	$options = veu_get_common_options();
-
-	do_action( 'vew_admin_setting_block', $options);
 ?>
 
 <table class="wp-list-table widefat plugins" style="width:auto;">
@@ -96,6 +94,9 @@ foreach ( $vkExUnit_packages as $package ) :
 </table>
 <br />
 
+<?php
+	do_action( 'vew_admin_setting_block', $options);
+?>
 
 <button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;" class="button"><?php _e( 'Extension Setting', 'vk-all-in-one-expansion-unit' ); ?></button>
 <table class="form-table" id="vkEx_extention" style="display:none;">
