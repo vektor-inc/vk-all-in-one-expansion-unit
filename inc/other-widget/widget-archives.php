@@ -4,17 +4,21 @@
 /*  Archive list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_archive_list extends WP_Widget {
-
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'archive list', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'WP_Widget_VK_archive_list',
-			$widget_name,
-			array( 'description' => __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_name(),
+			array( 'description' => self::veu_description() )
 		);
 	}
 
+	public static function veu_name() {
+		return veu_get_prefix() . __( 'archive list', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_description() {
+		return __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' );
+	}
 
 	function widget( $args, $instance ) {
 		$arg = array(
@@ -132,9 +136,4 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		$instance['label'] = $new_instance['label'];
 		return $instance;
 	}
-}
-
-add_action( 'widgets_init', 'vkExUnit_widget_register_archive_list' );
-function vkExUnit_widget_register_archive_list() {
-	return register_widget( 'WP_Widget_VK_archive_list' );
 }

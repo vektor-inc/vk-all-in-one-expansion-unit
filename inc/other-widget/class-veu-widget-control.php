@@ -27,4 +27,13 @@ class VEU_Widget_Control {
             }
         }
     }
+
+    public static function widgets_init() {
+        $enable_packages = self::enable_widget_ids();
+        foreach(vew_widget_packages() as $package) {
+            if( in_array($package['id'], $enable_packages) ) {
+                register_widget($package['class']);
+            }
+        }
+    }
 }

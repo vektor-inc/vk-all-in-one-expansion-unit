@@ -4,15 +4,20 @@
 /*-------------------------------------------*/
 
 class WP_Widget_vkExUnit_post_list extends WP_Widget {
-
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Recent Posts', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'vkExUnit_post_list',
-			$widget_name,
-			array( 'description' => __( 'Displays a list of your most recent posts', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_name(),
+			array( 'description' => self::veu_description() )
 		);
+	}
+
+	public static function veu_name() {
+		return veu_get_prefix() . __( 'Recent Posts', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_description() {
+		return __( 'Displays a list of your most recent posts', 'vk-all-in-one-expansion-unit' );
 	}
 
 	/*
@@ -397,9 +402,4 @@ if ( ! empty( $instance[ $args['media_url'] ] ) ) :
 		$instance['more_text'] = $new_instance['more_text'];
 		return $instance;
 	}
-}
-
-add_action( 'widgets_init', 'vkExUnit_widget_register_post_list' );
-function vkExUnit_widget_register_post_list() {
-	return register_widget( 'WP_Widget_vkExUnit_post_list' );
 }
