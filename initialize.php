@@ -20,8 +20,8 @@ veu_package_include(); // package_manager.php
 /*
   Add vkExUnit css
 /*-------------------------------------------*/
-add_action( 'after_setup_theme', 'veu_load_css_action' ); 
-function veu_load_css_action(){
+add_action( 'after_setup_theme', 'veu_load_css_action' );
+function veu_load_css_action() {
 	$hook_point = apply_filters( 'veu_enqueue_point_common_css', 'wp_enqueue_scripts' );
 	add_action( $hook_point, 'veu_print_css' );
 }
@@ -66,11 +66,11 @@ function veu_install_function() {
 add_action( 'after_setup_theme', 'veu_change_enqueue_point_run_filter', 5 );
 function veu_change_enqueue_point_run_filter() {
 	$default = array(
-		'common' =>  false,
+		'common' => false,
 	);
-	$option = get_option('vkExUnit_pagespeeding',$default);
-	$option = wp_parse_args( $option, $default );
-	if ( $option['common'] ){
+	$option  = get_option( 'vkExUnit_pagespeeding', $default );
+	$option  = wp_parse_args( $option, $default );
+	if ( $option['common'] ) {
 
 		// font awesome
 		add_filter( 'vkfa_enqueue_point', 'veu_change_enqueue_point_to_footer' );
