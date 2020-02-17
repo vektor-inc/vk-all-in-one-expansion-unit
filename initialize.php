@@ -23,7 +23,7 @@ veu_package_include(); // package_manager.php
 add_action( 'after_setup_theme', 'veu_load_css_action' );
 function veu_load_css_action() {
 	$hook_point = apply_filters( 'veu_enqueue_point_common_css', 'wp_enqueue_scripts' );
-	add_action( $hook_point, 'veu_print_css' );
+	add_action( $hook_point, 'veu_print_css', 5 );
 }
 function veu_print_css() {
 	global $vkExUnit_version;
