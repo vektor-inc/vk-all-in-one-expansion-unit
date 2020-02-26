@@ -19,12 +19,18 @@ if ( ! function_exists( 'vkblocks_add_styles' ) ) {
 if ( ! function_exists( 'vkblocks_enqueue_point' ) ) {
 	function vkblocks_enqueue_point() {
 		$hook_point = apply_filters( 'vkblocks_enqueue_point', 'wp_enqueue_scripts' );
+		// Front css
 		add_action( $hook_point, 'vkblocks_add_styles' );
+
+		// Admin css
+		if ( is_admin() ) {
+			add_action( 'enqueue_block_assets', 'vkblocks_add_styles' );
+		}
 	};
 }
 
 /**
- * Reason of Using through the after_setup_theme is 
+ * Reason of Using through the after_setup_theme is
  * to be able to change the action hook point of css load from theme..
  */
 add_action( 'after_setup_theme', 'vkblocks_enqueue_point' );
