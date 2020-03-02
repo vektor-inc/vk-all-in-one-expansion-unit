@@ -14,7 +14,7 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 	}
 
 	public static function veu_widget_description() {
-		return __( 'Displays list of child page for the current page.', 'vk-all-in-one-expansion-unit' );
+		return __( 'Displays list of child page for the current page on such as sidebar of page.', 'vk-all-in-one-expansion-unit' );
 	}
 
 	function widget( $args, $instance ) {
