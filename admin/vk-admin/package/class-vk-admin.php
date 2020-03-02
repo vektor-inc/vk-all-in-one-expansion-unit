@@ -45,26 +45,16 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		/*
-		  get_admin_banner
-		/*--------------------------------------------------*/
-		/*
-		  get_news_body_api
-		/*--------------------------------------------------*/
-		/*
-		  get_news_from_rss
-		/*--------------------------------------------------*/
-		/*
-		  admin _ Dashboard Widget
-		/*--------------------------------------------------*/
-		/*
-		  admin _ sub
-		/*--------------------------------------------------*/
-		/*
-		  admin _ page_frame
+		get_admin_banner
+		get_news_body_api
+		get_news_from_rss
+		admin _ Dashboard Widget
+		admin _ sub
+		admin _ page_frame
 		/*--------------------------------------------------*/
 
 		/*
-		  get_admin_banner
+		get_admin_banner
 		/*--------------------------------------------------*/
 		public static function get_admin_banner() {
 			$banner  = '';
@@ -106,9 +96,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			// プラグイン VK Job Posting Manager を有効化していない人にバナーを表示
 			if ( ! is_plugin_active( 'vk-google-job-posting-manager/vk-google-job-posting-manager.php' ) ) {
 				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'job_banner-336×280-ja.jpg';
+					$bnr_file_name = 'job_banner-336_280-ja.jpg';
 				} else {
-					$bnr_file_name = 'job_banner-336×280-en.jpg';
+					$bnr_file_name = 'job_banner-336_280-en.jpg';
 				}
 				$banner .= '<a href="//wordpress.org/plugins/vk-google-job-posting-manager/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
 			Display" /></a>';
@@ -166,7 +156,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		/*
-		  get_news_body
+		get_news_body
 		/*--------------------------------------------------*/
 		public static function get_news_body() {
 			if ( 'ja' == get_locale() ) {
@@ -179,7 +169,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		/*
-		  get_news_body_api
+		get_news_body_api
 		/*--------------------------------------------------*/
 
 		public static function get_news_from_rest_api() {
@@ -264,7 +254,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		/*
-		  get_news_from_rss
+		get_news_from_rss
 		/*  RSS方針で現在は日本語以外でのみ使用
 		/*--------------------------------------------------*/
 		public static function get_news_from_rss() {
@@ -345,7 +335,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			return apply_filters( 'vk-admin-is-dashboard-active', $flag );
 		}
 		/*
-		  admin _ Dashboard Widget
+		admin _ Dashboard Widget
 		/*--------------------------------------------------*/
 		public static function dashboard_widget() {
 			global $vk_admin_textdomain;
@@ -366,7 +356,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		/*
-		  admin _ sub
+		admin _ sub
 		/*--------------------------------------------------*/
 		// 2016.08.07 ExUnitの有効化ページでは直接 admin_subを呼び出しているので注意
 		public static function admin_sub() {
@@ -385,7 +375,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		}
 
 		/*
-		  admin _ page_frame
+		admin _ page_frame
 		/*--------------------------------------------------*/
 		public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '', $get_menu_html = '', $get_layout = 'column_3' ) {
 			?>
