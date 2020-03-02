@@ -2,7 +2,7 @@
     $_enable_ids = VEU_Widget_Control::enable_widget_ids();
 ?>
 
-<h2>Widget Enablation</h2>
+<h2><?php echo __('Widget Enablation', 'vk-all-in-one-expansion-unit'); ?></h2>
 <table id="widget_enablation" class="wp-list-table widefat plugins" style="width:auto;">
     <thead>
         <tr>
