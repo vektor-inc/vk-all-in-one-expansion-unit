@@ -7,7 +7,7 @@ class VEU_Widget_Control {
 
     public static function default_options() {
         $_buf = array();
-        foreach(vew_widget_packages() as $v) {
+        foreach(veu_widget_packages() as $v) {
             array_push($_buf, $v['id']);
         }
         return $_buf;
@@ -21,7 +21,7 @@ class VEU_Widget_Control {
 
     public static function load_widgets() {
         $enable_packages = self::enable_widget_ids();
-        foreach(vew_widget_packages() as $package) {
+        foreach(veu_widget_packages() as $package) {
             if( in_array($package['id'], $enable_packages) ) {
                 require_once veu_get_directory() . '/inc/other-widget/' . $package['include'];
             }
@@ -30,7 +30,7 @@ class VEU_Widget_Control {
 
     public static function widgets_init() {
         $enable_packages = self::enable_widget_ids();
-        foreach(vew_widget_packages() as $package) {
+        foreach(veu_widget_packages() as $package) {
             if( in_array($package['id'], $enable_packages) ) {
                 register_widget($package['class']);
             }

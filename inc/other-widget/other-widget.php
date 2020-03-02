@@ -18,7 +18,7 @@ if (is_admin()) {
 	new VEU_Other_Widget_Admin_Control();
 }
 
-function vew_widget_packages() {
+function veu_widget_packages() {
 	return array(
 		array(
 			'id' => 1,
