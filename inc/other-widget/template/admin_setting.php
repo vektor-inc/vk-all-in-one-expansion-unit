@@ -12,7 +12,12 @@
 
     <tbody id="the-list">
         <?php foreach(veu_widget_packages() as $package) : ?>
-        <tr>
+            <?php 
+            $class="";
+            if ( in_array($package['id'], $_enable_ids) ) { 
+                $class= ' class="active"';
+             } ?>
+            <tr<?php echo $class ?>>
             <td><input type="checkbox" name="vkExUnit_common_options[enable_widgets][]" value="<?php echo $package['id']; ?>" class="vew_enable_widget_checkbox" id="vew_widget_enable_input_<?php echo $package['id']; ?>" <?php if ( in_array($package['id'], $_enable_ids) ) { echo 'checked'; } ?> onclick="veuwd()" /></td>
             <td><label for="vew_widget_enable_input_<?php echo $package['id']; ?>" ><?php echo $package['class']::veu_widget_name(); ?></label></td>
             <td><?php echo $package['class']::veu_widget_description() ?></td>
