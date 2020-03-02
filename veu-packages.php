@@ -166,7 +166,12 @@ function veu_get_packages() {
 		'description' => $desk,
 		'attr'        => array(
 			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'name'        => __( 'Enable Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_setting_page#widget_enablation',
+				'enable_only' => 1,
+			),
+			array(
+				'name'        => __( 'Widget Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'widgets.php',
 				'enable_only' => 1,
 			),

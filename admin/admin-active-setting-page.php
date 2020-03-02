@@ -4,6 +4,7 @@
 </h2>
 
 <div class="adminMain">
+
 <form method="post" action="options.php">
 <?php
 	settings_fields( 'vkExUnit_common_options_fields' );
@@ -42,7 +43,7 @@ foreach ( $vkExUnit_packages as $package ) :
  />
 			</th>
 			<td class='plugin-title'>
-				<strong><?php echo $package['title']; ?></strong>
+				<label for='checkbox_active_<?php echo $package['name']; ?>'><strong><?php echo $package['title']; ?></strong></label>
 
 				<?php
 				$count = '';
@@ -92,6 +93,11 @@ foreach ( $vkExUnit_packages as $package ) :
 
 </table>
 <br />
+
+<?php
+	do_action( 'vew_admin_setting_block', $options);
+?>
+
 <button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;" class="button"><?php _e( 'Extension Setting', 'vk-all-in-one-expansion-unit' ); ?></button>
 <table class="form-table" id="vkEx_extention" style="display:none;">
 <?php /* 誤作動が多いので再調整 */ ?>

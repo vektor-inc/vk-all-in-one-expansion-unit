@@ -29,15 +29,20 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'vkExUnit_button',
-			$widget_name,
-			array( 'description' => __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_widget_name(),
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
+	public static function veu_widget_name() {
+		return veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_widget_description() {
+		return __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' );
+	}
 
 	function widget( $args, $instance ) {
 		$options = self::get_btn_options( $instance );
@@ -216,8 +221,3 @@ class WP_Widget_Button extends WP_Widget {
 		__( 'Red(.danger)', 'vk-all-in-one-expansion-unit' );
 	}
 } // class WP_Widget_Button extends WP_Widget {
-
-add_action( 'widgets_init', 'vkExUnit_widget_button' );
-function vkExUnit_widget_button() {
-	return register_widget( 'WP_Widget_Button' );
-}

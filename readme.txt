@@ -93,8 +93,12 @@ e.g.
 
 == Changelog ==
 
+= 9.12.0.0 =
+[ Add function ] Widget Active Controll
+
 = 9.11.5.0 =
 [ bug fix ][ blocks ] Editor css was not working
+[ Specification change ] Delete language files ( use GlotPress )
 
 = 9.11.4.0 =
 [ Bug fix ] Fix Lightning Design skin specific design overwrite not working.

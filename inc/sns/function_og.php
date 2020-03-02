@@ -17,6 +17,8 @@ function vkExUnit_print_og() {
 		$linkUrl = home_url( '/' );
 	} elseif ( is_single() || is_page() ) {
 		$linkUrl = get_permalink();
+	} elseif (is_post_type_archive()){
+		$linkUrl = get_post_type_archive_link(get_query_var('post_type'));
 	} else {
 		$linkUrl = get_permalink();
 	}

@@ -103,6 +103,17 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			Display" /></a>';
 			}
 
+			// プラグイン VK Job Posting Manager を有効化していない人にバナーを表示
+			if ( ! is_plugin_active( 'vk-google-job-posting-manager/vk-google-job-posting-manager.php' ) ) {
+				if ( $lang == 'ja' ) {
+					$bnr_file_name = 'job_banner-336×280-ja.jpg';
+				} else {
+					$bnr_file_name = 'job_banner-336×280-en.jpg';
+				}
+				$banner .= '<a href="//wordpress.org/plugins/vk-google-job-posting-manager/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
+			Display" /></a>';
+			}
+
 			// テーマがLightningじゃない場合にLighntingのバナーを表示
 			if ( ! function_exists( 'lightning_get_theme_name' ) ) {
 				if ( $lang == 'ja' ) {
@@ -159,11 +170,11 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		/*--------------------------------------------------*/
 		public static function get_news_body() {
 			if ( 'ja' == get_locale() ) {
-				return Vk_Admin::get_news_from_rest_api();
+				return self::get_news_from_rest_api();
 			}
 			// English
 			if ( 'ja' != get_locale() ) {
-				return Vk_Admin::get_news_from_rss();
+				return self::get_news_from_rss();
 			}
 		}
 
@@ -202,7 +213,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		public static function load_rest_api_js() {
 
-	?>
+			?>
 		<script>
 		/*-------------------------------------------*/
 		/* REST API でお知らせを取得
@@ -249,7 +260,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		});
 		})(jQuery);
 		</script>
-	<?php
+			<?php
 		}
 
 		/*
@@ -260,7 +271,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			global $vk_admin_textdomain;
 			$output = '';
 
-			include_once( ABSPATH . WPINC . '/feed.php' );
+			include_once ABSPATH . WPINC . '/feed.php';
 
 			if ( 'ja' == get_locale() ) {
 				$exUnit_feed_url = apply_filters( 'vkAdmin_news_RSS_URL_ja', 'https://ex-unit.nagoya/ja/feed' );
@@ -338,7 +349,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		/*--------------------------------------------------*/
 		public static function dashboard_widget() {
 			global $vk_admin_textdomain;
-			if ( Vk_Admin::is_dashboard_active() ) {
+			if ( self::is_dashboard_active() ) {
 				wp_add_dashboard_widget(
 					'vk_dashboard_widget',
 					__( 'Vektor WordPress Information', $vk_admin_textdomain ),
@@ -349,9 +360,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		public static function dashboard_widget_body() {
 			if ( 'ja' == get_locale() ) {
-				echo Vk_Admin::get_news_body();
+				echo self::get_news_body();
 			}
-			echo Vk_Admin::get_admin_banner();
+			echo self::get_admin_banner();
 		}
 
 		/*
@@ -365,9 +376,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			}
 			$adminSub = '<div class="adminSub scrTracking">' . "\n";
 			if ( 'ja' == get_locale() ) {
-				$adminSub .= '<div class="infoBox">' . Vk_Admin::get_news_body() . '</div>' . "\n";
+				$adminSub .= '<div class="infoBox">' . self::get_news_body() . '</div>' . "\n";
 			}
-			$adminSub .= '<div class="vk-admin-banner">' . Vk_Admin::get_admin_banner() . '</div>' . "\n";
+			$adminSub .= '<div class="vk-admin-banner">' . self::get_admin_banner() . '</div>' . "\n";
 
 			$adminSub .= '</div><!-- [ /.adminSub ] -->' . "\n";
 			return $adminSub;
@@ -377,7 +388,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		  admin _ page_frame
 		/*--------------------------------------------------*/
 		public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '', $get_menu_html = '', $get_layout = 'column_3' ) {
-	?>
+			?>
 			<div class="wrap vk_admin_page">
 
 				<div class="adminMain <?php echo $get_layout; ?>">
@@ -385,7 +396,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 					<?php if ( $get_layout == 'column_3' ) : ?>
 				<div id="adminContent_sub" class="scrTracking">
 					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
-					<?php if ( $get_page_title ) : ?>
+						<?php if ( $get_page_title ) : ?>
 					<h2 class="page_title"><?php echo $get_page_title; ?></h2>
 					<?php endif; ?>
 					<div class="vk_option_nav">
@@ -398,7 +409,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 					<?php if ( $get_layout == 'column_2' ) : ?>
 					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
-					<?php if ( $get_page_title ) : ?>
+						<?php if ( $get_page_title ) : ?>
 						<h1 class="page_title"><?php echo $get_page_title; ?></h1>
 					<?php endif; ?>
 				<?php endif; ?>
@@ -409,10 +420,10 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 				</div><!-- [ /.adminMain ] -->
 
-				<?php echo Vk_Admin::admin_sub(); ?>
+				<?php echo self::admin_sub(); ?>
 
 			</div><!-- [ /.vkExUnit_admin_page ] -->
-		<?php
+			<?php
 		}
 
 		public function __construct() {

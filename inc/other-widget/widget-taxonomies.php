@@ -4,18 +4,21 @@
 /*  Taxonomy list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_taxonomy_list extends WP_Widget {
-
-	// ウィジェット定義
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Categories/Custom taxonomies list', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'WP_Widget_VK_taxonomy_list',
-			$widget_name,
-			array( 'description' => __( 'Displays a categories and custom taxonomies list.', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_widget_name(),
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
+	public static function veu_widget_name() {
+		return veu_get_prefix() . __( 'Categories/Custom taxonomies list', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_widget_description() {
+		return __( 'Displays a categories and custom taxonomies list.', 'vk-all-in-one-expansion-unit' );
+	}
 
 	function widget( $args, $instance ) {
 		$instance = static::get_defaults( $instance );
@@ -130,10 +133,4 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 		return $instance;
 	}
-} // class WP_Widget_top_list_info
-
-
-add_action( 'widgets_init', 'vkExUnit_widget_register_taxonomy_list' );
-function vkExUnit_widget_register_taxonomy_list() {
-	return register_widget( 'WP_Widget_VK_taxonomy_list' );
 }

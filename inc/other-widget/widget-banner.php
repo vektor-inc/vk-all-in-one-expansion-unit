@@ -1,28 +1,21 @@
 <?php
-namespace Vektor\ExUnit\Package\Widgets;
 
-
-add_action( 'widgets_init', 'Vektor\ExUnit\Package\Widgets\register_banner' );
-function register_banner() {
-	return register_widget( 'Vektor\ExUnit\Package\Widgets\WidgetBanner' );
-}
-
-
-class WidgetBanner extends \WP_Widget {
-
-
+class WidgetBanner extends WP_Widget {
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Banner', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'vkExUnit_banner',
-			$widget_name,
-			array(
-				'description' => sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() ),
-			)
+			self::veu_widget_name(),
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
+	public static function veu_widget_name() {
+		return veu_get_prefix() . __( 'Banner', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_widget_description() {
+		return sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name());
+	}
 
 	public function widget( $args, $instance ) {
 		$instance = self::get_bnr_option( $instance );

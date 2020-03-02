@@ -6,15 +6,20 @@
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'page content to widget', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'pudge',
-			$widget_name,
-			array( 'description' => __( 'Displays a page contents to widget.', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_widget_name(),
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
+	public static function veu_widget_name() {
+		return veu_get_prefix() . __( 'page content to widget', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_widget_description() {
+		return __( 'Displays a page contents to widget.', 'vk-all-in-one-expansion-unit' );
+	}
 
 	/*-------------------------------------------*/
 	/*  template-tags
@@ -247,9 +252,4 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		echo '</div>' . PHP_EOL;
 		echo $args['after_widget'];
 	}
-}
-
-add_action( 'widgets_init', 'vkExUnit_widget_register_page' );
-function vkExUnit_widget_register_page() {
-	return register_widget( 'WP_Widget_vkExUnit_widget_page' );
 }
