@@ -38,7 +38,7 @@ global $vkExUnit_version;
 $vkExUnit_version = $data['version'];
 
 // include('plugins/css_customize/css-customize.php');
-load_plugin_textdomain( 'vk-all-in-one-expansion-unit', false, basename( dirname( __FILE__ ) ) . '/languages' );
+// load_plugin_textdomain( 'vk-all-in-one-expansion-unit', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
 
