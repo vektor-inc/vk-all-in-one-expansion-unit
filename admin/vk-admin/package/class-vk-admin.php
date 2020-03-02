@@ -106,9 +106,9 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			// プラグイン VK Job Posting Manager を有効化していない人にバナーを表示
 			if ( ! is_plugin_active( 'vk-google-job-posting-manager/vk-google-job-posting-manager.php' ) ) {
 				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'job_banner-336×280-ja.jpg';
+					$bnr_file_name = 'job_banner-336_280-ja.jpg';
 				} else {
-					$bnr_file_name = 'job_banner-336×280-en.jpg';
+					$bnr_file_name = 'job_banner-336_280-en.jpg';
 				}
 				$banner .= '<a href="//wordpress.org/plugins/vk-google-job-posting-manager/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
 			Display" /></a>';
