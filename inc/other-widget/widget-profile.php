@@ -4,15 +4,20 @@
 /*  Side Profile widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_profile extends WP_Widget {
-
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Profile', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'WP_Widget_vkExUnit_profile',
-			$widget_name,
-			array( 'description' => __( 'Displays a your profile', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_name(),
+			array( 'description' => self::veu_description() )
 		);
+	}
+
+	public static function veu_name() {
+		return veu_get_prefix() . __( 'Profile', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_description() {
+		return __( 'Displays a your profile', 'vk-all-in-one-expansion-unit');
 	}
 
 	/*-------------------------------------------*/
@@ -437,8 +442,3 @@ function vkExUnit_profile_admin_scripts() {
 	wp_enqueue_script( 'vk-admin-widget' );
 }
 add_action( 'admin_print_scripts', 'vkExUnit_profile_admin_scripts' );
-
-add_action( 'widgets_init', 'vkExUnit_widget_register_profile' );
-function vkExUnit_widget_register_profile() {
-	return register_widget( 'WP_Widget_vkExUnit_profile' );
-}

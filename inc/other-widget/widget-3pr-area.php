@@ -4,15 +4,20 @@
 /*  PR area widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
-
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( '3PR area', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'WP_Widget_vkExUnit_3PR_area',
-			$widget_name,
-			array( 'description' => __( 'Displays a 3PR area', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_name(),
+			array( 'description' => self::veu_description() )
 		);
+	}
+
+	public static function veu_name() {
+		return veu_get_prefix() . __( '3PR area', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_description() {
+		return __( 'Displays a 3PR area', 'vk-all-in-one-expansion-unit' );
 	}
 
 	public static function default_options( $args = array() ) {
@@ -218,7 +223,3 @@ function admin_scripts_3pr_media() {
 	wp_enqueue_script( 'vk-admin-widget' );
 }
 
-add_action( 'widgets_init', 'vkExUnit_widget_register_3pr' );
-function vkExUnit_widget_register_3pr() {
-	return register_widget( 'WP_Widget_vkExUnit_3PR_area' );
-}

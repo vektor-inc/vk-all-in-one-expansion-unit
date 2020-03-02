@@ -42,6 +42,7 @@ function veu_common_options_validate( $input ) {
 	 ここでは機能の有効化有無に関する項目が殆どで、手動で項目を記載すると機能の増減の際に項目の編集漏れが出るため、
 	 veu_get_common_options_default() の中で package に登録してある項目・デフォルト値を読み込み、それをループ処理する
 	*/
+	$output = array();
 	$defaults = veu_get_common_options_default();
 	foreach ( $defaults as $key => $default_value ) {
 		// 'content_filter_state'　以外は true か false しか返ってこない

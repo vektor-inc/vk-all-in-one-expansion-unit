@@ -14,13 +14,19 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	/*-------------------------------------------*/
 
 	function __construct() {
-		$widget_name = veu_get_prefix() . __( 'PR Blocks', 'vk-all-in-one-expansion-unit' );
-
 		parent::__construct(
 			'WP_Widget_vkExUnit_PR_Blocks',
-			$widget_name,
-			array( 'description' => __( 'Displays a circle image or icon font for pr blocks', 'vk-all-in-one-expansion-unit' ) )
+			self::veu_name(),
+			array( 'description' => self::veu_description() )
 		);
+	}
+
+	public static function veu_name() {
+		return veu_get_prefix() . __( 'PR Blocks', 'vk-all-in-one-expansion-unit' );
+	}
+
+	public static function veu_description() {
+		return __( 'Displays a your profile', 'vk-all-in-one-expansion-unit');
 	}
 
 	public static function default_options( $args = array() ) {
@@ -308,9 +314,4 @@ function admin_scripts_pr_media() {
 	wp_enqueue_media();
 	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
 	wp_enqueue_script( 'vk-admin-widget' );
-}
-
-add_action( 'widgets_init', 'vkExUnit_widget_register_prblocks' );
-function vkExUnit_widget_register_prblocks() {
-	return register_widget( 'WP_Widget_vkExUnit_PR_Blocks' );
 }
