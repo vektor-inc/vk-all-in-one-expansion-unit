@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Archive list widget
+/*
+  Archive list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_archive_list extends WP_Widget {
 	function __construct() {
@@ -35,18 +35,18 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			$arg['type']      = 'monthly';
 			$arg['post_type'] = ( isset( $instance['post_type'] ) ) ? $instance['post_type'] : 'post';
 		}
-	?>
-	<?php echo $args['before_widget']; ?>
+		?>
+		<?php echo $args['before_widget']; ?>
 	<div class="sideWidget widget_archive">
-	<?php if ( ( isset( $instance['label'] ) ) && $instance['label'] ) { ?>
-	<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
+		<?php if ( ( isset( $instance['label'] ) ) && $instance['label'] ) { ?>
+			<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
 	<?php } ?>
 <ul class="localNavi">
-	<?php wp_get_archives( $arg ); ?>
+		<?php wp_get_archives( $arg ); ?>
 </ul>
 </div>
-	<?php echo $args['after_widget']; ?>
-	<?php
+		<?php echo $args['after_widget']; ?>
+		<?php
 	}
 
 
@@ -63,7 +63,8 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			array(
 				'public'   => true,
 				'_builtin' => false,
-			), 'names'
+			),
+			'names'
 		);
 		$pages[]  = 'post';
 		?>
@@ -80,7 +81,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 									<?php
 									if ( $instance['post_type'] == $page ) {
 										echo 'selected="selected"'; }
-?>
+									?>
  ><?php echo $page; ?></option>
 		<?php } ?>
 		</select>
@@ -91,14 +92,14 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			<?php
 			if ( $instance['display_type'] != 'y' ) {
 				echo 'selected="selected"'; }
-?>
+			?>
  >
 			<?php _e( 'Monthly', 'vk-all-in-one-expansion-unit' ); ?></option>
 			<option value="y"
 			<?php
 			if ( $instance['display_type'] == 'y' ) {
 				echo 'selected="selected"'; }
-?>
+			?>
  >
 			<?php _e( 'Yearly', 'vk-all-in-one-expansion-unit' ); ?></option>
 		</select>
