@@ -21,43 +21,43 @@ if (is_admin()) {
 function veu_widget_packages() {
 	return array(
 		array(
-			'id' => 1,
+			'id' => 'post_list',
 			'class' => 'WP_Widget_vkExUnit_post_list',
 		),
 		array(
-			'id' => 2,
+			'id' => 'profile',
 			'class' => 'WP_Widget_vkExUnit_profile',
 		),
 		array(
-			'id' => 3,
+			'id' => '3pr_area',
 			'class' => 'WP_Widget_vkExUnit_3PR_area',
 		),
 		array(
-			'id' => 4,
+			'id' => 'widget_page',
 			'class' => 'WP_Widget_vkExUnit_widget_page',
 		),
 		array(
-			'id' => 5,
+			'id' => 'taxonomy_list',
 			'class' => 'WP_Widget_VK_taxonomy_list',
 		),
 		array(
-			'id' => 6,
+			'id' => 'archive_list',
 			'class' => 'WP_Widget_VK_archive_list',
 		),
 		array(
-			'id' => 7,
+			'id' => 'pr_blocks',
 			'class' => 'WP_Widget_vkExUnit_PR_Blocks',
 		),
 		array(
-			'id' => 8,
+			'id' => 'child_page_list',
 			'class' => 'WP_Widget_vkExUnit_ChildPageList',
 		),
 		array(
-			'id' => 9,
+			'id' => 'button',
 			'class' => 'WP_Widget_Button',
 		),
 		array(
-			'id' => 10,
+			'id' => 'banner',
 			'class' => 'WidgetBanner',
 		)
 	);
