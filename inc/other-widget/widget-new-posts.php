@@ -8,7 +8,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_post_list',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_description() )
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
@@ -16,7 +16,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return veu_get_prefix() . __( 'Recent Posts', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_description() {
+	public static function veu_widget_description() {
 		return __( 'Displays a list of your most recent posts', 'vk-all-in-one-expansion-unit' );
 	}
 

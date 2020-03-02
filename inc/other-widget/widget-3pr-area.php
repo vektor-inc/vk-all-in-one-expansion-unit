@@ -8,7 +8,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		parent::__construct(
 			'WP_Widget_vkExUnit_3PR_area',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_description() )
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
@@ -16,7 +16,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		return veu_get_prefix() . __( '3PR area', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_description() {
+	public static function veu_widget_description() {
 		return __( 'Displays a 3PR area', 'vk-all-in-one-expansion-unit' );
 	}
 

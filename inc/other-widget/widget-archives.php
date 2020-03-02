@@ -8,7 +8,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		parent::__construct(
 			'WP_Widget_VK_archive_list',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_description() )
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
@@ -16,7 +16,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		return veu_get_prefix() . __( 'archive list', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_description() {
+	public static function veu_widget_description() {
 		return __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' );
 	}
 

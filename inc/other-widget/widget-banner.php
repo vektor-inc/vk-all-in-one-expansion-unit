@@ -5,7 +5,7 @@ class WidgetBanner extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_banner',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_description() )
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
@@ -13,7 +13,7 @@ class WidgetBanner extends WP_Widget {
 		return veu_get_prefix() . __( 'Banner', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_description() {
+	public static function veu_widget_description() {
 		return sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name());
 	}
 

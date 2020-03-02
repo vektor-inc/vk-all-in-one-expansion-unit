@@ -17,7 +17,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 		parent::__construct(
 			'WP_Widget_vkExUnit_PR_Blocks',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_description() )
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
@@ -25,7 +25,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 		return veu_get_prefix() . __( 'PR Blocks', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_description() {
+	public static function veu_widget_description() {
 		return __( 'Displays a your profile', 'vk-all-in-one-expansion-unit');
 	}
 

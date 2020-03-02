@@ -32,7 +32,7 @@ class WP_Widget_Button extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_button',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_description() )
+			array( 'description' => self::veu_widget_description() )
 		);
 	}
 
@@ -40,7 +40,7 @@ class WP_Widget_Button extends WP_Widget {
 		return veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_description() {
+	public static function veu_widget_description() {
 		return __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' );
 	}
 
