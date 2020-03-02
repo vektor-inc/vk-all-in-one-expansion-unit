@@ -31,12 +31,12 @@ class WP_Widget_Button extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'vkExUnit_button',
-			self::veu_name(),
+			self::veu_widget_name(),
 			array( 'description' => self::veu_description() )
 		);
 	}
 
-	public static function veu_name() {
+	public static function veu_widget_name() {
 		return veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
 	}
 

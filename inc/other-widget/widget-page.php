@@ -8,12 +8,12 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'pudge',
-			self::veu_name(),
+			self::veu_widget_name(),
 			array( 'description' => self::veu_description() )
 		);
 	}
 
-	public static function veu_name() {
+	public static function veu_widget_name() {
 		return veu_get_prefix() . __( 'page content to widget', 'vk-all-in-one-expansion-unit' );
 	}
 
