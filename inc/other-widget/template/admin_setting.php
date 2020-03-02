@@ -3,7 +3,7 @@
 ?>
 
 <h2>Widget Enablation</h2>
-<table id="widget_enablation" class="wp-list-table widefat plugins" style="width:auto;">
+<table id="widget_enablation" class="wp-list-table widefat plugins table-widget-enablation">
     <thead>
         <tr>
             <th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="cb-select-all-w" onclick="veuwcb()" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col' id='description' class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
