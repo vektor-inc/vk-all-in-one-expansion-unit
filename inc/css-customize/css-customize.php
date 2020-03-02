@@ -153,7 +153,7 @@ class veu_css_customize {
 		return $css_customize;
 	}
 
-	public function css_customize_push_css() {
+	public static function css_customize_push_css() {
 		$css_customize = veu_css_customize::css_customize_get_the_css_min();
 		if ( $css_customize ) {
 		?>

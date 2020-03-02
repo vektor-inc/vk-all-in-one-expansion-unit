@@ -138,8 +138,6 @@ msgid "Enable speeding up"
 msgstr "高速化を有効にする"
 
 #: admin/customizer.php:125
-#, fuzzy
-#| msgid "If you enable this setting that ExUnit's css is loaded from footer"
 msgid ""
 "If you enable this setting that ExUnit's css file and css customize will be "
 "loaded from footer."

@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.3.2
-Stable tag: 9.10.1.0
+Stable tag: 9.11.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,25 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.11.5.0 =
+[ bug fix ][ blocks ] Editor css was not working
+
+= 9.11.4.0 =
+[ Bug fix ] Fix Lightning Design skin specific design overwrite not working.
+
+= 9.11.3.0 =
+[ Specification change ] Default display the customizer ExUnit Panel 
+
+= 9.11.2.0 =
+[ Specification change ][ vk blocks ] YouTube display width : 100%
+[ Specification change ][ vk blocks ] css load point controll
+
+= 9.11.1.0 =
+[ bug fix ] css customize error fix
+
+= 9.11.0.0 =
+[ Add function ] Speeding setting ( load point controll of css file and css customize ) 
 
 = 9.10.1.0 =
 [ Specification change ] load ExUnit css and block css on header from footer
