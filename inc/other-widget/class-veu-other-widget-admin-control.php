@@ -13,7 +13,7 @@ class VEU_Other_Widget_Admin_Control {
     public function admin_config_validate($output, $input, $defaults) {
         $_v = array();
         foreach($input['enable_widgets'] as $v ) {
-            array_push($_v, (int) $v);
+            array_push($_v, $v);
         }
 
         VEU_Widget_Control::update_options($_v);
