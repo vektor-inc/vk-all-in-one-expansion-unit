@@ -44,7 +44,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 					'title_li'        => '',
 					'taxonomy'        => $instance['tax_name'],
 				);
-				$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args );
+				$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); // 9.13.0.0
 				wp_list_categories( $tax_args );
 				?>
 			</ul>
