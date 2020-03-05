@@ -14,7 +14,7 @@
 <table class="wp-list-table widefat plugins" style="width:auto;">
 	<thead>
 	<tr>
-		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-1"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="cb-select-all-1" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col' id='description' class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<th scope='col' id='cb' class='manage-column column-cb check-column'><label class="screen-reader-text" for="th-select-all-h"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="th-select-all-h" type="checkbox" /></th><th scope='col' id='name' class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col' id='description' class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
 	</tr>
 	</thead>
 
@@ -35,7 +35,7 @@ foreach ( $vkExUnit_packages as $package ) :
 				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' >
 				<?php _e( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
-				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true"
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
 																						<?php
 																						if ( $active ) {
 																							echo 'checked'; }
@@ -87,7 +87,7 @@ foreach ( $vkExUnit_packages as $package ) :
 	<tfoot>
 
 	<tr>
-		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="cb-select-all-2"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="cb-select-all-2" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col'  class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<th scope='col'  class='manage-column column-cb check-column'><label class="screen-reader-text" for="th-select-all-f"><?php _e( 'Select all', 'vk-all-in-one-expansion-unit' ); ?></label><input id="th-select-all-f" type="checkbox" /></th><th scope='col'  class='manage-column column-name'><?php _e( 'Function', 'vk-all-in-one-expansion-unit' ); ?></th><th scope='col'  class='manage-column column-description'><?php _e( 'Description', 'vk-all-in-one-expansion-unit' ); ?></th>
 	</tr>
 	</tfoot>
 
@@ -130,11 +130,11 @@ if ( veu_content_filter_state() == 'loop_end' ) {
 </div><!-- [ /.adminMain ] -->
 
 <?php echo Vk_Admin::admin_sub(); ?>
-
-
 </div>
+
 <script type="text/javascript">
-;(function($,w,d,cb){var c=[38,38,40,40,37,39,37,39,66,65],s=[],k=function(e){if(e.keyCode == c[s.length]){s.push(c[s.length]);if(c.length==s.length){cb();s=[];}}else{s=[];}};$(w).on('keydown',k);
-})(jQuery,window,document,function(){
-if(jQuery(".wrap").hasClass('debug_mode')){jQuery(".wrap").removeClass('debug_mode');}else{jQuery(".wrap").addClass('debug_mode');} });
+((d)=>{
+let fc=(c,f)=>{Array.prototype.forEach.call(d.getElementsByClassName(c),f)};
+((cb)=>{let c=[38,38,40,40,37,39,37,39,66,65],p=0;d.addEventListener('keydown',(e)=>{if(e.keyCode!=c[p]){p=0;return}if(++p>=c.length){p=0;try{cb()}catch(e){};return;}});})(()=>{Array.prototype.forEach.call(d.getElementsByClassName('wrap'),(i)=>{if(i.classList.contains('debug_mode')){i.classList.remove('debug_mode')}else{i.classList.add('debug_mode')}})});
+})(document);
 </script>

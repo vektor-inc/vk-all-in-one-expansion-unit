@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Taxonomy list widget
+/*
+  Taxonomy list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	function __construct() {
@@ -28,28 +28,29 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		if ( ! isset( $instance['label'] ) ) {
 			$instance['label'] = __( 'Category', 'vk-all-in-one-expansion-unit' );
 		}
-		$arg = array(
-			'echo'            => 1,
-			'style'           => 'list',
-			'show_count'      => false,
-			'show_option_all' => false,
-			'hide_empty'      => $instance['hide_empty'],
-			'hierarchical'    => true,
-			'title_li'        => '',
-		);
-
-		$arg['taxonomy'] = $instance['tax_name'];
-
-	?>
-	<?php echo $args['before_widget']; ?>
-	<div class="sideWidget widget_taxonomies widget_nav_menu">
-		<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
-		<ul class="localNavi">
-			<?php wp_list_categories( $arg ); ?>
-		</ul>
-	</div>
-	<?php echo $args['after_widget']; ?>
-	<?php
+		?>
+		<?php echo $args['before_widget']; ?>
+		<div class="sideWidget widget_taxonomies widget_nav_menu">
+			<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
+			<ul class="localNavi">
+				<?php
+				$tax_args = array(
+					'echo'            => 1,
+					'style'           => 'list',
+					'show_count'      => false,
+					'show_option_all' => false,
+					'hide_empty'      => $instance['hide_empty'],
+					'hierarchical'    => true,
+					'title_li'        => '',
+					'taxonomy'        => $instance['tax_name'],
+				);
+				$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); // 9.13.0.0
+				wp_list_categories( $tax_args );
+				?>
+			</ul>
+		</div>
+		<?php echo $args['after_widget']; ?>
+		<?php
 	}
 
 
@@ -83,7 +84,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 										<?php
 										if ( $instance['tax_name'] == $tax->name ) {
 											echo 'selected="selected"'; }
-?>
+										?>
  ><?php echo $tax->labels->name; ?></option>
 		<?php } ?>
 		</select><br/><br/>
@@ -92,7 +93,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 												<?php
 												if ( $instance['hide_empty'] ) {
 													echo 'checked';}
-?>
+												?>
  />
 		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Do not display terms without posts', 'vk-all-in-one-expansion-unit' ); ?></label>
 		</p>
