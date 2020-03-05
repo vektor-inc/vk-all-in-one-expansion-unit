@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.3.2
-Stable tag: 9.13.0.1
+Stable tag: 9.13.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,7 +93,7 @@ e.g.
 
 == Changelog ==
 
-= 9.13.0.1 =
+= 9.13.1.0 =
 [ bugfix ] fix bug of cant save widget enablation
 
 = 9.13.0.0 =
