@@ -134,9 +134,11 @@ function veu_sns_icon_css( $options ) {
 	return $snsBtn_color;
 }
 
+function vew_sns_block_callback ( $attr = array() ){
+	return veu_add_sns_btns('');
+}
 
-function veu_get_sns_btns( $position = 'after' ) {
-
+function veu_get_sns_btns ($position = 'after'){
 	$options   = veu_get_sns_options();
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
