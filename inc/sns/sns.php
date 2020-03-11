@@ -23,6 +23,10 @@ add_action( 'init', function(){
 
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'vew-sns-block', 'vk-all-in-one-expansion-unit', plugin_dir_path( __FILE__ ) . 'build/languages' );
+	}
+
 	register_block_type(
 		'vk-ex/share-button',
 		array(
@@ -35,6 +39,20 @@ function vew_sns_block_setup() {
 			'editor_style' => 'vkExUnit_common_style',
 			'editor_script' => 'vew-sns-block',
 			'render_callback' => 'vew_sns_block_callback',
+		)
+	);
+}
+
+add_filter( 'block_categories', 'veu_sns_blocks_categories', 10, 2 );
+function veu_sns_blocks_categories( $categories, $post ) {
+	return array_merge(
+		$categories,
+		array(
+			array(
+				'slug'  => 'vk-ex',
+				'title' => __( 'Ex Unit Blocks', 'vk-all-in-one-expansion-unit' ),
+				'icon'  => 'admin-generic',
+			),
 		)
 	);
 }
