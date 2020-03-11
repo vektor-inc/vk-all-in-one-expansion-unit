@@ -33,6 +33,19 @@ var runSequence = require('run-sequence');
 
 var replace = require('gulp-replace');
 
+var babel = require('gulp-babel'); //gulpプラグインの読み込み
+
+gulp.task('babel', function () { 
+    return gulp.src('./inc/sns/block.js') 
+        .pipe(babel({
+            plugins: ['transform-react-jsx']
+        }))
+        .pipe(jsmin())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('./inc/sns/'));
+});
+
+
 gulp.task('text-domain', function () {
 		gulp.src(['./inc/font-awesome/**/*'])
 				.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
@@ -77,11 +90,10 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
-gulp.task('default', ['text-domain','watch']);
+gulp.task('default', gulp.series('text-domain','watch'))
+gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'jsmin_scroll', 'sass'))
 
-gulp.task('compile', ['scripts','text-domain','jsmin','sass']);
-
-// copy dist ////////////////////////////////////////////////
+// // copy dist ////////////////////////////////////////////////
 
 gulp.task('copy_dist', function() {
     return gulp.src(
