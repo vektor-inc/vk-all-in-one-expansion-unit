@@ -135,11 +135,8 @@ function veu_sns_icon_css( $options ) {
 }
 
 function vew_sns_block_callback ( $attr = array() ){
-	$c = veu_add_sns_btns('');
-	if ( $c == '' ) {
-		$c = '<div class="disabled" style="display:none;">' . __('SNS Button disabled.', 'vk-all-in-one-expansion-unit') . '</div>';
-	}
-	return $c;
+	$attr = array_merge( array( 'position' => 'after' ), $attr );
+	return veu_get_sns_btns( $attr['position'] );
 }
 
 function veu_get_sns_btns ($position = 'after'){
