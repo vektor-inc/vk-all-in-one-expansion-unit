@@ -63,7 +63,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 
 		$count       = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
-		$post_type   = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
+		$post_type   = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? explode( ',', $instance['post_type'] ) : 'post';
 		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified' );
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
