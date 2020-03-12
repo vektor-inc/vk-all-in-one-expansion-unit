@@ -36,13 +36,13 @@ var replace = require('gulp-replace');
 var babel = require('gulp-babel'); //gulpプラグインの読み込み
 
 gulp.task('block', function () { 
-	return gulp.src('./inc/sns/block.js') 
+	return gulp.src('./inc/sns/package/block.js') 
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
 		.pipe(jsmin())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('./inc/sns/'));
+		.pipe(gulp.dest('./inc/sns/package'));
 });
 
 
@@ -56,15 +56,21 @@ gulp.task('sass', function() {
 	return gulp.src('./assets/_scss/*.scss',{ base: './assets/_scss' })
 		.pipe(plumber())
 		.pipe(sass())
-				.pipe(cmq({log:true}))
+		.pipe(cmq({log:true}))
 		.pipe(autoprefixer())
-				.pipe(cleanCss())
+		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
 });
 
 // ファイル結合
 gulp.task('scripts', function() {
-	return gulp.src(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'])
+	return gulp.src(
+			[
+				'./assets/js/jquery.flatheights.js',
+				'./assets/js/master.js',
+				'./inc/pagetop-btn/js/pagetop-btn.js'
+			]
+		)
 		.pipe(concat('all.js'))
 		.pipe(gulp.dest('./assets/js/'))
 		.pipe(jsmin())

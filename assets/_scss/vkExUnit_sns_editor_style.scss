@@ -1,0 +1,10 @@
+@charset "utf-8";
+@import "_iconset";
+@import "../../inc/sns/package/_sns";
+
+.vew_share_button_block .disabled {
+    display: block !important;
+    background-color: rgba(139,139,150,.1);
+    padding: 0.7em;
+    text-align: center;
+}

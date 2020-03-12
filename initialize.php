@@ -102,3 +102,18 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 	$enqueue_point = 'wp_footer';
 	return $enqueue_point;
 }
+
+add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
+function vew_add_block_category( $categories, $post ) {
+	return array_merge(
+		$categories,
+		array(
+			array(
+				'slug'  => 'vk-blocks-widget',
+				'title' => __( 'VK Blocks Widget', 'vk-all-in-one-expansion-unit' ),
+				'icon'  => 'screenoptions',
+			),
+		)
+	);
+}
+
