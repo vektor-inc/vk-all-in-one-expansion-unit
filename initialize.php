@@ -116,4 +116,3 @@ function vew_add_block_category( $categories, $post ) {
 		)
 	);
 }
-

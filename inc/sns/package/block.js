@@ -14,14 +14,15 @@ registerBlockType("vk-blocks-widget/share-button", {
     return (
         <Fragment>
           <InspectorControls>
-            <PanelBody title={__("Share Button setting", "vk-all-in-one-expansion-unit")}>
-              <p>{__("if set enable sharebutton, display share buttons.", "vk-all-in-one-expansion-unit")}</p>
+            <PanelBody title={__("Share Button setting", "vew-blocks")}>
+              <p>{__("if set enable sharebutton, display share buttons.", "vew-blocks")}</p>
             </PanelBody>
           </InspectorControls>
 
           <div className={`${className} vew_share_button_block`} >
             <ServerSideRender
               block="vk-blocks-widget/share-button"
+              attributes={{position: 'After'}}
             />
           </div>
         </Fragment>

@@ -181,7 +181,7 @@ function veu_add_sns_btns( $content ) {
 
 	// 個別の記事で ボタンを表示しない指定にしてある場合
 	global $post;
-	if ( $post->sns_share_botton_hide ) {
+	if ( isset($post->sns_share_botton_hide) && $post->sns_share_botton_hide ) {
 		return $content;
 	}
 
