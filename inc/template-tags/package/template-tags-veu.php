@@ -10,6 +10,25 @@ https://github.com/vektor-inc/vektor-wp-libraries
  * ExUnit固有の関数だが、ExUnitの機能を複製している他のプラグインにも使用されるものもある
  */
 
+ /**
+  * ExUnit 内から VK Blocks Widget にブロック登録用
+  * ブロック登録元に下記の行を追加して登録する
+  * add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
+  */
+
+function vew_add_block_category( $categories, $post ) {
+	return array_merge(
+		$categories,
+		array(
+			array(
+				'slug'  => 'vk-blocks-widget',
+				'title' => __( 'VK Blocks Widget', 'vk-all-in-one-expansion-unit' ),
+				'icon'  => '',
+			),
+		)
+	);
+}
+
 function veu_get_common_options() {
 	$dafault = veu_get_common_options_default();
 	$options = get_option( 'vkExUnit_common_options' );
@@ -42,7 +61,6 @@ function veu_common_options_validate( $input ) {
 	 ここでは機能の有効化有無に関する項目が殆どで、手動で項目を記載すると機能の増減の際に項目の編集漏れが出るため、
 	 veu_get_common_options_default() の中で package に登録してある項目・デフォルト値を読み込み、それをループ処理する
 	*/
-	$output = array();
 	$defaults = veu_get_common_options_default();
 	foreach ( $defaults as $key => $default_value ) {
 		// 'content_filter_state'　以外は true か false しか返ってこない
