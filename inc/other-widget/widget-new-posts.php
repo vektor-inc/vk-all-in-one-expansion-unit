@@ -62,8 +62,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			echo $args['after_title'];
 		}
 
-		$count       = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
-		$post_type   = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? explode( ',', $instance['post_type'] ) : 'post';
+		$count = ( isset( $instance['count'] ) && $instance['count'] ) ? $instance['count'] : 10;
+
+		$post_type = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
+		if ( is_array( $post_type ) ) {
+			$post_type = vk_the_post_type_check_list_saved_array_convert( $post_type );
+		}
 		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified' );
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
@@ -364,8 +368,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		<?php // 投稿タイプ ?>
 		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Slug for the custom type you want to display', 'vk-all-in-one-expansion-unit' ); ?>:</label><br />
-		<input type="text" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>" value="<?php echo esc_attr( $instance['post_type'] ); ?>" />
-		<br/><br/>
+
+		<?php
+		$args = array(
+			'name'    => $this->get_field_name( 'post_type' ),
+			'checked' => $instance['post_type'],
+		);
+		vk_the_post_type_check_list( $args );
+		?>
 
 		<?php // Terms ?>
 		<label for="<?php echo $this->get_field_id( 'terms' ); ?>"><?php _e( 'taxonomy ID', 'vk-all-in-one-expansion-unit' ); ?>:</label><br />
@@ -397,7 +407,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$instance['media_id']  = esc_attr( $new_instance['media_id'] );
 		$instance['media_alt'] = esc_attr( $new_instance['media_alt'] );
 		$instance['orderby']   = in_array( $new_instance['orderby'], array( 'date', 'modified' ) ) ? $new_instance['orderby'] : 'date';
-		$instance['post_type'] = ! empty( $new_instance['post_type'] ) ? strip_tags( $new_instance['post_type'] ) : 'post';
+		$instance['post_type'] = $new_instance['post_type'];
 		$instance['terms']     = preg_replace( '/([^0-9,]+)/', '', $new_instance['terms'] );
 		$instance['more_url']  = $new_instance['more_url'];
 		$instance['more_text'] = $new_instance['more_text'];
