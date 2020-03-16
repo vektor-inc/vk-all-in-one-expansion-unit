@@ -11,7 +11,8 @@ https://github.com/vektor-inc/vektor-wp-libraries
  */
 
  /**
-  * ExUnit 内から VK Blocks Widget にブロック登録用
+  * VK Blocks Widget カテゴリーを登録
+  * ExUnit 内から VK Blocks Widget にブロック
   * ブロック登録元に下記の行を追加して登録する
   * add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
   */
@@ -22,7 +23,7 @@ function vew_add_block_category( $categories, $post ) {
 		array(
 			array(
 				'slug'  => 'vk-blocks-widget',
-				'title' => __( 'VK Blocks Widget', 'vk-all-in-one-expansion-unit' ),
+				'title' => veu_get_prefix() . __( 'Blocks Widget', 'vk-all-in-one-expansion-unit' ),
 				'icon'  => '',
 			),
 		)
@@ -51,8 +52,10 @@ function veu_get_common_options_default() {
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
 
- /*-------------------------------------------*/
- /*  validate
+ /*
+ -------------------------------------------*/
+ /*
+   validate
  /*-------------------------------------------*/
 
 function veu_common_options_validate( $input ) {
@@ -150,7 +153,7 @@ if ( ! function_exists( 'veu_is_cta_active' ) ) {
 	}
 }
 
-require_once( 'template-tags-veu-old.php' );
+require_once 'template-tags-veu-old.php';
 
 
 function veu_is_parent_metabox_display() {
@@ -165,22 +168,26 @@ function veu_is_insert_item_metabox_display() {
 	$options         = veu_get_common_options();
 	$admin_post_type = vk_get_post_type();
 
-	/*  childPageIndex
+	/*
+	  childPageIndex
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_childPageIndex'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
 	}
-	/*  pageList_ancestor
+	/*
+	  pageList_ancestor
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_pageList_ancestor'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
 	}
-	/*  contact_section
+	/*
+	  contact_section
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_contact_section'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
 	}
-	/*  HTML Sitemap
+	/*
+	  HTML Sitemap
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_sitemap_page'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
@@ -197,37 +204,43 @@ function veu_is_parent_metabox_display_maual() {
 		return true;
 	}
 
-	/*  Meta KeyWords
+	/*
+	  Meta KeyWords
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_metaKeyword'] ) ) {
 		return true;
 	}
 
-	/*  CSS Customize
+	/*
+	  CSS Customize
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_css_customize'] ) ) {
 		return true;
 	}
 
-	/*  CTA
+	/*
+	  CTA
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_call_to_action'] ) ) {
 		return true;
 	}
 
-	/*  NoIndex
+	/*
+	  NoIndex
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_noindex'] ) ) {
 		return true;
 	}
 
-	/*  Auto Eye Catch
+	/*
+	  Auto Eye Catch
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_auto_eyecatch'] ) ) {
 		return true;
 	}
 
-	/*  SNS
+	/*
+	  SNS
 	/*-------------------------------------------*/
 
 	if ( ! empty( $options['active_sns'] ) ) {
