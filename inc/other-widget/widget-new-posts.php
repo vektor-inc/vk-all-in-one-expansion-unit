@@ -284,9 +284,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		*/
 		$instance = static::get_options( $instance );
 		?>
-		<br />
+
 		<?php // タイトル ?>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
+		<h3 class="admin-custom-h3">
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		</h3>
 		<?php
 		if ( isset( $instance['title'] ) && $instance['title'] ) {
 			$title = $instance['title'];
@@ -295,24 +297,28 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 		?>
 		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
-		<br /><br />
 
-		<?php echo _e( 'Display Format', 'vk-all-in-one-expansion-unit' ); ?>:<br/>
+		<?php // Display Format ?>
+		<h3 class="admin-custom-h3">
+		<?php echo _e( 'Display Format', 'vk-all-in-one-expansion-unit' ); ?>
+		</h3>
+		<ul>
 		<?php
 		$checked = '';
 		if ( ! $instance['format'] ) {
 			$checked = ' checked';
 		}
 		?>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"<?php echo $checked; ?>/><?php echo __( 'Thumbnail', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Date', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-			<?php
-			$checked = '';
-			if ( $instance['format'] == 1 ) {
-				$checked = ' checked';
-			}
-			?>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Category', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ); ?></label>
-		<br/><br/>
+		<li><label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="0"<?php echo $checked; ?>/><?php echo __( 'Thumbnail', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Date', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+		<?php
+		$checked = '';
+		if ( $instance['format'] == 1 ) {
+			$checked = ' checked';
+		}
+		?>
+		<li><label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Category', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ); ?></label>
+		</li>
+		</ul>
 
 		<?php
 		/*
@@ -324,7 +330,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			'media_alt' => 'media_alt',
 		);
 		?>
-<p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+		<h3 class="admin-custom-h3">
+		<label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vk-all-in-one-expansion-unit' ); ?></label>
+		</h3>
 <div class="media_image_section">
 <div class="_display admin-custom-thumb-outer" style="height:auto">
 		<?php
@@ -343,31 +351,37 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 </div><!-- [ /.media_image_section ] -->
 
 
-<br/>
 
+		<h3 class="admin-custom-h3">
 		<?php echo _e( 'Order by', 'vk-all-in-one-expansion-unit' ); ?>
-		:<br/>
-		<label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="date"
-																					<?php
-																					if ( $instance['orderby'] != 'modified' ) {
-																						echo 'checked'; }
-																					?>
- /><?php _e( 'Publish date', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-		<label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="modified"
-													<?php
-													if ( $instance['orderby'] == 'modified' ) {
-														echo 'checked'; }
-													?>
-/><?php _e( 'Modified date', 'vk-all-in-one-expansion-unit' ); ?></label>
-		<br/><br/>
+		</h3>
+		<ul>
+		<?php
+		$checked = '';
+		if ( $instance['orderby'] != 'modified' ) {
+			$checked = ' checked';
+		}
+		?>
+		<li><label style="padding-bottom: 0.5em"><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="date"<?php echo $checked; ?> /><?php _e( 'Publish date', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+		<?php
+		$checked = '';
+		if ( $instance['orderby'] == 'modified' ) {
+			$checked = ' checked';
+		}
+		?>
+		<li><label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="modified"<?php echo $checked; ?> /><?php _e( 'Modified date', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+</ul>
 
 		<?php // 表示件数 ?>
-		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Display count', 'vk-all-in-one-expansion-unit' ); ?>:</label><br/>
+		<h3 class="admin-custom-h3">
+		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Display count', 'vk-all-in-one-expansion-unit' ); ?>:</label>
+		</h3>
 		<input type="text" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo esc_attr( $instance['count'] ); ?>" />
-		<br /><br />
 
 		<?php // 投稿タイプ ?>
-		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Slug for the custom type you want to display', 'vk-all-in-one-expansion-unit' ); ?>:</label><br />
+		<h3 class="admin-custom-h3">
+		<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Slug for the custom type you want to display', 'vk-all-in-one-expansion-unit' ); ?></label>
+		</h3>
 
 		<?php
 		$args = array(
@@ -378,22 +392,28 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		?>
 
 		<?php // Terms ?>
-		<label for="<?php echo $this->get_field_id( 'terms' ); ?>"><?php _e( 'taxonomy ID', 'vk-all-in-one-expansion-unit' ); ?>:</label><br />
-		<input type="text" id="<?php echo $this->get_field_id( 'terms' ); ?>" name="<?php echo $this->get_field_name( 'terms' ); ?>" value="<?php echo esc_attr( $instance['terms'] ); ?>" /><br />
+		<h3 class="admin-custom-h3">
+		<label for="<?php echo $this->get_field_id( 'terms' ); ?>"><?php _e( 'taxonomy ID', 'vk-all-in-one-expansion-unit' ); ?>:</label>
+		</h3>
+		<input type="text" id="<?php echo $this->get_field_id( 'terms' ); ?>" name="<?php echo $this->get_field_name( 'terms' ); ?>" value="<?php echo esc_attr( $instance['terms'] ); ?>" class="admin-custom-input" />
+		
 		<?php
 		_e( 'if you need filtering by term, add the term ID separate by ",".', 'vk-all-in-one-expansion-unit' );
 		echo '<br/>';
 		_e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-unit' );
 		?>
-		<br/><br/>
+
 
 		<?php // Read more ?>
-		<label for="<?php echo $this->get_field_id( 'more_url' ); ?>"><?php _e( 'Destination URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-		<input type="text" id="<?php echo $this->get_field_id( 'more_url' ); ?>" name="<?php echo $this->get_field_name( 'more_url' ); ?>" value="<?php echo esc_attr( $instance['more_url'] ); ?>" />
-		<br /><br />
+		<h3 class="admin-custom-h3">
+				<?php _e( 'Button option', 'vk-all-in-one-expansion-unit' ); ?>
+		</h3>
+		<label for="<?php echo $this->get_field_id( 'more_url' ); ?>"><?php _e( 'Destination URL:', 'vk-all-in-one-expansion-unit' ); ?></label>
+		<input type="text" id="<?php echo $this->get_field_id( 'more_url' ); ?>" name="<?php echo $this->get_field_name( 'more_url' ); ?>" value="<?php echo esc_attr( $instance['more_url'] ); ?>" class="admin-custom-input" />
+		<br />
 		<label for="<?php echo $this->get_field_id( 'more_text' ); ?>"><?php _e( 'Notation text:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-		<input type="text" placeholder="最新記事一覧 ≫" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
-				<br /><br />
+		<input type="text" placeholder="最新記事一覧 ≫" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" class="admin-custom-input" />
+		<br /><br />
 
 		<?php
 	}
