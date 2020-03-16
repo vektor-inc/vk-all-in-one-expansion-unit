@@ -23,7 +23,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	/*
 	  一覧へのリンクhtmlを出力する関数
 	/*-------------------------------------------*/
-	static public function more_link_html( $instance ) {
+	public static function more_link_html( $instance ) {
 		if ( ! empty( $instance['more_text'] ) && ! empty( $instance['more_url'] ) ) {
 			$more_link_html  = '<div class="postList_more">';
 			$more_link_html .= '<a href="' . esc_url( $instance['more_url'] ) . '">' . wp_kses_post( $instance['more_text'] ) . '</a>';
@@ -34,7 +34,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return $more_link_html;
 	}
 
-	static public function get_widget_title( $instance ) {
+	public static function get_widget_title( $instance ) {
 		$title = '';
 		if ( isset( $instance['title'] ) && $instance['title'] ) {
 			$title = $instance['title'];
@@ -111,7 +111,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		endif;
 
-		echo  $this->more_link_html( $instance );
+		echo $this->more_link_html( $instance );
 
 		echo '</div>';
 
@@ -124,9 +124,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 
 	function display_pattern_0( $is_modified = false, $instance ) {
-	?>
+		?>
 <div class="postList_item" id="post-<?php the_ID(); ?>">
-	<?php if ( has_post_thumbnail() || $instance['media_id'] ) : ?>
+		<?php if ( has_post_thumbnail() || $instance['media_id'] ) : ?>
 		<div class="postList_thumbnail">
 		<a href="<?php the_permalink(); ?>">
 			<?php
@@ -155,31 +155,32 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			);
 
 			$media_body_output = '<div class="postList_title entry-title"><a href="' . esc_url( get_the_permalink() ) . '">' . wp_kses( get_the_title(), $allowed_html ) . '</a></div>';
-		if ( $is_modified ) {
-			$media_body_output .= '<div class="modified postList_date postList_meta_items">' . esc_html( get_the_modified_date() ) . '</div>';
-		} else {
-			$media_body_output .= '<div class="published postList_date postList_meta_items">' . esc_html( get_the_date() ) . '</div>';
-		}
+			if ( $is_modified ) {
+				$media_body_output .= '<div class="modified postList_date postList_meta_items">' . esc_html( get_the_modified_date() ) . '</div>';
+			} else {
+				$media_body_output .= '<div class="published postList_date postList_meta_items">' . esc_html( get_the_date() ) . '</div>';
+			}
 			echo apply_filters( 'vk_post_list_widget_media_body', $media_body_output );
 			do_action( 'vk_post_list_widget_media_body_append' );
-		?>
+			?>
 	</div><!-- [ /.postList_body ] -->
 </div>
-<?php
+		<?php
 	}
 
 	/**
 	 * [display_pattern_1 description]
+	 *
 	 * @param  boolean $is_modified [description]
 	 * @param  [type]  $instance    [description]
 	 * @param  [type]  $taxonomies  [description]
 	 * @return [type]               [description]
 	 */
 	public static function display_pattern_1( $is_modified = false, $instance ) {
-	?>
+		?>
 <li id="post-<?php the_ID(); ?>">
 
-	<?php
+		<?php
 		do_action( 'vk_post_list_widget_li_prepend' );
 		/*
 		microformats なので削除してはいけないクラス名
@@ -187,46 +188,46 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		.published
 		.modified
 		*/
-	$li_items_output = '';
-	if ( $is_modified ) {
-		$li_items_output .= '<span class="modified postList_date postList_meta_items">' . esc_html( get_the_modified_date() ) . '</span>';
-	} else {
-		$li_items_output = '<span class="published postList_date postList_meta_items">' . esc_html( get_the_date() ) . '</span>';
-	}
-
-	// クエリでターム指定がない場合に存在しているカスタム分類を取得する
-	// ※ 各記事で get_the_terms() する時に $taxonomy が必要なため
-	// ※ get_the_taxonomies() は 該当 term が ２つの場合「〇〇と〇〇」というように『と』が入ってしまう
-
-	// まずはカスタム分類を取得
-	$taxonomies_object = get_taxonomies(
-		array(
-			'public'  => true,
-			'show_ui' => true,
-		),
-		'objects'
-	);
-	// 階層のあるものだけ $taxonomies に格納
-	foreach ( $taxonomies_object as $key => $value ) {
-		if ( $value->hierarchical ) {
-			$taxonomies[] = $key;
+		$li_items_output = '';
+		if ( $is_modified ) {
+			$li_items_output .= '<span class="modified postList_date postList_meta_items">' . esc_html( get_the_modified_date() ) . '</span>';
+		} else {
+			$li_items_output = '<span class="published postList_date postList_meta_items">' . esc_html( get_the_date() ) . '</span>';
 		}
-	}
 
-	// taxonomy
-	$li_items_output .= '<span class="postList_terms postList_meta_items">';
+		// クエリでターム指定がない場合に存在しているカスタム分類を取得する
+		// ※ 各記事で get_the_terms() する時に $taxonomy が必要なため
+		// ※ get_the_taxonomies() は 該当 term が ２つの場合「〇〇と〇〇」というように『と』が入ってしまう
 
-	foreach ( $taxonomies as $taxonomy ) {
-		$terms = get_the_terms( get_the_ID(), $taxonomy );
-		if ( is_array( $terms ) ) {
-			foreach ( $terms as $term ) {
-					$link             = get_term_link( $term->term_id );
-					$li_items_output .= '<a href="' . $link . '" target="_blank">' . $term->name . '</a>';
+		// まずはカスタム分類を取得
+		$taxonomies_object = get_taxonomies(
+			array(
+				'public'  => true,
+				'show_ui' => true,
+			),
+			'objects'
+		);
+		// 階層のあるものだけ $taxonomies に格納
+		foreach ( $taxonomies_object as $key => $value ) {
+			if ( $value->hierarchical ) {
+				$taxonomies[] = $key;
 			}
 		}
-	}
 
-	$li_items_output .= '</span>';
+		// taxonomy
+		$li_items_output .= '<span class="postList_terms postList_meta_items">';
+
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_the_terms( get_the_ID(), $taxonomy );
+			if ( is_array( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$link             = get_term_link( $term->term_id );
+					$li_items_output .= '<a href="' . $link . '" target="_blank">' . $term->name . '</a>';
+				}
+			}
+		}
+
+		$li_items_output .= '</span>';
 
 		$allowed_html = array(
 			'span'   => array( 'class' => array() ),
@@ -237,16 +238,16 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$li_items_output .= '<span class="postList_title entry-title"><a href="' . esc_url( get_the_permalink() ) . '">' . wp_kses( get_the_title(), $allowed_html ) . '</a></span>';
 		echo apply_filters( 'vk_post_list_widget_li_items', $li_items_output );
 		do_action( 'vk_post_list_widget_li_append' );
-	?>
+		?>
 </li>
-<?php
+		<?php
 	}
 
 	// function _taxonomy_init( $post_type ) {
-	// 	if ( $post_type == 'post' ) {
-	// 		return;
-	// 	}
-	// 	$this->taxonomies = get_object_taxonomies( $post_type );
+	// if ( $post_type == 'post' ) {
+	// return;
+	// }
+	// $this->taxonomies = get_object_taxonomies( $post_type );
 	// }
 
 
@@ -309,24 +310,24 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'format' ); ?>" value="1"<?php echo $checked; ?>/><?php echo __( 'Date', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Category', 'vk-all-in-one-expansion-unit' ) . '/' . __( 'Title', 'vk-all-in-one-expansion-unit' ); ?></label>
 		<br/><br/>
 
-<?php
-/*
-  media uploader
-/*-------------------------------------------*/
-$args = array(
-	'media_url' => 'media_url',
-	'media_id'  => 'media_id',
-	'media_alt' => 'media_alt',
-);
-?>
+		<?php
+		/*
+		media uploader
+		/*-------------------------------------------*/
+		$args = array(
+			'media_url' => 'media_url',
+			'media_id'  => 'media_id',
+			'media_alt' => 'media_alt',
+		);
+		?>
 <p><label for="<?php echo $this->get_field_id( $args['media_url'] ); ?>"><?php _e( 'Default thumbnail image:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <div class="media_image_section">
 <div class="_display admin-custom-thumb-outer" style="height:auto">
-<?php
-if ( ! empty( $instance[ $args['media_url'] ] ) ) :
-	?>
+		<?php
+		if ( ! empty( $instance[ $args['media_url'] ] ) ) :
+			?>
 	<img src="<?php echo esc_url( $instance[ $args['media_url'] ] ); ?>" class="admin-custom-thumb" />
-<?php endif; ?>
+		<?php endif; ?>
 </div>
 <button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vk-all-in-one-expansion-unit' ); ?></button>
 <button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
@@ -346,13 +347,13 @@ if ( ! empty( $instance[ $args['media_url'] ] ) ) :
 																					<?php
 																					if ( $instance['orderby'] != 'modified' ) {
 																						echo 'checked'; }
-?>
+																					?>
  /><?php _e( 'Publish date', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<label><input type="radio" name="<?php echo $this->get_field_name( 'orderby' ); ?>" value="modified"
 													<?php
 													if ( $instance['orderby'] == 'modified' ) {
 														echo 'checked'; }
-?>
+													?>
 /><?php _e( 'Modified date', 'vk-all-in-one-expansion-unit' ); ?></label>
 		<br/><br/>
 
@@ -384,7 +385,7 @@ if ( ! empty( $instance[ $args['media_url'] ] ) ) :
 		<input type="text" placeholder="最新記事一覧 ≫" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
 				<br /><br />
 
-	<?php
+		<?php
 	}
 
 	function update( $new_instance, $old_instance ) {
