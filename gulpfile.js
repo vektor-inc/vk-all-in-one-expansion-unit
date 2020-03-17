@@ -89,10 +89,10 @@ gulp.task('jsmin_scroll', function () {
 
 // Watch
 gulp.task('watch', function() {
-	gulp.watch(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'], ['scripts']);
-	gulp.watch(['./inc/smooth-scroll/js/smooth-scroll.js'], ['jsmin_scroll']);
-	gulp.watch('./assets/_scss/**/*.scss', ['sass']);
-	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', ['sass']);
+	gulp.watch(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'], gulp.series('scripts'));
+	gulp.watch(['./inc/smooth-scroll/js/smooth-scroll.js'], gulp.series('jsmin_scroll'));
+	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'));
+	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'));
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
