@@ -10,6 +10,30 @@ https://github.com/vektor-inc/vektor-wp-libraries
  * ExUnit固有の関数だが、ExUnitの機能を複製している他のプラグインにも使用されるものもある
  */
 
+ /**
+  * VK Blocks Widget カテゴリーを登録
+  * ExUnit 内から VK Blocks Widget にブロック
+  * ブロック登録元に下記の行を追加して登録する
+  * add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
+  */
+
+function vew_add_block_category( $categories, $post ) {
+	
+	if ( ! vk_is_block_category_exist( $categories, 'vk-blocks-cat' ) ) {
+		$categories = array_merge(
+			$categories,
+			array(
+				array(
+					'slug'  => 'vk-blocks-cat',
+					'title' => veu_get_prefix() . __( 'Blocks', 'vk-all-in-one-expansion-unit' ),
+					'icon'  => '',
+				),
+			)
+		);
+	}
+	return $categories;
+}
+
 function veu_get_common_options() {
 	$dafault = veu_get_common_options_default();
 	$options = get_option( 'vkExUnit_common_options' );
@@ -32,8 +56,10 @@ function veu_get_common_options_default() {
 	return apply_filters( 'vkExUnit_common_options_default', $default_options );
 }
 
- /*-------------------------------------------*/
- /*  validate
+ /*
+ -------------------------------------------*/
+ /*
+   validate
  /*-------------------------------------------*/
 
 function veu_common_options_validate( $input ) {
@@ -42,7 +68,6 @@ function veu_common_options_validate( $input ) {
 	 ここでは機能の有効化有無に関する項目が殆どで、手動で項目を記載すると機能の増減の際に項目の編集漏れが出るため、
 	 veu_get_common_options_default() の中で package に登録してある項目・デフォルト値を読み込み、それをループ処理する
 	*/
-	$output = array();
 	$defaults = veu_get_common_options_default();
 	foreach ( $defaults as $key => $default_value ) {
 		// 'content_filter_state'　以外は true か false しか返ってこない
@@ -132,7 +157,7 @@ if ( ! function_exists( 'veu_is_cta_active' ) ) {
 	}
 }
 
-require_once( 'template-tags-veu-old.php' );
+require_once 'template-tags-veu-old.php';
 
 
 function veu_is_parent_metabox_display() {
@@ -147,22 +172,26 @@ function veu_is_insert_item_metabox_display() {
 	$options         = veu_get_common_options();
 	$admin_post_type = vk_get_post_type();
 
-	/*  childPageIndex
+	/*
+	  childPageIndex
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_childPageIndex'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
 	}
-	/*  pageList_ancestor
+	/*
+	  pageList_ancestor
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_pageList_ancestor'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
 	}
-	/*  contact_section
+	/*
+	  contact_section
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_contact_section'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
 	}
-	/*  HTML Sitemap
+	/*
+	  HTML Sitemap
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_sitemap_page'] ) && $admin_post_type['slug'] == 'page' ) {
 		return true;
@@ -179,37 +208,43 @@ function veu_is_parent_metabox_display_maual() {
 		return true;
 	}
 
-	/*  Meta KeyWords
+	/*
+	  Meta KeyWords
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_metaKeyword'] ) ) {
 		return true;
 	}
 
-	/*  CSS Customize
+	/*
+	  CSS Customize
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_css_customize'] ) ) {
 		return true;
 	}
 
-	/*  CTA
+	/*
+	  CTA
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_call_to_action'] ) ) {
 		return true;
 	}
 
-	/*  NoIndex
+	/*
+	  NoIndex
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_noindex'] ) ) {
 		return true;
 	}
 
-	/*  Auto Eye Catch
+	/*
+	  Auto Eye Catch
 	/*-------------------------------------------*/
 	if ( ! empty( $options['active_auto_eyecatch'] ) ) {
 		return true;
 	}
 
-	/*  SNS
+	/*
+	  SNS
 	/*-------------------------------------------*/
 
 	if ( ! empty( $options['active_sns'] ) ) {

@@ -26,14 +26,22 @@ function veu_load_css_action() {
 	// priority 5 : possible to overwrite from theme design skin
 	add_action( $hook_point, 'veu_print_css', 5 );
 }
-function veu_print_css() {
+
+add_action( 'wp_enqueue_scripts', 'vwu_register_css', 3 );
+add_action( 'admin_enqueue_scripts', 'vwu_register_css', 3 );
+function vwu_register_css() {
 	global $vkExUnit_version;
 	$options = veu_get_common_options();
+
 	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
-		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style_in_bs.css', array(), $vkExUnit_version, 'all' );
+		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style_in_bs.css', array(), $vkExUnit_version, 'all' );
 	} else {
-		wp_enqueue_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
+		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
 	}
+}
+
+function veu_print_css() {
+	wp_enqueue_style( 'vkExUnit_common_style' );
 }
 
 function veu_print_editor_css() {

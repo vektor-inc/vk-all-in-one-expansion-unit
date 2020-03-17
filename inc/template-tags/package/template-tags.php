@@ -393,6 +393,7 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
 
 /**
  * vk_the_post_type_check_list で保存される配列が、キーに投稿タイプ名が入る微妙な仕様のため、投稿タイプだけを配列で返すように変換
+ *
  * @param  [type] $post_types : array( 'post' => 'true', 'info' => '' );
  * @return [type] $return : array( 'post' );
  */
@@ -406,7 +407,7 @@ if ( ! function_exists( 'vk_the_post_type_check_list_saved_array_convert' ) ) {
 				}
 			}
 		}
-		return$return;
+		return $return;
 	}
 }
 
@@ -427,5 +428,26 @@ if ( ! function_exists( 'vk_is_checked' ) ) {
 			$checked = ' checked';
 		}
 		echo $checked;
+	}
+}
+
+/**
+ * Chack block category exist
+ *
+ * @param array  $categories
+ * @param string $slug
+ * @return boolian
+ */
+if ( ! function_exists( 'vk_is_block_category_exist' ) ) {
+	function vk_is_block_category_exist( $categories, $slug ) {
+		$keys = array();
+		foreach ( $categories as $key => $value ) {
+			$keys[] = $value['slug'];
+		}
+		if ( in_array( $slug, $keys ) ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

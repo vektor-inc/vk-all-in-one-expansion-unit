@@ -1,10 +1,13 @@
 <?php
+
+// Register VK Blocks Widget Category
+add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
+
 if ( veu_content_filter_state() == 'content' ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
 } else {
 	add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
 }
-
 
 function veu_add_sns_btns_loopend( $query ) {
 	if ( ! $query->is_main_query() ) {
@@ -134,9 +137,12 @@ function veu_sns_icon_css( $options ) {
 	return $snsBtn_color;
 }
 
+function vew_sns_block_callback( $attr = array() ) {
+	$attr = array_merge( array( 'position' => 'after' ), $attr );
+	return veu_get_sns_btns( $attr['position'] );
+}
 
 function veu_get_sns_btns( $position = 'after' ) {
-
 	$options   = veu_get_sns_options();
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
@@ -178,7 +184,7 @@ function veu_add_sns_btns( $content ) {
 
 	// 個別の記事で ボタンを表示しない指定にしてある場合
 	global $post;
-	if ( $post->sns_share_botton_hide ) {
+	if ( isset( $post->sns_share_botton_hide ) && $post->sns_share_botton_hide ) {
 		return $content;
 	}
 
@@ -216,15 +222,15 @@ function veu_add_sns_btns( $content ) {
 // add_action( 'wp_ajax_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
 // add_action( 'wp_ajax_nopriv_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
 // function veu_sns_pocket_tunnel() {
-// 	ini_set( 'display_errors', 0 );
-// 	$linkurl = urldecode( filter_input( INPUT_POST, 'linkurl' ) );
-// 	if ( $s['host'] != $p['host'] ) {
-// 		echo '0';
-// 		die(); }
-// 	$r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl . '&title=title&src=' . $linkurl . '&r=' . rand( 1, 100 ) );
-// 	if ( is_wp_error( $r ) ) {
-// 		echo '0';
-// 		die(); }
-// 	echo $r['body'];
-// 	die();
+// ini_set( 'display_errors', 0 );
+// $linkurl = urldecode( filter_input( INPUT_POST, 'linkurl' ) );
+// if ( $s['host'] != $p['host'] ) {
+// echo '0';
+// die(); }
+// $r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl . '&title=title&src=' . $linkurl . '&r=' . rand( 1, 100 ) );
+// if ( is_wp_error( $r ) ) {
+// echo '0';
+// die(); }
+// echo $r['body'];
+// die();
 // }
