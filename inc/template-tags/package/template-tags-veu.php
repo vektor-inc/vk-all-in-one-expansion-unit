@@ -18,16 +18,20 @@ https://github.com/vektor-inc/vektor-wp-libraries
   */
 
 function vew_add_block_category( $categories, $post ) {
-	return array_merge(
-		$categories,
-		array(
+	
+	if ( ! vk_is_block_category_exist( $categories, 'vk-blocks-cat' ) ) {
+		$categories = array_merge(
+			$categories,
 			array(
-				'slug'  => 'vk-blocks-widget',
-				'title' => veu_get_prefix() . __( 'Blocks Widget', 'vk-all-in-one-expansion-unit' ),
-				'icon'  => '',
-			),
-		)
-	);
+				array(
+					'slug'  => 'vk-blocks-cat',
+					'title' => veu_get_prefix() . __( 'Blocks Widget', 'vk-all-in-one-expansion-unit' ),
+					'icon'  => '',
+				),
+			)
+		);
+	}
+	return $categories;
 }
 
 function veu_get_common_options() {

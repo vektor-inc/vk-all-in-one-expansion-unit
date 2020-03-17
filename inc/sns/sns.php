@@ -27,7 +27,7 @@ add_action( 'init', function(){
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
 	register_block_type(
-		'vk-blocks-widget/share-button',
+		'vk-blocks/share-button',
 		array(
 			'attributes' => array(
 				'position' => array(

@@ -6,10 +6,10 @@ const { Fragment } = wp.element;
 const { InspectorControls } =
   wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor;
 
-registerBlockType("vk-blocks-widget/share-button", {
+registerBlockType("vk-blocks/share-button", {
   title: __("Share button", "vk-all-in-one-expansion-unit"),
   icon: 'share',
-  category: "vk-blocks-widget",
+  category: "vk-blocks-cat",
   edit: ({className}) => {
     return (
         <Fragment>
@@ -21,7 +21,7 @@ registerBlockType("vk-blocks-widget/share-button", {
 
           <div className={`${className} vew_share_button_block`} >
             <ServerSideRender
-              block="vk-blocks-widget/share-button"
+              block="vk-blocks/share-button"
               attributes={{position: 'After'}}
             />
           </div>

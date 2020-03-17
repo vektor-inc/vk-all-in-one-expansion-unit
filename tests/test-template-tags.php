@@ -58,4 +58,59 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
 		}
 	}
+
+
+	function test_vk_is_block_category_exist(){
+
+		$tests = array(
+			array(
+				'categories' => array(
+					array(
+						'slug' => 'common',
+						'title' => '一般ブロック',
+						'icon' => ''
+					),
+					array(
+						'slug' => 'formatting',
+						'title' => 'フォーマット',
+						'icon' => ''
+					),
+				),
+				'slug' => 'vk-block-cat',
+				'correct' => false,
+			),
+			array(
+				'categories' => array(
+					array(
+						'slug' => 'common',
+						'title' => '一般ブロック',
+						'icon' => ''
+					),
+					array(
+						'slug' => 'vk-block-cat',
+						'title' => 'VK Block',
+						'icon' => ''
+					),
+				),
+				'slug' => 'vk-block-cat',
+				'correct' => true,
+			),
+		);
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_vk_is_block_category_exist' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		foreach ( $tests as $key => $test_value ) {
+
+			$return = vk_is_block_category_exist( $test_value['categories'],$test_value['slug'] );
+
+			// PHPunit
+			$this->assertEquals( $test_value['correct'], $return );
+			print PHP_EOL;
+			print 'return    :' . $return. PHP_EOL;
+			print 'correct   :' . $test_value['correct'] . PHP_EOL;
+		}
+	}
+
+
 }
