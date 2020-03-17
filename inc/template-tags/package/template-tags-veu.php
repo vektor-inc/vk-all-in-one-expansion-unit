@@ -25,7 +25,7 @@ function vew_add_block_category( $categories, $post ) {
 			array(
 				array(
 					'slug'  => 'vk-blocks-cat',
-					'title' => veu_get_prefix() . __( 'Blocks Widget', 'vk-all-in-one-expansion-unit' ),
+					'title' => veu_get_prefix() . __( 'Blocks', 'vk-all-in-one-expansion-unit' ),
 					'icon'  => '',
 				),
 			)
