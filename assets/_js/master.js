@@ -7,6 +7,7 @@
 /*-------------------------------------------*/
 /*	jquery.flatheights.js
 /*-------------------------------------------*/
+var a = null;
 (function($) {
 	$(function() {
 		$('.prArea > .subSection-title').flatHeights();
@@ -23,10 +24,43 @@
 /*-------------------------------------------*/
 /*	snsCount
 /*-------------------------------------------*/
+((window, document, parent_class) => {
+	window.addEventListener('load', () => {
+		let elements = document.getElementsByClassName('veu_count_sns_hb')
+		if (elements.length == 0) {
+			return
+		}
+		let linkurl = encodeURIComponent(location.href);
+
+		fetch(
+			vkExOpt.hatena_entry + linkurl,
+			{
+				method: 'GET',
+			}
+		).then((r)=>{
+			if (r.ok) {
+				r.json().then((body)=>{
+					if (body.count === undefined) {
+						return
+					}
+					Array.prototype.forEach.call(
+						elements,
+						(elm) => elm.innerHTML = body.count
+					)
+
+				})
+			}
+		})
+		// TODO: add error function
+	}, false)
+
+})(window, document, 'veu_socialSet');
+
 (function($) {
 	var socials = $('.veu_socialSet');
 	if (typeof socials[0] === "undefined") return;
-	var linkurl = encodeURIComponent((typeof vkExOpt !== "undefined" && vkExOpt.sns_linkurl) || location.href);
+	// var linkurl = encodeURIComponent((typeof vkExOpt !== "undefined" && vkExOpt.sns_linkurl) || location.href);
+	var linkurl = encodeURIComponent('https://vektor-inc.co.jp/');
 	var facebook = {
 		init: function() {
 			var url = 'https://graph.facebook.com/?id=' + linkurl;
@@ -40,44 +74,5 @@
 			});
 		}
 	}
-
-	var hatena = {
-		init: function() {
-			var url = (location.protocol === 'https:' ? 'https://b.hatena.ne.jp' : 'http://api.b.st-hatena.com') +
-				'/entry.count?url=' + linkurl;
-			$.ajax({
-				url: url,
-				dataType: 'jsonp',
-				success: function(response) {
-					var count = response ? response : 0;
-					socials.find('.veu_count_sns_hb').html(count);
-
-					if (typeof(count) == 'undefined') {
-						count = 0;
-					}
-				}
-			});
-		}
-	}
-	// var pocket = {
-	// 	init: function() {
-	// 		$.ajax({
-	// 			url: vkExOpt.ajax_url,
-	// 			type: 'POST',
-	// 			data: {
-	// 				'action': 'vkex_pocket_tunnel',
-	// 				'linkurl': linkurl
-	// 			},
-	// 			dataType: 'html',
-	// 			success: function(response) {
-	// 				var count = $(response).find("#cnt").html();
-	// 				if (count === undefined) return;
-	// 				socials.find('.veu_count_sns_pocket').html(count);
-	// 			}
-	// 		})
-	// 	}
-	// }
 	facebook.init();
-	hatena.init();
-	// pocket.init();
 })(jQuery);

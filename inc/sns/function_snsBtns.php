@@ -219,18 +219,47 @@ function veu_add_sns_btns( $content ) {
 	return $content;
 }
 
-// add_action( 'wp_ajax_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
-// add_action( 'wp_ajax_nopriv_vkex_pocket_tunnel', 'veu_sns_pocket_tunnel' );
-// function veu_sns_pocket_tunnel() {
-// ini_set( 'display_errors', 0 );
-// $linkurl = urldecode( filter_input( INPUT_POST, 'linkurl' ) );
-// if ( $s['host'] != $p['host'] ) {
-// echo '0';
-// die(); }
-// $r = wp_safe_remote_get( 'https://widgets.getpocket.com/v1/button?label=pocket&count=vertical&v=1&url=' . $linkurl . '&title=title&src=' . $linkurl . '&r=' . rand( 1, 100 ) );
-// if ( is_wp_error( $r ) ) {
-// echo '0';
-// die(); }
-// echo $r['body'];
-// die();
-// }
+add_action( 'rest_api_init', function () {
+	register_rest_route(
+		'wp/v2',
+		'/hatena_entry/(?P<linkurl>[a-zA-Z0-9\-\._%]+)',
+		array(
+			'methods' => 'GET',
+			'callback' => 'vew_sns_hatena_restapi_callback',
+		)
+	);
+});
+
+add_filter( 'vkExUnit_master_js_options', function( $options ){
+	$options['hatena_entry'] = get_rest_url(0, 'wp/v2/hatena_entry/');
+	return $options;
+}, 10, 1 );
+
+function vew_sns_hatena_restapi_callback( $data ) {
+	$linkurl = $data['linkurl'];
+	$siteurl = get_site_url();
+
+	if ( $siteurl !== substr( urldecode( $linkurl ), 0, strlen( $siteurl ) ) ) {
+		$response = new WP_REST_Response(array());
+		$response->set_status(403);
+		return $response;
+	}
+
+	$r = wp_safe_remote_get('https://bookmark.hatenaapis.com/count/entry?url=' . $linkurl);
+
+	if ( ! is_wp_error( $r ) ) {
+		$response = new WP_REST_Response(array('count' => $r['body']));
+		if ( empty($r['headers']['cache-control']) ) {
+			$cache_control = 'Cache-Control: public, max-age=3600, s-maxage=3600';
+		}else{
+			$cache_control = $r['headers']['cache-control'];
+		}
+		$response->header('Cache-Control', $r['headers']['cache-control']);
+		$response->set_status(200);
+		return $response;
+	}
+	$response = new WP_REST_Response(array());
+	$response->set_status(500);
+
+	return $response;
+}
