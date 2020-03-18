@@ -25,7 +25,9 @@ var cleanCss = require('gulp-clean-css');
 var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
 
-
+/*
+ * transpile block editor js
+ */
 gulp.task('block', function () {
 	return gulp.src('./inc/sns/package/block.js')
 		.pipe(babel({
@@ -35,7 +37,6 @@ gulp.task('block', function () {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./inc/sns/package'));
 });
-
 
 gulp.task('text-domain', function () {
 	return gulp.src(['./inc/font-awesome/**/*'])
@@ -47,13 +48,18 @@ gulp.task('sass', function() {
 	return gulp.src('./assets/_scss/*.scss',{ base: './assets/_scss' })
 		.pipe(plumber())
 		.pipe(sass())
-		.pipe(cmq({log:true}))
+		.pipe(cmq({log: true}))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
 });
 
-// ファイル結合
+/*
+ * create all.min.js
+ *
+ * including /assets/_js/*.js
+ * and transpile from ES6
+ */
 gulp.task('scripts', function() {
 	return gulp.src('./assets/_js/*.js')
 		.pipe(concat('all.min.js'))
@@ -61,29 +67,19 @@ gulp.task('scripts', function() {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
-		.pipe(gulp.dest('./assets/js'));
+		.pipe(gulp.dest('./assets/js'))
 })
-
-// js最小化
-gulp.task('jsmin_scroll', function () {
-	return gulp.src(['./inc/smooth-scroll/js/smooth-scroll.js'])
-		.pipe(plumber()) // エラーでも監視を続行
-		.pipe(jsmin())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('./inc/smooth-scroll/js'));
-});
 
 // Watch
 gulp.task('watch', function() {
-	gulp.watch(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'], gulp.series('scripts'));
-	gulp.watch(['./inc/smooth-scroll/js/smooth-scroll.js'], gulp.series('jsmin_scroll'));
-	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'));
-	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'));
+	gulp.watch('./assets/_js/*.js', gulp.series('scripts'))
+	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
+	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'jsmin_scroll', 'sass'))
+gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'sass'))
 
 // copy dist ////////////////////////////////////////////////
 
