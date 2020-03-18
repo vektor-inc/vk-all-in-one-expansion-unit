@@ -19,22 +19,12 @@ var cmq = require('gulp-merge-media-queries');
 // add vender prifix
 var autoprefixer = require('gulp-autoprefixer');
 
-// var path = require('path');
-// var fs = require('fs');
-// var pkg = JSON.parse(fs.readFileSync('./package.json'));
-// var assetsPath = path.resolve(pkg.path.assetsDir);
 var cleanCss = require('gulp-clean-css');
-
-// sudo npm install gulp.spritesmith --save-dev
-// var spritesmith = require('gulp.spritesmith');
-// http://blog.e-riverstyle.com/2014/02/gulpspritesmithcss-spritegulp.html
 
 // 同期的に処理してくれる（ distで使用している ）
 var runSequence = require('run-sequence');
-
 var replace = require('gulp-replace');
 
-var babel = require('gulp-babel'); //gulpプラグインの読み込み
 
 gulp.task('block', function () {
 	return gulp.src('./inc/sns/package/block.js')
