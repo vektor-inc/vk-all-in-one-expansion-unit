@@ -6,7 +6,8 @@ var rename = require('gulp-rename');
 // ファイル結合
 var concat = require('gulp-concat');
 // js最小化
-var jsmin = require('gulp-jsmin');
+var jsmin = require('gulp-uglify');
+var babel = require('gulp-babel');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
 // sass compiler
@@ -35,8 +36,8 @@ var replace = require('gulp-replace');
 
 var babel = require('gulp-babel'); //gulpプラグインの読み込み
 
-gulp.task('block', function () { 
-	return gulp.src('./inc/sns/package/block.js') 
+gulp.task('block', function () {
+	return gulp.src('./inc/sns/package/block.js')
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
@@ -64,19 +65,14 @@ gulp.task('sass', function() {
 
 // ファイル結合
 gulp.task('scripts', function() {
-	return gulp.src(
-			[
-				'./assets/js/jquery.flatheights.js',
-				'./assets/js/master.js',
-				'./inc/pagetop-btn/js/pagetop-btn.js'
-			]
-		)
-		.pipe(concat('all.js'))
-		.pipe(gulp.dest('./assets/js/'))
+	return gulp.src('./assets/_js/*.js')
+		.pipe(concat('all.min.js'))
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
 		.pipe(jsmin())
-		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./assets/js'));
-});
+})
 
 // js最小化
 gulp.task('jsmin_scroll', function () {
