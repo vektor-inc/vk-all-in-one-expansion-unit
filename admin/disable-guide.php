@@ -14,7 +14,7 @@ function vkExUnit_adminbar_disable( $wp_admin_bar ) {
 		$args = array(
 			'id'    => 'veu_disable_admin_edit',
 			'title' => __( 'Edit Guide', 'vk-all-in-one-expansion-unit' ).' : <span class="_show">SHOW</span><span class="_hide">HIDE</span>',
-			'meta'  => array( 'class' => 'veu_admin_bar_disable_button' , 'onClick' => 'vew_admin_toggle' ),
+			'meta'  => array( 'class' => 'veu_admin_bar_disable_button' ),
 		);
 		$wp_admin_bar->add_node( $args );
 	}
