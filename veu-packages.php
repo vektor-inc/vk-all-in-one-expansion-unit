@@ -45,6 +45,7 @@ function veu_get_packages() {
 	  TinyMCE Style Tags
 	  bootstrap
 	  icon
+	  Contactform7AssetOptimize
 	/*-------------------------------------------*/
 
 	/*
@@ -469,6 +470,18 @@ function veu_get_packages() {
 		'description' => __( 'About favicon.', 'vk-all-in-one-expansion-unit' ) . '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.<br>You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
 		'default'     => false,
 		'include'     => 'icons.php',
+	);
+
+	/*
+	  Contactform7AssetOptimize
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+	'name'        => 'Contactform7AssetOptimize',
+	'title'       => __('Contactform7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
+	'description' => __('unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".' ,'vk-all-in-one-expansion-unit' ),
+	'attr'        => array(),
+	'default'     => false,
+	'include'     => '/contactform7-asset-optimize.php',
 	);
 
 	return $required_packages;
