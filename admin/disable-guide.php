@@ -35,7 +35,7 @@ body.vew_hide_edit_guide .veu_adminEdit { display: none; }
 </style>
 <script type="text/javascript">
 (function(w,d,i,c,f){
-	window.addEventListener('load', function(){
+	w.addEventListener('load', function(){
 		var e=document.getElementById(i);
 		e.addEventListener('click', function(){
 			if(e.classList.contains(c)){
