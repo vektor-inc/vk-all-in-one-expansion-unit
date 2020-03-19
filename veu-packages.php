@@ -476,12 +476,12 @@ function veu_get_packages() {
 	  Contactform7AssetOptimize
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-	'name'        => 'Contactform7AssetOptimize',
-	'title'       => __('Contactform7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
-	'description' => __('unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".' ,'vk-all-in-one-expansion-unit' ),
-	'attr'        => array(),
-	'default'     => false,
-	'include'     => '/contactform7-asset-optimize.php',
+		'name'        => 'Contactform7AssetOptimize',
+		'title'       => __('Contactform7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
+		'description' => __('unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".' ,'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(),
+		'default'     => false,
+		'include'     => '/contactform7-asset-optimize.php',
 	);
 
 	return $required_packages;
