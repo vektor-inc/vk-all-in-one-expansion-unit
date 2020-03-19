@@ -179,7 +179,10 @@ function vkExUnit_set_sns_options() {
 /*
   Add facebook aprication id
 /*-------------------------------------------*/
-add_action( 'wp_footer', 'exUnit_print_fbId_script' );
+function exUnit_set_facebook_script() {
+	add_action( 'wp_footer', 'exUnit_print_fbId_script', 100 );
+}
+
 function exUnit_print_fbId_script() {
 ?>
 <div id="fb-root"></div>
@@ -206,15 +209,19 @@ $fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
 }
 
 function exUnit_set_twitter_script() {
-	add_action('wp_footer', 'exUnit_print_twitter_script');
+	add_action( 'wp_footer', 'exUnit_print_twitter_script', 100 );
 }
+
 function exUnit_print_twitter_script() {
 	?>
 <script type="text/javascript">
 ;(function(w,d){
 	var f=function(){
 		var s=d.createElement('script');
-		s.async='';s.src='//platform.twitter.com/widgets.js';d.body.appendChild(s);
+		s.async='async';
+		s.charset='utf-8';
+		s.src='//platform.twitter.com/widgets.js';
+		d.body.appendChild(s);
 		w.removeEventListener('scroll',f,true);
 	};
 	w.addEventListener('scroll',f,true);

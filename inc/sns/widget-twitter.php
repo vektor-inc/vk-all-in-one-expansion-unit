@@ -42,8 +42,11 @@ class VK_Twitter_Widget extends WP_Widget {
 			$height = 400;
 		}
 	?>
-
+	<a class="twitter-timeline" href="<?php echo esc_url( $account ); ?>" data-height="<?php echo $height; ?>" data-theme="<?php echo wp_kses_post( $instance['bg_color'] ); ?>" data-link-color="<?php echo sanitize_hex_color( $instance['link_color'] ); ?>" data-chrome=”noheader nofooter”>
+	</a>
 	<?php
+// <a class="twitter-timeline" href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a>
+// <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 		echo '</div>'; // .vk-twitter-plugin
 		echo $args['after_widget'];
 
