@@ -272,8 +272,6 @@ if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
 }
 
 
-
-
 /*
   Add setting page
 /*-------------------------------------------*/
