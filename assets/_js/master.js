@@ -51,28 +51,39 @@ var a = null;
 				})
 			}
 		})
-		// TODO: add error function
+		.catch((x)=>{})
 	}, false)
 
 })(window, document, 'veu_socialSet');
 
-(function($) {
-	var socials = $('.veu_socialSet');
-	if (typeof socials[0] === "undefined") return;
-	// var linkurl = encodeURIComponent((typeof vkExOpt !== "undefined" && vkExOpt.sns_linkurl) || location.href);
-	var linkurl = encodeURIComponent('https://vektor-inc.co.jp/');
-	var facebook = {
-		init: function() {
-			var url = 'https://graph.facebook.com/?id=' + linkurl;
-			$.ajax({
-				url: url,
-				dataType: 'jsonp',
-				success: function(response) {
-					if (!response.share || response.share.share_count === undefined) return;
-					socials.find('.veu_count_sns_fb').html(response.share.share_count);
-				}
-			});
-		}
+/*-------------------------------------------*/
+/*  ページ内するするスクロール
+/*-------------------------------------------*/
+((window, document) => {
+	if (!vkExOpt.enable_smooth_scroll) {
+		return
 	}
-	facebook.init();
-})(jQuery);
+	window.addEventListener('load', () =>{
+		function smooth_link(e) {
+			let href = e.toElement.getAttribute('href')
+			let y, destination = document.getElementById(href.slice(1));
+			y = destination == null? 0: destination.getBoundingClientRect().top;
+			window.scrollTo({
+				top: y - window.pageYOffset,
+				behavior: 'smooth'
+			})
+			e.preventDefault()
+		}
+		Array.prototype.forEach.call(
+			document.getElementsByTagName('a'),
+			(elem) => {
+				let href = elem.getAttribute('href')
+				if(href && href.indexOf('#') == 0){
+					console.log(href);
+					elem.addEventListener('click', smooth_link)
+				}
+			}
+		)
+
+	})
+})(window, document);

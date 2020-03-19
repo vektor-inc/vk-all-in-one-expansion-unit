@@ -221,7 +221,7 @@ function veu_add_sns_btns( $content ) {
 
 add_action( 'rest_api_init', function () {
 	register_rest_route(
-		'wp/v2',
+		'vk_ex_unit/v1',
 		'/hatena_entry/(?P<linkurl>[a-zA-Z0-9\-\._%]+)',
 		array(
 			'methods' => 'GET',
@@ -231,7 +231,7 @@ add_action( 'rest_api_init', function () {
 });
 
 add_filter( 'vkExUnit_master_js_options', function( $options ){
-	$options['hatena_entry'] = get_rest_url(0, 'wp/v2/hatena_entry/');
+	$options['hatena_entry'] = get_rest_url(0, 'vk_ex_unit/v1/hatena_entry/');
 	return $options;
 }, 10, 1 );
 
