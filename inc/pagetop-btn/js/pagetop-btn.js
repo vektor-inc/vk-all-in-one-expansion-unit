@@ -1,14 +1,11 @@
-/*----------------------------------------------------------*/
-/*	scroll
-/*----------------------------------------------------------*/
-// Scroll function
-(function($) {
-$(window).scroll(function() {
-	var scroll = $(this).scrollTop();
-	if ($(this).scrollTop() > 1) {
-		$('body').addClass('scrolled');
-	} else {
-		$('body').removeClass('scrolled');
-	}
-});
-})(jQuery);
+
+((window, document, cls) => {
+    window.addEventListener('scroll', () => {
+        console.log(window.pageYOffset);
+        if(window.pageYOffset > 0){
+            document.body.classList.add(cls)
+        }else{
+            document.body.classList.remove(cls)
+        }
+    })
+})(window, document, 'scrolled');

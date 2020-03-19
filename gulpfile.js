@@ -61,7 +61,11 @@ gulp.task('sass', function() {
  * and transpile from ES6
  */
 gulp.task('scripts', function() {
-	return gulp.src('./assets/_js/*.js')
+	return gulp.src([
+			'./assets/_js/*.js',
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/pagetop-btn/js/pagetop-btn.js'
+		])
 		.pipe(concat('all.min.js'))
 		.pipe(babel({
 			presets: ['@babel/env']
@@ -72,7 +76,14 @@ gulp.task('scripts', function() {
 
 // Watch
 gulp.task('watch', function() {
-	gulp.watch('./assets/_js/*.js', gulp.series('scripts'))
+	gulp.watch(
+		[
+			'./assets/_js/*.js',
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/pagetop-btn/js/pagetop-btn.js'
+		],
+		gulp.series('scripts')
+	)
 	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
 	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
