@@ -187,15 +187,40 @@ function exUnit_print_fbId_script() {
 $options = veu_get_sns_options();
 $fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
 ?>
-<script>(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+;(function(w,d){
+	var f=function(){
+		(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(d, 'script', 'facebook-jssdk'));
+		w.removeEventListener('scroll',f,true);
+	};
+	w.addEventListener('scroll',f,true);
+})(window,document);
+</script>
 	<?php
-	// endif;
+}
+
+function exUnit_set_twitter_script() {
+	add_action('wp_footer', 'exUnit_print_twitter_script');
+}
+function exUnit_print_twitter_script() {
+	?>
+<script type="text/javascript">
+;(function(w,d){
+	var f=function(){
+		var s=d.createElement('script');
+		s.async='';s.src='//platform.twitter.com/widgets.js';d.body.appendChild(s);
+		w.removeEventListener('scroll',f,true);
+	};
+	w.addEventListener('scroll',f,true);
+})(window,document);
+</script>
+	<?php
 }
 
 $vkExUnit_sns_options = veu_get_sns_options();

@@ -43,13 +43,11 @@ class VK_Twitter_Widget extends WP_Widget {
 		}
 	?>
 
-	<a class="twitter-timeline" href="<?php echo esc_url( $account ); ?>" data-height="<?php echo $height; ?>" data-theme="<?php echo wp_kses_post( $instance['bg_color'] ); ?>" data-link-color="<?php echo sanitize_hex_color( $instance['link_color'] ); ?>" data-chrome=”noheader nofooter”>
-	<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-	</a>
-
 	<?php
-	echo '</div>'; // .vk-twitter-plugin
-	echo $args['after_widget'];
+		echo '</div>'; // .vk-twitter-plugin
+		echo $args['after_widget'];
+
+		exUnit_set_twitter_script();
 	}
 
 	/**
