@@ -9,34 +9,37 @@
   Add Customize Panel
 /*-------------------------------------------*/
 
-require_once( dirname( __FILE__ ) . '/sns_customizer.php' );
+require_once dirname( __FILE__ ) . '/sns_customizer.php';
 
-add_action( 'init', function(){
-	wp_register_script(
-		'vew-sns-block',
-		veu_get_directory_uri('/inc/sns/package/block.min.js'),
-		array(),
-		VEU_FONT_AWESOME_DEFAULT_VERSION,
-		true
-	);
+add_action(
+	'init',
+	function() {
+		wp_register_script(
+			'vew-sns-block',
+			veu_get_directory_uri( '/inc/sns/package/block.min.js' ),
+			array(),
+			VEU_FONT_AWESOME_DEFAULT_VERSION,
+			true
+		);
 
-	global $vkExUnit_version;
-	wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
-});
+		global $vkExUnit_version;
+		wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
+	}
+);
 
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
-			'attributes' => array(
+			'attributes'      => array(
 				'position' => array(
-					'type' => 'string',
-					'default' => 'after'
-				)
+					'type'    => 'string',
+					'default' => 'after',
+				),
 			),
-			'editor_style' => 'vkExUnit_sns_editor_style',
-			'editor_script' => 'vew-sns-block',
+			'editor_style'    => 'vkExUnit_sns_editor_style',
+			'editor_script'   => 'vew-sns-block',
 			'render_callback' => 'vew_sns_block_callback',
 		)
 	);
@@ -184,12 +187,12 @@ function exUnit_set_facebook_script() {
 }
 
 function exUnit_print_fbId_script() {
-?>
+	?>
 <div id="fb-root"></div>
-<?php
-$options = veu_get_sns_options();
-$fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
-?>
+	<?php
+	$options = veu_get_sns_options();
+	$fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
+	?>
 <script>
 ;(function(w,d){
 	var f=function(){
@@ -242,7 +245,8 @@ VEU_Metabox 内の get_post_type が実行タイミングによっては
 admin_menu のタイミングで読み込んでいる
  */
 add_action(
-	'admin_menu', function() {
+	'admin_menu',
+	function() {
 		require dirname( __FILE__ ) . '/class-veu-metabox-sns-title.php';
 	}
 );
@@ -259,7 +263,8 @@ if ( $vkExUnit_sns_options['enableSnsBtns'] == true ) {
 	admin_menu のタイミングで読み込んでいる
 	 */
 	add_action(
-		'admin_menu', function() {
+		'admin_menu',
+		function() {
 			require dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php';
 		}
 	);
