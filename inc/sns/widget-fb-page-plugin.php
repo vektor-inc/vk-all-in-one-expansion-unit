@@ -45,7 +45,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		echo '</div>';
 		echo $args['after_widget'];
 
-		veu_set_twitter_script();
+		veu_set_facebook_script();
 	} // widget($args, $instance)
 
 
