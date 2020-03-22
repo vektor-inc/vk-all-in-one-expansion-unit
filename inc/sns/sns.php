@@ -9,34 +9,37 @@
   Add Customize Panel
 /*-------------------------------------------*/
 
-require_once( dirname( __FILE__ ) . '/sns_customizer.php' );
+require_once dirname( __FILE__ ) . '/sns_customizer.php';
 
-add_action( 'init', function(){
-	wp_register_script(
-		'vew-sns-block',
-		veu_get_directory_uri('/inc/sns/package/block.min.js'),
-		array(),
-		VEU_FONT_AWESOME_DEFAULT_VERSION,
-		true
-	);
+add_action(
+	'init',
+	function() {
+		wp_register_script(
+			'vew-sns-block',
+			veu_get_directory_uri( '/inc/sns/package/block.min.js' ),
+			array(),
+			VEU_FONT_AWESOME_DEFAULT_VERSION,
+			true
+		);
 
-	global $vkExUnit_version;
-	wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
-});
+		global $vkExUnit_version;
+		wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
+	}
+);
 
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
-			'attributes' => array(
+			'attributes'      => array(
 				'position' => array(
-					'type' => 'string',
-					'default' => 'after'
-				)
+					'type'    => 'string',
+					'default' => 'after',
+				),
 			),
-			'editor_style' => 'vkExUnit_sns_editor_style',
-			'editor_script' => 'vew-sns-block',
+			'editor_style'    => 'vkExUnit_sns_editor_style',
+			'editor_script'   => 'vew-sns-block',
 			'render_callback' => 'vew_sns_block_callback',
 		)
 	);
@@ -179,23 +182,55 @@ function vkExUnit_set_sns_options() {
 /*
   Add facebook aprication id
 /*-------------------------------------------*/
-add_action( 'wp_footer', 'exUnit_print_fbId_script' );
+function exUnit_set_facebook_script() {
+	add_action( 'wp_footer', 'exUnit_print_fbId_script', 100 );
+}
+
 function exUnit_print_fbId_script() {
-?>
+	?>
 <div id="fb-root"></div>
-<?php
-$options = veu_get_sns_options();
-$fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
-?>
-<script>(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 	<?php
-	// endif;
+	$options = veu_get_sns_options();
+	$fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
+	?>
+<script>
+;(function(w,d){
+	var f=function(){
+		(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(d, 'script', 'facebook-jssdk'));
+		w.removeEventListener('scroll',f,true);
+	};
+	w.addEventListener('scroll',f,true);
+})(window,document);
+</script>
+	<?php
+}
+
+function veu_set_twitter_script() {
+	add_action( 'wp_footer', 'veu_print_twitter_script', 100 );
+}
+
+function veu_print_twitter_script() {
+	?>
+<script type="text/javascript">
+;(function(w,d){
+	var f=function(){
+		var s=d.createElement('script');
+		s.async='async';
+		s.charset='utf-8';
+		s.src='//platform.twitter.com/widgets.js';
+		d.body.appendChild(s);
+		w.removeEventListener('scroll',f,true);
+	};
+	w.addEventListener('scroll',f,true);
+})(window,document);
+</script>
+	<?php
 }
 
 $vkExUnit_sns_options = veu_get_sns_options();
@@ -210,7 +245,8 @@ VEU_Metabox 内の get_post_type が実行タイミングによっては
 admin_menu のタイミングで読み込んでいる
  */
 add_action(
-	'admin_menu', function() {
+	'admin_menu',
+	function() {
 		require dirname( __FILE__ ) . '/class-veu-metabox-sns-title.php';
 	}
 );
@@ -227,7 +263,8 @@ if ( $vkExUnit_sns_options['enableSnsBtns'] == true ) {
 	admin_menu のタイミングで読み込んでいる
 	 */
 	add_action(
-		'admin_menu', function() {
+		'admin_menu',
+		function() {
 			require dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php';
 		}
 	);
@@ -238,8 +275,6 @@ if ( $vkExUnit_sns_options['enableTwitterCardTags'] == true ) {
 if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
 	require dirname( __FILE__ ) . '/function_follow.php';
 }
-
-
 
 
 /*
