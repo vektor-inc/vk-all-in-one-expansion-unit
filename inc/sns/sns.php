@@ -211,11 +211,11 @@ function exUnit_print_fbId_script() {
 	<?php
 }
 
-function exUnit_set_twitter_script() {
-	add_action( 'wp_footer', 'exUnit_print_twitter_script', 100 );
+function veu_set_twitter_script() {
+	add_action( 'wp_footer', 'veu_print_twitter_script', 100 );
 }
 
-function exUnit_print_twitter_script() {
+function veu_print_twitter_script() {
 	?>
 <script type="text/javascript">
 ;(function(w,d){

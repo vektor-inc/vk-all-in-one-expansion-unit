@@ -48,7 +48,7 @@ class VK_Twitter_Widget extends WP_Widget {
 		echo '</div>'; // .vk-twitter-plugin
 		echo $args['after_widget'];
 
-		exUnit_set_twitter_script();
+		veu_set_twitter_script();
 	}
 
 	/**
