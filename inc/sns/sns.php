@@ -182,7 +182,7 @@ function vkExUnit_set_sns_options() {
 /*
   Add facebook aprication id
 /*-------------------------------------------*/
-function exUnit_set_facebook_script() {
+function veu_set_twitter_script() {
 	add_action( 'wp_footer', 'exUnit_print_fbId_script', 100 );
 }
 
