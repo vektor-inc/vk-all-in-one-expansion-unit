@@ -6,7 +6,8 @@ var rename = require('gulp-rename');
 // ファイル結合
 var concat = require('gulp-concat');
 // js最小化
-var jsmin = require('gulp-jsmin');
+var jsmin = require('gulp-uglify');
+var babel = require('gulp-babel');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
 // sass compiler
@@ -18,25 +19,17 @@ var cmq = require('gulp-merge-media-queries');
 // add vender prifix
 var autoprefixer = require('gulp-autoprefixer');
 
-// var path = require('path');
-// var fs = require('fs');
-// var pkg = JSON.parse(fs.readFileSync('./package.json'));
-// var assetsPath = path.resolve(pkg.path.assetsDir);
 var cleanCss = require('gulp-clean-css');
-
-// sudo npm install gulp.spritesmith --save-dev
-// var spritesmith = require('gulp.spritesmith');
-// http://blog.e-riverstyle.com/2014/02/gulpspritesmithcss-spritegulp.html
 
 // 同期的に処理してくれる（ distで使用している ）
 var runSequence = require('run-sequence');
-
 var replace = require('gulp-replace');
 
-var babel = require('gulp-babel'); //gulpプラグインの読み込み
-
-gulp.task('block', function () { 
-	return gulp.src('./inc/sns/package/block.js') 
+/*
+ * transpile block editor js
+ */
+gulp.task('block', function () {
+	return gulp.src('./inc/sns/package/block.js')
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
@@ -44,7 +37,6 @@ gulp.task('block', function () {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./inc/sns/package'));
 });
-
 
 gulp.task('text-domain', function () {
 	return gulp.src(['./inc/font-awesome/**/*'])
@@ -56,48 +48,49 @@ gulp.task('sass', function() {
 	return gulp.src('./assets/_scss/*.scss',{ base: './assets/_scss' })
 		.pipe(plumber())
 		.pipe(sass())
-		.pipe(cmq({log:true}))
+		.pipe(cmq({log: true}))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
 });
 
-// ファイル結合
+/*
+ * create all.min.js
+ *
+ * including /assets/_js/*.js
+ * and transpile from ES6
+ */
 gulp.task('scripts', function() {
-	return gulp.src(
-			[
-				'./assets/js/jquery.flatheights.js',
-				'./assets/js/master.js',
-				'./inc/pagetop-btn/js/pagetop-btn.js'
-			]
-		)
-		.pipe(concat('all.js'))
-		.pipe(gulp.dest('./assets/js/'))
+	return gulp.src([
+			'./assets/_js/*.js',
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/pagetop-btn/js/pagetop-btn.js'
+		])
+		.pipe(concat('all.min.js'))
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
 		.pipe(jsmin())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('./assets/js'));
-});
-
-// js最小化
-gulp.task('jsmin_scroll', function () {
-	return gulp.src(['./inc/smooth-scroll/js/smooth-scroll.js'])
-		.pipe(plumber()) // エラーでも監視を続行
-		.pipe(jsmin())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('./inc/smooth-scroll/js'));
-});
+		.pipe(gulp.dest('./assets/js'))
+})
 
 // Watch
 gulp.task('watch', function() {
-	gulp.watch(['./assets/js/jquery.flatheights.js','./assets/js/master.js','./inc/pagetop-btn/js/pagetop-btn.js'], gulp.series('scripts'));
-	gulp.watch(['./inc/smooth-scroll/js/smooth-scroll.js'], gulp.series('jsmin_scroll'));
-	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'));
-	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'));
+	gulp.watch(
+		[
+			'./assets/_js/*.js',
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/pagetop-btn/js/pagetop-btn.js'
+		],
+		gulp.series('scripts')
+	)
+	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
+	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'jsmin_scroll', 'sass'))
+gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'sass'))
 
 // copy dist ////////////////////////////////////////////////
 
