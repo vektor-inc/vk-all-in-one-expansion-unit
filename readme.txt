@@ -93,6 +93,10 @@ e.g.
 
 == Changelog ==
 
+= 9.15.0.0 =
+[ Add function ][ Contactform7 Asset Optimize ] Contact Form Speeding up
+[ Specification change ] JacaScript refactaring ( Speeding up )
+
 = 9.14.0.0 =
 [ Add function ][ post list widget ] Cope with multi post types
 [ Add function ] Add share button block
