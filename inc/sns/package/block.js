@@ -15,7 +15,7 @@ registerBlockType("vk-blocks/share-button", {
         <Fragment>
           <InspectorControls>
             <PanelBody title={__("Share Button setting", "vew-blocks")}>
-              <p>{__("if set enable sharebutton, display share buttons.", "vew-blocks")}</p>
+              <p>{__("If set enable sharebutton, display share buttons.", "vew-blocks")}</p>
             </PanelBody>
           </InspectorControls>
 
