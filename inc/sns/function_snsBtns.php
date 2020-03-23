@@ -283,11 +283,11 @@ function vew_sns_facebook_restapi_callback( $data ) {
 	$linkurl = $data['linkurl'];
 	$siteurl = get_site_url();
 
-	// if ( $siteurl !== substr( urldecode( $linkurl ), 0, strlen( $siteurl ) ) ) {
-	// 	$response = new WP_REST_Response(array());
-	// 	$response->set_status(403);
-	// 	return $response;
-	// }
+	if ( $siteurl !== substr( urldecode( $linkurl ), 0, strlen( $siteurl ) ) ) {
+		$response = new WP_REST_Response(array());
+		$response->set_status(403);
+		return $response;
+	}
 
 	$options = veu_get_sns_options();
 	if ( empty( $options['fbAccessToken'] ) ) {
