@@ -14,11 +14,11 @@ registerBlockType("vk-blocks/share-button", {
   edit: ({className}) => {
     return (
         <Fragment>
-          <InspectorControls>
+          {/* <InspectorControls>
             <PanelBody title={__("Share Button setting", "vew-blocks")}>
               <p>{__("If set enable sharebutton, display share buttons.", "vew-blocks")}</p>
             </PanelBody>
-          </InspectorControls>
+          </InspectorControls> */}
 
           <div className={`${className} vew_share_button_block`} >
             <ServerSideRender
