@@ -33,6 +33,9 @@ gulp.task('block', function () {
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
 		.pipe(jsmin())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./inc/sns/package'));
