@@ -28,6 +28,11 @@
 <th><?php _e( 'facebook page URL', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[fbPageUrl]" id="fbPageUrl" value="<?php echo esc_url( $options['fbPageUrl'] ); ?>" /></td>
 </tr>
+</tr>
+<tr>
+<th><?php _e( 'facebook Access Token', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td><input type="text" name="vkExUnit_sns_options[fbAccessToken]" id="fbAccessToken" value="<?php echo esc_attr( $options['fbAccessToken'] ); ?>" /></td>
+</tr>
 <!-- OGP -->
 <tr>
 <th><?php _e( 'OG default image', 'vk-all-in-one-expansion-unit' ); ?></th>

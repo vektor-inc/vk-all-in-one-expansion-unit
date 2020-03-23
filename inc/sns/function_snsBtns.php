@@ -228,10 +228,25 @@ add_action( 'rest_api_init', function () {
 			'callback' => 'vew_sns_hatena_restapi_callback',
 		)
 	);
+	register_rest_route(
+		'vk_ex_unit/v1',
+		'/facebook_entry/(?P<linkurl>[a-zA-Z0-9\-\._%]+)',
+		array(
+			'methods' => 'GET',
+			'callback' => 'vew_sns_facebook_restapi_callback',
+		)
+	);
 });
 
 add_filter( 'vkExUnit_master_js_options', function( $options ){
 	$options['hatena_entry'] = get_rest_url(0, 'vk_ex_unit/v1/hatena_entry/');
+	$options['facebook_entry'] = get_rest_url(0, 'vk_ex_unit/v1/facebook_entry/');
+	$options['facebook_count_enable'] = false;
+
+	$opt = veu_get_sns_options();
+	if ( ! empty( $opt['fbAccessToken'] ) ) {
+		$options['facebook_count_enable'] = true;
+	}
 	return $options;
 }, 10, 1 );
 
@@ -248,18 +263,53 @@ function vew_sns_hatena_restapi_callback( $data ) {
 	$r = wp_safe_remote_get('https://bookmark.hatenaapis.com/count/entry?url=' . $linkurl);
 
 	if ( ! is_wp_error( $r ) ) {
-		$response = new WP_REST_Response(array('count' => $r['body']));
+		$response = new WP_REST_Response(array( 'count' => $r['body'] ) );
 		if ( empty($r['headers']['cache-control']) ) {
 			$cache_control = 'Cache-Control: public, max-age=3600, s-maxage=3600';
 		}else{
 			$cache_control = $r['headers']['cache-control'];
 		}
-		$response->header('Cache-Control', $r['headers']['cache-control']);
+		$response->header( 'Cache-Control', $cache_control );
 		$response->set_status(200);
 		return $response;
 	}
-	$response = new WP_REST_Response(array());
-	$response->set_status(500);
+	$response = new WP_REST_Response( array( 'errors' => array( 'Service Unavailable' ) ) );
+	$response->set_status(503);
+
+	return $response;
+}
+
+function vew_sns_facebook_restapi_callback( $data ) {
+	$linkurl = $data['linkurl'];
+	$siteurl = get_site_url();
+
+	// if ( $siteurl !== substr( urldecode( $linkurl ), 0, strlen( $siteurl ) ) ) {
+	// 	$response = new WP_REST_Response(array());
+	// 	$response->set_status(403);
+	// 	return $response;
+	// }
+
+	$options = veu_get_sns_options();
+	if ( empty( $options['fbAccessToken'] ) ) {
+		$response = new WP_REST_Response( array( 'errors' => array( 'Service Unavailable' ) ) );
+		$response->set_status(503);
+		return $response;
+	}
+
+	$r = wp_safe_remote_get('https://graph.facebook.com/?fields=engagement&access_token=' . $options['fbAccessToken'] . '&id=' . $linkurl);
+
+	if ( ! is_wp_error( $r ) ) {
+		$j = json_decode($r['body']);
+
+		if( isset( $j->engagement->share_count ) ) {
+			$response = new WP_REST_Response( array( 'count' => $j->engagement->share_count ) );
+			$response->header('Cache-Control', 'Cache-Control: public, max-age=3600, s-maxage=3600' );
+			$response->set_status(200);
+			return $response;
+		}
+	}
+	$response = new WP_REST_Response( array( 'errors' => array( 'Service Unavailable' ) ) );
+	$response->set_status(503);
 
 	return $response;
 }
