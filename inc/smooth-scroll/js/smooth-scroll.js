@@ -8,10 +8,14 @@
     window.addEventListener('load', () =>{
         function smooth_link(e) {
             let href = e.toElement.getAttribute('href')
-            let y, destination = document.getElementById(href.slice(1));
-            y = destination == null? 0: destination.getBoundingClientRect().top;
+            let y = 0
+            let destination = document.getElementById(href.slice(1))
+            if(destination){
+                let scroll = window.pageYOffset || document.documentElement.scrollTop
+                y = destination.getBoundingClientRect().top + scroll
+            }
             window.scrollTo({
-                top: y - window.pageYOffset,
+                top: y,
                 behavior: 'smooth'
             })
             e.preventDefault()
