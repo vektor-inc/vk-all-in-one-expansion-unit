@@ -22,18 +22,13 @@ require dirname( __FILE__ ) . '/customizer.php';
 // 統合親メタボックスの読み込み
 require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
-// 親メニューが出力される前に フックを通さずに直接読み込むとページが表示されなくなる
-add_action( 'plugin_loaded', 'veu_load_main_setting_page' );
-add_action( 'network_plugin_loaded', 'veu_load_main_setting_page' );
-function veu_load_main_setting_page() {
-	require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
-	require_once dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
-}
+require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
+require_once dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
 
 /*
   Add Parent menu
 /*-------------------------------------------*/
-add_action( 'admin_menu', 'veu_setting_menu_parent' );
+add_action( 'admin_menu', 'veu_setting_menu_parent', 10 );
 function veu_setting_menu_parent() {
 	global $menu;
 
