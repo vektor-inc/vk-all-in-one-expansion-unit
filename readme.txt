@@ -93,6 +93,9 @@ e.g.
 
 == Changelog ==
 
+= 9.15.2.0 =
+[ BugFix ] MuitiSite Bug fix
+
 = 9.15.0.0 =
 [ Add function ][ Contactform7 Asset Optimize ] Contact Form Speeding up
 [ Specification change ] JacaScript refactaring ( Speeding up )
