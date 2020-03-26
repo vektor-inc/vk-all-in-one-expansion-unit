@@ -72,7 +72,7 @@ before_script:
 
 
 script:
-  - find ./ -name '*.php'|xargs -I {} php -l {}
+  - find ./ -type d -name vendor -prune -o -name '*.php'|xargs -I {} php -l {}
   - phpunit --version
   - npm run gulp scripts
   - diff assets/js/all.min.js .all.min.js.before
