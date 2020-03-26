@@ -2,6 +2,8 @@ language: php
 
 branches:
   - master
+  - develop
+  - /^feature\/.*/
 
 env:
   global:
@@ -49,16 +51,6 @@ matrix:
 cache:
   directories:
     - node_modules
-    - .sass_cache
-
-before_install:
-  - gem install ruby
-  - gem install sass
-  - gem install compass
-
-# node_js:
-#   - '0.8'
-#   - '0.10'
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
@@ -66,21 +58,30 @@ before_script:
   - echo ${TRAVIS_PHP_VERSION:0:3}
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then
-      composer global require "phpunit/phpunit=5.6.*"
+      composer require "phpunit/phpunit=5.6.*"
     else
-      composer global require "phpunit/phpunit=4.8.*"
+      composer require "phpunit/phpunit=4.8.*"
     fi
+  - npm install -D
+  - cp assets/js/all.min.js .all.min.js.before
+  - cp assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
+  - cp assets/css/vkExUnit_style.css .vkExUnit_style.css.before
+  - cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
+  - cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
+  - cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
 
-# - nvm install 4.2
-  # - npm install gulp gulp-concat gulp-cssmin gulp-jsmin gulp-plumber gulp-rename
-  - npm install
-  - npm install -g gulp
-  - npm install gulp gulp-concat gulp-cssmin gulp-rename gulp-jsmin gulp-plumber gulp-sass gulp-clean-css gulp-merge-media-queries gulp-autoprefixer
 
 script:
   - find ./ -name '*.php'|xargs -I {} php -l {}
   - phpunit --version
-  # - gulp compile
+  - npm run gulp scripts
+  - diff assets/js/all.min.js .all.min.js.before
+  - npm run gulp sass
+  - diff assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
+  - diff assets/css/vkExUnit_style.css .vkExUnit_style.css.before
+  - diff assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
+  - diff assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
+  - diff assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
 
 after_success:
   - bash ./bin/deploy.sh

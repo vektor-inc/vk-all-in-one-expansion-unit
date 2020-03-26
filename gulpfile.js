@@ -25,11 +25,21 @@ var cleanCss = require('gulp-clean-css');
 var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
 
+let error_stop = true
+
+function src(list, option) {
+	if(error_stop) {
+		return gulp.src(list, option)
+	}else{
+		return gulp.src(list, option).pipe(plumber())
+	}
+}
+
 /*
  * transpile block editor js
  */
-gulp.task('block', function () {
-	return gulp.src('./inc/sns/package/block.js')
+gulp.task('block', function (done) {
+	src('./inc/sns/package/block.js')
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
@@ -39,22 +49,32 @@ gulp.task('block', function () {
 		.pipe(jsmin())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./inc/sns/package'));
+	done()
 });
 
 gulp.task('text-domain', function () {
 	return gulp.src(['./inc/font-awesome/**/*'])
-				.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
-				.pipe(gulp.dest('./inc/font-awesome/'));
+		.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
+		.pipe(gulp.dest('./inc/font-awesome/'));
 });
 
-gulp.task('sass', function() {
-	return gulp.src('./assets/_scss/*.scss',{ base: './assets/_scss' })
-		.pipe(plumber())
+gulp.task('sass', function(done) {
+	src(
+		'./assets/_scss/*.scss',
+		{
+			base: './assets/_scss'
+		}
+	)
 		.pipe(sass())
-		.pipe(cmq({log: true}))
+		.pipe(cmq(
+			{
+				log: true
+			}
+		))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
+	done()
 });
 
 /*
@@ -63,7 +83,7 @@ gulp.task('sass', function() {
  * including /assets/_js/*.js
  * and transpile from ES6
  */
-gulp.task('scripts', function() {
+gulp.task('scripts', function(done) {
 	return gulp.src([
 			'./assets/_js/*.js',
 			'./inc/smooth-scroll/js/smooth-scroll.js',
@@ -75,10 +95,13 @@ gulp.task('scripts', function() {
 		}))
 		.pipe(jsmin())
 		.pipe(gulp.dest('./assets/js'))
+	done()
 })
 
 // Watch
 gulp.task('watch', function() {
+	error_stop = false
+
 	gulp.watch(
 		[
 			'./assets/_js/*.js',
