@@ -69,19 +69,28 @@ before_script:
   - cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
   - cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
   - cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+  - cp inc/sns/package/block.min.js .block.min.js.before
 
 
 script:
   - find ./ -type d -name vendor -prune -o -name '*.php'|xargs -I {} php -l {}
   - phpunit --version
+  # script compile check
   - npm run gulp scripts
   - diff assets/js/all.min.js .all.min.js.before
+  # block script compile check
+  - npm run gulp block
+  - diff inc/sns/package/block.min.js .block.min.js.before
+  # scss compile check
   - npm run gulp sass
   - diff assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
   - diff assets/css/vkExUnit_style.css .vkExUnit_style.css.before
   - diff assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
   - diff assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
   - diff assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+
+after_script:
+  - rm -v .*.before
 
 after_success:
   - bash ./bin/deploy.sh

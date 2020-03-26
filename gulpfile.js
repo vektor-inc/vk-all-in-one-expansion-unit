@@ -39,7 +39,7 @@ function src(list, option) {
  * transpile block editor js
  */
 gulp.task('block', function (done) {
-	src('./inc/sns/package/block.js')
+	return src('./inc/sns/package/block.jsx')
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
@@ -49,7 +49,6 @@ gulp.task('block', function (done) {
 		.pipe(jsmin())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./inc/sns/package'));
-	done()
 });
 
 gulp.task('text-domain', function () {
@@ -58,8 +57,8 @@ gulp.task('text-domain', function () {
 		.pipe(gulp.dest('./inc/font-awesome/'));
 });
 
-gulp.task('sass', function(done) {
-	src(
+gulp.task('sass', function() {
+	return src(
 		'./assets/_scss/*.scss',
 		{
 			base: './assets/_scss'
@@ -74,7 +73,6 @@ gulp.task('sass', function(done) {
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
-	done()
 });
 
 /*
@@ -83,7 +81,7 @@ gulp.task('sass', function(done) {
  * including /assets/_js/*.js
  * and transpile from ES6
  */
-gulp.task('scripts', function(done) {
+gulp.task('scripts', function() {
 	return gulp.src([
 			'./assets/_js/*.js',
 			'./inc/smooth-scroll/js/smooth-scroll.js',
@@ -95,13 +93,13 @@ gulp.task('scripts', function(done) {
 		}))
 		.pipe(jsmin())
 		.pipe(gulp.dest('./assets/js'))
-	done()
 })
 
 // Watch
 gulp.task('watch', function() {
 	error_stop = false
 
+	gulp.watch('./inc/sns/package/block.jsx', gulp.series('block'))
 	gulp.watch(
 		[
 			'./assets/_js/*.js',
