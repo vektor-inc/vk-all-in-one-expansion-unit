@@ -40,8 +40,6 @@ class vExUnit_meta_keywords {
 
 	protected function run_init() {
 		add_action( 'veu_package_init', array( $this, 'option_init' ) );
-		// add_action( 'admin_menu', array( $this, 'add_custom_field' ) );
-		// add_action( 'save_post', array( $this, 'save_custom_field' ) );
 		add_action( 'wp_head', array( $this, 'set_HeadKeywords' ), 1 );
 	}
 
@@ -93,27 +91,37 @@ class vExUnit_meta_keywords {
 <?php
 	}
 
-	public function get_postKeyword() {
+	public static function get_postKeyword() {
 		$post_id = get_the_id();
 
 		if ( empty( $post_id ) ) {
-			return null; }
+			return null;
+		}
 
 		$keyword = get_post_meta( $post_id, 'vkExUnit_metaKeyword', true );
-		return $keyword;
-	}
+		if ( !empty($keyword) ) {
+			return $keyword;
+		}
 
+		$keyword = get_post_meta( $post_id, 'vkExUnit_common_keywords', true );
+		if ( !empty($keyword) ) {
+			return $keyword;
+		}
+
+	}
 
 	public function set_HeadKeywords() {
 		$commonKeyWords = self::get_option();
 		// get custom field
 		$entryKeyWords = self::get_postKeyword();
+
 		$keywords      = array();
 		if ( $commonKeyWords ) {
 			$keywords[] = $commonKeyWords; }
 		if ( $entryKeyWords ) {
 			$keywords[] = $entryKeyWords;  }
 		$key = implode( ',', $keywords );
+
 		// print individual keywords
 		if ( ! $key ) {
 			return; }
@@ -121,4 +129,4 @@ class vExUnit_meta_keywords {
 	}
 }
 
-	vExUnit_meta_keywords::instance();
+vExUnit_meta_keywords::instance();
