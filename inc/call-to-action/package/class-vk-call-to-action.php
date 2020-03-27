@@ -80,7 +80,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				'hierarchical'       => false,
 				'taxonomies'         => array(),
 				'supports'           => array( 'title', 'editor' ),
-				'show_in_rest'       => true,
+				'show_in_rest'       => false,
 			);
 			register_post_type( self::POST_TYPE, $args );
 		}
