@@ -28,7 +28,7 @@ function veu_noindex_print_head() {
 	if ( is_singular() ) {
 		$vk_print_noindex = get_post_meta( $post->ID, '_vk_print_noindex', true );
 		if ( $vk_print_noindex ) {
-			echo '<meta name=”robots” content=”noindex,follow” />';
+			echo '<meta name="robots" content="noindex,follow" />';
 		}
 	}
 }
