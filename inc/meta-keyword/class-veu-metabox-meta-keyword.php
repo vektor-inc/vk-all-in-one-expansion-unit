@@ -26,7 +26,7 @@ class VEU_Metabox_Meta_Keyword extends VEU_Metabox {
 	 * @return [type] [description]
 	 */
 	public function metabox_body_form( $cf_value ) {
-		$keyword = get_post_meta( get_the_ID(), 'vkExUnit_common_keywords', true );
+		$keyword = vExUnit_meta_keywords::get_postKeyword();
 		if ( ! empty( $keyword ) ) {
 			$cf_value = $keyword;
 		}
