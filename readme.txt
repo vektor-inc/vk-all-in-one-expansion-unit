@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.3.2
-Stable tag: 9.15.3.0
+Stable tag: 9.15.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,11 +93,15 @@ e.g.
 
 == Changelog ==
 
+= 9.15.4.0 =
+[ bugfix ][ smoothscroll ] 
+[ bugfix ][ metakeyword ] 
+
 = 9.15.3.0 =
-[ BugFix ][ no index no follow ] don't work...
+[ bugfix ][ no index no follow ] don't work...
 
 = 9.15.2.0 =
-[ BugFix ] MuitiSite Bug fix
+[ bugfix ] MuitiSite Bug fix
 
 = 9.15.0.0 =
 [ Add function ][ Contactform7 Asset Optimize ] Contact Form Speeding up
@@ -162,14 +166,14 @@ Deploy setting
 vk blocks 0.17.2 update
 
 = 9.7.1.0 =
-[ Bugfix ][ content widget ] Cope with title style from block.
+[ bugfix ][ content widget ] Cope with title style from block.
 
 = 9.7.0.0 =
 [ Add function ][ Block ] Core block style expand
 
 
 = 9.6.9.0 =
-[ Bugfix ] Use with VK Post Author Display bug fix
+[ bugfix ] Use with VK Post Author Display bug fix
 
 = 9.6.8.0 =
 [ Specification change ] ファイル階層一部変更
@@ -229,7 +233,7 @@ Merely Version Change
 [ Add Function ][ VK Blocks ] Add marker
 
 = 9.3.3.0( Beta ) =
-[ Bugfix ][ OG title ] When front-page that to be single page title, not blog name bug fixed.
+[ bugfix ][ OG title ] When front-page that to be single page title, not blog name bug fixed.
 
 = 9.3.2.0( Beta ) =
 [ Desing tuning ] customize panel design tuning
@@ -505,7 +509,7 @@ Back version to 8.3.1
 
 = 5.3.4 =
 * [ Share Button ][ bug fix ] js error
-* [ 3PR Area Widget ][ Bugfix ] Link open blank not work …
+* [ 3PR Area Widget ][ bugfix ] Link open blank not work …
 * [ Facebook Page Plugin ] Multilingual
 
 = 5.2.4 =
