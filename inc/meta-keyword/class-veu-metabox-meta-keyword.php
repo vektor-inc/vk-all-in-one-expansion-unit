@@ -47,3 +47,5 @@ class VEU_Metabox_Meta_Keyword extends VEU_Metabox {
 		delete_post_meta( $post_id, 'vkExUnit_common_keywords' );
 	}
 }
+
+$veu_metabox_meta_keyword = new VEU_Metabox_Meta_Keyword();
