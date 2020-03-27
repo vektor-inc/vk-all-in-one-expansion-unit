@@ -4,6 +4,7 @@ branches:
   - master
   - develop
   - /^feature\/.*/
+  - /^(bug)?fix\/.*/
 
 env:
   global:
