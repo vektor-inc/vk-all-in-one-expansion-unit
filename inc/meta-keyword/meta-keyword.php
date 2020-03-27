@@ -98,13 +98,16 @@ class vExUnit_meta_keywords {
 			return null;
 		}
 
+		$keyword = get_post_meta( $post_id, 'vkExUnit_metaKeyword', true );
+		if ( !empty($keyword) ) {
+			return $keyword;
+		}
+
 		$keyword = get_post_meta( $post_id, 'vkExUnit_common_keywords', true );
 		if ( !empty($keyword) ) {
 			return $keyword;
 		}
 
-		$keyword = get_post_meta( $post_id, 'vkExUnit_metaKeyword', true );
-		return $keyword;
 	}
 
 	public function set_HeadKeywords() {
