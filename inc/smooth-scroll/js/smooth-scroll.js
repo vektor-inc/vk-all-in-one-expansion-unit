@@ -7,9 +7,14 @@
     }
     window.addEventListener('load', () =>{
         function smooth_link(e) {
-            let href = e.toElement.getAttribute('href')
-            let y = 0
-            let destination = document.getElementById(href.slice(1))
+            let i=0;
+            for(i;i<e.path.length;i++){
+                if(e.path[i].getAttribute('href')) break;
+            }
+            let href = e.path[i].getAttribute('href')
+            if (!href) return;
+            let y = 0,
+            destination = document.getElementById(href.slice(1))
             if(destination){
                 let scroll = window.pageYOffset || document.documentElement.scrollTop
                 y = destination.getBoundingClientRect().top + scroll
