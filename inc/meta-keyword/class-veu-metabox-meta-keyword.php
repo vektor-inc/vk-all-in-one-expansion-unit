@@ -48,5 +48,5 @@ class VEU_Metabox_Meta_Keyword extends VEU_Metabox {
 	}
 }
 
-// If delete following 'new' that don't display metabox on post edit page.
+// If you delete the following 'new', metabox will not be displayed on the post edit screen.
 $veu_metabox_meta_keyword = new VEU_Metabox_Meta_Keyword();
