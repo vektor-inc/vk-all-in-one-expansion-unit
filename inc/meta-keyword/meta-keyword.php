@@ -91,7 +91,7 @@ class vExUnit_meta_keywords {
 <?php
 	}
 
-	public function get_postKeyword() {
+	public static function get_postKeyword() {
 		$post_id = get_the_id();
 
 		if ( empty( $post_id ) ) {
