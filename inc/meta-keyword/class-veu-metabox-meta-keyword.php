@@ -10,7 +10,7 @@ class VEU_Metabox_Meta_Keyword extends VEU_Metabox {
 
 		$this->args = array(
 			'slug'     => 'veu_meta_keyword',
-			'cf_name'  => 'vkExUnit_common_keywords',
+			'cf_name'  => 'vkExUnit_metaKeyword',
 			'title'    => __( 'Meta Keywords', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 50,
 		);
@@ -26,6 +26,10 @@ class VEU_Metabox_Meta_Keyword extends VEU_Metabox {
 	 * @return [type] [description]
 	 */
 	public function metabox_body_form( $cf_value ) {
+		$keyword = get_post_meta( get_the_ID(), 'vkExUnit_common_keywords', true );
+		if ( ! empty( $keyword ) ) {
+			$cf_value = $keyword;
+		}
 
 		$theme_option_seo_link = '<a href="' . get_admin_url() . '/admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords" target="_blank">' . vkExUnit_get_name() . ' ' . __( 'Main setting', 'vk-all-in-one-expansion-unit' ) . '</a>';
 
@@ -38,6 +42,8 @@ class VEU_Metabox_Meta_Keyword extends VEU_Metabox {
 		return $form;
 	}
 
-} // class VEU_Metabox_Meta_Keyword {
-
-$veu_metabox_sns_title = new VEU_Metabox_Meta_Keyword();
+	public function save_custom_field( $post_id ) {
+		parent::save_custom_field( $post_id );
+		delete_post_meta( $post_id, 'vkExUnit_common_keywords' );
+	}
+}
