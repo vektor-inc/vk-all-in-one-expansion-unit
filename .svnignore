@@ -7,3 +7,5 @@ _notes/
 *~
 vkexunit.mo
 .travis.yml
+vendor/
+.*.before

@@ -6,3 +6,5 @@ dist/
 Thumbs.db
 _notes/
 *~
+vendor/
+.*.before

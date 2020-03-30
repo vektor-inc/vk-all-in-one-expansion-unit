@@ -29,6 +29,7 @@ add_action(
 
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
+	if ( ! function_exists( 'register_block_type' ) ) { return; }
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
