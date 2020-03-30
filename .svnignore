@@ -9,3 +9,5 @@ vkexunit.mo
 .travis.yml
 vendor/
 .*.before
+Dockerfile
+docker-compose.yml
