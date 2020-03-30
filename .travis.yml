@@ -24,30 +24,6 @@ matrix:
       dist: trusty
       env:
         - WP_VERSION=latest WP_MULTISITE=0
-        - WP_VERSION=latest WP_MULTISITE=1
-        - WP_VERSION=4.4 WP_MULTISITE=0
-    # - php: 7.2
-    #   dist: trusty
-    #   env:
-    #     - WP_VERSION=latest WP_MULTISITE=0
-    #     - WP_VERSION=latest WP_MULTISITE=1
-    #     - WP_VERSION=4.4 WP_MULTISITE=0
-    # - php: 7.1.4
-    #   dist: precise
-    #   env:
-    #     - WP_VERSION=latest WP_MULTISITE=0
-    # - php: 7
-    #   dist: precise
-    #   env:
-    #     - WP_VERSION=latest WP_MULTISITE=0
-    # - php: 5.6
-    #   dist: precise
-    #   env:
-    #     - WP_VERSION=latest WP_MULTISITE=0
-    # - php: 5.4
-    #   dist: precise
-    #   env: WP_VERSION=latest WP_MULTISITE=0
-
 
 cache:
   directories:
@@ -61,7 +37,7 @@ before_script:
     if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then
       composer require "phpunit/phpunit=5.6.*"
     else
-      composer require "phpunit/phpunit=4.8.*"
+      composer require "phpunit/phpunit=7.*"
     fi
   - npm install -D
   - cp assets/js/all.min.js .all.min.js.before
@@ -89,6 +65,7 @@ script:
   - diff assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
   - diff assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
   - diff assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+  - vendor/bin/phpunit -c phpunit.xml
 
 after_script:
   - rm -v .*.before

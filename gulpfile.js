@@ -114,7 +114,7 @@ gulp.task('watch', function() {
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'sass'))
+gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
 
 // copy dist ////////////////////////////////////////////////
 
@@ -159,3 +159,4 @@ gulp.task('dist', function(cb){
 	// return runSequence( 'build:dist', 'copy_dist', cb );
 	return runSequence( 'copy_dist', cb );
 });
+
