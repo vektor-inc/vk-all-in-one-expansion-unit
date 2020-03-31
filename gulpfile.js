@@ -25,11 +25,21 @@ var cleanCss = require('gulp-clean-css');
 var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
 
+let error_stop = true
+
+function src(list, option) {
+	if(error_stop) {
+		return gulp.src(list, option)
+	}else{
+		return gulp.src(list, option).pipe(plumber())
+	}
+}
+
 /*
  * transpile block editor js
  */
-gulp.task('block', function () {
-	return gulp.src('./inc/sns/package/block.js')
+gulp.task('block', function (done) {
+	return src('./inc/sns/package/block.jsx')
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
@@ -43,15 +53,23 @@ gulp.task('block', function () {
 
 gulp.task('text-domain', function () {
 	return gulp.src(['./inc/font-awesome/**/*'])
-				.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
-				.pipe(gulp.dest('./inc/font-awesome/'));
+		.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
+		.pipe(gulp.dest('./inc/font-awesome/'));
 });
 
 gulp.task('sass', function() {
-	return gulp.src('./assets/_scss/*.scss',{ base: './assets/_scss' })
-		.pipe(plumber())
+	return src(
+		'./assets/_scss/*.scss',
+		{
+			base: './assets/_scss'
+		}
+	)
 		.pipe(sass())
-		.pipe(cmq({log: true}))
+		.pipe(cmq(
+			{
+				log: true
+			}
+		))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
@@ -79,6 +97,9 @@ gulp.task('scripts', function() {
 
 // Watch
 gulp.task('watch', function() {
+	error_stop = false
+
+	gulp.watch('./inc/sns/package/block.jsx', gulp.series('block'))
 	gulp.watch(
 		[
 			'./assets/_js/*.js',
@@ -93,7 +114,7 @@ gulp.task('watch', function() {
 
 // gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts','text-domain','scripts', 'sass'))
+gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
 
 // copy dist ////////////////////////////////////////////////
 
@@ -138,3 +159,4 @@ gulp.task('dist', function(cb){
 	// return runSequence( 'build:dist', 'copy_dist', cb );
 	return runSequence( 'copy_dist', cb );
 });
+

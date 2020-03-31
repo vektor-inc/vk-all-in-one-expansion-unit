@@ -13,12 +13,18 @@
             }
             let href = e.path[i].getAttribute('href')
             if (!href) return;
+
+            if (['tab', 'button'].indexOf(e.path[i].getAttribute('role')) > 0) return;
+            if (e.path[i].getAttribute('data-toggle')) return;
+            if (e.path[i].getAttribute('carousel-control')) return;
+
             let y = 0,
             destination = document.getElementById(href.slice(1))
             if(destination){
                 let scroll = window.pageYOffset || document.documentElement.scrollTop
                 y = destination.getBoundingClientRect().top + scroll
             }
+
             window.scrollTo({
                 top: y,
                 behavior: 'smooth'
