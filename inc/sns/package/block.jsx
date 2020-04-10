@@ -1,4 +1,4 @@
-!(function(wp){
+(function(wp){
   const { __ } = wp.i18n
   const { registerBlockType } = wp.blocks
   const { ServerSideRender, PanelBody } = wp.components
@@ -21,5 +21,5 @@
         )
     },
     save: () => null
-  });
-})(wp)
+  })
+})(wp);
