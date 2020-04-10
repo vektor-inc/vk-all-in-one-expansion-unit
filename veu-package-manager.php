@@ -64,6 +64,9 @@ function veu_package_include() {
 		return $output; }
 	$options      = veu_get_common_options();
 	$include_base = veu_get_directory() . '/inc/';
+
+	$use_ex_blocks = false;
+
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
 			$package['include'] and
@@ -73,20 +76,29 @@ function veu_package_include() {
 			)
 		) {
 			require_once $include_base . $package['include'];
+
+			if ( $package['use_ex_blocks'] ) {
+				$use_ex_blocks = $use_ex_blocks || $package[ 'use_ex_blocks' ];
+			}
 		}
+	}
+
+	if ( $use_ex_blocks ) {
+		//
 	}
 }
 
 
 function veu_package_default() {
 	return array(
-		'name'        => null,
-		'title'       => 'noting',
-		'description' => 'noting',
-		'attr'        => array(),
-		'default'     => null,
-		'include'     => false,
-		'hidden'      => false,
+		'name'          => null,
+		'title'         => 'noting',
+		'description'   => 'noting',
+		'attr'          => array(),
+		'default'       => null,
+		'include'       => false,
+		'use_ex_blocks' => false,
+		'hidden'        => false,
 	);
 }
 

@@ -18,7 +18,6 @@ https://github.com/vektor-inc/vektor-wp-libraries
   */
 
 function vew_add_block_category( $categories, $post ) {
-	
 	if ( ! vk_is_block_category_exist( $categories, 'vk-blocks-cat' ) ) {
 		$categories = array_merge(
 			$categories,

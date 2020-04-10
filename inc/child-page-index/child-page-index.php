@@ -200,37 +200,18 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 	do_action( 'vkExUnit_customField_Page_save_customField' );
 }
 
-// add_action(
-// 	'init',
-// 	function() {
-// 		wp_register_script(
-// 			'vew-sns-block',
-// 			veu_get_directory_uri( '/inc/sns/package/block.min.js' ),
-// 			array(),
-// 			VEU_FONT_AWESOME_DEFAULT_VERSION,
-// 			true
-// 		);
-
-// 		global $vkExUnit_version;
-// 		wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
-// 	}
-// );
-
-// add_action( 'init', 'vew_child_page_index_block_setup', 15 );
-// function vew_child_page_index_block_setup() {
-// 	if ( ! function_exists( 'register_block_type' ) ) { return; }
-// 	register_block_type(
-// 		'vk-blocks/child-page-index',
-// 		array(
-// 			'attributes'      => array(
-// 				'position' => array(
-// 					'type'    => 'string',
-// 					'default' => 'after',
-// 				),
-// 			),
-// 			'editor_style'    => 'vkExUnit_sns_editor_style',
-// 			'editor_script'   => 'vew-sns-block',
-// 			'render_callback' => 'vew_sns_block_callback',
-// 		)
-// 	);
-// }
+add_action( 'init', 'vew_child_page_index_setup', 15 );
+function vew_child_page_index_setup() {
+	register_block_type(
+		'vk-blocks/child-page-index',
+		array(
+			'attributes'      => array(
+				'className'      => array(
+					'type'    => 'string',
+					'default' => ''
+				)
+			),
+			'render_callback' => 'vkExUnit_childPageIndex_block_callback',
+		)
+	);
+}

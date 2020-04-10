@@ -44,32 +44,6 @@ function vew_sns_block_setup() {
 			'render_callback' => 'vew_sns_block_callback',
 		)
 	);
-
-	register_block_type(
-		'vk-blocks/child-page-index',
-		array(
-			'attributes'      => array(
-				'className'      => array(
-					'type'    => 'string',
-					'default' => ''
-				)
-			),
-			'render_callback' => 'vkExUnit_childPageIndex_block_callback',
-		)
-	);
-
-	register_block_type(
-		'vk-blocks/contact-section',
-		array(
-			'attributes'      => array(
-				'className'      => array(
-					'type'    => 'string',
-					'default' => ''
-				)
-			),
-			'render_callback' => array( 'VkExUnit_Contact', 'block_callback'),
-		)
-	);
 }
 
 function veu_sns_options_init() {
