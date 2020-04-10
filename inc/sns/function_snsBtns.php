@@ -1,8 +1,5 @@
 <?php
 
-// Register VK Blocks Widget Category
-// add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
-
 if ( veu_content_filter_state() == 'content' ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
 } else {
@@ -19,11 +16,6 @@ function veu_add_sns_btns_loopend( $query ) {
 	echo veu_add_sns_btns( '' );
 }
 
-// function veu_sns_set_location_option( $opt ){
-// if( ! veu_is_sns_btns_display() ) return $opt;
-// $opt['sns_linkurl'] = veu_sns_get_url();
-// return $opt;
-// }
 function veu_is_sns_btns_display() {
 	global $post;
 	$options     = veu_get_sns_options();
@@ -214,7 +206,7 @@ function veu_add_sns_btns( $content ) {
 		if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 			$content .= veu_get_sns_btns( 'after' );
 		}
-	} // if ( !isset( $options['snsBtn_ignorePosts'] ) || $options['snsBtn_ignorePosts'] != $post->ID ) {
+	}
 
 	return $content;
 }
