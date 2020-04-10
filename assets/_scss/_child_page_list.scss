@@ -1,0 +1,57 @@
+
+.veu_childPage_list {
+    margin-top: 2.5em;
+    .childPage_list_box {
+        display: block;
+        margin-bottom: 1.5em;
+        width: 100%;
+        text-decoration: none;
+    }
+    .wp-post-image {
+        float: left;
+        margin-right: 1em;
+        margin-bottom: 1em;
+        width: 30%;
+        height: auto;
+        border: solid 1px #ddd;
+    }
+    .childPage_list_body {
+        overflow: hidden;
+        color: #333;
+        font-size: 14px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    p {
+        line-height: 1.5em;
+    }
+    .childPage_list_text {
+        overflow: hidden;
+        margin-bottom: 1em;
+    }
+    .childPage_list_more {
+        float: right;
+    }
+}
+
+@media (max-width: 767px) {
+    .veu_childPage_list {
+        .wp-post-image {
+            width: 25%;
+        }
+    }
+}
+@media (min-width: 541px) {
+    .veu_childPage_list {
+        display: flex;
+        align-items: stretch;
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap; /* Safari */
+        justify-content: space-between;
+        -webkit-justify-content: space-between; /* Safari */
+        .childPage_list_box {
+            width: 48%;
+        }
+    }
+}

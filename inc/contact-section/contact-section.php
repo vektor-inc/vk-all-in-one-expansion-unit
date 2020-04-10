@@ -111,6 +111,25 @@ class VkExUnit_Contact {
 	}
 
 
+	public static function block_callback( $attributes=array() ) {
+		$classes = 'veu_contact_section_block';
+
+		if ( isset($attributes['className']) ) {
+			$classes .= ' ' . $attributes['className'];
+		}
+
+		$r = self::render_contact_section_html( $classes, false );
+
+		if ( empty($r) ) {
+			if ( isset($_GET['context']) ) {
+				return '<div class="disabled">' . __('No Contact Page Setting.', 'vk-all-in-one-expansion-unit') . '</div>';
+			}
+			return '';
+		}
+		return $r;
+	}
+
+
 	public static function get_option() {
 		$default = array(
 			'contact_txt'       => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
@@ -314,24 +333,23 @@ class VkExUnit_Contact {
 	}
 
 
-
 	/*
 	  contact_section_html
 	/*-------------------------------------------*/
 
-	public static function render_contact_section_html() {
+	public static function render_contact_section_html( $additional_classes='', $show_edit_button=true ) {
 		$options = self::get_option();
 		$cont    = '';
 
 		if ( $options['contact_html'] ) {
 
-			$cont .= '<section class="veu_contentAddSection">';
+			$cont .= '<section class="veu_contentAddSection ' . $additional_classes . '">';
 			$cont .= $options['contact_html'];
 			$cont .= '</section>';
 
 		} elseif ( $options['contact_image'] ) {
 
-			$cont .= '<section class="veu_contentAddSection">';
+			$cont .= '<section class="veu_contentAddSection ' . $additional_classes . '">';
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '">';
 			$cont .= '<img src="' . esc_attr( $options['contact_image'] ) . '" alt="contact_txt">';
 			$cont .= '</a>';
@@ -339,7 +357,7 @@ class VkExUnit_Contact {
 
 		} else {
 
-			$cont .= '<section class="veu_contact veu_contentAddSection vk_contact veu_card">';
+			$cont .= '<section class="veu_contact veu_contentAddSection vk_contact veu_card ' . $additional_classes . '">';
 			$cont .= '<div class="contact_frame veu_card_inner">';
 			$cont .= '<p class="contact_txt">';
 			$cont .= '<span class="contact_txt_catch">' . nl2br( esc_textarea( $options['contact_txt'] ) ) . '</span>';
@@ -391,7 +409,7 @@ class VkExUnit_Contact {
 			$cont .= '</section>';
 		}
 
-		if ( current_user_can( 'edit_theme_options' ) && ! is_customize_preview() ) {
+		if ( $show_edit_button && current_user_can( 'edit_theme_options' ) && ! is_customize_preview() ) {
 			$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 		}
 

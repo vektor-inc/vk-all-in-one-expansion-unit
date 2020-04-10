@@ -16,7 +16,7 @@ add_action(
 	function() {
 		wp_register_script(
 			'vew-sns-block',
-			veu_get_directory_uri( '/inc/sns/package/block.min.js' ),
+			veu_get_directory_uri( '/assets/js/block.min.js' ),
 			array(),
 			VEU_FONT_AWESOME_DEFAULT_VERSION,
 			true
@@ -42,6 +42,32 @@ function vew_sns_block_setup() {
 			'editor_style'    => 'vkExUnit_sns_editor_style',
 			'editor_script'   => 'vew-sns-block',
 			'render_callback' => 'vew_sns_block_callback',
+		)
+	);
+
+	register_block_type(
+		'vk-blocks/child-page-index',
+		array(
+			'attributes'      => array(
+				'className'      => array(
+					'type'    => 'string',
+					'default' => ''
+				)
+			),
+			'render_callback' => 'vkExUnit_childPageIndex_block_callback',
+		)
+	);
+
+	register_block_type(
+		'vk-blocks/contact-section',
+		array(
+			'attributes'      => array(
+				'className'      => array(
+					'type'    => 'string',
+					'default' => ''
+				)
+			),
+			'render_callback' => array( 'VkExUnit_Contact', 'block_callback'),
 		)
 	);
 }

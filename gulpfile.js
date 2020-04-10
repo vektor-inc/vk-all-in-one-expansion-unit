@@ -39,7 +39,14 @@ function src(list, option) {
  * transpile block editor js
  */
 gulp.task('block', function (done) {
-	return src('./inc/sns/package/block.jsx')
+	return src(
+			[
+				'./inc/sns/package/block.jsx',
+				'./inc/child-page-index/block.jsx',
+				'./inc/contact-section/block.jsx'
+			]
+		)
+		.pipe(concat('block.min.js'))
 		.pipe(babel({
 			plugins: ['transform-react-jsx']
 		}))
@@ -47,8 +54,7 @@ gulp.task('block', function (done) {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('./inc/sns/package'));
+		.pipe(gulp.dest('./assets/js/'));
 });
 
 gulp.task('text-domain', function () {
@@ -99,7 +105,14 @@ gulp.task('scripts', function() {
 gulp.task('watch', function() {
 	error_stop = false
 
-	gulp.watch('./inc/sns/package/block.jsx', gulp.series('block'))
+	gulp.watch(
+		[
+			'./inc/sns/package/block.jsx',
+			'./inc/child-page-index/block.jsx',
+			'./inc/contact-section/block.jsx'
+		],
+		gulp.series('block')
+	)
 	gulp.watch(
 		[
 			'./assets/_js/*.js',

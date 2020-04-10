@@ -208,7 +208,7 @@ function veu_get_packages() {
 		'title'       => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'child-page-index.php',
+		'include'     => 'child-page-index/child-page-index.php',
 	);
 
 	/*
