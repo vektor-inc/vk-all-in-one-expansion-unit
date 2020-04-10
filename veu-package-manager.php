@@ -48,7 +48,6 @@ function veu_package_is_enable( $package_name ) {
 	return $options[ 'active_' . $package_name ];
 }
 
-
 function veu_package_register( $args ) {
 	$defaults = veu_package_default();
 	$args     = wp_parse_args( $args, $defaults );
@@ -66,6 +65,7 @@ function veu_package_include() {
 	$include_base = veu_get_directory() . '/inc/';
 
 	$use_ex_blocks = false;
+	$use_vk_blocks = false;
 
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
@@ -77,17 +77,51 @@ function veu_package_include() {
 		) {
 			require_once $include_base . $package['include'];
 
+			if ( $package['name'] == 'vk-blocks' ) {
+				$use_vk_blocks = true;
+			}
+
 			if ( $package['use_ex_blocks'] ) {
-				$use_ex_blocks = $use_ex_blocks || $package[ 'use_ex_blocks' ];
+				$use_ex_blocks = true;
 			}
 		}
 	}
 
 	if ( $use_ex_blocks ) {
-		//
+		add_action('init', 'veu_register_block_scripts');
+
+		if ( ! $use_vk_blocks ) {
+			add_filter( 'block_categories', 'veu_add_block_category', 10, 2 );
+		}
 	}
 }
 
+function veu_register_block_scripts() {
+	global $vkExUnit_version;
+	wp_register_script(
+		'vew-sns-block',
+		veu_get_directory_uri( '/assets/js/block.min.js' ),
+		array(),
+		$vkExUnit_version,
+		true
+	);
+
+	wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
+}
+
+function veu_add_block_category( $categories, $post ) {
+	$categories = array_merge(
+		$categories,
+		array(
+			array(
+				'slug'  => 'vk-blocks-cat',
+				'title' => veu_get_prefix() . __( 'Blocks', 'vk-all-in-one-expansion-unit' ),
+				'icon'  => '',
+			),
+		)
+	);
+	return $categories;
+}
 
 function veu_package_default() {
 	return array(

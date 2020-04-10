@@ -1,7 +1,7 @@
 <?php
 
 // Register VK Blocks Widget Category
-add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
+// add_filter( 'block_categories', 'vew_add_block_category', 10, 2 );
 
 if ( veu_content_filter_state() == 'content' ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );

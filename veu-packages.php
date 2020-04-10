@@ -114,18 +114,19 @@ function veu_get_packages() {
 	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vk-all-in-one-expansion-unit' ), $settingPage ) . '</p>';
 
 	$required_packages[] = array(
-		'name'        => 'sns',
-		'title'       => __( 'Social media cooperation', 'vk-all-in-one-expansion-unit' ),
-		'description' => $deskSns,
-		'attr'        => array(
+		'name'          => 'sns',
+		'title'         => __( 'Social media cooperation', 'vk-all-in-one-expansion-unit' ),
+		'description'   => $deskSns,
+		'attr'          => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options',
 				'enable_only' => 1,
 			),
 		),
-		'default'     => true,
-		'include'     => 'sns/sns.php',
+		'default'       => true,
+		'use_ex_blocks' => true,
+		'include'       => 'sns/sns.php',
 	);
 
 	/*
@@ -204,11 +205,12 @@ function veu_get_packages() {
 	/*-------------------------------------------*/
 
 	$required_packages[] = array(
-		'name'        => 'childPageIndex',
-		'title'       => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'child-page-index/child-page-index.php',
+		'name'          => 'childPageIndex',
+		'title'         => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
+		'description'   => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
+		'default'       => true,
+		'include'       => 'child-page-index/child-page-index.php',
+		'use_ex_blocks' => true,
 	);
 
 	/*
@@ -226,18 +228,19 @@ function veu_get_packages() {
 	  Contact Section
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'contact_section',
-		'title'       => __( 'Contact Section', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Display Contact Section at after content.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
+		'name'          => 'contact_section',
+		'title'         => __( 'Contact Section', 'vk-all-in-one-expansion-unit' ),
+		'description'   => __( 'Display Contact Section at after content.', 'vk-all-in-one-expansion-unit' ),
+		'attr'          => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
 				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact',
 				'enable_only' => 1,
 			),
 		),
-		'default'     => true,
-		'include'     => 'contact-section/contact-section.php',
+		'default'       => true,
+		'include'       => 'contact-section/contact-section.php',
+		'use_ex_blocks' => true,
 	);
 
 	/*
