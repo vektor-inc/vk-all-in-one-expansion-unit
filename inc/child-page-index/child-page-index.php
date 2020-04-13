@@ -211,6 +211,7 @@ function vew_child_page_index_setup() {
 					'default' => ''
 				)
 			),
+			'editor_script'   => 'veu-block',
 			'render_callback' => 'vkExUnit_childPageIndex_block_callback',
 		)
 	);

@@ -98,6 +98,7 @@ class VkExUnit_Contact {
 						'default' => ''
 					)
 				),
+				'editor_script'   => 'veu-block',
 				'render_callback' => array( __CLASS__, 'block_callback'),
 			)
 		);

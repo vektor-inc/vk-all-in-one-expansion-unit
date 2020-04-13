@@ -24,7 +24,7 @@ function vew_sns_block_setup() {
 				),
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
-			'editor_script'   => 'vew-sns-block',
+			'editor_script'   => 'veu-block',
 			'render_callback' => 'vew_sns_block_callback',
 		)
 	);

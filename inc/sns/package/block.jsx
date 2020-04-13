@@ -3,9 +3,10 @@
   const { registerBlockType } = wp.blocks
   const { ServerSideRender, PanelBody } = wp.components
   const { Fragment } = wp.element
+  const React = wp.element
 
   registerBlockType("vk-blocks/share-button", {
-    title: __("Share button", "vk-all-in-one-expansion-unit"),
+    title: __("Share button", "veu-block"),
     icon: 'share',
     category: "vk-blocks-cat",
     edit: ({className}) => {

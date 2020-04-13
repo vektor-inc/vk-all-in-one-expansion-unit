@@ -99,7 +99,7 @@ function veu_package_include() {
 function veu_register_block_scripts() {
 	global $vkExUnit_version;
 	wp_register_script(
-		'vew-sns-block',
+		'veu-block',
 		veu_get_directory_uri( '/assets/js/block.min.js' ),
 		array(),
 		$vkExUnit_version,
@@ -107,6 +107,10 @@ function veu_register_block_scripts() {
 	);
 
 	wp_register_style( 'vkExUnit_sns_editor_style', veu_get_directory_uri( '/assets/css/vkExUnit_sns_editor_style.css' ), array(), $vkExUnit_version, 'all' );
+
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'veu-block', 'veu-block', plugin_dir_path( __FILE__ ) . 'languages' );
+	}
 }
 
 function veu_add_block_category( $categories, $post ) {

@@ -48,9 +48,15 @@ gulp.task('block', function (done) {
 		)
 		.pipe(concat('block.min.js'))
 		.pipe(babel({
-			plugins: ['transform-react-jsx']
-		}))
-		.pipe(babel({
+			plugins: [
+				'transform-react-jsx',
+				[
+					'@wordpress/babel-plugin-makepot',
+					{
+						"output": "languages/veu-block.pot"
+					}
+				]
+			],
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())

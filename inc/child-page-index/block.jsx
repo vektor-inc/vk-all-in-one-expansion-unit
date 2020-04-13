@@ -3,9 +3,10 @@
   const { registerBlockType } = wp.blocks
   const { ServerSideRender, PanelBody } = wp.components
   const { Fragment } = wp.element
+  const React = wp.element
 
   registerBlockType("vk-blocks/child-page-index", {
-    title: __("Child page index", "vk-all-in-one-expansion-unit"),
+    title: __("Child page index", "veu-block"),
     icon: 'editor-ul',
     category: "vk-blocks-cat",
     edit: ({className}) => {

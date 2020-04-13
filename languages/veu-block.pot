@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: inc/sns/package/block.min.js:35
+msgid "Child page index"
+msgstr ""
+
+#: inc/sns/package/block.min.js:61
+msgid "Contact section"
+msgstr ""
+
+#: inc/sns/package/block.min.js:9
+msgid "Share button"
+msgstr ""

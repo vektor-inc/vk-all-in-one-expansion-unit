@@ -3,9 +3,10 @@
   const { registerBlockType } = wp.blocks
   const { ServerSideRender, PanelBody } = wp.components
   const { Fragment } = wp.element
+  const React = wp.element
 
   registerBlockType("vk-blocks/contact-section", {
-    title: __("Contact section", "vk-all-in-one-expansion-unit"),
+    title: __("Contact section", "veu-block"),
     icon: 'phone',
     category: "vk-blocks-cat",
     edit: ({className}) => {
