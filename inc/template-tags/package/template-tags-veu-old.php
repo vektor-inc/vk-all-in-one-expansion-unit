@@ -48,12 +48,6 @@ if ( ! function_exists( 'vkExUnit_get_page_for_posts' ) ) {
 	}
 }
 
-if ( ! function_exists( 'vkExUnit_get_post_type' ) ) {
-	function vkExUnit_get_post_type() {
-		return vk_get_post_type();
-	}
-}
-
 if ( ! function_exists( 'vkExUnit_get_the_archive_title' ) ) {
 	function vkExUnit_get_the_archive_title() {
 		$title = vk_get_the_archive_title();
