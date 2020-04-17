@@ -2,16 +2,15 @@
 
 add_filter( 'the_content', 'veu_add_follow' );
 
-// 旧関数名
-function vkExUnit_add_follow() {
-	veu_add_follow();
-}
 /**
  * @since 7.0.0 -
  * @param [type] $content [description]
  */
 function veu_add_follow( $content ) {
-	$postType = vkExUnit_get_post_type();
+	global $is_pagewidget;
+	if ( $is_pagewidget ) { return $content; }
+
+	$postType = vk_get_post_type();
 
 	if ( is_single() && $postType['slug'] == 'post' ) :
 
@@ -25,7 +24,6 @@ function veu_add_follow( $content ) {
 			$title = __( 'Follow me', 'vk-all-in-one-expansion-unit' ) . '!';
 		}
 
-		// https://about.twitter.com/resources/buttons#follow
 		$follow_html = '';
 
 		$fbPageUrl = ( isset( $options['fbPageUrl'] ) ) ? $options['fbPageUrl'] : '';
@@ -75,6 +73,6 @@ function veu_add_follow( $content ) {
 
 		$content .= $follow_html;
 
-	endif; // if ( $postType == 'post' && is_single() ) :
+	endif;
 	return $content;
 }

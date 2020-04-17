@@ -28,7 +28,7 @@ class VkBlocksPostList {
 			$options_loop = array( 'class_loop_outer' => '' );
 		}
 
-		if ( $wp_query === false || $wp_query === 'false' || $wp_query->posts === array() ) {
+		if ( ! isset( $wp_query ) || $wp_query === false || $wp_query === 'false' || $wp_query->posts === array() ) {
 			return $this->renderNoPost();
 		}
 
@@ -47,16 +47,27 @@ class VkBlocksPostList {
 			'new_date'                   => esc_html( $attributes['new_date'] ),
 			'btn_text'                   => esc_html( $attributes['btn_text'] ),
 			'btn_align'                  => esc_html( $attributes['btn_align'] ),
-			'class_outer'                => VK_Component_Posts::get_col_size_classes( $attributes ),
+			'col_xs'                     => esc_html( $attributes['col_xs'] ),
+			'col_sm'                     => esc_html( $attributes['col_sm'] ),
+			'col_md'                     => esc_html( $attributes['col_md'] ),
+			'col_lg'                     => esc_html( $attributes['col_lg'] ),
+			'col_xl'                     => esc_html( $attributes['col_xl'] ),
+			'class_outer'                => '',
 			'class_title'                => '',
 			'body_prepend'               => '',
 			'body_append'                => '',
+			'vkb_hidden'                 => $attributes['vkb_hidden'],
+			'vkb_hidden_xl'              => $attributes['vkb_hidden_xl'],
+			'vkb_hidden_lg'              => $attributes['vkb_hidden_lg'],
+			'vkb_hidden_md'              => $attributes['vkb_hidden_md'],
+			'vkb_hidden_sm'              => $attributes['vkb_hidden_sm'],
+			'vkb_hidden_xs'              => $attributes['vkb_hidden_xs'],
 		);
-
-		$elm = VK_Component_Posts::get_loop( $wp_query, $options, $options_loop );
+		$elm     = VK_Component_Posts::get_loop( $wp_query, $options, $options_loop );
 
 		wp_reset_query();
 		wp_reset_postdata();
+
 
 		return $elm;
 	}
@@ -75,15 +86,14 @@ class VkBlocksPostList {
 
 		foreach ( $isCheckedTerms as $key => $value ) {
 
-			if ( $value !== array() ) {
+			$term      = get_term( $value );
+			$new_array = array(
+				'taxonomy' => isset( $term->taxonomy ) ? $term->taxonomy : $key,
+				'field'    => 'term_id',
+				'terms'    => $value,
+			);
+			array_push( $return, $new_array );
 
-				$new_array = array(
-					'taxonomy' => $key,
-					'field'    => 'slug',
-					'terms'    => $value,
-				);
-				array_push( $return, $new_array );
-			}
 		}
 		return $return;
 	}
@@ -91,10 +101,20 @@ class VkBlocksPostList {
 	public function get_loop_query( $attributes ) {
 
 		$isCheckedPostType = json_decode( $attributes['isCheckedPostType'], true );
-		$isCheckedTerms    = json_decode( $attributes['isCheckedTerms'], true );
+
+		$isCheckedTerms = json_decode( $attributes['isCheckedTerms'], true );
 
 		if ( empty( $isCheckedPostType ) ) {
 			return false;
+		}
+
+		$post__not_in = array();
+		if ( ! empty( $attributes['selfIgnore'] ) ) {
+			$post__not_in = array( get_the_ID() );
+		}
+		$offset = '';
+		if ( ! empty( $attributes['offset'] ) ) {
+			$offset = intval( $attributes['offset'] );
 		}
 
 		$args = array(
@@ -104,7 +124,9 @@ class VkBlocksPostList {
 			// 0で全件取得
 			'posts_per_page' => intval( $attributes['numberPosts'] ),
 			'order'          => 'DESC',
-			'orderby'        => 'date',
+			'orderby'        => $attributes['orderby'],
+			'offset'         => $offset,
+			'post__not_in'   => $post__not_in,
 		);
 		return new WP_Query( $args );
 	}
@@ -113,6 +135,16 @@ class VkBlocksPostList {
 
 		// ParentIdを指定
 		if ( isset( $attributes['selectId'] ) && $attributes['selectId'] !== 'false' ) {
+			$post__not_in = array();
+			if ( ! empty( $attributes['selfIgnore'] ) ) {
+				$post__not_in = array( get_the_ID() );
+			}
+
+			$offset = '';
+			if ( ! empty( $attributes['offset'] ) ) {
+				$offset = intval( $attributes['offset'] );
+			}
+
 			$args = array(
 				'post_type'      => 'page',
 				'paged'          => 0,
@@ -121,6 +153,8 @@ class VkBlocksPostList {
 				'order'          => 'ASC',
 				'orderby'        => 'menu_order',
 				'post_parent'    => intval( $attributes['selectId'] ),
+				'offset'         => $offset,
+				'post__not_in'   => $post__not_in,
 			);
 			return new WP_Query( $args );
 
