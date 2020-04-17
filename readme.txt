@@ -93,6 +93,9 @@ e.g.
 
 == Changelog ==
 
+= 9.16.0.1 =
+[ bug fix ][ Block 0.26.3 ] Outline style
+
 = 9.16.0.0 =
 [ Add function ][ Block 0.26.2 ] Add hidden function
 [ Add function ][ Block 0.26.2 ] Add Button text style
