@@ -3,7 +3,7 @@ Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
-Tested up to: 5.3.2
+Tested up to: 5.4.0
 Stable tag: 9.15.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -92,6 +92,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.16.0.2 =
+[ bug fix ][ Block 0.26.4 ] editor css build miss fix
 
 = 9.16.0.1 =
 [ bug fix ][ Block 0.26.3 ] Outline style
