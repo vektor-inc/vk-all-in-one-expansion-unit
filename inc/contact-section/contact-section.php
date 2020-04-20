@@ -75,7 +75,7 @@ class VkExUnit_Contact {
 		add_action( 'veu_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		add_action( 'init', array( __CLASS__, 'vew_contact_section_register_block' ), 15 );
+		add_action( 'init', array( __CLASS__, 'veu_contact_section_register_block' ), 15 );
 
 		// 固定ページ編集画にお問い合わせ情報を表示のチェックボックスを表示する
 		add_action( 'veu_metabox_insert_items', array( $this, 'render_meta_box' ) );
@@ -87,7 +87,7 @@ class VkExUnit_Contact {
 		}
 	}
 
-	public static function vew_contact_section_register_block() {
+	public static function veu_contact_section_register_block() {
 		if ( ! function_exists( 'register_block_type' ) ) { return; }
 		register_block_type(
 			'vk-blocks/contact-section',
