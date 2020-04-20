@@ -201,7 +201,7 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 }
 
 add_action( 'init', 'vew_child_page_index_setup', 15 );
-function vew_child_page_index_setup() {
+function veu_child_page_index_setup() {
 	register_block_type(
 		'vk-blocks/child-page-index',
 		array(
