@@ -8,7 +8,7 @@
   registerBlockType("vk-blocks/share-button", {
     title: __("Share button", "veu-block"),
     icon: 'share',
-    category: "vk-blocks-cat",
+    category: "veu-block",
     edit: ({className}) => {
       return (
           <Fragment>

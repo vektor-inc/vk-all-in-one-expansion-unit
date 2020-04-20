@@ -65,7 +65,6 @@ function veu_package_include() {
 	$include_base = veu_get_directory() . '/inc/';
 
 	$use_ex_blocks = false;
-	$use_vk_blocks = false;
 
 	foreach ( $vkExUnit_packages as $package ) {
 		if (
@@ -77,10 +76,6 @@ function veu_package_include() {
 		) {
 			require_once $include_base . $package['include'];
 
-			if ( $package['name'] == 'vk-blocks' ) {
-				$use_vk_blocks = true;
-			}
-
 			if ( $package['use_ex_blocks'] ) {
 				$use_ex_blocks = true;
 			}
@@ -88,11 +83,8 @@ function veu_package_include() {
 	}
 
 	if ( $use_ex_blocks ) {
-		add_action('init', 'veu_register_block_scripts');
-
-		if ( ! $use_vk_blocks ) {
-			add_filter( 'block_categories', 'veu_add_block_category', 10, 2 );
-		}
+		add_action( 'init', 'veu_register_block_scripts' );
+		add_filter( 'block_categories', 'veu_add_block_category', 10, 2 );
 	}
 }
 
@@ -118,9 +110,9 @@ function veu_add_block_category( $categories, $post ) {
 		$categories,
 		array(
 			array(
-				'slug'  => 'vk-blocks-cat',
-				'title' => veu_get_prefix() . __( 'Blocks', 'vk-all-in-one-expansion-unit' ),
-				'icon'  => '',
+				'slug'  => 'veu-block',
+				'title' => veu_get_prefix() . __( 'ExUnit Blocks', 'vk-all-in-one-expansion-unit' ),
+				'icon'  => 'layout',
 			),
 		)
 	);

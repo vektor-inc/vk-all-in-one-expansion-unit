@@ -8,7 +8,7 @@
   registerBlockType("vk-blocks/contact-section", {
     title: __("Contact section", "veu-block"),
     icon: 'phone',
-    category: "vk-blocks-cat",
+    category: "veu-block",
     edit: ({className}) => {
       return (
         <Fragment>

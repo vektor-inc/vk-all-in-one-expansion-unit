@@ -8,7 +8,7 @@
   registerBlockType("vk-blocks/child-page-index", {
     title: __("Child page index", "veu-block"),
     icon: 'editor-ul',
-    category: "vk-blocks-cat",
+    category: "veu-block",
     edit: ({className}) => {
       return (
         <Fragment>

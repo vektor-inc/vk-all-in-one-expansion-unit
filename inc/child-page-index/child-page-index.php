@@ -33,8 +33,8 @@ function veu_child_page_excerpt( $post ) {
 	return $page_excerpt;
 }
 
-function vkExUnit_childPageIndex_block_callback( $attributes=array() ) {
-	$classes = 'veu_share_button_block';
+function veu_childPageIndex_block_callback( $attributes=array() ) {
+	$classes = 'veu_childPageIndex_block';
 
 	if ( isset($attributes['className']) ) {
 		$classes .= ' ' . $attributes['className'];
@@ -200,7 +200,7 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 	do_action( 'vkExUnit_customField_Page_save_customField' );
 }
 
-add_action( 'init', 'vew_child_page_index_setup', 15 );
+add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
 	register_block_type(
 		'vk-blocks/child-page-index',
@@ -212,7 +212,7 @@ function veu_child_page_index_setup() {
 				)
 			),
 			'editor_script'   => 'veu-block',
-			'render_callback' => 'vkExUnit_childPageIndex_block_callback',
+			'render_callback' => 'veu_childPageIndex_block_callback',
 		)
 	);
 }
