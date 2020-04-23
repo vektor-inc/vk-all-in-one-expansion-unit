@@ -37,13 +37,13 @@ body.vew_hide_edit_guide .veu_adminEdit { display: none; }
 (function(w,d,i,c,f){
 	w.addEventListener('load', function(){
 		var e=document.getElementById(i);
-		e.addEventListener('click', function(){
+		if(e){e.addEventListener('click', function(){
 			if(e.classList.contains(c)){
 				e.classList.remove(c);d.body.classList.remove(f);
 			}else{
 				e.classList.add(c);d.body.classList.add(f);
 			}
-	})})
+	})}})
 })(window,document,'wp-admin-bar-veu_disable_admin_edit','active','vew_hide_edit_guide')
 </script>
 	<?php }
