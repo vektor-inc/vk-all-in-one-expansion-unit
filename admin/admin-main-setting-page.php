@@ -23,7 +23,7 @@ function veu_add_main_setting() {
 	if ( ! $custom_page ) {
 		return; }
 }
-add_action( 'admin_menu', 'veu_add_main_setting' );
+add_action( 'admin_menu', 'veu_add_main_setting', 15 );
 
 
 /*

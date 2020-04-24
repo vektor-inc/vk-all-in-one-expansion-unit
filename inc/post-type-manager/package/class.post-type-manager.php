@@ -10,8 +10,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 	class Vk_post_type_manager {
 
-		/*-------------------------------------------*/
-		/*	カスタム投稿タイプ制御用投稿タイプを追加
+		/*
+		  カスタム投稿タイプ制御用投稿タイプを追加
 		/*-------------------------------------------*/
 		function add_post_type_post_type_manage() {
 			global $vk_post_type_manager_textdomain;
@@ -35,8 +35,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			);
 		}
 
-		/*-------------------------------------------*/
-		/*  post_type_manage の編集権限を追加
+		/*
+		  post_type_manage の編集権限を追加
 		/*-------------------------------------------*/
 		function add_cap_post_type_manage() {
 			$role           = get_role( 'administrator' );
@@ -56,8 +56,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			$role->add_cap( 'publish_others_' . $post_type_name . 's' );
 		}
 
-		/*-------------------------------------------*/
-		/*  meta box を作成
+		/*
+		  meta box を作成
 		/*-------------------------------------------*/
 		// add meta_box
 		function add_meta_box() {
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			global $vk_post_type_manager_textdomain;
 			global $post;
 
-			//CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）
+			// CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）
 			wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__post_type_manager' );
 
 			?>
@@ -83,7 +83,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			</style>
 			<?php
 
-			/* Post Type ID
+			/*
+			 Post Type ID
 			/*-------------------------------------------*/
 			echo '<h4>' . __( 'Post Type ID(Required)', $vk_post_type_manager_textdomain ) . '</h4>';
 			echo '<p>' . __( '20 characters or less in alphanumeric', $vk_post_type_manager_textdomain ) . '</p>';
@@ -100,7 +101,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				'revisions' => __( 'revisions', $vk_post_type_manager_textdomain ),
 			);
 
-			/* Supports(Required)
+			/*
+			 Supports(Required)
 			/*-------------------------------------------*/
 			echo '<h4>' . __( 'Supports(Required)', $vk_post_type_manager_textdomain ) . '</h4>';
 			$post_type_items_value = get_post_meta( $post->ID, 'veu_post_type_items', true );
@@ -113,7 +115,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			echo '<hr>';
 
-			/* Menu position
+			/*
+			 Menu position
 			/*-------------------------------------------*/
 			echo '<h4>' . __( 'Menu position(optional)', $vk_post_type_manager_textdomain ) . '</h4>';
 			echo '<p>' . __( 'Please enter a number.', $vk_post_type_manager_textdomain ) . '</p>';
@@ -121,9 +124,10 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			echo '<hr>';
 
-			/* Export to Rest api
+			/*
+			 Export to Rest api
 			/*-------------------------------------------*/
-			echo '<h4>' . __( 'Export to REST API(optional)', $vk_post_type_manager_textdomain ) . '</h4>';
+			echo '<h4>' . __( 'Corresponds to the block editor ( optional )', $vk_post_type_manager_textdomain ) . '</h4>';
 
 			// 現在保存されているカスタムフィールドの値を取得
 			$export_to_api_value = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
@@ -135,11 +139,12 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				$checked = '';
 			}
 
-			echo '<label>' . '<input type="checkbox" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . $checked . '> ' . __( 'Export to REST API' ) . '</label>';
+			echo '<label>' . '<input type="checkbox" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . $checked . '> ' .  __( 'Corresponds to the block editor ( Export to REST API / optional )', $vk_post_type_manager_textdomain ). '</label>';
 			echo '<p>' . __( 'If you want to use the block editor that, you have to use the REST API.', $vk_post_type_manager_textdomain ) . '</p>';
 			echo '<hr>';
 
-			/* Custom taxonomies
+			/*
+			 Custom taxonomies
 			/*-------------------------------------------*/
 			echo '<h4>' . __( 'Custom taxonomies(optional)', $vk_post_type_manager_textdomain ) . '</h4>';
 
@@ -155,7 +160,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
 
 			// if ( ! $taxonomy ){
-			// 	$taxonomy = array(array());
+			// $taxonomy = array(array());
 			// }
 
 			for ( $i = 1; $i <= 3; $i++ ) {
@@ -197,8 +202,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				// チェックが元々入ってるかどうか
 				$checked = ( isset( $taxonomy[ $i ]['rest_api'] ) && $taxonomy[ $i ]['rest_api'] ) ? ' checked' : '';
 
-				echo '<td>' . __( 'REST API(optional)', $vk_post_type_manager_textdomain ) . '</td>';
-				echo '<td><label><input type="checkbox" id="veu_taxonomy[' . $i . '][rest_api]" name="veu_taxonomy[' . $i . '][rest_api]" value="true"' . $checked . '> ' . __( 'Use for REST API', $vk_post_type_manager_textdomain ) . '</label></td>';
+				echo '<td>' . __( 'Corresponds to the block editor', $vk_post_type_manager_textdomain ) . '</td>';
+				echo '<td><label><input type="checkbox" id="veu_taxonomy[' . $i . '][rest_api]" name="veu_taxonomy[' . $i . '][rest_api]" value="true"' . $checked . '> ' . __( 'Corresponds to the block editor ( Export to REST API / optional )', $vk_post_type_manager_textdomain ) . '</label></td>';
 				echo '</tr>';
 
 			}
@@ -206,22 +211,22 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 		}
 
-		/*-------------------------------------------*/
-		/*  入力された値の保存
+		/*
+		  入力された値の保存
 		/*-------------------------------------------*/
 
 		function save_cf_value( $post_id ) {
 			global $post;
 
-			//設定したnonce を取得（CSRF対策）
+			// 設定したnonce を取得（CSRF対策）
 			$noncename__post_type_manager = isset( $_POST['noncename__post_type_manager'] ) ? $_POST['noncename__post_type_manager'] : null;
 
-			//nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
+			// nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
 			if ( ! wp_verify_nonce( $noncename__post_type_manager, wp_create_nonce( __FILE__ ) ) ) {
 				return $post_id;
 			}
 
-			//自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）
+			// 自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return $post_id; }
 
@@ -270,9 +275,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			}
 		}
 
-
-		/*-------------------------------------------*/
-		/*	登録したカスタム投稿タイプを実際に作成
+		/*
+		  登録したカスタム投稿タイプを実際に作成
 		/*-------------------------------------------*/
 
 		function add_post_type() {
@@ -288,7 +292,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			if ( $custom_post_types ) {
 				foreach ( $custom_post_types as $key => $post ) {
 
-					/*  投稿タイプ追加
+					/*
+					  投稿タイプ追加
 					/*-------------------------------------------*/
 					$labels = array(
 						'name'          => esc_html( $post->post_title ),
@@ -335,7 +340,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 						// カスタム投稿タイプを発行
 						register_post_type( $post_type_id, $args );
 
-						/*	カスタム分類を追加
+						/*
+						  カスタム分類を追加
 						/*-------------------------------------------*/
 
 						// カスタムフィールドに連想配列で格納しておいたカスタム分類の情報を取得
@@ -351,13 +357,14 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 								$rest_api_true = ( empty( $taxonomy['rest_api'] ) ) ? false : true;
 
 								$args = array(
-									'hierarchical'   => $hierarchical_true,
+									'hierarchical'      => $hierarchical_true,
 									'update_count_callback' => '_update_post_term_count',
-									'label'          => $taxonomy['label'],
-									'singular_label' => $taxonomy['label'],
-									'public'         => true,
-									'show_ui'        => true,
-									'show_in_rest'   => $rest_api_true,
+									'label'             => $taxonomy['label'],
+									'singular_label'    => $taxonomy['label'],
+									'public'            => true,
+									'show_ui'           => true,
+									'show_in_rest'      => $rest_api_true,
+									'show_admin_column' => true,
 								);
 
 								register_taxonomy(
@@ -377,8 +384,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 		}
 
-		/*-------------------------------------------*/
-		/*  実行
+		/*
+		  実行
 		/*-------------------------------------------*/
 		public function __construct() {
 			add_action( 'init', array( $this, 'add_post_type_post_type_manage' ) );

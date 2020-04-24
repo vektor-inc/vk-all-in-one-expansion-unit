@@ -28,7 +28,7 @@ function veu_is_sns_btns_display() {
 	global $post;
 	$options     = veu_get_sns_options();
 	$ignorePosts = explode( ',', $options['snsBtn_ignorePosts'] );
-	$post_type   = vkExUnit_get_post_type();
+	$post_type   = vk_get_post_type();
 	$post_type   = $post_type['slug'];
 
 	if ( isset( $options['snsBtn_exclude_post_types'][ $post_type ] ) && $options['snsBtn_exclude_post_types'][ $post_type ] ) {

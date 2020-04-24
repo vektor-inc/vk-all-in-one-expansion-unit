@@ -5,11 +5,11 @@
 #     exit
 # fi
 if [[ "master" != "$TRAVIS_BRANCH" ]]; then
-    echo "Not on the 'master' branch."
-    exit
+    echo "Not on the 'master' branch. abort."
+    exit 0
 fi
 
-set -e
+set -ex
 
 ## -b オプションはチェックアウト
 git clone -b dist --quiet "https://github.com/${TRAVIS_REPO_SLUG}.git" dist
@@ -19,3 +19,5 @@ cd dist
 git add -A
 git commit -m "Update from travis $TRAVIS_COMMIT"
 git push --quiet "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" dist 2> /dev/null
+
+exit 0
