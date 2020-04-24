@@ -358,6 +358,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 									'public'         => true,
 									'show_ui'        => true,
 									'show_in_rest'   => $rest_api_true,
+									'show_admin_column'   => true,
 								);
 
 								register_taxonomy(
