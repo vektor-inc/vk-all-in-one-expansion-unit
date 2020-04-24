@@ -127,7 +127,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			/*
 			 Export to Rest api
 			/*-------------------------------------------*/
-			echo '<h4>' . __( 'Export to REST API(optional)', $vk_post_type_manager_textdomain ) . '</h4>';
+			echo '<h4>' . __( 'Corresponds to the block editor ( optional )', $vk_post_type_manager_textdomain ) . '</h4>';
 
 			// 現在保存されているカスタムフィールドの値を取得
 			$export_to_api_value = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				$checked = '';
 			}
 
-			echo '<label>' . '<input type="checkbox" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . $checked . '> ' . __( 'Export to REST API' ) . '</label>';
+			echo '<label>' . '<input type="checkbox" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . $checked . '> ' .  __( 'Corresponds to the block editor ( Export to REST API / optional )', $vk_post_type_manager_textdomain ). '</label>';
 			echo '<p>' . __( 'If you want to use the block editor that, you have to use the REST API.', $vk_post_type_manager_textdomain ) . '</p>';
 			echo '<hr>';
 
@@ -202,8 +202,8 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				// チェックが元々入ってるかどうか
 				$checked = ( isset( $taxonomy[ $i ]['rest_api'] ) && $taxonomy[ $i ]['rest_api'] ) ? ' checked' : '';
 
-				echo '<td>' . __( 'REST API(optional)', $vk_post_type_manager_textdomain ) . '</td>';
-				echo '<td><label><input type="checkbox" id="veu_taxonomy[' . $i . '][rest_api]" name="veu_taxonomy[' . $i . '][rest_api]" value="true"' . $checked . '> ' . __( 'Use for REST API', $vk_post_type_manager_textdomain ) . '</label></td>';
+				echo '<td>' . __( 'Corresponds to the block editor', $vk_post_type_manager_textdomain ) . '</td>';
+				echo '<td><label><input type="checkbox" id="veu_taxonomy[' . $i . '][rest_api]" name="veu_taxonomy[' . $i . '][rest_api]" value="true"' . $checked . '> ' . __( 'Corresponds to the block editor ( Export to REST API / optional )', $vk_post_type_manager_textdomain ) . '</label></td>';
 				echo '</tr>';
 
 			}
