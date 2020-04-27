@@ -116,7 +116,7 @@ function veu_add_block_category( $categories, $post ) {
 			array(
 				'slug'  => 'veu-block',
 				'title' => veu_get_prefix() . __( 'ExUnit Blocks', 'vk-all-in-one-expansion-unit' ),
-				'icon'  => 'layout',
+				// 'icon'  => 'layout',
 			),
 		)
 	);
