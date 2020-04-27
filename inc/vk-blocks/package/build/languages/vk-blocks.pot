@@ -772,10 +772,6 @@ msgstr ""
 msgid "Caption"
 msgstr ""
 
-#: src/plugin/menu/sidebar.js:17
-msgid "VK Blocks Templates"
-msgstr ""
-
 #: src/translation_dummy.js:2
 msgid "Disabled Blocks module. Because VK-Blocks Plugin running."
 msgstr ""

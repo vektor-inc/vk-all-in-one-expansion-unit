@@ -144,10 +144,15 @@ function vkblocks_blocks_assets() {
 								'type'    => 'string',
 								'default' => 'open',
 							),
+							'className'   => array(
+								'type'    => 'string',
+								'default' => '',
+							),
 						),$common_attributes),
 						'render_callback' => function ( $attributes ) {
 							if ( $attributes['renderHtml'] ) {
-								return $attributes['renderHtml'];
+								$custom_class = esc_attr($attributes['className']) . ' ';
+								return preg_replace('/class="/', 'class="' . $custom_class ,$attributes['renderHtml'], 1 );
 							} else {
 								return '<div><div class="vk_tableOfContents_title">' . __( 'Table of Contents', 'vk-blocks' ) . '</div></div>';
 							}
@@ -256,6 +261,10 @@ function vkblocks_blocks_assets() {
 									'type'    => 'boolean',
 									'default' => false,
 								),
+								'className'         => array(
+									'type'    => 'string',
+									'default' => '',
+								),
 							),$common_attributes),
 							// 'style'           => 'vk-blocks-build-css',
 							'editor_style'    => 'vk-blocks-build-editor-css',
@@ -356,6 +365,10 @@ function vkblocks_blocks_assets() {
 							'isCheckedTerms'             => array(
 								'type'    => 'string',
 								'default' => '[]',
+							),
+							'className'             => array(
+								'type'    => 'string',
+								'default' => '',
 							),
 						),$common_attributes),
 						// 'style'           => 'vk-blocks-build-css',

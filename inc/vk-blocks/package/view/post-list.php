@@ -62,12 +62,13 @@ class VkBlocksPostList {
 			'vkb_hidden_md'              => $attributes['vkb_hidden_md'],
 			'vkb_hidden_sm'              => $attributes['vkb_hidden_sm'],
 			'vkb_hidden_xs'              => $attributes['vkb_hidden_xs'],
+			'class_loop_outer'           => array( $attributes['className'] ),
 		);
-		$elm     = VK_Component_Posts::get_loop( $wp_query, $options, $options_loop );
+
+		$elm = VK_Component_Posts::get_loop( $wp_query, $options, $options_loop );
 
 		wp_reset_query();
 		wp_reset_postdata();
-
 
 		return $elm;
 	}
