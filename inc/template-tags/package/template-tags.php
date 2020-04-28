@@ -430,24 +430,3 @@ if ( ! function_exists( 'vk_is_checked' ) ) {
 		echo $checked;
 	}
 }
-
-/**
- * Chack block category exist
- *
- * @param array  $categories
- * @param string $slug
- * @return boolian
- */
-if ( ! function_exists( 'vk_is_block_category_exist' ) ) {
-	function vk_is_block_category_exist( $categories, $slug ) {
-		$keys = array();
-		foreach ( $categories as $key => $value ) {
-			$keys[] = $value['slug'];
-		}
-		if ( in_array( $slug, $keys ) ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}

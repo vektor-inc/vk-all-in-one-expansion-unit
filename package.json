@@ -6,6 +6,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
+    "@wordpress/babel-plugin-makepot": "^3.4.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -19,10 +20,12 @@
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.2",
+    "po2json": "1.0.0-alpha",
     "run-sequence": "^2.2.1"
   },
   "scripts": {
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "translate": "po2json languages/ja_JP.po languages/veu-block-ja-veu-block.json -f jed"
   },
   "repository": {
     "type": "git",
