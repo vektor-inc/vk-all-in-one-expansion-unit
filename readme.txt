@@ -93,6 +93,11 @@ e.g.
 
 == Changelog ==
 
+= 9.18.0.0 =
+[ Add Function ][ Add block ] Contact Section
+[ Add Function ][ Add block ] Child Page Index
+[ Design tuning ][ VK Block 0.27.0 ] CSS Bug fix on Edit screen
+
 = 9.17.0.0 =
 [ Specification change ][ sns twitter card ] Print Twitter Card if Twitter ID no setted
 [ Post Type Manager ] Improved REST API description
