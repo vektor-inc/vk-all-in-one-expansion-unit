@@ -26,7 +26,7 @@ msgstr ""
 #: src/blocks/balloon/block.js:136
 #: src/blocks/flow/block.js:112
 #: src/blocks/pr-blocks/block.js:179
-#: src/blocks/pr-content/component.js:158
+#: src/blocks/pr-content/component.js:157
 #: src/blocks/pr-content/deprecated/component-deprecated.js:102
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:116
 #: src/blocks/staff/component.js:88
@@ -36,7 +36,7 @@ msgstr ""
 #: src/blocks/balloon/block.js:141
 #: src/blocks/flow/block.js:113
 #: src/blocks/pr-blocks/block.js:175
-#: src/blocks/pr-content/component.js:165
+#: src/blocks/pr-content/component.js:164
 #: src/blocks/pr-content/deprecated/component-deprecated.js:106
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:120
 msgid "Upload image"
@@ -60,7 +60,7 @@ msgid "Balloon setting"
 msgstr ""
 
 #: src/blocks/balloon/block.js:90
-#: src/blocks/heading/block.js:210
+#: src/blocks/heading/block.js:189
 msgid "Position"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgid "Sub Caption"
 msgstr ""
 
 #: src/blocks/button/block.js:157
-#: src/blocks/pr-blocks/block.js:330
+#: src/blocks/pr-blocks/block.js:332
 #: src/blocks/pr-content/block.js:160
 msgid "Open link new tab."
 msgstr ""
@@ -131,12 +131,12 @@ msgid "Button Style:"
 msgstr ""
 
 #: src/blocks/button/block.js:242
-#: src/blocks/pr-blocks/block.js:361
+#: src/blocks/pr-blocks/block.js:363
 msgid "Solid color"
 msgstr ""
 
 #: src/blocks/button/block.js:250
-#: src/blocks/pr-blocks/block.js:362
+#: src/blocks/pr-blocks/block.js:364
 msgid "No background"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgid "Font Awesome:"
 msgstr ""
 
 #: src/blocks/button/block.js:289
-#: src/blocks/pr-blocks/block.js:344
+#: src/blocks/pr-blocks/block.js:346
 #: src/blocks/pr-content/block.js:202
 msgid "Font Awesome icon list"
 msgstr ""
@@ -332,14 +332,14 @@ msgid "Brackets black"
 msgstr ""
 
 #: src/blocks/heading-style/block.js:33
-#: src/blocks/heading/block.js:153
+#: src/blocks/heading/block.js:132
 #: src/blocks/list-style/block.js:104
 #: src/blocks/staff/block.js:105
 msgid "Default"
 msgstr ""
 
 #: src/blocks/heading-style/block.js:38
-#: src/blocks/heading/block.js:154
+#: src/blocks/heading/block.js:133
 msgid "Plain"
 msgstr ""
 
@@ -363,61 +363,63 @@ msgstr ""
 msgid "Solid border bottom black"
 msgstr ""
 
-#: src/blocks/heading/block.js:147
+#: src/blocks/heading/block.js:126
 msgid "Style Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:149
+#: src/blocks/heading/block.js:128
 msgid "Heading style"
 msgstr ""
 
-#: src/blocks/heading/block.js:157
+#: src/blocks/heading/block.js:136
 msgid "Margin bottom size (rem)"
 msgstr ""
 
-#: src/blocks/heading/block.js:168
+#: src/blocks/heading/block.js:147
 msgid "Heading Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:169
+#: src/blocks/heading/block.js:148
 msgid "Level"
 msgstr ""
 
-#: src/blocks/heading/block.js:176
+#: src/blocks/heading/block.js:155
 msgid "Text Alignment"
 msgstr ""
 
-#: src/blocks/heading/block.js:193
+#: src/blocks/heading/block.js:172
 msgid "Heading margin bottom size (rem)"
 msgstr ""
 
-#: src/blocks/heading/block.js:208
+#: src/blocks/heading/block.js:187
 msgid "Sub Text Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:213
+#: src/blocks/heading/block.js:192
 msgid "Display"
 msgstr ""
 
-#: src/blocks/heading/block.js:214
+#: src/blocks/heading/block.js:193
 msgid "Hide"
 msgstr ""
 
-#: src/blocks/heading/block.js:218
+#: src/blocks/heading/block.js:197
 msgid "Text size (rem)"
 msgstr ""
 
-#: src/blocks/heading/block.js:78
+#: src/blocks/heading/block.js:65
 msgid "Heading"
 msgstr ""
 
 #: src/blocks/heading/component.js:109
-#: src/blocks/heading/deprecated/block.js:642
+#: src/blocks/heading/deprecated/block.js:663
+#: src/blocks/heading/deprecated/component.js:109
 msgid "Input sub text…"
 msgstr ""
 
 #: src/blocks/heading/component.js:93
-#: src/blocks/heading/deprecated/block.js:626
+#: src/blocks/heading/deprecated/block.js:647
+#: src/blocks/heading/deprecated/component.js:93
 msgid "Input title…"
 msgstr ""
 
@@ -543,52 +545,52 @@ msgstr ""
 msgid "Icon 1"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:238
-msgid "PR Image 1"
-msgstr ""
-
 #: src/blocks/pr-blocks/block.js:239
 msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:256
+#: src/blocks/pr-blocks/block.js:241
+msgid "PR Image 1"
+msgstr ""
+
+#: src/blocks/pr-blocks/block.js:257
 msgid "PR Block2 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:271
+#: src/blocks/pr-blocks/block.js:272
 msgid "Icon 2"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:303
+#: src/blocks/pr-blocks/block.js:307
 msgid "PR Image 2"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:321
+#: src/blocks/pr-blocks/block.js:323
 msgid "PR Block3 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:323
+#: src/blocks/pr-blocks/block.js:325
 msgid "Link URL:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:336
+#: src/blocks/pr-blocks/block.js:338
 msgid "Icon 3"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:339
+#: src/blocks/pr-blocks/block.js:341
 msgid "Class name of the Font Awesome icon font you want to use:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:358
+#: src/blocks/pr-blocks/block.js:360
 msgid "Icon Background:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:368
-msgid "PR Image 3"
+#: src/blocks/pr-blocks/block.js:371
+msgid "When you have an image. Image is displayed with priority."
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:369
-msgid "When you have an image. Image is displayed with priority."
+#: src/blocks/pr-blocks/block.js:373
+msgid "PR Image 3"
 msgstr ""
 
 #: src/blocks/pr-blocks/block.js:95
@@ -657,13 +659,13 @@ msgstr ""
 msgid "PR Content"
 msgstr ""
 
-#: src/blocks/pr-content/component.js:201
+#: src/blocks/pr-content/component.js:200
 #: src/blocks/pr-content/deprecated/component-deprecated.js:122
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:136
 msgid "Input title."
 msgstr ""
 
-#: src/blocks/pr-content/component.js:209
+#: src/blocks/pr-content/component.js:208
 #: src/blocks/pr-content/deprecated/component-deprecated.js:130
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:144
 msgid "Input content."

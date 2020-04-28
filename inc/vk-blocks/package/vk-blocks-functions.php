@@ -56,6 +56,7 @@ function vkblocks_blocks_assets() {
 			'wp-plugins',
 			'wp-hooks',
 			'wp-api-fetch',
+			'wp-viewport',
 		);
 	} else {
 		$dependency = array(
@@ -71,6 +72,7 @@ function vkblocks_blocks_assets() {
 			'wp-plugins',
 			'wp-hooks',
 			'wp-api-fetch',
+			'wp-viewport',
 		);
 	}
 	wp_register_script(
@@ -394,8 +396,9 @@ function vkblocks_blocks_assets() {
 } // function vkblocks_blocks_assets() {
 add_action( 'init', 'vkblocks_blocks_assets' );
 
-
+// Add Block Category,
 if ( ! function_exists( 'vkblocks_blocks_categories' ) ) {
+	// Add Block Category,
 	function vkblocks_blocks_categories( $categories, $post ) {
 		global $vk_blocks_prefix;
 
@@ -409,7 +412,6 @@ if ( ! function_exists( 'vkblocks_blocks_categories' ) ) {
 				),
 			)
 		);
-
 		$categories = array_merge(
 			$categories,
 			array(
