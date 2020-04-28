@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Vektor, inc. <info@vektor-inc.co.jp>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja_JP\n"
+
+#: inc/sns/package/block.min.js:35
+msgid "Child page index"
+msgstr "子ページ一覧"
+
+#: inc/sns/package/block.min.js:61
+msgid "Contact section"
+msgstr "お問い合わせ"
+
+#: inc/sns/package/block.min.js:9
+msgid "Share button"
+msgstr "シェアボタン"

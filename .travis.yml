@@ -46,7 +46,7 @@ before_script:
   - cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
   - cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
   - cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
-  - cp inc/sns/package/block.min.js .block.min.js.before
+  - cp assets/js/block.min.js .block.min.js.before
 
 
 script:
@@ -57,7 +57,7 @@ script:
   - diff assets/js/all.min.js .all.min.js.before
   # block script compile check
   - npm run gulp block
-  - diff inc/sns/package/block.min.js .block.min.js.before
+  - diff assets/js/block.min.js .block.min.js.before
   # scss compile check
   - npm run gulp sass
   - diff assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before

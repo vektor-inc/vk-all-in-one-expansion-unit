@@ -1,0 +1,63 @@
+.veu_contact {
+    .contact_frame {
+        display: block;
+        overflow: hidden;
+        // padding:25px 24px 21px;
+        background-color: #f9f9f9;
+    }
+    .contact_txt_catch,
+    .contact_txt_tel,
+    .contact_txt_time {
+        display: block;
+        overflow: hidden;
+    }
+    .contact_txt_catch,
+    .contact_txt_time {
+        font-size: 14px;
+        line-height: 128.6%;
+    }
+    .contact_txt_tel {
+        padding: 4px 0;
+        font-size: 28px;
+        line-height: 105%;
+        font-weight: 700;
+    }
+    .contact_txt_tel_icon {
+        margin-right: 0.3rem;
+    }
+    .contact_bt_subTxt {
+        display: block;
+        overflow: hidden;
+        font-size: 12px;
+        margin-top: 0.4rem;
+    }
+    .contact_txt {
+        text-align: center;
+    }
+    .contact_bt {
+        display: block;
+    }
+} // .veu_contact
+
+@media (min-width: 1200px) {
+    .veu_contact {
+        p.contact_txt {
+            margin-bottom: 0;
+        }
+        .contact_txt {
+            float: left;
+            text-align: left;
+        }
+        .contact_bt {
+            float: right;
+            padding: 0.7em 1.5em;
+        }
+    }
+} // @media (min-width: 1200px){
+
+.widget {
+    .veu_contact > .contact_bt {
+        display: inline-block;
+        float: none;
+    }
+}
