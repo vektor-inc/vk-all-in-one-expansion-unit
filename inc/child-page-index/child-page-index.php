@@ -54,7 +54,8 @@ function veu_childPageIndex_block_callback( $attributes=array() ) {
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode( $parentId=null, $classes='' ) {
 
-	if ( $parentId === null ) {
+	// null じゃなくstring(0) "" が来る事がある
+	if ( $parentId === null || $parentId == '' ) {
 		global $is_pagewidget;
 
 		if ( $is_pagewidget ) {
