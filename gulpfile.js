@@ -135,9 +135,8 @@ gulp.task('watch', function() {
 	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
 
-// gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
+gulp.task('build', gulp.series('scripts', 'sass', 'block'))
 
 // copy dist ////////////////////////////////////////////////
 
@@ -173,13 +172,8 @@ gulp.task('copy_dist', function() {
 		)
 		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
 } );
-// gulp.task('build:dist',function(){
-//     /* ここで、CSS とか JS をコンパイルする */
-// });
 
 gulp.task('dist', function(cb){
-	// return runSequence( 'build:dist', 'copy', cb );
-	// return runSequence( 'build:dist', 'copy_dist', cb );
 	return runSequence( 'copy_dist', cb );
 });
 

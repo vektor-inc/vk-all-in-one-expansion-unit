@@ -25,6 +25,8 @@
   },
   "scripts": {
     "gulp": "gulp",
+    "watch": "gulp watch",
+    "build": "gulp build",
     "translate": "po2json languages/ja_JP.po languages/veu-block-ja-veu-block.json -f jed"
   },
   "repository": {
