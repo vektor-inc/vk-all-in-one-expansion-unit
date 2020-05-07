@@ -60,6 +60,7 @@ gulp.task('block', function (done) {
 			],
 			presets: ['@babel/env']
 		}))
+		.pipe(jsmin())
 		.pipe(gulp.dest('./assets/js/'));
 });
 
