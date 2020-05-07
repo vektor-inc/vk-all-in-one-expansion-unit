@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -ex
+
+PLUGIN_NAME='vk-all-in-one-expansion-unit'
+PLUGIN_DIR=$(cd $(dirname $(dirname $0)); pwd)
+CURRENT_VERSION=$(cat vkExUnit.php|grep -i version|head -n 1|sed -E 's/^[ *]*Version: *([^ ]*) *$/\1/i')
+
+dist_dir=${PLUGIN_DIR}/dist
+
+ZIPBALL=${dist_dir}/${PLUGIN_NAME}-${CURRENT_VERSION}.zip
+TARBALL=${dist_dir}/${PLUGIN_NAME}-${CURRENT_VERSION}.tar.gz
+
+tmp=$(mktemp -d)
+
+[[ -e ${dist_dir} ]] || mkdir ${dist_dir}
+
+rsync -av ${PLUGIN_DIR}/ ${tmp}/${PLUGIN_NAME}/ --exclude="dist/" --exclude-from='.svnignore'
+
+[[ -e "${ZIPBALL}" ]] && rm -r ${ZIPBALL}
+[[ -e "${TARBALL}" ]] && rm -r ${TARBALL}
+
+cd ${tmp}
+
+zip -r ${ZIPBALL} ${PLUGIN_NAME}/
+tar -czvf ${TARBALL} ${PLUGIN_NAME}/
+
+rm -r ${tmp}
+
+exit 0

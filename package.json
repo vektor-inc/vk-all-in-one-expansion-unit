@@ -24,6 +24,7 @@
     "run-sequence": "^2.2.1"
   },
   "scripts": {
+    "dist": "bash bin/dist",
     "gulp": "gulp",
     "translate": "po2json languages/ja_JP.po languages/veu-block-ja-veu-block.json -f jed"
   },
