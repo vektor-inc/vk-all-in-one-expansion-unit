@@ -167,8 +167,4 @@ function veu_pageListAncestor_block_callback( $attr=array() ) {
 		return '';
 	}
 	return $r;
-
-	return vkExUnit_pageList_ancestor_shortcode();
-	return json_encode($attr);
-	return "famas";
 }
