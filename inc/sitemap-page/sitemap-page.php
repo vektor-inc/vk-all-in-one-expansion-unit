@@ -81,8 +81,6 @@ function vkExUnit_sitemap( $attr ) {
 		), $attr
 	);
 
-	error_log(json_encode($attr));
-	// error_log(json_encode($r));
 	$sitemap_html = '<div class="row veu_sitemap ' . $attr[ 'className' ] . '">' . PHP_EOL;
 
 	/*-------------------------------------------*/
