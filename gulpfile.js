@@ -43,7 +43,8 @@ gulp.task('block', function (done) {
 			[
 				'./inc/sns/package/block.jsx',
 				'./inc/child-page-index/block.jsx',
-				'./inc/contact-section/block.jsx'
+				'./inc/contact-section/block.jsx',
+				'./inc/page-list-ancestor/block.jsx'
 			]
 		)
 		.pipe(concat('block.min.js'))
@@ -59,7 +60,6 @@ gulp.task('block', function (done) {
 			],
 			presets: ['@babel/env']
 		}))
-		.pipe(jsmin())
 		.pipe(gulp.dest('./assets/js/'));
 });
 
@@ -115,7 +115,8 @@ gulp.task('watch', function() {
 		[
 			'./inc/sns/package/block.jsx',
 			'./inc/child-page-index/block.jsx',
-			'./inc/contact-section/block.jsx'
+			'./inc/contact-section/block.jsx',
+			'./inc/page-list-ancestor/block.jsx'
 		],
 		gulp.series('block')
 	)

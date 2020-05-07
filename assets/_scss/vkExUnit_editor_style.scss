@@ -6,7 +6,8 @@
 @import "_contact_section";
 
 div.veu_contact_section_block .disabled,
-div.veu_child_page_list_block .disabled {
+div.veu_child_page_list_block .disabled,
+div.veu_page_list_ancestor_block .disabled {
 	display: block !important;
 	background-color: rgba(139, 139, 150, 0.1);
 	padding: 0.7em;
