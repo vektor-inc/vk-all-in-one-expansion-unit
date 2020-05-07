@@ -160,27 +160,7 @@
 /* .veu_sitemap
 /*-------------------------------------------*/
 
-.veu_sitemap {
-	.sectionBox {
-		padding-top: 0;
-	}
-	.sitemap-col {
-		padding-bottom: 2em;
-	}
-	.sitemap-col {
-		margin-top: 1em;
-		.link-list {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-		.page_item {
-			padding: 0;
-		}
-		.cat-item {
-			padding: 0;
-		}
-	}
-}
+@import "_sitemap";
 
 /*-------------------------------------------*/
 /* .veu_socialSet

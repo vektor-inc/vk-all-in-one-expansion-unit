@@ -72,17 +72,18 @@ function veu_show_sitemap( $content ) {
 	return $content;
 }
 
-function vkExUnit_sitemap( $atts ) {
+function vkExUnit_sitemap( $attr ) {
 
-	extract(
-		shortcode_atts(
-			array(
-				'exclude' => '',
-			), $atts
-		)
+	$attr = shortcode_atts(
+		array(
+			'exclude' => '',
+			'className' => ''
+		), $attr
 	);
 
-	$sitemap_html = '<div class="row veu_sitemap">' . PHP_EOL;
+	error_log(json_encode($attr));
+	// error_log(json_encode($r));
+	$sitemap_html = '<div class="row veu_sitemap ' . $attr[ 'className' ] . '">' . PHP_EOL;
 
 	/*-------------------------------------------*/
 	/* Exclude Page ids by ExUnit Main Setting Page
@@ -259,4 +260,21 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 	} elseif ( '' == $data ) {
 		delete_post_meta( $post_id, 'vkExUnit_sitemap' );
 	}
+}
+
+add_action( 'init', 'veu_sitemap_block_setup', 15 );
+function veu_sitemap_block_setup() {
+	register_block_type(
+		'vk-blocks/sitemap',
+		array(
+			'attributes'      => array(
+				'className'      => array(
+					'type'    => 'string',
+					'default' => ''
+				)
+			),
+			'editor_script'   => 'veu-block',
+			'render_callback' => 'vkExUnit_sitemap',
+		)
+	);
 }

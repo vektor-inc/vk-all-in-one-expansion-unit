@@ -12,18 +12,22 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: inc/page-list-ancestor/block.min.js:103
-msgid "Page list ancestor"
-msgstr "先祖階層からの子ページリスト表示"
-
-#: inc/page-list-ancestor/block.min.js:50
+#: inc/child-page-index/block.jsx:24
 msgid "Child page index"
 msgstr "子ページ一覧"
 
-#: inc/page-list-ancestor/block.min.js:76
+#: inc/contact-section/block.jsx:9
 msgid "Contact section"
 msgstr "お問い合わせ"
 
-#: inc/page-list-ancestor/block.min.js:9
+#: inc/page-list-ancestor/block.jsx:9
+msgid "Page list ancestor"
+msgstr "先祖階層からの子ページリスト"
+
+#: inc/sitemap-page/block.jsx:9
+msgid "Sitemap"
+msgstr "サイトマップ"
+
+#: inc/sns/package/block.jsx:9
 msgid "Share button"
 msgstr "シェアボタン"

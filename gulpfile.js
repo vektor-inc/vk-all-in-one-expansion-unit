@@ -44,10 +44,10 @@ gulp.task('block', function (done) {
 				'./inc/sns/package/block.jsx',
 				'./inc/child-page-index/block.jsx',
 				'./inc/contact-section/block.jsx',
-				'./inc/page-list-ancestor/block.jsx'
+				'./inc/page-list-ancestor/block.jsx',
+				'./inc/sitemap-page/block.jsx'
 			]
 		)
-		.pipe(concat('block.min.js'))
 		.pipe(babel({
 			plugins: [
 				'transform-react-jsx',
@@ -61,6 +61,7 @@ gulp.task('block', function (done) {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
+		.pipe(concat('block.min.js'))
 		.pipe(gulp.dest('./assets/js/'));
 });
 
@@ -117,7 +118,8 @@ gulp.task('watch', function() {
 			'./inc/sns/package/block.jsx',
 			'./inc/child-page-index/block.jsx',
 			'./inc/contact-section/block.jsx',
-			'./inc/page-list-ancestor/block.jsx'
+			'./inc/page-list-ancestor/block.jsx',
+			'./inc/sitemap-page/block.jsx'
 		],
 		gulp.series('block')
 	)
