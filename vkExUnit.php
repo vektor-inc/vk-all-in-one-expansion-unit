@@ -37,11 +37,6 @@ $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
 global $vkExUnit_version;
 $vkExUnit_version = $data['version'];
 
-// include('plugins/css_customize/css-customize.php');
-// load_plugin_textdomain( 'vk-all-in-one-expansion-unit', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
-
-
 function veu_get_directory( $path = '' ) {
 	return $dirctory = dirname( __FILE__ ) . $path;
 }
