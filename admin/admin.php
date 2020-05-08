@@ -47,6 +47,26 @@ function veu_setting_menu_parent() {
 		return; }
 }
 
+// ブロックを有効化する際、プラグインが有効になっていたらこれを無効にする
+add_filter('pre_update_option_vkExUnit_common_options', function( $new_option, $old_value, $option ){
+	if (
+		!empty($new_option['active_vk-blocks']) &&
+		empty($old_value['active_vk-blocks'])
+	) {
+		foreach( get_option( 'active_plugins' ) as $plugin ) {
+			if (
+				strpos($plugin, 'vk-blocks-pro/') === 0
+				|| strpos($plugin, 'vk-blocks/') === 0
+			) {
+				$new_option['active_vk-blocks'] = false;
+				break;
+			}
+		}
+	}
+	return $new_option;
+},10, 3);
+
+
 /*
   Load master setting page
 /*-------------------------------------------*/

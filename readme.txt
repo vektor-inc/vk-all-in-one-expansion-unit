@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.4.0
-Stable tag: 9.16.2.0
+Stable tag: 9.18.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,19 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.18.1.0 =
+[ bug fix ][ other widget ] bug fix of save all widget disable setting.
+
+= 9.18.0.0 =
+[ Add Function ][ Add block ] Contact Section
+[ Add Function ][ Add block ] Child Page Index
+[ Design tuning ][ VK Block 0.27.0 ] CSS Bug fix on Edit screen
+
+= 9.17.0.0 =
+[ Specification change ][ sns twitter card ] Print Twitter Card if Twitter ID no setted
+[ Post Type Manager ] Improved REST API description
+[ Post Type Manager ] Add term column to admin column
 
 = 9.16.2.0 =
 [ bug fix ][ Block 0.26.7 ] merely js rebuild

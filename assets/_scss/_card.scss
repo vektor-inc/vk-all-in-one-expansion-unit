@@ -1,0 +1,37 @@
+.veu_card {
+	border: 3px solid #efefef;
+	.veu_card_inner {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		padding: 1.5rem;
+		box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.5);
+	}
+	.veu_card_title {
+		color: $color_font_default;
+		font-size: 16px;
+		line-height: 1.4;
+		/* ↓ Lightninng Pro の見出し変更機能を打ち消し */
+		border: none;
+		background: none;
+		padding: 0 0 0.4em;
+		margin: 0 0 1em;
+		display: block;
+		text-align: left;
+		a {
+			color: $color_font_default;
+		}
+		&::before,
+		&::after {
+			content: "";
+			border: none;
+			border-right: none;
+			margin: 0;
+			background: none;
+			height: 0;
+			left: inherit;
+		}
+		/* ↑ Lightninng Pro の見出し変更機能を打ち消し */
+		border-bottom: $border_primary;
+	}
+}

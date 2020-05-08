@@ -1,2 +1,14 @@
 @charset "utf-8";
+@import "_variable";
+@import "_card";
 @import "_contents_option_style";
+@import "_child_page_list";
+@import "_contact_section";
+
+div.veu_contact_section_block .disabled,
+div.veu_child_page_list_block .disabled {
+	display: block !important;
+	background-color: rgba(139, 139, 150, 0.1);
+	padding: 0.7em;
+	text-align: center;
+}

@@ -1,5 +1,6 @@
 @charset "utf-8";
 // @import "compass";
+@import "_variable";
 @import "contents_option_style";
 
 /*-------------------------------------------------*/
@@ -48,37 +49,11 @@
 /* Widget .veu_banner
 /*-------------------------------------------*/
 
-$color_font_default: #464646;
-$color_key: #337ab7;
-$border_primary: 1px solid #e5e5e5;
-$section_margin: 30px;
-
 /*-------------------------------------------*/
 /* .common
 /*-------------------------------------------*/
 
-.link-list li {
-	padding: 0.5em;
-}
-iframe.wp-embedded-content {
-	width: 100%;
-}
-
-.veu_adminEdit {
-	margin-top: 5px;
-}
-
-.veu_contentAddSection {
-	display: block;
-	clear: both;
-	overflow: hidden;
-	margin-top: 20px;
-	margin-bottom: 1.5rem;
-}
-
-.btn {
-	white-space: inherit;
-}
+@import "_common";
 
 /*      .media(bootstrap)
 /*-------------------------------------------*/
@@ -160,43 +135,7 @@ iframe.wp-embedded-content {
 /*-------------------------------------------*/
 /* .veu_card
 /*-------------------------------------------*/
-.veu_card {
-	border: 3px solid #efefef;
-	.veu_card_inner {
-		position: relative;
-		display: block;
-		overflow: hidden;
-		padding: 1.5rem;
-		box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.5);
-	}
-	.veu_card_title {
-		color: $color_font_default;
-		font-size: 16px;
-		line-height: 1.4;
-		/* ↓ Lightninng Pro の見出し変更機能を打ち消し */
-		border: none;
-		background: none;
-		padding: 0 0 0.4em;
-		margin: 0 0 1em;
-		display: block;
-		text-align: left;
-		a {
-			color: $color_font_default;
-		}
-		&::before,
-		&::after {
-			content: "";
-			border: none;
-			border-right: none;
-			margin: 0;
-			background: none;
-			height: 0;
-			left: inherit;
-		}
-		/* ↑ Lightninng Pro の見出し変更機能を打ち消し */
-		border-bottom: $border_primary;
-	}
-}
+@import "_card";
 
 /*-------------------------------------------*/
 /* .relatedPosts
@@ -258,70 +197,8 @@ iframe.wp-embedded-content {
 /*-------------------------------------------*/
 /* .veu_childPage_list
 /*-------------------------------------------*/
-.veu_childPage_list {
-	margin-top: 2.5em;
-	.childPage_list_box {
-		display: block;
-		margin-bottom: 1.5em;
-		width: 100%;
-		text-decoration: none;
-	}
-	// .childPage_list_box_inner{ @extend .veu_card_inner; }
-	// .childPage_list_title{
-	// 	@extend .veu_card_title;
-	// 	&::before,
-	// 	&::after {
-	// 		@include clear();
-	// 	}
-	// }
-	.wp-post-image {
-		float: left;
-		margin-right: 1em;
-		margin-bottom: 1em;
-		width: 30%;
-		height: auto;
-		border: solid 1px #ddd;
-	}
-	.childPage_list_body {
-		overflow: hidden;
-		color: #333;
-		font-size: 14px;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-	p {
-		line-height: 1.5em;
-	}
-	.childPage_list_text {
-		overflow: hidden;
-		margin-bottom: 1em;
-	}
-	.childPage_list_more {
-		float: right;
-	}
-}
 
-@media (max-width: 767px) {
-	.veu_childPage_list {
-		.wp-post-image {
-			width: 25%;
-		}
-	}
-} // @media (max-width: 767px){
-@media (min-width: 541px) {
-	.veu_childPage_list {
-		display: flex;
-		align-items: stretch;
-		flex-wrap: wrap;
-		-webkit-flex-wrap: wrap; /* Safari */
-		justify-content: space-between;
-		-webkit-justify-content: space-between; /* Safari */
-		.childPage_list_box {
-			width: 48%;
-		}
-	}
-} // @media (max-width: 767px){
+@import "_child_page_list";
 
 /*-------------------------------------------*/
 /* .veu_pageList_ancestor
@@ -481,69 +358,8 @@ iframe.wp-embedded-content {
 /*-------------------------------------------*/
 /* .veu_contact
 /*-------------------------------------------*/
-.veu_contact {
-	.contact_frame {
-		display: block;
-		overflow: hidden;
-		// padding:25px 24px 21px;
-		background-color: #f9f9f9;
-	}
-	.contact_txt_catch,
-	.contact_txt_tel,
-	.contact_txt_time {
-		display: block;
-		overflow: hidden;
-	}
-	.contact_txt_catch,
-	.contact_txt_time {
-		font-size: 14px;
-		line-height: 128.6%;
-	}
-	.contact_txt_tel {
-		padding: 4px 0;
-		font-size: 28px;
-		line-height: 105%;
-		font-weight: 700;
-	}
-	.contact_txt_tel_icon {
-		margin-right: 0.3rem;
-	}
-	.contact_bt_subTxt {
-		display: block;
-		overflow: hidden;
-		font-size: 12px;
-		margin-top: 0.4rem;
-	}
-	.contact_txt {
-		text-align: center;
-	}
-	.contact_bt {
-		display: block;
-	}
-} // .veu_contact
 
-@media (min-width: 1200px) {
-	.veu_contact {
-		p.contact_txt {
-			margin-bottom: 0;
-		}
-		.contact_txt {
-			float: left;
-			text-align: left;
-		}
-		.contact_bt {
-			float: right;
-			padding: 0.7em 1.5em;
-		}
-	}
-} // @media (min-width: 1200px){
-
-.widget {
-	.veu_contact > .contact_bt {
-		display: inline-block;
-		float: none;
-	}
-}
+@import "_contact_section";
 
 /*-------------------------------------------*/
 /* .veu_insertAds
