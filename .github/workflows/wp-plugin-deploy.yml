@@ -5,6 +5,9 @@ on:
     - "*"
     # - "[0-9]+.[0-9]+.[0-9]+.[0-9]+"
 
+env:
+  plugin_name: vk-all-in-one-expansion-unit
+
 jobs:
 
   release:
