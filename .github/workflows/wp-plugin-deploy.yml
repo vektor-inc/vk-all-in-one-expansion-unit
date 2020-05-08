@@ -2,20 +2,10 @@ name: Deploy to WordPress.org
 on:
   push:
     tags:
-    - "[0-9]+.[0-9]+.[0-9]+.[0-9]+"
+    - "*"
+    # - "[0-9]+.[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  tag:
-    name: deploy to plugin directory
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: WordPress Plugin Deploy
-      uses: 10up/action-wordpress-plugin-deploy@master
-      env:
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: vk-all-in-one-expansion-unit
 
   release:
     name: release
