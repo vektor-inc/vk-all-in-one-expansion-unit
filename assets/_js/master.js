@@ -32,6 +32,7 @@ var a = null;
 		}
 		let linkurl = encodeURIComponent(location.href);
 
+		// hatena
 		fetch(
 			vkExOpt.hatena_entry + linkurl,
 			{
@@ -52,6 +53,32 @@ var a = null;
 			}
 		})
 		.catch((x)=>{})
+
+		// facebook
+		let fb_elements = document.getElementsByClassName('veu_count_sns_fb')
+		if(vkExOpt.facebook_count_enable) {
+			fetch(
+				vkExOpt.facebook_entry + linkurl,
+				{
+					method: 'GET',
+				}
+			).then((r)=>{
+				if (r.ok) {
+					r.json().then((body)=>{
+						if (body.count === undefined) {
+							return
+						}
+						Array.prototype.forEach.call(
+							fb_elements,
+							(elm) => elm.innerHTML = body.count
+						)
+
+					})
+				}
+			})
+			.catch((x)=>{})
+		}
+
 	}, false)
 
 })(window, document, 'veu_socialSet');

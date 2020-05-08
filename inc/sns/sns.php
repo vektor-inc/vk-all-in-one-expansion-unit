@@ -54,6 +54,7 @@ function veu_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId'                     => '',
 		'fbPageUrl'                   => '',
+		'fbAccessToken'               => '',
 		'ogImage'                     => '',
 		'twitterId'                   => '',
 		'enableOGTags'                => true,
@@ -127,6 +128,7 @@ function vkExUnit_sns_options_validate( $input ) {
 
 	$output['fbAppId']                     = esc_attr( $input['fbAppId'] );
 	$output['fbPageUrl']                   = esc_url( $input['fbPageUrl'] );
+	$output['fbAccessToken']               = esc_attr( $input['fbAccessToken'] );
 	$output['ogImage']                     = esc_url( $input['ogImage'] );
 	$output['twitterId']                   = esc_attr( $input['twitterId'] );
 	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', $input['snsBtn_ignorePosts'] );
