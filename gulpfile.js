@@ -24,6 +24,8 @@ var cleanCss = require('gulp-clean-css');
 // 同期的に処理してくれる（ distで使用している ）
 var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
+const ps = require('child_process').exec
+
 
 let error_stop = true
 
@@ -131,51 +133,11 @@ gulp.task('watch', function() {
 	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
 
-// gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
 gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
-
-// copy dist ////////////////////////////////////////////////
-
-gulp.task('copy_dist', function() {
-	return gulp.src(
-			[
-				'./**/*.php',
-				'./**/*.txt',
-				'./**/*.css',
-				'./**/*.scss',
-				'./**/*.bat',
-				'./**/*.rb',
-				'./**/*.eot',
-				'./**/*.svg',
-				'./**/*.ttf',
-				'./**/*.woff',
-				'./**/*.woff2',
-				'./**/*.otf',
-				'./**/*.less',
-				'./**/*.png',
-				'./images/**',
-				'./inc/**',
-				'./assets/**',
-				'./admin/**',
-				'./languages/**',
-				"!./compile.bat",
-				"!./config.rb",
-				"!./tests/**",
-				"!./dist/**",
-				"!./node_modules/**"
-			],
-			{ base: './' }
-		)
-		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
-} );
-// gulp.task('build:dist',function(){
-//     /* ここで、CSS とか JS をコンパイルする */
-// });
-
-gulp.task('dist', function(cb){
-	// return runSequence( 'build:dist', 'copy', cb );
-	// return runSequence( 'build:dist', 'copy_dist', cb );
-	return runSequence( 'copy_dist', cb );
-});
-
+gulp.task('copy_dist', (done)=>{
+  ps('bin/dist', (err, stdout, stderr)=>{
+    console.log(stdout)
+    done()
+  })
+})

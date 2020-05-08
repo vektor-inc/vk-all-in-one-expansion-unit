@@ -2,10 +2,14 @@ name: Deploy to WordPress.org
 on:
   push:
     tags:
-    - "*"
+    - "[0-9]+.[0-9]+.[0-9]+.[0-9]+"
+
+env:
+  plugin_name: vk-all-in-one-expansion-unit
+
 jobs:
   tag:
-    name: New tag
+    name: deploy to plugin directory
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -15,3 +19,33 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: vk-all-in-one-expansion-unit
+
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: bash bin/dist
+    - run: echo "::set-env name=DIST_VERSION::$(echo ${{ github.ref }} | sed -E 's/^refs\/tags\/v?(.*)$/\1/')"
+    - run: test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - run : test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
+        asset_name: ${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
+        asset_content_type: application/zip
