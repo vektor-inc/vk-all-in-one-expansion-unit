@@ -172,7 +172,7 @@ function vkExUnit_sitemap( $attr ) {
 				$postTypeName   = $post_type_object->labels->name;
 				$postTypeTopUrl = get_post_type_archive_link( $postType );
 			}
-			$sitemap_html .= '<h4 class="sitemap-post-type-' . $postType . '"><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
+			$sitemap_html .= '<h4 class="sitemap-post-type-title sitemap-post-type-' . $postType . '"><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
 
 			/*
 			 Taxonomy name
