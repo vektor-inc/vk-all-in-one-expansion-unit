@@ -482,21 +482,21 @@ iframe.twitter-timeline {
 /*  Lightning Charm 1.2.0 での表示崩れ回避用
 /*  Lightning Charm 1.4.0 以降になったら削除
 */
-.mainSection .veu_postList.pt_0 .postList.postList_miniThumb {
-	padding: 0;
-	margin-left: 0;
-	margin-right: 0;
-}
-@media (min-width: 992px) {
-	.mainSection .veu_postList.pt_0.postList_item .postList_thumbnail {
-		margin-right: 30px;
-		margin-left: 0;
-	}
-	.mainSection .veu_postList.pt_0.postList_item.even .postList_thumbnail {
-		margin-left: 30px;
-		margin-right: 0;
-	}
-}
+// .mainSection .veu_postList.pt_0 .postList.postList_miniThumb {
+// 	padding: 0;
+// 	margin-left: 0;
+// 	margin-right: 0;
+// }
+// @media (min-width: 992px) {
+// 	.mainSection .veu_postList.pt_0.postList_item .postList_thumbnail {
+// 		margin-right: 30px;
+// 		margin-left: 0;
+// 	}
+// 	.mainSection .veu_postList.pt_0.postList_item.even .postList_thumbnail {
+// 		margin-left: 30px;
+// 		margin-right: 0;
+// 	}
+// }
 
 /*-------------------------------------------*/
 /* Widget .veu_profile
