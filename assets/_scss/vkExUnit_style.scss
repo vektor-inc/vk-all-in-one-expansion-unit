@@ -55,82 +55,10 @@
 
 @import "_common";
 
-/*      .media(bootstrap)
 /*-------------------------------------------*/
-.media {
-	border-bottom: $border_primary;
-	padding: 2em 0;
-	margin-top: 0;
-	&:first-child {
-		border-top: $border_primary;
-	}
-	.postList_thumbnail {
-		width: 160px;
-		margin-bottom: 0.5em;
-		padding-right: 30px;
-		display: block;
-		overflow: hidden;
-		float: left;
-		a {
-			position: relative;
-			display: block;
-			overflow: hidden;
-		}
-		img {
-			width: 100%;
-			height: auto;
-		}
-		.postList_cateLabel {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-		}
-	}
-	.media-heading {
-		font-size: 1.8em;
-		line-height: 1.3em;
-		margin-top: 0;
-		margin-bottom: 0.5em;
-		font-weight: normal;
-		a {
-			color: $color_font_default;
-			&:hover {
-				text-decoration: none;
-			}
-		}
-	}
-	p {
-		margin-bottom: 0;
-	}
-	a.media-body_excerpt {
-		color: $color_font_default;
-	}
-}
-@media (max-width: 767px) {
-	.media {
-		.postList_thumbnail {
-			padding-right: 20px;
-		}
-		.media-body {
-			.media-heading {
-				font-size: 1.2em;
-				line-height: 1.3em;
-				margin-bottom: 0.5em;
-			}
-		} // .media-body
-	} // .media
-} // @media (max-width: 767px){
-@media (max-width: 500px) {
-	.media {
-		.postList_thumbnail {
-			width: 100px;
-		}
-	} // .media
-} // @media (max-width: 767px){
-
-@mixin clear() {
-	content: none;
-}
+/* 過去のファイルに存在していたが、本来 プラグイン側で .media という共有で使われるclass名に対してCSSを当てるべきではないので、
+/* 読み込まないように変更済み。しばらく問題が出ないようなら削除
+// @import "_media";
 
 /*-------------------------------------------*/
 /* .veu_card
@@ -160,27 +88,7 @@
 /* .veu_sitemap
 /*-------------------------------------------*/
 
-.veu_sitemap {
-	.sectionBox {
-		padding-top: 0;
-	}
-	.sitemap-col {
-		padding-bottom: 2em;
-	}
-	.sitemap-col {
-		margin-top: 1em;
-		.link-list {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-		.page_item {
-			padding: 0;
-		}
-		.cat-item {
-			padding: 0;
-		}
-	}
-}
+@import "_sitemap";
 
 /*-------------------------------------------*/
 /* .veu_socialSet
@@ -502,21 +410,21 @@ iframe.twitter-timeline {
 /*  Lightning Charm 1.2.0 での表示崩れ回避用
 /*  Lightning Charm 1.4.0 以降になったら削除
 */
-.mainSection .veu_postList.pt_0 .postList.postList_miniThumb {
-	padding: 0;
-	margin-left: 0;
-	margin-right: 0;
-}
-@media (min-width: 992px) {
-	.mainSection .veu_postList.pt_0.postList_item .postList_thumbnail {
-		margin-right: 30px;
-		margin-left: 0;
-	}
-	.mainSection .veu_postList.pt_0.postList_item.even .postList_thumbnail {
-		margin-left: 30px;
-		margin-right: 0;
-	}
-}
+// .mainSection .veu_postList.pt_0 .postList.postList_miniThumb {
+// 	padding: 0;
+// 	margin-left: 0;
+// 	margin-right: 0;
+// }
+// @media (min-width: 992px) {
+// 	.mainSection .veu_postList.pt_0.postList_item .postList_thumbnail {
+// 		margin-right: 30px;
+// 		margin-left: 0;
+// 	}
+// 	.mainSection .veu_postList.pt_0.postList_item.even .postList_thumbnail {
+// 		margin-left: 30px;
+// 		margin-right: 0;
+// 	}
+// }
 
 /*-------------------------------------------*/
 /* Widget .veu_profile

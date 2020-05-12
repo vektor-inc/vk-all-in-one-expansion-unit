@@ -44,10 +44,10 @@ gulp.task('block', function (done) {
 				'./inc/sns/package/block.jsx',
 				'./inc/child-page-index/block.jsx',
 				'./inc/contact-section/block.jsx',
-				'./inc/page-list-ancestor/block.jsx'
+				'./inc/page-list-ancestor/block.jsx',
+				'./inc/sitemap-page/block.jsx'
 			]
 		)
-		.pipe(concat('block.min.js'))
 		.pipe(babel({
 			plugins: [
 				'transform-react-jsx',
@@ -61,6 +61,7 @@ gulp.task('block', function (done) {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
+		.pipe(concat('block.min.js'))
 		.pipe(gulp.dest('./assets/js/'));
 });
 
@@ -117,7 +118,8 @@ gulp.task('watch', function() {
 			'./inc/sns/package/block.jsx',
 			'./inc/child-page-index/block.jsx',
 			'./inc/contact-section/block.jsx',
-			'./inc/page-list-ancestor/block.jsx'
+			'./inc/page-list-ancestor/block.jsx',
+			'./inc/sitemap-page/block.jsx'
 		],
 		gulp.series('block')
 	)
@@ -133,9 +135,8 @@ gulp.task('watch', function() {
 	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
 
-// gulp.task('default', ['scripts','watch','sprite']);
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
+gulp.task('build', gulp.series('scripts', 'sass', 'block'))
 
 // copy dist ////////////////////////////////////////////////
 
@@ -171,13 +172,8 @@ gulp.task('copy_dist', function() {
 		)
 		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
 } );
-// gulp.task('build:dist',function(){
-//     /* ここで、CSS とか JS をコンパイルする */
-// });
 
 gulp.task('dist', function(cb){
-	// return runSequence( 'build:dist', 'copy', cb );
-	// return runSequence( 'build:dist', 'copy_dist', cb );
 	return runSequence( 'copy_dist', cb );
 });
 
