@@ -1,0 +1,49 @@
+.veu_sitemap {
+	.sectionBox {
+		padding-top: 0;
+	}
+	.sitemap-col {
+		margin-top: 1em;
+		padding-bottom: 2em;
+		.link-list {
+			a {
+				display: block;
+				overflow: hidden;
+			}
+		}
+		.page_item {
+			padding: 0;
+		}
+		.cat-item {
+			padding: 0;
+		}
+	}
+	.sitemap-post-type-title {
+		margin-bottom: 0.8em;
+		padding: 0.2em 0;
+		font-size: 18px;
+	}
+
+	.sitemap-taxonomy-title {
+		margin: 1em 0;
+		padding: 0;
+		font-size: 16px;
+	}
+	a {
+		color: $color_font_default;
+	}
+	ul {
+		margin: 0 0 0 1em;
+		padding-left: 0;
+		li {
+			font-size: 14px;
+		}
+		& > li > a {
+			position: relative;
+			margin-bottom: 1em;
+		}
+	}
+	.sitemap-term-list {
+		margin-bottom: 1.5em;
+	}
+}

@@ -45,10 +45,11 @@ gulp.task('block', function (done) {
 			[
 				'./inc/sns/package/block.jsx',
 				'./inc/child-page-index/block.jsx',
-				'./inc/contact-section/block.jsx'
+				'./inc/contact-section/block.jsx',
+				'./inc/page-list-ancestor/block.jsx',
+				'./inc/sitemap-page/block.jsx'
 			]
 		)
-		.pipe(concat('block.min.js'))
 		.pipe(babel({
 			plugins: [
 				'transform-react-jsx',
@@ -62,6 +63,7 @@ gulp.task('block', function (done) {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
+		.pipe(concat('block.min.js'))
 		.pipe(gulp.dest('./assets/js/'));
 });
 
@@ -117,7 +119,9 @@ gulp.task('watch', function() {
 		[
 			'./inc/sns/package/block.jsx',
 			'./inc/child-page-index/block.jsx',
-			'./inc/contact-section/block.jsx'
+			'./inc/contact-section/block.jsx',
+			'./inc/page-list-ancestor/block.jsx',
+			'./inc/sitemap-page/block.jsx'
 		],
 		gulp.series('block')
 	)
@@ -141,3 +145,44 @@ gulp.task('copy_dist', (done)=>{
     done()
   })
 })
+
+gulp.task('build', gulp.series('scripts', 'sass', 'block'))
+
+// copy dist ////////////////////////////////////////////////
+
+gulp.task('copy_dist', function() {
+	return gulp.src(
+			[
+				'./**/*.php',
+				'./**/*.txt',
+				'./**/*.css',
+				'./**/*.scss',
+				'./**/*.bat',
+				'./**/*.rb',
+				'./**/*.eot',
+				'./**/*.svg',
+				'./**/*.ttf',
+				'./**/*.woff',
+				'./**/*.woff2',
+				'./**/*.otf',
+				'./**/*.less',
+				'./**/*.png',
+				'./images/**',
+				'./inc/**',
+				'./assets/**',
+				'./admin/**',
+				'./languages/**',
+				"!./compile.bat",
+				"!./config.rb",
+				"!./tests/**",
+				"!./dist/**",
+				"!./node_modules/**"
+			],
+			{ base: './' }
+		)
+		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
+} );
+
+gulp.task('dist', function(cb){
+	return runSequence( 'copy_dist', cb );
+});

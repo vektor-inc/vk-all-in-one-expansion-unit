@@ -20,8 +20,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 }
 
 
-function vkExUnit_pageList_ancestor_shortcode() {
-
+function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	global $is_pagewidget;
 
 	if ( $is_pagewidget ) {
@@ -31,10 +30,14 @@ function vkExUnit_pageList_ancestor_shortcode() {
 		$post = get_post( $widget_pageid );
 
 	} else {
-
 		global $post;
-		if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) {
-			return; }
+		if (
+			! $force
+			&& ! $post->is_page
+			|| get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true )
+		) {
+			return '';
+		}
 	}
 
 	if ( $post->ancestors ) {
@@ -48,7 +51,7 @@ function vkExUnit_pageList_ancestor_shortcode() {
 	if ( $post_id ) {
 			$children = wp_list_pages( 'title_li=&child_of=' . $post_id . '&echo=0' );
 		if ( $children ) {
-			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card">';
+			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card '. $classes . '">';
 			$pageList_ancestor_html .= '<div class="veu_card_inner">';
 			$pageList_ancestor_html .= '<h3 class="pageList_ancestor_title veu_card_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
@@ -129,4 +132,39 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 	}
 
 	do_action( 'vkExUnit_customField_Page_save_customField' );
+}
+
+add_action( 'init', 'veu_page_list_ancestor_block_setup', 15 );
+function veu_page_list_ancestor_block_setup() {
+	register_block_type(
+		'vk-blocks/page-list-ancestor',
+		array(
+			'attributes'      => array(
+				'className'      => array(
+					'type'    => 'string',
+					'default' => ''
+				)
+			),
+			'editor_script'   => 'veu-block',
+			'render_callback' => 'veu_pageListAncestor_block_callback',
+		)
+	);
+}
+
+function veu_pageListAncestor_block_callback( $attr=array() ) {
+	$classes = 'veu_childPageIndex_block';
+
+	if ( isset($attributes['className']) ) {
+		$classes .= ' ' . $attributes['className'];
+	}
+
+	$r = vkExUnit_pageList_ancestor_shortcode( $classes, true );
+
+	if ( empty($r) ) {
+		if ( isset($_GET['context']) ) {
+			return '<div class="disabled">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
+		}
+		return '';
+	}
+	return $r;
 }

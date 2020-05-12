@@ -3,14 +3,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: inc/child-page-index/block.min.js:50
+#: inc/child-page-index/block.jsx:49
 msgid "Child page index"
 msgstr ""
 
-#: inc/child-page-index/block.min.js:76
+#: inc/contact-section/block.jsx:9
 msgid "Contact section"
 msgstr ""
 
-#: inc/child-page-index/block.min.js:9
+#: inc/page-list-ancestor/block.jsx:9
+msgid "Page list ancestor"
+msgstr ""
+
+#: inc/sitemap-page/block.jsx:24
+msgid "HTML Sitemap"
+msgstr ""
+
+#: inc/sns/package/block.jsx:9
 msgid "Share button"
 msgstr ""
