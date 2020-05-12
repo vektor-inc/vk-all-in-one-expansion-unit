@@ -221,7 +221,8 @@ function veu_get_packages() {
 		'title'       => __( 'Page list from ancestor', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display Page list from ancestor at after content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'page-list-ancestor.php',
+		'include'     => 'page-list-ancestor/page-list-ancestor.php',
+		'use_ex_blocks' => true,
 	);
 
 	/*

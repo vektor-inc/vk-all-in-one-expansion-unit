@@ -28,6 +28,14 @@
 <th><?php _e( 'facebook page URL', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><input type="text" name="vkExUnit_sns_options[fbPageUrl]" id="fbPageUrl" value="<?php echo esc_url( $options['fbPageUrl'] ); ?>" /></td>
 </tr>
+</tr>
+<tr>
+<th><?php _e( 'facebook Access Token', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td><input type="text" name="vkExUnit_sns_options[fbAccessToken]" id="fbAccessToken" value="<?php echo esc_attr( $options['fbAccessToken'] ); ?>" /><br />
+<span>[ <a href="https://developers.facebook.com/docs/facebook-login/access-tokens?locale=<?php _e( 'en_US', 'vk-all-in-one-expansion-unit' ); ?>" > &raquo; <?php _e( 'Access Tokens', 'vk-all-in-one-expansion-unit' ); ?></a>]</span><br/>
+<?php _e( 'If you need show share counts in SNS buttons. You need get Access Token in facebook developers.', 'vk-all-in-one-expansion-unit' ); ?>
+</td>
+</tr>
 <!-- OGP -->
 <tr>
 <th><?php _e( 'OG default image', 'vk-all-in-one-expansion-unit' ); ?></th>

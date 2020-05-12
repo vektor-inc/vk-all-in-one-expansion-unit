@@ -1,27 +1,31 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Add setting page
-/*-------------------------------------------*/
-/*  Options Init
-/*-------------------------------------------*/
-/*  insert sitemap page
-/*-------------------------------------------*/
-/*  admin _ meta box
-/*-------------------------------------------*/
+/*
+  Add setting page
+-------------------------------------------*/
+/*
+  Options Init
+-------------------------------------------*/
+/*
+  insert sitemap page
+-------------------------------------------*/
+/*
+  admin _ meta box
+-------------------------------------------*/
 
 
-/*-------------------------------------------*/
-/*  Add setting page
+/*
+  Add setting page
 /*-------------------------------------------*/
 
-require_once( dirname( __FILE__ ) . '/class-veu-metabox-sitemap.php' );
-require_once( dirname( __FILE__ ) . '/sitemap-page-admin-main-setting.php' );
-require_once( dirname( __FILE__ ) . '/sitemap-page-helpers.php' );
+require_once dirname( __FILE__ ) . '/class-veu-metabox-sitemap.php';
+require_once dirname( __FILE__ ) . '/sitemap-page-admin-main-setting.php';
+require_once dirname( __FILE__ ) . '/sitemap-page-helpers.php';
 
 
-/*-------------------------------------------*/
-/*  Options Init
+
+/*
+  Options Init
 /*-------------------------------------------*/
 function vkExUnit_sitemap_options_init() {
 	if ( false === veu_get_sitemap_options() ) {
@@ -29,8 +33,9 @@ function vkExUnit_sitemap_options_init() {
 }
 add_action( 'veu_package_init', 'vkExUnit_sitemap_options_init' );
 
-/*-------------------------------------------*/
-/*  insert sitemap page
+
+/*
+  insert sitemap page
 /*-------------------------------------------*/
 if ( veu_content_filter_state() == 'content' ) {
 	add_filter( 'the_content', 'veu_show_sitemap', 7, 1 );
@@ -47,6 +52,7 @@ function veu_sitemap_loopend( $query ) {
 
 /**
  * 現在は veu_show_sitemap() に変更になっているのが、旧 show_sitemap で飛び出された時用
+ *
  * @param  [type] $content [description]
  * @return [type]          [description]
  */
@@ -55,6 +61,7 @@ function show_sitemap( $content ) {
 }
 /**
  * [veu_show_sitemap description]
+ *
  * @since  7.0
  * @param  [type] $content [description]
  * @return [type]          [description]
@@ -72,20 +79,20 @@ function veu_show_sitemap( $content ) {
 	return $content;
 }
 
-function vkExUnit_sitemap( $atts ) {
+function vkExUnit_sitemap( $attr ) {
 
-	extract(
-		shortcode_atts(
-			array(
-				'exclude' => '',
-			), $atts
-		)
+	$attr = shortcode_atts(
+		array(
+			'exclude'   => '',
+			'className' => '',
+		),
+		$attr
 	);
 
-	$sitemap_html = '<div class="row veu_sitemap">' . PHP_EOL;
+	$sitemap_html = '<div class="row veu_sitemap ' . $attr['className'] . '">' . PHP_EOL;
 
-	/*-------------------------------------------*/
-	/* Exclude Page ids by ExUnit Main Setting Page
+	/*
+	 Exclude Page ids by ExUnit Main Setting Page
 	/*-------------------------------------------*/
 	$options  = veu_get_sitemap_options();
 	$excludes = '';
@@ -95,8 +102,8 @@ function vkExUnit_sitemap( $atts ) {
 		$excludes = mb_convert_kana( $excludes, 'kvrn' );
 	}
 
-	/*-------------------------------------------*/
-	/* Exclude Page ids by Page Edit meta box
+	/*
+	 Exclude Page ids by Page Edit meta box
 	/*-------------------------------------------*/
 	$veu_sitemap_exclude_page_ids = veu_sitemap_exclude_page_ids();
 	if ( ! $excludes ) {
@@ -105,8 +112,8 @@ function vkExUnit_sitemap( $atts ) {
 		$excludes .= ',' . $veu_sitemap_exclude_page_ids;
 	}
 
-	/*-------------------------------------------*/
-	/* pages
+	/*
+	 pages
 	/*-------------------------------------------*/
 	$sitemap_html .= '<div class="col-md-6 sitemap-col">' . PHP_EOL;
 	$sitemap_html .= '<ul class="link-list">' . PHP_EOL;
@@ -118,10 +125,10 @@ function vkExUnit_sitemap( $atts ) {
 	$sitemap_html .= wp_list_pages( $args );
 
 	$sitemap_html .= '</ul>' . PHP_EOL; // <!-- [ /.link-list ] -->
-	$sitemap_html .= '</div>' . PHP_EOL; //<!-- [ /.sitemap-col ] -->
+	$sitemap_html .= '</div>' . PHP_EOL; // <!-- [ /.sitemap-col ] -->
 
-	/*-------------------------------------------*/
-	/* Posts & Custom posts
+	/*
+	 Posts & Custom posts
 	/*-------------------------------------------*/
 	$sitemap_html .= '<div class="col-md-6 sitemap-col">' . PHP_EOL;
 
@@ -155,7 +162,8 @@ function vkExUnit_sitemap( $atts ) {
 			$sitemap_html .= '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
 			$sitemap_html .= '<div class="sectionBox">' . PHP_EOL;
 
-			/* Post type name
+			/*
+			 Post type name
 			/*-------------------------------------------*/
 			if ( $postType == 'post' && $page_for_posts['post_top_use'] ) {
 				$postTypeName   = $page_for_posts['post_top_name'];
@@ -164,9 +172,10 @@ function vkExUnit_sitemap( $atts ) {
 				$postTypeName   = $post_type_object->labels->name;
 				$postTypeTopUrl = get_post_type_archive_link( $postType );
 			}
-			$sitemap_html .= '<h4 class="sitemap-post-type-' . $postType . '"><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
+			$sitemap_html .= '<h4 class="sitemap-post-type-title sitemap-post-type-' . $postType . '"><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
 
-			/* Taxonomy name
+			/*
+			 Taxonomy name
 			/*-------------------------------------------*/
 			// 投稿タイプに紐付いている taxonomy名だけ配列で取得
 			$taxonomies = get_object_taxonomies( $postType );
@@ -179,7 +188,8 @@ function vkExUnit_sitemap( $atts ) {
 				if ( $taxonomy_object->show_in_menu ) {
 					$sitemap_html .= '<h5 class="sitemap-taxonomy-title sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
 
-					/* Term
+					/*
+					 Term
 					/*-------------------------------------------*/
 
 					$sitemap_html                     .= '<ul class="sitemap-term-list sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . ' link-list">' . PHP_EOL;
@@ -211,9 +221,9 @@ function vkExUnit_sitemap( $atts ) {
 }
 add_shortcode( 'vkExUnit_sitemap', 'vkExUnit_sitemap' );
 
-/*-------------------------------------------*/
-/*  admin _ meta box
-/*	こちらは非表示設定ではなく サイトマップ自体を表示するかどうか
+/*
+  admin _ meta box
+  こちらは非表示設定ではなく サイトマップ自体を表示するかどうか
 /*-------------------------------------------*/
 add_action( 'veu_metabox_insert_items', 'vkExUnit_sitemap_meta_box' );
 function vkExUnit_sitemap_meta_box() {
@@ -259,4 +269,21 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 	} elseif ( '' == $data ) {
 		delete_post_meta( $post_id, 'vkExUnit_sitemap' );
 	}
+}
+
+add_action( 'init', 'veu_sitemap_block_setup', 15 );
+function veu_sitemap_block_setup() {
+	register_block_type(
+		'vk-blocks/sitemap',
+		array(
+			'attributes'      => array(
+				'className' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+			),
+			'editor_script'   => 'veu-block',
+			'render_callback' => 'vkExUnit_sitemap',
+		)
+	);
 }
