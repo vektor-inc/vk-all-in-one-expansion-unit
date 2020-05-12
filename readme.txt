@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.4.0
-Stable tag: 9.18.1.0
+Stable tag: 9.19.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,12 @@ Many features can be stopped individually.
 * PR Content
 * Title（with sub text）
 * Responsive Spacer
+
+* HTML SiteMap
+* Child Page List
+* Page list from ancestor
+* Share Button
+* Contact Section
 
 [ Gutenberg core blocks extend ]
 
@@ -92,6 +98,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.19.0.0 =
+[ Add Function ][ Add block ] HTML SiteMap
+[ Add Function ][ Add block ] Page list from ancestor
 
 = 9.18.1.0 =
 [ bug fix ][ other widget ] bug fix of save all widget disable setting.
