@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.4.0
-Stable tag: 9.19.0.0
+Stable tag: 9.20.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,12 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.20.0.0 =
+[ VK Blocks Update ] 0.31.0
+* [ Add new block ][ Border Box ]
+* [ Group block style ] Add alert style
+* [ bug fix ][ list ] 2digits number display bug fix
 
 = 9.19.0.0 =
 [ Add Function ][ Add block ] HTML SiteMap
