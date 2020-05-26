@@ -28,6 +28,10 @@ class VkBlocksPostList {
 			$options_loop = array( 'class_loop_outer' => '' );
 		}
 
+		if ( ! empty($attributes['className'] ) ){
+			$options_loop['class_loop_outer'] .= ' '.$attributes['className'];
+		}
+
 		if ( ! isset( $wp_query ) || $wp_query === false || $wp_query === 'false' || $wp_query->posts === array() ) {
 			return $this->renderNoPost();
 		}
@@ -62,7 +66,6 @@ class VkBlocksPostList {
 			'vkb_hidden_md'              => $attributes['vkb_hidden_md'],
 			'vkb_hidden_sm'              => $attributes['vkb_hidden_sm'],
 			'vkb_hidden_xs'              => $attributes['vkb_hidden_xs'],
-			'class_loop_outer'           => array( $attributes['className'] ),
 		);
 
 		$elm = VK_Component_Posts::get_loop( $wp_query, $options, $options_loop );

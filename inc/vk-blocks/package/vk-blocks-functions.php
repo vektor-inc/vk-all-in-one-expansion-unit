@@ -100,27 +100,34 @@ function vkblocks_blocks_assets() {
 
 	if ( defined( 'GUTENBERG_VERSION' ) || version_compare( $wp_version, '5.0', '>=' ) ) {
 
-		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'spacer', 'heading', 'staff', 'highlighter', 'list-style', 'group-style' );// REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+		$arr = array( 'alert', 'balloon', 'button', 'faq', 'flow', 'pr-blocks', 'pr-content', 'spacer', 'heading', 'staff', 'highlighter', 'list-style', 'group-style', 'border-box' );// REPLACE-FLAG : このコメントは削除しないで下さい。wp-create-gurten-template.shで削除する基準として左の[//REPLACE-FLAG]を使っています。
+
 		$common_attributes = array(
-			'vkb_hidden' => array(
+			'vkb_hidden'    => array(
 				'type'    => 'boolean',
-				'default' => false),
+				'default' => false,
+			),
 			'vkb_hidden_xl' => array(
 				'type'    => 'boolean',
-				'default' => false),
+				'default' => false,
+			),
 			'vkb_hidden_lg' => array(
 				'type'    => 'boolean',
-				'default' => false),
+				'default' => false,
+			),
 			'vkb_hidden_md' => array(
 				'type'    => 'boolean',
-				'default' => false),
+				'default' => false,
+			),
 			'vkb_hidden_sm' => array(
 				'type'    => 'boolean',
-				'default' => false),
+				'default' => false,
+			),
 			'vkb_hidden_xs' => array(
 				'type'    => 'boolean',
-				'default' => false),
-			);
+				'default' => false,
+			),
+		);
 
 		foreach ( $arr as $value ) {
 
@@ -134,27 +141,29 @@ function vkblocks_blocks_assets() {
 						'editor_script'   => 'vk-blocks-build-js',
 						'attributes'      => array_merge(
 							array(
-							'style'      => array(
-								'type'    => 'string',
-								'default' => '',
+								'style'      => array(
+									'type'    => 'string',
+									'default' => '',
+								),
+								'renderHtml' => array(
+									'type'    => 'string',
+									'default' => '',
+								),
+								'open'       => array(
+									'type'    => 'string',
+									'default' => 'open',
+								),
+								'className'  => array(
+									'type'    => 'string',
+									'default' => '',
+								),
 							),
-							'renderHtml' => array(
-								'type'    => 'string',
-								'default' => '',
-							),
-							'open'       => array(
-								'type'    => 'string',
-								'default' => 'open',
-							),
-							'className'   => array(
-								'type'    => 'string',
-								'default' => '',
-							),
-						),$common_attributes),
+							$common_attributes
+						),
 						'render_callback' => function ( $attributes ) {
 							if ( $attributes['renderHtml'] ) {
-								$custom_class = esc_attr($attributes['className']) . ' ';
-								return preg_replace('/class="/', 'class="' . $custom_class ,$attributes['renderHtml'], 1 );
+								$custom_class = esc_attr( $attributes['className'] ) . ' ';
+								return preg_replace( '/class="/', 'class="' . $custom_class, $attributes['renderHtml'], 1 );
 							} else {
 								return '<div><div class="vk_tableOfContents_title">' . __( 'Table of Contents', 'vk-blocks' ) . '</div></div>';
 							}
@@ -162,18 +171,136 @@ function vkblocks_blocks_assets() {
 					)
 				);
 			} elseif ( $value == 'post-list' ) {
-
 					register_block_type(
 						'vk-blocks/' . $value,
 						array(
 							'attributes'      => array_merge(
+								array(
+									'name'              => array(
+										'type' => 'string',
+									),
+									'layout'            => array(
+										'type'    => 'string',
+										'default' => 'card',
+									),
+									'col_xs'            => array(
+										'type'    => 'number',
+										'default' => 1,
+									),
+									'col_sm'            => array(
+										'type'    => 'number',
+										'default' => 2,
+									),
+									'col_md'            => array(
+										'type'    => 'number',
+										'default' => 3,
+									),
+									'col_lg'            => array(
+										'type'    => 'number',
+										'default' => 3,
+									),
+									'col_xl'            => array(
+										'type'    => 'number',
+										'default' => 3,
+									),
+									'display_image'     => array(
+										'type'    => 'boolean',
+										'default' => true,
+									),
+									'display_image_overlay_term' => array(
+										'type'    => 'boolean',
+										'default' => true,
+									),
+									'display_excerpt'   => array(
+										'type'    => 'boolean',
+										'default' => false,
+									),
+									'display_date'      => array(
+										'type'    => 'boolean',
+										'default' => true,
+									),
+									'display_new'       => array(
+										'type'    => 'boolean',
+										'default' => true,
+									),
+									'display_btn'       => array(
+										'type'    => 'boolean',
+										'default' => false,
+									),
+									'new_date'          => array(
+										'type'    => 'number',
+										'default' => 7,
+									),
+									'new_text'          => array(
+										'type'    => 'string',
+										'default' => 'New!!',
+									),
+									'btn_text'          => array(
+										'type'    => 'string',
+										'default' => 'Read more',
+									),
+									'btn_align'         => array(
+										'type'    => 'string',
+										'default' => 'text-right',
+									),
+									'numberPosts'       => array(
+										'type'    => 'number',
+										'default' => 6,
+									),
+									'isCheckedPostType' => array(
+										'type'    => 'string',
+										'default' => '["post"]',
+									),
+									'coreTerms'         => array(
+										'type'    => 'string',
+										'default' => '{}',
+									),
+									'isCheckedTerms'    => array(
+										'type'    => 'string',
+										'default' => '[]',
+									),
+									'orderby'           => array(
+										'type'    => 'string',
+										'default' => 'date',
+									),
+									'offset'            => array(
+										'type'    => 'number',
+										'default' => 0,
+									),
+									'selfIgnore'        => array(
+										'type'    => 'boolean',
+										'default' => false,
+									),
+									'className'         => array(
+										'type'    => 'string',
+										'default' => '',
+									),
+								),
+								$common_attributes
+							),
+							// 'style'           => 'vk-blocks-build-css',
+							'editor_style'    => 'vk-blocks-build-editor-css',
+							'editor_script'   => 'vk-blocks-build-js',
+							'render_callback' => 'vk_blocks_render_post_list',
+						)
+					); // register_block_type(
+			} elseif ( $value == 'child-page' ) {
+
+				register_block_type(
+					'vk-blocks/' . $value,
+					array(
+						'attributes'      => array_merge(
 							array(
+								'selectId'          => array(
+									'type' => 'number',
+								),
 								'name'              => array(
-									'type' => 'string',
+									'type'    => 'string',
+									'default' => '',
 								),
 								'layout'            => array(
 									'type'    => 'string',
-									'default' => 'card',
+									'default' => 'card-horizontal',
 								),
 								'col_xs'            => array(
 									'type'    => 'number',
@@ -185,15 +312,15 @@ function vkblocks_blocks_assets() {
 								),
 								'col_md'            => array(
 									'type'    => 'number',
-									'default' => 3,
+									'default' => 2,
 								),
 								'col_lg'            => array(
 									'type'    => 'number',
-									'default' => 3,
+									'default' => 2,
 								),
 								'col_xl'            => array(
 									'type'    => 'number',
-									'default' => 3,
+									'default' => 2,
 								),
 								'display_image'     => array(
 									'type'    => 'boolean',
@@ -205,19 +332,19 @@ function vkblocks_blocks_assets() {
 								),
 								'display_excerpt'   => array(
 									'type'    => 'boolean',
-									'default' => false,
+									'default' => true,
 								),
 								'display_date'      => array(
 									'type'    => 'boolean',
-									'default' => true,
+									'default' => false,
 								),
 								'display_new'       => array(
 									'type'    => 'boolean',
-									'default' => true,
+									'default' => false,
 								),
 								'display_btn'       => array(
 									'type'    => 'boolean',
-									'default' => false,
+									'default' => true,
 								),
 								'new_date'          => array(
 									'type'    => 'number',
@@ -251,129 +378,17 @@ function vkblocks_blocks_assets() {
 									'type'    => 'string',
 									'default' => '[]',
 								),
-								'orderby'           => array(
+								'className'         => array(
 									'type'    => 'string',
-									'default' => 'date',
-								),
-								'offset'            => array(
-									'type'    => 'number',
-									'default' => 0,
+									'default' => '',
 								),
 								'selfIgnore'        => array(
 									'type'    => 'boolean',
 									'default' => false,
 								),
-								'className'         => array(
-									'type'    => 'string',
-									'default' => '',
-								),
-							),$common_attributes),
-							// 'style'           => 'vk-blocks-build-css',
-							'editor_style'    => 'vk-blocks-build-editor-css',
-							'editor_script'   => 'vk-blocks-build-js',
-							'render_callback' => 'vk_blocks_render_post_list',
-						)
-					); // register_block_type(
-			} elseif ( $value == 'child-page' ) {
-
-				register_block_type(
-					'vk-blocks/' . $value,
-					array(
-						'attributes'      => array_merge(
-							array(
-							'selectId'                   => array(
-								'type' => 'number',
 							),
-							'name'                       => array(
-								'type'    => 'string',
-								'default' => '',
-							),
-							'layout'                     => array(
-								'type'    => 'string',
-								'default' => 'card-horizontal',
-							),
-							'col_xs'                     => array(
-								'type'    => 'number',
-								'default' => 1,
-							),
-							'col_sm'                     => array(
-								'type'    => 'number',
-								'default' => 2,
-							),
-							'col_md'                     => array(
-								'type'    => 'number',
-								'default' => 2,
-							),
-							'col_lg'                     => array(
-								'type'    => 'number',
-								'default' => 2,
-							),
-							'col_xl'                     => array(
-								'type'    => 'number',
-								'default' => 2,
-							),
-							'display_image'              => array(
-								'type'    => 'boolean',
-								'default' => true,
-							),
-							'display_image_overlay_term' => array(
-								'type'    => 'boolean',
-								'default' => true,
-							),
-							'display_excerpt'            => array(
-								'type'    => 'boolean',
-								'default' => true,
-							),
-							'display_date'               => array(
-								'type'    => 'boolean',
-								'default' => false,
-							),
-							'display_new'                => array(
-								'type'    => 'boolean',
-								'default' => false,
-							),
-							'display_btn'                => array(
-								'type'    => 'boolean',
-								'default' => true,
-							),
-							'new_date'                   => array(
-								'type'    => 'number',
-								'default' => 7,
-							),
-							'new_text'                   => array(
-								'type'    => 'string',
-								'default' => 'New!!',
-							),
-							'btn_text'                   => array(
-								'type'    => 'string',
-								'default' => 'Read more',
-							),
-							'btn_align'                  => array(
-								'type'    => 'string',
-								'default' => 'text-right',
-							),
-							'numberPosts'                => array(
-								'type'    => 'number',
-								'default' => 6,
-							),
-							'isCheckedPostType'          => array(
-								'type'    => 'string',
-								'default' => '["post"]',
-							),
-							'coreTerms'                  => array(
-								'type'    => 'string',
-								'default' => '{}',
-							),
-							'isCheckedTerms'             => array(
-								'type'    => 'string',
-								'default' => '[]',
-							),
-							'className'             => array(
-								'type'    => 'string',
-								'default' => '',
-							),
-						),$common_attributes),
-						// 'style'           => 'vk-blocks-build-css',
+							$common_attributes
+						),
 						'editor_style'    => 'vk-blocks-build-editor-css',
 						'editor_script'   => 'vk-blocks-build-js',
 						'render_callback' => 'vk_blocks_render_post_list',
@@ -383,7 +398,7 @@ function vkblocks_blocks_assets() {
 
 				register_block_type(
 					'vk-blocks/' . $value,
-					array(	
+					array(
 						// 'style'         => 'vk-blocks-build-css',
 						'editor_style'  => 'vk-blocks-build-editor-css',
 						'editor_script' => 'vk-blocks-build-js',
@@ -427,4 +442,14 @@ if ( ! function_exists( 'vkblocks_blocks_categories' ) ) {
 	}
 
 	add_filter( 'block_categories', 'vkblocks_blocks_categories', 10, 2 );
+}
+
+if ( ! function_exists( 'vkblocks_set_wp_version' ) ) {
+	function vkblocks_set_wp_version() {
+		global $wp_version;
+		echo '<script>',
+			'var wpVersion = "' . $wp_version . '";',
+		'</script>';
+	}
+	add_action( 'admin_head', 'vkblocks_set_wp_version', 10, 0 );
 }
