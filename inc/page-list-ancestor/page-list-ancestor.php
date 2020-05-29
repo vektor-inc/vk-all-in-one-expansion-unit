@@ -20,7 +20,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 }
 
 
-function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=true ) {
+function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	global $is_pagewidget;
 
 	if ( $is_pagewidget ) {
