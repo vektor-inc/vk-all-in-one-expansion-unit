@@ -24,18 +24,17 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	global $is_pagewidget;
 
 	if ( $is_pagewidget ) {
-
 		global $widget_pageid;
-		global $post;
 		$post = get_post( $widget_pageid );
-
 	} else {
 		global $post;
-		if (
-			! $force
-			&& ! $post->is_page
-			|| get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true )
-		) {
+		if(
+			!$force
+			&& (
+				! is_page()
+				|| ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true )
+			)
+		){
 			return '';
 		}
 	}
@@ -74,7 +73,8 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 	global $post;
 
 	if ( ! is_page() || ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) {
-		return $content; }
+		return $content;
+	}
 
 	if ( get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ) ) {
 		$content .= "\n[pageList_ancestor]";
