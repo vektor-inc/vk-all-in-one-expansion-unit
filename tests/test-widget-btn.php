@@ -39,17 +39,10 @@ class WidgetBtnTest extends WP_UnitTestCase {
 			),
 		);
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'WP_Widget_Button' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
 		foreach ( $tests as $key => $test_value ) {
 			$return = WP_Widget_Button::get_btn_options( $test_value );
 			$this->assertEquals( $test_value['correct'], $return['title'] );
 
-			print PHP_EOL;
-			print 'return    :' . $return['title'] . PHP_EOL;
-			print 'correct   :' . $test_value['correct'] . PHP_EOL;
 		}
 	}
 

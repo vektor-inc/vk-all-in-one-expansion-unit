@@ -15,11 +15,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 	 */
 	function test_package_manager() {
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_package_manager' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
 		/**
 		 * インストールされたばかりでオプション値が存在しないとき
 		 */
@@ -41,20 +36,11 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $test_value['correct'], $result );
-
-			print PHP_EOL;
-			print 'Package         :' . $result . PHP_EOL;
-			print 'Package Correct :' . $test_value['correct'] . PHP_EOL;
 		}
 
 	}
 
 	function test_veu_common_options_validate() {
-
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_veu_common_options_validate' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
 
 		/**
 		 * 保存バリデート
@@ -82,10 +68,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 		foreach ( $test_array as $key => $test_value ) {
 			// 判定結果
 			$output = veu_common_options_validate( $test_value );
-
-			print PHP_EOL;
-			print 'options_validate         :' . $output['active_bootstrap'] . PHP_EOL;
-			print 'options_validate Correct :' . $test_value['correct'] . PHP_EOL;
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $test_value['correct'], $output['active_bootstrap'] );
@@ -133,10 +115,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 			// 判定結果
 			$output = veu_common_options_validate( $options );
-
-			print PHP_EOL;
-			print 'options_validate 2         :' . $output[ $key ] . PHP_EOL;
-			print 'options_validate Correct 2 :' . $value['correct'] . PHP_EOL;
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $value['correct'], $output[ $key ] );

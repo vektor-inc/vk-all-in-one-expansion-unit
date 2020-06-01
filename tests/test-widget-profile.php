@@ -97,17 +97,10 @@ class WidgetProfileTest extends WP_UnitTestCase {
 
 		);
 
-		print PHP_EOL;
-		print '------------------------------------'.PHP_EOL;
-		print 'test_image_outer_size_css'.PHP_EOL;
-		print '------------------------------------'.PHP_EOL;
 		foreach ( $test_image_outer_size_css as $key => $test_value) {
 			$image_outer_size_css = WP_Widget_vkExUnit_profile::image_outer_size_css( $test_value );
 			$this->assertEquals( $test_value['correct_media_outer_size_css'], $image_outer_size_css );
 
-			print PHP_EOL;
-			print 'image_outer_size_css        :'.$image_outer_size_css.PHP_EOL;
-			print 'correct_media_outer_size_css:'.$test_value['correct_media_outer_size_css'].PHP_EOL;
 		} // foreach ( $test_image_round as $key => $test_value) {
 	} // function test_image_outer_size_css() {
 
@@ -160,13 +153,6 @@ class WidgetProfileTest extends WP_UnitTestCase {
 			// 取得できたCSSと、想定する正しいCSSが等しいかテスト
 			$this->assertEquals( $test_value['correct_outer_css'], $outer_css );
 			$this->assertEquals( $test_value['correct_icon_css'], $icon_css );
-
-			print PHP_EOL;
-			print 'outer_css_correct :'.$test_value['correct_outer_css'].PHP_EOL;
-			print 'outer_css         :'.$outer_css.PHP_EOL;
-			print 'icon_css_correct  :'.$test_value['correct_icon_css'].PHP_EOL;
-			print 'icon_css          :'.$icon_css.PHP_EOL;
-
 		} // foreach ( $test_array as $key => $test_value) {
 	} // function test_icon_color() {
 }

@@ -26,11 +26,6 @@ class MetaKeywordsTest extends WP_UnitTestCase {
 
 	function test_get_postKeyword() {
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'get_postKeyword' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
 		// メタキーワードはデフォルトがoffなので有効化
 		$options_common                       = get_option( 'vkExUnit_common_options' );
 		$options_common['active_metaKeyword'] = true;
@@ -77,9 +72,6 @@ class MetaKeywordsTest extends WP_UnitTestCase {
 
 			$return = vExUnit_meta_keywords::get_postKeyword();
 
-			// print 'url     :' . $_SERVER['REQUEST_URI'] . PHP_EOL;
-			print 'return  :' . $return . PHP_EOL;
-			print 'correct :' . $test_value['correct'] . PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
 
 		}

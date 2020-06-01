@@ -19,11 +19,6 @@ class ParentMetaBoxDisplayManualTest extends WP_UnitTestCase {
 	 */
 	function test_veu_is_parent_metabox_display_maual() {
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_veu_is_parent_metabox_display_maual' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
 		$test_array = array(
 			array(
 				'vkExUnit_common_options' => array(
@@ -93,9 +88,6 @@ class ParentMetaBoxDisplayManualTest extends WP_UnitTestCase {
 			$this->assertEquals( $test_value['correct'], $return );
 
 			print PHP_EOL;
-
-			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
 
 		}
 

@@ -65,11 +65,6 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			),
 		);
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_chlild_page_excerpt' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
 		foreach ( $test_array as $key => $value ) {
 
 			// テスト用のデータを投稿する
@@ -87,9 +82,6 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			// 返ってきた抜粋値と期待する結果が同じかどうかテスト
 			$this->assertEquals( $value['correct'], $return );
 
-			print 'return  :' . $return . PHP_EOL;
-			print 'correct :' . $value['correct'] . PHP_EOL;
 		}
-
-	} // function test_chlild_page_excerpt() {
+	}
 }

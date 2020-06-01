@@ -18,11 +18,6 @@ class SnsTitleTest extends WP_UnitTestCase {
 	 */
 	function test_veu_get_the_sns_title() {
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_sns_title' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
 		$test_array = array(
 			array(
 				'page_type'                                => 'is_singlur',
@@ -136,11 +131,6 @@ class SnsTitleTest extends WP_UnitTestCase {
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct'], $return );
 
-			print PHP_EOL;
-
-			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
-
 			if ( $test_value['page_type'] == 'is_singlur' ) {
 				delete_post_meta( $post_id, 'vkExUnit_sns_title' );
 				wp_delete_post( $post_id );
@@ -149,7 +139,6 @@ class SnsTitleTest extends WP_UnitTestCase {
 			}
 		}
 
-		// もとの値に戻す
 		update_option( 'vkExUnit_sns_options', $before_vkExUnit_sns_options );
 		update_option( 'blogname', $before_blogname );
 		update_option( 'vkExUnit_wp_title', $before_vkExUnit_wp_title );
