@@ -8,7 +8,6 @@
 /**
  * PageListAncestor test case.
  */
-use Sunra\PhpSimple\HtmlDomParser;
 
 class PageListAncestorTest extends WP_UnitTestCase {
 
