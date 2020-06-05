@@ -60,3 +60,27 @@ function veu_has_post_thumbnail( $has_thumbnail, $post = null ) {
 	return $has_thumbnail;
 }
 add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail' );
+
+function veu_default_thumbnail_options_init() {
+	vkExUnit_register_setting(
+		__( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ),    // tab label.
+		'veu_defualt_thumbnail',         // name attr
+		'veu_default_thumbnail_options_validate', // sanitaise function name
+		'veu_add_default_thumbnail_options_page'  // setting_page function name
+	);
+}
+add_action( 'veu_package_init', 'veu_default_thumbnail_options_init' );
+
+function veu_default_thumbnail_options_validate( $input ) {
+    $output['default_thumbnail_image'] = vk_sanitize_number( $input['default_thumbnail_image'] );
+    return $output;
+}
+
+/*
+  Add setting page
+/*-------------------------------------------*/
+
+function veu_add_default_thumbnail_options_page() {
+	require dirname( __FILE__ ) . '/default-thumbnail-admin.php';
+
+}
