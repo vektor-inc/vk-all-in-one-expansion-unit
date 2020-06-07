@@ -1,16 +1,13 @@
-<h3><?php echo __( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <?php
-    $options = get_option( 'veu_defualt_thumbnail' );
-
 /*
-  SNS
+  Default Thumbnail
 /*-------------------------------------------*/
+$options = get_option( 'veu_defualt_thumbnail' );
 ?>
-<div id="snsSetting" class="sectionBox">
+<h3><?php echo __( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ); ?></h3>
+<div id="defaultThumbnailSetting" class="sectionBox">
 
-<!-- OGP hidden -->
 <table class="form-table">
-<!-- OGP -->
 <tr>
 <th><?php _e( 'Default Thumbnail Image', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
