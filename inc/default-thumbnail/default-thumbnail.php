@@ -1,5 +1,7 @@
 <?php
-require_once 'customize.php';
+
+require_once dirname( __FILE__ ) . '/customize.php';
+
 /**
  * Defualt Thumbnail Change.
  *
