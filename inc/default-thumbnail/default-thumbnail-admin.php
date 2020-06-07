@@ -13,11 +13,43 @@
 <!-- OGP -->
 <tr>
 <th><?php _e( 'Default Thumbnail Image', 'vk-all-in-one-expansion-unit' ); ?></th>
-<td><?php _e( '', 'vk-all-in-one-expansion-unit' ); ?><br />
-<input type="text" name="veu_defualt_thumbnail[default_thumbnail_image]" id="default_thumbnail_image" value="<?php echo esc_attr( $options['default_thumbnail_image'] ); ?>" />
-<button id="media_src_default_thumbnail_image" class="media_btn button"><?php _e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button><br />
-<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>https://www.vektor-inc.co.jp/images/ogImage.png</span><br />
-<?php _e( '* Picture sizes are 1280x720 pixels or more and picture ratio 16:9 is recommended.', 'vk-all-in-one-expansion-unit' ); ?>
+<td>
+<?php
+// 現在保存されている画像idを取得して表示
+$image    = null;
+if ( is_numeric( $options['default_thumbnail_image'] ) ) {
+	$image = wp_get_attachment_image_src( $options['default_thumbnail_image'], 'large' );
+}
+?>
+<div class="_display" style="height:auto">
+	<?php if ( $image ) : ?>
+		<img src="<?php echo $image[0]; ?>" style="width:200px;height:auto;" />
+	<?php endif; ?>
+</div>
+
+<button class="button button-default button-block" style="display:block;width:200px;text-align: center; margin:4px 0;" onclick="javascript:veu_default_image_additional(this);return false;">
+<?php _e( 'Set image', 'vk-all-in-one-expansion-unit' ); ?>
+</button>
+
+<input type="hidden" class="__id" name="veu_defualt_thumbnail[default_thumbnail_image]" value="<?php echo esc_attr( $options['default_thumbnail_image'] ); ?>" />
+
+<script type="text/javascript">
+if(veu_default_image_additional == undefined){
+var veu_default_image_additional = function(e){
+	var d=jQuery(e).parent().children("._display");
+	var w=jQuery(e).parent().children('.__id')[0];
+	var u=wp.media({library:{type:'image'},multiple:false}).on('select', function(e){
+		u.state().get('selection').each(function(f){ 
+			// もともと表示されてた img タグを削除
+			d.children().remove();
+			// 新しく画像タグを挿入
+			d.append(jQuery('<img style="width:200px;mheight:auto">').attr('src',f.toJSON().url));
+			jQuery(w).val(f.toJSON().id).change(); });
+	});
+	u.open();
+};
+}
+</script>
 </td>
 </tr>
 </table>
