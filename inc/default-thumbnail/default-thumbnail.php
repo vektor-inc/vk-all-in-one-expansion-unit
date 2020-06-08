@@ -12,7 +12,7 @@ require_once dirname( __FILE__ ) . '/customize.php';
  *                           Default 'post-thumbnail'.
  * @param string|array $attr Optional. Query string or array of attributes. Default empty.
  */
- function veu_post_thumbnail_html( $html, $post = null, $size = 'post-thumbnail', $attr = '' ) {
+ function veu_post_thumbnail_html( $html, $post = null, $post_thumbnail_id = null, $size = 'post-thumbnail', $attr = '' ) {
 	$post = get_post( $post );
 	if ( ! $post ) {
 		return '';
@@ -38,7 +38,7 @@ require_once dirname( __FILE__ ) . '/customize.php';
 	}
 	return $html;
 }
-add_filter( 'post_thumbnail_html', 'veu_post_thumbnail_html' );
+add_filter( 'post_thumbnail_html', 'veu_post_thumbnail_html', 10, 5 );
 
 /**
  * Change Has Post Thumbnail.
