@@ -34,13 +34,23 @@ function veu_add_follow( $content ) {
 		/*----------------------------------------------*/
 
 		$image_id  = get_post_thumbnail_id();
-		$image_url = wp_get_attachment_image_src( $image_id, true );
-
-		$follow_html .= '<div class="veu_followSet">';
+        $image_url = wp_get_attachment_image_src( $image_id, true );
+        $follow_html .= '<div class="veu_followSet">';
+        
+        
 
 		// 画像
 		if ( has_post_thumbnail() ) {
-			$follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
+            if ( ! $image_url ) {
+               if ( veu_package_is_enable( 'default_thumbnail' ) ) {
+                    $image_option     = get_option( 'veu_defualt_thumbnail' );
+                    $image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
+                    if ( $image_default_id ) {
+                        $image_url = wp_get_attachment_image_src( $image_default_id, true );
+                    }
+                }
+            }
+            $follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
 		}
 
 		$follow_html .= '

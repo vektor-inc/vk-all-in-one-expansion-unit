@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
+Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.4.0
-Stable tag: 9.21.0.0
+Stable tag: 9.22.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,9 @@ e.g.
 == Changelog ==
 
 * [ Group block style ] Add alert style
+
+= 9.22.0.0 =
+* [ Add function ] Default eyecatch image
 
 = 9.21.0.0 =
 * [ Specification change ] Font Awesome 5.11 -> 5.13
