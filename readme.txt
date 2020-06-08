@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h
+Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0

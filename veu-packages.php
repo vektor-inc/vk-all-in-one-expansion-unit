@@ -180,6 +180,24 @@ function veu_get_packages() {
 		),
 		'default'     => true,
 		'include'     => 'other-widget/other-widget.php',
+    );
+    
+    /**
+     * Defualt Thumbnail
+     */
+    $required_packages[] = array(
+		'name'        => 'default_thumbnail',
+		'title'       => __( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Default Thumbnail.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_default_thumbnail',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => true,
+		'include'     => 'default-thumbnail/default-thumbnail.php',
 	);
 
 	/*
