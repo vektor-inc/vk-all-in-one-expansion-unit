@@ -63,6 +63,19 @@ function veu_has_post_thumbnail( $has_thumbnail, $post = null ) {
 }
 add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail' );
 
+function veu_change_vk_components_image_default_url( $options ) {
+    if ( veu_package_is_enable( 'default_thumbnail' ) ) {
+        $image_option     = get_option( 'veu_defualt_thumbnail' );
+        $image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
+        if ( $image_default_id ) {
+            $image = wp_get_attachment_image_src( $image_default_id, 'large', false );
+            $options['image_default_url'] = $image[0];
+        }
+    }
+    return $options;
+}
+add_filter( 'vk_post_options', 'veu_change_vk_components_image_default_url' );
+
 function veu_default_thumbnail_options_init() {
 	vkExUnit_register_setting(
 		__( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ),    // tab label.
