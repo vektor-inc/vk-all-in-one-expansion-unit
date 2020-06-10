@@ -26,26 +26,28 @@ $common_attributes = array(
     ),
 );
 
-function vk_add_hidden_class($classes = '', $attributes){
+if(!function_exists('vk_add_hidden_class')){
+    function vk_add_hidden_class($classes = '', $attributes){
 
-	if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
-		$classes .= ' ' . 'vk_hidden';
-	}
-	if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
-		$classes .= ' ' . 'vk_hidden_xl';
-	}
-	if ( isset($attributes['vkb_hidden_lg']) ) {
-		$classes .= ' ' . 'vk_hidden_lg';
-	}
-	if ( isset($attributes['vkb_hidden_md']) ) {
-		$classes .= ' ' . 'vk_hidden_md';
-	}
-	if ( isset($attributes['vkb_hidden_sm']) ) {
-		$classes .= ' ' . 'vk_hidden_sm';
-	}
-	if ( isset($attributes['vkb_hidden_xs']) ) {
-		$classes .= ' ' . 'vk_hidden_xs';
+        if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
+            $classes .= ' ' . 'vk_hidden';
+        }
+        if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
+            $classes .= ' ' . 'vk_hidden_xl';
+        }
+        if ( isset($attributes['vkb_hidden_lg']) ) {
+            $classes .= ' ' . 'vk_hidden_lg';
+        }
+        if ( isset($attributes['vkb_hidden_md']) ) {
+            $classes .= ' ' . 'vk_hidden_md';
+        }
+        if ( isset($attributes['vkb_hidden_sm']) ) {
+            $classes .= ' ' . 'vk_hidden_sm';
+        }
+        if ( isset($attributes['vkb_hidden_xs']) ) {
+            $classes .= ' ' . 'vk_hidden_xs';
+        }
+        
+        return $classes;
     }
-    
-    return $classes;
 }

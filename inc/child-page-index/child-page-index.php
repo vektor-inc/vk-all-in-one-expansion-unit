@@ -207,8 +207,8 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 
 add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
-	include_once dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
-
+	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
+	
 	register_block_type(
 		'vk-blocks/child-page-index',
 		array(

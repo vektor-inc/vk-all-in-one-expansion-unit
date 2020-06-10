@@ -54,8 +54,11 @@ class VkExUnit_Contact {
 
 	// singleton instance
 	private static $instance;
+	private static $common_attributes;
+	private static $vk_add_hidden_class;
 
 	public static function instance() {
+
 		if ( isset( self::$instance ) ) {
 			return self::$instance;
 		}
@@ -67,8 +70,10 @@ class VkExUnit_Contact {
 
 	private function __construct() {
 		/***
-	* do noting
-*/
+		 * 
+		 * * do noting
+		 * 
+		 * */
 	}
 
 	protected function run_init() {
@@ -88,7 +93,9 @@ class VkExUnit_Contact {
 	}
 
 	public static function veu_contact_section_register_block() {
+
 		if ( ! function_exists( 'register_block_type' ) ) { return; }
+
 		register_block_type(
 			'vk-blocks/contact-section',
 			array(
@@ -96,7 +103,31 @@ class VkExUnit_Contact {
 					'className'      => array(
 						'type'    => 'string',
 						'default' => ''
-					)
+					),
+					'vkb_hidden'    => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_xl' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_lg' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_md' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_sm' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_xs' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
 				),
 				'editor_script'   => 'veu-block',
 				'render_callback' => array( __CLASS__, 'block_callback'),
@@ -128,17 +159,36 @@ class VkExUnit_Contact {
 
 
 	public static function block_callback( $attributes=array() ) {
+
 		$classes = 'veu_contact_section_block';
 
 		if ( isset($attributes['className']) ) {
 			$classes .= ' ' . $attributes['className'];
+		}
+		if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
+			$classes .= ' ' . 'vk_hidden';
+		}
+		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
+			$classes .= ' ' . 'vk_hidden_xl';
+		}
+		if ( isset($attributes['vkb_hidden_lg']) ) {
+			$classes .= ' ' . 'vk_hidden_lg';
+		}
+		if ( isset($attributes['vkb_hidden_md']) ) {
+			$classes .= ' ' . 'vk_hidden_md';
+		}
+		if ( isset($attributes['vkb_hidden_sm']) ) {
+			$classes .= ' ' . 'vk_hidden_sm';
+		}
+		if ( isset($attributes['vkb_hidden_xs']) ) {
+			$classes .= ' ' . 'vk_hidden_xs';
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
 
 		if ( empty($r) ) {
 			if ( isset($_GET['context']) ) {
-				return '<div class="disabled">' . __('No Contact Page Setting.', 'vk-all-in-one-expansion-unit') . '</div>';
+				return '<div class="disabled ' . esc_attr($classes) .'">' . __('No Contact Page Setting.', 'vk-all-in-one-expansion-unit') . '</div>';
 			}
 			return '';
 		}
