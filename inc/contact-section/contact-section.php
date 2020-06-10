@@ -54,11 +54,8 @@ class VkExUnit_Contact {
 
 	// singleton instance
 	private static $instance;
-	private static $common_attributes;
-	private static $vk_add_hidden_class;
 
 	public static function instance() {
-
 		if ( isset( self::$instance ) ) {
 			return self::$instance;
 		}
@@ -93,9 +90,7 @@ class VkExUnit_Contact {
 	}
 
 	public static function veu_contact_section_register_block() {
-
 		if ( ! function_exists( 'register_block_type' ) ) { return; }
-
 		register_block_type(
 			'vk-blocks/contact-section',
 			array(
@@ -159,7 +154,6 @@ class VkExUnit_Contact {
 
 
 	public static function block_callback( $attributes=array() ) {
-
 		$classes = 'veu_contact_section_block';
 
 		if ( isset($attributes['className']) ) {
