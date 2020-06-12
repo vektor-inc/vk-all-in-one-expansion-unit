@@ -154,6 +154,7 @@ class VkExUnit_Contact {
 
 
 	public static function block_callback( $attributes=array() ) {
+
 		$classes = 'veu_contact_section_block';
 
 		if ( isset($attributes['className']) ) {
@@ -165,16 +166,16 @@ class VkExUnit_Contact {
 		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
 			$classes .= ' ' . 'vk_hidden-xl';
 		}
-		if ( isset($attributes['vkb_hidden_lg']) ) {
+		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_xl'] ) {
 			$classes .= ' ' . 'vk_hidden-lg';
 		}
-		if ( isset($attributes['vkb_hidden_md']) ) {
+		if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_xl'] ) {
 			$classes .= ' ' . 'vk_hidden-md';
 		}
-		if ( isset($attributes['vkb_hidden_sm']) ) {
+		if ( isset($attributes['vkb_hidden_sm']) && $attributes['vkb_hidden_xl'] ) {
 			$classes .= ' ' . 'vk_hidden-sm';
 		}
-		if ( isset($attributes['vkb_hidden_xs']) ) {
+		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xl'] ) {
 			$classes .= ' ' . 'vk_hidden-xs';
 		}
 
