@@ -13,7 +13,7 @@ require_once dirname( __FILE__ ) . '/sns_customizer.php';
 
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
-
+	
 	if ( ! function_exists( 'register_block_type' ) ) { return; }
 
 	include dirname(dirname(__FILE__)) . '/vk-blocks/hidden-utils.php';
@@ -25,6 +25,9 @@ function vew_sns_block_setup() {
 				'position' => array(
 					'type'    => 'string',
 					'default' => 'after',
+				),
+				'className' => array(
+					'type'    => 'string',
 				),
 				$common_attributes
 			),

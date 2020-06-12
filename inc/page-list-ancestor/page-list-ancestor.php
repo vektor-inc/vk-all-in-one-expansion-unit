@@ -159,8 +159,8 @@ function veu_pageListAncestor_block_callback( $attr=array() ) {
 
 	$classes = 'veu_childPageIndex_block';
 
-	if ( isset($attributes['className']) ) {
-		$classes .= ' ' . $attributes['className'];
+	if ( isset($attr['className']) ) {
+		$classes .= ' ' . $attr['className'];
 	}
 
 	if(function_exists('vk_add_hidden_class')){
