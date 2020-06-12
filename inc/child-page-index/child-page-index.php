@@ -40,11 +40,15 @@ function veu_childPageIndex_block_callback( $attributes=array() ) {
 		$classes .= ' ' . $attributes['className'];
 	}
 
+	if(function_exists('vk_add_hidden_class')){
+		$classes .= ' ' . vk_add_hidden_class($classes,$attributes);
+	}
+	
 	$r = vkExUnit_childPageIndex_shortcode( get_the_ID(), $classes );
 
 	if ( empty($r) ) {
 		if ( isset($_GET['context']) ) {
-			return '<div class="disabled">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
+			return '<div class="disabled ' . esc_attr($classes) .'">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
 		}
 		return '';
 	}
@@ -203,6 +207,8 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 
 add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
+	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
+	
 	register_block_type(
 		'vk-blocks/child-page-index',
 		array(
@@ -210,7 +216,8 @@ function veu_child_page_index_setup() {
 				'className'      => array(
 					'type'    => 'string',
 					'default' => ''
-				)
+				),
+				$common_attributes
 			),
 			'editor_script'   => 'veu-block',
 			'render_callback' => 'veu_childPageIndex_block_callback',
