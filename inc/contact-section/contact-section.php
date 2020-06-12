@@ -163,19 +163,19 @@ class VkExUnit_Contact {
 			$classes .= ' ' . 'vk_hidden';
 		}
 		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
-			$classes .= ' ' . 'vk_hidden_xl';
+			$classes .= ' ' . 'vk_hidden-xl';
 		}
 		if ( isset($attributes['vkb_hidden_lg']) ) {
-			$classes .= ' ' . 'vk_hidden_lg';
+			$classes .= ' ' . 'vk_hidden-lg';
 		}
 		if ( isset($attributes['vkb_hidden_md']) ) {
-			$classes .= ' ' . 'vk_hidden_md';
+			$classes .= ' ' . 'vk_hidden-md';
 		}
 		if ( isset($attributes['vkb_hidden_sm']) ) {
-			$classes .= ' ' . 'vk_hidden_sm';
+			$classes .= ' ' . 'vk_hidden-sm';
 		}
 		if ( isset($attributes['vkb_hidden_xs']) ) {
-			$classes .= ' ' . 'vk_hidden_xs';
+			$classes .= ' ' . 'vk_hidden-xs';
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
