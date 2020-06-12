@@ -166,16 +166,16 @@ class VkExUnit_Contact {
 		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
 			$classes .= ' ' . 'vk_hidden-xl';
 		}
-		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_xl'] ) {
+		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg'] ) {
 			$classes .= ' ' . 'vk_hidden-lg';
 		}
-		if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_xl'] ) {
+		if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_md'] ) {
 			$classes .= ' ' . 'vk_hidden-md';
 		}
-		if ( isset($attributes['vkb_hidden_sm']) && $attributes['vkb_hidden_xl'] ) {
+		if ( isset($attributes['vkb_hidden_sm']) && $attributes['vkb_hidden_sm'] ) {
 			$classes .= ' ' . 'vk_hidden-sm';
 		}
-		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xl'] ) {
+		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xs'] ) {
 			$classes .= ' ' . 'vk_hidden-xs';
 		}
 
