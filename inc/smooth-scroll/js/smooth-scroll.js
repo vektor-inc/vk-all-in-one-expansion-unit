@@ -35,7 +35,7 @@
             document.getElementsByTagName('a'),
             (elem) => {
                 let href = elem.getAttribute('href')
-                if(href && href.indexOf('#') == 0){
+                if(href && href.indexOf('#') == 0 && href !== '#'){
                     elem.addEventListener('click', smooth_link)
                 }
             }
