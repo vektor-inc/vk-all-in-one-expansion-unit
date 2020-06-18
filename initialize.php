@@ -73,32 +73,71 @@ function veu_install_function() {
 	}
 }
 
+/**
+ * change old options
+ */
+function change_old_options() {
+	$option  = get_option( 'vkExUnit_pagespeeding' );
+
+	if ( $option['common'] ) {
+		$option['css_exunit'] = true;
+		unset( $option['common'] );
+	}
+
+}
+add_action( 'after_setup_theme', 'change_old_options', 4 );
 
 add_action( 'after_setup_theme', 'veu_change_enqueue_point_run_filter', 5 );
 function veu_change_enqueue_point_run_filter() {
 	$default = array(
-		'common' => false,
+		'css_exunit' => false,
+		'js_footer'  => false,
 	);
 	$option  = get_option( 'vkExUnit_pagespeeding', $default );
 	$option  = wp_parse_args( $option, $default );
-	if ( $option['common'] ) {
+	if ( $option['css_exunit'] ) {
 
-		// font awesome
+		// font awesome.
 		add_filter( 'vkfa_enqueue_point', 'veu_change_enqueue_point_to_footer' );
 
-		// vk blocks css
+		// vk blocks css.
 		add_filter( 'vkblocks_enqueue_point', 'veu_change_enqueue_point_to_footer' );
 
-		// common css
+		// common css.
 		add_filter( 'veu_enqueue_point_common_css', 'veu_change_enqueue_point_to_footer' );
 
-		// css customize
+		// css customize.
 		add_filter( 'veu_enqueue_point_css_customize_common', 'veu_change_enqueue_point_to_footer' );
 		add_filter( 'veu_enqueue_point_css_customize_single', 'veu_change_enqueue_point_to_footer' );
 
 	}
-
 }
+
+/**
+ * Move JavaScripts To Footer
+ * https://nelog.jp/header-js-to-footer
+ */
+function veu_move_scripts_to_footer() {
+	$default = array(
+		'css_exunit' => false,
+		'js_footer'  => false,
+	);
+	$option  = get_option( 'vkExUnit_pagespeeding', $default );
+	$option  = wp_parse_args( $option, $default );
+	if ( $option['js_footer'] ) {
+		// Remove Header Scripts.
+		remove_action( 'wp_head', 'wp_print_scripts' );
+		remove_action( 'wp_head', 'wp_print_head_scripts', 9 );
+		remove_action( 'wp_head', 'wp_enqueue_scripts', 1 );
+
+		// Remove Footer Scripts.
+		add_action( 'wp_footer', 'wp_print_scripts', 5 );
+		add_action( 'wp_footer', 'wp_print_head_scripts', 5 );
+		add_action( 'wp_footer', 'wp_enqueue_scripts', 5 );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'veu_move_scripts_to_footer' );
+
 
 function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 	$enqueue_point = 'wp_footer';
