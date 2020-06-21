@@ -16,4 +16,4 @@ services:
       - .:/var/www/html
     depends_on:
       - db
-    command: "/opt/vendor/bin/phpunit"
+    entrypoint: "/opt/vendor/bin/phpunit"
