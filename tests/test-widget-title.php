@@ -34,9 +34,18 @@ class WP_Widget_vkExUnit_post_list_Test extends WP_UnitTestCase {
 			),
 		);
 
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'WP_Widget_vkExUnit_post_list' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
 		foreach ( $tests as $key => $test_value ) {
 			$return = WP_Widget_vkExUnit_post_list::get_widget_title( $test_value );
 			$this->assertEquals( $test_value['correct'], $return );
+
+			print PHP_EOL;
+			print 'return    :' . $return . PHP_EOL;
+			print 'correct   :' . $test_value['correct'] . PHP_EOL;
 		}
 	}
+
 }

@@ -41,6 +41,10 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 		);
 
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_vk_the_post_type_check_list_saved_array_convert' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
 		foreach ( $tests as $key => $test_value ) {
 			update_option( 'vkExUnit_Ads', $test_value['option'] );
 
@@ -48,6 +52,10 @@ class TemplateTagsTest extends WP_UnitTestCase {
 
 			// PHPunit
 			$this->assertEquals( $test_value['correct'], $return );
+			print PHP_EOL;
+			// 帰り値が配列だから print してもエラーになるだけなのでコメントアウト
+			// print 'return    :' . $return. PHP_EOL;
+			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
 		}
 	}
 }

@@ -15,6 +15,11 @@ class SnsBtnsTest extends WP_UnitTestCase {
 	 */
 	function test_sns_is_display_hide_chekbox() {
 
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_sns_is_display_hide_chekbox' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
 		$test_array = array(
 			array(
 				'vkExUnit_sns_options__enableSnsBtns' => true,
@@ -57,6 +62,9 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct'], $return );
 
+			print PHP_EOL;
+			print 'correct :' . $test_value['correct'] . PHP_EOL;
+			print 'return  :' . $return . PHP_EOL;
 		}
 
 		update_option( 'vkExUnit_sns_options', $before_vkExUnit_sns_options );

@@ -19,6 +19,11 @@ class InsertItemMetaBoxDisplayTest extends WP_UnitTestCase {
 	 */
 	function test_veu_is_insert_item_metabox_display() {
 
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_veu_is_insert_item_metabox_display' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
 		$test_array = array(
 			array(
 				'vkExUnit_common_options' => array(
@@ -85,6 +90,12 @@ class InsertItemMetaBoxDisplayTest extends WP_UnitTestCase {
 			$return = veu_is_insert_item_metabox_display();
 
 			$this->assertEquals( $test_value['correct'], $return );
+
+			print PHP_EOL;
+
+			print $_SERVER['REQUEST_URI'] . PHP_EOL;
+			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
+			print 'return  ::::' . $return . PHP_EOL;
 
 			// テスト用投稿を削除
 			if ( ! empty( $posted_id ) ) {

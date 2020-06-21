@@ -16,6 +16,11 @@ class WidgetNewPostsTest extends WP_UnitTestCase {
 	function test_WP_Widget_vkExUnit_post_list__more_link_html() {
 		// テスト用の投稿を追加する
 
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_WP_Widget_vkExUnit_post_list__more_link_html' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
 		$test_array = array(
 			// URLも表記テキストも未定義の場合（既存ユーザー） → 何も出力しない
 			array(
@@ -55,6 +60,9 @@ class WidgetNewPostsTest extends WP_UnitTestCase {
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct_more_link_html'], $more_link_html );
 
+			print PHP_EOL;
+			print 'correct_more_link_html :' . $test_value['correct_more_link_html'] . PHP_EOL;
+			print 'more_link_html         :' . $more_link_html . PHP_EOL;
 		}
 
 		$this->assertTrue( true );
