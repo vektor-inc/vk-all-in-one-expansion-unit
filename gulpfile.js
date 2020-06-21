@@ -139,7 +139,7 @@ gulp.task('watch', function() {
 
 gulp.task('default', gulp.series('text-domain','watch'))
 gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
-gulp.task('copy_dist', (done)=>{
+gulp.task('dist', (done)=>{
   ps('bin/dist', (err, stdout, stderr)=>{
     console.log(stdout)
     done()
@@ -150,7 +150,7 @@ gulp.task('build', gulp.series('scripts', 'sass', 'block'))
 
 // copy dist ////////////////////////////////////////////////
 
-gulp.task('copy_dist', function() {
+gulp.task('dist', function() {
 	return gulp.src(
 			[
 				'./**/*.php',
@@ -182,7 +182,3 @@ gulp.task('copy_dist', function() {
 		)
 		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
 } );
-
-gulp.task('dist', function(cb){
-	return runSequence( 'copy_dist', cb );
-});
