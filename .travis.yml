@@ -1,0 +1,76 @@
+language: php
+
+branches:
+  - master
+  - develop
+  - /^feature\/.*/
+  - /^(bug)?fix\/.*/
+
+env:
+  global:
+    - GIT_COMMITTER_NAME=travis-ci
+    - GIT_COMMITTER_EMAIL=kurudrive@gmail.com
+    - GIT_AUTHOR_NAME=travis-ci
+    - GIT_AUTHOR_EMAIL=kurudrive@gmail.com
+    - secure: "MFQhkgDtY3B+oSEmEm6e7oqRHDicTbTw4aYCcBm3wNsJREPKzqkeNMbP8JhdKmh/nRaJEE7tTulBGhaHn94MA4OP4KPDwd1Ds98V7flhLRKgY6RapGXAlHc44mhHFx4uJQ/JXjJQz12JeQh9hdJOWzWqTmsc56EtneCUK2lYf7YZD01dDnqWWs+NQep1WklKGJnXPe8UKavdtDFkNt0rh+eHZr2cHakty8yteV0Gulr4a4AciZxBUpaO3Xgbz8snxgfX+ijmoDs7XE62n8D2xH9LBKXPE6YXuCxasl4SRdx+a3PjzXQxylI/UcWdkS4w7iVQ0lhqawZYkKciFMnc4hK8KRBSR+fjbtDyKCEkMqd9L0wHJF+wzlLx6LRbRjJ48Hr8HUJEAr9w2IuYMiJlmQma1LzXDISbjMDU6jAFGLcE/jEVRpVROFBB1zOwodTAWGrXz8kLkb5mjOElVk2tD53HqzvLTUifE1A3S+cx6mDcvX1NFkUzI0dhEhZy3x1FyRzxhxwvEBxoOeFHQxkd4Zryj+Gj2Pt7A2i5lH4WEP70SbhwPqrJssionWUIN3EDb5ay+SzX68CQBLe2vcka1SiFxmclFfZhkA0X0lO7e26QuX/QVJh4+Y63XxGwGuGZas8OdeUCcRV+akyAISFh8dY3DTiEwjKA4CmQouGTZ58="
+
+matrix:
+  include:
+    - php: 7.4
+      dist: trusty
+      env:
+        - WP_VERSION=latest WP_MULTISITE=0
+    - php: 7.3
+      dist: trusty
+      env:
+        - WP_VERSION=latest WP_MULTISITE=0
+
+cache:
+  directories:
+    - node_modules
+
+before_script:
+  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - echo ${TRAVIS_PHP_VERSION:0:3}
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then
+      composer require "phpunit/phpunit=5.6.*"
+    else
+      composer require "phpunit/phpunit=7.*"
+    fi
+  - npm install -D
+  - cp assets/js/all.min.js .all.min.js.before
+  - cp assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
+  - cp assets/css/vkExUnit_style.css .vkExUnit_style.css.before
+  - cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
+  - cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
+  - cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+  - cp assets/js/block.min.js .block.min.js.before
+
+
+script:
+  - find ./ -type d -name vendor -prune -o -name '*.php'|xargs -I {} php -l {}
+  - phpunit --version
+  # script compile check
+  - npm run gulp scripts
+  - diff assets/js/all.min.js .all.min.js.before
+  # block script compile check
+  - npm run gulp block
+  - diff assets/js/block.min.js .block.min.js.before
+  # scss compile check
+  - npm run gulp sass
+  - diff assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
+  - diff assets/css/vkExUnit_style.css .vkExUnit_style.css.before
+  - diff assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
+  - diff assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
+  - diff assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+  - vendor/bin/phpunit -c phpunit.xml
+
+after_script:
+  - rm -v .*.before
+
+after_success:
+  - bash ./bin/deploy.sh
+
+allow_failure: true
