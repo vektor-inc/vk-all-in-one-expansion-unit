@@ -141,6 +141,8 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 
 add_action( 'init', 'veu_page_list_ancestor_block_setup', 15 );
 function veu_page_list_ancestor_block_setup() {
+	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
+
 	register_block_type(
 		'vk-blocks/page-list-ancestor',
 		array(
@@ -148,7 +150,8 @@ function veu_page_list_ancestor_block_setup() {
 				'className'      => array(
 					'type'    => 'string',
 					'default' => ''
-				)
+				),
+				$common_attributes
 			),
 			'editor_script'   => 'veu-block',
 			'render_callback' => 'veu_pageListAncestor_block_callback',
@@ -157,12 +160,18 @@ function veu_page_list_ancestor_block_setup() {
 }
 
 function veu_pageListAncestor_block_callback( $attr=array() ) {
+	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
+
 	$classes = 'veu_childPageIndex_block';
 
-	if ( isset($attributes['className']) ) {
-		$classes .= ' ' . $attributes['className'];
+	if ( isset($attr['className']) ) {
+		$classes .= ' ' . $attr['className'];
 	}
 
+	if(function_exists('vk_add_hidden_class')){
+		$classes .= ' ' . vk_add_hidden_class($classes, $attr);
+	}
+	
 	$r = vkExUnit_pageList_ancestor_shortcode( $classes, true );
 
 	if ( empty($r) ) {

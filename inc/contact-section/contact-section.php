@@ -67,8 +67,10 @@ class VkExUnit_Contact {
 
 	private function __construct() {
 		/***
-	* do noting
-*/
+		 * 
+		 * * do noting
+		 * 
+		 * */
 	}
 
 	protected function run_init() {
@@ -96,7 +98,31 @@ class VkExUnit_Contact {
 					'className'      => array(
 						'type'    => 'string',
 						'default' => ''
-					)
+					),
+					'vkb_hidden'    => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_xl' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_lg' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_md' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_sm' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'vkb_hidden_xs' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
 				),
 				'editor_script'   => 'veu-block',
 				'render_callback' => array( __CLASS__, 'block_callback'),
@@ -128,17 +154,36 @@ class VkExUnit_Contact {
 
 
 	public static function block_callback( $attributes=array() ) {
+
 		$classes = 'veu_contact_section_block';
 
 		if ( isset($attributes['className']) ) {
 			$classes .= ' ' . $attributes['className'];
+		}
+		if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
+			$classes .= ' ' . 'vk_hidden';
+		}
+		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
+			$classes .= ' ' . 'vk_hidden-xl';
+		}
+		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg'] ) {
+			$classes .= ' ' . 'vk_hidden-lg';
+		}
+		if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_md'] ) {
+			$classes .= ' ' . 'vk_hidden-md';
+		}
+		if ( isset($attributes['vkb_hidden_sm']) && $attributes['vkb_hidden_sm'] ) {
+			$classes .= ' ' . 'vk_hidden-sm';
+		}
+		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xs'] ) {
+			$classes .= ' ' . 'vk_hidden-xs';
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
 
 		if ( empty($r) ) {
 			if ( isset($_GET['context']) ) {
-				return '<div class="disabled">' . __('No Contact Page Setting.', 'vk-all-in-one-expansion-unit') . '</div>';
+				return '<div class="disabled ' . esc_attr($classes) .'">' . __('No Contact Page Setting.', 'vk-all-in-one-expansion-unit') . '</div>';
 			}
 			return '';
 		}

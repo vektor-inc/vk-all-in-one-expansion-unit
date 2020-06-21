@@ -129,12 +129,14 @@ function veu_sns_icon_css( $options ) {
 	return $snsBtn_color;
 }
 
-function vew_sns_block_callback( $attr = array() ) {
-	$attr = array_merge( array( 'position' => 'after' ), $attr );
-	return veu_get_sns_btns( $attr['position'] );
+function vew_sns_block_callback( $attr) {
+	return veu_get_sns_btns( $attr );
 }
 
-function veu_get_sns_btns( $position = 'after' ) {
+function veu_get_sns_btns( $attr ) {
+
+	include dirname(dirname(__FILE__)) . '/vk-blocks/hidden-utils.php';
+
 	$options   = veu_get_sns_options();
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
@@ -142,7 +144,16 @@ function veu_get_sns_btns( $position = 'after' ) {
 	$linkUrl   = urlencode( get_permalink() );
 	$pageTitle = urlencode( veu_get_the_sns_title() );
 
-	$socialSet = '<div class="veu_socialSet veu_socialSet-position-' . $position . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
+	$classes = '';
+	if(function_exists('vk_add_hidden_class')){
+		$classes .= ' ' . vk_add_hidden_class($classes, $attr);
+	}
+
+	if(isset($attr["className"])){
+		$classes .= ' ' . $attr["className"];
+	}
+
+	$socialSet = '<div class="veu_socialSet veu_socialSet-position-' . esc_attr($attr['position']) . esc_attr($classes) .' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 	// facebook
 	if ( $options['useFacebook'] ) {
 		$socialSet .= '<li class="sb_facebook sb_icon"><a href="//www.facebook.com/sharer.php?src=bm&u=' . $linkUrl . '&amp;t=' . $pageTitle . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Facebook</span><span class="veu_count_sns_fb"' . $icon_css . '></span></a></li>';
@@ -200,11 +211,11 @@ function veu_add_sns_btns( $content ) {
 		$options = veu_get_sns_options();
 
 		if ( ! empty( $options['snsBtn_position']['before'] ) ) {
-			$content = veu_get_sns_btns( 'before' ) . $content;
+			$content = veu_get_sns_btns( array('position'  => 'before') ) . $content;
 		}
 
 		if ( ! empty( $options['snsBtn_position']['after'] ) ) {
-			$content .= veu_get_sns_btns( 'after' );
+			$content .= veu_get_sns_btns( array('position' => 'after') );
 		}
 	}
 

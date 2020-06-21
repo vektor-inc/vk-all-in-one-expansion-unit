@@ -1,0 +1,78 @@
+name: Build Check
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+      - ^feature/.+
+
+jobs:
+  buid_check:
+    name: build test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+
+    - run: cp assets/js/all.min.js .all.min.js.before
+    - run: cp assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
+    - run: cp assets/css/vkExUnit_style.css .vkExUnit_style.css.before
+    - run: cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
+    - run: cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
+    - run: cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+    - run: cp assets/js/block.min.js .block.min.js.before
+
+    - run: npm install -D
+
+    # script compile check
+    - run: npm run gulp scripts
+    - run: diff assets/js/all.min.js .all.min.js.before
+    # block script compile check
+    - run: npm run gulp block
+    - run: diff assets/js/block.min.js .block.min.js.before
+    # scss compile check
+    - run: npm run gulp sass
+    - run: diff assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
+    - run: diff assets/css/vkExUnit_style.css .vkExUnit_style.css.before
+    - run: diff assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
+    - run: diff assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
+    - run: diff assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
+
+  php_unit:
+    name: php unittest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [7.2, 7.3, 7.4]
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306
+        env:
+          MYSQL_ROOT_PASSWORD: wordpress
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache multiple paths
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
+    - name: Setup PHP ${{ matrix.php }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+    - name: install composer packages
+      run: composer install --dev
+    - run: bin/install-wp-tests.sh wordpress wordpress wordpress 127.0.0.1:${{ job.services.mysql.ports['3306'] }} latest true
+    - run: vendor/bin/phpunit
