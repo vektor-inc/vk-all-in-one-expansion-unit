@@ -48,7 +48,12 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	}
 
 	if ( $post_id ) {
-			$children = wp_list_pages( 'title_li=&child_of=' . $post_id . '&echo=0' );
+		$children = wp_list_pages( array(
+			'title_li' => '',
+			'child_of' => $post_id,
+			'echo' => 0
+		) );
+
 		if ( $children ) {
 			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card '. $classes . '">';
 			$pageList_ancestor_html .= '<div class="veu_card_inner">';

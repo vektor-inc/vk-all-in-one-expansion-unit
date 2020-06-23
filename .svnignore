@@ -21,3 +21,4 @@ sftp-config*.json
 vkexunit.mo
 .travis.yml
 *.before
+composer.*
