@@ -21,7 +21,6 @@ require dirname( __FILE__ ) . '/customizer.php';
 // plugins_loaded の位置ではmetaboxを統合しない設定にしても個別のmetaboxが表示されない
 // 統合親メタボックスの読み込み
 require dirname( __FILE__ ) . '/admin-post-metabox.php';
-require dirname( __FILE__ ) . '/add_menu_to_block_reuse.php';
 
 require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
 require_once dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';

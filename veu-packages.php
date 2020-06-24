@@ -89,14 +89,14 @@ function veu_get_packages() {
 	);
 
 	/*
-	  metaDescription
+	  addReusableBlockMenu
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'metaDescription',
-		'title'       => __( 'Print meta description', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'addReusableBlockMenu',
+		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add Manage all reusable blocks menu to admin menu.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'meta-description.php',
+		'include'     => 'add_menu_to_block_reuse.php',
 	);
 
 	/*
@@ -145,6 +145,17 @@ function veu_get_packages() {
 		),
 		'default'     => true,
 		'include'     => 'google_analytics/google_analytics.php',
+	);
+
+	/*
+	  metaDescription
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'metaDescription',
+		'title'       => __( 'Print meta description', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'meta-description.php',
 	);
 
 	/*
