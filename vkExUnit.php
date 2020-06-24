@@ -120,3 +120,26 @@ add_action(
 		echo '<style>.block-editor-writing-flow { height: auto; }</style>'; // phpcs:ignore
 	}
 );
+
+if ( is_admin() ) {
+	add_action('admin_menu', function(){
+		global $menu;
+		$position = 10;
+		$menu_slug = "edit.php?post_type=wp_block";
+		$menu_title = __( 'Block Reuse', 'vk-all-in-one-expansion-unit' );
+
+		while( isset( $menu[$position] ) ) {
+			$position++;
+		}
+
+		$menu[ $position ] = array(
+			$menu_title,
+			"edit_posts",
+			$menu_slug,
+			"",
+			'menu-top ',
+			"",
+			"dashicons-align-center"
+		);
+	}, 10);
+}
