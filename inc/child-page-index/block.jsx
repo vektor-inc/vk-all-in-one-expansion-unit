@@ -1,7 +1,9 @@
 (function(wp){
   const { __ } = wp.i18n
   const { registerBlockType } = wp.blocks
-  const { ServerSideRender, PanelBody } = wp.components
+  const { InspectorControls } = wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor
+  const { ServerSideRender, PanelBody, SelectControl } = wp.components
+  const { useSelect } = wp.data
   const { Fragment } = wp.element
   const React = wp.element
   const BlockIcon = (
@@ -49,13 +51,39 @@
     title: __("Child page index", "veu-block"),
     icon: BlockIcon,
     category: "veu-block",
-    edit: ({className}) => {
+    attributes: {
+      postId: {
+        type: 'string',
+        default: ''
+      }
+    },
+    edit: ({attributes, setAttributes, className}) => {
+      const id = 'veu_cpi' + Math.floor(Math.random() * 999)
       return (
         <Fragment>
+          <InspectorControls>
+            <PanelBody
+              label={ __( "Parent Page", "veu-block" ) }
+            >
+              <label
+                for={ id }
+                class="components-base-control__label"
+              >
+                { __( 'Page Id', 'veu-block' ) }
+              </label>
+              <input
+                type="text"
+                id={ id }
+                class="components-text-control__input"
+                value={ attributes.postId }
+                onChange={ ( e ) => { setAttributes({ postId: e.target.value }) } }
+              />
+            </PanelBody>
+          </InspectorControls>
           <div className='veu_child_page_list_block'>
             <ServerSideRender
               block="vk-blocks/child-page-index"
-              attributes={{className: className}}
+              attributes={ { className: className, postId: attributes.postId } }
             />
           </div>
         </Fragment>
