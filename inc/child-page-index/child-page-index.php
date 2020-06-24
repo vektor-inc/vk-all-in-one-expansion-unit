@@ -215,7 +215,7 @@ function veu_child_page_index_setup() {
 		'vk-blocks/child-page-index',
 		array(
 			'attributes'      => array_merge(
-					array(
+				array(
 					'className'      => array(
 						'type'    => 'string',
 						'default' => ''
@@ -224,8 +224,8 @@ function veu_child_page_index_setup() {
 						'type'    => 'string',
 						'default' => ''
 					),
-					$common_attributes
-				)
+				),
+				$common_attributes
 			),
 			'editor_script'   => 'veu-block',
 			'render_callback' => 'veu_childPageIndex_block_callback',
