@@ -6,9 +6,9 @@ if ( is_admin() ) {
 	if ( version_compare( $wp_version, '5.3', '>=' ) ) {
 		add_action('admin_menu', function(){
 			global $menu;
-			$position = 10;
+			$position = 20;
 			$menu_slug = "edit.php?post_type=wp_block";
-			$menu_title = __( 'Block Reuse', 'vk-all-in-one-expansion-unit' );
+			$menu_title = __( 'Manage all reusable blocks' );
 
 			while( isset( $menu[$position] ) ) {
 				$position++;
@@ -21,7 +21,7 @@ if ( is_admin() ) {
 				"",
 				'menu-top ',
 				"",
-				"dashicons-align-center"
+				"dashicons-controls-repeat"
 			);
 		}, 10);
 	}
