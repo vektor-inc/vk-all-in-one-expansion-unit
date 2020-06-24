@@ -28,14 +28,32 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 			} else {
 				$post_id = $post->ID;
 			}
-			if ( $post_id ) {
-				$children = wp_list_pages( 'title_li=&child_of=' . $post_id . '&echo=0' );
+
+			$setting = array(
+				'child_of' => $post_id,
+			);
+
+			$pages = get_pages( $setting );
+
+			if ( $pages ) {
+				$pageids = array();
+				foreach ( $pages as $page ) {
+					$pageids[] = $page->ID;
+				}
+				$setting = array(
+					'title_li' => '',
+					'include'  => $post_id . ',' . implode( ',', $pageids ),
+					'echo'     => 0,
+				);
+
+				$children = wp_list_pages( $setting );
 				if ( $children ) {
 					echo $args['before_widget'];
 					echo '<div class="veu_childPages widget_link_list">';
 					echo $args['before_title'];
 					// echo '<a href="' . get_the_permalink($post_id) . '">';
-					echo get_the_title( $post_id );
+					echo '関連ページ';
+					// echo get_the_title( $post_id );
 					// echo '</a>';
 					echo $args['after_title'];
 					?>
@@ -44,7 +62,7 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 					</ul>
 					</div>
 					<?php echo $args['after_widget']; ?>
-				<?php
+					<?php
 				}
 			}
 		} // is_page

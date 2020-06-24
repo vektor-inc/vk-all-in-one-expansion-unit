@@ -1,9 +1,9 @@
 {
 	"folders": [
-		{
-			"path": "."
-		}
-	],
+        {
+            "path": "."
+        }
+    ],
 	"settings": {
 		"editor.tabSize": 4,
 		"editor.detectIndentation": false,
