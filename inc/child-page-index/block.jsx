@@ -3,7 +3,7 @@
 	const { registerBlockType } = wp.blocks
 	const { InspectorControls } = wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor
 	const { ServerSideRender, PanelBody, SelectControl } = wp.components
-	const { useSelect } = wp.data
+	const { withSelect } = wp.data
 	const { Fragment } = wp.element
 	const React = wp.element
 	const BlockIcon = (
@@ -57,31 +57,34 @@
 				default: -1
 			}
 		},
-		edit: ({attributes, setAttributes, className}) => {
-			const id = 'veu_cpi' + Math.floor(Math.random() * 999)
-			const options = useSelect( ( select ) => {
-				const r = select('core').getEntityRecords('postType', 'page', {
+		edit: withSelect(( select) => {
+			return {
+				pages: select('core').getEntityRecords('postType', 'page', {
 					_embed: true,
 					per_page: -1
 				})
+			}
+		})(( {attributes, setAttributes, className, pages} )=>{
+			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
 
+			if (pages != undefined) {
+				const l = pages.length
 				let parents = []
-				let result = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
-				r.forEach(p => {
-					if ( p.parent != 0 ) {
-						parents.push(p.parent)
+				let i = 0
+				for(i=0;i<l;i++) {
+					if ( pages[i].parent != 0 ) {
+						parents.push(pages[i].parent)
 					}
-				})
-				r.forEach(p => {
-					if ( parents.includes(p.id) ) {
-						result.push({
-							label: p.title.rendered,
-							value: p.id
+				}
+				for(i=0; i < l;i++) {
+					if ( parents.includes(pages[i].id) ) {
+						options.push({
+							label: pages[i].title.rendered,
+							value: pages[i].id
 						})
 					}
-				})
-				return result
-			})
+				}
+			}
 
 			return (
 				<Fragment>
@@ -108,7 +111,7 @@
 					</div>
 				</Fragment>
 			)
-		},
+		}),
 		save: () => null
 	});
 })(wp);
