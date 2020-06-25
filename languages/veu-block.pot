@@ -7,12 +7,12 @@ msgstr ""
 msgid "Child page index"
 msgstr ""
 
-#: inc/child-page-index/block.jsx:66
-msgid "Parent Page"
+#: inc/child-page-index/block.jsx:69
+msgid "This Page"
 msgstr ""
 
-#: inc/child-page-index/block.jsx:72
-msgid "Page Id"
+#: inc/child-page-index/block.jsx:93
+msgid "Parent Page"
 msgstr ""
 
 #: inc/contact-section/block.jsx:9

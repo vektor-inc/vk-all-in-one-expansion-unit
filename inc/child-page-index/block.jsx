@@ -1,12 +1,12 @@
 (function(wp){
-  const { __ } = wp.i18n
-  const { registerBlockType } = wp.blocks
-  const { InspectorControls } = wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor
-  const { ServerSideRender, PanelBody, SelectControl } = wp.components
-  const { useSelect } = wp.data
-  const { Fragment } = wp.element
-  const React = wp.element
-  const BlockIcon = (
+	const { __ } = wp.i18n
+	const { registerBlockType } = wp.blocks
+	const { InspectorControls } = wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor
+	const { ServerSideRender, PanelBody, SelectControl } = wp.components
+	const { useSelect } = wp.data
+	const { Fragment } = wp.element
+	const React = wp.element
+	const BlockIcon = (
 	<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 576 512">
 <g>
 	<path d="M236.2,272l-198.8-0.1c-20.6,0-37.3,16.7-37.3,37.3L0,449.9c0,20.6,16.7,37.3,37.3,37.4l198.8,0.1
@@ -45,50 +45,70 @@
 		C451.6,102.2,446.1,96.6,439.3,96.6z"/>
 </g>
 	</svg>
-  );
+	);
 
-  registerBlockType("vk-blocks/child-page-index", {
-    title: __("Child page index", "veu-block"),
-    icon: BlockIcon,
-    category: "veu-block",
-    attributes: {
-      postId: {
-        type: 'string',
-        default: ''
-      }
-    },
-    edit: ({attributes, setAttributes, className}) => {
-      const id = 'veu_cpi' + Math.floor(Math.random() * 999)
-      return (
-        <Fragment>
-          <InspectorControls>
-            <PanelBody
-              label={ __( "Parent Page", "veu-block" ) }
-            >
-              <label
-                for={ id }
-                class="components-base-control__label"
-              >
-                { __( 'Page Id', 'veu-block' ) }
-              </label>
-              <input
-                type="text"
-                id={ id }
-                class="components-text-control__input"
-                value={ attributes.postId }
-                onChange={ ( e ) => { setAttributes({ postId: e.target.value }) } }
-              />
-            </PanelBody>
-          </InspectorControls>
-          <div className='veu_child_page_list_block'>
-            <ServerSideRender
-              block="vk-blocks/child-page-index"
-              attributes={ { className: className, postId: attributes.postId } }
-            />
-          </div>
-        </Fragment>
-      )
-    },
-    save: () => null
-  });
+	registerBlockType("vk-blocks/child-page-index", {
+		title: __("Child page index", "veu-block"),
+		icon: BlockIcon,
+		category: "veu-block",
+		attributes: {
+			postId: {
+				type: 'number',
+				default: -1
+			}
+		},
+		edit: ({attributes, setAttributes, className}) => {
+			const id = 'veu_cpi' + Math.floor(Math.random() * 999)
+			const options = useSelect( ( select ) => {
+				const r = select('core').getEntityRecords('postType', 'page', {
+					_embed: true,
+					per_page: -1
+				})
+
+				let parents = []
+				let result = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
+				r.forEach(p => {
+					if ( p.parent != 0 ) {
+						parents.push(p.parent)
+					}
+				})
+				r.forEach(p => {
+					if ( parents.includes(p.id) ) {
+						result.push({
+							label: p.title.rendered,
+							value: p.id
+						})
+					}
+				})
+				return result
+			})
+
+			return (
+				<Fragment>
+					<InspectorControls>
+						<PanelBody
+							label={ __( "Parent Page", "veu-block" ) }
+						>
+							<SelectControl
+								label={ __( 'Parent Page', 'veu-block' ) }
+								value={ attributes.pageId }
+								options={ options }
+								onChange={ ( pageId )=>{ setAttributes({ postId: pageId }) } }
+							/>
+						</PanelBody>
+					</InspectorControls>
+					<div className='veu_child_page_list_block'>
+						<ServerSideRender
+							block="vk-blocks/child-page-index"
+							attributes={ {
+								className: className,
+								postId: attributes.postId
+							} }
+						/>
+					</div>
+				</Fragment>
+			)
+		},
+		save: () => null
+	});
 })(wp);

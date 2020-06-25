@@ -44,7 +44,7 @@ function veu_childPageIndex_block_callback( $attributes=array() ) {
 		$classes .= ' ' . vk_add_hidden_class($classes, $attributes);
 	}
 
-	$postId = (is_numeric($attributes['postId']))? $attributes['postId']: get_the_ID();
+	$postId = ($attributes['postId'] > 0)? $attributes['postId']: get_the_ID();
 
 	$r = vkExUnit_childPageIndex_shortcode( $postId, $classes );
 
@@ -221,8 +221,8 @@ function veu_child_page_index_setup() {
 						'default' => ''
 					),
 					'postId'         => array(
-						'type'    => 'string',
-						'default' => ''
+						'type'    => 'number',
+						'default' => -1
 					),
 				),
 				$common_attributes
