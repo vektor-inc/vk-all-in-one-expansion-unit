@@ -35,7 +35,7 @@ if(!function_exists('vk_add_hidden_class')){
         if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
             $classes .= ' ' . 'vk_hidden-xl';
         }
-        if ( isset($attributes['vkb_hidden_lg']) && $attributes['vk_hidden_lg']) {
+        if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg']) {
             $classes .= ' ' . 'vk_hidden-lg';
         }
         if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_md']) {
@@ -47,7 +47,7 @@ if(!function_exists('vk_add_hidden_class')){
         if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xs']) {
             $classes .= ' ' . 'vk_hidden-xs';
         }
-        
+
         return $classes;
     }
 }
