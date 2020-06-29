@@ -13,7 +13,7 @@ require_once dirname( __FILE__ ) . '/sns_customizer.php';
 
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
-	
+
 	if ( ! function_exists( 'register_block_type' ) ) { return; }
 
 	include dirname(dirname(__FILE__)) . '/vk-blocks/hidden-utils.php';
@@ -87,6 +87,7 @@ function veu_get_sns_options_default() {
 		'useHatena'                   => true,
 		'usePocket'                   => true,
 		'useLine'                     => true,
+		'entry_count'                 => 'get',
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -153,6 +154,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
 	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
+	$output['entry_count']                 = esc_attr( $input['entry_count'] );
 
 	/*
 	SNSボタンの塗りつぶし関連は管理画面に値がないので、カスタマイザーで保存された値を入れる必要がある
