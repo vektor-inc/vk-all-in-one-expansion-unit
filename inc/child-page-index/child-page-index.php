@@ -41,10 +41,12 @@ function veu_childPageIndex_block_callback( $attributes=array() ) {
 	}
 
 	if(function_exists('vk_add_hidden_class')){
-		$classes .= ' ' . vk_add_hidden_class($classes,$attributes);
+		$classes .= ' ' . vk_add_hidden_class($classes, $attributes);
 	}
-	
-	$r = vkExUnit_childPageIndex_shortcode( get_the_ID(), $classes );
+
+	$postId = ($attributes['postId'] > 0)? $attributes['postId']: get_the_ID();
+
+	$r = vkExUnit_childPageIndex_shortcode( $postId, $classes );
 
 	if ( empty($r) ) {
 		if ( isset($_GET['context']) ) {
@@ -208,14 +210,20 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
 	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
-	
+
 	register_block_type(
 		'vk-blocks/child-page-index',
 		array(
-			'attributes'      => array(
-				'className'      => array(
-					'type'    => 'string',
-					'default' => ''
+			'attributes'      => array_merge(
+				array(
+					'className'      => array(
+						'type'    => 'string',
+						'default' => ''
+					),
+					'postId'         => array(
+						'type'    => 'number',
+						'default' => -1
+					),
 				),
 				$common_attributes
 			),

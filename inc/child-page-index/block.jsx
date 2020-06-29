@@ -1,10 +1,12 @@
 (function(wp){
-  const { __ } = wp.i18n
-  const { registerBlockType } = wp.blocks
-  const { ServerSideRender, PanelBody } = wp.components
-  const { Fragment } = wp.element
-  const React = wp.element
-  const BlockIcon = (
+	const { __ } = wp.i18n
+	const { registerBlockType } = wp.blocks
+	const { InspectorControls } = wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor
+	const { ServerSideRender, PanelBody, SelectControl } = wp.components
+	const { withSelect } = wp.data
+	const { Fragment } = wp.element
+	const React = wp.element
+	const BlockIcon = (
 	<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 576 512">
 <g>
 	<path d="M236.2,272l-198.8-0.1c-20.6,0-37.3,16.7-37.3,37.3L0,449.9c0,20.6,16.7,37.3,37.3,37.4l198.8,0.1
@@ -43,24 +45,73 @@
 		C451.6,102.2,446.1,96.6,439.3,96.6z"/>
 </g>
 	</svg>
-  );
+	);
 
-  registerBlockType("vk-blocks/child-page-index", {
-    title: __("Child page index", "veu-block"),
-    icon: BlockIcon,
-    category: "veu-block",
-    edit: ({className}) => {
-      return (
-        <Fragment>
-          <div className='veu_child_page_list_block'>
-            <ServerSideRender
-              block="vk-blocks/child-page-index"
-              attributes={{className: className}}
-            />
-          </div>
-        </Fragment>
-      )
-    },
-    save: () => null
-  });
+	registerBlockType("vk-blocks/child-page-index", {
+		title: __("Child page index", "veu-block"),
+		icon: BlockIcon,
+		category: "veu-block",
+		attributes: {
+			postId: {
+				type: 'number',
+				default: -1
+			}
+		},
+		edit: withSelect(( select) => {
+			return {
+				pages: select('core').getEntityRecords('postType', 'page', {
+					_embed: true,
+					per_page: -1
+				})
+			}
+		})(( {attributes, setAttributes, className, pages} )=>{
+			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
+
+			if (pages != undefined) {
+				const l = pages.length
+				let parents = []
+				let i = 0
+				for(i=0;i<l;i++) {
+					if ( pages[i].parent != 0 ) {
+						parents.push(pages[i].parent)
+					}
+				}
+				for(i=0; i < l;i++) {
+					if ( parents.includes(pages[i].id) ) {
+						options.push({
+							label: pages[i].title.rendered,
+							value: pages[i].id
+						})
+					}
+				}
+			}
+
+			return (
+				<Fragment>
+					<InspectorControls>
+						<PanelBody
+							label={ __( "Parent Page", "veu-block" ) }
+						>
+							<SelectControl
+								label={ __( 'Parent Page', 'veu-block' ) }
+								value={ attributes.pageId }
+								options={ options }
+								onChange={ ( pageId )=>{ setAttributes({ postId: pageId }) } }
+							/>
+						</PanelBody>
+					</InspectorControls>
+					<div className='veu_child_page_list_block'>
+						<ServerSideRender
+							block="vk-blocks/child-page-index"
+							attributes={ {
+								className: className,
+								postId: attributes.postId
+							} }
+						/>
+					</div>
+				</Fragment>
+			)
+		}),
+		save: () => null
+	});
 })(wp);
