@@ -154,6 +154,12 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'vkExUnit_cta_text'               => array(
 						'escape_type' => 'stripslashes',
 					),
+					'vkExUnit_cta_upload_file_id'     => array(
+						'escape_type' => 'stripcslashes'
+					),
+					'vkExUnit_cta_button_mode'     => array(
+						'escape_type' => 'stripcslashes'
+					),
 				);
 
 				// カスタムフィールドの保存
@@ -213,6 +219,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			$imgid          = get_post_meta( get_the_id(), 'vkExUnit_cta_img', true );
 			$cta_image      = wp_get_attachment_image_src( $imgid, 'large' );
 			$image_position = get_post_meta( get_the_id(), 'vkExUnit_cta_img_position', true );
+			$button_mode = get_post_meta( get_the_id(), 'vkExUnit_cta_button_mode', true );
+			if( empty( $button_mode ) ) {
+				$button_mode = 'normal';
+			}
 			?>
 	<style>
 	#message.updated a {display:none;}
@@ -225,9 +235,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	#cta-thumbnail_control.change #media_thumb_url_add { display:none; }
 	#cta-thumbnail_control.change #media_thumb_url_change,
 	#cta-thumbnail_control.change #media_thumb_url_remove { display:inline; }
+	#cta_filename { padding-left: 1em; }
+	#vkExUnit_cta_button_mode_normal { padding-right: 1em; }
 	.form-table input[type=text],
 	.form-table input[type=url],
 	.form-table textarea { width:80%; }
+	#vkExUnit_cta_table.normal_mode ._d { display:none; }
+	#vkExUnit_cta_table.download_mode ._n { display:none; }
 	</style>
 	<script type="text/javascript">
 	jQuery(document).ready(function($){
@@ -263,13 +277,40 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return false;
 		});
 	});
+	!(function(w,d){
+		w.addEventListener('load',function(){
+			var up = wp.media({
+				title: 'Choose File',
+				button: {text: 'Choose Image'},
+				multiple: false,
+			});
+			up.on('select',function(){
+				console.log(up.state().get('selection').first().toJSON())
+				var f = up.state().get('selection').first().toJSON();
+				d.getElementById('vkExUnit_cta_upload_file_id').value = f.id
+				d.getElementById('cta_filename').innerHTML = f.filename
+			})
+			d.getElementById('cta_add_upload_file').addEventListener('click', function(ev){
+				ev.defaultPrevented = false
+				up.open()
+			},false)
+
+			// d.getElementById('vkExUnit_cta_table').classList.add(d.getElementById('vkExUnit_cta_button_mode_normal').value+'_mode')
+			var cc = function(ev){
+				d.getElementById('vkExUnit_cta_table').classList.remove('download_mode', 'normal_mode')
+				d.getElementById('vkExUnit_cta_table').classList.add(ev.target.value+'_mode')
+			}
+			d.getElementById('vkExUnit_cta_button_mode_normal').addEventListener('change', cc, false)
+			d.getElementById('vkExUnit_cta_button_mode_download').addEventListener('change', cc, false)
+		},false);
+	})(window,document);
 	</script>
 	<input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
 	<p><?php _e( 'You can create it with a free layout in the content field using, such as Outer block and PR Content block in VK Blocks.', $vk_call_to_action_textdomain ); ?><br>
 	<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?><br>
 	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
 	</p>
-	<table class="form-table">
+	<table class="form-table <?php echo $button_mode; ?>_mode" id="vkExUnit_cta_table">
 	<tr>
 	<th><?php _e( 'CTA image', $vk_call_to_action_textdomain ); ?></th>
 	<td>
@@ -312,11 +353,39 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 	</p>
 	</td></tr>
-	<tr><th>
+	<tr>
+		<th><?php _e( 'Button Action Mode', $vk_call_to_action_textdomain); ?></th>
+		<td>
+			<label><input type="radio" id="vkExUnit_cta_button_mode_normal" name="vkExUnit_cta_button_mode" value="normal" <?php if($button_mode != 'download'){echo 'checked';}; ?> /><?php _e( 'Normal', $vk_call_to_action_textdomain); ?></label>
+			<label><input type="radio" id="vkExUnit_cta_button_mode_download" name="vkExUnit_cta_button_mode" value="download" <?php if($button_mode == 'download'){echo 'checked';}; ?> /><?php _e( 'Download', $vk_call_to_action_textdomain); ?></label>
+
+		</td>
+	</tr>
+	<tr class="_d">
+		<th><?php _e( 'Download Content', $vk_call_to_action_textdomain); ?></th>
+		<td>
+			<button id="cta_add_upload_file" class="button button-default"><?php _e( 'Set File', $vk_call_to_action_textdomain); ?></button>
+			<?php
+			$download_file_id = get_post_meta( get_the_id(), 'vkExUnit_cta_upload_file_id', true);
+			$download_filename = '';
+			if( !empty( $download_file_id ) ) {
+				$download_file = get_post($download_file_id);
+				if( empty($download_file) || $download_file->post_type != 'attachment') {
+					$download_file_id = '';
+				}else{
+					$download_filename = preg_replace('/^.+\/([^\/]+)$/', '\1', $download_file->guid);
+				}
+			}
+			?>
+			<span id="cta_filename"><?php echo $download_filename; ?></span>
+			<input type="hidden" id="vkExUnit_cta_upload_file_id" name="vkExUnit_cta_upload_file_id" value="<?php echo $download_file_id; ?>" />
+		</td>
+	</tr>
+	<tr class="_n"><th>
 	<label for="vkExUnit_cta_url"><?php _e( 'Button link url', $vk_call_to_action_textdomain ); ?></label></th><td>
 	<input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="https://" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_url', true ); ?>" />
 	</td></tr>
-	<tr><th>
+	<tr class="_n"><th>
 
 	<?php
 	$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );

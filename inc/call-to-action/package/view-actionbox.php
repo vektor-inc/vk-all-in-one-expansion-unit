@@ -27,6 +27,20 @@ $text  = get_post_meta( $id, 'vkExUnit_cta_text', true );
 $text  = preg_replace( '/\n/', '<br/>', $text );
 $imgid = get_post_meta( $id, 'vkExUnit_cta_img', true );
 
+$button_mode = get_post_meta( $id, 'vkExUnit_cta_button_mode', true );
+if( empty( $button_mode ) ) {
+	$button_mode = 'normal';
+}
+if ( $button_mode == 'download' ) {
+	$media_id = get_post_meta( $id, 'vkExUnit_cta_upload_file_id', true);
+	$download_file = get_post($media_id);
+	if( empty($download_file) || $download_file->post_type != 'attachment') {
+		$button_mode = 'normal';
+	}else{
+		$download_filename = preg_replace('/^.+\/([^\/]+)$/', '\1', $download_file->guid);
+	}
+}
+
 
 $image_position = get_post_meta( $id, 'vkExUnit_cta_img_position', true );
 if ( ! $image_position ) {
@@ -56,8 +70,15 @@ if ( $imgid ) {
 $content .= '<div class="cta_body_txt ' . ( ( $imgid ) ? 'image_exist' : 'image_no' ) . '">';
 $content .= wp_kses_post( do_shortcode( $text ) );
 $content .= '</div>';
+if ( $button_mode == 'download' ) {
+	$content .= '<div class="cta_body_link _download">';
+	$content .= '<a href="' . $download_file->guid . '" class="btn btn-primary btn-block btn-lg" download="'. $download_filename .'">';
+	$content .= $btn_before . $btn_text . $btn_after;
+	$content .= '</a>';
+	$content .= '</div>';
+}
 if ( $url && $btn_text ) {
-	$content .= '<div class="cta_body_link">';
+	$content .= '<div class="cta_body_link _normal">';
 	$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
 	$content .= $btn_before . $btn_text . $btn_after;
 	$content .= '</a>';
