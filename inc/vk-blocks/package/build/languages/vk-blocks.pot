@@ -3,23 +3,33 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/blocks/_helper/font-awesome.js:22
-msgid "Font Awesome"
+#: src/blocks/_helper/font-awesome-new.js:12
+#: src/blocks/border-box/block.js:114
+#: src/blocks/border-box/font-awesome-new.js:21
+msgid "Icon"
 msgstr ""
 
-#: src/blocks/_helper/font-awesome.js:28
-msgid "Enter Font Awesome Class."
+#: src/blocks/_helper/font-awesome-new.js:59
+#: src/blocks/border-box/font-awesome-new.js:68
+msgid ""
+"If you want to use an icon other than the ones listed above, you can use "
+"any of the icons from Font Awesome's icon list Please select a tag and "
+"enter it."
 msgstr ""
 
-#: src/blocks/_helper/font-awesome.js:29
-msgid "Ex) fas fa-arrow-circle-right"
+#: src/blocks/_helper/font-awesome-new.js:60
+#: src/blocks/border-box/font-awesome-new.js:69
+msgid "Ex) <i class=\"fas fa-arrow-circle-right\"></i>"
 msgstr ""
 
-#: src/blocks/_helper/font-awesome.js:31
-#: src/blocks/button/block.js:267
-#: src/blocks/pr-blocks/block.js:325
-#: src/blocks/pr-content/block.js:202
+#: src/blocks/_helper/font-awesome-new.js:62
+#: src/blocks/border-box/font-awesome-new.js:71
 msgid "Font Awesome icon list"
+msgstr ""
+
+#: src/blocks/_helper/font-awesome-new.js:75
+#: src/blocks/border-box/font-awesome-new.js:84
+msgid "Select Icon"
 msgstr ""
 
 #: src/blocks/alert/block.js:17
@@ -32,45 +42,51 @@ msgid "Style Settings"
 msgstr ""
 
 #: src/blocks/alert/block.js:53
-#: src/blocks/button/block.js:247
-#: src/blocks/pr-content/block.js:180
+#: src/blocks/button/block.js:249
+#: src/blocks/group-style/block.js:131
+#: src/blocks/pr-content/block.js:159
 msgid "Success"
 msgstr ""
 
 #: src/blocks/alert/block.js:54
-#: src/blocks/button/block.js:248
-#: src/blocks/pr-content/block.js:181
+#: src/blocks/button/block.js:250
+#: src/blocks/group-style/block.js:127
+#: src/blocks/pr-content/block.js:160
 msgid "Info"
 msgstr ""
 
 #: src/blocks/alert/block.js:55
-#: src/blocks/button/block.js:249
-#: src/blocks/pr-content/block.js:182
+#: src/blocks/button/block.js:251
+#: src/blocks/group-style/block.js:135
+#: src/blocks/pr-content/block.js:161
 msgid "Warning"
 msgstr ""
 
 #: src/blocks/alert/block.js:56
-#: src/blocks/button/block.js:250
-#: src/blocks/pr-content/block.js:183
+#: src/blocks/button/block.js:252
+#: src/blocks/group-style/block.js:139
+#: src/blocks/pr-content/block.js:162
 msgid "Danger"
 msgstr ""
 
 #: src/blocks/balloon/block.js:114
 #: src/blocks/flow/block.js:96
-#: src/blocks/pr-blocks/block.js:158
+#: src/blocks/pr-blocks/block.js:149
 #: src/blocks/pr-content/component.js:157
 #: src/blocks/pr-content/deprecated/component-deprecated.js:102
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:116
+#: src/blocks/pr-content/deprecated/componentV1.js:185
 #: src/blocks/staff/component.js:88
 msgid "Select image"
 msgstr ""
 
 #: src/blocks/balloon/block.js:119
 #: src/blocks/flow/block.js:97
-#: src/blocks/pr-blocks/block.js:154
+#: src/blocks/pr-blocks/block.js:145
 #: src/blocks/pr-content/component.js:164
 #: src/blocks/pr-content/deprecated/component-deprecated.js:106
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:120
+#: src/blocks/pr-content/deprecated/componentV1.js:192
 msgid "Upload image"
 msgstr ""
 
@@ -79,7 +95,7 @@ msgid "Icon Name"
 msgstr ""
 
 #: src/blocks/balloon/block.js:139
-#: src/blocks/button/block.js:299
+#: src/blocks/button/block.js:303
 msgid "Input text"
 msgstr ""
 
@@ -101,14 +117,14 @@ msgid "Please specify the layout of the balloon."
 msgstr ""
 
 #: src/blocks/balloon/block.js:75
-#: src/blocks/button/block.js:176
-#: src/blocks/pr-content/block.js:241
+#: src/blocks/button/block.js:178
+#: src/blocks/pr-content/block.js:203
 msgid "Left"
 msgstr ""
 
 #: src/blocks/balloon/block.js:76
-#: src/blocks/button/block.js:192
-#: src/blocks/pr-content/block.js:240
+#: src/blocks/button/block.js:194
+#: src/blocks/pr-content/block.js:202
 msgid "Right"
 msgstr ""
 
@@ -128,204 +144,188 @@ msgstr ""
 msgid "Thinking"
 msgstr ""
 
-#: src/blocks/border-box/Body.js:20
+#: src/blocks/border-box/Body.js:21
+#: src/blocks/border-box/deprecated.js:20
 msgid "Please enter a title."
 msgstr ""
 
-#: src/blocks/border-box/block.js:100
+#: src/blocks/border-box/block.js:101
 msgid "Blue"
 msgstr ""
 
-#: src/blocks/border-box/block.js:104
+#: src/blocks/border-box/block.js:105
 msgid "Green"
 msgstr ""
 
-#: src/blocks/border-box/block.js:108
+#: src/blocks/border-box/block.js:109
 msgid "Black"
 msgstr ""
 
-#: src/blocks/border-box/block.js:113
-msgid "Icon"
+#: src/blocks/border-box/block.js:117
+#: src/blocks/button/block.js:269
+#: src/blocks/pr-content/block.js:175
+msgid "Icon ( Font Awesome )"
 msgstr ""
 
-#: src/blocks/border-box/block.js:44
+#: src/blocks/border-box/block.js:45
 msgid "Border Box"
 msgstr ""
 
-#: src/blocks/border-box/block.js:54
+#: src/blocks/border-box/block.js:55
 msgid "Solid Angle Tab"
 msgstr ""
 
-#: src/blocks/border-box/block.js:59
+#: src/blocks/border-box/block.js:60
 msgid "Solid Round Tab"
 msgstr ""
 
-#: src/blocks/border-box/block.js:63
+#: src/blocks/border-box/block.js:64
 msgid "Solid Angle Banner"
 msgstr ""
 
-#: src/blocks/border-box/block.js:67
+#: src/blocks/border-box/block.js:68
 msgid "Solid Angle Onborder"
 msgstr ""
 
-#: src/blocks/border-box/block.js:71
+#: src/blocks/border-box/block.js:72
 msgid "Solid Angle Inner"
 msgstr ""
 
-#: src/blocks/border-box/block.js:75
+#: src/blocks/border-box/block.js:76
 msgid "Solid Angle iconFeature"
 msgstr ""
 
-#: src/blocks/border-box/block.js:85
+#: src/blocks/border-box/block.js:86
 #: src/blocks/staff/block.js:103
 msgid "Color"
 msgstr ""
 
-#: src/blocks/border-box/block.js:92
+#: src/blocks/border-box/block.js:93
 msgid "Red"
 msgstr ""
 
-#: src/blocks/border-box/block.js:96
+#: src/blocks/border-box/block.js:97
 msgid "Orange"
 msgstr ""
 
-#: src/blocks/button/block.js:127
+#: src/blocks/button/block.js:129
 msgid "Button setting"
 msgstr ""
 
-#: src/blocks/button/block.js:129
+#: src/blocks/button/block.js:131
 msgid "Sub Caption"
 msgstr ""
 
-#: src/blocks/button/block.js:135
-#: src/blocks/pr-blocks/block.js:311
-#: src/blocks/pr-content/block.js:160
+#: src/blocks/button/block.js:137
+#: src/blocks/pr-blocks/block.js:294
+#: src/blocks/pr-content/block.js:139
 msgid "Open link new tab."
 msgstr ""
 
-#: src/blocks/button/block.js:140
+#: src/blocks/button/block.js:142
 msgid "Button Size:"
 msgstr ""
 
-#: src/blocks/button/block.js:148
+#: src/blocks/button/block.js:150
 msgid "Large"
 msgstr ""
 
-#: src/blocks/button/block.js:156
+#: src/blocks/button/block.js:158
 msgid "Normal"
 msgstr ""
 
-#: src/blocks/button/block.js:164
+#: src/blocks/button/block.js:166
 msgid "Small"
 msgstr ""
 
-#: src/blocks/button/block.js:168
+#: src/blocks/button/block.js:170
 msgid "Button Position:"
 msgstr ""
 
-#: src/blocks/button/block.js:184
+#: src/blocks/button/block.js:186
 msgid "Center"
 msgstr ""
 
-#: src/blocks/button/block.js:200
+#: src/blocks/button/block.js:202
 msgid "Wide"
 msgstr ""
 
-#: src/blocks/button/block.js:208
+#: src/blocks/button/block.js:210
 msgid "Block"
 msgstr ""
 
-#: src/blocks/button/block.js:212
+#: src/blocks/button/block.js:214
 msgid "Button Style:"
 msgstr ""
 
-#: src/blocks/button/block.js:220
-#: src/blocks/pr-blocks/block.js:342
+#: src/blocks/button/block.js:222
+#: src/blocks/pr-blocks/block.js:321
 msgid "Solid color"
 msgstr ""
 
-#: src/blocks/button/block.js:228
-#: src/blocks/pr-blocks/block.js:343
+#: src/blocks/button/block.js:230
+#: src/blocks/pr-blocks/block.js:322
 msgid "No background"
 msgstr ""
 
-#: src/blocks/button/block.js:236
+#: src/blocks/button/block.js:238
 msgid "Text only"
 msgstr ""
 
-#: src/blocks/button/block.js:239
+#: src/blocks/button/block.js:241
 msgid "If you select \"No background\", that you need to select a Custom Color."
 msgstr ""
 
-#: src/blocks/button/block.js:242
-#: src/blocks/pr-content/block.js:175
+#: src/blocks/button/block.js:244
+#: src/blocks/pr-content/block.js:154
 msgid "Default Color:"
 msgstr ""
 
-#: src/blocks/button/block.js:245
-#: src/blocks/pr-content/block.js:178
+#: src/blocks/button/block.js:247
+#: src/blocks/pr-content/block.js:157
 msgid "Primary"
 msgstr ""
 
-#: src/blocks/button/block.js:246
-#: src/blocks/pr-content/block.js:179
+#: src/blocks/button/block.js:248
+#: src/blocks/pr-content/block.js:158
 msgid "Secondary"
 msgstr ""
 
-#: src/blocks/button/block.js:251
-#: src/blocks/pr-content/block.js:184
+#: src/blocks/button/block.js:253
+#: src/blocks/pr-content/block.js:163
 msgid "Light"
 msgstr ""
 
-#: src/blocks/button/block.js:252
-#: src/blocks/pr-content/block.js:185
+#: src/blocks/button/block.js:254
+#: src/blocks/pr-content/block.js:164
 msgid "Dark"
 msgstr ""
 
-#: src/blocks/button/block.js:257
+#: src/blocks/button/block.js:259
 msgid "Custom Color"
 msgstr ""
 
-#: src/blocks/button/block.js:258
+#: src/blocks/button/block.js:260
 msgid ""
 "This custom color overrides the default color. If you want to use the "
 "default color, click the clear button."
 msgstr ""
 
-#: src/blocks/button/block.js:266
-#: src/blocks/pr-content/block.js:196
-msgid "Font Awesome:"
-msgstr ""
-
-#: src/blocks/button/block.js:270
-#: src/blocks/pr-content/block.js:207
+#: src/blocks/button/block.js:271
+#: src/blocks/pr-content/block.js:177
 msgid "Before text"
 msgstr ""
 
-#: src/blocks/button/block.js:271
-#: src/blocks/pr-content/block.js:208
-msgid ""
-"Enter Font Awesome Class.This icon will appear before text. Ex) fas "
-"fa-arrow-circle-right"
-msgstr ""
-
-#: src/blocks/button/block.js:277
-#: src/blocks/pr-content/block.js:219
+#: src/blocks/button/block.js:279
+#: src/blocks/pr-content/block.js:185
 msgid "After text"
 msgstr ""
 
-#: src/blocks/button/block.js:278
-#: src/blocks/pr-content/block.js:220
-msgid ""
-"Enter Font Awesome Class.This icon will appear after text. Ex) fas "
-"fa-external-link-alt"
-msgstr ""
-
-#: src/blocks/button/block.js:313
+#: src/blocks/button/block.js:317
 msgid "Apply"
 msgstr ""
 
-#: src/blocks/button/block.js:45
+#: src/blocks/button/block.js:46
 msgid "Button"
 msgstr ""
 
@@ -394,7 +394,7 @@ msgid "Border Color"
 msgstr ""
 
 #: src/blocks/group-style/block.js:95
-#: src/blocks/pr-content/block.js:168
+#: src/blocks/pr-content/block.js:147
 msgid "Solid"
 msgstr ""
 
@@ -616,59 +616,55 @@ msgstr ""
 msgid "List Icon Color"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:169
+#: src/blocks/pr-blocks/block.js:160
 msgid "PR Block1 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:184
+#: src/blocks/pr-blocks/block.js:175
 msgid "Icon 1"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:218
+#: src/blocks/pr-blocks/block.js:205
 msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:220
+#: src/blocks/pr-blocks/block.js:207
 msgid "PR Image 1"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:236
+#: src/blocks/pr-blocks/block.js:223
 msgid "PR Block2 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:251
+#: src/blocks/pr-blocks/block.js:238
 msgid "Icon 2"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:286
+#: src/blocks/pr-blocks/block.js:269
 msgid "PR Image 2"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:302
+#: src/blocks/pr-blocks/block.js:285
 msgid "PR Block3 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:304
+#: src/blocks/pr-blocks/block.js:287
 msgid "Link URL:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:317
+#: src/blocks/pr-blocks/block.js:300
 msgid "Icon 3"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:320
-msgid "Class name of the Font Awesome icon font you want to use:"
-msgstr ""
-
-#: src/blocks/pr-blocks/block.js:339
+#: src/blocks/pr-blocks/block.js:318
 msgid "Icon Background:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:350
+#: src/blocks/pr-blocks/block.js:329
 msgid "When you have an image. Image is displayed with priority."
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:352
+#: src/blocks/pr-blocks/block.js:331
 msgid "PR Image 3"
 msgstr ""
 
@@ -676,77 +672,81 @@ msgstr ""
 msgid "PR Blocks"
 msgstr ""
 
-#: src/blocks/pr-blocks/component-block.js:164
+#: src/blocks/pr-blocks/component-block.js:183
 #: src/blocks/pr-blocks/deprecated/component-block.js:144
+#: src/blocks/pr-blocks/deprecated/component-blockV2.js:164
 msgid "Input Title"
 msgstr ""
 
-#: src/blocks/pr-blocks/component-block.js:171
+#: src/blocks/pr-blocks/component-block.js:190
 #: src/blocks/pr-blocks/deprecated/component-block.js:151
+#: src/blocks/pr-blocks/deprecated/component-blockV2.js:171
 msgid "Input Content"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:119
-msgid "Color Setting"
-msgstr ""
-
-#: src/blocks/pr-content/block.js:122
+#: src/blocks/pr-content/block.js:101
 msgid "Title Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:128
+#: src/blocks/pr-content/block.js:107
 msgid "Content Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:134
+#: src/blocks/pr-content/block.js:113
 msgid "Image Border Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:142
+#: src/blocks/pr-content/block.js:121
 msgid "Button Setting"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:145
+#: src/blocks/pr-content/block.js:124
 msgid "Button Text"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:152
+#: src/blocks/pr-content/block.js:131
 msgid "Link URL"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:164
+#: src/blocks/pr-content/block.js:143
 msgid "Button Type"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:169
+#: src/blocks/pr-content/block.js:148
 msgid "Ghost"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:189
+#: src/blocks/pr-content/block.js:168
 msgid "Button Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:233
+#: src/blocks/pr-content/block.js:195
 msgid "Layout Setting"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:237
+#: src/blocks/pr-content/block.js:199
 msgid "Layout Type"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:87
+#: src/blocks/pr-content/block.js:73
 msgid "PR Content"
+msgstr ""
+
+#: src/blocks/pr-content/block.js:98
+msgid "Color Setting"
 msgstr ""
 
 #: src/blocks/pr-content/component.js:200
 #: src/blocks/pr-content/deprecated/component-deprecated.js:122
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:136
+#: src/blocks/pr-content/deprecated/componentV1.js:228
 msgid "Input title."
 msgstr ""
 
 #: src/blocks/pr-content/component.js:208
 #: src/blocks/pr-content/deprecated/component-deprecated.js:130
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:144
+#: src/blocks/pr-content/deprecated/componentV1.js:236
 msgid "Input content."
 msgstr ""
 

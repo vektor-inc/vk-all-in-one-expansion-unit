@@ -3,12 +3,12 @@ function vkblocks_is_lightning() {
 
 	// テーマがLightning系の場合読み込まない
 	$theme_textdomain = wp_get_theme()->get( 'TextDomain' );
-	if ( $theme_textdomain == 'lightning' || $theme_textdomain == 'lightning-pro' ) {
+	if ( $theme_textdomain == 'lightning' || $theme_textdomain == 'lightning-pro' || $theme_textdomain == 'katawara'  ) {
 		return true;
 	}
 
 	$theme_template = wp_get_theme()->get( 'Template' );
-	if ( $theme_template == 'lightning' || $theme_template == 'lightning-pro' ) {
+	if ( $theme_template == 'lightning' || $theme_template == 'lightning-pro' || $theme_textdomain == 'katawara' ) {
 		return true;
 	}
 
