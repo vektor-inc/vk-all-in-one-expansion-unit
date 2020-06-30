@@ -223,6 +223,16 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if( empty( $button_mode ) ) {
 				$button_mode = 'normal';
 			}
+			$download_file_id = get_post_meta( get_the_id(), 'vkExUnit_cta_upload_file_id', true);
+			$download_filename = '';
+			if( !empty( $download_file_id ) ) {
+				$download_file = get_post($download_file_id);
+				if( empty($download_file) || $download_file->post_type != 'attachment') {
+					$download_file_id = '';
+				}else{
+					$download_filename = preg_replace('/^.+\/([^\/]+)$/', '\1', $download_file->guid);
+				}
+			}
 			?>
 	<style>
 	#message.updated a {display:none;}
@@ -235,6 +245,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	#cta-thumbnail_control.change #media_thumb_url_add { display:none; }
 	#cta-thumbnail_control.change #media_thumb_url_change,
 	#cta-thumbnail_control.change #media_thumb_url_remove { display:inline; }
+	#vkExUnit_cta_button_mode_clear { display: none; }
+	#vkExUnit_cta_table.__in_file #vkExUnit_cta_button_mode_clear { display: inline; }
 	#cta_filename { padding-left: 1em; }
 	#vkExUnit_cta_button_mode_normal { padding-right: 1em; }
 	.form-table input[type=text],
@@ -284,10 +296,12 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				button: {text: '<?php _e( 'Choose File', $vk_call_to_action_textdomain ); ?>'},
 				multiple: false,
 			});
+			var t = d.getElementById('vkExUnit_cta_table')
 			up.on('select',function(){
 				var f = up.state().get('selection').first().toJSON();
 				d.getElementById('vkExUnit_cta_upload_file_id').value = f.id
 				d.getElementById('cta_filename').innerHTML = f.filename
+				t.classList.add('__in_file')
 			})
 			d.getElementById('cta_add_upload_file').addEventListener('click', function(ev){
 				ev.preventDefault()
@@ -295,11 +309,17 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			},false)
 
 			var cc = function(ev){
-				d.getElementById('vkExUnit_cta_table').classList.remove('download_mode', 'normal_mode')
-				d.getElementById('vkExUnit_cta_table').classList.add(ev.target.value+'_mode')
+				t.classList.remove('download_mode', 'normal_mode')
+				t.classList.add(ev.target.value+'_mode')
 			}
 			d.getElementById('vkExUnit_cta_button_mode_normal').addEventListener('change', cc, false)
 			d.getElementById('vkExUnit_cta_button_mode_download').addEventListener('change', cc, false)
+			d.getElementById('vkExUnit_cta_button_mode_clear').addEventListener('click', function(ev){
+				ev.preventDefault()
+				t.classList.remove('__in_file')
+				d.getElementById('vkExUnit_cta_upload_file_id').value = ''
+				d.getElementById('cta_filename').innerHTML = ''
+			}, false)
 		},false);
 	})(window,document);
 	</script>
@@ -308,7 +328,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?><br>
 	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
 	</p>
-	<table class="form-table <?php echo $button_mode; ?>_mode" id="vkExUnit_cta_table">
+	<table class="form-table <?php echo $button_mode; ?>_mode <?php if(!empty($download_filename)){echo '__in_file';}; ?>" id="vkExUnit_cta_table">
 	<tr>
 	<th><?php _e( 'CTA image', $vk_call_to_action_textdomain ); ?></th>
 	<td>
@@ -363,19 +383,8 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		<th><?php _e( 'Download Content', $vk_call_to_action_textdomain); ?></th>
 		<td>
 			<button id="cta_add_upload_file" class="button button-default"><?php _e( 'Set File', $vk_call_to_action_textdomain); ?></button>
-			<?php
-			$download_file_id = get_post_meta( get_the_id(), 'vkExUnit_cta_upload_file_id', true);
-			$download_filename = '';
-			if( !empty( $download_file_id ) ) {
-				$download_file = get_post($download_file_id);
-				if( empty($download_file) || $download_file->post_type != 'attachment') {
-					$download_file_id = '';
-				}else{
-					$download_filename = preg_replace('/^.+\/([^\/]+)$/', '\1', $download_file->guid);
-				}
-			}
-			?>
 			<span id="cta_filename"><?php echo $download_filename; ?></span>
+			<button id="vkExUnit_cta_button_mode_clear" >clear</button>
 			<input type="hidden" id="vkExUnit_cta_upload_file_id" name="vkExUnit_cta_upload_file_id" value="<?php echo $download_file_id; ?>" />
 		</td>
 	</tr>
