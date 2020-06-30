@@ -76,8 +76,7 @@ if ( $button_mode == 'download' ) {
 	$content .= $btn_before . $btn_text . $btn_after;
 	$content .= '</a>';
 	$content .= '</div>';
-}
-if ( $url && $btn_text ) {
+} else if ( $url && $btn_text ) {
 	$content .= '<div class="cta_body_link _normal">';
 	$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
 	$content .= $btn_before . $btn_text . $btn_after;

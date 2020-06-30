@@ -278,10 +278,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		});
 	});
 	!(function(w,d){
-		w.addEventListener('load',function(){
+		w.addEventListener('DOMContentLoaded',function(){
 			var up = wp.media({
-				title: 'Choose File',
-				button: {text: 'Choose Image'},
+				title: <?php _e( 'Choose Donwload File', $vk_call_to_action_textdomain ); ?>,
+				button: {text: <?php _e( 'Choose File', $vk_call_to_action_textdomain ); ?>},
 				multiple: false,
 			});
 			up.on('select',function(){
@@ -291,11 +291,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				d.getElementById('cta_filename').innerHTML = f.filename
 			})
 			d.getElementById('cta_add_upload_file').addEventListener('click', function(ev){
-				ev.defaultPrevented = false
+				ev.preventDefault()
 				up.open()
 			},false)
 
-			// d.getElementById('vkExUnit_cta_table').classList.add(d.getElementById('vkExUnit_cta_button_mode_normal').value+'_mode')
 			var cc = function(ev){
 				d.getElementById('vkExUnit_cta_table').classList.remove('download_mode', 'normal_mode')
 				d.getElementById('vkExUnit_cta_table').classList.add(ev.target.value+'_mode')
