@@ -285,7 +285,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				multiple: false,
 			});
 			up.on('select',function(){
-				console.log(up.state().get('selection').first().toJSON())
 				var f = up.state().get('selection').first().toJSON();
 				d.getElementById('vkExUnit_cta_upload_file_id').value = f.id
 				d.getElementById('cta_filename').innerHTML = f.filename
