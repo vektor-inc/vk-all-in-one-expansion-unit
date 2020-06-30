@@ -280,8 +280,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	!(function(w,d){
 		w.addEventListener('DOMContentLoaded',function(){
 			var up = wp.media({
-				title: <?php _e( 'Choose Donwload File', $vk_call_to_action_textdomain ); ?>,
-				button: {text: <?php _e( 'Choose File', $vk_call_to_action_textdomain ); ?>},
+				title: '<?php _e( 'Choose Donwload File', $vk_call_to_action_textdomain ); ?>',
+				button: {text: '<?php _e( 'Choose File', $vk_call_to_action_textdomain ); ?>'},
 				multiple: false,
 			});
 			up.on('select',function(){
