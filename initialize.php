@@ -77,9 +77,9 @@ function veu_install_function() {
  * change old options
  */
 function change_old_options() {
-	$option  = get_option( 'vkExUnit_pagespeeding' );
+	$option = get_option( 'vkExUnit_pagespeeding' );
 
-	if ( $option['common'] ) {
+	if ( isset( $option['common'] ) ) {
 		$option['css_exunit'] = true;
 		unset( $option['common'] );
 	}
