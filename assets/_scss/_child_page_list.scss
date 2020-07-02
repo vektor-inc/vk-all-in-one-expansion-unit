@@ -1,10 +1,14 @@
 .veu_childPage_list {
 	margin-top: 2.5em;
 	.childPage_list_box {
-		display: block;
 		margin-bottom: 1.5em;
 		width: 100%;
 		text-decoration: none;
+		&_inner {
+			display: flex;
+			flex-direction: column; // カラムが縦方向に並ぶように指定
+			height: 100%;
+		}
 	}
 	.wp-post-image {
 		float: left;
@@ -15,22 +19,25 @@
 		border: solid 1px #ddd;
 	}
 	.childPage_list_body {
+		position: relative;
 		overflow: hidden;
 		color: #333;
 		font-size: 14px;
+		height: 100%;
+		padding-bottom: 2.5em;
 		&:hover {
 			text-decoration: underline;
 		}
 	}
-	p {
-		line-height: 1.5em;
-	}
 	.childPage_list_text {
 		overflow: hidden;
 		margin-bottom: 1em;
+		line-height: 1.5em;
 	}
 	.childPage_list_more {
-		float: right;
+		position: absolute;
+		bottom: 0;
+		right: 0;
 	}
 }
 
