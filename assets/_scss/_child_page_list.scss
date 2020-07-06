@@ -1,5 +1,11 @@
 .veu_childPage_list {
 	margin-top: 2.5em;
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap; /* Safari */
+	justify-content: space-between;
+	-webkit-justify-content: space-between; /* Safari */
 	.childPage_list_box {
 		margin-bottom: 1.5em;
 		width: 100%;
@@ -49,12 +55,6 @@
 }
 @media (min-width: 541px) {
 	.veu_childPage_list {
-		display: flex;
-		align-items: stretch;
-		flex-wrap: wrap;
-		-webkit-flex-wrap: wrap; /* Safari */
-		justify-content: space-between;
-		-webkit-justify-content: space-between; /* Safari */
 		.childPage_list_box {
 			width: 48%;
 		}
