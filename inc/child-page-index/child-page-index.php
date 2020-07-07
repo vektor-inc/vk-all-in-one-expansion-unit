@@ -50,7 +50,7 @@ function veu_childPageIndex_block_callback( $attributes=array() ) {
 
 	if ( empty($r) ) {
 		if ( isset($_GET['context']) ) {
-			return '<div class="disabled ' . esc_attr($classes) .'">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
+			return '<div class="alert alert-warning text-center ' . esc_attr($classes) .'">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
 		}
 		return '';
 	}
