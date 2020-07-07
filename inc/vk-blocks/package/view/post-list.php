@@ -168,7 +168,7 @@ class VkBlocksPostList {
 	}
 
 	public function renderNoPost() {
-		return '<div>' . __( 'No Post is selected', 'vk-blocks' ) . '</div>';
+		return '<div class="alert alert-warning text-center">' . __( 'No Post is selected', 'vk-blocks' ) . '</div>';
 	}
 
 }
