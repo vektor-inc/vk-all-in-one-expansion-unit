@@ -3,7 +3,7 @@
 	const { registerBlockType } = wp.blocks
 	const { InspectorControls } = wp.blockEditor && wp.blockEditor.BlockEdit ? wp.blockEditor : wp.editor
 	const { ServerSideRender, PanelBody, SelectControl } = wp.components
-	const { withSelect,select } = wp.data
+	const { withSelect, select } = wp.data
 	const { Fragment } = wp.element
 	const React = wp.element
 	const BlockIcon = (
