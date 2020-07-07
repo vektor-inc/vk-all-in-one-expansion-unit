@@ -86,7 +86,6 @@
 				}
 			}
 			
-			//このページのIDを重複しないよう削除
 			let currentPostId = select("core/editor").getCurrentPostId();
 			if(currentPostId){
 				options = options.filter(option => option.value !== currentPostId)
