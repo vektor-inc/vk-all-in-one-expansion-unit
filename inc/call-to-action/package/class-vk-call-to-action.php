@@ -127,6 +127,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				// カスタムフィールドの設定
 				$custom_fields = array(
+					'vkExUnit_cta_use_type'    => array(
+						'escape_type' => '',
+					),
 					'vkExUnit_cta_img'                => array(
 						'escape_type' => '',
 					),
@@ -270,6 +273,25 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
 	</p>
 	<table class="form-table">
+
+	<tr>
+	<th>
+	<label for="vkExUnit_cta_use_type"><?php _e( 'Use Classic layout', $vk_call_to_action_textdomain ); ?></label>
+	</th>
+	<td>
+	<?php
+	$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
+	if ( $target_blank == 'veu_cta_normal' ) {
+		$checked = ' checked';
+	} else {
+		$checked = '';
+	}
+	?>
+	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php echo $checked; ?> />
+	<label for="vkExUnit_cta_use_type"><?php _e( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ); ?></label>
+	</td>
+	</tr>
+
 	<tr>
 	<th><?php _e( 'CTA image', $vk_call_to_action_textdomain ); ?></th>
 	<td>
@@ -382,7 +404,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 			// 本文に入力がある場合は本文を表示
 			$cta_content = $post->post_content;
-			if ( $cta_content ) {
+			if ( $cta_content && $post->vkExUnit_cta_use_type != 'veu_cta_normal' ) {
 				$content = $cta_content;
 			} else {
 				// 旧 CTA レイアウト

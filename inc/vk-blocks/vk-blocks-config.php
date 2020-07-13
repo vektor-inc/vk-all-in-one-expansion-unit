@@ -3,14 +3,16 @@
   Load modules
 /*-------------------------------------------*/
 if ( ! function_exists( 'vkblocks_active' ) ) {
-	require_once 'package/vk-blocks-functions.php';
+	
 	// Set asset URL.
 	define( 'VK_BLOCKS_URL', plugin_dir_url( __FILE__ ) . 'package/' );
 	// Set version number.
-	define( 'VK_BLOCKS_VERSION', '0.35.5' );
+	define( 'VK_BLOCKS_VERSION', '0.37.4' );
 
 	global $vk_blocks_prefix;
 	$vk_blocks_prefix = veu_get_prefix();
+
+	require_once 'package/vk-blocks-functions.php';
 
 	add_action(
 		'plugins_loaded',

@@ -2,10 +2,23 @@
 
 // サーバーサイドレンダリングスクリプトを読み込み。
 require_once dirname( __FILE__ ) . '/view/post-list.php';
+// require_once dirname( __FILE__ ) . '/customize/vk-blocks-customize-config.php';
+
+// VK Blocks の管理画面
+require_once dirname( __FILE__ ) . '/admin/admin.php';
 
 function vkblocks_active() {
 	return true;
 }
+
+add_action(
+	'plugins_loaded',
+	function () {
+		// Load language files.
+		$path = dirname( plugin_basename( __FILE__ ) ) . '/build/languages';
+		load_plugin_textdomain( 'vk-blocks', false, $path );
+	}
+);
 
 /*
  Load css
@@ -293,6 +306,7 @@ function vkblocks_blocks_assets() {
 							array(
 								'selectId'          => array(
 									'type' => 'number',
+									'default' => -1,
 								),
 								'name'              => array(
 									'type'    => 'string',
