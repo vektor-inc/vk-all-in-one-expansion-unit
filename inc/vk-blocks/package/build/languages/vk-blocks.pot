@@ -37,7 +37,7 @@ msgid "Alert"
 msgstr ""
 
 #: src/blocks/alert/block.js:48
-#: src/blocks/heading/block.js:125
+#: src/blocks/heading/block.js:126
 msgid "Style Settings"
 msgstr ""
 
@@ -69,7 +69,78 @@ msgstr ""
 msgid "Danger"
 msgstr ""
 
-#: src/blocks/balloon/block.js:114
+#: src/blocks/balloon/block.js:106
+msgid "Balloon setting"
+msgstr ""
+
+#: src/blocks/balloon/block.js:108
+#: src/blocks/heading/block.js:200
+msgid "Position"
+msgstr ""
+
+#: src/blocks/balloon/block.js:109
+msgid "Please specify the layout of the balloon."
+msgstr ""
+
+#: src/blocks/balloon/block.js:117
+#: src/blocks/button/block.js:178
+#: src/blocks/pr-content/block.js:203
+msgid "Left"
+msgstr ""
+
+#: src/blocks/balloon/block.js:125
+#: src/blocks/button/block.js:194
+#: src/blocks/pr-content/block.js:202
+msgid "Right"
+msgstr ""
+
+#: src/blocks/balloon/block.js:129
+msgid "Type"
+msgstr ""
+
+#: src/blocks/balloon/block.js:130
+msgid "Please select the type of balloon."
+msgstr ""
+
+#: src/blocks/balloon/block.js:138
+msgid "Serif"
+msgstr ""
+
+#: src/blocks/balloon/block.js:146
+msgid "Thinking"
+msgstr ""
+
+#: src/blocks/balloon/block.js:150
+msgid "Image Style"
+msgstr ""
+
+#: src/blocks/balloon/block.js:158
+#: src/blocks/button/block.js:158
+#: src/blocks/faq/block.js:64
+msgid "Normal"
+msgstr ""
+
+#: src/blocks/balloon/block.js:166
+msgid "Rounded"
+msgstr ""
+
+#: src/blocks/balloon/block.js:174
+msgid "Circle"
+msgstr ""
+
+#: src/blocks/balloon/block.js:177
+msgid "Background color of speech balloon"
+msgstr ""
+
+#: src/blocks/balloon/block.js:183
+msgid "Default Icon Setting"
+msgstr ""
+
+#: src/blocks/balloon/block.js:187
+msgid "You can register default icons from Settings > VK Blocks in Admin."
+msgstr ""
+
+#: src/blocks/balloon/block.js:207
 #: src/blocks/flow/block.js:96
 #: src/blocks/pr-blocks/block.js:149
 #: src/blocks/pr-content/component.js:157
@@ -80,7 +151,7 @@ msgstr ""
 msgid "Select image"
 msgstr ""
 
-#: src/blocks/balloon/block.js:119
+#: src/blocks/balloon/block.js:212
 #: src/blocks/flow/block.js:97
 #: src/blocks/pr-blocks/block.js:145
 #: src/blocks/pr-content/component.js:164
@@ -90,58 +161,17 @@ msgstr ""
 msgid "Upload image"
 msgstr ""
 
-#: src/blocks/balloon/block.js:130
+#: src/blocks/balloon/block.js:223
 msgid "Icon Name"
 msgstr ""
 
-#: src/blocks/balloon/block.js:139
+#: src/blocks/balloon/block.js:232
 #: src/blocks/button/block.js:303
 msgid "Input text"
 msgstr ""
 
-#: src/blocks/balloon/block.js:24
+#: src/blocks/balloon/block.js:25
 msgid "Ballon"
-msgstr ""
-
-#: src/blocks/balloon/block.js:66
-msgid "Balloon setting"
-msgstr ""
-
-#: src/blocks/balloon/block.js:68
-#: src/blocks/heading/block.js:188
-msgid "Position"
-msgstr ""
-
-#: src/blocks/balloon/block.js:69
-msgid "Please specify the layout of the balloon."
-msgstr ""
-
-#: src/blocks/balloon/block.js:75
-#: src/blocks/button/block.js:178
-#: src/blocks/pr-content/block.js:203
-msgid "Left"
-msgstr ""
-
-#: src/blocks/balloon/block.js:76
-#: src/blocks/button/block.js:194
-#: src/blocks/pr-content/block.js:202
-msgid "Right"
-msgstr ""
-
-#: src/blocks/balloon/block.js:81
-msgid "Type"
-msgstr ""
-
-#: src/blocks/balloon/block.js:82
-msgid "Please select the type of balloon."
-msgstr ""
-
-#: src/blocks/balloon/block.js:85
-msgid "Serif"
-msgstr ""
-
-#: src/blocks/balloon/block.js:86
-msgid "Thinking"
 msgstr ""
 
 #: src/blocks/border-box/Body.js:21
@@ -163,6 +193,7 @@ msgstr ""
 
 #: src/blocks/border-box/block.js:117
 #: src/blocks/button/block.js:269
+#: src/blocks/heading/block.js:187
 #: src/blocks/pr-content/block.js:175
 msgid "Icon ( Font Awesome )"
 msgstr ""
@@ -228,10 +259,6 @@ msgstr ""
 
 #: src/blocks/button/block.js:150
 msgid "Large"
-msgstr ""
-
-#: src/blocks/button/block.js:158
-msgid "Normal"
 msgstr ""
 
 #: src/blocks/button/block.js:166
@@ -312,11 +339,13 @@ msgid ""
 msgstr ""
 
 #: src/blocks/button/block.js:271
+#: src/blocks/heading/block.js:188
 #: src/blocks/pr-content/block.js:177
 msgid "Before text"
 msgstr ""
 
 #: src/blocks/button/block.js:279
+#: src/blocks/heading/block.js:191
 #: src/blocks/pr-content/block.js:185
 msgid "After text"
 msgstr ""
@@ -329,16 +358,36 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: src/blocks/faq/block.js:100
-msgid "Please enter a answer."
+#: src/blocks/faq/block.js:106
+msgid "Please enter a question."
 msgstr ""
 
-#: src/blocks/faq/block.js:56
+#: src/blocks/faq/block.js:45
 msgid "FAQ"
 msgstr ""
 
-#: src/blocks/faq/block.js:93
-msgid "Please enter a question."
+#: src/blocks/faq/block.js:69
+msgid "Bgfill Circle"
+msgstr ""
+
+#: src/blocks/faq/block.js:73
+msgid "Bgfill Square"
+msgstr ""
+
+#: src/blocks/faq/block.js:77
+msgid "Bgfill Rounded"
+msgstr ""
+
+#: src/blocks/faq/block.js:81
+msgid "Border Circle"
+msgstr ""
+
+#: src/blocks/faq/block.js:85
+msgid "Border Square"
+msgstr ""
+
+#: src/blocks/faq/block.js:89
+msgid "Border Rounded"
 msgstr ""
 
 #: src/blocks/flow/block.js:16
@@ -415,14 +464,14 @@ msgid "Brackets black"
 msgstr ""
 
 #: src/blocks/heading-style/block.js:33
-#: src/blocks/heading/block.js:131
+#: src/blocks/heading/block.js:132
 #: src/blocks/list-style/block.js:104
 #: src/blocks/staff/block.js:84
 msgid "Default"
 msgstr ""
 
 #: src/blocks/heading-style/block.js:38
-#: src/blocks/heading/block.js:132
+#: src/blocks/heading/block.js:133
 msgid "Plain"
 msgstr ""
 
@@ -446,60 +495,72 @@ msgstr ""
 msgid "Solid border bottom black"
 msgstr ""
 
-#: src/blocks/heading/block.js:127
+#: src/blocks/heading/block.js:128
 msgid "Heading style"
 msgstr ""
 
-#: src/blocks/heading/block.js:135
-msgid "Margin bottom size (rem)"
+#: src/blocks/heading/block.js:137
+msgid "Margin Setting"
 msgstr ""
 
-#: src/blocks/heading/block.js:146
+#: src/blocks/heading/block.js:138
+msgid "Margin bottom size of after hedding  (rem)"
+msgstr ""
+
+#: src/blocks/heading/block.js:148
+msgid "Margin bottom size of after this block (rem)"
+msgstr ""
+
+#: src/blocks/heading/block.js:159
 msgid "Heading Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:147
+#: src/blocks/heading/block.js:160
 msgid "Level"
 msgstr ""
 
-#: src/blocks/heading/block.js:154
+#: src/blocks/heading/block.js:167
 msgid "Text Alignment"
 msgstr ""
 
-#: src/blocks/heading/block.js:171
-msgid "Heading margin bottom size (rem)"
+#: src/blocks/heading/block.js:184
+msgid "Text Color"
 msgstr ""
 
-#: src/blocks/heading/block.js:186
+#: src/blocks/heading/block.js:194
+msgid "Icon Color"
+msgstr ""
+
+#: src/blocks/heading/block.js:198
 msgid "Sub Text Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:191
+#: src/blocks/heading/block.js:203
 msgid "Display"
 msgstr ""
 
-#: src/blocks/heading/block.js:192
+#: src/blocks/heading/block.js:204
 msgid "Hide"
 msgstr ""
 
-#: src/blocks/heading/block.js:196
+#: src/blocks/heading/block.js:208
 msgid "Text size (rem)"
 msgstr ""
 
-#: src/blocks/heading/block.js:64
+#: src/blocks/heading/block.js:65
 msgid "Heading"
 msgstr ""
 
-#: src/blocks/heading/component.js:108
-#: src/blocks/heading/deprecated/block.js:663
-#: src/blocks/heading/deprecated/component.js:108
-msgid "Input sub text…"
+#: src/blocks/heading/component.js:109
+#: src/blocks/heading/deprecated/block.js:390
+#: src/blocks/heading/deprecated/component.js:318
+msgid "Input title…"
 msgstr ""
 
-#: src/blocks/heading/component.js:92
-#: src/blocks/heading/deprecated/block.js:647
-#: src/blocks/heading/deprecated/component.js:92
-msgid "Input title…"
+#: src/blocks/heading/component.js:122
+#: src/blocks/heading/deprecated/block.js:406
+#: src/blocks/heading/deprecated/component.js:334
+msgid "Input sub text…"
 msgstr ""
 
 #: src/blocks/heading/heading-toolbar.js:16
@@ -859,4 +920,28 @@ msgstr ""
 
 #: src/translation_dummy.js:3
 msgid "Deactivated VK-Blocks Plugin. Because VK-Blocks Pro running."
+msgstr ""
+
+#: src/translation_dummy.js:4
+msgid "You can register frequently used icon images for speech bubble blocks."
+msgstr ""
+
+#: src/translation_dummy.js:5
+msgid "If you change image or name that please click Save Changes button."
+msgstr ""
+
+#: src/translation_dummy.js:6
+msgid "Balloon Image Setting"
+msgstr ""
+
+#: src/translation_dummy.js:7
+msgid "Select"
+msgstr ""
+
+#: src/translation_dummy.js:8
+msgid "Delete"
+msgstr ""
+
+#: src/translation_dummy.js:9
+msgid "Balloon Image Name"
 msgstr ""

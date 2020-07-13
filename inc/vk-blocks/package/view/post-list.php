@@ -137,8 +137,13 @@ class VkBlocksPostList {
 
 	public function get_loop_query_child( $attributes ) {
 
+
+
 		// ParentIdを指定
 		if ( isset( $attributes['selectId'] ) && $attributes['selectId'] !== 'false' ) {
+
+			$selectId = ($attributes['selectId'] > 0)? $attributes['selectId']: get_the_ID();
+
 			$post__not_in = array();
 			if ( ! empty( $attributes['selfIgnore'] ) ) {
 				$post__not_in = array( get_the_ID() );
@@ -156,7 +161,7 @@ class VkBlocksPostList {
 				'posts_per_page' => -1,
 				'order'          => 'ASC',
 				'orderby'        => 'menu_order',
-				'post_parent'    => intval( $attributes['selectId'] ),
+				'post_parent'    => intval( $selectId ),
 				'offset'         => $offset,
 				'post__not_in'   => $post__not_in,
 			);
