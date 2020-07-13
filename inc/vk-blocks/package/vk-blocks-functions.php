@@ -3,7 +3,9 @@
 // サーバーサイドレンダリングスクリプトを読み込み。
 require_once dirname( __FILE__ ) . '/view/post-list.php';
 // require_once dirname( __FILE__ ) . '/customize/vk-blocks-customize-config.php';
-require_once plugin_dir_path( __DIR__ ) . 'vk-admin/vk-admin-config.php';
+
+// VK Blocks の管理画面
+require_once dirname( __FILE__ ) . '/admin/admin.php';
 
 function vkblocks_active() {
 	return true;
