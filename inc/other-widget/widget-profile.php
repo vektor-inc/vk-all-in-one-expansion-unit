@@ -211,45 +211,36 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		if ( isset( $instance['icon_color'] ) ) {
 			$icon_color = esc_html( $instance['icon_color'] );
 		} else {
-			$icon_color = '';
+			$icon_color = '#fff';
 		}
 
 		// 背景塗り && 色指定がない場合
 		if ( ! $iconFont_bgType && ! $icon_color ) {
 			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
-			$outer_css = '';
+			$outer_css = 'class="bg_fill"';
+			
 
 			// 背景なし枠線の場合
 		} elseif ( $iconFont_bgType == 'no_paint' ) {
 			// 色指定がない場合
 			if ( ! $icon_color ) {
-				//sns_btns color key
-				$color_key = ''; //文字列が入る
-				$options = get_option( 'lightning_theme_options' );
-				if ( isset( $options['color_key'] )  ) {
-					$color_key = esc_html( $options['color_key'] );
-				}
-				$icon_color = $color_key;
+
+				$icon_color = '';
 			}
-			$outer_css = ' style="border:1px solid ' . $icon_color . ';background:none;"';
+			$outer_css = ' style="border-color: ' . $icon_color . '; background:none;"';
 
 			// 背景、枠線なしの場合
 		} elseif ( $iconFont_bgType == 'no_paint_frame' ) {
 			// 色指定がない場合
 			if ( ! $icon_color ) {
-				//sns_btns color key
-				$color_key = ''; //文字列が入る
-				$options = get_option( 'lightning_theme_options' );
-				if ( isset( $options['color_key'] )  ) {
-					$color_key = esc_html( $options['color_key'] );
-				}
-				$icon_color = $color_key;
+
+				$icon_color = '';
 			}
-			$outer_css = ' style="background:none; width:30px; height:30px;"';
+			$outer_css = ' style="border:none; background:none; width:30px; height:30px;"';
 
 			// それ以外（ 背景塗りの時 ）
 		} else {
-			$outer_css = ' style="border:1px solid ' . $icon_color . ';background-color:' . $icon_color . ';"';
+			$outer_css = ' style="border-color: ' . $icon_color . '; background-color:' . $icon_color . ';"';
 		}
 		return $outer_css;
 	}
@@ -275,25 +266,14 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		} elseif ( $iconFont_bgType === 'no_paint' ) {
 			// 線のとき
 			if ( ! $icon_color ) { // 色指定がない場合
-				//sns_btns color key
-				$color_key = ''; //文字列が入る
-				$options = get_option( 'lightning_theme_options' );
-				if ( isset( $options['color_key'] )  ) {
-					$color_key = esc_html( $options['color_key'] );
-				}
-				$icon_color = $color_key;
+				$icon_color = '';
 			}
 			$icon_css = ' style="color:' . $icon_color . ';"';
 		} elseif ( $iconFont_bgType === 'no_paint_frame' ) {
 			// 背景、枠線なしのとき
 			if ( ! $icon_color ) { // 色指定がない場合
-				//sns_btns color key
-				$color_key = ''; //文字列が入る
-				$options = get_option( 'lightning_theme_options' );
-				if ( isset( $options['color_key'] )  ) {
-					$color_key = esc_html( $options['color_key'] );
-				}
-				$icon_color = $color_key;
+
+				$icon_color = '';
 			}
 			$icon_css = ' style="color:' . $icon_color . ';"';
 		} else {
