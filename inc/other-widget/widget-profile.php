@@ -195,7 +195,7 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
 		$instance['icon_color']      = $new_instance['icon_color'];
 		return $instance;
-	}
+	}	
 	/*-------------------------------------------*/
 	/*  SNSアイコンに出力するCSSを出力する関数
 	/*-------------------------------------------*/
@@ -223,7 +223,13 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		} elseif ( $iconFont_bgType == 'no_paint' ) {
 			// 色指定がない場合
 			if ( ! $icon_color ) {
-				$icon_color = '#ccc';
+				//sns_btns color key
+				$color_key = ''; //文字列が入る
+				$options = get_option( 'lightning_theme_options' );
+				if ( isset( $options['color_key'] )  ) {
+					$color_key = esc_html( $options['color_key'] );
+				}
+				$icon_color = $color_key;
 			}
 			$outer_css = ' style="border:1px solid ' . $icon_color . ';background:none;"';
 
@@ -231,7 +237,13 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		} elseif ( $iconFont_bgType == 'no_paint_frame' ) {
 			// 色指定がない場合
 			if ( ! $icon_color ) {
-				$icon_color = '#ccc';
+				//sns_btns color key
+				$color_key = ''; //文字列が入る
+				$options = get_option( 'lightning_theme_options' );
+				if ( isset( $options['color_key'] )  ) {
+					$color_key = esc_html( $options['color_key'] );
+				}
+				$icon_color = $color_key;
 			}
 			$outer_css = ' style="background:none; width:30px; height:30px;"';
 
@@ -262,14 +274,26 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 			$icon_css = '';
 		} elseif ( $iconFont_bgType === 'no_paint' ) {
 			// 線のとき
-			if ( ! $icon_color ) {
-				$icon_color = '#ccc';
+			if ( ! $icon_color ) { // 色指定がない場合
+				//sns_btns color key
+				$color_key = ''; //文字列が入る
+				$options = get_option( 'lightning_theme_options' );
+				if ( isset( $options['color_key'] )  ) {
+					$color_key = esc_html( $options['color_key'] );
+				}
+				$icon_color = $color_key;
 			}
 			$icon_css = ' style="color:' . $icon_color . ';"';
 		} elseif ( $iconFont_bgType === 'no_paint_frame' ) {
 			// 背景、枠線なしのとき
-			if ( ! $icon_color ) {
-				$icon_color = '#ccc';
+			if ( ! $icon_color ) { // 色指定がない場合
+				//sns_btns color key
+				$color_key = ''; //文字列が入る
+				$options = get_option( 'lightning_theme_options' );
+				if ( isset( $options['color_key'] )  ) {
+					$color_key = esc_html( $options['color_key'] );
+				}
+				$icon_color = $color_key;
 			}
 			$icon_css = ' style="color:' . $icon_color . ';"';
 		} else {
