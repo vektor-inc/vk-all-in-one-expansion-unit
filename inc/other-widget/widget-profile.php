@@ -201,6 +201,11 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 	/*-------------------------------------------*/
 	static public function outer_css( $instance ) {
 		// iconFont_bgType が定義されている場合
+		/*
+		塗り : [iconFont_bgType] = ''
+		塗り無し : [iconFont_bgType] = 'no_paint'
+		アイコンのみ : [iconFont_bgType] = 'no_paint_frame'
+		*/
 		if ( isset( $instance['iconFont_bgType'] ) ) {
 			$iconFont_bgType = esc_html( $instance['iconFont_bgType'] ); // 中身が ''の場合もありえる
 		} else {
@@ -208,13 +213,15 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		}
 
 		// icon_color が定義されている場合
+		// $icon_color : カスタマイザーで定義されている色
 		if ( isset( $instance['icon_color'] ) ) {
 			$icon_color = esc_html( $instance['icon_color'] );
 		} else {
-			$icon_color = '#fff';
+			$icon_color = '';
+			// $icon_color = '#fff';
 		}
 
-		// 背景塗り && 色指定がない場合
+		// 背景塗り && 色指定がない場合 → ブランドカラー背景
 		if ( ! $iconFont_bgType && ! $icon_color ) {
 			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
 			$outer_css = 'class="bg_fill"';
