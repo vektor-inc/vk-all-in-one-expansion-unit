@@ -222,32 +222,29 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		}
 
 		// 背景塗り && 色指定がない場合 → ブランドカラー背景
-		if ( ! $iconFont_bgType && ! $icon_color ) {
+		if ( ! $iconFont_bgType ) {
+			if ( ! $icon_color ) {
 			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
-			$outer_css = 'class="bg_fill"';
+			$outer_css = ' class="bg_fill"';
+			} else {
+				$outer_css = ' style="border-color:' . $icon_color . ';background-color:' . $icon_color . ';"';
+			}
+
+		// 背景なし枠線の場合
+		} elseif ( $iconFont_bgType == 'no_paint' ) {
+			
+			if ( $icon_color ) {
+				$outer_css = ' style="border-color: ' . $icon_color . '; background:none;"';
+	
+			// 色指定がない場合
+			} else {
+				$outer_css = ' style="background:none;"';
+			}
 			
 
-			// 背景なし枠線の場合
-		} elseif ( $iconFont_bgType == 'no_paint' ) {
-			// 色指定がない場合
-			if ( ! $icon_color ) {
-
-				$icon_color = '';
-			}
-			$outer_css = ' style="border-color: ' . $icon_color . '; background:none;"';
-
-			// 背景、枠線なしの場合
+		// 背景、枠線なしの場合
 		} elseif ( $iconFont_bgType == 'no_paint_frame' ) {
-			// 色指定がない場合
-			if ( ! $icon_color ) {
-
-				$icon_color = '';
-			}
-			$outer_css = ' style="border:none; background:none; width:30px; height:30px;"';
-
-			// それ以外（ 背景塗りの時 ）
-		} else {
-			$outer_css = ' style="border-color: ' . $icon_color . '; background-color:' . $icon_color . ';"';
+			$outer_css = ' style="border:none;background:none; width:30px; height:30px;"';
 		}
 		return $outer_css;
 	}
@@ -271,18 +268,23 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		if ( ! $iconFont_bgType && ! $icon_color ) {
 			$icon_css = '';
 		} elseif ( $iconFont_bgType === 'no_paint' ) {
-			// 線のとき
-			if ( ! $icon_color ) { // 色指定がない場合
-				$icon_color = '';
+			// 線 色指定あり
+			if ( $icon_color ) {
+				$icon_css = ' style="color:' . $icon_color . ';"';
+
+			// 線 色指定なし
+			} else {
+				$icon_css = '';
 			}
-			$icon_css = ' style="color:' . $icon_color . ';"';
+			
 		} elseif ( $iconFont_bgType === 'no_paint_frame' ) {
 			// 背景、枠線なしのとき
-			if ( ! $icon_color ) { // 色指定がない場合
-
-				$icon_color = '';
+			if ( $icon_color ) { // 色指定がない場合
+				$icon_css = ' style="color:' . $icon_color . ';"';
+			} else {
+				$icon_css = '';
 			}
-			$icon_css = ' style="color:' . $icon_color . ';"';
+			
 		} else {
 			// 塗りのとき
 			$icon_css = ' style="color:#fff;"';
