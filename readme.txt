@@ -99,6 +99,10 @@ e.g.
 
 == Changelog ==
 
+= 9.28.0.0 =
+* [ VK Blocks Update ] 0.38.1
+* [ Add function ] profile widget sns icon no border
+
 = 9.27.0.0 =
 * [ VK Blocks Update ] 0.37.4
 
