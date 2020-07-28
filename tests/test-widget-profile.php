@@ -120,34 +120,41 @@ class WidgetProfileTest extends WP_UnitTestCase {
 		$test_array = array(
 			// どちらも未定義の場合（既存ユーザー）
 			array(
-				'correct_outer_css' => '',
+				'correct_outer_css' => ' class="bg_fill"',
 				'correct_icon_css' => '',
 			),
 			array(
 				'iconFont_bgType' => '',
 				'icon_color' => '',
-				'correct_outer_css' => '',
+				'correct_outer_css' => ' class="bg_fill"',
 				'correct_icon_css' => '',
 			),
-			// 塗りなし / 色指定あり
+			array(
+				'iconFont_bgType' => '',
+				'icon_color' => '#f00',
+				'correct_outer_css' => ' style="border-color:#f00;background-color:#f00;"',
+				'correct_icon_css' => ' style="color:#fff;"',
+			),
+			// 塗りなし（枠あり） / 色指定あり
 			array(
 				'iconFont_bgType' => 'no_paint',
 				'icon_color' => '#f00',
-				'correct_outer_css' => ' style="border:1px solid #f00;background:none;"',
+				'correct_outer_css' => ' style="border-color: #f00; background:none;"',
 				'correct_icon_css' => ' style="color:#f00;"',
 			),
-			// 塗りなし / 色指定なし
+			// 塗りなし（枠あり） / 色指定なし
 			array(
 				'iconFont_bgType' => 'no_paint',
 				'icon_color' => '',
-				'correct_outer_css' => ' style="border:1px solid #ccc;background:none;"',
-				'correct_icon_css' => ' style="color:#ccc;"',
+				'correct_outer_css' => ' style="background:none;"',
+				'correct_icon_css' => '',
 			),
+			// no_paint_frame / 色指定なし
 			array(
-				'iconFont_bgType' => '',
-				'icon_color' => '#f00',
-				'correct_outer_css' => ' style="border:1px solid #f00;background-color:#f00;"',
-				'correct_icon_css' => ' style="color:#fff;"',
+				'iconFont_bgType' => 'no_paint_frame',
+				'icon_color' => '',
+				'correct_outer_css' => ' style="border:none;background:none; width:30px; height:30px;"',
+				'correct_icon_css' => '',
 			),
 		);
 
