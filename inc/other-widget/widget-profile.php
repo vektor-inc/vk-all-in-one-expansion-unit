@@ -146,14 +146,20 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 <p><?php _e( 'Icon Background:', 'vk-all-in-one-expansion-unit' ); ?><br>
 
-<?php
+<?php // "||"の戻り値チェック
 $checked = ( ! isset( $instance['iconFont_bgType'] ) || ! $instance['iconFont_bgType'] ) ? ' checked' : '';
 ?>
 <input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_solid'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value=""<?php echo $checked; ?> />
 <label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_solid'; ?>"> <?php _e( 'Solid color', 'vk-all-in-one-expansion-unit' ); ?></label>
+
 <?php $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType'] === 'no_paint' ) ? ' checked' : ''; ?>
 <input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint"<?php echo $checked; ?> />
 <label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint'; ?>"><?php _e( 'No background', 'vk-all-in-one-expansion-unit' ); ?></label>
+
+<?php 
+$checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType'] === 'no_paint_frame' ) ? ' checked' : ''; ?>
+<input type="radio" id="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint_frame'; ?>" name="<?php echo $this->get_field_name( 'iconFont_bgType' ); ?>" value="no_paint_frame"<?php echo $checked; ?> />
+<label for="<?php echo $this->get_field_id( 'iconFont_bgType' ) . '_no_paint_frame'; ?>"><?php _e( 'No background frame', 'vk-all-in-one-expansion-unit' ); ?></label>
 </p>
 <p><?php _e( '* When "Icon Background: Fill" is selected and "Icon color" is not specified, each brand color will be painted.', 'vk-all-in-one-expansion-unit' ); ?></p>
 
@@ -189,12 +195,17 @@ $checked = ( ! isset( $instance['iconFont_bgType'] ) || ! $instance['iconFont_bg
 		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
 		$instance['icon_color']      = $new_instance['icon_color'];
 		return $instance;
-	}
+	}	
 	/*-------------------------------------------*/
 	/*  SNSアイコンに出力するCSSを出力する関数
 	/*-------------------------------------------*/
 	static public function outer_css( $instance ) {
 		// iconFont_bgType が定義されている場合
+		/*
+		塗り : [iconFont_bgType] = ''
+		塗り無し : [iconFont_bgType] = 'no_paint'
+		アイコンのみ : [iconFont_bgType] = 'no_paint_frame'
+		*/
 		if ( isset( $instance['iconFont_bgType'] ) ) {
 			$iconFont_bgType = esc_html( $instance['iconFont_bgType'] ); // 中身が ''の場合もありえる
 		} else {
@@ -202,28 +213,38 @@ $checked = ( ! isset( $instance['iconFont_bgType'] ) || ! $instance['iconFont_bg
 		}
 
 		// icon_color が定義されている場合
+		// $icon_color : カスタマイザーで定義されている色
 		if ( isset( $instance['icon_color'] ) ) {
 			$icon_color = esc_html( $instance['icon_color'] );
 		} else {
 			$icon_color = '';
+			// $icon_color = '#fff';
 		}
 
-		// 背景塗り && 色指定がない場合
-		if ( ! $iconFont_bgType && ! $icon_color ) {
-			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
-			$outer_css = '';
-
-			// 背景なし枠線の場合
-		} elseif ( $iconFont_bgType == 'no_paint' ) {
-			// 色指定がない場合
+		// 背景塗り && 色指定がない場合 → ブランドカラー背景
+		if ( ! $iconFont_bgType ) {
 			if ( ! $icon_color ) {
-				$icon_color = '#ccc';
+			// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
+			$outer_css = ' class="bg_fill"';
+			} else {
+				$outer_css = ' style="border-color:' . $icon_color . ';background-color:' . $icon_color . ';"';
 			}
-			$outer_css = ' style="border:1px solid ' . $icon_color . ';background:none;"';
 
-			// それ以外（ 背景塗りの時 ）
-		} else {
-			$outer_css = ' style="border:1px solid ' . $icon_color . ';background-color:' . $icon_color . ';"';
+		// 背景なし枠線の場合
+		} elseif ( $iconFont_bgType == 'no_paint' ) {
+			
+			if ( $icon_color ) {
+				$outer_css = ' style="border-color: ' . $icon_color . '; background:none;"';
+	
+			// 色指定がない場合
+			} else {
+				$outer_css = ' style="background:none;"';
+			}
+			
+
+		// 背景、枠線なしの場合
+		} elseif ( $iconFont_bgType == 'no_paint_frame' ) {
+			$outer_css = ' style="border:none;background:none; width:30px; height:30px;"';
 		}
 		return $outer_css;
 	}
@@ -246,12 +267,24 @@ $checked = ( ! isset( $instance['iconFont_bgType'] ) || ! $instance['iconFont_bg
 
 		if ( ! $iconFont_bgType && ! $icon_color ) {
 			$icon_css = '';
-		} elseif ( $iconFont_bgType == 'no_paint' ) {
-			// 線のとき
-			if ( ! $icon_color ) {
-				$icon_color = '#ccc';
+		} elseif ( $iconFont_bgType === 'no_paint' ) {
+			// 線 色指定あり
+			if ( $icon_color ) {
+				$icon_css = ' style="color:' . $icon_color . ';"';
+
+			// 線 色指定なし
+			} else {
+				$icon_css = '';
 			}
-			$icon_css = ' style="color:' . $icon_color . ';"';
+			
+		} elseif ( $iconFont_bgType === 'no_paint_frame' ) {
+			// 背景、枠線なしのとき
+			if ( $icon_color ) { // 色指定がない場合
+				$icon_css = ' style="color:' . $icon_color . ';"';
+			} else {
+				$icon_css = '';
+			}
+			
 		} else {
 			// 塗りのとき
 			$icon_css = ' style="color:#fff;"';
