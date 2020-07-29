@@ -43,7 +43,7 @@ class VEU_Ranking_Widget extends WP_Widget {
 	public function form( $instance ) {
 		global $ranking_max;
 
-		$ranking_max = ! empty( $instance['ranking_max'] ) ? $instance['ranking_max']: 10;
+		$ranking_max = ! empty( $instance['ranking_max'] ) ? $instance['ranking_max'] : 10;
 
 		echo '<h3 class="admin-custom-h3">' . __( 'Ranking Setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 		echo '<label>';
