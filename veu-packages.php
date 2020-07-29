@@ -260,7 +260,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'          => 'contact_section',
 		'title'         => __( 'Contact Section', 'vk-all-in-one-expansion-unit' ),
-		'description'   => __( 'Display Contact Section at after content.', 'vk-all-in-one-expansion-unit' ),
+		'description'   => __( 'Display Contact Section by widget, block and so on.', 'vk-all-in-one-expansion-unit' ),
 		'attr'          => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
