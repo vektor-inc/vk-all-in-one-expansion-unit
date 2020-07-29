@@ -154,6 +154,7 @@ function veu_page_list_ancestor_block_setup() {
 				$common_attributes
 			),
 			'editor_script'   => 'veu-block',
+			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_pageListAncestor_block_callback',
 		)
 	);
