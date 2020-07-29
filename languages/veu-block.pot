@@ -15,8 +15,16 @@ msgstr ""
 msgid "This Page"
 msgstr ""
 
-#: inc/contact-section/block.jsx:9
+#: inc/contact-section/block.jsx:11
 msgid "Contact section"
+msgstr ""
+
+#: inc/contact-section/block.jsx:28
+msgid "Display conditions"
+msgstr ""
+
+#: inc/contact-section/block.jsx:31
+msgid "Set telephone and mail form vertically"
 msgstr ""
 
 #: inc/page-list-ancestor/block.jsx:9
