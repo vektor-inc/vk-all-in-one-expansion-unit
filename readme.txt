@@ -113,6 +113,7 @@ e.g.
 
 = 9.27.0.0 =
 * [ VK Blocks Update ] 0.37.4
+* [ CTA ] Add old layout choice function
 
 = 9.26.2.0 =
 * [ Bug fix ][ Child Page Index ] CSS bug fix
