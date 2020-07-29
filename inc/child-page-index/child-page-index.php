@@ -228,6 +228,7 @@ function veu_child_page_index_setup() {
 				$common_attributes
 			),
 			'editor_script'   => 'veu-block',
+			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_childPageIndex_block_callback',
 		)
 	);

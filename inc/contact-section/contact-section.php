@@ -125,6 +125,7 @@ class VkExUnit_Contact {
 					),
 				),
 				'editor_script'   => 'veu-block',
+				'editor_style'    => 'veu-block-editor',
 				'render_callback' => array( __CLASS__, 'block_callback'),
 			)
 		);
