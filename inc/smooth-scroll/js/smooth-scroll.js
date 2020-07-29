@@ -14,7 +14,17 @@
             let href = e.path[i].getAttribute('href')
             if (!href) return;
 
-            if (['tab', 'button'].indexOf(e.path[i].getAttribute('role')) > 0) return;
+            // role が tab の場合はスムーススクロールしない
+            if (['tab'].indexOf(e.path[i].getAttribute('role')) > 0) return;
+
+            // role が button の場合で リンク先指定がない場合はスムーススクロールしない
+            if (['button'].indexOf(e.path[i].getAttribute('role')) > 0 ) {
+                let href = e.getAttribute('href')
+                if( href.indexOf('#') == 0 && href === '#'){
+                    return;
+                }
+            }
+
             if (e.path[i].getAttribute('data-toggle')) return;
             if (e.path[i].getAttribute('carousel-control')) return;
 

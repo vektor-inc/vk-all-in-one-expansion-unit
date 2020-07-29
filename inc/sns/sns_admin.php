@@ -175,6 +175,16 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 </td>
 </tr>
 
+<tr>
+<th><?php _e( 'Entry Count', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable" <?php if($options['entry_count']=='disable'){echo 'checked';} ?> /><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" <?php if($options['entry_count']=='get'){echo 'checked';} ?> /><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" <?php if($options['entry_count']=='post'){echo 'checked';} ?> /><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
+	<p><?php _e( '* manage entry count Api. change to \'POST\' if fail entry count. (POST mode is can\'t use cache)', 'vk-all-in-one-expansion-unit' ); ?></p>
+</td>
+</tr>
+
 </table>
 
 <?php submit_button(); ?>

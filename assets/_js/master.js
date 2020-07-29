@@ -26,18 +26,25 @@ var a = null;
 /*-------------------------------------------*/
 ((window, document, parent_class) => {
 	window.addEventListener('load', () => {
+		if(!vkExOpt.entry_count) {
+			return
+		}
 		let elements = document.getElementsByClassName('veu_count_sns_hb')
 		if (elements.length == 0) {
 			return
 		}
-		let linkurl = encodeURIComponent(location.href);
+		let param = (vkExOpt.entry_from_post)? {
+				method: 'POST',
+				headers: {
+					"Content-Type": "application/json; charset=utf-8"
+				},
+				body: '{"linkurl": "'+ location.href +'"}'
+			}: { method: 'GET' }
 
 		// hatena
 		fetch(
-			vkExOpt.hatena_entry + linkurl,
-			{
-				method: 'GET',
-			}
+			(vkExOpt.entry_from_post)? vkExOpt.hatena_entry : vkExOpt.hatena_entry + encodeURIComponent(location.href),
+			param
 		).then((r)=>{
 			if (r.ok) {
 				r.json().then((body)=>{
@@ -58,10 +65,8 @@ var a = null;
 		let fb_elements = document.getElementsByClassName('veu_count_sns_fb')
 		if(vkExOpt.facebook_count_enable) {
 			fetch(
-				vkExOpt.facebook_entry + linkurl,
-				{
-					method: 'GET',
-				}
+				(vkExOpt.entry_from_post)? vkExOpt.facebook_entry : vkExOpt.facebook_entry + encodeURIComponent(location.href),
+				param
 			).then((r)=>{
 				if (r.ok) {
 					r.json().then((body)=>{
@@ -72,7 +77,6 @@ var a = null;
 							fb_elements,
 							(elm) => elm.innerHTML = body.count
 						)
-
 					})
 				}
 			})

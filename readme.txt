@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.4.2
-Stable tag: 9.28.0.0
+Stable tag: 9.28.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,14 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+
+* [ Bug fix ][ smooth scroll ]  Fix smooth scroll not working on Button block
+
+= 9.28.1.0 =
+* [ VK Blocks Update ] 0.38.2
+* [ Bug fix ][ smooth scroll ] Fix smooth scroll not working on Button block
+* [ Bug fix ][ Share Button ] count js error fix
 
 = 9.28.0.0 =
 * [ VK Blocks Update ] 0.38.1
