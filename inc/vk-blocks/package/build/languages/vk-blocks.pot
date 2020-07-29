@@ -198,7 +198,7 @@ msgstr ""
 msgid "Icon Name"
 msgstr ""
 
-#: src/blocks/balloon/block.js:266
+#: src/blocks/balloon/block.js:267
 #: src/blocks/button/block.js:303
 msgid "Input text"
 msgstr ""
