@@ -99,6 +99,9 @@ e.g.
 
 == Changelog ==
 
+
+* [ Bug fix ][ smooth scroll ]  Fix smooth scroll not working on Button block
+
 = 9.28.0.0 =
 * [ VK Blocks Update ] 0.38.1
 * [ Add function ][ Profile Widget ] Add icon style option
