@@ -176,7 +176,7 @@ function veu_pageListAncestor_block_callback( $attr=array() ) {
 
 	if ( empty($r) ) {
 		if ( isset($_GET['context']) ) {
-			return '<div class="disabled">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
+			return '<div class="alert alert-warning text-center">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
 		}
 		return '';
 	}

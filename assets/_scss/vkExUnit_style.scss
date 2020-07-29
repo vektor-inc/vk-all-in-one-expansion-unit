@@ -483,22 +483,28 @@ iframe.twitter-timeline {
 			margin-right: 0.45em;
 			list-style: none;
 			text-align: center;
-		}
-		a {
-			display: block;
-			position: relative;
-			width: 40px;
-			height: 40px;
-			border-radius: 23px;
-			color: #fff;
-			text-decoration: none;
-			font-size: 20px;
-			&:hover {
+			a {
+				display: block;
+				position: relative;
+				width: 40px;
+				height: 40px;
+				border-radius: 23px;
 				color: #fff;
 				text-decoration: none;
-				opacity: 0.8;
+				font-size: 20px;
+				&:hover {
+					color: #fff;
+					text-decoration: none;
+					opacity: 0.8;
+				}
+				&.bg_fill{
+					.icon{
+						color: #fff;
+					}
+				}
 			}
 		}
+
 		.icon {
 			position: absolute;
 			top: 50%;
@@ -507,24 +513,52 @@ iframe.twitter-timeline {
 		}
 		.facebook_btn a {
 			background: #3b5998;
+			border:1px solid #3b5998; 
+			.icon{
+				color: #3b5998;
+			}
 		}
 		.twitter_btn a {
 			background: #55acee;
+			border:1px solid #55acee;
+			.icon{
+				color: #55acee;
+			}
 		}
 		.mail_btn a {
 			background: #2f915f;
+			border:1px solid #2f915f;
+			.icon{
+				color: #2f915f;
+			}
 		}
 		.youtube_btn a {
 			background: #c81d1c;
+			border:1px solid #c81d1c;
+			.icon{
+				color: #c81d1c;
+			}
 		}
 		.rss_btn a {
 			background: #f26522;
+			border:1px solid #f26522;;
+			.icon{
+				color: #f26522;
+			}
 		}
 		.instagram_btn a {
 			background: #3f729b;
+			border:1px solid #3f729b;;
+			.icon{
+				color: #3f729b;
+			}
 		}
 		.linkedin_btn a {
 			background: #0077b5;
+			border:1px solid #0077b5;;
+			.icon{
+				color: #0077b5;
+			}
 		}
 	}
 }

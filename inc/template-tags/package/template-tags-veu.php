@@ -85,7 +85,7 @@ if ( ! function_exists( 'veu_content_filter_state' ) ) {
 
 if ( ! function_exists( 'veu_get_name' ) ) {
 	function veu_get_name() {
-		$system_name = apply_filters( 'veu_get_name', 'VK All in one Expansion Unit' );
+		$system_name = apply_filters( 'veu_get_name', 'VK All in One Expansion Unit' );
 		return $system_name;
 	}
 }

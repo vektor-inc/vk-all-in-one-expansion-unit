@@ -34,9 +34,9 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 					echo $args['before_widget'];
 					echo '<div class="veu_childPages widget_link_list">';
 					echo $args['before_title'];
-					// echo '<a href="' . get_the_permalink($post_id) . '">';
+					echo '<a href="' . get_the_permalink( $post_id ) . '">';
 					echo get_the_title( $post_id );
-					// echo '</a>';
+					echo '</a>';
 					echo $args['after_title'];
 					?>
 					<ul class="localNavi">
@@ -44,7 +44,7 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 					</ul>
 					</div>
 					<?php echo $args['after_widget']; ?>
-				<?php
+					<?php
 				}
 			}
 		} // is_page

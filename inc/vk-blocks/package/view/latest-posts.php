@@ -14,7 +14,7 @@ class VkBlocksPostList {
 		$wp_query = $this->get_loop_query( $attributes );
 
 		if ( $wp_query === false ) {
-			return '<div>' . __( 'No Post is selected', 'vk-blocks' ) . '</div>';
+			return '<div class="alert alert-warning text-center">' . __( 'No Post is selected', 'vk-blocks' ) . '</div>';
 		}
 
 		$options = array(

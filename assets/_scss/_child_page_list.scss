@@ -1,57 +1,62 @@
-
 .veu_childPage_list {
-    margin-top: 2.5em;
-    .childPage_list_box {
-        display: block;
-        margin-bottom: 1.5em;
-        width: 100%;
-        text-decoration: none;
-    }
-    .wp-post-image {
-        float: left;
-        margin-right: 1em;
-        margin-bottom: 1em;
-        width: 30%;
-        height: auto;
-        border: solid 1px #ddd;
-    }
-    .childPage_list_body {
-        overflow: hidden;
-        color: #333;
-        font-size: 14px;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    p {
-        line-height: 1.5em;
-    }
-    .childPage_list_text {
-        overflow: hidden;
-        margin-bottom: 1em;
-    }
-    .childPage_list_more {
-        float: right;
-    }
+	margin-top: 2.5em;
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap; /* Safari */
+	justify-content: space-between;
+	-webkit-justify-content: space-between; /* Safari */
+	.childPage_list_box {
+		margin-bottom: 1.5em;
+		width: 100%;
+		text-decoration: none;
+		&_inner {
+			display: flex;
+			flex-direction: column; // カラムが縦方向に並ぶように指定
+			height: 100%;
+		}
+	}
+	.wp-post-image {
+		float: left;
+		margin-right: 1em;
+		margin-bottom: 1em;
+		width: 30%;
+		height: auto;
+		border: solid 1px #ddd;
+	}
+	.childPage_list_body {
+		position: relative;
+		overflow: hidden;
+		color: #333;
+		font-size: 14px;
+		height: 100%;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	.childPage_list_text {
+		overflow: hidden;
+		line-height: 1.5em;
+		margin-bottom: 3.5em;
+	}
+	.childPage_list_more {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
 }
 
 @media (max-width: 767px) {
-    .veu_childPage_list {
-        .wp-post-image {
-            width: 25%;
-        }
-    }
+	.veu_childPage_list {
+		.wp-post-image {
+			width: 25%;
+		}
+	}
 }
 @media (min-width: 541px) {
-    .veu_childPage_list {
-        display: flex;
-        align-items: stretch;
-        flex-wrap: wrap;
-        -webkit-flex-wrap: wrap; /* Safari */
-        justify-content: space-between;
-        -webkit-justify-content: space-between; /* Safari */
-        .childPage_list_box {
-            width: 48%;
-        }
-    }
+	.veu_childPage_list {
+		.childPage_list_box {
+			width: 48%;
+		}
+	}
 }
