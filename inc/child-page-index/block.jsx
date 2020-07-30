@@ -64,7 +64,10 @@
 					per_page: -1
 				})
 			}
-		})(( {attributes, setAttributes, className, pages} )=>{
+		})(( props )=>{
+			const { attributes, setAttributes, pages } = props;
+			const { postId, className } = attributes;
+
 			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
 
 			if (pages != undefined) {
@@ -99,19 +102,16 @@
 						>
 							<SelectControl
 								label={ __( 'Parent Page', 'veu-block' ) }
-								value={ attributes.pageId }
+								value={ postId }
 								options={ options }
-								onChange={ ( pageId )=>{ setAttributes({ postId: pageId }) } }
+								onChange={ ( value )=>{ setAttributes({ postId: parseInt(value, 10) }) } }
 							/>
 						</PanelBody>
 					</InspectorControls>
 					<div className='veu_child_page_list_block'>
 						<ServerSideRender
 							block="vk-blocks/child-page-index"
-							attributes={ {
-								className: className,
-								postId: attributes.postId
-							} }
+							attributes={attributes}
 						/>
 					</div>
 				</Fragment>
