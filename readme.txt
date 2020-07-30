@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.4.2
-Stable tag: 9.28.0.0
+Stable tag: 9.28.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,12 +99,21 @@ e.g.
 
 == Changelog ==
 
+= 9.28.2.0 =
+[ Bug fix ][ editor css ] Fix editor-css for ExUnit Blocks not working
+
+= 9.28.1.0 =
+* [ VK Blocks Update ] 0.38.2
+* [ Bug fix ][ smooth scroll ] Fix smooth scroll not working on Button block
+* [ Bug fix ][ Share Button ] count js error fix
+
 = 9.28.0.0 =
 * [ VK Blocks Update ] 0.38.1
 * [ Add function ][ Profile Widget ] Add icon style option
 
 = 9.27.0.0 =
 * [ VK Blocks Update ] 0.37.4
+* [ CTA ] Add old layout choice function
 
 = 9.26.2.0 =
 * [ Bug fix ][ Child Page Index ] CSS bug fix

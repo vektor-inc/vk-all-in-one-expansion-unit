@@ -225,7 +225,7 @@ function veu_add_sns_btns( $content ) {
 add_action( 'rest_api_init', function () {
 	register_rest_route(
 		'vk_ex_unit/v1',
-		'/hatena_entry/(?P<linkurl>[a-zA-Z0-9\-\._%]+)',
+		'/hatena_entry/(?P<linkurl>.+)',
 		array(
 			'methods' => 'GET',
 			'callback' => 'vew_sns_hatena_restapi_callback',
@@ -233,18 +233,51 @@ add_action( 'rest_api_init', function () {
 	);
 	register_rest_route(
 		'vk_ex_unit/v1',
-		'/facebook_entry/(?P<linkurl>[a-zA-Z0-9\-\._%]+)',
+		'/hatena_entry',
+		array(
+			'methods' => 'POST',
+			'callback' => 'vew_sns_hatena_restapi_callback',
+			'args' => array(
+				'linkurl' => array(
+					'description' => 'linkurl',
+					'required' => true,
+					'type' => 'string',
+				)
+			)
+		)
+	);
+	register_rest_route(
+		'vk_ex_unit/v1',
+		'/facebook_entry/(?P<linkurl>.+)',
 		array(
 			'methods' => 'GET',
 			'callback' => 'vew_sns_facebook_restapi_callback',
 		)
 	);
+	register_rest_route(
+		'vk_ex_unit/v1',
+		'/facebook_entry',
+		array(
+			'methods' => 'POST',
+			'callback' => 'vew_sns_facebook_restapi_callback',
+			'args' => array(
+				'linkurl' => array(
+					'description' => 'linkurl',
+					'required' => true,
+					'type' => 'string',
+				)
+			)
+		)
+	);
 });
 
 add_filter( 'vkExUnit_master_js_options', function( $options ){
+	$opt = veu_get_sns_options();
 	$options['hatena_entry'] = get_rest_url(0, 'vk_ex_unit/v1/hatena_entry/');
 	$options['facebook_entry'] = get_rest_url(0, 'vk_ex_unit/v1/facebook_entry/');
 	$options['facebook_count_enable'] = false;
+	$options['entry_count'] = (bool) ($opt['entry_count'] != 'disable');
+	$options['entry_from_post'] = (bool) ($opt['entry_count'] == 'post');
 
 	$opt = veu_get_sns_options();
 	if ( ! empty( $opt['fbAccessToken'] ) ) {
@@ -257,7 +290,7 @@ function vew_sns_hatena_restapi_callback( $data ) {
 	$linkurl = $data['linkurl'];
 	$siteurl = get_site_url();
 
-	if ( $siteurl !== substr( urldecode( $linkurl ), 0, strlen( $siteurl ) ) ) {
+	if (strpos(preg_replace('/^https?:\/\//', '', $linkurl), preg_replace('/^https?:\/\//', '', $siteurl)) < 0) {
 		$response = new WP_REST_Response(array());
 		$response->set_status(403);
 		return $response;
@@ -267,12 +300,16 @@ function vew_sns_hatena_restapi_callback( $data ) {
 
 	if ( ! is_wp_error( $r ) ) {
 		$response = new WP_REST_Response(array( 'count' => $r['body'] ) );
-		if ( empty($r['headers']['cache-control']) ) {
-			$cache_control = 'Cache-Control: public, max-age=3600, s-maxage=3600';
-		}else{
-			$cache_control = $r['headers']['cache-control'];
+		if($data->get_method() == 'GET') {
+			if ( empty($r['headers']['cache-control']) ) {
+				$cache_control = 'Cache-Control: public, max-age=3600, s-maxage=3600';
+			}else{
+				$cache_control = $r['headers']['cache-control'];
+			}
+			$response->header( 'Cache-Control', $cache_control );
+		} else {
+			$response->header( 'Cache-Control', 'no-cache' );
 		}
-		$response->header( 'Cache-Control', $cache_control );
 		$response->set_status(200);
 		return $response;
 	}
@@ -286,7 +323,7 @@ function vew_sns_facebook_restapi_callback( $data ) {
 	$linkurl = $data['linkurl'];
 	$siteurl = get_site_url();
 
-	if ( $siteurl !== substr( urldecode( $linkurl ), 0, strlen( $siteurl ) ) ) {
+	if (strpos(preg_replace('/^https?:\/\//', '', $linkurl), preg_replace('/^https?:\/\//', '', $siteurl)) < 0) {
 		$response = new WP_REST_Response(array());
 		$response->set_status(403);
 		return $response;
@@ -306,7 +343,11 @@ function vew_sns_facebook_restapi_callback( $data ) {
 
 		if( isset( $j->engagement->share_count ) ) {
 			$response = new WP_REST_Response( array( 'count' => $j->engagement->share_count ) );
-			$response->header('Cache-Control', 'Cache-Control: public, max-age=3600, s-maxage=3600' );
+			if($data->get_method() == 'GET') {
+				$response->header('Cache-Control', 'Cache-Control: public, max-age=3600, s-maxage=3600' );
+			} else {
+				$response->header( 'Cache-Control', 'no-cache' );
+			}
 			$response->set_status(200);
 			return $response;
 		}
