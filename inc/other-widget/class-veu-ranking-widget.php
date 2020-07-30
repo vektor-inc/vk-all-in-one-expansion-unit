@@ -5,8 +5,6 @@
  * @package VK All in One Expansion Unit
  */
 
-require_once dirname( __FILE__ ) . '/../vk-components/vk-components-config.php';
-
 /**
  * Ranking Widget
  */
@@ -15,34 +13,35 @@ class VEU_Ranking_Widget extends WP_Widget {
 	/**
 	 * Constractor
 	 */
-public function __construct() {
-	parent::__construct(
-		'VEU_Ranking_Widget',
-		self::veu_widget_name(),
-		array( 'description' => self::veu_widget_description() )
-	);
-}
+	public function __construct() {
+		parent::__construct(
+			'VEU_Ranking_Widget',
+			self::veu_widget_name(),
+			array( 'description' => self::veu_widget_description() )
+		);
+		require_once dirname( __FILE__ ) . '/../vk-components/vk-components-config.php';
+	}
 
 	/**
 	 * Widget Name
 	 */
-public static function veu_widget_name() {
-	return veu_get_prefix() . __( 'Ranking', 'vk-all-in-one-expansion-unit' );
-}
+	public static function veu_widget_name() {
+		return veu_get_prefix() . __( 'Ranking', 'vk-all-in-one-expansion-unit' );
+	}
 
 	/**
 	 * Widget Description
 	 */
-public static function veu_widget_description() {
-	return __( 'Display ranking of articles that you wan to see', 'vk-all-in-one-expansion-unit' );
-}
+	public static function veu_widget_description() {
+		return __( 'Display ranking of articles that you wan to see', 'vk-all-in-one-expansion-unit' );
+	}
 
 	/**
 	 * Widget Form
 	 *
 	 * @param array $instance Widget Instance.
 	 */
-public function form( $instance ) {
+	public function form( $instance ) {
 		global $ranking_max;
 
 		$ranking_max = ! empty( $instance['ranking_max'] ) ? $instance['ranking_max'] : 10;
@@ -51,45 +50,49 @@ public function form( $instance ) {
 		echo '<h3 class="admin-custom-h2">' . esc_html__( 'Ranking Setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 
 		// Title.
+		$title = isset($instance['title'] ) ? $instance['title'] : '';
 		echo '<label>';
 		echo '<p>' . esc_html__( 'Title:', 'vk-all-in-one-expansion-unit' ) . '</p>';
-		echo '<input type="text" class="admin-custom-input" name="' . esc_attr( $this->get_field_name( 'title' ) ) . '" value="' . esc_attr( $instance['title'] ) . '" />';
+		echo '<input type="text" class="admin-custom-input" name="' . esc_attr( $this->get_field_name( 'title' ) ) . '" value="' . esc_attr( $title ) . '" />';
 		echo '</label>';
 
 		// Display Value of Ranking.
 		echo '<label>';
 		echo '<p>' . esc_html__( 'Display Ranking Value:', 'vk-all-in-one-expansion-unit' ) . '</p>';
-		echo '<input type="number" class="admin-custom-input" name="' . esc_attr( $this->get_field_name( 'ranking_max' ) ) . '" value="' . esc_attr( $instance['ranking_max'] ) . '" />';
+		echo '<input type="number" class="admin-custom-input" name="' . esc_attr( $this->get_field_name( 'ranking_max' ) ) . '" value="' . esc_attr( $ranking_max ) . '" />';
 		echo '</label>';
 
 		// Display Value of Ranking.
+		$layout = isset($instance['layout'] ) ? $instance['layout'] : '';
 		echo '<label>';
 		echo '<p>' . esc_html__( 'Display Layout:', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		echo '<input type="number" class="admin-custom-input" name="' . esc_attr( $this->get_field_name( 'layout' ) ) . '" value="' . esc_attr( $instance['layout'] ) . '" />';
 		echo '</label>';
 		echo '</div>';
 
-
 		// 表示形式とカラム.
 		echo '<div class="admin-custom-section">';
 		echo '<h2 class="admin-custom-h2">' . esc_html__( 'Display type and columns', 'vk-all-in-one-expansion-unit' ) . '</h2>';
+
+		// 表示タイプ.
 		echo '<h3 class="admin-custom-h3">' . esc_html__( 'Display type', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 
 		$patterns = VK_Component_Posts::get_patterns();
 
 		echo '<select id="' . esc_attr( $this->get_field_name( 'layout' ) ) . '" name="' . esc_attr( $this->get_field_name( 'layout' ) ) . '" class="admin-custom-input">';
 
-foreach ( $patterns as $key => $value ) {
-	if ( $instance['layout'] === $key ) {
-		$selected = ' selected="selected"';
-	} else {
-		$selected = '';
-	}
+		foreach ( $patterns as $key => $value ) {
+			if ( $instance['layout'] === $key ) {
+				$selected = ' selected="selected"';
+			} else {
+				$selected = '';
+			}
 
-	echo '<option value="' . esc_attr( $key ) . '"' . esc_attr( $selected ) . '>' . esc_html( $value['label'] ) . '</option>';
-}
+			echo '<option value="' . esc_attr( $key ) . '"' . esc_attr( $selected ) . '>' . esc_html( $value['label'] ) . '</option>';
+		}
 		echo '</select>';
 
+		// カラム.
 		echo '<h3 class="admin-custom-h3">' . esc_html__( 'Columns', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 		echo '<p>' . esc_html__( 'Please input column count to under the range of 1 to 4.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
@@ -104,6 +107,7 @@ foreach ( $patterns as $key => $value ) {
 		foreach ( $sizes as $key => $value ) {
 			$field = 'col_' . $key;
 			echo '<label>';
+			// translators: label of $size.
 			echo '<p>' . sprintf( esc_html__( 'Column ( Screen size : %s )', 'vk-all-in-one-expansion-unit' ), esc_html( $value['label'] ) ) . '</p>';
 			echo '<input type="number" max="4" min="1" id="' . esc_attr( $this->get_field_id( $field ) ) . '" name="' . esc_attr( $this->get_field_name( $field ) ) . '" value="' . esc_attr( $instance[ $field ] ) . '" class="admin-custom-input" />';
 			echo '</label>';
@@ -144,48 +148,45 @@ foreach ( $patterns as $key => $value ) {
 
 		// New text.
 		echo '<label>';
-		echo '<p>' . esc_html( 'New mark text', 'vk-all-in-one-expansion-unit' ) . '</p>';
+		echo '<p>' . esc_html__( 'New mark text', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		echo '<input type="text" name="' . esc_attr( $this->get_field_name( 'new_text' ) ) . '" value="' . esc_attr( instance['new_text'] ) . '" class="admin-custom-input" />';
 		echo '</label>';
 
-		< h3 class = 'admin-custom-h3' >
-				< ? php _e( 'Button option', 'vk-all-in-one-expansion-unit' ); ?>
-		</h3>
+		// Button Option.
+		echo '<h3 class="admin-custom-h3">' . esc_html__( 'Button option', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 
-		<label for="<?php echo $this->get_field_id( 'btn_text' ); ?>">
-			<?php _e( 'Button text', 'vk-all-in-one-expansion-unit' ); ?>
-		</label>
-		<input type="text" id="<?php echo $this->get_field_id( 'btn_text' ); ?>" name="<?php echo $this->get_field_name( 'btn_text' ); ?>" value="<?php echo $instance['btn_text']; ?>" class="admin-custom-input" />
+		echo '<label>';
+		echo '<p>' . esc_html__( 'Button text', 'vk-all-in-one-expansion-unit' ) . '</p>';
+		echo '<input type="text" name="' . esc_attr( $this->get_field_name( 'btn_text' ) ) . '" value="' . esc_attr( $instance['btn_text'] ) . '" class="admin-custom-input" />';
+		echo '</label>';
 
-		<label for="<?php echo $this->get_field_id( 'btn_align' ); ?>">
-			<?php _e( 'Button align', 'vk-all-in-one-expansion-unit' ); ?>
-		</label>
-		<select id="<?php echo $this->get_field_name( 'btn_align' ); ?>" name="<?php echo $this->get_field_name( 'btn_align' ); ?>" class="admin-custom-input">
-			<?php
-			$btn_aligns = array(
-				'text-left'   => array(
-					'label' => __( 'Left', 'vk-all-in-one-expansion-unit' ),
-				),
-				'text-center' => array(
-					'label' => __( 'Center', 'vk-all-in-one-expansion-unit' ),
-				),
-				'text-right'  => array(
-					'label' => __( 'Right', 'vk-all-in-one-expansion-unit' ),
-				),
-			);
-			foreach ( $btn_aligns as $key => $value ) {
-				if ( $instance['btn_align'] == $key ) {
-					$selected = ' selected="selected"';
-				} else {
-					$selected;
-				}
-
-				echo '<option value="' . $key . '"' . $selected . '>' . $value['label'] . '</option>';
+		// Button Align.
+		echo '<label>';
+		echo '<p>' . esc_html__( 'Button align', 'vk-all-in-one-expansion-unit' ) . '</p>';
+		echo '<select name="' . esc_attr( $this->get_field_name( 'btn_align' ) ) . '" class="admin-custom-input">';
+		$btn_aligns = array(
+			'text-left'   => array(
+				'label' => __( 'Left', 'vk-all-in-one-expansion-unit' ),
+			),
+			'text-center' => array(
+				'label' => __( 'Center', 'vk-all-in-one-expansion-unit' ),
+			),
+			'text-right'  => array(
+				'label' => __( 'Right', 'vk-all-in-one-expansion-unit' ),
+			),
+		);
+		foreach ( $btn_aligns as $key => $value ) {
+			if ( $instance['btn_align'] === $key ) {
+				$selected = ' selected="selected"';
+			} else {
+				$selected;
 			}
-			?>
-		</select>
 
-	</div>
+			echo '<option value="' . esc_attr( $key ) . '"' . esc_attr( $selected ) . '>' . esc_html( $value['label'] ) . '</option>';
+		}
+		echo '</select>';
+		echo '</label>';
+		echo '</div>';
 
 		echo '<h3 class="admin-custom-h3">' . esc_html__( 'Ranking URLs', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 		for ( $i = 1; $i <= $ranking_max; $i++ ) {
