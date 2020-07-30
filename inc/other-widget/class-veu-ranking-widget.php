@@ -44,8 +44,6 @@ class VEU_Ranking_Widget extends WP_Widget {
 	public function form( $instance ) {
 		global $ranking_max;
 
-		$ranking_max = ! empty( $instance['ranking_max'] ) ? $instance['ranking_max'] : 10;
-
 		echo '<div class="admin-custom-section">';
 		echo '<h3 class="admin-custom-h2">' . esc_html__( 'Ranking Setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 
@@ -57,6 +55,7 @@ class VEU_Ranking_Widget extends WP_Widget {
 		echo '</label>';
 
 		// Display Value of Ranking.
+		$ranking_max = ! empty( $instance['ranking_max'] ) ? $instance['ranking_max'] : 10;
 		echo '<label>';
 		echo '<p>' . esc_html__( 'Display Ranking Value:', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		echo '<input type="number" class="admin-custom-input" name="' . esc_attr( $this->get_field_name( 'ranking_max' ) ) . '" value="' . esc_attr( $ranking_max ) . '" />';
