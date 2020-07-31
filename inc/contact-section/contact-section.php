@@ -123,6 +123,10 @@ class VkExUnit_Contact {
 						'type'    => 'boolean',
 						'default' => false,
 					),
+					'vertical' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
 				),
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',
@@ -162,22 +166,25 @@ class VkExUnit_Contact {
 			$classes .= ' ' . $attributes['className'];
 		}
 		if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
-			$classes .= ' ' . 'vk_hidden';
+			$classes .= ' vk_hidden';
 		}
 		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
-			$classes .= ' ' . 'vk_hidden-xl';
+			$classes .= ' vk_hidden-xl';
 		}
 		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg'] ) {
-			$classes .= ' ' . 'vk_hidden-lg';
+			$classes .= ' vk_hidden-lg';
 		}
 		if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_md'] ) {
-			$classes .= ' ' . 'vk_hidden-md';
+			$classes .= ' vk_hidden-md';
 		}
 		if ( isset($attributes['vkb_hidden_sm']) && $attributes['vkb_hidden_sm'] ) {
-			$classes .= ' ' . 'vk_hidden-sm';
+			$classes .= ' vk_hidden-sm';
 		}
 		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xs'] ) {
-			$classes .= ' ' . 'vk_hidden-xs';
+			$classes .= ' vk_hidden-xs';
+		}
+		if ( empty( $attributes['vertical'] ) ) {
+			$classes .= ' normal_contact';
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
@@ -607,7 +614,11 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo '<div class="veu_contact">';
+		if ( ! empty( $instance['vertical'] ) ) {
+			echo '<div class="veu_contact">';
+		} else {
+			echo '<div class="veu_contact normal_contact">';
+		}
 		echo VkExUnit_Contact::render_contact_section_html();
 		echo '</div>';
 		echo $args['after_widget'];
@@ -615,13 +626,21 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 
 	function update( $new_instance, $old_instance ) {
-		return $new_instance;
+		$instance['vertical'] = $new_instance['vertical'];
+		return $instance;
 	}
 
 
 	function form( $instance ) {
 		echo '<div style="padding:1em 0;">';
 		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ) );
+		echo '</div>';
+		echo '<h3 class="admin-custom-h3">' . __( 'Display Setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
+		echo '<div style="padding:1em 0;">';
+		echo '<label>';
+		echo '<input type="checkbox" name="' . $this->get_field_name('vertical') . '" ' . checked( isset( $instance['vertical'] ), true, false ) . '">';
+		_e( 'Set telephone and mail form vertically', 'vk-all-in-one-expansion-unit' );
+		echo '</label>';
 		echo '</div>';
 		return $instance;
 	}
