@@ -373,6 +373,17 @@ function veu_get_packages() {
 		'hidden'      => true,
 	);
 
+	/**
+     * Disable Core XML Sitemap.
+     */
+    $required_packages[] = array(
+		'name'        => 'disable_xml_sitemap',
+		'title'       => __( 'Disable XML Sitemap', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can disable Core XML Sitemap.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'disable-xml-sitemap.php',
+	);
+
 	$required_packages[] = array(
 		'name'        => 'admin_bar',
 		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
