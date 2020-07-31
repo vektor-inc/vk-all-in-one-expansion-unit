@@ -36,6 +36,7 @@
     }
     .contact_bt {
         display: block;
+        text-decoration: none;
     }
 } // .veu_contact
 
@@ -60,4 +61,9 @@
         display: inline-block;
         float: none;
     }
+}
+
+// カスタマイザでウィジェット選択と問い合わせ情報のショートカットアイコンが重ならないように
+.widget .veu_contact .customize-partial-edit-shortcut-button {
+    top : 45px;
 }
