@@ -229,6 +229,8 @@ function veu_get_packages() {
 		'include'     => 'css-customize/css-customize.php',
 	);
 
+	$insert_item_description = '<br />'.__( 'You can insert by metabox of bottom of content edit area at post edit screen, or from by the block or widget and so on.', 'vk-all-in-one-expansion-unit' );
+
 	/*
 	  ChildPageIndex
 	/*-------------------------------------------*/
@@ -236,7 +238,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'          => 'childPageIndex',
 		'title'         => __( 'Child page index', 'vk-all-in-one-expansion-unit' ),
-		'description'   => __( 'At the bottom of the specified page, it will display a list of the child page.', 'vk-all-in-one-expansion-unit' ),
+		'description'   => __( 'It displays a list of the child page.', 'vk-all-in-one-expansion-unit' ).$insert_item_description,
 		'default'       => true,
 		'include'       => 'child-page-index/child-page-index.php',
 		'use_ex_blocks' => true,
@@ -248,7 +250,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'pageList_ancestor',
 		'title'       => __( 'Page list from ancestor', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Display Page list from ancestor at after content.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'It displays a page list from ancestor.', 'vk-all-in-one-expansion-unit' ).$insert_item_description,
 		'default'     => true,
 		'include'     => 'page-list-ancestor/page-list-ancestor.php',
 		'use_ex_blocks' => true,
@@ -260,7 +262,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'          => 'contact_section',
 		'title'         => __( 'Contact Section', 'vk-all-in-one-expansion-unit' ),
-		'description'   => __( 'Display Contact Section at after content.', 'vk-all-in-one-expansion-unit' ),
+		'description'   => __( 'It displays a contact information.', 'vk-all-in-one-expansion-unit' ).$insert_item_description,
 		'attr'          => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
@@ -279,7 +281,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'sitemap_page',
 		'title'       => __( 'Display HTML Site Map', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'It displays a HTML Site Map to the specified page.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'It displays a HTML Site Map.', 'vk-all-in-one-expansion-unit' ).$insert_item_description,
 		'default'     => true,
 		'include'     => 'sitemap-page/sitemap-page.php',
 	);
@@ -371,6 +373,17 @@ function veu_get_packages() {
 		'default'     => false,
 		'include'     => 'disable-dashbord.php',
 		'hidden'      => true,
+	);
+
+	/**
+     * Disable Core XML Sitemap.
+     */
+    $required_packages[] = array(
+		'name'        => 'disable_xml_sitemap',
+		'title'       => __( 'Disable XML Sitemap', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can disable Core XML Sitemap.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'disable-xml-sitemap.php',
 	);
 
 	$required_packages[] = array(
