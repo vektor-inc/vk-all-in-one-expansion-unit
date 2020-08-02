@@ -7,7 +7,7 @@ if ( ! function_exists( 'vkblocks_active' ) ) {
 	// Set asset URL.
 	define( 'VK_BLOCKS_URL', plugin_dir_url( __FILE__ ) . 'package/' );
 	// Set version number.
-	define( 'VK_BLOCKS_VERSION', '0.38.2' );
+	define( 'VK_BLOCKS_VERSION', '0.38.5' );
 
 	global $vk_blocks_prefix;
 	$vk_blocks_prefix = veu_get_prefix();
