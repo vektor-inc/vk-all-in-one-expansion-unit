@@ -277,6 +277,7 @@ function veu_customize_register_contact( $wp_customize ) {
 		'vkExUnit_contact[contact_txt]', array(
 			'selector'        => '.veu_contact',
 			'render_callback' => '',
+			'supports' => [],
 		)
 	);
 }

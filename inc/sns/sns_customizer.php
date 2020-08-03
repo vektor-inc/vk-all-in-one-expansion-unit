@@ -624,6 +624,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		'vkExUnit_sns_options[followMe_title]', array(
 			'selector'        => '.followSet_title',
 			'render_callback' => '',
+			'supports' => [],
 		)
 	);
 
@@ -634,6 +635,7 @@ function veu_customize_register_sns( $wp_customize ) {
 		'vkExUnit_sns_options[snsBtn_bg_fill_not]', array(
 			'selector'        => '.veu_socialSet',
 			'render_callback' => '',
+			'supports' => [],
 		)
 	);
 

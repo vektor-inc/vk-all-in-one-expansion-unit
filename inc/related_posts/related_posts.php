@@ -294,6 +294,7 @@ function veu_customize_register_related( $wp_customize ) {
 		'vkExUnit_related_options[related_title]', array(
 			'selector'        => '.veu_relatedPosts',
 			'render_callback' => '',
+			'supports' => [],
 		)
 	);
 }
