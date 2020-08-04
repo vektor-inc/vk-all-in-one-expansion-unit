@@ -295,6 +295,7 @@ function veu_sitemap_block_setup() {
 			'editor_script'   => 'veu-block',
 			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'vkExUnit_sitemap',
+			'supports' => [],
 		)
 	);
 }
