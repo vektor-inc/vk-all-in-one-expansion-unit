@@ -46,10 +46,9 @@ if ( $target_blank != 'window_self' ) {
 	$target = '';
 }
 if ( $imgid ) {
-	$cta_image = wp_get_attachment_image_src( $imgid, 'large' );
 	$content  .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
 	$content  .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
-	$content  .= '<img src="' . $cta_image[0] . '" />';
+	$content  .= wp_get_attachment_image( $imgid, 'large' );
 	$content  .= ( $url ) ? '</a>' : '';
 	$content  .= '</div>';
 }
