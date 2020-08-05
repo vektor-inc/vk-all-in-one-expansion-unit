@@ -2,10 +2,9 @@
   "name": "vk-all-in-one-expansion-unit",
   "version": "9.11.3",
   "description": " This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!",
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
+  "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
     "@wordpress/babel-plugin-makepot": "^3.7.0",
     "@wordpress/env": "^1.6.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -25,6 +24,7 @@
     "po2json": "^0.4.5",
     "run-sequence": "^2.2.1"
   },
+  "devDependencies": {},
   "scripts": {
     "start": "npx wp-env start",
     "stop": "npx wp-env stop",

@@ -3,8 +3,38 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
+#: src/blocks/_helper/example-data.js:10
+msgid "Theoretical Physicist"
+msgstr ""
+
+#: src/blocks/_helper/example-data.js:11
+msgid "Profile"
+msgstr ""
+
+#: src/blocks/_helper/example-data.js:12
+msgid "Albert Einstein"
+msgstr ""
+
+#: src/blocks/_helper/example-data.js:13
+msgid "14 March 1879 – 18 April 1955"
+msgstr ""
+
+#: src/blocks/_helper/example-data.js:2
+msgid "Lorem ipsum dolor"
+msgstr ""
+
+#: src/blocks/_helper/example-data.js:3
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. "
+msgstr ""
+
+#: src/blocks/_helper/example-data.js:4
+msgid "Lorem ipsum"
+msgstr ""
+
 #: src/blocks/_helper/font-awesome-new.js:12
-#: src/blocks/border-box/block.js:138
+#: src/blocks/border-box/block.js:140
 #: src/blocks/border-box/font-awesome-new.js:21
 msgid "Icon"
 msgstr ""
@@ -32,146 +62,146 @@ msgstr ""
 msgid "Select Icon"
 msgstr ""
 
-#: src/blocks/alert/block.js:17
+#: src/blocks/alert/block.js:18
 msgid "Alert"
 msgstr ""
 
-#: src/blocks/alert/block.js:48
-#: src/blocks/heading/block.js:125
+#: src/blocks/alert/block.js:55
+#: src/blocks/heading/block.js:126
 msgid "Style Settings"
 msgstr ""
 
-#: src/blocks/alert/block.js:53
+#: src/blocks/alert/block.js:60
 #: src/blocks/button/block.js:249
 #: src/blocks/group-style/block.js:131
-#: src/blocks/pr-content/block.js:159
+#: src/blocks/pr-content/block.js:160
 msgid "Success"
 msgstr ""
 
-#: src/blocks/alert/block.js:54
+#: src/blocks/alert/block.js:61
 #: src/blocks/button/block.js:250
 #: src/blocks/group-style/block.js:127
-#: src/blocks/pr-content/block.js:160
+#: src/blocks/pr-content/block.js:161
 msgid "Info"
 msgstr ""
 
-#: src/blocks/alert/block.js:55
+#: src/blocks/alert/block.js:62
 #: src/blocks/button/block.js:251
 #: src/blocks/group-style/block.js:135
-#: src/blocks/pr-content/block.js:161
+#: src/blocks/pr-content/block.js:162
 msgid "Warning"
 msgstr ""
 
-#: src/blocks/alert/block.js:56
+#: src/blocks/alert/block.js:63
 #: src/blocks/button/block.js:252
 #: src/blocks/group-style/block.js:139
-#: src/blocks/pr-content/block.js:162
+#: src/blocks/pr-content/block.js:163
 msgid "Danger"
 msgstr ""
 
-#: src/blocks/balloon/block.js:111
+#: src/blocks/balloon/block.js:123
 msgid "Balloon setting"
 msgstr ""
 
-#: src/blocks/balloon/block.js:113
-#: src/blocks/heading/block.js:200
+#: src/blocks/balloon/block.js:125
+#: src/blocks/heading/block.js:201
 msgid "Position"
 msgstr ""
 
-#: src/blocks/balloon/block.js:114
+#: src/blocks/balloon/block.js:126
 msgid "Please specify the layout of the balloon."
 msgstr ""
 
-#: src/blocks/balloon/block.js:122
+#: src/blocks/balloon/block.js:134
 #: src/blocks/button/block.js:178
-#: src/blocks/pr-content/block.js:203
+#: src/blocks/pr-content/block.js:204
 msgid "Left"
 msgstr ""
 
-#: src/blocks/balloon/block.js:130
+#: src/blocks/balloon/block.js:142
 #: src/blocks/button/block.js:194
-#: src/blocks/pr-content/block.js:202
+#: src/blocks/pr-content/block.js:203
 msgid "Right"
 msgstr ""
 
-#: src/blocks/balloon/block.js:134
+#: src/blocks/balloon/block.js:146
 msgid "Type"
 msgstr ""
 
-#: src/blocks/balloon/block.js:135
+#: src/blocks/balloon/block.js:147
 msgid "Please select the type of balloon."
 msgstr ""
 
-#: src/blocks/balloon/block.js:143
+#: src/blocks/balloon/block.js:155
 msgid "Serif"
 msgstr ""
 
-#: src/blocks/balloon/block.js:151
+#: src/blocks/balloon/block.js:163
 msgid "Thinking"
 msgstr ""
 
-#: src/blocks/balloon/block.js:155
+#: src/blocks/balloon/block.js:167
 msgid "Image Style"
 msgstr ""
 
-#: src/blocks/balloon/block.js:163
+#: src/blocks/balloon/block.js:175
 #: src/blocks/button/block.js:158
-#: src/blocks/faq/block.js:64
+#: src/blocks/faq/block.js:65
 msgid "Normal"
 msgstr ""
 
-#: src/blocks/balloon/block.js:171
+#: src/blocks/balloon/block.js:183
 msgid "Rounded"
 msgstr ""
 
-#: src/blocks/balloon/block.js:179
+#: src/blocks/balloon/block.js:191
 msgid "Circle"
 msgstr ""
 
-#: src/blocks/balloon/block.js:182
+#: src/blocks/balloon/block.js:194
 msgid "Background color of speech balloon"
 msgstr ""
 
-#: src/blocks/balloon/block.js:188
+#: src/blocks/balloon/block.js:200
 msgid "Default Icon Setting"
 msgstr ""
 
-#: src/blocks/balloon/block.js:192
+#: src/blocks/balloon/block.js:204
 msgid "You can register default icons from Settings > VK Blocks in Admin."
 msgstr ""
 
-#: src/blocks/balloon/block.js:194
+#: src/blocks/balloon/block.js:206
 msgid "Animation setting"
 msgstr ""
 
-#: src/blocks/balloon/block.js:195
+#: src/blocks/balloon/block.js:207
 msgid "Please select the type of animation."
 msgstr ""
 
-#: src/blocks/balloon/block.js:202
-#: src/blocks/staff/block.js:88
+#: src/blocks/balloon/block.js:214
+#: src/blocks/staff/block.js:89
 msgid "None"
 msgstr ""
 
-#: src/blocks/balloon/block.js:206
+#: src/blocks/balloon/block.js:218
 msgid "Trembling"
 msgstr ""
 
-#: src/blocks/balloon/block.js:210
+#: src/blocks/balloon/block.js:222
 msgid "Trembling X"
 msgstr ""
 
-#: src/blocks/balloon/block.js:214
+#: src/blocks/balloon/block.js:226
 msgid "Pounding"
 msgstr ""
 
-#: src/blocks/balloon/block.js:218
+#: src/blocks/balloon/block.js:230
 msgid "Shaking"
 msgstr ""
 
-#: src/blocks/balloon/block.js:241
-#: src/blocks/flow/block.js:96
-#: src/blocks/pr-blocks/block.js:149
+#: src/blocks/balloon/block.js:253
+#: src/blocks/flow/block.js:105
+#: src/blocks/pr-blocks/block.js:168
 #: src/blocks/pr-content/component.js:157
 #: src/blocks/pr-content/deprecated/component-deprecated.js:102
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:116
@@ -180,9 +210,9 @@ msgstr ""
 msgid "Select image"
 msgstr ""
 
-#: src/blocks/balloon/block.js:246
-#: src/blocks/flow/block.js:97
-#: src/blocks/pr-blocks/block.js:145
+#: src/blocks/balloon/block.js:258
+#: src/blocks/flow/block.js:106
+#: src/blocks/pr-blocks/block.js:164
 #: src/blocks/pr-content/component.js:164
 #: src/blocks/pr-content/deprecated/component-deprecated.js:106
 #: src/blocks/pr-content/deprecated/component-no-boder-color.js:120
@@ -190,15 +220,15 @@ msgstr ""
 msgid "Upload image"
 msgstr ""
 
-#: src/blocks/balloon/block.js:25
+#: src/blocks/balloon/block.js:26
 msgid "Ballon"
 msgstr ""
 
-#: src/blocks/balloon/block.js:257
+#: src/blocks/balloon/block.js:269
 msgid "Icon Name"
 msgstr ""
 
-#: src/blocks/balloon/block.js:267
+#: src/blocks/balloon/block.js:279
 #: src/blocks/button/block.js:303
 msgid "Input text"
 msgstr ""
@@ -208,37 +238,37 @@ msgstr ""
 msgid "Please enter a title."
 msgstr ""
 
-#: src/blocks/border-box/block.js:101
+#: src/blocks/border-box/block.js:103
 msgid "Orange"
 msgstr ""
 
-#: src/blocks/border-box/block.js:105
+#: src/blocks/border-box/block.js:107
 msgid "Blue"
 msgstr ""
 
-#: src/blocks/border-box/block.js:109
+#: src/blocks/border-box/block.js:111
 msgid "Green"
 msgstr ""
 
-#: src/blocks/border-box/block.js:113
+#: src/blocks/border-box/block.js:115
 msgid "Black"
 msgstr ""
 
-#: src/blocks/border-box/block.js:120
+#: src/blocks/border-box/block.js:122
 msgid "Background Color"
 msgstr ""
 
-#: src/blocks/border-box/block.js:128
+#: src/blocks/border-box/block.js:130
 msgid "Transparent"
 msgstr ""
 
-#: src/blocks/border-box/block.js:132
+#: src/blocks/border-box/block.js:134
 msgid "White"
 msgstr ""
 
-#: src/blocks/border-box/block.js:141
+#: src/blocks/border-box/block.js:143
 #: src/blocks/button/block.js:269
-#: src/blocks/pr-content/block.js:175
+#: src/blocks/pr-content/block.js:176
 msgid "Icon ( Font Awesome )"
 msgstr ""
 
@@ -246,41 +276,41 @@ msgstr ""
 msgid "Border Box"
 msgstr ""
 
-#: src/blocks/border-box/block.js:55
+#: src/blocks/border-box/block.js:57
 msgid "Solid Angle Tab"
 msgstr ""
 
-#: src/blocks/border-box/block.js:60
+#: src/blocks/border-box/block.js:62
 msgid "Solid Round Tab"
 msgstr ""
 
-#: src/blocks/border-box/block.js:64
+#: src/blocks/border-box/block.js:66
 msgid "Solid Angle Banner"
 msgstr ""
 
-#: src/blocks/border-box/block.js:68
+#: src/blocks/border-box/block.js:70
 msgid "Solid Angle Onborder"
 msgstr ""
 
-#: src/blocks/border-box/block.js:72
+#: src/blocks/border-box/block.js:74
 msgid "Solid Angle Inner"
 msgstr ""
 
-#: src/blocks/border-box/block.js:76
+#: src/blocks/border-box/block.js:78
 msgid "Solid Angle iconFeature"
 msgstr ""
 
-#: src/blocks/border-box/block.js:86
-#: src/blocks/staff/block.js:103
+#: src/blocks/border-box/block.js:88
+#: src/blocks/staff/block.js:104
 msgid "Color"
 msgstr ""
 
-#: src/blocks/border-box/block.js:89
+#: src/blocks/border-box/block.js:91
 #: src/blocks/group-style/block.js:50
 msgid "Border Color"
 msgstr ""
 
-#: src/blocks/border-box/block.js:97
+#: src/blocks/border-box/block.js:99
 msgid "Red"
 msgstr ""
 
@@ -293,8 +323,8 @@ msgid "Sub Caption"
 msgstr ""
 
 #: src/blocks/button/block.js:137
-#: src/blocks/pr-blocks/block.js:294
-#: src/blocks/pr-content/block.js:139
+#: src/blocks/pr-blocks/block.js:313
+#: src/blocks/pr-content/block.js:140
 msgid "Open link new tab."
 msgstr ""
 
@@ -331,12 +361,12 @@ msgid "Button Style:"
 msgstr ""
 
 #: src/blocks/button/block.js:222
-#: src/blocks/pr-blocks/block.js:321
+#: src/blocks/pr-blocks/block.js:340
 msgid "Solid color"
 msgstr ""
 
 #: src/blocks/button/block.js:230
-#: src/blocks/pr-blocks/block.js:322
+#: src/blocks/pr-blocks/block.js:341
 msgid "No background"
 msgstr ""
 
@@ -349,27 +379,27 @@ msgid "If you select \"No background\", that you need to select a Custom Color."
 msgstr ""
 
 #: src/blocks/button/block.js:244
-#: src/blocks/pr-content/block.js:154
+#: src/blocks/pr-content/block.js:155
 msgid "Default Color:"
 msgstr ""
 
 #: src/blocks/button/block.js:247
-#: src/blocks/pr-content/block.js:157
+#: src/blocks/pr-content/block.js:158
 msgid "Primary"
 msgstr ""
 
 #: src/blocks/button/block.js:248
-#: src/blocks/pr-content/block.js:158
+#: src/blocks/pr-content/block.js:159
 msgid "Secondary"
 msgstr ""
 
 #: src/blocks/button/block.js:253
-#: src/blocks/pr-content/block.js:163
+#: src/blocks/pr-content/block.js:164
 msgid "Light"
 msgstr ""
 
 #: src/blocks/button/block.js:254
-#: src/blocks/pr-content/block.js:164
+#: src/blocks/pr-content/block.js:165
 msgid "Dark"
 msgstr ""
 
@@ -384,14 +414,14 @@ msgid ""
 msgstr ""
 
 #: src/blocks/button/block.js:271
-#: src/blocks/heading/block.js:188
-#: src/blocks/pr-content/block.js:177
+#: src/blocks/heading/block.js:189
+#: src/blocks/pr-content/block.js:178
 msgid "Before text"
 msgstr ""
 
 #: src/blocks/button/block.js:279
-#: src/blocks/heading/block.js:191
-#: src/blocks/pr-content/block.js:185
+#: src/blocks/heading/block.js:192
+#: src/blocks/pr-content/block.js:186
 msgid "After text"
 msgstr ""
 
@@ -403,59 +433,59 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: src/blocks/faq/block.js:106
+#: src/blocks/faq/block.js:120
 msgid "Please enter a question."
 msgstr ""
 
-#: src/blocks/faq/block.js:45
+#: src/blocks/faq/block.js:46
 msgid "FAQ"
 msgstr ""
 
-#: src/blocks/faq/block.js:69
+#: src/blocks/faq/block.js:70
 msgid "Bgfill Circle"
 msgstr ""
 
-#: src/blocks/faq/block.js:73
+#: src/blocks/faq/block.js:74
 msgid "Bgfill Square"
 msgstr ""
 
-#: src/blocks/faq/block.js:77
+#: src/blocks/faq/block.js:78
 msgid "Bgfill Rounded"
 msgstr ""
 
-#: src/blocks/faq/block.js:81
+#: src/blocks/faq/block.js:82
 msgid "Border Circle"
 msgstr ""
 
-#: src/blocks/faq/block.js:85
+#: src/blocks/faq/block.js:86
 msgid "Border Square"
 msgstr ""
 
-#: src/blocks/faq/block.js:89
+#: src/blocks/faq/block.js:90
 msgid "Border Rounded"
 msgstr ""
 
-#: src/blocks/flow/block.js:16
+#: src/blocks/flow/block.js:17
 msgid "Flow"
 msgstr ""
 
-#: src/blocks/flow/block.js:51
+#: src/blocks/flow/block.js:60
 msgid "Display of arrow"
 msgstr ""
 
-#: src/blocks/flow/block.js:55
+#: src/blocks/flow/block.js:64
 msgid "Arrow display"
 msgstr ""
 
-#: src/blocks/flow/block.js:56
+#: src/blocks/flow/block.js:65
 msgid "Arrow hidden"
 msgstr ""
 
-#: src/blocks/flow/block.js:74
+#: src/blocks/flow/block.js:83
 msgid "Input title"
 msgstr ""
 
-#: src/blocks/flow/block.js:82
+#: src/blocks/flow/block.js:91
 msgid "Input content"
 msgstr ""
 
@@ -484,7 +514,7 @@ msgid "Shadow"
 msgstr ""
 
 #: src/blocks/group-style/block.js:95
-#: src/blocks/pr-content/block.js:147
+#: src/blocks/pr-content/block.js:148
 msgid "Solid"
 msgstr ""
 
@@ -505,14 +535,14 @@ msgid "Brackets black"
 msgstr ""
 
 #: src/blocks/heading-style/block.js:33
-#: src/blocks/heading/block.js:131
+#: src/blocks/heading/block.js:132
 #: src/blocks/list-style/block.js:104
-#: src/blocks/staff/block.js:84
+#: src/blocks/staff/block.js:85
 msgid "Default"
 msgstr ""
 
 #: src/blocks/heading-style/block.js:38
-#: src/blocks/heading/block.js:132
+#: src/blocks/heading/block.js:133
 msgid "Plain"
 msgstr ""
 
@@ -536,59 +566,59 @@ msgstr ""
 msgid "Solid border bottom black"
 msgstr ""
 
-#: src/blocks/heading/block.js:127
+#: src/blocks/heading/block.js:128
 msgid "Heading style"
 msgstr ""
 
-#: src/blocks/heading/block.js:136
+#: src/blocks/heading/block.js:137
 msgid "Margin Setting"
 msgstr ""
 
-#: src/blocks/heading/block.js:137
+#: src/blocks/heading/block.js:138
 msgid "Margin bottom size of after hedding  (rem)"
 msgstr ""
 
-#: src/blocks/heading/block.js:147
+#: src/blocks/heading/block.js:148
 msgid "Margin bottom size of after this block (rem)"
 msgstr ""
 
-#: src/blocks/heading/block.js:158
+#: src/blocks/heading/block.js:159
 msgid "Heading Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:159
+#: src/blocks/heading/block.js:160
 msgid "Level"
 msgstr ""
 
-#: src/blocks/heading/block.js:166
+#: src/blocks/heading/block.js:167
 msgid "Text Alignment"
 msgstr ""
 
-#: src/blocks/heading/block.js:183
+#: src/blocks/heading/block.js:184
 msgid "Text Color"
 msgstr ""
 
-#: src/blocks/heading/block.js:187
+#: src/blocks/heading/block.js:188
 msgid "Font Awesome Icon Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:194
+#: src/blocks/heading/block.js:195
 msgid "Icon Color"
 msgstr ""
 
-#: src/blocks/heading/block.js:198
+#: src/blocks/heading/block.js:199
 msgid "Sub Text Settings"
 msgstr ""
 
-#: src/blocks/heading/block.js:203
+#: src/blocks/heading/block.js:204
 msgid "Display"
 msgstr ""
 
-#: src/blocks/heading/block.js:204
+#: src/blocks/heading/block.js:205
 msgid "Hide"
 msgstr ""
 
-#: src/blocks/heading/block.js:208
+#: src/blocks/heading/block.js:209
 msgid "Text size (rem)"
 msgstr ""
 
@@ -722,60 +752,60 @@ msgstr ""
 msgid "List Icon Color"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:160
+#: src/blocks/pr-blocks/block.js:100
+msgid "PR Blocks"
+msgstr ""
+
+#: src/blocks/pr-blocks/block.js:179
 msgid "PR Block1 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:175
+#: src/blocks/pr-blocks/block.js:194
 msgid "Icon 1"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:205
+#: src/blocks/pr-blocks/block.js:224
 msgid "When you have an image. Image is displayed with priority"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:207
+#: src/blocks/pr-blocks/block.js:226
 msgid "PR Image 1"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:223
+#: src/blocks/pr-blocks/block.js:242
 msgid "PR Block2 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:238
+#: src/blocks/pr-blocks/block.js:257
 msgid "Icon 2"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:269
+#: src/blocks/pr-blocks/block.js:288
 msgid "PR Image 2"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:285
+#: src/blocks/pr-blocks/block.js:304
 msgid "PR Block3 Setting"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:287
+#: src/blocks/pr-blocks/block.js:306
 msgid "Link URL:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:300
+#: src/blocks/pr-blocks/block.js:319
 msgid "Icon 3"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:318
+#: src/blocks/pr-blocks/block.js:337
 msgid "Icon Background:"
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:329
+#: src/blocks/pr-blocks/block.js:348
 msgid "When you have an image. Image is displayed with priority."
 msgstr ""
 
-#: src/blocks/pr-blocks/block.js:331
+#: src/blocks/pr-blocks/block.js:350
 msgid "PR Image 3"
-msgstr ""
-
-#: src/blocks/pr-blocks/block.js:82
-msgid "PR Blocks"
 msgstr ""
 
 #: src/blocks/pr-blocks/component-block.js:183
@@ -790,47 +820,47 @@ msgstr ""
 msgid "Input Content"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:101
+#: src/blocks/pr-content/block.js:102
 msgid "Title Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:107
+#: src/blocks/pr-content/block.js:108
 msgid "Content Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:113
+#: src/blocks/pr-content/block.js:114
 msgid "Image Border Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:121
+#: src/blocks/pr-content/block.js:122
 msgid "Button Setting"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:124
+#: src/blocks/pr-content/block.js:125
 msgid "Button Text"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:131
+#: src/blocks/pr-content/block.js:132
 msgid "Link URL"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:143
+#: src/blocks/pr-content/block.js:144
 msgid "Button Type"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:148
+#: src/blocks/pr-content/block.js:149
 msgid "Ghost"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:168
+#: src/blocks/pr-content/block.js:169
 msgid "Button Color"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:195
+#: src/blocks/pr-content/block.js:196
 msgid "Layout Setting"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:199
+#: src/blocks/pr-content/block.js:200
 msgid "Layout Type"
 msgstr ""
 
@@ -838,7 +868,7 @@ msgstr ""
 msgid "PR Content"
 msgstr ""
 
-#: src/blocks/pr-content/block.js:98
+#: src/blocks/pr-content/block.js:99
 msgid "Color Setting"
 msgstr ""
 
@@ -860,29 +890,29 @@ msgstr ""
 msgid "Responsive Spacer"
 msgstr ""
 
-#: src/blocks/spacer/block.js:45
+#: src/blocks/spacer/block.js:46
 msgid "Height for each device."
 msgstr ""
 
-#: src/blocks/staff/block.js:105
+#: src/blocks/staff/block.js:106
 msgid "Staff name"
 msgstr ""
 
-#: src/blocks/staff/block.js:113
+#: src/blocks/staff/block.js:114
 msgid "Name caption"
 msgstr ""
 
-#: src/blocks/staff/block.js:121
+#: src/blocks/staff/block.js:122
 #: src/blocks/staff/component.js:58
 msgid "Role position"
 msgstr ""
 
-#: src/blocks/staff/block.js:129
+#: src/blocks/staff/block.js:130
 #: src/blocks/staff/component.js:66
 msgid "Profile title"
 msgstr ""
 
-#: src/blocks/staff/block.js:137
+#: src/blocks/staff/block.js:138
 #: src/blocks/staff/component.js:74
 msgid "Profile text"
 msgstr ""
@@ -891,23 +921,23 @@ msgstr ""
 msgid "Staff"
 msgstr ""
 
-#: src/blocks/staff/block.js:61
+#: src/blocks/staff/block.js:62
 msgid "Layout"
 msgstr ""
 
-#: src/blocks/staff/block.js:72
+#: src/blocks/staff/block.js:73
 msgid "Image left"
 msgstr ""
 
-#: src/blocks/staff/block.js:77
+#: src/blocks/staff/block.js:78
 msgid "Image border"
 msgstr ""
 
-#: src/blocks/staff/block.js:93
+#: src/blocks/staff/block.js:94
 msgid "Alt text"
 msgstr ""
 
-#: src/blocks/staff/block.js:95
+#: src/blocks/staff/block.js:96
 msgid "Set the alt text for profile image"
 msgstr ""
 
