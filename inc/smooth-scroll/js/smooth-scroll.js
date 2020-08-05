@@ -7,26 +7,27 @@
     }
     window.addEventListener('load', () =>{
         function smooth_link(e) {
+			let path = e.path || (e.composedPath && e.composedPath());
             let i=0;
-            for(i;i<e.path.length;i++){
-                if(e.path[i].getAttribute('href')) break;
+            for(i;i<path.length;i++){
+                if(path[i].getAttribute('href')) break;
             }
-            let href = e.path[i].getAttribute('href')
+            let href = path[i].getAttribute('href')
             if (!href) return;
 
             // role が tab の場合はスムーススクロールしない
-            if (['tab'].indexOf(e.path[i].getAttribute('role')) > 0) return;
+            if (['tab'].indexOf(path[i].getAttribute('role')) > 0) return;
 
             // role が button の場合で リンク先指定がない場合はスムーススクロールしない
-            if (['button'].indexOf(e.path[i].getAttribute('role')) > 0 ) {
+            if (['button'].indexOf(path[i].getAttribute('role')) > 0 ) {
                 let href = e.getAttribute('href')
                 if( href.indexOf('#') == 0 && href === '#'){
                     return;
                 }
             }
 
-            if (e.path[i].getAttribute('data-toggle')) return;
-            if (e.path[i].getAttribute('carousel-control')) return;
+            if (path[i].getAttribute('data-toggle')) return;
+            if (path[i].getAttribute('carousel-control')) return;
 
             let y = 0,
             destination = document.getElementById(href.slice(1))
