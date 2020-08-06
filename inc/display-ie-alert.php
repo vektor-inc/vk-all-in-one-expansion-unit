@@ -6,7 +6,7 @@
 /**
  * Judgment IS IE
  */
-function vue_is_ie() {
+function veu_is_ie() {
     $ua = mb_strtolower( $_SERVER['HTTP_USER_AGENT'] );  //すべて小文字にしてユーザーエージェントを取得
     if ( strpos( $ua,'msie' ) !== false || strpos( $ua, 'trident' ) !== false ) {
         return true;
@@ -57,7 +57,7 @@ function veu_insert_alert(){
 		}
 		</style>
 		<?php
-		echo iea_get_alert_html();
+		echo veu_get_alert_html();
 	}
 }
-add_action('wp_body_open','iea_insert_alert');
+add_action('wp_body_open','veu_insert_alert');
