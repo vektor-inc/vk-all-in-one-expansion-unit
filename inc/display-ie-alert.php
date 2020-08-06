@@ -6,7 +6,7 @@
 /**
  * Judgment IS IE
  */
-function iea_is_IE() {
+function vue_is_ie() {
     $ua = mb_strtolower( $_SERVER['HTTP_USER_AGENT'] );  //すべて小文字にしてユーザーエージェントを取得
     if ( strpos( $ua,'msie' ) !== false || strpos( $ua, 'trident' ) !== false ) {
         return true;
@@ -17,7 +17,7 @@ function iea_is_IE() {
 /**
  * IE Alart HTML
  */
-function iea_get_alert_html(){
+function veu_get_alert_html(){
 	$html = '<div class="ie_alert">
 	<h1 class="ie_alert__title">ご利用のブラウザは安全ではありません</h1>
 	<div class="ie_alert__body">
@@ -32,8 +32,8 @@ function iea_get_alert_html(){
 /**
  * Insert IE Alert.
  */
-function iea_insert_alert(){
-	if ( iea_is_IE() ) {
+function veu_insert_alert(){
+	if ( veu_is_ie() ) {
 		?>
 		<style type="text/css">
 		.ie_alert {
