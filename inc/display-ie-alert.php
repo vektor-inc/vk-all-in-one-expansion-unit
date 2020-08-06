@@ -25,7 +25,7 @@ function veu_get_alert_html() {
 	$html .= '<div class="ie_alert__body">';
 	$html .= '<p>';
 	$html .= __( 'Internet Explorer, you are using, is old browser, Microsoft also reports that use is dangerous.', 'vk-all-in-one-expansion-unit' );
-	$html .= __( 'This website is not guaranteed to display on Internet Explorer.', 'vk-all-in-one-expansion-unit' );
+	$html .= __( 'This website is also not guaranteed to display on Internet Explorer.', 'vk-all-in-one-expansion-unit' );
 	$html .= '<br>';
 	$html .= __( 'Plese use The latest modern browser ( <a href="https://www.microsoft.com/ja-jp/edge" target="_blank" rel="noopener">Microsoft Edge</a>, <a href="https://www.google.co.jp/chrome/index.html" target="_blank" rel="noopener">Google Chrome</a> and so on ).', 'vk-all-in-one-expansion-unit' );
 	$html .= '</p>';
