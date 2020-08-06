@@ -38,9 +38,9 @@
         display: block;
         text-decoration: none;
     }
-    .contact_bt_txt {
+    .contact_bt_txt,
+    .contact_bt_subTxt {
         color:#fff; // これがないとフッターの文字色指定に負ける
-
     }
 } // .veu_contact
 
