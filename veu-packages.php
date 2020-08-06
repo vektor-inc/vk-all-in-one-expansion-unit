@@ -391,10 +391,10 @@ function veu_get_packages() {
      */
     $required_packages[] = array(
 		'name'        => 'disable_emoji',
-		'title'       => __( 'Disable Emoji', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can disable emoji.', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Disable Emojis', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can disable emojis.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'disable-emoji.php',
+		'include'     => 'disable-emojis.php',
 	);
 
 	$required_packages[] = array(
