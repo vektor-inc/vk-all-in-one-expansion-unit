@@ -376,8 +376,19 @@ function veu_get_packages() {
 	);
 
 	/**
-     * Disable Core XML Sitemap.
-     */
+	 * Disable Core XML Sitemap.
+	 */
+    $required_packages[] = array(
+		'name'        => 'display_ie_alert',
+		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can display Alert for IE.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'display-ie-alert.php',
+	);
+
+	/**
+	 * IE Alart.
+	 */
     $required_packages[] = array(
 		'name'        => 'disable_xml_sitemap',
 		'title'       => __( 'Disable XML Sitemap', 'vk-all-in-one-expansion-unit' ),
