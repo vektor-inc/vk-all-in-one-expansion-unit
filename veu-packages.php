@@ -386,6 +386,17 @@ function veu_get_packages() {
 		'include'     => 'disable-xml-sitemap.php',
 	);
 
+	/**
+     * Disable Emoji.
+     */
+    $required_packages[] = array(
+		'name'        => 'disable_emoji',
+		'title'       => __( 'Disable Emoji', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can disable emoji.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'disable-emoji.php',
+	);
+
 	$required_packages[] = array(
 		'name'        => 'admin_bar',
 		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
