@@ -404,7 +404,7 @@ function veu_get_packages() {
 		'name'        => 'disable_emoji',
 		'title'       => __( 'Disable Emojis', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'You can disable emojis.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you do not using Emojis that I recommend to enable this function.', 'vk-all-in-one-expansion-unit' ).__( 'If disable emoji that you can stop print emoji codes on html head and it bring to small effect of speeding up.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
+		'default'     => false,
 		'include'     => 'disable-emojis.php',
 	);
 
