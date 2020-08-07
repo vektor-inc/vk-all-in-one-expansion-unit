@@ -11,6 +11,7 @@
 require veu_get_directory() . '/veu-package-manager.php';
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once veu_get_directory() . '/inc/template-tags/template-tags-config.php';
+require_once veu_get_directory() . '/inc/vk-css-optimize/vk-css-optimize-config.php';
 
 require_once veu_get_directory() . '/admin/admin.php';
 require veu_get_directory() . '/inc/footer-copyright-change.php';
@@ -94,34 +95,13 @@ function change_old_options() {
 		unset( $option['common'] );
 	}
 
+	if ( isset( $option['css_exunit'] ) ) {
+		$option['css_optimize'] = 'tree-shaking';
+		unset( $option['css_exunit'] );
+	}
+
 }
 add_action( 'after_setup_theme', 'change_old_options', 4 );
-
-add_action( 'after_setup_theme', 'veu_change_enqueue_point_run_filter', 5 );
-function veu_change_enqueue_point_run_filter() {
-	$default = array(
-		'css_exunit' => false,
-		'js_footer'  => false,
-	);
-	$option  = get_option( 'vkExUnit_pagespeeding', $default );
-	$option  = wp_parse_args( $option, $default );
-	if ( $option['css_exunit'] ) {
-
-		// font awesome.
-		add_filter( 'vkfa_enqueue_point', 'veu_change_enqueue_point_to_footer' );
-
-		// vk blocks css.
-		add_filter( 'vkblocks_enqueue_point', 'veu_change_enqueue_point_to_footer' );
-
-		// common css.
-		add_filter( 'veu_enqueue_point_common_css', 'veu_change_enqueue_point_to_footer' );
-
-		// css customize.
-		add_filter( 'veu_enqueue_point_css_customize_common', 'veu_change_enqueue_point_to_footer' );
-		add_filter( 'veu_enqueue_point_css_customize_single', 'veu_change_enqueue_point_to_footer' );
-
-	}
-}
 
 /**
  * Move JavaScripts To Footer
