@@ -99,6 +99,12 @@ e.g.
 
 == Changelog ==
 
+= 9.30.0.0 =
+[ Add function ][ IE Alert ]
+[ Add function ][ Disable Emojis ]
+[ bug fix ][ Smooth Scroll ] Fix malfunction on lightning default slide.
+[ Other ] Functional description improvement
+
 = 9.29.7.0 =
 [ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
 
