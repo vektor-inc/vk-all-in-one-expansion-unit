@@ -338,7 +338,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'relatedPosts',
 		'title'       => __( 'Related posts', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print Related posts lists to post content bottom.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print Related posts lists to post content bottom.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'Related posts are displayed based on tags, so please set tags for posts.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'related_posts/related_posts.php',
 	);
@@ -349,7 +349,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'noindex',
 		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print noindex tag to html head.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'noindex/noindex.php',
 	);
@@ -376,14 +376,36 @@ function veu_get_packages() {
 	);
 
 	/**
-     * Disable Core XML Sitemap.
-     */
+	 * Disable Core XML Sitemap.
+	 */
+    $required_packages[] = array(
+		'name'        => 'display_ie_alert',
+		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Display a warning if the user who is viewing this site is using IE.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'IE is a very old browser and its creator Microsoft does not recommend its use. Encouraging IE users to switch to the next-generation browser will greatly contribute to the evolution of the website.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'display-ie-alert.php',
+	);
+
+	/**
+	 * IE Alart.
+	 */
     $required_packages[] = array(
 		'name'        => 'disable_xml_sitemap',
 		'title'       => __( 'Disable XML Sitemap', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can disable Core XML Sitemap.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Stop the XML Sitemap feature added from WordPress 5.5.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you already creating XML Sitemap by another Plugin that you can stop  native WordPress Sitemap function by this function.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'disable-xml-sitemap.php',
+	);
+
+	/**
+     * Disable Emoji.
+     */
+    $required_packages[] = array(
+		'name'        => 'disable_emoji',
+		'title'       => __( 'Disable Emojis', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can disable emojis.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you do not using Emojis that I recommend to enable this function.', 'vk-all-in-one-expansion-unit' ).__( 'If disable emoji that you can stop print emoji codes on html head and it bring to small effect of speeding up.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'disable-emojis.php',
 	);
 
 	$required_packages[] = array(
@@ -485,8 +507,8 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'tiny_mce_style_tags',
 		'title'       => __( 'TinyMCE Style Tags', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
+		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ).'<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
+		'default'     => false,
 		'include'     => 'tiny-mce-styletags.php',
 	);
 
@@ -496,7 +518,7 @@ function veu_get_packages() {
 	$required_packages[] = array(
 		'name'        => 'bootstrap',
 		'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vk-all-in-one-expansion-unit' ).'<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ',
 		'default'     => false,
 		'include'     => 'bootstrap.php',
 	);
