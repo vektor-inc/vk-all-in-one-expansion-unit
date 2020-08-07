@@ -17,7 +17,9 @@
 
             // role が tab の場合はスムーススクロールしない
             if (['tab'].indexOf(path[i].getAttribute('role')) > 0) return;
-
+            // Lightning標準スライダーのスライド送り
+            if (path[i].getAttribute('href') === '#top__fullcarousel') return;
+        
             // role が button の場合で リンク先指定がない場合はスムーススクロールしない
             if (['button'].indexOf(path[i].getAttribute('role')) > 0 ) {
                 let href = e.getAttribute('href')
