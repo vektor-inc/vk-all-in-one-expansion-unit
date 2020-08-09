@@ -319,12 +319,19 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo esc_html( get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ) ); ?>" />
 	</td></tr>
 	<tr><th>
-	<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', $vk_call_to_action_textdomain ); ?></label></th><td>
-	<p><?php _e( 'To choose your favorite icon, and enter the class.', $vk_call_to_action_textdomain ); ?><br>
-	<label for="icon_before"><?php _e( 'Before :', $vk_call_to_action_textdomain ); ?>
-	<input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /><br>
-	<label for="icon_after"><?php _e( 'After :', $vk_call_to_action_textdomain ); ?>
-	<input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /><br>
+	<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', $vk_call_to_action_textdomain ); ?></label></th>
+	<td>
+	<p><?php _e( 'To choose your favorite icon, and enter the class.', $vk_call_to_action_textdomain ); ?></p>
+	<div class="vkExUnit_cta_button_icon_inputset">
+		<dl>
+		<dt><label for="icon_before"><?php _e( 'Before :', $vk_call_to_action_textdomain ); ?></label></dt>
+		<dd><input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /></dd>
+		</dl>
+		<dl>
+		<dt><label for="icon_after"><?php _e( 'After :', $vk_call_to_action_textdomain ); ?></label></dt>
+		<dd><input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /></dd>
+		</dl>
+	</div>
 
 <?php
 if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
