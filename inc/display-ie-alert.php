@@ -45,6 +45,8 @@ function veu_insert_alert() {
 			background-color:#c00;
 			color:#fff;
 			padding:10px;
+			position: relative;
+			z-index: 9999;
 		}
 		.ie_alert a {
 			color:#fff;
