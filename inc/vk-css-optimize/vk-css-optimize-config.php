@@ -33,7 +33,7 @@ function veu_optimize_css() {
 		} else {
 			$add_array = array(
 				'id'      => 'vkExUnit_common_style',
-				'url'     => veu_get_directory_uri( '/inc/vk-blocks/package/build/block-build.css' ),
+				'url'     => veu_get_directory_uri( '/assets/css/vkExUnit_style.css' ),
 				'path'    => veu_get_directory( '/assets/css/vkExUnit_style.css' ),
 				'version' => $vkExUnit_version,
 			);
