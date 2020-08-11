@@ -33,12 +33,22 @@ function veu_optimize_css() {
 		} else {
 			$add_array = array(
 				'id'      => 'vkExUnit_common_style',
-				'url'     => veu_get_directory_uri( '/assets/css/vkExUnit_style.css' ),
+				'url'     => veu_get_directory_uri( '/inc/vk-blocks/package/build/block-build.css' ),
 				'path'    => veu_get_directory( '/assets/css/vkExUnit_style.css' ),
 				'version' => $vkExUnit_version,
 			);
 			array_push( $vk_css_tree_shaking_array, $add_array );
 		}
+
+		$block_array = array(
+			'id'      => 'vk-blocks-build-css',
+			'url'     => veu_get_directory_uri( '/inc/vk-blocks/package/build/block-build.css' ),
+			'path'    => veu_get_directory( '/inc/vk-blocks/package/build/block-build.css' ),
+			'version' => VK_BLOCKS_VERSION,
+		);
+
+		array_push( $vk_css_tree_shaking_array, $block_array );
+
 		$vk_css_tree_shaking_array = apply_filters( 'vk_css_tree_shaking_array', $vk_css_tree_shaking_array );
 		if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			require_once dirname( __FILE__ ) . '/package/class-vk-css-optimize.php';
