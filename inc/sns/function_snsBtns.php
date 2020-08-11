@@ -229,6 +229,9 @@ add_action( 'rest_api_init', function () {
 		array(
 			'methods' => 'GET',
 			'callback' => 'vew_sns_hatena_restapi_callback',
+			'permission_callback' => function () {
+				return current_user_can( 'edit_others_posts' );
+			}
 		)
 	);
 	register_rest_route(
@@ -243,7 +246,10 @@ add_action( 'rest_api_init', function () {
 					'required' => true,
 					'type' => 'string',
 				)
-			)
+			),
+			'permission_callback' => function () {
+				return current_user_can( 'edit_others_posts' );
+			}
 		)
 	);
 	register_rest_route(
@@ -252,6 +258,9 @@ add_action( 'rest_api_init', function () {
 		array(
 			'methods' => 'GET',
 			'callback' => 'vew_sns_facebook_restapi_callback',
+			'permission_callback' => function () {
+				return current_user_can( 'edit_others_posts' );
+			}
 		)
 	);
 	register_rest_route(
@@ -266,7 +275,10 @@ add_action( 'rest_api_init', function () {
 					'required' => true,
 					'type' => 'string',
 				)
-			)
+			),
+			'permission_callback' => function () {
+				return current_user_can( 'edit_others_posts' );
+			}
 		)
 	);
 });
