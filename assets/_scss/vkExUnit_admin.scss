@@ -85,6 +85,9 @@
 	&_body {
 		display: none;
 		padding: 1rem 1rem 2rem;
+		.button {
+			margin-right:0.5em;
+		}
 	}
 }
 .veu_metabox_section.open {
@@ -98,6 +101,17 @@
 	}
 	.veu_metabox_section_body {
 		display: block;
+	}
+}
+
+.vkExUnit_cta_button_icon_inputset dl{
+	display: flex;
+	dt {
+		white-space: nowrap;
+	}
+	dd {
+		width:50%;
+		box-sizing: border-box;
 	}
 }
 
