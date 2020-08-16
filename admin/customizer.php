@@ -115,7 +115,7 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_pagespeeding[css_optimize]',
 		array(
-			'default'           => 'default',
+			'default'           => 'tree-shaking',
 			'type'              => 'option',
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_radio',
