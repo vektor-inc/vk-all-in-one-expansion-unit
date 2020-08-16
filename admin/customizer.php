@@ -130,7 +130,7 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 			'description' => __( 'If you enable this setting that css file will be minified.', 'vk-all-in-one-expansion-unit' ),
 			'type'        => 'select',
 			'choices'     => array(
-				'default'          => __( 'Nothing to do ( Full Bootstrap )', 'vk-all-in-one-expansion-unit' ),
+				'default'          => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
 				'tree-shaking'     => __( 'Optimize All CSS ( Tree Shaking ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
 				'optomize-all-css' => __( 'Optimize All CSS ( Tree Shaking + Preload ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
 			),
