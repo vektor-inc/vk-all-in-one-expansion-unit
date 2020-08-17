@@ -13,7 +13,7 @@
 	background: rgba(0,0,0,0.8);
 	outline: 1px solid rgba(0, 0, 0, 0.8);
 	border: 1px solid rgba(255,255,255,0.8);
-	background-image: url(../images/to-top-btn-icon.svg);
+	background-image: var( --ver_page_top_button_url );
 	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: center;

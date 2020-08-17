@@ -183,7 +183,6 @@ class CSS_tree_shaking {
                 'btn',
                 'btn-primary',
 				'.vk_post_imgOuter a:hover .card-img-overlay::after',
-				'scrolled',
 			),
 			'tag'   => array(
 				'a',
