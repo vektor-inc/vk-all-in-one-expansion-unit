@@ -47,3 +47,19 @@ function veu_optimize_css() {
 	}
 }
 add_action( 'after_setup_theme', 'veu_optimize_css' );
+
+/**
+ * CSS Tree Shaking Exclude
+ * 
+ * @param array $inidata CSS Tree Shaking Exclude Paramator.
+ */
+function veu_css_tree_shaking_exclude_class( $inidata ) {
+	$exclude_classes_array = array(
+		'page_top_btn',
+		'scrolled',
+	);
+	$inidata['class'] = array_merge( $inidata['class'], $exclude_classes_array );
+
+	return $inidata;
+}
+add_filter( 'css_tree_shaking_exclude', 'veu_css_tree_shaking_exclude_class' );
