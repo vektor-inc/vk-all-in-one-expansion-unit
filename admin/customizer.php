@@ -131,8 +131,8 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 			'type'        => 'select',
 			'choices'     => array(
 				'default'          => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
-				'tree-shaking'     => __( 'Optimize All CSS ( Tree Shaking ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
-				'optomize-all-css' => __( 'Optimize All CSS ( Tree Shaking + Preload ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
+				'tree-shaking'     => __( 'Optimize ExUnit CSS ( Tree Shaking ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
+				'optomize-all-css' => __( 'Optimize ExUnit CSS ( Tree Shaking + Preload ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
 			),
 		)
 	);

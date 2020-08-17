@@ -12,7 +12,7 @@ function veu_optimize_css() {
 	$options = get_option( 'vkExUnit_pagespeeding' );
 
 	if ( ! isset( $options['css_optimize'] ) ) {
-		$options['css_optimize'] = 'tree-shaking';
+		$options['css_optimize'] = 'default';
 	}
 
 	if ( ! empty( $options['css_optimize'] ) && ( 'optomize-all-css' === $options['css_optimize'] || 'tree-shaking' === $options['css_optimize'] ) ) {
