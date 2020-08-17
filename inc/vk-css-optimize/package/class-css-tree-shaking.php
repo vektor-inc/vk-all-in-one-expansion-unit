@@ -159,7 +159,9 @@ class CSS_tree_shaking {
         self::$atrule_data = array();
         self::$jsaddlist = $jsaddlist;  //JS によりDOMロード後に追加される ID や class 等が除外されなくするための名前の事前登録用
         $inidata = array(
-			'id'    => array(),
+			'id'    => array(
+				'page_top',
+			),
 			'class' => array(
 				'device-mobile',
 				'header_scrolled',
@@ -184,6 +186,7 @@ class CSS_tree_shaking {
 				'page_top_btn',
 			),
 			'tag'   => array(
+				'a',
 				'html',
 				'head',
 				'body',
