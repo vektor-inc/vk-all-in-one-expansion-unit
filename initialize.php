@@ -133,3 +133,28 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 	$enqueue_point = 'wp_footer';
 	return $enqueue_point;
 }
+
+function veu_inline_styles() {
+	$dynamic_css = ':root {
+		--ver_page_top_button_url:url(' . veu_get_directory_uri( '/assets/images/to-top-btn-icon.svg' ) . ');
+	}
+	@font-face {
+		font-weight: normal;
+		font-style: normal;
+		font-family: "vk_sns";
+		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?-bq20cj' ) . '");
+		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj' ) . '") format("embedded-opentype"),
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.woff?-bq20cj' ) . '") format("woff"),
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.ttf?-bq20cj' ) . '") format("truetype"),
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' ). '") format("svg");
+	}';
+
+	// delete before after space
+	$dynamic_css = trim( $dynamic_css );
+	// convert tab and br to space
+	$dynamic_css = preg_replace( '/[\n\r\t]/', '', $dynamic_css );
+	// Change multiple spaces to single space
+	$dynamic_css = preg_replace( '/\s(?=\s)/', '', $dynamic_css );
+	wp_add_inline_style( 'vkExUnit_common_style', $dynamic_css );
+}
+add_action( 'wp_head', 'veu_inline_styles', 5 );

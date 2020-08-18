@@ -14,27 +14,28 @@ require_once dirname( __FILE__ ) . '/sns_customizer.php';
 add_action( 'init', 'vew_sns_block_setup', 15 );
 function vew_sns_block_setup() {
 
-	if ( ! function_exists( 'register_block_type' ) ) { return; }
+	if ( ! function_exists( 'register_block_type' ) ) {
+		return; }
 
-	include dirname(dirname(__FILE__)) . '/vk-blocks/hidden-utils.php';
+	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
 
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
 			'attributes'      => array(
-				'position' => array(
+				'position'  => array(
 					'type'    => 'string',
 					'default' => 'after',
 				),
 				'className' => array(
-					'type'    => 'string',
+					'type' => 'string',
 				),
-				$common_attributes
+				$common_attributes,
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
 			'editor_script'   => 'veu-block',
 			'render_callback' => 'vew_sns_block_callback',
-			'supports' => [],
+			'supports'        => array(),
 		)
 	);
 }
@@ -283,3 +284,4 @@ function vkExUnit_add_sns_options_page() {
 	require dirname( __FILE__ ) . '/sns_admin.php';
 
 }
+
