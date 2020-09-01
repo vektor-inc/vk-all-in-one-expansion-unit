@@ -72,6 +72,16 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			$banner .= '<div class="vk-admin-banner-grid">';
 
+			// プラグイン VK Block Patterns を有効化していない人にバナーを表示
+			if ( ! is_plugin_active( 'vk-block-patterns/vk-block-patterns.php' ) ) {
+				if ( $lang == 'ja' ) {
+					$bnr_file_name = 'vk-block-patterns_bnr.jpg';
+				} else {
+					$bnr_file_name = 'vk-block-patterns_bnr.jpg';
+				}
+				$banner .= '<a href="//wordpress.org/plugins/vk-block-patterns/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Block Patterns" /></a>';
+			}
+
 			// プラグイン Link Target Controller を有効化していない人にバナーを表示
 			if ( ! is_plugin_active( 'vk-link-target-controller/vk-link-target-controller.php' ) ) {
 				if ( $lang == 'ja' ) {
@@ -384,7 +394,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				<div class="adminMain <?php echo $get_layout; ?>">
 
 					<?php if ( $get_layout == 'column_3' ) : ?>
-				<div id="adminContent_sub" class="scrTracking">
+				<div id="adminContent_sub" class="scrTracking adminMain_sub">
 					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
 						<?php if ( $get_page_title ) : ?>
 					<h2 class="page_title"><?php echo $get_page_title; ?></h2>
@@ -404,7 +414,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 					<?php endif; ?>
 				<?php endif; ?>
 
-					<div id="adminContent_main">
+					<div id="adminContent_main" class="adminMain_main">
 					<?php call_user_func_array( $the_body_callback, array() ); ?>
 					</div><!-- [ /#adminContent_main ] -->
 
