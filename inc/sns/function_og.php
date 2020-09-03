@@ -42,7 +42,13 @@ function vkExUnit_print_og() {
 
 	if ( is_singular() && has_post_thumbnail() ) {
 
-			$image_id     = get_post_thumbnail_id();
+		$image_id     = get_post_thumbnail_id();
+
+		$image_option = get_option( 'veu_defualt_thumbnail' );
+		
+		$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
+
+		if ( $image_id ) {
 			$image_url    = wp_get_attachment_image_src( $image_id, 'large', true );
 			$vkExUnitOGP .= '<meta property="og:image" content="' . $image_url[0] . '" />' . "\n";
 
@@ -52,10 +58,7 @@ function vkExUnit_print_og() {
 				'width'  => $image_url[1],
 				'height' => $image_url[2],
 			);
-
-	} else {
-
-		if ( isset( $vkExUnit_sns_options['ogImage'] ) && $vkExUnit_sns_options['ogImage'] ) {
+		} elseif ( isset( $vkExUnit_sns_options['ogImage'] ) && $vkExUnit_sns_options['ogImage'] ) {
 			$vkExUnitOGP .= '<meta property="og:image" content="' . esc_url( $vkExUnit_sns_options['ogImage'] ) . '" />' . "\n";
 
 			//image:width,image:height INSERT
@@ -63,7 +66,18 @@ function vkExUnit_print_og() {
 				'type' => 'url',
 				'url'  => $vkExUnit_sns_options['ogImage'],
 			);
+		} elseif ( $image_default_id ) {
+			$image_url    = wp_get_attachment_image_src( $image_default_id, 'large', true );
+			$vkExUnitOGP .= '<meta property="og:image" content="' . $image_url[0] . '" />' . "\n";
+
+			//image:width,image:height INSERT
+			$addImageTag = array(
+				'type'   => 'id',
+				'width'  => $image_url[1],
+				'height' => $image_url[2],
+			);
 		}
+
 	}
 
 	//image:width,image:height INSERT
