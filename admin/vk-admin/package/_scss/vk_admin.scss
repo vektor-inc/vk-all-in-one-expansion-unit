@@ -1,6 +1,5 @@
 @charset "utf-8";
 // @import "compass";
-
 .text-left {
 	text-align: left;
 }
@@ -224,6 +223,7 @@
 			.setting-content{
 		
 			}
+
 		}
 		&.column_2 {
 			#adminContent_main {
@@ -235,6 +235,16 @@
 				margin-top:0;
 				margin-left:1.5em;
 				padding-top:0;
+			}
+			ol > li{
+				list-style: decimal;
+			}
+			ul > li {
+				list-style: disc;
+			}
+			li ul,
+			li ol {
+				margin-top:0.5em;
 			}
 			&_content {
 				margin-bottom:3em;
