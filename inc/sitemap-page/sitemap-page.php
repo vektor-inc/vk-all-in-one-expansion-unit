@@ -280,8 +280,7 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 
 add_action( 'init', 'veu_sitemap_block_setup', 15 );
 function veu_sitemap_block_setup() {
-	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
-
+	global $common_attributes;
 	register_block_type(
 		'vk-blocks/sitemap',
 		array(
