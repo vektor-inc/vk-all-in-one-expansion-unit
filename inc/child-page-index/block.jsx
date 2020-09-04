@@ -68,7 +68,8 @@
 			const { attributes, setAttributes, pages } = props;
 			const { postId, className } = attributes;
 
-			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
+			// let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
+			let options = [];
 
 			if (pages != undefined) {
 				const l = pages.length
@@ -88,11 +89,12 @@
 					}
 				}
 			}
-			
+			/*
 			let currentPostId = select("core/editor").getCurrentPostId();
 			if(currentPostId){
 				options = options.filter(option => option.value !== currentPostId)
 			}
+			*/
 			
 			return (
 				<Fragment>
