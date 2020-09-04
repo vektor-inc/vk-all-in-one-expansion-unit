@@ -68,7 +68,7 @@ function veu_change_vk_components_image_default_url( $options ) {
         $image_option     = get_option( 'veu_defualt_thumbnail' );
         $image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
         if ( $image_default_id ) {
-            $image = wp_get_attachment_image_src( $image_default_id, 'large', false );
+            $image = wp_get_attachment_image_src( $image_default_id, 'large', true );
             $options['image_default_url'] = $image[0];
         }
     }
