@@ -12,7 +12,7 @@ require veu_get_directory() . '/veu-package-manager.php';
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once veu_get_directory() . '/inc/template-tags/template-tags-config.php';
 require_once veu_get_directory() . '/inc/vk-css-optimize/vk-css-optimize-config.php';
-
+require_once veu_get_directory() . '/inc/common-block.php';
 require_once veu_get_directory() . '/admin/admin.php';
 require veu_get_directory() . '/inc/footer-copyright-change.php';
 
@@ -52,10 +52,10 @@ add_action( 'after_setup_theme', 'veu_print_editor_css' );
 
 // ブロックエディタ用のCSS読み込み（ ↑ だけだと効かない ）
 function veu_print_block_editor_css() {
-	wp_register_style( 
-		'veu-block-editor', 
+	wp_register_style(
+		'veu-block-editor',
 		plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_editor_style.css',
-		array(), 
+		array(),
 		filemtime( plugin_dir_path( __FILE__ ) )
 	);
 }
@@ -146,7 +146,7 @@ function veu_inline_styles() {
 		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj' ) . '") format("embedded-opentype"),
 			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.woff?-bq20cj' ) . '") format("woff"),
 			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.ttf?-bq20cj' ) . '") format("truetype"),
-			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' ). '") format("svg");
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' ) . '") format("svg");
 	}';
 
 	// delete before after space

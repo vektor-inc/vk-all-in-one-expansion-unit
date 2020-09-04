@@ -90,43 +90,25 @@ class VkExUnit_Contact {
 	}
 
 	public static function veu_contact_section_register_block() {
-		if ( ! function_exists( 'register_block_type' ) ) { return; }
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+		global $common_attributes;
 		register_block_type(
 			'vk-blocks/contact-section',
 			array(
-				'attributes'      => array(
-					'className'      => array(
-						'type'    => 'string',
-						'default' => ''
+				'attributes'      => array_merge(
+					array(
+						'className'      => array(
+							'type'    => 'string',
+							'default' => ''
+						),
+						'vertical' => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
 					),
-					'vkb_hidden'    => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'vkb_hidden_xl' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'vkb_hidden_lg' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'vkb_hidden_md' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'vkb_hidden_sm' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'vkb_hidden_xs' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'vertical' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
+					$common_attributes
 				),
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',

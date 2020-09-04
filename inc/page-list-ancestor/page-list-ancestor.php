@@ -141,8 +141,7 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 
 add_action( 'init', 'veu_page_list_ancestor_block_setup', 15 );
 function veu_page_list_ancestor_block_setup() {
-	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
-
+	global $common_attributes;
 	register_block_type(
 		'vk-blocks/page-list-ancestor',
 		array(

@@ -17,7 +17,7 @@ function vew_sns_block_setup() {
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return; }
 
-	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
+		global $common_attributes;
 
 	register_block_type(
 		'vk-blocks/share-button',
