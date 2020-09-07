@@ -122,7 +122,7 @@ class VkExUnit_Contact {
 		if ( ! $query->is_main_query() ) {
 			return;
 		}
-		echo self::render_contact_section_html();
+		echo self::render_contact_section_html( 'normal_contact', true );
 	}
 
 
@@ -474,7 +474,7 @@ class VkExUnit_Contact {
 	}
 
 	public function shortcode() {
-		return self::render_contact_section_html();
+		return self::render_contact_section_html( 'normal_contact', true );
 	}
 
 	/*
