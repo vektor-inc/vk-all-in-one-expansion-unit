@@ -122,7 +122,7 @@ class VkExUnit_Contact {
 		if ( ! $query->is_main_query() ) {
 			return;
 		}
-		echo self::render_contact_section_html();
+		echo self::render_contact_section_html( 'veu_contact-layout-horizontal', true );
 	}
 
 
@@ -151,7 +151,10 @@ class VkExUnit_Contact {
 		if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
 			$classes .= ' vk_hidden';
 		}
-		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
+		if ( isset($attributes['vkb_hidden_xxl']) && $attributes['vkb_hidden_xxl'] ) {
+			$classes .= ' vk_hidden-xxl';
+		}
+		if ( isset( $attributes['vkb_hidden_xl_v2'] ) && $attributes['vkb_hidden_xl_v2'] ) {
 			$classes .= ' vk_hidden-xl';
 		}
 		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg'] ) {
@@ -167,7 +170,7 @@ class VkExUnit_Contact {
 			$classes .= ' vk_hidden-xs';
 		}
 		if ( empty( $attributes['vertical'] ) ) {
-			$classes .= ' normal_contact';
+			$classes .= ' veu_contact-layout-horizontal';
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
@@ -471,7 +474,7 @@ class VkExUnit_Contact {
 	}
 
 	public function shortcode() {
-		return self::render_contact_section_html();
+		return self::render_contact_section_html( 'veu_contact-layout-horizontal', true );
 	}
 
 	/*
@@ -600,7 +603,7 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 		if ( ! empty( $instance['vertical'] ) ) {
 			echo '<div class="veu_contact">';
 		} else {
-			echo '<div class="veu_contact normal_contact">';
+			echo '<div class="veu_contact veu_contact-layout-horizontal">';
 		}
 		echo VkExUnit_Contact::render_contact_section_html();
 		echo '</div>';

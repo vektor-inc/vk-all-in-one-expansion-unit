@@ -47,17 +47,19 @@
 } // .veu_contact
 
 @media (min-width: 1200px) {
-    .veu_contact.normal_contact {
-        p.contact_txt {
-            margin-bottom: 0;
-        }
-        .contact_txt {
-            float: left;
-            text-align: left;
-        }
-        .contact_bt {
-            float: right;
-            padding: 0.7em 1.5em;
+    .veu_contact {
+        &-layout-horizontal {
+            p.contact_txt {
+                margin-bottom: 0;
+            }
+            .contact_txt {
+                float: left;
+                text-align: left;
+            }
+            .contact_bt {
+                float: right;
+                padding: 0.7em 1.5em;
+            }
         }
     }
 } // @media (min-width: 1200px){
