@@ -151,7 +151,10 @@ class VkExUnit_Contact {
 		if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
 			$classes .= ' vk_hidden';
 		}
-		if ( isset($attributes['vkb_hidden_xl']) && $attributes['vkb_hidden_xl'] ) {
+		if ( isset($attributes['vkb_hidden_xxl']) && $attributes['vkb_hidden_xxl'] ) {
+			$classes .= ' vk_hidden-xxl';
+		}
+		if ( isset( $attributes['vkb_hidden_xl_v2'] ) && $attributes['vkb_hidden_xl_v2'] ) {
 			$classes .= ' vk_hidden-xl';
 		}
 		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg'] ) {
