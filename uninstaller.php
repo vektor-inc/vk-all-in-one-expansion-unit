@@ -18,6 +18,7 @@ $delete_options = array(
 	'vkExUnit_common_keywords',
 	'vkExUnit_colors',
 	'vkExUnit_enable_widgets',
+	'vkExUnit_pagetop',
 );
 
 $delete_customfields = array(
