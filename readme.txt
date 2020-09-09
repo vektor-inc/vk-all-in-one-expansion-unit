@@ -99,6 +99,8 @@ e.g.
 
 == Changelog ==
 
+[ Add option ][ page top button ] Add mobile display option
+
 = 9.32.0.0 =
 [ Specification change ][ contact section ] change horizontal layout class name 
 

@@ -8,7 +8,7 @@
 	height: 38px;
 	text-indent: 100%;
 	white-space: nowrap;
-	overflow: hidden;
+	overflow: visible;
 	border: none;
 	background: rgba(0,0,0,0.8);
 	outline: 1px solid rgba(0, 0, 0, 0.8);
@@ -19,7 +19,10 @@
 	background-position: center;
 	opacity: 0;
 	transition: opacity 0.3s;
-    &:hover {  transition: opacity 0.3s; }
+	&:hover {  transition: opacity 0.3s; }
+	.customize-partial-edit-shortcut-button {
+		left:-80px;
+	}
 }
 .scrolled .page_top_btn{
 	display: block;
