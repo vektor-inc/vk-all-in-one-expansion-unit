@@ -13,6 +13,9 @@ function veu_optimize_css() {
 
 	if ( ! isset( $options['css_optimize'] ) ) {
 		$options['css_optimize'] = 'default';
+	} elseif ( 'optomize-all-css' === $options['css_optimize'] ) {
+		$options['css_optimize'] = 'tree-shaking';
+		update_option( 'vkExUnit_pagespeeding', $options );
 	}
 
 	if ( ! empty( $options['css_optimize'] ) && ( 'optomize-all-css' === $options['css_optimize'] || 'tree-shaking' === $options['css_optimize'] ) ) {
@@ -50,7 +53,7 @@ add_action( 'after_setup_theme', 'veu_optimize_css' );
 
 /**
  * CSS Tree Shaking Exclude
- * 
+ *
  * @param array $inidata CSS Tree Shaking Exclude Paramator.
  */
 function veu_css_tree_shaking_exclude_class( $inidata ) {
@@ -58,7 +61,7 @@ function veu_css_tree_shaking_exclude_class( $inidata ) {
 		'page_top_btn',
 		'scrolled',
 	);
-	$inidata['class'] = array_merge( $inidata['class'], $exclude_classes_array );
+	$inidata['class']      = array_merge( $inidata['class'], $exclude_classes_array );
 
 	return $inidata;
 }
