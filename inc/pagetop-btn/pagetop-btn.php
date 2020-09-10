@@ -5,11 +5,13 @@
 add_action( 'wp_footer', 'veu_add_pagetop' );
 function veu_add_pagetop() {
   $option = get_option( 'vkExUnit_pagetop' );
-  if ( ! wp_is_mobile() || ! empty( $option['display_mobile'] ) ) {
-    echo '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>';
+  if ( 
+	  ! wp_is_mobile() ||  
+	  ( wp_is_mobile() && empty( $option['hide_mobile'] ) ) 
+	  ) {
+	echo '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>';
   }
 }
-
 
 add_action( 'customize_register', 'veu_customize_register_pagetop' );
 function veu_customize_register_pagetop( $wp_customize ) {
@@ -27,7 +29,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'vkExUnit_pagetop[display_mobile]',
+		'vkExUnit_pagetop[hide_mobile]',
 		array(
 			'default'           => false,
 			'type'              => 'option',
@@ -36,17 +38,16 @@ function veu_customize_register_pagetop( $wp_customize ) {
 		)
 	);
 	$wp_customize->add_control(
-		'vkExUnit_pagetop[display_mobile]',
+		'vkExUnit_pagetop[hide_mobile]',
 		array(
-      'label'       => __( 'Display on mobile devices', 'vk-all-in-one-expansion-unit' ),
+      'label'       => __( 'Do not display on mobile device', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
-			'settings'    => 'vkExUnit_pagetop[display_mobile]',
+			'settings'    => 'vkExUnit_pagetop[hide_mobile]',
 			'type'        => 'checkbox',
 		)
   );
-  
   $wp_customize->selective_refresh->add_partial(
-		'vkExUnit_pagetop[display_mobile]', array(
+		'vkExUnit_pagetop[hide_mobile]', array(
 			'selector'        => '.page_top_btn',
 			'render_callback' => '',
 			'supports' => [],
