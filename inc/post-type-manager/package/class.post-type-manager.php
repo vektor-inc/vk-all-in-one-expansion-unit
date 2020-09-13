@@ -163,7 +163,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			// $taxonomy = array(array());
 			// }
 
-			for ( $i = 1; $i <= 3; $i++ ) {
+			for ( $i = 1; $i <= 5; $i++ ) {
 
 				$slug     = ( isset( $taxonomy[ $i ]['slug'] ) ) ? $taxonomy[ $i ]['slug'] : '';
 				$label    = ( isset( $taxonomy[ $i ]['label'] ) ) ? $taxonomy[ $i ]['label'] : '';
