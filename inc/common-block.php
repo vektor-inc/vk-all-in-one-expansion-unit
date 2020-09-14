@@ -15,6 +15,7 @@ function veu_block_deprecated_alart() {
 		$text .= '<strong>ExUnit : </strong> ';
 		$text .= __( 'VK Blocks in ExUnit will be exit soon. you have to install VK Blocks plugin as soon as possible.', 'vk-all-in-one-expansion-unit' );
 		$text .= '</p></div>';
+		echo wp_kses_post( $text );
 	}
 }
 add_action( 'admin_notices', 'vk_block_deprecated_alart' );
