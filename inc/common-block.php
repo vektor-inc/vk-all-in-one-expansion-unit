@@ -20,7 +20,7 @@ function veu_block_deprecated_alart() {
 		echo wp_kses_post( $text );
 	}
 }
-add_action( 'admin_notices', 'vk_block_deprecated_alart' );
+add_action( 'admin_notices', 'veu_block_deprecated_alart' );
 
 global $common_attributes;
 $common_attributes = array(
