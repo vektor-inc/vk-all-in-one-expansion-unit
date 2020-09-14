@@ -5,6 +5,20 @@
  * @package VK All in One Expansion Unit
  */
 
+/**
+ * VK Block Deprecated Alart
+ */
+function veu_block_deprecated_alart() {
+	global $pagenow;
+	if ( 'index.php' === $pagenow && veu_package_is_enable( 'vk-blocks' ) ) {
+		$text  = '<div class="notice notice-info"><p>';
+		$text .= '<strong>ExUnit : </strong> ';
+		$text .= __( 'VK Blocks in ExUnit will be exit soon. you have to install VK Blocks plugin as soon as possible.', 'vk-all-in-one-expansion-unit' );
+		$text .= '</p></div>';
+	}
+}
+add_action( 'admin_notices', 'vk_block_deprecated_alart' );
+
 global $common_attributes;
 $common_attributes = array(
 	'vkb_hidden'       => array(
