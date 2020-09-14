@@ -13,7 +13,9 @@ function veu_block_deprecated_alart() {
 	if ( 'index.php' === $pagenow && veu_package_is_enable( 'vk-blocks' ) ) {
 		$text  = '<div class="notice notice-info"><p>';
 		$text .= '<strong>ExUnit : </strong> ';
-		$text .= __( 'VK Blocks in ExUnit will be exit soon. you have to install VK Blocks plugin as soon as possible.', 'vk-all-in-one-expansion-unit' );
+		$text .= __( 'VK Blocks in ExUnit will be exit soon.', 'vk-all-in-one-expansion-unit' );
+		$text .= __( 'First, disable VK Blocks at ExUnit Option Page.', 'vk-all-in-one-expansion-unit' );
+		$text .= __( 'Second, if you need VK Blocks, You can install VK Blocks Plugin.', 'vk-all-in-one-expansion-unit' );
 		$text .= '</p></div>';
 		echo wp_kses_post( $text );
 	}
