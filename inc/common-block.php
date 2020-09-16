@@ -13,11 +13,19 @@ function veu_block_deprecated_alart() {
 	if ( 'index.php' === $pagenow && veu_package_is_enable( 'vk-blocks' ) ) {
 		$text  = '<div class="notice notice-info"><p>';
 		$text .= '<strong>ExUnit : </strong> ';
-		$text .= __( 'VK Blocks in ExUnit will be exit soon.', 'vk-all-in-one-expansion-unit' );
-		$text .= __( 'First, disable VK Blocks at ExUnit Option Page.', 'vk-all-in-one-expansion-unit' );
-		$text .= __( 'Second, if you need VK Blocks, You can install VK Blocks Plugin.', 'vk-all-in-one-expansion-unit' );
-		$text .= '</p></div>';
-		echo wp_kses_post( $text );
+		$text .= __( 'VK Blocks in ExUnit will be deleted soon.', 'vk-all-in-one-expansion-unit' ).'</p>';
+		$text .= '<ol>';
+		$text .= '<li>';
+		$text .= __( 'Deactive VK Blocks at ExUnit', 'vk-all-in-one-expansion-unit' ) . ' ';
+		$text .= '[ <a href="' . admin_url('?page=vkExUnit_setting_page') . '" target="_blank">' . __( 'Active Setting', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
+		$text .= '</li>';
+		$text .= '<li>';
+		$text .= __( 'If you need VK Blocks, You can install VK Blocks Plugin.', 'vk-all-in-one-expansion-unit' ) . ' ';
+		$text .= '[ <a href="' . admin_url('plugin-install.php?s=VK+Blocks&tab=search&type=term') . '">' . __( 'Install VK Blocks', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
+		$text .= '</li>';
+		$text .= '</ol>';
+		$text .= '</div>';
+		echo $text;
 	}
 }
 add_action( 'admin_notices', 'veu_block_deprecated_alart' );
