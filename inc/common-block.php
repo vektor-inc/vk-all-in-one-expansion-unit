@@ -46,7 +46,8 @@ function veu_block_deprecated_alart() {
 
 		$text .= '<li>';
 		$text .= __( 'Deactive VK Blocks at ExUnit', 'vk-all-in-one-expansion-unit' ) . ' ';
-		$text .= '[ <a href="' . admin_url('?page=vkExUnit_setting_page') . '" target="_blank">' . __( 'Active Setting', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
+		$text .= '[ <a href="' . admin_url('?page=vkExUnit_setting_page') . '" target="_blank">' . __( 'Active Setting', 'vk-all-in-one-expansion-unit' ) . '</a> ]<br>';
+		$text .= __( '* Normally if VK Blocks plugin activate that VK Blocks in ExUnit is deactivated automatically.', 'vk-all-in-one-expansion-unit' );
 		$text .= '</li>';
 
 		$text .= '</ol>';
