@@ -10,8 +10,25 @@
  */
 function veu_block_deprecated_alart() {
 	global $pagenow;
+
 	if ( 'index.php' === $pagenow && veu_package_is_enable( 'vk-blocks' ) ) {
-		$text  = '<div class="notice notice-info"><p>';
+
+		// 既に有効化されている場合は表示しない
+		//  → 本来ははプラグイン側が有効化されてたらExUnitの方は停止されるのでここを追加しない
+		//  → と、言いたい所だがExUnitとプラグインの VK Blocks が同時に有効化されているケースが未だにある
+		//  → けれど、プラグイン側が有効化されていようが ExUnit の　VK Blocks がアクティブな場合は問答無用で表示させるべき
+		//  → return しない
+		// if ( is_plugin_active('vk-blocks') || is_plugin_active('vk-blocks-pro' ) ){
+		// 	return;
+		// }
+
+		// プラグイン有効化権限がない人にも表示しない
+		//  → 権限がある人に連絡してもらわないといけないから表示まま
+		// if ( ! current_user_can( 'activate_plugins' ) ) {
+		// 	return;
+		// }
+
+		$text  = '<div class="notice notice-info"><p>';	
 		$text .= '<strong>ExUnit : </strong> ';
 		$text .= __( 'VK Blocks in ExUnit will be deleted soon.', 'vk-all-in-one-expansion-unit' ).'</p>';
 		$text .= '<ol>';
