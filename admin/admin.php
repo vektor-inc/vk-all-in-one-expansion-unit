@@ -32,19 +32,41 @@ add_action( 'admin_menu', 'veu_setting_menu_parent', 10 );
 function veu_setting_menu_parent() {
 	global $menu;
 
-	$parent_name = veu_get_little_short_name();
-
+	$page_title = veu_get_little_short_name();
+	$menu_title = veu_get_little_short_name();
 	$capability_required = 'activate_plugins';
+	$menu_slug = 'vkExUnit_setting_page';
+	$callback_function = 'veu_add_setting_page';
 
 	$custom_page = add_menu_page(
-		$parent_name,               // Name of page
-		$parent_name,               // Label in menu
+		$page_title,
+		$menu_title,
 		$capability_required,
-		'vkExUnit_setting_page',    // ユニークなこのサブメニューページの識別子
-		'vkExUnit_add_setting_page' // メニューページのコンテンツを出力する関数
+		$menu_slug,
+		$callback_function
 	);
 	if ( ! $custom_page ) {
 		return; }
+}
+
+add_action( 'admin_menu', 'veu_active_setting_menu', 10 );
+function veu_active_setting_menu() {
+	// $capability_required = veu_get_capability_required();
+	add_submenu_page(
+		// parent_menu_slug
+		'vkExUnit_setting_page', 
+		 // sub_menu_page_title
+		__( 'Active Setting', 'vk-all-in-one-expansion-unit' ),
+		// sub_menu_label
+		__( 'Active Setting', 'vk-all-in-one-expansion-unit' ), 
+		// capability_required
+		// edit_theme_optionsのユーザーにもアクセスさせないため
+		'activate_plugins',
+		// sub_menu_slug
+		'vkExUnit_setting_page',
+		// callback_function
+		'veu_add_setting_page'
+	);
 }
 
 // ブロックを有効化する際、プラグインが有効になっていたらこれを無効にする
@@ -70,7 +92,7 @@ add_filter('pre_update_option_vkExUnit_common_options', function( $new_option, $
 /*
   Load master setting page
 /*-------------------------------------------*/
-function vkExUnit_add_setting_page() {
+function veu_add_setting_page() {
 	require dirname( __FILE__ ) . '/admin-active-setting-page.php';
 }
 
