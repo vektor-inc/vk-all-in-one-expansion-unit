@@ -51,7 +51,11 @@ foreach ( $vkExUnit_packages as $package ) :
 				$i     = 0;
 				if ( $count ) :
 					foreach ( $package['attr'] as $att ) :
-						if ( ! $att['enable_only'] || $active ) :
+						if ( 
+							// パッケージが有効化されている
+							$active ||
+							// 有効ではないが enable only が false のとき
+							empty( $att['enable_only'] ) ) :
 				?>
 				<?php echo ( $count > 1 && $i >= 1 ) ? ' | ' : ''; ?>
 				<span>
