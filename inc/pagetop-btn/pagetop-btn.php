@@ -55,3 +55,56 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	);
 
 }
+
+
+/**
+ * ExUnitの機能管理パッケージに登録
+ * @return [type] [description]
+ */
+function veu_pagetop_admin_register() {
+	$tab_label         = __( 'Page Top Button', 'vk-all-in-one-expansion-unit' );
+	$option_name       = 'vkExUnit_pagetop';
+	$sanitize_callback = 'veu_pagetop_sanitize';
+	$render_page       = 'veu_pagetop_admin';
+	vkExUnit_register_setting( $tab_label, $option_name, $sanitize_callback, $render_page );
+}
+add_action( 'veu_package_init', 'veu_pagetop_admin_register' );
+
+function veu_pagetop_admin() {
+	$options = veu_pagetop_options();
+?>
+<div id="seoSetting" class="sectionBox">
+<h3><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?></h3>
+<table class="form-table">
+<!-- Google Analytics -->
+<tr>
+<th><?php _e( 'タッチで表示しないよ！', 'vk-all-in-one-expansion-unit' ); ?></th>
+<td>
+<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="<?php echo  $options['hide_mobile']; ?>" />
+</td>
+</tr>
+</table>
+<?php submit_button(); ?>
+</div>
+<?php
+}
+
+
+function veu_pagetop_options() {
+	$options = get_option( 'vkExUnit_pagetop', array() );
+	$options = wp_parse_args( $options, veu_pagetop_default() );
+	return $options;
+}
+
+function veu_pagetop_default() {
+	$default_options = array(
+		'hide_mobile' => false,
+	);
+	return apply_filters( 'vkExUnit_wp_title_default', $default_options );
+}
+
+function veu_pagetop_sanitize( $input ) {
+	$output                = array();
+	$output['hide_mobile'] = esc_attr( $input['hide_mobile'] );
+	return $output;
+}
