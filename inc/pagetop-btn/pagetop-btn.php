@@ -40,7 +40,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$wp_customize->add_control(
 		'vkExUnit_pagetop[hide_mobile]',
 		array(
-      'label'       => __( 'Do not display on mobile device', 'vk-all-in-one-expansion-unit' ),
+    		'label'       => __( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
 			'settings'    => 'vkExUnit_pagetop[hide_mobile]',
 			'type'        => 'checkbox',
