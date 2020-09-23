@@ -40,7 +40,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$wp_customize->add_control(
 		'vkExUnit_pagetop[hide_mobile]',
 		array(
-      'label'       => __( 'Do not display on mobile device', 'vk-all-in-one-expansion-unit' ),
+      'label'       => __( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
 			'settings'    => 'vkExUnit_pagetop[hide_mobile]',
 			'type'        => 'checkbox',
@@ -78,9 +78,9 @@ function veu_pagetop_admin() {
 <table class="form-table">
 <!-- Google Analytics -->
 <tr>
-<th><?php _e( 'タッチで表示しないよ！', 'vk-all-in-one-expansion-unit' ); ?></th>
+<th><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?> </th>
 <td>
-<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="<?php echo  $options['hide_mobile']; ?>" />
+<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="true"<?php if( ! empty( $options['hide_mobile'] ) ) echo ' checked'; ?> /> <?php _e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> 
 </td>
 </tr>
 </table>

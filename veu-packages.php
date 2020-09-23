@@ -443,6 +443,13 @@ function veu_get_packages() {
 		'description' => __( 'The page top button is displayed in the lower right corner of the screen.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'pagetop-btn/pagetop-btn.php',
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_pagetop',
+				'enable_only' => true,
+			),
+		),
 	);
 
 	/*
