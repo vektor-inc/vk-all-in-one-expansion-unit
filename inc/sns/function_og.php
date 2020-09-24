@@ -79,6 +79,14 @@ function vkExUnit_print_og() {
 				'height' => $image_url[2],
 			);
 		}
+	} elseif ( isset( $vkExUnit_sns_options['ogImage'] ) && $vkExUnit_sns_options['ogImage'] ) {
+		$vkExUnitOGP .= '<meta property="og:image" content="' . esc_url( $vkExUnit_sns_options['ogImage'] ) . '" />' . "\n";
+
+		// image:width,image:height INSERT
+		$addImageTag = array(
+			'type' => 'url',
+			'url'  => $vkExUnit_sns_options['ogImage'],
+		);
 	}
 
 	// image:width,image:height INSERT
