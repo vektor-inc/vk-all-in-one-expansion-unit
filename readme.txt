@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634
+Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.5.1
-Stable tag: 9.35.0.0
+Stable tag: 9.36.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.36.0.0 =
+[ other ][ page top button ] add setting to ExUnit Main Setting screen
 
 = 9.35.0.0 =
 [ Specification Change ][ post type manager ] max taxonomy change from 3 to 5
