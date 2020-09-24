@@ -33,29 +33,11 @@ Many features can be stopped individually.
 
 [ Gutenberg Blocks ]
 
-* Staff
-* Alert
-* Faq
-* balloon
-* Flow
-* Button
-* PR Blocks
-* PR Content
-* Title（with sub text）
-* Responsive Spacer
-
 * HTML SiteMap
 * Child Page List
 * Page list from ancestor
 * Share Button
 * Contact Section
-
-[ Gutenberg core blocks extend ]
-
-* Title
-* Image
-* List
-* Group
 
 [ Social media ]
 
