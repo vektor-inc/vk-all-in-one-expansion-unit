@@ -27,7 +27,9 @@ function veu_add_follow( $content ) {
 /*----------------------------------------------*/
 /* 記事がよかったらいいね　ここから
 /*----------------------------------------------*/
-
+/**
+ * since 9.37.0.0
+ */
 function veu_get_follow_html() {
 
 	$options = veu_get_sns_options();
