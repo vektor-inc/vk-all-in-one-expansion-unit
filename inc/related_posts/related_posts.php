@@ -202,6 +202,16 @@ function veu_add_related_posts_html( $content ) {
 		return $content;
 	}
 
+	$content          .= veu_get_related_posts_html();
+
+	return $content;
+}
+
+/**
+ * since 9.37.0.0
+ */
+function veu_get_related_posts_html(){
+
 	$output = get_option( 'vkExUnit_related_options' );
 
 	if ( ! empty( $output['related_display_count'] ) ) {
@@ -221,7 +231,8 @@ function veu_add_related_posts_html( $content ) {
 	$related_posts     = veu_get_related_posts( $related_post_args['post_type'], $related_post_args['taxonomy'], $related_post_args['max_show_posts'] );
 
 	if ( ! $related_posts ) {
-		return $content; }
+		return;
+	}
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
 	if ( $related_posts ) {
@@ -249,13 +260,13 @@ function veu_add_related_posts_html( $content ) {
 		} // foreach
 		$relatedPostsHtml .= '</div>';
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
-		$content          .= $relatedPostsHtml;
+		
 	}
 
 	wp_reset_postdata();
 	wp_reset_query();
 
-	return $content;
+	return $relatedPostsHtml;
 }
 
 /*
