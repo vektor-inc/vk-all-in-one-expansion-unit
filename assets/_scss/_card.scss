@@ -11,12 +11,19 @@
 		color: $color_font_default;
 		font-size: 16px;
 		line-height: 1.4;
-		/* ↓ Lightninng Pro の見出し変更機能を打ち消し */
-		border: none;
-		background: none;
 		padding: 0 0 0.4em;
 		margin: 0 0 1em;
 		display: block;
+		border-bottom: $border_primary;
+		/* ↓ Lightninng Pro の見出し変更機能を打ち消し */
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		background: none;
+		outline: unset;
+		outline-offset: unset;
+		box-shadow: unset;
+		border-radius:unset;
 		text-align: left;
 		a {
 			color: $color_font_default;
@@ -31,7 +38,6 @@
 			height: 0;
 			left: inherit;
 		}
-		/* ↑ Lightninng Pro の見出し変更機能を打ち消し */
-		border-bottom: $border_primary;
+		/* ↑ Lightninng Pro の見出し変更機能を打ち消し */		
 	}
 }
