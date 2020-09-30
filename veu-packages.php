@@ -66,7 +66,7 @@ function veu_get_packages() {
 		'name'        => 'vk-blocks',
 		'title'       => __( 'VK Blocks', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Extends Gutenberg\'s blocks.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
+		'default'     => false,
 		'include'     => 'vk-blocks/vk-blocks-config.php',
 	);
 
@@ -376,18 +376,18 @@ function veu_get_packages() {
 	);
 
 	/**
-	 * Disable Core XML Sitemap.
+	 * IE Alart.
 	 */
     $required_packages[] = array(
 		'name'        => 'display_ie_alert',
 		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Display a warning if the user who is viewing this site is using IE.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'IE is a very old browser and its creator Microsoft does not recommend its use. Encouraging IE users to switch to the next-generation browser will greatly contribute to the evolution of the website.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
+		'default'     => true,
 		'include'     => 'display-ie-alert.php',
 	);
 
 	/**
-	 * IE Alart.
+	 * Disable Core XML Sitemap.
 	 */
     $required_packages[] = array(
 		'name'        => 'disable_xml_sitemap',
@@ -441,7 +441,7 @@ function veu_get_packages() {
 		'name'        => 'pagetop_button',
 		'title'       => __( 'Page Top Button', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'The page top button is displayed in the lower right corner of the screen.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
+		'default'     => true,
 		'include'     => 'pagetop-btn/pagetop-btn.php',
 		'attr'        => array(
 			array(
@@ -493,7 +493,7 @@ function veu_get_packages() {
 		'title'       => __( 'Contact Form 7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(),
-		'default'     => false,
+		'default'     => true,
 		'include'     => '/contactform7-asset-optimize.php',
 	);
 
