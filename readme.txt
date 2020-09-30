@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.37.1.0 =
+[ Design bug fix ] Page top button CSS bug fix / childPage list title CSS bug fix
+
 = 9.37.0.0 =
 [ Specification change ][ Related posts ] convert html part to iindependent function
 [ Specification change ][ follow me ] convert html part to indipendent function
