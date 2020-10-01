@@ -154,7 +154,7 @@ function veu_customize_register_contact( $wp_customize ) {
 
 	// The contact Target
 	$wp_customize->add_setting(
-		'vkExUnit_contact[contact_target]', array(
+		'vkExUnit_contact[contact_target_blank]', array(
 			'default'           => false,
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
