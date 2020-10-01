@@ -9,8 +9,7 @@
 	color: transparent; //PAGE TOPの文字を消すために追加 （overflow:hiddenで消すとカスタマイズショートカットアコンが消えるため）
 	border: none;
 	background: rgba(0,0,0,0.8);
-	outline: 1px solid rgba(0, 0, 0, 0.8);
-	border: 1px solid rgba(255,255,255,0.8);
+	box-shadow: 0 0 0 1px rgba(255,255,255,0.8), 0 0 0 2px rgba(0, 0, 0, 0.8);
 	background-image: var( --ver_page_top_button_url );
 	background-size: 50%;
 	background-repeat: no-repeat;
@@ -28,4 +27,5 @@
 .scrolled .page_top_btn{
 	display: block;
 	opacity: 1;
+	color: transparent;
 }
