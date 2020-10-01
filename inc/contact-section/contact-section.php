@@ -192,7 +192,7 @@ class VkExUnit_Contact {
 			'tel_number'        => '000-000-0000',
 			'contact_time'      => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
 			'contact_link'      => home_url(),
-			'contact_target'    => false,
+			'contact_target_blank'    => false,
 			'button_text'       => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
 			'button_text_small' => '',
 			'short_text'        => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
