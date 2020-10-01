@@ -255,7 +255,7 @@ class VkExUnit_Contact {
    </tr>
 	<!-- Contact Target -->
 	<tr>
-   <th scope="row"><label for="contact_target_blank"><?php _e( 'Link Target Sertting', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+   <th scope="row"><label for="contact_target_blank"><?php _e( 'Contact button link target setting', 'vk-all-in-one-expansion-unit' ); ?></label></th>
    <td>
    <input type="checkbox" name="vkExUnit_contact[contact_target_blank]" id="contact_target_blank" <?php checked( ! empty( $options['contact_target_blank'] ) ) ?> />
    <?php _e( 'Open in New Tab', 'vk-all-in-one-expansion-unit' ); ?>
