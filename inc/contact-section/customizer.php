@@ -152,6 +152,26 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
+	// The contact Target
+	$wp_customize->add_setting(
+		'vkExUnit_contact[contact_target_blank]', array(
+			'default'           => false,
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'contact_target', array(
+			'label'       => __( 'Open in New Tab', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[contact_target_blank]',
+			'type'        => 'checkbox',
+			'priority'    => 1,
+		)
+	);
+
 	// Contact button Text
 	$wp_customize->add_setting(
 		'vkExUnit_contact[button_text]', array(

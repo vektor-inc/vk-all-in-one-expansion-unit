@@ -192,6 +192,7 @@ class VkExUnit_Contact {
 			'tel_number'        => '000-000-0000',
 			'contact_time'      => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
 			'contact_link'      => home_url(),
+			'contact_target_blank'    => false,
 			'button_text'       => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
 			'button_text_small' => '',
 			'short_text'        => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
@@ -250,6 +251,14 @@ class VkExUnit_Contact {
    <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
    <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>http://www.********.com/contact/ <?php _e( 'or', 'vk-all-in-one-expansion-unit' ); ?> /contact/</span><br />
 	<?php _e( '* If you fill in the blank, widget\'s contact button does not appear.', 'vk-all-in-one-expansion-unit' ); ?>
+   </td>
+   </tr>
+	<!-- Contact Target -->
+	<tr>
+   <th scope="row"><label for="contact_target_blank"><?php _e( 'Contact button link target setting', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+   <td>
+   <input type="checkbox" name="vkExUnit_contact[contact_target_blank]" id="contact_target_blank" <?php checked( ! empty( $options['contact_target_blank'] ) ) ?> />
+   <?php _e( 'Open in New Tab', 'vk-all-in-one-expansion-unit' ); ?>
    </td>
    </tr>
    <tr>
@@ -393,8 +402,9 @@ class VkExUnit_Contact {
 	/*-------------------------------------------*/
 
 	public static function render_contact_section_html( $additional_classes='', $show_edit_button=true ) {
-		$options = self::get_option();
-		$cont    = '';
+		$options     = self::get_option();
+		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
+		$cont        = '';
 
 		if ( $options['contact_html'] ) {
 
@@ -405,7 +415,7 @@ class VkExUnit_Contact {
 		} elseif ( $options['contact_image'] ) {
 
 			$cont .= '<section class="veu_contentAddSection ' . $additional_classes . '">';
-			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '">';
+			$cont .= '<a href="' . esc_url( $options['contact_link'] )  . '"' . $link_target . '>';
 			$cont .= '<img src="' . esc_attr( $options['contact_image'] ) . '" alt="contact_txt">';
 			$cont .= '</a>';
 			$cont .= '</section>';
@@ -433,7 +443,7 @@ class VkExUnit_Contact {
 			$cont .= '</p>';
 
 			if ( $options['contact_link'] && $options['button_text'] ) {
-				$cont .= '<a href="' . $options['contact_link'] . '" class="btn btn-primary btn-lg contact_bt">';
+				$cont .= '<a href="' . $options['contact_link'] . '"' . $link_target . ' class="btn btn-primary btn-lg contact_bt">';
 				$cont .= '<span class="contact_bt_txt">';
 
 				// Envelope Icon
@@ -482,14 +492,15 @@ class VkExUnit_Contact {
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
-		$options = self::get_option();
-		$cont    = '';
+		$options     = self::get_option();
+		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
+		$cont        = '';
 
 		if ( ( isset( $options['contact_link'] ) && $options['contact_link'] )
 			&& ( isset( $options['short_text'] ) && $options['short_text'] )
 		) {
 
-			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '" class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
+			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . ' class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 
 			// Envelope Icon
 			$class = 'fa fa-envelope-o';
