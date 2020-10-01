@@ -403,7 +403,7 @@ class VkExUnit_Contact {
 
 	public static function render_contact_section_html( $additional_classes='', $show_edit_button=true ) {
 		$options     = self::get_option();
-		$link_target = ! empty( $options['contact_target'] ) ? ' target="_blank"' : '';
+		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
 		$cont        = '';
 
 		if ( $options['contact_html'] ) {
