@@ -166,7 +166,7 @@ function veu_customize_register_contact( $wp_customize ) {
 		'contact_target', array(
 			'label'       => __( 'Open in New Tab', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_contact_setting',
-			'settings'    => 'vkExUnit_contact[contact_target]',
+			'settings'    => 'vkExUnit_contact[contact_target_blank]',
 			'type'        => 'checkbox',
 			'priority'    => 1,
 		)
