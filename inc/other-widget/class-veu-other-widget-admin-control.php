@@ -6,6 +6,7 @@ class VEU_Other_Widget_Admin_Control {
 	}
 
 	function add_hooks() {
+		// Add Widget activation list table to ExUnit Active Setting page.
 		add_action( 'vew_admin_setting_block', array( $this, 'admin_setting' ), 10, 1 );
 		add_filter( 'vkExUnit_common_options_validate', array( $this, 'admin_config_validate' ), 10, 3 );
 	}
@@ -26,3 +27,4 @@ class VEU_Other_Widget_Admin_Control {
 		include veu_get_directory() . '/inc/other-widget/template/admin_setting.php';
 	}
 }
+new VEU_Other_Widget_Admin_Control();
