@@ -1,14 +1,15 @@
 {
 	"name": "vektor-inc/vk-all-in-one-expansion-unit",
 	"type": "project",
-	"require-dev": {
-		"phpunit/phpunit": "7.5.9"
-	},
 	"authors": [
 		{
 			"name": "Vektor-inc",
 			"email": "info@vektor-inc.co.jp"
 		}
 	],
-	"require": {}
+	"require": {},
+	"require-dev": {
+		"sirbrillig/phpcs-variable-analysis": "^2.8",
+		"wp-phpunit/wp-phpunit": "^5.4"
+	  }
 }
