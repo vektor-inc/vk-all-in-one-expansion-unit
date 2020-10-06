@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html.
+
 = 9.38.0.0 =
 [ Add function ][ contact section ] Add link target setting
 [ bug fix ] fix when plugin VK Blocks activation that ExUnit widget activation setting was delete
