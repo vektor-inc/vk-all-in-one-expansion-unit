@@ -68,15 +68,14 @@
 			const { attributes, setAttributes, pages } = props;
 			const { postId, className } = attributes;
 
-			// let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
-			let options = [];
+			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
 
-			if (pages != undefined) {
+			if ( pages !== undefined && pages !== null ) {
 				const l = pages.length
-				let parents = []
+				const parents = []
 				let i = 0
 				for(i=0;i<l;i++) {
-					if ( pages[i].parent != 0 ) {
+					if ( pages[i].parent !== 0 ) {
 						parents.push(pages[i].parent)
 					}
 				}
@@ -89,12 +88,10 @@
 					}
 				}
 			}
-			/*
-			let currentPostId = select("core/editor").getCurrentPostId();
+			const currentPostId = select("core/editor").getCurrentPostId();
 			if(currentPostId){
 				options = options.filter(option => option.value !== currentPostId)
 			}
-			*/
 			
 			return (
 				<Fragment>
