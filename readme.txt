@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ wp title ] Change search result title in case of no keyword
 [ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html.
 
 = 9.38.0.0 =
