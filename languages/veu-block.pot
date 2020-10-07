@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: inc/child-page-index/block.jsx:103
+#: inc/child-page-index/block.jsx:109
 msgid "Parent Page"
 msgstr ""
 
@@ -11,7 +11,7 @@ msgstr ""
 msgid "Child page index"
 msgstr ""
 
-#: inc/child-page-index/block.jsx:71
+#: inc/child-page-index/block.jsx:72
 msgid "This Page"
 msgstr ""
 

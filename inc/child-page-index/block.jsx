@@ -68,8 +68,10 @@
 			const { attributes, setAttributes, pages } = props;
 			const { postId, className } = attributes;
 
+			// Make choice list of pages
 			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
 
+			// Make choice list of pages
 			if ( pages !== undefined && pages !== null ) {
 				const l = pages.length
 				const parents = []
@@ -88,10 +90,14 @@
 					}
 				}
 			}
+
+			// Remove choice of the page
+			/*
 			const currentPostId = select("core/editor").getCurrentPostId();
 			if(currentPostId){
 				options = options.filter(option => option.value !== currentPostId)
 			}
+			*/
 			
 			return (
 				<Fragment>
