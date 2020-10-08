@@ -20,18 +20,25 @@ function veu_is_ie() {
  * IE Alart HTML
  */
 function veu_get_alert_html() {
+	$title =  __( 'The browser that you use is not safe.', 'vk-all-in-one-expansion-unit' );
+	$message = '';
+	$message .= __( 'Internet Explorer, you are using, is old browser, Microsoft also reports that use is dangerous.', 'vk-all-in-one-expansion-unit' );
+	$message .= __( 'This website is also not guaranteed to display on Internet Explorer.', 'vk-all-in-one-expansion-unit' );
+
 	$html  = '<div class="ie_alert">';
-	$html .= '<h1 class="ie_alert__title">' . __( 'The browser that you use is not safe.', 'vk-all-in-one-expansion-unit' ) . '</h1>';
+	$html .= '<h1 class="ie_alert__title">';
+	$html .= apply_filters( 'vk_ie_alert_title', $title );
+	'</h1>';
 	$html .= '<div class="ie_alert__body">';
 	$html .= '<p>';
-	$html .= __( 'Internet Explorer, you are using, is old browser, Microsoft also reports that use is dangerous.', 'vk-all-in-one-expansion-unit' );
-	$html .= __( 'This website is also not guaranteed to display on Internet Explorer.', 'vk-all-in-one-expansion-unit' );
-	$html .= '<br>';
+	$html .= apply_filters( 'vk_ie_alert_message', $message );
+	$html .= '</p>';
+	$html .= '<p>';
 	$html .= __( 'Plese use The latest modern browser ( <a href="https://www.microsoft.com/ja-jp/edge" target="_blank" rel="noopener">Microsoft Edge</a>, <a href="https://www.google.co.jp/chrome/index.html" target="_blank" rel="noopener">Google Chrome</a> and so on ).', 'vk-all-in-one-expansion-unit' );
 	$html .= '</p>';
 	$html .= '</div>';
 	$html .= '</div>';
-	return $html;
+	return apply_filters( 'vk_ie_alert_html', $html );
 }
 
 /**
@@ -59,7 +66,7 @@ function veu_insert_alert() {
 		.ie_alert__body p {
 			margin:0 0 5px;
 			padding:0;
-			font-size:11px;
+			font-size:12px;
 			text-align:center;
 		}
 		</style>
