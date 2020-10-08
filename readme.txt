@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.0.0
 Tested up to: 5.5.1
-Stable tag: 9.38.0.0
+Stable tag: 9.39.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,8 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.39.0.0 =
 [ Specification Change ][ wp title ] Change search result title in case of no keyword
-[ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html.
+[ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html(Change filter specification).
+[ Bug fix ][ Child Page Index Block ] To be able to select parent page to cureent page
 
 = 9.38.0.0 =
 [ Add function ][ contact section ] Add link target setting
