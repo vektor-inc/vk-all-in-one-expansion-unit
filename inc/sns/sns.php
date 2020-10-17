@@ -194,7 +194,7 @@ function exUnit_print_fbId_script() {
 	?>
 <script>
 ;(function(w,d){
-	var f=function(){
+	var load_contents=function(){
 		(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;
@@ -202,9 +202,19 @@ function exUnit_print_fbId_script() {
 		js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
 		fjs.parentNode.insertBefore(js, fjs);
 		}(d, 'script', 'facebook-jssdk'));
+	};
+	var f=function(){
+		load_contents();
 		w.removeEventListener('scroll',f,true);
 	};
-	w.addEventListener('scroll',f,true);
+	var widget = d.getElementsByClassName("fb-page")[0];
+	var view_bottom = d.documentElement.scrollTop + d.documentElement.clientHeight;
+	var widget_top = widget.getBoundingClientRect().top + w.scrollY;
+	if ( widget_top < view_bottom) {
+		load_contents();
+	} else {
+		w.addEventListener('scroll',f,true);
+	}
 })(window,document);
 </script>
 	<?php
@@ -218,15 +228,25 @@ function veu_print_twitter_script() {
 	?>
 <script type="text/javascript">
 ;(function(w,d){
-	var f=function(){
+	var load_contents=function(){
 		var s=d.createElement('script');
 		s.async='async';
 		s.charset='utf-8';
 		s.src='//platform.twitter.com/widgets.js';
 		d.body.appendChild(s);
+	};
+	var f=function(){
+		load_contents();
 		w.removeEventListener('scroll',f,true);
 	};
-	w.addEventListener('scroll',f,true);
+	var widget = d.getElementsByClassName("twitter-timeline")[0];
+	var view_bottom = d.documentElement.scrollTop + d.documentElement.clientHeight;
+	var widget_top = widget.getBoundingClientRect().top + w.scrollY;
+	if ( widget_top < view_bottom) {
+		load_contents();
+	} else {
+		w.addEventListener('scroll',f,true);
+	}
 })(window,document);
 </script>
 	<?php
