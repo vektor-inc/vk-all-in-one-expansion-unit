@@ -200,10 +200,9 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 	function vk_get_page_description() {
 		global $wp_query;
 		$post = $wp_query->get_queried_object();
-		if ( is_search() ) {
+		if ( is_search() || is_404() ) {
 			$page_description = '';
-		}
-		elseif ( is_front_page() ) {
+		} elseif ( is_front_page() ) {
 			if ( isset( $post->post_excerpt ) && $post->post_excerpt ) {
 				$page_description = get_the_excerpt();
 			} else {
