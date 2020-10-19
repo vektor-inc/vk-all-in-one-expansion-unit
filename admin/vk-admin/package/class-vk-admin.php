@@ -100,11 +100,11 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			// プラグイン VK Block Patterns を有効化していない人にバナーを表示
 			if ( ! self::plugin_exists( 'vk-block-patterns/vk-block-patterns.php' ) ) {
 				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'vk-block-patterns_bnr.jpg';
+					$bnr_file_name = 'vk-block-patterns_bnr_ja.jpg';
 				} else {
-					$bnr_file_name = 'vk-block-patterns_bnr.jpg';
+					$bnr_file_name = 'vk-block-patterns_bnr_en.jpg';
 				}
-				$banner .= '<a href="//wordpress.org/plugins/vk-block-patterns/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Block Patterns" /></a>';
+				$banner .= '<a href="'.admin_url('plugin-install.php?s=vk+block+patterns&tab=search&type=term').'" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Block Patterns" /></a>';
 			}
 
 			// プラグイン Link Target Controller を有効化していない人にバナーを表示
@@ -114,7 +114,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				} else {
 					$bnr_file_name = 'vk-link-target-controller_notxt_bnr.jpg';
 				}
-				$banner .= '<a href="//wordpress.org/plugins/vk-link-target-controller/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="Link Target Controller" /></a>';
+				$banner .= '<a href="' . admin_url( 'plugin-install.php?s=vk+link+target+controller&tab=search&type=term' ) . '" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="Link Target Controller" /></a>';
 			}
 
 			// プラグイン VK Aost Author Display を有効化していない人にバナーを表示
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				} else {
 					$bnr_file_name = 'post_author_display_bnr_en.jpg';
 				}
-				$banner .= '<a href="//wordpress.org/plugins/vk-post-author-display/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
+				$banner .= '<a href="' . admin_url( 'plugin-install.php?s=VK+Post+Author+Display&tab=search&type=term' ) . '" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
 			Display" /></a>';
 			}
 
