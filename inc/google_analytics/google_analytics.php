@@ -93,7 +93,7 @@ function vkExUnit_googleAnalytics() {
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-			ga('create', 'UA-<?php echo $gaId; ?>', '<?php echo $domain; ?>');
+			ga('create', 'UA-<?php echo esc_attr( $gaId ); ?>', '<?php echo $domain; ?>');
 			ga('send', 'pageview');
 			</script>
 			<?php
@@ -116,15 +116,19 @@ function vkExUnit_googleAnalytics() {
 <?php
 		} else {
 			// $gaType == 'gaType_gtag'
+			if ( ! preg_match( '/G-/', $gaId ) && ! preg_match( '/UA-/', $gaId ) ){
+				$gtag_id = 'UA-' . $gaId;
+			} else {
+				$gtag_id = $gaId;
+			}
 			?>
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-				<script async src="https://www.googletagmanager.com/gtag/js?id=UA-<?php echo $gaId; ?>"></script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( $gtag_id ); ?>"></script>
 		<script>
-		 window.dataLayer = window.dataLayer || [];
-		 function gtag(){dataLayer.push(arguments);}
-		 gtag('js', new Date());
-
-		gtag('config', 'UA-<?php echo $gaId; ?>');
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '<?php echo esc_attr( $gtag_id ); ?>');
 		</script>
 	<?php
 		}
