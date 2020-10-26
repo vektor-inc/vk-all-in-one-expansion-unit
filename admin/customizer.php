@@ -111,33 +111,6 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 		)
 	);
 
-	// CSS Footer Setting.
-	$wp_customize->add_setting(
-		'vkExUnit_pagespeeding[css_optimize]',
-		array(
-			'default'           => 'tree-shaking',
-			'type'              => 'option',
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'veu_sanitize_radio',
-		)
-	);
-	$wp_customize->add_control(
-		'vkExUnit_pagespeeding[css_optimize]',
-		array(
-			'label'       => __( 'Optimize CSS', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_speeding_setting',
-			'settings'    => 'vkExUnit_pagespeeding[css_optimize]',
-			'description' => __( 'If you enable this setting that css file will be minified.', 'vk-all-in-one-expansion-unit' ),
-			'type'        => 'select',
-			'choices'     => array(
-				'default'          => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
-				'tree-shaking'     => __( 'Optimize ExUnit CSS ( Tree Shaking ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
-				//'optomize-all-css' => __( 'Optimize ExUnit CSS ( Tree Shaking + Preload ) ( Beta )', 'vk-all-in-one-expansion-unit' ),
-			),
-		)
-	);
-
-
 	// JS Footer Setting.
 	$wp_customize->add_setting(
 		'vkExUnit_pagespeeding[js_footer]',
