@@ -15,6 +15,7 @@ require_once veu_get_directory() . '/inc/vk-css-optimize/vk-css-optimize-config.
 require_once veu_get_directory() . '/inc/vk-customize-helpers/vk-customize-helpers-config.php';
 require_once veu_get_directory() . '/inc/common-block.php';
 require_once veu_get_directory() . '/admin/admin.php';
+require_once veu_get_directory() . '/inc/term-color/term-color-config.php';
 require veu_get_directory() . '/inc/footer-copyright-change.php';
 
 veu_package_include(); // package_manager.php
