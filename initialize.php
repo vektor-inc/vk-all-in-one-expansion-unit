@@ -12,6 +12,7 @@ require veu_get_directory() . '/veu-package-manager.php';
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once veu_get_directory() . '/inc/template-tags/template-tags-config.php';
 require_once veu_get_directory() . '/inc/vk-css-optimize/vk-css-optimize-config.php';
+require_once veu_get_directory() . '/inc/vk-customize-helpers/vk-customize-helpers-config.php';
 require_once veu_get_directory() . '/inc/common-block.php';
 require_once veu_get_directory() . '/admin/admin.php';
 require veu_get_directory() . '/inc/footer-copyright-change.php';
