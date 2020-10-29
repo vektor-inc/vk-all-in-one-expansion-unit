@@ -70,7 +70,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 					'default'           => '',
 					'type'              => 'option',
 					'capability'        => 'edit_theme_options',
-					'sanitize_callback' => array( 'VK_Helpers', 'sanitize_choice' ),
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 			$wp_customize->add_control(
