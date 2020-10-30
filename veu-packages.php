@@ -475,6 +475,24 @@ function veu_get_packages() {
 	);
 
 	/*
+	  CSS Optimize
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'css_optimize',
+		'title'       => __( 'CSS Optimize', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Optimize the CSS to speeding display.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'vk-css-optimize/vk-css-optimize-config.php',
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'customize.php',
+				'enable_only' => true,
+			),
+		),
+	);
+
+	/*
 	  Contactform7AssetOptimize
 	/*-------------------------------------------*/
 	$required_packages[] = array(
