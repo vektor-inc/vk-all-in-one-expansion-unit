@@ -357,12 +357,18 @@ iframe.twitter-timeline {
 		content: "";
 		margin-right: 0;
 	}
+	.postList_terms {
+		position: relative;
+	}
 	.postList_terms a {
 		margin-right: 3px;
-		padding: 2px 5px 1px;
+		padding: 2px 5px 2px;
 		border-radius: 3px;
 		background-color: #efefef;
-		font-size: 12px;
+		font-size: 10px;
+		line-height: 1;
+		position: relative;
+		top:-1px;
 	}
 	.postList_more {
 		margin: 10px 5px 0 0;
