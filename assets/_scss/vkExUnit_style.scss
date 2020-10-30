@@ -369,6 +369,9 @@ iframe.twitter-timeline {
 		line-height: 1;
 		position: relative;
 		top:-1px;
+		&:hover {
+			text-decoration: none;
+		}
 	}
 	.postList_more {
 		margin: 10px 5px 0 0;
