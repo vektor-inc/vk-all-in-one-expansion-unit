@@ -21,6 +21,9 @@
         font-size: 28px;
         line-height: 105%;
         font-weight: 700;
+        @media (max-width: 576px){
+            font-size: 25px;
+        }
     }
     .contact_txt_tel_icon {
         margin-right: 0.3rem;
@@ -63,7 +66,7 @@
         }
     }
 } // @media (min-width: 1200px){
-
+   
 .widget {
     .veu_contact > .contact_bt {
         display: inline-block;
