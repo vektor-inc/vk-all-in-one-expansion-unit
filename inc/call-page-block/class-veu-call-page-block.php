@@ -58,7 +58,7 @@ class VEU_Call_Page_Block {
 	 */
 	public static function block_callback( $attributes, $content = '' ) {
 
-		$clsss = 'veu_call_page';
+		$classes = 'veu_call_page';
 		$veu_page_id = ! empty( $attributes['TargetPost'] ) ? $attributes['TargetPost'] : -1;
 
 		if ( isset( $attributes['TargetPost'] ) ) {
