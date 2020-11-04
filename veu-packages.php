@@ -283,7 +283,7 @@ function veu_get_packages() {
 		'title'       => __( 'Page Block', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'It can call a page on editable screen.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'call-page-block/class-call-page-block.php',
+		'include'     => 'call-page-block/class-veu-call-page-block.php',
 	);
 
 	/*

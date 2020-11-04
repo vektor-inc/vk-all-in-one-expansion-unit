@@ -5,7 +5,7 @@
  * @package VK All in One Expansion Unit
  */
 
-class Call_Page_Block {
+class VEU_Call_Page_Block {
 	
 	// Constructor
 	public function __construct() {
@@ -56,8 +56,6 @@ class Call_Page_Block {
 	 * @param html  $content content.
 	 */
 	public static function block_callback( $attributes, $content = '' ) {
-		echo 'aaaa';
-
 
 		$veu_page_id = ! empty( $attributes['TargetPost'] ) ? $attributes['TargetPost'] : -1;
 
@@ -68,3 +66,4 @@ class Call_Page_Block {
 		return $page_html;
 	}
 }
+new VEU_Call_Page_Block();
