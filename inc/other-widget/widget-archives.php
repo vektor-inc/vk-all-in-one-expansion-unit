@@ -51,27 +51,34 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			$arg['format'] = 'html';
 		}
 
+		$get_posts = get_posts(
+			array(
+				'post_type' => $instance['post_type'],
+			)
+		);
+		if ( ! empty( $get_posts ) ) {
 		?>
-		<?php echo $args['before_widget']; ?>
-		<div class="sideWidget widget_archive">
-			<?php
-			if ( ( isset( $instance['label'] ) ) && $instance['label'] ) {
-				echo $args['before_title'] . $instance['label'] . $args['after_title'];
-			}
-			?>
-			<?php if ( 'select' === $instance['display_design'] ) : ?>
-				<select class="localNavi" name="archive-dropdown" onChange='document.location.href=this.options[this.selectedIndex].value;'>
-					<?php wp_get_archives( $arg ); ?>
-				</select>
-			<?php else : ?>
-				<ul class="localNavi">
-					<?php wp_get_archives( $arg ); ?>
-				</ul>
-			<?php endif; ?>
+			<?php echo $args['before_widget']; ?>
+			<div class="sideWidget widget_archive">
+				<?php
+				if ( ( isset( $instance['label'] ) ) && $instance['label'] ) {
+					echo $args['before_title'] . $instance['label'] . $args['after_title'];
+				}
+				?>
+				<?php if ( 'select' === $instance['display_design'] ) : ?>
+					<select class="localNavi" name="archive-dropdown" onChange='document.location.href=this.options[this.selectedIndex].value;'>
+						<?php wp_get_archives( $arg ); ?>
+					</select>
+				<?php else : ?>
+					<ul class="localNavi">
+						<?php wp_get_archives( $arg ); ?>
+					</ul>
+				<?php endif; ?>
 
-		</div>
-		<?php echo $args['after_widget']; ?>
-		<?php
+			</div>
+			<?php echo $args['after_widget']; ?>
+			<?php
+		}
 	}
 
 	/**
