@@ -44,6 +44,7 @@ class VEU_Call_Page_Block {
 					),
 					$common_attributes
 				),
+				'supports' => [],
 				'render_callback' => array( __CLASS__, 'block_callback'),
 			)
 		);
@@ -57,11 +58,42 @@ class VEU_Call_Page_Block {
 	 */
 	public static function block_callback( $attributes, $content = '' ) {
 
+		$clsss = 'veu_call_page';
 		$veu_page_id = ! empty( $attributes['TargetPost'] ) ? $attributes['TargetPost'] : -1;
+
+		if ( isset( $attributes['TargetPost'] ) ) {
+			$classes .= ' veu_call_page_id-' . $veu_page_id;
+		}
+		if ( isset( $attributes['className'] ) ) {
+			$classes .= ' ' . $attributes['className'];
+		}
+		if ( isset( $attributes['vkb_hidden'] ) && $attributes['vkb_hidden'] ) {
+			$classes .= ' vk_hidden';
+		}
+		if ( isset( $attributes['vkb_hidden_xxl'] ) && $attributes['vkb_hidden_xxl'] ) {
+			$classes .= ' vk_hidden-xxl';
+		}
+		if ( isset( $attributes['vkb_hidden_xl_v2'] ) && $attributes['vkb_hidden_xl_v2'] ) {
+			$classes .= ' vk_hidden-xl';
+		}
+		if ( isset( $attributes['vkb_hidden_lg'] ) && $attributes['vkb_hidden_lg'] ) {
+			$classes .= ' vk_hidden-lg';
+		}
+		if ( isset( $attributes['vkb_hidden_md'] ) && $attributes['vkb_hidden_md'] ) {
+			$classes .= ' vk_hidden-md';
+		}
+		if ( isset( $attributes['vkb_hidden_sm'] ) && $attributes['vkb_hidden_sm'] ) {
+			$classes .= ' vk_hidden-sm';
+		}
+		if ( isset( $attributes['vkb_hidden_xs'] ) && $attributes['vkb_hidden_xs'] ) {
+			$classes .= ' vk_hidden-xs';
+		}
 
 		$page_html = '';
 		if ( -1 !== $veu_page_id ) {
-			$page_html = apply_filters( 'veu_page_content', get_post( $veu_page_id )->post_content );
+			$page_html .= '<div class="' . $classes . '">';
+			$page_html .= apply_filters( 'veu_page_content', get_post( $veu_page_id )->post_content );
+			$page_html .= '</div>';
 		}
 		return $page_html;
 	}
