@@ -47,7 +47,8 @@ gulp.task('block', function (done) {
 				'./inc/child-page-index/block.jsx',
 				'./inc/contact-section/block.jsx',
 				'./inc/page-list-ancestor/block.jsx',
-				'./inc/sitemap-page/block.jsx'
+				'./inc/sitemap-page/block.jsx',
+				'./inc/call-page-block/block.jsx'
 			]
 		)
 		.pipe(babel({

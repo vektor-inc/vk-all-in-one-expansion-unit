@@ -98,6 +98,33 @@ function veu_register_block_scripts() {
 		true
 	);
 
+	/**
+	 * 呼び出す投稿のリストを生成し渡す
+	 */
+	// 選択可能なフォームを生成.
+	$option_posts = array(
+		array(
+			'label' => __( 'Unspecified', 'vk-all-in-one-expansion-unit' ),
+			'value' => -1,
+		),
+	);
+
+	$the_posts = get_posts(
+		array(
+			'posts_per_page' => -1,
+			'post_type'      => 'page',
+		)
+	);
+
+	foreach ( $the_posts as $the_post ) {
+		$option_posts[] = array(
+			'label' => $the_post->post_title,
+			'value' => $the_post->ID,
+		);
+	}
+	// 投稿リストをブロック側に渡す.
+	wp_localize_script( 'veu-block', 'veu_call_pages', $option_posts );
+
 	/*
 	すべてのブロックも含めた vkExUnit_editor_style.css を読み込んでいるのが、
 	編集画面でシェアボタンのアイコンフォントのファイルパスがズレて表示されなくなるので個別に読み込んでいる

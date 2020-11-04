@@ -3,6 +3,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
+#: inc/call-page-block/block.jsx:11
+msgid "Call Page"
+msgstr ""
+
+#: inc/call-page-block/block.jsx:57
+msgid "Because no post is selected, The block Will not render"
+msgstr ""
+
+#: inc/call-page-block/block.jsx:68
+msgid "Page Option"
+msgstr ""
+
+#: inc/call-page-block/block.jsx:75
+msgid "Select Page"
+msgstr ""
+
 #: inc/child-page-index/block.jsx:109
 msgid "Parent Page"
 msgstr ""

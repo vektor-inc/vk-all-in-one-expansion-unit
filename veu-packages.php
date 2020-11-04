@@ -276,6 +276,17 @@ function veu_get_packages() {
 	);
 
 	/*
+	  Page Block
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'page_block',
+		'title'       => __( 'Page Block', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'It can call a page on editable screen.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'call-page-block/class-call-page-block.php',
+	);
+
+	/*
 	  Call To Action
 	/*-------------------------------------------*/
 	$cta_description  = __( 'Display the CTA at the end of the post content.', 'vk-all-in-one-expansion-unit' );
