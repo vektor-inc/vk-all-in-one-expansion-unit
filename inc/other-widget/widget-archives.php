@@ -107,10 +107,17 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		);
 		// 選択肢用配列に各カスタム投稿タイプを追加.
 		foreach ( $the_post_types as $the_post_type ) {
-			$select_post_types[] = array(
-				'label' => $the_post_type->labels->singular_name,
-				'value' => $the_post_type->name,
+			$get_posts = get_posts(
+				array(
+					'post_type' => $the_post_type->name,
+				)
 			);
+			if ( ! empty( $get_posts ) ) {
+				$select_post_types[] = array(
+					'label' => $the_post_type->labels->singular_name,
+					'value' => $the_post_type->name,
+				);
+			}
 		}
 		?>
 		<div>
