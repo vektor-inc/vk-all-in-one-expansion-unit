@@ -71,7 +71,7 @@ jobs:
     - name: Setup PHP ${{ matrix.php }}
       uses: shivammathur/setup-php@v2
         with:
-         php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php }}
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
