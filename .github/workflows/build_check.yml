@@ -69,12 +69,12 @@ jobs:
         path: vendor
         key: ${{ runner.os }}-php${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
 	- name: Setup PHP ${{ matrix.php }}
-		uses: shivammathur/setup-php@v2
-		with:
-			php-version: ${{ matrix.php }}
+	  uses: shivammathur/setup-php@v2
+	    with:
+	      php-version: ${{ matrix.php }}
 	- uses: actions/setup-node@v1
-		with:
-			node-version: 12.x
+	  with:
+	    node-version: 12.x
 	- run: npm install
     - name: install npm scripts
       run: npm install
