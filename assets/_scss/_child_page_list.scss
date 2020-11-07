@@ -1,5 +1,8 @@
 .veu_childPage_list {
 	margin-top: 2.5em;
+	&:first-child{
+		margin-top:0;
+	}
 	display: flex;
 	align-items: stretch;
 	flex-wrap: wrap;

@@ -1,6 +1,9 @@
 .veu_pageList_ancestor {
     clear: both;
     margin: 2.5em 0 1em;
+    &:first-child{
+		margin-top:0;
+	}
     .pageList_ancestor_title {
         margin-bottom: 0.5em;
     }
