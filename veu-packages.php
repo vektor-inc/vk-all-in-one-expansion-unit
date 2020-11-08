@@ -89,6 +89,17 @@ function veu_get_packages() {
 	);
 
 	/*
+	  Add Plugin Link to admin bar
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'add_plugin_link_to_admin_menu',
+		'title'       => __( 'Add Plugin link to admin bar', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add Plugin setting page link to admin bar.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'add_plugin_link_to_adminbar.php',
+	);
+
+	/*
 	  sns
 	/*-------------------------------------------*/
 	$deskSns     = array();
