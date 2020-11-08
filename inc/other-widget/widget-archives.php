@@ -65,7 +65,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 					echo $args['before_title'] . $instance['label'] . $args['after_title'];
 				}
 				?>
-				<?php if ( 'select' === $arg['format'] ) : ?>
+				<?php if ( 'option' === $arg['format'] ) : ?>
 					<select class="localNavi" name="archive-dropdown" onChange='document.location.href=this.options[this.selectedIndex].value;'>
 						<?php wp_get_archives( $arg ); ?>
 					</select>
