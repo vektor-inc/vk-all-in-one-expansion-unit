@@ -27,6 +27,10 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 	 * ウィジェットの表示画面
 	 */
 	public function widget( $args, $instance ) {
+
+		$defaults = self::get_option_defaults();
+		$instance = wp_parse_args( (array) $instance, $defaults );
+
 		$arg = array(
 			'echo' => 1,
 		);
@@ -62,7 +66,9 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			<div class="sideWidget widget_archive">
 				<?php
 				if ( ! empty( $instance['label'] ) ) {
-					echo $args['before_title'] . VK_Helpers::sanitize_textarea( $instance['label'] ) . $args['after_title'];
+					echo $args['before_title'];
+					echo VK_Helpers::sanitize_textarea( $instance['label'] );
+					echo $args['after_title'];
 				}
 				?>
 				<?php if ( 'html' === $arg['format'] ) : ?>
@@ -82,16 +88,24 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 	}
 
 	/**
-	 * ウィジェットの設定画面
+	 * 
 	 */
-	public function form( $instance ) {
-		// インスタンスを初期化＆調整.
+	public function get_option_defaults() {
 		$defaults = array(
 			'post_type'      => 'post',
 			'display_type'   => 'm',
 			'label'          => __( 'Monthly archives', 'vk-all-in-one-expansion-unit' ),
 			'display_design' => 'list',
 		);
+		return $defaults;
+	}
+
+	/**
+	 * ウィジェットの設定画面
+	 */
+	public function form( $instance ) {
+		// インスタンスを初期化＆調整.
+		$defaults = self::get_option_defaults();
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		// 投稿タイプをオブジェクトで取得.
