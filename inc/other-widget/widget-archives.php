@@ -65,14 +65,14 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 					echo $args['before_title'] . $instance['label'] . $args['after_title'];
 				}
 				?>
-				<?php if ( 'option' === $arg['format'] ) : ?>
-					<select class="localNavi" name="archive-dropdown" onChange='document.location.href=this.options[this.selectedIndex].value;'>
-						<?php wp_get_archives( $arg ); ?>
-					</select>
-				<?php else : ?>
+				<?php if ( 'html' === $arg['format'] ) : ?>
 					<ul class="localNavi">
 						<?php wp_get_archives( $arg ); ?>
 					</ul>
+				<?php else : ?>
+					<select class="localNavi" name="archive-dropdown" onChange='document.location.href=this.options[this.selectedIndex].value;'>
+						<?php wp_get_archives( $arg ); ?>
+					</select>
 				<?php endif; ?>
 
 			</div>
