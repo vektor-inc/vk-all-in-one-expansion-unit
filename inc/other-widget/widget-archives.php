@@ -149,7 +149,9 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 
 			<!-- 表示タイプ -->
 			<div>
-				<label for="<?php echo $this->get_field_id( 'display_type' ); ?>">表示タイプ</label>
+				<label for="<?php echo $this->get_field_id( 'display_type' ); ?>">
+				<?php _e( 'Display format', 'vk-all-in-one-expansion-unit' ); ?>
+				</label>
 				<select name="<?php echo $this->get_field_name( 'display_type' ); ?>" >
 					<option value="m" <?php selected( $instance['display_type'], 'm', true ); ?>><?php _e( 'Monthly', 'vk-all-in-one-expansion-unit' ); ?></option>
 					<option value="y" <?php selected( $instance['display_type'], 'y', true ); ?>><?php _e( 'Yearly', 'vk-all-in-one-expansion-unit' ); ?></option>
@@ -158,7 +160,9 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 
 			<!-- デザイン -->
 			<div>
-				<label for="<?php echo $this->get_field_id( 'display_design' ); ?>">デザイン</label>
+				<label for="<?php echo $this->get_field_id( 'display_design' ); ?>">
+				<?php _e( 'Display Type', 'vk-all-in-one-expansion-unit' ); ?>
+				</label>
 				<select name="<?php echo $this->get_field_name( 'display_design' ); ?>" >
 					<option value="list" <?php selected( $instance['display_design'],'list',true ); ?>><?php _e( 'Lists', 'vk-all-in-one-expansion-unit' ); ?></option>
 					<option value="select" <?php selected( $instance['display_design'],'select',true ); ?>><?php _e( 'Select', 'vk-all-in-one-expansion-unit' ); ?></option>
