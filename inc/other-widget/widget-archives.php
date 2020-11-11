@@ -10,16 +10,16 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'WP_Widget_VK_archive_list',
-			self::veu_widget_name(),
-			array( 'description' => self::veu_widget_description() )
+			self::widget_name(),
+			array( 'description' => self::widget_description() )
 		);
 	}
 
-	public static function veu_widget_name() {
+	public static function widget_name() {
 		return veu_get_prefix() . __( 'archive list', 'vk-all-in-one-expansion-unit' );
 	}
 
-	public static function veu_widget_description() {
+	public static function widget_description() {
 		return __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' );
 	}
 
@@ -61,8 +61,8 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 			<?php echo $args['before_widget']; ?>
 			<div class="sideWidget widget_archive">
 				<?php
-				if ( ( isset( $instance['label'] ) ) && $instance['label'] ) {
-					echo $args['before_title'] . $instance['label'] . $args['after_title'];
+				if ( ! empty( $instance['label'] ) ) {
+					echo $args['before_title'] . VK_Helpers::sanitize_textarea( $instance['label'] ) . $args['after_title'];
 				}
 				?>
 				<?php if ( 'html' === $arg['format'] ) : ?>
@@ -147,10 +147,10 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				</select>
 			</div>
 
-			<!-- 表示タイプ -->
+			<!-- Archiveタイプ -->
 			<div>
 				<label for="<?php echo $this->get_field_id( 'display_type' ); ?>">
-				<?php _e( 'Display format', 'vk-all-in-one-expansion-unit' ); ?>
+				<?php _e( 'Archive type', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
 				<select name="<?php echo $this->get_field_name( 'display_type' ); ?>" >
 					<option value="m" <?php selected( $instance['display_type'], 'm', true ); ?>><?php _e( 'Monthly', 'vk-all-in-one-expansion-unit' ); ?></option>
@@ -158,10 +158,10 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				</select>
 			</div>
 
-			<!-- デザイン -->
+			<!-- Displayデザイン -->
 			<div>
 				<label for="<?php echo $this->get_field_id( 'display_design' ); ?>">
-				<?php _e( 'Display Type', 'vk-all-in-one-expansion-unit' ); ?>
+				<?php _e( 'Display design', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
 				<select name="<?php echo $this->get_field_name( 'display_design' ); ?>" >
 					<option value="list" <?php selected( $instance['display_design'],'list',true ); ?>><?php _e( 'Lists', 'vk-all-in-one-expansion-unit' ); ?></option>
