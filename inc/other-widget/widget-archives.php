@@ -77,6 +77,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 					</ul>
 				<?php else : ?>
 					<select class="localNavi" name="archive-dropdown" onChange='document.location.href=this.options[this.selectedIndex].value;'>
+						<option value="" <?php selected( $instance['display_type'], '', true ); ?>><?php _e( 'Please select', 'vk-all-in-one-expansion-unit' ); ?></option>
 						<?php wp_get_archives( $arg ); ?>
 					</select>
 				<?php endif; ?>
