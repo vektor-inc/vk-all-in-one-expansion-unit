@@ -49,6 +49,7 @@ function veu_customize_register_add_control() {
 	/*
 	  Add text control description
 	/*-------------------------------------------*/
+	if ( ! class_exists( 'ExUnit_Custom_Text_Control' ) ) {
 	class ExUnit_Custom_Text_Control extends WP_Customize_Control {
 		public $type         = 'customtext';
 		public $description  = ''; // we add this for the extra description
@@ -69,10 +70,12 @@ function veu_customize_register_add_control() {
 			<?php
 		} // public function render_content() {
 	} // class Custom_Text_Control extends WP_Customize_Control
+	}
 
 	/*
 	  Add text control description
 	/*-------------------------------------------*/
+	if ( ! class_exists( 'ExUnit_Custom_Html' ) ) {
 	class ExUnit_Custom_Html extends WP_Customize_Control {
 		public $type             = 'customtext';
 		public $custom_title_sub = ''; // we add this for the extra custom_html
@@ -92,6 +95,7 @@ function veu_customize_register_add_control() {
 			<?php
 		} // public function render_content() {
 	} // class VkExUnit_Custom_Html extends WP_Customize_Control
+	}
 
 } // function veu_customize_register_add_control(){
 
