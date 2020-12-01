@@ -18,11 +18,11 @@
 if ( ! class_exists( 'Vk_term_color' ) ) {
 
 	/*
-	読み込みタイミングをafter_setup_themeにしておかないと
-	テーマから対象taxonomyの指定がある場合に効かない
+	読み込みタイミングを init にしておかないと
+	フィールドがカスタム分類の画面で表示されない
 	★★★★★★ 関数のprefixは固有のものに変更する事 ★★★★★★
 	*/
-	add_action( 'after_setup_theme', 'veu_load_term_color' );
+	add_action( 'init', 'veu_load_term_color' );
 	function veu_load_term_color() {
 		require_once 'package/class.term-color.php';
 	}
