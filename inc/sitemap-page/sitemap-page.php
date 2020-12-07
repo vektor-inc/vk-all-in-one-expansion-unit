@@ -281,20 +281,22 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 add_action( 'init', 'veu_sitemap_block_setup', 15 );
 function veu_sitemap_block_setup() {
 	global $common_attributes;
-	register_block_type(
-		'vk-blocks/sitemap',
-		array(
-			'attributes'      => array(
-				'className' => array(
-					'type'    => 'string',
-					'default' => '',
+	if ( function_exists( 'register_block_type' ) ){
+		register_block_type(
+			'vk-blocks/sitemap',
+			array(
+				'attributes'      => array(
+					'className' => array(
+						'type'    => 'string',
+						'default' => '',
+					),
+					$common_attributes
 				),
-				$common_attributes
-			),
-			'editor_script'   => 'veu-block',
-			'editor_style'    => 'veu-block-editor',
-			'render_callback' => 'vkExUnit_sitemap',
-			'supports' => [],
-		)
-	);
+				'editor_script'   => 'veu-block',
+				'editor_style'    => 'veu-block-editor',
+				'render_callback' => 'vkExUnit_sitemap',
+				'supports' => [],
+			)
+		);
+	}
 }

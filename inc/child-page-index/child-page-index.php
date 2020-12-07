@@ -218,26 +218,29 @@ add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
 	global $common_attributes;
 
-	register_block_type(
-		'vk-blocks/child-page-index',
-		array(
-			'attributes'      => array_merge(
-				array(
-					'className'      => array(
-						'type'    => 'string',
-						'default' => ''
+	 if ( function_exists( 'register_block_type' ) ){
+		register_block_type(
+			'vk-blocks/child-page-index',
+			array(
+				'attributes'      => array_merge(
+					array(
+						'className'      => array(
+							'type'    => 'string',
+							'default' => ''
+						),
+						'postId'         => array(
+							'type'    => 'number',
+							'default' => -1
+						),
 					),
-					'postId'         => array(
-						'type'    => 'number',
-						'default' => -1
-					),
+					$common_attributes
 				),
-				$common_attributes
-			),
-			'editor_script'   => 'veu-block',
-			'editor_style'    => 'veu-block-editor',
-			'render_callback' => 'veu_childPageIndex_block_callback',
-			'supports' => [],
-		)
-	);
+				'editor_script'   => 'veu-block',
+				'editor_style'    => 'veu-block-editor',
+				'render_callback' => 'veu_childPageIndex_block_callback',
+				'supports' => [],
+			)
+		);
+	 }
+
 }
