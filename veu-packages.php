@@ -435,6 +435,24 @@ function veu_get_packages() {
 	);
 
 	/*
+	  post_type_manager
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'archive_loop_before_widget_area',
+		'title'       => __( 'Before loop widget area', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add widget area before loop at published post type archive page', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			// array(
+			// 	'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+			// 	'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
+			// 	'enable_only' => 1,
+			// ),
+		),
+		'default'     => false,
+		'include'     => 'add_archive_loop_before_widget_area.php',
+	);
+
+	/*
 	  Page Top Button
 	/*-------------------------------------------*/
 	$required_packages[] = array(
