@@ -281,7 +281,7 @@ function veu_create_nest_array( $array = array(), $raw_array ){
 function veu_display_nest_checkbox( $array = array(), $raw_array, $options ){
 	// echo checked( $options, true );
 	if ( is_array( $array ) && count( $array ) ){
-		echo '<ul>';
+		echo '<ul class="no-style">';
 		foreach ( $array as $key => $child ) {
 			echo '<li><label><input type="checkbox" name="vkExUnit_noindex[' . esc_attr( $key ) . ']" value="true" ';
 			echo checked( $options[$key], "true" );

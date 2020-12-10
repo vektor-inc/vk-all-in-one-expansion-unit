@@ -369,7 +369,7 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
 		$args       = wp_parse_args( $args, $default );
 		$post_types = get_post_types( $args['post_types_args'], 'object' );
 
-		echo '<ul>';
+		echo '<ul class="no-style">';
 		foreach ( $post_types as $key => $value ) {
 
 			if ( ! in_array( $key, $args['exclude_post_types'] ) ) {
