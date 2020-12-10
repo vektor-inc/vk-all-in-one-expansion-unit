@@ -79,8 +79,8 @@ function veu_pagetop_admin() {
 <!-- Google Analytics -->
 <tr>
 <th><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?> </th>
-<td>
-<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="true"<?php if( ! empty( $options['hide_mobile'] ) ) echo ' checked'; ?> /> <?php _e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> 
+<td><label>
+<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="true"<?php if( ! empty( $options['hide_mobile'] ) ) echo ' checked'; ?> /> <?php _e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> </label>
 </td>
 </tr>
 </table>
@@ -105,6 +105,8 @@ function veu_pagetop_default() {
 
 function veu_pagetop_sanitize( $input ) {
 	$output                = array();
-	$output['hide_mobile'] = esc_attr( $input['hide_mobile'] );
+	if ( isset($input['hide_mobile']) ){
+		$output['hide_mobile'] = esc_attr( $input['hide_mobile'] );
+	}
 	return $output;
 }
