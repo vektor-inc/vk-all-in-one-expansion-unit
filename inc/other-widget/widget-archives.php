@@ -67,7 +67,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				<?php
 				if ( ! empty( $instance['label'] ) ) {
 					echo $args['before_title'];
-					echo VK_Helpers::sanitize_textarea( $instance['label'] );
+					echo wp_kses_post( $instance['label'] );
 					echo $args['after_title'];
 				}
 				?>
