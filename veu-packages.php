@@ -159,6 +159,24 @@ function veu_get_packages() {
 	);
 
 	/*
+	  noindex
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'noindex',
+		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want add to the other page such as archive page that, you can set to ExUnit Main Setting Page.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_noindex',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => true,
+		'include'     => 'noindex/noindex.php',
+	);
+
+	/*
 	  otherWidgets
 	/*-------------------------------------------*/
 	$desk   = array();
@@ -341,17 +359,6 @@ function veu_get_packages() {
 		'description' => __( 'Print Related posts lists to post content bottom.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'Related posts are displayed based on tags, so please set tags for posts.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'related_posts/related_posts.php',
-	);
-
-	/*
-	  noindex
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'noindex',
-		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'noindex/noindex.php',
 	);
 
 	/*
