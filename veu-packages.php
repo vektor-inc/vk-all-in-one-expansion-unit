@@ -159,6 +159,24 @@ function veu_get_packages() {
 	);
 
 	/*
+	  noindex
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'noindex',
+		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want add to the other page such as archive page that, you can set to ExUnit Main Setting Page.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_noindex',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => true,
+		'include'     => 'noindex/noindex.php',
+	);
+
+	/*
 	  otherWidgets
 	/*-------------------------------------------*/
 	$desk   = array();
@@ -344,17 +362,6 @@ function veu_get_packages() {
 	);
 
 	/*
-	  noindex
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'noindex',
-		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'noindex/noindex.php',
-	);
-
-	/*
 	  disable_ping-back
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -432,6 +439,24 @@ function veu_get_packages() {
 		),
 		'default'     => true,
 		'include'     => 'post-type-manager/post-type-manager-config.php',
+	);
+
+	/*
+	  post_type_manager
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'archive_loop_before_widget_area',
+		'title'       => __( 'Before loop widget area', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add widget area before loop at published post type archive page', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			// array(
+			// 	'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+			// 	'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
+			// 	'enable_only' => 1,
+			// ),
+		),
+		'default'     => false,
+		'include'     => 'add_archive_loop_before_widget_area.php',
 	);
 
 	/*

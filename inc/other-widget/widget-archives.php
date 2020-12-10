@@ -145,15 +145,15 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		<div>
 
 			<!-- タイトル -->
-			<div>
+			<div style="margin-top:15px;">
 				<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title', 'vk-all-in-one-expansion-unit' ); ?>:</label>
-				<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>" >
+				<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>"  class="admin-custom-input">
 			</div>
 
 			<!-- 投稿タイプ -->
 			<div>
 				<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'vk-all-in-one-expansion-unit' ); ?>:</label>
-				<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" >
+				<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" class="admin-custom-input">
 					<?php foreach ( $select_post_types as $select_post_type ) : ?>
 						<option value="<?php echo $select_post_type['value']; ?>" <?php selected( $select_post_type['value'], $instance['post_type'] , true  ); ?>>
 							<?php echo $select_post_type['label']; ?>
@@ -167,22 +167,23 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				<label for="<?php echo $this->get_field_id( 'display_type' ); ?>">
 				<?php _e( 'Archive type', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
-				<select name="<?php echo $this->get_field_name( 'display_type' ); ?>" >
+				<select name="<?php echo $this->get_field_name( 'display_type' ); ?>" class="admin-custom-input">
 					<option value="m" <?php selected( $instance['display_type'], 'm', true ); ?>><?php _e( 'Monthly', 'vk-all-in-one-expansion-unit' ); ?></option>
 					<option value="y" <?php selected( $instance['display_type'], 'y', true ); ?>><?php _e( 'Yearly', 'vk-all-in-one-expansion-unit' ); ?></option>
 				</select>
 			</div>
 
 			<!-- Displayデザイン -->
-			<div>
+			<div style="margin-bottom:2em;">
 				<label for="<?php echo $this->get_field_id( 'display_design' ); ?>">
 				<?php _e( 'Display design', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
-				<select name="<?php echo $this->get_field_name( 'display_design' ); ?>" >
+				<select name="<?php echo $this->get_field_name( 'display_design' ); ?>" class="admin-custom-input">
 					<option value="list" <?php selected( $instance['display_design'],'list',true ); ?>><?php _e( 'Lists', 'vk-all-in-one-expansion-unit' ); ?></option>
-					<option value="select" <?php selected( $instance['display_design'],'select',true ); ?>><?php _e( 'Select', 'vk-all-in-one-expansion-unit' ); ?></option>
+					<option value="select" <?php selected( $instance['display_design'],'select',true ); ?>><?php _e( 'Drop down', 'vk-all-in-one-expansion-unit' ); ?></option>
 				</select>
 			</div>
+
 		</div>
 		<?php
 	}

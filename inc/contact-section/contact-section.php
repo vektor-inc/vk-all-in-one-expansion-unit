@@ -211,9 +211,9 @@ class VkExUnit_Contact {
 	?>
    <h3><?php _e( 'Contact Information', 'vk-all-in-one-expansion-unit' ); ?></h3>
    <div id="meta_description" class="sectionBox">
-	<?php _e( 'The contents entered here will be reflected in the bottom of each fixed page, the "Contact Section" widget, the "Contact Button" widget, etc.', 'vk-all-in-one-expansion-unit' ); ?>
+	<p><?php _e( 'The contents entered here will be reflected in the bottom of each fixed page, the "Contact Section" widget, the "Contact Button" widget, etc.', 'vk-all-in-one-expansion-unit' ); ?>
    <br/>
-	<?php _e( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vk-all-in-one-expansion-unit' ); ?>
+	<?php _e( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vk-all-in-one-expansion-unit' ); ?></p>
 
    <table class="form-table">
    <tr>

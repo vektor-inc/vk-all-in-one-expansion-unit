@@ -1,5 +1,9 @@
 @charset "utf-8";
 // @import "compass";
+
+$text-size : 14px;
+$line-height : 1.7;
+
 body{margin:0;}
 .text-left {
 	text-align: left;
@@ -156,6 +160,11 @@ body{margin:0;}
 
 .vk_admin_page {
 	padding-top: 1em;
+
+	p,li,td {
+		line-height: $line-height;
+		font-size: $text-size;
+	}
 	h2.page_title {
 		font-size: 16px;
 		text-align: center;
@@ -175,6 +184,15 @@ body{margin:0;}
 		font-size:16px;
 		margin-bottom:1em;
 	}
+	.form-table td p,
+	p {
+		margin-bottom:1em;
+		font-size: $text-size;
+		line-height: $line-height;
+		&:last-child {
+			margin-bottom:0;
+		}
+	}
 	input[type="text"] {
 		width: 50%;
 	}
@@ -182,6 +200,7 @@ body{margin:0;}
 		width: 50%;
 	}
 	dl {
+		line-height: 1.5;
 		dt {
 			font-weight: bold;
 			margin-bottom: 5px;
@@ -247,8 +266,20 @@ body{margin:0;}
 			li ol {
 				margin-top:0.5em;
 			}
+			ul.no-style {
+				margin-left:0;
+				ul {
+					margin-left:1.5em;
+				}
+				li {
+					list-style: none;
+				}
+			}
 			&_content {
 				margin-bottom:3em;
+			}
+			input[type=text] {
+				margin-bottom:5px;
 			}
 		}
 	}
