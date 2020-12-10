@@ -100,7 +100,7 @@ function veu_pagetop_default() {
 	$default_options = array(
 		'hide_mobile' => false,
 	);
-	return apply_filters( 'vkExUnit_wp_title_default', $default_options );
+	return apply_filters( 'veu_pagetop_default', $default_options );
 }
 
 function veu_pagetop_sanitize( $input ) {
