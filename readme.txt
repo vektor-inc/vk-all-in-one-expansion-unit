@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
 Tested up to: 5.6.0
-Stable tag: 9.49.0.0
+Stable tag: 9.49.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,7 @@ e.g.
 
 = 9.49.0.0 =
 [ Add function ][ Noindex ] Cope with print to archive page
+[ Add function ][ Before loop widget area ] Add widget area to before loop on archive page
 
 = 9.48.3.0 =
 [ Bug fix ] Cope with before 5.0
