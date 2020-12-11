@@ -110,7 +110,6 @@ function veu_noindex_admin() {
 <td>
 <ul>
 <?php
-
 $options = veu_noindex_options();
 $veu_noindex_targets = veu_noindex_targets();
 
@@ -284,7 +283,9 @@ function veu_display_nest_checkbox( $array = array(), $raw_array, $options ){
 		echo '<ul class="no-style">';
 		foreach ( $array as $key => $child ) {
 			echo '<li><label><input type="checkbox" name="vkExUnit_noindex[' . esc_attr( $key ) . ']" value="true" ';
-			echo checked( $options[$key], "true" );
+			if ( isset( $options[$key] ) ){
+				echo checked( $options[$key], "true" );
+			}
 			echo ' /> ';
 			// print '<pre style="text-align:left">';print_r($options[$key]);print '</pre>';
 			echo esc_html( $raw_array[$key]['label'] );
