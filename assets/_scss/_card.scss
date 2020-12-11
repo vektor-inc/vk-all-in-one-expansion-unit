@@ -1,11 +1,11 @@
 .veu_card {
-	border: 3px solid #efefef;
+	border: 3px solid var(--vk-color-border-light);
 	.veu_card_inner {
 		position: relative;
 		display: block;
 		overflow: hidden;
 		padding: 1.5rem;
-		box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.5);
+		box-shadow: inset 0px 0px 0px 1px var(--vk-color-border-zuru);
 	}
 	.veu_card_title {
 		color: $color_font_default;
