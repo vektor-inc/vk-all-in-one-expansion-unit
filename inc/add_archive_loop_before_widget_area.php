@@ -19,7 +19,7 @@ function veu_set_archive_loop_before_widget_area(){
             // Set post type widget area
             register_sidebar(
                 array(
-                    'name'          => sprintf( __( 'Post type archive before loop (%s)', 'lightning-pro' ), $postType_name ),
+                    'name'          => sprintf( __( 'Post type archive before loop (%s)', 'vk-all-in-one-expansion-unit' ), $postType_name ),
                     'id'            => $postType . '-archive-loop-before',
                     'description'   => '',
                     'before_widget' => '<aside class="widget %2$s" id="%1$s">',
