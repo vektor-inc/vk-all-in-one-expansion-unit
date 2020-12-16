@@ -34,7 +34,7 @@ function vew_sns_block_setup() {
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
 			'editor_script'   => 'veu-block',
-			'render_callback' => 'vew_sns_block_callback',
+			'render_callback' => 'veu_sns_block_callback',
 			'supports'        => array(),
 		)
 	);
