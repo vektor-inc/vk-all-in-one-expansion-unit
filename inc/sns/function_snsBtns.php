@@ -129,7 +129,7 @@ function veu_sns_icon_css( $options ) {
 	return $snsBtn_color;
 }
 
-function veu_sns_block_callback( $attr) {
+function veu_sns_block_callback( $attr ) {
 	return veu_get_sns_btns( $attr );
 }
 
