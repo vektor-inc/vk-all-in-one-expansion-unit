@@ -34,7 +34,7 @@ function vew_sns_block_setup() {
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
 			'editor_script'   => 'veu-block',
-			'render_callback' => 'vew_sns_block_callback',
+			'render_callback' => 'veu_sns_block_callback',
 			'supports'        => array(),
 		)
 	);
@@ -101,31 +101,86 @@ function veu_get_sns_options_default() {
  */
 function veu_get_the_sns_title( $post_id = '' ) {
 
+
+	/*
+	注意 : 
+	アーカイブなどのループで使われる場合を想定すると、
+	is_singular() / is_single() / is_page() / is_archive() / is_front_page()
+	などの条件分岐は単体では正常に動作させられない
+	例） ループの中の投稿の場合、そのページ自体がsingularページであるとは限らないため is_singular() で条件分岐すると誤動作してしまう
+	*/
+
+	$title = '';
+	$site_title = get_bloginfo( 'name' );
+	$options_sns = veu_get_sns_options();
 	if ( ! $post_id ) {
 		$post_id = get_the_id();
 	}
-	$options = veu_get_sns_options();
 
-	$title = '';
+	/**
+	 * 
+	 * [ 通常 ]
+	 * 
+	 * → 投稿タイトル + サイト名
+	 * 
+	 */
 
-	if ( is_front_page() ) {
-		$options = get_option( 'vkExUnit_wp_title' );
-		if ( ! empty( $options['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
-			$title = $options['extend_frontTitle'];
-		} else {
-			$title = get_bloginfo( 'name' );
-		}
-	} elseif ( is_singular() ) {
+	$title = get_the_title( $post_id ) . ' | ' . $site_title;
+
+	/**
+	 * 
+	 * [ OGのタイトルを投稿タイトルだけにするチェックが入っている場合 ]
+	 * 
+	 * → 投稿タイトル
+	 * 
+	 */
+	if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
+		$title = get_the_title( $post_id );
+	}
+
+	/**
+	 * [ metaboxでOG用のタイトルが別途登録されている場合 ]
+	 * 
+	 * → OG用のタイトルを返す
+	 * 
+	 */
+	if ( ! empty( get_post_meta( $post_id, 'vkExUnit_sns_title', true ) ) ) {
 		$title = get_post_meta( $post_id, 'vkExUnit_sns_title', true );
 	}
+	
+	/**
+	 * [ 投稿タイトルと異なるケース１]
+	 * 
+	 * サイトのトップが固定ページに指定されている && 
+	 * この関すが呼び出された投稿がサイトトップに指定された固定ページ && 
+	 * サイトタイトルの書き換えに入力がある
+	 * 
+	 * → 特別に入力されたサイトタイトルを返す
+	 */
 
-	if ( ! $title ) {
-		if ( is_singular() && $options['snsTitle_use_only_postTitle'] ) {
-			$title = get_the_title( $post_id );
-		} else {
-			$title = wp_title( '', false );
+	if ( is_front_page() || is_home() ){
+		if ( get_option( 'show_on_front' ) === 'page' ){
+			$page_on_front = get_option( 'page_on_front' );
+			if ( $page_on_front == $page_id  ){
+				$options_veu_wp_title = get_option( 'vkExUnit_wp_title' );
+				if ( ! empty( $options_veu_wp_title['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
+					$title = $options_veu_wp_title['extend_frontTitle'];
+				} else {
+					$title = get_bloginfo( 'name' );
+				}
+			}
 		}
 	}
+
+	/**
+	 * [ どれにも当てはまらなかった場合（基本ないはず） ]
+	 * 
+	 * → wp_title()を返す
+	 */
+
+	 if ( ! $title ) {
+		$title = wp_title( '', false );;
+	 }
 
 	return strip_tags( $title );
 }
