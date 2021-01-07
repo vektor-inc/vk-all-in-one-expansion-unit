@@ -423,7 +423,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
 			}
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される
-			return do_shortcode( $content );
+			return do_blocks(do_shortcode( $content ));
 		}
 
 		public static function cta_id_random() {
