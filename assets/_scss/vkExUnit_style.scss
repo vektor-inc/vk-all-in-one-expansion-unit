@@ -329,7 +329,7 @@ iframe.twitter-timeline {
 			overflow: hidden;
 			margin: 0;
 			padding: 15px 0;
-			border-bottom: 1px dotted #666;
+			border-bottom: 1px solid var(--vk-color-border-hr);
 			line-height: 1.4em;
 		}
 	}
@@ -387,7 +387,7 @@ iframe.twitter-timeline {
 			clear: both;
 			position: relative;
 			padding: 15px 0;
-			border-bottom: 1px dotted #666;
+			border-bottom: 1px solid var(--vk-color-border-hr);
 			margin-bottom: 0;
 		}
 		.postList_thumbnail {

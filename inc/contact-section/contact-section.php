@@ -557,7 +557,6 @@ class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
 		);
 	}
 
-
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		echo '<div class="veu_contact">';
