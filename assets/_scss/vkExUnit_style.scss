@@ -363,7 +363,7 @@ iframe.twitter-timeline {
 	.postList_terms a {
 		margin-right: 3px;
 		padding: 2px 5px 2px;
-		border-radius: 3px;
+		border-radius: var(--vk-size-radius-sm);
 		background-color: #efefef;
 		font-size: 10px;
 		line-height: 1;
