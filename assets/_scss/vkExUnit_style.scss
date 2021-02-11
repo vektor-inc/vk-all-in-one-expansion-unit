@@ -334,7 +334,7 @@ iframe.twitter-timeline {
 		}
 	}
 	.postList a {
-		color: $color_font_default;
+		color: var(--vk-color-text-body);
 		text-decoration: none;
 	}
 	.postList a:hover {
@@ -351,7 +351,7 @@ iframe.twitter-timeline {
 	}
 	.postList_date {
 		margin-right: 10px;
-		color: #d44950;
+		color: var( --vk-color-text-meta );
 	}
 	.postList_date:before {
 		content: "";
@@ -403,6 +403,7 @@ iframe.twitter-timeline {
 		.postList_thumbnail img {
 			width: 80px;
 			height: auto;
+			display: block; // block 指定しないと枠の下に余白ができる
 		}
 		.postList_body {
 			display: block;
