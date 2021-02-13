@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Contact Section ] class and margin tuning
+
 = 9.49.7.0 =
 [ bug fix ][ cta ] enable render_block in cta
 
