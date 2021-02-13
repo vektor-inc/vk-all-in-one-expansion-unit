@@ -144,7 +144,9 @@ class VkExUnit_Contact {
 	public static function block_callback( $attributes=array() ) {
 
 		$classes = 'veu_contact_section_block';
-
+		if ( empty( $attributes['vertical'] ) ) {
+			$classes .= ' veu_contact-layout-horizontal';
+		}
 		if ( isset($attributes['className']) ) {
 			$classes .= ' ' . $attributes['className'];
 		}
@@ -168,9 +170,6 @@ class VkExUnit_Contact {
 		}
 		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xs'] ) {
 			$classes .= ' vk_hidden-xs';
-		}
-		if ( empty( $attributes['vertical'] ) ) {
-			$classes .= ' veu_contact-layout-horizontal';
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
@@ -406,15 +405,18 @@ class VkExUnit_Contact {
 		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
 		$cont        = '';
 
+		if ( $additional_classes ) {
+			$additional_classes = ' ' . esc_attr( $additional_classes );
+		}
 		if ( $options['contact_html'] ) {
 
-			$cont .= '<section class="veu_contentAddSection ' . $additional_classes . '">';
+			$cont .= '<section class="veu_contentAddSection' . $additional_classes . '">';
 			$cont .= $options['contact_html'];
 			$cont .= '</section>';
 
 		} elseif ( $options['contact_image'] ) {
 
-			$cont .= '<section class="veu_contentAddSection ' . $additional_classes . '">';
+			$cont .= '<section class="veu_contentAddSection' . $additional_classes . '">';
 			$cont .= '<a href="' . esc_url( $options['contact_link'] )  . '"' . $link_target . '>';
 			$cont .= '<img src="' . esc_attr( $options['contact_image'] ) . '" alt="contact_txt">';
 			$cont .= '</a>';
@@ -422,7 +424,7 @@ class VkExUnit_Contact {
 
 		} else {
 
-			$cont .= '<section class="veu_contact veu_contentAddSection vk_contact veu_card ' . $additional_classes . '">';
+			$cont .= '<section class="veu_contact veu_contentAddSection vk_contact veu_card' . $additional_classes . '">';
 			$cont .= '<div class="contact_frame veu_card_inner">';
 			$cont .= '<p class="contact_txt">';
 			$cont .= '<span class="contact_txt_catch">' . nl2br( esc_textarea( $options['contact_txt'] ) ) . '</span>';
@@ -474,9 +476,9 @@ class VkExUnit_Contact {
 			$cont .= '</section>';
 		}
 
-		if ( $show_edit_button && current_user_can( 'edit_theme_options' ) && ! is_customize_preview() ) {
-			$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
-		}
+		// if ( $show_edit_button && current_user_can( 'edit_theme_options' ) && ! is_customize_preview() ) {
+		// 	$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+		// }
 
 		$cont = apply_filters( 'vkExUnit_contact_custom', $cont );
 
@@ -539,7 +541,7 @@ class VkExUnit_Contact {
 VkExUnit_Contact::instance();
 
 /*
-  Contact Button Widget
+  Contact Button(Button Only) Widget
 /*-------------------------------------------*/
 
 class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
@@ -610,16 +612,13 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		if ( ! empty( $instance['vertical'] ) ) {
-			echo '<div class="veu_contact">';
-		} else {
-			echo '<div class="veu_contact veu_contact-layout-horizontal">';
+		$additional_classes = '';
+		if ( empty( $instance['vertical'] ) ) {
+			$additional_classes = 'veu_contact-layout-horizontal';
 		}
-		echo VkExUnit_Contact::render_contact_section_html();
-		echo '</div>';
+		echo VkExUnit_Contact::render_contact_section_html($additional_classes);
 		echo $args['after_widget'];
 	}
-
 
 	function update( $new_instance, $old_instance ) {
 		$instance['vertical'] = $new_instance['vertical'];
