@@ -329,12 +329,12 @@ iframe.twitter-timeline {
 			overflow: hidden;
 			margin: 0;
 			padding: 15px 0;
-			border-bottom: 1px dotted #666;
+			border-bottom: 1px solid var(--vk-color-border-hr);
 			line-height: 1.4em;
 		}
 	}
 	.postList a {
-		color: $color_font_default;
+		color: var(--vk-color-text-body);
 		text-decoration: none;
 	}
 	.postList a:hover {
@@ -351,7 +351,7 @@ iframe.twitter-timeline {
 	}
 	.postList_date {
 		margin-right: 10px;
-		color: #d44950;
+		color: var( --vk-color-text-meta );
 	}
 	.postList_date:before {
 		content: "";
@@ -363,7 +363,7 @@ iframe.twitter-timeline {
 	.postList_terms a {
 		margin-right: 3px;
 		padding: 2px 5px 2px;
-		border-radius: 3px;
+		border-radius: var(--vk-size-radius-sm);
 		background-color: #efefef;
 		font-size: 10px;
 		line-height: 1;
@@ -387,7 +387,7 @@ iframe.twitter-timeline {
 			clear: both;
 			position: relative;
 			padding: 15px 0;
-			border-bottom: 1px dotted #666;
+			border-bottom: 1px solid var(--vk-color-border-hr);
 			margin-bottom: 0;
 		}
 		.postList_thumbnail {
@@ -403,6 +403,7 @@ iframe.twitter-timeline {
 		.postList_thumbnail img {
 			width: 80px;
 			height: auto;
+			display: block; // block 指定しないと枠の下に余白ができる
 		}
 		.postList_body {
 			display: block;

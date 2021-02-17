@@ -1,5 +1,6 @@
 .veu_card {
 	border: 3px solid var(--vk-color-border-light);
+	border-radius: var(--vk-size-radius);
 	.veu_card_inner {
 		position: relative;
 		display: block;

@@ -1,7 +1,15 @@
 :root {
+    --vk-color-border-hr:rgba(0,0,0,0.07);
     --vk-color-bg-accent:rgba( 0,0,0,0.02);
     --vk-color-border-light: rgba( 0,0,0,0.07);
     --vk-color-border-zuru:rgba(255, 255, 255, 0.8);
+    --vk-color-text-meta: #d44950;
+    --vk-color-text-body : #444444;
+    --vk-color-text-link : #555555;
+    --vk-color-text-link-hover : #1e73be;
+    --vk-size-radius:4px;
+    --vk-size-radius-sm:2px;
+    --vk-margin-block-bottom:2rem;
 }
 
 $color_font_default: #464646;

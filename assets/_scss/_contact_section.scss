@@ -67,11 +67,11 @@
     }
 } // @media (min-width: 1200px){
    
-.widget {
-    .veu_contact > .contact_bt {
-        display: inline-block;
-        float: none;
+.widget_vkexunit_contact_section {
+    .veu_contentAddSection {
+        margin:0;
     }
+    margin-bottom:var(--vk-margin-block-bottom);
 }
 
 // カスタマイザでウィジェット選択と問い合わせ情報のショートカットアイコンが重ならないように

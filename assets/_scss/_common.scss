@@ -15,6 +15,12 @@ iframe.wp-embedded-content {
     overflow: hidden;
     margin-top: 20px;
     margin-bottom: 1.5rem;
+    &:first-child {
+        margin-top:0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .btn {
