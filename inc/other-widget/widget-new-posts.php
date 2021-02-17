@@ -231,7 +231,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 						$term_color = ( $term_color ) ? ' style="background-color:' . $term_color . ';border:none;color:white;"' : '';
 					}
 					$li_items_output .= '<span class="postList_terms postList_meta_items">';
-					$li_items_output .= '<a href="' . $link . '" target="_blank"' . $term_color . '>' . $term->name . '</a>';
+					$li_items_output .= '<a href="' . $link . '"' . $term_color . '>' . $term->name . '</a>';
 					$li_items_output .= '</span>';
 				}
 			}
