@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
 Tested up to: 5.6.0
-Stable tag: 9.49.7.0
+Stable tag: 9.50.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.50.0.0 =
+[ Specification Change ][ NewPostsWidget ] Delete target blank from term link 
 [ Specification Change ][ Contact Section ] class and margin tuning
+[ Specification Change ] come css chenge to css variable
 
 = 9.49.7.0 =
 [ bug fix ][ cta ] enable render_block in cta
