@@ -30,7 +30,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 4.7 );
+define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5 );
 define( 'VEU_DIRECTORY_PATH', dirname( __FILE__ ) );
 
 // Get Plugin version
