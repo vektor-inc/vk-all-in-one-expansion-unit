@@ -18,9 +18,10 @@ iframe.wp-embedded-content {
     &:first-child {
         margin-top:0;
     }
-    &:last-child {
-        margin-bottom: 0;
-    }
+    // カテゴリー情報などがひっついてしまうのでコメントアウト
+    // &:last-child {
+    //     margin-bottom: 0;
+    // }
 }
 
 .btn {
