@@ -4,10 +4,10 @@
   "description": " This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@wordpress/babel-plugin-makepot": "^3.10.0",
-    "@wordpress/env": "^3.0.0",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@wordpress/babel-plugin-makepot": "^4.1.0",
+    "@wordpress/env": "^4.0.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "child_process": "^1.0.2",
     "gulp": "^4.0.2",
@@ -22,7 +22,7 @@
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
-    "npm-check-updates": "^10.2.5",
+    "npm-check-updates": "^11.3.0",
     "po2json": "^0.4.5",
     "run-sequence": "^2.2.1"
   },
