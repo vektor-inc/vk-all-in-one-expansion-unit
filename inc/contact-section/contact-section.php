@@ -449,18 +449,18 @@ class VkExUnit_Contact {
 				$cont .= '<span class="contact_bt_txt">';
 
 				// Envelope Icon
-				$class = 'fa fa-envelope-o';
+				$class = 'far fa-envelope';
 				if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-					$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-envelope' );
+					$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-envelope-o', 'far fa-envelope' );
 				}
 				$cont .= '<i class="' . $class . '"></i> ';
 
 				$cont .= wp_kses_post( $options['button_text'] );
 
 				// Arrow Icon
-				$class = 'fa fa-arrow-circle-o-right';
+				$class = 'far fa-arrow-alt-circle-right';
 				if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-					$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-arrow-alt-circle-right' );
+					$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-arrow-circle-o-right', 'far fa-arrow-alt-circle-right' );
 				}
 				$cont .= ' <i class="' . $class . '"></i>';
 
@@ -505,18 +505,18 @@ class VkExUnit_Contact {
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . ' class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 
 			// Envelope Icon
-			$class = 'fa fa-envelope-o';
+			$class = 'far fa-envelope';
 			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-				$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-envelope' );
+				$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-envelope-o', 'far fa-envelope' );
 			}
 			$cont .= '<i class="' . $class . '"></i> ';
 
 			$cont .= $options['short_text'];
 
 			// Arrow Icon
-			$class = 'fa fa-arrow-circle-o-right';
+			$class = 'far fa-arrow-alt-circle-right';
 			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-				$class = Vk_Font_Awesome_Versions::class_switch( $class, 'far fa-arrow-alt-circle-right' );
+				$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-arrow-circle-o-right', 'far fa-arrow-alt-circle-right' );
 			}
 			$cont .= ' <i class="' . $class . '"></i>';
 
@@ -526,13 +526,13 @@ class VkExUnit_Contact {
 			}
 			$cont .= '</a>';
 		}
-		if ( current_user_can( 'edit_theme_options' ) ) {
-			$class = 'fa fa-pencil-square-o';
-			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-				$class = Vk_Font_Awesome_Versions::class_switch( $class, 'fas fa-edit' );
-			}
-			$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="' . $class . '"></i> ' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
-		}
+		// if ( current_user_can( 'edit_theme_options' ) ) {
+		// 	$class = 'fas fa-edit';
+		// 	if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+		// 		$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-pencil-square-o', 'fas fa-edit' );
+		// 	}
+		// 	$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="' . $class . '"></i> ' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+		// }
 		return $cont;
 	}
 

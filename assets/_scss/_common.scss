@@ -13,14 +13,15 @@ iframe.wp-embedded-content {
     display: block;
     clear: both;
     overflow: hidden;
-    margin-top: 20px;
-    margin-bottom: 1.5rem;
+    margin-top: var(--vk-margin-block-bottom);
+    margin-bottom: var(--vk-margin-block-bottom);
     &:first-child {
         margin-top:0;
     }
-    &:last-child {
-        margin-bottom: 0;
-    }
+    // カテゴリー情報などがひっついてしまうのでコメントアウト
+    // &:last-child {
+    //     margin-bottom: 0;
+    // }
 }
 
 .btn {

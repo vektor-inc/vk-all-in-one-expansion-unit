@@ -1,11 +1,4 @@
-;(function(wp){
-  const { __ } = wp.i18n
-  const { registerBlockType } = wp.blocks
-  const { ServerSideRender } = wp.components
-  const { Fragment } = wp.element
-  const React = wp.element
-  const BlockIcon = (
-	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0)">
 <path d="M11.5 6V7H5.5V9H6.5V8H17.5V9H18.5V7H12.5V6H11.5Z" fill="black"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 1.5V4H14.5V1.5H9.5ZM9 0C8.44772 0 8 0.447715 8 1V4.5C8 5.05228 8.44772 5.5 9 5.5H15C15.5523 5.5 16 5.05228 16 4.5V1C16 0.447715 15.5523 0 15 0H9Z" fill="black"/>
@@ -21,24 +14,3 @@
 </clipPath>
 </defs>
 </svg>
-  );
-
-  registerBlockType("vk-blocks/sitemap", {
-    title: __( 'HTML Sitemap', 'veu-block' ),
-    icon: BlockIcon,
-    category: "veu-block",
-    edit: ({className}) => {
-      return (
-          <Fragment>
-            <div className={`${className} veu_sitemap_block`} >
-              <ServerSideRender
-                block="vk-blocks/sitemap"
-                attributes={{className: className}}
-              />
-            </div>
-          </Fragment>
-        )
-    },
-    save: () => null
-  })
-})(wp);

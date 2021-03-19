@@ -226,6 +226,13 @@
 /* .veu_relatedPosts
 /*-------------------------------------------*/
 .veu_relatedPosts {
+	a {
+		color: var(--vk-color-text-body);
+		text-decoration: none;
+	}
+	.relatedPosts_title {
+		font-size: var(--vk-size-text-lg);
+	}
 	& > .row {
 		display: flex;
 		margin: 0;
@@ -238,7 +245,7 @@
 		padding-right: 0;
 		padding-left: 0;
 		width: 47%;
-		border-bottom: solid 1px #e5e5e5;
+		border-bottom: solid 1px var(--vk-color-border-hr);
 		flex: initial;
 		@media (max-width: 768px) {
 			max-width: 100%;
@@ -251,23 +258,30 @@
 			margin-top: 0;
 			border: none;
 			.media-body {
-				font-size: 14px;
+				font-size: var(--vk-size-text-xs);
 			}
 			.postList_thumbnail {
 				width: 80px;
 				padding-right: 15px;
 				margin-bottom: 0;
+				img {
+					border:1px solid var(--vk-color-border-hr);
+					max-width: 100%;
+					height:auto;
+					object-fit: contain;
+				}
 			}
 			.media-heading {
-				font-size: 14px;
+				font-size: var(--vk-size-text-sm);
+				margin-bottom: var(--vk-margin-meta);
 			}
 		}
 	}
 	.relatedPosts_item:nth-child(1) {
-		border-top: solid 1px #e5e5e5;
+		border-top: solid 1px var(--vk-color-border-hr);
 	}
 	.relatedPosts_item:nth-child(2) {
-		border-top: solid 1px #e5e5e5;
+		border-top: solid 1px var(--vk-color-border-hr);
 	}
 }
 
