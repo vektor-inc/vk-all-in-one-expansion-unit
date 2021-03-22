@@ -375,6 +375,9 @@ body{margin:0;}
 	// background: #EDEDED;
 	font-size: 1em;
 }
+.admin-custom-discription{
+	margin-top:0.5em;
+}
 input[type="text"],
 input[type="search"],
 input[type="radio"],
@@ -437,5 +440,49 @@ textarea {
 	// & & にしないと指定が負けるため特別
 	& &_input {
 		margin-top: 0;
+	}
+}
+
+/*トグル風ラジオボタン*/
+.vk-admin-inline-radio {
+	display: flex;
+	border-radius: 3px;
+	overflow: hidden;
+	border: 1px solid #b6b6b6;
+
+
+	div {
+	  position: relative;
+	  flex: 1;
+	}
+
+	input {
+	  width: 100%;
+	  height: 60px;
+	  opacity: 0;
+	}
+
+	label {
+	  position: absolute;
+	  top: 0; left: 0;
+	  color: #b6b6b6;
+	  width: 100%;
+	  height: 100%;
+	  background: #fff;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  pointer-events: none;
+	  border-right: 1px solid #b6b6b6;
+	}
+
+	div:last-child label {
+	  border-right: 0;
+	}
+
+	input:checked + label {
+	  background: #d81b60;
+	  font-weight: 500;
+	  color: #fff;
 	}
 }
