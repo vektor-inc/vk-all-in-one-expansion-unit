@@ -68,6 +68,10 @@ gulp.task('block', function (done) {
 });
 
 gulp.task("text-domain", function(done) {
+	// vk-admin
+	gulp.src(["./admin/vk-admin/package/*"])
+		.pipe(replace("vk_admin_textdomain","vk-all-in-one-expansion-unit"))
+		.pipe(gulp.dest("./admin/vk-admin/package/"));
 	// font-awesome.
 	gulp.src(["./inc/font-awesome/package/*.php"])
 		.pipe(replace("'vk_font_awesome_version_textdomain'", "'vk-all-in-one-expansion-unit'"))
