@@ -70,7 +70,7 @@ function veu_print_js() {
 	global $vkExUnit_version;
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
-	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
+	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), $vkExUnit_version, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', $options ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
