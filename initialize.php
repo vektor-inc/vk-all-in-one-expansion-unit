@@ -65,7 +65,8 @@ add_action( 'init', 'veu_print_block_editor_css' );
 /*
   Add vkExUnit js
 /*-------------------------------------------*/
-add_action( 'wp_footer', 'veu_print_js' );
+// wp_headにしてあるが、registerで in_foot が true なのでフッター読み込み
+add_action( 'wp_head', 'veu_print_js' );
 function veu_print_js() {
 	global $vkExUnit_version;
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
