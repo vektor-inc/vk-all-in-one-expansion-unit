@@ -178,7 +178,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			$banner .= '</div>';
 
-			$banner .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/vektor_logo.png" alt="Vektor,Inc." /></a>';
+			$banner .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/vektor_logo-2020.png" alt="Vektor,Inc." /></a>';
 
 			$banner .= '</div>';
 
@@ -337,7 +337,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 					if ( $maxitems == 0 ) {
 						$output .= '<li>';
-						$output .= __( 'Sorry, there is no post', 'vk-all-in-one-expansion-unit' );
+						$output .= __( 'Sorry, there is no post', 'vk_admin_textdomain' );
 						$output .= '</li>';
 					} else {
 						foreach ( $rss_items as $item ) {
@@ -391,7 +391,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			if ( self::is_dashboard_active() ) {
 				wp_add_dashboard_widget(
 					'vk_dashboard_widget',
-					__( 'Vektor WordPress Information', 'vk-all-in-one-expansion-unit' ),
+					__( 'Vektor WordPress Information', 'vk_admin_textdomain' ),
 					array( __CLASS__, 'dashboard_widget_body' )
 				);
 			}
