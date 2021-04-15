@@ -80,6 +80,8 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+[ Specification Change ] Moved Google Tag Manager functionality to ExUnit
+
 = 9.52.1.0 =
 [ Specification Change ] Update VK-Admin Library 
 
