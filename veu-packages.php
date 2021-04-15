@@ -148,6 +148,17 @@ function veu_get_packages() {
 	);
 
 	/*
+	  vk-google-tag-manager
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'google-tag-manager',
+		'title'       => __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Setting of Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'vk-google-tag-manager/config.php',
+	);
+
+	/*
 	  metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -549,17 +560,6 @@ function veu_get_packages() {
 		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'auto-eyecatch/auto-eyecatch.php',
-	);
-
-	/*
-	  vk-google-tag-manager
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'google-tag-manager',
-		'title'       => __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Setting of Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'vk-google-tag-manager/config.php',
 	);
 
 	$not_recommend_description = '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ';
