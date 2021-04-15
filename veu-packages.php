@@ -148,6 +148,17 @@ function veu_get_packages() {
 	);
 
 	/*
+	  vk-google-tag-manager
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'google-tag-manager',
+		'title'       => __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Setting of Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'vk-google-tag-manager/config.php',
+	);
+
+	/*
 	  metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
