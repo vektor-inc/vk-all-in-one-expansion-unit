@@ -55,6 +55,10 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 
 			global $vk_gtm_prefix;
 			global $vk_gtm_priority;
+			global $vk_gtm_panel;
+			if ( ! $vk_gtm_panel ) {
+				$vk_gtm_panel = '';
+			}
 			if ( ! $vk_gtm_priority ){
 				$vk_gtm_priority = 900;
 			}
@@ -64,6 +68,7 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 				'vk_google_tag_manager_related_setting', array(
 					'title'    => $vk_gtm_prefix . __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
 					'priority' => $vk_gtm_priority,
+					'panel'    => $vk_gtm_panel,
 				)
 			);
 
