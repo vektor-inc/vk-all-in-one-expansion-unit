@@ -100,7 +100,7 @@ if ( ! function_exists( 'vk_add_hidden_class' ) ) {
 	 * @param string $classes added classes.
 	 * @param string $attributes attributes.
 	 */
-	function vk_add_hidden_class( $classes = '', $attributes ) {
+	function vk_add_hidden_class( $classes, $attributes ) {
 
 		if ( isset( $attributes['vkb_hidden'] ) && $attributes['vkb_hidden'] ) {
 			$classes .= ' vk_hidden';

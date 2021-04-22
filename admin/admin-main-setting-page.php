@@ -145,7 +145,9 @@ global $vkExUnit_options に各種値を登録するための関数
  * @param  string $render_page       メイン設定画面を出力する関数
  * @return [type]                    [description]
  */
-function vkExUnit_register_setting( $tab_label = 'tab_label', $option_name, $sanitize_callback, $render_page ) {
+function vkExUnit_register_setting( $tab_label, $option_name, $sanitize_callback, $render_page ) {
+
+	$tab_label = ! empty( $tab_label ) ? $tab_label : 'tab_label';
 	global $vkExUnit_options;
 	if ( ! isset( $vkExUnit_options ) ) {
 		$vkExUnit_options = array();
