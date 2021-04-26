@@ -28,7 +28,6 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 					'menu_position'   => 100,
 					'capability_type' => array( 'post_type_manage', 'post_type_manages' ),
 					'map_meta_cap'    => true,
-					'has_archive'     => true,
 					'menu_icon'       => 'dashicons-admin-generic',
 					'supports'        => array( 'title' ),
 				)
