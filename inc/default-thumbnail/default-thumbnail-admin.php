@@ -14,7 +14,7 @@ $options = get_option( 'veu_defualt_thumbnail' );
 <?php
 // 現在保存されている画像idを取得して表示
 $image = null;
-if ( is_numeric( $options['default_thumbnail_image'] ) ) {
+if ( isset( $options['default_thumbnail_image'] ) && is_numeric( $options['default_thumbnail_image'] ) ) {
 	$image = wp_get_attachment_image_src( $options['default_thumbnail_image'], 'large' );
 }
 ?>
@@ -40,7 +40,13 @@ if ( is_numeric( $options['default_thumbnail_image'] ) ) {
 	<?php _e( 'Delete image', 'vk-all-in-one-expansion-unit' ); ?>
 </button>
 
-<input type="hidden" class="__id" name="veu_defualt_thumbnail[default_thumbnail_image]" value="<?php echo esc_attr( $options['default_thumbnail_image'] ); ?>" />
+<?php
+$default_thumbnail_image = '';
+if ( ! empty( $options['default_thumbnail_image'] ) ) {
+	$default_thumbnail_image = $options['default_thumbnail_image'];
+}
+?>
+<input type="hidden" class="__id" name="veu_defualt_thumbnail[default_thumbnail_image]" value="<?php echo esc_attr( $default_thumbnail_image ); ?>" />
 
 <script type="text/javascript">
 if(veu_default_image_additional === undefined){
