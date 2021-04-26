@@ -127,8 +127,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 
-	function display_pattern_0( $is_modified = false, $instance ) {
+	function display_pattern_0( $is_modified, $instance ) {
 		?>
+
 <div class="postList_item" id="post-<?php the_ID(); ?>">
 		<?php if ( has_post_thumbnail() || $instance['media_id'] ) : ?>
 		<div class="postList_thumbnail">
@@ -180,7 +181,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	 * @param  [type]  $taxonomies  [description]
 	 * @return [type]               [description]
 	 */
-	public static function display_pattern_1( $is_modified = false, $instance ) {
+	public static function display_pattern_1( $is_modified, $instance ) {
 		?>
 <li id="post-<?php the_ID(); ?>">
 
