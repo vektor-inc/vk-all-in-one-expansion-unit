@@ -67,10 +67,23 @@ gulp.task('block', function (done) {
 		.pipe(gulp.dest('./assets/js/'));
 });
 
-gulp.task('text-domain', function () {
-	return gulp.src(['./inc/font-awesome/**/*'])
-		.pipe(replace('vk_font_awesome_version_textdomain', 'vk-all-in-one-expansion-unit' ))
-		.pipe(gulp.dest('./inc/font-awesome/'));
+gulp.task("text-domain", function(done) {
+	// vk-admin
+	gulp.src(["./admin/vk-admin/package/*"])
+		.pipe(replace("vk_admin_textdomain","vk-all-in-one-expansion-unit"))
+		.pipe(gulp.dest("./admin/vk-admin/package/"));
+	// font-awesome.
+	gulp.src(["./inc/font-awesome/package/*.php"])
+		.pipe(replace("'vk_font_awesome_version_textdomain'", "'vk-all-in-one-expansion-unit'"))
+		.pipe(gulp.dest("./inc/font-awesome/package/"));
+	// term-color.
+	gulp.src(["./inc/term-color/package/*.php"])
+		.pipe(replace("'vk_term_color_textdomain'","'vk-all-in-one-expansion-unit'"))
+		.pipe(gulp.dest("./inc/term-color/package/"));
+  	gulp.src(["./inc/vk-css-optimize/package/*.php"])
+		.pipe(replace("'css_optimize_textdomain'","'vk-all-in-one-expansion-unit'"))
+		.pipe(gulp.dest("./inc/vk-css-optimize/package/"));
+	done();
 });
 
 gulp.task('sass', function() {

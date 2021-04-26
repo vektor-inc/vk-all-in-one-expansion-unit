@@ -58,7 +58,11 @@ function vkExUnit_get_wp_head_title() {
 
 		// Search
 	} elseif ( is_search() ) {
-		$title = sprintf( __( 'Search Results for : %s', 'vk-all-in-one-expansion-unit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );
+		if ( get_search_query() ){
+			$title = sprintf( __( 'Search Results for : %s', 'vk-all-in-one-expansion-unit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );
+		} else {
+			$title = sprintf( __( 'Search Results', 'vk-all-in-one-expansion-unit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );	
+		}
 		// 404
 	} elseif ( is_404() ) {
 		$title = __( 'Not found', 'vk-all-in-one-expansion-unit' ) . $sep . get_bloginfo( 'name' );

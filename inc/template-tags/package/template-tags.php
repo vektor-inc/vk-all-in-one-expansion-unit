@@ -200,7 +200,9 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 	function vk_get_page_description() {
 		global $wp_query;
 		$post = $wp_query->get_queried_object();
-		if ( is_front_page() ) {
+		if ( is_search() || is_404() ) {
+			$page_description = '';
+		} elseif ( is_front_page() ) {
 			if ( isset( $post->post_excerpt ) && $post->post_excerpt ) {
 				$page_description = get_the_excerpt();
 			} else {
@@ -367,7 +369,7 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
 		$args       = wp_parse_args( $args, $default );
 		$post_types = get_post_types( $args['post_types_args'], 'object' );
 
-		echo '<ul>';
+		echo '<ul class="no-style">';
 		foreach ( $post_types as $key => $value ) {
 
 			if ( ! in_array( $key, $args['exclude_post_types'] ) ) {

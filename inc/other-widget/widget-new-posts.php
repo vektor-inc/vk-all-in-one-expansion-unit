@@ -127,8 +127,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	} // widget($args, $instance)
 
 
-	function display_pattern_0( $is_modified = false, $instance ) {
+	function display_pattern_0( $is_modified, $instance ) {
 		?>
+
 <div class="postList_item" id="post-<?php the_ID(); ?>">
 		<?php if ( has_post_thumbnail() || $instance['media_id'] ) : ?>
 		<div class="postList_thumbnail">
@@ -180,7 +181,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	 * @param  [type]  $taxonomies  [description]
 	 * @return [type]               [description]
 	 */
-	public static function display_pattern_1( $is_modified = false, $instance ) {
+	public static function display_pattern_1( $is_modified, $instance ) {
 		?>
 <li id="post-<?php the_ID(); ?>">
 
@@ -219,19 +220,25 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 
 		// taxonomy
-		$li_items_output .= '<span class="postList_terms postList_meta_items">';
+		
 
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_the_terms( get_the_ID(), $taxonomy );
 			if ( is_array( $terms ) ) {
 				foreach ( $terms as $term ) {
 					$link             = get_term_link( $term->term_id );
-					$li_items_output .= '<a href="' . $link . '" target="_blank">' . $term->name . '</a>';
+					if ( class_exists( 'Vk_term_color' ) ) {
+						$term_color = Vk_term_color::get_term_color( $term->term_id );
+						$term_color = ( $term_color ) ? ' style="background-color:' . $term_color . ';border:none;color:white;"' : '';
+					}
+					$li_items_output .= '<span class="postList_terms postList_meta_items">';
+					$li_items_output .= '<a href="' . $link . '"' . $term_color . '>' . $term->name . '</a>';
+					$li_items_output .= '</span>';
 				}
 			}
 		}
 
-		$li_items_output .= '</span>';
+		
 
 		$allowed_html = array(
 			'span'   => array( 'class' => array() ),

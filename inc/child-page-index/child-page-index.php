@@ -104,7 +104,14 @@ function vkExUnit_childPageIndex_shortcode( $parentId=null, $classes='' ) {
 			$childPageList_html .= '<a href="' . esc_url( get_permalink( $children->ID ) ) . '" class="childPage_list_box veu_card"><div class="childPage_list_box_inner veu_card_inner">';
 			$childPageList_html .= '<h3 class="childPage_list_title veu_card_title">' . esc_html( strip_tags( $children->post_title ) ) . '</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">';
-			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ) );
+			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ), $children->ID );
+			/*
+Customize example
+add_filter( 'veu_child_index_thumbnail', function( $return, $id ){
+    $return = '<div class="xxx">' . get_the_post_thumbnail( $id, 'thumbnail' ) . '</div>';
+    return $return;
+}, 10, 2 );
+			*/
 			$childPageList_html .= '<p class="childPage_list_text">' . $postExcerpt . '</p>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . apply_filters( 'veu_childPage_list_read_more_txt', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</span>';
 			$childPageList_html .= '</div>';
@@ -209,27 +216,31 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 
 add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
-	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
+	global $common_attributes;
 
-	register_block_type(
-		'vk-blocks/child-page-index',
-		array(
-			'attributes'      => array_merge(
-				array(
-					'className'      => array(
-						'type'    => 'string',
-						'default' => ''
+	 if ( function_exists( 'register_block_type' ) ){
+		register_block_type(
+			'vk-blocks/child-page-index',
+			array(
+				'attributes'      => array_merge(
+					array(
+						'className'      => array(
+							'type'    => 'string',
+							'default' => ''
+						),
+						'postId'         => array(
+							'type'    => 'number',
+							'default' => -1
+						),
 					),
-					'postId'         => array(
-						'type'    => 'number',
-						'default' => -1
-					),
+					$common_attributes
 				),
-				$common_attributes
-			),
-			'editor_script'   => 'veu-block',
-			'editor_style'    => 'veu-block-editor',
-			'render_callback' => 'veu_childPageIndex_block_callback',
-		)
-	);
+				'editor_script'   => 'veu-block',
+				'editor_style'    => 'veu-block-editor',
+				'render_callback' => 'veu_childPageIndex_block_callback',
+				'supports' => [],
+			)
+		);
+	 }
+
 }

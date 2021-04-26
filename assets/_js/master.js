@@ -1,27 +1,4 @@
 /*-------------------------------------------*/
-/*  jquery.flatheights.js
-/*-------------------------------------------*/
-/*  snsCount
-/*-------------------------------------------*/
-
-/*-------------------------------------------*/
-/*	jquery.flatheights.js
-/*-------------------------------------------*/
-var a = null;
-(function($) {
-	$(function() {
-		$('.prArea > .subSection-title').flatHeights();
-		$('.prArea > .summary').flatHeights();
-		// $('.childPage_list_title').flatHeights();
-	});
-	// window.onload は複数使うと一つしか動作しなくなるので使用しない
-	window.addEventListener('DOMContentLoaded', function() {
-		// $('.childPage_list_text').flatHeights();
-		// $('.childPage_list_box').flatHeights();
-	})
-})(jQuery);
-
-/*-------------------------------------------*/
 /*	snsCount
 /*-------------------------------------------*/
 ((window, document, parent_class) => {

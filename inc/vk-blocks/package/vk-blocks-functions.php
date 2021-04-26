@@ -181,6 +181,7 @@ function vkblocks_blocks_assets() {
 								return '<div><div class="vk_tableOfContents_title">' . __( 'Table of Contents', 'vk-blocks' ) . '</div></div>';
 							}
 						},
+						'supports' => [],
 					)
 				);
 			} elseif ( $value == 'post-list' ) {
@@ -295,6 +296,7 @@ function vkblocks_blocks_assets() {
 							'editor_style'    => 'vk-blocks-build-editor-css',
 							'editor_script'   => 'vk-blocks-build-js',
 							'render_callback' => 'vk_blocks_render_post_list',
+							'supports' => [],
 						)
 					); // register_block_type(
 			} elseif ( $value == 'child-page' ) {
@@ -406,6 +408,7 @@ function vkblocks_blocks_assets() {
 						'editor_style'    => 'vk-blocks-build-editor-css',
 						'editor_script'   => 'vk-blocks-build-js',
 						'render_callback' => 'vk_blocks_render_post_list',
+						'supports'        => [],
 					)
 				); // register_block_type(
 			} else {

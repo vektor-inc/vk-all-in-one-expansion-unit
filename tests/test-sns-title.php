@@ -56,27 +56,28 @@ class SnsTitleTest extends WP_UnitTestCase {
 				'site_name'                                => 'Site name',
 				'correct'                                  => 'Post Title | Site name',
 			),
-			array(
-				'page_type'                                => 'is_front_page',
-				'sns_options__snsTitle_use_only_postTitle' => false,
-				'vkExUnit_sns_title'                       => null,
-				'vkExUnit_wp_title'                        => array( 'extend_frontTitle' => 'ExUnitCustomFrontTitle' ),
-				'package_wp_title'                         => true,
-				'post_title'                               => 'Post Title',
-				'site_name'                                => 'Site name',
-				'correct'                                  => 'ExUnitCustomFrontTitle',
-			),
-			// タイトル書き換え機能が停止されている時はトップのタイトル名が保存されていてもWordPressのタイトル名をそのまま返す
-			array(
-				'page_type'                                => 'is_front_page',
-				'sns_options__snsTitle_use_only_postTitle' => false,
-				'vkExUnit_sns_title'                       => null,
-				'vkExUnit_wp_title'                        => array( 'extend_frontTitle' => 'ExUnitCustomFrontTitle' ),
-				'package_wp_title'                         => false,
-				'post_title'                               => 'Post Title',
-				'site_name'                                => 'Site name',
-				'correct'                                  => 'Site name',
-			),
+			// トップページはループ配置された時に対応するためにロジック変更
+			// array(
+			// 	'page_type'                                => 'is_front_page',
+			// 	'sns_options__snsTitle_use_only_postTitle' => false,
+			// 	'vkExUnit_sns_title'                       => null,
+			// 	'vkExUnit_wp_title'                        => array( 'extend_frontTitle' => 'ExUnitCustomFrontTitle' ),
+			// 	'package_wp_title'                         => true,
+			// 	'post_title'                               => 'Post Title',
+			// 	'site_name'                                => 'Site name',
+			// 	'correct'                                  => 'ExUnitCustomFrontTitle',
+			// ),
+			// // タイトル書き換え機能が停止されている時はトップのタイトル名が保存されていてもWordPressのタイトル名をそのまま返す
+			// array(
+			// 	'page_type'                                => 'is_front_page',
+			// 	'sns_options__snsTitle_use_only_postTitle' => false,
+			// 	'vkExUnit_sns_title'                       => null,
+			// 	'vkExUnit_wp_title'                        => array( 'extend_frontTitle' => 'ExUnitCustomFrontTitle' ),
+			// 	'package_wp_title'                         => false,
+			// 	'post_title'                               => 'Post Title',
+			// 	'site_name'                                => 'Site name',
+			// 	'correct'                                  => 'Site name',
+			// ),
 		);
 
 		$before_blogname                = get_option( 'blogname' );
@@ -117,18 +118,18 @@ class SnsTitleTest extends WP_UnitTestCase {
 				// setup_postdata() しないと wp_title() の書き換えの所で get_the_id() が拾えないため
 				setup_postdata( $post );
 
-			} elseif ( $test_value['page_type'] == 'is_front_page' ) {
-				// Set Custom front title
-				update_option( 'vkExUnit_wp_title', $test_value['vkExUnit_wp_title'] );
-				// タイトルの書き換え機能がオフの場合の確認
-				if ( $test_value['package_wp_title'] === false ) {
-					$options = get_option( 'vkExUnit_common_options' );
-					// 有効化設定の値をタイトル書き換え無効化に設定
-					$options['active_wpTitle'] = false;
-					update_option( 'vkExUnit_common_options', $options );
-				}
-				// トップページの時の値を確認するためにトップに移動
-				$this->go_to( home_url( '/' ) );
+			// } elseif ( $test_value['page_type'] == 'is_front_page' ) {
+			// 	// Set Custom front title
+			// 	update_option( 'vkExUnit_wp_title', $test_value['vkExUnit_wp_title'] );
+			// 	// タイトルの書き換え機能がオフの場合の確認
+			// 	if ( $test_value['package_wp_title'] === false ) {
+			// 		$options = get_option( 'vkExUnit_common_options' );
+			// 		// 有効化設定の値をタイトル書き換え無効化に設定
+			// 		$options['active_wpTitle'] = false;
+			// 		update_option( 'vkExUnit_common_options', $options );
+			// 	}
+			// 	// トップページの時の値を確認するためにトップに移動
+			// 	$this->go_to( home_url( '/' ) );
 			}
 
 			$return = veu_get_the_sns_title( $post_id );

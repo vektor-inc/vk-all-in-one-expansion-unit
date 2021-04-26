@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: vektor-inc,kurudrive,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634
+Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 5.0.0
-Tested up to: 5.4.2
-Stable tag: 9.28.2.0
+Requires at least: 5.3.0
+Tested up to: 5.7.1
+Stable tag: 9.60.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,29 +33,11 @@ Many features can be stopped individually.
 
 [ Gutenberg Blocks ]
 
-* Staff
-* Alert
-* Faq
-* balloon
-* Flow
-* Button
-* PR Blocks
-* PR Content
-* Title（with sub text）
-* Responsive Spacer
-
 * HTML SiteMap
 * Child Page List
 * Page list from ancestor
 * Share Button
 * Contact Section
-
-[ Gutenberg core blocks extend ]
-
-* Title
-* Image
-* List
-* Group
 
 [ Social media ]
 
@@ -98,6 +80,237 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.60.1.0 =
+[ Bug fix ][ 3PR Widget ] Fix Break Point
+
+= 9.60.0.0 =
+[ Specification Change ] Moved Google Tag Manager functionality to ExUnit
+
+= 9.52.1.0 =
+[ Specification Change ] Update VK-Admin Library 
+
+= 9.52.0.0 =
+[ Design Change ][ block icon ] Change block icon
+
+= 9.51.0.0 =
+[ Specification Change ] Change font awesome default version to 5
+[ Specification Change ][ Contact section ] Add tel color. 
+[ Specification Change ][ CSS Customize ] delete css comment 
+[ Design bug fix ][ Share button ] fix no margin bottom
+
+= 9.50.0.0 =
+[ Specification Change ][ NewPostsWidget ] Delete target blank from term link 
+[ Specification Change ][ Contact Section ] class and margin tuning
+[ Specification Change ] come css chenge to css variable
+
+= 9.49.7.0 =
+[ bug fix ][ cta ] enable render_block in cta
+
+= 9.49.6.0 =
+[ bug fix ][ sns ] fix unnecessary link error
+
+= 9.49.5.0 =
+[ bug fix ][ sns ] fix php notice
+
+= 9.49.4.0 =
+[ bug fix ][ share button ] cope with loop display
+
+= 9.49.3.0 =
+[ bug fix ][ Before loop widget area ] fix translate
+
+= 9.49.2.0 =
+[ bug fix ][ noindex ] fix php error
+
+= 9.49.1.0 =
+[ Bug fix ][ Archive widget ] fix PHP error
+
+= 9.49.0.0 =
+[ Add function ][ Noindex ] Cope with print to archive page
+[ Add function ][ Before loop widget area ] Add widget area to before loop on archive page
+
+= 9.48.3.0 =
+[ Bug fix ] Cope with before 5.0
+
+= 9.48.2.0 =
+[ Specification Change ] Load Term Color on init
+
+= 9.48.1.0 =
+[ Bug fix ] fix active settingscreen error.
+
+= 9.48.0.0 =
+[ Specification Change ][ Archive widget ] default setting tuning and add no select option.
+
+= 9.47.0.0 =
+[ Specification Change ] Dashboard information adjustment.
+
+= 9.46.1.0 =
+[ Bug fix ] fix term color can't edit.
+
+= 9.46.0.0 =
+[ Add function ][ Archive list widget ] can be select list style ( add "select" )
+
+= 9.45.0.0 =
+[ Add function ] Add plugin short cut link to adminbar
+[ Design specification Change ][ Child Page List / Page list from ancestors ] When set to first object that delete margin top.
+
+= 9.44.2.0 =
+[ Design bug fix ] Fix drop in contact phone number layer during mainSection-base-on
+
+= 9.44.1.0 =
+[ Design bug fix ] To be don't display underline on category label at hover.
+
+= 9.44.0.9 =
+[ Other ] ReUpdate
+
+= 9.44.0.0 =
+[ Specification Change ] Can be use term color in VK Recent Post Widget.
+[ Specification Change ] Can be active control the CSS Optimize.
+
+= 9.43.2.0 =
+[ Bug fix ][ CSS Optimize ] fix sanitize bug ( Can not save )
+
+= 9.43.1.0 =
+[ Bug fix ][ CSS Optimize ] fix woo css exclude
+
+= 9.43.0.0 =
+[ Specification Change ][ CSS Optimize ] default off / exclude wooCommerce preload
+[ Add function ][ CSS Optimize ] Add exclude handles
+
+= 9.42.1.0 =
+[ Bug fix ] Fix Customize error ( ad vk customize helpers )
+
+= 9.42.0.0 =
+[ Specification Change ][ CSS Optimize ] Change to common setting
+
+= 9.41.0.0 =
+[ Specification Change ] Cope with G-XXXXXXXXXX
+[ Bug fix ][ Facebook Page Plugin / twitter widget ] fix unload
+
+= 9.40.0.0 =
+[ Add filter ][ ie alert ] Can be able to change the message in the filter
+
+= 9.39.1.0 =
+[ Bug fix ][ Child Page Index Block ] To be able to select parent page to cureent page
+
+= 9.39.0.0 =
+[ Specification Change ][ wp title ] Change search result title in case of no keyword
+[ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html(Change filter specification).
+
+= 9.38.0.0 =
+[ Add function ][ contact section ] Add link target setting
+[ bug fix ] fix when plugin VK Blocks activation that ExUnit widget activation setting was delete
+
+= 9.37.2.0 =
+[ Design bug fix ] Scrolled Page top button CSS bug fix 
+
+= 9.37.1.1 =
+Only Change Version Number
+
+= 9.37.1.0 =
+[ Design bug fix ] Page top button CSS bug fix / childPage list title CSS bug fix
+
+= 9.37.0.0 =
+[ Specification change ][ Related posts ] convert html part to iindependent function
+[ Specification change ][ follow me ] convert html part to indipendent function
+
+= 9.36.1.0 =
+[ bug fix ][ SNS/OG ] Fix print default image
+
+= 9.36.0.0 =
+[ other ][ page top button ] add setting to ExUnit Main Setting screen
+
+= 9.35.0.0 =
+[ Specification Change ][ post type manager ] max taxonomy change from 3 to 5
+
+= 9.34.1.0 =
+[ Bug fix ][ page top button ] fix text display bug
+
+= 9.34.0.0 =
+[ Specification Change ][ page top button ] Change mobile hidden option
+
+= 9.33.0.0 =
+[ Add option ][ page top button ] Add mobile display option
+
+= 9.32.0.0 =
+[ Specification change ][ contact section ] change horizontal layout class name 
+
+= 9.31.11.0 =
+[ Design tuning ][ Contact section ]
+
+= 9.31.10.0 =
+[ bug fix ][ Block ] Fix Attributes Error
+
+= 9.31.9.0 =
+[ bug fix ][ Default thumbnail ] Thumbnail doesn't display on VK Posts
+
+= 9.31.8.0 =
+[ bug fix ][ Default thumbnail ] fix OGP don't refrect 
+
+
+= 9.31.7.0 =
+Only Change Version Number
+
+= 9.31.6.0 =
+[ bug fix ] Fix the date of relate posts
+
+= 9.31.5.0 =
+Only Change Version Number
+
+= 9.31.4.0 =
+Only Change Version Number
+
+= 9.31.3.0 =
+[ bug fix ] SNS button css tuning
+
+= 9.31.2.0 =
+[ Specification Change ] Change CSS Optimize default setting
+
+= 9.31.1.0 =
+[ bug fix ] PageTop css tuning
+
+= 9.31.0.0 =
+[ Add function ] CSS Optimize(Tree shaking)
+
+= 9.30.2.0 =
+[ bug fix ] WP5.5 API Alert
+
+= 9.30.1.0 =
+[ bug fix ] IE Alert css tuning
+
+= 9.30.0.0 =
+[ Add function ][ IE Alert ]
+[ Add function ][ Disable Emojis ]
+[ bug fix ][ Smooth Scroll ] Fix malfunction on lightning default slide.
+[ Other ] Functional description improvement
+
+= 9.29.7.0 =
+[ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
+
+= 9.29.6.0 =
+[ bug fix ][ Smooth Scroll ] Fix Pagetop smooth scroll was not working on Firefox.
+
+= 9.29.5.0 =
+[ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
+
+= 9.29.4.0 =
+[ Bug fix ] Button block align bug fix
+
+= 9.29.3.0 =
+[ Bug fix ] Cope with Gutenberg 8.6 bug
+
+= 9.29.2.0 =
+[ Bug fix ] Add CTA Alt
+
+= 9.29.1.0 =
+[ Bug fix ] VK Blocks update to 0.38.5 / Delete button class in src/blocks/button/ / Cope with key color at btn-outline-primary.
+
+= 9.29.0.0 =
+* [ Other ] Cope with ExUnit Contact Section on Lightning Sidebar and Footer.
+* [ Other ] Change function description comment.
+
+= 9.28.3.0 =
+[ Bug fix ][ child-page-index ] Fix Parent Page Save not working
 
 = 9.28.2.0 =
 [ Bug fix ][ editor css ] Fix editor-css for ExUnit Blocks not working

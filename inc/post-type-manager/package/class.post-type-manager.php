@@ -28,7 +28,6 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 					'menu_position'   => 100,
 					'capability_type' => array( 'post_type_manage', 'post_type_manages' ),
 					'map_meta_cap'    => true,
-					'has_archive'     => false,
 					'menu_icon'       => 'dashicons-admin-generic',
 					'supports'        => array( 'title' ),
 				)
@@ -163,7 +162,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 			// $taxonomy = array(array());
 			// }
 
-			for ( $i = 1; $i <= 3; $i++ ) {
+			for ( $i = 1; $i <= 5; $i++ ) {
 
 				$slug     = ( isset( $taxonomy[ $i ]['slug'] ) ) ? $taxonomy[ $i ]['slug'] : '';
 				$label    = ( isset( $taxonomy[ $i ]['label'] ) ) ? $taxonomy[ $i ]['label'] : '';
@@ -388,11 +387,11 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 		  実行
 		/*-------------------------------------------*/
 		public function __construct() {
-			add_action( 'init', array( $this, 'add_post_type_post_type_manage' ) );
+			add_action( 'init', array( $this, 'add_post_type_post_type_manage' ), 0 );
 			add_action( 'admin_init', array( $this, 'add_cap_post_type_manage' ) );
 			add_action( 'save_post', array( $this, 'save_cf_value' ) );
 			add_action( 'admin_menu', array( $this, 'add_meta_box' ) );
-			add_action( 'after_setup_theme', array( $this, 'add_post_type' ), 0 );
+			add_action( 'init', array( $this, 'add_post_type' ), 0 );
 			// add_action( 'save_post', array( $this, 'add_post_notice' ) );
 			add_action( 'admin_notices', array( $this, 'add_post_notice' ) );
 		}

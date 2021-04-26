@@ -15,8 +15,8 @@ require dirname( __FILE__ ) . '/widget-banner.php';
 require dirname( __FILE__ ) . '/class-veu-ranking-widget.php';
 
 if ( is_admin() ) {
+	// ウィジェットの個別有効化機能管理画面読み込み
 	require_once veu_get_directory() . '/inc/other-widget/class-veu-other-widget-admin-control.php';
-	new VEU_Other_Widget_Admin_Control();
 }
 
 function veu_widget_packages() {

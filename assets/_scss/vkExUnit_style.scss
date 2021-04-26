@@ -226,6 +226,13 @@
 /* .veu_relatedPosts
 /*-------------------------------------------*/
 .veu_relatedPosts {
+	a {
+		color: var(--vk-color-text-body);
+		text-decoration: none;
+	}
+	.relatedPosts_title {
+		font-size: var(--vk-size-text-lg);
+	}
 	& > .row {
 		display: flex;
 		margin: 0;
@@ -238,7 +245,7 @@
 		padding-right: 0;
 		padding-left: 0;
 		width: 47%;
-		border-bottom: solid 1px #e5e5e5;
+		border-bottom: solid 1px var(--vk-color-border-hr);
 		flex: initial;
 		@media (max-width: 768px) {
 			max-width: 100%;
@@ -251,23 +258,30 @@
 			margin-top: 0;
 			border: none;
 			.media-body {
-				font-size: 14px;
+				font-size: var(--vk-size-text-xs);
 			}
 			.postList_thumbnail {
 				width: 80px;
 				padding-right: 15px;
 				margin-bottom: 0;
+				img {
+					border:1px solid var(--vk-color-border-hr);
+					max-width: 100%;
+					height:auto;
+					object-fit: contain;
+				}
 			}
 			.media-heading {
-				font-size: 14px;
+				font-size: var(--vk-size-text-sm);
+				margin-bottom: var(--vk-margin-meta);
 			}
 		}
 	}
 	.relatedPosts_item:nth-child(1) {
-		border-top: solid 1px #e5e5e5;
+		border-top: solid 1px var(--vk-color-border-hr);
 	}
 	.relatedPosts_item:nth-child(2) {
-		border-top: solid 1px #e5e5e5;
+		border-top: solid 1px var(--vk-color-border-hr);
 	}
 }
 
@@ -329,12 +343,12 @@ iframe.twitter-timeline {
 			overflow: hidden;
 			margin: 0;
 			padding: 15px 0;
-			border-bottom: 1px dotted #666;
+			border-bottom: 1px solid var(--vk-color-border-hr);
 			line-height: 1.4em;
 		}
 	}
 	.postList a {
-		color: $color_font_default;
+		color: var(--vk-color-text-body);
 		text-decoration: none;
 	}
 	.postList a:hover {
@@ -351,18 +365,27 @@ iframe.twitter-timeline {
 	}
 	.postList_date {
 		margin-right: 10px;
-		color: #d44950;
+		color: var( --vk-color-text-meta );
 	}
 	.postList_date:before {
 		content: "";
 		margin-right: 0;
 	}
+	.postList_terms {
+		position: relative;
+	}
 	.postList_terms a {
 		margin-right: 3px;
-		padding: 2px 5px 1px;
-		border-radius: 3px;
+		padding: 2px 5px 2px;
+		border-radius: var(--vk-size-radius-sm);
 		background-color: #efefef;
-		font-size: 12px;
+		font-size: 10px;
+		line-height: 1;
+		position: relative;
+		top:-1px;
+		&:hover {
+			text-decoration: none;
+		}
 	}
 	.postList_more {
 		margin: 10px 5px 0 0;
@@ -378,7 +401,7 @@ iframe.twitter-timeline {
 			clear: both;
 			position: relative;
 			padding: 15px 0;
-			border-bottom: 1px dotted #666;
+			border-bottom: 1px solid var(--vk-color-border-hr);
 			margin-bottom: 0;
 		}
 		.postList_thumbnail {
@@ -394,6 +417,7 @@ iframe.twitter-timeline {
 		.postList_thumbnail img {
 			width: 80px;
 			height: auto;
+			display: block; // block 指定しないと枠の下に余白ができる
 		}
 		.postList_body {
 			display: block;
@@ -567,6 +591,9 @@ iframe.twitter-timeline {
 /* Widget .veu_3prArea
 /*-------------------------------------------*/
 .veu_3prArea {
+	.prArea {
+		padding-bottom:5em;
+	}
 	.subSection-title {
 		font-size: 18px;
 		margin-top: 0.8em;
@@ -575,6 +602,10 @@ iframe.twitter-timeline {
 		margin-bottom: 0.5em;
 		font-size: 14px;
 		line-height: 1.6em;
+	}
+	.linkurl{
+		position: absolute;
+		bottom:1em;
 	}
 	.linkurl a {
 		text-decoration: none;
@@ -599,7 +630,7 @@ iframe.twitter-timeline {
 	overflow: hidden;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 	.veu_3prArea {
 		.prArea {
 			margin-bottom: 1em;

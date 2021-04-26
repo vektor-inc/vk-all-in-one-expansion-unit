@@ -3,7 +3,7 @@
         display: block;
         overflow: hidden;
         // padding:25px 24px 21px;
-        background-color: #f9f9f9;
+        background-color: var(--vk-color-bg-accent);
     }
     .contact_txt_catch,
     .contact_txt_tel,
@@ -17,10 +17,14 @@
         line-height: 128.6%;
     }
     .contact_txt_tel {
-        padding: 4px 0;
+        padding: 5px 0;
         font-size: 28px;
         line-height: 105%;
         font-weight: 700;
+        color:var(--vk-color-primary);
+        @media (max-width: 576px){
+            font-size: 25px;
+        }
     }
     .contact_txt_tel_icon {
         margin-right: 0.3rem;
@@ -29,35 +33,52 @@
         display: block;
         overflow: hidden;
         font-size: 12px;
-        margin-top: 0.4rem;
+        margin-top: 0.2rem;
     }
     .contact_txt {
         text-align: center;
     }
     .contact_bt {
         display: block;
+        text-decoration: none;
+        line-height: 1.2;
+        padding:0.5rem 1rem 0.6rem;
+    }
+    .contact_bt_txt,
+    .contact_bt_subTxt {
+        color:#fff; // これがないとフッターの文字色指定に負ける
     }
 } // .veu_contact
 
 @media (min-width: 1200px) {
     .veu_contact {
-        p.contact_txt {
-            margin-bottom: 0;
-        }
-        .contact_txt {
-            float: left;
-            text-align: left;
-        }
-        .contact_bt {
-            float: right;
-            padding: 0.7em 1.5em;
+        &-layout-horizontal {
+            p.contact_txt {
+                margin-bottom: 0;
+            }
+            .contact_txt {
+                float: left;
+                text-align: left;
+            }
+            .contact_bt {
+                float: right;
+                padding: 0.7em 1.5em;
+            }
         }
     }
 } // @media (min-width: 1200px){
+   
+.widget_vkexunit_contact_section {
+    .veu_contentAddSection {
+        margin:0;
+    }
+    margin-bottom:var(--vk-margin-block-bottom);
+}
 
-.widget {
-    .veu_contact > .contact_bt {
-        display: inline-block;
-        float: none;
+// カスタマイザでウィジェット選択と問い合わせ情報のショートカットアイコンが重ならないように
+.widget,
+.c-widget {
+    .veu_contact .customize-partial-edit-shortcut-button {
+        top : 45px;
     }
 }

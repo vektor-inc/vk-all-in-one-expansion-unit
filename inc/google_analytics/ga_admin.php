@@ -12,8 +12,8 @@
 <tr>
 <th><?php _e( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><?php _e( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.', 'vk-all-in-one-expansion-unit' ); ?><br />
-<p>UA-<input type="text" name="vkExUnit_ga_options[gaId]" id="gaId" value="<?php echo esc_attr( $options['gaId'] ); ?>" style="width:90%;" /><br />
-<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>XXXXXXXX-X</p>
+<p><input type="text" name="vkExUnit_ga_options[gaId]" id="gaId" value="<?php echo esc_attr( $options['gaId'] ); ?>" style="width:90%;" /><br />
+<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>UA-XXXXXXXX-X / G-XXXXXXXXXX</p>
 
     <dl>
 	<dt><?php _e( 'Please select the type of Analytics code . (If you are unsure you can skip this.)', 'vk-all-in-one-expansion-unit' ); ?></dt>

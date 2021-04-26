@@ -39,8 +39,11 @@
 <!-- OGP -->
 <tr>
 <th><?php _e( 'OG default image', 'vk-all-in-one-expansion-unit' ); ?></th>
-<td><?php _e( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vk-all-in-one-expansion-unit' ); ?><br />
+<td>
+<p>
+<?php _e( 'If, for example someone pressed the Facebook [Like] button, this is the image that appears on the Facebook timeline.', 'vk-all-in-one-expansion-unit' ); ?><br />
 <?php _e( 'If a featured image is specified for the page, it takes precedence.', 'vk-all-in-one-expansion-unit' ); ?><br />
+</p>
 <input type="text" name="vkExUnit_sns_options[ogImage]" id="ogImage" value="<?php echo esc_attr( $options['ogImage'] ); ?>" />
 <button id="media_src_ogImage" class="media_btn button"><?php _e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button><br />
 <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>https://www.vektor-inc.co.jp/images/ogImage.png</span><br />
@@ -110,7 +113,7 @@ _e( 'example', 'vk-all-in-one-expansion-unit' );
 <tr>
 <th><label><?php _e( 'Share button for display', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label></label>
-<ul>
+<ul class="no-style">
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useFacebook]" value="true"
 <?php
 if ( $options['useFacebook'] ) {
@@ -148,7 +151,7 @@ if ( $options['useLine'] ) {
 <tr>
 <th><label><?php _e( 'Share button display Position', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label></label>
-<ul>
+<ul class="no-style">
 <li><label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_position][before]" value="true"
 <?php
 if ( ! empty( $options['snsBtn_position']['before'] ) ) {

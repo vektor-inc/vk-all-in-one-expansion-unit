@@ -11,8 +11,10 @@
 require veu_get_directory() . '/veu-package-manager.php';
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once veu_get_directory() . '/inc/template-tags/template-tags-config.php';
-
+require_once veu_get_directory() . '/inc/vk-customize-helpers/vk-customize-helpers-config.php';
+require_once veu_get_directory() . '/inc/common-block.php';
 require_once veu_get_directory() . '/admin/admin.php';
+require_once veu_get_directory() . '/inc/term-color/term-color-config.php';
 require veu_get_directory() . '/inc/footer-copyright-change.php';
 
 veu_package_include(); // package_manager.php
@@ -51,10 +53,10 @@ add_action( 'after_setup_theme', 'veu_print_editor_css' );
 
 // ブロックエディタ用のCSS読み込み（ ↑ だけだと効かない ）
 function veu_print_block_editor_css() {
-	wp_register_style( 
-		'veu-block-editor', 
+	wp_register_style(
+		'veu-block-editor',
 		plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_editor_style.css',
-		array(), 
+		array(),
 		filemtime( plugin_dir_path( __FILE__ ) )
 	);
 }
@@ -63,12 +65,13 @@ add_action( 'init', 'veu_print_block_editor_css' );
 /*
   Add vkExUnit js
 /*-------------------------------------------*/
+// wp_headにしてあるが、registerで in_foot が true なのでフッター読み込み
 add_action( 'wp_head', 'veu_print_js' );
 function veu_print_js() {
 	global $vkExUnit_version;
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
-	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array( 'jquery' ), $vkExUnit_version, true );
+	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), $vkExUnit_version, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', $options ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
@@ -94,34 +97,13 @@ function change_old_options() {
 		unset( $option['common'] );
 	}
 
+	if ( isset( $option['css_exunit'] ) ) {
+		$option['css_optimize'] = 'tree-shaking';
+		unset( $option['css_exunit'] );
+	}
+
 }
 add_action( 'after_setup_theme', 'change_old_options', 4 );
-
-add_action( 'after_setup_theme', 'veu_change_enqueue_point_run_filter', 5 );
-function veu_change_enqueue_point_run_filter() {
-	$default = array(
-		'css_exunit' => false,
-		'js_footer'  => false,
-	);
-	$option  = get_option( 'vkExUnit_pagespeeding', $default );
-	$option  = wp_parse_args( $option, $default );
-	if ( $option['css_exunit'] ) {
-
-		// font awesome.
-		add_filter( 'vkfa_enqueue_point', 'veu_change_enqueue_point_to_footer' );
-
-		// vk blocks css.
-		add_filter( 'vkblocks_enqueue_point', 'veu_change_enqueue_point_to_footer' );
-
-		// common css.
-		add_filter( 'veu_enqueue_point_common_css', 'veu_change_enqueue_point_to_footer' );
-
-		// css customize.
-		add_filter( 'veu_enqueue_point_css_customize_common', 'veu_change_enqueue_point_to_footer' );
-		add_filter( 'veu_enqueue_point_css_customize_single', 'veu_change_enqueue_point_to_footer' );
-
-	}
-}
 
 /**
  * Move JavaScripts To Footer
@@ -153,3 +135,28 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 	$enqueue_point = 'wp_footer';
 	return $enqueue_point;
 }
+
+function veu_inline_styles() {
+	$dynamic_css = ':root {
+		--ver_page_top_button_url:url(' . veu_get_directory_uri( '/assets/images/to-top-btn-icon.svg' ) . ');
+	}
+	@font-face {
+		font-weight: normal;
+		font-style: normal;
+		font-family: "vk_sns";
+		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?-bq20cj' ) . '");
+		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj' ) . '") format("embedded-opentype"),
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.woff?-bq20cj' ) . '") format("woff"),
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.ttf?-bq20cj' ) . '") format("truetype"),
+			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' ) . '") format("svg");
+	}';
+
+	// delete before after space
+	$dynamic_css = trim( $dynamic_css );
+	// convert tab and br to space
+	$dynamic_css = preg_replace( '/[\n\r\t]/', '', $dynamic_css );
+	// Change multiple spaces to single space
+	$dynamic_css = preg_replace( '/\s(?=\s)/', '', $dynamic_css );
+	wp_add_inline_style( 'vkExUnit_common_style', $dynamic_css );
+}
+add_action( 'wp_head', 'veu_inline_styles', 5 );

@@ -49,6 +49,7 @@ function veu_customize_register_add_control() {
 	/*
 	  Add text control description
 	/*-------------------------------------------*/
+	if ( ! class_exists( 'ExUnit_Custom_Text_Control' ) ) {
 	class ExUnit_Custom_Text_Control extends WP_Customize_Control {
 		public $type         = 'customtext';
 		public $description  = ''; // we add this for the extra description
@@ -69,10 +70,12 @@ function veu_customize_register_add_control() {
 			<?php
 		} // public function render_content() {
 	} // class Custom_Text_Control extends WP_Customize_Control
+	}
 
 	/*
 	  Add text control description
 	/*-------------------------------------------*/
+	if ( ! class_exists( 'ExUnit_Custom_Html' ) ) {
 	class ExUnit_Custom_Html extends WP_Customize_Control {
 		public $type             = 'customtext';
 		public $custom_title_sub = ''; // we add this for the extra custom_html
@@ -92,6 +95,7 @@ function veu_customize_register_add_control() {
 			<?php
 		} // public function render_content() {
 	} // class VkExUnit_Custom_Html extends WP_Customize_Control
+	}
 
 } // function veu_customize_register_add_control(){
 
@@ -108,27 +112,6 @@ function veu_customize_register_pagespeed( $wp_customize ) {
 			'title'    => __( 'Page Speedind Setting', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1,
 			'panel'    => 'veu_setting',
-		)
-	);
-
-	// CSS Footer Setting.
-	$wp_customize->add_setting(
-		'vkExUnit_pagespeeding[css_exunit]',
-		array(
-			'default'           => false,
-			'type'              => 'option',
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'veu_sanitize_boolean',
-		)
-	);
-	$wp_customize->add_control(
-		'vkExUnit_pagespeeding[css_exunit]',
-		array(
-			'label'       => __( 'Load CSS from footer', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_speeding_setting',
-			'settings'    => 'vkExUnit_pagespeeding[css_exunit]',
-			'type'        => 'checkbox',
-			'description' => __( 'If you enable this setting that ExUnit\'s css file and css customize will be loaded from footer.', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 

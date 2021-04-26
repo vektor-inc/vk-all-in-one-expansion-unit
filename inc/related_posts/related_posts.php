@@ -1,22 +1,37 @@
 <?php
 
-/*-------------------------------------------*/
-/*	非推奨タグ / Deprecated Tag
-/*-------------------------------------------*/
-/*	出力先
-/*-------------------------------------------*/
-/*	veu_get_related_posts()
-/*-------------------------------------------*/
-/*	veu_add_related_posts_item_html()
-/*-------------------------------------------*/
-/*	veu_add_related_posts_html()
-/*-------------------------------------------*/
-/*	Customizer
+/*
+-------------------------------------------*/
+/*
+  非推奨タグ / Deprecated Tag
+/*
+-------------------------------------------*/
+/*
+  出力先
+/*
+-------------------------------------------*/
+/*
+  veu_get_related_posts()
+/*
+-------------------------------------------*/
+/*
+  veu_add_related_posts_item_html()
+/*
+-------------------------------------------*/
+/*
+  veu_add_related_posts_html()
+/*
+-------------------------------------------*/
+/*
+  Customizer
 /*-------------------------------------------*/
 
-/*-------------------------------------------*/
-/*	非推奨タグ / Deprecated Tag
-/*-------------------------------------------*/
+/*
+-------------------------------------------*/
+/*
+  非推奨タグ / Deprecated Tag
+/*
+-------------------------------------------*/
 /*
 キャメルケースは非推奨なので関数名を変更したが、
 プラグイン外で関数が使用されているかもしれないので念の為旧関数でも動作するように
@@ -35,9 +50,12 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	veu_get_related_posts( $post_type, $taxonomy, $max_show_posts );
 }
 
-/*-------------------------------------------*/
-/*	出力先
-/*-------------------------------------------*/
+/*
+-------------------------------------------*/
+/*
+  出力先
+/*
+-------------------------------------------*/
 /*
 loop_end でも出力出来るように一時期していたが、
 コンテンツエリアのタグより外に出力されるなどで、
@@ -56,9 +74,12 @@ function veu_add_related_loopend( $query ) {
 	echo veu_add_related_posts_html( '' );
 }
 
-/*-------------------------------------------*/
-/*	veu_get_related_posts()
-/*-------------------------------------------*/
+/*
+-------------------------------------------*/
+/*
+  veu_get_related_posts()
+/*
+-------------------------------------------*/
 /*
 関連記事の投稿データを取得
  */
@@ -127,9 +148,12 @@ function veu_get_related_posts( $post_type = 'post', $taxonomy = 'post_tag', $ma
 	return $related_posts;
 }
 
-/*-------------------------------------------*/
-/*	veu_add_related_posts_item_html()
-/*-------------------------------------------*/
+/*
+-------------------------------------------*/
+/*
+  veu_add_related_posts_item_html()
+/*
+-------------------------------------------*/
 /*
 関連記事の1件分のHTML
  */
@@ -145,7 +169,7 @@ function veu_add_related_posts_item_html( $post ) {
 	endif;
 	$post_item_html .= '<div class="media-body">';
 	$post_item_html .= '<div class="media-heading"><a href="' . get_the_permalink( $post->ID ) . '">' . $post->post_title . '</a></div>';
-	$post_item_html .= '<div class="media-date published"><i class="fa fa-calendar"></i>&nbsp;' . get_the_date( false, $post->ID ) . '</div>';
+	$post_item_html .= '<div class="media-date published"><i class="fa fa-calendar"></i>&nbsp;' . get_the_date( '', $post->ID ) . '</div>';
 	$post_item_html .= '</div>';
 	$post_item_html .= '</div>';
 	$post_item_html .= '</div>' . "\n";
@@ -153,9 +177,12 @@ function veu_add_related_posts_item_html( $post ) {
 	return $post_item_html;
 }
 
-/*-------------------------------------------*/
-/*	veu_add_related_posts_html()
-/*-------------------------------------------*/
+/*
+-------------------------------------------*/
+/*
+  veu_add_related_posts_html()
+/*
+-------------------------------------------*/
 /*
 関連記事のHTML
  */
@@ -175,6 +202,16 @@ function veu_add_related_posts_html( $content ) {
 		return $content;
 	}
 
+	$content          .= veu_get_related_posts_html();
+
+	return $content;
+}
+
+/**
+ * since 9.37.0.0
+ */
+function veu_get_related_posts_html(){
+
 	$output = get_option( 'vkExUnit_related_options' );
 
 	if ( ! empty( $output['related_display_count'] ) ) {
@@ -184,7 +221,8 @@ function veu_add_related_posts_html( $content ) {
 	}
 
 	$related_post_args = apply_filters(
-		'veu_related_post_args', array(
+		'veu_related_post_args',
+		array(
 			'post_type'      => 'post',
 			'taxonomy'       => 'post_tag',
 			'max_show_posts' => $count,
@@ -193,7 +231,8 @@ function veu_add_related_posts_html( $content ) {
 	$related_posts     = veu_get_related_posts( $related_post_args['post_type'], $related_post_args['taxonomy'], $related_post_args['max_show_posts'] );
 
 	if ( ! $related_posts ) {
-		return $content; }
+		return;
+	}
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
 	if ( $related_posts ) {
@@ -211,7 +250,7 @@ function veu_add_related_posts_html( $content ) {
 		}
 		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）
 		$relatedPostTitle  = apply_filters( 'veu_related_post_title', $relatedPostTitle );
-		$relatedPostsHtml .= '<h1 class="mainSection-title">' . $relatedPostTitle . '</h1>';
+		$relatedPostsHtml .= '<h1 class="mainSection-title relatedPosts_title">' . $relatedPostTitle . '</h1>';
 
 		$i                 = 1;
 		$relatedPostsHtml .= '<div class="row">';
@@ -221,17 +260,19 @@ function veu_add_related_posts_html( $content ) {
 		} // foreach
 		$relatedPostsHtml .= '</div>';
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
-		$content          .= $relatedPostsHtml;
+		
 	}
 
 	wp_reset_postdata();
 	wp_reset_query();
 
-	return $content;
+	return $relatedPostsHtml;
 }
 
-/*-------------------------------------------*/
-/*	Customizer
+/*
+-------------------------------------------*/
+/*
+  Customizer
 /*-------------------------------------------*/
 
 if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
@@ -241,7 +282,8 @@ if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 function veu_customize_register_related( $wp_customize ) {
 	// セクション追加
 	$wp_customize->add_section(
-		'veu_related_setting', array(
+		'veu_related_setting',
+		array(
 			'title'    => __( 'Related Settings', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1000,
 			'panel'    => 'veu_setting',
@@ -249,7 +291,8 @@ function veu_customize_register_related( $wp_customize ) {
 	);
 	// セッティング
 	$wp_customize->add_setting(
-		'vkExUnit_related_options[related_title]', array(
+		'vkExUnit_related_options[related_title]',
+		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
@@ -258,7 +301,8 @@ function veu_customize_register_related( $wp_customize ) {
 	);
 	// コントロール
 	$wp_customize->add_control(
-		'related_title', array(
+		'related_title',
+		array(
 			'label'    => __( 'Title:', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_related_setting',
 			'settings' => 'vkExUnit_related_options[related_title]',
@@ -269,7 +313,8 @@ function veu_customize_register_related( $wp_customize ) {
 
 	// セッティング _ 表示件数
 	$wp_customize->add_setting(
-		'vkExUnit_related_options[related_display_count]', array(
+		'vkExUnit_related_options[related_display_count]',
+		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
@@ -278,7 +323,8 @@ function veu_customize_register_related( $wp_customize ) {
 	);
 	// コントロール _ 表示件数
 	$wp_customize->add_control(
-		'related_display_count', array(
+		'related_display_count',
+		array(
 			'label'    => __( 'Display count', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_related_setting',
 			'settings' => 'vkExUnit_related_options[related_display_count]',
@@ -287,19 +333,22 @@ function veu_customize_register_related( $wp_customize ) {
 		)
 	);
 
-	/*-------------------------------------------*/
-	/*	Add Edit Customize Link Btn
+	/*
+	-------------------------------------------*/
+	/*
+	  Add Edit Customize Link Btn
 	/*-------------------------------------------*/
 	$wp_customize->selective_refresh->add_partial(
-		'vkExUnit_related_options[related_title]', array(
+		'vkExUnit_related_options[related_title]',
+		array(
 			'selector'        => '.veu_relatedPosts',
 			'render_callback' => '',
+			'supports'        => array(),
 		)
 	);
 }
 
 /*
-
 hook sample
 
 add_filter('veu_related_post_types', 'veu_related_post_types_custom');
