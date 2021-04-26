@@ -13,7 +13,7 @@ $options = get_option( 'veu_defualt_thumbnail' );
 <td>
 <?php
 // 現在保存されている画像idを取得して表示
-$image    = null;
+$image = null;
 if ( is_numeric( $options['default_thumbnail_image'] ) ) {
 	$image = wp_get_attachment_image_src( $options['default_thumbnail_image'], 'large' );
 }
