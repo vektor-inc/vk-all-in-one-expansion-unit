@@ -255,7 +255,7 @@ function veu_noindex_targets(){
 /**
  * 配列の下階層を辿って新しい多次元配列を整形する関数
  */
-function veu_create_nest_array( $array = array(), $raw_array ){
+function veu_create_nest_array( $array, $raw_array ){
 	if ( is_array( $array ) && count( $array ) ){
 		foreach ( $array as $key => $child ) {
 			// 元の配列をループ {
@@ -277,7 +277,7 @@ function veu_create_nest_array( $array = array(), $raw_array ){
 /**
  * 多次元配列を階層を維持しながらチェックボックスを出力
  */
-function veu_display_nest_checkbox( $array = array(), $raw_array, $options ){
+function veu_display_nest_checkbox( $array, $raw_array, $options ){
 	// echo checked( $options, true );
 	if ( is_array( $array ) && count( $array ) ){
 		echo '<ul class="no-style">';
