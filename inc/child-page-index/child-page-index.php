@@ -102,7 +102,7 @@ function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 
 			// Page Item build
 			$childPageList_html .= '<a href="' . esc_url( get_permalink( $children->ID ) ) . '" class="childPage_list_box veu_card"><div class="childPage_list_box_inner veu_card_inner">';
-			$childPageList_html .= '<h3 class="childPage_list_title veu_card_title">' . esc_html( strip_tags( $children->post_title ) ) . '</h3>';
+			$childPageList_html .= '<h3 class="childPage_list_title veu_card_title">' . wp_kses_post( $children->post_title ) . '</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ), $children->ID );
 			/*
