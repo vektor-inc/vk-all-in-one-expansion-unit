@@ -83,6 +83,9 @@ e.g.
 
 = 9.61.0.0 =
 [ Design specification Change ][ Contact section ] Change btn padding
+[ Bug fix ]Cope with PHP 8
+[ Other ] update VK Helpers
+[ Other ] update CSS Optimize
 
 = 9.60.1.0 =
 [ Bug fix ][ 3PR Widget ] Fix Break Point
