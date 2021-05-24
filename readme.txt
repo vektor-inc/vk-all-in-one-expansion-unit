@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ] Stop exclude CSS Var by Tree shaking
+
 = 9.61.1.0 =
 [ Bug fix ][ Page Top Btn ] fix underline
 
