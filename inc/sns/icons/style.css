@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'vk_sns';
-  src:  url('fonts/vk_sns.eot?l1obet');
-  src:  url('fonts/vk_sns.eot?l1obet#iefix') format('embedded-opentype'),
-    url('fonts/vk_sns.ttf?l1obet') format('truetype'),
-    url('fonts/vk_sns.woff?l1obet') format('woff'),
-    url('fonts/vk_sns.svg?l1obet#vk_sns') format('svg');
+  src:  url('fonts/vk_sns.eot?jl09gx');
+  src:  url('fonts/vk_sns.eot?jl09gx#iefix') format('embedded-opentype'),
+    url('fonts/vk_sns.ttf?jl09gx') format('truetype'),
+    url('fonts/vk_sns.woff?jl09gx') format('woff'),
+    url('fonts/vk_sns.svg?jl09gx#vk_sns') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,20 +26,20 @@
 }
 
 .icon-vk_w_r_sns_fb:before {
-  content: "\e604";
+  content: "\e600";
 }
 .icon-vk_w_r_sns_google:before {
-  content: "\e603";
+  content: "\e601";
 }
 .icon-vk_w_r_sns_hatena:before {
   content: "\e602";
 }
 .icon-vk_w_r_sns_line:before {
-  content: "\e601";
+  content: "\e603";
 }
 .icon-vk_w_r_sns_pocket:before {
-  content: "\e605";
+  content: "\e604";
 }
 .icon-vk_w_r_sns_twitter:before {
-  content: "\e600";
+  content: "\e605";
 }
