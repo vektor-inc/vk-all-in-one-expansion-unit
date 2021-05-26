@@ -11,7 +11,7 @@
 require veu_get_directory() . '/veu-package-manager.php';
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once veu_get_directory() . '/inc/template-tags/template-tags-config.php';
-require_once veu_get_directory() . '/inc/vk-customize-helpers/vk-customize-helpers-config.php';
+require_once veu_get_directory() . '/inc/vk-helpers/config.php';
 require_once veu_get_directory() . '/inc/common-block.php';
 require_once veu_get_directory() . '/admin/admin.php';
 require_once veu_get_directory() . '/inc/term-color/term-color-config.php';
@@ -64,9 +64,8 @@ add_action( 'init', 'veu_print_block_editor_css' );
 
 /*
   Add vkExUnit js
-/*-------------------------------------------*/
-// wp_headにしてあるが、registerで in_foot が true なのでフッター読み込み
-add_action( 'wp_head', 'veu_print_js' );
+-------------------------------------------*/
+add_action( 'wp_enqueue_scripts', 'veu_print_js' );
 function veu_print_js() {
 	global $vkExUnit_version;
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
@@ -79,6 +78,7 @@ function veu_print_js() {
 if ( function_exists( 'register_activation_hook' ) ) {
 	register_activation_hook( dirname( __FILE__ ) . '/vkExUnit.php', 'veu_install_function' );
 }
+
 function veu_install_function() {
 	$opt = get_option( 'vkExUnit_common_options' );
 	if ( ! $opt ) {

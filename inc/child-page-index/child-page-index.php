@@ -33,24 +33,24 @@ function veu_child_page_excerpt( $post ) {
 	return $page_excerpt;
 }
 
-function veu_childPageIndex_block_callback( $attributes=array() ) {
+function veu_childPageIndex_block_callback( $attributes = array() ) {
 	$classes = 'veu_childPageIndex_block';
 
-	if ( isset($attributes['className']) ) {
+	if ( isset( $attributes['className'] ) ) {
 		$classes .= ' ' . $attributes['className'];
 	}
 
-	if(function_exists('vk_add_hidden_class')){
-		$classes .= ' ' . vk_add_hidden_class($classes, $attributes);
+	if ( function_exists( 'vk_add_hidden_class' ) ) {
+		$classes .= ' ' . vk_add_hidden_class( $classes, $attributes );
 	}
 
-	$postId = ($attributes['postId'] > 0)? $attributes['postId']: get_the_ID();
+	$postId = ( $attributes['postId'] > 0 ) ? $attributes['postId'] : get_the_ID();
 
 	$r = vkExUnit_childPageIndex_shortcode( $postId, $classes );
 
-	if ( empty($r) ) {
-		if ( isset($_GET['context']) ) {
-			return '<div class="alert alert-warning text-center ' . esc_attr($classes) .'">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
+	if ( empty( $r ) ) {
+		if ( isset( $_GET['context'] ) ) {
+			return '<div class="alert alert-warning text-center ' . esc_attr( $classes ) . '">' . __( 'No Child Pages.', 'vk-all-in-one-expansion-unit' ) . '</div>';
 		}
 		return '';
 	}
@@ -58,7 +58,7 @@ function veu_childPageIndex_block_callback( $attributes=array() ) {
 }
 
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
-function vkExUnit_childPageIndex_shortcode( $parentId=null, $classes='' ) {
+function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 
 	// null じゃなくstring(0) "" が来る事がある
 	if ( $parentId === null || $parentId == '' ) {
@@ -95,22 +95,22 @@ function vkExUnit_childPageIndex_shortcode( $parentId=null, $classes='' ) {
 		wp_reset_query();
 		return false; }
 
-	$childPageList_html = PHP_EOL . '<div class="veu_childPage_list '. $classes .'">' . PHP_EOL;
+	$childPageList_html = PHP_EOL . '<div class="veu_childPage_list ' . $classes . '">' . PHP_EOL;
 	foreach ( $childrens as $children ) :
 
 			$postExcerpt = veu_child_page_excerpt( $children );
 
 			// Page Item build
 			$childPageList_html .= '<a href="' . esc_url( get_permalink( $children->ID ) ) . '" class="childPage_list_box veu_card"><div class="childPage_list_box_inner veu_card_inner">';
-			$childPageList_html .= '<h3 class="childPage_list_title veu_card_title">' . esc_html( strip_tags( $children->post_title ) ) . '</h3>';
+			$childPageList_html .= '<h3 class="childPage_list_title veu_card_title">' . wp_kses_post( $children->post_title ) . '</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ), $children->ID );
 			/*
-Customize example
-add_filter( 'veu_child_index_thumbnail', function( $return, $id ){
-    $return = '<div class="xxx">' . get_the_post_thumbnail( $id, 'thumbnail' ) . '</div>';
-    return $return;
-}, 10, 2 );
+		Customize example
+		add_filter( 'veu_child_index_thumbnail', function( $return, $id ){
+		$return = '<div class="xxx">' . get_the_post_thumbnail( $id, 'thumbnail' ) . '</div>';
+		return $return;
+		}, 10, 2 );
 			*/
 			$childPageList_html .= '<p class="childPage_list_text">' . $postExcerpt . '</p>';
 			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . apply_filters( 'veu_childPage_list_read_more_txt', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</span>';
@@ -218,19 +218,19 @@ add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
 	global $common_attributes;
 
-	 if ( function_exists( 'register_block_type' ) ){
+	if ( function_exists( 'register_block_type' ) ) {
 		register_block_type(
 			'vk-blocks/child-page-index',
 			array(
 				'attributes'      => array_merge(
 					array(
-						'className'      => array(
+						'className' => array(
 							'type'    => 'string',
-							'default' => ''
+							'default' => '',
 						),
-						'postId'         => array(
+						'postId'    => array(
 							'type'    => 'number',
-							'default' => -1
+							'default' => -1,
 						),
 					),
 					$common_attributes
@@ -238,9 +238,9 @@ function veu_child_page_index_setup() {
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'veu_childPageIndex_block_callback',
-				'supports' => [],
+				'supports'        => array(),
 			)
 		);
-	 }
+	}
 
 }
