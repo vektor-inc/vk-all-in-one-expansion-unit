@@ -46,7 +46,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		/**
 		 * Plugin Exists
-		 * 
+		 *
 		 * @param string $plugin '${plugin_dir}/${plugin_file}.php'.
 		 */
 		public static function plugin_exists( $plugin ) {
@@ -55,7 +55,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		/**
 		 * Theme Exists
-		 * 
+		 *
 		 * @param string $theme '${theme_dir}/style.css'.
 		 */
 		public static function theme_exists( $theme ) {
@@ -75,114 +75,85 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		get_admin_banner
 		/*--------------------------------------------------*/
 		public static function get_admin_banner() {
-			$banner  = '';
-			$dir_url = plugin_dir_url( __FILE__ );
-			$lang    = ( get_locale() == 'ja' ) ? 'ja' : 'en';
 
-			$banner .= '<div class="vk-admin-banner">';
+			$banner_html = '';
+			$dir_url     = plugin_dir_url( __FILE__ );
+			$lang        = ( get_locale() == 'ja' ) ? 'ja' : 'en';
+
+			// 画像を配置したディレクトリの URL
+			$img_base_url = 'https://raw.githubusercontent.com/vektor-inc/vk-banners/main/images/';
+
+			// 変数の初期化
+			$product_array = array();
+
+			// WP File System で JSON ファイルを読み込み
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			if ( WP_Filesystem() ) {
+				global $wp_filesystem;
+
+				// プロダクトの配列を取得・生成
+				$product_json_url = 'https://raw.githubusercontent.com/vektor-inc/vk-banners/main/vk-admin-banners.json';
+				$product_json     = $wp_filesystem->get_contents( $product_json_url );
+				$product_json     = mb_convert_encoding( $product_json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
+				$product_array    = json_decode( $product_json, true );
+
+			}
+
+			$banner_html .= '<div class="vk-admin-banner">';
+
 			if ( $lang == 'ja' ) {
-				// $banner .= '<a class="admin_banner" href="https://recruit.vektor-inc.co.jp/?rel=vkadmin" target="_blank">';
-				// $banner .= '<img src="' . $dir_url . 'images/admin_banner_recruit.jpg" alt="[ Vektor,Inc. 採用情報 ]" />';
-				// $banner .= '</a>';
+				// $banner_html .= '<a class="admin_banner" href="https://recruit.vektor-inc.co.jp/?rel=vkadmin" target="_blank">';
+				// $banner_html .= '<img src="' . $dir_url . 'images/admin_banner_recruit.jpg" alt="[ Vektor,Inc. 採用情報 ]" />';
+				// $banner_html .= '</a>';
 			} else {
-				$banner .= '<a href="https://lightning.nagoya/lightning_copyright_customizer/?rel=vkadmin" target="_blank" class="button button-primary button-primary button-block" style="margin-bottom:1em;">Lightning Copyright Customizer <span class="screen-reader-text">(opens in a new tab)</span><span aria-hidden="true" class="dashicons dashicons-external" style="position:relative;top:3px;"></span></a>';
+				$banner_html .= '<a href="https://lightning.nagoya/lightning_copyright_customizer/?rel=vkadmin" target="_blank" class="button button-primary button-primary button-block" style="margin-bottom:1em;">Lightning Copyright Customizer <span class="screen-reader-text">(opens in a new tab)</span><span aria-hidden="true" class="dashicons dashicons-external" style="position:relative;top:3px;"></span></a>';
 			}
 
-			$banner .= '<div class="vk-admin-banner-grid">';
+			$banner_html .= '<div class="vk-admin-banner-grid">';
 
-			// テーマが Katawara じゃない場合に Katawara のバナーを表示
-			if ( ! self::theme_exists( 'katawara/style.css' ) ) {
-				if ( $lang == 'ja' ) {
-					$banner .= '<a href="https://www.vektor-inc.co.jp/service/wordpress-theme/katawara/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/katawara_bnr.jpg" alt="katawara_bnr_ja" /></a>';
+			// テーマのバナーを設置
+			foreach ( $product_array as $product ) {
+
+				if ( 'theme' === $product['type'] ) {
+					if ( ! self::theme_exists( $product['slug'] ) ) {
+						if ( $lang === $product['language'] ) {
+
+							// プラグインの検索結果に飛ばす場合 URL を変換する必要がある
+							$product_url = true === $product['admin_url'] ? admin_url( $product['link_url'] ) : $product['link_url'];
+
+							// バナーを追加
+							$banner_html .= '<a href="' . $product_url . '" target="_blank" class="admin_banner">';
+							$banner_html .= '<img src="' . $img_base_url . $product['image_file'] . '" alt="' . $product['alt'] . '" />';
+							$banner_html .= '</a>';
+
+						}
+					}
+				}
+
+				if ( 'plugin' === $product['type'] ) {
+					if ( ! self::plugin_exists( $product['slug'] ) ) {
+						if ( $lang === $product['language'] ) {
+
+							// プラグインの検索結果に飛ばす場合 URL を変換する必要がある
+							$product_url = true === $product['admin_url'] ? admin_url( $product['link_url'] ) : $product['link_url'];
+
+							// バナーを追加
+							$banner_html .= '<a href="' . $product_url . '" target="_blank" class="admin_banner">';
+							$banner_html .= '<img src="' . $img_base_url . $product['image_file'] . '" alt="' . $product['alt'] . '" />';
+							$banner_html .= '</a>';
+
+						}
+					}
 				}
 			}
 
-			// プラグイン VK Block Patterns を有効化していない人にバナーを表示
-			if ( ! self::plugin_exists( 'vk-block-patterns/vk-block-patterns.php' ) ) {
-				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'vk-block-patterns_bnr_ja.jpg';
-				} else {
-					$bnr_file_name = 'vk-block-patterns_bnr_en.jpg';
-				}
-				$banner .= '<a href="'.admin_url('plugin-install.php?s=vk+block+patterns&tab=search&type=term').'" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Block Patterns" /></a>';
-			}
+			$banner_html .= '</div>';
 
-			// プラグイン Link Target Controller を有効化していない人にバナーを表示
-			if ( ! self::plugin_exists( 'vk-link-target-controller/vk-link-target-controller.php' ) ) {
-				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'vk-link-target-controller_bnr.jpg';
-				} else {
-					$bnr_file_name = 'vk-link-target-controller_notxt_bnr.jpg';
-				}
-				$banner .= '<a href="' . admin_url( 'plugin-install.php?s=vk+link+target+controller&tab=search&type=term' ) . '" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="Link Target Controller" /></a>';
-			}
+			$banner_html .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/vektor_logo-2020.png" alt="Vektor,Inc." /></a>';
 
-			// プラグイン VK Aost Author Display を有効化していない人にバナーを表示
-			if ( ! self::plugin_exists( 'vk-post-author-display/post-author-display.php' ) ) {
-				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'post_author_display_bnr_ja.jpg';
-				} else {
-					$bnr_file_name = 'post_author_display_bnr_en.jpg';
-				}
-				$banner .= '<a href="' . admin_url( 'plugin-install.php?s=VK+Post+Author+Display&tab=search&type=term' ) . '" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
-			Display" /></a>';
-			}
+			$banner_html .= '</div>';
 
-			// プラグイン VK Job Posting Manager を有効化していない人にバナーを表示
-			if ( ! self::plugin_exists( 'vk-google-job-posting-manager/vk-google-job-posting-manager.php' ) ) {
-				if ( $lang == 'ja' ) {
-					$bnr_file_name = 'job_banner-336_280-ja.jpg';
-				} else {
-					$bnr_file_name = 'job_banner-336_280-en.jpg';
-				}
-				$banner .= '<a href="//wordpress.org/plugins/vk-google-job-posting-manager/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/' . $bnr_file_name . '" alt="VK Post Author
-			Display" /></a>';
-			}
-
-			// テーマがLightningじゃない場合にLighntingのバナーを表示
-			if ( !  self::theme_exists( 'lightning/style.css' ) ) {
-				if ( $lang == 'ja' ) {
-					$banner .= '<a href="//lightning.nagoya/ja/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning_bnr_ja.jpg" alt="lightning_bnr_ja" /></a>';
-				} else {
-					$banner .= '<a href="//lightning.nagoya/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning_bnr_en.jpg" alt="lightning_bnr_en" /></a>';
-				} // if ( $lang == 'ja' ) {
-			} // if ( $theme != 'lightning' ) {
-			
-			if ( ! self::theme_exists( 'bill-vektor/style.css' ) && ! self::theme_exists( 'bill-vektor-master/style.css' ) && 'ja' === $lang ) {
-				$banner .= '<a href="//billvektor.com" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/billvektor_banner.png" alt="見積書・請求書管理用WordPressテーマ" /></a>';
-			}
-
-			if ( ! self::theme_exists( 'lightning-pro/style.css' ) && 'ja' === $lang ) {
-				$banner .= '<a href="https://lightning.nagoya/ja/expansion/lightning-pro" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/lightning-pro-bnr.jpg" alt="" /></a>';
-			}
-
-			if ( $lang == 'ja' && ! self::plugin_exists( 'lightning-skin-jpnstyle/lightning_skin_jpnstyle.php' ) ) {
-				$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-jpnstyle/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/jpnstyle-bnr.jpg" alt="" /></a>';
-			}
-
-			if ( $lang == 'ja' && ! self::plugin_exists( 'lightning-skin-fort/lightning-skin-fort.php' ) ) {
-					$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-fort/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/fort-bnr.jpg" alt="" /></a>';
-			}
-
-			if ( $lang == 'ja' && ! self::plugin_exists( 'lightning-skin-pale/lightning-skin-pale.php' ) ) {
-					$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-pale/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/pale-bnr.jpg" alt="" /></a>';
-			}
-
-			if ( $lang == 'ja' && ! self::plugin_exists( 'lightning-skin-variety/lightning_skin_variety.php' ) ) {
-					$banner .= '<a href="https://lightning.nagoya/ja/expansion/ex_plugin/lightning-variety/?rel=vkadmin" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/variety-bnr.jpg" alt="" /></a>';
-			}
-
-			if ( $lang == 'ja' && ! self::plugin_exists( 'vk-all-in-one-expansion-unit/vkExUnit.php' ) ) {
-				$banner .= '<a href="https://ex-unit.nagoya/ja/" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/ExUnit_bnr.png" alt="" /></a>';
-			}
-
-			$banner .= '</div>';
-
-			$banner .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="' . $dir_url . 'images/vektor_logo-2020.png" alt="Vektor,Inc." /></a>';
-
-			$banner .= '</div>';
-
-			return apply_filters( 'vk_admin_banner_html', $banner );
+			return apply_filters( 'vk_admin_banner_html', $banner_html );
 		}
 
 		/*
@@ -204,7 +175,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 		public static function get_news_from_rest_api() {
 
-			$html = '<h4 class="vk-metabox-sub-title">';
+			$html  = '<h4 class="vk-metabox-sub-title">';
 			$html .= 'Vektor製品更新情報';
 			$html .= '<a href="https://www.vektor-inc.co.jp/product-update/?rel=vkadmin" target="_blank" class="vk-metabox-more-link">記事一覧<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
 			$html .= '</h4>';
