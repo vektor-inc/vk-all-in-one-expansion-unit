@@ -113,37 +113,40 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			$banner_html .= '<div class="vk-admin-banner-grid">';
 
-			// テーマのバナーを設置
-			foreach( $product_array as $product ) {
+			if( ! empty( $product_array ) ) {
 
-				if ( 'theme' === $product['type'] ) {
-					if ( ! self::theme_exists( $product['slug'] ) ) {
-						if ( $lang === $product['language'] ) {
+				// テーマのバナーを設置
+				foreach( $product_array as $product ) {
 
-							// プラグインの検索結果に飛ばす場合 URL を変換する必要がある
-							$product_url = true === $product['admin_url'] ? admin_url( $product['link_url'] ) : $product['link_url'];
+					if ( 'theme' === $product['type'] ) {
+						if ( ! self::theme_exists( $product['slug'] ) ) {
+							if ( $lang === $product['language'] ) {
 
-							// バナーを追加
-							$banner_html .= '<a href="' . $product_url . '" target="_blank" class="admin_banner">';
-							$banner_html .= '<img src="' . $img_base_url . $product['image_file'] . '" alt="' . $product['alt'] . '" />';
-							$banner_html .= '</a>';
+								// プラグインの検索結果に飛ばす場合 URL を変換する必要がある
+								$product_url = true === $product['admin_url'] ? admin_url( $product['link_url'] ) : $product['link_url'];
 
+								// バナーを追加
+								$banner_html .= '<a href="' . $product_url . '" target="_blank" class="admin_banner">';
+								$banner_html .= '<img src="' . $img_base_url . $product['image_file'] . '" alt="' . $product['alt'] . '" />';
+								$banner_html .= '</a>';
+
+							}
 						}
 					}
-				}
 
-				if ( 'plugin' === $product['type'] ) {
-					if ( ! self::plugin_exists( $product['slug'] ) ) {
-						if ( $lang === $product['language'] ) {
+					if ( 'plugin' === $product['type'] ) {
+						if ( ! self::plugin_exists( $product['slug'] ) ) {
+							if ( $lang === $product['language'] ) {
 
-							// プラグインの検索結果に飛ばす場合 URL を変換する必要がある
-							$product_url = true === $product['admin_url'] ? admin_url( $product['link_url'] ) : $product['link_url'];
+								// プラグインの検索結果に飛ばす場合 URL を変換する必要がある
+								$product_url = true === $product['admin_url'] ? admin_url( $product['link_url'] ) : $product['link_url'];
 
-							// バナーを追加
-							$banner_html .= '<a href="' . $product_url . '" target="_blank" class="admin_banner">';
-							$banner_html .= '<img src="' . $img_base_url . $product['image_file'] . '" alt="' . $product['alt'] . '" />';
-							$banner_html .= '</a>';
+								// バナーを追加
+								$banner_html .= '<a href="' . $product_url . '" target="_blank" class="admin_banner">';
+								$banner_html .= '<img src="' . $img_base_url . $product['image_file'] . '" alt="' . $product['alt'] . '" />';
+								$banner_html .= '</a>';
 
+							}
 						}
 					}
 				}
@@ -151,7 +154,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 			$banner_html .= '</div>';
 
-			$banner_html .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="' . $img_base_url . 'images/vektor_logo-2020.png" alt="Vektor,Inc." /></a>';
+			$banner_html .= '<a href="//www.vektor-inc.co.jp" class="vektor_logo" target="_blank" class="admin_banner"><img src="' . $img_base_url . 'vektor_logo-2020.png" alt="Vektor,Inc." /></a>';
 
 			$banner_html .= '</div>';
 
@@ -310,7 +313,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 					if ( $maxitems == 0 ) {
 						$output .= '<li>';
-						$output .= __( 'Sorry, there is no post', 'vk-all-in-one-expansion-unit' );
+						$output .= __( 'Sorry, there is no post', 'vk_admin_textdomain' );
 						$output .= '</li>';
 					} else {
 						foreach ( $rss_items as $item ) {
@@ -364,7 +367,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			if ( self::is_dashboard_active() ) {
 				wp_add_dashboard_widget(
 					'vk_dashboard_widget',
-					__( 'Vektor WordPress Information', 'vk-all-in-one-expansion-unit' ),
+					__( 'Vektor WordPress Information', 'vk_admin_textdomain' ),
 					array( __CLASS__, 'dashboard_widget_body' )
 				);
 			}
