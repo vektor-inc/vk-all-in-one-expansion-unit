@@ -562,7 +562,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				)
 			);
 			foreach ( $posttypes  as $key => $posttype ) {
-				$option[ $posttype ] = false;
+				$option[ $posttype ] = '0';
 			}
 			return $option;
 		}
