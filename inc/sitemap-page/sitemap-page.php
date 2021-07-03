@@ -85,7 +85,9 @@ function vkExUnit_sitemap( $attr ) {
 
 	$classes = '';
 	if ( function_exists( 'vk_add_hidden_class' ) ) {
-		$classes .= ' ' . vk_add_hidden_class( $classes, $attr );
+		if ( vk_add_hidden_class( $classes, $attr ) ) {
+			$classes .= ' ' . vk_add_hidden_class( $classes, $attr );
+		}
 	}
 
 	$attr = shortcode_atts(
@@ -95,8 +97,11 @@ function vkExUnit_sitemap( $attr ) {
 		),
 		$attr
 	);
+	if ( ! empty( $attr['className'] ) ) {
+		$classes .= ' ' . $attr['className'];
+	}
 
-	$sitemap_html = '<div class="row veu_sitemap ' . esc_attr( $attr['className'] ) . ' ' . esc_attr( $classes ) . '">' . PHP_EOL;
+	$sitemap_html = '<div class="row veu_sitemap' . esc_attr( $classes ) . '">' . PHP_EOL;
 
 	/*
 	 Exclude Page ids by ExUnit Main Setting Page
