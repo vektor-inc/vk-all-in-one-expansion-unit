@@ -82,9 +82,9 @@ e.g.
 == Changelog ==
 
 = 9.62.0.0 =
-* [ 仕様変更 ][ 子ページリスト ] 続きを読むボタンのサイズクラス名を bt-sm に変更
-* [ 仕様変更 ] サイトマップページのタクソノミータイトルのCSS微調整
-* [ その他 ] WordPress 5.8 対応（notice修正のみ）
+* [ Specification Change ][ Child page list ] readmore btn class btn-xs -> btn-sm
+* [ Specification Change ][ HTML Sitemap ] tuning of taxonomy css
+* [ Other ] Cope with WordPress 5.8
 
 = 9.61.6.0 =
 * [ Bug Fix ] Fix SNS icon
