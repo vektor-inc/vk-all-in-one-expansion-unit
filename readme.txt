@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.7.2
-Stable tag: 9.61.6.0
+Tested up to: 5.8.0
+Stable tag: 9.62.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,203 +81,208 @@ e.g.
 
 == Changelog ==
 
+= 9.62.0.0 =
+* [ Specification Change ][ Child page list ] readmore btn class btn-xs -> btn-sm
+* [ Specification Change ][ HTML Sitemap ] tuning of taxonomy css
+* [ Other ] Cope with WordPress 5.8
+
 = 9.61.6.0 =
-[ Bug Fix ] Fix SNS icon
+* [ Bug Fix ] Fix SNS icon
 
 = 9.61.5.0 =
-[ Specification Change ] Update VK Admin Library.
+* [ Specification Change ] Update VK Admin Library.
 
 = 9.61.4.0 =
-[ Specification Change ] Update VK Admin Library.
+* [ Specification Change ] Update VK Admin Library.
 
 = 9.61.3.0 =
-[ Specification Change ] Update VK Admin Library.
+* [ Specification Change ] Update VK Admin Library.
 
 = 9.61.2.0 =
-[ Specification Change ] Admin dashboard banner include
-[ Specification Change ] Stop exclude CSS Var by Tree shaking
+* [ Specification Change ] Admin dashboard banner include
+* [ Specification Change ] Stop exclude CSS Var by Tree shaking
 
 = 9.61.1.0 =
-[ Bug fix ][ Page Top Btn ] fix underline
+* [ Bug fix ][ Page Top Btn ] fix underline
 
 = 9.61.0.0 =
-[ Design specification Change ][ Contact section ] Change btn padding
-[ Bug fix ]Cope with PHP 8
-[ Other ] update VK Helpers
-[ Other ] update CSS Optimize
+* [ Design specification Change ][ Contact section ] Change btn padding
+* [ Bug fix ]Cope with PHP 8
+* [ Other ] update VK Helpers
+* [ Other ] update CSS Optimize
 
 = 9.60.1.0 =
-[ Bug fix ][ 3PR Widget ] Fix Break Point
+* [ Bug fix ][ 3PR Widget ] Fix Break Point
 
 = 9.60.0.0 =
-[ Specification Change ] Moved Google Tag Manager functionality to ExUnit
+* [ Specification Change ] Moved Google Tag Manager functionality to ExUnit
 
 = 9.52.1.0 =
-[ Specification Change ] Update VK-Admin Library 
+* [ Specification Change ] Update VK-Admin Library 
 
 = 9.52.0.0 =
-[ Design Change ][ block icon ] Change block icon
+* [ Design Change ][ block icon ] Change block icon
 
 = 9.51.0.0 =
-[ Specification Change ] Change font awesome default version to 5
-[ Specification Change ][ Contact section ] Add tel color. 
-[ Specification Change ][ CSS Customize ] delete css comment 
-[ Design bug fix ][ Share button ] fix no margin bottom
+* [ Specification Change ] Change font awesome default version to 5
+* [ Specification Change ][ Contact section ] Add tel color. 
+* [ Specification Change ][ CSS Customize ] delete css comment 
+* [ Design bug fix ][ Share button ] fix no margin bottom
 
 = 9.50.0.0 =
-[ Specification Change ][ NewPostsWidget ] Delete target blank from term link 
-[ Specification Change ][ Contact Section ] class and margin tuning
-[ Specification Change ] come css chenge to css variable
+* [ Specification Change ][ NewPostsWidget ] Delete target blank from term link 
+* [ Specification Change ][ Contact Section ] class and margin tuning
+* [ Specification Change ] come css chenge to css variable
 
 = 9.49.7.0 =
-[ bug fix ][ cta ] enable render_block in cta
+* [ bug fix ][ cta ] enable render_block in cta
 
 = 9.49.6.0 =
-[ bug fix ][ sns ] fix unnecessary link error
+* [ bug fix ][ sns ] fix unnecessary link error
 
 = 9.49.5.0 =
-[ bug fix ][ sns ] fix php notice
+* [ bug fix ][ sns ] fix php notice
 
 = 9.49.4.0 =
-[ bug fix ][ share button ] cope with loop display
+* [ bug fix ][ share button ] cope with loop display
 
 = 9.49.3.0 =
-[ bug fix ][ Before loop widget area ] fix translate
+* [ bug fix ][ Before loop widget area ] fix translate
 
 = 9.49.2.0 =
-[ bug fix ][ noindex ] fix php error
+* [ bug fix ][ noindex ] fix php error
 
 = 9.49.1.0 =
-[ Bug fix ][ Archive widget ] fix PHP error
+* [ Bug fix ][ Archive widget ] fix PHP error
 
 = 9.49.0.0 =
-[ Add function ][ Noindex ] Cope with print to archive page
-[ Add function ][ Before loop widget area ] Add widget area to before loop on archive page
+* [ Add function ][ Noindex ] Cope with print to archive page
+* [ Add function ][ Before loop widget area ] Add widget area to before loop on archive page
 
 = 9.48.3.0 =
-[ Bug fix ] Cope with before 5.0
+* [ Bug fix ] Cope with before 5.0
 
 = 9.48.2.0 =
-[ Specification Change ] Load Term Color on init
+* [ Specification Change ] Load Term Color on init
 
 = 9.48.1.0 =
-[ Bug fix ] fix active settingscreen error.
+* [ Bug fix ] fix active settingscreen error.
 
 = 9.48.0.0 =
-[ Specification Change ][ Archive widget ] default setting tuning and add no select option.
+* [ Specification Change ][ Archive widget ] default setting tuning and add no select option.
 
 = 9.47.0.0 =
-[ Specification Change ] Dashboard information adjustment.
+* [ Specification Change ] Dashboard information adjustment.
 
 = 9.46.1.0 =
-[ Bug fix ] fix term color can't edit.
+* [ Bug fix ] fix term color can't edit.
 
 = 9.46.0.0 =
-[ Add function ][ Archive list widget ] can be select list style ( add "select" )
+* [ Add function ][ Archive list widget ] can be select list style ( add "select" )
 
 = 9.45.0.0 =
-[ Add function ] Add plugin short cut link to adminbar
-[ Design specification Change ][ Child Page List / Page list from ancestors ] When set to first object that delete margin top.
+* [ Add function ] Add plugin short cut link to adminbar
+* [ Design specification Change ][ Child Page List / Page list from ancestors ] When set to first object that delete margin top.
 
 = 9.44.2.0 =
-[ Design bug fix ] Fix drop in contact phone number layer during mainSection-base-on
+* [ Design bug fix ] Fix drop in contact phone number layer during mainSection-base-on
 
 = 9.44.1.0 =
-[ Design bug fix ] To be don't display underline on category label at hover.
+* [ Design bug fix ] To be don't display underline on category label at hover.
 
 = 9.44.0.9 =
-[ Other ] ReUpdate
+* [ Other ] ReUpdate
 
 = 9.44.0.0 =
-[ Specification Change ] Can be use term color in VK Recent Post Widget.
-[ Specification Change ] Can be active control the CSS Optimize.
+* [ Specification Change ] Can be use term color in VK Recent Post Widget.
+* [ Specification Change ] Can be active control the CSS Optimize.
 
 = 9.43.2.0 =
-[ Bug fix ][ CSS Optimize ] fix sanitize bug ( Can not save )
+* [ Bug fix ][ CSS Optimize ] fix sanitize bug ( Can not save )
 
 = 9.43.1.0 =
-[ Bug fix ][ CSS Optimize ] fix woo css exclude
+* [ Bug fix ][ CSS Optimize ] fix woo css exclude
 
 = 9.43.0.0 =
-[ Specification Change ][ CSS Optimize ] default off / exclude wooCommerce preload
-[ Add function ][ CSS Optimize ] Add exclude handles
+* [ Specification Change ][ CSS Optimize ] default off / exclude wooCommerce preload
+* [ Add function ][ CSS Optimize ] Add exclude handles
 
 = 9.42.1.0 =
-[ Bug fix ] Fix Customize error ( ad vk customize helpers )
+* [ Bug fix ] Fix Customize error ( ad vk customize helpers )
 
 = 9.42.0.0 =
-[ Specification Change ][ CSS Optimize ] Change to common setting
+* [ Specification Change ][ CSS Optimize ] Change to common setting
 
 = 9.41.0.0 =
-[ Specification Change ] Cope with G-XXXXXXXXXX
-[ Bug fix ][ Facebook Page Plugin / twitter widget ] fix unload
+* [ Specification Change ] Cope with G-XXXXXXXXXX
+* [ Bug fix ][ Facebook Page Plugin / twitter widget ] fix unload
 
 = 9.40.0.0 =
-[ Add filter ][ ie alert ] Can be able to change the message in the filter
+* [ Add filter ][ ie alert ] Can be able to change the message in the filter
 
 = 9.39.1.0 =
-[ Bug fix ][ Child Page Index Block ] To be able to select parent page to cureent page
+* [ Bug fix ][ Child Page Index Block ] To be able to select parent page to cureent page
 
 = 9.39.0.0 =
-[ Specification Change ][ wp title ] Change search result title in case of no keyword
-[ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html(Change filter specification).
+* [ Specification Change ][ wp title ] Change search result title in case of no keyword
+* [ Specification Change ][ Child Page Index ] To be able to change thumbnail outer html(Change filter specification).
 
 = 9.38.0.0 =
-[ Add function ][ contact section ] Add link target setting
-[ bug fix ] fix when plugin VK Blocks activation that ExUnit widget activation setting was delete
+* [ Add function ][ contact section ] Add link target setting
+* [ bug fix ] fix when plugin VK Blocks activation that ExUnit widget activation setting was delete
 
 = 9.37.2.0 =
-[ Design bug fix ] Scrolled Page top button CSS bug fix 
+* [ Design bug fix ] Scrolled Page top button CSS bug fix 
 
 = 9.37.1.1 =
 Only Change Version Number
 
 = 9.37.1.0 =
-[ Design bug fix ] Page top button CSS bug fix / childPage list title CSS bug fix
+* [ Design bug fix ] Page top button CSS bug fix / childPage list title CSS bug fix
 
 = 9.37.0.0 =
-[ Specification change ][ Related posts ] convert html part to iindependent function
-[ Specification change ][ follow me ] convert html part to indipendent function
+* [ Specification change ][ Related posts ] convert html part to iindependent function
+* [ Specification change ][ follow me ] convert html part to indipendent function
 
 = 9.36.1.0 =
-[ bug fix ][ SNS/OG ] Fix print default image
+* [ bug fix ][ SNS/OG ] Fix print default image
 
 = 9.36.0.0 =
-[ other ][ page top button ] add setting to ExUnit Main Setting screen
+* [ other ][ page top button ] add setting to ExUnit Main Setting screen
 
 = 9.35.0.0 =
-[ Specification Change ][ post type manager ] max taxonomy change from 3 to 5
+* [ Specification Change ][ post type manager ] max taxonomy change from 3 to 5
 
 = 9.34.1.0 =
-[ Bug fix ][ page top button ] fix text display bug
+* [ Bug fix ][ page top button ] fix text display bug
 
 = 9.34.0.0 =
-[ Specification Change ][ page top button ] Change mobile hidden option
+* [ Specification Change ][ page top button ] Change mobile hidden option
 
 = 9.33.0.0 =
-[ Add option ][ page top button ] Add mobile display option
+* [ Add option ][ page top button ] Add mobile display option
 
 = 9.32.0.0 =
-[ Specification change ][ contact section ] change horizontal layout class name 
+* [ Specification change ][ contact section ] change horizontal layout class name 
 
 = 9.31.11.0 =
-[ Design tuning ][ Contact section ]
+* [ Design tuning ][ Contact section ]
 
 = 9.31.10.0 =
-[ bug fix ][ Block ] Fix Attributes Error
+* [ bug fix ][ Block ] Fix Attributes Error
 
 = 9.31.9.0 =
-[ bug fix ][ Default thumbnail ] Thumbnail doesn't display on VK Posts
+* [ bug fix ][ Default thumbnail ] Thumbnail doesn't display on VK Posts
 
 = 9.31.8.0 =
-[ bug fix ][ Default thumbnail ] fix OGP don't refrect 
+* [ bug fix ][ Default thumbnail ] fix OGP don't refrect 
 
 
 = 9.31.7.0 =
 Only Change Version Number
 
 = 9.31.6.0 =
-[ bug fix ] Fix the date of relate posts
+* [ bug fix ] Fix the date of relate posts
 
 = 9.31.5.0 =
 Only Change Version Number
@@ -286,59 +291,59 @@ Only Change Version Number
 Only Change Version Number
 
 = 9.31.3.0 =
-[ bug fix ] SNS button css tuning
+* [ bug fix ] SNS button css tuning
 
 = 9.31.2.0 =
-[ Specification Change ] Change CSS Optimize default setting
+* [ Specification Change ] Change CSS Optimize default setting
 
 = 9.31.1.0 =
-[ bug fix ] PageTop css tuning
+* [ bug fix ] PageTop css tuning
 
 = 9.31.0.0 =
-[ Add function ] CSS Optimize(Tree shaking)
+* [ Add function ] CSS Optimize(Tree shaking)
 
 = 9.30.2.0 =
-[ bug fix ] WP5.5 API Alert
+* [ bug fix ] WP5.5 API Alert
 
 = 9.30.1.0 =
-[ bug fix ] IE Alert css tuning
+* [ bug fix ] IE Alert css tuning
 
 = 9.30.0.0 =
-[ Add function ][ IE Alert ]
-[ Add function ][ Disable Emojis ]
-[ bug fix ][ Smooth Scroll ] Fix malfunction on lightning default slide.
-[ Other ] Functional description improvement
+* [ Add function ][ IE Alert ]
+* [ Add function ][ Disable Emojis ]
+* [ bug fix ][ Smooth Scroll ] Fix malfunction on lightning default slide.
+* [ Other ] Functional description improvement
 
 = 9.29.7.0 =
-[ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
+* [ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
 
 = 9.29.6.0 =
-[ bug fix ][ Smooth Scroll ] Fix Pagetop smooth scroll was not working on Firefox.
+* [ bug fix ][ Smooth Scroll ] Fix Pagetop smooth scroll was not working on Firefox.
 
 = 9.29.5.0 =
-[ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
+* [ bug fix ][ Contact Section ] Fix Btn text color become defeat by footer design setting.
 
 = 9.29.4.0 =
-[ Bug fix ] Button block align bug fix
+* [ Bug fix ] Button block align bug fix
 
 = 9.29.3.0 =
-[ Bug fix ] Cope with Gutenberg 8.6 bug
+* [ Bug fix ] Cope with Gutenberg 8.6 bug
 
 = 9.29.2.0 =
-[ Bug fix ] Add CTA Alt
+* [ Bug fix ] Add CTA Alt
 
 = 9.29.1.0 =
-[ Bug fix ] VK Blocks update to 0.38.5 / Delete button class in src/blocks/button/ / Cope with key color at btn-outline-primary.
+* [ Bug fix ] VK Blocks update to 0.38.5 / Delete button class in src/blocks/button/ / Cope with key color at btn-outline-primary.
 
 = 9.29.0.0 =
 * [ Other ] Cope with ExUnit Contact Section on Lightning Sidebar and Footer.
 * [ Other ] Change function description comment.
 
 = 9.28.3.0 =
-[ Bug fix ][ child-page-index ] Fix Parent Page Save not working
+* [ Bug fix ][ child-page-index ] Fix Parent Page Save not working
 
 = 9.28.2.0 =
-[ Bug fix ][ editor css ] Fix editor-css for ExUnit Blocks not working
+* [ Bug fix ][ editor css ] Fix editor-css for ExUnit Blocks not working
 
 = 9.28.1.0 =
 * [ VK Blocks Update ] 0.38.2
@@ -390,104 +395,104 @@ Only Change Version Number
 * [ bug fix ][ list ] 2digits number display bug fix
 
 = 9.19.0.0 =
-[ Add Function ][ Add block ] HTML SiteMap
-[ Add Function ][ Add block ] Page list from ancestor
+* [ Add Function ][ Add block ] HTML SiteMap
+* [ Add Function ][ Add block ] Page list from ancestor
 
 = 9.18.1.0 =
-[ bug fix ][ other widget ] bug fix of save all widget disable setting.
+* [ bug fix ][ other widget ] bug fix of save all widget disable setting.
 
 = 9.18.0.0 =
-[ Add Function ][ Add block ] Contact Section
-[ Add Function ][ Add block ] Child Page Index
-[ Design tuning ][ VK Block 0.27.0 ] CSS Bug fix on Edit screen
+* [ Add Function ][ Add block ] Contact Section
+* [ Add Function ][ Add block ] Child Page Index
+* [ Design tuning ][ VK Block 0.27.0 ] CSS Bug fix on Edit screen
 
 = 9.17.0.0 =
-[ Specification change ][ sns twitter card ] Print Twitter Card if Twitter ID no setted
-[ Post Type Manager ] Improved REST API description
-[ Post Type Manager ] Add term column to admin column
+* [ Specification change ][ sns twitter card ] Print Twitter Card if Twitter ID no setted
+* [ Post Type Manager ] Improved REST API description
+* [ Post Type Manager ] Add term column to admin column
 
 = 9.16.2.0 =
-[ bug fix ][ Block 0.26.7 ] merely js rebuild
+* [ bug fix ][ Block 0.26.7 ] merely js rebuild
 
 = 9.16.1.0 =
-[ bug fix ][ Block 0.26.5 ] button color change bug fix 
+* [ bug fix ][ Block 0.26.5 ] button color change bug fix 
 
 = 9.16.0.2 =
-[ bug fix ][ Block 0.26.4 ] editor css build miss fix
+* [ bug fix ][ Block 0.26.4 ] editor css build miss fix
 
 = 9.16.0.1 =
-[ bug fix ][ Block 0.26.3 ] Outline style
+* [ bug fix ][ Block 0.26.3 ] Outline style
 
 = 9.16.0.0 =
-[ Add function ][ Block 0.26.2 ] Add hidden function
-[ Add function ][ Block 0.26.2 ] Add Button text style
-[ Add function ][ Block 0.26.2 ] Add wide size
+* [ Add function ][ Block 0.26.2 ] Add hidden function
+* [ Add function ][ Block 0.26.2 ] Add Button text style
+* [ Add function ][ Block 0.26.2 ] Add wide size
 
 = 9.15.5.0 =
-[ bugfix ][ smoothscroll ] 
+* [ bugfix ][ smoothscroll ] 
 
 = 9.15.4.0 =
-[ bugfix ][ smoothscroll ] 
-[ bugfix ][ metakeyword ] 
+* [ bugfix ][ smoothscroll ] 
+* [ bugfix ][ metakeyword ] 
 
 = 9.15.3.0 =
-[ bugfix ][ no index no follow ] don't work...
+* [ bugfix ][ no index no follow ] don't work...
 
 = 9.15.2.0 =
-[ bugfix ] MuitiSite Bug fix
+* [ bugfix ] MuitiSite Bug fix
 
 = 9.15.0.0 =
-[ Add function ][ Contactform7 Asset Optimize ] Contact Form Speeding up
-[ Specification change ] JacaScript refactaring ( Speeding up )
+* [ Add function ][ Contactform7 Asset Optimize ] Contact Form Speeding up
+* [ Specification change ] JacaScript refactaring ( Speeding up )
 
 = 9.14.0.0 =
-[ Add function ][ post list widget ] Cope with multi post types
-[ Add function ] Add share button block
+* [ Add function ][ post list widget ] Cope with multi post types
+* [ Add function ] Add share button block
 
 = 9.13.1.0 =
-[ bugfix ] fix bug of cant save widget enablation
+* [ bugfix ] fix bug of cant save widget enablation
 
 = 9.13.0.0 =
-[ specific change ][ TaxListWidget ][ add filter ] add tax list args filter 'veu_widget_taxlist_args'
+* [ specific change ][ TaxListWidget ][ add filter ] add tax list args filter 'veu_widget_taxlist_args'
 
 = 9.12.0.0 =
-[ Add function ] Widget Active Controll
+* [ Add function ] Widget Active Controll
 
 = 9.11.5.0 =
-[ bug fix ][ blocks ] Editor css was not working
-[ Specification change ] Delete language files ( use GlotPress )
+* [ bug fix ][ blocks ] Editor css was not working
+* [ Specification change ] Delete language files ( use GlotPress )
 
 = 9.11.4.0 =
-[ Bug fix ] Fix Lightning Design skin specific design overwrite not working.
+* [ Bug fix ] Fix Lightning Design skin specific design overwrite not working.
 
 = 9.11.3.0 =
-[ Specification change ] Default display the customizer ExUnit Panel 
+* [ Specification change ] Default display the customizer ExUnit Panel 
 
 = 9.11.2.0 =
-[ Specification change ][ vk blocks ] YouTube display width : 100%
-[ Specification change ][ vk blocks ] css load point controll
+* [ Specification change ][ vk blocks ] YouTube display width : 100%
+* [ Specification change ][ vk blocks ] css load point controll
 
 = 9.11.1.0 =
-[ bug fix ] css customize error fix
+* [ bug fix ] css customize error fix
 
 = 9.11.0.0 =
-[ Add function ] Speeding setting ( load point controll of css file and css customize ) 
+* [ Add function ] Speeding setting ( load point controll of css file and css customize ) 
 
 = 9.10.1.0 =
-[ Specification change ] load ExUnit css and block css on header from footer
+* [ Specification change ] load ExUnit css and block css on header from footer
 
 = 9.10.0.0 =
-[ Specification change ] load ExUnit css on footer from header
+* [ Specification change ] load ExUnit css on footer from header
 
 = 9.9.0.0 =
-[ Specification change ] load block css awesome on footer from header
-[ Specification change ] load font awesome on footer from header
+* [ Specification change ] load block css awesome on footer from header
+* [ Specification change ] load font awesome on footer from header
 
 = 9.8.3.0 =
-[ Design Tuning ] Add margin bottom of Related Posts
+* [ Design Tuning ] Add margin bottom of Related Posts
 
 = 9.8.2.0 =
-[ Design Tuning ] Add margin bottom to share button
+* [ Design Tuning ] Add margin bottom to share button
 
 = 9.8.1.0 =
 vk blocks 0.17.6 update
@@ -499,201 +504,201 @@ Deploy setting
 vk blocks 0.17.2 update
 
 = 9.7.1.0 =
-[ bugfix ][ content widget ] Cope with title style from block.
+* [ bugfix ][ content widget ] Cope with title style from block.
 
 = 9.7.0.0 =
-[ Add function ][ Block ] Core block style expand
+* [ Add function ][ Block ] Core block style expand
 
 
 = 9.6.9.0 =
-[ bugfix ] Use with VK Post Author Display bug fix
+* [ bugfix ] Use with VK Post Author Display bug fix
 
 = 9.6.8.0 =
-[ Specification change ] ファイル階層一部変更
+* [ Specification change ] ファイル階層一部変更
 
 = 9.6.7.0 =
-[ library update ] library update
+* [ library update ] library update
 
 = 9.6.6.0 =
-[ bug fix ][ vk blocks ] WP 5.3 column bug fix
-[ bug fix ][ SNS ] Facebook OG size first load
+* [ bug fix ][ vk blocks ] WP 5.3 column bug fix
+* [ bug fix ][ SNS ] Facebook OG size first load
 
 = 9.6.5.0 =
-[ bug fix ][ New Posts Widget ] Term display
-[ bug fix ][ Related Posts ] Lightning BS4 Layout
+* [ bug fix ][ New Posts Widget ] Term display
+* [ bug fix ][ Related Posts ] Lightning BS4 Layout
 
 = 9.6.4.0 =
-[ bug fix ] Chrome metabox position fix
+* [ bug fix ] Chrome metabox position fix
 
 = 9.6.3.0 =
-[ Specification change ][ HTML SiteMap ] Change class name.
+* [ Specification change ][ HTML SiteMap ] Change class name.
 
 = 9.6.2.0 =
-[ Specification change ][ HTML SiteMap ] Add class name.
-[ bug fix ][ HTML SiteMap ] PHP undefined error
+* [ Specification change ][ HTML SiteMap ] Add class name.
+* [ bug fix ][ HTML SiteMap ] PHP undefined error
 
 = 9.6.1.0 =
-[ Add function ][ HTML SiteMap ] Exclude post type
-[ Specification change ][ HTML SiteMap ] Abolished hidden page setting on ExUnit Main Setting Page.
-[ bug fix ] metabox display
+* [ Add function ][ HTML SiteMap ] Exclude post type
+* [ Specification change ][ HTML SiteMap ] Abolished hidden page setting on ExUnit Main Setting Page.
+* [ bug fix ] metabox display
 
 = 9.6.0.0 =
-[ Specification change ][ font awesome ] 5.6 -> 5.10.1
-[ bug fix ] metabox display
+* [ Specification change ][ font awesome ] 5.6 -> 5.10.1
+* [ bug fix ] metabox display
 
 = 9.5.3.0 =
 Chhhange requires at least: 5.1.0
 
 = 9.5.1.0 =
-[ Bug fix ][ font awesome ] css and js path bug fix
+* [ Bug fix ][ font awesome ] css and js path bug fix
 
 = 9.5.0.0 =
-[ Specification change ][ Child Page list / Page list from ancestor / contact section ] CSS priority change
+* [ Specification change ][ Child Page list / Page list from ancestor / contact section ] CSS priority change
 
 = 9.4.3.1 =
 Merely Version Change
 
 = 9.4.3.0( Beta ) =
-[ Bug fix ][ admin information ] Bug fix of setting page on english version
+* [ Bug fix ][ admin information ] Bug fix of setting page on english version
 
 = 9.4.2.0( Beta ) =
-[ Bug fix ][ VK Blocks ][ title ] no style bug fix
+* [ Bug fix ][ VK Blocks ][ title ] no style bug fix
 
 = 9.4.1.0( Beta ) =
-[ Bug fix ][ VK Blocks ][ baloon ] mobile layout bug fix
+* [ Bug fix ][ VK Blocks ][ baloon ] mobile layout bug fix
 
 = 9.4.0.0( Beta ) =
-[ Add Function ][ VK Blocks ] Add marker
+* [ Add Function ][ VK Blocks ] Add marker
 
 = 9.3.3.0( Beta ) =
-[ bugfix ][ OG title ] When front-page that to be single page title, not blog name bug fixed.
+* [ bugfix ][ OG title ] When front-page that to be single page title, not blog name bug fixed.
 
 = 9.3.2.0( Beta ) =
-[ Desing tuning ] customize panel design tuning
+* [ Desing tuning ] customize panel design tuning
 
 = 9.3.1( Beta ) =
-[ Bug fix ][ title ] Save bug fix
-[ Bug fix ][ smooth scroll ] wooCommerce error fix
+* [ Bug fix ][ title ] Save bug fix
+* [ Bug fix ][ smooth scroll ] wooCommerce error fix
 
 = 9.3.0( Beta ) =
-[ Add function ][ VK Blocks ] Add table of contents block ( pro version )
+* [ Add function ][ VK Blocks ] Add table of contents block ( pro version )
 
 = 9.2.0.6( Beta ) =
 Restore version 9
 
 = 9.1.3(8.3.1) =
-add GitHub information
+* add GitHub information
 
 = 9.1.2(8.3.1) =
-Back version to 8.3.1
+* Back version to 8.3.1
 
 = 9.1.1 =
-[ Delete function ] test version update checker.
+* [ Delete function ] test version update checker.
 
 = 9.1.1 =
-[ Delete function ] test version update checker.
+* [ Delete function ] test version update checker.
 
 = 9.1.0 =
-[ Delete function ] test version update checker.
+* [ Delete function ] test version update checker.
 
 = 9.0.7 =
-[ Specification change ][ New Posts Widget ] Change title escape wp_kses().
+* [ Specification change ][ New Posts Widget ] Change title escape wp_kses().
 
 = 9.0.6 =
-[ bug fix ] Can not access ExUnit admin page bug fix.
+* [ bug fix ] Can not access ExUnit admin page bug fix.
 
 = 9.0.3 =
-[ Admin ][ CSS Tuning ] metabox css tuning.
+* [ Admin ][ CSS Tuning ] metabox css tuning.
 
 = 9.0.2 =
-[ Specification change ][ SNS Button ] Change css priority.
+* [ Specification change ][ SNS Button ] Change css priority.
 
 = 9.0.1 =
-[ bug fix ] Post Author Display Bug fix
+* [ bug fix ] Post Author Display Bug fix
 
 = 8.9.4 =
-[ Specification change ][ VK Blocks ][ Staff ] font style tuning.
+* [ Specification change ][ VK Blocks ][ Staff ] font style tuning.
 
 = 8.9.3 =
-[ Specification change ][ VK Blocks ][ Staff ] Change H tag and deal with Lightning 1 column template.
+* [ Specification change ][ VK Blocks ][ Staff ] Change H tag and deal with Lightning 1 column template.
 
 = 8.9.2 =
-[ Bug fix ][ VK Blocks ] Load block failed.
+* [ Bug fix ][ VK Blocks ] Load block failed.
 
 = 8.9.1 =
-[ Bug fix ][ Block ][ title ] When title margin set that Title align not work.
+* [ Bug fix ][ Block ][ title ] When title margin set that Title align not work.
 
 = 8.9.0 =
-[ Add function ][VK Blocks][Add New Block] Staff Block
+* [ Add function ][VK Blocks][Add New Block] Staff Block
 
 = 8.4.0 =
-[ Specification change ] marge meta box & refactaring
+* [ Specification change ] marge meta box & refactaring
 
 = 8.4.0 =
-[ Specification change ] marge meta box & refactaring
-[ Add Function ] Add no index tag setting.
+* [ Specification change ] marge meta box & refactaring
+* [ Add Function ] Add no index tag setting.
 
 = 8.3.2 =
-[ Add Function ] Add beta tester.
+* [ Add Function ] Add beta tester.
 
 = 8.3.1 =
-[ Design tuning ][ SNS Button ] Insert sns btns to before content
+* [ Design tuning ][ SNS Button ] Insert sns btns to before content
 
 = 8.3.0 =
-[ Add function ][ SNS Button ] Insert sns btns to before content
+* [ Add function ][ SNS Button ] Insert sns btns to before content
 
 = 8.2.0 =
-[ Child Page index ][ Add filter ] veu_childPage_list_read_more_txt
-[ Specification change ][ textdomain ] step to GlotPress
+* [ Child Page index ][ Add filter ] veu_childPage_list_read_more_txt
+* [ Specification change ][ textdomain ] step to GlotPress
 
 = 8.1.3 =
-[ bugfix ][ insert ads ] can't remove post type check box
+* [ bugfix ][ insert ads ] can't remove post type check box
 
 = 8.1.2 =
-[ bugfix ][ new-posts-widget ] Undefined variable error fixed
+* [ bugfix ][ new-posts-widget ] Undefined variable error fixed
 
 = 8.1.1 =
-[ bug fix ] sns title custom value do not save bug fix
+* [ bug fix ] sns title custom value do not save bug fix
 
 = 8.1.0 =
-[ Specification change ][ OG title custom ] Add custom post type support.
+* [ Specification change ][ OG title custom ] Add custom post type support.
 
 = 8.0.7 =
-[ Specification change ][ Auto Eye Catch ] Change hook name
+* [ Specification change ][ Auto Eye Catch ] Change hook name
 
 = 8.0.6 =
-[ Specification change ][ Auto Eye Catch ] AAdd post type filter hook
+* [ Specification change ][ Auto Eye Catch ] AAdd post type filter hook
 
 = 8.0.5 =
-[ Bug fix ][ main setting page ] Admin page image uploader select button not transrated
+* [ Bug fix ][ main setting page ] Admin page image uploader select button not transrated
 
 = 8.0.4 =
-[ Bug fix ][ main setting page ] media uploader bug fix ( Cope with main setting page suffix changed )
+* [ Bug fix ][ main setting page ] media uploader bug fix ( Cope with main setting page suffix changed )
 
 = 8.0.3 =
-[ Bug fix ][ template-tags ][ vk get_post_type ] no post bug fix
-[ Specification change ][ template-tags ][ meta description ] escape & add_filter
+* [ Bug fix ][ template-tags ][ vk get_post_type ] no post bug fix
+* [ Specification change ][ template-tags ][ meta description ] escape & add_filter
 
 = 8.0.2 =
-[ Other ][ dashboard ] Add Link banner
+* [ Other ][ dashboard ] Add Link banner
 
 = 8.0.0 =
-[ Bug fix ][ PR Blocks ] When link url not set that no print a Tags
-[ Specification change ][ PR Blocks ] Change outer tag article to div
-[ Specification change ][ PR Blocks ] Change h1 tag to h3 tag
+* [ Bug fix ][ PR Blocks ] When link url not set that no print a Tags
+* [ Specification change ][ PR Blocks ] Change outer tag article to div
+* [ Specification change ][ PR Blocks ] Change h1 tag to h3 tag
 
 = 7.9.1 =
-[ Bug fix ][ CSS Customize ] encode bug fix
+* [ Bug fix ][ CSS Customize ] encode bug fix
 
 = 7.9.0 =
-[ Add Function][ Add Insert ] Google Auto Ads
-[ Bug fix ][ smooth scroll ] Anchor link header fix offset
+* [ Add Function][ Add Insert ] Google Auto Ads
+* [ Bug fix ][ smooth scroll ] Anchor link header fix offset
 
 = 7.8.0 =
-[ Add New Block ][ VK Blocks ] Title
-[ Add New Block ][ VK Blocks ] Responsive Spacer
-[ Bug fix ][ VK Blocks ][ Outer ] FireFox and Eddge design fix
-[ Add Function][ VK Blocks ][ Outer ] Add link id setting
+* [ Add New Block ][ VK Blocks ] Title
+* [ Add New Block ][ VK Blocks ] Responsive Spacer
+* [ Bug fix ][ VK Blocks ][ Outer ] FireFox and Eddge design fix
+* [ Add Function][ VK Blocks ][ Outer ] Add link id setting
 
 = 7.7.4 =
 * [ Specification change ][ Contact section ] Tel icon default setting.

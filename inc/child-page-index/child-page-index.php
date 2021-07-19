@@ -113,7 +113,7 @@ function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 		}, 10, 2 );
 			*/
 			$childPageList_html .= '<p class="childPage_list_text">' . $postExcerpt . '</p>';
-			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-xs">' . apply_filters( 'veu_childPage_list_read_more_txt', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</span>';
+			$childPageList_html .= '<span class="childPage_list_more btn btn-primary btn-sm">' . apply_filters( 'veu_childPage_list_read_more_txt', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</span>';
 			$childPageList_html .= '</div>';
 
 			$childPageList_html .= '</div></a>' . PHP_EOL;

@@ -1,8 +1,6 @@
 <?php
 
 /*
--------------------------------------------*/
-/*
   非推奨タグ / Deprecated Tag
 /*
 -------------------------------------------*/
@@ -27,11 +25,8 @@
 /*-------------------------------------------*/
 
 /*
--------------------------------------------*/
-/*
   非推奨タグ / Deprecated Tag
-/*
--------------------------------------------*/
+/*-------------------------------------------*/
 /*
 キャメルケースは非推奨なので関数名を変更したが、
 プラグイン外で関数が使用されているかもしれないので念の為旧関数でも動作するように
@@ -51,11 +46,8 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 }
 
 /*
--------------------------------------------*/
-/*
   出力先
-/*
--------------------------------------------*/
+/*-------------------------------------------*/
 /*
 loop_end でも出力出来るように一時期していたが、
 コンテンツエリアのタグより外に出力されるなどで、
@@ -75,11 +67,8 @@ function veu_add_related_loopend( $query ) {
 }
 
 /*
--------------------------------------------*/
-/*
   veu_get_related_posts()
-/*
--------------------------------------------*/
+/*-------------------------------------------*/
 /*
 関連記事の投稿データを取得
  */
@@ -149,10 +138,7 @@ function veu_get_related_posts( $post_type = 'post', $taxonomy = 'post_tag', $ma
 }
 
 /*
--------------------------------------------*/
-/*
   veu_add_related_posts_item_html()
-/*
 -------------------------------------------*/
 /*
 関連記事の1件分のHTML
@@ -178,11 +164,8 @@ function veu_add_related_posts_item_html( $post ) {
 }
 
 /*
--------------------------------------------*/
-/*
   veu_add_related_posts_html()
-/*
--------------------------------------------*/
+/*-------------------------------------------*/
 /*
 関連記事のHTML
  */
@@ -202,7 +185,7 @@ function veu_add_related_posts_html( $content ) {
 		return $content;
 	}
 
-	$content          .= veu_get_related_posts_html();
+	$content .= veu_get_related_posts_html();
 
 	return $content;
 }
@@ -210,7 +193,7 @@ function veu_add_related_posts_html( $content ) {
 /**
  * since 9.37.0.0
  */
-function veu_get_related_posts_html(){
+function veu_get_related_posts_html() {
 
 	$output = get_option( 'vkExUnit_related_options' );
 
@@ -260,7 +243,7 @@ function veu_get_related_posts_html(){
 		} // foreach
 		$relatedPostsHtml .= '</div>';
 		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
-		
+
 	}
 
 	wp_reset_postdata();
@@ -269,8 +252,6 @@ function veu_get_related_posts_html(){
 	return $relatedPostsHtml;
 }
 
-/*
--------------------------------------------*/
 /*
   Customizer
 /*-------------------------------------------*/
@@ -333,8 +314,6 @@ function veu_customize_register_related( $wp_customize ) {
 		)
 	);
 
-	/*
-	-------------------------------------------*/
 	/*
 	  Add Edit Customize Link Btn
 	/*-------------------------------------------*/

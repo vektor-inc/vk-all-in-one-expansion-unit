@@ -8,3 +8,4 @@ _notes/
 vendor/
 *.before
 dist/
+*.override.json

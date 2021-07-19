@@ -81,11 +81,13 @@ function veu_show_sitemap( $content ) {
 
 function vkExUnit_sitemap( $attr ) {
 
-	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
+	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
 
-	$classes='';
-	if(function_exists('vk_add_hidden_class')){
-		$classes .= ' ' . vk_add_hidden_class($classes, $attr);
+	$classes = '';
+	if ( function_exists( 'vk_add_hidden_class' ) ) {
+		if ( vk_add_hidden_class( $classes, $attr ) ) {
+			$classes .= ' ' . vk_add_hidden_class( $classes, $attr );
+		}
 	}
 
 	$attr = shortcode_atts(
@@ -95,8 +97,11 @@ function vkExUnit_sitemap( $attr ) {
 		),
 		$attr
 	);
+	if ( ! empty( $attr['className'] ) ) {
+		$classes .= ' ' . $attr['className'];
+	}
 
-	$sitemap_html = '<div class="row veu_sitemap ' . esc_attr($attr['className']) . ' ' . esc_attr($classes) .'">' . PHP_EOL;
+	$sitemap_html = '<div class="row veu_sitemap' . esc_attr( $classes ) . '">' . PHP_EOL;
 
 	/*
 	 Exclude Page ids by ExUnit Main Setting Page
@@ -281,7 +286,7 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 add_action( 'init', 'veu_sitemap_block_setup', 15 );
 function veu_sitemap_block_setup() {
 	global $common_attributes;
-	if ( function_exists( 'register_block_type' ) ){
+	if ( function_exists( 'register_block_type' ) ) {
 		register_block_type(
 			'vk-blocks/sitemap',
 			array(
@@ -290,12 +295,12 @@ function veu_sitemap_block_setup() {
 						'type'    => 'string',
 						'default' => '',
 					),
-					$common_attributes
+					$common_attributes,
 				),
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'vkExUnit_sitemap',
-				'supports' => [],
+				'supports'        => array(),
 			)
 		);
 	}
