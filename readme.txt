@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.7.2
-Stable tag: 9.61.6.0
+Tested up to: 5.8.0
+Stable tag: 9.62.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,11 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.62.0.0 =
+* [ 仕様変更 ][ 子ページリスト ] 続きを読むボタンのサイズクラス名を bt-sm に変更
+* [ 仕様変更 ] サイトマップページのタクソノミータイトルのCSS微調整
+* [ その他 ] WordPress 5.8 対応（notice修正のみ）
 
 = 9.61.6.0 =
 * [ Bug Fix ] Fix SNS icon
