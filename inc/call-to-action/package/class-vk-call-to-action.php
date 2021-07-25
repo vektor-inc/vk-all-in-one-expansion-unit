@@ -15,11 +15,18 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			add_action( 'admin_menu', array( __CLASS__, 'add_metabox_cta_register' ) );
 			add_action( 'save_post', array( __CLASS__, 'save_custom_field' ) );
 			add_action( 'widgets_init', array( __CLASS__, 'widget_init' ) );
-			if ( veu_content_filter_state() == 'content' ) {
-				add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
+
+			$options = get_option( 'vkExUnit_cta_settings' );
+			if ( ! empty( $options['hook_point'] ) ){
+				add_action( $options['hook_point'], array( __CLASS__, 'display_cta_to_hook' ), self::CONTENT_NUMBER, 1 );
 			} else {
-				add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
+				if ( veu_content_filter_state() == 'content' ) {
+					add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
+				} else {
+					add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
+				}
 			}
+
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
 
 			/*
@@ -506,6 +513,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return $content;
 		}
 
+		public static function display_cta_to_hook(){
+			echo self::render_cta_content( self::is_cta_id() );
+		}
+
 
 		public static function is_pagewidget() {
 			global $is_pagewidget;
@@ -542,7 +553,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					if ( $value == 'random' ) {
 						$option[ $key ] = 'random';
 					} else {
-						$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
+						if ( 'hook_point' === $key ){
+							$option[ $key ] = sanitize_text_field( $value );
+						} else {
+							$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
+						}
 					}
 				}
 			}
