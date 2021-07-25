@@ -57,7 +57,7 @@ if ( isset( $options['hook_point'] ) ) {
 <p>
 <?php _e( 'By default, it is output at the bottom of the content.', $vk_call_to_action_textdomain ); ?><br>
 <?php _e( 'If you want to change the location of any action hook, enter the action hook name.', $vk_call_to_action_textdomain ); ?><br>
-<?php _e( 'ex) lightning_site_footer_bofore', $vk_call_to_action_textdomain ); ?>
+<?php _e( 'Ex) lightning_site_footer_before', $vk_call_to_action_textdomain ); ?>
 </p>	
 <input type="text" name="vkExUnit_cta_settings[hook_point]" id="hook_point" value="<?php echo esc_attr( $options_value ); ?>" style="width:100%;" />
 </td></tr>
