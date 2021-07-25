@@ -28,8 +28,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			admin_menu のタイミングで読み込んでいる
 			 */
 			add_action(
-				'admin_menu', function() {
-					require_once( dirname( __FILE__ ) . '/class-veu-metabox-cta.php' );
+				'admin_menu',
+				function() {
+					require_once dirname( __FILE__ ) . '/class-veu-metabox-cta.php';
 				}
 			);
 		}
@@ -44,7 +45,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			echo self::content_filter( '' );
 		}
 
-		//////////////////////////////////////////////////////
 
 		public static function option_init() {
 			vkExUnit_register_setting(
@@ -94,11 +94,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 
 		/**
-	 * [save_custom_field description]
-	 *
-	 * @param  [type] $post_id [description]
-	 * @return [type]          [description]
-	 */
+		 * [save_custom_field description]
+		 *
+		 * @param  [type] $post_id [description]
+		 * @return [type]          [description]
+		 */
 		public static function save_custom_field( $post_id ) {
 			if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) {
 				return $post_id; }
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				// カスタムフィールドの設定
 				$custom_fields = array(
-					'vkExUnit_cta_use_type'    => array(
+					'vkExUnit_cta_use_type'           => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
@@ -187,9 +187,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		} // public static function save_custom_field( $post_id ) {
 
 		/**
-	 * [widget_init description]
-	 * @return [type] [description]
-	 */
+		 * [widget_init description]
+		 *
+		 * @return [type] [description]
+		 */
 		public static function widget_init() {
 			return register_widget( 'Widget_CTA' );
 		}
@@ -269,7 +270,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	</script>
 	<input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
 	<p><?php _e( 'You can create it with a free layout in the content field using, such as Outer block and PR Content block in VK Blocks.', $vk_call_to_action_textdomain ); ?><br>
-	<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?><br>
+			<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?><br>
 	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
 	</p>
 	<table class="form-table">
@@ -279,14 +280,14 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<label for="vkExUnit_cta_use_type"><?php _e( 'Use Classic layout', $vk_call_to_action_textdomain ); ?></label>
 	</th>
 	<td>
-	<?php
-	$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
-	if ( $target_blank == 'veu_cta_normal' ) {
-		$checked = ' checked';
-	} else {
-		$checked = '';
-	}
-	?>
+			<?php
+			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
+			if ( $target_blank == 'veu_cta_normal' ) {
+				$checked = ' checked';
+			} else {
+				$checked = '';
+			}
+			?>
 	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php echo $checked; ?> />
 	<label for="vkExUnit_cta_use_type"><?php _e( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ); ?></label>
 	</td>
@@ -333,11 +334,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		</dl>
 	</div>
 
-<?php
-if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-	echo Vk_Font_Awesome_Versions::ex_and_link();
-}
-?>
+			<?php
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				echo Vk_Font_Awesome_Versions::ex_and_link();
+			}
+			?>
 
 	</p>
 	</td></tr>
@@ -347,14 +348,14 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 	</td></tr>
 	<tr><th>
 
-	<?php
-	$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );
-	if ( $target_blank == 'window_self' ) {
-		$checked = ' checked';
-	} else {
-		$checked = '';
-	}
-	?>
+			<?php
+			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );
+			if ( $target_blank == 'window_self' ) {
+				$checked = ' checked';
+			} else {
+				$checked = '';
+			}
+			?>
 	<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', $vk_call_to_action_textdomain ); ?></label></th><td>
 <input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php echo $checked; ?> />
 <label for="vkExUnit_cta_url_blank"><?php _e( 'Open in a self window', 'vk-all-in-one-expansion-unit' ); ?></label>
@@ -366,7 +367,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 </td></tr>
 </table>
 <a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?></a>
-		<?php
+			<?php
 		}
 
 
@@ -423,7 +424,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
 			}
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される
-			return do_blocks(do_shortcode( $content ));
+			return do_blocks( do_shortcode( $content ) );
 		}
 
 		public static function cta_id_random() {
@@ -523,11 +524,13 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				array(
 					'post' => 'post',
 					'page' => 'page',
-				), get_post_types(
+				),
+				get_post_types(
 					array(
 						'public'   => true,
 						'_builtin' => false,
-					), 'names'
+					),
+					'names'
 				)
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
@@ -554,11 +557,13 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				array(
 					'post' => 'post',
 					'page' => 'page',
-				), get_post_types(
+				),
+				get_post_types(
 					array(
 						'public'   => true,
 						'_builtin' => false,
-					), 'names'
+					),
+					'names'
 				)
 			);
 			foreach ( $posttypes  as $key => $posttype ) {
@@ -581,11 +586,13 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				array(
 					'post' => 'post',
 					'page' => 'page',
-				), get_post_types(
+				),
+				get_post_types(
 					array(
 						'public'   => true,
 						'_builtin' => false,
-					), 'names'
+					),
+					'names'
 				)
 			);
 
@@ -627,14 +634,16 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 			// ランダムを先頭に追加
 			array_unshift(
-				$ctas, array(
+				$ctas,
+				array(
 					'key'   => 'random',
 					'label' => __( 'Random', $vk_call_to_action_textdomain ),
 				)
 			);
 			// 表示しないを先頭に追加
 			array_unshift(
-				$ctas, array(
+				$ctas,
+				array(
 					'key'   => 0,
 					'label' => __( 'Disable display', $vk_call_to_action_textdomain ),
 				)
