@@ -13,7 +13,7 @@
   );
 
   registerBlockType("vk-blocks/page-list-ancestor", {
-    title: __("Page list ancestor", "veu-block"),
+    title: __("Page list from ancestor", "veu-block"),
     icon: BlockIcon,
     category: "veu-block",
     edit: ({className}) => {
