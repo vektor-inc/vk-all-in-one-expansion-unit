@@ -17,14 +17,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			add_action( 'widgets_init', array( __CLASS__, 'widget_init' ) );
 
 			$options = get_option( 'vkExUnit_cta_settings' );
-			if ( ! empty( $options['hook_point'] ) ){
+			if ( ! empty( $options['hook_point'] ) ) {
 				add_action( $options['hook_point'], array( __CLASS__, 'display_cta_to_hook' ), self::CONTENT_NUMBER, 1 );
 			} else {
-				if ( veu_content_filter_state() == 'content' ) {
-					add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
-				} else {
-					add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
-				}
+				add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
 			}
 
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
@@ -42,6 +38,30 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 		}
 
+		/**
+		 * set_content_loopend
+		 * option_init
+		 * set_posttype
+		 * add_metabox_cta_register
+		 * save_custom_field
+		 * widget_init
+		 * setting_page_url
+		 * render_meta_box_cta
+		 * get_cta_post
+		 * render_cta_content
+		 * cta_id_random
+		 * is_cta_id
+		 * content_filter
+		 * display_cta_to_hook
+		 * is_pagewidget
+		 * is_contentsarea_posts_widget
+		 * sanitize_config
+		 * get_default_option
+		 * get_option
+		 * get_ctas
+		 * render_configPage
+		 */
+
 		public static function set_content_loopend( $query ) {
 			if ( ! $query->is_main_query() ) {
 				return;
@@ -51,7 +71,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 			echo self::content_filter( '' );
 		}
-
 
 		public static function option_init() {
 			vkExUnit_register_setting(
@@ -513,7 +532,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return $content;
 		}
 
-		public static function display_cta_to_hook(){
+		public static function display_cta_to_hook() {
 			echo self::render_cta_content( self::is_cta_id() );
 		}
 
@@ -553,7 +572,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					if ( $value == 'random' ) {
 						$option[ $key ] = 'random';
 					} else {
-						if ( 'hook_point' === $key ){
+						if ( 'hook_point' === $key ) {
 							$option[ $key ] = sanitize_text_field( $value );
 						} else {
 							$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
