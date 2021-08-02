@@ -39,7 +39,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 		/**
-		 * set_content_loopend
 		 * option_init
 		 * set_posttype
 		 * add_metabox_cta_register
@@ -61,16 +60,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		 * get_ctas
 		 * render_configPage
 		 */
-
-		public static function set_content_loopend( $query ) {
-			if ( ! $query->is_main_query() ) {
-				return;
-			}
-			if ( ! is_single() ) {
-				return;
-			}
-			echo self::content_filter( '' );
-		}
 
 		public static function option_init() {
 			vkExUnit_register_setting(
@@ -428,6 +417,16 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 			global $vk_call_to_action_textdomain;
 
+			global $post;
+
+			// 各記事で非表示指定されてたら表示しない
+			if ( is_singular() ){
+				$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+				if ( 'disable' === $post_config ) {
+					return;
+				}
+			}
+
 			if ( ! $id ) {
 				return ''; }
 			$post = self::get_cta_post( $id );
@@ -517,6 +516,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 		public static function content_filter( $content ) {
+
 			// 固定ページウィジェットの場合
 			if ( self::is_pagewidget() ) {
 				return $content; }
@@ -527,6 +527,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( vkExUnit_is_excerpt() ) {
 				return $content;
 			}
+
 			// 上記以外の場合に出力
 			$content .= self::render_cta_content( self::is_cta_id() );
 			return $content;
