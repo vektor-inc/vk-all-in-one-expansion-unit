@@ -457,8 +457,12 @@ if ( ! function_exists( 'vkblocks_blocks_categories' ) ) {
 
 		return $categories;
 	}
-
-	add_filter( 'block_categories', 'vkblocks_blocks_categories', 10, 2 );
+	// ver5.8.0 block_categories_all
+	if ( function_exists( 'get_default_block_categories' ) && function_exists( 'get_block_editor_settings' ) ) {
+		add_filter( 'block_categories_all', 'vkblocks_blocks_categories', 10, 2 );
+	} else {
+		add_filter( 'block_categories', 'vkblocks_blocks_categories', 10, 2 );
+	}
 }
 
 if ( ! function_exists( 'vkblocks_set_wp_version' ) ) {

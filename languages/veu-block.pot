@@ -28,7 +28,7 @@ msgid "Set telephone and mail form vertically"
 msgstr ""
 
 #: inc/page-list-ancestor/block.jsx:16
-msgid "Page list ancestor"
+msgid "Page list from ancestor"
 msgstr ""
 
 #: inc/sitemap-page/block.jsx:27

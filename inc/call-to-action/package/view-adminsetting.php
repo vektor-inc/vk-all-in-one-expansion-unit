@@ -34,7 +34,7 @@ global $vk_call_to_action_textdomain;
 <?php foreach ( $options as $type => $value ) : ?>
 <tr><th><label ><?php echo get_post_type_object( $type )->label; ?></label></th>
 <td><select name="vkExUnit_cta_settings[<?php echo $type; ?>]" id="vkExUnit_cta_settings">
-<?php foreach ( $ctas as $cta ) : ?>
+	<?php foreach ( $ctas as $cta ) : ?>
 	<option value="<?php echo $cta['key']; ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo $cta['label']; ?></option>
 <?php endforeach; ?>
 </select>
@@ -42,5 +42,26 @@ global $vk_call_to_action_textdomain;
 </td></tr>
 <?php endforeach; ?>
 </table>
+
+<hr>
+<?php
+$options       = get_option( 'vkExUnit_cta_settings' );
+$options_value = '';
+if ( isset( $options['hook_point'] ) ) {
+	$options_value = $options['hook_point'];
+}
+?>
+<table class="form-table">
+<tr><th><label ><?php _e( 'Output action hook (optional)', $vk_call_to_action_textdomain ); ?></label></th>
+<td>
+<p>
+<?php _e( 'By default, it is output at the bottom of the content.', $vk_call_to_action_textdomain ); ?><br>
+<?php _e( 'If you want to change the location of any action hook, enter the action hook name.', $vk_call_to_action_textdomain ); ?><br>
+<?php _e( 'Ex) lightning_site_footer_before', $vk_call_to_action_textdomain ); ?>
+</p>	
+<input type="text" name="vkExUnit_cta_settings[hook_point]" id="hook_point" value="<?php echo esc_attr( $options_value ); ?>" style="width:100%;" />
+</td></tr>
+</table>
+
 <?php submit_button(); ?>
 </div>
