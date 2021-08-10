@@ -82,24 +82,28 @@ class WidgetBanner extends WP_Widget {
 
 		<div class="vkExUnit_banner_area" style="padding: 2em 0;">
 
-			<div class="media_image_section">
-				<div class="_display admin-custom-thumb-outer" style="height:auto">
-					<?php if ( $image ) : ?>
-						<img src="<?php echo esc_url(  $image[0] ); ?>" class="admin-custom-thumb" style="width:100%;height:auto;" />
-					<?php endif; ?>
-				</div>
-				<!-- [ 画像IDフォーム ] -->
-				<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vk-all-in-one-expansion-unit' ); ?></button>
-				<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
-				<div class="_form" style="line-height: 2em">
-					<input type="hidden" class="_id" name="<?php echo $this->get_field_name( 'id' ); ?>" value="<?php echo esc_attr( $instance['id'] ); ?>" />
-				</div>
 
-			</div><!-- [ /.media_image_section ] -->
+<!-- [ .media_image_section ] -->
+<div class="media_image_section">
 
-			<label><?php _e( 'Alternative text', 'vk-all-in-one-expansion-unit' ); ?> :
+	<div class="_display admin-custom-thumb-outer" style="height:auto">
+		<?php if ( ! empty( $image ) ) : ?>
+			<img src="<?php echo esc_url( $image[0] ); ?>" class="admin-custom-thumb" />
+		<?php endif; ?>
+	</div>
+
+	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vk-all-in-one-expansion-unit' ); ?></button>
+	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
+
+	<div class="_form" style="line-height: 2em">
+		<input type="hidden" class="_id" name="<?php echo $this->get_field_name( 'id' ); ?>" value="<?php echo esc_attr( $instance['id'] ); ?>" />
+	</div>
+
+</div><!-- [ /.media_image_section ] -->
+
+<label><?php _e( 'Alternative text', 'vk-all-in-one-expansion-unit' ); ?> :
 				<input class="_alt" type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" style="width: 100%" value="<?php echo esc_attr( $instance['title'] ); ?>" />
-			</label>
+</label>
 
 			<br/>
 
