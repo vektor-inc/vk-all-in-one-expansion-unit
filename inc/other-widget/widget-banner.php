@@ -14,7 +14,7 @@ class WidgetBanner extends WP_Widget {
 	}
 
 	public static function veu_widget_description() {
-		return sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name());
+		return sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() );
 	}
 
 	public function widget( $args, $instance ) {
@@ -40,7 +40,6 @@ class WidgetBanner extends WP_Widget {
 		return;
 	}
 
-
 	public function update( $new_instance, $old_instance ) {
 		$instance['id']    = $new_instance['id'];
 		$instance['href']  = $new_instance['href'];
@@ -48,7 +47,6 @@ class WidgetBanner extends WP_Widget {
 		$instance['blank'] = ( isset( $new_instance['blank'] ) && $new_instance['blank'] == 'true' );
 		return $new_instance;
 	}
-
 
 	public static function get_bnr_option( $instance = array() ) {
 
