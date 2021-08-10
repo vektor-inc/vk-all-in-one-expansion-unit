@@ -65,6 +65,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 <p><label for="<?php echo $this->get_field_id( 'profile' ); ?>"><?php _e( 'Select Profile image:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 
 
+<!-- [ .media_image_section ] -->
 <div class="media_image_section">
 
 	<div class="_display admin-custom-thumb-outer" style="height:auto">
@@ -82,6 +83,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	</div>
 
 </div><!-- [ /.media_image_section ] -->
+
 
 		<?php //image round setting ?>
 <p><input type="checkbox" id="<?php echo $this->get_field_id( 'mediaRound' ); ?>" name="<?php echo $this->get_field_name( 'mediaRound' ); ?>" value="true" <?php echo ( $instance['mediaRound'] ) ? 'checked' : ''; ?> ><label for="<?php echo $this->get_field_id( 'mediaRound' ); ?>"><?php _e( 'Cut out round the image.', 'vk-all-in-one-expansion-unit' ); ?></label>
