@@ -64,20 +64,23 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		<?php //media uploader ?>
 <p><label for="<?php echo $this->get_field_id( 'profile' ); ?>"><?php _e( 'Select Profile image:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 
+
 <div class="media_image_section">
+
 	<div class="_display admin-custom-thumb-outer" style="height:auto">
-		<?php
-		if ( ! empty( $instance['mediaFile'] ) ) :
-			?>
+		<?php if ( ! empty( $instance['mediaFile'] ) ) : ?>
 			<img src="<?php echo esc_url( $instance['mediaFile'] ); ?>" class="admin-custom-thumb" />
 		<?php endif; ?>
 	</div>
+
 	<button class="button button-default widget_media_btn_select" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_add(this);return false;"><?php _e( 'Select image', 'vk-all-in-one-expansion-unit' ); ?></button>
 	<button class="button button-default widget_media_btn_reset" style="text-align: center; margin:4px 0;" onclick="javascript:vk_widget_image_del(this);return false;"><?php _e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
+
 	<div class="_form" style="line-height: 2em">
 		<input type="hidden" class="_url" name="<?php echo $this->get_field_name( 'mediaFile' ); ?>" value="<?php echo esc_attr( $instance['mediaFile'] ); ?>" />
-			<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'mediaAlt' ); ?>" value="<?php echo esc_attr( $instance['mediaAlt'] ); ?>" />
+		<input type="hidden" class="_alt" name="<?php echo $this->get_field_name( 'mediaAlt' ); ?>" value="<?php echo esc_attr( $instance['mediaAlt'] ); ?>" />
 	</div>
+
 </div><!-- [ /.media_image_section ] -->
 
 		<?php //image round setting ?>
