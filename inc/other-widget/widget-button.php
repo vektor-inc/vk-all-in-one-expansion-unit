@@ -37,11 +37,15 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	public static function veu_widget_name() {
-		return veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
+		$name = veu_get_prefix() . __( 'Button', 'vk-all-in-one-expansion-unit' );
+		// $name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
+		return $name;
 	}
 
 	public static function veu_widget_description() {
-		return __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' );
+		$description  = __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' );
+		// $description .= '<br>* * * * * * * * * * * * * * * * * * * * * * * *<br>' . __( '現在はブロックエディタで「VK ボタン」ブロックか WordPress標準の「ボタン」ブロックで代用可能です。', 'vk-all-in-one-expansion-unit' );
+		return $description;
 	}
 
 	function widget( $args, $instance ) {

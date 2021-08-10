@@ -10,11 +10,15 @@ class WidgetBanner extends WP_Widget {
 	}
 
 	public static function veu_widget_name() {
-		return veu_get_prefix() . __( 'Banner', 'vk-all-in-one-expansion-unit' );
+		$name = veu_get_prefix() . __( 'Banner', 'vk-all-in-one-expansion-unit' );
+		// $name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
+		return $name;
 	}
 
 	public static function veu_widget_description() {
-		return sprintf( __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' ), vkExUnit_get_little_short_name() );
+		$description  = __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' );
+		// $description .= '<br>* * * * * * * * * * * * * * * * * * * * * * * *<br>' . __( '現在はWordPress標準の画像ウィジェットかブロックエディタの画像ブロックで代用可能です。', 'vk-all-in-one-expansion-unit' );
+		return $description;
 	}
 
 	public function widget( $args, $instance ) {
@@ -111,7 +115,8 @@ class WidgetBanner extends WP_Widget {
 				<?php
 				if ( $instance['blank'] ) {
 					echo 'checked';}
-				?> /> <?php _e( 'Open link new tab.', 'vk-all-in-one-expansion-unit' ); ?></label>
+				?>
+				 /> <?php _e( 'Open link new tab.', 'vk-all-in-one-expansion-unit' ); ?></label>
 
 		</div>
 

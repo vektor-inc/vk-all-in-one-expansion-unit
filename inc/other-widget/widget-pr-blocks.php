@@ -22,7 +22,9 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 	public static function veu_widget_name() {
-		return veu_get_prefix() . __( 'PR Blocks', 'vk-all-in-one-expansion-unit' );
+		$name = veu_get_prefix() . __( 'PR Blocks', 'vk-all-in-one-expansion-unit' );
+		// $name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
+		return $name;
 	}
 
 	public static function veu_widget_description() {

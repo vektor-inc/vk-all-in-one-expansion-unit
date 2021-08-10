@@ -25,32 +25,32 @@ function veu_widget_packages() {
 			'class' => 'WP_Widget_vkExUnit_post_list',
 		),
 		array(
-			'id'    => 'profile',
-			'class' => 'WP_Widget_vkExUnit_profile',
-		),
-		array(
-			'id'    => '3pr_area',
-			'class' => 'WP_Widget_vkExUnit_3PR_area',
-		),
-		array(
-			'id'    => 'widget_page',
-			'class' => 'WP_Widget_vkExUnit_widget_page',
+			'id'    => 'archive_list',
+			'class' => 'WP_Widget_VK_archive_list',
 		),
 		array(
 			'id'    => 'taxonomy_list',
 			'class' => 'WP_Widget_VK_taxonomy_list',
 		),
 		array(
-			'id'    => 'archive_list',
-			'class' => 'WP_Widget_VK_archive_list',
+			'id'    => 'child_page_list',
+			'class' => 'WP_Widget_vkExUnit_ChildPageList',
+		),
+		array(
+			'id'    => 'profile',
+			'class' => 'WP_Widget_vkExUnit_profile',
+		),
+		array(
+			'id'    => 'widget_page',
+			'class' => 'WP_Widget_vkExUnit_widget_page',
+		),
+		array(
+			'id'    => '3pr_area',
+			'class' => 'WP_Widget_vkExUnit_3PR_area',
 		),
 		array(
 			'id'    => 'pr_blocks',
 			'class' => 'WP_Widget_vkExUnit_PR_Blocks',
-		),
-		array(
-			'id'    => 'child_page_list',
-			'class' => 'WP_Widget_vkExUnit_ChildPageList',
 		),
 		array(
 			'id'    => 'button',
