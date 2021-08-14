@@ -447,7 +447,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( $url ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 			}
-			// wp_reset_query();
+
+			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する
+			wp_reset_postdata();
+
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
 			return do_blocks( do_shortcode( $content ) );
 		}
