@@ -419,8 +419,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 			global $post;
 
-			// 各記事で非表示指定されてたら表示しない
-			if ( is_singular() ){
+			// 各記事で非表示指定されてたら表示しない.
+			if ( is_singular() ) {
 				$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
 				if ( 'disable' === $post_config ) {
 					return;
@@ -428,27 +428,29 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			if ( ! $id ) {
-				return ''; }
+				return '';
+			}
 			$post = self::get_cta_post( $id );
 
-			// たぶん何か必ず $post にはデータが返ってくるので事実上不要
+			// たぶん何か必ず $post にはデータが返ってくるので事実上不要.
 			if ( ! $post ) {
 				return ''; }
 
-			// 本文に入力がある場合は本文を表示
+			// 本文に入力がある場合は本文を表示.
 			$cta_content = $post->post_content;
-			if ( $cta_content && $post->vkExUnit_cta_use_type != 'veu_cta_normal' ) {
+			if ( $cta_content && 'veu_cta_normal' !== $post->vkExUnit_cta_use_type ) {
 				$content = $cta_content;
 			} else {
-				// 旧 CTA レイアウト
+				// 旧 CTA レイアウト.
 				include dirname( __FILE__ ) . '/view-actionbox.php';
 			}
 
-			// Display Edit Button
-			if ( $url = get_edit_post_link( $post->ID ) ) {
+			// Display Edit Button.
+			$url = get_edit_post_link( $post->ID );
+			if ( $url ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
 			}
-			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される
+			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
 			return do_blocks( do_shortcode( $content ) );
 		}
 
@@ -482,11 +484,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( $post_config ) {
 
 				// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
-				if ( $post_config == 'disable' ) {
+				if ( 'disable' === $post_config ) {
 					return null; }
 
 				// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
-				if ( $post_config == 'random' ) {
+				if ( 'random' === $post_config ) {
 					return self::cta_id_random();
 				}
 				return $post_config;
@@ -505,7 +507,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if (
 			isset( $option[ $post_type ] ) &&
 			is_numeric( $option[ $post_type ] )
-			// $option[ $post_type ] > 0
 			) {
 				// その数字（表示するCTAの投稿ID）を返す
 				return $option[ $post_type ];
