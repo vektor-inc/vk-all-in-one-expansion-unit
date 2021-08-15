@@ -427,15 +427,15 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( ! $id ) {
 				return '';
 			}
-			$post = self::get_cta_post( $id );
+			$cta_post = self::get_cta_post( $id );
 
-			// たぶん何か必ず $post にはデータが返ってくるので事実上不要.
-			if ( ! $post ) {
+			// たぶん何か必ず $cta_post にはデータが返ってくるので事実上不要.
+			if ( ! $cta_post ) {
 				return ''; }
 
 			// 本文に入力がある場合は本文を表示.
-			$cta_content = $post->post_content;
-			if ( $cta_content && 'veu_cta_normal' !== $post->vkExUnit_cta_use_type ) {
+			$cta_content = $cta_post->post_content;
+			if ( $cta_content && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
 				$content = $cta_content;
 			} else {
 				// 旧 CTA レイアウト.
@@ -443,7 +443,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			// Display Edit Button.
-			$url = get_edit_post_link( $post->ID );
+			$url = get_edit_post_link( $cta_post->ID );
 			if ( $url ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 			}
