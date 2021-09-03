@@ -84,13 +84,13 @@ e.g.
 == Changelog ==
 
 = 9.64.6.0 =
-* [Bug fix] [CTA] Fix Private Post display
+* [ Other ][ CTA ] PHPUnit test update
 
 = 9.64.5.0 =
-* [Bug fix] [CTA] Fix Old CTA ( by Custom Fieleds ) Title
+* [ Bug fix ][ CTA ] Fix Old CTA ( by Custom Fieleds ) Title
 
 = 9.64.4.0 =
-* [Bug fix] [Banner widget] Added due to missing URL input field
+* [ Bug fix ][ Banner widget ] Added due to missing URL input field
 
 = 9.64.3.0 =
 * [ Bug fix ][ Call To Action ] Fix global $post pollution it's bring to bug for child page list and so on.
@@ -739,7 +739,7 @@ Restore version 9
 * [ Bug fix ][ VK Blocks ][ outer ] Lightning Pro theme（No child） no work bug fix
 
 = 7.7.1 =
-* [Bug fix][ VK Blocks ][ outer ] Child theme no work bug fix
+* [ Bug fix ][ VK Blocks ][ outer ] Child theme no work bug fix
 
 = 7.7.0 =
 * [ Add function ][ CTA ] Add content field free layout function
