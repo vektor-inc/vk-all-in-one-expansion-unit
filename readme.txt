@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.7.2
-Stable tag: 9.61.6.0
+Tested up to: 5.8.0
+Stable tag: 9.64.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,7 +79,41 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
+
+
 == Changelog ==
+
+= 9.64.6.0 =
+* [Bug fix] [CTA] Fix Private Post display
+
+= 9.64.5.0 =
+* [Bug fix] [CTA] Fix Old CTA ( by Custom Fieleds ) Title
+
+= 9.64.4.0 =
+* [Bug fix] [Banner widget] Added due to missing URL input field
+
+= 9.64.3.0 =
+* [ Bug fix ][ Call To Action ] Fix global $post pollution it's bring to bug for child page list and so on.
+
+= 9.64.2.0 =
+* [ Bug fix ][ Call To Action ] Fix comment bug.
+
+= 9.64.1.0 =
+* [ Bug fix ][ Banner Widget ] Fix change banner image on widget setting page
+
+= 9.64.0.0 =
+* [ Specification Change ][ CTA ] Change disable priority by individual post
+
+= 9.63.1.0 =
+* [ Other ][ CTA ] text only.
+
+= 9.63.0.0 =
+* [ Add function ][ CTA ] Add function of change out put action hook.
+
+= 9.62.0.0 =
+* [ Specification Change ][ Child page list ] readmore btn class btn-xs -> btn-sm
+* [ Specification Change ][ HTML Sitemap ] tuning of taxonomy css
+* [ Other ] Cope with WordPress 5.8
 
 = 9.61.6.0 =
 * [ Bug Fix ] Fix SNS icon

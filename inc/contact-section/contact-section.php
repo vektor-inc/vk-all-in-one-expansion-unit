@@ -198,7 +198,7 @@ class VkExUnit_Contact {
 			'contact_image'     => '',
 			'contact_html'      => '',
 		);
-		$option  = get_option( 'vkExUnit_contact', $default );
+		$option  = get_option( 'vkExUnit_contact' );
 		// オプション値が無い時は get_option の第２引数で登録されるが、
 		// 既に値が存在しているが、項目があとから追加された時用に wp_parse_args をしている
 		return wp_parse_args( $option, $default );

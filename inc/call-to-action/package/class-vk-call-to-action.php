@@ -56,13 +56,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 		public static function set_posttype() {
-			global $vk_call_to_action_textdomain;
+
 			$labels = array(
 				'name'          => 'CTA',
 				'singular_name' => 'CTA',
-				'edit_item'     => __( 'Edit CTA', $vk_call_to_action_textdomain ),
-				'add_new_item'  => __( 'Add new CTA', $vk_call_to_action_textdomain ),
-				'new_item'      => __( 'New CTA', $vk_call_to_action_textdomain ),
+				'edit_item'     => __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ),
+				'add_new_item'  => __( 'Add new CTA', 'vk-all-in-one-expansion-unit' ),
+				'new_item'      => __( 'New CTA', 'vk-all-in-one-expansion-unit' ),
 			);
 
 			$args = array(
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				return $post_id;
 			}
 
-			if ( $_POST['_vkExUnit_cta_switch'] == 'cta_number' ) {
+			if ( 'cta_number' === $_POST['_vkExUnit_cta_switch'] ) {
 				$data = $_POST['vkexunit_cta_each_option'];
 
 				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
@@ -125,7 +125,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				return $post_id;
 			} elseif ( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ) {
 
-				// カスタムフィールドの設定
+				// カスタムフィールドの設定.
 				$custom_fields = array(
 					'vkExUnit_cta_use_type'    => array(
 						'escape_type' => '',
@@ -159,7 +159,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					),
 				);
 
-				// カスタムフィールドの保存
+				// カスタムフィールドの保存.
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
@@ -554,11 +554,13 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				array(
 					'post' => 'post',
 					'page' => 'page',
-				), get_post_types(
+				),
+				get_post_types(
 					array(
 						'public'   => true,
 						'_builtin' => false,
-					), 'names'
+					),
+					'names'
 				)
 			);
 			foreach ( $posttypes  as $key => $posttype ) {
@@ -581,11 +583,13 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				array(
 					'post' => 'post',
 					'page' => 'page',
-				), get_post_types(
+				),
+				get_post_types(
 					array(
 						'public'   => true,
 						'_builtin' => false,
-					), 'names'
+					),
+					'names'
 				)
 			);
 
@@ -621,22 +625,24 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 
 
 		public static function render_configPage() {
-			global $vk_call_to_action_textdomain;
+
 			$options = self::get_option();
 			$ctas    = self::get_ctas( true, '  - ' );
 
-			// ランダムを先頭に追加
+			// ランダムを先頭に追加.
 			array_unshift(
-				$ctas, array(
+				$ctas,
+				array(
 					'key'   => 'random',
-					'label' => __( 'Random', $vk_call_to_action_textdomain ),
+					'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
 				)
 			);
-			// 表示しないを先頭に追加
+			// 表示しないを先頭に追加.
 			array_unshift(
-				$ctas, array(
-					'key'   => '0',
-					'label' => __( 'Disable display', $vk_call_to_action_textdomain ),
+				$ctas,
+				array(
+					'key'   => 0,
+					'label' => __( 'Disable display', 'vk-all-in-one-expansion-unit' ),
 				)
 			);
 
