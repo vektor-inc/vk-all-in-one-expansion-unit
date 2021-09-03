@@ -70,6 +70,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 		}
 
+		/**
+		 * Set CTA Post Type
+		 *
+		 * @return void
+		 */
 		public static function set_posttype() {
 
 			$labels = array(
@@ -100,7 +105,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			register_post_type( self::POST_TYPE, $args );
 		}
 
-
+		/**
+		 * Add CTA Metabox
+		 *
+		 * @return void
+		 */
 		public static function add_metabox_cta_register() {
 
 			// Meta box of CTA edit and register page.
@@ -296,19 +305,19 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<td>
 			<?php
 			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
-			if ( $target_blank == 'veu_cta_normal' ) {
+			if ( 'veu_cta_normal' === $target_blank ) {
 				$checked = ' checked';
 			} else {
 				$checked = '';
 			}
 			?>
-	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php echo $checked; ?> />
+	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php echo esc_attr( $checked ); ?> />
 	<label for="vkExUnit_cta_use_type"><?php _e( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ); ?></label>
 	</td>
 	</tr>
 
 	<tr>
-	<th><?php _e( 'CTA image', 'vk-all-in-one-expansion-unit' ); ?></th>
+	<th><?php esc_html_e( 'CTA image', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
 		<div id="cta-thumbnail_box" >
 		<img id="cta-thumbnail_image" src="<?php echo ( $cta_image ) ? $cta_image[0] : ''; ?>" class="<?php echo ( $cta_image ) ? '' : 'noimage'; ?>" />
@@ -605,7 +614,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				)
 			);
 			foreach ( $posttypes  as $key => $posttype ) {
-				$option[ $posttype ] = false;
+				$option[ $posttype ] = '0';
 			}
 			return $option;
 		}
@@ -670,7 +679,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			$options = self::get_option();
 			$ctas    = self::get_ctas( true, '  - ' );
 
-			// ランダムを先頭に追加
+			// ランダムを先頭に追加.
 			array_unshift(
 				$ctas,
 				array(
@@ -678,7 +687,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
 				)
 			);
-			// 表示しないを先頭に追加
+			// 表示しないを先頭に追加.
 			array_unshift(
 				$ctas,
 				array(
