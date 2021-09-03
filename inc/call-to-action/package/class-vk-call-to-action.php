@@ -103,7 +103,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		public static function add_metabox_cta_register() {
 
-			// Meta box of CTA edit and register page
+			// Meta box of CTA edit and register page.
 			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
 		}
 
@@ -119,7 +119,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				return $post_id; }
 			$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_custom_cta'] ) : null;
 
-			// if autosave is to deny
+			// if autosave is to deny.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return $post_id; }
 
@@ -127,18 +127,18 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				return $post_id;
 			}
 
-			if ( $_POST['_vkExUnit_cta_switch'] == 'cta_number' ) {
+			if ( 'cta_number' === $_POST['_vkExUnit_cta_switch'] ) {
 				$data = $_POST['vkexunit_cta_each_option'];
 
 				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
 					add_post_meta( $post_id, 'vkexunit_cta_each_option', $data, true );
-				} elseif ( $data != get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) ) {
+				} elseif ( get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) !== $data ) {
 					update_post_meta( $post_id, 'vkexunit_cta_each_option', $data );
 				} elseif ( ! $data ) {
 					delete_post_meta( $post_id, 'vkexunit_cta_each_option', get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) );
 				}
 				return $post_id;
-			} elseif ( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ) {
+			} elseif ( 'cta_content' === $_POST['_vkExUnit_cta_switch'] ) {
 
 				// カスタムフィールドの設定.
 				$custom_fields = array(
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				return $post_id;
 			}
-		} // public static function save_custom_field( $post_id ) {
+		}
 
 		/**
 		 * [widget_init description]
