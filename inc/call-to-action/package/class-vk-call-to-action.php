@@ -605,7 +605,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				)
 			);
 			foreach ( $posttypes  as $key => $posttype ) {
-				$option[ $posttype ] = false;
+				$option[ $posttype ] = '0';
 			}
 			return $option;
 		}
@@ -670,7 +670,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			$options = self::get_option();
 			$ctas    = self::get_ctas( true, '  - ' );
 
-			// ランダムを先頭に追加
+			// ランダムを先頭に追加.
 			array_unshift(
 				$ctas,
 				array(
@@ -678,7 +678,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
 				)
 			);
-			// 表示しないを先頭に追加
+			// 表示しないを先頭に追加.
 			array_unshift(
 				$ctas,
 				array(
