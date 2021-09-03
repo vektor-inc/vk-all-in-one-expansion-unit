@@ -15,11 +15,14 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			add_action( 'admin_menu', array( __CLASS__, 'add_metabox_cta_register' ) );
 			add_action( 'save_post', array( __CLASS__, 'save_custom_field' ) );
 			add_action( 'widgets_init', array( __CLASS__, 'widget_init' ) );
-			if ( veu_content_filter_state() == 'content' ) {
-				add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
+
+			$options = get_option( 'vkExUnit_cta_settings' );
+			if ( ! empty( $options['hook_point'] ) ) {
+				add_action( $options['hook_point'], array( __CLASS__, 'display_cta_to_hook' ), self::CONTENT_NUMBER, 1 );
 			} else {
-				add_action( 'loop_end', array( __CLASS__, 'set_content_loopend' ), self::CONTENT_NUMBER, 1 );
+				add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
 			}
+
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
 
 			/*
@@ -28,23 +31,35 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			admin_menu のタイミングで読み込んでいる
 			 */
 			add_action(
-				'admin_menu', function() {
-					require_once( dirname( __FILE__ ) . '/class-veu-metabox-cta.php' );
+				'admin_menu',
+				function() {
+					require_once dirname( __FILE__ ) . '/class-veu-metabox-cta.php';
 				}
 			);
 		}
 
-		public static function set_content_loopend( $query ) {
-			if ( ! $query->is_main_query() ) {
-				return;
-			}
-			if ( ! is_single() ) {
-				return;
-			}
-			echo self::content_filter( '' );
-		}
-
-		//////////////////////////////////////////////////////
+		/**
+		 * option_init
+		 * set_posttype
+		 * add_metabox_cta_register
+		 * save_custom_field
+		 * widget_init
+		 * setting_page_url
+		 * render_meta_box_cta
+		 * get_cta_post
+		 * render_cta_content
+		 * cta_id_random
+		 * is_cta_id
+		 * content_filter
+		 * display_cta_to_hook
+		 * is_pagewidget
+		 * is_contentsarea_posts_widget
+		 * sanitize_config
+		 * get_default_option
+		 * get_option
+		 * get_ctas
+		 * render_configPage
+		 */
 
 		public static function option_init() {
 			vkExUnit_register_setting(
@@ -87,24 +102,24 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 
 		public static function add_metabox_cta_register() {
-			global $vk_call_to_action_textdomain;
-			// Meta box of CTA edit and register page
-			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', $vk_call_to_action_textdomain ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
+
+			// Meta box of CTA edit and register page.
+			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high' );
 		}
 
 
 		/**
-	 * [save_custom_field description]
-	 *
-	 * @param  [type] $post_id [description]
-	 * @return [type]          [description]
-	 */
+		 * [save_custom_field description]
+		 *
+		 * @param  [type] $post_id [description]
+		 * @return [type]          [description]
+		 */
 		public static function save_custom_field( $post_id ) {
 			if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) {
 				return $post_id; }
 			$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_custom_cta'] ) : null;
 
-			// if autosave is to deny
+			// if autosave is to deny.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return $post_id; }
 
@@ -117,17 +132,17 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
 					add_post_meta( $post_id, 'vkexunit_cta_each_option', $data, true );
-				} elseif ( $data != get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) ) {
+				} elseif ( get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) !== $data ) {
 					update_post_meta( $post_id, 'vkexunit_cta_each_option', $data );
 				} elseif ( ! $data ) {
 					delete_post_meta( $post_id, 'vkexunit_cta_each_option', get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) );
 				}
 				return $post_id;
-			} elseif ( $_POST['_vkExUnit_cta_switch'] == 'cta_content' ) {
+			} elseif ( 'cta_content' === $_POST['_vkExUnit_cta_switch'] ) {
 
 				// カスタムフィールドの設定.
 				$custom_fields = array(
-					'vkExUnit_cta_use_type'    => array(
+					'vkExUnit_cta_use_type'           => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
@@ -184,12 +199,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				return $post_id;
 			}
-		} // public static function save_custom_field( $post_id ) {
+		}
 
 		/**
-	 * [widget_init description]
-	 * @return [type] [description]
-	 */
+		 * [widget_init description]
+		 *
+		 * @return [type] [description]
+		 */
 		public static function widget_init() {
 			return register_widget( 'Widget_CTA' );
 		}
@@ -211,7 +227,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		public static function render_meta_box_cta() {
 
-			global $vk_call_to_action_textdomain;
 			echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />';
 			$imgid          = get_post_meta( get_the_id(), 'vkExUnit_cta_img', true );
 			$cta_image      = wp_get_attachment_image_src( $imgid, 'large' );
@@ -268,120 +283,121 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	});
 	</script>
 	<input type="hidden" name="_vkExUnit_cta_switch" value="cta_content" />
-	<p><?php _e( 'You can create it with a free layout in the content field using, such as Outer block and PR Content block in VK Blocks.', $vk_call_to_action_textdomain ); ?><br>
-	<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', $vk_call_to_action_textdomain ); ?><br>
-	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', $vk_call_to_action_textdomain ); ?>
+	<p><?php _e( 'You can create it with a free layout in the content field using, such as Outer block and PR Content block in VK Blocks.', 'vk-all-in-one-expansion-unit' ); ?><br>
+			<?php _e( 'If the contents field is entered, the contents of the body will be displayed with priority, so the following contents will be ignored.', 'vk-all-in-one-expansion-unit' ); ?><br>
+	* <?php _e( 'The entered contents are displayed directly. You can not use Dynamic blocks, reuse blocks, etc.', 'vk-all-in-one-expansion-unit' ); ?>
 	</p>
 	<table class="form-table">
 
 	<tr>
 	<th>
-	<label for="vkExUnit_cta_use_type"><?php _e( 'Use Classic layout', $vk_call_to_action_textdomain ); ?></label>
+	<label for="vkExUnit_cta_use_type"><?php _e( 'Use Classic layout', 'vk-all-in-one-expansion-unit' ); ?></label>
 	</th>
 	<td>
-	<?php
-	$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
-	if ( $target_blank == 'veu_cta_normal' ) {
-		$checked = ' checked';
-	} else {
-		$checked = '';
-	}
-	?>
+			<?php
+			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
+			if ( $target_blank == 'veu_cta_normal' ) {
+				$checked = ' checked';
+			} else {
+				$checked = '';
+			}
+			?>
 	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php echo $checked; ?> />
 	<label for="vkExUnit_cta_use_type"><?php _e( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ); ?></label>
 	</td>
 	</tr>
 
 	<tr>
-	<th><?php _e( 'CTA image', $vk_call_to_action_textdomain ); ?></th>
+	<th><?php _e( 'CTA image', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
 		<div id="cta-thumbnail_box" >
 		<img id="cta-thumbnail_image" src="<?php echo ( $cta_image ) ? $cta_image[0] : ''; ?>" class="<?php echo ( $cta_image ) ? '' : 'noimage'; ?>" />
 		</div>
 		<div id="cta-thumbnail_control" class="<?php echo ( $cta_image ) ? 'change' : 'add'; ?>">
-		<button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e( 'Add image', $vk_call_to_action_textdomain ); ?></button>
-		<button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e( 'Change image', $vk_call_to_action_textdomain ); ?></button>
-		<button id="media_thumb_url_remove" class="button button-default"><?php _e( 'Remove image', $vk_call_to_action_textdomain ); ?></button>
+		<button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e( 'Add image', 'vk-all-in-one-expansion-unit' ); ?></button>
+		<button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e( 'Change image', 'vk-all-in-one-expansion-unit' ); ?></button>
+		<button id="media_thumb_url_remove" class="button button-default"><?php _e( 'Remove image', 'vk-all-in-one-expansion-unit' ); ?></button>
 		</div>
 		<input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
 	</td>
 	</tr>
-	<tr><th><label for="vkExUnit_cta_img_position"><?php _e( 'CTA image position', $vk_call_to_action_textdomain ); ?></label></th>
+	<tr><th><label for="vkExUnit_cta_img_position"><?php _e( 'CTA image position', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 	<td>
 		<select name="vkExUnit_cta_img_position" id="vkExUnit_cta_img_position">
-		<option value="right" <?php echo ( $image_position == 'right' ) ? 'selected' : ''; ?> ><?php _e( 'right', $vk_call_to_action_textdomain ); ?></option>
-		<option value="center" <?php echo ( $image_position == 'center' ) ? 'selected' : ''; ?> ><?php _e( 'center', $vk_call_to_action_textdomain ); ?></option>
-		<option value="left" <?php echo ( $image_position == 'left' ) ? 'selected' : ''; ?> ><?php _e( 'left', $vk_call_to_action_textdomain ); ?></option>
+		<option value="right" <?php echo ( $image_position == 'right' ) ? 'selected' : ''; ?> ><?php _e( 'right', 'vk-all-in-one-expansion-unit' ); ?></option>
+		<option value="center" <?php echo ( $image_position == 'center' ) ? 'selected' : ''; ?> ><?php _e( 'center', 'vk-all-in-one-expansion-unit' ); ?></option>
+		<option value="left" <?php echo ( $image_position == 'left' ) ? 'selected' : ''; ?> ><?php _e( 'left', 'vk-all-in-one-expansion-unit' ); ?></option>
 		</select>
 	</td></tr>
 	<tr><th>
-	<label for="vkExUnit_cta_button_text"><?php _e( 'Button text', $vk_call_to_action_textdomain ); ?></label></th><td>
+	<label for="vkExUnit_cta_button_text"><?php _e( 'Button text', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
 	<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo esc_html( get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ) ); ?>" />
 	</td></tr>
 	<tr><th>
-	<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', $vk_call_to_action_textdomain ); ?></label></th>
+	<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 	<td>
-	<p><?php _e( 'To choose your favorite icon, and enter the class.', $vk_call_to_action_textdomain ); ?></p>
+	<p><?php _e( 'To choose your favorite icon, and enter the class.', 'vk-all-in-one-expansion-unit' ); ?></p>
 	<div class="vkExUnit_cta_button_icon_inputset">
 		<dl>
-		<dt><label for="icon_before"><?php _e( 'Before :', $vk_call_to_action_textdomain ); ?></label></dt>
+		<dt><label for="icon_before"><?php _e( 'Before :', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
 		<dd><input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /></dd>
 		</dl>
 		<dl>
-		<dt><label for="icon_after"><?php _e( 'After :', $vk_call_to_action_textdomain ); ?></label></dt>
+		<dt><label for="icon_after"><?php _e( 'After :', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
 		<dd><input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /></dd>
 		</dl>
 	</div>
 
-<?php
-if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-	echo Vk_Font_Awesome_Versions::ex_and_link();
-}
-?>
+			<?php
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				echo Vk_Font_Awesome_Versions::ex_and_link();
+			}
+			?>
 
 	</p>
 	</td></tr>
 	<tr><th>
-	<label for="vkExUnit_cta_url"><?php _e( 'Button link url', $vk_call_to_action_textdomain ); ?></label></th><td>
+	<label for="vkExUnit_cta_url"><?php _e( 'Button link url', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
 	<input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="https://" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_url', true ); ?>" />
 	</td></tr>
 	<tr><th>
 
-	<?php
-	$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );
-	if ( $target_blank == 'window_self' ) {
-		$checked = ' checked';
-	} else {
-		$checked = '';
-	}
-	?>
-	<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', $vk_call_to_action_textdomain ); ?></label></th><td>
+			<?php
+			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );
+			if ( $target_blank == 'window_self' ) {
+				$checked = ' checked';
+			} else {
+				$checked = '';
+			}
+			?>
+	<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
 <input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php echo $checked; ?> />
 <label for="vkExUnit_cta_url_blank"><?php _e( 'Open in a self window', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td></tr>
-<tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', $vk_call_to_action_textdomain ); ?>
+<tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
 </th>
 <td>
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ); ?></textarea>
 </td></tr>
 </table>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?></a>
-		<?php
+<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
+			<?php
 		}
 
 
 
 		/**
-		 * [get_cta_post description]
+		 * Get CTA Post
 		 *
-		 * @param  [type] $id [description]
-		 * @return [type]     [description]
+		 * @param int $id post_id of CTA.
+		 * @return object CTA $post object.
 		 */
 		public static function get_cta_post( $id ) {
 			$args  = array(
-				'post_type'  => self::POST_TYPE,
-				'p'          => $id,
-				'post_count' => 1,
+				'post_type'   => self::POST_TYPE,
+				'p'           => $id,
+				'post_count'  => 1,
+				'post_status' => array( 'publish', 'private' ),
 			);
 			$query = new \WP_Query( $args );
 			if ( ! $query->post_count ) {
@@ -399,31 +415,45 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		 */
 		public static function render_cta_content( $id ) {
 
-			global $vk_call_to_action_textdomain;
+			global $post;
+
+			// 各記事で非表示指定されてたら表示しない.
+			if ( is_singular() ) {
+				$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+				if ( 'disable' === $post_config ) {
+					return;
+				}
+			}
 
 			if ( ! $id ) {
-				return ''; }
-			$post = self::get_cta_post( $id );
+				return '';
+			}
+			$cta_post = self::get_cta_post( $id );
 
-			// たぶん何か必ず $post にはデータが返ってくるので事実上不要
-			if ( ! $post ) {
+			// たぶん何か必ず $cta_post にはデータが返ってくるので事実上不要.
+			if ( ! $cta_post ) {
 				return ''; }
 
-			// 本文に入力がある場合は本文を表示
-			$cta_content = $post->post_content;
-			if ( $cta_content && $post->vkExUnit_cta_use_type != 'veu_cta_normal' ) {
+			// 本文に入力がある場合は本文を表示.
+			$cta_content = $cta_post->post_content;
+			if ( $cta_content && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
 				$content = $cta_content;
 			} else {
-				// 旧 CTA レイアウト
+				// 旧 CTA レイアウト.
 				include dirname( __FILE__ ) . '/view-actionbox.php';
 			}
 
-			// Display Edit Button
-			if ( $url = get_edit_post_link( $post->ID ) ) {
-				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', $vk_call_to_action_textdomain ) . '</a></div>';
+			// Display Edit Button.
+			$url = get_edit_post_link( $cta_post->ID );
+			if ( $url ) {
+				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 			}
-			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される
-			return do_blocks(do_shortcode( $content ));
+
+			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.
+			wp_reset_postdata();
+
+			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
+			return do_blocks( do_shortcode( $content ) );
 		}
 
 		public static function cta_id_random() {
@@ -456,11 +486,11 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			if ( $post_config ) {
 
 				// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
-				if ( $post_config == 'disable' ) {
+				if ( 'disable' === $post_config ) {
 					return null; }
 
 				// 「表示しない」が選択されていたら $id には nullを返す（　CTAは表示されない ）
-				if ( $post_config == 'random' ) {
+				if ( 'random' === $post_config ) {
 					return self::cta_id_random();
 				}
 				return $post_config;
@@ -479,7 +509,6 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			if (
 			isset( $option[ $post_type ] ) &&
 			is_numeric( $option[ $post_type ] )
-			// $option[ $post_type ] > 0
 			) {
 				// その数字（表示するCTAの投稿ID）を返す
 				return $option[ $post_type ];
@@ -490,6 +519,7 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 		}
 
 		public static function content_filter( $content ) {
+
 			// 固定ページウィジェットの場合
 			if ( self::is_pagewidget() ) {
 				return $content; }
@@ -500,9 +530,14 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 			if ( vkExUnit_is_excerpt() ) {
 				return $content;
 			}
+
 			// 上記以外の場合に出力
 			$content .= self::render_cta_content( self::is_cta_id() );
 			return $content;
+		}
+
+		public static function display_cta_to_hook() {
+			echo self::render_cta_content( self::is_cta_id() );
 		}
 
 
@@ -523,11 +558,13 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 				array(
 					'post' => 'post',
 					'page' => 'page',
-				), get_post_types(
+				),
+				get_post_types(
 					array(
 						'public'   => true,
 						'_builtin' => false,
-					), 'names'
+					),
+					'names'
 				)
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
@@ -539,7 +576,11 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 					if ( $value == 'random' ) {
 						$option[ $key ] = 'random';
 					} else {
-						$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
+						if ( 'hook_point' === $key ) {
+							$option[ $key ] = sanitize_text_field( $value );
+						} else {
+							$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
+						}
 					}
 				}
 			}
