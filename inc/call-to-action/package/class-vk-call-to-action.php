@@ -387,16 +387,17 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 
 		/**
-		 * [get_cta_post description]
+		 * Get CTA Post
 		 *
-		 * @param  [type] $id [description]
-		 * @return [type]     [description]
+		 * @param int $id post_id of CTA.
+		 * @return object CTA $post object.
 		 */
 		public static function get_cta_post( $id ) {
 			$args  = array(
-				'post_type'  => self::POST_TYPE,
-				'p'          => $id,
-				'post_count' => 1,
+				'post_type'   => self::POST_TYPE,
+				'p'           => $id,
+				'post_count'  => 1,
+				'post_status' => array( 'publish', 'private' ),
 			);
 			$query = new \WP_Query( $args );
 			if ( ! $query->post_count ) {
@@ -448,7 +449,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 			}
 
-			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する
+			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.
 			wp_reset_postdata();
 
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
