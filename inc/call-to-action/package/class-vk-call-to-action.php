@@ -406,7 +406,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				'post_type'   => self::POST_TYPE,
 				'p'           => $id,
 				'post_count'  => 1,
-				'post_status' => array( 'publish', 'private' ),
+				'post_status' => array( 'publish' ),
 			);
 			$query = new \WP_Query( $args );
 			if ( ! $query->post_count ) {

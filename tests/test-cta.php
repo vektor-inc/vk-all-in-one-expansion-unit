@@ -62,7 +62,7 @@ class CTATest extends WP_UnitTestCase {
 			// 非公開.
 			array(
 				'post_id' => $test_posts['post_id_private'],
-				'correct' => 'cta_private',
+				'correct' => null,
 			),
 			// 下書きは表示しない.
 			array(
