@@ -72,8 +72,8 @@ function veu_get_sns_options_default() {
 		'enableTwitterCardTags'       => true,
 		'enableSnsBtns'               => true,
 		'snsBtn_exclude_post_types'   => array(
-			'post' => '',
-			'page' => '',
+			'post' => false,
+			'page' => false,
 		),
 		'snsBtn_position'             => array(
 			'before' => false,
