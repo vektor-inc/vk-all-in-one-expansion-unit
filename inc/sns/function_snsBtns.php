@@ -209,7 +209,7 @@ function veu_get_sns_btns( $attr = array() ) {
 		$socialSet .= '</li>';
 	}
 	// copy
-	if ( ! empty( $options['usePocket'] ) ) {
+	if ( ! empty( $options['useCopy'] ) ) {
 		$socialSet .= '<li class="sb_copy sb_icon">';
 		$socialSet .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $pageTitle . ' ' . urldecode($linkUrl) . '">';
 		$socialSet .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
