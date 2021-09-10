@@ -144,6 +144,12 @@ if ( $options['useLine'] ) {
 	echo 'checked';}
 ?>
  /> <?php _e( 'LINE (mobile only)', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useCopy]" value="true"
+<?php
+if ( $options['useCopy'] ) {
+	echo 'checked';}
+?>
+ /> <?php _e( 'Copy', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 </ul>
 </td>
 </tr>

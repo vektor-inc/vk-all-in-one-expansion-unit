@@ -158,28 +158,64 @@ function veu_get_sns_btns( $attr = array() ) {
 
 	$socialSet = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 	// facebook
-	if ( $options['useFacebook'] ) {
-		$socialSet .= '<li class="sb_facebook sb_icon"><a href="//www.facebook.com/sharer.php?src=bm&u=' . $linkUrl . '&amp;t=' . $pageTitle . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Facebook</span><span class="veu_count_sns_fb"' . $icon_css . '></span></a></li>';
+	if ( ! empty( $options['useFacebook'] ) ) {
+		$socialSet .= '<li class="sb_facebook sb_icon">';
+		$socialSet .= '<a href="//www.facebook.com/sharer.php?src=bm&u=' . $linkUrl . '&amp;t=' . $pageTitle . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$socialSet .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
+		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
+		$socialSet .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
+		$socialSet .= '</a>';
+		$socialSet .= '</li>';
 	}
 
 	// Twitter
-	if ( $options['useTwitter'] ) {
-		$socialSet .= '<li class="sb_twitter sb_icon"><a href="//twitter.com/intent/tweet?url=' . $linkUrl . '&amp;text=' . $pageTitle . '" target="_blank" ' . $outer_css . '><span class="vk_icon_w_r_sns_twitter icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>twitter</span></a></li>';
+	if ( ! empty( $options['useTwitter'] ) ) {
+		$socialSet .= '<li class="sb_twitter sb_icon">';
+		$socialSet .= '<a href="//twitter.com/intent/tweet?url=' . $linkUrl . '&amp;text=' . $pageTitle . '" target="_blank" ' . $outer_css . '>';
+		$socialSet .= '<span class="vk_icon_w_r_sns_twitter icon_sns"' . $icon_css . '></span>';
+		$socialSet .= '<span class="sns_txt"' . $icon_css . '>twitter</span>';
+		$socialSet .= '</a>';
+		$socialSet .= '</li>';
 	}
 
 	// hatena
-	if ( $options['useHatena'] ) {
-		$socialSet .= '<li class="sb_hatena sb_icon"><a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $linkUrl . '&amp;title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Hatena</span><span class="veu_count_sns_hb"' . $icon_css . '></span></a></li>';
+	if ( ! empty( $options['useHatena'] ) ) {
+		$socialSet .= '<li class="sb_hatena sb_icon">';
+		$socialSet .= '<a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $linkUrl . '&amp;title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$socialSet .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
+		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
+		$socialSet .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
+		$socialSet .= '</a>';
+		$socialSet .= '</li>';
 	}
 
 	// line
-	if ( wp_is_mobile() && $options['useLine'] ) :
-		$socialSet .= '<li class="sb_line sb_icon">
-	<a href="line://msg/text/' . $pageTitle . ' ' . $linkUrl . '" ' . $outer_css . '><span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>LINE</span></a></li>';
+	if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
+		$socialSet .= '<li class="sb_line sb_icon">';
+		$socialSet .= '<a href="line://msg/text/' . $pageTitle . ' ' . $linkUrl . '" ' . $outer_css . '>';
+		$socialSet .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
+		$socialSet .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
+		$socialSet .= '</a>';
+		$socialSet .= '</li>';
 	endif;
 	// pocket
 	if ( $options['usePocket'] ) {
-		$socialSet .= '<li class="sb_pocket sb_icon"><a href="//getpocket.com/edit?url=' . $linkUrl . '&title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;"><span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span><span class="sns_txt"' . $icon_css . '>Pocket</span><span class="veu_count_sns_pocket"' . $icon_css . '></span></a></li>';
+		$socialSet .= '<li class="sb_pocket sb_icon">';
+		$socialSet .= '<a href="//getpocket.com/edit?url=' . $linkUrl . '&title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$socialSet .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
+		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
+		$socialSet .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
+		$socialSet .= '</a>';
+		$socialSet .= '</li>';
+	}
+	// copy
+	if ( ! empty( $options['usePocket'] ) ) {
+		$socialSet .= '<li class="sb_copy sb_icon">';
+		$socialSet .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $pageTitle . ' ' . urldecode($linkUrl) . '">';
+		$socialSet .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
+		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
+		$socialSet .= '</button>';
+		$socialSet .= '</li>';
 	}
 
 	$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';

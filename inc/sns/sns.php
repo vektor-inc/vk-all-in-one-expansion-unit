@@ -89,6 +89,7 @@ function veu_get_sns_options_default() {
 		'useHatena'                   => true,
 		'usePocket'                   => true,
 		'useLine'                     => true,
+		'useCopy'                     => true,
 		'entry_count'                 => 'get',
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
@@ -207,6 +208,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
 	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
+	$output['useCopy']                   = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
 	$output['entry_count']                 = esc_attr( $input['entry_count'] );
 
@@ -354,6 +356,16 @@ if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
 
 function vkExUnit_add_sns_options_page() {
 	require dirname( __FILE__ ) . '/sns_admin.php';
-
 }
+
+/**
+ * Load clopboard.js
+ */
+function veu_enqueue_clipboard() {
+	$options = veu_get_sns_options();
+	if ( ! empty( $options['useCopy'] ) ) {
+		wp_enqueue_script( 'copy-button', plugin_dir_url( __FILE__ ) . '/assets/js/copy-button.js', array('clipboard'), null, true );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'veu_enqueue_clipboard' );
 
