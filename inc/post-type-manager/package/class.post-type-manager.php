@@ -207,7 +207,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			}
 			echo '</table>';
-
+			echo '<input type="hidden" name="change-permalink" value="true">';
 		}
 
 		/*
@@ -227,15 +227,17 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 
 			// 自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return $post_id; }
+				return $post_id;
+			}
 
-				// 保存しているカスタムフィールド
+			// 保存しているカスタムフィールド
 			$fields = array(
 				'veu_post_type_id',
 				'veu_post_type_items',
 				'veu_menu_position',
 				'veu_post_type_export_to_api',
 				'veu_taxonomy',
+				'change-permalink'
 			);
 
 			foreach ( $fields as $key => $field ) {
@@ -254,7 +256,6 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 					delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 				}
 			}
-
 		}
 
 		function add_post_notice() {
@@ -374,6 +375,12 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
 
 						} // foreach ($veu_taxonomies as $key => $taxonomy) {
+
+						$change_permalink = get_post_meta( $post->ID, 'change-permalink', true );
+						if ( isset( $change_permalink ) && 'true' === $change_permalink ) {
+							flush_rewrite_rules();
+							update_post_meta( $post->ID, 'change-permalink', 'false' );
+						}
 
 					} // if ( $post_type_id ) {
 
