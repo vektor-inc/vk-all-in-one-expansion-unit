@@ -379,7 +379,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 						$change_permalink = get_post_meta( $post->ID, 'change-permalink', true );
 						if ( isset( $change_permalink ) && 'true' === $change_permalink ) {
 							flush_rewrite_rules();
-							update_post_meta( $post->ID, 'change-permalink', 'false' );
+							delete_post_meta( $post->ID, 'change-permalink' );
 						}
 
 					} // if ( $post_type_id ) {
