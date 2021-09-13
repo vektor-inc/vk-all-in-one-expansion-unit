@@ -37,6 +37,7 @@ define( 'VEU_DIRECTORY_PATH', dirname( __FILE__ ) );
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
 global $vkExUnit_version;
 $vkExUnit_version = $data['version'];
+define( 'VEU_VERSION', $data['version'] );
 
 function veu_get_directory( $path = '' ) {
 	return $dirctory = dirname( __FILE__ ) . $path;
