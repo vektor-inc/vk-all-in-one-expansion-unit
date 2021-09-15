@@ -160,7 +160,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// facebook.
 	if ( ! empty( $options['useFacebook'] ) ) {
 		$social_btns .= '<li class="sb_facebook sb_icon">';
-		$social_btns .= '<a href="//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&amp;t=' . $page_title . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$social_btns .= '<a class="sb_icon_inner" href="//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&amp;t=' . $page_title . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
 		$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
 		$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
@@ -171,7 +171,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// Twitter.
 	if ( ! empty( $options['useTwitter'] ) ) {
 		$social_btns .= '<li class="sb_twitter sb_icon">';
-		$social_btns .= '<a href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
+		$social_btns .= '<a class="sb_icon_inner" href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
 		$social_btns .= '<span class="vk_icon_w_r_sns_twitter icon_sns"' . $icon_css . '></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>twitter</span>';
 		$social_btns .= '</a>';
@@ -181,7 +181,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// hatena.
 	if ( ! empty( $options['useHatena'] ) ) {
 		$social_btns .= '<li class="sb_hatena sb_icon">';
-		$social_btns .= '<a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&amp;title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$social_btns .= '<a class="sb_icon_inner" href="//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&amp;title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
 		$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
 		$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
@@ -192,7 +192,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// line.
 	if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
 		$social_btns .= '<li class="sb_line sb_icon">';
-		$social_btns .= '<a href="line://msg/text/' . $page_title . ' ' . $link_url . '" ' . $outer_css . '>';
+		$social_btns .= '<a class="sb_icon_inner"  href="line://msg/text/' . $page_title . ' ' . $link_url . '" ' . $outer_css . '>';
 		$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
 		$social_btns .= '</a>';
@@ -201,7 +201,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// pocket.
 	if ( $options['usePocket'] ) {
 		$social_btns .= '<li class="sb_pocket sb_icon">';
-		$social_btns .= '<a href="//getpocket.com/edit?url=' . $link_url . '&title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$social_btns .= '<a class="sb_icon_inner"  href="//getpocket.com/edit?url=' . $link_url . '&title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
 		$social_btns .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
 		$social_btns .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
@@ -211,7 +211,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// copy.
 	if ( ! empty( $options['useCopy'] ) ) {
 		$social_btns .= '<li class="sb_copy sb_icon">';
-		$social_btns .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $page_title . ' ' . urldecode( $link_url ) . '">';
+		$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . $page_title . ' ' . urldecode( $link_url ) . '">';
 		$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 		$social_btns .= '</button>';
