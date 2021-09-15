@@ -1,4 +1,9 @@
 <?php
+/**
+ * Share button
+ *
+ * @package vk-all-in-one-expantion-unit
+ */
 
 if ( 'content' === veu_content_filter_state() ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
@@ -6,6 +11,12 @@ if ( 'content' === veu_content_filter_state() ) {
 	add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
 }
 
+/**
+ * Display share button on loop end
+ *
+ * @param object $query : main query.
+ * @return void
+ */
 function veu_add_sns_btns_loopend( $query ) {
 	if ( ! $query->is_main_query() ) {
 		return;
@@ -16,6 +27,11 @@ function veu_add_sns_btns_loopend( $query ) {
 	echo veu_add_sns_btns( '' );
 }
 
+/**
+ * Check sns btn display
+ *
+ * @return bool
+ */
 function veu_is_sns_btns_display() {
 	global $post;
 	$options      = veu_get_sns_options();
@@ -27,15 +43,21 @@ function veu_is_sns_btns_display() {
 		return false;
 	} elseif ( ! isset( $options['snsBtn_ignorePosts'] ) ) {
 		return true;
-	} elseif ( isset( $options['snsBtn_ignorePosts'] ) && $options['snsBtn_ignorePosts'] == $post->ID ) {
+	} elseif ( isset( $options['snsBtn_ignorePosts'] ) && $options['snsBtn_ignorePosts'] === $post->ID ) {
 		return false;
-	} elseif ( is_array( $ignore_posts ) && in_array( $post->ID, $ignore_posts ) ) {
+	} elseif ( is_array( $ignore_posts ) && in_array( $post->ID, $ignore_posts, true ) ) {
 		return false;
 	} else {
 		return true;
 	}
 }
 
+/**
+ * メイン設定で非表示に指定されているかどうか
+ *
+ * @param string $post_type : 投稿タイプスラッグ.
+ * @return bool
+ */
 function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
 	// SNS設定のオプション値を取得.
 	$options = veu_get_sns_options();
@@ -51,7 +73,7 @@ function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
 			// 非表示チェックが入っている場合.
 			if ( $value ) {
 				// 今の投稿タイプと比較。同じだったら...
-				if ( $post_type == $key ) {
+				if ( $post_type === $key ) {
 					return false;
 				}
 			}
@@ -60,16 +82,18 @@ function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
 	return true;
 }
 
-/*
-  SNSアイコンに出力するCSSを出力する関数
-/*-------------------------------------------*/
-
+/**
+ * シェアボタンのCSS
+ *
+ * @param array $options : オプション値.
+ * @return string $outer_css : style
+ */
 function veu_sns_outer_css( $options ) {
+
 	// snsBtn_bg_fill_not が定義されている場合.
-	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
-		$sns_btn_bg_fill_not = esc_html( $options['snsBtn_bg_fill_not'] ); // 中身が ''の場合もありえる
-	} else {
-		$sns_btn_bg_fill_not = '';
+	$sns_btn_bg_fill_not = false;
+	if ( ! empty( $options['snsBtn_bg_fill_not'] ) ) {
+		$sns_btn_bg_fill_not = true;
 	}
 
 	// snsBtn_color が定義されている場合.
@@ -85,7 +109,7 @@ function veu_sns_outer_css( $options ) {
 		$outer_css = '';
 
 		// 背景なし枠線の場合.
-	} elseif ( true === $sns_btn_bg_fill_not ) {
+	} elseif ( $sns_btn_bg_fill_not ) {
 		// 色指定がない場合.
 		if ( ! $sns_btn_color ) {
 			$sns_btn_color = '#ccc';
@@ -94,45 +118,62 @@ function veu_sns_outer_css( $options ) {
 
 		// それ以外（ 背景塗りの時 ）.
 	} else {
-		$outer_css = ' style="border:1px solid ' . $sns_btn_color . ';background-color:' . $sns_btn_color . ';box-shadow: 0 2px 0 rgba(0,0,0,0.15)"';
+		$outer_css = ' style="border:1px solid ' . $sns_btn_color . ';background-color:' . $sns_btn_color . ';box-shadow: 0 2px 0 rgba(0,0,0,0.15);"';
 	}
 	return $outer_css;
 }
 
+/**
+ * シェアボタンのアイコンと文字部分のCSS
+ *
+ * @param array $options : オプション値.
+ * @return string $style : style
+ */
 function veu_sns_icon_css( $options ) {
 	// snsBtn_bg_fill_not が定義されている場合.
-	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
-		$sns_btn_bg_fill_not = esc_html( $options['snsBtn_bg_fill_not'] ); // 中身が ''の場合もありえる.
-	} else {
-		$sns_btn_bg_fill_not = '';
+	$sns_btn_bg_fill_not = '';
+	if ( ! empty( $options['snsBtn_bg_fill_not'] ) ) {
+		$sns_btn_bg_fill_not = true;
 	}
 
 	// snsBtn_color が定義されている場合.
 	if ( isset( $options['snsBtn_color'] ) ) {
-		$sns_btn_color = esc_html( $options['snsBtn_color'] );
+		$style = esc_html( $options['snsBtn_color'] );
 	} else {
-		$sns_btn_color = '';
+		$style = '';
 	}
 
-	if ( ! $sns_btn_bg_fill_not && ! $sns_btn_color ) {
-		$sns_btn_color = '';
-	} elseif ( true === $sns_btn_bg_fill_not ) {
+	if ( ! $sns_btn_bg_fill_not && ! $style ) {
+		$style = '';
+	} elseif ( $sns_btn_bg_fill_not ) {
 		// 線のとき.
-		if ( ! $sns_btn_color ) {
-			$sns_btn_color = '#ccc';
+		if ( ! $style ) {
+			$style = '#ccc';
 		}
-		$sns_btn_color = ' style="color:' . $sns_btn_color . ';"';
+		$style = ' style="color:' . $style . ';"';
 	} else {
 		// 塗りのとき.
-		$sns_btn_color = ' style="color:#fff;"';
+		$style = ' style="color:#fff;"';
 	}
-	return $sns_btn_color;
+	return $style;
 }
 
+/**
+ * Render Block
+ *
+ * @param array $attr : btn parametors.
+ * @return string : sns dom.
+ */
 function veu_sns_block_callback( $attr ) {
 	return veu_get_sns_btns( $attr );
 }
 
+/**
+ * Share button html
+ *
+ * @param array $attr : class / position and so on.
+ * @return string Button DOM
+ */
 function veu_get_sns_btns( $attr = array() ) {
 
 	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
@@ -141,8 +182,8 @@ function veu_get_sns_btns( $attr = array() ) {
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
 
-	$link_url  = urlencode( get_permalink() );
-	$page_title = urlencode( veu_get_the_sns_title() );
+	$link_url   = rawurlencode( get_permalink() );
+	$page_title = veu_get_the_sns_title();
 
 	$classes = '';
 	if ( function_exists( 'vk_add_hidden_class' ) ) {
@@ -222,6 +263,12 @@ function veu_get_sns_btns( $attr = array() ) {
 	return $social_btns;
 }
 
+/**
+ * Add sns btn to $content
+ *
+ * @param string $content : post content.
+ * @return string $content add sns btns
+ */
 function veu_add_sns_btns( $content ) {
 
 	// 個別の記事で ボタンを表示しない指定にしてある場合.
@@ -324,8 +371,8 @@ add_filter(
 		$options['hatena_entry']          = get_rest_url( 0, 'vk_ex_unit/v1/hatena_entry/' );
 		$options['facebook_entry']        = get_rest_url( 0, 'vk_ex_unit/v1/facebook_entry/' );
 		$options['facebook_count_enable'] = false;
-		$options['entry_count']           = (bool) ( $opt['entry_count'] != 'disable' );
-		$options['entry_from_post']       = (bool) ( $opt['entry_count'] == 'post' );
+		$options['entry_count']           = (bool) ( 'disable' !== $opt['entry_count'] );
+		$options['entry_from_post']       = (bool) ( 'post' !== $opt['entry_count'] );
 
 		$opt = veu_get_sns_options();
 		if ( ! empty( $opt['fbAccessToken'] ) ) {
@@ -337,6 +384,12 @@ add_filter(
 	1
 );
 
+/**
+ * Hatena count
+ *
+ * @param string $data : Setting parametor ( url and so on ).
+ * @return string api response
+ */
 function vew_sns_hatena_restapi_callback( $data ) {
 	$link_url = $data['linkurl'];
 	$siteurl  = get_site_url();
@@ -370,6 +423,12 @@ function vew_sns_hatena_restapi_callback( $data ) {
 	return $response;
 }
 
+/**
+ * Facebook count
+ *
+ * @param string $data : Setting parametor ( url and so on ).
+ * @return string api response
+ */
 function vew_sns_facebook_restapi_callback( $data ) {
 	$link_url = $data['linkurl'];
 	$siteurl  = get_site_url();

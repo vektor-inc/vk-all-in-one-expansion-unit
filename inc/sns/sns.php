@@ -329,7 +329,7 @@ if ( $vkExUnit_sns_options['enableOGTags'] == true ) {
 }
 if ( $vkExUnit_sns_options['enableSnsBtns'] == true ) {
 	// シェアボタンを表示する設定の読み込み
-	require dirname( __FILE__ ) . '/function_snsBtns.php';
+	require dirname( __FILE__ ) . '/function-sns-btns.php';
 	/*
 	VEU_Metabox 内の get_post_type が実行タイミングによっては
 	カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
