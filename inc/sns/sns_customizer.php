@@ -561,6 +561,27 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+		// SNS Btn (Copy)
+		$wp_customize->add_setting(
+		'vkExUnit_sns_options[useCopy]',
+		array(
+			'default'           => $default_options['useCopy'],
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'useLine',
+		array(
+			'label'    => __( 'Copy', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useCopy]',
+			'type'     => 'checkbox',
+		)
+	);
+
 	/*
 	  Follow me box
 	/*-------------------------------------------*/

@@ -156,6 +156,7 @@ gulp.task('watch', function() {
 		],
 		gulp.series('scripts')
 	)
+	gulp.watch('./inc/sns/package/_sns.scss', gulp.series('sass'))
 	gulp.watch(
 		[
 			'./inc/smooth-scroll/js/smooth-scroll.js',
