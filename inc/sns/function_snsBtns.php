@@ -1,6 +1,6 @@
 <?php
 
-if ( veu_content_filter_state() == 'content' ) {
+if ( 'content' === veu_content_filter_state() ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
 } else {
 	add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
@@ -18,10 +18,10 @@ function veu_add_sns_btns_loopend( $query ) {
 
 function veu_is_sns_btns_display() {
 	global $post;
-	$options     = veu_get_sns_options();
-	$ignorePosts = explode( ',', $options['snsBtn_ignorePosts'] );
-	$post_type   = vk_get_post_type();
-	$post_type   = $post_type['slug'];
+	$options      = veu_get_sns_options();
+	$ignore_posts = explode( ',', $options['snsBtn_ignorePosts'] );
+	$post_type    = vk_get_post_type();
+	$post_type    = $post_type['slug'];
 
 	if ( isset( $options['snsBtn_exclude_post_types'][ $post_type ] ) && $options['snsBtn_exclude_post_types'][ $post_type ] ) {
 		return false;
@@ -29,7 +29,7 @@ function veu_is_sns_btns_display() {
 		return true;
 	} elseif ( isset( $options['snsBtn_ignorePosts'] ) && $options['snsBtn_ignorePosts'] == $post->ID ) {
 		return false;
-	} elseif ( is_array( $ignorePosts ) && in_array( $post->ID, $ignorePosts ) ) {
+	} elseif ( is_array( $ignore_posts ) && in_array( $post->ID, $ignore_posts ) ) {
 		return false;
 	} else {
 		return true;
@@ -37,18 +37,18 @@ function veu_is_sns_btns_display() {
 }
 
 function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
-	// SNS設定のオプション値を取得
+	// SNS設定のオプション値を取得.
 	$options = veu_get_sns_options();
 
-	// 表示する にチェックが入っていない場合は 投稿詳細画面でボタン非表示のチェックボックスを表示しない
+	// 表示する にチェックが入っていない場合は 投稿詳細画面でボタン非表示のチェックボックスを表示しない.
 	if ( empty( $options['enableSnsBtns'] ) ) {
 		return false;
 	}
 
-	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）
+	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）.
 	if ( isset( $options['snsBtn_exclude_post_types'] ) && is_array( $options['snsBtn_exclude_post_types'] ) ) {
 		foreach ( $options['snsBtn_exclude_post_types'] as $key => $value ) {
-			// 非表示チェックが入っている場合
+			// 非表示チェックが入っている場合.
 			if ( $value ) {
 				// 今の投稿タイプと比較。同じだったら...
 				if ( $post_type == $key ) {
@@ -65,68 +65,68 @@ function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
 /*-------------------------------------------*/
 
 function veu_sns_outer_css( $options ) {
-	// snsBtn_bg_fill_not が定義されている場合
+	// snsBtn_bg_fill_not が定義されている場合.
 	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
-		$snsBtn_bg_fill_not = esc_html( $options['snsBtn_bg_fill_not'] ); // 中身が ''の場合もありえる
+		$sns_btn_bg_fill_not = esc_html( $options['snsBtn_bg_fill_not'] ); // 中身が ''の場合もありえる
 	} else {
-		$snsBtn_bg_fill_not = '';
+		$sns_btn_bg_fill_not = '';
 	}
 
-	// snsBtn_color が定義されている場合
+	// snsBtn_color が定義されている場合.
 	if ( isset( $options['snsBtn_color'] ) ) {
-		$snsBtn_color = esc_html( $options['snsBtn_color'] );
+		$sns_btn_color = esc_html( $options['snsBtn_color'] );
 	} else {
-		$snsBtn_color = '';
+		$sns_btn_color = '';
 	}
 
-	// 背景塗り && 色指定がない場合
-	if ( ! $snsBtn_bg_fill_not && ! $snsBtn_color ) {
+	// 背景塗り && 色指定がない場合.
+	if ( ! $sns_btn_bg_fill_not && ! $sns_btn_color ) {
 		// （ ExUnitのCSSファイルに書かれている色が適用されているので個別には出力しなくてよい ）
 		$outer_css = '';
 
-		// 背景なし枠線の場合
-	} elseif ( $snsBtn_bg_fill_not == true ) {
-		// 色指定がない場合
-		if ( ! $snsBtn_color ) {
-			$snsBtn_color = '#ccc';
+		// 背景なし枠線の場合.
+	} elseif ( true === $sns_btn_bg_fill_not ) {
+		// 色指定がない場合.
+		if ( ! $sns_btn_color ) {
+			$sns_btn_color = '#ccc';
 		}
-		$outer_css = ' style="border:1px solid ' . $snsBtn_color . ';background:none;box-shadow: 0 2px 0 rgba(0,0,0,0.15);"';
+		$outer_css = ' style="border:1px solid ' . $sns_btn_color . ';background:none;box-shadow: 0 2px 0 rgba(0,0,0,0.15);"';
 
-		// それ以外（ 背景塗りの時 ）
+		// それ以外（ 背景塗りの時 ）.
 	} else {
-		$outer_css = ' style="border:1px solid ' . $snsBtn_color . ';background-color:' . $snsBtn_color . ';box-shadow: 0 2px 0 rgba(0,0,0,0.15)"';
+		$outer_css = ' style="border:1px solid ' . $sns_btn_color . ';background-color:' . $sns_btn_color . ';box-shadow: 0 2px 0 rgba(0,0,0,0.15)"';
 	}
 	return $outer_css;
 }
 
 function veu_sns_icon_css( $options ) {
-	// snsBtn_bg_fill_not が定義されている場合
+	// snsBtn_bg_fill_not が定義されている場合.
 	if ( isset( $options['snsBtn_bg_fill_not'] ) ) {
-		$snsBtn_bg_fill_not = esc_html( $options['snsBtn_bg_fill_not'] ); // 中身が ''の場合もありえる
+		$sns_btn_bg_fill_not = esc_html( $options['snsBtn_bg_fill_not'] ); // 中身が ''の場合もありえる.
 	} else {
-		$snsBtn_bg_fill_not = '';
+		$sns_btn_bg_fill_not = '';
 	}
 
-	// snsBtn_color が定義されている場合
+	// snsBtn_color が定義されている場合.
 	if ( isset( $options['snsBtn_color'] ) ) {
-		$snsBtn_color = esc_html( $options['snsBtn_color'] );
+		$sns_btn_color = esc_html( $options['snsBtn_color'] );
 	} else {
-		$snsBtn_color = '';
+		$sns_btn_color = '';
 	}
 
-	if ( ! $snsBtn_bg_fill_not && ! $snsBtn_color ) {
-		$snsBtn_color = '';
-	} elseif ( $snsBtn_bg_fill_not == true ) {
-		// 線のとき
-		if ( ! $snsBtn_color ) {
-			$snsBtn_color = '#ccc';
+	if ( ! $sns_btn_bg_fill_not && ! $sns_btn_color ) {
+		$sns_btn_color = '';
+	} elseif ( true === $sns_btn_bg_fill_not ) {
+		// 線のとき.
+		if ( ! $sns_btn_color ) {
+			$sns_btn_color = '#ccc';
 		}
-		$snsBtn_color = ' style="color:' . $snsBtn_color . ';"';
+		$sns_btn_color = ' style="color:' . $sns_btn_color . ';"';
 	} else {
-		// 塗りのとき
-		$snsBtn_color = ' style="color:#fff;"';
+		// 塗りのとき.
+		$sns_btn_color = ' style="color:#fff;"';
 	}
-	return $snsBtn_color;
+	return $sns_btn_color;
 }
 
 function veu_sns_block_callback( $attr ) {
@@ -141,8 +141,8 @@ function veu_get_sns_btns( $attr = array() ) {
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
 
-	$linkUrl   = urlencode( get_permalink() );
-	$pageTitle = urlencode( veu_get_the_sns_title() );
+	$link_url  = urlencode( get_permalink() );
+	$page_title = urlencode( veu_get_the_sns_title() );
 
 	$classes = '';
 	if ( function_exists( 'vk_add_hidden_class' ) ) {
@@ -156,92 +156,92 @@ function veu_get_sns_btns( $attr = array() ) {
 		$classes .= ' ' . $attr['className'];
 	}
 
-	$socialSet = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
-	// facebook
+	$social_btns = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
+	// facebook.
 	if ( ! empty( $options['useFacebook'] ) ) {
-		$socialSet .= '<li class="sb_facebook sb_icon">';
-		$socialSet .= '<a href="//www.facebook.com/sharer.php?src=bm&u=' . $linkUrl . '&amp;t=' . $pageTitle . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-		$socialSet .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
-		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
-		$socialSet .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
-		$socialSet .= '</a>';
-		$socialSet .= '</li>';
+		$social_btns .= '<li class="sb_facebook sb_icon">';
+		$social_btns .= '<a href="//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&amp;t=' . $page_title . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
+		$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
+		$social_btns .= '</a>';
+		$social_btns .= '</li>';
 	}
 
-	// Twitter
+	// Twitter.
 	if ( ! empty( $options['useTwitter'] ) ) {
-		$socialSet .= '<li class="sb_twitter sb_icon">';
-		$socialSet .= '<a href="//twitter.com/intent/tweet?url=' . $linkUrl . '&amp;text=' . $pageTitle . '" target="_blank" ' . $outer_css . '>';
-		$socialSet .= '<span class="vk_icon_w_r_sns_twitter icon_sns"' . $icon_css . '></span>';
-		$socialSet .= '<span class="sns_txt"' . $icon_css . '>twitter</span>';
-		$socialSet .= '</a>';
-		$socialSet .= '</li>';
+		$social_btns .= '<li class="sb_twitter sb_icon">';
+		$social_btns .= '<a href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
+		$social_btns .= '<span class="vk_icon_w_r_sns_twitter icon_sns"' . $icon_css . '></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>twitter</span>';
+		$social_btns .= '</a>';
+		$social_btns .= '</li>';
 	}
 
-	// hatena
+	// hatena.
 	if ( ! empty( $options['useHatena'] ) ) {
-		$socialSet .= '<li class="sb_hatena sb_icon">';
-		$socialSet .= '<a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $linkUrl . '&amp;title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-		$socialSet .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
-		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
-		$socialSet .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
-		$socialSet .= '</a>';
-		$socialSet .= '</li>';
+		$social_btns .= '<li class="sb_hatena sb_icon">';
+		$social_btns .= '<a href="//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&amp;title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
+		$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
+		$social_btns .= '</a>';
+		$social_btns .= '</li>';
 	}
 
-	// line
+	// line.
 	if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
-		$socialSet .= '<li class="sb_line sb_icon">';
-		$socialSet .= '<a href="line://msg/text/' . $pageTitle . ' ' . $linkUrl . '" ' . $outer_css . '>';
-		$socialSet .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
-		$socialSet .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
-		$socialSet .= '</a>';
-		$socialSet .= '</li>';
+		$social_btns .= '<li class="sb_line sb_icon">';
+		$social_btns .= '<a href="line://msg/text/' . $page_title . ' ' . $link_url . '" ' . $outer_css . '>';
+		$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
+		$social_btns .= '</a>';
+		$social_btns .= '</li>';
 	endif;
-	// pocket
+	// pocket.
 	if ( $options['usePocket'] ) {
-		$socialSet .= '<li class="sb_pocket sb_icon">';
-		$socialSet .= '<a href="//getpocket.com/edit?url=' . $linkUrl . '&title=' . $pageTitle . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-		$socialSet .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
-		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
-		$socialSet .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
-		$socialSet .= '</a>';
-		$socialSet .= '</li>';
+		$social_btns .= '<li class="sb_pocket sb_icon">';
+		$social_btns .= '<a href="//getpocket.com/edit?url=' . $link_url . '&title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+		$social_btns .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
+		$social_btns .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
+		$social_btns .= '</a>';
+		$social_btns .= '</li>';
 	}
-	// copy
+	// copy.
 	if ( ! empty( $options['useCopy'] ) ) {
-		$socialSet .= '<li class="sb_copy sb_icon">';
-		$socialSet .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $pageTitle . ' ' . urldecode( $linkUrl ) . '">';
-		$socialSet .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
-		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
-		$socialSet .= '</button>';
-		$socialSet .= '</li>';
+		$social_btns .= '<li class="sb_copy sb_icon">';
+		$social_btns .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $page_title . ' ' . urldecode( $link_url ) . '">';
+		$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
+		$social_btns .= '</button>';
+		$social_btns .= '</li>';
 	}
 
-	$socialSet .= '</ul></div><!-- [ /.socialSet ] -->';
-	return $socialSet;
+	$social_btns .= '</ul></div><!-- [ /.socialSet ] -->';
+	return $social_btns;
 }
 
 function veu_add_sns_btns( $content ) {
 
-	// 個別の記事で ボタンを表示しない指定にしてある場合
+	// 個別の記事で ボタンを表示しない指定にしてある場合.
 	global $post;
 	if ( isset( $post->sns_share_botton_hide ) && $post->sns_share_botton_hide ) {
 		return $content;
 	}
 
-	// ウィジェットなら表示しない
+	// ウィジェットなら表示しない.
 	global $is_pagewidget;
 	if ( $is_pagewidget ) {
 		return $content; }
 
-	// 抜粋でも表示しない
+	// 抜粋でも表示しない.
 	if ( function_exists( 'vk_is_excerpt' ) ) {
 		if ( vk_is_excerpt() ) {
 			return $content; }
 	}
 
-	// アーカイブページでも表示しない
+	// アーカイブページでも表示しない.
 	if ( is_archive() ) {
 		return $content; }
 
@@ -338,20 +338,20 @@ add_filter(
 );
 
 function vew_sns_hatena_restapi_callback( $data ) {
-	$linkurl = $data['linkurl'];
-	$siteurl = get_site_url();
+	$link_url = $data['linkurl'];
+	$siteurl  = get_site_url();
 
-	if ( strpos( preg_replace( '/^https?:\/\//', '', $linkurl ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
+	if ( strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
 		$response = new WP_REST_Response( array() );
 		$response->set_status( 403 );
 		return $response;
 	}
 
-	$r = wp_safe_remote_get( 'https://bookmark.hatenaapis.com/count/entry?url=' . $linkurl );
+	$r = wp_safe_remote_get( 'https://bookmark.hatenaapis.com/count/entry?url=' . $link_url );
 
 	if ( ! is_wp_error( $r ) ) {
 		$response = new WP_REST_Response( array( 'count' => $r['body'] ) );
-		if ( $data->get_method() == 'GET' ) {
+		if ( 'GET' === $data->get_method() ) {
 			if ( empty( $r['headers']['cache-control'] ) ) {
 				$cache_control = 'Cache-Control: public, max-age=3600, s-maxage=3600';
 			} else {
@@ -371,10 +371,10 @@ function vew_sns_hatena_restapi_callback( $data ) {
 }
 
 function vew_sns_facebook_restapi_callback( $data ) {
-	$linkurl = $data['linkurl'];
-	$siteurl = get_site_url();
+	$link_url = $data['linkurl'];
+	$siteurl  = get_site_url();
 
-	if ( strpos( preg_replace( '/^https?:\/\//', '', $linkurl ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
+	if ( strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
 		$response = new WP_REST_Response( array() );
 		$response->set_status( 403 );
 		return $response;
@@ -387,14 +387,14 @@ function vew_sns_facebook_restapi_callback( $data ) {
 		return $response;
 	}
 
-	$r = wp_safe_remote_get( 'https://graph.facebook.com/?fields=engagement&access_token=' . $options['fbAccessToken'] . '&id=' . $linkurl );
+	$r = wp_safe_remote_get( 'https://graph.facebook.com/?fields=engagement&access_token=' . $options['fbAccessToken'] . '&id=' . $link_url );
 
 	if ( ! is_wp_error( $r ) ) {
 		$j = json_decode( $r['body'] );
 
 		if ( isset( $j->engagement->share_count ) ) {
 			$response = new WP_REST_Response( array( 'count' => $j->engagement->share_count ) );
-			if ( $data->get_method() == 'GET' ) {
+			if ( 'GET' === $data->get_method() ) {
 				$response->header( 'Cache-Control', 'Cache-Control: public, max-age=3600, s-maxage=3600' );
 			} else {
 				$response->header( 'Cache-Control', 'no-cache' );
