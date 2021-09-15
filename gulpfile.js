@@ -113,7 +113,6 @@ gulp.task('sass', function() {
 gulp.task('scripts', function() {
 	return gulp.src([
 			'./assets/_js/*.js',
-			'./inc/smooth-scroll/js/smooth-scroll.js',
 			'./inc/pagetop-btn/js/pagetop-btn.js'
 		])
 		.pipe(concat('all.min.js'))
@@ -122,6 +121,19 @@ gulp.task('scripts', function() {
 		}))
 		.pipe(jsmin())
 		.pipe(gulp.dest('./assets/js'))
+})
+
+gulp.task('scripts_smooth', function() {
+	return gulp.src([
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/smooth-scroll/js/smooth-scroll-polyfill.js',
+		])
+		.pipe(concat('smooth-scroll.min.js'))
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
+		.pipe(jsmin())
+		.pipe(gulp.dest('./inc/smooth-scroll/js'))
 })
 
 // Watch
@@ -141,12 +153,17 @@ gulp.task('watch', function() {
 	gulp.watch(
 		[
 			'./assets/_js/*.js',
-			'./inc/smooth-scroll/js/smooth-scroll.js',
-			'./inc/pagetop-btn/js/pagetop-btn.js'
 		],
 		gulp.series('scripts')
 	)
 	gulp.watch('./inc/sns/package/_sns.scss', gulp.series('sass'))
+	gulp.watch(
+		[
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/smooth-scroll/js/smooth-scroll-polyfill.js',
+		],
+		gulp.series('scripts_smooth')
+	)
 	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
 	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
 });
@@ -160,7 +177,7 @@ gulp.task('dist', (done)=>{
   })
 })
 
-gulp.task('build', gulp.series('scripts', 'sass', 'block'))
+gulp.task('build', gulp.series('scripts', 'sass', 'block', 'scripts_smooth'))
 
 // copy dist ////////////////////////////////////////////////
 

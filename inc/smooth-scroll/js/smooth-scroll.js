@@ -2,9 +2,6 @@
 /*  ページ内するするスクロール
 /*-------------------------------------------*/
 ((window, document) => {
-    if (!vkExOpt.enable_smooth_scroll) {
-        return
-    }
     window.addEventListener('load', () =>{
         function smooth_link(e) {
 			let path = e.path || (e.composedPath && e.composedPath());

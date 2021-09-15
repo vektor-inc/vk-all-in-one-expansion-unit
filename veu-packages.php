@@ -497,6 +497,13 @@ function veu_get_packages() {
 		'description' => __( 'Add smooth scroll at anchor link in same page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'smooth-scroll/smooth-scroll.php',
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_smooth',
+				'enable_only' => true,
+			),
+		),
 	);
 
 	/*
