@@ -4,7 +4,7 @@ Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
 Tested up to: 5.8.1
-Stable tag: 9.65.0.0
+Stable tag: 9.66.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,12 +79,14 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
-
-
 == Changelog ==
 
+= 9.66.0.0 =
+* [ Specification Change ][ Smooth scroll ] Fix bug on Safari and add CSS mode.
+* [ SNS ] Add copy button.
+
 = 9.65.0.0 =
-* [ G3 ][ Specification Change ] Add filter vk_term_color_taxonomy / vk_get_single_term_with_color / vk_post_view
+* [ Specification Change ] Add filter vk_term_color_taxonomy / vk_get_single_term_with_color / vk_post_view
 
 = 9.64.6.0 =
 * [ Other ][ CTA ] PHPUnit test update
