@@ -35,8 +35,11 @@
             border:none;
             &:hover {
                 box-shadow: none;
-                transform: translateY(3px);
+                transform: translateY(2px);
                 cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
             }
             .sns_txt {
                 position: relative;
@@ -54,31 +57,31 @@
     // }
     .sb_facebook a {
         background: #425dab;
-        box-shadow: 0 3px 0 rgb(52, 78, 132);
+        box-shadow: 0 2px 0 rgb(52, 78, 132);
     }
     .sb_hatena a {
         background: #007fc5;
-        box-shadow: 0 3px 0 rgba(0, 103, 159, 1);
+        box-shadow: 0 2px 0 rgba(0, 103, 159, 1);
     }
     .sb_twitter a {
         background: #00abec;
-        box-shadow: 0 3px 0 rgba(0, 126, 170, 1);
+        box-shadow: 0 2px 0 rgba(0, 126, 170, 1);
     }
     .sb_google a {
         background: #dd4b39;
-        box-shadow: 0 3px 0 rgba(160, 53, 36, 1);
+        box-shadow: 0 2px 0 rgba(160, 53, 36, 1);
     }
     .sb_line a {
         background: #6ebd30;
-        box-shadow: 0 3px 0 #5b9c28;
+        box-shadow: 0 2px 0 #5b9c28;
     }
     .sb_pocket a {
         background: #ea4654;
-        box-shadow: 0 3px 0 #c1303c;
+        box-shadow: 0 2px 0 #c1303c;
     }
     .sb_copy .sb_icon_inner {
         background: #555;
-        box-shadow: 0 3px 0 #333;
+        box-shadow: 0 2px 0 #333;
         padding-bottom:4px;
         i {
             font-size:14px;
