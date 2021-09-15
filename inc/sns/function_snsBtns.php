@@ -135,7 +135,7 @@ function veu_sns_block_callback( $attr ) {
 
 function veu_get_sns_btns( $attr = array() ) {
 
-	include dirname(dirname(__FILE__)) . '/vk-blocks/hidden-utils.php';
+	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
 
 	$options   = veu_get_sns_options();
 	$outer_css = veu_sns_outer_css( $options );
@@ -145,15 +145,15 @@ function veu_get_sns_btns( $attr = array() ) {
 	$pageTitle = urlencode( veu_get_the_sns_title() );
 
 	$classes = '';
-	if( function_exists('vk_add_hidden_class') ){
+	if ( function_exists( 'vk_add_hidden_class' ) ) {
 		$classes .= vk_add_hidden_class( $classes, $attr );
 	}
 
-	if( isset( $attr["position"] ) ){
-		$classes .= ' veu_socialSet-position-' . $attr["position"];
+	if ( isset( $attr['position'] ) ) {
+		$classes .= ' veu_socialSet-position-' . $attr['position'];
 	}
-	if( isset( $attr["className"] ) ){
-		$classes .= ' ' . $attr["className"];
+	if ( isset( $attr['className'] ) ) {
+		$classes .= ' ' . $attr['className'];
 	}
 
 	$socialSet = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
@@ -211,7 +211,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// copy
 	if ( ! empty( $options['useCopy'] ) ) {
 		$socialSet .= '<li class="sb_copy sb_icon">';
-		$socialSet .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $pageTitle . ' ' . urldecode($linkUrl) . '">';
+		$socialSet .= '<button class="copy-button"' . $outer_css . 'data-clipboard-text="' . $pageTitle . ' ' . urldecode( $linkUrl ) . '">';
 		$socialSet .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
 		$socialSet .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 		$socialSet .= '</button>';
@@ -250,114 +250,122 @@ function veu_add_sns_btns( $content ) {
 		$options = veu_get_sns_options();
 
 		if ( ! empty( $options['snsBtn_position']['before'] ) ) {
-			$content = veu_get_sns_btns( array('position'  => 'before') ) . $content;
+			$content = veu_get_sns_btns( array( 'position' => 'before' ) ) . $content;
 		}
 
 		if ( ! empty( $options['snsBtn_position']['after'] ) ) {
-			$content .= veu_get_sns_btns( array('position' => 'after') );
+			$content .= veu_get_sns_btns( array( 'position' => 'after' ) );
 		}
 	}
 
 	return $content;
 }
 
-add_action( 'rest_api_init', function () {
-	register_rest_route(
-		'vk_ex_unit/v1',
-		'/hatena_entry/(?P<linkurl>.+)',
-		array(
-			'methods' => 'GET',
-			'callback' => 'vew_sns_hatena_restapi_callback',
-			'permission_callback' => '__return_true',
-		)
-	);
-	register_rest_route(
-		'vk_ex_unit/v1',
-		'/hatena_entry',
-		array(
-			'methods' => 'POST',
-			'callback' => 'vew_sns_hatena_restapi_callback',
-			'args' => array(
-				'linkurl' => array(
-					'description' => 'linkurl',
-					'required' => true,
-					'type' => 'string',
-				)
-			),
-			'permission_callback' => '__return_true',
-		)
-	);
-	register_rest_route(
-		'vk_ex_unit/v1',
-		'/facebook_entry/(?P<linkurl>.+)',
-		array(
-			'methods' => 'GET',
-			'callback' => 'vew_sns_facebook_restapi_callback',
-			'permission_callback' => '__return_true',
-		)
-	);
-	register_rest_route(
-		'vk_ex_unit/v1',
-		'/facebook_entry',
-		array(
-			'methods' => 'POST',
-			'callback' => 'vew_sns_facebook_restapi_callback',
-			'args' => array(
-				'linkurl' => array(
-					'description' => 'linkurl',
-					'required' => true,
-					'type' => 'string',
-				)
-			),
-			'permission_callback' => '__return_true',
-		)
-	);
-});
-
-add_filter( 'vkExUnit_master_js_options', function( $options ){
-	$opt = veu_get_sns_options();
-	$options['hatena_entry'] = get_rest_url(0, 'vk_ex_unit/v1/hatena_entry/');
-	$options['facebook_entry'] = get_rest_url(0, 'vk_ex_unit/v1/facebook_entry/');
-	$options['facebook_count_enable'] = false;
-	$options['entry_count'] = (bool) ($opt['entry_count'] != 'disable');
-	$options['entry_from_post'] = (bool) ($opt['entry_count'] == 'post');
-
-	$opt = veu_get_sns_options();
-	if ( ! empty( $opt['fbAccessToken'] ) ) {
-		$options['facebook_count_enable'] = true;
+add_action(
+	'rest_api_init',
+	function () {
+		register_rest_route(
+			'vk_ex_unit/v1',
+			'/hatena_entry/(?P<linkurl>.+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => 'vew_sns_hatena_restapi_callback',
+				'permission_callback' => '__return_true',
+			)
+		);
+		register_rest_route(
+			'vk_ex_unit/v1',
+			'/hatena_entry',
+			array(
+				'methods'             => 'POST',
+				'callback'            => 'vew_sns_hatena_restapi_callback',
+				'args'                => array(
+					'linkurl' => array(
+						'description' => 'linkurl',
+						'required'    => true,
+						'type'        => 'string',
+					),
+				),
+				'permission_callback' => '__return_true',
+			)
+		);
+		register_rest_route(
+			'vk_ex_unit/v1',
+			'/facebook_entry/(?P<linkurl>.+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => 'vew_sns_facebook_restapi_callback',
+				'permission_callback' => '__return_true',
+			)
+		);
+		register_rest_route(
+			'vk_ex_unit/v1',
+			'/facebook_entry',
+			array(
+				'methods'             => 'POST',
+				'callback'            => 'vew_sns_facebook_restapi_callback',
+				'args'                => array(
+					'linkurl' => array(
+						'description' => 'linkurl',
+						'required'    => true,
+						'type'        => 'string',
+					),
+				),
+				'permission_callback' => '__return_true',
+			)
+		);
 	}
-	return $options;
-}, 10, 1 );
+);
+
+add_filter(
+	'vkExUnit_master_js_options',
+	function( $options ) {
+		$opt                              = veu_get_sns_options();
+		$options['hatena_entry']          = get_rest_url( 0, 'vk_ex_unit/v1/hatena_entry/' );
+		$options['facebook_entry']        = get_rest_url( 0, 'vk_ex_unit/v1/facebook_entry/' );
+		$options['facebook_count_enable'] = false;
+		$options['entry_count']           = (bool) ( $opt['entry_count'] != 'disable' );
+		$options['entry_from_post']       = (bool) ( $opt['entry_count'] == 'post' );
+
+		$opt = veu_get_sns_options();
+		if ( ! empty( $opt['fbAccessToken'] ) ) {
+			$options['facebook_count_enable'] = true;
+		}
+		return $options;
+	},
+	10,
+	1
+);
 
 function vew_sns_hatena_restapi_callback( $data ) {
 	$linkurl = $data['linkurl'];
 	$siteurl = get_site_url();
 
-	if (strpos(preg_replace('/^https?:\/\//', '', $linkurl), preg_replace('/^https?:\/\//', '', $siteurl)) < 0) {
-		$response = new WP_REST_Response(array());
-		$response->set_status(403);
+	if ( strpos( preg_replace( '/^https?:\/\//', '', $linkurl ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
+		$response = new WP_REST_Response( array() );
+		$response->set_status( 403 );
 		return $response;
 	}
 
-	$r = wp_safe_remote_get('https://bookmark.hatenaapis.com/count/entry?url=' . $linkurl);
+	$r = wp_safe_remote_get( 'https://bookmark.hatenaapis.com/count/entry?url=' . $linkurl );
 
 	if ( ! is_wp_error( $r ) ) {
-		$response = new WP_REST_Response(array( 'count' => $r['body'] ) );
-		if($data->get_method() == 'GET') {
-			if ( empty($r['headers']['cache-control']) ) {
+		$response = new WP_REST_Response( array( 'count' => $r['body'] ) );
+		if ( $data->get_method() == 'GET' ) {
+			if ( empty( $r['headers']['cache-control'] ) ) {
 				$cache_control = 'Cache-Control: public, max-age=3600, s-maxage=3600';
-			}else{
+			} else {
 				$cache_control = $r['headers']['cache-control'];
 			}
 			$response->header( 'Cache-Control', $cache_control );
 		} else {
 			$response->header( 'Cache-Control', 'no-cache' );
 		}
-		$response->set_status(200);
+		$response->set_status( 200 );
 		return $response;
 	}
 	$response = new WP_REST_Response( array( 'errors' => array( 'Service Unavailable' ) ) );
-	$response->set_status(503);
+	$response->set_status( 503 );
 
 	return $response;
 }
@@ -366,37 +374,37 @@ function vew_sns_facebook_restapi_callback( $data ) {
 	$linkurl = $data['linkurl'];
 	$siteurl = get_site_url();
 
-	if (strpos(preg_replace('/^https?:\/\//', '', $linkurl), preg_replace('/^https?:\/\//', '', $siteurl)) < 0) {
-		$response = new WP_REST_Response(array());
-		$response->set_status(403);
+	if ( strpos( preg_replace( '/^https?:\/\//', '', $linkurl ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
+		$response = new WP_REST_Response( array() );
+		$response->set_status( 403 );
 		return $response;
 	}
 
 	$options = veu_get_sns_options();
 	if ( empty( $options['fbAccessToken'] ) ) {
 		$response = new WP_REST_Response( array( 'errors' => array( 'Service Unavailable' ) ) );
-		$response->set_status(503);
+		$response->set_status( 503 );
 		return $response;
 	}
 
-	$r = wp_safe_remote_get('https://graph.facebook.com/?fields=engagement&access_token=' . $options['fbAccessToken'] . '&id=' . $linkurl);
+	$r = wp_safe_remote_get( 'https://graph.facebook.com/?fields=engagement&access_token=' . $options['fbAccessToken'] . '&id=' . $linkurl );
 
 	if ( ! is_wp_error( $r ) ) {
-		$j = json_decode($r['body']);
+		$j = json_decode( $r['body'] );
 
-		if( isset( $j->engagement->share_count ) ) {
+		if ( isset( $j->engagement->share_count ) ) {
 			$response = new WP_REST_Response( array( 'count' => $j->engagement->share_count ) );
-			if($data->get_method() == 'GET') {
-				$response->header('Cache-Control', 'Cache-Control: public, max-age=3600, s-maxage=3600' );
+			if ( $data->get_method() == 'GET' ) {
+				$response->header( 'Cache-Control', 'Cache-Control: public, max-age=3600, s-maxage=3600' );
 			} else {
 				$response->header( 'Cache-Control', 'no-cache' );
 			}
-			$response->set_status(200);
+			$response->set_status( 200 );
 			return $response;
 		}
 	}
 	$response = new WP_REST_Response( array( 'errors' => array( 'Service Unavailable' ) ) );
-	$response->set_status(503);
+	$response->set_status( 503 );
 
 	return $response;
 }
