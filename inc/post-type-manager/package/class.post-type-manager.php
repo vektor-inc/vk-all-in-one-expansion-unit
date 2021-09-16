@@ -214,7 +214,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 		  入力された値の保存
 		/*-------------------------------------------*/
 
-		function save_cf_value( $post_id ) {
+		function save_cf_value( $post_id, $post ) {
 			global $post;
 
 			// 設定したnonce を取得（CSRF対策）
@@ -253,6 +253,11 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 				} elseif ( $field_value == '' ) {
 					delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 				}
+			}
+
+			// 投稿タイプマネージャー保存時にパーマリンクを保存する
+			if ( 'post_type_manage' === $post->post_type ){
+				flush_rewrite_rules();
 			}
 
 		}
@@ -389,7 +394,7 @@ if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 		public function __construct() {
 			add_action( 'init', array( $this, 'add_post_type_post_type_manage' ), 0 );
 			add_action( 'admin_init', array( $this, 'add_cap_post_type_manage' ) );
-			add_action( 'save_post', array( $this, 'save_cf_value' ) );
+			add_action( 'save_post', array( $this, 'save_cf_value' ), 10, 2 );
 			add_action( 'admin_menu', array( $this, 'add_meta_box' ) );
 			add_action( 'init', array( $this, 'add_post_type' ), 0 );
 			// add_action( 'save_post', array( $this, 'add_post_notice' ) );
