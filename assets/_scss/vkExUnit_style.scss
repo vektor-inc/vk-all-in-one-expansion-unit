@@ -592,7 +592,7 @@ iframe.twitter-timeline {
 /*-------------------------------------------*/
 .veu_3prArea {
 	.prArea {
-		padding-bottom:5em;
+		padding-bottom:3.5em;
 	}
 	.subSection-title {
 		font-size: 18px;
@@ -605,7 +605,8 @@ iframe.twitter-timeline {
 	}
 	.linkurl{
 		position: absolute;
-		bottom:1em;
+		bottom:0;
+		right:15px;
 	}
 	.linkurl a {
 		text-decoration: none;
