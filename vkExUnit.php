@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5 );
 define( 'VEU_DIRECTORY_PATH', dirname( __FILE__ ) );
-define( 'VEU_DIRECTORY_URI', dirname( __FILE__ ) );
+define( 'VEU_DIRECTORY_URI', plugins_url( '', __FILE__ ) );
 
 // Set Plugin version.
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
