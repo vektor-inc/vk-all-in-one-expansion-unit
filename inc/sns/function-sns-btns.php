@@ -183,7 +183,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	$icon_css  = veu_sns_icon_css( $options );
 
 	$link_url   = rawurlencode( get_permalink() );
-	$page_title = veu_get_the_sns_title();
+	$page_title = rawurlencode( veu_get_the_sns_title() );
 
 	$classes = '';
 	if ( function_exists( 'vk_add_hidden_class' ) ) {
@@ -252,7 +252,7 @@ function veu_get_sns_btns( $attr = array() ) {
 	// copy.
 	if ( ! empty( $options['useCopy'] ) ) {
 		$social_btns .= '<li class="sb_copy sb_icon">';
-		$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . $page_title . ' ' . urldecode( $link_url ) . '">';
+		$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . urldecode( $page_title ) . ' ' . urldecode( $link_url ) . '">';
 		$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
 		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 		$social_btns .= '</button>';
