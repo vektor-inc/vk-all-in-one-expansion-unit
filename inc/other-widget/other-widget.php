@@ -1,6 +1,6 @@
 <?php
-require_once veu_get_directory() . '/inc/other-widget/class-veu-widget-control.php';
-require_once veu_get_directory() . '/inc/other-widget/common.php';
+require_once VEU_DIRECTORY_PATH . '/inc/other-widget/class-veu-widget-control.php';
+require_once VEU_DIRECTORY_PATH . '/inc/other-widget/common.php';
 
 require dirname( __FILE__ ) . '/widget-new-posts.php';
 require dirname( __FILE__ ) . '/widget-profile.php';
@@ -15,7 +15,7 @@ require dirname( __FILE__ ) . '/widget-banner.php';
 
 if ( is_admin() ) {
 	// ウィジェットの個別有効化機能管理画面読み込み
-	require_once veu_get_directory() . '/inc/other-widget/class-veu-other-widget-admin-control.php';
+	require_once VEU_DIRECTORY_PATH . '/inc/other-widget/class-veu-other-widget-admin-control.php';
 }
 
 function veu_widget_packages() {

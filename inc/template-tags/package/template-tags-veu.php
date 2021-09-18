@@ -67,7 +67,7 @@ if ( ! function_exists( 'veu_get_capability_required' ) ) {
 if ( ! function_exists( 'veu_get_systemlogo_html' ) ) {
 	function veu_get_systemlogo_html() {
 		$logo  = '<div class="logo_exUnit">';
-		$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', veu_get_directory_uri( '/assets/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" />';
+		$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', VEU_DIRECTORY_URI . '/assets/images/head_logo_ExUnit.png' ) . '" alt="VK ExUnit" />';
 		$logo .= '</div>';
 		$logo  = apply_filters( 'veu_get_systemlogo_html', $logo );
 		return $logo;

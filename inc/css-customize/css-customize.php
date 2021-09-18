@@ -79,7 +79,7 @@ class veu_css_customize {
 
 		$data = $this->css_customize_valid_form();
 
-		include( veu_get_directory() . '/inc/css-customize/css-customize-edit.php' );
+		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
 	}
 
 

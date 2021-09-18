@@ -10,12 +10,11 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 }
 
 function veu_css_tree_shaking_array( $vk_css_tree_shaking_array ){
-	global $vkExUnit_version;
 	$vk_css_tree_shaking_array[] = array(
 		'id'      => 'vkExUnit_common_style',
-		'url'     => veu_get_directory_uri( '/assets/css/vkExUnit_style.css' ),
-		'path'    => veu_get_directory( '/assets/css/vkExUnit_style.css' ),
-		'version' => $vkExUnit_version,
+		'url'     => VEU_DIRECTORY_URI . '/assets/css/vkExUnit_style.css',
+		'path'    => VEU_DIRECTORY_PATH . '/assets/css/vkExUnit_style.css',
+		'version' => VEU_VERSION,
 	);
 	return $vk_css_tree_shaking_array;
 }
