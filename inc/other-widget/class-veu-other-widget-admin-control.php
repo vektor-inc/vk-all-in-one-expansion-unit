@@ -35,7 +35,7 @@ class VEU_Other_Widget_Admin_Control {
 	}
 
 	public function admin_setting( $options ) {
-		include veu_get_directory() . '/inc/other-widget/template/admin_setting.php';
+		include VEU_DIRECTORY_PATH . '/inc/other-widget/template/admin_setting.php';
 	}
 }
 new VEU_Other_Widget_Admin_Control();

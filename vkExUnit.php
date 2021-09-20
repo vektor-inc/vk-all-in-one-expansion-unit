@@ -1,17 +1,20 @@
-<?php
-/*
-* Plugin Name: VK All in One Expansion Unit
-* Plugin URI: https://ex-unit.nagoya
-* Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
-* Version: 9.66.2.0
-* Author: Vektor,Inc.
-* Text Domain: vk-all-in-one-expansion-unit
-* Domain Path: /languages
-* Author URI: https://vektor-inc.co.jp
-* GitHub Plugin URI: vektor-inc/VK-All-in-One-Expansion-Unit
-* GitHub Plugin URI: https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit
-* License: GPL2
-*/
+<?php // phpcs:ignore
+/**
+ * Plugin Name: VK All in One Expansion Unit
+ * Plugin URI: https://ex-unit.nagoya
+ * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
+ * Version: 9.67.0.0
+ * Requires PHP: 5.6
+ * Author: Vektor,Inc.
+ * Text Domain: vk-all-in-one-expansion-unit
+ * Domain Path: /languages
+ * Author URI: https://vektor-inc.co.jp
+ * GitHub Plugin URI: vektor-inc/VK-All-in-One-Expansion-Unit
+ * GitHub Plugin URI: https://github.com/vektor-inc/VK-All-in-One-Expansion-Unit
+ * License: GPL2
+ *
+ * @package VK All in One Expansion Unit
+ */
 
 /*
 Copyright 2015-2021 Vektor,Inc. ( email : kurudrive@gmail.com )
@@ -32,84 +35,27 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5 );
 define( 'VEU_DIRECTORY_PATH', dirname( __FILE__ ) );
+define( 'VEU_DIRECTORY_URI', plugins_url( '', __FILE__ ) );
 
-// Get Plugin version
+// Set Plugin version.
 $data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
-global $vkExUnit_version;
-$vkExUnit_version = $data['version'];
 define( 'VEU_VERSION', $data['version'] );
 
-function veu_get_directory( $path = '' ) {
-	return $dirctory = dirname( __FILE__ ) . $path;
-}
-function veu_get_directory_uri( $path = '' ) {
-	return plugins_url( $path, __FILE__ );
-}
-
-// PHP Version check
-if ( version_compare( phpversion(), '5.4.45' ) >= 0 ) {
-	require_once veu_get_directory() . '/initialize.php';
-
-	if ( version_compare( phpversion(), '5.6' ) < 0 && is_admin() ) {
-		add_filter( 'admin_notices', 'veu_phpversion_warning_notice' );
-	}
-} else {
-	add_filter( 'admin_notices', 'veu_phpversion_error' );
-}
+require_once VEU_DIRECTORY_PATH . '/initialize.php';
 
 if ( function_exists( 'register_deactivation_hook' ) ) {
 	register_deactivation_hook( __FILE__, 'veu_uninstall_function' );
 }
 
+/**
+ * Uninstall function
+ *
+ * @return void
+ */
 function veu_uninstall_function() {
-	require_once veu_get_directory() . '/initialize.php';
-	include veu_get_directory( '/uninstaller.php' );
+	require_once VEU_DIRECTORY_PATH . '/initialize.php';
+	include VEU_DIRECTORY_PATH . '/uninstaller.php';
 }
-
-function veu_phpversion_error( $val ) {
-	if ( ! current_user_can( 'activate_plugins' ) ) {
-		return $val;
-	}
-	?>
-	<div class="notice notice-error error is-dismissible"><p>
-			<?php
-			/*
-			本来システム名は vkExUnit_get_little_short_name() で引っ張るが、PHPのバージョンが低くて vkExUnit_get_little_short_name() 関数が読み込まれていないので"VK ExUnit"直書き
-			*/
-			printf(
-				__( 'The current PHP version(%s) is too old, so VK ExUnit will not work.', 'vk-all-in-one-expansion-unit' ),
-				phpversion()
-			);
-			?>
-			<?php _e( 'VK ExUnit supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ); ?>
-		</p></div>
-	<?php
-	return $val;
-}
-
-function veu_phpversion_warning_notice( $val ) {
-	if ( ! current_user_can( 'activate_plugins' ) ) {
-		return $val;
-	}
-	global $hook_suffix;
-	if ( strpos( $hook_suffix, 'vk-all-in-one-expansion-unit' ) == false ) {
-		return;
-	}
-	?>
-	<div class="notice notice-warning is-dismissible"><p>
-			<?php printf( __( 'Current PHP Version(%s) is old.', 'vk-all-in-one-expansion-unit' ), phpversion() ); ?>
-			<?php printf( __( '%s supports PHP5.6 or later.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ); ?>
-		</p></div>
-	<?php
-	return $val;
-}
-
-// add_filter('vk-admin-is-dashboard-active','vk_dashboard_hidden');
-// function vk_dashboard_hidden(){
-// return false;
-// }
-// remove_action( 'wp_dashboard_setup',array( 'Vk_Admin', 'dashboard_widget'),1 );
-//
 
 /**
  * Modify the height of a specific CSS class to fix an issue in Chrome 77 with Gutenberg.
