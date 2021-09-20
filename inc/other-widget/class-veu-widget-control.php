@@ -23,7 +23,7 @@ class VEU_Widget_Control {
 		$enable_packages = self::enable_widget_ids();
 		foreach(veu_widget_packages() as $package) {
 			if( in_array($package['id'], $enable_packages) ) {
-				require_once veu_get_directory() . '/inc/other-widget/' . $package['include'];
+				require_once VEU_DIRECTORY_PATH . '/inc/other-widget/' . $package['include'];
 			}
 		}
 	}

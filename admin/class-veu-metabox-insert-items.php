@@ -1,6 +1,6 @@
 <?php
 
-require_once( veu_get_directory() . '/admin/class-veu-metabox.php' );
+require_once( VEU_DIRECTORY_PATH . '/admin/class-veu-metabox.php' );
 
 class VEU_Metabox_Insert_Items extends VEU_Metabox {
 
