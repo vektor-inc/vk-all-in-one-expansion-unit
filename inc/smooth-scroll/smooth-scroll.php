@@ -68,7 +68,7 @@ function veu_smooth_admin() {
 <li>
 <label><input type="radio" name="vkExUnit_smooth[mode]" value="js" <?php checked( $options['mode'], 'js', true ); ?> /> <?php esc_html_e( 'JavaScript', 'vk-all-in-one-expansion-unit' ); ?> </label></li>
 <li>
-<label><input type="radio" name="vkExUnit_smooth[mode]" value="css" <?php checked( $options['mode'], 'css', true ); ?> /> <?php esc_html_e( 'CSS only ( Loading quite light but do not work on Safari and so on. )', 'vk-all-in-one-expansion-unit' ); ?> </label></li>
+<label><input type="radio" name="vkExUnit_smooth[mode]" value="css" <?php checked( $options['mode'], 'css', true ); ?> /> <?php esc_html_e( 'CSS only ( Loading slightly light but do not work on Safari and so on. )', 'vk-all-in-one-expansion-unit' ); ?> </label></li>
 </ul>
 </td>
 </tr>
