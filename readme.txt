@@ -82,6 +82,9 @@ e.g.
 
 == Changelog ==
 
+
+* [ Bug fix ][ SNS ] Fix share button on customize screen
+
 = 9.67.2.0 =
 * [ Other ][ term color ] Fix php error
 
