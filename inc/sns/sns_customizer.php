@@ -550,7 +550,6 @@ function veu_customize_register_sns( $wp_customize ) {
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
-
 	$wp_customize->add_control(
 		'useLine',
 		array(
@@ -561,8 +560,8 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-		// SNS Btn (Copy)
-		$wp_customize->add_setting(
+	// SNS Btn (Copy)
+	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useCopy]',
 		array(
 			'default'           => $default_options['useCopy'],
@@ -571,9 +570,8 @@ function veu_customize_register_sns( $wp_customize ) {
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
-
 	$wp_customize->add_control(
-		'useLine',
+		'useCopy',
 		array(
 			'label'    => __( 'Copy', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
