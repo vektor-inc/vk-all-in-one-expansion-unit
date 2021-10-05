@@ -39,6 +39,9 @@ function veu_is_sns_btns_display() {
 	$post_type    = vk_get_post_type();
 	$post_type    = $post_type['slug'];
 
+	if ( empty( $options['enableSnsBtns'] ) ) {
+		return false;
+	}
 	if ( isset( $options['snsBtn_exclude_post_types'][ $post_type ] ) && $options['snsBtn_exclude_post_types'][ $post_type ] ) {
 		return false;
 	} elseif ( ! isset( $options['snsBtn_ignorePosts'] ) ) {
