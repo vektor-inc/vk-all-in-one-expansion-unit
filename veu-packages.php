@@ -159,6 +159,17 @@ function veu_get_packages() {
 	);
 
 	/*
+	  Title Tag
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'change-title-tag',
+		'title'       => __( 'Change Title Tag', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Change title tag.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'change-title-tag.php',
+	);
+
+	/*
 	  metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
