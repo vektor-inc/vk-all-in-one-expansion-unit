@@ -39,7 +39,7 @@ class VEU_Metabox_Title_Tag extends VEU_Metabox {
 		$form .= '<p>' . __( 'if filled this area then override title of OGP and Twitter Card', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		$form .= '<label>';
 		$form .= '<input type="checkbox" name="' . esc_attr( $this->args['cf_name'] ) . '[add_site_title]"' . $checked . ' />';
-		$form .= __( 'Display Site Title', 'vk-all-in-one-expansion-unit' );
+		$form .= __( 'Add　Separator and Site Title', 'vk-all-in-one-expansion-unit' );
 		$form .= '</label>';
 
 		return $form;
