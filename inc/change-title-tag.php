@@ -15,7 +15,7 @@ class VEU_Metabox_Title_Tag extends VEU_Metabox {
 		$this->args = array(
 			'slug'     => 'veu_title_tag',
 			'cf_name'  => 'vkExUnit_title_tag',
-			'title'    => __( 'Title Tag', 'vk-all-in-one-expansion-unit' ),
+			'title'    => __( 'SEO Title', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 50,
 		);
 
@@ -37,7 +37,7 @@ class VEU_Metabox_Title_Tag extends VEU_Metabox {
 
 		$form  = '';
 		$form .= '<input type="text" name="' . esc_attr( $this->args['cf_name'] ) . '[title]" value="' . esc_attr( $title ) . '" />';
-		$form .= '<p>' . __( 'If there is any input here, the input will be reflected in the title tag..', 'vk-all-in-one-expansion-unit' ) . '</p>';
+		$form .= '<p>' . __( 'If there is any input here, the input will be reflected in the title tag.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		$form .= '<p>' . __( 'Please note that the notation on the page will not be rewritten.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		$form .= '<label>';
 		$form .= '<input type="checkbox" name="' . esc_attr( $this->args['cf_name'] ) . '[add_site_title]" ' . $checked . ' />';
