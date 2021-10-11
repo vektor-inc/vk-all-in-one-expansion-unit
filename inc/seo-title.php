@@ -1,6 +1,6 @@
 <?
 /**
- * Change Title Tag
+ * SEO Title
  *
  * @package VK All in One Expansion Unit
  */
