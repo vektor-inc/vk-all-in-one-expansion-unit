@@ -159,14 +159,14 @@ function veu_get_packages() {
 	);
 
 	/*
-	  Title Tag
+	  SEO Title
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'change-title-tag',
-		'title'       => __( 'Change Title Tag', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Change title tag.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'seo-title',
+		'title'       => __( 'SEO Title', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Display the SEO Title on Title Tag.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'change-title-tag.php',
+		'include'     => 'seo-title.php',
 	);
 
 	/*

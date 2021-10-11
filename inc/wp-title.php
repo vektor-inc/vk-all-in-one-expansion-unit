@@ -54,7 +54,7 @@ function vkExUnit_get_wp_head_title() {
 			$title = get_the_title() . $sep . get_bloginfo( 'name' );
 		}
 	} elseif ( is_singular() ) {
-		$post_meta = get_post_meta( $post->ID, 'vkExUnit_title_tag', true );
+		$post_meta = get_post_meta( $post->ID, 'veu_seo_title', true );
 		if ( ! empty( $post_meta['title'] ) ) {
 			$title = $post_meta['title'];
 			if ( ! empty( $post_meta['add_site_title'] ) ) {
