@@ -8,7 +8,7 @@ if ( ! class_exists( 'VEU_Metabox' ) ) {
 	return;
 }
 
-class VEU_Metabox_Title_Tag extends VEU_Metabox {
+class VEU_Metabox_SEO_Title extends VEU_Metabox {
 
 	public function __construct( $args = array() ) {
 
@@ -47,6 +47,6 @@ class VEU_Metabox_Title_Tag extends VEU_Metabox {
 		return $form;
 	}
 
-} // class VEU_Metabox_Title_Tag {
+} // class VEU_Metabox_SEO_Title {
 
-$VEU_Metabox_Title_Tag = new VEU_Metabox_Title_Tag();
+$VEU_Metabox_SEO_Title = new VEU_Metabox_SEO_Title();
