@@ -54,7 +54,15 @@ function vkExUnit_get_wp_head_title() {
 			$title = get_the_title() . $sep . get_bloginfo( 'name' );
 		}
 	} elseif ( is_singular() ) {
-		$title = get_the_title() . $sep . get_bloginfo( 'name' );
+		$post_meta = get_post_meta( $post->ID, 'vkExUnit_title_tag', true );
+		if ( ! empty( $post_meta['title'] ) ) {
+			$title = $post_meta['title'];
+			if ( ! empty( $post_meta['add_site_title'] ) ) {
+				$title .= $sep . get_bloginfo( 'name' );
+			}
+		} else {
+			$title = get_the_title() . $sep . get_bloginfo( 'name' );
+		}
 
 		// Search
 	} elseif ( is_search() ) {
