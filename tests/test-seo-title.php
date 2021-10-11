@@ -28,16 +28,6 @@ class SEOTitleTest extends WP_UnitTestCase {
 		$test_array = array(
 			array(
 				'page_type'     => 'is_singular',
-				'post_title'    => '',
-				'site_name'     => 'Site name',
-				'veu_seo_title' => array(
-					'title'          => '',
-					'add_site_title' => false,
-				),
-				'correct'       =>  '' . $sep . 'Site name',
-			),
-			array(
-				'page_type'     => 'is_singular',
 				'post_title'    => 'Post Title',
 				'site_name'     => 'Site name',
 				'veu_seo_title' => array(
@@ -55,6 +45,16 @@ class SEOTitleTest extends WP_UnitTestCase {
 					'add_site_title' => true,
 				),
 				'correct'       =>  'Custom Title' . $sep . 'Site name',
+			),
+			array(
+				'page_type'     => 'is_singular',
+				'post_title'    => 'Post Title',
+				'site_name'     => 'Site name',
+				'veu_seo_title' => array(
+					'title'          => '',
+					'add_site_title' => false,
+				),
+				'correct'       =>  'Post Title' . $sep . 'Site name',
 			),
 		);
 
