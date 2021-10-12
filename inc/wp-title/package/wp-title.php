@@ -7,7 +7,7 @@ add_filter( 'pre_get_document_title', 'vkExUnit_get_wp_head_title', 11 );
 /**
  * ExUnitの機能管理パッケージに登録
  *
- * @return [type] [description]
+ * @return void
  */
 function vkExUnit_wp_title_init() {
 	$tab_label         = __( '&lt;title&gt; tag of homepage', 'vk-all-in-one-expansion-unit' );
@@ -141,7 +141,7 @@ function vkExUnit_get_wp_title_default() {
 	$default_options = array(
 		'extend_frontTitle' => '',
 	);
-	return apply_filters( 'vkExUnit_wp_title_default', $default_options );
+	return apply_filters( 'vkExUnit_wp_title_default', $default_options ); // phpcs:ignore
 }
 
 function vkExUnit_wp_title_validate( $input ) {
