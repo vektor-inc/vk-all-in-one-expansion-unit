@@ -98,7 +98,7 @@ class HeadTitleTest extends WP_UnitTestCase {
 				add_post_meta( $post_id, 'veu_head_title', $test_value['veu_head_title'] );
 			}
 
-			if ( 'is_singular' === $test_value['page_type'] ) {
+			if ( 'is_singular' === $test_value['page_type'] || 'is_page' === $test_value['page_type'] ) {
 				global $wp_query;
 				$args = array( 'p' => $post_id );
 				// is_singular() の条件分岐を効かせるため
@@ -131,7 +131,7 @@ class HeadTitleTest extends WP_UnitTestCase {
 			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
 			print 'return  ::::' . $return . PHP_EOL;
 
-			if ( 'is_singular' === $test_value['page_type'] ) {
+			if ( 'is_singular' === $test_value['page_type'] || 'is_page' === $test_value['page_type'] ) {
 				delete_post_meta( $post_id, 'veu_head_title' );
 				wp_delete_post( $post_id );
 				wp_reset_postdata();

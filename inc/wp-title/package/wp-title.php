@@ -38,21 +38,6 @@ function vkExUnit_get_wp_head_title() {
 	} elseif ( is_archive() ) {
 		$title = vkExUnit_get_the_archive_title() . $sep . get_bloginfo( 'name' );
 		// Page
-	} elseif ( is_page() ) {
-		// Sub Pages
-		if ( $post->post_parent ) {
-			if ( $post->ancestors ) {
-				foreach ( $post->ancestors as $post_anc_id ) {
-					$post_id = $post_anc_id;
-				}
-			} else {
-				$post_id = $post->ID;
-			}
-			$title = get_the_title() . $sep . get_the_title( $post_id ) . $sep . get_bloginfo( 'name' );
-			// Not Sub Pages
-		} else {
-			$title = get_the_title() . $sep . get_bloginfo( 'name' );
-		}
 	} elseif ( is_singular() ) {
 		$post_meta = get_post_meta( $post->ID, 'veu_head_title', true );
 		if ( ! empty( $post_meta['title'] ) ) {
@@ -60,10 +45,24 @@ function vkExUnit_get_wp_head_title() {
 			if ( ! empty( $post_meta['add_site_title'] ) ) {
 				$title .= $sep . get_bloginfo( 'name' );
 			}
+		} elseif ( is_page() ) {
+			// Sub Pages
+			if ( $post->post_parent ) {
+				if ( $post->ancestors ) {
+					foreach ( $post->ancestors as $post_anc_id ) {
+						$post_id = $post_anc_id;
+					}
+				} else {
+					$post_id = $post->ID;
+				}
+				$title = get_the_title() . $sep . get_the_title( $post_id ) . $sep . get_bloginfo( 'name' );
+				// Not Sub Pages
+			} else {
+				$title = get_the_title() . $sep . get_bloginfo( 'name' );
+			}
 		} else {
 			$title = get_the_title() . $sep . get_bloginfo( 'name' );
 		}
-
 		// Search
 	} elseif ( is_search() ) {
 		if ( get_search_query() ){
