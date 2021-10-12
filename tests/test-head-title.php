@@ -1,6 +1,6 @@
 <?php
 /**
- * Class SEOTitleTest
+ * Class HeadTitleTest
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
@@ -11,10 +11,10 @@
 /**
  * SEO title test case.
  */
-class SEOTitleTest extends WP_UnitTestCase {
+class HeadTitleTest extends WP_UnitTestCase {
 
 	/**
-	 * SNSタイトル書き換えのテスト
+	 * タイトル書き換えのテスト
 	 */
 	function test_veu_get_the_sns_title() {
 
@@ -22,7 +22,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_seo_title' . PHP_EOL;
+		print 'test_head_title' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 		$test_array = array(
