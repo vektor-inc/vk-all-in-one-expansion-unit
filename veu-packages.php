@@ -74,7 +74,7 @@ function veu_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'wp-title.php',
+		'include'     => 'wp-title/config.php',
 	);
 
 	/*
