@@ -53,6 +53,26 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'correct'        => 'Post Title' . $sep . 'Site name',
 			),
+			array(
+				'page_type'      => 'is_page',
+				'post_title'     => 'Page Title',
+				'site_name'      => 'Site name',
+				'veu_head_title' => array(
+					'title'          => 'Custom Title',
+					'add_site_title' => false,
+				),
+				'correct'        => 'Custom Title',
+			),
+			array(
+				'page_type'      => 'is_page',
+				'post_title'     => 'Page Title',
+				'site_name'      => 'Site name',
+				'veu_head_title' => array(
+					'title'          => 'Custom Title',
+					'add_site_title' => true,
+				),
+				'correct'        => 'Custom Title' . $sep . 'Site name',
+			),
 		);
 
 		$before_blogname           = get_option( 'blogname' );
