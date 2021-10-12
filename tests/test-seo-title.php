@@ -30,7 +30,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 				'page_type'     => 'is_singular',
 				'post_title'    => 'Post Title',
 				'site_name'     => 'Site name',
-				'veu_seo_title' => array(
+				'veu_head_title' => array(
 					'title'          => 'Custom Title',
 					'add_site_title' => false,
 				),
@@ -40,7 +40,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 				'page_type'     => 'is_singular',
 				'post_title'    => 'Post Title',
 				'site_name'     => 'Site name',
-				'veu_seo_title' => array(
+				'veu_head_title' => array(
 					'title'          => 'Custom Title',
 					'add_site_title' => true,
 				),
@@ -50,7 +50,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 				'page_type'     => 'is_singular',
 				'post_title'    => 'Post Title',
 				'site_name'     => 'Site name',
-				'veu_seo_title' => array(
+				'veu_head_title' => array(
 					'title'          => '',
 					'add_site_title' => false,
 				),
@@ -68,7 +68,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 			update_option( 'blogname', $test_value['site_name'] );
 
 			// Add sns title
-			if ( $test_value['veu_seo_title'] !== null ) {
+			if ( $test_value['veu_head_title'] !== null ) {
 
 				// Add test post
 				$post    = array(
@@ -78,7 +78,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 				);
 				$post_id = wp_insert_post( $post );
 
-				add_post_meta( $post_id, 'veu_seo_title', $test_value['veu_seo_title'] );
+				add_post_meta( $post_id, 'veu_head_title', $test_value['veu_head_title'] );
 			}
 
 			if ( $test_value['page_type'] == 'is_singular' ) {
@@ -115,7 +115,7 @@ class SEOTitleTest extends WP_UnitTestCase {
 			print 'return  ::::' . $return . PHP_EOL;
 
 			if ( $test_value['page_type'] == 'is_singular' ) {
-				delete_post_meta( $post_id, 'veu_seo_title' );
+				delete_post_meta( $post_id, 'veu_head_title' );
 				wp_delete_post( $post_id );
 				wp_reset_postdata();
 				wp_reset_query();

@@ -13,8 +13,8 @@ class VEU_Metabox_Head_Title extends VEU_Metabox {
 	public function __construct( $args = array() ) {
 
 		$this->args = array(
-			'slug'     => 'veu_seo_title',
-			'cf_name'  => 'veu_seo_title',
+			'slug'     => 'veu_head_title',
+			'cf_name'  => 'veu_head_title',
 			'title'    => __( 'Head Title', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 50,
 		);
