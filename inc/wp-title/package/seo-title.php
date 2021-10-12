@@ -8,14 +8,14 @@ if ( ! class_exists( 'VEU_Metabox' ) ) {
 	return;
 }
 
-class VEU_Metabox_SEO_Title extends VEU_Metabox {
+class VEU_Metabox_Head_Title extends VEU_Metabox {
 
 	public function __construct( $args = array() ) {
 
 		$this->args = array(
 			'slug'     => 'veu_seo_title',
 			'cf_name'  => 'veu_seo_title',
-			'title'    => __( 'SEO Title', 'vk-all-in-one-expansion-unit' ),
+			'title'    => __( 'Head Title', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 50,
 		);
 
@@ -47,6 +47,6 @@ class VEU_Metabox_SEO_Title extends VEU_Metabox {
 		return $form;
 	}
 
-} // class VEU_Metabox_SEO_Title {
+} // class VEU_Metabox_Head_Title {
 
-$VEU_Metabox_SEO_Title = new VEU_Metabox_SEO_Title();
+$VEU_Metabox_Head_Title = new VEU_Metabox_Head_Title();
