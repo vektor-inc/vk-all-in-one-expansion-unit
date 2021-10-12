@@ -74,7 +74,7 @@ function veu_get_packages() {
 			),
 		),
 		'default'     => true,
-		'include'     => 'wp-title.php',
+		'include'     => 'wp-title/config.php',
 	);
 
 	/*
@@ -156,17 +156,6 @@ function veu_get_packages() {
 		'description' => __( 'Setting of Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'vk-google-tag-manager/config.php',
-	);
-
-	/*
-	  SEO Title
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'seo-title',
-		'title'       => __( 'SEO Title', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Display the SEO Title on Title Tag.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'seo-title.php',
 	);
 
 	/*

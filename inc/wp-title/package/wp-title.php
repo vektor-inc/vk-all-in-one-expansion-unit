@@ -149,3 +149,5 @@ function vkExUnit_wp_title_validate( $input ) {
 	$output['extend_frontTitle'] = htmlspecialchars( $input['extend_frontTitle'] );
 	return $output;
 }
+
+
