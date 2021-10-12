@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.8.1
 Requires PHP: 5.6
-Stable tag: 9.67.2.0
+Stable tag: 9.68.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,7 +82,8 @@ e.g.
 
 == Changelog ==
 
-
+= 9.68.0.0 =
+* [ Add Function ][ head title ] Add change head title function
 * [ Bug fix ][ SNS ] Fix share button on customize screen
 
 = 9.67.2.0 =
