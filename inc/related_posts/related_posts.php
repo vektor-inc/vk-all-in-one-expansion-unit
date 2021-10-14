@@ -1,32 +1,23 @@
 <?php
+/**
+ * Related Posts
+ *
+ * @package vektor-inc/vk-all-in-pne-expansion-unit
+ */
 
 /*
-  非推奨タグ / Deprecated Tag
-/*
--------------------------------------------*/
-/*
-  出力先
-/*
--------------------------------------------*/
-/*
-  veu_get_related_posts()
-/*
--------------------------------------------*/
-/*
-  veu_add_related_posts_item_html()
-/*
--------------------------------------------*/
-/*
-  veu_add_related_posts_html()
-/*
--------------------------------------------*/
-/*
-  Customizer
-/*-------------------------------------------*/
+非推奨タグ / Deprecated Tag
+出力先
+veu_get_related_posts()
+veu_add_related_posts_item_html()
+veu_add_related_posts_html()
+Customizer
+*/
 
-/*
-  非推奨タグ / Deprecated Tag
-/*-------------------------------------------*/
+/**********************************************
+ * 非推奨タグ / Deprecated Tag
+ */
+
 /*
 キャメルケースは非推奨なので関数名を変更したが、
 プラグイン外で関数が使用されているかもしれないので念の為旧関数でも動作するように
@@ -45,9 +36,10 @@ function vkExUnit_get_relatedPosts( $post_type = 'post', $taxonomy = 'post_tag',
 	veu_get_related_posts( $post_type, $taxonomy, $max_show_posts );
 }
 
-/*
-  出力先
-/*-------------------------------------------*/
+/**********************************************
+ * 出力先
+ */
+
 /*
 loop_end でも出力出来るように一時期していたが、
 コンテンツエリアのタグより外に出力されるなどで、
@@ -66,11 +58,14 @@ function veu_add_related_loopend( $query ) {
 	echo veu_add_related_posts_html( '' );
 }
 
-/*
-  veu_get_related_posts()
-/*-------------------------------------------*/
-/*
-関連記事の投稿データを取得
+/**
+ * 関連記事の投稿データを取得
+ * veu_get_related_posts()
+ *
+ * @param string  $post_type : 投稿タイプ.
+ * @param string  $taxonomy : 分類.
+ * @param integer $max_show_posts : 表示件数.
+ * @return array  $related_posts : 該当の投稿リスト
  */
 function veu_get_related_posts( $post_type = 'post', $taxonomy = 'post_tag', $max_show_posts = 10 ) {
 	$posts_array = '';
@@ -137,11 +132,11 @@ function veu_get_related_posts( $post_type = 'post', $taxonomy = 'post_tag', $ma
 	return $related_posts;
 }
 
-/*
-  veu_add_related_posts_item_html()
--------------------------------------------*/
-/*
-関連記事の1件分のHTML
+/**
+ * 関連記事の1件分のHTML
+ *
+ * @param object $post : post object.
+ * @return string : single rerated post item html
  */
 function veu_add_related_posts_item_html( $post ) {
 	$post_item_html  = '<div class="col-sm-6 relatedPosts_item">';
@@ -163,11 +158,11 @@ function veu_add_related_posts_item_html( $post ) {
 	return $post_item_html;
 }
 
-/*
-  veu_add_related_posts_html()
-/*-------------------------------------------*/
-/*
-関連記事のHTML
+/**
+ * 関連記事のHTMLが追加された $content を取得
+ *
+ * @param string $content : post contents.
+ * @return string $content added related post html
  */
 function veu_add_related_posts_html( $content ) {
 
@@ -191,7 +186,10 @@ function veu_add_related_posts_html( $content ) {
 }
 
 /**
- * since 9.37.0.0
+ * Get Related Posts HTML
+ *
+ * @since 9.37.0.0
+ * @return string : $related_posts_html
  */
 function veu_get_related_posts_html() {
 
@@ -219,49 +217,48 @@ function veu_get_related_posts_html() {
 
 	// $posts_count = mb_convert_kana($relatedPostCount, "a", "UTF-8");
 	if ( $related_posts ) {
-		$relatedPostsHtml  = '<!-- [ .relatedPosts ] -->';
-		$relatedPostsHtml .= '<aside class="veu_relatedPosts veu_contentAddSection">';
+		$related_posts_html  = '<!-- [ .relatedPosts ] -->';
+		$related_posts_html .= '<aside class="veu_relatedPosts veu_contentAddSection">';
 
 		$output = get_option( 'vkExUnit_related_options' );
 
-		// テキストフィールドに値が入っていたら、表示させる。
+		// テキストフィールドに値が入っていたら、表示させる.
 		if ( ! empty( $output['related_title'] ) ) {
-			$relatedPostTitle = $output['related_title'];
+			$related_post_title = $output['related_title'];
 		} else {
-			// 何も入っていなかったら既存のタイトルを表示させる。
-			$relatedPostTitle = __( 'Related posts', 'vk-all-in-one-expansion-unit' );
+			// 何も入っていなかったら既存のタイトルを表示させる.
+			$related_post_title = __( 'Related posts', 'vk-all-in-one-expansion-unit' );
 		}
-		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）
-		$relatedPostTitle  = apply_filters( 'veu_related_post_title', $relatedPostTitle );
-		$relatedPostsHtml .= '<h1 class="mainSection-title relatedPosts_title">' . $relatedPostTitle . '</h1>';
+		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）.
+		$related_post_title  = apply_filters( 'veu_related_post_title', $related_post_title );
+		$related_posts_html .= '<h1 class="mainSection-title relatedPosts_title">' . $related_post_title . '</h1>';
 
-		$i                 = 1;
-		$relatedPostsHtml .= '<div class="row">';
+		$i                   = 1;
+		$related_posts_html .= '<div class="row">';
 		foreach ( $related_posts as $key => $post ) {
-			$relatedPostsHtml .= veu_add_related_posts_item_html( $post );
+			$related_posts_html .= veu_add_related_posts_item_html( $post );
 			$i++;
 		} // foreach
-		$relatedPostsHtml .= '</div>';
-		$relatedPostsHtml .= '</aside><!-- [ /.relatedPosts ] -->';
+		$related_posts_html .= '</div>';
+		$related_posts_html .= '</aside><!-- [ /.relatedPosts ] -->';
 
 	}
 
 	wp_reset_postdata();
 	wp_reset_query();
 
-	return $relatedPostsHtml;
+	return $related_posts_html;
 }
 
-/*
-  Customizer
-/*-------------------------------------------*/
-
+/**********************************************
+ * Customizer
+ */
 if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 	add_action( 'customize_register', 'veu_customize_register_related' );
 }
 
 function veu_customize_register_related( $wp_customize ) {
-	// セクション追加
+	// セクション追加.
 	$wp_customize->add_section(
 		'veu_related_setting',
 		array(
@@ -270,17 +267,17 @@ function veu_customize_register_related( $wp_customize ) {
 			'panel'    => 'veu_setting',
 		)
 	);
-	// セッティング
+	// セッティング.
 	$wp_customize->add_setting(
 		'vkExUnit_related_options[related_title]',
 		array(
 			'default'           => '',
-			'type'              => 'option', // 保存先 option or theme_mod
+			'type'              => 'option', // 保存先 option or theme_mod.
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
-	// コントロール
+	// コントロール.
 	$wp_customize->add_control(
 		'related_title',
 		array(
@@ -292,17 +289,17 @@ function veu_customize_register_related( $wp_customize ) {
 		)
 	);
 
-	// セッティング _ 表示件数
+	// セッティング _ 表示件数.
 	$wp_customize->add_setting(
 		'vkExUnit_related_options[related_display_count]',
 		array(
 			'default'           => '',
-			'type'              => 'option', // 保存先 option or theme_mod
+			'type'              => 'option', // 保存先 option or theme_mod.
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'vk_sanitize_number',
 		)
 	);
-	// コントロール _ 表示件数
+	// コントロール _ 表示件数.
 	$wp_customize->add_control(
 		'related_display_count',
 		array(
@@ -327,7 +324,7 @@ function veu_customize_register_related( $wp_customize ) {
 	);
 }
 
-/*
+/******************************
 hook sample
 
 add_filter('veu_related_post_types', 'veu_related_post_types_custom');
@@ -347,5 +344,4 @@ function veu_related_post_args_custom( $related_post_args ){
 	}
 	return $related_post_args;
 }
-
 */
