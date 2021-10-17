@@ -35,6 +35,15 @@
                 y = destination.getBoundingClientRect().top + scroll
             }
 
+            // G3 の場合要の補正
+            let siteHeader = document.getElementById('site-header');
+            if (siteHeader){
+                let headerHeight = siteHeader.clientHeight;
+                if (headerHeight){
+                    y = y - headerHeight - 50 ;
+                }
+            }
+           
             window.scrollTo({
                 top: y,
                 behavior: 'smooth'
