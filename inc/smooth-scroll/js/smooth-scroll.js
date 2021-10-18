@@ -35,7 +35,7 @@
                 y = destination.getBoundingClientRect().top + scroll
             }
 
-            // G3 の場合要の補正
+            // G3 の場合用の補正
             // * header_scrolled の方が適切だが、クリック時に header_scrolled が消えて判定に使えないため
             if ( document.body.classList.contains('scrolled') == true ) {
                 // ヘッダーを取得
@@ -49,8 +49,15 @@
                 }
             }
 
+            // Adminbar adjustment
+            let adminbar = document.getElementById('wpadminbar');
+            let adminbarHeight = 0;
+            if (adminbar){
+                adminbarHeight = adminbar.clientHeight;
+            }
+            
             window.scrollTo({
-                top: y,
+                top: y - adminbarHeight,
                 behavior: 'smooth'
             })
             e.preventDefault()
