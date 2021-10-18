@@ -36,14 +36,19 @@
             }
 
             // G3 の場合要の補正
-            let siteHeader = document.getElementById('site-header');
-            if (siteHeader){
-                let headerHeight = siteHeader.clientHeight;
-                if (headerHeight){
-                    y = y - headerHeight - 50 ;
+            // * header_scrolled の方が適切だが、クリック時に header_scrolled が消えて判定に使えないため
+            if ( document.body.classList.contains('scrolled') == true ) {
+                // ヘッダーを取得
+                let siteHeader = document.getElementById('site-header');
+                if (siteHeader){
+                    // ヘッダーの高さを取得
+                    let headerHeight = siteHeader.clientHeight;
+                    if (headerHeight){
+                        y = y - headerHeight;
+                    }
                 }
             }
-           
+
             window.scrollTo({
                 top: y,
                 behavior: 'smooth'
