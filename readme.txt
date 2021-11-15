@@ -82,6 +82,8 @@ e.g.
 
 == Changelog ==
 
+* [ Design tuning ] metabox css tuning in edit screen
+
 = 9.68.4.0 =
 * [ Bug fix ][ smooth scroll ] fix scroll top position on admin bar
 
