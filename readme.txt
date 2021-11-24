@@ -3,9 +3,9 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.8.1
-Requires PHP: 5.6
-Stable tag: 9.68.4.0
+Tested up to: 5.8.2
+Requires PHP: 7.0
+Stable tag: 9.69.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,8 @@ e.g.
 
 == Changelog ==
 
+= 9.69.0.0 =
+* [ Other ] Cope with Lightning G3 Pro Unit 404 Page customize
 * [ Design tuning ] metabox css tuning in edit screen
 
 = 9.68.4.0 =
