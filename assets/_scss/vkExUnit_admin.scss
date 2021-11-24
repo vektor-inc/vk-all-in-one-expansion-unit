@@ -48,6 +48,10 @@
 }
 
 .veu_metabox_section {
+	p {
+		margin-top:0;
+		margin-bottom:10px;
+	}
 	label {
 		font-weight: normal;
 	}
@@ -84,7 +88,10 @@
 	}
 	&_body {
 		display: none;
-		padding: 1rem 1rem 2rem;
+		padding: 1rem 1rem 1.5rem;
+		& > *:last-child{
+			margin-bottom:0;
+		}
 		.button {
 			margin-right:0.5em;
 		}

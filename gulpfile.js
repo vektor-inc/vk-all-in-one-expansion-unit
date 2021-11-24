@@ -68,6 +68,7 @@ gulp.task('block', function (done) {
 });
 
 gulp.task("text-domain", function(done) {
+
 	// vk-admin
 	gulp.src(["./admin/vk-admin/package/*"])
 		.pipe(replace("vk_admin_textdomain","vk-all-in-one-expansion-unit"))
@@ -80,6 +81,10 @@ gulp.task("text-domain", function(done) {
 	gulp.src(["./inc/term-color/package/*.php"])
 		.pipe(replace("'vk_term_color_textdomain'","'vk-all-in-one-expansion-unit'"))
 		.pipe(gulp.dest("./inc/term-color/package/"));
+	// Post Type Manager
+	gulp.src(["./inc/post-type-manager/package/*.php"])
+		.pipe(replace("'vk_post_type_manager_textdomain'","'vk-all-in-one-expansion-unit'"))
+		.pipe(gulp.dest("./inc/post-type-manager/package/"));
   	gulp.src(["./inc/vk-css-optimize/package/*.php"])
 		.pipe(replace("'css_optimize_textdomain'","'vk-all-in-one-expansion-unit'"))
 		.pipe(gulp.dest("./inc/vk-css-optimize/package/"));
