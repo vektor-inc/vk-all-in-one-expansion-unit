@@ -21,7 +21,7 @@ function veu_add_sns_btns_loopend( $query ) {
 	if ( ! $query->is_main_query() ) {
 		return;
 	}
-	if ( is_front_page() || is_home() ) {
+	if ( is_front_page() || is_home() || is_404() ) {
 		return;
 	}
 	echo veu_add_sns_btns( '' );
@@ -38,7 +38,10 @@ function veu_is_sns_btns_display() {
 	$ignore_posts = explode( ',', $options['snsBtn_ignorePosts'] );
 	$post_type    = vk_get_post_type();
 	$post_type    = $post_type['slug'];
-
+	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように
+	if ( is_404() ){
+		return false;
+	}
 	if ( empty( $options['enableSnsBtns'] ) ) {
 		return false;
 	}

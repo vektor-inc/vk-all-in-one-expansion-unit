@@ -68,13 +68,21 @@ function show_sitemap( $content ) {
  */
 function veu_show_sitemap( $content ) {
 	global $is_pagewidget;
+
 	if ( $is_pagewidget ) {
 		return $content; }
+
+	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように
+	if ( is_404() ) {
+		return $content; }
+
 	wp_reset_postdata(); // need under other section / ex:child page index
 	global $post;
-	$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap', true );
-	if ( $enable ) {
-		return $content . "\n" . do_shortcode( '[vkExUnit_sitemap]' );
+	if ( $post ) {
+		$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap', true );
+		if ( $enable ) {
+			return $content . "\n" . do_shortcode( '[vkExUnit_sitemap]' );
+		}
 	}
 	return $content;
 }
