@@ -1,0 +1,76 @@
+/*-------------------------------------------*/
+/* .veu_relatedPosts
+/*-------------------------------------------*/
+.veu_relatedPosts {
+	a {
+		color: var(--vk-color-text-body);
+		text-decoration: none;
+	}
+	.relatedPosts_title {
+		font-size: var(--vk-size-text-lg);
+	}
+	& > .row {
+		display: flex;
+		margin: 0;
+		margin-right: -3%;
+		flex-wrap: wrap;
+	}
+	.relatedPosts_item {
+		float: none;
+		margin-right: 2.9%;
+		padding-right: 0;
+		padding-left: 0;
+		width: 47%;
+		border-bottom: solid 1px var(--vk-color-border-hr);
+		flex: initial;
+		@media (max-width: 768px) {
+			max-width: 100%;
+		}
+		& > .media:first-child {
+			border: none;
+		}
+		& > .media {
+			display: flex;
+			padding: 1em 0 0.8em;
+			margin-top: 0;
+			border: none;
+			.media-body {
+				font-size: var(--vk-size-text-xs);
+			}
+			.postList_thumbnail {
+				width: 80px;
+				min-width:80px; /* これがないと文字数が多い記事の時に画像が小さくなる */
+				padding-right: 15px;
+				margin-bottom: 0;
+				img {
+					border:1px solid var(--vk-color-border-hr);
+					max-width: 100%;
+					height:auto;
+					object-fit: contain;
+				}
+			}
+			.media-heading {
+				font-size: var(--vk-size-text-sm);
+				margin-bottom: var(--vk-margin-meta);
+			}
+		}
+	}
+	.relatedPosts_item:nth-child(1) {
+		border-top: solid 1px var(--vk-color-border-hr);
+	}
+	.relatedPosts_item:nth-child(2) {
+		border-top: solid 1px var(--vk-color-border-hr);
+	}
+}
+
+@media (max-width: 768px) {
+	.veu_relatedPosts {
+		.relatedPosts_item {
+			display: block;
+			width: 100%;
+		}
+		.relatedPosts_item:nth-child(2) {
+			border-top: none;
+		}
+	}
+}
