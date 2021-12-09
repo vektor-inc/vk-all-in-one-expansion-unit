@@ -61,7 +61,9 @@ function veu_get_follow_html() {
 				}
 			}
 		}
-		$follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
+		if ( ! empty( $image_url ) ) {
+			$follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
+		}
 	}
 
 	$follow_html .= '
