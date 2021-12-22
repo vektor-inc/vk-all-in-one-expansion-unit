@@ -19,11 +19,13 @@ class VEU_Other_Widget_Admin_Control {
 	 */
 	public function admin_config_validate( $output, $input, $defaults ) {
 		$_v = array();
-
-		// ウィジェットの有効化情報（$input['enable_widgets']）がちゃんと落ちてきたら update 処理する
-		if ( ! empty( $input['enable_widgets'] ) && is_array( $input['enable_widgets'] ) ) {
-			foreach ( $input['enable_widgets'] as $v ) {
-				array_push( $_v, $v );
+		// 有効化設定の $input['active_otherWidgets'] がちゃんと落ちてきたら動作するように変更
+		if ( ! empty( $input['active_otherWidgets'] ) ) {
+			// ウィジェットの有効化情報（$input['enable_widgets']）がちゃんと落ちてきたら update 処理する
+			if ( ! empty( $input['enable_widgets'] ) && is_array( $input['enable_widgets'] ) ) {
+				foreach ( $input['enable_widgets'] as $v ) {
+					array_push( $_v, $v );
+				}
 			}
 			/*
 			有効化設定ページ以外だと $input['enable_widgets'] が入ってこないので $_v が空のまま
