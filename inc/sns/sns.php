@@ -146,15 +146,11 @@ function veu_get_the_sns_title( $post_id = '' ) {
 
 	// フロントページの場合
 	elseif ( is_front_page() ) {
-		if ( get_option( 'show_on_front' ) === 'page' ) {
-			if ( $page_on_front === $post_id ) {
-				$options_veu_wp_title = get_option( 'vkExUnit_wp_title' );
-				if ( ! empty( $options_veu_wp_title['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
-					$title = $options_veu_wp_title['extend_frontTitle'];
-				} else {
-					$title = get_bloginfo( 'name' );
-				}
-			}
+		$options_veu_wp_title = get_option( 'vkExUnit_wp_title' );
+		if ( ! empty( $options_veu_wp_title['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
+			$title = $options_veu_wp_title['extend_frontTitle'];
+		} else {
+			$title = get_bloginfo( 'name' );
 		}
 	}
 
