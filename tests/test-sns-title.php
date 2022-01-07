@@ -1218,7 +1218,6 @@ class SnsTitleTest extends WP_UnitTestCase {
 			),
 		);
 
-		var_dump( $data );
 		$before_blogname                = get_option( 'blogname' );
 		$before_vkExUnit_sns_options    = get_option( 'vkExUnit_sns_options' );
 		$before_vkExUnit_wp_title       = get_option( 'vkExUnit_wp_title' );
