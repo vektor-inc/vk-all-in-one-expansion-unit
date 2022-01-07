@@ -120,6 +120,10 @@ class SnsTitleTest extends WP_UnitTestCase {
 		print 'test_sns_title' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
+		$before_page_for_posts = get_option( 'page_for_posts' ); // 投稿トップに指定するページ
+		$before_page_on_front  = get_option( 'page_on_front' ); // フロントに指定する固定ページ
+		$before_show_on_front  = get_option( 'show_on_front' ); // トップページ指定するかどうか page or posts
+
 		$data = self::setup_data();
 
 		$page_for_posts = get_option( 'page_for_posts' ); // 投稿トップに指定するページ
@@ -1286,6 +1290,9 @@ class SnsTitleTest extends WP_UnitTestCase {
 		update_option( 'blogname', $before_blogname );
 		update_option( 'vkExUnit_wp_title', $before_vkExUnit_wp_title );
 		update_option( 'vkExUnit_common_options', $before_vkExUnit_common_options );
+		update_option( 'page_for_posts', $before_page_for_posts ); // 投稿トップに指定するページ
+		update_option( 'page_on_front', $before_page_on_front ); // フロントに指定する固定ページ
+		update_option( 'show_on_front', $before_show_on_front ); // トップページ指定するかどうか page or posts
 
 	}
 }
