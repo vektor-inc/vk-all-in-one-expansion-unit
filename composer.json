@@ -7,10 +7,8 @@
 			"email": "info@vektor-inc.co.jp"
 		}
 	],
-	"require": {
-		"vektor-inc/vk-wp-unit-test-tools": "^0.10.0"
-	},
 	"require-dev": {
+		"vektor-inc/vk-wp-unit-test-tools": "^0.10.0",
 		"sirbrillig/phpcs-variable-analysis": "^2.8",
 		"wp-phpunit/wp-phpunit": "^5.4"
 	  }

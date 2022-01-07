@@ -11,7 +11,7 @@ var babel = require('gulp-babel');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
 // sass compiler
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 
 var cleanCss = require('gulp-clean-css');
 
@@ -41,7 +41,7 @@ function src(list, option) {
  * transpile block editor js
  */
 gulp.task('block', function (done) {
-	return src(
+	gulp.src(
 			[
 				'./inc/sns/package/block.jsx',
 				'./inc/child-page-index/block.jsx',
@@ -65,6 +65,7 @@ gulp.task('block', function (done) {
 		.pipe(jsmin())
 		.pipe(concat('block.min.js'))
 		.pipe(gulp.dest('./assets/js/'));
+	done();
 });
 
 gulp.task("text-domain", function(done) {
@@ -91,8 +92,8 @@ gulp.task("text-domain", function(done) {
 	done();
 });
 
-gulp.task('sass', function() {
-	return src(
+gulp.task('sass', function(done) {
+	gulp.src(
 		'./assets/_scss/*.scss',
 		{
 			base: './assets/_scss'
@@ -107,6 +108,7 @@ gulp.task('sass', function() {
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
+	done();
 });
 
 /*
@@ -115,8 +117,8 @@ gulp.task('sass', function() {
  * including /assets/_js/*.js
  * and transpile from ES6
  */
-gulp.task('scripts', function() {
-	return gulp.src([
+gulp.task('scripts', function(done) {
+	gulp.src([
 			'./assets/_js/*.js',
 			'./inc/pagetop-btn/js/pagetop-btn.js'
 		])
@@ -125,11 +127,12 @@ gulp.task('scripts', function() {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
-		.pipe(gulp.dest('./assets/js'))
+		.pipe(gulp.dest('./assets/js'));
+	done();
 })
 
-gulp.task('scripts_smooth', function() {
-	return gulp.src([
+gulp.task('scripts_smooth', function(done) {
+	gulp.src([
 			'./inc/smooth-scroll/js/smooth-scroll.js',
 			'./inc/smooth-scroll/js/smooth-scroll-polyfill.js',
 		])
@@ -138,7 +141,8 @@ gulp.task('scripts_smooth', function() {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
-		.pipe(gulp.dest('./inc/smooth-scroll/js'))
+		.pipe(gulp.dest('./inc/smooth-scroll/js'));
+	done();
 })
 
 // Watch
