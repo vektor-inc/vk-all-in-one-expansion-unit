@@ -113,60 +113,100 @@ function veu_get_the_sns_title( $post_id = '' ) {
 	$title       = '';
 	$site_title  = get_bloginfo( 'name' );
 	$options_sns = veu_get_sns_options();
+	$page_on_front = get_option( 'page_on_front' );
+	$page_for_posts = get_option( 'page_for_posts' );
 	if ( ! $post_id ) {
 		$post_id = get_the_id();
 	}
 
-	/**
-	 *
-	 * [ 通常 ]
-	 *
-	 * → 投稿タイトル + サイト名
-	 */
-
-	$title = get_the_title( $post_id ) . ' | ' . $site_title;
-
-	/**
-	 *
-	 * [ OGのタイトルを投稿タイトルだけにするチェックが入っている場合 ]
-	 *
-	 * → 投稿タイトル
-	 */
-	if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
-		$title = get_the_title( $post_id );
+	// 404 ページの場合
+	if ( is_404() ) {
+		// OGのタイトルを投稿タイトルだけにするチェック判定
+		if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
+			$title = __( 'Not found', 'vk-all-in-one-expansion-unit' );
+		} else {
+			$title = __( 'Not found', 'vk-all-in-one-expansion-unit' ) . ' | ' . $site_title;
+		}
 	}
 
-	/**
-	 * [ metaboxでOG用のタイトルが別途登録されている場合 ]
-	 *
-	 * → OG用のタイトルを返す
-	 */
-	if ( ! empty( get_post_meta( $post_id, 'vkExUnit_sns_title', true ) ) ) {
-		$title = get_post_meta( $post_id, 'vkExUnit_sns_title', true );
+	// 検索結果ページの場合
+	elseif ( is_search() ) {
+		if ( ! empty( get_search_query() ) ) {
+			$search_text = sprintf( __( 'Search Results for : %s', 'vk-all-in-one-expansion-unit' ), get_search_query() );
+		} else {
+			$search_text = __( 'Search Results', 'vk-all-in-one-expansion-unit' );
+		}
+		// OGのタイトルを投稿タイトルだけにするチェック判定
+		if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
+			$title = $search_text;
+		} else {
+			$title = $search_text . ' | ' . $site_title;
+		}
 	}
 
-	/**
-	 * [ 投稿タイトルと異なるケース１]
-	 *
-	 * サイトのトップが固定ページに指定されている &&
-	 * この関すが呼び出された投稿がサイトトップに指定された固定ページ &&
-	 * サイトタイトルの書き換えに入力がある
-	 *
-	 * → 特別に入力されたサイトタイトルを返す
-	 */
+	// フロントページの場合
+	elseif ( is_front_page() ) {
+		$options_veu_wp_title = get_option( 'vkExUnit_wp_title' );
+		if ( ! empty( $options_veu_wp_title['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
+			$title = $options_veu_wp_title['extend_frontTitle'];
+		} else {
+			$title = get_bloginfo( 'name' );
+		}
+	}
 
-	if ( is_front_page() || is_home() ) {
+	// フロントページではなくホームページの場合.
+	elseif ( is_home() ) {
 		if ( get_option( 'show_on_front' ) === 'page' ) {
-			$page_on_front = get_option( 'page_on_front' );
-			if ( $page_on_front == $post_id ) {
-				$options_veu_wp_title = get_option( 'vkExUnit_wp_title' );
-				if ( ! empty( $options_veu_wp_title['extend_frontTitle'] ) && veu_package_is_enable( 'wpTitle' ) ) {
-					$title = $options_veu_wp_title['extend_frontTitle'];
-				} else {
-					$title = get_bloginfo( 'name' );
-				}
+			// OGのタイトルを投稿タイトルだけにするチェック判定
+			if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
+				$title = get_the_title( $page_for_posts );
+			} else {
+				$title = get_the_title( $page_for_posts ) . ' | ' . $site_title;
 			}
 		}
+	}
+
+	// アーカイブページの場合
+	elseif ( is_archive() ) {
+		// OGのタイトルを投稿タイトルだけにするチェック判定
+		if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
+			$title = get_the_archive_title();
+		} else {
+			$title = get_the_archive_title() . ' | ' . $site_title;
+		}
+
+	}
+
+	// 投稿詳細ページの場合
+	elseif ( is_singular() ) {
+		/**
+		 *
+		 * [ 通常 ]
+		 *
+		 * → 投稿タイトル + サイト名
+		 */
+
+		$title = get_the_title( $post_id ) . ' | ' . $site_title;
+
+		/**
+		 *
+		 * [ OGのタイトルを投稿タイトルだけにするチェックが入っている場合 ]
+		 *
+		 * → 投稿タイトル
+		 */
+		if ( ! empty( $options_sns['snsTitle_use_only_postTitle'] ) ) {
+			$title = get_the_title( $post_id );
+		}
+
+		/**
+		 * [ metaboxでOG用のタイトルが別途登録されている場合 ]
+		 *
+		 * → OG用のタイトルを返す
+		 */
+		if ( ! empty( get_post_meta( $post_id, 'vkExUnit_sns_title', true ) ) ) {
+			$title = get_post_meta( $post_id, 'vkExUnit_sns_title', true );
+		}
+
 	}
 
 	/**
