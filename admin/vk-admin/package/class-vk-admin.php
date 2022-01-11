@@ -117,6 +117,25 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 				// テーマのバナーを設置
 				foreach( $product_array as $product ) {
+					// include パラメーターが存在する場合
+					if ( ! empty( $product['include'] ) ) {
+						// include パラメーターをカンマで区切って配列化
+						$includes = explode( ',', $product['include'] );
+						// include パラメーター が配列の場合
+						if ( is_array( $includes ) ) {
+							// 該当するものがあった時点で continue を２回発動
+							foreach( $includes as $include ) {
+								if ( self::theme_exists( $include ) || self::plugin_exists( $include ) ) {
+									continue 2;
+								}
+							}
+						} else {
+							// 該当するものがあった時点で continue を発動
+							if ( self::theme_exists( $includes ) || self::plugin_exists( $includes ) ) {
+								continue;
+							}
+						}
+					}
 
 					if ( 'theme' === $product['type'] ) {
 						if ( ! self::theme_exists( $product['slug'] ) ) {
@@ -149,6 +168,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 							}
 						}
 					}
+
 				}
 			}
 
