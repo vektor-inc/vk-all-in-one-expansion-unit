@@ -3,9 +3,9 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.8.2
+Tested up to: 5.8.3
 Requires PHP: 7.0
-Stable tag: 9.69.3.0
+Stable tag: 9.70.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.70.0.0 =
+* [ Specification Change ][ Design Tuning ] Customize panel font size
 
 = 9.69.3.0 =
 * [ Bug Fix ][ OG Title ] Fix custom post type archive page og title bug
