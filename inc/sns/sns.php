@@ -22,15 +22,17 @@ function vew_sns_block_setup() {
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
-			'attributes'      => array(
-				'position'  => array(
-					'type'    => 'string',
-					'default' => 'after',
+			'attributes'      => array_merge(
+				array(
+					'position'  => array(
+						'type'    => 'string',
+						'default' => 'after',
+					),
+					'className' => array(
+						'type' => 'string',
+					),
 				),
-				'className' => array(
-					'type' => 'string',
-				),
-				$common_attributes,
+				$common_attributes
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
 			'editor_script'   => 'veu-block',
