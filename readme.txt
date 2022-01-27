@@ -82,6 +82,9 @@ e.g.
 
 == Changelog ==
 
+= 9.70.1.0 =
+* [ Bug fix ][ sitemap / page-list-from-ancesters / share ] Fix preview on WP5.9
+
 = 9.70.0.0 =
 * [ Specification Change ][ Design Tuning ] Customize panel font size
 
