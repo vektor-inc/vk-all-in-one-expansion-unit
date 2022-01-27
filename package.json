@@ -22,7 +22,7 @@
     "gulp-sass": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "npm-check-updates": "^12.0.5",
-    "po2json": "^0.4.5",
+    "po2json": "^1.0.0-beta-3",
     "run-sequence": "^2.2.1",
     "sass": "^1.45.1"
   },
@@ -33,7 +33,7 @@
     "gulp": "gulp",
     "watch": "gulp watch",
     "build": "npx gulp text-domain && npx gulp build",
-    "translate": "po2json languages/ja_JP.po languages/veu-block-ja-veu-block.json -f jed",
+    "translate": "po2json ./languages/ja_JP.po ./languages/veu-block-ja-veu-block.json -f jed",
     "phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/phpunit.xml.dist --verbose'"
   },
   "repository": {

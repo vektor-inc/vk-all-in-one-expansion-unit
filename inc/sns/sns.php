@@ -22,15 +22,17 @@ function vew_sns_block_setup() {
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
-			'attributes'      => array(
-				'position'  => array(
-					'type'    => 'string',
-					'default' => 'after',
+			'attributes'      => array_merge(
+				array(
+					'position'  => array(
+						'type'    => 'string',
+						'default' => 'after',
+					),
+					'className' => array(
+						'type' => 'string',
+					),
 				),
-				'className' => array(
-					'type' => 'string',
-				),
-				$common_attributes,
+				$common_attributes
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
 			'editor_script'   => 'veu-block',
@@ -39,6 +41,29 @@ function vew_sns_block_setup() {
 		)
 	);
 }
+
+function veu_sns_inline_styles() {
+	$dynamic_css = '
+	@font-face {
+		font-weight: normal;
+		font-style: normal;
+		font-family: "vk_sns";
+		src: url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.eot?-bq20cj' . '");
+		src: url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj' . '") format("embedded-opentype"),
+			url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.woff?-bq20cj' . '") format("woff"),
+			url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.ttf?-bq20cj' . '") format("truetype"),
+			url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' . '") format("svg");
+	}';
+
+	// delete before after space
+	$dynamic_css = trim( $dynamic_css );
+	// convert tab and br to space
+	$dynamic_css = preg_replace( '/[\n\r\t]/', '', $dynamic_css );
+	// Change multiple spaces to single space
+	$dynamic_css = preg_replace( '/\s(?=\s)/', '', $dynamic_css );
+	wp_add_inline_style( 'vkExUnit_sns_editor_style', $dynamic_css );
+}
+add_action( 'enqueue_block_assets', 'veu_sns_inline_styles' );
 
 function veu_sns_options_init() {
 	if ( false === veu_get_sns_options() ) {

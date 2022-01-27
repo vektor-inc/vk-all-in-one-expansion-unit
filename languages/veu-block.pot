@@ -23,7 +23,7 @@ msgstr ""
 msgid "Display conditions"
 msgstr ""
 
-#: inc/contact-section/block.jsx:38
+#: inc/contact-section/block.jsx:40
 msgid "Set telephone and mail form vertically"
 msgstr ""
 
