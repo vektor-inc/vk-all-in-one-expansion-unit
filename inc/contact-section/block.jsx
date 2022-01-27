@@ -32,11 +32,12 @@
         <Fragment>
 			<InspectorControls>
 				<PanelBody
-					title={__("Display conditions", "vk-all-in-one-expansion-unit")}
+					title={__("Display conditions", "veu-block")}
 					initialOpen={false}
 				>
-					<BaseControl label={__("Set telephone and mail form vertically", "vk-all-in-one-expansion-unit")}>
+					<BaseControl >
 						<CheckboxControl
+							label={__("Set telephone and mail form vertically", "veu-block")}
 							className={ "mb-1" }
 							checked={ vertical }
 							onChange={ (checked) => setAttributes({ vertical: checked }) }
