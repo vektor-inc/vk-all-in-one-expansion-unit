@@ -298,12 +298,14 @@ function veu_sitemap_block_setup() {
 		register_block_type(
 			'vk-blocks/sitemap',
 			array(
-				'attributes'      => array(
-					'className' => array(
-						'type'    => 'string',
-						'default' => '',
+				'attributes'      => array_merge(
+					array(
+						'className' => array(
+							'type'    => 'string',
+							'default' => '',
+						),
 					),
-					$common_attributes,
+					$common_attributes
 				),
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',

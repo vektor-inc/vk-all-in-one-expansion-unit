@@ -1,11 +1,11 @@
 === Plugin Name ===
-Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak
+Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.8.3
+Tested up to: 5.9.0
 Requires PHP: 7.0
-Stable tag: 9.70.0.0
+Stable tag: 9.70.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.70.1.0 =
+* [ Bug fix ][ sitemap / page-list-from-ancesters / share ] Fix preview on WP5.9
 
 = 9.70.0.0 =
 * [ Specification Change ][ Design Tuning ] Customize panel font size

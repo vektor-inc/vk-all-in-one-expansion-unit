@@ -147,10 +147,12 @@ function veu_page_list_ancestor_block_setup() {
 		register_block_type(
 			'vk-blocks/page-list-ancestor',
 			array(
-				'attributes'      => array(
-					'className'      => array(
-						'type'    => 'string',
-						'default' => ''
+				'attributes'      => array_merge(
+					array(
+						'className'      => array(
+							'type'    => 'string',
+							'default' => ''
+						),
 					),
 					$common_attributes
 				),
