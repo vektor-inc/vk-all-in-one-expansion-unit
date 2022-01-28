@@ -378,7 +378,7 @@ add_filter(
 		$options['facebook_entry']        = get_rest_url( 0, 'vk_ex_unit/v1/facebook_entry/' );
 		$options['facebook_count_enable'] = false;
 		$options['entry_count']           = (bool) ( 'disable' !== $opt['entry_count'] );
-		$options['entry_from_post']       = (bool) ( 'post' !== $opt['entry_count'] );
+		$options['entry_from_post']       = (bool) ( 'post' === $opt['entry_count'] );
 
 		$opt = veu_get_sns_options();
 		if ( ! empty( $opt['fbAccessToken'] ) ) {
@@ -397,14 +397,19 @@ add_filter(
  * @return string api response
  */
 function vew_sns_hatena_restapi_callback( $data ) {
-	$link_url = $data['linkurl'];
+
 	$siteurl  = get_site_url();
+
+	// Avoiding Apache config "AllowEncodedSlashes" option issue
+	$link_url = str_replace( "-#-", "/", urldecode( $data['linkurl'] ) );
 
 	if ( strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
 		$response = new WP_REST_Response( array() );
 		$response->set_status( 403 );
 		return $response;
 	}
+
+	$link_url = urlencode( $link_url );
 
 	$r = wp_safe_remote_get( 'https://bookmark.hatenaapis.com/count/entry?url=' . $link_url );
 
@@ -436,14 +441,19 @@ function vew_sns_hatena_restapi_callback( $data ) {
  * @return string api response
  */
 function vew_sns_facebook_restapi_callback( $data ) {
-	$link_url = $data['linkurl'];
+
 	$siteurl  = get_site_url();
+
+	// Avoiding Apache config "AllowEncodedSlashes" option issue
+	$link_url = str_replace( "-#-", "/", urldecode( $data['linkurl'] ) );
 
 	if ( strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
 		$response = new WP_REST_Response( array() );
 		$response->set_status( 403 );
 		return $response;
 	}
+
+	$link_url = urlencode( $link_url );
 
 	$options = veu_get_sns_options();
 	if ( empty( $options['fbAccessToken'] ) ) {
