@@ -18,7 +18,7 @@
 				body: '{"linkurl": "'+ location.href +'"}'
 			}: { method: 'GET' }
 
-		// Avoiding Apache config "AllowEncodedSlashes" option issue
+		// Avoiding Apache con "AllowEncodedSlashes" option issue
 		let location_href_replaceslashes = location.href.replace(/\//g, '-#-');
 
 		// hatena
@@ -42,10 +42,14 @@
 		.catch((x)=>{})
 
 		// facebook
-		let fb_elements = document.getElementsByClassName('veu_count_sns_fb')
+		let fb_elements = document.getElementsByClassName('veu_count_sns_fb');
+
+		// Avoiding Apache con "AllowEncodedSlashes" option issue
+		location_href_replaceslashes = location.href.replace(/\//g, '-#-');
+
 		if(vkExOpt.facebook_count_enable) {
 			fetch(
-				(vkExOpt.entry_from_post)? vkExOpt.facebook_entry : vkExOpt.facebook_entry + encodeURIComponent(location.href),
+				(vkExOpt.entry_from_post)? vkExOpt.facebook_entry : vkExOpt.facebook_entry + encodeURIComponent(location_href_replaceslashes),
 				param
 			).then((r)=>{
 				if (r.ok) {
