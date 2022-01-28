@@ -18,7 +18,7 @@
 				body: '{"linkurl": "'+ location.href +'"}'
 			}: { method: 'GET' }
 
-		// Avoiding Apache con "AllowEncodedSlashes" option issue
+		// Avoiding Apache config "AllowEncodedSlashes" option issue
 		let location_href_replaceslashes = location.href.replace(/\//g, '-#-');
 
 		// hatena
@@ -44,7 +44,7 @@
 		// facebook
 		let fb_elements = document.getElementsByClassName('veu_count_sns_fb');
 
-		// Avoiding Apache con "AllowEncodedSlashes" option issue
+		// Avoiding Apache config "AllowEncodedSlashes" option issue
 		location_href_replaceslashes = location.href.replace(/\//g, '-#-');
 
 		if(vkExOpt.facebook_count_enable) {
