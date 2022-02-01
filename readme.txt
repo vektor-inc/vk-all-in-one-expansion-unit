@@ -82,6 +82,8 @@ e.g.
 
 == Changelog ==
 
+* [ Bug fix ] fix active settingscreen about widget.
+
 = 9.70.1.0 =
 * [ Bug fix ][ sitemap / page-list-from-ancesters / share ] Fix preview on WP5.9
 
