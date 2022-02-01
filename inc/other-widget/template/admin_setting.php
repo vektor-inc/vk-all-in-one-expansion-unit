@@ -3,6 +3,8 @@
 ?>
 
 <h2><?php echo __( 'Widget Enablation', 'vk-all-in-one-expansion-unit' ); ?></h2>
+<!-- ここでウィジェット設定が反映されたか判定 -->
+<input type="hidden" name="vkExUnit_widget_setting" value="true">
 <table id="widget_enablation" class="wp-list-table widefat plugins table-widget-enablation">
 	<thead>
 		<tr>
