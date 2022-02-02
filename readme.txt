@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.9.0
 Requires PHP: 7.0
-Stable tag: 9.70.1.0
+Stable tag: 9.70.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.70.2.0 =
+* [ Bug fix ] fix active settingscreen about widget.
 
 = 9.70.1.0 =
 * [ Bug fix ][ sitemap / page-list-from-ancesters / share ] Fix preview on WP5.9
