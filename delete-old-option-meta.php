@@ -48,6 +48,7 @@ add_action( 'init', 'veu_delete_old_options' );
  * Delete Old Meta
  */
 function veu_delete_old_metas() {
+    global $wpdb;
     // Meta キーワードを削除
     $old_metas = array(
         'vkExUnit_metaKeyword'

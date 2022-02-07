@@ -35,11 +35,7 @@ add_action( 'admin_enqueue_scripts', 'vwu_register_css', 3 );
 function vwu_register_css() {
 	$options = veu_get_common_options();
 
-	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
-		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style_in_bs.css', array(), VEU_VERSION, 'all' );
-	} else {
-		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
-	}
+	wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
 }
 
 function veu_print_css() {
