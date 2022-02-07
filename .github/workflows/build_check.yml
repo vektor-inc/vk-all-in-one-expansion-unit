@@ -24,7 +24,6 @@ jobs:
     - run: cp assets/js/all.min.js .all.min.js.before
     - run: cp assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
     - run: cp assets/css/vkExUnit_style.css .vkExUnit_style.css.before
-    - run: cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
     - run: cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
     - run: cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
     - run: cp assets/js/block.min.js .block.min.js.before
