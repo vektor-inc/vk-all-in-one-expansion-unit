@@ -33,6 +33,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+
+// $sample = new Sample();
+
 define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5 );
 define( 'VEU_DIRECTORY_PATH', dirname( __FILE__ ) );
 define( 'VEU_DIRECTORY_URI', plugins_url( '', __FILE__ ) );
