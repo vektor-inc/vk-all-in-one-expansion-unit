@@ -49,17 +49,6 @@ function veu_get_packages() {
 	/*-------------------------------------------*/
 
 	/*
-	  Breadcrumb
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'breadcrumb',
-		'title'       => __( 'Breadcrumb', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print BreadcrumbList schema ', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'vk-breadcrumb/config.php',
-	);
-
-	/*
 	  fontawesome
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -178,6 +167,17 @@ function veu_get_packages() {
 		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'meta-description.php',
+	);
+
+	/*
+	  Breadcrumb
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'breadcrumb',
+		'title'       => __( 'Breadcrumb', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print BreadcrumbList schema on html header', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'vk-breadcrumb/config.php',
 	);
 
 	/*
