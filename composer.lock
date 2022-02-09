@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f57f9536d71184ad9424b83af89bef6",
+    "content-hash": "6c2df96d63ed7340c39e633c8be5ae62",
     "packages": [
         {
             "name": "vektor-inc/vk-breadcrumb",
-            "version": "0.0.2",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vektor-inc/vk-breadcrumb.git",
-                "reference": "b165a09e47dfc0f0bc18c7c1835743afafe8d1ea"
+                "reference": "f2f22dda778e3414bfb431c5f045448201631e5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vektor-inc/vk-breadcrumb/zipball/b165a09e47dfc0f0bc18c7c1835743afafe8d1ea",
-                "reference": "b165a09e47dfc0f0bc18c7c1835743afafe8d1ea",
+                "url": "https://api.github.com/repos/vektor-inc/vk-breadcrumb/zipball/f2f22dda778e3414bfb431c5f045448201631e5f",
+                "reference": "f2f22dda778e3414bfb431c5f045448201631e5f",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "description": "WordPress Bread Crumb Class",
             "support": {
                 "issues": "https://github.com/vektor-inc/vk-breadcrumb/issues",
-                "source": "https://github.com/vektor-inc/vk-breadcrumb/tree/0.0.2"
+                "source": "https://github.com/vektor-inc/vk-breadcrumb/tree/0.0.3"
             },
-            "time": "2022-02-08T19:47:54+00:00"
+            "time": "2022-02-09T03:18:29+00:00"
         },
         {
             "name": "vektor-inc/vk-helpers",
