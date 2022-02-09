@@ -6,9 +6,6 @@
  * @since 9.71.0
  */
 
-// Load composer autoload.
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/vendor/autoload.php';
-
 use VektorInc\VK_Breadcrumb\VkBreadcrumb;
 
 function veu_print_breadcrumb_scheme() {
