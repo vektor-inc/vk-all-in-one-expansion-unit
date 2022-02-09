@@ -166,6 +166,17 @@ function veu_get_packages() {
 	);
 
 	/*
+	  Breadcrumb
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'breadcrumb',
+		'title'       => __( 'Breadcrumb', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print BreadcrumbList schema on html header', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'vk-breadcrumb/config.php',
+	);
+
+	/*
 	  noindex
 	/*-------------------------------------------*/
 	$required_packages[] = array(

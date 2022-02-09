@@ -11,5 +11,9 @@
 		"vektor-inc/vk-wp-unit-test-tools": "^0.10.0",
 		"sirbrillig/phpcs-variable-analysis": "^2.8",
 		"wp-phpunit/wp-phpunit": "^5.4"
-	  }
+	  },
+	"require": {
+		"vektor-inc/vk-helpers": "^0.0.2",
+		"vektor-inc/vk-breadcrumb": "^0.0.3"
+	}
 }
