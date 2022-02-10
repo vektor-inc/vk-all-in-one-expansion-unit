@@ -34,7 +34,7 @@
     "watch": "gulp watch",
     "build": "npx gulp text-domain && npx gulp build",
     "translate": "po2json ./languages/ja_JP.po ./languages/veu-block-ja-veu-block.json -f jed",
-    "phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/phpunit.xml.dist --verbose'"
+    "phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/.phpunit.xml --verbose'"
   },
   "repository": {
     "type": "git",

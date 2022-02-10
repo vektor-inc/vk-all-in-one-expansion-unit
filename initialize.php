@@ -9,7 +9,12 @@
   Load modules
 /*-------------------------------------------*/
 require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
-require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
+$options = get_option( 'veu_deprecated' );
+if ( empty( $options['9.71.0'] ) ) {
+	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
+	$options['9.71.0'] = 'done';
+	update_option( 'veu_deprecated', $options );
+}
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/vk-helpers/config.php';
