@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f37a24348192faea7130363361286994bba928b5',
+        'reference' => 'e0bac225d1a3cfec408479d4c02f5ed2dadc4d03',
         'name' => 'vektor-inc/vk-all-in-one-expansion-unit',
         'dev' => true,
     ),
@@ -34,7 +34,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f37a24348192faea7130363361286994bba928b5',
+            'reference' => 'e0bac225d1a3cfec408479d4c02f5ed2dadc4d03',
             'dev_requirement' => false,
         ),
         'vektor-inc/vk-breadcrumb' => array(

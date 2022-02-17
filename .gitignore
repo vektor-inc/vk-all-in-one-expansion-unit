@@ -11,7 +11,7 @@ dist/
 *.override.json
 
 # * なしの /vendor/ で書くと下階層が除外できなくなるので注意
-/vendor/*
+# /vendor/*
 /vendor/vektor-inc/vk-wp-unit-test-tools/
 !/vendor/composer/
 !/vendor/vektor-inc/
