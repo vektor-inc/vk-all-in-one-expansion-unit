@@ -82,6 +82,9 @@ e.g.
 
 == Changelog ==
 
+= 9.71.0.0 (beta release) =
+* [ Add function ] Add bread crumb scheme
+
 = 9.70.2.0 =
 * [ Bug fix ] fix active settingscreen about widget.
 
