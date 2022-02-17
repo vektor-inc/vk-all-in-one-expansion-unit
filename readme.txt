@@ -82,6 +82,9 @@ e.g.
 
 == Changelog ==
 
+= 9.71.0.1 (beta release) =
+* [ other ] Add all composer vendor
+
 = 9.71.0.0 (beta release) =
 * [ Add function ] Add bread crumb scheme
 

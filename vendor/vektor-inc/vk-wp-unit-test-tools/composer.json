@@ -1,0 +1,17 @@
+{
+    "name": "vektor-inc/vk-wp-unit-test-tools",
+    "description": "WordPress PHPUnit test tools",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "VK_WP_Unit_Test_Tools\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kurudrive",
+            "email": "kurudrive@gmail.com"
+        }
+    ],
+    "require": {}
+}
