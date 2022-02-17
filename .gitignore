@@ -12,10 +12,10 @@ dist/
 
 # * なしの /vendor/ で書くと下階層が除外できなくなるので注意
 # /vendor/*
-# /vendor/vektor-inc/vk-wp-unit-test-tools/
+/vendor/vektor-inc/vk-wp-unit-test-tools/
 # /vendor/yoast/
 # /vendor/sirbrillig/
 # /vendor/wp-phpunit/
-!/vendor/composer/
-!/vendor/vektor-inc/
-!/vendor/autoload.php
+# !/vendor/composer/
+# !/vendor/vektor-inc/
+# !/vendor/autoload.php
