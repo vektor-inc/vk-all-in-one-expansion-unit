@@ -220,5 +220,5 @@ gulp.task('dist', function() {
 			],
 			{ base: './' }
 		)
-		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
+		.pipe( gulp.dest( 'dist/vk-all-in-one-expansion-unit' ) ); // distディレクトリに出力
 } );
