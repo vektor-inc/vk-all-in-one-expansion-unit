@@ -5,8 +5,14 @@ dist/
 Thumbs.db
 _notes/
 *~
-vendor/
 *.before
 dist/
 .wp-env.override.json
 *.override.json
+
+# * なしの /vendor/ で書くと下階層が除外できなくなるので注意
+/vendor/*
+/vendor/vektor-inc/vk-wp-unit-test-tools/
+!/vendor/composer/
+!/vendor/vektor-inc/
+!/vendor/autoload.php
