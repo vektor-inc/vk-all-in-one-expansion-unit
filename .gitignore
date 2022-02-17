@@ -12,8 +12,8 @@ dist/
 
 # composer パッケージで実働ファイルのみgitに登録するため、不要ライブラリを除外（専用ブランチ用意してるわけではないので、登録しておかないと公式ディレクトリにデプロイされないため）
 # * なしの /vendor/ で書くと下階層が除外できなくなるので注意
-/vendor/*
-/vendor/vektor-inc/vk-wp-unit-test-tools/
-!/vendor/composer/
-!/vendor/vektor-inc/
-!/vendor/autoload.php
+# /vendor/*
+# /vendor/vektor-inc/vk-wp-unit-test-tools/
+# !/vendor/composer/
+# !/vendor/vektor-inc/
+# !/vendor/autoload.php
