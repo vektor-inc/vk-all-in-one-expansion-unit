@@ -17,6 +17,8 @@ jobs:
     - name: Build
       run: composer install --optimize-autoloader --prefer-dist --no-dev
       if: contains(github.ref, 'tags/')
+      run: |
+        ls
 
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
@@ -24,38 +26,3 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: vk-all-in-one-expansion-unit
-
-  release:
-    name: Release to GitHub
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: bash bin/dist
-
-    - name: Composer install
-      run: composer install --optimize-autoloader --prefer-dist --no-dev
-      if: contains(github.ref, 'tags/')
-
-    - run: echo "DIST_VERSION=$(echo ${{ github.ref }} | sed -E 's/^refs\/tags\/v?(.*)$/\1/')" >> $GITHUB_ENV
-    - run: test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-    - run : test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
-        asset_name: ${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
-        asset_content_type: application/zip
