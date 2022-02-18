@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.9.0
 Requires PHP: 7.0
-Stable tag: 9.70.2.0
+Stable tag: 9.71.0.27
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,10 +82,7 @@ e.g.
 
 == Changelog ==
 
-= 9.71.0.1 (beta release) =
-* [ other ] Add all composer vendor
-
-= 9.71.0.0 (beta release) =
+= 9.71.0.27 =
 * [ Add function ] Add bread crumb scheme
 
 = 9.70.2.0 =
