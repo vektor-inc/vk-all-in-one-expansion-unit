@@ -9,4 +9,3 @@ _notes/
 dist/
 .wp-env.override.json
 *.override.json
-vendor/*
