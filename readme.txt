@@ -82,6 +82,9 @@ e.g.
 
 == Changelog ==
 
+= 9.71.1.0 =
+* [ Bug fix ][ Share Btn ] Cope with other theme
+
 = 9.71.0.27 =
 * [ Add function ] Add bread crumb scheme
 
