@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.9.0
 Requires PHP: 7.0
-Stable tag: 9.71.0.27
+Stable tag: 9.71.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,7 +82,7 @@ e.g.
 
 == Changelog ==
 
-= 9.71.1.0 =
+= 9.71.1.1 =
 * [ Bug fix ][ Share Btn ] Cope with other theme
 
 = 9.71.0.27 =
