@@ -9,7 +9,7 @@ env:
 
 jobs:
   tag:
-    name: deploy to plugin directory
+    name: Deploy to plugin directory
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -24,6 +24,8 @@ jobs:
         mv wp-cli.phar /usr/local/bin/wp
     - name: Build
       run: npm run build
+      run: composer install --optimize-autoloader --prefer-dist --no-dev
+      if: contains(github.ref, 'tags/')
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
@@ -32,7 +34,7 @@ jobs:
         SLUG: vk-all-in-one-expansion-unit
 
   release:
-    name: release
+    name: Release to GitHub
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -48,6 +50,11 @@ jobs:
     - name: Build
       run: npm run build
     - run: bash bin/dist
+
+    - name: Composer install
+      run: composer install --optimize-autoloader --prefer-dist --no-dev
+      if: contains(github.ref, 'tags/')
+
     - run: echo "DIST_VERSION=$(echo ${{ github.ref }} | sed -E 's/^refs\/tags\/v?(.*)$/\1/')" >> $GITHUB_ENV
     - run: test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
     - name: Create Release

@@ -1,10 +1,12 @@
-.git/
-.github/
+_notes/
 bin/
 dist/
 docs/
 node_modules/
-tests
+tests/
+.wordpress-org/
+.git/
+.github/
 .distignore
 .eslintrc.js
 .gitignore
@@ -15,6 +17,8 @@ tests
 .wp-env.json
 .phpcs.xml
 .wp-env.json
+.wp-env.override.json
+.DS_Store
 composer.json
 composer.lock
 docker-compose.yml
@@ -23,3 +27,9 @@ gulpfile.js
 package-lock.json
 package.json
 README.md
+readme.md
+Thumbs.db
+*~
+*sftp-config.json
+*.before
+*.override.json

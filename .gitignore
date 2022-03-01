@@ -5,8 +5,8 @@ dist/
 Thumbs.db
 _notes/
 *~
-vendor/
 *.before
 dist/
 .wp-env.override.json
 *.override.json
+vendor/

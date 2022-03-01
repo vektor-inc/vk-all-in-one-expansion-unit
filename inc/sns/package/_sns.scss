@@ -25,6 +25,7 @@
             display: block;
             overflow: hidden;
             width:100%;
+			box-sizing: border-box;
             padding: 5px 10px;
             border-radius: var(--vk-size-radius);
             color: #fff;
