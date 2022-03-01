@@ -49,8 +49,6 @@ jobs:
         mv wp-cli.phar /usr/local/bin/wp
     - name: Build
       run: npm run build
-    - run: bash bin/dist
-
     - name: Composer install
       run: composer install --optimize-autoloader --prefer-dist --no-dev
       if: contains(github.ref, 'tags/')

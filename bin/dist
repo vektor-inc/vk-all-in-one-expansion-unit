@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# おそらくもう使用していないので 9.74.0 以降問題なければ削除可
+
 set -ex
 
 PLUGIN_NAME='vk-all-in-one-expansion-unit'
