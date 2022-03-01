@@ -22,8 +22,9 @@ jobs:
         curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
         chmod +x wp-cli.phar
         mv wp-cli.phar /usr/local/bin/wp
-    - name: Build
+    - name: npm Build
       run: npm run build
+    - name: composer install
       run: composer install --optimize-autoloader --prefer-dist --no-dev
       if: contains(github.ref, 'tags/')
     - name: WordPress Plugin Deploy
