@@ -13,20 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: install npm scripts
-      run: npm install
-    - name: install Composer Package
-      run: composer install
-    - name: Install WP-CLI
-      run: |
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        chmod +x wp-cli.phar
-        mv wp-cli.phar /usr/local/bin/wp
-    - name: npm Build
-      run: npm run build
-    - name: composer install
+
+    - name: Build
       run: composer install --optimize-autoloader --prefer-dist --no-dev
       if: contains(github.ref, 'tags/')
+
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
@@ -39,17 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: install npm scripts
-      run: npm install
-    - name: install Composer Package
-      run: composer install
-    - name: Install WP-CLI
-      run: |
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        chmod +x wp-cli.phar
-        mv wp-cli.phar /usr/local/bin/wp
-    - name: Build
-      run: npm run build
+    - run: bash bin/dist
+
     - name: Composer install
       run: composer install --optimize-autoloader --prefer-dist --no-dev
       if: contains(github.ref, 'tags/')
