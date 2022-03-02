@@ -26,10 +26,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 		$test_array = array(
 			// どちらも未定義の場合（既存ユーザー）
 			array(
-				'name'    => 'bootstrap',
-				'correct' => false,
-			),
-			array(
 				'name'    => 'metaDescription',
 				'correct' => true,
 			),
@@ -62,19 +58,19 @@ class PackageManagerTest extends WP_UnitTestCase {
 		$test_array = array(
 			// どちらも未定義の場合
 			array(
-				// 'active_bootstrap' => null,
+				// 'active_pagetop_button' => null,
 				'correct' => false,
 			),
 			array(
-				'active_bootstrap' => null,
+				'active_pagetop_button' => null,
 				'correct'          => false,
 			),
 			array(
-				'active_bootstrap' => 1,
+				'active_pagetop_button' => 1,
 				'correct'          => true,
 			),
 			array(
-				'active_bootstrap' => '',
+				'active_pagetop_button' => '',
 				'correct'          => '',
 			),
 		);
@@ -84,33 +80,15 @@ class PackageManagerTest extends WP_UnitTestCase {
 			$output = veu_common_options_validate( $test_value );
 
 			print PHP_EOL;
-			print 'options_validate         :' . $output['active_bootstrap'] . PHP_EOL;
+			print 'options_validate         :' . $output['active_pagetop_button'] . PHP_EOL;
 			print 'options_validate Correct :' . $test_value['correct'] . PHP_EOL;
 
 			// 取得できた値と、想定する値が等しいかテスト
-			$this->assertEquals( $test_value['correct'], $output['active_bootstrap'] );
+			$this->assertEquals( $test_value['correct'], $output['active_pagetop_button'] );
 
 		}
 
 		$test_array = array(
-			array(
-				'active_bootstrap' => array(
-					'value'   => '',
-					'correct' => false,
-				),
-			),
-			array(
-				'active_bootstrap' => array(
-					'value'   => null,
-					'correct' => false,
-				),
-			),
-			array(
-				'active_bootstrap' => array(
-					'value'   => 1,
-					'correct' => true,
-				),
-			),
 			array(
 				'active_pagetop_button' => array(
 					'value'   => '',

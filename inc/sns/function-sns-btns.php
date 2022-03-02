@@ -182,8 +182,6 @@ function veu_sns_block_callback( $attr ) {
  */
 function veu_get_sns_btns( $attr = array() ) {
 
-	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
-
 	$options   = veu_get_sns_options();
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
@@ -192,8 +190,8 @@ function veu_get_sns_btns( $attr = array() ) {
 	$page_title = rawurlencode( veu_get_the_sns_title() );
 
 	$classes = '';
-	if ( function_exists( 'vk_add_hidden_class' ) ) {
-		$classes .= vk_add_hidden_class( $classes, $attr );
+	if ( function_exists( 'veu_add_hidden_class' ) ) {
+		$classes .= veu_add_hidden_class( $classes, $attr );
 	}
 
 	if ( isset( $attr['position'] ) ) {

@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - master
+      - develop
   pull_request:
     branches:
       - master
+      - develop
       - ^feature/.+
 
 jobs:
@@ -17,12 +19,11 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
 
     - run: cp assets/js/all.min.js .all.min.js.before
     - run: cp assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
     - run: cp assets/css/vkExUnit_style.css .vkExUnit_style.css.before
-    - run: cp assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
     - run: cp assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
     - run: cp assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
     - run: cp assets/js/block.min.js .block.min.js.before
@@ -39,7 +40,6 @@ jobs:
     - run: npm run gulp sass
     - run: diff assets/css/vkExUnit_sns_editor_style.css .vkExUnit_sns_editor_style.css.before
     - run: diff assets/css/vkExUnit_style.css .vkExUnit_style.css.before
-    - run: diff assets/css/vkExUnit_style_in_bs.css .vkExUnit_style_in_bs.css.before
     - run: diff assets/css/vkExUnit_editor_style.css .vkExUnit_editor_style.css.before
     - run: diff assets/css/vkExUnit_admin.css .vkExUnit_admin.css.before
 
@@ -70,15 +70,22 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-    - uses: actions/setup-node@v1
+    - name: Setup Node 14.x
+      uses: actions/setup-node@v1
       with:
-        node-version: 12.x
-    - run: npm install
+        node-version: 14.x
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
       run: composer install
-    - name: install composer packages
-      run: ./node_modules/@wordpress/env/bin/wp-env start
-    - run: ./node_modules/@wordpress/env/bin/wp-env run composer 'composer install'
-    - run: ./node_modules/@wordpress/env/bin/wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/phpunit.xml.dist --verbose'
+    - name: Install WP-CLI
+      run: |
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+    - name: Build
+      run: npm run build
+    - name: Run Environment
+      run: npx wp-env start
+    - name: Run Environment
+      run: npm run phpunit

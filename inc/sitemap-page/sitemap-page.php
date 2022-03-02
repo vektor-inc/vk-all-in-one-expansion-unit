@@ -89,12 +89,10 @@ function veu_show_sitemap( $content ) {
 
 function vkExUnit_sitemap( $attr ) {
 
-	include dirname( dirname( __FILE__ ) ) . '/vk-blocks/hidden-utils.php';
-
 	$classes = '';
-	if ( function_exists( 'vk_add_hidden_class' ) ) {
-		if ( vk_add_hidden_class( $classes, $attr ) ) {
-			$classes .= ' ' . vk_add_hidden_class( $classes, $attr );
+	if ( function_exists( 'veu_add_hidden_class' ) ) {
+		if ( veu_add_hidden_class( $classes, $attr ) ) {
+			$classes .= ' ' . veu_add_hidden_class( $classes, $attr );
 		}
 	}
 
@@ -293,7 +291,6 @@ function vkExUnit_save_custom_field_sitemapData( $post_id ) {
 
 add_action( 'init', 'veu_sitemap_block_setup', 15 );
 function veu_sitemap_block_setup() {
-	global $common_attributes;
 	if ( function_exists( 'register_block_type' ) ) {
 		register_block_type(
 			'vk-blocks/sitemap',
@@ -305,7 +302,7 @@ function veu_sitemap_block_setup() {
 							'default' => '',
 						),
 					),
-					$common_attributes
+					veu_common_attributes()
 				),
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',
