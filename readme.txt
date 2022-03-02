@@ -49,7 +49,6 @@ Many features can be stopped individually.
 [ Others ]
 
 * Print Google Analytics tag
-* Print meta keyword tag
 * Print meta description tag
 * Rewrite the title tag
 * Insert Related Posts
@@ -81,6 +80,13 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.72.0.0 =
+* [ Delete Function ] Print meta keyword tag
+* [ Delete Function ] Print Favicon
+* [ Delete Function ] Bootstrap
+* [ Delete Function ] TinyMCE Stye
+* [ Delete Function ] VK Blocks
 
 = 9.71.1.1 =
 * [ Bug fix ][ Share Btn ] Cope with other theme
