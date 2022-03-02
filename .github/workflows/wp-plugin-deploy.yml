@@ -3,41 +3,68 @@ on:
   push:
     tags:
     - "[0-9]+.[0-9]+.[0-9]+.[0-9]+"
-
 env:
   plugin_name: vk-all-in-one-expansion-unit
-
 jobs:
-  tag:
-    name: Deploy to plugin directory
+  plugin-deploy:
+    name:  WordPress Plugin Deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-
+    - uses: actions/setup-node@v1
+      with:
+          node-version: 14.19.0
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+          php-version: 7.4
+    - name: install npm scripts
+      run: npm install
+    - name: install Composer Package
+      run: composer install
+    - name: Install WP-CLI
+      run: |
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
     - name: Build
-      run: composer install --optimize-autoloader --prefer-dist --no-dev
-      if: contains(github.ref, 'tags/')
-
+      run: npm run build
+    - name: Make Distribution
+      run: npm run dist:org
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: vk-all-in-one-expansion-unit
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: ${{ env.plugin_name }}
 
   release:
-    name: Release to GitHub
+    name: release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: bash bin/dist
-
-    - name: Composer install
-      run: composer install --optimize-autoloader --prefer-dist --no-dev
-      if: contains(github.ref, 'tags/')
-
-    - run: echo "DIST_VERSION=$(echo ${{ github.ref }} | sed -E 's/^refs\/tags\/v?(.*)$/\1/')" >> $GITHUB_ENV
-    - run: test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
+    - uses: actions/setup-node@v1
+      with:
+          node-version: 14.x
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+          php-version: 7.4
+    - name: install npm scripts
+      run: npm install
+    - name: install Composer Package
+      run: composer install
+    - name: Install WP-CLI
+      run: |
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+    - name: Build
+      run: npm run build
+    - name: Make Distribution for WordPress.org
+      run: |
+        npm run dist:github
+        cd dist/ && zip -r ${{ env.plugin_name }}.zip ${{ env.plugin_name }}/ && mv ${{ env.plugin_name }}.zip ${GITHUB_WORKSPACE}
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -48,7 +75,6 @@ jobs:
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
-    - run : test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
     - name: Upload Release Asset
       id: upload-release-asset
       uses: actions/upload-release-asset@v1.0.1
@@ -56,6 +82,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
-        asset_name: ${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
+        asset_path: ./dist/${{ env.plugin_name }}.zip
+        asset_name: ${{ env.plugin_name }}.zip
         asset_content_type: application/zip
+
