@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.9.0
 Requires PHP: 7.0
-Stable tag: 9.71.1.1
+Stable tag: 9.72.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,7 +49,6 @@ Many features can be stopped individually.
 [ Others ]
 
 * Print Google Analytics tag
-* Print meta keyword tag
 * Print meta description tag
 * Rewrite the title tag
 * Insert Related Posts
@@ -81,6 +80,13 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.72.0.0 =
+* [ Delete Function ] Print meta keyword tag
+* [ Delete Function ] Print Favicon
+* [ Delete Function ] Bootstrap
+* [ Delete Function ] TinyMCE Stye
+* [ Delete Function ] VK Blocks
 
 = 9.71.1.1 =
 * [ Bug fix ][ Share Btn ] Cope with other theme

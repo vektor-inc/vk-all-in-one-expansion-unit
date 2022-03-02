@@ -1,14 +1,26 @@
 <?php
 /*
+  Delete old function data
   Load modules
   Add vkExUnit css
   Add vkExUnit js
 /*-------------------------------------------*/
 
 /*
-  Load modules
+  Delete old function data
 /*-------------------------------------------*/
 require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+$options = get_option( 'veu_deprecated' );
+if ( empty( $options['9.72.0'] ) ) {
+	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
+	$options['9.72.0'] = 'done';
+	update_option( 'veu_deprecated', $options );
+}
+
+/*
+  Load modules
+/*
+-------------------------------------------*/
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/vk-helpers/config.php';
@@ -34,11 +46,7 @@ add_action( 'admin_enqueue_scripts', 'vwu_register_css', 3 );
 function vwu_register_css() {
 	$options = veu_get_common_options();
 
-	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
-		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style_in_bs.css', array(), VEU_VERSION, 'all' );
-	} else {
-		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
-	}
+	wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
 }
 
 function veu_print_css() {

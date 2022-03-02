@@ -29,12 +29,13 @@
   "scripts": {
     "start": "npx wp-env start",
     "stop": "npx wp-env stop",
-    "dist": "composer install --no-dev && bash bin/dist",
+    "dist:github": "composer install --optimize-autoloader --prefer-dist --no-dev && npx gulp dist",
+    "dist:org": "composer install --optimize-autoloader --prefer-dist --no-dev",
     "gulp": "gulp",
     "watch": "gulp watch",
     "build": "npx gulp text-domain && npx gulp build",
     "translate": "po2json ./languages/ja_JP.po ./languages/veu-block-ja-veu-block.json -f jed",
-    "phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/phpunit.xml.dist --verbose'"
+    "phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/.phpunit.xml --verbose'"
   },
   "repository": {
     "type": "git",
