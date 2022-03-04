@@ -40,8 +40,8 @@ function veu_childPageIndex_block_callback( $attributes = array() ) {
 		$classes .= ' ' . $attributes['className'];
 	}
 
-	if ( function_exists( 'vk_add_hidden_class' ) ) {
-		$classes .= ' ' . vk_add_hidden_class( $classes, $attributes );
+	if ( function_exists( 'veu_add_hidden_class' ) ) {
+		$classes .= ' ' . veu_add_hidden_class( $classes, $attributes );
 	}
 
 	$postId = ( $attributes['postId'] > 0 ) ? $attributes['postId'] : get_the_ID();
@@ -216,8 +216,6 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 
 add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
-	global $common_attributes;
-
 	if ( function_exists( 'register_block_type' ) ) {
 		register_block_type(
 			'vk-blocks/child-page-index',
@@ -233,7 +231,7 @@ function veu_child_page_index_setup() {
 							'default' => -1,
 						),
 					),
-					$common_attributes
+					veu_common_attributes()
 				),
 				'editor_script'   => 'veu-block',
 				'editor_style'    => 'veu-block-editor',

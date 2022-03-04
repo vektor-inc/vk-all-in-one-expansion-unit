@@ -23,7 +23,6 @@ function veu_get_packages() {
 	/*
 	  fontawesome
 	  wpTitle
-	  metaKeyword
 	  metaDescription
 	  sns
 	  ga
@@ -42,9 +41,6 @@ function veu_get_packages() {
 	  Add Body Class
 	  Nav Menu Class Custom
 	  auto_eyecatch
-	  TinyMCE Style Tags
-	  bootstrap
-	  icon
 	  Contactform7AssetOptimize
 	/*-------------------------------------------*/
 
@@ -579,72 +575,6 @@ function veu_get_packages() {
 		'default'     => false,
 		'include'     => 'auto-eyecatch/auto-eyecatch.php',
 	);
-
-	$not_recommend_description = '<br><br>* * * * * * * * * * * * * * * * * * * * * * * *  <br>' . __( 'This feature will be discontinued shortly.', 'vk-all-in-one-expansion-unit' ) . '<br>* * * * * * * * * * * * * * * * * * * * * * * * ';
-
-	/*
-	  VK Blocks
-	/*-------------------------------------------*/
-	$install_link        = admin_url() . 'plugin-install.php?s=vk+blocks&tab=search&type=term';
-	$required_packages[] = array(
-		'name'        => 'vk-blocks',
-		'title'       => __( 'VK Blocks', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Extends Gutenberg\'s blocks.', 'vk-all-in-one-expansion-unit' ) . $not_recommend_description . '<br><a href="' . $install_link . '">' . __( 'Please install the plugin version of VK Blocks.', 'vk-all-in-one-expansion-unit' ) . '</a>',
-		'default'     => false,
-		'include'     => 'vk-blocks/vk-blocks-config.php',
-	);
-
-	/*
-	  TinyMCE Style Tags
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'tiny_mce_style_tags',
-		'title'       => __( 'TinyMCE Style Tags', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add TinyMCE Editor to style tags.', 'vk-all-in-one-expansion-unit' ) . $not_recommend_description,
-		'default'     => false,
-		'include'     => 'tiny-mce-styletags.php',
-	);
-
-	/*
-	  bootstrap
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'bootstrap',
-		'title'       => __( 'Print Bootstrap css ( grid / button / table )', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'If your using theme has already including Bootstrap, you deactivate this item.', 'vk-all-in-one-expansion-unit' ) . $not_recommend_description,
-		'default'     => false,
-		'include'     => 'bootstrap.php',
-	);
-
-	/*
-	  metaKeyword
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'metaKeyword',
-		'title'       => __( 'Print meta Keyword', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print meta Keyword to html head.', 'vk-all-in-one-expansion-unit' ) . $not_recommend_description,
-		'attr'        => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_common_keywords',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => false,
-		'include'     => 'meta-keyword/meta-keyword.php',
-	);
-
-	/*
-	  icon
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'icon',
-		'title'       => __( 'Favicon setting', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'About favicon.', 'vk-all-in-one-expansion-unit' ) . $not_recommend_description . '<br>' . __( 'You can set the site icon from "Site Identity" panel of "Themes > Customize".', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'icons.php',
-	);
-
 	/*
 	  Contactform7AssetOptimize
 	/*-------------------------------------------*/
