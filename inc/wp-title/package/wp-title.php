@@ -146,6 +146,6 @@ function vkExUnit_get_wp_title_default() {
 
 function vkExUnit_wp_title_validate( $input ) {
 	$output                      = array();
-	$output['extend_frontTitle'] = htmlspecialchars( $input['extend_frontTitle'] );
+	$output['extend_frontTitle'] = stripslashes( htmlspecialchars( $input['extend_frontTitle'] ) );
 	return $output;
 }
