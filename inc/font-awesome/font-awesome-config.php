@@ -1,16 +1,18 @@
 <?php
+/**
+ * VK Blocks Font Awesome
+ *
+ * @package vk_blocks
+ */
+
+use VektorInc\VK_Font_Awesome_Versions\VkFontAwesomeVersions;
+
 /*
-  Load modules
-/*-------------------------------------------*/
+ * Font Awesome Load modules
+ */
 if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-	require_once( 'package/class-vk-font-awesome-versions.php' );
-
+	new VkFontAwesomeVersions();
 	global $font_awesome_directory_uri;
-	$font_awesome_directory_uri = plugins_url( '', __FILE__ ) . '/package/';
-
-	global $vk_font_awesome_version_prefix_customize_panel;
-	$vk_font_awesome_version_prefix_customize_panel = veu_get_prefix();
-
-	global $set_enqueue_handle_style;
-	$set_enqueue_handle_style = 'vkExUnit_common_style';
+	// phpcs:ignore
+	$font_awesome_directory_uri = VEU_DIRECTORY_URI . 'vendor/vektor-inc/font-awesome-versions/src/';
 }
