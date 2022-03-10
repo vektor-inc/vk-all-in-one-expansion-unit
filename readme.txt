@@ -81,7 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.73.0.0 =
 * [ Add function ] Cope with font awesome 6
+* [ Bug fix ][ title ] Fix admin title escape 
 * [ other ] Add ExUnit icon on admin menu
 
 = 9.72.0.0 =
