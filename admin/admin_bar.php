@@ -17,7 +17,7 @@ function vkExUnit_adminbar_link( $wp_admin_bar ) {
 
 	$args = array(
 		'id'    => 'veu_adminlink',
-		'title' => vkExUnit_get_little_short_name(),
+		'title' => '<span class="ab-veu-icon"></span>' . vkExUnit_get_little_short_name(),
 		'href'  => admin_url() . 'admin.php?page=vkExUnit_main_setting',
 		'meta'  => array(),
 	);
