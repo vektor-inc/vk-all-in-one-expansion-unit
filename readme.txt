@@ -3,7 +3,7 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.3.0
-Tested up to: 5.9.0
+Tested up to: 5.9.1
 Requires PHP: 7.0
 Stable tag: 9.72.0.0
 License: GPLv2 or later
@@ -80,6 +80,11 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.73.0.0 =
+* [ Add function ] Cope with font awesome 6
+* [ Bug fix ][ title ] Fix admin title escape 
+* [ other ] Add ExUnit icon on admin menu
 
 = 9.72.0.0 =
 * [ Delete Function ] Print meta keyword tag
