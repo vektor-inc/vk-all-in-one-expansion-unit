@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ other ] Add ExUnit icon on admin menu
+
 = 9.72.0.0 =
 * [ Delete Function ] Print meta keyword tag
 * [ Delete Function ] Print Favicon
