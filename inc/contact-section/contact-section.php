@@ -295,6 +295,14 @@ class VkExUnit_Contact {
 	}
 
 	public function option_sanitaize( $option ) {
+		$option['contact_txt']  = stripslashes( $option['contact_txt'] );
+		$option['tel_number']  = stripslashes( $option['tel_number'] );
+		$option['tel_icon']  = stripslashes( $option['tel_icon'] );
+		$option['contact_time']  = stripslashes( $option['contact_time'] );
+		$option['contact_link']  = stripslashes( $option['contact_link'] );
+		$option['button_text']  = stripslashes( $option['button_text'] );
+		$option['button_text_small']  = stripslashes( $option['button_text_small'] );
+		$option['short_text']  = stripslashes( $option['short_text'] );
 		$option['contact_html'] = stripslashes( $option['contact_html'] );
 		return $option;
 	}
