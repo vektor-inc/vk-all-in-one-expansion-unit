@@ -147,7 +147,7 @@ class vExUnit_Ads {
 		$option                               = $input;
 		$option['google-ads-active']          = ( isset( $input['google-ads-active'] ) ) ? esc_attr( $input['google-ads-active'] ) : '';
 		$option['google-ads-overlays-bottom'] = ( isset( $input['google-ads-overlays-bottom'] ) ) ? esc_attr( $input['google-ads-overlays-bottom'] ) : '';
-		$option['google-pub-id']              = ( isset( $input['google-pub-id'] ) ) ? esc_attr( $input['google-pub-id'] ) : '';
+		$option['google-pub-id']              = ( isset( $input['google-pub-id'] ) ) ? stripslashes( esc_attr( $input['google-pub-id'] ) ) : '';
 		$option['before'][0]                  = stripslashes( $input['before'][0] );
 		$option['before'][1]                  = stripslashes( $input['before'][1] );
 		$option['more'][0]                    = stripslashes( $input['more'][0] );

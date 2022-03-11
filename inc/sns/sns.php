@@ -252,11 +252,11 @@ function veu_get_the_sns_title( $post_id = '' ) {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
-	$output['fbAppId']                     = esc_attr( $input['fbAppId'] );
+	$output['fbAppId']                     = stripslashes( esc_attr( $input['fbAppId'] ) );
 	$output['fbPageUrl']                   = esc_url( $input['fbPageUrl'] );
-	$output['fbAccessToken']               = esc_attr( $input['fbAccessToken'] );
+	$output['fbAccessToken']               = stripslashes( esc_attr( $input['fbAccessToken'] ) );
 	$output['ogImage']                     = esc_url( $input['ogImage'] );
-	$output['twitterId']                   = esc_attr( $input['twitterId'] );
+	$output['twitterId']                   = stripslashes( esc_attr( $input['twitterId'] ) );
 	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', $input['snsBtn_ignorePosts'] );
 	$output['snsTitle_use_only_postTitle'] = ( isset( $input['snsTitle_use_only_postTitle'] ) && $input['snsTitle_use_only_postTitle'] ) ? true : false;
 	$output['enableOGTags']                = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
@@ -265,7 +265,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['snsBtn_exclude_post_types']   = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
 	$output['snsBtn_position']             = ( isset( $input['snsBtn_position'] ) ) ? $input['snsBtn_position'] : '';
 	$output['enableFollowMe']              = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;
-	$output['followMe_title']              = $input['followMe_title'];
+	$output['followMe_title']              = stripslashes( $input['followMe_title'] );
 	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
