@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Bug fix ] Fix Facebook btn brand color
+
 = 9.73.1.0 =
 * [ Bug fix ] Fix admin escape 
 
