@@ -303,6 +303,7 @@ class VkExUnit_Contact {
 		$option['button_text']  = stripslashes( $option['button_text'] );
 		$option['button_text_small']  = stripslashes( $option['button_text_small'] );
 		$option['short_text']  = stripslashes( $option['short_text'] );
+		$option['contact_image']  = esc_url( $option['contact_image'] );
 		$option['contact_html'] = stripslashes( $option['contact_html'] );
 		return $option;
 	}

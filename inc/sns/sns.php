@@ -253,7 +253,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
 	$output['fbAppId']                     = stripslashes( esc_attr( $input['fbAppId'] ) );
-	$output['fbPageUrl']                   = stripslashes( esc_url( $input['fbPageUrl'] ) );
+	$output['fbPageUrl']                   = esc_url( $input['fbPageUrl'] );
 	$output['fbAccessToken']               = stripslashes( esc_attr( $input['fbAccessToken'] ) );
 	$output['ogImage']                     = esc_url( $input['ogImage'] );
 	$output['twitterId']                   = stripslashes( esc_attr( $input['twitterId'] ) );
