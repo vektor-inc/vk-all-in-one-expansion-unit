@@ -36,16 +36,17 @@ function veu_setting_menu_parent() {
 	$menu_title = veu_get_little_short_name();
 	$capability_required = 'activate_plugins';
 	$menu_slug = 'vkExUnit_setting_page';
-	$icon_url = 'none';
 	$callback_function = 'veu_add_setting_page';
+	$icon_url = 'none';	
 
 	$custom_page = add_menu_page(
 		$page_title,
 		$menu_title,
 		$capability_required,
 		$menu_slug,
+		$callback_function,
 		$icon_url,
-		$callback_function
+		
 	);
 	if ( ! $custom_page ) {
 		return; }
