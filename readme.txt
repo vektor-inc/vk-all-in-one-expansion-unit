@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.9.1
 Requires PHP: 7.0
-Stable tag: 9.73.1.0
+Stable tag: 9.73.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+= 9.73.2.0 =
+* [ Bug fix ] Fix Activate setting page warning
 * [ Bug fix ] Fix Facebook btn brand color
 
 = 9.73.1.0 =
