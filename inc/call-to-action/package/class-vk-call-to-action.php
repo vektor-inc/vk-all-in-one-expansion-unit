@@ -586,7 +586,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						$option[ $key ] = 'random';
 					} else {
 						if ( 'hook_point' === $key ) {
-							$option[ $key ] = sanitize_text_field( $value );
+							$option[ $key ] = stripslashes( sanitize_text_field( $value ) );
 						} else {
 							$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
 						}

@@ -55,7 +55,7 @@ function vkExUnit_ga_options_validate( $input ) {
 	$input = wp_parse_args( $input, $defaults );
 
 	// 入力値をサニタイズ
-	$output['gaId']   = esc_html( $input['gaId'] );
+	$output['gaId']   = stripslashes( esc_html( $input['gaId'] ) );
 	$output['gaType'] = esc_html( $input['gaType'] );
 
 	return apply_filters( 'vkExUnit_ga_options_validate', $output, $input, $defaults );
