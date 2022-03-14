@@ -47,9 +47,10 @@ function veu_setting_menu_parent() {
 		$callback_function,
 		$icon_url,		
 	);
-	
+
 	if ( ! $custom_page ) {
-		return; }
+		return; 
+	}
 }
 
 add_action( 'admin_menu', 'veu_active_setting_menu', 10 );
