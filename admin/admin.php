@@ -45,9 +45,9 @@ function veu_setting_menu_parent() {
 		$capability_required,
 		$menu_slug,
 		$callback_function,
-		$icon_url,
-		
+		$icon_url,		
 	);
+	
 	if ( ! $custom_page ) {
 		return; }
 }
