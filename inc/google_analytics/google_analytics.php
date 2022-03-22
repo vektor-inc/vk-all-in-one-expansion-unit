@@ -84,7 +84,7 @@ function vkExUnit_googleAnalytics() {
 	$options = vkExUnit_get_ga_options();
 	$gaId    = esc_html( $options['gaId'] );
 	$gaType  = esc_html( $options['gaType'] );
-	$disableLoggedin  = esc_html( $options['disableLoggedin'] );
+	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
 	if ( $gaId && !$disableLoggedin) {
 
 		if ( $gaType == 'gaType_universal' ) {
