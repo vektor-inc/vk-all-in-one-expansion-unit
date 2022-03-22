@@ -85,7 +85,7 @@ function vkExUnit_googleAnalytics() {
 	$gaId    = esc_html( $options['gaId'] );
 	$gaType  = esc_html( $options['gaType'] );
 	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
-	if ( $gaId && !$disableLoggedin) {
+	if ( $gaId && !( $disableLoggedin && is_user_logged_in())) {
 
 		if ( $gaType == 'gaType_universal' ) {
 			$domainUrl = home_url();
