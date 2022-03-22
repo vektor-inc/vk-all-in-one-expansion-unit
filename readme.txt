@@ -927,7 +927,7 @@ Restore version 9
 
 = 6.1.0 =
 * [ Add Function ] Add Page Top Button
-* [ a ][ Add function ] Add customizer setting
+* [ Google Analytics ][ Add function ] Add customizer setting
 
 = 6.0.0 =
 * [ Add Widget ] Add Twitter Widget.
