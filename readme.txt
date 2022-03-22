@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Google Analytics ][ Add function ] Add option for disable tracking of logged in user
+
 = 9.73.3.0 =
 * [ Bug fix ] Fix Admin Fatal Error 
 
@@ -925,7 +927,7 @@ Restore version 9
 
 = 6.1.0 =
 * [ Add Function ] Add Page Top Button
-* [ Google Analytics ][ Add function ] Add customizer setting
+* [ a ][ Add function ] Add customizer setting
 
 = 6.0.0 =
 * [ Add Widget ] Add Twitter Widget.
