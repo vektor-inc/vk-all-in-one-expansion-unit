@@ -34,6 +34,8 @@ foreach ( $vkExUnit_gaTypes as $vkExUnit_gaTypeValue => $vkExUnit_gaTypeLavel ) 
 ?>
     </dd>
     </dl>
+	<label>
+<input type="checkbox" name="vkExUnit_ga_options[disableLoggedin]" id="disableLoggedin" value="true" <?php echo ( $options['disableLoggedin'] ) ? 'checked' : ''; ?> /><?php _e( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td>
 </tr>
 </table>

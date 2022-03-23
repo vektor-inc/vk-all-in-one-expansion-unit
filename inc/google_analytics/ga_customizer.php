@@ -79,4 +79,25 @@ function veu_customize_register_ga( $wp_customize ) {
 		)
 	);
 
+	// Disable Logged in
+	$wp_customize->add_setting(
+		'vkExUnit_ga_options[disableLoggedin]',
+		array(
+			'default'           => '',
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'enableOGTags',
+		array(
+			'label'        => __( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ),
+			'section'      => 'veu_ga_setting',
+			'settings'     => 'vkExUnit_ga_options[disableLoggedin]',
+			'type'         => 'checkbox',
+		)
+	);
+
 } // function veu_customize_register_ga( $wp_customize )

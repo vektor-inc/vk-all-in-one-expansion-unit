@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Google Analytics ][ Add function ] Add option for disable tracking of logged in user
+
 = 9.73.3.0 =
 * [ Bug fix ] Fix Admin Fatal Error 
 
