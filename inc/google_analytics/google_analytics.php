@@ -39,8 +39,9 @@ function vkExUnit_get_ga_options() {
 
 function vkExUnit_get_ga_options_default() {
 	$default_options = array(
-		'gaId'   => '',
-		'gaType' => 'gaType_gtag',
+		'gaId'             => '',
+		'gaType'           => 'gaType_gtag',
+		'disableLoggedin'  => false,
 	);
 	return apply_filters( 'vkExUnit_ga_options_default', $default_options );
 }
@@ -57,6 +58,7 @@ function vkExUnit_ga_options_validate( $input ) {
 	// 入力値をサニタイズ
 	$output['gaId']   = stripslashes( esc_html( $input['gaId'] ) );
 	$output['gaType'] = esc_html( $input['gaType'] );
+	$output['disableLoggedin'] = ($input['disableLoggedin'] ) ? true : false;
 
 	return apply_filters( 'vkExUnit_ga_options_validate', $output, $input, $defaults );
 }
@@ -69,6 +71,7 @@ add_action( 'init', 'vkExUnit_googleAnalytics_load' );
 function vkExUnit_googleAnalytics_load() {
 	$options = vkExUnit_get_ga_options();
 	$gaType  = esc_html( $options['gaType'] );
+	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
 	if ( $gaType == 'gaType_gtag' ) {
 		$priority = 0;
 	} else {
@@ -81,7 +84,8 @@ function vkExUnit_googleAnalytics() {
 	$options = vkExUnit_get_ga_options();
 	$gaId    = esc_html( $options['gaId'] );
 	$gaType  = esc_html( $options['gaType'] );
-	if ( $gaId ) {
+	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
+	if ( $gaId && !( $disableLoggedin && is_user_logged_in())) {
 
 		if ( $gaType == 'gaType_universal' ) {
 			$domainUrl = home_url();
