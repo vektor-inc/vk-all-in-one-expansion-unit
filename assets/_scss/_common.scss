@@ -39,7 +39,7 @@ iframe.wp-embedded-content {
     }
     &:hover{
         .ab-veu-icon{
-            @include mixin.admin-bar-ab-veu-icon-hover();
+            @include mixin.veu-icon-hover();
         }
     }
 }

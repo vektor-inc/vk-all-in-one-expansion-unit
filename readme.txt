@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Bug fix ] Fixed ExUnit icon appearing in other menus
+
 = 9.74.0.0 =
 * [ Google Analytics ][ Add function ] Add option for disable tracking of logged in user
 
