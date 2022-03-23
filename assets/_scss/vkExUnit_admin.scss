@@ -151,15 +151,12 @@
 }
 
 //設定メニュー横にアイコン追加
-.toplevel_page_vkExUnit_setting_page{
+#toplevel_page_vkExUnit_setting_page{
 	.dashicons-before{
-		background-image: url('../images/ex-unit-icon.svg');
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: 20px !important;
+		@include mixin.veu-icon();
 	}
 	&:hover .dashicons-before{
-		background-image: url('../images/ex-unit-icon-hover.svg');
+		@include mixin.veu-icon-hover();
 	}
 }
 
@@ -170,7 +167,7 @@
     }
     &:hover{
         .ab-veu-icon{
-            @include mixin.admin-bar-ab-veu-icon-hover();
+            @include mixin.veu-icon-hover();
         }
     }
 }
