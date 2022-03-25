@@ -172,8 +172,8 @@ function veu_pageListAncestor_block_callback( $attr=array() ) {
 		$classes .= ' ' . $attr['className'];
 	}
 
-	if( function_exists( 'veu_add_hidden_class' ) ){
-		$classes .= ' ' . veu_add_hidden_class($classes, $attr);
+	if( function_exists( 'veu_add_common_attributes_class' ) ){
+		$classes .= ' ' . veu_add_common_attributes_class($classes, $attr);
 	}
 	
 	$r = vkExUnit_pageList_ancestor_shortcode( $classes, true );

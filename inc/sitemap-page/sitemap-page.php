@@ -90,9 +90,9 @@ function veu_show_sitemap( $content ) {
 function vkExUnit_sitemap( $attr ) {
 
 	$classes = '';
-	if ( function_exists( 'veu_add_hidden_class' ) ) {
-		if ( veu_add_hidden_class( $classes, $attr ) ) {
-			$classes .= ' ' . veu_add_hidden_class( $classes, $attr );
+	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
+		if ( veu_add_common_attributes_class( $classes, $attr ) ) {
+			$classes .= ' ' . veu_add_common_attributes_class( $classes, $attr );
 		}
 	}
 
