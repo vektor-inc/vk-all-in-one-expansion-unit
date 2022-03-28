@@ -16,6 +16,7 @@
 	"require": {
 		"vektor-inc/vk-helpers": "^0.0.2",
 		"vektor-inc/vk-breadcrumb": "^0.0.4",
-		"vektor-inc/font-awesome-versions": "^0.1.1"
+		"vektor-inc/font-awesome-versions": "^0.1.1",
+		"vektor-inc/vk-term-color": "^0.1.0"
 	}
 }

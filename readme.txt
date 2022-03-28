@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.74.2.0 =
+* [ Bug fix ] Fixed add common attributes ( attribute from VK Blocks 1.29 - )
+* [ Specification Change ] Use composer vk-term-color
+
 = 9.74.1.0 =
 * [ Bug fix ] Fixed ExUnit icon appearing in other menus
 
