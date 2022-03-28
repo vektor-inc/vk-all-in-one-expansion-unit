@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Bug fix ] Fixed add common attributes ( attribute from VK Blocks 1.29 - )
+
 = 9.74.1.0 =
 * [ Bug fix ] Fixed ExUnit icon appearing in other menus
 

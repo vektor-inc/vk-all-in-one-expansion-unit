@@ -94,17 +94,25 @@ function veu_common_attributes() {
 			'type'    => 'boolean',
 			'default' => false,
 		),
+		'marginTop'        => array(
+			'type'    => 'string',
+			'default' => '',
+		),
+		'marginBottom'     => array(
+			'type'    => 'string',
+			'default' => '',
+		),
 	);
 	return $common_attributes;
 }
 
 /**
- * Hidden Class Options
+ * Common Class Options
  *
  * @param string $classes added classes.
  * @param string $attributes attributes.
  */
-function veu_add_hidden_class( $classes, $attributes ) {
+function veu_add_common_attributes_class( $classes, $attributes ) {
 
 	if ( isset( $attributes['vkb_hidden'] ) && $attributes['vkb_hidden'] ) {
 		$classes .= ' vk_hidden';
@@ -126,6 +134,12 @@ function veu_add_hidden_class( $classes, $attributes ) {
 	}
 	if ( isset( $attributes['vkb_hidden_xs'] ) && $attributes['vkb_hidden_xs'] ) {
 		$classes .= ' vk_hidden-xs';
+	}
+	if ( isset( $attributes['marginTop'] ) && $attributes['marginTop'] ) {
+		$classes .= ' ' . $attributes['marginTop'];
+	}
+	if ( isset( $attributes['marginBottom'] ) && $attributes['marginBottom'] ) {
+		$classes .= ' ' . $attributes['marginBottom'];
 	}
 
 	return $classes;
