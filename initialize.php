@@ -26,7 +26,6 @@ require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/vk-helpers/config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
-require_once VEU_DIRECTORY_PATH . '/inc/term-color/term-color-config.php';
 require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 
 veu_package_include(); // package_manager.php
