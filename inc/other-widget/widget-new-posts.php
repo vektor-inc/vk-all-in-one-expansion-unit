@@ -3,6 +3,9 @@
   Side Post list widget
 /*-------------------------------------------*/
 
+// vendor/vektor-inc/vk-term-color/src
+use VektorInc\VK_Term_Color\VkTermColor;
+
 class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	function __construct() {
 		parent::__construct(
@@ -228,7 +231,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 				foreach ( $terms as $term ) {
 					$link             = get_term_link( $term->term_id );
 					if ( class_exists( 'Vk_term_color' ) ) {
-						$term_color = Vk_term_color::get_term_color( $term->term_id );
+						$term_color = VkTermColor::get_term_color( $term->term_id );
 						$term_color = ( $term_color ) ? ' style="background-color:' . $term_color . ';border:none;color:white;"' : '';
 					}
 					$li_items_output .= '<span class="postList_terms postList_meta_items">';
