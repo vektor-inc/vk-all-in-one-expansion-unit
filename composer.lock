@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfb6f9294a5a223210d1e6e047e16105",
+    "content-hash": "0b05752861852f3db77e093ee9793e03",
     "packages": [
         {
             "name": "vektor-inc/font-awesome-versions",
@@ -125,16 +125,16 @@
         },
         {
             "name": "vektor-inc/vk-term-color",
-            "version": "0.0.1",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vektor-inc/vk-term-color.git",
-                "reference": "b4dae88e4fe0d777031b3e1aebc896536fc564d7"
+                "reference": "6a03c52ffbbceba13f8429beb12bbcf4946335c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vektor-inc/vk-term-color/zipball/b4dae88e4fe0d777031b3e1aebc896536fc564d7",
-                "reference": "b4dae88e4fe0d777031b3e1aebc896536fc564d7",
+                "url": "https://api.github.com/repos/vektor-inc/vk-term-color/zipball/6a03c52ffbbceba13f8429beb12bbcf4946335c1",
+                "reference": "6a03c52ffbbceba13f8429beb12bbcf4946335c1",
                 "shasum": ""
             },
             "type": "library",
@@ -156,9 +156,9 @@
             "description": "VK Term Color",
             "support": {
                 "issues": "https://github.com/vektor-inc/vk-term-color/issues",
-                "source": "https://github.com/vektor-inc/vk-term-color/tree/0.0.1"
+                "source": "https://github.com/vektor-inc/vk-term-color/tree/0.1.0"
             },
-            "time": "2022-03-15T09:03:37+00:00"
+            "time": "2022-03-28T06:38:36+00:00"
         }
     ],
     "packages-dev": [
