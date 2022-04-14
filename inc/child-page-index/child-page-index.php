@@ -41,7 +41,7 @@ function veu_childPageIndex_block_callback( $attributes = array() ) {
 	}
 
 	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-		$classes .= ' ' . veu_add_common_attributes_class( $classes, $attributes );
+		$classes = veu_add_common_attributes_class( $classes, $attributes );
 	}
 
 	$postId = ( $attributes['postId'] > 0 ) ? $attributes['postId'] : get_the_ID();

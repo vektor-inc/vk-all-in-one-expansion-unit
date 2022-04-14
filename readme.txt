@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Bug fix ][ Child Page List / Contact section / Page list from ancestor ] Fix duplicate Additional CSS classes.
+
 = 9.75.0.0 =
 * [ Bug fix ] Fixed add common attributes ( attribute from VK Blocks 1.29 - )
 * [ Specification Change ] Use composer vk-term-color

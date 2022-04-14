@@ -150,7 +150,7 @@ class VkExUnit_Contact {
 			$classes .= ' ' . $attributes['className'];
 		}
 		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-			$classes .= ' ' . veu_add_common_attributes_class( $classes, $attributes );
+			$classes = veu_add_common_attributes_class( $classes, $attributes );
 		}
 
 		$r = self::render_contact_section_html( $classes, false );

@@ -173,7 +173,7 @@ function veu_pageListAncestor_block_callback( $attr=array() ) {
 	}
 
 	if( function_exists( 'veu_add_common_attributes_class' ) ){
-		$classes .= ' ' . veu_add_common_attributes_class($classes, $attr);
+		$classes = veu_add_common_attributes_class($classes, $attr);
 	}
 	
 	$r = vkExUnit_pageList_ancestor_shortcode( $classes, true );
