@@ -142,18 +142,15 @@ class VkExUnit_Contact {
 
 	public static function block_callback( $attributes=array() ) {
 
-		$classes = '';
-		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-			$classes .= veu_add_common_attributes_class( $classes, $attributes );
-		}
-
-		$classes .= 'veu_contact_section_block';
-
+		$classes = 'veu_contact_section_block';
 		if ( empty( $attributes['vertical'] ) ) {
 			$classes .= ' veu_contact-layout-horizontal';
 		}
 		if ( isset($attributes['className']) ) {
 			$classes .= ' ' . $attributes['className'];
+		}
+		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
+			$classes = veu_add_common_attributes_class( $classes, $attributes );
 		}
 
 		$r = self::render_contact_section_html( $classes, false );
