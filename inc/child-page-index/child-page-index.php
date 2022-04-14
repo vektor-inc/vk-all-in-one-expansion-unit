@@ -34,15 +34,14 @@ function veu_child_page_excerpt( $post ) {
 }
 
 function veu_childPageIndex_block_callback( $attributes = array() ) {
-	
-	$classes = '';
-	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-		$classes .= veu_add_common_attributes_class( $classes, $attributes );
-	}
-	
-	$classes .= 'veu_childPageIndex_block';
+	$classes = 'veu_childPageIndex_block';
+
 	if ( isset( $attributes['className'] ) ) {
 		$classes .= ' ' . $attributes['className'];
+	}
+
+	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
+		$classes = veu_add_common_attributes_class( $classes, $attributes );
 	}
 
 	$postId = ( $attributes['postId'] > 0 ) ? $attributes['postId'] : get_the_ID();
