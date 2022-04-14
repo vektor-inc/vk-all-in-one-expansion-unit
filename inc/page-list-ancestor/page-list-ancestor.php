@@ -166,17 +166,15 @@ function veu_page_list_ancestor_block_setup() {
 
 function veu_pageListAncestor_block_callback( $attr=array() ) {
 
-	$classes = '';
-	if( function_exists( 'veu_add_common_attributes_class' ) ){
-		$classes .= veu_add_common_attributes_class($classes, $attr);
-	}
-
-	$classes .= 'veu_childPageIndex_block';
-
+	$classes = 'veu_childPageIndex_block';
+	
 	if ( isset($attr['className']) ) {
 		$classes .= ' ' . $attr['className'];
 	}
-
+	
+	if( function_exists( 'veu_add_common_attributes_class' ) ){
+		$classes = veu_add_common_attributes_class($classes, $attr);
+	}
 	
 	$r = vkExUnit_pageList_ancestor_shortcode( $classes, true );
 
