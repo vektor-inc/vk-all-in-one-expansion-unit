@@ -1,14 +1,17 @@
 <?php
 
-/*
-  Add Customize Panel
-/*
--------------------------------------------*/
-// カスタマイザーで「ExUnit設定」のパネルが表示されるようにする
-add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_contact' );
+use VektorInc\VK_Font_Awesome_Versions\VkFontAwesomeVersions;
+
+/**
+ * Add Customize Panel
+ * カスタマイザーで「ExUnit設定」のパネルが表示されるようにする
+ *
+ * @return void
+ */
 function veu_customize_panel_activation_contact() {
 	return true;
 }
+add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_contact' );
 
 // カスタマイズ関数を実行
 // if ( apply_filters('veu_customize_panel_activation', false ) ){
@@ -105,9 +108,19 @@ function veu_customize_register_contact( $wp_customize ) {
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'sanitize_text_field',
+			'sanitize_callback' => 'wp_kses_post',
 		)
 	);
+
+	$icon_description = '';
+	if ( method_exists( 'VektorInc\VK_Font_Awesome_Versions\VkFontAwesomeVersions', 'ex_and_link' ) ) {
+		$array            = array(
+			'v4.7' => 'fa-phone-square',
+			'v5'   => 'fas fa-phone-square-alt',
+			'v6'   => 'fa-solid fa-square-phone',
+		);
+		$icon_description = VkFontAwesomeVersions::ex_and_link( 'class', $array );
+	}
 
 	$wp_customize->add_control(
 		'tel_icon',
@@ -117,7 +130,7 @@ function veu_customize_register_contact( $wp_customize ) {
 			'settings'    => 'vkExUnit_contact[tel_icon]',
 			'type'        => 'text',
 			'priority'    => 1,
-			'description' => __( 'ex) ', 'vk-all-in-one-expansion-unit' ) . 'fas fa-phone-square [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]',
+			'description' => $icon_description,
 		)
 	);
 
