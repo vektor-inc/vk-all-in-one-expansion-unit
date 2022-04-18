@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 5.9.2
 Requires PHP: 7.2
-Stable tag: 9.75.0.0
+Stable tag: 9.76.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-= 9.76.0.0 =
+= 9.76.0.1 =
 * [ Specification Change ] Update VK Font Awesome Versions 0.4.0
 * [ Bug fix ][ Child Page List / Contact section / Page list from ancestor ] Fix duplicate Additional CSS classes.
 
