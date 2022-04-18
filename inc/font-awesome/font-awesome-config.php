@@ -1,18 +1,11 @@
 <?php
 /**
- * VK Blocks Font Awesome
+ * Load Font Awesome
  *
- * @package vk_blocks
+ * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
 use VektorInc\VK_Font_Awesome_Versions\VkFontAwesomeVersions;
-
-/*
- * Font Awesome Load modules
- */
-if ( ! class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-	new VkFontAwesomeVersions();
-	global $font_awesome_directory_uri;
-	// phpcs:ignore
-	$font_awesome_directory_uri = VEU_DIRECTORY_URI . 'vendor/vektor-inc/font-awesome-versions/src/';
+if ( method_exists( 'VektorInc\VK_Font_Awesome_Versions\VkFontAwesomeVersions', 'init' ) ) {
+	VkFontAwesomeVersions::init();
 }
