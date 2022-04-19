@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ][ BreadCrumb ] Update composer library 0.2.2
+
 = 9.76.0.1 =
 * [ Specification Change ] Update VK Font Awesome Versions 0.4.0
 * [ Bug fix ][ Child Page List / Contact section / Page list from ancestor ] Fix duplicate Additional CSS classes.
