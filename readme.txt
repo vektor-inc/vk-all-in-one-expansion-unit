@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fix load Font Awesome Files on WordPress.com
 [ Other ][ BreadCrumb ] Update composer library 0.2.2
 
 = 9.76.0.1 =
