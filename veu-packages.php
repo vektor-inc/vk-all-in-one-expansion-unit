@@ -104,7 +104,7 @@ function veu_get_packages() {
 	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print twitter card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '</ul>';
 	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vk-all-in-one-expansion-unit' ), $settingPage ) . '</p>';
