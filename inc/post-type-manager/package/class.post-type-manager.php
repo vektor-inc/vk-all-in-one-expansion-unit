@@ -365,16 +365,23 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 								// REST API を使用するかどうか.
 								$rest_api_true = ( empty( $taxonomy['rest_api'] ) ) ? false : true;
 
+								$labels = array(
+									'name' => $taxonomy['label'],
+								);
+
 								$args = array(
 									'hierarchical'      => $hierarchical_true,
 									'update_count_callback' => '_update_post_term_count',
-									'label'             => $taxonomy['label'],
-									'singular_label'    => $taxonomy['label'],
+									'labels'            => $labels,
 									'public'            => true,
 									'show_ui'           => true,
 									'show_in_rest'      => $rest_api_true,
 									'show_admin_column' => true,
 								);
+
+								if ( $rest_api_true ) {
+									$args['rest_base'] = $taxonomy['slug'];
+								}
 
 								register_taxonomy(
 									$taxonomy['slug'],
@@ -401,7 +408,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			add_action( 'admin_init', array( $this, 'add_cap_post_type_manage' ) );
 			add_action( 'save_post', array( $this, 'save_cf_value' ) );
 			add_action( 'admin_menu', array( $this, 'add_meta_box' ) );
-			add_action( 'after_setup_theme', array( $this, 'add_post_type' ), 0 );
+			// after_setup_theme では 6.0 頃から翻訳があたらなくなる .
+			// init でも 0 などなど早めのpriority 指定しないと投稿タイプに連動するウィジェットエリアが動作しない .
+			add_action( 'init', array( $this, 'add_post_type' ), 0 );
 			add_action( 'admin_notices', array( $this, 'add_post_notice' ) );
 		}
 
