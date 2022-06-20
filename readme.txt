@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Custom Post Type Manager ] Fix translate
+[ Bug Fix ][ CSS Optimize lib ] library Update 
 [ Bug Fix ] Fix load Font Awesome Files on WordPress.com
 [ Other ][ BreadCrumb ] Update composer library 0.2.2
 
