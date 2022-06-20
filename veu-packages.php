@@ -104,7 +104,7 @@ function veu_get_packages() {
 	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print twitter card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '</ul>';
 	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vk-all-in-one-expansion-unit' ), $settingPage ) . '</p>';
@@ -203,7 +203,6 @@ function veu_get_packages() {
 	$desk[] = '<li>' . __( 'VK_Recent Posts - display the link text and the date of the latest article title.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$desk[] = '<li>' . __( 'VK_Page content to widget - display the contents of the page to the widgets.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$desk[] = '<li>' . __( 'VK_Profile - display the profile entered in the widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$desk[] = '<li>' . __( 'VK_3PR area - display the 3PR area.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$desk[] = '<li>VK_' . __( 'categories/tags list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a categories, tags or format list.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$desk[] = '<li>VK_' . __( 'archive list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ) . '</li>';
