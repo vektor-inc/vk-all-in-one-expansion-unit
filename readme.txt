@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+* [ Design Bug Fix ][ Child Page List ] Fixed an issue button positions distorted depending on the theme
+
 = 9.76.1.0 =
 [ Bug Fix ][ Custom Post Type Manager ] Fix translate
 [ Bug Fix ][ CSS Optimize lib ] library Update 
