@@ -76,7 +76,11 @@ function veu_show_sitemap( $content ) {
 	if ( is_404() ) {
 		return $content; }
 
-	wp_reset_postdata(); // need under other section / ex:child page index
+	// ↓ のコメントを見る見る限り child page index などで必要らしいが、見た限りなくても困らないように見える。
+	// wp_reset_postdata(); // need under other section / ex:child page index
+
+	// wp_reset_postdata(); があると、VK 投稿リストブロックで get_the_excerpt() でこの関数が走ってしまい、抜粋の次の author 情報がリセットされて、以降の表示要素の $post が狂ってしまうので一旦コメントアウト
+	// もし wp_reset_postdata(); がない事により不具合が発生するようなら再検討
 	global $post;
 	if ( $post ) {
 		$enable = get_post_meta( $post->ID, 'vkExUnit_sitemap', true );
