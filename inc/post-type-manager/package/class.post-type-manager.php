@@ -140,15 +140,14 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// 現在保存されているカスタムフィールドの値を取得.
 			$export_to_api_value = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
-
-			// 保存されているデータが true だったら $checked = ' checked' にする。.
-			if ( $export_to_api_value ) {
-				 $checked = ' checked';
-			} else {
-				$checked = '';
+			if ( 'false' !== $export_to_api_value && 'true' !== $export_to_api_value ) {
+				$export_to_api_value = 'true';
 			}
 
-			echo '<label><input type="checkbox" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . esc_html( $checked ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label>';
+			echo '<label><input type="radio" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="true"' . checked( $export_to_api_value, 'true', false ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label>';
+			echo '<br />';
+			echo '<label><input type="radio" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="false"' . checked( $export_to_api_value, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
+
 			echo '<p>' . esc_html__( 'If you want to use the block editor that, you have to use the REST API.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 			echo '<hr>';
 
@@ -205,10 +204,22 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '<tr>';
 
 				// チェックが元々入ってるかどうか.
-				$checked = ( isset( $taxonomy[ $i ]['rest_api'] ) && $taxonomy[ $i ]['rest_api'] ) ? ' checked' : '';
+				// 過去の仕様ではデフォルトで REST API はチェック無しだった.
+				// しかし、一般的にブロックエディタ対応にする方が需要が高いため、デフォルトで true になるように変更した。
+				// そのため、そのため、設定画面においては true で保存されていない場合は true にして返す.
+				if ( isset( $taxonomy[ $i ]['rest_api'] ) ) {
+					$checked = $taxonomy[ $i ]['rest_api'];
+				}
+				if ( 'false' !== $checked && 'true' !== $checked ) {
+					$checked = 'true';
+				}
 
 				echo '<td>' . esc_html__( 'Corresponds to the block editor', 'vk-all-in-one-expansion-unit' ) . '</td>';
-				echo '<td><label><input type="checkbox" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="true"' . esc_attr( $checked ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label></td>';
+				echo '<td>';
+				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="true"' . checked( $checked, 'true', false ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '<br />';
+				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="false"' . checked( $checked, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '</td>';
 				echo '</tr>';
 
 			}
@@ -338,7 +349,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						// REST API に出力するかどうかをカスタムフィールドから取得.
 						$rest_api = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
 						// REST APIに出力する場合.
-						if ( $rest_api ) {
+						if ( 'true' === $rest_api || '1' === $rest_api ) {
 							$rest_args = array(
 								'show_in_rest' => true,
 								'rest_base'    => $post_type_id,
@@ -363,7 +374,15 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 								// カスタム分類を階層化するかどうか.
 								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 								// REST API を使用するかどうか.
-								$rest_api_true = ( empty( $taxonomy['rest_api'] ) ) ? false : true;
+								if ( isset( $taxonomy['rest_api'] ) ) {
+									$rest_api = $taxonomy['rest_api'];
+								}
+
+								if ( 'true' === $rest_api || '1' === $rest_api ) {
+									$rest_api_true = true;
+								} else {
+									$rest_api_true = false;
+								}
 
 								$labels = array(
 									'name' => $taxonomy['label'],
