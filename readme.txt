@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification Change ][ Custom Post Type Manager ] Change to Cope with Block Editor default
+[ Bug Fix ] Fix register thumbnail on edit screen under welcart environment
 
 = 9.76.3.0 =
 * [ Bug Fix ][ HTML Site Map ] Delete wp_reset_postdata();
