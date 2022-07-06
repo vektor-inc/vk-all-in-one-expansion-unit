@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 6.0.0
 Requires PHP: 7.2
-Stable tag: 9.76.3.0
+Stable tag: 9.77.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.77.0.0 =
+[ Specification Change ][ Custom Post Type Manager ] Change to Cope with Block Editor default
+[ Bug Fix ] Fix register thumbnail on edit screen under welcart environment
 
 = 9.76.3.0 =
 * [ Bug Fix ][ HTML Site Map ] Delete wp_reset_postdata();

@@ -311,9 +311,12 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 }
 
 // uploader js
-add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
 function admin_scripts_pr_media() {
-	wp_enqueue_media();
-	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'vk-admin-widget' );
+	global $hook_suffix;
+	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix) {
+		wp_enqueue_media();
+		wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+		wp_enqueue_script( 'vk-admin-widget' );
+	}
 }
+add_action( 'admin_print_scripts', 'admin_scripts_pr_media' );
