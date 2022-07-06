@@ -106,7 +106,7 @@ function veu_add_setting_page() {
 // add_action( 'admin_print_scripts-exunit_page_vkExUnit_main_setting', 'veu_admin_add_js' );
 add_action( 'admin_enqueue_scripts', 'veu_admin_add_js' );
 function veu_admin_add_js( $hook_suffix ) {
-	wp_enqueue_media();
+	// wp_enqueue_media(); // WelCart でアイキャッチ画像の操作ができなくなる。が、そもそもこれ不要では？ 2022.11.30以降もコメントアウトされたままなら削除
 	wp_register_script( 'vkExUnit_admin_js', VEU_DIRECTORY_URI . '/assets/js/vkExUnit_admin.js', array( 'jquery' ), VEU_VERSION );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );

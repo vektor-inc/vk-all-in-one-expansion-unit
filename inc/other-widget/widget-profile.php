@@ -475,8 +475,11 @@ echo $args['after_widget'];
 
 // Profile widget uploader js
 function vkExUnit_profile_admin_scripts() {
-	wp_enqueue_media();
-	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'vk-admin-widget' );
+	global $hook_suffix;
+	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix) {
+		wp_enqueue_media();
+		wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+		wp_enqueue_script( 'vk-admin-widget' );
+	}
 }
 add_action( 'admin_print_scripts', 'vkExUnit_profile_admin_scripts' );
