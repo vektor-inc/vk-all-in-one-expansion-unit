@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Page list from ancestor block ] change icon
+
 = 9.77.0.0 =
 [ Specification Change ][ Custom Post Type Manager ] Change to Cope with Block Editor default
 [ Bug Fix ] Fix register thumbnail on edit screen under welcart environment
