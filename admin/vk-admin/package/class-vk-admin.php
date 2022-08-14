@@ -330,7 +330,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 
 					if ( $maxitems == 0 ) {
 						$output .= '<li>';
-						$output .= __( 'Sorry, there is no post', 'vk_admin_textdomain' );
+						$output .= __( 'Sorry, there is no post', 'vk-all-in-one-expansion-unit' );
 						$output .= '</li>';
 					} else {
 						foreach ( $rss_items as $item ) {
@@ -384,7 +384,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			if ( self::is_dashboard_active() ) {
 				wp_add_dashboard_widget(
 					'vk_dashboard_widget',
-					__( 'Vektor WordPress Information', 'vk_admin_textdomain' ),
+					__( 'Vektor WordPress Information', 'vk-all-in-one-expansion-unit' ),
 					array( __CLASS__, 'dashboard_widget_body' )
 				);
 			}
