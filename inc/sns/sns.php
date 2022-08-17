@@ -276,11 +276,8 @@ function vkExUnit_sns_options_validate( $input ) {
 
 
 	$output['hook_point'] = esc_html( $input['hook_point'] );
-	$output['hook_point'] = str_replace( ' ', '', $output['hook_point'] );
-	$output['hook_point'] = str_replace( '　', '', $output['hook_point'] );
-	$output['hook_point'] = str_replace( "\t", '', $output['hook_point'] );
-	$output['hook_point'] = str_replace( array( "\r\n", "\r", "\n", ',' ), "\n", $output['hook_point'] );
-
+	$output['hook_point'] = str_replace( array( ' ', '　', "\t", "\r\n", "\r", "\n", ',' ), "\n", $output['hook_point'] );
+	$output['hook_point'] = str_replace( "\n\n",  "\n", $output['hook_point'] );
 	
 	/*
 	SNSボタンの塗りつぶし関連は管理画面に値がないので、カスタマイザーで保存された値を入れる必要がある
