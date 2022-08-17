@@ -277,6 +277,7 @@ function vkExUnit_sns_options_validate( $input ) {
 
 	$output['hook_point'] = esc_html( $input['hook_point'] );
 	$output['hook_point'] = str_replace( ' ', '', $output['hook_point'] );
+	$output['hook_point'] = str_replace( '　', '', $output['hook_point'] );
 	$output['hook_point'] = str_replace( "\t", '', $output['hook_point'] );
 	$output['hook_point'] = str_replace( array( "\r\n", "\r", "\n", ',' ), "\n", $output['hook_point'] );
 
