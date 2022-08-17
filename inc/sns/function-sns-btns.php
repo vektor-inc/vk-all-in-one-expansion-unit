@@ -4,11 +4,27 @@
  *
  * @package vk-all-in-one-expantion-unit
  */
-
-if ( 'content' === veu_content_filter_state() ) {
+$options = veu_get_sns_options();
+if ( ! empty( $options['hook_point'] ) ) {
+	$hook_points = explode( "\n", $options['hook_point'] );
+	foreach ( $hook_points as $hook_point ) {
+		add_action( $hook_point, 'veu_add_sns_btns_hook' );
+	}
+} elseif ( 'content' === veu_content_filter_state() ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
 } else {
 	add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
+}
+
+
+/**
+ * Display share button on hook point
+ *
+ * @param object $query : main query.
+ * @return void
+ */
+function veu_add_sns_btns_hook( $query ) {
+	echo veu_get_sns_btns();
 }
 
 /**
