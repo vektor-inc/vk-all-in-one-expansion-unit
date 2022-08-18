@@ -8,7 +8,7 @@ $options = veu_get_sns_options();
 if ( ! empty( $options['hook_point'] ) ) {
 	$hook_points = explode( "\n", $options['hook_point'] );
 	foreach ( $hook_points as $hook_point ) {
-		add_action( $hook_point, 'veu_add_sns_btns_hook' );
+		add_action( $hook_point, 'veu_the_sns_btns' );
 	}
 } elseif ( 'content' === veu_content_filter_state() ) {
 	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
@@ -23,7 +23,7 @@ if ( ! empty( $options['hook_point'] ) ) {
  * @param object $query : main query.
  * @return void
  */
-function veu_add_sns_btns_hook( $query ) {
+function veu_the_sns_btns( $query ) {
 	echo veu_get_sns_btns();
 }
 
