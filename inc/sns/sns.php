@@ -113,6 +113,7 @@ function veu_get_sns_options_default() {
 		'useLine'                     => true,
 		'useCopy'                     => true,
 		'entry_count'                 => 'get',
+		'hook_point'                  => '',
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
@@ -270,10 +271,15 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
 	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
-	$output['useCopy']                   = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
+	$output['useCopy']                     = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
 	$output['entry_count']                 = esc_attr( $input['entry_count'] );
 
+
+	$output['hook_point'] = esc_html( $input['hook_point'] );
+	$output['hook_point'] = str_replace( array( ' ', '　', "\t", "\r\n", "\r", "\n", ',' ), "\n", $output['hook_point'] );
+	$output['hook_point'] = str_replace( "\n\n",  "\n", $output['hook_point'] );
+	
 	/*
 	SNSボタンの塗りつぶし関連は管理画面に値がないので、カスタマイザーで保存された値を入れる必要がある
 	既に保存されている値をアップデート用にそのまま返すだけなのでサニタイズしていない
