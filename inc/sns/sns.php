@@ -113,6 +113,7 @@ function veu_get_sns_options_default() {
 		'useLine'                     => true,
 		'useCopy'                     => true,
 		'entry_count'                 => 'get',
+		'hook_point'                  => '',
 	);
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
