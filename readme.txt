@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.78.0.0 =
 [ Add function ][ SNS ] Add function of change out put action hook.
 [ Specification Change ][ Page list from ancestor block ] change icon
 
