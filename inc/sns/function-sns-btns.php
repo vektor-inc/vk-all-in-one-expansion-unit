@@ -4,9 +4,11 @@
  *
  * @package vk-all-in-one-expantion-unit
  */
-$options = veu_get_sns_options();
-if ( ! empty( $options['hook_point'] ) ) {
-	$hook_points = explode( "\n", $options['hook_point'] );
+
+ // global なので $options にすると ExUnit 全体の $options の値を汚染するので $sns_options を使用
+$sns_options = veu_get_sns_options();
+if ( ! empty( $sns_options['hook_point'] ) ) {
+	$hook_points = explode( "\n", $sns_options['hook_point'] );
 	foreach ( $hook_points as $hook_point ) {
 		add_action( $hook_point, 'veu_the_sns_btns' );
 	}
