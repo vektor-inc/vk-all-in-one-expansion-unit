@@ -1,6 +1,7 @@
 <?php
 function veu_get_packages() {
 	$required_packages = array();
+	$is_block_theme    = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 	/*
 	Example :
 	$required_packages[] = array(
@@ -224,7 +225,7 @@ function veu_get_packages() {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => true,
+		'default'     => $is_block_theme ? false : true,
 		'include'     => 'other-widget/other-widget.php',
 	);
 
@@ -260,7 +261,7 @@ function veu_get_packages() {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => true,
+		'default'     => $is_block_theme ? false : true,
 		'include'     => 'default-thumbnail/default-thumbnail.php',
 	);
 
@@ -323,7 +324,7 @@ function veu_get_packages() {
 				'enable_only' => 1,
 			),
 		),
-		'default'       => true,
+		'default'       => $is_block_theme ? false : true,
 		'include'       => 'contact-section/contact-section.php',
 		'use_ex_blocks' => true,
 	);
@@ -364,7 +365,7 @@ function veu_get_packages() {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => true,
+		'default'     => $is_block_theme ? false : true,
 		'include'     => 'call-to-action/call-to-action-config.php',
 	);
 
@@ -382,7 +383,7 @@ function veu_get_packages() {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => true,
+		'default'     => $is_block_theme ? false : true,
 		'include'     => 'insert-ads.php',
 	);
 	/*
@@ -530,7 +531,7 @@ function veu_get_packages() {
 		'name'        => 'nav_menu_class_custom',
 		'title'       => __( 'Navi menu class custom', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Current class tuning of navi menu.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
+		'default'     => $is_block_theme ? false : true,
 		'include'     => 'nav-menu-class-custom.php',
 	);
 
