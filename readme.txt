@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add Function ] Add CTA Block.
+
 = 9.78.1.0 =
 [ Bug Fix ][ Auto Eycatch ] Fix auto eyecatch do not display
 
