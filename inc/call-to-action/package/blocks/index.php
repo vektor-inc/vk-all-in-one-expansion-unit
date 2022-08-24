@@ -67,6 +67,16 @@ function veu_cta_block_setup() {
             )
         );
 
+        // CTA のリストをブロック側に送信
+        wp_localize_script(
+            'veu-block',
+            'veuBlockOption',
+            array(
+                'cat_option'  => $cta_options,
+            )
+        );
+
+        // CTA のカスタムフィールドをブロックエディタで読めるように
         $args = array(
             'public'   => true,
         );
@@ -83,15 +93,6 @@ function veu_cta_block_setup() {
                 ]
             );
         }
-
-        // CTA のリストをブロック側に送信
-        wp_localize_script(
-            'veu-block',
-            'veuBlockOption',
-            array(
-                'cat_option'  => $cta_options,
-            )
-        );
 	}
 }
 add_action( 'init', 'veu_cta_block_setup', 15 );
