@@ -67,8 +67,22 @@ function veu_cta_block_setup() {
             )
         );
 
-        global $post;
-        $post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+        $args = array(
+            'public'   => true,
+        );
+        $post_types =  get_post_types( $args, 'names' );
+
+        foreach ( $post_types  as $key => $post_type ) {
+            register_post_meta(
+                $post_type,
+                'vkexunit_cta_each_option',
+                [
+                    'show_in_rest' => true,
+                    'single'       => true,
+                    'type'         => 'string',
+                ]
+            );
+        }
 
         // CTA のリストをブロック側に送信
         wp_localize_script(
@@ -76,7 +90,6 @@ function veu_cta_block_setup() {
             'veuBlockOption',
             array(
                 'cat_option'  => $cta_options,
-                'cta_setting' => $post_config
             )
         );
 	}

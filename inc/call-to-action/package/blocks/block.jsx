@@ -30,21 +30,22 @@
 
 			// Make choice list of pages
 			const options = veuBlockOption.cat_option;
-			const setting = veuBlockOption.cta_setting
-
-			let editContent;
-			if ( postId !== '' &&  postId !== null &&  postId !== undefined ) {
+			const setting = wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option;
+            console.log(wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option)
+    
+            let editContent;
+            if ( setting === 'disable' ) {
+				editContent = (
+					<div className="veu-cta-block-edit-alert">
+						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
+					</div>
+				);
+			} else if ( postId !== '' &&  postId !== null &&  postId !== undefined ) {
 				editContent = (
 					<ServerSideRender
 						block="vk-blocks/cta"
 						attributes={attributes}
 					/>
-				);
-			} else if ( setting !== 'disable' ) {
-				editContent = (
-					<div className="veu-cta-block-edit-alert">
-						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
-					</div>
 				);
 			} else {
 				editContent = (
