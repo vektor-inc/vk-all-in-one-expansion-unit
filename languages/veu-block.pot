@@ -7,16 +7,20 @@ msgstr ""
 msgid "CTA"
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:45
-msgid "Please Select CTA Page"
+#: inc/call-to-action/package/blocks/block.jsx:46
+msgid "Because displaying CTA is disabled. The block render no content."
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:54
+#: inc/call-to-action/package/blocks/block.jsx:52
+msgid "Please select CTA page."
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:61
 #: inc/child-page-index/block.jsx:76
 msgid "Parent Page"
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:57
+#: inc/call-to-action/package/blocks/block.jsx:64
 msgid "CTA Page"
 msgstr ""
 

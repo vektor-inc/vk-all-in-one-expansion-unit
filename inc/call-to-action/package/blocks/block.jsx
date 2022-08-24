@@ -30,19 +30,26 @@
 
 			// Make choice list of pages
 			const options = veuBlockOption.cat_option;
+			const setting = veuBlockOption.cta_setting
 
 			let editContent;
-			if (  postId !== '' &&  postId !== null &&  postId !== undefined ) {
+			if ( postId !== '' &&  postId !== null &&  postId !== undefined ) {
 				editContent = (
 					<ServerSideRender
 						block="vk-blocks/cta"
 						attributes={attributes}
 					/>
 				);
+			} else if ( setting !== 'disable' ) {
+				editContent = (
+					<div className="veu-cta-block-edit-alert">
+						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
+					</div>
+				);
 			} else {
 				editContent = (
 					<div className="veu-cta-block-edit-alert">
-						{ __("Please Select CTA Page", "veu-block") }
+						{ __("Please select CTA page.", "veu-block") }
 					</div>
 				);
 			}

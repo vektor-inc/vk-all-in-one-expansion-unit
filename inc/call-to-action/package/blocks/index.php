@@ -67,12 +67,16 @@ function veu_cta_block_setup() {
             )
         );
 
+        global $post;
+        $post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+
         // CTA のリストをブロック側に送信
         wp_localize_script(
             'veu-block',
             'veuBlockOption',
             array(
-                'cat_option' => $cta_options,
+                'cat_option'  => $cta_options,
+                'cta_setting' => $post_config
             )
         );
 	}
@@ -176,7 +180,7 @@ function veu_cta_block_callback( $attributes, $content ) {
                         $content .= '</a>';
                         $content .= '</div>';
                     }
-                    
+
                     $content .= '</div><!-- [ /.vkExUnit_cta_body ] -->';
                     $content .= '</section>';
                 }
