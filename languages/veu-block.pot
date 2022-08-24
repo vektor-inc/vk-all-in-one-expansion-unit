@@ -3,16 +3,29 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
+#: inc/call-to-action/package/blocks/block.jsx:18
+msgid "CTA"
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:45
+msgid "Please Select CTA Page"
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:54
+#: inc/child-page-index/block.jsx:76
+msgid "Parent Page"
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:57
+msgid "CTA Page"
+msgstr ""
+
 #: inc/child-page-index/block.jsx:18
 msgid "Child page index"
 msgstr ""
 
 #: inc/child-page-index/block.jsx:39
 msgid "This Page"
-msgstr ""
-
-#: inc/child-page-index/block.jsx:76
-msgid "Parent Page"
 msgstr ""
 
 #: inc/contact-section/block.jsx:18
