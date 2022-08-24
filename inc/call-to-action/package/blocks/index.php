@@ -59,6 +59,7 @@ function veu_cta_block_setup() {
             )
         );
 
+        // なんとなく「選択してください」を戦闘に追加
         array_unshift(
             $cta_options,
             array(
