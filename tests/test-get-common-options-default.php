@@ -1,6 +1,6 @@
 <?php
 /**
- * Class VeuGetPackage
+ * Class VeuGetCommonOptionsDefaultTest
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
