@@ -11,7 +11,7 @@
 class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 
 	/**
-	 * SNSボタンの表示しないのチェックボックスを表示するかしないかのテスト
+	 * クラシックテーマとブロックテーマでの初期値テスト
 	 */
 	function test_veu_get_common_options_default() {
 
