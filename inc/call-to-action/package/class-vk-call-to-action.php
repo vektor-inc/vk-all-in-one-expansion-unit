@@ -413,7 +413,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( ! $query->post_count ) {
 				return null; }
 
-			return $query->posts[0];
+			$target = $query->posts[0];
+			wp_reset_postdata();
+			return $target;
 		}
 
 
@@ -671,6 +673,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					$ctas[] = $post->ID;
 				}
 			}
+			wp_reset_postdata();
 			return $ctas;
 		}
 

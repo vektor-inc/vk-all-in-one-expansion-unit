@@ -3,6 +3,18 @@
  * CTA ブロックを追加
  */
 
+
+ // フィルターフックを追加
+ // Add fiter for render post content
+add_filter( 'veu_cta_content', 'do_blocks', 9 );
+add_filter( 'veu_cta_content', 'wptexturize' );
+add_filter( 'veu_cta_content', 'convert_smilies', 20 );
+add_filter( 'veu_cta_content', 'shortcode_unautop' );
+add_filter( 'veu_cta_content', 'prepend_attachment' );
+add_filter( 'veu_cta_content', 'wp_filter_content_tags' );
+add_filter( 'veu_cta_content', 'do_shortcode', 11 );
+add_filter( 'veu_cta_content', 'capital_P_dangit', 11 );
+
  /**
   * CTA ブロックを追加
   */
@@ -127,7 +139,7 @@ function veu_cta_block_callback( $attributes, $content ) {
                 $cta_content = $cta_post->post_content;
                 if ( ! empty ( $cta_content ) && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
 
-                    $content .= $cta_content;
+                    $content .= apply_filters( 'veu_cta_content', $cta_content );
 
                 } else {
 
