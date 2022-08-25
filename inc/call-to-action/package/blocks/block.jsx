@@ -48,8 +48,8 @@
 				);
 			} else {
 				editContent = (
-					<div className="veu-cta-block-edit-alert">
-						{ __("Please select CTA page.", "veu-block") }
+					<div className="veu-cta-block-edit-alert alert alert-warning">
+						{ __("Please select CTA.", "veu-block") }
 					</div>
 				);
 			}

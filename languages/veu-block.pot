@@ -12,7 +12,7 @@ msgid "Because displaying CTA is disabled. The block render no content."
 msgstr ""
 
 #: inc/call-to-action/package/blocks/block.jsx:52
-msgid "Please select CTA page."
+msgid "Please select CTA."
 msgstr ""
 
 #: inc/call-to-action/package/blocks/block.jsx:61
