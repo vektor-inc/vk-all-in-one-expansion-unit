@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add function ] Add function of author structured data
+
 = 9.78.1.0 =
 [ Bug Fix ][ Auto Eycatch ] Fix auto eyecatch do not display
 
