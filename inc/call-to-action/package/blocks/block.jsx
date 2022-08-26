@@ -30,7 +30,15 @@
 
 			// Make choice list of pages
 			const options = veuBlockOption.cat_option;
-			const setting = wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option;
+			let setting = '';
+			if (
+				wp.data.select('core/editor') &&
+				wp.data.select('core/editor').getEditedPostAttribute('meta') &&
+				wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option
+			) {
+				setting = wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option;
+			}
+			
     
             let editContent;
             if ( setting === 'disable' ) {
