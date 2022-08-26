@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Other ] Default setting corresponds to block theme
+[ CTA ] Separate CTA CSS.
 
 = 9.78.1.0 =
 [ Bug Fix ][ Auto Eycatch ] Fix auto eyecatch do not display
