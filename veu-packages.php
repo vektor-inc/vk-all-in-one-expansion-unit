@@ -586,6 +586,17 @@ function veu_get_packages() {
 		'include'     => '/contactform7-asset-optimize.php',
 	);
 
+	/**
+	 * Author Structured Data
+	 */
+	$required_packages[] = array(
+		'name'        => 'author_structured_data',
+		'title'       => __( 'Author Structured Data', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Author Structured Data.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'auther-structured-data/auther-structured-data.php',
+	);
+
 	return $required_packages;
 } // function veu_get_packages(){
 
