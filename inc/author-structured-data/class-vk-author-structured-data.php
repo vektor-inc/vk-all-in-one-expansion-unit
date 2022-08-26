@@ -15,37 +15,36 @@ class VK_Author_Srtuctured_Data {
   {
     // add_filter( 'user_contactmethods', array( __CLASS__, 'register_structured_data' ) );
     // add_action( 'user_new_form', array( __CLASS__, 'add_new_structured_data' ) );
-    	add_action( 'show_password_fields', array( __CLASS__, 'add_structured_data')  );
+    	add_action( 'show_password_fields', array( __CLASS__, 'add_user_meta_structured_data_ui')  );
 		add_action( 'profile_update', array( __CLASS__, 'update_structured_data' ), 10, 2 );
 		add_action( 'wp_head', array( __CLASS__, 'print_jsonLD_in_head' ), 9999 );
   }
 
   /**
 	 * Add Author Structure Date
+	 * @param $bool
 	 */
-	public static function add_structured_data( $bool ) {
+	public static function add_user_meta_structured_data_ui() {
 		global $user_id;
-    $type = get_user_meta($user_id, 'type', true);
-    $sameAs = get_user_meta($user_id, 'sameAs', true);
-
-    ?>
-    <tr>
-      <th><label for='type'>@type</label></th>
-      <td>
-        <select name='type' id='type'>
-          <option value='organization' <?php echo (($type == 'organization')) ? 'selected' : '' ?> >Organization</option>
-          <option value='person' <?php echo (($type == 'person')) ? 'selected' : '' ?> >Person</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th><label for='sameAs'>sameAs</label></th>
-      <td>
-        <label><input type='url' name='sameAs' value='<?php echo esc_attr( $sameAs ) ?>'/></label>
-      </td>
-    </tr>
+		$type = get_user_meta($user_id, 'type', true);
+		$sameAs = get_user_meta($user_id, 'sameAs', true);
+		?>
+		<tr>
+		<th><label for='type'>@type</label></th>
+		<td>
+			<select name='type' id='type'>
+			<option value='organization' <?php echo (($type == 'organization')) ? 'selected' : '' ?> >Organization</option>
+			<option value='person' <?php echo (($type == 'person')) ? 'selected' : '' ?> >Person</option>
+			</select>
+		</td>
+		</tr>
+		<tr>
+		<th><label for='sameAs'>sameAs</label></th>
+		<td>
+			<label><input type='url' name='sameAs' value='<?php echo esc_attr( $sameAs ) ?>'/></label>
+		</td>
+		</tr>
     <?php
-    return $bool;
   }
 
   /**
