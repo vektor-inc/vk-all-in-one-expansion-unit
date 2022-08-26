@@ -598,7 +598,7 @@ function veu_get_packages( $is_block_theme = null ) {
 		'title'       => __( 'Author Structured Data', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'You can set Author Structured Data.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'auther-structured-data/auther-structured-data.php',
+		'include'     => 'author-structured-data/class-vk-author-structured-data.php',
 	);
 
 	return $required_packages;
