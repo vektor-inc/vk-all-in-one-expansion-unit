@@ -16,12 +16,11 @@ msgid "Please select CTA."
 msgstr ""
 
 #: inc/call-to-action/package/blocks/block.jsx:69
-#: inc/child-page-index/block.jsx:76
-msgid "Parent Page"
+msgid "CTA Setting"
 msgstr ""
 
 #: inc/call-to-action/package/blocks/block.jsx:72
-msgid "CTA Page"
+msgid "Select CTA"
 msgstr ""
 
 #: inc/child-page-index/block.jsx:18
@@ -30,6 +29,10 @@ msgstr ""
 
 #: inc/child-page-index/block.jsx:39
 msgid "This Page"
+msgstr ""
+
+#: inc/child-page-index/block.jsx:76
+msgid "Parent Page"
 msgstr ""
 
 #: inc/contact-section/block.jsx:18

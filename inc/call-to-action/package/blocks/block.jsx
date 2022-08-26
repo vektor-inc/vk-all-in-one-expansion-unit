@@ -66,10 +66,10 @@
 				<Fragment>
 					<InspectorControls>
 						<PanelBody
-							label={ __( "Parent Page", "veu-block" ) }
+							label={ __( "CTA Setting", "veu-block" ) }
 						>
 							<SelectControl
-								label={ __( 'CTA Page', 'veu-block' ) }
+								label={ __( 'Select CTA', 'veu-block' ) }
 								value={ postId }
 								options={ options }
 								onChange={ ( value )=>{ setAttributes({ postId: value }) } }
