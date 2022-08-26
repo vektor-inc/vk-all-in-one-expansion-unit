@@ -7,23 +7,23 @@
 
 require dirname( __FILE__ ) . '/auther-structured-data-options.php';
 
-function asd_print_jsonLD_in_head() {
+function veu_asd_print_jsonLD_in_head() {
   $post_id = get_post(get_the_id());
   $author = get_userdata( $post_id -> post_author );
   $author_id = $author -> ID;
   if( is_single() ){
-    echo asd_generate_jsonLD( $author_id );
+    echo veu_asd_generate_jsonLD( $author_id );
   }
 }
-add_action( 'wp_head', 'asd_print_jsonLD_in_head', 9999 );
+add_action( 'wp_head', 'veu_asd_print_jsonLD_in_head', 9999 );
 
-function asd_generate_jsonLD( $author_id ) {
+function veu_asd_generate_jsonLD( $author_id ) {
   $author_id = get_the_author_meta('ID');
 	if ( ! isset( $author_id ) ) {
 		return;
 	}
 
-	$author_data = get_userdata( $author_id );
+$author_data = get_userdata( $author_id );
   $author_name = get_user_meta( $author_id, 'nickname', true ) ?: $author_data->display_name;
   $author_type = get_user_meta( $author_id, 'type', true ) ?: 'Organization';
   $sameAs = get_user_meta( $author_id, 'sameAs', true ) ?: '';
