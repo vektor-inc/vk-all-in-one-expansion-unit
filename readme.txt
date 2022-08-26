@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Add function ] Add function of author structured data
+[ Other ] Default setting corresponds to block theme
 
 = 9.78.1.0 =
 [ Bug Fix ][ Auto Eycatch ] Fix auto eyecatch do not display
