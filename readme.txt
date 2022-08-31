@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Add function ] Add function of author structured data
+[ Add function ] Add function of author structure data
 [ Other ] Default setting corresponds to block theme
 
 = 9.78.1.0 =
