@@ -146,7 +146,9 @@ class VK_Author_Srtuctured_Data {
       ),
     );
 
-    echo '<script type="application/ld+json">' . json_encode( $json_ld , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) . '</script>';
+    echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
+    echo '<script type="application/ld+json">' . json_encode( $json_ld , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>';
+    echo '<!-- [ / VK All in One Expansion Unit Structure Data ] -->';
   }
 }
 
