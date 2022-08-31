@@ -13,9 +13,9 @@ class VK_Author_Srtuctured_Data {
 
   public function __construct()
   {
-    add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structured_data_ui') );
-    add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structured_data_ui') );
-		add_action( 'profile_update', array( __CLASS__, 'update_structured_data' ), 10, 2 );
+    add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui') );
+    add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui') );
+		add_action( 'profile_update', array( __CLASS__, 'update_structure_data' ), 10, 2 );
 		add_action( 'wp_head', array( __CLASS__, 'print_jsonLD_in_head' ), 9999 );
   }
 
@@ -23,9 +23,8 @@ class VK_Author_Srtuctured_Data {
 	 * Add Author Structure Date
 	 * @param $bool
 	 */
-	public static function add_user_meta_structured_data_ui() {
+	public static function add_user_meta_structure_data_ui() {
 		global $user_id;
-    $author_data = get_userdata( $user_id );
 		$author_type = get_user_meta($user_id, 'author_type', true) ?: 'Organization';
     $author_name = get_user_meta($user_id, 'author_name', true);
     $author_url = get_user_meta($user_id, 'author_url', true);
@@ -72,7 +71,7 @@ class VK_Author_Srtuctured_Data {
   /**
    * Update Author Structure Date
    */
-  public static function update_structured_data( $user_id, $old_user_data ) {
+  public static function update_structure_data( $user_id, $old_user_data ) {
     if ( isset( $_POST['author_type'] ) ) {
       update_user_meta( $user_id, 'author_type', $_POST['author_type'], $old_user_data->author_type );
     }
@@ -95,49 +94,59 @@ class VK_Author_Srtuctured_Data {
     $author = get_userdata( $post_id -> post_author );
     $author_id = $author -> ID;
     if( is_single() ){
-      echo self::veu_asd_generate_jsonLD( $author_id );
+      echo self::veu_generate_author_jsonLD( $author_id );
     }
   }
 
-  public static function veu_asd_generate_jsonLD( $author_id ) {
-	$author_id = get_the_author_meta('ID');
-    if ( ! isset( $author_id ) ) {
-      return;
+  public static function veu_generate_author_jsonLD( $author_id ) {
+    $author_id = get_the_author_meta('ID');
+      if ( ! isset( $author_id ) ) {
+        return;
+      }
+
+    $author = get_userdata( $author_id );
+    $author_type = get_user_meta( $author_id, 'author_type', true );
+    $author_name = get_user_meta( $author_id, 'author_name', true ) ?: $author->display_name;
+    $author_url = get_user_meta( $author_id, 'author_url', true ) ?: home_url( '/' );
+    $author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );
+
+    if( is_singular() ) {
+      if( has_post_thumbnail()){
+        $image_url = get_the_post_thumbnail_url();
+      } else {
+        $image_url = '';
+      };
+      $post_title = get_the_title();
     }
 
-  $author_data = get_userdata( $author_id );
-	$author_type = get_user_meta( $author_id, 'author_type', true );
-	$author_name = get_user_meta( $author_id, 'author_name', true ) ?: $author_data->display_name;
-	$author_url = get_user_meta( $author_id, 'author_url', true ) ?: home_url( '/' );
-	$author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );
+    $json_ld = array(
+      "@context" => "https://schema.org/",
+      "@type" => "Article",
+      "headline" => $post_title,
+      "image" => array(
+        $image_url,
+      ),
+      "datePublished"    => get_the_time( 'c' ),
+      "dateModified"     => get_the_modified_time( 'c' ),
+      "author"           => array(
+        "@type" => $author_type,
+        "name" => $author_name,
+        "url" => $author_url,
+        "sameAs" => $author_sameAs
+      ),
+      "publisher"        => array(
+        "@context"    => "http://schema.org",
+        "@type"       => $author_type,
+        "name"        => get_bloginfo( 'name' ),
+        "description" => get_bloginfo( 'description' ),
+        "logo"        => array(
+          "@type" => "ImageObject",
+          "url"   => get_custom_logo(),
+        ),
+      ),
+    );
 
-	$data = [
-    '@type'         => $author_type,
-    'name'          => $author_name,
-    'url'           => $author_url,
-    'sameAs'        => $author_sameAs,
-	];
-
-  $JSON = '
-	<!-- [ VK All in One Expansion Unit Author Structured Data ] -->
-  <script type="application/ld+json">
-  {
-	"@context" : "https://schema.org/",
-	"@type" : "Article",
-	"author":
-    {
-		"@type": "' . esc_attr( $data['@type'] ) .'",
-		"name":  "' . esc_attr( $data['name'] ) . '",
-		"url": "' . esc_attr( $data['url'] ) . '",
-		"sameAs": "' . esc_attr( $data['sameAs'] ) . '"
-    }';
-    $JSON .= '
-  }
-  </script>
-  <!-- [ / VK All in One Expansion Unit Author Structured Data ] -->
-  ';
-
-  return $JSON;
+    echo '<script type="application/ld+json">' . json_encode( $json_ld , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) . '</script>';
   }
 }
 

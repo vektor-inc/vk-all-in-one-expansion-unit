@@ -591,14 +591,14 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/**
-	 * Author Structured Data
+	 * Author Structure Data
 	 */
 	$required_packages[] = array(
-		'name'        => 'author_structured_data',
-		'title'       => __( 'Author Structured Data', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can set Author Structured Data.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'author_structure_data',
+		'title'       => __( 'Author Structure Data', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Author Structure Data.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'author-structured-data/class-vk-author-structured-data.php',
+		'include'     => 'author-structure-data/class-vk-author-structure-data.php',
 	);
 
 	return $required_packages;
