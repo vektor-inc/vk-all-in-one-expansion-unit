@@ -17,7 +17,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 	*/
 	class Vk_Admin {
 
-		public static $version = '2.2.0';
+		public static $version = '2.4.0';
 
 		static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_common_css' ) );
@@ -406,7 +406,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 			if ( ! $display ) {
 				return;
 			}
-			$adminSub = '<div class="adminSub scrTracking">' . "\n";
+			$adminSub = '<div class="adminSub">' . "\n";
 			if ( 'ja' == get_locale() ) {
 				$adminSub .= '<div class="infoBox">' . self::get_news_body() . '</div>' . "\n";
 			}
@@ -422,37 +422,38 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 		public static function admin_page_frame( $get_page_title, $the_body_callback, $get_logo_html = '', $get_menu_html = '', $get_layout = 'column_3' ) {
 			?>
 			<div class="wrap vk_admin_page">
-
-				<div class="adminMain <?php echo $get_layout; ?>">
-
-					<?php if ( $get_layout == 'column_3' ) : ?>
-				<div id="adminContent_sub" class="scrTracking adminMain_sub">
+				<?php if ( $get_layout == 'column_2' ) : ?>
 					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
-						<?php if ( $get_page_title ) : ?>
-					<h2 class="page_title"><?php echo $get_page_title; ?></h2>
-					<?php endif; ?>
-					<div class="vk_option_nav">
-						<ul>
-						<?php echo $get_menu_html; ?>
-						</ul>
-					</div>
-				</div><!-- [ /#adminContent_sub ] -->
-				<?php endif; ?>
-
-					<?php if ( $get_layout == 'column_2' ) : ?>
-					<div class="pageLogo"><?php echo $get_logo_html; ?></div>
-						<?php if ( $get_page_title ) : ?>
+					<?php if ( $get_page_title ) : ?>
 						<h1 class="page_title"><?php echo $get_page_title; ?></h1>
 					<?php endif; ?>
 				<?php endif; ?>
 
-					<div id="adminContent_main" class="adminMain_main">
-					<?php call_user_func_array( $the_body_callback, array() ); ?>
-					</div><!-- [ /#adminContent_main ] -->
+				<div class="adminLayout">
+					<div class="adminMain <?php echo $get_layout; ?>">
 
-				</div><!-- [ /.adminMain ] -->
+						<?php if ( $get_layout == 'column_3' ) : ?>
+							<div id="adminContent_sub" class="scrTracking adminMain_sub">
+								<div class="pageLogo"><?php echo $get_logo_html; ?></div>
+								<?php if ( $get_page_title ) : ?>
+								<h2 class="page_title"><?php echo $get_page_title; ?></h2>
+								<?php endif; ?>
+								<div class="vk_option_nav">
+									<ul>
+									<?php echo $get_menu_html; ?>
+									</ul>
+								</div>
+							</div><!-- [ /#adminContent_sub ] -->
+						<?php endif; ?>
 
-				<?php echo self::admin_sub(); ?>
+						<div id="adminContent_main" class="adminMain_main">
+						<?php call_user_func_array( $the_body_callback, array() ); ?>
+						</div><!-- [ /#adminContent_main ] -->
+
+					</div><!-- [ /.adminMain ] -->
+
+					<?php echo self::admin_sub(); ?>
+				</div>
 
 			</div><!-- [ /.vkExUnit_admin_page ] -->
 			<?php
