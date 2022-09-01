@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.79.0.0 =
+[ Other ] Default setting corresponds to block theme
+[ Other ] Update admin settingpage library 2.4.0
+
 = 9.78.1.0 =
 [ Bug Fix ][ Auto Eycatch ] Fix auto eyecatch do not display
 
