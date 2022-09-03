@@ -10,6 +10,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		const CONTENT_NUMBER = 100;
 
 		public static function init() {
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 			add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
 			add_action( 'init', array( __CLASS__, 'set_posttype' ) );
 			add_action( 'admin_menu', array( __CLASS__, 'add_metabox_cta_register' ) );
@@ -68,6 +69,15 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				'vkExUnit_cta_settings',                // name attr
 				array( __CLASS__, 'sanitize_config' ),      // sanitaise function name
 				array( __CLASS__, 'render_configPage' )     // setting_page function name
+			);
+		}
+
+		public static function enqueue_scripts() {
+			wp_enqueue_style(
+				'veu-cta',
+				plugin_dir_url( __FILE__ ) . 'css/style.css',
+				array(),
+				VEU_VERSION
 			);
 		}
 
