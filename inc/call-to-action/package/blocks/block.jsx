@@ -57,7 +57,7 @@
 			} else {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
-						{ __("Please select CTA.", "veu-block") }
+						{ __("Please select CTA from Setting sidebar.", "veu-block") }
 					</div>
 				);
 			}
