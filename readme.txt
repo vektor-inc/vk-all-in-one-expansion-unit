@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Add Function ] Add CTA Block.
 [ CTA ] Separate CTA CSS.
 
 = 9.79.0.1 =

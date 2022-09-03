@@ -25,6 +25,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
+			require_once dirname( __FILE__ ) . '/blocks/index.php';
 
 			/*
 			VEU_Metabox 内の get_post_type が実行タイミングによっては
@@ -422,7 +423,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( ! $query->post_count ) {
 				return null; }
 
-			return $query->posts[0];
+			$target = $query->posts[0];
+			wp_reset_postdata();
+			return $target;
 		}
 
 
@@ -680,6 +683,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					$ctas[] = $post->ID;
 				}
 			}
+			wp_reset_postdata();
 			return $ctas;
 		}
 
