@@ -93,7 +93,7 @@ gulp.task("text-domain", function(done) {
 });
 
 gulp.task('sass', function(done) {
-	gulp.src(
+	gulp.src( 
 		'./assets/_scss/*.scss',
 		{
 			base: './assets/_scss'
@@ -108,6 +108,21 @@ gulp.task('sass', function(done) {
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
+	gulp.src( 
+		'./inc/call-to-action/package/_scss/*.scss',
+		{
+			base: './inc/call-to-action/package/_scss/'
+		}
+	)
+		.pipe(sass())
+		.pipe(cmq(
+			{
+				log: true
+			}
+		))
+		.pipe(autoprefixer())
+		.pipe(cleanCss())
+		.pipe(gulp.dest('./inc/call-to-action/package/css/'));
 	done();
 });
 

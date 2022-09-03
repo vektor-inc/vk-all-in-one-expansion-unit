@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ CTA ] Separate CTA CSS.
+
 = 9.79.0.1 =
 [ Other ] Default setting corresponds to block theme
 [ Other ] Update admin settingpage library 2.4.0
