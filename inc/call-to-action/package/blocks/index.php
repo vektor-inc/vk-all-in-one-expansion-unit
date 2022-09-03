@@ -6,7 +6,7 @@
 
  // フィルターフックを追加
  // フルサイト編集意では本文欄を経由しないため、CTAのコンテンツに対して WordPress が通常の投稿に行っているものと同じ処理をする
- // Add fiter for render post content
+ // Add fiter for render post content( Cope with FSE )
 add_filter( 'veu_cta_content', 'do_blocks', 9 );
 add_filter( 'veu_cta_content', 'wptexturize' );
 add_filter( 'veu_cta_content', 'convert_smilies', 20 );
