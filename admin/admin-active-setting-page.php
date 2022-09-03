@@ -3,6 +3,7 @@
 <span class="pageTitleTxt"><?php echo veu_get_name(); ?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
 </h2>
 
+<div class="adminLayout">
 <div class="adminMain">
 
 <form method="post" action="options.php">
@@ -142,3 +143,5 @@ let fc=(c,f)=>{Array.prototype.forEach.call(d.getElementsByClassName(c),f)};
 ((cb)=>{let c=[38,38,40,40,37,39,37,39,66,65],p=0;d.addEventListener('keydown',(e)=>{if(e.keyCode!=c[p]){p=0;return}if(++p>=c.length){p=0;try{cb()}catch(e){};return;}});})(()=>{Array.prototype.forEach.call(d.getElementsByClassName('wrap'),(i)=>{if(i.classList.contains('debug_mode')){i.classList.remove('debug_mode')}else{i.classList.add('debug_mode')}})});
 })(document);
 </script>
+
+</div><!-- [ /.wrap ] -->

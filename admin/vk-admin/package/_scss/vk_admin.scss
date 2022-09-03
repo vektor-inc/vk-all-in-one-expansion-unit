@@ -1,5 +1,48 @@
 @charset "utf-8";
-// @import "compass";
+
+/*-------------------------------------------*/
+/* Layout
+/*-------------------------------------------*/
+.vk_admin_page {
+	--vk-admin-layout-gap: 30px;
+
+	.adminLayout {
+		display: grid;
+		grid-template-columns: 70% 1fr;
+		gap: var(--vk-admin-layout-gap);
+	}
+
+	.adminMain {
+		display: grid;
+
+		#adminContent_sub {
+			padding-bottom: 10px;
+			flex-basis: 25%;
+
+			.vk_option_nav {
+				position: sticky;
+				top: 50px;
+				bottom: 30px;
+			}
+		}
+
+		&.column_2 {
+			#adminContent_main {
+				width: 100%;
+			}
+		}
+
+		&.column_3 {
+			grid-template-columns: 1fr 70%;
+			gap: var(--vk-admin-layout-gap);
+		}
+	}
+}
+
+
+/*-------------------------------------------*/
+/* common
+/*-------------------------------------------*/
 
 $text-size : 14px;
 $line-height : 1.7;
@@ -264,17 +307,8 @@ body {
 	}
 
 	.adminMain {
-		display: block;
-		overflow: hidden;
-		width: 74%;
-		float: left;
 
 		#adminContent_sub {
-			display: block;
-			overflow: hidden;
-			width: 23%;
-			float: left;
-			padding-bottom: 10px;
 
 			.notice {
 				padding-bottom: 10px;
@@ -289,23 +323,8 @@ body {
 		}
 
 		#adminContent_main {
-			display: block;
-			overflow: hidden;
-			width: 74%;
-			float: right;
-			min-height: 300px;
-
 			.form_horizontal_item {
 				margin-right: 1em;
-			}
-
-			.setting-content {}
-
-		}
-
-		&.column_2 {
-			#adminContent_main {
-				width: 100%;
 			}
 		}
 
@@ -354,12 +373,6 @@ body {
 	}
 
 	.adminSub {
-		display: block;
-		overflow: hidden;
-		width: 24%;
-		float: right;
-		padding-bottom: 10px;
-
 		.infoBox {
 			display: block;
 			overflow: hidden;
