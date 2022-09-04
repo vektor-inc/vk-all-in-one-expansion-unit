@@ -83,6 +83,7 @@ e.g.
 
 [ Add Function ] Add CTA Block.
 [ CTA ] Separate CTA CSS.
+[ Other ] Update admin setting page library 2.5.0
 
 = 9.79.0.1 =
 [ Other ] Default setting corresponds to block theme

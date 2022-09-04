@@ -59,32 +59,3 @@ jQuery(document).ready(function($){
             jQuery(this).next().slideToggle();
      });
 });
-
-/*-------------------------------------------*/
-/* ページ内リンクで頭出しの余白を適切にする
-/*-------------------------------------------*/
-jQuery(document).ready(function(){
-    if(!jQuery('body').hasClass('exunit_page_vkExUnit_main_setting')){ return; }
-    // 一つ目のセクションの位置を取得
-    var default_offset = jQuery('.adminMain section:first-child').offset();
-
-    // 全てのセクションの上に余白を追加（頭出しがきれいになるようにするため）
-    jQuery('.adminMain section').each(function(i){
-        if (i != 0){ // 読み込んだ時、一つ目は余白要らない
-            jQuery(this).css({"padding-top":default_offset["top"]});
-        }
-    });
-
-    jQuery(window).scroll(function () {
-        // スクロール量を取得
-        var scroll = jQuery(this).scrollTop();
-
-        if ( scroll < default_offset["top"] ){
-            // スクロールが少ない場合は最初のセクションに余白を入れない
-            jQuery('.adminMain section:first-child').css({"padding-top":0});
-        } else {
-            // ある程度スクロールしている状態ならば余白を入れる
-            jQuery('.adminMain section:first-child').css({"padding-top":default_offset["top"]});
-        }
-    });
-});

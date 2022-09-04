@@ -5,40 +5,50 @@
 /*-------------------------------------------*/
 .vk_admin_page {
 	--vk-admin-layout-gap: 30px;
+}
 
-	.adminLayout {
-		display: grid;
-		grid-template-columns: 70% 1fr;
-		gap: var(--vk-admin-layout-gap);
-	}
+.adminLayout {
+	display: grid;
+	gap: var(--vk-admin-layout-gap);
 
 	.adminMain {
 		display: grid;
+		gap: var(--vk-admin-layout-gap);
+	}
 
-		#adminContent_sub {
-			padding-bottom: 10px;
-			flex-basis: 25%;
-
-			.vk_option_nav {
-				position: sticky;
-				top: 50px;
-				bottom: 30px;
-			}
+	@media (min-width: 992px) {
+		.adminMain.column_3 {
+			grid-template-columns: 240px auto;
 		}
+	}
 
-		&.column_2 {
-			#adminContent_main {
-				width: 100%;
-			}
-		}
-
-		&.column_3 {
-			grid-template-columns: 1fr 70%;
-			gap: var(--vk-admin-layout-gap);
-		}
+	@media (min-width: 1400px) {
+		grid-template-columns: auto 300px;
 	}
 }
 
+/*-------------------------------------------*/
+/* サイドバーの固定処理
+/*-------------------------------------------*/
+.adminLayout {
+
+	@media (min-width: 992px) {
+		.adminMain_sub_inner {
+			position: sticky;
+			top: 30px;
+		}
+
+	}
+
+	@media (min-width: 1400px) {
+		align-items: end; // end 指定しないと下端吸着しない
+
+		.adminSub {
+			position: sticky;
+			bottom: 30px;
+		}
+	}
+}
 
 /*-------------------------------------------*/
 /* common
