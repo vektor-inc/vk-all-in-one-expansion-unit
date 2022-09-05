@@ -99,7 +99,7 @@ class VK_Author_Srtuctured_Data {
     global $post;
     $author_id = $post->post_author;
     if( is_single() ){
-      $author_array = self::get_author_array( $author_id );
+      $author_array = self::generate_author_array( $author_id );
       if ( $author_array && is_array( $author_array ) ){
         echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
         echo '<script type="application/ld+json">' . json_encode( $author_array , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>';
@@ -112,7 +112,58 @@ class VK_Author_Srtuctured_Data {
    * ユーザー情報を配列で返す
    * @return array $author_array
    */
-  public static function get_author_array( $author_id = '' ) {
+  public static function generate_author_array( $author_id = '' ) {
+
+    if ( ! $author_id ){
+      // 表示中のページの投稿オブジェクトからユーザーIDを取得
+      global $post;
+      $author_id = $post->post_author;
+    }
+
+    // $author_id = get_the_author_meta('ID');
+    if ( ! isset( $author_id ) ) {
+      return;
+    }
+
+    // $author_type = get_user_meta( $author_id, 'author_type', true );
+
+    if( is_singular() ) {
+      if( has_post_thumbnail()){
+        $image_url = get_the_post_thumbnail_url();
+      } else {
+        $image_url = '';
+      };
+      $post_title = get_the_title();
+    }
+
+    $author_array = array(
+      "@context" => "https://schema.org/",
+      "@type" => "Article",
+      "headline" => $post_title,
+      "image" => $image_url,
+      "datePublished"    => get_the_time( 'c' ),
+      "dateModified"     => get_the_modified_time( 'c' ),
+      "author"           => self::get_author_data( $author_id ),
+      // "publisher"        => array(
+      //   "@context"    => "http://schema.org",
+      //   "@type"       => $author_type,
+      //   "name"        => get_bloginfo( 'name' ),
+      //   "description" => get_bloginfo( 'description' ),
+      //   "logo"        => array(
+      //     "@type" => "ImageObject",
+      //     "url"   => get_custom_logo(),
+      //   ),
+      // ),
+    );
+
+    return $author_array;
+  }
+
+  /**
+   * ユーザー情報を配列で返す
+   * @return array $author_data
+   */
+  public static function get_author_data( $author_id = '' ) {
 
     if ( ! $author_id ){
       // 表示中のページの投稿オブジェクトからユーザーIDを取得
@@ -134,43 +185,14 @@ class VK_Author_Srtuctured_Data {
     }
     $author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );
 
-    if( is_singular() ) {
-      if( has_post_thumbnail()){
-        $image_url = get_the_post_thumbnail_url();
-      } else {
-        $image_url = '';
-      };
-      $post_title = get_the_title();
-    }
-
-    $author_array = array(
-      "@context" => "https://schema.org/",
-      "@type" => "Article",
-      "headline" => $post_title,
-      "image" => array(
-        $image_url,
-      ),
-      "datePublished"    => get_the_time( 'c' ),
-      "dateModified"     => get_the_modified_time( 'c' ),
-      "author"           => array(
-        "@type" => $author_type,
-        "name" => $author_name,
-        "url" => $author_url,
-        "sameAs" => $author_sameAs
-      ),
-      "publisher"        => array(
-        "@context"    => "http://schema.org",
-        "@type"       => $author_type,
-        "name"        => get_bloginfo( 'name' ),
-        "description" => get_bloginfo( 'description' ),
-        "logo"        => array(
-          "@type" => "ImageObject",
-          "url"   => get_custom_logo(),
-        ),
-      ),
+    $author_data = array(
+      "@type" => $author_type,
+      "name" => $author_name,
+      "url" => $author_url,
+      "sameAs" => $author_sameAs
     );
 
-    return $author_array;
+    return $author_data;
   }
 }
 

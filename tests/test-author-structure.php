@@ -112,7 +112,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 				update_user_meta( $user_id, $key, $value );
 			}
 
-			$return = VK_Author_Srtuctured_Data::get_author_array( $user_id );
+			$return = VK_Author_Srtuctured_Data::generate_author_array( $user_id );
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;
@@ -189,7 +189,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 					'@context' => 'https://schema.org/',
 					'@type' => 'Article',
 					'headline' => 'Post Person',
-					'image' => array(''),
+					'image' => '',
 					'datePublished'    => 'ここは投稿作成してから上書きする',
 					'dateModified'     => 'ここは投稿作成してから上書きする',
 					'author'           => array(
@@ -198,16 +198,16 @@ class Author_Structure_Test extends WP_UnitTestCase {
 					  'url' => $test_users['person_01']['user_meta']['author_url'],
 					  'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
 					),
-					'publisher'        => array(
-					  '@context'    => 'http://schema.org',
-					  '@type'       => $test_users['person_01']['user_meta']['author_type'],
-					  'name'        => get_bloginfo( 'name' ),
-					  'description' => get_bloginfo( 'description' ),
-					  'logo'        => array(
-						'@type' => 'ImageObject',
-						'url'   => get_custom_logo(),
-					  ),
-					),
+					// 'publisher'        => array(
+					//   '@context'    => 'http://schema.org',
+					//   '@type'       => $test_users['person_01']['user_meta']['author_type'],
+					//   'name'        => get_bloginfo( 'name' ),
+					//   'description' => get_bloginfo( 'description' ),
+					//   'logo'        => array(
+					// 	'@type' => 'ImageObject',
+					// 	'url'   => get_custom_logo(),
+					//   ),
+					// ),
 				),
 			),
 			// 組織投稿の場合
@@ -224,7 +224,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 					'@context' => 'https://schema.org/',
 					'@type' => 'Article',
 					'headline' => 'Post Org',
-					'image' => array(''),
+					'image' => '',
 					'datePublished'    => 'ここは投稿作成してから上書きする',
 					'dateModified'     => 'ここは投稿作成してから上書きする',
 					'author'           => array(
@@ -233,16 +233,16 @@ class Author_Structure_Test extends WP_UnitTestCase {
 						'url' => $test_users['org_02']['user_meta']['author_url'],
 						'sameAs' => $test_users['org_02']['user_meta']['author_sameAs'],
 					),
-					'publisher'        => array(
-						'@context'    => 'http://schema.org',
-						'@type'       => $test_users['org_02']['user_meta']['author_type'],
-						'name'        => get_bloginfo( 'name' ),
-						'description' => get_bloginfo( 'description' ),
-						'logo'        => array(
-						'@type' => 'ImageObject',
-						'url'   => get_custom_logo(),
-						),
-					),
+					// 'publisher'        => array(
+					// 	'@context'    => 'http://schema.org',
+					// 	'@type'       => $test_users['org_02']['user_meta']['author_type'],
+					// 	'name'        => get_bloginfo( 'name' ),
+					// 	'description' => get_bloginfo( 'description' ),
+					// 	'logo'        => array(
+					// 	'@type' => 'ImageObject',
+					// 	'url'   => get_custom_logo(),
+					// 	),
+					// ),
 				),
 			),
 			// 個別の投稿ページじゃないページで空で返ってきてるか？
@@ -270,7 +270,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 			// 	return $thumbnail_url;
 			// } );
 
-			$return = VK_Author_Srtuctured_Data::get_author_array();
+			$return = VK_Author_Srtuctured_Data::generate_author_array();
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;
