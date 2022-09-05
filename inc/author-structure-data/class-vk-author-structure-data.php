@@ -98,14 +98,14 @@ class VK_Author_Srtuctured_Data {
   public static function print_jsonLD_in_head() {
     global $post;
     $author_id = $post->post_author;
-    // if( is_single() ){
+    if( is_single() ){
       $author_array = self::get_author_array( $author_id );
       if ( $author_array && is_array( $author_array ) ){
         echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
         echo '<script type="application/ld+json">' . json_encode( $author_array , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>';
         echo '<!-- [ / VK All in One Expansion Unit Structure Data ] -->';
       }
-    // }
+    }
   }
 
   /**
