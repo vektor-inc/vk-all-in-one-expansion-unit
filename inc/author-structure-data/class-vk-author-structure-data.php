@@ -54,7 +54,13 @@ class VK_Author_Srtuctured_Data {
         <th><label for='author_url'>url</label></th>
         <td>
           <label><input id='author_url' type='url' name='author_url' value='<?php echo esc_attr( $author_url ) ?>'/></label>
-          <p class="discription">未入力の場合、このホームページのURLが使用されます。</p>
+          <p class="discription">
+            このユーザーのプロフィールページのURLを入力してください。
+            未入力の場合
+            @type が 個人の場合 : このサイトの投稿者アーカイブページのURLが使用されます。
+            @type が 組織の場合 : このホームページのトップページのURLが適用されます。
+            ※ ユーザープロフィールの連絡先情報に指定したサイトのURLは、url には反映されません
+          </p>
         </td>
       </tr>
       <tr>
@@ -90,24 +96,42 @@ class VK_Author_Srtuctured_Data {
    * json-LD
    */
   public static function print_jsonLD_in_head() {
-    $post_id = get_post(get_the_id());
-    $author = get_userdata( $post_id -> post_author );
-    $author_id = $author -> ID;
-    if( is_single() ){
-      echo self::veu_generate_author_jsonLD( $author_id );
-    }
+    global $post;
+    $author_id = $post->post_author;
+    // if( is_single() ){
+      $author_array = self::get_author_array( $author_id );
+      if ( $author_array && is_array( $author_array ) ){
+        echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
+        echo '<script type="application/ld+json">' . json_encode( $author_array , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>';
+        echo '<!-- [ / VK All in One Expansion Unit Structure Data ] -->';
+      }
+    // }
   }
 
-  public static function veu_generate_author_jsonLD( $author_id ) {
-    $author_id = get_the_author_meta('ID');
-      if ( ! isset( $author_id ) ) {
-        return;
-      }
+  /**
+   * ユーザー情報を配列で返す
+   * @return array $author_array
+   */
+  public static function get_author_array( $author_id = '' ) {
+
+    if ( ! $author_id ){
+      // 表示中のページの投稿オブジェクトからユーザーIDを取得
+      global $post;
+      $author_id = $post->post_author;
+    }
+
+    // $author_id = get_the_author_meta('ID');
+    if ( ! isset( $author_id ) ) {
+      return;
+    }
 
     $author = get_userdata( $author_id );
     $author_type = get_user_meta( $author_id, 'author_type', true );
     $author_name = get_user_meta( $author_id, 'author_name', true ) ?: $author->display_name;
     $author_url = get_user_meta( $author_id, 'author_url', true ) ?: home_url( '/' );
+    if( $author_type == 'person'){
+      $author_url = get_user_meta( $author_id, 'author_url', true ) ?: get_author_posts_url( $author_id );
+    }
     $author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );
 
     if( is_singular() ) {
@@ -119,7 +143,7 @@ class VK_Author_Srtuctured_Data {
       $post_title = get_the_title();
     }
 
-    $json_ld = array(
+    $author_array = array(
       "@context" => "https://schema.org/",
       "@type" => "Article",
       "headline" => $post_title,
@@ -146,9 +170,7 @@ class VK_Author_Srtuctured_Data {
       ),
     );
 
-    echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
-    echo '<script type="application/ld+json">' . json_encode( $json_ld , JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>';
-    echo '<!-- [ / VK All in One Expansion Unit Structure Data ] -->';
+    return $author_array;
   }
 }
 
