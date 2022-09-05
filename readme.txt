@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.80.1.0 =
+[ Bug fix ] Fixed broken layout of setting page
+
 = 9.80.0.0 =
 [ Add Function ] Add CTA Block.
 [ Other ] Update admin setting page library 2.5.0

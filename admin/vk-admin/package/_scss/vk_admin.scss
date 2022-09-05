@@ -41,11 +41,16 @@
 	}
 
 	@media (min-width: 1400px) {
-		align-items: end; // end 指定しないと下端吸着しない
-
 		.adminSub {
-			position: sticky;
-			bottom: 30px;
+			display: grid;
+			align-items: end; // end 指定しないと下端吸着しない
+
+			&_inner {
+				position: sticky;
+				bottom: 30px;
+
+			}
+
 		}
 	}
 }
