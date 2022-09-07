@@ -2,9 +2,9 @@
 function veu_get_packages( $is_block_theme = null ) {
 	$required_packages = array();
 	if ( null === $is_block_theme ) {
-		$is_block_theme    = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 	}
-	
+
 	/*
 	Example :
 	$required_packages[] = array(
