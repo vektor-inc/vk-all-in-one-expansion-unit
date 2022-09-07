@@ -55,10 +55,10 @@ class VK_Author_Srtuctured_Data {
 		<td>
 		  <label><input id='author_url' type='url' name='author_url' value='<?php echo esc_attr( $author_url ); ?>'/></label>
 		  <p class="discription">
-			このユーザーのプロフィールページのURLを入力してください。
-			未入力の場合
-			@type が 個人の場合 : このサイトの投稿者アーカイブページのURLが使用されます。
-			@type が 組織の場合 : このホームページのトップページのURLが適用されます。
+			このユーザーのプロフィールページのURLを入力してください。<br />
+			未入力の場合<br />
+			@type が 個人の場合 : このサイトの投稿者アーカイブページのURLが使用されます。<br />
+			@type が 組織の場合 : このホームページのトップページのURLが適用されます。<br />
 			※ ユーザープロフィールの連絡先情報に指定したサイトのURLは、url には反映されません
 		  </p>
 		</td>
