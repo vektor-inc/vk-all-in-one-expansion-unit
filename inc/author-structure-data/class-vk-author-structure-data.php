@@ -15,7 +15,7 @@ class VK_Author_Srtuctured_Data {
 		add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'profile_update', array( __CLASS__, 'update_structure_data' ), 10, 2 );
-		add_action( 'wp_head', array( __CLASS__, 'print_jsonLD_in_head' ), 9999 );
+		add_action( 'wp_head', array( __CLASS__, 'the_author_array_jsonLD' ), 9999 );
 	}
 
 	/**
@@ -95,11 +95,11 @@ class VK_Author_Srtuctured_Data {
 	/**
 	 * json-LD
 	 */
-	public static function print_jsonLD_in_head() {
+	public static function the_author_array_jsonLD() {
 		global $post;
 		$author_id = $post->post_author;
 		if ( is_single() ) {
-			$author_array = self::generate_author_array( $author_id );
+			$author_array = self::get_author_array( $author_id );
 			if ( $author_array && is_array( $author_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
 				echo '<script type="application/ld+json">' . json_encode( $author_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
@@ -109,11 +109,11 @@ class VK_Author_Srtuctured_Data {
 	}
 
 	/**
-	 * ユーザー情報を配列で返す
+	 * 著者情報を含むユーザー情報を配列で返す
 	 *
 	 * @return array $author_array
 	 */
-	public static function generate_author_array( $author_id = '' ) {
+	public static function get_author_array( $author_id = '' ) {
 
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
@@ -161,7 +161,7 @@ class VK_Author_Srtuctured_Data {
 	}
 
 	/**
-	 * ユーザー情報を配列で返す
+	 * 著者情報を配列で返す
 	 *
 	 * @return array $author_data
 	 */

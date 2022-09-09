@@ -6,11 +6,11 @@
  */
 
 class Author_Structure_Test extends WP_UnitTestCase {
-	function test_get_author_array() {
+	function test_get_author_data() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_get_author_array の とりあえず user だけ' . PHP_EOL;
+		print 'test_get_author_data' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 
@@ -112,23 +112,27 @@ class Author_Structure_Test extends WP_UnitTestCase {
 				update_user_meta( $user_id, $key, $value );
 			}
 
-			$return = VK_Author_Srtuctured_Data::generate_author_array( $user_id );
+			$return = VK_Author_Srtuctured_Data::get_author_data( $user_id );
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;
 
 			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return['author'] . PHP_EOL;
+			print 'return  ::::' . $return . PHP_EOL;
 
-			$this->assertEquals( $correct, $return['author'] );
+			$this->assertEquals( $correct, $return );
 		}
 
 		// テストで発行したユーザーを削除
 		wp_delete_user( $user_id ) ;
+	}
+
+
+	function test_get_author_array() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_get_author_array の ページ毎で正しい配列が取得できているか？' . PHP_EOL;
+		print 'test_get_author_array' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 		// テスト用ユーザーを発行 //////////////////////////
@@ -270,7 +274,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 			// 	return $thumbnail_url;
 			// } );
 
-			$return = VK_Author_Srtuctured_Data::generate_author_array();
+			$return = VK_Author_Srtuctured_Data::get_author_array();
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;
