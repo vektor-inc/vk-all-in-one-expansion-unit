@@ -31,7 +31,9 @@ class VK_Author_Srtuctured_Data {
 		$author_sameAs = get_user_meta( $user_id, 'author_sameAs', true );
 
 		?>
-	<h2>構造化データ</h2>
+	<h2 style="margin-top:2em;">
+		<?php esc_html_e( 'Author information structured data', 'vk-all-in-one-expansion-unit' ); ?>
+	</h2>
 	<table class="form-table">
 	  <tr>
 		<th><label for='author_type'>@type</label></th>
@@ -40,14 +42,18 @@ class VK_Author_Srtuctured_Data {
 		  <option value='organization' <?php echo ( ( $author_type == 'organization' ) ) ? 'selected' : ''; ?> >Organization</option>
 		  <option value='person' <?php echo ( ( $author_type == 'person' ) ) ? 'selected' : ''; ?> >Person</option>
 		  </select>
-		  <p class="discription">著者が個人のときは Person を、著者が組織のときは Organization を選択してください。</p>
+		  <p class="discription">
+		  	<?php esc_html_e( 'Select Person if the author is an individual and Organization if the author is an organization.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
 		</td>
 	  </tr>
 	  <tr>
 		<th><label for='author_name'>name</label></th>
 		<td>
-		  <label><input id='author_name' type='text' name='author_name' value='<?php echo esc_attr( $author_name ); ?>'/></label>
-		  <p class="discription">未入力の場合、ブログ上の表示名が使用されます。</p>
+			<label><input id='author_name' type='text' name='author_name' value='<?php echo esc_attr( $author_name ); ?>'/></label>
+			<p class="discription">
+			<?php esc_html_e( 'If not entered, the display name on the blog will be used.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
 		</td>
 	  </tr>
 	  <tr>
@@ -55,11 +61,13 @@ class VK_Author_Srtuctured_Data {
 		<td>
 		  <label><input id='author_url' type='url' name='author_url' value='<?php echo esc_attr( $author_url ); ?>'/></label>
 		  <p class="discription">
-			このユーザーのプロフィールページのURLを入力してください。<br />
-			未入力の場合<br />
-			@type が 個人の場合 : このサイトの投稿者アーカイブページのURLが使用されます。<br />
-			@type が 組織の場合 : このホームページのトップページのURLが適用されます。<br />
-			※ ユーザープロフィールの連絡先情報に指定したサイトのURLは、url には反映されません
+		  <?php esc_html_e( 'Enter the URL of this user\'s profile page.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'If not entered', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'If @type is individual', 'vk-all-in-one-expansion-unit' ); ?> : 
+			<?php esc_html_e( 'The URL of the contributor archive page on this site will be used.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'If @type is organization', 'vk-all-in-one-expansion-unit' ); ?> : 
+			<?php esc_html_e( 'The URL of the top page of this homepage is applied.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( '* The URL of the site specified in the contact information of the user profile is not reflected in the url.', 'vk-all-in-one-expansion-unit' ); ?>
 		  </p>
 		</td>
 	  </tr>
@@ -67,7 +75,7 @@ class VK_Author_Srtuctured_Data {
 		<th><label for='author_sameAs'>sameAs</label></th>
 		<td>
 		  <label><input id='author_sameAs' type='url' name='author_sameAs' value='<?php echo esc_attr( $author_sameAs ); ?>'/></label>
-		  <p class="discription">SNSやWikipediaなどのプロフィールURLを指定します。</p>
+		  <p class="discription"><?php esc_html_e( 'Specify the profile URL of SNS, Wikipedia, etc.', 'vk-all-in-one-expansion-unit' ); ?></p>
 		</td>
 	  </tr>
 	</table>
