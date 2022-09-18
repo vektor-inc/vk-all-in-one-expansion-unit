@@ -107,7 +107,7 @@ class VK_Author_Srtuctured_Data {
 		global $post;
 		$author_id = $post->post_author;
 		if ( is_single() ) {
-			$author_array = self::get_author_array( $author_id );
+			$author_array = self::get_author_structure_array( $author_id );
 			if ( $author_array && is_array( $author_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
 				echo '<script type="application/ld+json">' . json_encode( $author_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
@@ -121,7 +121,7 @@ class VK_Author_Srtuctured_Data {
 	 *
 	 * @return array $author_array
 	 */
-	public static function get_author_array( $author_id = '' ) {
+	public static function get_author_structure_array( $author_id = '' ) {
 
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
@@ -169,8 +169,9 @@ class VK_Author_Srtuctured_Data {
 	}
 
 	/**
-	 * 著者情報を配列で返す
+	 * ユーザー設定ページに登録されている情報を元に著者情報を配列で返す
 	 *
+	 * @param int $author_id
 	 * @return array $author_data
 	 */
 	public static function get_author_data( $author_id = '' ) {
@@ -190,7 +191,7 @@ class VK_Author_Srtuctured_Data {
 		$author_type = get_user_meta( $author_id, 'author_type', true );
 		$author_name = get_user_meta( $author_id, 'author_name', true ) ?: $author->display_name;
 		$author_url  = get_user_meta( $author_id, 'author_url', true ) ?: home_url( '/' );
-		if ( $author_type == 'person' ) {
+		if ( 'person' === $author_type ) {
 			$author_url = get_user_meta( $author_id, 'author_url', true ) ?: get_author_posts_url( $author_id );
 		}
 		$author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );

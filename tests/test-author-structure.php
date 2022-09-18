@@ -128,11 +128,11 @@ class Author_Structure_Test extends WP_UnitTestCase {
 	}
 
 
-	function test_get_author_array() {
+	function test_get_author_structure_array() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_get_author_array' . PHP_EOL;
+		print 'test_get_author_structure_array' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 		// テスト用ユーザーを発行 //////////////////////////
@@ -251,7 +251,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 			),
 			// 個別の投稿ページじゃないページで空で返ってきてるか？
 			/**
-			 * get_author_array()はとにかくそのページの著者の配列データ$author_arrayを作る
+			 * get_author_structure_array()はとにかくそのページの著者の配列データ$author_arrayを作る
 			 * 個別投稿ではない固定ページやアーカイブページでも$author_arrayは作成されるが、
 			 * 配列をjson形式でheadに出力する関数print_jsonLD_in_head()で投稿ページにのみ表示する仕様となっている。
 			 * そのため、ここのテストでは$author_arrayの内容が空で返ってくることがない。
@@ -274,7 +274,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 			// 	return $thumbnail_url;
 			// } );
 
-			$return = VK_Author_Srtuctured_Data::get_author_array();
+			$return = VK_Author_Srtuctured_Data::get_author_structure_array();
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;
