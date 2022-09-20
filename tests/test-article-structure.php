@@ -202,6 +202,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					  'url' => $test_users['person_01']['user_meta']['author_url'],
 					  'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
 					),
+					// Google側で必須事項ではなく要件が不明確なのでコメントアウト。
 					// 'publisher'        => array(
 					//   '@context'    => 'http://schema.org',
 					//   '@type'       => $test_users['person_01']['user_meta']['author_type'],
