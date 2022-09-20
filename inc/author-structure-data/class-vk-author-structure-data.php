@@ -153,6 +153,7 @@ class VK_Author_Srtuctured_Data {
 			'datePublished' => get_the_time( 'c' ),
 			'dateModified'  => get_the_modified_time( 'c' ),
 			'author'        => self::get_author_data( $author_id ),
+		// Google側で必須事項ではなく要件が不明確なのでコメントアウト。
 		// "publisher"        => array(
 		// "@context"    => "http://schema.org",
 		// "@type"       => $author_type,
