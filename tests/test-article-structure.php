@@ -1,16 +1,16 @@
 <?php
 /**
- * Class Author_Structure_Test
+ * Class Article_Structure_Test
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
 
-class Author_Structure_Test extends WP_UnitTestCase {
-	function test_get_author_data() {
+class Article_Structure_Test extends WP_UnitTestCase {
+	function test_get_author_array() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_get_author_data' . PHP_EOL;
+		print 'test_get_author_array' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 
@@ -112,7 +112,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 				update_user_meta( $user_id, $key, $value );
 			}
 
-			$return = VK_Author_Srtuctured_Data::get_author_data( $user_id );
+			$return = VK_Article_Srtuctured_Data::get_author_array( $user_id );
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;
@@ -128,11 +128,11 @@ class Author_Structure_Test extends WP_UnitTestCase {
 	}
 
 
-	function test_get_author_structure_array() {
+	function test_get_article_structure_array() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_get_author_structure_array' . PHP_EOL;
+		print 'test_get_article_structure_array' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 		// テスト用ユーザーを発行 //////////////////////////
@@ -275,7 +275,7 @@ class Author_Structure_Test extends WP_UnitTestCase {
 			// 	return $thumbnail_url;
 			// } );
 
-			$return = VK_Author_Srtuctured_Data::get_author_structure_array();
+			$return = VK_Article_Srtuctured_Data::get_article_structure_array();
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;

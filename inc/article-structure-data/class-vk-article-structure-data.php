@@ -1,6 +1,6 @@
 <?php
 /**
- * VK_Author_Srtuctured_Data
+ * VK_Article_Srtuctured_Data
  *
  * @package vektor-inc/vk-all-in-one-expanaion-unit
  */
@@ -9,13 +9,13 @@
  * ユーザー設定に　@typeとsameAsの項目を追加
  */
 
-class VK_Author_Srtuctured_Data {
+class VK_Article_Srtuctured_Data {
 
 	public function __construct() {
 		add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
-		add_action( 'profile_update', array( __CLASS__, 'update_structure_data' ), 10, 2 );
-		add_action( 'wp_head', array( __CLASS__, 'the_author_array_jsonLD' ), 9999 );
+		add_action( 'profile_update', array( __CLASS__, 'update_auhtor_structure_data' ), 10, 2 );
+		add_action( 'wp_head', array( __CLASS__, 'the_article_array_jsonLD' ), 9999 );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class VK_Author_Srtuctured_Data {
 	/**
 	 * Update Author Structure Date
 	 */
-	public static function update_structure_data( $user_id, $old_user_data ) {
+	public static function update_author_structure_data( $user_id, $old_user_data ) {
 		if ( isset( $_POST['author_type'] ) ) {
 			update_user_meta( $user_id, 'author_type', $_POST['author_type'], $old_user_data->author_type );
 		}
@@ -103,25 +103,25 @@ class VK_Author_Srtuctured_Data {
 	/**
 	 * json-LD
 	 */
-	public static function the_author_array_jsonLD() {
+	public static function the_article_array_jsonLD() {
 		global $post;
 		$author_id = $post->post_author;
 		if ( is_single() ) {
-			$author_array = self::get_author_structure_array( $author_id );
-			if ( $author_array && is_array( $author_array ) ) {
+			$article_array = self::get_article_structure_array( $author_id );
+			if ( $article_array && is_array( $article_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
-				echo '<script type="application/ld+json">' . json_encode( $author_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
+				echo '<script type="application/ld+json">' . json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
 				echo '<!-- [ / VK All in One Expansion Unit Structure Data ] -->';
 			}
 		}
 	}
 
 	/**
-	 * 著者情報を含むユーザー情報を配列で返す
+	 * 記事の構造化データの情報を配列で返す
 	 *
-	 * @return array $author_array
+	 * @return array $article_array
 	 */
-	public static function get_author_structure_array( $author_id = '' ) {
+	public static function get_article_structure_array( $author_id = '' ) {
 
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
@@ -145,14 +145,14 @@ class VK_Author_Srtuctured_Data {
 			$post_title = get_the_title();
 		}
 
-		$author_array = array(
+		$article_array = array(
 			'@context'      => 'https://schema.org/',
 			'@type'         => 'Article',
 			'headline'      => $post_title,
 			'image'         => $image_url,
 			'datePublished' => get_the_time( 'c' ),
 			'dateModified'  => get_the_modified_time( 'c' ),
-			'author'        => self::get_author_data( $author_id ),
+			'author'        => self::get_author_array( $author_id ),
 		// Google側で必須事項ではなく要件が不明確なのでコメントアウト。
 		// "publisher"        => array(
 		// "@context"    => "http://schema.org",
@@ -166,16 +166,16 @@ class VK_Author_Srtuctured_Data {
 		// ),
 		);
 
-		return $author_array;
+		return $article_array;
 	}
 
 	/**
 	 * ユーザー設定ページに登録されている情報を元に著者情報を配列で返す
 	 *
 	 * @param int $author_id
-	 * @return array $author_data
+	 * @return array $author_array
 	 */
-	public static function get_author_data( $author_id = '' ) {
+	public static function get_author_array( $author_id = '' ) {
 
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
@@ -197,15 +197,15 @@ class VK_Author_Srtuctured_Data {
 		}
 		$author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );
 
-		$author_data = array(
+		$author_array = array(
 			'@type'  => $author_type,
 			'name'   => $author_name,
 			'url'    => $author_url,
 			'sameAs' => $author_sameAs,
 		);
 
-		return $author_data;
+		return $author_array;
 	}
 }
 
-new VK_Author_Srtuctured_Data();
+new VK_Article_Srtuctured_Data();
