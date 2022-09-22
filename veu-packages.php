@@ -2,9 +2,9 @@
 function veu_get_packages( $is_block_theme = null ) {
 	$required_packages = array();
 	if ( null === $is_block_theme ) {
-		$is_block_theme    = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 	}
-	
+
 	/*
 	Example :
 	$required_packages[] = array(
@@ -525,6 +525,17 @@ function veu_get_packages( $is_block_theme = null ) {
 		'description' => __( 'Add "Post type", "Page slug" etc class name to the body class.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'add-body-class.php',
+	);
+
+	/**
+	 * Article Structure Data
+	 */
+	$required_packages[] = array(
+		'name'        => 'article_structure_data',
+		'title'       => __( 'Article Structure Data', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Article Structure Data.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'article-structure-data/class-vk-article-structure-data.php',
 	);
 
 	/*

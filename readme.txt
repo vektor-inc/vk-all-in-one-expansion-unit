@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.81.0.0 =
+[ Add function ] Add function of article structure data
+
 = 9.80.1.0 =
 [ Bug fix ] Fixed broken layout of setting page
 
