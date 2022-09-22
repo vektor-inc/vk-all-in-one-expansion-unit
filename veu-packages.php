@@ -186,7 +186,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	$required_packages[] = array(
 		'name'        => 'breadcrumb',
 		'title'       => __( 'Structured data - Breadcrumb', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Output the Structured data of the Breadcrumb to the html header.', 'vk-all-in-one-expansion-unit' ) . '<br />' . __( 'It is important to accurately convey the hierarchy of the site to search engines such as Google.' ) . __( 'However not required if you are viewing a breadcrumb with schema data on the page.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the Breadcrumb to the html header.', 'vk-all-in-one-expansion-unit' ) . '<br />' . __( 'It is important to accurately convey the hierarchy of the site to search engines such as Google.', 'vk-all-in-one-expansion-unit' ) . __( 'However not required if you are viewing a breadcrumb with schema data on the page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'vk-breadcrumb/config.php',
 	);
