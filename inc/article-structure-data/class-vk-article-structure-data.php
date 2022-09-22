@@ -102,6 +102,8 @@ class VK_Article_Srtuctured_Data {
 
 	/**
 	 * json-LD
+	 * 
+	 * @return void
 	 */
 	public static function the_article_array_jsonLD() {
 		global $post;
