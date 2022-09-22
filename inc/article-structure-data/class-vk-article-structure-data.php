@@ -15,7 +15,7 @@ class VK_Article_Srtuctured_Data {
 		add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'profile_update', array( __CLASS__, 'update_auhtor_structure_data' ), 10, 2 );
-		add_action( 'wp_head', array( __CLASS__, 'the_article_array_jsonLD' ), 9999 );
+		add_action( 'wp_head', array( __CLASS__, 'the_article_structure_data' ), 9999 );
 	}
 
 	/**
@@ -101,19 +101,19 @@ class VK_Article_Srtuctured_Data {
 	}
 
 	/**
-	 * json-LD
+	 * Print Article Structure Data
 	 * 
 	 * @return void
 	 */
-	public static function the_article_array_jsonLD() {
+	public static function the_article_structure_data() {
 		global $post;
 		$author_id = $post->post_author;
 		if ( is_single() ) {
 			$article_array = self::get_article_structure_array( $author_id );
 			if ( $article_array && is_array( $article_array ) ) {
-				echo '<!-- [ VK All in One Expansion Unit Structure Data ] -->';
+				echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
 				echo '<script type="application/ld+json">' . json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
-				echo '<!-- [ / VK All in One Expansion Unit Structure Data ] -->';
+				echo '<!-- [ / VK All in One Expansion Unit Article Structure Data ] -->';
 			}
 		}
 	}
