@@ -169,13 +169,24 @@ function veu_get_packages( $is_block_theme = null ) {
 		'include'     => 'meta-description.php',
 	);
 
-	/*
-	  Breadcrumb
-	/*-------------------------------------------*/
+	/**
+	 * Structured data - Article
+	 */
+	$required_packages[] = array(
+		'name'        => 'article_structure_data',
+		'title'       => __( 'Structured data - Article', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the Article to the html header.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'article-structure-data/class-vk-article-structure-data.php',
+	);
+
+	/**
+	 * Structured data - Breadcrumb
+	 */
 	$required_packages[] = array(
 		'name'        => 'breadcrumb',
-		'title'       => __( 'Breadcrumb', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Output the schema data of the breadcrumb to the html header.', 'vk-all-in-one-expansion-unit' ) . __( 'It is important to accurately convey the hierarchy of the site to search engines such as Google.' ) . __( 'However not required if you are viewing a breadcrumb with schema data on the page.', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Structured data - Breadcrumb', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the Breadcrumb to the html header.', 'vk-all-in-one-expansion-unit' ) . '<br />' . __( 'It is important to accurately convey the hierarchy of the site to search engines such as Google.' ) . __( 'However not required if you are viewing a breadcrumb with schema data on the page.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'vk-breadcrumb/config.php',
 	);
@@ -525,17 +536,6 @@ function veu_get_packages( $is_block_theme = null ) {
 		'description' => __( 'Add "Post type", "Page slug" etc class name to the body class.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'add-body-class.php',
-	);
-
-	/**
-	 * Article Structure Data
-	 */
-	$required_packages[] = array(
-		'name'        => 'article_structure_data',
-		'title'       => __( 'Article Structure Data', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can set Article Structure Data.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'article-structure-data/class-vk-article-structure-data.php',
 	);
 
 	/*
