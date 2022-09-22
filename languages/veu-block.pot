@@ -3,6 +3,26 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
+#: inc/call-to-action/package/blocks/block.jsx:18
+msgid "CTA"
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:47
+msgid "Because displaying CTA is disabled. The block render no content."
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:60
+msgid "Please select CTA from Setting sidebar."
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:69
+msgid "CTA Setting"
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:72
+msgid "Select CTA"
+msgstr ""
+
 #: inc/child-page-index/block.jsx:18
 msgid "Child page index"
 msgstr ""

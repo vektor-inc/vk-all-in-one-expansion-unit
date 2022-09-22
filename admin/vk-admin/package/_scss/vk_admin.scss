@@ -1,5 +1,63 @@
 @charset "utf-8";
-// @import "compass";
+
+/*-------------------------------------------*/
+/* Layout
+/*-------------------------------------------*/
+.vk_admin_page {
+	--vk-admin-layout-gap: 30px;
+}
+
+.adminLayout {
+	display: grid;
+	gap: var(--vk-admin-layout-gap);
+
+	.adminMain {
+		display: grid;
+		gap: var(--vk-admin-layout-gap);
+	}
+
+	@media (min-width: 992px) {
+		.adminMain.column_3 {
+			grid-template-columns: 240px auto;
+		}
+	}
+
+	@media (min-width: 1400px) {
+		grid-template-columns: auto 300px;
+	}
+}
+
+/*-------------------------------------------*/
+/* サイドバーの固定処理
+/*-------------------------------------------*/
+.adminLayout {
+
+	@media (min-width: 992px) {
+		.adminMain_sub_inner {
+			position: sticky;
+			top: 30px;
+		}
+
+	}
+
+	@media (min-width: 1400px) {
+		.adminSub {
+			display: grid;
+			align-items: end; // end 指定しないと下端吸着しない
+
+			&_inner {
+				position: sticky;
+				bottom: 30px;
+
+			}
+
+		}
+	}
+}
+
+/*-------------------------------------------*/
+/* common
+/*-------------------------------------------*/
 
 $text-size : 14px;
 $line-height : 1.7;
@@ -264,17 +322,8 @@ body {
 	}
 
 	.adminMain {
-		display: block;
-		overflow: hidden;
-		width: 74%;
-		float: left;
 
 		#adminContent_sub {
-			display: block;
-			overflow: hidden;
-			width: 23%;
-			float: left;
-			padding-bottom: 10px;
 
 			.notice {
 				padding-bottom: 10px;
@@ -289,23 +338,8 @@ body {
 		}
 
 		#adminContent_main {
-			display: block;
-			overflow: hidden;
-			width: 74%;
-			float: right;
-			min-height: 300px;
-
 			.form_horizontal_item {
 				margin-right: 1em;
-			}
-
-			.setting-content {}
-
-		}
-
-		&.column_2 {
-			#adminContent_main {
-				width: 100%;
 			}
 		}
 
@@ -354,12 +388,6 @@ body {
 	}
 
 	.adminSub {
-		display: block;
-		overflow: hidden;
-		width: 24%;
-		float: right;
-		padding-bottom: 10px;
-
 		.infoBox {
 			display: block;
 			overflow: hidden;

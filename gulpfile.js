@@ -47,7 +47,8 @@ gulp.task('block', function (done) {
 				'./inc/child-page-index/block.jsx',
 				'./inc/contact-section/block.jsx',
 				'./inc/page-list-ancestor/block.jsx',
-				'./inc/sitemap-page/block.jsx'
+				'./inc/sitemap-page/block.jsx',
+				'./inc/call-to-action/package/blocks/block.jsx',
 			]
 		)
 		.pipe(babel({
@@ -93,7 +94,7 @@ gulp.task("text-domain", function(done) {
 });
 
 gulp.task('sass', function(done) {
-	gulp.src(
+	gulp.src( 
 		'./assets/_scss/*.scss',
 		{
 			base: './assets/_scss'
@@ -108,6 +109,21 @@ gulp.task('sass', function(done) {
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
+	gulp.src( 
+		'./inc/call-to-action/package/_scss/*.scss',
+		{
+			base: './inc/call-to-action/package/_scss/'
+		}
+	)
+		.pipe(sass())
+		.pipe(cmq(
+			{
+				log: true
+			}
+		))
+		.pipe(autoprefixer())
+		.pipe(cleanCss())
+		.pipe(gulp.dest('./inc/call-to-action/package/css/'));
 	done();
 });
 
