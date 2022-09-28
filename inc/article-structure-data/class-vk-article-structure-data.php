@@ -14,7 +14,7 @@ class VK_Article_Srtuctured_Data {
 	public function __construct() {
 		add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
-		add_action( 'profile_update', array( __CLASS__, 'update_auhtor_structure_data' ), 10, 2 );
+		add_action( 'profile_update', array( __CLASS__, 'update_author_structure_data' ), 10, 2 );
 		add_action( 'wp_head', array( __CLASS__, 'the_article_structure_data' ), 9999 );
 	}
 
