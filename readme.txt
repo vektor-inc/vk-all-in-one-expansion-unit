@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+
+[ Bug fix ]Fixed broken function of article structure data on user edit page
+
+
 = 9.81.2.0 =
 Update translate
 
