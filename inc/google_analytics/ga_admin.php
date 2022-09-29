@@ -1,8 +1,8 @@
 <?php
 	$options = vkExUnit_get_ga_options();
 	// $options_default = veu_get_sns_options_default();
-/*-------------------------------------------*/
-/*  Google Analytics
+/*
+  Google Analytics
 /*-------------------------------------------*/
 ?>
 <div id="seoSetting" class="sectionBox">
@@ -13,27 +13,29 @@
 <th><?php _e( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><?php _e( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.', 'vk-all-in-one-expansion-unit' ); ?><br />
 <p><input type="text" name="vkExUnit_ga_options[gaId]" id="gaId" value="<?php echo esc_attr( $options['gaId'] ); ?>" style="width:90%;" /><br />
-<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>UA-XXXXXXXX-X / G-XXXXXXXXXX</p>
+<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>UA-XXXXXXXX-X / G-XXXXXXXXXX</p>
 
-    <dl>
+	<dl>
 	<dt><?php _e( 'Please select the type of Analytics code . (If you are unsure you can skip this.)', 'vk-all-in-one-expansion-unit' ); ?></dt>
-    <dd>
+	<dd>
 <?php
 $vkExUnit_gaTypes = array(
 	'gaType_gtag'      => __( 'Recommendation ( gtag )', 'vk-all-in-one-expansion-unit' ),
 	'gaType_universal' => __( 'Universal Analytics code ( analytics.js )', 'vk-all-in-one-expansion-unit' ),
 	'gaType_normal'    => __( 'Normal code ( analytics.js )', 'vk-all-in-one-expansion-unit' ),
-	);
+);
 foreach ( $vkExUnit_gaTypes as $vkExUnit_gaTypeValue => $vkExUnit_gaTypeLavel ) {
-	if ( $vkExUnit_gaTypeValue == $options['gaType'] ) { ?>
-		<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue ?>" checked> <?php echo $vkExUnit_gaTypeLavel ?></label><br />
+	if ( $vkExUnit_gaTypeValue == $options['gaType'] ) {
+		?>
+		<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue; ?>" checked> <?php echo $vkExUnit_gaTypeLavel; ?></label><br />
 	<?php } else { ?>
-		<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue ?>"> <?php echo $vkExUnit_gaTypeLavel ?></label><br />
-	<?php }
+		<label><input type="radio" name="vkExUnit_ga_options[gaType]" value="<?php echo $vkExUnit_gaTypeValue; ?>"> <?php echo $vkExUnit_gaTypeLavel; ?></label><br />
+		<?php
+	}
 }
 ?>
-    </dd>
-    </dl>
+	</dd>
+	</dl>
 	<label>
 <input type="checkbox" name="vkExUnit_ga_options[disableLoggedin]" id="disableLoggedin" value="true" <?php echo ( $options['disableLoggedin'] ) ? 'checked' : ''; ?> /><?php _e( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td>
