@@ -82,7 +82,7 @@ function vkExUnit_ga_options_validate( $input ) {
 /*-------------------------------------------*/
 /*  GoogleAnalytics
 /*-------------------------------------------*/
-function vkExUnit_googleAnalytics() {
+function make_ga_script() {
 	$options = vkExUnit_get_ga_options();
 	$gaId_GA4  = esc_html( $options['gaId-GA4'] );
 	$gaId_UA   = esc_html( $options['gaId-UA'] );
@@ -96,23 +96,28 @@ function vkExUnit_googleAnalytics() {
 	}
 
 	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
+
+	$script = '';
+
 	if ( ! empty( $gaId_main ) && !( $disableLoggedin && is_user_logged_in())) {
-		?>
-
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_html($gaId_main); ?>"></script>
-		<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		<?php if ( ! empty( $gaId_GA4 ) ) : ?>
-			gtag('config', '<?php echo esc_html( $gaId_GA4 ); ?>');
-		<? elseif ( ! empty( $gaId_UA ) ) : ?>
-			gtag('config', '<?php echo esc_html( $gaId_UA ); ?>');
-		<? endif; ?>
-		</script>
-
-		<?php
+		$script .= '<!-- Google tag (gtag.js) -->' . PHP_EOL;
+		$script .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $gaId_main . '"></script>' . PHP_EOL;
+		$script .= '<script>' . PHP_EOL;
+		$script .= 'window.dataLayer = window.dataLayer || [];' . PHP_EOL;
+		$script .= 'function gtag(){dataLayer.push(arguments);}' . PHP_EOL;
+		$script .= 'gtag(\'js\', new Date());' . PHP_EOL;
+		if ( ! empty( $gaId_GA4 ) ){
+			$script .= 'gtag(\'config\', \''. $gaId_GA4 . '\');' . PHP_EOL;
+		}
+		if ( ! empty( $gaId_UA ) ){
+			$script .= 'gtag(\'config\', \''. $gaId_UA . '\');' . PHP_EOL;
+		}
+		$script .= '</script>' . PHP_EOL;
+		return $script;
 	}
 }
-add_action( 'wp_head', 'vkExUnit_googleAnalytics', 0 );
+
+function load_ga_script() {
+	echo make_ga_script();
+}
+add_action( 'wp_head', 'load_ga_script', 0 );

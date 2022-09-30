@@ -18,7 +18,7 @@
 				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>G-XXXXXXXXXX
 				<label for="gaId-UA"><?php __( 'GA4', 'vk-all-in-one-expansion-unit' ); ?></label><br />
 				<input type="text" name="vkExUnit_ga_options[gaId-UA]" id="gaId-UA" value="<?php echo esc_attr( $options['gaId-UA'] ); ?>" style="width:90%;" /><br />
-				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>UA-XXXXXXXX-XX
+				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>UA-XXXXXXXX-XX<br />
 				<label>
 					<input type="checkbox" name="vkExUnit_ga_options[disableLoggedin]" id="disableLoggedin" value="true" <?php echo ( $options['disableLoggedin'] ) ? 'checked' : ''; ?> /><?php _e( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
