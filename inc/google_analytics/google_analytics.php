@@ -1,17 +1,18 @@
 <?php
-/*
-  Add setting page
+/*-------------------------------------------*/
+/*  Add setting page
 /*-------------------------------------------*/
 
 function vkExUnit_add_ga_options_page() {
 	// require dirname( __FILE__ ) . '/ga_admin.php';
-	require_once dirname( __FILE__ ) . '/ga_admin.php';
+	require_once( dirname( __FILE__ ) . '/ga_admin.php' );
 }
-// カスタマイザー読み込み
-require_once dirname( __FILE__ ) . '/ga_customizer.php';
+	// カスタマイザー読み込み
+	require_once( dirname( __FILE__ ) . '/ga_customizer.php' );
 
-/*
-  Options Init
+
+/*-------------------------------------------*/
+/*  Options Init
 /*-------------------------------------------*/
 function vkExUnit_ga_options_init() {
 	if ( false === vkExUnit_get_ga_options() ) {
@@ -19,7 +20,7 @@ function vkExUnit_ga_options_init() {
 	}
 
 	vkExUnit_register_setting(
-		__( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ),  // Immediately following form tag of edit page.
+		__( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ),  //  Immediately following form tag of edit page.
 		'vkExUnit_ga_options',          // name attr
 		'vkExUnit_ga_options_validate',
 		'vkExUnit_add_ga_options_page'
@@ -38,15 +39,15 @@ function vkExUnit_get_ga_options() {
 
 function vkExUnit_get_ga_options_default() {
 	$default_options = array(
-		'gaId'            => '',
-		'gaType'          => 'gaType_gtag',
-		'disableLoggedin' => false,
+		'gaId'             => '',
+		'gaType'           => 'gaType_gtag',
+		'disableLoggedin'  => false,
 	);
 	return apply_filters( 'vkExUnit_ga_options_default', $default_options );
 }
 
-/*
-  validate
+/*-------------------------------------------*/
+/*  validate
 /*-------------------------------------------*/
 function vkExUnit_ga_options_validate( $input ) {
 	// デフォルト値を取得
@@ -55,22 +56,22 @@ function vkExUnit_ga_options_validate( $input ) {
 	$input = wp_parse_args( $input, $defaults );
 
 	// 入力値をサニタイズ
-	$output['gaId']            = stripslashes( esc_html( $input['gaId'] ) );
-	$output['gaType']          = esc_html( $input['gaType'] );
-	$output['disableLoggedin'] = ( $input['disableLoggedin'] ) ? true : false;
+	$output['gaId']   = stripslashes( esc_html( $input['gaId'] ) );
+	$output['gaType'] = esc_html( $input['gaType'] );
+	$output['disableLoggedin'] = ($input['disableLoggedin'] ) ? true : false;
 
 	return apply_filters( 'vkExUnit_ga_options_validate', $output, $input, $defaults );
 }
 
-/*
-  GoogleAnalytics
+/*-------------------------------------------*/
+/*  GoogleAnalytics
 /*-------------------------------------------*/
 
 add_action( 'init', 'vkExUnit_googleAnalytics_load' );
 function vkExUnit_googleAnalytics_load() {
-	$options         = vkExUnit_get_ga_options();
-	$gaType          = esc_html( $options['gaType'] );
-	$disableLoggedin = ( $options['disableLoggedin'] ) ? true : false;
+	$options = vkExUnit_get_ga_options();
+	$gaType  = esc_html( $options['gaType'] );
+	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
 	if ( $gaType == 'gaType_gtag' ) {
 		$priority = 0;
 	} else {
@@ -80,11 +81,11 @@ function vkExUnit_googleAnalytics_load() {
 }
 
 function vkExUnit_googleAnalytics() {
-	$options         = vkExUnit_get_ga_options();
-	$gaId            = esc_html( $options['gaId'] );
-	$gaType          = esc_html( $options['gaType'] );
-	$disableLoggedin = ( $options['disableLoggedin'] ) ? true : false;
-	if ( $gaId && ! ( $disableLoggedin && is_user_logged_in() ) ) {
+	$options = vkExUnit_get_ga_options();
+	$gaId    = esc_html( $options['gaId'] );
+	$gaType  = esc_html( $options['gaType'] );
+	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
+	if ( $gaId && !( $disableLoggedin && is_user_logged_in())) {
 
 		if ( $gaType == 'gaType_universal' ) {
 			$domainUrl = home_url();
@@ -102,7 +103,7 @@ function vkExUnit_googleAnalytics() {
 			<?php
 
 		} elseif ( $gaType == 'gaType_normal' ) {
-			?>
+		?>
 			<script type="text/javascript">
 
 			  var _gaq = _gaq || [];
@@ -116,10 +117,10 @@ function vkExUnit_googleAnalytics() {
 			  })();
 
 			</script>
-			<?php
+<?php
 		} else {
 			// $gaType == 'gaType_gtag'
-			if ( ! preg_match( '/G-/', $gaId ) && ! preg_match( '/UA-/', $gaId ) ) {
+			if ( ! preg_match( '/G-/', $gaId ) && ! preg_match( '/UA-/', $gaId ) ){
 				$gtag_id = 'UA-' . $gaId;
 			} else {
 				$gtag_id = $gaId;
@@ -133,7 +134,7 @@ function vkExUnit_googleAnalytics() {
 		gtag('js', new Date());
 		gtag('config', '<?php echo esc_attr( $gtag_id ); ?>');
 		</script>
-			<?php
+	<?php
 		}
 	} // if ( $gaId ) {
 }
