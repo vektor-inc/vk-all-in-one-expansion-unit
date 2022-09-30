@@ -96,7 +96,7 @@ function vkExUnit_googleAnalytics() {
 	}
 
 	$disableLoggedin  = ($options['disableLoggedin'] ) ? true : false;
-	if ( $gaId_main && !( $disableLoggedin && is_user_logged_in())) {
+	if ( ! empty( $gaId_main ) && !( $disableLoggedin && is_user_logged_in())) {
 		?>
 
 		<!-- Google tag (gtag.js) -->
