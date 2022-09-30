@@ -13,12 +13,15 @@
 			<th><?php _e( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ); ?></th>
 			<td>
 				<?php _e( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.', 'vk-all-in-one-expansion-unit' ); ?><br />
-				<label for="gaId-GA4"><?php __( 'GA4', 'vk-all-in-one-expansion-unit' ); ?></label><br />
-				<input type="text" name="vkExUnit_ga_options[gaId-GA4]" id="gaIdGA4" value="<?php echo esc_attr( $options['gaId-GA4'] ); ?>" style="width:90%;" /><br />
-				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>G-XXXXXXXXXX
-				<label for="gaId-UA"><?php __( 'GA4', 'vk-all-in-one-expansion-unit' ); ?></label><br />
+				<br />
+				<label for="gaId-GA4"><?php _e( 'GA4', 'vk-all-in-one-expansion-unit' ); ?></label><br />
+				<input type="text" name="vkExUnit_ga_options[gaId-GA4]" id="gaId-GA4" value="<?php echo esc_attr( $options['gaId-GA4'] ); ?>" style="width:90%;" /><br />
+				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>G-XXXXXXXXXX<br />
+				<br />
+				<label for="gaId-UA"><?php _e( 'UA', 'vk-all-in-one-expansion-unit' ); ?></label><br />
 				<input type="text" name="vkExUnit_ga_options[gaId-UA]" id="gaId-UA" value="<?php echo esc_attr( $options['gaId-UA'] ); ?>" style="width:90%;" /><br />
 				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' );?>UA-XXXXXXXX-XX<br />
+				<br />
 				<label>
 					<input type="checkbox" name="vkExUnit_ga_options[disableLoggedin]" id="disableLoggedin" value="true" <?php echo ( $options['disableLoggedin'] ) ? 'checked' : ''; ?> /><?php _e( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
