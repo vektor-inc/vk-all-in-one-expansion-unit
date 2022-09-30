@@ -100,24 +100,24 @@ function make_ga_script() {
 	$script = '';
 
 	if ( ! empty( $gaId_main ) && !( $disableLoggedin && is_user_logged_in())) {
-		$script .= '<!-- Google tag (gtag.js) -->' . PHP_EOL;
-		$script .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $gaId_main . '"></script>' . PHP_EOL;
-		$script .= '<script>' . PHP_EOL;
-		$script .= 'window.dataLayer = window.dataLayer || [];' . PHP_EOL;
-		$script .= 'function gtag(){dataLayer.push(arguments);}' . PHP_EOL;
-		$script .= 'gtag(\'js\', new Date());' . PHP_EOL;
+		$script .= '<!-- Google tag (gtag.js) -->';
+		$script .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $gaId_main . '"></script>';
+		$script .= '<script>';
+		$script .= 'window.dataLayer = window.dataLayer || [];';
+		$script .= 'function gtag(){dataLayer.push(arguments);}';
+		$script .= 'gtag(\'js\', new Date());';
 		if ( ! empty( $gaId_GA4 ) ){
-			$script .= 'gtag(\'config\', \''. $gaId_GA4 . '\');' . PHP_EOL;
+			$script .= 'gtag(\'config\', \''. $gaId_GA4 . '\');';
 		}
 		if ( ! empty( $gaId_UA ) ){
-			$script .= 'gtag(\'config\', \''. $gaId_UA . '\');' . PHP_EOL;
+			$script .= 'gtag(\'config\', \''. $gaId_UA . '\');';
 		}
-		$script .= '</script>' . PHP_EOL;
+		$script .= '</script>';
 		return $script;
 	}
 }
 
 function load_ga_script() {
-	echo make_ga_script();
+	echo make_ga_script() . PHP_EOL;
 }
 add_action( 'wp_head', 'load_ga_script', 0 );
