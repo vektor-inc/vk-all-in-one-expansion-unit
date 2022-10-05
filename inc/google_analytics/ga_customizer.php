@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  Add Customize Panel
+/*
+  Add Customize Panel
 /*-------------------------------------------*/
 add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_ga' );
 function veu_customize_panel_activation_ga() {
@@ -14,10 +14,10 @@ if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 
 function veu_customize_register_ga( $wp_customize ) {
 
-	/*-------------------------------------------*/
-	/*	ga Settings セクション、テーマ設定、コントロールを追加
+	/*
+	  ga Settings セクション、テーマ設定、コントロールを追加
 	 /*-------------------------------------------*/
-	//1. テーマカスタマイザー上に新しいセクションを追加
+	// 1. テーマカスタマイザー上に新しいセクションを追加
 	$wp_customize->add_section(
 		'veu_ga_setting',
 		array(
@@ -27,10 +27,10 @@ function veu_customize_register_ga( $wp_customize ) {
 		)
 	);
 
-	//2. WPデータベースに新しいテーマ設定を追加
-	// Google Analytics ID
+	// 2. WPデータベースに新しいテーマ設定を追加
+	// Google Analytics ID (GA4)
 	$wp_customize->add_setting(
-		'vkExUnit_ga_options[gaId]',
+		'vkExUnit_ga_options[gaId-GA4]',
 		array(
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod
@@ -41,41 +41,42 @@ function veu_customize_register_ga( $wp_customize ) {
 
 	$wp_customize->add_control(
 		new ExUnit_Custom_Text_Control(
-			$wp_customize, 'gaId', array(
-				'label'        => __( 'Google Analytics ID', 'vk-all-in-one-expansion-unit' ),
+			$wp_customize,
+			'gaId-GA4',
+			array(
+				'label'        => __( 'Google Analytics ID ( GA4 )', 'vk-all-in-one-expansion-unit' ),
 				'section'      => 'veu_ga_setting',
-				'settings'     => 'vkExUnit_ga_options[gaId]',
+				'settings'     => 'vkExUnit_ga_options[gaId-GA4]',
 				'type'         => 'text',
-				'description'  => __( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.<br>ex) XXXXXXXX-X', 'vk-all-in-one-expansion-unit' ),
+				'description'  => __( 'Please fill in the Google Analytics ID ( GA4 ) from the Analytics embed code used in the site.<br>ex) G-XXXXXXXXXX', 'vk-all-in-one-expansion-unit' ),
 				'input_before' => 'UA-',
 			)
 		)
 	);
 
-	// Select the type of Analytics code
+	// Google Analytics ID (UA)
 	$wp_customize->add_setting(
-		'vkExUnit_ga_options[gaType]',
+		'vkExUnit_ga_options[gaId-UA]',
 		array(
-			'default'           => 'gaType_gtag',
-			'type'              => 'option',
+			'default'           => '',
+			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'esc_attr',
+			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
+
 	$wp_customize->add_control(
-		'gaType',
-		array(
-			'label'       => __( 'Select the type of Analytics code', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_ga_setting',
-			'settings'    => 'vkExUnit_ga_options[gaType]',
-			'type'        => 'radio',
-			// 'priority' => $priority,
-			'choices'     => array(
-				'gaType_gtag'      => __( 'Recommendation ( gtag )', 'vk-all-in-one-expansion-unit' ),
-				'gaType_universal' => __( 'Universal Analytics code ( analytics.js )', 'vk-all-in-one-expansion-unit' ),
-				'gaType_normal'    => __( 'Normal code ( analytics.js )', 'vk-all-in-one-expansion-unit' ),
-			),
-			'description' => __( 'Print the select the type of Analytics code.<br>(If you are unsure you can skip this.)', 'vk-all-in-one-expansion-unit' ),
+		new ExUnit_Custom_Text_Control(
+			$wp_customize,
+			'gaId-UA',
+			array(
+				'label'        => __( 'Google Analytics ID ( UA )', 'vk-all-in-one-expansion-unit' ),
+				'section'      => 'veu_ga_setting',
+				'settings'     => 'vkExUnit_ga_options[gaId-UA]',
+				'type'         => 'text',
+				'description'  => __( 'Please fill in the Google Analytics ID ( UA ) from the Analytics embed code used in the site.<br>ex) UA-XXXXXXXX-XX', 'vk-all-in-one-expansion-unit' ),
+				'input_before' => 'UA-',
+			)
 		)
 	);
 
@@ -93,10 +94,10 @@ function veu_customize_register_ga( $wp_customize ) {
 	$wp_customize->add_control(
 		'enableOGTags',
 		array(
-			'label'        => __( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ),
-			'section'      => 'veu_ga_setting',
-			'settings'     => 'vkExUnit_ga_options[disableLoggedin]',
-			'type'         => 'checkbox',
+			'label'    => __( 'Disable tracking of logged in user', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_ga_setting',
+			'settings' => 'vkExUnit_ga_options[disableLoggedin]',
+			'type'     => 'checkbox',
 		)
 	);
 
