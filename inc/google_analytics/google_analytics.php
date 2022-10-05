@@ -90,11 +90,6 @@ function make_ga_script() {
 	$gaId_main = '';
 	if ( ! empty( $gaId_GA4 ) ) {
 		$gaId_main = $gaId_GA4;
-		// G- 無しの数字だけ入力された場合は G- を付与
-		if ( ! preg_match( '/G-/', $options['gaId-GA4'] ) ) {
-			$gaId_GA4  = 'G-' . $options['gaId-GA4'];
-			$gaId_main = $gaId_GA4;
-		}
 	} elseif ( ! empty( $gaId_UA ) ) {
 		$gaId_main = $gaId_UA;
 	}
