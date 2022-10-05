@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Google Analytics ] Be able to set Both UA and GA4 tag.
+
 = 9.81.3.0 =
 [ Bug fix ]Fixed broken function of article structure data on user edit page
 
