@@ -12,11 +12,11 @@
 		<tr>
 			<th><?php _e( 'Google Analytics Settings', 'vk-all-in-one-expansion-unit' ); ?></th>
 			<td>
-				<?php _e( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.', 'vk-all-in-one-expansion-unit' ); ?><br />
-				<br />
+				<p><?php _e( 'Please fill in the Google Analytics ID from the Analytics embed code used in the site.', 'vk-all-in-one-expansion-unit' ); ?></p>
 				<label for="gaId-GA4"><?php _e( 'GA4', 'vk-all-in-one-expansion-unit' ); ?></label><br />
 				<input type="text" name="vkExUnit_ga_options[gaId-GA4]" id="gaId-GA4" value="<?php echo esc_attr( $options['gaId-GA4'] ); ?>" style="width:90%;" /><br />
-				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>XXXXXXXXXX<br />
+				<?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>G-XXXXXXXXXX<br />
+				<?php _e( 'Stream ID and measurement ID are different.', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'You can check the measurement ID by selecting the stream name you want to measure from "Management" -> "Data stream" of the gear icon at the bottom left of the Google Analytics screen.', 'vk-all-in-one-expansion-unit' ); ?><br />
 				<br />
 				<label for="gaId-UA"><?php _e( 'Universal Analytics', 'vk-all-in-one-expansion-unit' ); ?></label><br />
 				<input type="text" name="vkExUnit_ga_options[gaId-UA]" id="gaId-UA" value="<?php echo esc_attr( $options['gaId-UA'] ); ?>" style="width:90%;" /><br />
