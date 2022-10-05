@@ -45,6 +45,13 @@ class MakeGAScriptTest extends WP_UnitTestCase {
                 ),
 				'correct' => '<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-XX"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'UA-XXXXXXXX-XX\');</script>',
 			),
+            // 新しいオプションを使用していてる場合
+			array(
+				'option'  => array(
+                    'gaId-GA4'            => 'XXXXXXXXXX',
+                ),
+				'correct' => '<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'G-XXXXXXXXXX\');</script>',
+			),
             // 新しいオプションを使用していて値に G- がある場合
 			array(
 				'option'  => array(

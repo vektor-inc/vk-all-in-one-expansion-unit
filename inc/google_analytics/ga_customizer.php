@@ -48,7 +48,7 @@ function veu_customize_register_ga( $wp_customize ) {
 				'section'      => 'veu_ga_setting',
 				'settings'     => 'vkExUnit_ga_options[gaId-GA4]',
 				'type'         => 'text',
-				'description'  => __( 'Please fill in the Google Analytics ID ( GA4 ) from the Analytics embed code used in the site.<br>ex) G-XXXXXXXXXX', 'vk-all-in-one-expansion-unit' ),
+				'description'  => __( 'Please fill in the Google Analytics ID ( GA4 ) from the Analytics embed code used in the site.<br>ex) XXXXXXXXXX', 'vk-all-in-one-expansion-unit' ),
 				'input_before' => 'UA-',
 			)
 		)
