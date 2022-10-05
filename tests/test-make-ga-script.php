@@ -17,6 +17,24 @@ class MakeGAScriptTest extends WP_UnitTestCase {
 	function test_make_ga_script() {
 
 		$tests = array(
+			// 古いオプションを使用していて値に G- 指定で gtag 指定だった場合
+			// 新しい gtag のみ表示
+			array(
+				'option'  => array(
+                    'gaId'            => 'G-XXXXXXXXXX',
+					'gaType'          => 'gaType_gtag',
+                ),
+				'correct' => '<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'G-XXXXXXXXXX\');</script>',
+			),
+			// 古いオプションを使用していて値に U- 指定で UA 指定だった場合
+			// 新しい gtag のみ表示
+			array(
+				'option'  => array(
+                    'gaId'            => 'UA-XXXXXXXX-XX',
+					'gaType'          => 'gaType_universal',
+                ),
+				'correct' => '<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-XX"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'UA-XXXXXXXX-XX\');</script>',
+			),
 			// 古いオプションを使用していて値に UA- も G- もない場合
 			array(
 				'option'  => array(
@@ -45,6 +63,8 @@ class MakeGAScriptTest extends WP_UnitTestCase {
                 ),
 				'correct' => '<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-XX"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'UA-XXXXXXXX-XX\');</script>',
 			),
+			//////////////////////////////////////////////////
+			// since 9.82.0.0
             // 新しいオプションを使用していてる場合
 			array(
 				'option'  => array(
