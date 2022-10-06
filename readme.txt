@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+
+[ Specification Change ][ body class ] Add post top page to class
+
 = 9.82.0.0 =
 [ Add Function ][ Google Analytics ] Be able to set Both UA and GA4 tag.
 
