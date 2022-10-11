@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.83.1.0 =
+[ Bug fix ][ article structure ] Fix warning on 404 page.
+
 = 9.83.0.0 =
 [ Specification Change ][ body class ] Add post top page to class
 
