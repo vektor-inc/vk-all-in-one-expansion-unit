@@ -107,8 +107,8 @@ class VK_Article_Srtuctured_Data {
 	 */
 	public static function the_article_structure_data() {
 		global $post;
-		$author_id = $post->post_author;
 		if ( is_single() ) {
+			$author_id = $post->post_author;
 			$article_array = self::get_article_structure_array( $author_id );
 			if ( $article_array && is_array( $article_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
