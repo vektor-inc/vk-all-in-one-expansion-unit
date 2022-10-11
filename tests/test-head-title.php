@@ -2,7 +2,7 @@
 /**
  * Class HeadTitleTest
  *
- * @package Vk_All_In_One_Expansion_Unit
+ * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
 /**
@@ -23,6 +23,8 @@ class HeadTitleTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 
 		$test_array = array(
+			// 投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : 無し
+			// Return : カスタムタイトル
 			array(
 				'page_type'      => 'is_singular',
 				'post_title'     => 'Post Title',
@@ -33,6 +35,8 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'correct'        => 'Custom Title',
 			),
+			// 投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
 			array(
 				'page_type'      => 'is_singular',
 				'post_title'     => 'Post Title',
@@ -43,6 +47,8 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'correct'        => 'Custom Title' . $sep . 'Site name',
 			),
+			// 投稿ページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : 投稿タイトル + セパレータ + サイト名
 			array(
 				'page_type'      => 'is_singular',
 				'post_title'     => 'Post Title',
@@ -53,6 +59,8 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'correct'        => 'Post Title' . $sep . 'Site name',
 			),
+			// 固定ページ / カスタムタイトル : 指定あり / サイト名追加 : なし
+			// Return : カスタムタイトル
 			array(
 				'page_type'      => 'is_page',
 				'post_title'     => 'Page Title',
@@ -63,6 +71,8 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'correct'        => 'Custom Title',
 			),
+			// 固定ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
 			array(
 				'page_type'      => 'is_page',
 				'post_title'     => 'Page Title',
