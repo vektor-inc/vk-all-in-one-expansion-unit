@@ -11,148 +11,188 @@
 class HeadTitleTest extends WP_UnitTestCase {
 
 	/**
-	 * タイトル書き換えのテスト
+	 * PHP Unit テストにあたって、各種投稿やカスタム投稿タイプ、カテゴリーを登録します。
+	 *
+	 * @return array $test_posts : 作成した投稿の記事idなどを配列で返します。
 	 */
-	function test_veu_get_the_sns_title() {
+	public static function create_test_posts() {
 
-		$sep = ' | ';
+		$test_posts = array();
+
+		/******************************************
+		 * テスト用投稿の登録 */
+
+		// 通常の投稿 Test Post を投稿.
+		$post                  = array(
+			'post_title'   => 'Test Post',
+			'post_status'  => 'publish',
+			'post_content' => 'content',
+		);
+		$test_posts['post_id'] = wp_insert_post( $post );
+
+		// 固定ページ Parent Page を投稿.
+		$post                         = array(
+			'post_title'   => 'Parent Page',
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_content' => 'content',
+		);
+		$test_posts['parent_page_id'] = wp_insert_post( $post );
+
+		// 投稿トップ用の固定ページ Post Top を投稿.
+		$post                       = array(
+			'post_title'   => 'Post Top',
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_content' => 'content',
+		);
+		$test_posts['home_page_id'] = wp_insert_post( $post );
+
+		// フロントページ用の固定ページ Front Page を投稿.
+		$post                        = array(
+			'post_title'   => 'Front Page',
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_content' => 'content',
+		);
+		$test_posts['front_page_id'] = wp_insert_post( $post );
+
+		return $test_posts;
+	}
+
+	/**
+	 * test_vkExUnit_get_wp_head_title
+	 */
+	public function test_vkExUnit_get_wp_head_title() {
+
+		$test_posts = self::create_test_posts();
+		$sep        = ' | ';
+
+		/*
+		 Test Array
+		/*--------------------------------*/
+		$test_array = array(
+
+			// 投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : 無し
+			// Return : カスタムタイトル
+			array(
+				'target_url'    => get_permalink( $test_posts['post_id'] ),
+				'target_id'     => $test_posts['post_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Post Custom Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Post Custom Title',
+			),
+			// 投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_permalink( $test_posts['post_id'] ),
+				'target_id'     => $test_posts['post_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Post Custom Title',
+						'add_site_title' => true,
+					),
+				),
+				'expected'      => 'Post Custom Title' . $sep . 'Site name',
+			),
+			// 投稿ページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : 投稿タイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_permalink( $test_posts['post_id'] ),
+				'target_id'     => $test_posts['post_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => null,
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Test Post' . $sep . 'Site name',
+			),
+			// 固定ページ / カスタムタイトル : 指定あり / サイト名追加 : なし
+			// Return : カスタムタイトル
+			array(
+				'target_url'    => get_permalink( $test_posts['parent_page_id'] ),
+				'target_id'     => $test_posts['parent_page_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Custom Page Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Custom Page Title',
+			),
+			// 固定ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_permalink( $test_posts['parent_page_id'] ),
+				'target_id'     => $test_posts['parent_page_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Custom Page Title',
+						'add_site_title' => true,
+					),
+				),
+				'expected'      => 'Custom Page Title' . $sep . 'Site name',
+			),
+		);
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print 'test_head_title' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
-		$test_array = array(
-			// 投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : 無し
-			// Return : カスタムタイトル
-			array(
-				'page_type'      => 'is_singular',
-				'post_title'     => 'Post Title',
-				'site_name'      => 'Site name',
-				'veu_head_title' => array(
-					'title'          => 'Custom Title',
-					'add_site_title' => false,
-				),
-				'correct'        => 'Custom Title',
-			),
-			// 投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
-			// Return : カスタムタイトル + セパレータ + サイト名
-			array(
-				'page_type'      => 'is_singular',
-				'post_title'     => 'Post Title',
-				'site_name'      => 'Site name',
-				'veu_head_title' => array(
-					'title'          => 'Custom Title',
-					'add_site_title' => true,
-				),
-				'correct'        => 'Custom Title' . $sep . 'Site name',
-			),
-			// 投稿ページ / カスタムタイトル : 指定なし / サイト名追加 : なし
-			// Return : 投稿タイトル + セパレータ + サイト名
-			array(
-				'page_type'      => 'is_singular',
-				'post_title'     => 'Post Title',
-				'site_name'      => 'Site name',
-				'veu_head_title' => array(
-					'title'          => '',
-					'add_site_title' => false,
-				),
-				'correct'        => 'Post Title' . $sep . 'Site name',
-			),
-			// 固定ページ / カスタムタイトル : 指定あり / サイト名追加 : なし
-			// Return : カスタムタイトル
-			array(
-				'page_type'      => 'is_page',
-				'post_title'     => 'Page Title',
-				'site_name'      => 'Site name',
-				'veu_head_title' => array(
-					'title'          => 'Custom Title',
-					'add_site_title' => false,
-				),
-				'correct'        => 'Custom Title',
-			),
-			// 固定ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
-			// Return : カスタムタイトル + セパレータ + サイト名
-			array(
-				'page_type'      => 'is_page',
-				'post_title'     => 'Page Title',
-				'site_name'      => 'Site name',
-				'veu_head_title' => array(
-					'title'          => 'Custom Title',
-					'add_site_title' => true,
-				),
-				'correct'        => 'Custom Title' . $sep . 'Site name',
-			),
-		);
-
-		$before_blogname           = get_option( 'blogname' );
-		$before_veu_wp_title       = get_option( 'vkExUnit_wp_title' );
-		$before_veu_common_options = get_option( 'vkExUnit_common_options' );
-
-		foreach ( $test_array as $key => $test_value ) {
-
-			// Set site name.
-			update_option( 'blogname', $test_value['site_name'] );
-
-			// Add sns title.
-			if ( $test_value['veu_head_title'] !== null ) {
-
-				// Add test post.
-				$post    = array(
-					'post_title'   => $test_value['post_title'],
-					'post_status'  => 'publish',
-					'post_content' => 'content',
-				);
-				$post_id = wp_insert_post( $post );
-
-				add_post_meta( $post_id, 'veu_head_title', $test_value['veu_head_title'] );
+		foreach ( $test_array as $value ) {
+			if ( ! empty( $value['options'] ) && is_array( $value['options'] ) ) {
+				foreach ( $value['options'] as $option_key => $option_value ) {
+					update_option( $option_key, $option_value );
+				}
 			}
 
-			if ( 'is_singular' === $test_value['page_type'] || 'is_page' === $test_value['page_type'] ) {
-				global $wp_query;
-				$args = array( 'p' => $post_id );
-				// is_singular() の条件分岐を効かせるため
-				$wp_query = new WP_Query( $args );
-				$post     = get_post( $post_id );
-				// setup_postdata() しないと wp_title() の書き換えの所で get_the_id() が拾えないため
-				setup_postdata( $post );
-
-				// } elseif ( $test_value['page_type'] == 'is_front_page' ) {
-				// Set Custom front title
-				// update_option( 'vkExUnit_wp_title', $test_value['vkExUnit_wp_title'] );
-				// タイトルの書き換え機能がオフの場合の確認
-				// if ( $test_value['package_wp_title'] === false ) {
-				// $options = get_option( 'vkExUnit_common_options' );
-				// 有効化設定の値をタイトル書き換え無効化に設定
-				// $options['active_wpTitle'] = false;
-				// update_option( 'vkExUnit_common_options', $options );
-				// }
-				// トップページの時の値を確認するためにトップに移動
-				// $this->go_to( home_url( '/' ) );
+			if ( ! empty( $value['custom_fields'] ) && is_array( $value['custom_fields'] ) ) {
+				foreach ( $value['custom_fields'] as $cf_key => $cf_value ) {
+					update_post_meta( $value['target_id'], $cf_key, $cf_value );
+				}
 			}
 
-			$return = vkExUnit_get_wp_head_title();
+			// Move to test page
+			$this->go_to( $value['target_url'] );
 
-			// 取得できたHTMLが、意図したHTMLと等しいかテスト
-			$this->assertEquals( $test_value['correct'], $return );
+			$actual = vkExUnit_get_wp_head_title();
 
 			print PHP_EOL;
 
-			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			print $value['target_url'] . PHP_EOL;
+			print 'expected::::' . $value['expected'] . PHP_EOL;
+			print 'actual  ::::' . $actual . PHP_EOL;
 
-			if ( 'is_singular' === $test_value['page_type'] || 'is_page' === $test_value['page_type'] ) {
-				delete_post_meta( $post_id, 'veu_head_title' );
-				wp_delete_post( $post_id );
-				wp_reset_postdata();
-				wp_reset_query();
+			$this->assertEquals( $value['expected'], $actual );
+
+			if ( ! empty( $value['options'] ) && is_array( $value['options'] ) ) {
+				foreach ( $value['options'] as $option_key => $option_value ) {
+					delete_option( $option_key );
+				}
 			}
 		}
-
-		// もとの値に戻す.
-		update_option( 'blogname', $before_blogname );
-		update_option( 'vkExUnit_wp_title', $before_veu_wp_title );
-		update_option( 'vkExUnit_common_options', $before_veu_common_options );
-
 	}
+
+
 }
