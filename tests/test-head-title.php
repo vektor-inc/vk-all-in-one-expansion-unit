@@ -153,6 +153,25 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'expected'      => 'Custom Page Title' . $sep . 'Site name',
 			),
+			// トップページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : メイン設定画面でのカスタムタイトル
+			array(
+				'target_url'    => home_url( '/' ),
+				'target_id'     => $test_posts['front_page_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+					'vkExUnit_wp_title' => [
+						'extend_frontTitle' => 'ExUnit Front Page Title'
+					],
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => null,
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'ExUnit Front Page Title',
+			),
 		);
 
 		print PHP_EOL;
@@ -189,6 +208,11 @@ class HeadTitleTest extends WP_UnitTestCase {
 			if ( ! empty( $value['options'] ) && is_array( $value['options'] ) ) {
 				foreach ( $value['options'] as $option_key => $option_value ) {
 					delete_option( $option_key );
+				}
+			}
+			if ( ! empty( $value['custom_fields'] ) && is_array( $value['custom_fields'] ) ) {
+				foreach ( $value['custom_fields'] as $cf_key => $cf_value ) {
+					delete_post_meta( $value['target_id'], $cf_key );
 				}
 			}
 		}
