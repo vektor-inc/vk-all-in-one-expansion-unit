@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Google Analytics ] Remove Customizer Setting.
+
 = 9.83.1.0 =
 [ Bug fix ][ article structure ] Fix warning on 404 page.
 
