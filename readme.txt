@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Google Analytics ] Remove Customizer Setting.
+
 = 9.84.0.0 =
 [ Specification Change ][ title tag ] Changed the title tag of the Home page so that the title tag specified in the fixed page has priority over the content specified in "ExUnit > Main setting screen".
 
