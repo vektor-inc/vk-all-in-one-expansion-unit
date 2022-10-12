@@ -43,10 +43,7 @@ class VEU_Metabox_Head_Title extends VEU_Metabox {
 		$form .= '<input type="checkbox" name="' . esc_attr( $this->args['cf_name'] ) . '[add_site_title]" ' . $checked . ' />';
 		$form .= __( 'Add Separator and Site Title', 'vk-all-in-one-expansion-unit' );
 		$form .= '</label>';
-
 		return $form;
 	}
 
 } // class VEU_Metabox_Head_Title {
-
-$VEU_Metabox_Head_Title = new VEU_Metabox_Head_Title();

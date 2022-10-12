@@ -172,6 +172,32 @@ class HeadTitleTest extends WP_UnitTestCase {
 				),
 				'expected'      => 'ExUnit Front Page Title',
 			),
+			/***********************************************************
+			 * トップページ仕様変更
+			 * @since 9.84.0.0
+			 */
+			// トップページ / カスタムタイトル : 指定あり / サイト名追加 : なし
+			// Return : トップページに指定した固定ページで指定したカスタムタイトル
+			array(
+				'target_url'    => home_url( '/' ),
+				'target_id'     => $test_posts['front_page_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+					'page_on_front'  => $test_posts['front_page_id'],
+					'show_on_front'  => 'page',
+					'page_for_posts' => $test_posts['home_page_id'],
+					'vkExUnit_wp_title' => [
+						'extend_frontTitle' => 'ExUnit Front Page Title'
+					],
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Front Page Custom Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Front Page Custom Title',
+			),
 		);
 
 		print PHP_EOL;
