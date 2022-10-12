@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 6.0.2
 Requires PHP: 7.2
-Stable tag: 9.83.1.0
+Stable tag: 9.84.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.84.0.0 =
 [ Specification Change ][ title tag ] Changed the title tag of the Home page so that the title tag specified in the fixed page has priority over the content specified in "ExUnit > Main setting screen".
 
 = 9.83.1.0 =
