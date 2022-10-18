@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Google Analytics ] Fix PHP error in 9.82.0.0
 [ Specification Change ][ Google Analytics ] Remove Customizer Setting.
 
 = 9.84.0.0 =
