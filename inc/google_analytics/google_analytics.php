@@ -38,8 +38,12 @@ function vkExUnit_get_ga_options() {
 		} else {
 			$options['gaId-UA'] = 'UA-' . $options['gaId'];
 		}
-		unset( $options['gaId'] );
-		unset( $output['gaType'] );
+		if ( isset( $options['gaId'] ) ){
+			unset( $options['gaId'] );
+		}
+		if ( isset( $options['gaType'] ) ){
+			unset( $options['gaType'] );
+		}
 		update_option( 'vkExUnit_ga_options', $options );
 	}
 
