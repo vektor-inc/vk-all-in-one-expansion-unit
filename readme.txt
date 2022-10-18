@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.3.0
 Tested up to: 6.0.2
 Requires PHP: 7.2
-Stable tag: 9.84.0.0
+Stable tag: 9.84.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.84.1.0 =
 [ Bug fix ][ Google Analytics ] Fix PHP error in 9.82.0.0
 [ Specification Change ][ Google Analytics ] Remove Customizer Setting.
 
