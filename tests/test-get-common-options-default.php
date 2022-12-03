@@ -36,7 +36,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
                     'active_noindex'                         => true,
                     'active_otherWidgets'                    => false,
                     'active_archive_loop_before_widget_area' => false,
-                    'active_default_thumbnail'               => false,
+                    'active_default_thumbnail'               => true,
                     'active_css_customize'                   => true,
                     'active_childPageIndex'                  => true,
                     'active_pageList_ancestor'               => true,
