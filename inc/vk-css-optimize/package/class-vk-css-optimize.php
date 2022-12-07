@@ -46,7 +46,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_section(
 				'css_optimize',
 				array(
-					'title'    => $prefix_customize_panel . __( 'CSS Optimize ( Speed up ) Settings', 'vk-all-in-one-expansion-unit' ),
+					'title'    => $prefix_customize_panel . __( 'CSS Optimize ( Speed up ) Settings', 'css_optimize_textdomain' ),
 					'priority' => 450,
 				)
 			);
@@ -63,7 +63,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 					$wp_customize,
 					'tree_shaking_title',
 					array(
-						'label'            => __( 'Tree shaking', 'vk-all-in-one-expansion-unit' ),
+						'label'            => __( 'Tree shaking', 'css_optimize_textdomain' ),
 						'section'          => 'css_optimize',
 						'type'             => 'text',
 						'custom_title_sub' => '',
@@ -83,14 +83,14 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[tree_shaking]',
 				array(
-					'label'       => __( 'Tree shaking activation settings', 'vk-all-in-one-expansion-unit' ),
+					'label'       => __( 'Tree shaking activation settings', 'css_optimize_textdomain' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[tree_shaking]',
 					'type'        => 'select',
-					'description' => __( 'Output only the main CSS of the page inline', 'vk-all-in-one-expansion-unit' ),
+					'description' => __( 'Output only the main CSS of the page inline', 'css_optimize_textdomain' ),
 					'choices'     => array(
-						''       => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
-						'active' => __( 'Active Tree shaking (Recomend)', 'vk-all-in-one-expansion-unit' ),
+						''       => __( 'Nothing to do', 'css_optimize_textdomain' ),
+						'active' => __( 'Active Tree shaking (Recomend)', 'css_optimize_textdomain' ),
 					),
 				)
 			);
@@ -107,11 +107,11 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[tree_shaking_class_exclude]',
 				array(
-					'label'       => __( 'Exclude class of Tree shaking', 'vk-all-in-one-expansion-unit' ),
+					'label'       => __( 'Exclude class of Tree shaking', 'css_optimize_textdomain' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[tree_shaking_class_exclude]',
 					'type'        => 'textarea',
-					'description' => __( 'If you choose "Active Tree shaking" that delete the useless css.If you using active css class that please fill in class name. Ex) btn-active,slide-active,scrolled', 'vk-all-in-one-expansion-unit' ),
+					'description' => __( 'If you choose "Active Tree shaking" that delete the useless css.If you using active css class that please fill in class name. Ex) btn-active,slide-active,scrolled', 'css_optimize_textdomain' ),
 				)
 			);
 
@@ -127,7 +127,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 					$wp_customize,
 					'css_preload_title',
 					array(
-						'label'            => __( 'Preload CSS', 'vk-all-in-one-expansion-unit' ),
+						'label'            => __( 'Preload CSS', 'css_optimize_textdomain' ),
 						'section'          => 'css_optimize',
 						'type'             => 'text',
 						'custom_title_sub' => '',
@@ -147,14 +147,14 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[preload]',
 				array(
-					'label'       => __( 'Preload CSS activation settings', 'vk-all-in-one-expansion-unit' ),
+					'label'       => __( 'Preload CSS activation settings', 'css_optimize_textdomain' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[preload]',
-					'description' => __( 'Preload css except for critical css', 'vk-all-in-one-expansion-unit' ),
+					'description' => __( 'Preload css except for critical css', 'css_optimize_textdomain' ),
 					'type'        => 'select',
 					'choices'     => array(
-						''       => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
-						'active' => __( 'Active Preload CSS (Recomend)', 'vk-all-in-one-expansion-unit' ),
+						''       => __( 'Nothing to do', 'css_optimize_textdomain' ),
+						'active' => __( 'Active Preload CSS (Recomend)', 'css_optimize_textdomain' ),
 					),
 				)
 			);
@@ -171,11 +171,11 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[preload_handle_exclude]',
 				array(
-					'label'       => __( 'Exclude class of Preload CSS', 'vk-all-in-one-expansion-unit' ),
+					'label'       => __( 'Exclude class of Preload CSS', 'css_optimize_textdomain' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[preload_handle_exclude]',
 					'type'        => 'textarea',
-					'description' => __( 'If you choose "Active Preload CSS" that css load timing was changed.If you have any do not want to preload css file that please fill in handle(id) name. Ex) pluginname_a-style,pluginname_b-css', 'vk-all-in-one-expansion-unit' ),
+					'description' => __( 'If you choose "Active Preload CSS" that css load timing was changed.If you have any do not want to preload css file that please fill in handle(id) name. Ex) pluginname_a-style,pluginname_b-css', 'css_optimize_textdomain' ),
 				)
 			);
 
@@ -454,14 +454,20 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 
 			// tree shaking がかかっているものはpreloadから除外する
 			// でないと表示時に一瞬崩れて結局実用性に問題があるため.
-			foreach ( $vk_css_tree_shaking_array as $vk_css_array ) {
-				$exclude_handles[] = $vk_css_array['id'];
+			foreach ( $vk_css_tree_shaking_array as $css ) {
+				if ( is_array( $css ) && ! empty( $css['id'] ) ) {
+					$css = $css['id'];
+				}
+				$exclude_handles[] = $css;
 			}
 
 			// Simple Minify がかかっているものはpreloadから除外する
 			// でないと表示時に一瞬崩れて結局実用性に問題があるため.
-			foreach ( $vk_css_simple_minify_array as $vk_css_array ) {
-				$exclude_handles[] = $vk_css_array['id'];
+			foreach ( $vk_css_simple_minify_array as $css ) {
+				if ( is_array( $css ) && ! empty( $css['id'] ) ) {
+					$css = $css['id'];
+				}
+				$exclude_handles[] = $css;
 			}
 
 			// プリロードから除外するCSSハンドルが option で保存されている場合.
