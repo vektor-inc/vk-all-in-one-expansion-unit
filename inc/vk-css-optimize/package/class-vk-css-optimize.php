@@ -46,7 +46,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_section(
 				'css_optimize',
 				array(
-					'title'    => $prefix_customize_panel . __( 'CSS Optimize ( Speed up ) Settings', 'css_optimize_textdomain' ),
+					'title'    => $prefix_customize_panel . __( 'CSS Optimize ( Speed up ) Settings', 'vk-all-in-one-expansion-unit' ),
 					'priority' => 450,
 				)
 			);
@@ -63,7 +63,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 					$wp_customize,
 					'tree_shaking_title',
 					array(
-						'label'            => __( 'Tree shaking', 'css_optimize_textdomain' ),
+						'label'            => __( 'Tree shaking', 'vk-all-in-one-expansion-unit' ),
 						'section'          => 'css_optimize',
 						'type'             => 'text',
 						'custom_title_sub' => '',
@@ -83,14 +83,14 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[tree_shaking]',
 				array(
-					'label'       => __( 'Tree shaking activation settings', 'css_optimize_textdomain' ),
+					'label'       => __( 'Tree shaking activation settings', 'vk-all-in-one-expansion-unit' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[tree_shaking]',
 					'type'        => 'select',
-					'description' => __( 'Output only the main CSS of the page inline', 'css_optimize_textdomain' ),
+					'description' => __( 'Output only the main CSS of the page inline', 'vk-all-in-one-expansion-unit' ),
 					'choices'     => array(
-						''       => __( 'Nothing to do', 'css_optimize_textdomain' ),
-						'active' => __( 'Active Tree shaking (Recomend)', 'css_optimize_textdomain' ),
+						''       => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
+						'active' => __( 'Active Tree shaking (Recomend)', 'vk-all-in-one-expansion-unit' ),
 					),
 				)
 			);
@@ -107,11 +107,11 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[tree_shaking_class_exclude]',
 				array(
-					'label'       => __( 'Exclude class of Tree shaking', 'css_optimize_textdomain' ),
+					'label'       => __( 'Exclude class of Tree shaking', 'vk-all-in-one-expansion-unit' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[tree_shaking_class_exclude]',
 					'type'        => 'textarea',
-					'description' => __( 'If you choose "Active Tree shaking" that delete the useless css.If you using active css class that please fill in class name. Ex) btn-active,slide-active,scrolled', 'css_optimize_textdomain' ),
+					'description' => __( 'If you choose "Active Tree shaking" that delete the useless css.If you using active css class that please fill in class name. Ex) btn-active,slide-active,scrolled', 'vk-all-in-one-expansion-unit' ),
 				)
 			);
 
@@ -127,7 +127,7 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 					$wp_customize,
 					'css_preload_title',
 					array(
-						'label'            => __( 'Preload CSS', 'css_optimize_textdomain' ),
+						'label'            => __( 'Preload CSS', 'vk-all-in-one-expansion-unit' ),
 						'section'          => 'css_optimize',
 						'type'             => 'text',
 						'custom_title_sub' => '',
@@ -147,14 +147,14 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[preload]',
 				array(
-					'label'       => __( 'Preload CSS activation settings', 'css_optimize_textdomain' ),
+					'label'       => __( 'Preload CSS activation settings', 'vk-all-in-one-expansion-unit' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[preload]',
-					'description' => __( 'Preload css except for critical css', 'css_optimize_textdomain' ),
+					'description' => __( 'Preload css except for critical css', 'vk-all-in-one-expansion-unit' ),
 					'type'        => 'select',
 					'choices'     => array(
-						''       => __( 'Nothing to do', 'css_optimize_textdomain' ),
-						'active' => __( 'Active Preload CSS (Recomend)', 'css_optimize_textdomain' ),
+						''       => __( 'Nothing to do', 'vk-all-in-one-expansion-unit' ),
+						'active' => __( 'Active Preload CSS (Recomend)', 'vk-all-in-one-expansion-unit' ),
 					),
 				)
 			);
@@ -171,11 +171,11 @@ if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
 			$wp_customize->add_control(
 				'vk_css_optimize_options[preload_handle_exclude]',
 				array(
-					'label'       => __( 'Exclude class of Preload CSS', 'css_optimize_textdomain' ),
+					'label'       => __( 'Exclude class of Preload CSS', 'vk-all-in-one-expansion-unit' ),
 					'section'     => 'css_optimize',
 					'settings'    => 'vk_css_optimize_options[preload_handle_exclude]',
 					'type'        => 'textarea',
-					'description' => __( 'If you choose "Active Preload CSS" that css load timing was changed.If you have any do not want to preload css file that please fill in handle(id) name. Ex) pluginname_a-style,pluginname_b-css', 'css_optimize_textdomain' ),
+					'description' => __( 'If you choose "Active Preload CSS" that css load timing was changed.If you have any do not want to preload css file that please fill in handle(id) name. Ex) pluginname_a-style,pluginname_b-css', 'vk-all-in-one-expansion-unit' ),
 				)
 			);
 
