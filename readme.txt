@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
+
 = 9.84.2.0 =
 [ Specification Change ][ Default Thumbnail ] Change to default active
 
