@@ -189,8 +189,11 @@ gulp.task('watch', function() {
 		],
 		gulp.series('scripts_smooth')
 	)
-	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
-	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
+	gulp.watch( [
+		'./assets/_scss/**/*.scss',
+		'./inc/call-to-action/package/_scss/*.scss',
+		'./inc/pagetop-btn/assets/_scss/*.scss',
+	], gulp.series('sass'))
 });
 
 gulp.task('default', gulp.series('text-domain','watch'))
