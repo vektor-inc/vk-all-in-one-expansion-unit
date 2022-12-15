@@ -4,6 +4,16 @@
 
 $section_margin : 30px;
 
+.veu-cta-block + .veu_adminEdit {
+	position: absolute;
+	margin-top:-3em;
+	margin-left:1em;
+	z-index: 999;
+	& > .btn {
+		font-size:12px;
+	}
+}
+
 @mixin veu_content_bottom_section { display:block; overflow:hidden;margin-top:$section_margin;margin-bottom:$section_margin;background-color: #efefef; }
 @mixin veu_content_bottom_section_title { display:block; overflow:hidden;margin:0;padding: 12px 20px 10px;background-color: #333;color:#fff;font-size:22px;line-height: 1.2em; }
 @mixin veu_content_bottom_section_body { display:block; overflow:hidden; padding:1.5em 1.5em 2em; }
