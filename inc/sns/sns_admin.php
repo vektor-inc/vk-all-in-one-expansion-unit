@@ -173,17 +173,6 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 </ul>
 </td>
 </tr>
-
-<tr>
-<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
-<dl>
-<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
-<dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
-</dl>
-</td>
-</tr>
-
 <tr>
 <th><?php _e( 'Entry Count', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
@@ -204,6 +193,16 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 <?php _e( 'Ex) lightning_comment_before', 'vk-all-in-one-expansion-unit' ); ?>
 </p>	
 <textarea name="vkExUnit_sns_options[hook_point]" id="hook_point" style="width:100%;" rows="2"><?php echo esc_html( $options['hook_point'] ); ?></textarea>
+</td>
+</tr>
+
+<tr>
+<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
+<dl>
+<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
+</dl>
 </td>
 </tr>
 
