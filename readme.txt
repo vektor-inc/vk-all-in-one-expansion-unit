@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.85.0.0 =
+[ Specification Change ][ SNS : Share button ] Changed show/hide settings to only affect the_content and action hooks
+[ Specification Change ][ SNS/FollowMe ] Moove setting position
+
 = 9.84.3.0 =
 [ Other ][ CTA ] Edit button position tuning
 
