@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ SNS/FollowMe ] Moove setting position
+
 = 9.84.3.0 =
 [ Other ][ CTA ] Edit button position tuning
 
