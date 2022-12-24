@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ SNS : Share button ] Changed show/hide settings to only affect the_content and action hooks
 [ Specification Change ][ SNS/FollowMe ] Moove setting position
 
 = 9.84.3.0 =

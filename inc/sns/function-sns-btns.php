@@ -7,17 +7,18 @@
 
  // global なので $options にすると ExUnit 全体の $options の値を汚染するので $sns_options を使用
 $sns_options = veu_get_sns_options();
-if ( ! empty( $sns_options['hook_point'] ) ) {
-	$hook_points = explode( "\n", $sns_options['hook_point'] );
-	foreach ( $hook_points as $hook_point ) {
-		add_action( $hook_point, 'veu_the_sns_btns' );
+if ( veu_is_sns_btns_auto_insert() ){
+	if ( ! empty( $sns_options['hook_point'] ) ) {
+		$hook_points = explode( "\n", $sns_options['hook_point'] );
+		foreach ( $hook_points as $hook_point ) {
+			add_action( $hook_point, 'veu_the_sns_btns' );
+		}
+	} elseif ( 'content' === veu_content_filter_state() ) {
+		add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
+	} else {
+		add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
 	}
-} elseif ( 'content' === veu_content_filter_state() ) {
-	add_filter( 'the_content', 'veu_add_sns_btns', 200, 1 );
-} else {
-	add_action( 'loop_end', 'veu_add_sns_btns_loopend' );
 }
-
 
 /**
  * Display share button on hook point
@@ -46,6 +47,24 @@ function veu_add_sns_btns_loopend( $query ) {
 }
 
 /**
+ * Display share button on content or fook point
+ * 基本的にクラッシックテーマ向け機能
+ * 本文下やフックにボタンを表示するかどうか
+ * ブロックで配置した分には影響しない
+ *
+ * @param string $content : post content.
+ * @return bool $auto_insert : post content.
+ */
+function veu_is_sns_btns_auto_insert(){
+	$auto_insert = false;
+	$options      = veu_get_sns_options();
+	if ( ! empty( $options['enableSnsBtns'] ) ) {
+		$auto_insert = true;
+	}
+	return $auto_insert;
+}
+
+/**
  * Check sns btn display
  *
  * @return bool
@@ -58,9 +77,6 @@ function veu_is_sns_btns_display() {
 	$post_type    = $post_type['slug'];
 	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように
 	if ( is_404() ){
-		return false;
-	}
-	if ( empty( $options['enableSnsBtns'] ) ) {
 		return false;
 	}
 	if ( isset( $options['snsBtn_exclude_post_types'][ $post_type ] ) && $options['snsBtn_exclude_post_types'][ $post_type ] ) {

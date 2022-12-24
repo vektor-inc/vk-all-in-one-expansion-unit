@@ -70,10 +70,16 @@
 </td>
 </tr>
 
+<?php
+/**********************************************************
+ * SNS Buttons
+ */
+?>
+
 <tr>
 <th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label>
-
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Automatic insertion', 'vk-all-in-one-expansion-unit' ); ?></label>
+<p><?php _e( 'Automatically insert social bookmarks (share buttons and tweet buttons) into the body content field or specified action hooks.', 'vk-all-in-one-expansion-unit' ); ?></p>
 <dl>
 <dt><?php _e( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
@@ -176,9 +182,24 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 <tr>
 <th><?php _e( 'Entry Count', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable" <?php if($options['entry_count']=='disable'){echo 'checked';} ?> /><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" <?php if($options['entry_count']=='get'){echo 'checked';} ?> /><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" <?php if($options['entry_count']=='post'){echo 'checked';} ?> /><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable" 
+	<?php
+	if ( $options['entry_count'] == 'disable' ) {
+		echo 'checked';}
+	?>
+	 /><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" 
+	<?php
+	if ( $options['entry_count'] == 'get' ) {
+		echo 'checked';}
+	?>
+	 /><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" 
+	<?php
+	if ( $options['entry_count'] == 'post' ) {
+		echo 'checked';}
+	?>
+	 /><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
 	<p><?php _e( '* manage entry count Api. change to \'POST\' if fail entry count. (POST mode is can\'t use cache)', 'vk-all-in-one-expansion-unit' ); ?></p>
 </td>
 </tr>
