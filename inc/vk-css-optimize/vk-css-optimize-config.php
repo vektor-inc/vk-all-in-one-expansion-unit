@@ -13,6 +13,7 @@ function veu_css_tree_shaking_array( $vk_css_tree_shaking_array ) {
 	$vk_css_tree_shaking_array = array_merge(
 		$vk_css_tree_shaking_array,
 		array(
+			'veu-cta',
 			'vkExUnit_common_style'
 		)
 	);
