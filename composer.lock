@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d813fc772333e5108091bf4ef576242e",
+    "content-hash": "7d4d9fc110c2f40f8e7c3b753a676139",
     "packages": [
         {
             "name": "vektor-inc/font-awesome-versions",
@@ -93,6 +93,47 @@
                 "source": "https://github.com/vektor-inc/vk-breadcrumb/tree/0.2.2"
             },
             "time": "2022-04-19T07:08:07+00:00"
+        },
+        {
+            "name": "vektor-inc/vk-css-optimize",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vektor-inc/vk-css-optimize.git",
+                "reference": "704b4fe95b6811d0232be2482859a33e83f24f92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vektor-inc/vk-css-optimize/zipball/704b4fe95b6811d0232be2482859a33e83f24f92",
+                "reference": "704b4fe95b6811d0232be2482859a33e83f24f92",
+                "shasum": ""
+            },
+            "require-dev": {
+                "wp-phpunit/wp-phpunit": "^5.4",
+                "yoast/phpunit-polyfills": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "VektorInc\\VK_CSS_Optimize\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Vektor,Inc.",
+                    "email": "kurudrive@gmail.com"
+                }
+            ],
+            "description": "WordPress CSS Optimize",
+            "support": {
+                "issues": "https://github.com/vektor-inc/vk-css-optimize/issues",
+                "source": "https://github.com/vektor-inc/vk-css-optimize/tree/0.0.1"
+            },
+            "time": "2022-12-26T18:44:33+00:00"
         },
         {
             "name": "vektor-inc/vk-helpers",
@@ -2531,5 +2572,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

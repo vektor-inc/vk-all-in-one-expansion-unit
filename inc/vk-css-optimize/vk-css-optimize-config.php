@@ -5,9 +5,8 @@
  * @package ExUnit
  */
 
-if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
-	require_once dirname( __FILE__ ) . '/package/class-vk-css-optimize.php';
-}
+ use VektorInc\VK_CSS_Optimize\VkCssOptimize;
+ new VkCssOptimize();
 
 function veu_css_tree_shaking_array( $vk_css_tree_shaking_array ) {
 
@@ -20,7 +19,7 @@ function veu_css_tree_shaking_array( $vk_css_tree_shaking_array ) {
 
 	return $vk_css_tree_shaking_array;
 }
-add_filter( 'vk_css_tree_shaking_array', 'veu_css_tree_shaking_array' );
+add_filter( 'vk_css_tree_shaking_handles', 'veu_css_tree_shaking_array' );
 
 /**
  * CSS Tree Shaking Exclude
