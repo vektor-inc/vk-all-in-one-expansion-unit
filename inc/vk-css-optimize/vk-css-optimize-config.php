@@ -8,7 +8,7 @@
  use VektorInc\VK_CSS_Optimize\VkCssOptimize;
  new VkCssOptimize();
 
-function veu_css_tree_shaking_array( $vk_css_tree_shaking_handles ) {
+function veu_css_tree_shaking_handles( $vk_css_tree_shaking_handles ) {
 
 	$vk_css_tree_shaking_handles = array_merge(
 		$vk_css_tree_shaking_handles,
@@ -19,7 +19,7 @@ function veu_css_tree_shaking_array( $vk_css_tree_shaking_handles ) {
 	);
 	return $vk_css_tree_shaking_handles;
 }
-add_filter( 'vk_css_tree_shaking_handles', 'veu_css_tree_shaking_array' );
+add_filter( 'vk_css_tree_shaking_handles', 'veu_css_tree_shaking_handles' );
 
 /**
  * CSS Tree Shaking Exclude
