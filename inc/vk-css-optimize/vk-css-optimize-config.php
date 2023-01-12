@@ -8,16 +8,16 @@
  use VektorInc\VK_CSS_Optimize\VkCssOptimize;
  new VkCssOptimize();
 
-function veu_css_tree_shaking_array( $vk_css_tree_shaking_array ) {
+function veu_css_tree_shaking_array( $vk_css_tree_shaking_handles ) {
 
-	$vk_css_tree_shaking_array = array_merge(
-		$vk_css_tree_shaking_array,
+	$vk_css_tree_shaking_handles = array_merge(
+		$vk_css_tree_shaking_handles,
 		array(
+			'veu-cta',
 			'vkExUnit_common_style'
 		)
 	);
-
-	return $vk_css_tree_shaking_array;
+	return $vk_css_tree_shaking_handles;
 }
 add_filter( 'vk_css_tree_shaking_handles', 'veu_css_tree_shaking_array' );
 
