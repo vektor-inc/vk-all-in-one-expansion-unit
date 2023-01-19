@@ -127,6 +127,11 @@ function veu_cta_block_callback( $attributes, $content ) {
 	if ( 'disable' !== $post_config ) {
 		if ( ! empty( $attributes['postId'] ) ) {
 			$cta_id   = 'random' !== $attributes['postId'] ? $attributes['postId'] : Vk_Call_To_Action::cta_id_random();
+
+			if ( empty( $cta_id ) ) {
+				return;
+			}
+
 			$cta_post = get_post( $cta_id );
 
 			if ( ! empty( $cta_post ) ) {
