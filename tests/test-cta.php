@@ -95,6 +95,8 @@ class CTATest extends WP_UnitTestCase {
 	 */
 	function test_veu_cta_block_callback() {
 		$test_posts                = array();
+
+		// テスト用のCTAを作成
 		$post                      = array(
 			'post_title'   => 'cta_published',
 			'post_type'    => 'CTA',
@@ -102,6 +104,8 @@ class CTATest extends WP_UnitTestCase {
 			'post_content' => 'CTA content',
 		);
 		$test_posts['cta_post_id'] = wp_insert_post( $post );
+
+		//  テスト配列
 		$test_array                = array(
 			'XSS test' => array(
 				'attributes' => array(
