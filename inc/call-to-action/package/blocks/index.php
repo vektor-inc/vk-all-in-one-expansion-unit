@@ -52,7 +52,6 @@ function veu_cta_block_setup() {
         );
         $cta_posts   = get_posts( $args );
 
-
         // CTA の選択肢の配列を作成
         $cta_options = array();
 
