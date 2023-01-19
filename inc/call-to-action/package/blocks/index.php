@@ -220,6 +220,6 @@ function veu_cta_block_callback( $attributes, $content ) {
 		}
 	}
 
-	return $content;
+	return wp_kses_post( $content );
 
 }
