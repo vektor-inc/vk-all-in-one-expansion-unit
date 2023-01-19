@@ -121,7 +121,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 	);
 
     $content = '';
-    
+
     global $post;
     $post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
     // 各記事で非表示指定されていなかったら表示する
@@ -129,7 +129,6 @@ function veu_cta_block_callback( $attributes, $content ) {
         if ( ! empty( $attributes['postId'] ) ) {
             $post_id = 'random' !== $attributes['postId'] ? $attributes['postId'] : Vk_Call_To_Action::cta_id_random();
             $id      = $post_id;
-            
 			$cta_post = get_post( $post_id );
 
             if ( ! empty( $cta_post ) ) {
@@ -172,13 +171,12 @@ function veu_cta_block_callback( $attributes, $content ) {
                     $image_position = get_post_meta( $id, 'vkExUnit_cta_img_position', true );
 
                     if ( ! $image_position ) {
-                        $image_position = 'right'; 
+                        $image_position = 'right';
                     }
 
                     $content .= '<section class="veu_cta" id="veu_cta-' . $id . '">';
                     $content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
                     $content .= '<div class="cta_body">';
-
 
                     // 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
                     $target_blank = get_post_meta( $id, 'vkExUnit_cta_url_blank', true );
@@ -214,7 +212,7 @@ function veu_cta_block_callback( $attributes, $content ) {
                 }
 
                 $content .= '</div>';
-                
+
                 // Display Edit Button.
                 $url = get_edit_post_link( $cta_post->ID );
                 if ( $url ) {
