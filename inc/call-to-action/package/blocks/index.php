@@ -132,23 +132,13 @@ function veu_cta_block_callback( $attributes, $content ) {
 			} else {
 				$cta_id = $attributes['postId'];
 			}
-			// in case of random and no CTA registered
-			if ( is_admin() ){
-				$content = 'aaaa';
-			}
-			$request_uri = $_SERVER['REQUEST_URI'];
-			if ( empty( $cta_id ) ) {
 
-				
-				// if (strpos($request_uri, "wp-admin") !== false) {
-					// $request_uri に "wp-admin" が含まれている場合の処理
-					$content .= '<div class="alert alert-warning">';
-					$content .= __( 'No CTA registered', 'vk-all-in-one-expansion-unit' );
-					$content .= ' [ <a href="' . admin_url( 'edit.php?post_type=cta' ) . '"> ' . __( 'Register CTA', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
-					$content .= '</div>';
-				// }
-				
+			if ( empty( $cta_id ) && is_admin() ) {
 
+				$content .= '<div class="alert alert-warning">';
+				$content .= __( 'No CTA registered', 'vk-all-in-one-expansion-unit' );
+				$content .= ' [ <a href="' . admin_url( 'edit.php?post_type=cta' ) . '"> ' . __( 'Register CTA', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
+				$content .= '</div>';
 
 			} else {
 

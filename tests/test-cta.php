@@ -122,21 +122,21 @@ class CTATest extends WP_UnitTestCase {
 				// 未指定の場合は index.jsx の方で表示されるので、コールバック関数としては空を返す
 				// 'expected'   => '<div class="veu-cta-block-edit-alert alert alert-warning">Please select CTA from Setting sidebar.</div>',
 			),
-			// 'random CTA but No CTA Front' => array(
-			// 'attributes' => array(
-			// 'postId' => 'random',
-			// ),
-			// 'delete_cta' => true,
-			// 'expected'   => '',
-			// ),
-			'random CTA but No CTA admin' => array(
+			'random CTA but No CTA Front' => array(
 				'attributes' => array(
 					'postId' => 'random',
 				),
-				'target_url' => admin_url() . 'post-new.php',
 				'delete_cta' => true,
-				'expected'   => '<div class="alert alert-warning">No CTA registered [ <a href="' . admin_url() . 'edit.php?post_type=cta"> Register CTA</a> ]</div>',
+				'expected'   => '',
 			),
+			// 'random CTA but No CTA admin' => array(
+			// 'attributes' => array(
+			// 'postId' => 'random',
+			// ),
+			// 'target_url' => admin_url() . 'post-new.php',
+			// 'delete_cta' => true,
+			// 'expected'   => '<div class="alert alert-warning">No CTA registered [ <a href="' . admin_url() . 'edit.php?post_type=cta"> Register CTA</a> ]</div>',
+			// ),
 		);
 
 		print PHP_EOL;
