@@ -135,6 +135,8 @@ function veu_cta_block_callback( $attributes, $content ) {
 					$class_name .= ' ' . $attributes['className'];
 				}
 
+				// 最後に wp_kses_post でエスケープはしているが、wp_kses_post は style は通してしまうので、
+				// クラス名入力欄に " style="background-color:red" など入力されると通してしまうため esc_attr でエスケープ.
 				$content .= '<div class="' . esc_attr( $class_name  ) . '">';
 
 				// 本文に入力がある場合は本文を表示.
