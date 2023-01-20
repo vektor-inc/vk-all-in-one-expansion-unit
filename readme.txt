@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ CTA ] Cope with XSS
 [ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
 
 = 9.85.0.1 =

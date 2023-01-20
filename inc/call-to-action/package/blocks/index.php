@@ -130,8 +130,12 @@ function veu_cta_block_callback( $attributes, $content ) {
 			$cta_post = get_post( $cta_id );
 
 			if ( ! empty( $cta_post ) ) {
+				$class_name = 'veu-cta-block';
+				if ( ! empty( $attributes['className'] ) ) {
+					$class_name .= ' ' . $attributes['className'];
+				}
 
-				$content .= '<div class="veu-cta-block ' . $attributes['className'] . '">';
+				$content .= '<div class="' . esc_attr( $class_name  ) . '">';
 
 				// 本文に入力がある場合は本文を表示.
 				$cta_content = $cta_post->post_content;
@@ -219,6 +223,6 @@ function veu_cta_block_callback( $attributes, $content ) {
 		}
 	}
 
-	return $content;
+	return wp_kses_post( $content );
 
 }
