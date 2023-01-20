@@ -112,7 +112,7 @@ class CTATest extends WP_UnitTestCase {
 					'postId'    => $test_posts['cta_post_id'],
 					'className' => '" onmouseover="alert(/XSS/)" style="background:red;"',
 				),
-				'expected'   => '<div class="veu-cta-block ">CTA content</div>',
+				'expected'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
 			),
 			'No CTA specified'            => array(
 				'attributes' => array(
