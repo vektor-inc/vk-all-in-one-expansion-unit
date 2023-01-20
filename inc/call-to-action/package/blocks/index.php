@@ -135,7 +135,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 					$class_name .= ' ' . $attributes['className'];
 				}
 
-				$content .= '<div class="' . $class_name  . '">';
+				$content .= '<div class="' . esc_attr( $class_name  ) . '">';
 
 				// 本文に入力がある場合は本文を表示.
 				$cta_content = $cta_post->post_content;
