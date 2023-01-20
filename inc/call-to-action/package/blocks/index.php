@@ -133,18 +133,18 @@ function veu_cta_block_callback( $attributes, $content ) {
 				$cta_id = $attributes['postId'];
 			}
 
-			if ( empty( $cta_id ) && is_admin() ) {
-
-				$content .= '<div class="alert alert-warning">';
-				$content .= __( 'No CTA registered', 'vk-all-in-one-expansion-unit' );
-				$content .= ' [ <a href="' . admin_url( 'edit.php?post_type=cta' ) . '"> ' . __( 'Register CTA', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
-				$content .= '</div>';
-
-			} else {
+			if ( ! empty( $cta_id ) ) {
 
 				$cta_post = get_post( $cta_id );
 
-				if ( ! empty( $cta_post ) ) {
+				if ( empty( $cta_post ) && 'random' !== $attributes['postId'] ){
+
+					// 指定された CTA が存在しない場合はエラーを表示.
+					$content .= '<div class="alert alert-warning">';
+					$content .= __( 'Specified CTA does not exist.', 'vk-all-in-one-expansion-unit' );
+					$content .= '</div>';
+
+				} elseif ( ! empty( $cta_post ) ) {
 
 					$content .= '<div class="veu-cta-block ' . esc_attr( $attributes['className'] ) . '">';
 
