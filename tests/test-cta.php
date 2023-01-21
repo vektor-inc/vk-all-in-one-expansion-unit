@@ -122,13 +122,16 @@ class CTATest extends WP_UnitTestCase {
 				// 未指定の場合は index.jsx の方で表示されるので、コールバック関数としては空を返す
 				// 'expected'   => '<div class="veu-cta-block-edit-alert alert alert-warning">Please select CTA from Setting sidebar.</div>',
 			),
-			// 'Deleted CTA'            => array(
-			// 	'attributes' => array(
-			// 		'postId' => 999999,
-			// 	),
-			// 	'delete_cta' => true,
-			// 	'expected'   => '<div class="alert alert-warning">Specified CTA does not exist.</div>',
-			// ),
+			'Deleted CTA'            => array(
+				'attributes' => array(
+					'postId' => 999999,
+				),
+				'delete_cta' => true,
+				'expected'   => '',
+				// Show only current_user_can( 'edit_page' ) user
+				// ログインして編集権限のあるユーザーの場合は表示される
+				// 'expected'   => '<div class="alert alert-warning"><div class="alert-title">Specified CTA does not exist.</div></div>',
+			),
 			'random CTA but No CTA Front' => array(
 				'attributes' => array(
 					'postId' => 'random',
@@ -136,14 +139,6 @@ class CTATest extends WP_UnitTestCase {
 				'delete_cta' => true,
 				'expected'   => '',
 			),
-			// 'random CTA but No CTA admin' => array(
-			// 'attributes' => array(
-			// 'postId' => 'random',
-			// ),
-			// 'target_url' => admin_url() . 'post-new.php',
-			// 'delete_cta' => true,
-			// 'expected'   => '<div class="alert alert-warning">No CTA registered [ <a href="' . admin_url() . 'edit.php?post_type=cta"> Register CTA</a> ]</div>',
-			// ),
 		);
 
 		print PHP_EOL;

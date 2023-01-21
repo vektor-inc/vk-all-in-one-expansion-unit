@@ -44,7 +44,7 @@
 
             let editContent;
 
-			// If no CTA registered
+			// If no CTA registered.
 			if ( ctaPostsExist === 'false' ) {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
@@ -52,12 +52,14 @@
 						[ <a href={ adminURL + 'edit.php?post_type=cta' } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "veu-block") }</a> ]
 					</div>
 				);
+			// If CTA is disabled.
 			} else if ( setting === 'disable' ) {
 				editContent = (
 					<div className="veu-cta-block-edit-alert">
 						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
 					</div>
 				);
+			// Normal.
 			} else if ( postId !== '' &&  postId !== null &&  postId !== undefined ) {
 				editContent = (
 					<ServerSideRender
@@ -65,6 +67,7 @@
 						attributes={attributes}
 					/>
 				);
+			// New setqting.
 			} else {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
@@ -72,8 +75,6 @@
 					</div>
 				);
 			}
-
-
 
 			return (
 				<Fragment>
