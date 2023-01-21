@@ -48,8 +48,8 @@
 			if ( ctaPostsExist === 'false' ) {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
-						<div>{ __("No CTA registered.", "veu-block") }</div>
-						[ <a href={ adminURL } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "veu-block") }</a> ]
+						<div className="alert-title">{ __("No CTA registered.", "veu-block") }</div>
+						[ <a href={ adminURL + 'edit.php?post_type=cta' } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "veu-block") }</a> ]
 					</div>
 				);
 			} else if ( setting === 'disable' ) {
