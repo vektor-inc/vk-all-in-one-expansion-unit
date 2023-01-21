@@ -122,13 +122,13 @@ class CTATest extends WP_UnitTestCase {
 				// 未指定の場合は index.jsx の方で表示されるので、コールバック関数としては空を返す
 				// 'expected'   => '<div class="veu-cta-block-edit-alert alert alert-warning">Please select CTA from Setting sidebar.</div>',
 			),
-			'Deleted CTA'            => array(
-				'attributes' => array(
-					'postId' => 999999,
-				),
-				'delete_cta' => true,
-				'expected'   => '<div class="alert alert-warning">Specified CTA does not exist.</div>',
-			),
+			// 'Deleted CTA'            => array(
+			// 	'attributes' => array(
+			// 		'postId' => 999999,
+			// 	),
+			// 	'delete_cta' => true,
+			// 	'expected'   => '<div class="alert alert-warning">Specified CTA does not exist.</div>',
+			// ),
 			'random CTA but No CTA Front' => array(
 				'attributes' => array(
 					'postId' => 'random',

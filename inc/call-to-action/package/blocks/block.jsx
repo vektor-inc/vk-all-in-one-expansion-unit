@@ -30,6 +30,9 @@
 
 			// Make choice list of pages
 			const options = veuBlockOption.cat_option;
+			const ctaPostsExist = veuBlockOption.cta_posts_exist;
+			const adminURL = veuBlockOption.admin_url;
+
 			let setting = '';
 			if (
 				wp.data.select('core/editor') &&
@@ -38,10 +41,18 @@
 			) {
 				setting = wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option;
 			}
-			
-    
+
             let editContent;
-            if ( setting === 'disable' ) {
+
+			// If no CTA registered
+			if ( ctaPostsExist === 'false' ) {
+				editContent = (
+					<div className="veu-cta-block-edit-alert alert alert-warning">
+						<div>{ __("No CTA registered.", "veu-block") }</div>
+						[ <a href={ adminURL } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "veu-block") }</a> ]
+					</div>
+				);
+			} else if ( setting === 'disable' ) {
 				editContent = (
 					<div className="veu-cta-block-edit-alert">
 						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
@@ -61,7 +72,9 @@
 					</div>
 				);
 			}
-			
+
+
+
 			return (
 				<Fragment>
 					<InspectorControls>

@@ -52,6 +52,12 @@ function veu_cta_block_setup() {
 		);
 		$cta_posts = get_posts( $args );
 
+		if ( $cta_posts ) {
+			$cta_posts_exist = 'true';
+		} else {
+			$cta_posts_exist = 'false';
+		}
+
 		// CTA の選択肢の配列を作成.
 		$cta_options = array();
 
@@ -85,7 +91,9 @@ function veu_cta_block_setup() {
 			'veu-block',
 			'veuBlockOption',
 			array(
-				'cat_option' => $cta_options,
+				'cat_option'      => $cta_options,
+				'cta_posts_exist' => $cta_posts_exist,
+				'admin_url'       => admin_url(),
 			)
 		);
 
@@ -137,12 +145,13 @@ function veu_cta_block_callback( $attributes, $content ) {
 
 				$cta_post = get_post( $cta_id );
 
-				if ( empty( $cta_post ) && 'random' !== $attributes['postId'] ){
+				if ( empty( $cta_post ) && 'random' !== $attributes['postId'] ) {
 
 					// 指定された CTA が存在しない場合はエラーを表示.
-					$content .= '<div class="alert alert-warning">';
-					$content .= __( 'Specified CTA does not exist.', 'vk-all-in-one-expansion-unit' );
-					$content .= '</div>';
+					$content .= '';
+					// $content .= '<div class="alert alert-warning">';
+					// $content .= __( 'Specified CTA does not exist.', 'vk-all-in-one-expansion-unit' );
+					// $content .= '</div>';
 
 				} elseif ( ! empty( $cta_post ) ) {
 

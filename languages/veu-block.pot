@@ -7,19 +7,27 @@ msgstr ""
 msgid "CTA"
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:47
+#: inc/call-to-action/package/blocks/block.jsx:51
+msgid "No CTA registered."
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:52
+msgid "Register CTA"
+msgstr ""
+
+#: inc/call-to-action/package/blocks/block.jsx:58
 msgid "Because displaying CTA is disabled. The block render no content."
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:60
+#: inc/call-to-action/package/blocks/block.jsx:71
 msgid "Please select CTA from Setting sidebar."
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:69
+#: inc/call-to-action/package/blocks/block.jsx:82
 msgid "CTA Setting"
 msgstr ""
 
-#: inc/call-to-action/package/blocks/block.jsx:72
+#: inc/call-to-action/package/blocks/block.jsx:85
 msgid "Select CTA"
 msgstr ""
 
