@@ -10,3 +10,6 @@ dist/
 .wp-env.override.json
 *.override.json
 vendor/
+/test-results/
+/playwright-report/
+/playwright/.cache/
