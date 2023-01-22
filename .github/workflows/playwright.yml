@@ -49,6 +49,10 @@ jobs:
       run: npm run build
     - name: Run Environment
       run: npx wp-env start
+    - name: Install dependencies ////////////////////////
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
     - name: Run Playwright
       run: npx playwright test --trace on --project=chromium
     - uses: actions/upload-artifact@v3
