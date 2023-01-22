@@ -1,20 +1,22 @@
 import { test, expect } from '@playwright/test';
 
 test('CTA', async ({ page }) => {
-  // login.
+  // login ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-login.php');
   await page.getByLabel('Username or Email Address').fill('admin');
   await page.getByLabel('Username or Email Address').press('Tab');
   await page.getByLabel('Password').fill('password');
   await page.getByLabel('Password').press('Enter');
 
-  // Activate CTA
+  // Activate CTA ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
   await page.getByRole('checkbox', { name: 'Automatic Eye Catch insert Call To Action' }).check();
   await page.getByRole('button', { name: 'Save Changes' }).click();
 
-  // Create New CTA
+  // Create New CTA ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
+  // 最初のダイアログを閉じる
+  await page.getByRole('button', { name: 'Close dialog' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA');
   await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
@@ -22,7 +24,7 @@ test('CTA', async ({ page }) => {
   await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
   await page.getByRole('button', { name: 'Publish' }).nth(1).click();
 
-  // Create New Post and Add CTA
+  // Create New Post and Add CTA ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
   await page.getByRole('button', { name: 'Add block' }).click();
   await page.getByPlaceholder('Search').fill('cta');
