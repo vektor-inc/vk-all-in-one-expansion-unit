@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+// const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test('CTA', async ({ page }) => {
   // login ///////////////////////////////////////////.
@@ -15,8 +16,9 @@ test('CTA', async ({ page }) => {
 
   // Create New CTA ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
-  // 最初のダイアログを閉じる
-  await page.getByRole('button', { name: 'Close dialog' }).click();
+
+  // 最初のダイアログを閉じる（ WorkFlow 上以外はダイアログが出ないのでローカルでは状況に応じてコメントアウト ）
+  // await page.getByRole('button', { name: 'Close dialog' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA');
   await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
@@ -35,6 +37,16 @@ test('CTA', async ({ page }) => {
   // *** CTAを選択するように促すメッセージが表示されることを確認
   const locator = page.locator('.veu-cta-block-edit-alert');
   await expect(locator).toContainText('Please select CTA from Setting sidebar.');
-});
 
-// npx playwright codegen "http://localhost:8889/wp-admin/post-new.php?post_type=cta" 
+  // CTAブロックに表示するCTAを選択
+  await page.getByText('Please select CTA from Setting sidebar.').click();
+//   await page.getByRole('combobox', { name: 'Select CTA' }).selectOption({label: 'Test CTA'});
+  await page.selectOption( 'role=combobox[name="Select CTA"i]', {
+	label: 'Test CTA',
+} );
+
+  // *** 作成したCTAが表示されることを確認
+  // const locator = page.locator('.veu-cta-block p');
+  // await expect(page.locator('.veu-cta-block p')).toContainText('This is Test CTA');
+
+});
