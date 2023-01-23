@@ -26,9 +26,13 @@ test('CTA', async ({ page }) => {
 
   // Create New Post and Add CTA ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
+  // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();
+  // CTAブロックを検索
   await page.getByPlaceholder('Search').fill('cta');
+  // CTAブロックを追加
   await page.getByRole('option', { name: 'CTA' }).click();
+  // *** CTAを選択するように促すメッセージが表示されることを確認
   const locator = page.locator('.veu-cta-block-edit-alert');
   await expect(locator).toContainText('Please select CTA from Setting sidebar.');
 });
