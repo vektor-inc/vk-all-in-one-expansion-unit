@@ -84,6 +84,7 @@
 						>
 							<SelectControl
 								label={ __( 'Select CTA', 'veu-block' ) }
+								id="veu-cta-block-select"
 								value={ postId }
 								options={ options }
 								onChange={ ( value )=>{ setAttributes({ postId: value }) } }
