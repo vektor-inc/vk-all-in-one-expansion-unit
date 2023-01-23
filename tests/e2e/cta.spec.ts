@@ -18,7 +18,8 @@ test('CTA', async ({ page }) => {
   await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
 
   // 最初のダイアログを閉じる（ WorkFlow 上以外はダイアログが出ないのでローカルでは状況に応じてコメントアウト ）
-//   await page.getByRole('button', { name: 'Close dialog' }).click();
+  await page.getByRole('button', { name: 'Close dialog' }).click();
+
   await page.getByRole('textbox', { name: 'Add title' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA');
   await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
