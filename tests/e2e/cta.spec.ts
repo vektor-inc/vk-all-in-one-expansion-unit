@@ -11,7 +11,7 @@ test('CTA', async ({ page }) => {
 
   // Activate CTA ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
-  await page.getByRole('checkbox', { name: 'Automatic Eye Catch insert Call To Action' }).check();
+  await page.getByLabel('Call To Action').check();
   await page.getByRole('button', { name: 'Save Changes' }).click();
 
   // Create New CTA ///////////////////////////////////////////.
@@ -49,5 +49,9 @@ test('CTA', async ({ page }) => {
 
   // *** 作成したCTAが表示されることを確認
   await expect(page.locator('.veu-cta-block p')).toContainText('This is Test CTA');
+
+});
+
+test('CTA Deleted', async ({ page }) => {
 
 });
