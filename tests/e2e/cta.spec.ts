@@ -15,6 +15,7 @@ test('CTA', async ({ page }) => {
   await page.getByRole('button', { name: 'Save Changes' }).click();
 
   // Put CTA ( Not registered ) ///////////////////////////////////////////.
+  // Got to New Post
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
   // 最初のダイアログを閉じる（ WorkFlow 上以外はダイアログが出ないのでローカルでは状況に応じてコメントアウト ）
   await page.getByRole('button', { name: 'Close dialog' }).click();
@@ -31,18 +32,21 @@ test('CTA', async ({ page }) => {
 
 
   // Create New CTA ///////////////////////////////////////////.
-  await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
 
+  // Go to New CTA
+  await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
+  // Input CTA title
   await page.getByRole('textbox', { name: 'Add title' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA');
   await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
+  // Input CTA content
   await page.getByRole('document', { name: 'Empty block; start writing or type forward slash to choose a block' }).first().fill('This is Test CTA');
+  // Publish CTA
   await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
   await page.getByRole('button', { name: 'Publish' }).nth(1).click();
-
   // 一応少し待つ。待たないとCTAを配置するテストでプルダウンの中に Test CTA が入っていなくて選択できない事がある。
   await page.waitForTimeout(1000);
-  // CTAが出来ているか一応確認
+  // Cheack CTA is created
   await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
 
   // Create New Post and Add CTA ///////////////////////////////////////////.
