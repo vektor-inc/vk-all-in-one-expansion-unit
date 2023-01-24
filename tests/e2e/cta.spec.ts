@@ -30,8 +30,16 @@ test('CTA', async ({ page }) => {
   // CTAブロックを追加
   await page.getByRole('option', { name: 'CTA' }).click();
 
-  // *** CTAが登録されていないメッセージが表示されることを確認
+  // ******* CTAが登録されていないメッセージが表示されることを確認
   await expect(page.locator('.veu-cta-block-edit-alert .alert-title')).toContainText('No CTA registered.');
+
+  // Save Check
+  await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
+  await page.getByRole('button', { name: 'Publish' }).nth(1).click();
+  await page.waitForTimeout(1000);
+  await page.getByRole('button', { name: 'Close panel' }).click();
+  await page.getByRole('region', { name: 'Editor settings' }).getByRole('button', { name: 'Post' }).click();
+  await page.getByRole('button', { name: 'Move to trash' }).click();
 
 
   // Create New CTA ///////////////////////////////////////////.
@@ -52,10 +60,13 @@ test('CTA', async ({ page }) => {
   // Cheack CTA is created
   await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
 
-  
+
   // Create New Post and Add CTA ///////////////////////////////////////////.
 
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
+  // Input Post with CTA title
+  await page.getByRole('textbox', { name: 'Add title' }).click();
+  await page.getByRole('textbox', { name: 'Add title' }).fill('Post with CTA');
   // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();
   // CTAブロックを検索
@@ -63,13 +74,13 @@ test('CTA', async ({ page }) => {
   // CTAブロックを追加
   await page.getByRole('option', { name: 'CTA' }).click();
 
-  // *** CTAを選択するように促すメッセージが表示されることを確認
+  // ******* CTAを選択するように促すメッセージが表示されることを確認
   await expect(page.locator('.veu-cta-block-edit-alert')).toContainText('Please select CTA from Setting sidebar.');
 
   // 作成済みのCTAを選択
   await page.locator('#veu-cta-block-select').selectOption({ label: 'Test CTA' });
 
-  // *** 作成したCTAが表示されることを確認
+  // ******* 作成したCTAが表示されることを確認
   await expect(page.locator('.veu-cta-block p')).toContainText('This is Test CTA');
 
   // 作成したCTAが配置された状態で保存
