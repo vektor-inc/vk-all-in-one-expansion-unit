@@ -68,6 +68,45 @@ function veu_print_block_editor_css() {
 }
 add_action( 'init', 'veu_print_block_editor_css' );
 
+/**
+ * CSS Tree Shaking Handles
+ * Tree Shaking の対象にするハンドル名
+ * 
+ * /inc/vk-css-optimize/config.php に書くと、
+ * Lightning や VK Blocks で CSS最適化が動いているのに、
+ * CSS最適化の有効化設定を停止してしまうとExUnitのCSSに最適化が適用されないのでこちらに記載
+ * 
+ * @param array $vk_css_tree_shaking_handles CSS Tree Shaking Handles.
+ */
+function veu_css_tree_shaking_handles( $vk_css_tree_shaking_handles ) {
+
+	$vk_css_tree_shaking_handles = array_merge(
+		$vk_css_tree_shaking_handles,
+		array(
+			'veu-cta',
+			'vkExUnit_common_style'
+		)
+	);
+	return $vk_css_tree_shaking_handles;
+}
+add_filter( 'vk_css_tree_shaking_handles', 'veu_css_tree_shaking_handles' );
+
+/**
+ * CSS Tree Shaking Exclude
+ *
+ * @param array $inidata CSS Tree Shaking Exclude Paramator.
+ */
+function veu_css_tree_shaking_exclude_class( $inidata ) {
+	$exclude_classes_array = array(
+		'page_top_btn',
+		'scrolled',
+	);
+	$inidata['class']      = array_merge( $inidata['class'], $exclude_classes_array );
+
+	return $inidata;
+}
+add_filter( 'css_tree_shaking_exclude', 'veu_css_tree_shaking_exclude_class' );
+
 /*
   Add vkExUnit js
 -------------------------------------------*/
