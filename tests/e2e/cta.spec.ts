@@ -51,7 +51,3 @@ test('CTA', async ({ page }) => {
   await expect(page.locator('.veu-cta-block p')).toContainText('This is Test CTA');
 
 });
-
-test('CTA Deleted', async ({ page }) => {
-
-});
