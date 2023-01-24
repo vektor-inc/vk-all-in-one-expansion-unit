@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 // const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test('CTA', async ({ page }) => {
+
   // login ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-login.php');
   await page.getByLabel('Username or Email Address').fill('admin');
@@ -10,11 +11,13 @@ test('CTA', async ({ page }) => {
   await page.getByLabel('Password').press('Enter');
 
   // Activate CTA ///////////////////////////////////////////.
+
   await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
   await page.getByLabel('Call To Action').check();
   await page.getByRole('button', { name: 'Save Changes' }).click();
 
   // Put CTA ( Not registered ) ///////////////////////////////////////////.
+
   // Got to New Post
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
   // 最初のダイアログを閉じる（ WorkFlow 上以外はダイアログが出ないのでローカルでは状況に応じてコメントアウト ）
@@ -49,7 +52,9 @@ test('CTA', async ({ page }) => {
   // Cheack CTA is created
   await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
 
+  
   // Create New Post and Add CTA ///////////////////////////////////////////.
+
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
   // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();
