@@ -97,12 +97,12 @@ test('CTA', async ({ page }) => {
   await page.locator('#cb-select-all-1').check();
   await page.locator('#bulk-action-selector-top').selectOption('trash');
   await page.locator('#doaction').click();
-
   // Add CTA 2 ///////////////////////////////////////////.
   // 登録済みのCTAが削除された場合のメッセージの確認用
   // CTAが存在しない状態の場合、CTAブロックは「CTA自体がない」というメッセージになるため、
   // ダミーで適当なCTAを登録しておく
-  await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
+//   await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
+  await page.locator('#wpbody-content').getByRole('link', { name: 'Add New' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA 2');
   await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
@@ -112,14 +112,14 @@ test('CTA', async ({ page }) => {
   await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
   await page.getByRole('button', { name: 'Publish' }).nth(1).click();
   // 一応少し待つ。待たないとCTAを配置するテストでプルダウンの中に Test CTA が入っていなくて選択できない事がある。
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(1500);
   // Cheack CTA is created
   await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
 
 
   // Deleted CTA Test ///////////////////////////////////////////.
 
-  await page.goto('http://localhost:8889/wp-login.php');
+  await page.goto('http://localhost:8889/wp-admin/edit.php');
   await page.getByRole('link', { name: '“Post with CTA” (Edit)' }).click();
   // ******* CTAが登録されていないメッセージが表示されることを確認
   await expect(page.locator('.alert-title')).toContainText('Specified CTA does not exist.');
