@@ -52,7 +52,7 @@ function veu_cta_block_setup() {
 		);
 		$cta_posts = get_posts( $args );
 
-		// CTA の選択肢の配列を作成
+		// CTA の選択肢の配列を作成.
 		$cta_options = array();
 
 		foreach ( $cta_posts as $cta_post ) {
@@ -62,7 +62,7 @@ function veu_cta_block_setup() {
 			);
 		}
 
-		// ランダムを先頭に追加
+		// ランダムを先頭に追加.
 		array_unshift(
 			$cta_options,
 			array(
@@ -71,7 +71,7 @@ function veu_cta_block_setup() {
 			)
 		);
 
-		// なんとなく「選択してください」を戦闘に追加
+		// 「選択してください」を先頭に追加.
 		array_unshift(
 			$cta_options,
 			array(
@@ -80,7 +80,7 @@ function veu_cta_block_setup() {
 			)
 		);
 
-		// CTA のリストをブロック側に送信
+		// CTA のリストをブロック側に送信.
 		wp_localize_script(
 			'veu-block',
 			'veuBlockOption',
@@ -89,7 +89,7 @@ function veu_cta_block_setup() {
 			)
 		);
 
-		// CTA のカスタムフィールドをブロックエディタで読めるように
+		// CTA のカスタムフィールドをブロックエディタで読めるように.
 		$args       = array(
 			'public' => true,
 		);
@@ -130,8 +130,14 @@ function veu_cta_block_callback( $attributes, $content ) {
 			$cta_post = get_post( $cta_id );
 
 			if ( ! empty( $cta_post ) ) {
+				$class_name = 'veu-cta-block';
+				if ( ! empty( $attributes['className'] ) ) {
+					$class_name .= ' ' . $attributes['className'];
+				}
 
-				$content .= '<div class="veu-cta-block ' . $attributes['className'] . '">';
+				// 最後に wp_kses_post でエスケープはしているが、wp_kses_post は style は通してしまうので、
+				// クラス名入力欄に " style="background-color:red" など入力されると通してしまうため esc_attr でエスケープ.
+				$content .= '<div class="' . esc_attr( $class_name  ) . '">';
 
 				// 本文に入力がある場合は本文を表示.
 				$cta_content = $cta_post->post_content;
@@ -219,6 +225,6 @@ function veu_cta_block_callback( $attributes, $content ) {
 		}
 	}
 
-	return $content;
+	return wp_kses_post( $content );
 
 }

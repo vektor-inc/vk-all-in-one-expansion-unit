@@ -33,9 +33,7 @@ foreach ( $vkExUnit_packages as $package ) :
 ?>
 " >
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' >
-				<?php _e( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ); ?>
-				</label>
+				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' ><?php echo $package['title']; ?></label>
 				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
 																						<?php
 																						if ( $active ) {

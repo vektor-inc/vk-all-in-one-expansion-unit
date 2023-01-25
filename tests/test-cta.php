@@ -87,4 +87,46 @@ class CTATest extends WP_UnitTestCase {
 
 		}
 	}
+
+	/**
+	 * Test veu_cta_block_callback()
+	 * 
+	 * @return void
+	 */
+	function test_veu_cta_block_callback() {
+		$test_posts                = array();
+
+		// テスト用のCTAを作成
+		$post                      = array(
+			'post_title'   => 'cta_published',
+			'post_type'    => 'CTA',
+			'post_status'  => 'publish',
+			'post_content' => 'CTA content',
+		);
+		$test_posts['cta_post_id'] = wp_insert_post( $post );
+
+		//  テスト配列
+		$test_array                = array(
+			'XSS test' => array(
+				'attributes' => array(
+					'postId'    => $test_posts['cta_post_id'],
+					'className' => '" onmouseover="alert(/XSS/)" style="background:red;"',
+				),
+				'expected'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
+			),
+		);
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_veu_cta_block_callback' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		$content = '';
+		foreach ( $test_array as $key => $test_value ) {
+			$actual = '';
+			$actual = veu_cta_block_callback( $test_value['attributes'], $content );
+			print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
+			print 'actual  ::::' . esc_attr( $actual ) . PHP_EOL;
+			$this->assertEquals( $test_value['expected'], $actual );
+		}
+	}
 }

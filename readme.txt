@@ -82,6 +82,8 @@ e.g.
 == Changelog ==
 
 [ Bug fix ][ Post List Ancestor ] Cope with XSS
+[ Bug fix ][ CTA ] Cope with XSS
+[ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
 
 = 9.85.0.1 =
 [ Specification Change ][ SNS : Share button ] Changed show/hide settings to only affect the_content and action hooks
