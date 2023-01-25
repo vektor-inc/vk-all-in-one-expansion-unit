@@ -21,9 +21,10 @@ test('CTA', async ({ page }) => {
   // Got to New Post
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
 
-  // 最初のダイアログを閉じる
-  // ※WorkFlow 上以外はダイアログが出ないのでローカルでは状況に応じてコメントアウト ）
-  await page.getByRole('button', { name: 'Close dialog' }).click();
+  // 最初の投稿ダイアログを閉じる
+  // ※ 環境に応じてダイアログが出たり出なかったりするので状況に応じて 有効・コメントアウトを切り替えてください ）
+  // ※ ダイアログが出ている場合だけ close ボタンを押す という処理が書ける人はぜひ書いてプルリクください。
+//   await page.getByRole('button', { name: 'Close dialog' }).click();
 
   // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();
