@@ -23,7 +23,7 @@ test('CTA', async ({ page }) => {
 
   // 最初のダイアログを閉じる
   // ※WorkFlow 上以外はダイアログが出ないのでローカルでは状況に応じてコメントアウト ）
-//   await page.getByRole('button', { name: 'Close dialog' }).click();
+  await page.getByRole('button', { name: 'Close dialog' }).click();
 
   // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();
@@ -101,7 +101,6 @@ test('CTA', async ({ page }) => {
   // 登録済みのCTAが削除された場合のメッセージの確認用
   // CTAが存在しない状態の場合、CTAブロックは「CTA自体がない」というメッセージになるため、
   // ダミーで適当なCTAを登録しておく
-//   await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=cta');
   await page.locator('#wpbody-content').getByRole('link', { name: 'Add New' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).click();
   await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA 2');
@@ -111,8 +110,8 @@ test('CTA', async ({ page }) => {
   // Publish CTA
   await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
   await page.getByRole('button', { name: 'Publish' }).nth(1).click();
-  // 一応少し待つ。待たないとCTAを配置するテストでプルダウンの中に Test CTA が入っていなくて選択できない事がある。
-  await page.waitForTimeout(1500);
+  // 一応少し待つ。
+  await page.waitForTimeout(1000);
   // Cheack CTA is created
   await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
 
@@ -124,5 +123,14 @@ test('CTA', async ({ page }) => {
   // ******* CTAが登録されていないメッセージが表示されることを確認
   await expect(page.locator('.alert-title')).toContainText('Specified CTA does not exist.');
 
+  // Delete "Post with CTA"
+  await page.waitForTimeout(500); // wait the "Move to trash" button
+  await page.getByRole('button', { name: 'Move to trash' }).click();
+
+  // Delete "Test CTA 2" ///////////////////////////////////////////.
+  await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
+  await page.getByRole('link', { name: '“Test CTA 2” (Edit)' }).click();
+  await page.waitForTimeout(500); // wait the "Move to trash" button
+  await page.getByRole('button', { name: 'Move to trash' }).click();
 
 });
