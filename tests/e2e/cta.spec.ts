@@ -44,7 +44,8 @@ test('CTA', async ({ page }) => {
   await page.getByRole('button', { name: 'Close panel' }).click();
   await page.getByRole('region', { name: 'Editor settings' }).getByRole('button', { name: 'Post' }).click();
   await page.getByRole('button', { name: 'Move to trash' }).click();
-
+  // 完了まで待つ（完了判定の書き方がわかったら書き換え）
+  await page.waitForTimeout(1000);
 
   // Create New CTA ///////////////////////////////////////////.
 
