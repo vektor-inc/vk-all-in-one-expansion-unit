@@ -178,7 +178,7 @@ class PageListAncestorTest extends WP_UnitTestCase {
 		print PHP_EOL;
 
         foreach ( $test_array as $title => $test ) {
-            $return  = str_replace( "'", '"' ,str_replace( array("\r\n", "\r", "\n", "\t" ), "", veu_pageListAncestor_block_callback( $test['attr'] ) ) );
+            $return  = str_replace( "'", '"' , str_replace( array( "\r\n", "\r", "\n", "\t" ), "", veu_pageListAncestor_block_callback( $test['attr'] ) ) );
             $correct = $test['correct'];
             print '[' . $title . ']' . PHP_EOL;
             print 'return------------------------------------' . PHP_EOL;
