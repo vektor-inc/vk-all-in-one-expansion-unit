@@ -139,29 +139,29 @@ class PageListAncestorTest extends WP_UnitTestCase {
         );
 
         $test_array = array(
-            'no-class' => array( 
+            'class-empty' => array( 
                 'attr'    => array(),
                 'correct' => '<section class="veu_pageList_ancestor veu_card veu_childPageIndex_block"><div class="veu_card_inner"><h3 class="pageList_ancestor_title veu_card_title"><a href="http://localhost:8889/?page_id=38">First Page</a></h3><ul class="pageList"><li class="page_item page-item-39 page_item_has_children current_page_ancestor current_page_parent"><a href="http://localhost:8889/?page_id=39">Second Page</a><ul class="children"><li class="page_item page-item-40 current_page_item"><a href="http://localhost:8889/?page_id=40">Third Page</a></li></ul></li></ul></div></section>'
             ),
-            'empty-class' => array( 
+            'class=""' => array( 
                 'attr'    => array(
                     'className' => '',
                 ),
                 'correct' => '<section class="veu_pageList_ancestor veu_card veu_childPageIndex_block "><div class="veu_card_inner"><h3 class="pageList_ancestor_title veu_card_title"><a href="http://localhost:8889/?page_id=38">First Page</a></h3><ul class="pageList"><li class="page_item page-item-39 page_item_has_children current_page_ancestor current_page_parent"><a href="http://localhost:8889/?page_id=39">Second Page</a><ul class="children"><li class="page_item page-item-40 current_page_item"><a href="http://localhost:8889/?page_id=40">Third Page</a></li></ul></li></ul></div></section>'
             ),
-            'class = "aaa"' => array( 
+            'class="aaa"' => array( 
                 'attr'    => array(
                     'className' => 'aaa',
                 ),
                 'correct' => '<section class="veu_pageList_ancestor veu_card veu_childPageIndex_block aaa"><div class="veu_card_inner"><h3 class="pageList_ancestor_title veu_card_title"><a href="http://localhost:8889/?page_id=38">First Page</a></h3><ul class="pageList"><li class="page_item page-item-39 page_item_has_children current_page_ancestor current_page_parent"><a href="http://localhost:8889/?page_id=39">Second Page</a><ul class="children"><li class="page_item page-item-40 current_page_item"><a href="http://localhost:8889/?page_id=40">Third Page</a></li></ul></li></ul></div></section>'
             ),
-            'class = "" onmouseover="alert(/XSS/)" style="background:red;""' => array( 
+            'class="" onmouseover="alert(/XSS/)" style="background:red;""' => array( 
                 'attr'    => array(
                     'className' => '" onmouseover="alert(/XSS/)" style="background:red;"',
                 ),
                 'correct' => '<section class="veu_pageList_ancestor veu_card veu_childPageIndex_block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;"><div class="veu_card_inner"><h3 class="pageList_ancestor_title veu_card_title"><a href="http://localhost:8889/?page_id=38">First Page</a></h3><ul class="pageList"><li class="page_item page-item-39 page_item_has_children current_page_ancestor current_page_parent"><a href="http://localhost:8889/?page_id=39">Second Page</a><ul class="children"><li class="page_item page-item-40 current_page_item"><a href="http://localhost:8889/?page_id=40">Third Page</a></li></ul></li></ul></div></section>'
             ),
-            'class = "" onmouseover="alert(/XSS/)" style="background:red;" ' => array( 
+            'class="" onmouseover="alert(/XSS/)" style="background:red;" ' => array( 
                 'attr'    => array(
                     'className' => '" onmouseover="alert(/XSS/)" style="background:red;" ',
                 ),
