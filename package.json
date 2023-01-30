@@ -50,5 +50,8 @@
   "homepage": "https://ex-unit.nagoya",
   "dependencies": {
     "smoothscroll-polyfill": "^0.4.4"
+  },
+  "volta": {
+    "node": "14.21.2"
   }
 }
