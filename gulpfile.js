@@ -89,7 +89,8 @@ gulp.task('block', function (done) {
 	// call-to-action
 	gulp.src('./inc/call-to-action/package/blocks/block.jsx')
 		.pipe(babel({
-			plugins: ['transform-react-jsx'	],
+			plugins: ['transform-react-jsx'
+							],
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
