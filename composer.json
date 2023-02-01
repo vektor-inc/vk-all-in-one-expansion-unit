@@ -8,7 +8,7 @@
 		}
 	],
 	"require-dev": {
-		"vektor-inc/vk-wp-unit-test-tools": "^0.10.0",
+		"vektor-inc/vk-wp-unit-test-tools": "^0.11.0",
 		"sirbrillig/phpcs-variable-analysis": "^2.8",
 		"wp-phpunit/wp-phpunit": "^6.1.1",
 		"yoast/phpunit-polyfills": "^1.0",

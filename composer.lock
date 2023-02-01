@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc28604d0d3de80e89ad9532af2984ee",
+    "content-hash": "12205699281f22d6d2110b0cd3206afc",
     "packages": [
         {
             "name": "vektor-inc/font-awesome-versions",
@@ -2057,16 +2057,16 @@
         },
         {
             "name": "vektor-inc/vk-wp-unit-test-tools",
-            "version": "0.10.0",
+            "version": "0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vektor-inc/vk-wp-unit-test-tools.git",
-                "reference": "5ce9eb397ba1ec76193664e6877288ffa22b9422"
+                "reference": "5db94c5bb1e97062ad50ee921677fd0724caf479"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vektor-inc/vk-wp-unit-test-tools/zipball/5ce9eb397ba1ec76193664e6877288ffa22b9422",
-                "reference": "5ce9eb397ba1ec76193664e6877288ffa22b9422",
+                "url": "https://api.github.com/repos/vektor-inc/vk-wp-unit-test-tools/zipball/5db94c5bb1e97062ad50ee921677fd0724caf479",
+                "reference": "5db94c5bb1e97062ad50ee921677fd0724caf479",
                 "shasum": ""
             },
             "type": "library",
@@ -2088,9 +2088,9 @@
             "description": "WordPress PHPUnit test tools",
             "support": {
                 "issues": "https://github.com/vektor-inc/vk-wp-unit-test-tools/issues",
-                "source": "https://github.com/vektor-inc/vk-wp-unit-test-tools/tree/0.10.0"
+                "source": "https://github.com/vektor-inc/vk-wp-unit-test-tools/tree/0.11.0"
             },
-            "time": "2021-09-03T10:14:12+00:00"
+            "time": "2023-02-01T04:52:02+00:00"
         },
         {
             "name": "wp-phpunit/wp-phpunit",
