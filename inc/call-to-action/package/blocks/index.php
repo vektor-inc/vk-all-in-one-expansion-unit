@@ -21,6 +21,18 @@ add_filter( 'veu_cta_content', 'capital_P_dangit', 11 );
   */
 function veu_cta_block_setup() {
 	if ( function_exists( 'register_block_type' ) ) {
+		wp_register_script(
+			'veu-block-cta',
+			plugin_dir_url( __FILE__ ) . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-cta', 'veu-block' );
+		}
+
 		register_block_type(
 			'vk-blocks/cta',
 			array(
@@ -37,7 +49,7 @@ function veu_cta_block_setup() {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-cta',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'veu_cta_block_callback',
 				'supports'        => array(),
@@ -51,12 +63,6 @@ function veu_cta_block_setup() {
 			'post_count' => -1,
 		);
 		$cta_posts = get_posts( $args );
-
-		if ( $cta_posts ) {
-			$cta_posts_exist = 'true';
-		} else {
-			$cta_posts_exist = 'false';
-		}
 
 		// CTA の選択肢の配列を作成.
 		$cta_options = array();
@@ -88,12 +94,10 @@ function veu_cta_block_setup() {
 
 		// CTA のリストをブロック側に送信.
 		wp_localize_script(
-			'veu-block',
+			'veu-block-cta',
 			'veuBlockOption',
 			array(
-				'cat_option'      => $cta_options,
-				'cta_posts_exist' => $cta_posts_exist,
-				'admin_url'       => admin_url(),
+				'cat_option' => $cta_options,
 			)
 		);
 
@@ -134,116 +138,100 @@ function veu_cta_block_callback( $attributes, $content ) {
 	// 各記事で非表示指定されていなかったら表示する
 	if ( 'disable' !== $post_config ) {
 		if ( ! empty( $attributes['postId'] ) ) {
+			$cta_id   = 'random' !== $attributes['postId'] ? $attributes['postId'] : Vk_Call_To_Action::cta_id_random();
+			$cta_post = get_post( $cta_id );
 
-			if ( 'random' === $attributes['postId'] ) {
-				$cta_id = Vk_Call_To_Action::cta_id_random();
-			} else {
-				$cta_id = $attributes['postId'];
-			}
+			if ( ! empty( $cta_post ) ) {
+				$class_name = 'veu-cta-block';
+				if ( ! empty( $attributes['className'] ) ) {
+					$class_name .= ' ' . $attributes['className'];
+				}
 
-			if ( ! empty( $cta_id ) ) {
+				// 最後に wp_kses_post でエスケープはしているが、wp_kses_post は style は通してしまうので、
+				// クラス名入力欄に " style="background-color:red" など入力されると通してしまうため esc_attr でエスケープ.
+				$content .= '<div class="' . esc_attr( $class_name  ) . '">';
 
-				$cta_post = get_post( $cta_id );
+				// 本文に入力がある場合は本文を表示.
+				$cta_content = $cta_post->post_content;
+				if ( ! empty( $cta_content ) && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
 
-				if ( 
-					( empty( $cta_post ) && 'random' !== $attributes['postId'] ) || 
-					( ! empty( $cta_post ) && ( 'trash' === $cta_post->post_status ) )
-					) {
-					// IDが指定されているが、指定されたIの CTA が存在しない場合はエラーを表示.
-					if ( is_user_logged_in() && current_user_can( 'edit_page', $post->ID ) ) {
-						// 編集権限があるユーザーにのみ表示
-						// is_admin() が効かない && block.jsx 側で指定idのCTAが存在するかどうか判定するために、
-						// wp.data.select( 'core' ).getEntityRecords( 'postType', 'post', { per_page: -1, include: postId } ) したが取得できなかったため、current_user_can で判定.
-						$content .= '<div class="alert alert-warning">';
-						$content .= '<div class="alert-title">' . __( 'Specified CTA does not exist.', 'vk-all-in-one-expansion-unit' ) . '</div>';
-						$content .= '</div>';
+					$content .= apply_filters( 'veu_cta_content', $cta_content );
+
+				} else {
+
+					$fa = '';
+
+					if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+						$fa = Vk_Font_Awesome_Versions::print_fa();
 					}
-				} elseif ( ! empty( $cta_post ) ) {
 
-					$content .= '<div class="veu-cta-block ' . esc_attr( $attributes['className'] ) . '">';
+					$btn_text   = get_post_meta( $cta_id, 'vkExUnit_cta_button_text', true );
+					$btn_before = get_post_meta( $cta_id, 'vkExUnit_cta_button_icon_before', true );
 
-					// 本文に入力がある場合は本文を表示.
-					$cta_content = $cta_post->post_content;
-					if ( ! empty( $cta_content ) && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
+					if ( $btn_before ) {
+						$btn_before = '<i class="' . $fa . esc_attr( $btn_before ) . ' font_icon"></i> ';
+					}
 
-						$content .= apply_filters( 'veu_cta_content', $cta_content );
+					$btn_after = get_post_meta( $cta_id, 'vkExUnit_cta_button_icon_after', true );
 
+					if ( $btn_after ) {
+						$btn_after = ' <i class="' . $fa . esc_attr( $btn_after ) . ' font_icon"></i>';
+					}
+
+					$url   = get_post_meta( $cta_id, 'vkExUnit_cta_url', true );
+					$text  = get_post_meta( $cta_id, 'vkExUnit_cta_text', true );
+					$text  = preg_replace( '/\n/', '<br/>', $text );
+					$imgid = get_post_meta( $cta_id, 'vkExUnit_cta_img', true );
+
+					$image_position = get_post_meta( $cta_id, 'vkExUnit_cta_img_position', true );
+
+					if ( ! $image_position ) {
+						$image_position = 'right';
+					}
+
+					$content .= '<section class="veu_cta" id="veu_cta-' . $cta_id . '">';
+					$content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
+					$content .= '<div class="cta_body">';
+
+					// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
+					$target_blank = get_post_meta( $cta_id, 'vkExUnit_cta_url_blank', true );
+
+					if ( 'window_self' !== $target_blank ) {
+						$target = ' target="_blank"';
 					} else {
-
-						$fa = '';
-
-						if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-							$fa = Vk_Font_Awesome_Versions::print_fa();
-						}
-
-						$btn_text   = get_post_meta( $cta_id, 'vkExUnit_cta_button_text', true );
-						$btn_before = get_post_meta( $cta_id, 'vkExUnit_cta_button_icon_before', true );
-
-						if ( $btn_before ) {
-							$btn_before = '<i class="' . $fa . esc_attr( $btn_before ) . ' font_icon"></i> ';
-						}
-
-						$btn_after = get_post_meta( $cta_id, 'vkExUnit_cta_button_icon_after', true );
-
-						if ( $btn_after ) {
-							$btn_after = ' <i class="' . $fa . esc_attr( $btn_after ) . ' font_icon"></i>';
-						}
-
-						$url   = get_post_meta( $cta_id, 'vkExUnit_cta_url', true );
-						$text  = get_post_meta( $cta_id, 'vkExUnit_cta_text', true );
-						$text  = preg_replace( '/\n/', '<br/>', $text );
-						$imgid = get_post_meta( $cta_id, 'vkExUnit_cta_img', true );
-
-						$image_position = get_post_meta( $cta_id, 'vkExUnit_cta_img_position', true );
-
-						if ( ! $image_position ) {
-							$image_position = 'right';
-						}
-
-						$content .= '<section class="veu_cta" id="veu_cta-' . $cta_id . '">';
-						$content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
-						$content .= '<div class="cta_body">';
-
-						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
-						$target_blank = get_post_meta( $cta_id, 'vkExUnit_cta_url_blank', true );
-
-						if ( 'window_self' !== $target_blank ) {
-							$target = ' target="_blank"';
-						} else {
-							$target = '';
-						}
-
-						if ( $imgid ) {
-							$content .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
-							$content .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
-							$content .= wp_get_attachment_image( $imgid, 'large' );
-							$content .= ( $url ) ? '</a>' : '';
-							$content .= '</div>';
-						}
-
-						$content .= '<div class="cta_body_txt ' . ( ( $imgid ) ? 'image_exist' : 'image_no' ) . '">';
-						$content .= wp_kses_post( do_shortcode( $text ) );
-						$content .= '</div>';
-
-						if ( $url && $btn_text ) {
-							$content .= '<div class="cta_body_link">';
-							$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
-							$content .= $btn_before . $btn_text . $btn_after;
-							$content .= '</a>';
-							$content .= '</div>';
-						}
-
-						$content .= '</div><!-- [ /.vkExUnit_cta_body ] -->';
-						$content .= '</section>';
+						$target = '';
 					}
 
+					if ( $imgid ) {
+						$content .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
+						$content .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
+						$content .= wp_get_attachment_image( $imgid, 'large' );
+						$content .= ( $url ) ? '</a>' : '';
+						$content .= '</div>';
+					}
+
+					$content .= '<div class="cta_body_txt ' . ( ( $imgid ) ? 'image_exist' : 'image_no' ) . '">';
+					$content .= wp_kses_post( do_shortcode( $text ) );
 					$content .= '</div>';
 
-					// Display Edit Button.
-					$url = get_edit_post_link( $cta_post->ID );
-					if ( $url ) {
-						$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+					if ( $url && $btn_text ) {
+						$content .= '<div class="cta_body_link">';
+						$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
+						$content .= $btn_before . $btn_text . $btn_after;
+						$content .= '</a>';
+						$content .= '</div>';
 					}
+
+					$content .= '</div><!-- [ /.vkExUnit_cta_body ] -->';
+					$content .= '</section>';
+				}
+
+				$content .= '</div>';
+
+				// Display Edit Button.
+				$url = get_edit_post_link( $cta_post->ID );
+				if ( $url ) {
+					$content .= '<div class="veu_adminEdit"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 				}
 			}
 		}

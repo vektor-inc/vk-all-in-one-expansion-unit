@@ -142,6 +142,18 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 add_action( 'init', 'veu_page_list_ancestor_block_setup', 15 );
 function veu_page_list_ancestor_block_setup() {
 	if ( function_exists( 'register_block_type' ) ){
+		wp_register_script(
+			'veu-block-page-list-ancestor',
+			plugin_dir_url( __FILE__ )  . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-page-list-ancestor', 'veu-block' );
+		}
+
 		register_block_type(
 			'vk-blocks/page-list-ancestor',
 			array(
@@ -154,7 +166,7 @@ function veu_page_list_ancestor_block_setup() {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-page-list-ancestor',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'veu_pageListAncestor_block_callback',
 				'supports' => [],
