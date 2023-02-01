@@ -105,9 +105,19 @@ class CTATest extends WP_UnitTestCase {
 		);
 		$test_posts['cta_post_id'] = wp_insert_post( $post );
 
+		// テスト用のCTAを作成
+		$page                      = array(
+			'post_title'   => 'Page',
+			'post_type'    => 'Page',
+			'post_status'  => 'publish',
+			'post_content' => 'Page',
+		);
+		$test_posts['page'] = wp_insert_post( $page );
+
 		// テスト配列
 		$test_array = array(
 			'XSS test'                    => array(
+				'target_url' => get_permalink( $test_posts['page'] ),
 				'attributes' => array(
 					'postId'    => $test_posts['cta_post_id'],
 					'className' => '" onmouseover="alert(/XSS/)" style="background:red;"',
