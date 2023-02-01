@@ -105,6 +105,16 @@ class CTATest extends WP_UnitTestCase {
 		);
 		$test_posts['cta_post_id'] = wp_insert_post( $post );
 
+		// テスト用のCTAを作成
+		$page                      = array(
+			'post_title'   => 'Page',
+			'post_type'    => 'Page',
+			'post_status'  => 'publish',
+			'post_content' => 'Page',
+		);
+		$test_posts['page'] = wp_insert_post( $page );
+
+
 		//  テスト配列
 		$test_array                = array(
 			'XSS test' => array(
@@ -112,7 +122,7 @@ class CTATest extends WP_UnitTestCase {
 					'postId'    => $test_posts['cta_post_id'],
 					'className' => '" onmouseover="alert(/XSS/)" style="background:red;"',
 				),
-				'expected'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
+				'correct'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
 			),
 		);
 
@@ -122,11 +132,11 @@ class CTATest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		$content = '';
 		foreach ( $test_array as $key => $test_value ) {
-			$actual = '';
+			$this->go_to( get_permalink( $test_posts['page'] ) );
 			$actual = veu_cta_block_callback( $test_value['attributes'], $content );
 			print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
 			print 'actual  ::::' . esc_attr( $actual ) . PHP_EOL;
-			$this->assertEquals( $test_value['expected'], $actual );
+			$this->assertEquals( $test_value['correct'], $actual );
 		}
 	}
 }
