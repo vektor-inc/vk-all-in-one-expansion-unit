@@ -7,8 +7,8 @@ test('CTA', async ({ page }) => {
   await page.goto('http://localhost:8889/wp-login.php');
   await page.getByLabel('Username or Email Address').fill('admin');
   await page.getByLabel('Username or Email Address').press('Tab');
-  await page.getByLabel('Password').fill('password');
-  await page.getByLabel('Password').press('Enter');
+  await page.getByLabel('Password', { exact: true } ).fill('password');
+  await page.getByLabel('Password', { exact: true } ).press('Enter');
 
   // Activate CTA ///////////////////////////////////////////.
 
