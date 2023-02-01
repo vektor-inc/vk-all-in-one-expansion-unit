@@ -90,16 +90,16 @@ class CTATest extends WP_UnitTestCase {
 
 	/**
 	 * Test veu_cta_block_callback()
-	 * 
+	 *
 	 * @return void
 	 */
 	function test_veu_cta_block_callback() {
-		$test_posts                = array();
+		$test_posts = array();
 
 		// テスト用のCTAを作成
 		$post                      = array(
 			'post_title'   => 'cta_published',
-			'post_type'    => 'CTA',
+			'post_type'    => 'cta',
 			'post_status'  => 'publish',
 			'post_content' => 'CTA content',
 		);
@@ -114,15 +114,40 @@ class CTATest extends WP_UnitTestCase {
 		);
 		$test_posts['page'] = wp_insert_post( $page );
 
-
-		//  テスト配列
-		$test_array                = array(
-			'XSS test' => array(
+		// テスト配列
+		$test_array = array(
+			'XSS test'                    => array(
+				'target_url' => get_permalink( $test_posts['page'] ),
 				'attributes' => array(
 					'postId'    => $test_posts['cta_post_id'],
 					'className' => '" onmouseover="alert(/XSS/)" style="background:red;"',
 				),
-				'correct'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
+				'expected'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
+			),
+			'No CTA specified'            => array(
+				'attributes' => array(
+					'postId' => null,
+				),
+				'expected'   => '',
+				// 未指定の場合は index.jsx の方で表示されるので、コールバック関数としては空を返す
+				// 'expected'   => '<div class="veu-cta-block-edit-alert alert alert-warning">Please select CTA from Setting sidebar.</div>',
+			),
+			'Deleted CTA'            => array(
+				'attributes' => array(
+					'postId' => 999999,
+				),
+				'delete_cta' => true,
+				'expected'   => '',
+				// Show only current_user_can( 'edit_page' ) user
+				// ログインして編集権限のあるユーザーの場合は表示される
+				// 'expected'   => '<div class="alert alert-warning"><div class="alert-title">Specified CTA does not exist.</div></div>',
+			),
+			'random CTA but No CTA Front' => array(
+				'attributes' => array(
+					'postId' => 'random',
+				),
+				'delete_cta' => true,
+				'expected'   => '',
 			),
 		);
 
@@ -132,11 +157,28 @@ class CTATest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		$content = '';
 		foreach ( $test_array as $key => $test_value ) {
-			$this->go_to( get_permalink( $test_posts['page'] ) );
+			if ( isset( $test_value['target_url'] ) ) {
+				$this->go_to( $test_value['target_url'] );
+			}
+			if ( ! empty( $test_value['delete_cta'] ) ) {
+				// 投稿タイプctaの投稿を全て取得
+				$args      = array(
+					'post_type'      => 'cta',
+					'posts_per_page' => -1,
+				);
+				$cta_posts = get_posts( $args );
+
+				if ( ! empty( $cta_posts ) ) {
+					foreach ( $cta_posts as $post ) {
+						wp_delete_post( $post->ID, true );
+					}
+				}
+			}
+			$actual = '';
 			$actual = veu_cta_block_callback( $test_value['attributes'], $content );
-			print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
-			print 'actual  ::::' . esc_attr( $actual ) . PHP_EOL;
-			$this->assertEquals( $test_value['correct'], $actual );
+			print 'expected ::' . $test_value['expected'] . PHP_EOL;
+			print 'actual ::::' . $actual . PHP_EOL;
+			$this->assertEquals( $test_value['expected'], $actual );
 		}
 	}
 }
