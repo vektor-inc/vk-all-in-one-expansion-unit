@@ -20,7 +20,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 }
 
 
-function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
+function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false ) {
 	global $is_pagewidget;
 
 	if ( $is_pagewidget ) {
@@ -54,8 +54,13 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 			'echo' => 0
 		) );
 
+		$classes = 'veu_pageList_ancestor veu_card';
+		if ( ! empty( $class_name ) ) {
+			$classes .= ' ' . $class_name;
+		}
+
 		if ( $children ) {
-			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card '. $classes . '">';
+			$pageList_ancestor_html  = '<section class="' . esc_attr( $classes ) . '">';
 			$pageList_ancestor_html .= '<div class="veu_card_inner">';
 			$pageList_ancestor_html .= '<h3 class="pageList_ancestor_title veu_card_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
@@ -69,7 +74,7 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	}
 	wp_reset_query();
 	wp_reset_postdata();
-	return $pageList_ancestor_html;
+	return wp_kses_post( $pageList_ancestor_html );
 }
 
 
