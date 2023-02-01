@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Post List Ancestor ] Cope with XSS
 [ Bug fix ][ CTA ] Cope with XSS
 [ Bug fix ][ CTA ] Fix Error under no CTA Registered
 [ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
