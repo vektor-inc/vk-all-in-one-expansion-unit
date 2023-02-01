@@ -129,6 +129,7 @@ test('CTA', async ({ page }) => {
   // Delete "Post with CTA"
   await page.waitForTimeout(500); // wait the "Move to trash" button
   await page.getByRole('button', { name: 'Move to trash' }).click();
+  await page.waitForTimeout(500); // これがないと次の goto が反応しない事がある
 
   // Delete "Test CTA 2" ///////////////////////////////////////////.
   await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=cta');
