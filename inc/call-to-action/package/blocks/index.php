@@ -64,6 +64,12 @@ function veu_cta_block_setup() {
 		);
 		$cta_posts = get_posts( $args );
 
+		if ( $cta_posts ) {
+			$cta_posts_exist = 'true';
+		} else {
+			$cta_posts_exist = 'false';
+		}
+
 		// CTA の選択肢の配列を作成.
 		$cta_options = array();
 
@@ -98,6 +104,8 @@ function veu_cta_block_setup() {
 			'veuBlockOption',
 			array(
 				'cat_option' => $cta_options,
+				'cta_posts_exist' => $cta_posts_exist,
+				'admin_url'       => admin_url(),
 			)
 		);
 
@@ -145,8 +153,20 @@ function veu_cta_block_callback( $attributes, $content ) {
 			if ( $cta_id !== null ) {
 
 				$cta_post = get_post( $cta_id );
-
-				if ( ! empty( $cta_post ) ) {
+				if ( 
+					( empty( $cta_post ) && 'random' !== $attributes['postId'] ) || 
+					( ! empty( $cta_post ) && ( 'trash' === $cta_post->post_status ) )
+					) {
+					// IDが指定されているが、指定されたIの CTA が存在しない場合はエラーを表示.
+					if ( is_user_logged_in() && current_user_can( 'edit_page', $post->ID ) ) {
+						// 編集権限があるユーザーにのみ表示
+						// is_admin() が効かない && block.jsx 側で指定idのCTAが存在するかどうか判定するために、
+						// wp.data.select( 'core' ).getEntityRecords( 'postType', 'post', { per_page: -1, include: postId } ) したが取得できなかったため、current_user_can で判定.
+						$content .= '<div class="alert alert-warning">';
+						$content .= '<div class="alert-title">' . __( 'Specified CTA does not exist.', 'vk-all-in-one-expansion-unit' ) . '</div>';
+						$content .= '</div>';
+					}
+				} elseif ( ! empty( $cta_post ) ) {
 					$class_name = 'veu-cta-block';
 					if ( ! empty( $attributes['className'] ) ) {
 						$class_name .= ' ' . $attributes['className'];
