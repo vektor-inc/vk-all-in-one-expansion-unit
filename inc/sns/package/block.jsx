@@ -17,7 +17,7 @@
   );
 
   registerBlockType("vk-blocks/share-button", {
-    title: __("Share button", "veu-block"),
+    title: __("Share button", "vk-all-in-one-expansion-unit"),
     icon: BlockIcon,
     category: "veu-block",
     edit: ({className}) => {

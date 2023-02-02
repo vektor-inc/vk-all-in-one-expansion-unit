@@ -15,7 +15,7 @@
   );
 
   registerBlockType("vk-blocks/contact-section", {
-    title: __("Contact section", "veu-block"),
+    title: __("Contact section", "vk-all-in-one-expansion-unit"),
     icon: BlockIcon,
 	category: "veu-block",
 	attributes: {
@@ -32,12 +32,12 @@
         <Fragment>
 			<InspectorControls>
 				<PanelBody
-					title={__("Display conditions", "veu-block")}
+					title={__("Display conditions", "vk-all-in-one-expansion-unit")}
 					initialOpen={false}
 				>
 					<BaseControl >
 						<CheckboxControl
-							label={__("Set telephone and mail form vertically", "veu-block")}
+							label={__("Set telephone and mail form vertically", "vk-all-in-one-expansion-unit")}
 							className={ "mb-1" }
 							checked={ vertical }
 							onChange={ (checked) => setAttributes({ vertical: checked }) }
