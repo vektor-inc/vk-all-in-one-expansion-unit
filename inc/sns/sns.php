@@ -277,7 +277,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['fbAccessToken']               = stripslashes( esc_attr( $input['fbAccessToken'] ) );
 	$output['ogImage']                     = esc_url( $input['ogImage'] );
 	$output['twitterId']                   = stripslashes( esc_attr( $input['twitterId'] ) );
-	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', $input['snsBtn_ignorePosts'] );
+	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', esc_attr( $input['snsBtn_ignorePosts'] ) );
 	$output['snsTitle_use_only_postTitle'] = ( isset( $input['snsTitle_use_only_postTitle'] ) && $input['snsTitle_use_only_postTitle'] ) ? true : false;
 	$output['enableOGTags']                = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
 	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
