@@ -15,7 +15,7 @@
 	);
 
 	registerBlockType("vk-blocks/child-page-index", {
-		title: __("Child page index", "veu-block"),
+		title: __("Child page index", "vk-all-in-one-expansion-unit"),
 		icon: BlockIcon,
 		category: "veu-block",
 		attributes: {
@@ -36,7 +36,7 @@
 			const { postId, className } = attributes;
 
 			// Make choice list of pages
-			let options = [ { label: __( "This Page", "veu-block" ), value: -1 } ]
+			let options = [ { label: __( "This Page", "vk-all-in-one-expansion-unit" ), value: -1 } ]
 
 			// Make choice list of pages
 			if ( pages !== undefined && pages !== null ) {
@@ -70,10 +70,10 @@
 				<Fragment>
 					<InspectorControls>
 						<PanelBody
-							label={ __( "Parent Page", "veu-block" ) }
+							label={ __( "Parent Page", "vk-all-in-one-expansion-unit" ) }
 						>
 							<SelectControl
-								label={ __( 'Parent Page', 'veu-block' ) }
+								label={ __( 'Parent Page', 'vk-all-in-one-expansion-unit' ) }
 								value={ postId }
 								options={ options }
 								onChange={ ( value )=>{ setAttributes({ postId: parseInt(value, 10) }) } }

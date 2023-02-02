@@ -24,7 +24,7 @@
   );
 
   registerBlockType("vk-blocks/sitemap", {
-    title: __( 'HTML Sitemap', 'veu-block' ),
+    title: __( 'HTML Sitemap', 'vk-all-in-one-expansion-unit' ),
     icon: BlockIcon,
     category: "veu-block",
     edit: ({className}) => {

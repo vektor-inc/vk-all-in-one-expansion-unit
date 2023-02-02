@@ -17,7 +17,7 @@
   );
 
   registerBlockType("vk-blocks/page-list-ancestor", {
-    title: __("Page list from ancestor", "veu-block"),
+    title: __("Page list from ancestor", "vk-all-in-one-expansion-unit"),
     icon: BlockIcon,
     category: "veu-block",
     edit: ({className}) => {

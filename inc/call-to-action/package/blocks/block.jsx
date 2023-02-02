@@ -15,7 +15,7 @@
 	);
 
 	registerBlockType("vk-blocks/cta", {
-		title: __("CTA", "veu-block"),
+		title: __("CTA", "vk-all-in-one-expansion-unit"),
 		icon: BlockIcon,
 		category: "veu-block",
 		attributes: {
@@ -48,15 +48,15 @@
 			if ( ctaPostsExist === 'false' ) {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
-						<div className="alert-title">{ __("No CTA registered.", "veu-block") }</div>
-						[ <a href={ adminURL + 'edit.php?post_type=cta' } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "veu-block") }</a> ]
+						<div className="alert-title">{ __("No CTA registered.", "vk-all-in-one-expansion-unit") }</div>
+						[ <a href={ adminURL + 'edit.php?post_type=cta' } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "vk-all-in-one-expansion-unit") }</a> ]
 					</div>
 				);
 			// If CTA is disabled.
 			} else if ( setting === 'disable' ) {
 				editContent = (
 					<div className="veu-cta-block-edit-alert">
-						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
+						{ __("Because displaying CTA is disabled. The block render no content.", "vk-all-in-one-expansion-unit") }
 					</div>
 				);
 			// Normal.
@@ -71,7 +71,7 @@
 			} else {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
-						{ __("Please select CTA from Setting sidebar.", "veu-block") }
+						{ __("Please select CTA from Setting sidebar.", "vk-all-in-one-expansion-unit") }
 					</div>
 				);
 			}
@@ -80,10 +80,10 @@
 				<Fragment>
 					<InspectorControls>
 						<PanelBody
-							label={ __( "CTA Setting", "veu-block" ) }
+							label={ __( "CTA Setting", "vk-all-in-one-expansion-unit" ) }
 						>
 							<SelectControl
-								label={ __( 'Select CTA', 'veu-block' ) }
+								label={ __( 'Select CTA', 'vk-all-in-one-expansion-unit' ) }
 								id="veu-cta-block-select"
 								value={ postId }
 								options={ options }

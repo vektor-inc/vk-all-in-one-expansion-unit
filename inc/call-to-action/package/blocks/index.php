@@ -21,6 +21,18 @@ add_filter( 'veu_cta_content', 'capital_P_dangit', 11 );
   */
 function veu_cta_block_setup() {
 	if ( function_exists( 'register_block_type' ) ) {
+		wp_register_script(
+			'veu-block-cta',
+			plugin_dir_url( __FILE__ ) . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-cta', 'vk-all-in-one-expansion-unit' );
+		}
+
 		register_block_type(
 			'vk-blocks/cta',
 			array(
@@ -37,7 +49,7 @@ function veu_cta_block_setup() {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-cta',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'veu_cta_block_callback',
 				'supports'        => array(),
@@ -88,10 +100,10 @@ function veu_cta_block_setup() {
 
 		// CTA のリストをブロック側に送信.
 		wp_localize_script(
-			'veu-block',
+			'veu-block-cta',
 			'veuBlockOption',
 			array(
-				'cat_option'      => $cta_options,
+				'cat_option' => $cta_options,
 				'cta_posts_exist' => $cta_posts_exist,
 				'admin_url'       => admin_url(),
 			)
@@ -134,17 +146,13 @@ function veu_cta_block_callback( $attributes, $content ) {
 	// 各記事で非表示指定されていなかったら表示する
 	if ( 'disable' !== $post_config ) {
 		if ( ! empty( $attributes['postId'] ) ) {
+			$cta_id   = 'random' !== $attributes['postId'] ? $attributes['postId'] : Vk_Call_To_Action::cta_id_random();
 
-			if ( 'random' === $attributes['postId'] ) {
-				$cta_id = Vk_Call_To_Action::cta_id_random();
-			} else {
-				$cta_id = $attributes['postId'];
-			}
-
-			if ( ! empty( $cta_id ) ) {
+			// Vk_Call_To_Action::cta_id_random() では該当する CTA がない場合 null が帰ってくる
+			// get_post( $id, $output, $filter ); は $id が null の場合は現在の投稿を返すのでそれを阻止する条件分岐
+			if ( $cta_id !== null ) {
 
 				$cta_post = get_post( $cta_id );
-
 				if ( 
 					( empty( $cta_post ) && 'random' !== $attributes['postId'] ) || 
 					( ! empty( $cta_post ) && ( 'trash' === $cta_post->post_status ) )
@@ -159,8 +167,14 @@ function veu_cta_block_callback( $attributes, $content ) {
 						$content .= '</div>';
 					}
 				} elseif ( ! empty( $cta_post ) ) {
+					$class_name = 'veu-cta-block';
+					if ( ! empty( $attributes['className'] ) ) {
+						$class_name .= ' ' . $attributes['className'];
+					}
 
-					$content .= '<div class="veu-cta-block ' . esc_attr( $attributes['className'] ) . '">';
+					// 最後に wp_kses_post でエスケープはしているが、wp_kses_post は style は通してしまうので、
+					// クラス名入力欄に " style="background-color:red" など入力されると通してしまうため esc_attr でエスケープ.
+					$content .= '<div class="' . esc_attr( $class_name  ) . '">';
 
 					// 本文に入力がある場合は本文を表示.
 					$cta_content = $cta_post->post_content;

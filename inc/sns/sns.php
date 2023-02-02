@@ -16,6 +16,25 @@ function vew_sns_block_setup() {
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
 	}
+
+	/*
+	すべてのブロックも含めた vkExUnit_editor_style.css を読み込んでいるのが、
+	編集画面でシェアボタンのアイコンフォントのファイルパスがズレて表示されなくなるので個別に読み込んでいる
+	*/
+	wp_register_style( 'vkExUnit_sns_editor_style', VEU_DIRECTORY_URI . '/assets/css/vkExUnit_sns_editor_style.css', array(), VEU_VERSION, 'all' );
+
+	wp_register_script(
+		'veu-block-share-button',
+		plugin_dir_url( __FILE__ )  . '/package/block.min.js',
+		array(),
+		VEU_VERSION,
+		true
+	);
+
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'veu-block-share-button', 'vk-all-in-one-expansion-unit' );
+	}
+
 	register_block_type(
 		'vk-blocks/share-button',
 		array(
@@ -32,7 +51,7 @@ function vew_sns_block_setup() {
 				veu_common_attributes()
 			),
 			'editor_style'    => 'vkExUnit_sns_editor_style',
-			'editor_script'   => 'veu-block',
+			'editor_script'   => 'veu-block-share-button',
 			'render_callback' => 'veu_sns_block_callback',
 			'supports'        => array(),
 		)

@@ -217,6 +217,17 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 add_action( 'init', 'veu_child_page_index_setup', 15 );
 function veu_child_page_index_setup() {
 	if ( function_exists( 'register_block_type' ) ) {
+		wp_register_script(
+			'veu-block-child-page-index',
+			plugin_dir_url( __FILE__ )  . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-child-page-index', 'vk-all-in-one-expansion-unit' );
+		}
+
 		register_block_type(
 			'vk-blocks/child-page-index',
 			array(
@@ -233,7 +244,7 @@ function veu_child_page_index_setup() {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-child-page-index',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'veu_childPageIndex_block_callback',
 				'supports'        => array(),

@@ -93,6 +93,18 @@ class VkExUnit_Contact {
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
 		}
+		wp_register_script(
+			'veu-block-contact-section',
+			plugin_dir_url( __FILE__ )  . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-contact-section', 'vk-all-in-one-expansion-unit' );
+		}
+
 		register_block_type(
 			'vk-blocks/contact-section',
 			array(
@@ -109,7 +121,7 @@ class VkExUnit_Contact {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-contact-section',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => array( __CLASS__, 'block_callback'),
 				'supports' => [],
