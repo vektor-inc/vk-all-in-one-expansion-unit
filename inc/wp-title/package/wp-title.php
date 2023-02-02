@@ -154,7 +154,7 @@ function vkExUnit_add_wp_title_page() {
 		<p>
 		<?php _e( 'Title tags for pages and post can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 			<?php if ( get_locale() === 'ja' ) { ?>
-				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url(VEU_DIRECTORY_URI); ?>/inc/wp-title/package/images/title-setting-from-page.png" alt="" />
+				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url( VEU_DIRECTORY_URI ); ?>/inc/wp-title/package/images/title-setting-from-page.png" alt="" />
 			<?php } ?>
 
 		</td>
@@ -162,7 +162,7 @@ function vkExUnit_add_wp_title_page() {
 </table>
 	<?php submit_button(); ?>
 </div>
-<?php
+	<?php
 }
 
 function vkExUnit_get_wp_title_options() {
