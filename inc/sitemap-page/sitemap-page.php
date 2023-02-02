@@ -305,7 +305,7 @@ function veu_sitemap_block_setup() {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'veu-block-sitemap', 'veu-block' );
+			wp_set_script_translations( 'veu-block-sitemap', 'vk-all-in-one-expansion-unit' );
 		}
 
 		register_block_type(

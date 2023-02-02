@@ -32,7 +32,7 @@ function vew_sns_block_setup() {
 	);
 
 	if ( function_exists( 'wp_set_script_translations' ) ) {
-		wp_set_script_translations( 'veu-block-share-button', 'veu-block' );
+		wp_set_script_translations( 'veu-block-share-button', 'vk-all-in-one-expansion-unit' );
 	}
 
 	register_block_type(

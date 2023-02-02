@@ -102,7 +102,7 @@ class VkExUnit_Contact {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'veu-block-contact-section', 'veu-block' );
+			wp_set_script_translations( 'veu-block-contact-section', 'vk-all-in-one-expansion-unit' );
 		}
 
 		register_block_type(

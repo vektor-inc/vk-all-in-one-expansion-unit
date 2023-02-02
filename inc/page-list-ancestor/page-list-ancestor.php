@@ -156,7 +156,7 @@ function veu_page_list_ancestor_block_setup() {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'veu-block-page-list-ancestor', 'veu-block' );
+			wp_set_script_translations( 'veu-block-page-list-ancestor', 'vk-all-in-one-expansion-unit' );
 		}
 
 		register_block_type(

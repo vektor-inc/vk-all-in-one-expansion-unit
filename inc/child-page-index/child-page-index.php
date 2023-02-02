@@ -225,7 +225,7 @@ function veu_child_page_index_setup() {
 			true
 		);
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'veu-block-child-page-index', 'veu-block' );
+			wp_set_script_translations( 'veu-block-child-page-index', 'vk-all-in-one-expansion-unit' );
 		}
 
 		register_block_type(
