@@ -27,7 +27,7 @@ function vkExUnit_get_wp_head_title() {
 	global $wp_query;
 	$post  = $wp_query->get_queried_object();
 	$sep   = ' | ';
-	$sep   = apply_filters( 'vkExUnit_get_wp_head_title', $sep );
+	$sep   = apply_filters( 'vkExUnit_get_wp_head_title_sep', $sep );
 	$title = '';
 	// Meta box から指定がある場合のタイトル整形（最優先）
 	if ( is_singular() || ( is_front_page() && 'page' === get_option( 'show_on_front' ) && get_option( 'page_on_front' ) ) ) {

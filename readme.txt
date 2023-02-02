@@ -85,6 +85,7 @@ e.g.
 [ Bug fix ][ CTA ] Cope with XSS
 [ Bug fix ][ CTA ] Fix Error under no CTA Registered
 [ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
+[ Bug fix ][ wp title ] Fix separator filter not work ( vkExUnit_get_wp_head_title_sep )
 
 = 9.85.0.1 =
 [ Specification Change ][ SNS : Share button ] Changed show/hide settings to only affect the_content and action hooks
