@@ -2,6 +2,16 @@
 
 class VEU_Metabox {
 
+	/**
+	 * @var array {
+	 *  slug : string
+	 *  cf_name : string
+	 *  title : string
+	 *  priority : int
+	 *  individual : bool
+	 *  poat_types : array
+	 * } $args
+	 */
 	public $args;
 	public $veu_get_common_options;
 
@@ -52,7 +62,7 @@ class VEU_Metabox {
 
 	public function add_sub_parent_metabox_insert_items() {
 		// 子ページリストやサイトマップなど「挿入アイテムの設定」を読み込むための子metaboxを読み込む
-		require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
+		require_once dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php';
 	}
 
 
