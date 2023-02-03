@@ -41,31 +41,61 @@ function src(list, option) {
  * transpile block editor js
  */
 gulp.task('block', function (done) {
-	gulp.src(
-			[
-				'./inc/sns/package/block.jsx',
-				'./inc/child-page-index/block.jsx',
-				'./inc/contact-section/block.jsx',
-				'./inc/page-list-ancestor/block.jsx',
-				'./inc/sitemap-page/block.jsx',
-				'./inc/call-to-action/package/blocks/block.jsx',
-			]
-		)
+	// sns
+	gulp.src('./inc/sns/package/block.jsx')
 		.pipe(babel({
-			plugins: [
-				'transform-react-jsx',
-				[
-					'@wordpress/babel-plugin-makepot',
-					{
-						"output": "languages/veu-block.pot"
-					}
-				]
-			],
+		plugins: ['transform-react-jsx'],
+		presets: ['@babel/env']
+	}))
+	.pipe(jsmin())
+	.pipe(concat('block.min.js'))
+	.pipe(gulp.dest('./inc/sns/package/'));
+	// child-page-index
+	gulp.src('./inc/child-page-index/block.jsx')
+		.pipe(babel({
+		plugins: [ 'transform-react-jsx'],
+		presets: ['@babel/env']
+	}))
+	.pipe(jsmin())
+	.pipe(concat('block.min.js'))
+	.pipe(gulp.dest('./inc/child-page-index/'));
+	// contact-section
+	gulp.src('./inc/contact-section/block.jsx')
+	.pipe(babel({
+		plugins: ['transform-react-jsx'],
+		presets: ['@babel/env']
+	}))
+	.pipe(jsmin())
+	.pipe(concat('block.min.js'))
+	.pipe(gulp.dest('./inc/contact-section/'));
+	// page-list-ancestor
+	gulp.src('./inc/page-list-ancestor/block.jsx')
+	.pipe(babel({
+		plugins: ['transform-react-jsx'],
+		presets: ['@babel/env']
+	}))
+	.pipe(jsmin())
+	.pipe(concat('block.min.js'))
+	.pipe(gulp.dest('./inc/page-list-ancestor/'));
+	// sitemap-page
+	gulp.src('./inc/sitemap-page/block.jsx')
+	.pipe(babel({
+		plugins: ['transform-react-jsx'],
+		presets: ['@babel/env']
+	}))
+	.pipe(jsmin())
+	.pipe(concat('block.min.js'))
+	.pipe(gulp.dest('./inc/sitemap-page/'));
+	// call-to-action
+	gulp.src('./inc/call-to-action/package/blocks/block.jsx')
+		.pipe(babel({
+			plugins: ['transform-react-jsx'
+							],
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
 		.pipe(concat('block.min.js'))
-		.pipe(gulp.dest('./assets/js/'));
+		.pipe(gulp.dest('./inc/call-to-action/package/blocks/'));
 	done();
 });
 

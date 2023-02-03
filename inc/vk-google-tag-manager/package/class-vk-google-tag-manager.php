@@ -160,7 +160,7 @@ function vk_gtm_head() {
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-$gtm_id');</script>
+})(window,document,'script','dataLayer','GTM-" . esc_html( $gtm_id ) . "');</script>
 <!-- End Google Tag Manager -->";
 
 		echo $gtm_head;
@@ -178,7 +178,7 @@ function vk_gtm_body() {
 		// GTM body コード
 		$gtm_body =
 		'<!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-' . $gtm_id . '"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-' . esc_html( $gtm_id ) . '"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->';
 

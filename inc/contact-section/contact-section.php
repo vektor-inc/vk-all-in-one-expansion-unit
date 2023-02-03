@@ -93,6 +93,18 @@ class VkExUnit_Contact {
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
 		}
+		wp_register_script(
+			'veu-block-contact-section',
+			plugin_dir_url( __FILE__ )  . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-contact-section', 'vk-all-in-one-expansion-unit' );
+		}
+
 		register_block_type(
 			'vk-blocks/contact-section',
 			array(
@@ -109,7 +121,7 @@ class VkExUnit_Contact {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-contact-section',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => array( __CLASS__, 'block_callback'),
 				'supports' => [],
@@ -425,7 +437,7 @@ class VkExUnit_Contact {
 			}
 
 			if ( wp_is_mobile() ) {
-				$cont .= '<a href="tel:' . $options['tel_number'] . '" >';
+				$cont .= '<a href="tel:' . esc_attr( $options['tel_number'] ) . '" >';
 			}
 			$cont .= '<span class="contact_txt_tel veu_color_txt_key">' . $tel_icon . esc_html( $options['tel_number'] ) . '</span>';
 			if ( wp_is_mobile() ) {
@@ -472,7 +484,7 @@ class VkExUnit_Contact {
 
 		$cont = apply_filters( 'vkExUnit_contact_custom', $cont );
 
-		return $cont;
+		return wp_kses_post( $cont );
 	}
 
 	public function shortcode() {

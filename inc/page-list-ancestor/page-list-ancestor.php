@@ -20,7 +20,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 }
 
 
-function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
+function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false ) {
 	global $is_pagewidget;
 
 	if ( $is_pagewidget ) {
@@ -54,8 +54,13 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 			'echo' => 0
 		) );
 
+		$classes = 'veu_pageList_ancestor veu_card';
+		if ( ! empty( $class_name ) ) {
+			$classes .= ' ' . $class_name;
+		}
+
 		if ( $children ) {
-			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card '. $classes . '">';
+			$pageList_ancestor_html  = '<section class="' . esc_attr( $classes ) . '">';
 			$pageList_ancestor_html .= '<div class="veu_card_inner">';
 			$pageList_ancestor_html .= '<h3 class="pageList_ancestor_title veu_card_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
@@ -69,7 +74,7 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	}
 	wp_reset_query();
 	wp_reset_postdata();
-	return $pageList_ancestor_html;
+	return wp_kses_post( $pageList_ancestor_html );
 }
 
 
@@ -142,6 +147,18 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 add_action( 'init', 'veu_page_list_ancestor_block_setup', 15 );
 function veu_page_list_ancestor_block_setup() {
 	if ( function_exists( 'register_block_type' ) ){
+		wp_register_script(
+			'veu-block-page-list-ancestor',
+			plugin_dir_url( __FILE__ )  . '/block.min.js',
+			array(),
+			VEU_VERSION,
+			true
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'veu-block-page-list-ancestor', 'vk-all-in-one-expansion-unit' );
+		}
+
 		register_block_type(
 			'vk-blocks/page-list-ancestor',
 			array(
@@ -154,7 +171,7 @@ function veu_page_list_ancestor_block_setup() {
 					),
 					veu_common_attributes()
 				),
-				'editor_script'   => 'veu-block',
+				'editor_script'   => 'veu-block-page-list-ancestor',
 				'editor_style'    => 'veu-block-editor',
 				'render_callback' => 'veu_pageListAncestor_block_callback',
 				'supports' => [],

@@ -478,7 +478,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return do_blocks( do_shortcode( $content ) );
 		}
 
+		/**
+		 * CTAの投稿IDをランダムに取得する
+		 *
+		 * @return int|bool cta_id or false
+		 */
 		public static function cta_id_random() {
+			$return = null;
 			// ランダムに抽出したCTAの投稿IDを返す
 			// CTAの投稿をランダムで１件取得
 			$args     = array(
@@ -488,8 +494,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 			$cta_post = get_posts( $args );
 			if ( $cta_post && isset( $cta_post[0] ) ) {
-				return $cta_post[0]->ID;
+				$return = $cta_post[0]->ID;
 			}
+			return $return;
 		}
 
 		public static function is_cta_id( $id = null ) {

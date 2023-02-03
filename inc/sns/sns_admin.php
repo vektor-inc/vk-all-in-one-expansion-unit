@@ -99,7 +99,7 @@ vk_the_post_type_check_list( $args );
 <input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="
 <?php
 if ( isset( $options['snsBtn_ignorePosts'] ) ) {
-	echo $options['snsBtn_ignorePosts'];}
+	echo esc_attr( $options['snsBtn_ignorePosts'] );}
 ?>
 " />
 <br/>

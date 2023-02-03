@@ -27,7 +27,7 @@ function vkExUnit_get_wp_head_title() {
 	global $wp_query;
 	$post  = $wp_query->get_queried_object();
 	$sep   = ' | ';
-	$sep   = apply_filters( 'vkExUnit_get_wp_head_title', $sep );
+	$sep   = apply_filters( 'vkExUnit_get_wp_head_title_sep', $sep );
 	$title = '';
 	// Meta box から指定がある場合のタイトル整形（最優先）
 	if ( is_singular() || ( is_front_page() && 'page' === get_option( 'show_on_front' ) && get_option( 'page_on_front' ) ) ) {
@@ -132,7 +132,7 @@ function vkExUnit_add_wp_title_page() {
 		<?php _e( 'However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 
-		<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo $options['extend_frontTitle']; ?>" />
+		<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo esc_attr( $options['extend_frontTitle'] ); ?>" />
 		<?php
 		$page_on_front = intval( get_option( 'page_on_front' ) );
 		if ( 'page' === get_option( 'show_on_front' ) && $page_on_front ) {
@@ -154,7 +154,7 @@ function vkExUnit_add_wp_title_page() {
 		<p>
 		<?php _e( 'Title tags for pages and post can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 			<?php if ( get_locale() === 'ja' ) { ?>
-				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url(VEU_DIRECTORY_URI); ?>/inc/wp-title/package/images/title-setting-from-page.png" alt="" />
+				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url( VEU_DIRECTORY_URI ); ?>/inc/wp-title/package/images/title-setting-from-page.png" alt="" />
 			<?php } ?>
 
 		</td>
@@ -162,7 +162,7 @@ function vkExUnit_add_wp_title_page() {
 </table>
 	<?php submit_button(); ?>
 </div>
-<?php
+	<?php
 }
 
 function vkExUnit_get_wp_title_options() {

@@ -15,7 +15,7 @@
 	);
 
 	registerBlockType("vk-blocks/cta", {
-		title: __("CTA", "veu-block"),
+		title: __("CTA", "vk-all-in-one-expansion-unit"),
 		icon: BlockIcon,
 		category: "veu-block",
 		attributes: {
@@ -30,6 +30,9 @@
 
 			// Make choice list of pages
 			const options = veuBlockOption.cat_option;
+			const ctaPostsExist = veuBlockOption.cta_posts_exist;
+			const adminURL = veuBlockOption.admin_url;
+
 			let setting = '';
 			if (
 				wp.data.select('core/editor') &&
@@ -38,15 +41,25 @@
 			) {
 				setting = wp.data.select('core/editor').getEditedPostAttribute('meta').vkexunit_cta_each_option;
 			}
-			
-    
+
             let editContent;
-            if ( setting === 'disable' ) {
+
+			// If no CTA registered.
+			if ( ctaPostsExist === 'false' ) {
 				editContent = (
-					<div className="veu-cta-block-edit-alert">
-						{ __("Because displaying CTA is disabled. The block render no content.", "veu-block") }
+					<div className="veu-cta-block-edit-alert alert alert-warning">
+						<div className="alert-title">{ __("No CTA registered.", "vk-all-in-one-expansion-unit") }</div>
+						[ <a href={ adminURL + 'edit.php?post_type=cta' } target="_blank" rel="noopener noreferrer">{ __("Register CTA", "vk-all-in-one-expansion-unit") }</a> ]
 					</div>
 				);
+			// If CTA is disabled.
+			} else if ( setting === 'disable' ) {
+				editContent = (
+					<div className="veu-cta-block-edit-alert">
+						{ __("Because displaying CTA is disabled. The block render no content.", "vk-all-in-one-expansion-unit") }
+					</div>
+				);
+			// Normal.
 			} else if ( postId !== '' &&  postId !== null &&  postId !== undefined ) {
 				editContent = (
 					<ServerSideRender
@@ -54,22 +67,24 @@
 						attributes={attributes}
 					/>
 				);
+			// New setqting.
 			} else {
 				editContent = (
 					<div className="veu-cta-block-edit-alert alert alert-warning">
-						{ __("Please select CTA from Setting sidebar.", "veu-block") }
+						{ __("Please select CTA from Setting sidebar.", "vk-all-in-one-expansion-unit") }
 					</div>
 				);
 			}
-			
+
 			return (
 				<Fragment>
 					<InspectorControls>
 						<PanelBody
-							label={ __( "CTA Setting", "veu-block" ) }
+							label={ __( "CTA Setting", "vk-all-in-one-expansion-unit" ) }
 						>
 							<SelectControl
-								label={ __( 'Select CTA', 'veu-block' ) }
+								label={ __( 'Select CTA', 'vk-all-in-one-expansion-unit' ) }
+								id="veu-cta-block-select"
 								value={ postId }
 								options={ options }
 								onChange={ ( value )=>{ setAttributes({ postId: value }) } }
