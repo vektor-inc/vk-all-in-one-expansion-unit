@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Main setting ] Fix php error
+
 = 9.86.0.0 =
 [ Bug fix ][ Post List Ancestor ] Cope with XSS
 [ Bug fix ][ CTA ] Cope with XSS
