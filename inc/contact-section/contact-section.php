@@ -437,7 +437,7 @@ class VkExUnit_Contact {
 			}
 
 			if ( wp_is_mobile() ) {
-				$cont .= '<a href="tel:' . $options['tel_number'] . '" >';
+				$cont .= '<a href="tel:' . esc_attr( $options['tel_number'] ) . '" >';
 			}
 			$cont .= '<span class="contact_txt_tel veu_color_txt_key">' . $tel_icon . esc_html( $options['tel_number'] ) . '</span>';
 			if ( wp_is_mobile() ) {
@@ -484,7 +484,7 @@ class VkExUnit_Contact {
 
 		$cont = apply_filters( 'vkExUnit_contact_custom', $cont );
 
-		return $cont;
+		return wp_kses_post( $cont );
 	}
 
 	public function shortcode() {

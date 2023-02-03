@@ -132,7 +132,7 @@ function vkExUnit_add_wp_title_page() {
 		<?php _e( 'However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 
-		<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo $options['extend_frontTitle']; ?>" />
+		<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo esc_attr( $options['extend_frontTitle'] ); ?>" />
 		<?php
 		$page_on_front = intval( get_option( 'page_on_front' ) );
 		if ( 'page' === get_option( 'show_on_front' ) && $page_on_front ) {

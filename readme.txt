@@ -87,6 +87,7 @@ e.g.
 [ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
 [ Bug fix ][ wp title ] Fix separator filter not work ( vkExUnit_get_wp_head_title_sep )
 [ Bug fix ][ wp title ] Fix cope with custom post types
+[ Bug fix ] Security Update
 
 = 9.85.0.1 =
 [ Specification Change ][ SNS : Share button ] Changed show/hide settings to only affect the_content and action hooks
