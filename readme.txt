@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-= 9.86.1.0 =
+= 9.86.2.0 =
 [ Bug fix ][ CTA ] Fix PHP error on no post page
 
 = 9.86.1.0 =
