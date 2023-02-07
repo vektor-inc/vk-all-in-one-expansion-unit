@@ -142,7 +142,11 @@ function veu_cta_block_callback( $attributes, $content ) {
 	$content = '';
 
 	global $post;
-	$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+	$post_config = 'disable';
+	if ( $post ){
+		$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+	}
+
 	// 各記事で非表示指定されていなかったら表示する
 	if ( 'disable' !== $post_config ) {
 		if ( ! empty( $attributes['postId'] ) ) {
