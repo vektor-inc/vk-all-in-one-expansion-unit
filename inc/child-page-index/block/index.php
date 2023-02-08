@@ -43,7 +43,16 @@ function veu_register_child_page_index_block() {
 }
 add_action( 'init', 'veu_register_child_page_index_block', 15 );
 
-function veu_child_page_index_block_callback( $attributes = array() ) {
+function veu_child_page_index_block_callback( $attributes, $content ) {
+
+    $attributes = wp_parse_args(
+		$attributes,
+		array(
+			'postId'    => -1,
+			'className' => '',
+		)
+	);
+
 	$classes = 'veu_childPageIndex_block';
 
 	if ( isset( $attributes['className'] ) ) {

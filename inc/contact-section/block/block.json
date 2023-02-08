@@ -4,7 +4,7 @@
 	"title": "Contact Section",
 	"category": "veu-block",
 	"description": "Display Contact Section",
-	"textdomain": "vk-blocks",
+	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {
         "vertical": {
             "type": "boolean",

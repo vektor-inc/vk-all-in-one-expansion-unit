@@ -48,6 +48,15 @@ function veu_register_contact_section_block() {
 add_action( 'init', 'veu_register_contact_section_block', 15 );
 
 function veu_contact_section_block_callback( $attributes, $content ) {
+
+    $attributes = wp_parse_args(
+		$attributes,
+		array(
+			'vertical'  => false,
+			'className' => '',
+		)
+	);
+
 	$classes = 'veu_contact_section_block';
 	if ( empty( $attributes['vertical'] ) ) {
 		$classes .= ' veu_contact-layout-horizontal';

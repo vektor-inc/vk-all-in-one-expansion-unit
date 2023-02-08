@@ -4,7 +4,7 @@
 	"title": "CTA",
 	"category": "veu-block",
 	"description": "Display CTA Content",
-	"textdomain": "vk-blocks",
+	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {
 		"postId": {
             "type": "string",

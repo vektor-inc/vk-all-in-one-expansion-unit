@@ -4,7 +4,7 @@
 	"title": "Child Page Index",
 	"category": "veu-block",
 	"description": "Page List of Child Paged",
-	"textdomain": "vk-blocks",
+	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {
 		"postId": {
 			"type": "number",

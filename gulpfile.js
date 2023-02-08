@@ -50,24 +50,6 @@ gulp.task('block', function (done) {
 	.pipe(jsmin())
 	.pipe(concat('block.min.js'))
 	.pipe(gulp.dest('./inc/sns/package/'));
-	// contact-section
-	gulp.src('./inc/contact-section/block.jsx')
-	.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/contact-section/'));
-	// page-list-ancestor
-	gulp.src('./inc/page-list-ancestor/block.jsx')
-	.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/page-list-ancestor/'));
 	// sitemap-page
 	gulp.src('./inc/sitemap-page/block.jsx')
 	.pipe(babel({
