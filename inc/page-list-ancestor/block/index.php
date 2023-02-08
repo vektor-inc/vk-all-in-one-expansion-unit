@@ -54,7 +54,7 @@ function veu_page_list_ancestor_block_callback( $attributes, $content ) {
 
 	$classes = 'veu_childPageIndex_block';
 
-	if ( isset($attributes['className']) ) {
+	if ( ! empty( ( $attributes['className'] ) ) ) {
 		$classes .= ' ' . $attributes['className'];
 	}
 
