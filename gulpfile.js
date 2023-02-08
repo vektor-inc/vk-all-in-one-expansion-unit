@@ -50,15 +50,6 @@ gulp.task('block', function (done) {
 	.pipe(jsmin())
 	.pipe(concat('block.min.js'))
 	.pipe(gulp.dest('./inc/sns/package/'));
-	// sitemap-page
-	gulp.src('./inc/sitemap-page/block.jsx')
-	.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/sitemap-page/'));
 	done();
 });
 

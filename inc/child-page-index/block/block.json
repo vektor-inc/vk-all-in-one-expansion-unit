@@ -3,7 +3,7 @@
 	"name": "vk-blocks/child-page-index",
 	"title": "Child Page Index",
 	"category": "veu-block",
-	"description": "Page List of Child Paged",
+	"description": "Page List of Child Page",
 	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {
 		"postId": {
