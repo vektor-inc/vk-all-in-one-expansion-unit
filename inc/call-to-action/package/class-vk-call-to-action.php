@@ -25,7 +25,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
-			require_once dirname( __FILE__ ) . '/blocks/index.php';
+			require_once dirname( __FILE__ ) . '/block/index.php';
 
 			/*
 			VEU_Metabox 内の get_post_type が実行タイミングによっては

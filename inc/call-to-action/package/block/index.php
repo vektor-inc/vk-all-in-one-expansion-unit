@@ -19,116 +19,119 @@ add_filter( 'veu_cta_content', 'capital_P_dangit', 11 );
  /**
   * CTA ブロックを追加
   */
-function veu_cta_block_setup() {
-	if ( function_exists( 'register_block_type' ) ) {
-		wp_register_script(
-			'veu-block-cta',
-			plugin_dir_url( __FILE__ ) . '/block.min.js',
-			array(),
-			VEU_VERSION,
-			true
-		);
+function veu_register_cta_block() {
 
-		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'veu-block-cta', 'vk-all-in-one-expansion-unit' );
-		}
+	$asset_file = include plugin_dir_path( __FILE__ ) . '/build/block.asset.php';
 
-		register_block_type(
-			'vk-blocks/cta',
-			array(
-				'attributes'      => array_merge(
-					array(
-						'className' => array(
-							'type'    => 'string',
-							'default' => '',
-						),
-						'postId'    => array(
-							'type'    => 'string',
-							'default' => '',
-						),
-					),
-					veu_common_attributes()
-				),
-				'editor_script'   => 'veu-block-cta',
-				'editor_style'    => 'veu-block-editor',
-				'render_callback' => 'veu_cta_block_callback',
-				'supports'        => array(),
-			)
-		);
+	wp_register_script(
+		'veu-block-cta',
+		plugin_dir_url( __FILE__ ) . '/build/block.js',
+		$asset_file['dependencies'],
+		VEU_VERSION,
+		true
+	);
 
-		// CTA のリストを取得
-		$args      = array(
-			'post_type'  => 'cta',
-			'nopaging'   => true,
-			'post_count' => -1,
-		);
-		$cta_posts = get_posts( $args );
+	wp_set_script_translations( 'veu-block-cta', 'vk-all-in-one-expansion-unit' );
 
-		if ( $cta_posts ) {
-			$cta_posts_exist = 'true';
-		} else {
-			$cta_posts_exist = 'false';
-		}
-
-		// CTA の選択肢の配列を作成.
-		$cta_options = array();
-
-		foreach ( $cta_posts as $cta_post ) {
-			$cta_options[] = array(
-				'value' => $cta_post->ID,
-				'label' => $cta_post->post_title,
-			);
-		}
-
-		// ランダムを先頭に追加.
-		array_unshift(
-			$cta_options,
-			array(
-				'value' => 'random',
-				'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
-			)
-		);
-
-		// 「選択してください」を先頭に追加.
-		array_unshift(
-			$cta_options,
-			array(
-				'value' => '',
-				'label' => __( 'Please Select', 'vk-all-in-one-expansion-unit' ),
-			)
-		);
-
-		// CTA のリストをブロック側に送信.
-		wp_localize_script(
-			'veu-block-cta',
-			'veuBlockOption',
-			array(
-				'cat_option' => $cta_options,
-				'cta_posts_exist' => $cta_posts_exist,
-				'admin_url'       => admin_url(),
-			)
-		);
-
-		// CTA のカスタムフィールドをブロックエディタで読めるように.
-		$args       = array(
-			'public' => true,
-		);
-		$post_types = get_post_types( $args, 'names' );
-
-		foreach ( $post_types  as $key => $post_type ) {
-			register_post_meta(
-				$post_type,
-				'vkexunit_cta_each_option',
+	register_block_type(
+		__DIR__,
+		array(
+			'attributes'      => array_merge(
 				array(
-					'show_in_rest' => true,
-					'single'       => true,
-					'type'         => 'string',
-				)
-			);
-		}
+					'className' => array(
+						'type'    => 'string',
+						'default' => '',
+					),
+					'postId'    => array(
+						'type'    => 'string',
+						'default' => '',
+					),
+				),
+				veu_common_attributes()
+			),
+			'editor_script'   => 'veu-block-cta',
+			'editor_style'    => 'veu-block-editor',
+			'render_callback' => 'veu_cta_block_callback',
+			'supports'        => array(),
+		)
+	);
+
+	// CTA のカスタムフィールドをブロックエディタで読めるように.
+	$args       = array(
+		'public' => true,
+	);
+	$post_types = get_post_types( $args, 'names' );
+
+	foreach ( $post_types  as $key => $post_type ) {
+		register_post_meta(
+			$post_type,
+			'vkexunit_cta_each_option',
+			array(
+				'show_in_rest' => true,
+				'single'       => true,
+				'type'         => 'string',
+			)
+		);
 	}
+
 }
-add_action( 'init', 'veu_cta_block_setup', 15 );
+add_action( 'init', 'veu_register_cta_block', 15 );
+
+function veu_cta_block_data() {
+	// CTA のリストを取得
+	$args      = array(
+		'post_type'  => 'cta',
+		'nopaging'   => true,
+		'post_count' => -1,
+	);
+	$cta_posts = get_posts( $args );
+
+	if ( $cta_posts ) {
+		$cta_posts_exist = 'true';
+	} else {
+		$cta_posts_exist = 'false';
+	}
+
+	// CTA の選択肢の配列を作成.
+	$cta_options = array();
+
+	foreach ( $cta_posts as $cta_post ) {
+		$cta_options[] = array(
+			'value' => $cta_post->ID,
+			'label' => $cta_post->post_title,
+		);
+	}
+
+	// ランダムを先頭に追加.
+	array_unshift(
+		$cta_options,
+		array(
+			'value' => 'random',
+			'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
+		)
+	);
+
+	// 「選択してください」を先頭に追加.
+	array_unshift(
+		$cta_options,
+		array(
+			'value' => '',
+			'label' => __( 'Please Select', 'vk-all-in-one-expansion-unit' ),
+		)
+	);
+
+	// CTA のリストをブロック側に送信.
+	wp_localize_script(
+		'veu-block-cta',
+		'veuBlockOption',
+		array(
+			'cat_option' => $cta_options,
+			'cta_posts_exist' => $cta_posts_exist,
+			'admin_url'       => admin_url(),
+		)
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'veu_cta_block_data' );
 
 function veu_cta_block_callback( $attributes, $content ) {
 	$attributes = wp_parse_args(

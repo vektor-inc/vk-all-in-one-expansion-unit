@@ -50,15 +50,6 @@ gulp.task('block', function (done) {
 	.pipe(jsmin())
 	.pipe(concat('block.min.js'))
 	.pipe(gulp.dest('./inc/sns/package/'));
-	// child-page-index
-	gulp.src('./inc/child-page-index/block.jsx')
-		.pipe(babel({
-		plugins: [ 'transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/child-page-index/'));
 	// contact-section
 	gulp.src('./inc/contact-section/block.jsx')
 	.pipe(babel({
@@ -86,16 +77,6 @@ gulp.task('block', function (done) {
 	.pipe(jsmin())
 	.pipe(concat('block.min.js'))
 	.pipe(gulp.dest('./inc/sitemap-page/'));
-	// call-to-action
-	gulp.src('./inc/call-to-action/package/blocks/block.jsx')
-		.pipe(babel({
-			plugins: ['transform-react-jsx'
-							],
-			presets: ['@babel/env']
-		}))
-		.pipe(jsmin())
-		.pipe(concat('block.min.js'))
-		.pipe(gulp.dest('./inc/call-to-action/package/blocks/'));
 	done();
 });
 
