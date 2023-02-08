@@ -74,8 +74,7 @@ export default function CTAEdit(props) {
                         onChange={ ( value )=>{ setAttributes({ postId: value }) } }
                     />
                 </PanelBody>
-            </InspectorControls>
-            
+            </InspectorControls>            
             <div {...blockProps}>
                 {editContent}
             </div>
