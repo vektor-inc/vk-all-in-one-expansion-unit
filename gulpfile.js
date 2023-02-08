@@ -121,9 +121,9 @@ gulp.task('sass', function(done) {
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
 	gulp.src( 
-		'./inc/call-to-action/package/_scss/*.scss',
+		'./inc/call-to-action/package/assets/_scss/*.scss',
 		{
-			base: './inc/call-to-action/package/_scss/'
+			base: './inc/call-to-action/package/assets/_scss/'
 		}
 	)
 		.pipe(sass())
@@ -134,7 +134,7 @@ gulp.task('sass', function(done) {
 		))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
-		.pipe(gulp.dest('./inc/call-to-action/package/css/'));
+		.pipe(gulp.dest('./inc/call-to-action/package/assets/css/'));
 	done();
 });
 

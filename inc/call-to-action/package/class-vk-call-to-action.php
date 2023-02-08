@@ -75,7 +75,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function enqueue_scripts() {
 			wp_enqueue_style(
 				'veu-cta',
-				plugin_dir_url( __FILE__ ) . 'css/style.css',
+				plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
 				array(),
 				VEU_VERSION
 			);
