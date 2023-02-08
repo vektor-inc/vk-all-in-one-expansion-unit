@@ -37,22 +37,6 @@ function src(list, option) {
 	}
 }
 
-/*
- * transpile block editor js
- */
-gulp.task('block', function (done) {
-	// sns
-	gulp.src('./inc/sns/package/block.jsx')
-		.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/sns/package/'));
-	done();
-});
-
 gulp.task("text-domain", function(done) {
 
 	// vk-admin
@@ -151,16 +135,6 @@ gulp.task('watch', function() {
 
 	gulp.watch(
 		[
-			'./inc/sns/package/block.jsx',
-			'./inc/child-page-index/block.jsx',
-			'./inc/contact-section/block.jsx',
-			'./inc/page-list-ancestor/block.jsx',
-			'./inc/sitemap-page/block.jsx'
-		],
-		gulp.series('block')
-	)
-	gulp.watch(
-		[
 			'./assets/_js/*.js',
 		],
 		gulp.series('scripts')
@@ -181,7 +155,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
+gulp.task('compile', gulp.series('scripts', 'sass'))
 gulp.task('dist', (done)=>{
   ps('bin/dist', (err, stdout, stderr)=>{
     console.log(stdout)
@@ -189,7 +163,7 @@ gulp.task('dist', (done)=>{
   })
 })
 
-gulp.task('build', gulp.series('scripts', 'sass', 'block', 'scripts_smooth'))
+gulp.task('build', gulp.series('scripts', 'sass', 'scripts_smooth'))
 
 // copy dist ////////////////////////////////////////////////
 

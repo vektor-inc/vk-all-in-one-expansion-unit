@@ -199,16 +199,6 @@ function veu_sns_icon_css( $options ) {
 }
 
 /**
- * Render Block
- *
- * @param array $attr : btn parametors.
- * @return string : sns dom.
- */
-function veu_sns_block_callback( $attr ) {
-	return veu_get_sns_btns( $attr );
-}
-
-/**
  * Share button html
  *
  * @param array $attr : class / position and so on.

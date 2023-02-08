@@ -48,24 +48,7 @@ function veu_sitemap_block_callback( $attributes, $content ) {
 		)
 	);
 
-	$classes = 'veu_childPageIndex_block';
+	$r = vkExUnit_sitemap( $attributes );
 
-	if ( isset( $attributes['className'] ) ) {
-		$classes .= ' ' . $attributes['className'];
-	}
-
-	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-		$classes = veu_add_common_attributes_class( $classes, $attributes );
-	}
-
-
-	$r = vkExUnit_sitemap( $attributes  );
-
-	if ( empty( $r ) ) {
-		if ( isset( $_GET['context'] ) ) {
-			return '<div class="alert alert-warning text-center ' . esc_attr( $classes ) . '">' . __( 'No Child Pages.', 'vk-all-in-one-expansion-unit' ) . '</div>';
-		}
-		return '';
-	}
 	return $r;
 }
