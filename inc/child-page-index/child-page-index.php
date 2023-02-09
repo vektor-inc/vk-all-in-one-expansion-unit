@@ -33,30 +33,6 @@ function veu_child_page_excerpt( $post ) {
 	return $page_excerpt;
 }
 
-function veu_childPageIndex_block_callback( $attributes = array() ) {
-	$classes = 'veu_childPageIndex_block';
-
-	if ( isset( $attributes['className'] ) ) {
-		$classes .= ' ' . $attributes['className'];
-	}
-
-	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-		$classes = veu_add_common_attributes_class( $classes, $attributes );
-	}
-
-	$postId = ( $attributes['postId'] > 0 ) ? $attributes['postId'] : get_the_ID();
-
-	$r = vkExUnit_childPageIndex_shortcode( $postId, $classes );
-
-	if ( empty( $r ) ) {
-		if ( isset( $_GET['context'] ) ) {
-			return '<div class="alert alert-warning text-center ' . esc_attr( $classes ) . '">' . __( 'No Child Pages.', 'vk-all-in-one-expansion-unit' ) . '</div>';
-		}
-		return '';
-	}
-	return $r;
-}
-
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 
@@ -214,42 +190,4 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 	do_action( 'vkExUnit_customField_Page_save_customField' );
 }
 
-add_action( 'init', 'veu_child_page_index_setup', 15 );
-function veu_child_page_index_setup() {
-	if ( function_exists( 'register_block_type' ) ) {
-		wp_register_script(
-			'veu-block-child-page-index',
-			plugin_dir_url( __FILE__ )  . '/block.min.js',
-			array(),
-			VEU_VERSION,
-			true
-		);
-		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'veu-block-child-page-index', 'vk-all-in-one-expansion-unit' );
-		}
-
-		register_block_type(
-			'vk-blocks/child-page-index',
-			array(
-				'attributes'      => array_merge(
-					array(
-						'className' => array(
-							'type'    => 'string',
-							'default' => '',
-						),
-						'postId'    => array(
-							'type'    => 'number',
-							'default' => -1,
-						),
-					),
-					veu_common_attributes()
-				),
-				'editor_script'   => 'veu-block-child-page-index',
-				'editor_style'    => 'veu-block-editor',
-				'render_callback' => 'veu_childPageIndex_block_callback',
-				'supports'        => array(),
-			)
-		);
-	}
-
-}
+require_once dirname( __FILE__ ) . '/block/index.php';

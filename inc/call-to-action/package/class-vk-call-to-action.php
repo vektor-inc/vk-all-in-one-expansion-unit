@@ -25,7 +25,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
-			require_once dirname( __FILE__ ) . '/blocks/index.php';
+			require_once dirname( __FILE__ ) . '/block/index.php';
 
 			/*
 			VEU_Metabox 内の get_post_type が実行タイミングによっては
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function enqueue_scripts() {
 			wp_enqueue_style(
 				'veu-cta',
-				plugin_dir_url( __FILE__ ) . 'css/style.css',
+				plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
 				array(),
 				VEU_VERSION
 			);

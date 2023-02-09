@@ -37,68 +37,6 @@ function src(list, option) {
 	}
 }
 
-/*
- * transpile block editor js
- */
-gulp.task('block', function (done) {
-	// sns
-	gulp.src('./inc/sns/package/block.jsx')
-		.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/sns/package/'));
-	// child-page-index
-	gulp.src('./inc/child-page-index/block.jsx')
-		.pipe(babel({
-		plugins: [ 'transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/child-page-index/'));
-	// contact-section
-	gulp.src('./inc/contact-section/block.jsx')
-	.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/contact-section/'));
-	// page-list-ancestor
-	gulp.src('./inc/page-list-ancestor/block.jsx')
-	.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/page-list-ancestor/'));
-	// sitemap-page
-	gulp.src('./inc/sitemap-page/block.jsx')
-	.pipe(babel({
-		plugins: ['transform-react-jsx'],
-		presets: ['@babel/env']
-	}))
-	.pipe(jsmin())
-	.pipe(concat('block.min.js'))
-	.pipe(gulp.dest('./inc/sitemap-page/'));
-	// call-to-action
-	gulp.src('./inc/call-to-action/package/blocks/block.jsx')
-		.pipe(babel({
-			plugins: ['transform-react-jsx'
-							],
-			presets: ['@babel/env']
-		}))
-		.pipe(jsmin())
-		.pipe(concat('block.min.js'))
-		.pipe(gulp.dest('./inc/call-to-action/package/blocks/'));
-	done();
-});
-
 gulp.task("text-domain", function(done) {
 
 	// vk-admin
@@ -140,9 +78,9 @@ gulp.task('sass', function(done) {
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
 	gulp.src( 
-		'./inc/call-to-action/package/_scss/*.scss',
+		'./inc/call-to-action/package/assets/_scss/*.scss',
 		{
-			base: './inc/call-to-action/package/_scss/'
+			base: './inc/call-to-action/package/assets/_scss/'
 		}
 	)
 		.pipe(sass())
@@ -153,7 +91,7 @@ gulp.task('sass', function(done) {
 		))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
-		.pipe(gulp.dest('./inc/call-to-action/package/css/'));
+		.pipe(gulp.dest('./inc/call-to-action/package/assets/css/'));
 	done();
 });
 
@@ -197,16 +135,6 @@ gulp.task('watch', function() {
 
 	gulp.watch(
 		[
-			'./inc/sns/package/block.jsx',
-			'./inc/child-page-index/block.jsx',
-			'./inc/contact-section/block.jsx',
-			'./inc/page-list-ancestor/block.jsx',
-			'./inc/sitemap-page/block.jsx'
-		],
-		gulp.series('block')
-	)
-	gulp.watch(
-		[
 			'./assets/_js/*.js',
 		],
 		gulp.series('scripts')
@@ -227,7 +155,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
+gulp.task('compile', gulp.series('scripts', 'sass'))
 gulp.task('dist', (done)=>{
   ps('bin/dist', (err, stdout, stderr)=>{
     console.log(stdout)
@@ -235,7 +163,7 @@ gulp.task('dist', (done)=>{
   })
 })
 
-gulp.task('build', gulp.series('scripts', 'sass', 'block', 'scripts_smooth'))
+gulp.task('build', gulp.series('scripts', 'sass', 'scripts_smooth'))
 
 // copy dist ////////////////////////////////////////////////
 

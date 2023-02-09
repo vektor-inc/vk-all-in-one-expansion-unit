@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix][ All Block ]Fix translate.
+[ Specification Change ][ All Block ] Fix Block Structure.
+
 = 9.86.2.0 =
 [ Bug fix ][ CTA ] Fix PHP error on no post page
 
