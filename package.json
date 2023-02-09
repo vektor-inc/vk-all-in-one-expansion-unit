@@ -33,7 +33,7 @@
 		"stop": "npx wp-env stop",
 		"lint": "npm run lint:cta && npm run lint:child-page-index && npm run lint:contact-section",
 		"lint:cta": "wp-scripts format inc/call-to-action/package/block/ && wp-scripts lint-js inc/call-to-action/package/block/ --fix",
-		"lint:child-page-index": "wp-scripts format inc/child-page-index/block/src && wp-scripts lint-js inc/child-page-index/block/src --fix",
+		"lint:child-page-index": "wp-scripts format inc/child-page-index/block/ && wp-scripts lint-js inc/child-page-index/block/ --fix",
 		"lint:contact-section": "wp-scripts format inc/contact-section/block/src && wp-scripts lint-jsinc/contact-section/block/src --fix",
 		"dist:github": "composer install --optimize-autoloader --prefer-dist --no-dev && npx gulp dist",
 		"dist:org": "composer install --optimize-autoloader --prefer-dist --no-dev",
