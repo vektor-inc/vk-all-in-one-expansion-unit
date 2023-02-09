@@ -56,10 +56,11 @@ export default withSelect( ( select ) => {
 		<>
 			<InspectorControls>
 				<PanelBody
-					label={ __(
+					title={ __(
 						'Parent Page',
 						'vk-all-in-one-expansion-unit'
 					) }
+					initialOpen={ true }
 				>
 					<SelectControl
 						label={ __(

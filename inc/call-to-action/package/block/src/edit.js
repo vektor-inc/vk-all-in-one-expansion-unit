@@ -85,10 +85,11 @@ export default function CTAEdit( props ) {
 		<>
 			<InspectorControls>
 				<PanelBody
-					label={ __(
+					title={ __(
 						'CTA Setting',
 						'vk-all-in-one-expansion-unit'
 					) }
+					initialOpen={ true }
 				>
 					<SelectControl
 						label={ __(
