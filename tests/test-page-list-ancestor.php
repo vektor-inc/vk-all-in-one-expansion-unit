@@ -147,7 +147,7 @@ class PageListAncestorTest extends WP_UnitTestCase {
                 'attr'    => array(
                     'className' => '',
                 ),
-                'correct' => '<section class="veu_pageList_ancestor veu_card veu_childPageIndex_block "><div class="veu_card_inner"><h3 class="pageList_ancestor_title veu_card_title"><a href="http://localhost:8889/?page_id=' . $first . '">First Page</a></h3><ul class="pageList"><li class="page_item page-item-' . $second . ' page_item_has_children current_page_ancestor current_page_parent"><a href="http://localhost:8889/?page_id=' . $second . '">Second Page</a><ul class="children"><li class="page_item page-item-' . $third . ' current_page_item"><a href="http://localhost:8889/?page_id=' . $third . '">Third Page</a></li></ul></li></ul></div></section>'
+                'correct' => '<section class="veu_pageList_ancestor veu_card veu_childPageIndex_block"><div class="veu_card_inner"><h3 class="pageList_ancestor_title veu_card_title"><a href="http://localhost:8889/?page_id=' . $first . '">First Page</a></h3><ul class="pageList"><li class="page_item page-item-' . $second . ' page_item_has_children current_page_ancestor current_page_parent"><a href="http://localhost:8889/?page_id=' . $second . '">Second Page</a><ul class="children"><li class="page_item page-item-' . $third . ' current_page_item"><a href="http://localhost:8889/?page_id=' . $third . '">Third Page</a></li></ul></li></ul></div></section>'
             ),
             'class="aaa"' => array( 
                 'attr'    => array(
@@ -178,7 +178,7 @@ class PageListAncestorTest extends WP_UnitTestCase {
 		print PHP_EOL;
 
         foreach ( $test_array as $title => $test ) {
-            $return  = str_replace( "'", '"' , str_replace( array( "\r\n", "\r", "\n", "\t" ), "", veu_pageListAncestor_block_callback( $test['attr'] ) ) );
+            $return  = str_replace( "'", '"' , str_replace( array( "\r\n", "\r", "\n", "\t" ), "", veu_page_list_ancestor_block_callback( $test['attr'], '' ) ) );
             $correct = $test['correct'];
             print '[' . $title . ']' . PHP_EOL;
             print 'return------------------------------------' . PHP_EOL;
