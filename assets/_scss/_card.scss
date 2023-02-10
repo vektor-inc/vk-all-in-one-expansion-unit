@@ -1,21 +1,21 @@
 .veu_card {
-	border: 3px solid var(--vk-color-border-light);
+	border: 3px solid var(--wp--preset--color--border-normal, rgba(0,0,0,0.05));
 	border-radius: var(--vk-size-radius);
 	.veu_card_inner {
 		position: relative;
 		display: block;
 		overflow: hidden;
 		padding: 1.5rem;
-		box-shadow: inset 0px 0px 0px 1px var(--vk-color-border-zuru);
+		// box-shadow: inset 0px 0px 0px 1px var(--vk-color-border-zuru);
+		box-shadow: inset 0px 0px 0px 1px var(--wp--preset--color--border-normal, rgba(255,255,255,0.8));
 	}
 	.veu_card_title {
-		color: $color_font_default;
 		font-size: 16px;
 		line-height: 1.4;
 		padding: 0 0 0.4em;
 		margin: 0 0 1em;
 		display: block;
-		border-bottom: $border_primary;
+		border-bottom: solid 1px var(--wp--preset--color--border-normal, #e5e5e5);
 		/* ↓ Lightninng Pro の見出し変更機能を打ち消し */
 		border-top: none;
 		border-left: none;
@@ -26,9 +26,6 @@
 		box-shadow: unset;
 		border-radius:unset;
 		text-align: left;
-		a {
-			color: $color_font_default;
-		}
 		&::before,
 		&::after {
 			content: "";

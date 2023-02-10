@@ -26,12 +26,12 @@
 		margin-bottom: 1em;
 		width: 30%;
 		height: auto;
-		border: solid 1px #ddd;
+		border: solid 1px var(--wp--preset--color--border-normal, #ddd);
 	}
 	.childPage_list_body {
 		position: relative;
 		overflow: hidden;
-		color: #333;
+		// color: #333;
 		font-size: 14px;
 		height: 100%;
 		&:hover {
@@ -39,6 +39,7 @@
 		}
 	}
 	.childPage_list_text {
+		margin-top:0;
 		overflow: hidden;
 		line-height: 1.5em;
 		margin-bottom: 3.5em;

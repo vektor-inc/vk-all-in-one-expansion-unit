@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ HTML Sitemap ] Delete text font color
+
 = 9.87.0.1 =
 [ Specification Change ][ All Block ] Fix Block Structure ( Cope with WordPress 6.2 ).
  Bug fix][ All Block ]Fix translate.
