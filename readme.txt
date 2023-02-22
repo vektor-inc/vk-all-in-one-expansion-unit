@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ CSS Customize ] Fix cope with XSS in CSS form
+
 = 9.87.0.1 =
 [ Specification Change ][ All Block ] Fix Block Structure ( Cope with WordPress 6.2 ).
  Bug fix][ All Block ]Fix translate.
