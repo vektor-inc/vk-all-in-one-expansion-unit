@@ -6,7 +6,7 @@
 	<?php if ( get_locale() == 'ja' ) { ?>
 		<p>CSSのカスタマイズについては、<a href="https://www.vektor-inc.co.jp/post/css_customize/" target="_blank">こちらのページ</a>を参照してください。</p>
 	<?php } ?>
-	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="template">
+	<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" id="template">
 		<textarea name="bv-css-css" cols="70" rows="10" id="newcontent"><?php echo esc_attr( $data['customCss'] ); ?></textarea>
 		<?php wp_nonce_field( 'biz-vektor-css-submit', 'biz-vektor-css-nonce' ); ?>
 		<p class="submit">
