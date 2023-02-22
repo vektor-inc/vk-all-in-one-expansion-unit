@@ -1,14 +1,14 @@
 <?php
 /**
- * Class HeadTitleTest
+ * Class WpTitleTest
  *
  * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
 /**
- * SEO title test case.
+ * wp title test case.
  */
-class HeadTitleTest extends WP_UnitTestCase {
+class WpTitleTest extends WP_UnitTestCase {
 
 	/**
 	 * PHP Unit テストにあたって、各種投稿やカスタム投稿タイプ、カテゴリーを登録します。
