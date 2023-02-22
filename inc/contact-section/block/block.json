@@ -6,10 +6,10 @@
 	"description": "Display Contact Section",
 	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {
-        "vertical": {
-            "type": "boolean",
+		"vertical": {
+			"type": "boolean",
 			"default": false
-        }
+		}
 	},
 	"supports": {
 		"className": true

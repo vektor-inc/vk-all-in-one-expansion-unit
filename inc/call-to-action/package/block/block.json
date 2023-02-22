@@ -7,8 +7,8 @@
 	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {
 		"postId": {
-            "type": "string",
-            "default": ""
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
