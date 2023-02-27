@@ -285,7 +285,7 @@ class vExUnit_Ads {
 </dl>
 </td></tr>
 <tr>
-<th>表示する投稿タイプ</th>
+<th><?php echo esc_html( 'Post type to display', 'vk-all-in-one-expansion-unit' );?></th>
 <td>
 		<?php
 		$args = array(

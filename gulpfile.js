@@ -37,38 +37,6 @@ function src(list, option) {
 	}
 }
 
-/*
- * transpile block editor js
- */
-gulp.task('block', function (done) {
-	gulp.src(
-			[
-				'./inc/sns/package/block.jsx',
-				'./inc/child-page-index/block.jsx',
-				'./inc/contact-section/block.jsx',
-				'./inc/page-list-ancestor/block.jsx',
-				'./inc/sitemap-page/block.jsx',
-				'./inc/call-to-action/package/blocks/block.jsx',
-			]
-		)
-		.pipe(babel({
-			plugins: [
-				'transform-react-jsx',
-				[
-					'@wordpress/babel-plugin-makepot',
-					{
-						"output": "languages/veu-block.pot"
-					}
-				]
-			],
-			presets: ['@babel/env']
-		}))
-		.pipe(jsmin())
-		.pipe(concat('block.min.js'))
-		.pipe(gulp.dest('./assets/js/'));
-	done();
-});
-
 gulp.task("text-domain", function(done) {
 
 	// vk-admin
@@ -110,9 +78,9 @@ gulp.task('sass', function(done) {
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
 	gulp.src( 
-		'./inc/call-to-action/package/_scss/*.scss',
+		'./inc/call-to-action/package/assets/_scss/*.scss',
 		{
-			base: './inc/call-to-action/package/_scss/'
+			base: './inc/call-to-action/package/assets/_scss/'
 		}
 	)
 		.pipe(sass())
@@ -123,7 +91,7 @@ gulp.task('sass', function(done) {
 		))
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
-		.pipe(gulp.dest('./inc/call-to-action/package/css/'));
+		.pipe(gulp.dest('./inc/call-to-action/package/assets/css/'));
 	done();
 });
 
@@ -167,16 +135,6 @@ gulp.task('watch', function() {
 
 	gulp.watch(
 		[
-			'./inc/sns/package/block.jsx',
-			'./inc/child-page-index/block.jsx',
-			'./inc/contact-section/block.jsx',
-			'./inc/page-list-ancestor/block.jsx',
-			'./inc/sitemap-page/block.jsx'
-		],
-		gulp.series('block')
-	)
-	gulp.watch(
-		[
 			'./assets/_js/*.js',
 		],
 		gulp.series('scripts')
@@ -189,12 +147,15 @@ gulp.task('watch', function() {
 		],
 		gulp.series('scripts_smooth')
 	)
-	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
-	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
+	gulp.watch( [
+		'./assets/_scss/**/*.scss',
+		'./inc/call-to-action/package/_scss/*.scss',
+		'./inc/pagetop-btn/assets/_scss/*.scss',
+	], gulp.series('sass'))
 });
 
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
+gulp.task('compile', gulp.series('scripts', 'sass'))
 gulp.task('dist', (done)=>{
   ps('bin/dist', (err, stdout, stderr)=>{
     console.log(stdout)
@@ -202,7 +163,7 @@ gulp.task('dist', (done)=>{
   })
 })
 
-gulp.task('build', gulp.series('scripts', 'sass', 'block', 'scripts_smooth'))
+gulp.task('build', gulp.series('scripts', 'sass', 'scripts_smooth'))
 
 // copy dist ////////////////////////////////////////////////
 

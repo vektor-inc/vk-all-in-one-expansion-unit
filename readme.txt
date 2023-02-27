@@ -2,10 +2,10 @@
 Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 5.3.0
-Tested up to: 6.0.2
-Requires PHP: 7.2
-Stable tag: 9.84.1.0
+Requires at least: 5.9.0
+Tested up to: 6.1
+Requires PHP: 7.4
+Stable tag: 9.87.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,38 @@ e.g.
 == Changelog ==
 
 [ Bug fix ] Cope with PHP8.1
+
+= 9.87.1.0 =
+[ Bug fix ][ CSS Customize ] Fix cope with XSS in CSS form
+
+= 9.87.0.1 =
+[ Specification Change ][ All Block ] Fix Block Structure ( Cope with WordPress 6.2 ).
+ Bug fix][ All Block ]Fix translate.
+
+= 9.86.2.0 =
+[ Bug fix ][ CTA ] Fix PHP error on no post page
+
+= 9.86.1.0 =
+[ Bug fix ][ Main setting ] Fix php error
+
+= 9.86.0.0 =
+[ Bug fix ][ Post List Ancestor ] Cope with XSS
+[ Bug fix ][ CTA ] Cope with XSS
+[ Bug fix ][ CTA ] Fix Error under no CTA Registered
+[ Bug fix ][ CSS Optimize ] Fix Tree Shaking and Preload.
+[ Bug fix ][ wp title ] Fix separator filter not work ( vkExUnit_get_wp_head_title_sep )
+[ Bug fix ][ wp title ] Fix cope with custom post types
+[ Bug fix ] Security Update
+
+= 9.85.0.1 =
+[ Specification Change ][ SNS : Share button ] Changed show/hide settings to only affect the_content and action hooks
+[ Specification Change ][ SNS/FollowMe ] Moove setting position
+
+= 9.84.3.0 =
+[ Other ][ CTA ] Edit button position tuning
+
+= 9.84.2.0 =
+[ Specification Change ][ Default Thumbnail ] Change to default active
 
 = 9.84.1.0 =
 [ Bug fix ][ Google Analytics ] Fix PHP error in 9.82.0.0

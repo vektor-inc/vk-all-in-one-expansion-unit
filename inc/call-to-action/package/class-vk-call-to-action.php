@@ -25,7 +25,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
-			require_once dirname( __FILE__ ) . '/blocks/index.php';
+			require_once dirname( __FILE__ ) . '/block/index.php';
 
 			/*
 			VEU_Metabox 内の get_post_type が実行タイミングによっては
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function enqueue_scripts() {
 			wp_enqueue_style(
 				'veu-cta',
-				plugin_dir_url( __FILE__ ) . 'css/style.css',
+				plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
 				array(),
 				VEU_VERSION
 			);
@@ -478,7 +478,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return do_blocks( do_shortcode( $content ) );
 		}
 
+		/**
+		 * CTAの投稿IDをランダムに取得する
+		 *
+		 * @return int|bool cta_id or false
+		 */
 		public static function cta_id_random() {
+			$return = null;
 			// ランダムに抽出したCTAの投稿IDを返す
 			// CTAの投稿をランダムで１件取得
 			$args     = array(
@@ -488,8 +494,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 			$cta_post = get_posts( $args );
 			if ( $cta_post && isset( $cta_post[0] ) ) {
-				return $cta_post[0]->ID;
+				$return = $cta_post[0]->ID;
 			}
+			return $return;
 		}
 
 		public static function is_cta_id( $id = null ) {

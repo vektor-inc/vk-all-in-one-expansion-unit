@@ -70,10 +70,16 @@
 </td>
 </tr>
 
+<?php
+/**********************************************************
+ * SNS Buttons
+ */
+?>
+
 <tr>
 <th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label>
-
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Automatic insertion', 'vk-all-in-one-expansion-unit' ); ?></label>
+<p><?php _e( 'Automatically insert social bookmarks (share buttons and tweet buttons) into the body content field or specified action hooks.', 'vk-all-in-one-expansion-unit' ); ?></p>
 <dl>
 <dt><?php _e( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
@@ -93,7 +99,7 @@ vk_the_post_type_check_list( $args );
 <input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="
 <?php
 if ( isset( $options['snsBtn_ignorePosts'] ) ) {
-	echo $options['snsBtn_ignorePosts'];}
+	echo esc_attr( $options['snsBtn_ignorePosts'] );}
 ?>
 " />
 <br/>
@@ -173,23 +179,27 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 </ul>
 </td>
 </tr>
-
-<tr>
-<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
-<dl>
-<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
-<dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
-</dl>
-</td>
-</tr>
-
 <tr>
 <th><?php _e( 'Entry Count', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable" <?php if($options['entry_count']=='disable'){echo 'checked';} ?> /><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" <?php if($options['entry_count']=='get'){echo 'checked';} ?> /><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" <?php if($options['entry_count']=='post'){echo 'checked';} ?> /><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable" 
+	<?php
+	if ( $options['entry_count'] == 'disable' ) {
+		echo 'checked';}
+	?>
+	 /><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" 
+	<?php
+	if ( $options['entry_count'] == 'get' ) {
+		echo 'checked';}
+	?>
+	 /><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" 
+	<?php
+	if ( $options['entry_count'] == 'post' ) {
+		echo 'checked';}
+	?>
+	 /><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
 	<p><?php _e( '* manage entry count Api. change to \'POST\' if fail entry count. (POST mode is can\'t use cache)', 'vk-all-in-one-expansion-unit' ); ?></p>
 </td>
 </tr>
@@ -204,6 +214,16 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 <?php _e( 'Ex) lightning_comment_before', 'vk-all-in-one-expansion-unit' ); ?>
 </p>	
 <textarea name="vkExUnit_sns_options[hook_point]" id="hook_point" style="width:100%;" rows="2"><?php echo esc_html( $options['hook_point'] ); ?></textarea>
+</td>
+</tr>
+
+<tr>
+<th><label for="enableFollowMe"><?php _e( 'Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><label><input type="checkbox" name="vkExUnit_sns_options[enableFollowMe]" id="enableFollowMe" value="true" <?php echo ( $options['enableFollowMe'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Follow me box', 'vk-all-in-one-expansion-unit' ); ?></label>
+<dl>
+<dt><?php _e( 'Follow me box title', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd><input type="text" name="vkExUnit_sns_options[followMe_title]" id="followMe_title" value="<?php echo esc_attr( $options['followMe_title'] ); ?>" /></dd>
+</dl>
 </td>
 </tr>
 

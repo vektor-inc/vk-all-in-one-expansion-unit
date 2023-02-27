@@ -10,34 +10,7 @@
 /*-------------------------------------------*/
 
 require_once dirname( __FILE__ ) . '/sns_customizer.php';
-
-add_action( 'init', 'vew_sns_block_setup', 15 );
-function vew_sns_block_setup() {
-	if ( ! function_exists( 'register_block_type' ) ) {
-		return;
-	}
-	register_block_type(
-		'vk-blocks/share-button',
-		array(
-			'attributes'      => array_merge(
-				array(
-					'position'  => array(
-						'type'    => 'string',
-						'default' => 'after',
-					),
-					'className' => array(
-						'type' => 'string',
-					),
-				),
-				veu_common_attributes()
-			),
-			'editor_style'    => 'vkExUnit_sns_editor_style',
-			'editor_script'   => 'veu-block',
-			'render_callback' => 'veu_sns_block_callback',
-			'supports'        => array(),
-		)
-	);
-}
+require_once dirname( __FILE__ ) . '/block/index.php';
 
 function veu_sns_inline_styles() {
 	$dynamic_css = '
@@ -58,7 +31,7 @@ function veu_sns_inline_styles() {
 	$dynamic_css = preg_replace( '/[\n\r\t]/', '', $dynamic_css );
 	// Change multiple spaces to single space
 	$dynamic_css = preg_replace( '/\s(?=\s)/', '', $dynamic_css );
-	wp_add_inline_style( 'vkExUnit_sns_editor_style', $dynamic_css );
+	wp_add_inline_style( 'veu-block-share-button-editor', $dynamic_css );
 }
 add_action( 'enqueue_block_assets', 'veu_sns_inline_styles' );
 
@@ -258,7 +231,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['fbAccessToken']               = stripslashes( esc_attr( $input['fbAccessToken'] ) );
 	$output['ogImage']                     = esc_url( $input['ogImage'] );
 	$output['twitterId']                   = stripslashes( esc_attr( $input['twitterId'] ) );
-	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', $input['snsBtn_ignorePosts'] );
+	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', esc_attr( $input['snsBtn_ignorePosts'] ) );
 	$output['snsTitle_use_only_postTitle'] = ( isset( $input['snsTitle_use_only_postTitle'] ) && $input['snsTitle_use_only_postTitle'] ) ? true : false;
 	$output['enableOGTags']                = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
 	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
@@ -395,21 +368,21 @@ add_action(
 if ( $vkExUnit_sns_options['enableOGTags'] == true ) {
 	require dirname( __FILE__ ) . '/function_og.php';
 }
-if ( $vkExUnit_sns_options['enableSnsBtns'] == true ) {
-	// シェアボタンを表示する設定の読み込み
-	require dirname( __FILE__ ) . '/function-sns-btns.php';
-	/*
-	VEU_Metabox 内の get_post_type が実行タイミングによっては
-	カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
-	admin_menu のタイミングで読み込んでいる
-	 */
-	add_action(
-		'admin_menu',
-		function() {
-			require dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php';
-		}
-	);
-}
+
+// シェアボタンを表示する設定の読み込み
+require dirname( __FILE__ ) . '/function-sns-btns.php';
+/*
+VEU_Metabox 内の get_post_type が実行タイミングによっては
+カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+admin_menu のタイミングで読み込んでいる
+	*/
+add_action(
+	'admin_menu',
+	function() {
+		require dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php';
+	}
+);
+
 if ( $vkExUnit_sns_options['enableTwitterCardTags'] == true ) {
 	require dirname( __FILE__ ) . '/function_twitterCard.php';
 }

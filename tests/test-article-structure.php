@@ -117,9 +117,10 @@ class Article_Structure_Test extends WP_UnitTestCase {
 
 			print PHP_EOL;
 
-			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
-
+			print 'correct ::::' . PHP_EOL;
+			var_dump( $correct );
+			print 'return  ::::' . PHP_EOL;
+			var_dump( $return );
 			$this->assertEquals( $correct, $return );
 		}
 
@@ -141,6 +142,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			'person_01' => array(
 				'user_data' => array(
 					'user_login'  =>  'login_person',
+					'user_pass'   =>  'password',
 					'display_name' => 'Display_Person'
 				),
 				'user_meta' => array(
@@ -153,6 +155,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			'org_02' => array(
 				'user_data' => array(
 					'user_login'  =>  'login_org',
+					'user_pass'   =>  'password',
 					'display_name' => 'Display_Org'
 				),
 				'user_meta' => array(
@@ -167,7 +170,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		foreach ( $test_users as $user_key => $user ){
 
 			// 発行したユーザーIDを、元の配列に格納
-			$test_users[$user_key]['user_id']= wp_insert_user( $user['user_data'] );
+			$test_users[$user_key]['user_id']= wp_insert_user( $user['user_data'], $user['user_data']['user_pass'] );
 
 			// ユーザーメタを更新
 			foreach ( $user['user_meta'] as $meta_field => $value ){
@@ -294,7 +297,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 
 		// テストで発行したユーザーを削除 ///////////////////////////
 		wp_delete_user( $test_users['person_01']['user_id'] ) ;
-		wp_delete_user( $test_users['org_01']['user_id'] ) ;
+		wp_delete_user( $test_users['org_02']['user_id'] ) ;
 		// wp_delete_post( $data['post_id_person'] );
 		// wp_delete_post( $data['post_id_org'] );
 

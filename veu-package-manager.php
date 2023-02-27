@@ -83,7 +83,6 @@ function veu_package_include() {
 	}
 
 	if ( $use_ex_blocks ) {
-		add_action( 'init', 'veu_register_block_scripts' );
 		// ver5.8.0 block_categories_all
 		if ( function_exists( 'get_default_block_categories' ) && function_exists( 'get_block_editor_settings' ) ) {
 			add_filter( 'block_categories_all', 'veu_add_block_category', 10, 2 );
@@ -93,25 +92,7 @@ function veu_package_include() {
 	}
 }
 
-function veu_register_block_scripts() {
-	wp_register_script(
-		'veu-block',
-		VEU_DIRECTORY_URI . '/assets/js/block.min.js',
-		array(),
-		VEU_VERSION,
-		true
-	);
 
-	/*
-	すべてのブロックも含めた vkExUnit_editor_style.css を読み込んでいるのが、
-	編集画面でシェアボタンのアイコンフォントのファイルパスがズレて表示されなくなるので個別に読み込んでいる
-	*/
-	wp_register_style( 'vkExUnit_sns_editor_style', VEU_DIRECTORY_URI . '/assets/css/vkExUnit_sns_editor_style.css', array(), VEU_VERSION, 'all' );
-
-	if ( function_exists( 'wp_set_script_translations' ) ) {
-		wp_set_script_translations( 'veu-block', 'veu-block', plugin_dir_path( __FILE__ ) . 'languages' );
-	}
-}
 
 function veu_add_block_category( $categories, $post ) {
 	$categories = array_merge(

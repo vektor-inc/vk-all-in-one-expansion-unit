@@ -1109,7 +1109,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 				'site_name'                                => 'Site Name',
 				'correct'                                  => 'Custom Title',
 			),
-			// サイト名あなし+ SNS タイトルあり + タイトル書き換えなし
+			// サイト名なし+ SNS タイトルあり + タイトル書き換えなし
 			array(
 				'target_type'                              => 'is_singular',
 				'target_url'                               => get_permalink( $data['post_id'] ),

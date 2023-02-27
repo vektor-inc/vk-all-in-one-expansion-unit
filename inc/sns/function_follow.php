@@ -68,7 +68,7 @@ function veu_get_follow_html() {
 
 	$follow_html .= '
 	<div class="followSet_body">
-	<p class="followSet_title">' . $title . '</p>' . "\n";
+	<p class="followSet_title">' . wp_kses_post( $title ). '</p>' . "\n";
 	// fb
 	if ( $fbPageUrl ) {
 		$follow_html .= '
