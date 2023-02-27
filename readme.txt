@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Cope with PHP8.1
+
 = 9.87.1.0 =
 [ Bug fix ][ CSS Customize ] Fix cope with XSS in CSS form
 
