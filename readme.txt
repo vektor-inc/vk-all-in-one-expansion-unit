@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.87.2.0 =
 [ Bug fix ] Cope with PHP8.1
 
 = 9.87.1.0 =
