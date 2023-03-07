@@ -1,14 +1,14 @@
 <?php
 /**
- * Class HeadTitleTest
+ * Class WpTitleTest
  *
  * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
 /**
- * SEO title test case.
+ * wp title test case.
  */
-class HeadTitleTest extends WP_UnitTestCase {
+class WpTitleTest extends WP_UnitTestCase {
 
 	/**
 	 * PHP Unit テストにあたって、各種投稿やカスタム投稿タイプ、カテゴリーを登録します。
@@ -56,6 +56,15 @@ class HeadTitleTest extends WP_UnitTestCase {
 			'post_content' => 'content',
 		);
 		$test_posts['front_page_id'] = wp_insert_post( $post );
+
+		// カスタム投稿タイプ event の投稿 Test Event を投稿.
+		$post          = array(
+			'post_title'   => 'Test Event',
+			'post_type'    => 'event',
+			'post_status'  => 'publish',
+			'post_content' => 'Test Event',
+		);
+		$test_posts['event_id'] = wp_insert_post( $post );
 
 		return $test_posts;
 	}
@@ -197,6 +206,55 @@ class HeadTitleTest extends WP_UnitTestCase {
 					),
 				),
 				'expected'      => 'Front Page Custom Title',
+			),
+
+			// eventの投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : 無し
+			// Return : カスタムタイトル
+			array(
+				'target_url'    => get_permalink( $test_posts['event_id'] ),
+				'target_id'     => $test_posts['event_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Event Custom Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Event Custom Title',
+			),
+			// eventの投稿ページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_permalink( $test_posts['event_id'] ),
+				'target_id'     => $test_posts['event_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => 'Event Custom Title',
+						'add_site_title' => true,
+					),
+				),
+				'expected'      => 'Event Custom Title' . $sep . 'Site name',
+			),
+			// eventの投稿ページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : 投稿タイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_permalink( $test_posts['event_id'] ),
+				'target_id'     => $test_posts['event_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_head_title' => array(
+						'title'          => null,
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Test Event' . $sep . 'Site name',
 			),
 		);
 

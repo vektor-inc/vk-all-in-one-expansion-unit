@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 9.87.0.1
+Stable tag: 9.87.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,12 @@ e.g.
 == Changelog ==
 
 [ Specification Change ][ HTML Sitemap ] Delete text font color
+
+= 9.87.2.1 =
+[ Bug fix ] Cope with PHP8.1
+
+= 9.87.1.0 =
+[ Bug fix ][ CSS Customize ] Fix cope with XSS in CSS form
 
 = 9.87.0.1 =
 [ Specification Change ][ All Block ] Fix Block Structure ( Cope with WordPress 6.2 ).
