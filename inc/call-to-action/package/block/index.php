@@ -125,7 +125,7 @@ function veu_cta_block_data() {
 		'veu-block-cta',
 		'veuBlockOption',
 		array(
-			'cat_option' => $cta_options,
+			'cta_option' => $cta_options,
 			'cta_posts_exist' => $cta_posts_exist,
 			'admin_url'       => admin_url(),
 		)

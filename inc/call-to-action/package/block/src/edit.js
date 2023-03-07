@@ -11,7 +11,7 @@ export default function CTAEdit( props ) {
 	const blockOption = veuBlockOption;
 
 	// Make choice list of pages
-	const options = blockOption.cat_option;
+	const options = blockOption.cta_option;
 	const ctaPostsExist = blockOption.cta_posts_exist;
 	const adminURL = blockOption.admin_url;
 
