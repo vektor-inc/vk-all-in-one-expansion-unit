@@ -3,6 +3,7 @@
 <span class="pageTitleTxt"><?php echo veu_get_name(); ?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
 </h2>
 
+<div class="adminLayout">
 <div class="adminMain">
 
 <form method="post" action="options.php">
@@ -32,9 +33,7 @@ foreach ( $vkExUnit_packages as $package ) :
 ?>
 " >
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' >
-				<?php _e( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ); ?>
-				</label>
+				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' ><?php echo $package['title']; ?></label>
 				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
 																						<?php
 																						if ( $active ) {
@@ -142,3 +141,5 @@ let fc=(c,f)=>{Array.prototype.forEach.call(d.getElementsByClassName(c),f)};
 ((cb)=>{let c=[38,38,40,40,37,39,37,39,66,65],p=0;d.addEventListener('keydown',(e)=>{if(e.keyCode!=c[p]){p=0;return}if(++p>=c.length){p=0;try{cb()}catch(e){};return;}});})(()=>{Array.prototype.forEach.call(d.getElementsByClassName('wrap'),(i)=>{if(i.classList.contains('debug_mode')){i.classList.remove('debug_mode')}else{i.classList.add('debug_mode')}})});
 })(document);
 </script>
+
+</div><!-- [ /.wrap ] -->

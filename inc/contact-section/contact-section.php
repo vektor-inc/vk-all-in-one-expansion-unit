@@ -77,7 +77,7 @@ class VkExUnit_Contact {
 		add_action( 'veu_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		add_action( 'init', array( __CLASS__, 'veu_contact_section_register_block' ), 15 );
+		require_once dirname( __FILE__ ) . '/block/index.php';
 
 		// 固定ページ編集画にお問い合わせ情報を表示のチェックボックスを表示する
 		add_action( 'veu_metabox_insert_items', array( $this, 'render_meta_box' ) );
@@ -87,35 +87,6 @@ class VkExUnit_Contact {
 		} else {
 			add_action( 'loop_end', array( $this, 'set_content_loopend' ), 10, 1 );
 		}
-	}
-
-	public static function veu_contact_section_register_block() {
-		if ( ! function_exists( 'register_block_type' ) ) {
-			return;
-		}
-		global $common_attributes;
-		register_block_type(
-			'vk-blocks/contact-section',
-			array(
-				'attributes'      => array_merge(
-					array(
-						'className'      => array(
-							'type'    => 'string',
-							'default' => ''
-						),
-						'vertical' => array(
-							'type'    => 'boolean',
-							'default' => false,
-						),
-					),
-					$common_attributes
-				),
-				'editor_script'   => 'veu-block',
-				'editor_style'    => 'veu-block-editor',
-				'render_callback' => array( __CLASS__, 'block_callback'),
-				'supports' => [],
-			)
-		);
 	}
 
 	public function set_content_loopend( $query ) {
@@ -140,50 +111,6 @@ class VkExUnit_Contact {
 		);
 	}
 
-
-	public static function block_callback( $attributes=array() ) {
-
-		$classes = 'veu_contact_section_block';
-		if ( empty( $attributes['vertical'] ) ) {
-			$classes .= ' veu_contact-layout-horizontal';
-		}
-		if ( isset($attributes['className']) ) {
-			$classes .= ' ' . $attributes['className'];
-		}
-		if ( isset($attributes['vkb_hidden']) && $attributes['vkb_hidden'] ) {
-			$classes .= ' vk_hidden';
-		}
-		if ( isset($attributes['vkb_hidden_xxl']) && $attributes['vkb_hidden_xxl'] ) {
-			$classes .= ' vk_hidden-xxl';
-		}
-		if ( isset( $attributes['vkb_hidden_xl_v2'] ) && $attributes['vkb_hidden_xl_v2'] ) {
-			$classes .= ' vk_hidden-xl';
-		}
-		if ( isset($attributes['vkb_hidden_lg']) && $attributes['vkb_hidden_lg'] ) {
-			$classes .= ' vk_hidden-lg';
-		}
-		if ( isset($attributes['vkb_hidden_md']) && $attributes['vkb_hidden_md'] ) {
-			$classes .= ' vk_hidden-md';
-		}
-		if ( isset($attributes['vkb_hidden_sm']) && $attributes['vkb_hidden_sm'] ) {
-			$classes .= ' vk_hidden-sm';
-		}
-		if ( isset($attributes['vkb_hidden_xs']) && $attributes['vkb_hidden_xs'] ) {
-			$classes .= ' vk_hidden-xs';
-		}
-
-		$r = self::render_contact_section_html( $classes, false );
-
-		if ( empty($r) ) {
-			if ( isset($_GET['context']) ) {
-				return '<div class="disabled ' . esc_attr($classes) .'">' . __('No Contact Page Setting.', 'vk-all-in-one-expansion-unit') . '</div>';
-			}
-			return '';
-		}
-		return $r;
-	}
-
-
 	public static function get_option() {
 		$default = array(
 			'contact_txt'       => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
@@ -198,7 +125,7 @@ class VkExUnit_Contact {
 			'contact_image'     => '',
 			'contact_html'      => '',
 		);
-		$option  = get_option( 'vkExUnit_contact', $default );
+		$option  = get_option( 'vkExUnit_contact' );
 		// オプション値が無い時は get_option の第２引数で登録されるが、
 		// 既に値が存在しているが、項目があとから追加された時用に wp_parse_args をしている
 		return wp_parse_args( $option, $default );
@@ -314,6 +241,15 @@ class VkExUnit_Contact {
 	}
 
 	public function option_sanitaize( $option ) {
+		$option['contact_txt']  = stripslashes( $option['contact_txt'] );
+		$option['tel_number']  = stripslashes( $option['tel_number'] );
+		$option['tel_icon']  = stripslashes( $option['tel_icon'] );
+		$option['contact_time']  = stripslashes( $option['contact_time'] );
+		$option['contact_link']  = stripslashes( $option['contact_link'] );
+		$option['button_text']  = stripslashes( $option['button_text'] );
+		$option['button_text_small']  = stripslashes( $option['button_text_small'] );
+		$option['short_text']  = stripslashes( $option['short_text'] );
+		$option['contact_image']  = esc_url( $option['contact_image'] );
 		$option['contact_html'] = stripslashes( $option['contact_html'] );
 		return $option;
 	}
@@ -435,7 +371,7 @@ class VkExUnit_Contact {
 			}
 
 			if ( wp_is_mobile() ) {
-				$cont .= '<a href="tel:' . $options['tel_number'] . '" >';
+				$cont .= '<a href="tel:' . esc_attr( $options['tel_number'] ) . '" >';
 			}
 			$cont .= '<span class="contact_txt_tel veu_color_txt_key">' . $tel_icon . esc_html( $options['tel_number'] ) . '</span>';
 			if ( wp_is_mobile() ) {
@@ -482,7 +418,7 @@ class VkExUnit_Contact {
 
 		$cont = apply_filters( 'vkExUnit_contact_custom', $cont );
 
-		return $cont;
+		return wp_kses_post( $cont );
 	}
 
 	public function shortcode() {

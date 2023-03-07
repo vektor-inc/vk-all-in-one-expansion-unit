@@ -37,16 +37,20 @@ function veu_setting_menu_parent() {
 	$capability_required = 'activate_plugins';
 	$menu_slug = 'vkExUnit_setting_page';
 	$callback_function = 'veu_add_setting_page';
+	$icon_url = 'none';	
 
 	$custom_page = add_menu_page(
 		$page_title,
 		$menu_title,
 		$capability_required,
 		$menu_slug,
-		$callback_function
+		$callback_function,
+		$icon_url		
 	);
+
 	if ( ! $custom_page ) {
-		return; }
+		return; 
+	}
 }
 
 add_action( 'admin_menu', 'veu_active_setting_menu', 10 );
@@ -102,17 +106,15 @@ function veu_add_setting_page() {
 // add_action( 'admin_print_scripts-exunit_page_vkExUnit_main_setting', 'veu_admin_add_js' );
 add_action( 'admin_enqueue_scripts', 'veu_admin_add_js' );
 function veu_admin_add_js( $hook_suffix ) {
-	global $vkExUnit_version;
-	wp_enqueue_media();
-	wp_register_script( 'vkExUnit_admin_js', veu_get_directory_uri() . '/assets/js/vkExUnit_admin.js', array( 'jquery' ), $vkExUnit_version );
+	// wp_enqueue_media(); // WelCart でアイキャッチ画像の操作ができなくなる。が、そもそもこれ不要では？ 2022.11.30以降もコメントアウトされたままなら削除
+	wp_register_script( 'vkExUnit_admin_js', VEU_DIRECTORY_URI . '/assets/js/vkExUnit_admin.js', array( 'jquery' ), VEU_VERSION );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'vkExUnit_admin_js' );
 }
 
 add_action( 'admin_enqueue_scripts', 'veu_admin_css' );
 function veu_admin_css() {
-	global $vkExUnit_version;
-	wp_enqueue_style( 'veu_admin_css', veu_get_directory_uri() . '/assets/css/vkExUnit_admin.css', array(), $vkExUnit_version, 'all' );
+	wp_enqueue_style( 'veu_admin_css', VEU_DIRECTORY_URI . '/assets/css/vkExUnit_admin.css', array(), VEU_VERSION, 'all' );
 }
 
 /*

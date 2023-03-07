@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "vk-blocks/contact-section",
+	"title": "Contact Section",
+	"category": "veu-block",
+	"description": "Display Contact Section",
+	"textdomain": "vk-all-in-one-expansion-unit",
+	"attributes": {
+		"vertical": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"className": true
+	}
+}

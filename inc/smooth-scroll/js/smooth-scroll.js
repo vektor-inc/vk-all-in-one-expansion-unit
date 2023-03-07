@@ -2,9 +2,6 @@
 /*  ページ内するするスクロール
 /*-------------------------------------------*/
 ((window, document) => {
-    if (!vkExOpt.enable_smooth_scroll) {
-        return
-    }
     window.addEventListener('load', () =>{
         function smooth_link(e) {
 			let path = e.path || (e.composedPath && e.composedPath());
@@ -38,8 +35,29 @@
                 y = destination.getBoundingClientRect().top + scroll
             }
 
+            // G3 の場合用の補正
+            // * header_scrolled の方が適切だが、クリック時に header_scrolled が消えて判定に使えないため
+            if ( document.body.classList.contains('scrolled') == true ) {
+                // ヘッダーを取得
+                let siteHeader = document.getElementById('site-header');
+                if (siteHeader){
+                    // ヘッダーの高さを取得
+                    let headerHeight = siteHeader.clientHeight;
+                    if (headerHeight){
+                        y = y - headerHeight;
+                    }
+                }
+            }
+
+            // Adminbar adjustment
+            let adminbar = document.getElementById('wpadminbar');
+            let adminbarHeight = 0;
+            if (adminbar){
+                adminbarHeight = adminbar.clientHeight;
+            }
+            
             window.scrollTo({
-                top: y,
+                top: y - adminbarHeight,
                 behavior: 'smooth'
             })
             e.preventDefault()

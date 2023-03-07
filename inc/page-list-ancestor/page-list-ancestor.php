@@ -20,7 +20,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 }
 
 
-function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
+function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false ) {
 	global $is_pagewidget;
 
 	if ( $is_pagewidget ) {
@@ -54,8 +54,13 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 			'echo' => 0
 		) );
 
+		$classes = 'veu_pageList_ancestor veu_card';
+		if ( ! empty( $class_name ) ) {
+			$classes .= ' ' . $class_name;
+		}
+
 		if ( $children ) {
-			$pageList_ancestor_html  = '<section class="veu_pageList_ancestor veu_card '. $classes . '">';
+			$pageList_ancestor_html  = '<section class="' . esc_attr( $classes ) . '">';
 			$pageList_ancestor_html .= '<div class="veu_card_inner">';
 			$pageList_ancestor_html .= '<h3 class="pageList_ancestor_title veu_card_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
@@ -69,7 +74,7 @@ function vkExUnit_pageList_ancestor_shortcode( $classes='', $force=false ) {
 	}
 	wp_reset_query();
 	wp_reset_postdata();
-	return $pageList_ancestor_html;
+	return wp_kses_post( $pageList_ancestor_html );
 }
 
 
@@ -139,51 +144,4 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 	do_action( 'vkExUnit_customField_Page_save_customField' );
 }
 
-add_action( 'init', 'veu_page_list_ancestor_block_setup', 15 );
-function veu_page_list_ancestor_block_setup() {
-	global $common_attributes;
-
-	if ( function_exists( 'register_block_type' ) ){
-		register_block_type(
-			'vk-blocks/page-list-ancestor',
-			array(
-				'attributes'      => array(
-					'className'      => array(
-						'type'    => 'string',
-						'default' => ''
-					),
-					$common_attributes
-				),
-				'editor_script'   => 'veu-block',
-				'editor_style'    => 'veu-block-editor',
-				'render_callback' => 'veu_pageListAncestor_block_callback',
-				'supports' => [],
-			)
-		);
-	}
-}
-
-
-function veu_pageListAncestor_block_callback( $attr=array() ) {
-	include dirname(dirname(__FILE__)) .'/vk-blocks/hidden-utils.php';
-
-	$classes = 'veu_childPageIndex_block';
-
-	if ( isset($attr['className']) ) {
-		$classes .= ' ' . $attr['className'];
-	}
-
-	if(function_exists('vk_add_hidden_class')){
-		$classes .= ' ' . vk_add_hidden_class($classes, $attr);
-	}
-	
-	$r = vkExUnit_pageList_ancestor_shortcode( $classes, true );
-
-	if ( empty($r) ) {
-		if ( isset($_GET['context']) ) {
-			return '<div class="alert alert-warning text-center">' . __('No Child Pages.', 'vk-all-in-one-expansion-unit') . '</div>';
-		}
-		return '';
-	}
-	return $r;
-}
+require_once dirname( __FILE__ ) . '/block/index.php';

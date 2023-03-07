@@ -13,7 +13,9 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 	}
 
 	public static function veu_widget_name() {
-		return veu_get_prefix() . __( '3PR area', 'vk-all-in-one-expansion-unit' );
+		$name = veu_get_prefix() . __( '3PR area', 'vk-all-in-one-expansion-unit' );
+		// $name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
+		return $name;
 	}
 
 	public static function veu_widget_description() {
@@ -216,10 +218,13 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 }
 
 // メディアアップローダーjs
-add_action( 'admin_print_scripts', 'admin_scripts_3pr_media' );
 function admin_scripts_3pr_media() {
-	wp_enqueue_media();
-	wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
-	wp_enqueue_script( 'vk-admin-widget' );
+	global $hook_suffix;
+	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix) {
+		wp_enqueue_media();
+		wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
+		wp_enqueue_script( 'vk-admin-widget' );
+	}
 }
+add_action( 'admin_print_scripts', 'admin_scripts_3pr_media' );
 

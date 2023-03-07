@@ -69,4 +69,30 @@ class SnsBtnsTest extends WP_UnitTestCase {
 
 		update_option( 'vkExUnit_sns_options', $before_vkExUnit_sns_options );
 	}
+
+	/**
+	 * SNSボタンを本文欄やフックで自動挿入するかしないかのテスト
+	 */
+	function test_veu_is_sns_btns_auto_insert(){
+		$test_array = array(
+			// 初期で自動挿入になっている。ブロックテーマが主流になったらこちらはデフォルトでオフに切り替えたい.
+			'null' => [
+				'vkExUnit_sns_options' => null,
+				'expected' => true,
+			],
+			'enableSnsBtns_false' => [
+				'vkExUnit_sns_options' => ['enableSnsBtns' => null],
+				'expected' => false,
+			],
+			'enableSnsBtns_false' => [
+				'vkExUnit_sns_options' => ['enableSnsBtns' => true],
+				'expected' => true,
+			]
+		);
+		foreach ( $test_array as $key => $test_value ) {
+			update_option( 'vkExUnit_sns_options', $test_value['vkExUnit_sns_options'] );
+			$actual = veu_is_sns_btns_auto_insert();
+			$this->assertEquals( $test_value['expected'], $actual );
+		}
+	}
 }

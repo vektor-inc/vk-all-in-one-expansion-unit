@@ -1,0 +1,12 @@
+{
+	"apiVersion": 2,
+	"name": "vk-blocks/page-list-ancestor",
+	"title": "Page List Ancestor",
+	"category": "veu-block",
+	"description": "Display Ansestor Pages",
+	"textdomain": "vk-all-in-one-expansion-unit",
+	"attributes": {},
+	"supports": {
+		"className": true
+	}
+}

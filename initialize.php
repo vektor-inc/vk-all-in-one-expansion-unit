@@ -1,21 +1,32 @@
 <?php
 /*
+  Delete old function data
   Load modules
   Add vkExUnit css
   Add vkExUnit js
 /*-------------------------------------------*/
 
 /*
-  Load modules
+  Delete old function data
 /*-------------------------------------------*/
-require veu_get_directory() . '/veu-package-manager.php';
+require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+$options = get_option( 'veu_deprecated' );
+if ( empty( $options['9.72.0'] ) ) {
+	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
+	$options['9.72.0'] = 'done';
+	update_option( 'veu_deprecated', $options );
+}
+
+/*
+  Load modules
+/*
+-------------------------------------------*/
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
-require_once veu_get_directory() . '/inc/template-tags/template-tags-config.php';
-require_once veu_get_directory() . '/inc/vk-helpers/config.php';
-require_once veu_get_directory() . '/inc/common-block.php';
-require_once veu_get_directory() . '/admin/admin.php';
-require_once veu_get_directory() . '/inc/term-color/term-color-config.php';
-require veu_get_directory() . '/inc/footer-copyright-change.php';
+require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+require_once VEU_DIRECTORY_PATH . '/inc/vk-helpers/config.php';
+require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
+require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
+require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 
 veu_package_include(); // package_manager.php
 
@@ -32,14 +43,9 @@ function veu_load_css_action() {
 add_action( 'wp_enqueue_scripts', 'vwu_register_css', 3 );
 add_action( 'admin_enqueue_scripts', 'vwu_register_css', 3 );
 function vwu_register_css() {
-	global $vkExUnit_version;
 	$options = veu_get_common_options();
 
-	if ( isset( $options['active_bootstrap'] ) && $options['active_bootstrap'] ) {
-		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style_in_bs.css', array(), $vkExUnit_version, 'all' );
-	} else {
-		wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), $vkExUnit_version, 'all' );
-	}
+	wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
 }
 
 function veu_print_css() {
@@ -67,10 +73,9 @@ add_action( 'init', 'veu_print_block_editor_css' );
 -------------------------------------------*/
 add_action( 'wp_enqueue_scripts', 'veu_print_js' );
 function veu_print_js() {
-	global $vkExUnit_version;
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
-	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), $vkExUnit_version, true );
+	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), VEU_VERSION, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', $options ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
 }
@@ -138,17 +143,17 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 
 function veu_inline_styles() {
 	$dynamic_css = ':root {
-		--ver_page_top_button_url:url(' . veu_get_directory_uri( '/assets/images/to-top-btn-icon.svg' ) . ');
+		--ver_page_top_button_url:url(' . VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg' . ');
 	}
 	@font-face {
 		font-weight: normal;
 		font-style: normal;
 		font-family: "vk_sns";
-		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?-bq20cj' ) . '");
-		src: url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj' ) . '") format("embedded-opentype"),
-			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.woff?-bq20cj' ) . '") format("woff"),
-			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.ttf?-bq20cj' ) . '") format("truetype"),
-			url("' . veu_get_directory_uri( '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' ) . '") format("svg");
+		src: url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.eot?-bq20cj' . '");
+		src: url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.eot?#iefix-bq20cj' . '") format("embedded-opentype"),
+			url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.woff?-bq20cj' . '") format("woff"),
+			url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.ttf?-bq20cj' . '") format("truetype"),
+			url("' . VEU_DIRECTORY_URI . '/inc/sns/icons/fonts/vk_sns.svg?-bq20cj#vk_sns' . '") format("svg");
 	}';
 
 	// delete before after space

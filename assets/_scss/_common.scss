@@ -1,3 +1,6 @@
+
+@use "_mixin";
+
 .link-list li {
     padding: 0.5em;
 }
@@ -26,4 +29,17 @@ iframe.wp-embedded-content {
 
 .btn {
     white-space: inherit;
+}
+
+
+//admin-barの設定メニューにアイコン追加
+#wp-admin-bar-veu_adminlink{
+    .ab-veu-icon{
+        @include mixin.admin-bar-ab-veu-icon();
+    }
+    &:hover{
+        .ab-veu-icon{
+            @include mixin.veu-icon-hover();
+        }
+    }
 }

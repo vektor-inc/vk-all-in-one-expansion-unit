@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "vk-blocks/cta",
+	"title": "CTA",
+	"category": "veu-block",
+	"description": "Display CTA Content",
+	"textdomain": "vk-all-in-one-expansion-unit",
+	"attributes": {
+		"postId": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"className": true
+	}
+}

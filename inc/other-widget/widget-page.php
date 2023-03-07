@@ -14,7 +14,9 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 	public static function veu_widget_name() {
-		return veu_get_prefix() . __( 'page content to widget', 'vk-all-in-one-expansion-unit' );
+		$name = veu_get_prefix() . __( 'Page content to widget', 'vk-all-in-one-expansion-unit' );
+		// $name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
+		return $name;
 	}
 
 	public static function veu_widget_description() {

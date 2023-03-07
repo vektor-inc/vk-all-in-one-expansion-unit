@@ -1,19 +1,83 @@
 @charset "utf-8";
-// @import "compass";
+
+/*-------------------------------------------*/
+/* Layout
+/*-------------------------------------------*/
+.vk_admin_page {
+	--vk-admin-layout-gap: 30px;
+}
+
+.adminLayout {
+	display: grid;
+	gap: var(--vk-admin-layout-gap);
+
+	.adminMain {
+		display: grid;
+		gap: var(--vk-admin-layout-gap);
+	}
+
+	@media (min-width: 992px) {
+		.adminMain.column_3 {
+			grid-template-columns: 240px auto;
+		}
+	}
+
+	@media (min-width: 1400px) {
+		grid-template-columns: auto 300px;
+	}
+}
+
+/*-------------------------------------------*/
+/* サイドバーの固定処理
+/*-------------------------------------------*/
+.adminLayout {
+
+	@media (min-width: 992px) {
+		.adminMain_sub_inner {
+			position: sticky;
+			top: 30px;
+		}
+
+	}
+
+	@media (min-width: 1400px) {
+		.adminSub {
+			display: grid;
+			align-items: end; // end 指定しないと下端吸着しない
+
+			&_inner {
+				position: sticky;
+				bottom: 30px;
+
+			}
+
+		}
+	}
+}
+
+/*-------------------------------------------*/
+/* common
+/*-------------------------------------------*/
 
 $text-size : 14px;
 $line-height : 1.7;
 
-body{margin:0;}
+body {
+	margin: 0;
+}
+
 .text-left {
 	text-align: left;
 }
+
 .text-center {
 	text-align: center;
 }
+
 .text-right {
 	text-align: right;
 }
+
 .text-warning {
 	color: #a94442;
 }
@@ -25,28 +89,34 @@ body{margin:0;}
 	border-bottom: 1px solid #e5e5e5;
 	margin-top: 1em;
 	padding-bottom: 0.3em;
+
 	.dashicons {
 		position: relative;
 		top: -2px;
 		margin-left: 3px;
 	}
 }
+
 .vk-metabox-more-link {
 	float: right;
 	font-size: 12px;
 }
+
 .vk-metabox-post-list {
 	margin-bottom: 2em;
+
 	li {
 		border-bottom: 1px dotted #ccc;
 		padding-bottom: 3px;
 		display: flex;
+
 		.date {
 			font-size: 11px;
 			margin-right: 1em;
 			width: 75px;
 			white-space: nowrap;
 		}
+
 		a {
 			width: 100%;
 		}
@@ -56,22 +126,27 @@ body{margin:0;}
 .vk-admin-banner {
 	display: block;
 	overflow: hidden;
+
 	a.admin_banner {
 		display: block;
 		margin-bottom: 1em;
 		border: 1px solid #ccc;
 		box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 1);
+
 		img {
 			max-width: 100%;
 			height: auto;
 			display: block;
+
 			&:hover {
 				opacity: 0.7;
 			}
 		}
 	}
+
 	.vektor_logo {
 		margin-top: 1em;
+
 		img {
 			width: 150px;
 			float: right;
@@ -85,6 +160,7 @@ body{margin:0;}
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+
 		a.admin_banner {
 			width: 48%;
 		}
@@ -103,6 +179,7 @@ body{margin:0;}
 	text-align: center;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #ccc;
+
 	img {
 		width: 150px;
 		max-width: 100%;
@@ -113,12 +190,14 @@ body{margin:0;}
 	display: block !important;
 	overflow: hidden;
 }
+
 .vk_option_nav ul {
 	display: block;
 	overflow: hidden;
 	margin: 0;
 	padding: 0;
 }
+
 .vk_option_nav ul li {
 	display: block;
 	border: 1px solid #ccc;
@@ -126,18 +205,22 @@ body{margin:0;}
 	border-bottom: none;
 	background-color: #fff;
 }
+
 .vk_option_nav ul li:first-child {
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 }
+
 .vk_option_nav ul li:last-child {
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
 	border-bottom: 1px solid #ccc;
 }
+
 .vk_option_nav ul li:hover {
 	background-color: #666;
 }
+
 .vk_option_nav ul li a {
 	display: block;
 	overflow: hidden;
@@ -146,13 +229,16 @@ body{margin:0;}
 	color: #666;
 	font-size: 12px;
 }
+
 .vk_option_nav ul li:hover a {
 	color: #fff;
 	border: none;
 }
+
 .vk_option_nav ul li.current {
 	background-color: #333;
 	color: #fff;
+
 	a {
 		color: #fff;
 	}
@@ -161,16 +247,20 @@ body{margin:0;}
 .vk_admin_page {
 	padding-top: 1em;
 
-	p,li,td {
+	p,
+	li,
+	td {
 		line-height: $line-height;
 		font-size: $text-size;
 	}
+
 	h2.page_title {
 		font-size: 16px;
 		text-align: center;
 		line-height: 140%;
 		margin: 10px 0 20px;
 	}
+
 	h3 {
 		background-color: #333;
 		color: #fff;
@@ -180,116 +270,124 @@ body{margin:0;}
 		border-left: 5px solid #e50000;
 		border-radius: 4px;
 	}
-	h5{
-		font-size:16px;
-		margin-bottom:1em;
+
+	h5 {
+		font-size: 16px;
+		margin-bottom: 1em;
 	}
+
 	.form-table td p,
 	p {
-		margin-bottom:1em;
+		margin-bottom: 1em;
 		font-size: $text-size;
 		line-height: $line-height;
+
 		&:last-child {
-			margin-bottom:0;
+			margin-bottom: 0;
 		}
 	}
+
 	input[type="text"] {
 		width: 50%;
 	}
+
 	select {
 		width: 50%;
 	}
+
 	dl {
 		line-height: 1.5;
+
 		dt {
 			font-weight: bold;
 			margin-bottom: 5px;
 		}
+
 		dd {
 			margin-left: 0;
 		}
 	}
+
 	tr.dev_object {
 		display: none;
 	}
+
 	.pageLogo {
 		text-align: center;
+
 		img {
 			max-width: 150px;
 			margin: 0 auto;
 		}
 	}
+
 	.adminMain {
-		display: block;
-		overflow: hidden;
-		width: 74%;
-		float: left;
+
 		#adminContent_sub {
-			display: block;
-			overflow: hidden;
-			width: 23%;
-			float: left;
-			padding-bottom: 10px;
+
+			.notice {
+				padding-bottom: 10px;
+			}
+
+			.button {
+				white-space: normal;
+				margin: 5px 0;
+				padding: 0.5em 1em;
+				line-height: 1.4;
+			}
 		}
+
 		#adminContent_main {
-			display: block;
-			overflow: hidden;
-			width: 74%;
-			float: right;
-			min-height: 300px;
 			.form_horizontal_item {
 				margin-right: 1em;
 			}
-			.setting-content{
-		
+		}
+
+		&_main {
+
+			ul,
+			ol {
+				margin-top: 0;
+				margin-left: 1.5em;
+				padding-top: 0;
 			}
 
-		}
-		&.column_2 {
-			#adminContent_main {
-				width: 100%;
-			}
-		}
-		&_main {
-			ul,ol {
-				margin-top:0;
-				margin-left:1.5em;
-				padding-top:0;
-			}
-			ol > li{
+			ol>li {
 				list-style: decimal;
 			}
-			ul > li {
+
+			ul>li {
 				list-style: disc;
 			}
+
 			li ul,
 			li ol {
-				margin-top:0.5em;
+				margin-top: 0.5em;
 			}
+
 			ul.no-style {
-				margin-left:0;
+				margin-left: 0;
+
 				ul {
-					margin-left:1.5em;
+					margin-left: 1.5em;
 				}
+
 				li {
 					list-style: none;
 				}
 			}
+
 			&_content {
-				margin-bottom:3em;
+				margin-bottom: 3em;
 			}
+
 			input[type=text] {
-				margin-bottom:5px;
+				margin-bottom: 5px;
 			}
 		}
 	}
 
 	.adminSub {
-		display: block;
-		overflow: hidden;
-		width: 24%;
-		float: right;
-		padding-bottom: 10px;
 		.infoBox {
 			display: block;
 			overflow: hidden;
@@ -298,6 +396,7 @@ body{margin:0;}
 			background-color: #fff;
 			border-radius: 4px;
 		}
+
 		.vk-metabox-sub-title {
 			background-color: #ccc;
 			width: auto;
@@ -306,15 +405,19 @@ body{margin:0;}
 			margin-top: 0;
 			margin-bottom: 15px;
 		}
+
 		.vk-metabox-more-link {
 			display: none;
 		}
+
 		@media (max-width: 991px) {
 			.adminMain table.form-table {
+
 				th,
 				td {
 					display: block;
 				}
+
 				th {
 					background-color: #ccc;
 					width: auto;
@@ -324,11 +427,13 @@ body{margin:0;}
 			}
 		}
 	}
+
 	.alert {
 		border-radius: 4px;
-		padding:0.8em;
+		padding: 0.8em;
 		font-weight: normal;
-		&-danger{
+
+		&-danger {
 			border: 1px solid #ebccd1;
 			background-color: #f2dede;
 			color: #a94442;
@@ -336,8 +441,13 @@ body{margin:0;}
 	}
 }
 
+// カスタマイズパネル用CSS
+.wp-full-overlay-sidebar {
+	font-size: 14px;
+}
+
 /*-------------------------------------------*/
-/* Widget css
+/* カスタマイズパネル & Widget css
 /*-------------------------------------------*/
 /*
 .admin_widget_ は pr-content ウィジェットなどで利用されているので、
@@ -349,10 +459,12 @@ body{margin:0;}
 	display: block;
 	overflow: hidden;
 	margin: 1.5em 0;
+
 	p {
 		margin-top: 0.5em;
 	}
 }
+
 .admin_widget_h2,
 .admin-custom-h2 {
 	box-sizing: border-box;
@@ -365,6 +477,7 @@ body{margin:0;}
 	color: #fff;
 	font-size: 1.1em;
 }
+
 .admin_widget_h3,
 .admin-custom-h3 {
 	box-sizing: border-box;
@@ -375,9 +488,11 @@ body{margin:0;}
 	// background: #EDEDED;
 	font-size: 1em;
 }
-.admin-custom-discription{
-	margin-top:0.5em;
+
+.admin-custom-discription {
+	margin-top: 0.5em;
 }
+
 input[type="text"],
 input[type="search"],
 input[type="radio"],
@@ -396,6 +511,7 @@ input[type="month"],
 input[type="number"],
 select,
 textarea {
+
 	&.admin_widget_input,
 	&.admin-custom-input {
 		width: 100%;
@@ -414,6 +530,7 @@ textarea {
 	background-color: #f5f5f5;
 	width: 100%;
 }
+
 .admin_widget_thumb_outer:before,
 .admin-custom-thumb-outer:before {
 	position: absolute;
@@ -424,6 +541,7 @@ textarea {
 	color: #999;
 	content: "No Image";
 }
+
 .admin_widget_thumb,
 .admin-custom-thumb {
 	position: relative;
@@ -437,6 +555,7 @@ textarea {
 	&-style-vertical {
 		display: flex;
 	}
+
 	// & & にしないと指定が負けるため特別
 	& &_input {
 		margin-top: 0;
@@ -452,37 +571,38 @@ textarea {
 
 
 	div {
-	  position: relative;
-	  flex: 1;
+		position: relative;
+		flex: 1;
 	}
 
 	input {
-	  width: 100%;
-	  height: 60px;
-	  opacity: 0;
+		width: 100%;
+		height: 60px;
+		opacity: 0;
 	}
 
 	label {
-	  position: absolute;
-	  top: 0; left: 0;
-	  color: #b6b6b6;
-	  width: 100%;
-	  height: 100%;
-	  background: #fff;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  pointer-events: none;
-	  border-right: 1px solid #b6b6b6;
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #b6b6b6;
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+		border-right: 1px solid #b6b6b6;
 	}
 
 	div:last-child label {
-	  border-right: 0;
+		border-right: 0;
 	}
 
-	input:checked + label {
-	  background: #d81b60;
-	  font-weight: 500;
-	  color: #fff;
+	input:checked+label {
+		background: #d81b60;
+		font-weight: 500;
+		color: #fff;
 	}
 }

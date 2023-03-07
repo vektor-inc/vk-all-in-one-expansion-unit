@@ -61,12 +61,14 @@ function veu_get_follow_html() {
 				}
 			}
 		}
-		$follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
+		if ( ! empty( $image_url ) ) {
+			$follow_html .= '<div class="followSet_img" style="background-image: url(\'' . $image_url[0] . '\')"></div>';
+		}
 	}
 
 	$follow_html .= '
 	<div class="followSet_body">
-	<p class="followSet_title">' . $title . '</p>' . "\n";
+	<p class="followSet_title">' . wp_kses_post( $title ). '</p>' . "\n";
 	// fb
 	if ( $fbPageUrl ) {
 		$follow_html .= '

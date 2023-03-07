@@ -8,7 +8,7 @@ function veu_add_body_class( $class ) {
 		}
 	}
 
-	if ( is_archive() || is_singular() ) {
+	if ( is_archive() || is_singular() || ( is_home() && ! is_front_page() ) ) {
 		if ( function_exists( 'vk_get_post_type' ) ) {
 			$post_type_info = vk_get_post_type();
 			if ( ! empty( $post_type_info['slug'] ) ) {

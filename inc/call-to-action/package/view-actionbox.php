@@ -1,10 +1,9 @@
 <?php
-
-/*
-このファイルの元ファイルは
-https://github.com/vektor-inc/vektor-wp-libraries
-にあります。修正の際は上記リポジトリのデータを修正してください。
-*/
+/**
+ * View call to action ( classic style )
+ *
+ * @package ExUnit Call To Action
+ */
 
 global $vk_call_to_action_textdomain;
 
@@ -34,23 +33,23 @@ if ( ! $image_position ) {
 
 $content  = '';
 $content .= '<section class="veu_cta" id="veu_cta-' . $id . '">';
-$content .= '<h1 class="cta_title">' . $post->post_title . '</h1>';
+$content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
 $content .= '<div class="cta_body">';
 
 
-// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////
+// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
 $target_blank = get_post_meta( $id, 'vkExUnit_cta_url_blank', true );
-if ( $target_blank != 'window_self' ) {
+if ( 'window_self' !== $target_blank ) {
 	$target = ' target="_blank"';
 } else {
 	$target = '';
 }
 if ( $imgid ) {
-	$content  .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
-	$content  .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
-	$content  .= wp_get_attachment_image( $imgid, 'large' );
-	$content  .= ( $url ) ? '</a>' : '';
-	$content  .= '</div>';
+	$content .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
+	$content .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
+	$content .= wp_get_attachment_image( $imgid, 'large' );
+	$content .= ( $url ) ? '</a>' : '';
+	$content .= '</div>';
 }
 $content .= '<div class="cta_body_txt ' . ( ( $imgid ) ? 'image_exist' : 'image_no' ) . '">';
 $content .= wp_kses_post( do_shortcode( $text ) );

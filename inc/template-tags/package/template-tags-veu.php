@@ -17,11 +17,16 @@ function veu_get_common_options() {
 	return apply_filters( 'vkExUnit_common_options', $options );
 }
 
-function veu_get_common_options_default() {
+function veu_get_common_options_default( $is_block_theme = null ) {
+
+	if ( null === $is_block_theme ) {
+		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+	}
+
 	// hook veu_package_is_enable()
 	// パッケージの情報を取得してデフォルトの配列を作成
 	$defaults = array();
-	$packages = veu_get_packages();
+	$packages = veu_get_packages( $is_block_theme  );
 	foreach ( $packages as $key => $value ) {
 		$name                                 = $value['name'];
 		$default_options[ 'active_' . $name ] = $value['default'];
@@ -67,7 +72,7 @@ if ( ! function_exists( 'veu_get_capability_required' ) ) {
 if ( ! function_exists( 'veu_get_systemlogo_html' ) ) {
 	function veu_get_systemlogo_html() {
 		$logo  = '<div class="logo_exUnit">';
-		$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', veu_get_directory_uri( '/assets/images/head_logo_ExUnit.png' ) ) . '" alt="VK ExUnit" />';
+		$logo .= '<img src="' . apply_filters( 'vkExUnit_news_image_URL_small', VEU_DIRECTORY_URI . '/assets/images/head_logo_ExUnit.png' ) . '" alt="VK ExUnit" />';
 		$logo .= '</div>';
 		$logo  = apply_filters( 'veu_get_systemlogo_html', $logo );
 		return $logo;

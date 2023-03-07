@@ -1,5 +1,7 @@
 @charset "utf-8";
-// @import "compass";
+
+//@import "compass";
+@use "_mixin";
 
 .wrap.debug_mode {
 	tr.dev_object {
@@ -48,6 +50,10 @@
 }
 
 .veu_metabox_section {
+	p {
+		margin-top:0;
+		margin-bottom:10px;
+	}
 	label {
 		font-weight: normal;
 	}
@@ -84,7 +90,10 @@
 	}
 	&_body {
 		display: none;
-		padding: 1rem 1rem 2rem;
+		padding: 1rem 1rem 1.5rem;
+		& > *:last-child{
+			margin-bottom:0;
+		}
 		.button {
 			margin-right:0.5em;
 		}
@@ -119,6 +128,7 @@
 	border: 1px solid #ff0000;
 }
 
+.veu_head_title,
 .veu_sns_title {
 	input[type="text"] {
 		width: 100%;
@@ -139,4 +149,26 @@
 			}
 		}
 	}
+}
+
+//設定メニュー横にアイコン追加
+#toplevel_page_vkExUnit_setting_page{
+	.dashicons-before{
+		@include mixin.veu-icon();
+	}
+	&:hover .dashicons-before{
+		@include mixin.veu-icon-hover();
+	}
+}
+
+//admin-barの設定メニューにアイコン追加
+#wp-admin-bar-veu_adminlink{
+    .ab-veu-icon{
+        @include mixin.admin-bar-ab-veu-icon();
+    }
+    &:hover{
+        .ab-veu-icon{
+            @include mixin.veu-icon-hover();
+        }
+    }
 }

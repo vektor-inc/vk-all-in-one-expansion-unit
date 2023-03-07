@@ -1,6 +1,6 @@
 <?php
-require_once veu_get_directory() . '/inc/other-widget/class-veu-widget-control.php';
-require_once veu_get_directory() . '/inc/other-widget/common.php';
+require_once VEU_DIRECTORY_PATH . '/inc/other-widget/class-veu-widget-control.php';
+require_once VEU_DIRECTORY_PATH . '/inc/other-widget/common.php';
 
 require dirname( __FILE__ ) . '/widget-new-posts.php';
 require dirname( __FILE__ ) . '/widget-profile.php';
@@ -16,7 +16,7 @@ require dirname( __FILE__ ) . '/class-veu-ranking-widget.php';
 
 if ( is_admin() ) {
 	// ウィジェットの個別有効化機能管理画面読み込み
-	require_once veu_get_directory() . '/inc/other-widget/class-veu-other-widget-admin-control.php';
+	require_once VEU_DIRECTORY_PATH . '/inc/other-widget/class-veu-other-widget-admin-control.php';
 }
 
 function veu_widget_packages() {
@@ -30,28 +30,32 @@ function veu_widget_packages() {
 			'class' => 'WP_Widget_vkExUnit_profile',
 		),
 		array(
-			'id'    => '3pr_area',
-			'class' => 'WP_Widget_vkExUnit_3PR_area',
-		),
-		array(
-			'id'    => 'widget_page',
-			'class' => 'WP_Widget_vkExUnit_widget_page',
+			'id'    => 'archive_list',
+			'class' => 'WP_Widget_VK_archive_list',
 		),
 		array(
 			'id'    => 'taxonomy_list',
 			'class' => 'WP_Widget_VK_taxonomy_list',
 		),
 		array(
-			'id'    => 'archive_list',
-			'class' => 'WP_Widget_VK_archive_list',
+			'id'    => 'child_page_list',
+			'class' => 'WP_Widget_vkExUnit_ChildPageList',
+		),
+		array(
+			'id'    => 'profile',
+			'class' => 'WP_Widget_vkExUnit_profile',
+		),
+		array(
+			'id'    => 'widget_page',
+			'class' => 'WP_Widget_vkExUnit_widget_page',
+		),
+		array(
+			'id'    => '3pr_area',
+			'class' => 'WP_Widget_vkExUnit_3PR_area',
 		),
 		array(
 			'id'    => 'pr_blocks',
 			'class' => 'WP_Widget_vkExUnit_PR_Blocks',
-		),
-		array(
-			'id'    => 'child_page_list',
-			'class' => 'WP_Widget_vkExUnit_ChildPageList',
 		),
 		array(
 			'id'    => 'button',

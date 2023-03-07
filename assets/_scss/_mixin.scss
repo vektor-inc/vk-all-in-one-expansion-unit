@@ -1,0 +1,26 @@
+//フロントと編集画面側のadmin bar の共通veu-icon
+@mixin admin-bar-ab-veu-icon {
+    position: relative;
+    float: left;
+    speak: never;
+    padding: 4px 0;
+    margin-right: 6px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/ex-unit-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px !important;
+}
+//共通　hover時のveu-icon
+@mixin veu-icon-hover {
+    background-image:url('../images/ex-unit-icon-hover.svg');
+}
+//設定メニュー横veu-icon
+@mixin veu-icon{
+    background-image: url('../images/ex-unit-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px !important;
+}

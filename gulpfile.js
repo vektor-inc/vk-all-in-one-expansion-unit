@@ -11,7 +11,7 @@ var babel = require('gulp-babel');
 // エラーでも監視を続行させる
 var plumber = require('gulp-plumber');
 // sass compiler
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 
 var cleanCss = require('gulp-clean-css');
 
@@ -37,37 +37,8 @@ function src(list, option) {
 	}
 }
 
-/*
- * transpile block editor js
- */
-gulp.task('block', function (done) {
-	return src(
-			[
-				'./inc/sns/package/block.jsx',
-				'./inc/child-page-index/block.jsx',
-				'./inc/contact-section/block.jsx',
-				'./inc/page-list-ancestor/block.jsx',
-				'./inc/sitemap-page/block.jsx'
-			]
-		)
-		.pipe(babel({
-			plugins: [
-				'transform-react-jsx',
-				[
-					'@wordpress/babel-plugin-makepot',
-					{
-						"output": "languages/veu-block.pot"
-					}
-				]
-			],
-			presets: ['@babel/env']
-		}))
-		.pipe(jsmin())
-		.pipe(concat('block.min.js'))
-		.pipe(gulp.dest('./assets/js/'));
-});
-
 gulp.task("text-domain", function(done) {
+
 	// vk-admin
 	gulp.src(["./admin/vk-admin/package/*"])
 		.pipe(replace("vk_admin_textdomain","vk-all-in-one-expansion-unit"))
@@ -80,14 +51,18 @@ gulp.task("text-domain", function(done) {
 	gulp.src(["./inc/term-color/package/*.php"])
 		.pipe(replace("'vk_term_color_textdomain'","'vk-all-in-one-expansion-unit'"))
 		.pipe(gulp.dest("./inc/term-color/package/"));
+	// Post Type Manager
+	gulp.src(["./inc/post-type-manager/package/*.php"])
+		.pipe(replace("'vk_post_type_manager_textdomain'","'vk-all-in-one-expansion-unit'"))
+		.pipe(gulp.dest("./inc/post-type-manager/package/"));
   	gulp.src(["./inc/vk-css-optimize/package/*.php"])
 		.pipe(replace("'css_optimize_textdomain'","'vk-all-in-one-expansion-unit'"))
 		.pipe(gulp.dest("./inc/vk-css-optimize/package/"));
 	done();
 });
 
-gulp.task('sass', function() {
-	return src(
+gulp.task('sass', function(done) {
+	gulp.src( 
 		'./assets/_scss/*.scss',
 		{
 			base: './assets/_scss'
@@ -102,6 +77,22 @@ gulp.task('sass', function() {
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./assets/css/'));
+	gulp.src( 
+		'./inc/call-to-action/package/assets/_scss/*.scss',
+		{
+			base: './inc/call-to-action/package/assets/_scss/'
+		}
+	)
+		.pipe(sass())
+		.pipe(cmq(
+			{
+				log: true
+			}
+		))
+		.pipe(autoprefixer())
+		.pipe(cleanCss())
+		.pipe(gulp.dest('./inc/call-to-action/package/assets/css/'));
+	done();
 });
 
 /*
@@ -110,10 +101,9 @@ gulp.task('sass', function() {
  * including /assets/_js/*.js
  * and transpile from ES6
  */
-gulp.task('scripts', function() {
-	return gulp.src([
+gulp.task('scripts', function(done) {
+	gulp.src([
 			'./assets/_js/*.js',
-			'./inc/smooth-scroll/js/smooth-scroll.js',
 			'./inc/pagetop-btn/js/pagetop-btn.js'
 		])
 		.pipe(concat('all.min.js'))
@@ -121,7 +111,22 @@ gulp.task('scripts', function() {
 			presets: ['@babel/env']
 		}))
 		.pipe(jsmin())
-		.pipe(gulp.dest('./assets/js'))
+		.pipe(gulp.dest('./assets/js'));
+	done();
+})
+
+gulp.task('scripts_smooth', function(done) {
+	gulp.src([
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/smooth-scroll/js/smooth-scroll-polyfill.js',
+		])
+		.pipe(concat('smooth-scroll.min.js'))
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
+		.pipe(jsmin())
+		.pipe(gulp.dest('./inc/smooth-scroll/js'));
+	done();
 })
 
 // Watch
@@ -130,28 +135,27 @@ gulp.task('watch', function() {
 
 	gulp.watch(
 		[
-			'./inc/sns/package/block.jsx',
-			'./inc/child-page-index/block.jsx',
-			'./inc/contact-section/block.jsx',
-			'./inc/page-list-ancestor/block.jsx',
-			'./inc/sitemap-page/block.jsx'
-		],
-		gulp.series('block')
-	)
-	gulp.watch(
-		[
 			'./assets/_js/*.js',
-			'./inc/smooth-scroll/js/smooth-scroll.js',
-			'./inc/pagetop-btn/js/pagetop-btn.js'
 		],
 		gulp.series('scripts')
 	)
-	gulp.watch('./assets/_scss/**/*.scss', gulp.series('sass'))
-	gulp.watch('./inc/pagetop-btn/assets/_scss/*.scss', gulp.series('sass'))
+	gulp.watch('./inc/sns/package/_sns.scss', gulp.series('sass'))
+	gulp.watch(
+		[
+			'./inc/smooth-scroll/js/smooth-scroll.js',
+			'./inc/smooth-scroll/js/smooth-scroll-polyfill.js',
+		],
+		gulp.series('scripts_smooth')
+	)
+	gulp.watch( [
+		'./assets/_scss/**/*.scss',
+		'./inc/call-to-action/package/_scss/*.scss',
+		'./inc/pagetop-btn/assets/_scss/*.scss',
+	], gulp.series('sass'))
 });
 
 gulp.task('default', gulp.series('text-domain','watch'))
-gulp.task('compile', gulp.series('scripts', 'sass', 'block'))
+gulp.task('compile', gulp.series('scripts', 'sass'))
 gulp.task('dist', (done)=>{
   ps('bin/dist', (err, stdout, stderr)=>{
     console.log(stdout)
@@ -159,7 +163,7 @@ gulp.task('dist', (done)=>{
   })
 })
 
-gulp.task('build', gulp.series('scripts', 'sass', 'block'))
+gulp.task('build', gulp.series('scripts', 'sass', 'scripts_smooth'))
 
 // copy dist ////////////////////////////////////////////////
 
@@ -193,5 +197,5 @@ gulp.task('dist', function() {
 			],
 			{ base: './' }
 		)
-		.pipe( gulp.dest( 'dist' ) ); // distディレクトリに出力
+		.pipe( gulp.dest( 'dist/vk-all-in-one-expansion-unit' ) ); // distディレクトリに出力
 } );

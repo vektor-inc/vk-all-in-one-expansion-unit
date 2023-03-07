@@ -1,0 +1,12 @@
+{
+	"apiVersion": 2,
+	"name": "vk-blocks/sitemap",
+	"title": "HTML Sitemap",
+	"category": "veu-block",
+	"description": "Display HTML Sitemap",
+	"textdomain": "vk-all-in-one-expansion-unit",
+	"attributes": {},
+	"supports": {
+		"className": true
+	}
+}

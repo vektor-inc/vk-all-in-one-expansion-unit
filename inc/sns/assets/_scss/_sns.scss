@@ -1,0 +1,138 @@
+/* 通常タイトルと本文の間に一定の余白があるが、余白分離れてSNSボタンが表示されると微妙なのでマイナスオフセットで余白を詰めている */
+.veu_socialSet-position-before {
+    margin-top: -1em;
+    margin-bottom: 2em;
+}
+.veu_socialSet-position-after {
+    margin-top: 3em;
+}
+
+.veu_socialSet {
+    margin-bottom: 1.5em;
+    ul {
+        display: flex;
+    }
+    li {
+        width: 50%;
+        background: none;
+        position: relative;
+        display: block;
+        overflow: visible;
+        box-sizing: border-box;
+    }
+    .sb_icon {
+        .sb_icon_inner {
+            display: block;
+            overflow: hidden;
+            width:100%;
+			box-sizing: border-box;
+            padding: 5px 10px;
+            border-radius: var(--vk-size-radius);
+            color: #fff;
+            text-decoration: none;
+            line-height: 100%;
+            font-size: 90%;
+            text-align: left;
+            border:none;
+            &:hover {
+                box-shadow: none;
+                transform: translateY(2px);
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+            }
+            .sns_txt {
+                position: relative;
+                top: -1px;
+            }
+            .icon_sns {
+                font-size: 100%;
+                padding: 5px 8px 5px 0;
+                display: inline-block;
+            }
+        }
+    }
+    // iframe {
+    //     border: none;
+    // }
+    .sb_facebook a {
+        background: #1877f2;
+        box-shadow: 0 2px 0 rgb(52, 78, 132);
+    }
+    .sb_hatena a {
+        background: #007fc5;
+        box-shadow: 0 2px 0 rgba(0, 103, 159, 1);
+    }
+    .sb_twitter a {
+        background: #00abec;
+        box-shadow: 0 2px 0 rgba(0, 126, 170, 1);
+    }
+    .sb_google a {
+        background: #dd4b39;
+        box-shadow: 0 2px 0 rgba(160, 53, 36, 1);
+    }
+    .sb_line a {
+        background: #6ebd30;
+        box-shadow: 0 2px 0 #5b9c28;
+    }
+    .sb_pocket a {
+        background: #ea4654;
+        box-shadow: 0 2px 0 #c1303c;
+    }
+    .sb_copy .sb_icon_inner {
+        background: #555;
+        box-shadow: 0 2px 0 #333;
+        padding-bottom:4px;
+        i {
+            font-size:14px;
+        }
+    }
+} //.veu_socialSet ul
+
+.veu_count_sns_pocket,
+.veu_count_sns_fb,
+.veu_count_sns_hb {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 77%;
+    line-height: 1;
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .veu_socialSet {
+        ul {
+            flex-wrap: wrap;
+        }
+        li {
+            width: calc(50% - 6px);
+        }
+        .veu_count_sns_pocket,
+        .veu_count_sns_fb,
+        .veu_count_sns_hb {
+            bottom: 2px;
+        }
+        .sb_icon a {
+            padding: 8px 10px;
+        }
+    }
+}
+
+/*
+.veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
+*/
+.veu_socialSet.veu_contentAddSection ul {
+    margin: 0px;
+    padding: 0;
+    li {
+        margin: 3px;
+        padding: 0px;
+    } //li
+}
+@media (max-width: 767px) {
+    .veu_socialSet.veu_contentAddSection ul li {
+        margin-bottom: 9px;
+    }
+}

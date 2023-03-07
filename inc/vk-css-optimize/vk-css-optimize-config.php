@@ -5,21 +5,21 @@
  * @package ExUnit
  */
 
-if ( ! class_exists( 'VK_CSS_Optimize' ) ) {
-	require_once dirname( __FILE__ ) . '/package/class-vk-css-optimize.php';
-}
+ use VektorInc\VK_CSS_Optimize\VkCssOptimize;
+ new VkCssOptimize();
 
-function veu_css_tree_shaking_array( $vk_css_tree_shaking_array ){
-	global $vkExUnit_version;
-	$vk_css_tree_shaking_array[] = array(
-		'id'      => 'vkExUnit_common_style',
-		'url'     => veu_get_directory_uri( '/assets/css/vkExUnit_style.css' ),
-		'path'    => veu_get_directory( '/assets/css/vkExUnit_style.css' ),
-		'version' => $vkExUnit_version,
+function veu_css_tree_shaking_handles( $vk_css_tree_shaking_handles ) {
+
+	$vk_css_tree_shaking_handles = array_merge(
+		$vk_css_tree_shaking_handles,
+		array(
+			'veu-cta',
+			'vkExUnit_common_style'
+		)
 	);
-	return $vk_css_tree_shaking_array;
+	return $vk_css_tree_shaking_handles;
 }
-add_filter( 'vk_css_tree_shaking_array', 'veu_css_tree_shaking_array' );
+add_filter( 'vk_css_tree_shaking_handles', 'veu_css_tree_shaking_handles' );
 
 /**
  * CSS Tree Shaking Exclude

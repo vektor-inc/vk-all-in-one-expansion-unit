@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "vk-blocks/share-button",
+	"title": "Share button",
+	"category": "veu-block",
+	"description": "Display SNS Share Button",
+	"textdomain": "vk-all-in-one-expansion-unit",
+	"attributes": {
+		"position": {
+			"type": "string",
+			"default": "after"
+		}
+	},
+	"supports": {
+		"className": true
+	}
+}

@@ -12,6 +12,7 @@ if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 }
 
 function veu_customize_register_sns( $wp_customize ) {
+	$default_options = veu_get_sns_options_default();
 	/*
 	  SNS Settings
 	 /*-------------------------------------------*/
@@ -45,7 +46,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[snsTitle_use_only_postTitle]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['snsTitle_use_only_postTitle'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -84,7 +85,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[fbAppId]',
 		array(
-			'default'           => '',
+			'default'           => $default_options['fbAppId'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -105,7 +106,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[fbPageUrl]',
 		array(
-			'default'           => '',
+			'default'           => $default_options['fbPageUrl'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -126,7 +127,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[ogImage]',
 		array(
-			'default'           => '',
+			'default'           => $default_options['ogImage'],
 			'type'              => 'option',
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'esc_url_raw',
@@ -167,7 +168,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[enableOGTags]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['enableOGTags'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -206,7 +207,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[twitterId]',
 		array(
-			'default'           => '',
+			'default'           => $default_options['twitterId'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -230,7 +231,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[enableTwitterCardTags]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['enableTwitterCardTags'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -270,7 +271,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[enableSnsBtns]',
 		array(
-			'default'           => true,
+			'default'           => $default_options['enableSnsBtns'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -305,7 +306,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[snsBtn_bg_fill_not]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['snsBtn_bg_fill_not'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -326,7 +327,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[snsBtn_color]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['snsBtn_color'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_hex_color',
@@ -362,7 +363,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[snsBtn_position][before]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['snsBtn_position']['before'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -382,7 +383,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[snsBtn_position][after]',
 		array(
-			'default'           => true,
+			'default'           => $default_options['snsBtn_position']['after'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -459,7 +460,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useFacebook]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['useFacebook'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -480,7 +481,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useTwitter]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['useTwitter'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -501,7 +502,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useHatena]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['useHatena'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -522,7 +523,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[usePocket]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['usePocket'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -543,19 +544,38 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useLine]',
 		array(
-			'default'           => false,
+			'default'           => $default_options['useLine'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
 		)
 	);
-
 	$wp_customize->add_control(
 		'useLine',
 		array(
 			'label'    => __( 'LINE (mobile only)', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useLine]',
+			'type'     => 'checkbox',
+		)
+	);
+
+	// SNS Btn (Copy)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useCopy]',
+		array(
+			'default'           => $default_options['useCopy'],
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'useCopy',
+		array(
+			'label'    => __( 'Copy', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useCopy]',
 			'type'     => 'checkbox',
 		)
 	);
@@ -581,7 +601,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[enableFollowMe]',
 		array(
-			'default'           => true,
+			'default'           => $default_options['enableFollowMe'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'veu_sanitize_boolean',
@@ -601,7 +621,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[followMe_title]',
 		array(
-			'default'           => '',
+			'default'           => $default_options['followMe_title'],
 			'type'              => 'option', // 保存先 option or theme_mod
 			'capability'        => 'edit_theme_options',
 			'sanitize_callback' => 'sanitize_text_field',
