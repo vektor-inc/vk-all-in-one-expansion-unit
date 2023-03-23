@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Lightning Footer URL
+
 = 9.87.2.1 =
 [ Bug fix ] Cope with PHP8.1
 

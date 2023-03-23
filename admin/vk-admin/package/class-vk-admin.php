@@ -105,7 +105,7 @@ if ( ! class_exists( 'Vk_Admin' ) ) {
 				// $banner_html .= '<img src="' . $dir_url . 'images/admin_banner_recruit.jpg" alt="[ Vektor,Inc. 採用情報 ]" />';
 				// $banner_html .= '</a>';
 			} else {
-				$banner_html .= '<a href="https://lightning.nagoya/lightning_copyright_customizer/?rel=vkadmin" target="_blank" class="button button-primary button-primary button-block" style="margin-bottom:1em;">Lightning Copyright Customizer <span class="screen-reader-text">(opens in a new tab)</span><span aria-hidden="true" class="dashicons dashicons-external" style="position:relative;top:3px;"></span></a>';
+				$banner_html .= '<a href="https://lightning.vektor-inc.co.jp/en/lightning-copyright-customizer/?rel=vkadmin" target="_blank" class="button button-primary button-primary button-block" style="margin-bottom:1em;">Lightning Copyright Customizer <span class="screen-reader-text">(opens in a new tab)</span><span aria-hidden="true" class="dashicons dashicons-external" style="position:relative;top:3px;"></span></a>';
 			}
 
 			$banner_html .= '<div class="vk-admin-banner-grid">';
