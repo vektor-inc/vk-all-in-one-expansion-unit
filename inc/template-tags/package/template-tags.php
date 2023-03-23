@@ -254,8 +254,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			if ( $post->post_excerpt ) {
 				$page_description = $post->post_excerpt;
 			} else {
-				$content = preg_replace( '/<(style|script).*?>(.|\r|\n)*?<\/(style|script)>/', '', $post->post_content );
-				$page_description = do_blocks( $content );
+				$post->post_content;
 			}
 		} else {
 			$page_description = get_bloginfo( 'description' );
@@ -280,6 +279,8 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		本来ショートコードが出る場合は適切に抜粋欄に記入して運用でカバーする。
 		*/
 		// この関数は get_the_ ではないので関数内では esc_attr() は行わない
+		$page_description = preg_replace( '/<(style|script).*?>(.|\r|\n)*?<\/(style|script)>/', '', $page_description );
+		$page_description = do_blocks( $page_description );
 		$page_description = strip_tags( $page_description );
 		$page_description = strip_shortcodes( $page_description );
 
