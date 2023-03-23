@@ -254,7 +254,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			if ( $post->post_excerpt ) {
 				$page_description = $post->post_excerpt;
 			} else {
-				$content = preg_replace( '/<(style|script).*?>[.,:;{}\-_\(\)\w\s\d\r\n\/@]+<\/(style|script)>/', '', $post->post_content );
+				$content = preg_replace( '/<(style|script).*?>(.|\r|\n)*?<\/(style|script)>/', '', $post->post_content );
 				$page_description = do_blocks( $content );
 			}
 		} else {
