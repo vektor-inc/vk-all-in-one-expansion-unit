@@ -18,7 +18,7 @@
  */
 
 /*
-Copyright 2015-2022 Vektor,Inc. ( email : kurudrive@gmail.com )
+Copyright 2015-2023 Vektor,Inc. ( email : kurudrive@gmail.com )
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
