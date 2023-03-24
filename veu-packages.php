@@ -555,7 +555,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	$required_packages[] = array(
 		'name'        => 'page_exclude_from_list_pages',
 		'title'       => __( 'Exclude Page from Page List', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( '編集画面から指定したページを固定ページリスト（wp_list_pages）から除外できます。', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can exclude pages specified from the edit screen from the fixed page list (wp_list_pages).', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'page-exclude-from-list-pages/page-exclude-from-list-pages.php',
 	);
