@@ -550,6 +550,17 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
+	  Page exclude from wp_list_pages()
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'page_exclude_from_list_pages',
+		'title'       => __( 'Exclude Page from Page List', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( '編集画面から指定したページを固定ページリスト（wp_list_pages）から除外できます。', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'page-exclude-from-list-pages/page-exclude-from-list-pages.php',
+	);
+
+	/*
 	  CSS Optimize
 	/*-------------------------------------------*/
 	$required_packages[] = array(
