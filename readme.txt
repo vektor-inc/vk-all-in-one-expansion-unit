@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add Function ] Exclude Page from Page List
+
 = 9.87.3.0 =
 [ Bug fix ] Lightning Footer URL
 
