@@ -1,11 +1,19 @@
 <?php
 class VEU_Page_Exclude_From_List_Pages {
 	const META_KEY = 'exclude_from_list_pages';
+	private static $instance = null;
 
-	public function __construct() {
+	private function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'add_exclude_from_list_pages_meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_exclude_from_list_pages_meta_data' ) );
 		add_filter( 'wp_list_pages_excludes', array( $this, 'exclude_pages_from_list_pages' ) );
+	}
+
+	public static function get_instance() {
+		if ( self::$instance == null ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	public function add_exclude_from_list_pages_meta_box() {
@@ -78,4 +86,4 @@ class VEU_Page_Exclude_From_List_Pages {
 	}
 }
 
-new VEU_Page_Exclude_From_List_Pages();
+VEU_Page_Exclude_From_List_Pages::get_instance();
