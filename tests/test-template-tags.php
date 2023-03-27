@@ -132,12 +132,12 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		 * Home Page 01 を作成
 		 */
 		$post            = array(
-			'post_name'     => 'home-page',
-			'post_title'    => 'home-page',
+			'post_name'     => 'blog',
+			'post_title'    => 'Blog',
 			'post_type'     => 'page',
 			'post_status'   => 'publish',
-			'post_content'  => 'home-page-content',
-			'post_excerpt'  => 'home-page-excerpt',
+			'post_content'  => 'blog-content',
+			'post_excerpt'  => 'blog-excerpt',
 			'post_date'     => '2020-07-01 00:00:00',
 			'post_modified' => '2022-01-01 00:00:00',
 		);
@@ -147,11 +147,11 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		 * Home Page 02 を作成
 		 */
 		$post            = array(
-			'post_name'     => 'home-page',
-			'post_title'    => 'home-page',
+			'post_name'     => 'blog',
+			'post_title'    => 'Blog',
 			'post_type'     => 'page',
 			'post_status'   => 'publish',
-			'post_content'  => 'home-page-content',
+			'post_content'  => 'blog-content',
 			'post_date'     => '2020-07-01 00:00:00',
 			'post_modified' => '2022-01-01 00:00:00',
 		);
@@ -303,12 +303,11 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	 * 抜粋のテスト
 	 */
 	public function test_vk_get_page_description() {
-
+		$data = self::setup_data();
 		print PHP_EOL;
 		print '---------------------------------------' . PHP_EOL;
 		print ' VK Get Page Description Test' . PHP_EOL;
 		print '---------------------------------------' . PHP_EOL;
-		$data = self::setup_data();
 		$test_array = array(
 			array(
 				'test_name'  => 'Home Page',
@@ -340,23 +339,23 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 			array(
 				'test_name'  => 'Page for Posts Description',
-				'target_url' => get_permalink( intval( get_option( 'page_for_posts' ) ) ),
+				'target_url' => get_permalink( $data['home_page_id_01'] ),
 				'options'    => array(
 					'show_on_front'  => 'page',
 					'page_on_front'  => $data['front_page_id_01'],
 					'page_for_posts' => $data['home_page_id_01'],
 				),					
-				'correct'   => 'home-page-excerpt',
+				'correct'   => 'blog-excerpt',
 			),
 			array(
 				'test_name'  => 'Page for Posts no Description',
-				'target_url' => get_permalink( get_option( 'page_for_posts' ) ),
+				'target_url' => get_permalink( $data['home_page_id_02'] ),
 				'options'    => array(
 					'show_on_front'  => 'page',
 					'page_on_front'  => $data['front_page_id_02'],
 					'page_for_posts' => $data['home_page_id_02'],
 				),					
-				'correct'   => 'This test is checker for PHP.',
+				'correct'   => 'Article of Blog. PHP Unit Test This test is checker for PHP.',
 			),
 			array(
 				'test_name'  => 'Event Archive',
@@ -424,15 +423,15 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 			array(
 				'test_name'  => 'Monthly Archive',
-				'target_url' => home_url( '/' ) . '?month=202111',
+				'target_url' => home_url( '/' ) . '?m=202111',
 				'options'    => array(
 					'show_on_front' => 'posts',
 				),				
-				'correct'   => 'Article of November 2020 PHP Unit Test This test is checker for PHP.',
+				'correct'   => 'Article of November 2021. PHP Unit Test This test is checker for PHP.',
 			),
 			array(
 				'test_name'  => 'Dayly Archive',
-				'target_url' => home_url( '/' ) . '2021/11/01/',
+				'target_url' => home_url( '/' ) . '?d=20211101',
 				'options'    => array(
 					'show_on_front' => 'posts',
 				),				
@@ -440,11 +439,11 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 			array(
 				'test_name'  => 'Author Archive',
-				'target_url' => get_author_posts_url( get_current_user_id() ),
+				'target_url' => get_author_posts_url( 1 ),
 				'options'    => array(
 					'show_on_front' => 'posts',
 				),				
-				'correct'   => 'Article of admin PHP Unit Test This test is checker for PHP.',
+				'correct'   => 'Article of admin. PHP Unit Test This test is checker for PHP.',
 			),
 			array(
 				'test_name'  => 'Page Description',
@@ -516,17 +515,16 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			foreach ( $test['options'] as $key => $value ) {
 				update_option( $key, $value );
 			}
-
+		
 			// Move to test page
 			$this->go_to( $test['target_url'] );
-			//var_dump( get_option( 'page_for_posts' ) );
 			$return  = vk_get_page_description();
 			$correct = $test['correct'];
 			print PHP_EOL;
-			print 'Name     :' . $test['test_name'] . PHP_EOL;
-			print 'url     :' . $_SERVER['REQUEST_URI'] . PHP_EOL;
-			print 'return  :' . $return . PHP_EOL;
-			print 'correct :' . $correct . PHP_EOL;
+			print 'Name    : ' . $test['test_name'] . PHP_EOL;
+			print 'url     : ' . $test['target_url']. PHP_EOL;
+			print 'return  : ' . $return . PHP_EOL;
+			print 'correct : ' . $correct . PHP_EOL;
 
 			$this->assertEquals( $correct, $return );
 
