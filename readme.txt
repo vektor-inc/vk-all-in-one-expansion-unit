@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 9.87.3.0
+Stable tag: 9.88.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,12 @@ e.g.
 
 == Changelog ==
 
+
 [ Bug fix ] fix meta derscription.
+
+= 9.88.0.0 =
+[ Add Function ] Exclude Page from Page List
+
 
 = 9.87.3.0 =
 [ Bug fix ] Lightning Footer URL
