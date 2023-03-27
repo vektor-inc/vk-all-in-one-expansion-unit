@@ -81,8 +81,12 @@ e.g.
 
 == Changelog ==
 
+
+[ Bug fix ] fix meta derscription.
+
 = 9.88.0.0 =
 [ Add Function ] Exclude Page from Page List
+
 
 = 9.87.3.0 =
 [ Bug fix ] Lightning Footer URL
@@ -95,7 +99,7 @@ e.g.
 
 = 9.87.0.1 =
 [ Specification Change ][ All Block ] Fix Block Structure ( Cope with WordPress 6.2 ).
- Bug fix][ All Block ]Fix translate.
+[Bug fix][ All Block ]Fix translate.
 
 = 9.86.2.0 =
 [ Bug fix ][ CTA ] Fix PHP error on no post page

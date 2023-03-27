@@ -199,6 +199,7 @@ if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 if ( ! function_exists( 'vk_get_page_description' ) ) {
 	function vk_get_page_description() {
 		global $wp_query;
+		$page_description = '';
 		$post = $wp_query->get_queried_object();
 		if ( is_search() || is_404() ) {
 			$page_description = '';
@@ -212,7 +213,12 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			$page_for_posts = vk_get_page_for_posts();
 			if ( $page_for_posts['post_top_use'] ) {
 				$page             = get_post( $page_for_posts['post_top_id'] );
-				$page_description = $page->post_excerpt;
+				if( ! empty( $page->post_excerpt )  ) {
+					$page_description = $page->post_excerpt;
+				} else {
+					$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( $page_for_posts['post_top_name'] ) );
+					$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
+				}				
 			} else {
 				$page_description = get_bloginfo( 'description' );
 			}
@@ -279,7 +285,14 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		本来ショートコードが出る場合は適切に抜粋欄に記入して運用でカバーする。
 		*/
 		// この関数は get_the_ ではないので関数内では esc_attr() は行わない
+
+		// 余計なスタイルタグ・スクリプトタグを除去
+		$page_description = preg_replace( '/<(style|script).*?>(.|\r|\n)*?<\/(style|script)>/', '', $page_description );
+		// 再利用ブロックや動的ブロックは実行しないと HTML 展開されない
+		$page_description = do_blocks( $page_description );
+		// HTML タグを除去
 		$page_description = strip_tags( $page_description );
+		// ショートコードを削除
 		$page_description = strip_shortcodes( $page_description );
 
 		if ( is_singular() ) {
