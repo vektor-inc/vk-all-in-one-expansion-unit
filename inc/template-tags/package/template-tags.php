@@ -199,6 +199,7 @@ if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 if ( ! function_exists( 'vk_get_page_description' ) ) {
 	function vk_get_page_description() {
 		global $wp_query;
+		$page_description = '';
 		$post = $wp_query->get_queried_object();
 		if ( is_search() || is_404() ) {
 			$page_description = '';
