@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ sitemap ] compatible for PHP 8.2
+
 = 9.88.1.0 =
 [ Bug fix ] fix meta derscription.
 
