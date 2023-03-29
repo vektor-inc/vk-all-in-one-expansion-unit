@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] fix block translation
+
 = 9.88.1.0 =
 [ Bug fix ] fix meta derscription.
 
