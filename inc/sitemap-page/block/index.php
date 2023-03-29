@@ -14,8 +14,6 @@ function veu_register_sitemap_block() {
         VEU_VERSION,
         true
     );
-
-    wp_set_script_translations( 'veu-block-sitemap', 'vk-all-in-one-expansion-unit' );
     
     register_block_type(
         __DIR__,
@@ -38,6 +36,16 @@ function veu_register_sitemap_block() {
 	
 }
 add_action( 'init', 'veu_register_sitemap_block', 15 );
+
+/**
+ * 翻訳を設定
+ */
+function veu_sitemap_block_translation() {
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'veu-block-sitemap', 'vk-all-in-one-expansion-unit' );
+	}	
+}
+add_action( 'init', 'veu_sitemap_block_translation', 15 );
 
 function veu_sitemap_block_callback( $attributes, $content ) {
 
