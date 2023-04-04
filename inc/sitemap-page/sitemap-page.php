@@ -121,7 +121,7 @@ function vkExUnit_sitemap( $attr ) {
 	if ( isset( $options['excludeId'] ) ) {
 		$excludes = esc_attr( $options['excludeId'] );
 		$excludes = str_replace( '，', ',', $excludes );
-		$excludes = mb_convert_kana( $excludes, 'kvrn' );
+		$excludes = mb_convert_kana( $excludes, 'rn' );
 	}
 
 	/*
