@@ -338,7 +338,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		<button id="media_thumb_url_change" class="cta-media_btn button button-default"><?php _e( 'Change image', 'vk-all-in-one-expansion-unit' ); ?></button>
 		<button id="media_thumb_url_remove" class="button button-default"><?php _e( 'Remove image', 'vk-all-in-one-expansion-unit' ); ?></button>
 		</div>
-		<input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo $imgid; ?>" />
+		<input type="hidden" name="vkExUnit_cta_img" class="vkExUnit_cta_img" value="<?php echo esc_attr( $imgid ); ?>" />
 	</td>
 	</tr>
 	<tr><th><label for="vkExUnit_cta_img_position"><?php _e( 'CTA image position', 'vk-all-in-one-expansion-unit' ); ?></label></th>
@@ -360,11 +360,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<div class="vkExUnit_cta_button_icon_inputset">
 		<dl>
 		<dt><label for="icon_before"><?php _e( 'Before :', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
-		<dd><input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ); ?>" /></dd>
+		<dd><input type="text" name="vkExUnit_cta_button_icon_before"  id="vkExUnit_cta_button_icon_before" value="<?php echo esc_attr( get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_before', true ) ); ?>" /></dd>
 		</dl>
 		<dl>
 		<dt><label for="icon_after"><?php _e( 'After :', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
-		<dd><input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ); ?>" /></dd>
+		<dd><input type="text" name="vkExUnit_cta_button_icon_after"  id="vkExUnit_cta_button_icon_after" value="<?php echo esc_attr( get_post_meta( get_the_id(), 'vkExUnit_cta_button_icon_after', true ) ); ?>" /></dd>
 		</dl>
 	</div>
 
@@ -378,7 +378,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	</td></tr>
 	<tr><th>
 	<label for="vkExUnit_cta_url"><?php _e( 'Button link url', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
-	<input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="https://" value="<?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_url', true ); ?>" />
+	<input type="url" name="vkExUnit_cta_url" id="vkExUnit_cta_url" placeholder="https://" value="<?php echo esc_url( get_post_meta( get_the_id(), 'vkExUnit_cta_url', true ) ); ?>" />
 	</td></tr>
 	<tr><th>
 
@@ -397,7 +397,77 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
 </th>
 <td>
-<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ); ?></textarea>
+	<?php
+	$allowed_html    = array(
+		'div'  => array(
+			'id'        => array(),
+			'class'     => array(),
+			'itemprop'  => array(),
+			'itemscope' => array(),
+			'itemtype'  => array(),
+		),
+		'h3' => array(
+			'id'        => array(),
+			'class'     => array(),
+		),
+		'h4' => array(
+			'id'        => array(),
+			'class'     => array(),
+		),
+		'h5' => array(
+			'id'        => array(),
+			'class'     => array(),
+		),
+		'h6' => array(
+			'id'        => array(),
+			'class'     => array(),
+		),
+		'p'    => array(
+			'id'    => array(),
+			'class' => array(),
+		),
+		'ul'   => array(
+			'id'        => array(),
+			'class'     => array(),
+			'itemprop'  => array(),
+			'itemscope' => array(),
+			'itemtype'  => array(),
+		),
+		'ol'   => array(
+			'id'        => array(),
+			'class'     => array(),
+			'itemprop'  => array(),
+			'itemscope' => array(),
+			'itemtype'  => array(),
+		),
+		'li'   => array(
+			'id'        => array(),
+			'class'     => array(),
+			'itemprop'  => array(),
+			'itemscope' => array(),
+			'itemtype'  => array(),
+		),
+		'a'    => array(
+			'id'       => array(),
+			'class'    => array(),
+			'href'     => array(),
+			'target'   => array(),
+			'itemprop' => array(),
+		),
+		'span' => array(
+			'id'        => array(),
+			'class'     => array(),
+			'itemprop'  => array(),
+			'itemscope' => array(),
+			'itemtype'  => array(),
+		),
+		'i'    => array(
+			'id'    => array(),
+			'class' => array(),
+		),
+	);
+	?>
+<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ), $allowed_html ); ?></textarea>
 </td></tr>
 </table>
 <a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
