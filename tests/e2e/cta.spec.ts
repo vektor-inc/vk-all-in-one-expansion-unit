@@ -25,7 +25,7 @@ test('CTA', async ({ page }) => {
   // ※ 環境に応じてダイアログが出たり出なかったりするので状況に応じて 有効・コメントアウトを切り替えてください ）
   // ※ ダイアログが出ている場合だけ close ボタンを押す という処理が書ける人はぜひ書いてプルリクください。
   await page.waitForTimeout(500); // ダイアログが出るまで待つ
-  await page.getByRole('button', { name: 'Close dialog' }).click();
+  await page.getByRole('button', { name: 'Close' }).click();
 
   // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();
