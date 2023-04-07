@@ -84,6 +84,7 @@ e.g.
 [ Bug fix ][ sitemap ] compatible for PHP 8.2
 [ Bug fix ] fix block translation
 [ Bug fix ][ Article Structure Data ] Cope with XSS
+[ Bug fix ][ CTA ] Cope with classic CTA XSS
 
 = 9.88.1.0 =
 [ Bug fix ] fix meta derscription.
