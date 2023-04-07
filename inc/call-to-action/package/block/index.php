@@ -31,8 +31,6 @@ function veu_register_cta_block() {
 		true
 	);
 
-	wp_set_script_translations( 'veu-block-cta', 'vk-all-in-one-expansion-unit' );
-
 	register_block_type(
 		__DIR__,
 		array(
@@ -76,6 +74,17 @@ function veu_register_cta_block() {
 
 }
 add_action( 'init', 'veu_register_cta_block', 15 );
+
+/**
+ * 翻訳を設定
+ */
+function veu_cta_block_translation() {
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'veu-block-cta', 'vk-all-in-one-expansion-unit' );
+	}	
+}
+add_action( 'init', 'veu_cta_block_translation', 15 );
+
 
 function veu_cta_block_data() {
 	// CTA のリストを取得

@@ -14,9 +14,7 @@ function veu_register_child_page_index_block() {
         VEU_VERSION,
         true
     );
-
-    wp_set_script_translations( 'veu-block-child-page-index', 'vk-all-in-one-expansion-unit' );
-    
+ 
     register_block_type(
         __DIR__,
         array(
@@ -42,6 +40,16 @@ function veu_register_child_page_index_block() {
 	
 }
 add_action( 'init', 'veu_register_child_page_index_block', 15 );
+
+/**
+ * 翻訳を設定
+ */
+function veu_child_page_index_block_translation() {
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'veu-block-child-page-index', 'vk-all-in-one-expansion-unit' );
+	}	
+}
+add_action( 'init', 'veu_child_page_index_block_translation', 15 );
 
 function veu_child_page_index_block_callback( $attributes, $content ) {
 
