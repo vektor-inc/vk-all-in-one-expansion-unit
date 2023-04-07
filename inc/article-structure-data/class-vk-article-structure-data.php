@@ -117,7 +117,7 @@ class VK_Article_Srtuctured_Data {
 			$article_array = self::get_article_structure_array( $author_id );
 			if ( $article_array && is_array( $article_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
-echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
+                echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
 				echo '<!-- [ / VK All in One Expansion Unit Article Structure Data ] -->';
 			}
 		}
