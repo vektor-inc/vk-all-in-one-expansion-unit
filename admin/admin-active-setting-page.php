@@ -1,3 +1,6 @@
+<?php
+use VektorInc\VK_Admin\VkAdmin;
+?>
 <div class="wrap vk_admin_page">
 <h2>
 <span class="pageTitleTxt"><?php echo veu_get_name(); ?> <?php _e( 'Enable setting', 'vk-all-in-one-expansion-unit' ); ?></span>
@@ -132,7 +135,7 @@ if ( veu_content_filter_state() == 'loop_end' ) {
 </form>
 </div><!-- [ /.adminMain ] -->
 
-<?php echo Vk_Admin::admin_sub(); ?>
+<?php echo VkAdmin::admin_sub(); ?>
 </div>
 
 <script type="text/javascript">
