@@ -6,7 +6,8 @@
   Print admin js
 */
 use VektorInc\VK_Admin\VkAdmin;
-new VkAdmin();
+VkAdmin::init();
+
 
 function veu_common_options_init() {
 	register_setting(
