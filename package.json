@@ -57,6 +57,7 @@
 	},
 	"homepage": "https://ex-unit.nagoya",
 	"dependencies": {
+		"lint": "^0.8.19",
 		"smoothscroll-polyfill": "^0.4.4"
 	},
 	"volta": {
