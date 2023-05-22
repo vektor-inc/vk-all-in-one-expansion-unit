@@ -9,6 +9,8 @@
 /*
  Main Setting Page  _ ExUnit > メイン設定 メニューを追加
 /*-------------------------------------------*/
+use VektorInc\VK_Admin\VkAdmin;
+
 function veu_add_main_setting() {
 	// $capability_required = veu_get_capability_required();
 	$custom_page = add_submenu_page(
@@ -62,7 +64,7 @@ function veu_render_main_frame() {
 		$get_menu_html .= '</a></li>';
 	}
 
-	Vk_Admin::admin_page_frame( $get_page_title, 'vkExUnit_the_main_setting_body', $get_logo_html, $get_menu_html );
+	VkAdmin::admin_page_frame( $get_page_title, 'vkExUnit_the_main_setting_body', $get_logo_html, $get_menu_html );
 
 }
 
