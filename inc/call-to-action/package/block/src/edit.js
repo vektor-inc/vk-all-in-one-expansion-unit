@@ -3,7 +3,7 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import { PanelBody, SelectControl } from '@wordpress/components';
 
-export default function CTAEdit( props ) {
+export default function CTAEdit(props) {
 	const { attributes, setAttributes } = props;
 	const { postId } = attributes;
 
@@ -17,95 +17,86 @@ export default function CTAEdit( props ) {
 
 	let setting = '';
 	if (
-		wp.data.select( 'core/editor' ) &&
-		wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' ) &&
-		wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' )
+		wp.data.select('core/editor') &&
+		wp.data.select('core/editor').getEditedPostAttribute('meta') &&
+		wp.data.select('core/editor').getEditedPostAttribute('meta')
 			.vkexunit_cta_each_option
 	) {
 		setting = wp.data
-			.select( 'core/editor' )
-			.getEditedPostAttribute( 'meta' ).vkexunit_cta_each_option;
+			.select('core/editor')
+			.getEditedPostAttribute('meta').vkexunit_cta_each_option;
 	}
 
 	let editContent;
 
 	// If no CTA registered.
-	if ( ctaPostsExist === 'false' ) {
+	if (ctaPostsExist === 'false') {
 		editContent = (
 			<div className="veu-cta-block-edit-alert alert alert-warning">
 				<div className="alert-title">
-					{ __(
-						'No CTA registered.',
-						'vk-all-in-one-expansion-unit'
-					) }
+					{__('No CTA registered.', 'vk-all-in-one-expansion-unit')}
 				</div>
-				[{ ' ' }
+				[{' '}
 				<a
-					href={ adminURL + 'edit.php?post_type=cta' }
+					href={adminURL + 'edit.php?post_type=cta'}
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					{ __( 'Register CTA', 'vk-all-in-one-expansion-unit' ) }
-				</a>{ ' ' }
+					{__('Register CTA', 'vk-all-in-one-expansion-unit')}
+				</a>{' '}
 				]
 			</div>
 		);
 		// If CTA is disabled.
-	} else if ( setting === 'disable' ) {
+	} else if (setting === 'disable') {
 		editContent = (
 			<div className="veu-cta-block-edit-alert">
-				{ __(
+				{__(
 					'Because displaying CTA is disabled. The block render no content.',
 					'vk-all-in-one-expansion-unit'
-				) }
+				)}
 			</div>
 		);
 		// Normal.
-	} else if ( postId !== '' && postId !== null && postId !== undefined ) {
+	} else if (postId !== '' && postId !== null && postId !== undefined) {
 		editContent = (
-			<ServerSideRender block="vk-blocks/cta" attributes={ attributes } />
+			<ServerSideRender block="vk-blocks/cta" attributes={attributes} />
 		);
 		// New setqting.
 	} else {
 		editContent = (
 			<div className="veu-cta-block-edit-alert alert alert-warning">
-				{ __(
+				{__(
 					'Please select CTA from Setting sidebar.',
 					'vk-all-in-one-expansion-unit'
-				) }
+				)}
 			</div>
 		);
 	}
 
-	const blockProps = useBlockProps( {
+	const blockProps = useBlockProps({
 		className: `veu-cta-block-edit`,
-	} );
+	});
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __(
-						'CTA Setting',
-						'vk-all-in-one-expansion-unit'
-					) }
-					initialOpen={ true }
+					title={__('CTA Setting', 'vk-all-in-one-expansion-unit')}
+					initialOpen={true}
 				>
 					<SelectControl
-						label={ __(
-							'Select CTA',
-							'vk-all-in-one-expansion-unit'
-						) }
+						label={__('Select CTA', 'vk-all-in-one-expansion-unit')}
 						id="veu-cta-block-select"
-						value={ postId }
-						options={ options }
-						onChange={ ( value ) => {
-							setAttributes( { postId: value } );
-						} }
+						value={postId}
+						options={options}
+						onChange={(value) => {
+							setAttributes({ postId: value });
+						}}
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>{ editContent }</div>
+			<div {...blockProps}>{editContent}</div>
 		</>
 	);
 }
