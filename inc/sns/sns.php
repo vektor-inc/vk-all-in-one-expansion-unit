@@ -88,7 +88,7 @@ function veu_get_sns_options_default() {
 		'entry_count'                 => 'get',
 		'hook_point'                  => '',
 	);
-	// ブロックエディターの場合
+	// In case of block theme
 	if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
 		$default_options['enableSnsBtns']  = false;
 		$default_options['enableFollowMe'] = false;
