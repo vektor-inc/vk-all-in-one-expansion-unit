@@ -42,7 +42,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
                     'active_pageList_ancestor'               => true,
                     'active_contact_section'                 => false,
                     'active_sitemap_page'                    => true,
-                    'active_call_to_action'                  => false,
+                    'active_call_to_action'                  => true,
                     'active_insert_ads'                      => false,
                     'active_relatedPosts'                    => true,
                     'active_disable_ping-back'               => false,
