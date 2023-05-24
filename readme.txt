@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Recent Posts widget ] Fix php error
+
 = 9.88.2.0 =
 [ Bug fix ][ sitemap ] compatible for PHP 8.2
 [ Bug fix ] fix block translation
