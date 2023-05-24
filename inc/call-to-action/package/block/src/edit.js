@@ -76,7 +76,6 @@ export default function CTAEdit(props) {
 	}
 	if (!postType) {
 		if (!postId) {
-
 			editContent = (
 				<div className="veu-cta-block-edit-alert alert alert-warning">
 					{__(
@@ -87,12 +86,7 @@ export default function CTAEdit(props) {
 			);
 		} else {
 			editContent = (
-				<div>
-					{__(
-						'CTA',
-						'vk-all-in-one-expansion-unit'
-					)}
-				</div>
+				<div>{__('CTA', 'vk-all-in-one-expansion-unit')}</div>
 			);
 		}
 	}
