@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.89.0.0 =
 [ Specification Change ] Change default option value that in case of Block Theme
 [ Bug fix ][ Recent Posts widget ] Fix php error
 
