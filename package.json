@@ -44,7 +44,8 @@
 		"watch": "gulp watch",
 		"build": "npx gulp text-domain && npm run build:block && npx gulp build",
 		"build:block": "wp-scripts build --config webpack.config.js",
-		"phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/.phpunit.xml --verbose'"
+		"phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/.phpunit.xml --verbose'",
+		"prepare": "husky install"
 	},
 	"repository": {
 		"type": "git",
@@ -57,6 +58,8 @@
 	},
 	"homepage": "https://ex-unit.nagoya",
 	"dependencies": {
+		"husky": "^8.0.3",
+		"lint": "^0.8.19",
 		"smoothscroll-polyfill": "^0.4.4"
 	},
 	"volta": {

@@ -5,6 +5,9 @@
   Load master setting page
   Print admin js
 */
+use VektorInc\VK_Admin\VkAdmin;
+VkAdmin::init();
+
 
 function veu_common_options_init() {
 	register_setting(
@@ -23,7 +26,6 @@ require dirname( __FILE__ ) . '/customizer.php';
 require dirname( __FILE__ ) . '/admin-post-metabox.php';
 
 require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
-require_once dirname( __FILE__ ) . '/vk-admin/vk-admin-config.php';
 
 /*
   Add Parent menu

@@ -223,14 +223,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 
 		// taxonomy
-		
 
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_the_terms( get_the_ID(), $taxonomy );
 			if ( is_array( $terms ) ) {
 				foreach ( $terms as $term ) {
-					$link             = get_term_link( $term->term_id );
-					if ( class_exists( 'Vk_term_color' ) ) {
+					$term_color = '';
+					$link       = get_term_link( $term->term_id );
+					if ( class_exists( 'VektorInc\VK_Term_Color\VKTermColor' ) ) {
 						$term_color = VkTermColor::get_term_color( $term->term_id );
 						$term_color = ( $term_color ) ? ' style="background-color:' . $term_color . ';border:none;color:white;"' : '';
 					}
@@ -240,8 +240,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 				}
 			}
 		}
-
-		
 
 		$allowed_html = array(
 			'span'   => array( 'class' => array() ),
