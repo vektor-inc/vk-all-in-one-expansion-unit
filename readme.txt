@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ] Change default option value that in case of Block Theme
+
 = 9.88.2.0 =
 [ Bug fix ][ sitemap ] compatible for PHP 8.2
 [ Bug fix ] fix block translation
