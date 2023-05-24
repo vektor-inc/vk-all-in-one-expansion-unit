@@ -88,6 +88,11 @@ function veu_get_sns_options_default() {
 		'entry_count'                 => 'get',
 		'hook_point'                  => '',
 	);
+	// In case of block theme
+	if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+		$default_options['enableSnsBtns']  = false;
+		$default_options['enableFollowMe'] = false;
+	}
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
 }
 
@@ -106,10 +111,10 @@ function veu_get_the_sns_title( $post_id = '' ) {
 	例） ループの中の投稿の場合、そのページ自体がsingularページであるとは限らないため is_singular() で条件分岐すると誤動作してしまう
 	*/
 
-	$title       = '';
-	$site_title  = get_bloginfo( 'name' );
-	$options_sns = veu_get_sns_options();
-	$page_on_front = get_option( 'page_on_front' );
+	$title          = '';
+	$site_title     = get_bloginfo( 'name' );
+	$options_sns    = veu_get_sns_options();
+	$page_on_front  = get_option( 'page_on_front' );
 	$page_for_posts = get_option( 'page_for_posts' );
 	if ( ! $post_id ) {
 		$post_id = get_the_id();
@@ -170,7 +175,6 @@ function veu_get_the_sns_title( $post_id = '' ) {
 		} else {
 			$title = get_the_archive_title() . ' | ' . $site_title;
 		}
-
 	}
 
 	// 投稿詳細ページの場合
@@ -202,7 +206,6 @@ function veu_get_the_sns_title( $post_id = '' ) {
 		if ( ! empty( get_post_meta( $post_id, 'vkExUnit_sns_title', true ) ) ) {
 			$title = get_post_meta( $post_id, 'vkExUnit_sns_title', true );
 		}
-
 	}
 
 	/**
@@ -248,11 +251,10 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
 	$output['entry_count']                 = esc_attr( $input['entry_count'] );
 
-
 	$output['hook_point'] = esc_html( $input['hook_point'] );
 	$output['hook_point'] = str_replace( array( ' ', '　', "\t", "\r\n", "\r", "\n", ',' ), "\n", $output['hook_point'] );
-	$output['hook_point'] = str_replace( "\n\n",  "\n", $output['hook_point'] );
-	
+	$output['hook_point'] = str_replace( "\n\n", "\n", $output['hook_point'] );
+
 	/*
 	SNSボタンの塗りつぶし関連は管理画面に値がないので、カスタマイザーで保存された値を入れる必要がある
 	既に保存されている値をアップデート用にそのまま返すだけなのでサニタイズしていない
@@ -405,7 +407,7 @@ function vkExUnit_add_sns_options_page() {
 function veu_enqueue_clipboard() {
 	$options = veu_get_sns_options();
 	if ( ! empty( $options['useCopy'] ) ) {
-		wp_enqueue_script( 'copy-button', plugin_dir_url( __FILE__ ) . '/assets/js/copy-button.js', array('clipboard'), null, true );
+		wp_enqueue_script( 'copy-button', plugin_dir_url( __FILE__ ) . '/assets/js/copy-button.js', array( 'clipboard' ), null, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'veu_enqueue_clipboard' );
