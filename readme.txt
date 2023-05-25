@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 9.88.2.0
+Stable tag: 9.89.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.89.0.0 =
+[ Specification Change ] Change default option value that in case of Block Theme
+[ Bug fix ][ Recent Posts widget ] Fix php error
 
 = 9.88.2.0 =
 [ Bug fix ][ sitemap ] compatible for PHP 8.2

@@ -379,7 +379,7 @@ function veu_get_packages( $is_block_theme = null ) {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => $is_block_theme ? false : true,
+		'default'     => true,
 		'include'     => 'call-to-action/call-to-action-config.php',
 	);
 
