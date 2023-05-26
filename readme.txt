@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Bug fix ] Fix media uploader not work
+[ Bug fix ][ CTA ] Fixed the display in the site editor.
 
 = 9.89.0.0 =
 [ Specification Change ] Change default option value that in case of Block Theme
@@ -195,7 +196,7 @@ Update translate
 
 = 9.76.1.0 =
 * [ Bug Fix ][ Custom Post Type Manager ] Fix translate
-* [ Bug Fix ][ CSS Optimize lib ] library Update 
+* [ Bug Fix ][ CSS Optimize lib ] library Update
 * [ Bug Fix ] Fix load Font Awesome Files on WordPress.com
 * [ Other ][ BreadCrumb ] Update composer library 0.2.2
 
@@ -214,18 +215,18 @@ Update translate
 * [ Google Analytics ][ Add function ] Add option for disable tracking of logged in user
 
 = 9.73.3.0 =
-* [ Bug fix ] Fix Admin Fatal Error 
+* [ Bug fix ] Fix Admin Fatal Error
 
 = 9.73.2.0 =
 * [ Bug fix ] Fix Activate setting page warning
 * [ Bug fix ] Fix Facebook btn brand color
 
 = 9.73.1.0 =
-* [ Bug fix ] Fix admin escape 
+* [ Bug fix ] Fix admin escape
 
 = 9.73.0.0 =
 * [ Add function ] Cope with font awesome 6
-* [ Bug fix ][ title ] Fix admin title escape 
+* [ Bug fix ][ title ] Fix admin title escape
 * [ other ] Add ExUnit icon on admin menu
 
 = 9.72.0.0 =
@@ -367,19 +368,19 @@ Update translate
 * [ Specification Change ] Moved Google Tag Manager functionality to ExUnit
 
 = 9.52.1.0 =
-* [ Specification Change ] Update VK-Admin Library 
+* [ Specification Change ] Update VK-Admin Library
 
 = 9.52.0.0 =
 * [ Design Change ][ block icon ] Change block icon
 
 = 9.51.0.0 =
 * [ Specification Change ] Change font awesome default version to 5
-* [ Specification Change ][ Contact section ] Add tel color. 
-* [ Specification Change ][ CSS Customize ] delete css comment 
+* [ Specification Change ][ Contact section ] Add tel color.
+* [ Specification Change ][ CSS Customize ] delete css comment
 * [ Design bug fix ][ Share button ] fix no margin bottom
 
 = 9.50.0.0 =
-* [ Specification Change ][ NewPostsWidget ] Delete target blank from term link 
+* [ Specification Change ][ NewPostsWidget ] Delete target blank from term link
 * [ Specification Change ][ Contact Section ] class and margin tuning
 * [ Specification Change ] come css chenge to css variable
 
@@ -481,7 +482,7 @@ Update translate
 * [ bug fix ] fix when plugin VK Blocks activation that ExUnit widget activation setting was delete
 
 = 9.37.2.0 =
-* [ Design bug fix ] Scrolled Page top button CSS bug fix 
+* [ Design bug fix ] Scrolled Page top button CSS bug fix
 
 = 9.37.1.1 =
 Only Change Version Number
@@ -512,7 +513,7 @@ Only Change Version Number
 * [ Add option ][ page top button ] Add mobile display option
 
 = 9.32.0.0 =
-* [ Specification change ][ contact section ] change horizontal layout class name 
+* [ Specification change ][ contact section ] change horizontal layout class name
 
 = 9.31.11.0 =
 * [ Design tuning ][ Contact section ]
@@ -524,7 +525,7 @@ Only Change Version Number
 * [ bug fix ][ Default thumbnail ] Thumbnail doesn't display on VK Posts
 
 = 9.31.8.0 =
-* [ bug fix ][ Default thumbnail ] fix OGP don't refrect 
+* [ bug fix ][ Default thumbnail ] fix OGP don't refrect
 
 
 = 9.31.7.0 =
@@ -664,7 +665,7 @@ Only Change Version Number
 * [ bug fix ][ Block 0.26.7 ] merely js rebuild
 
 = 9.16.1.0 =
-* [ bug fix ][ Block 0.26.5 ] button color change bug fix 
+* [ bug fix ][ Block 0.26.5 ] button color change bug fix
 
 = 9.16.0.2 =
 * [ bug fix ][ Block 0.26.4 ] editor css build miss fix
@@ -678,11 +679,11 @@ Only Change Version Number
 * [ Add function ][ Block 0.26.2 ] Add wide size
 
 = 9.15.5.0 =
-* [ bugfix ][ smoothscroll ] 
+* [ bugfix ][ smoothscroll ]
 
 = 9.15.4.0 =
-* [ bugfix ][ smoothscroll ] 
-* [ bugfix ][ metakeyword ] 
+* [ bugfix ][ smoothscroll ]
+* [ bugfix ][ metakeyword ]
 
 = 9.15.3.0 =
 * [ bugfix ][ no index no follow ] don't work...
@@ -715,7 +716,7 @@ Only Change Version Number
 * [ Bug fix ] Fix Lightning Design skin specific design overwrite not working.
 
 = 9.11.3.0 =
-* [ Specification change ] Default display the customizer ExUnit Panel 
+* [ Specification change ] Default display the customizer ExUnit Panel
 
 = 9.11.2.0 =
 * [ Specification change ][ vk blocks ] YouTube display width : 100%
@@ -725,7 +726,7 @@ Only Change Version Number
 * [ bug fix ] css customize error fix
 
 = 9.11.0.0 =
-* [ Add function ] Speeding setting ( load point controll of css file and css customize ) 
+* [ Add function ] Speeding setting ( load point controll of css file and css customize )
 
 = 9.10.1.0 =
 * [ Specification change ] load ExUnit css and block css on header from footer
