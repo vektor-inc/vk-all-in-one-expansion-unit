@@ -10,6 +10,7 @@ VkAdmin::init();
 
 // VK Admin 0.1.0 ではメディアアップローダーの js は指定しないと読み込まないため手動で指定
 // VK Admin 側で問答無用で読み込むようにした場合は削除可
+// https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/972
 $admin_pages = array(
 	'toplevel_page_vkExUnit_setting_page',
 	'exunit_page_vkExUnit_main_setting',
