@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Fix media uploader not work
 [ Bug fix ][ CTA ] Fixed the display in the site editor.
 
 = 9.89.0.0 =
