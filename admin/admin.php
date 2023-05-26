@@ -8,6 +8,16 @@
 use VektorInc\VK_Admin\VkAdmin;
 VkAdmin::init();
 
+// VK Admin 0.1.0 ではメディアアップローダーの js は指定しないと読み込まないため手動で指定
+// VK Admin 側で問答無用で読み込むようにした場合は削除可
+// https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/972
+$admin_pages = array(
+	'toplevel_page_vkExUnit_setting_page',
+	'exunit_page_vkExUnit_main_setting',
+	'widgets-php',
+	'index.php',
+);
+VkAdmin::admin_scripts( $admin_pages );
 
 function veu_common_options_init() {
 	register_setting(
