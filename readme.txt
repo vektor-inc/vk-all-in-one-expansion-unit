@@ -81,6 +81,12 @@ e.g.
 
 == Changelog ==
 
+= 9.90.0.0 =
+[ Add filter ][ New Posts Widget ] Add veu_widget_new_posts_query filter
+[ Bug Fix ] Fix widget panel design corruption / Update VK Admin 0.4.0
+[ Other ] Cope with English Information / Update VK Admin 0.4.0
+[ Other ] Delete VK Helper Class
+
 = 9.89.1.0 =
 [ Bug fix ] Fix media uploader not work
 [ Bug fix ][ CTA ] Fixed the display in the site editor.

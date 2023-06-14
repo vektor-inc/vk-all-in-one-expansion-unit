@@ -23,7 +23,6 @@ if ( empty( $options['9.72.0'] ) ) {
 -------------------------------------------*/
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
-require_once VEU_DIRECTORY_PATH . '/inc/vk-helpers/config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
