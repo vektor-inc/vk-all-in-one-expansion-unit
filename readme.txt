@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 9.89.1.0
+Stable tag: 9.90.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-= 9.90.0.0 =
+= 9.90.0.1 =
 [ Add filter ][ New Posts Widget ] Add veu_widget_new_posts_query filter
 [ Bug Fix ] Fix widget panel design corruption / Update VK Admin 0.4.0
 [ Other ] Cope with English Information / Update VK Admin 0.4.0
