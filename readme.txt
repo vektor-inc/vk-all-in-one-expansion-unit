@@ -82,7 +82,8 @@ e.g.
 == Changelog ==
 
 [ Add filter ][ New Posts Widget ] Add veu_widget_new_posts_query filter
-[ Other ] Update VK Admin 0.4.0 ( Cope with English Information )
+[ Bug Fix ] Fix widget panel design corruption / Update VK Admin 0.4.0
+[ Other ] Cope with English Information / Update VK Admin 0.4.0
 
 = 9.89.1.0 =
 [ Bug fix ] Fix media uploader not work
