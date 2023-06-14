@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add filter ][ New Posts Widget ] Add veu_widget_new_posts_query filter
+
 = 9.89.1.0 =
 [ Bug fix ] Fix media uploader not work
 [ Bug fix ][ CTA ] Fixed the display in the site editor.

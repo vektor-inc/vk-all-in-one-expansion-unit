@@ -48,6 +48,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		return $title;
 	}
 
+	/*
+	  Widget
+	/*-------------------------------------------*/
 	function widget( $args, $instance ) {
 		$instance = static::get_options( $instance );
 		$title    = $this->get_widget_title( $instance );
@@ -74,7 +77,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified' );
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
-		$p_args = array(
+		$args = array(
 			'order'          => 'DESC',
 			'post_type'      => $post_type,
 			'posts_per_page' => $count,
@@ -84,12 +87,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		if ( isset( $instance['terms'] ) && $instance['terms'] ) {
 			$taxonomies          = get_taxonomies( array() );
-			$p_args['tax_query'] = array(
+			$args['tax_query'] = array(
 				'relation' => 'OR',
 			);
 			$terms_array         = explode( ',', $instance['terms'] );
 			foreach ( $taxonomies as $taxonomy ) {
-				$p_args['tax_query'][] = array(
+				$args['tax_query'][] = array(
 					'taxonomy' => $taxonomy,
 					'field'    => 'id',
 					'terms'    => $terms_array,
@@ -97,7 +100,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			}
 		}
 
-		$post_loop = new WP_Query( $p_args );
+		$widget_area_id = $args['id'];
+		$args = apply_filters( 'veu_widget_new_posts_query', $args, $widget_area_id );
+		$post_loop = new WP_Query( $args );
 
 		if ( $post_loop->have_posts() ) :
 			if ( ! $instance['format'] ) {
