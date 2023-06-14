@@ -101,6 +101,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 
 		$widget_area_id = $args['id'];
+
+		/**
+		 * Add veu_widget_new_posts_query filter
+		 * @since 9.90.0.0
+		 * https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/974
+		 */
 		$query_args = apply_filters( 'veu_widget_new_posts_query', $query_args, $widget_area_id );
 		$post_loop = new WP_Query( $query_args );
 
