@@ -77,7 +77,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified' );
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
 
-		$args = array(
+		$query_args = array(
 			'order'          => 'DESC',
 			'post_type'      => $post_type,
 			'posts_per_page' => $count,
@@ -87,12 +87,12 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		if ( isset( $instance['terms'] ) && $instance['terms'] ) {
 			$taxonomies          = get_taxonomies( array() );
-			$args['tax_query'] = array(
+			$query_args['tax_query'] = array(
 				'relation' => 'OR',
 			);
 			$terms_array         = explode( ',', $instance['terms'] );
 			foreach ( $taxonomies as $taxonomy ) {
-				$args['tax_query'][] = array(
+				$query_args['tax_query'][] = array(
 					'taxonomy' => $taxonomy,
 					'field'    => 'id',
 					'terms'    => $terms_array,
@@ -101,8 +101,14 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		}
 
 		$widget_area_id = $args['id'];
-		$args = apply_filters( 'veu_widget_new_posts_query', $args, $widget_area_id );
-		$post_loop = new WP_Query( $args );
+
+		/**
+		 * Add veu_widget_new_posts_query filter
+		 * @since 9.90.0.0
+		 * https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/974
+		 */
+		$query_args = apply_filters( 'veu_widget_new_posts_query', $query_args, $widget_area_id );
+		$post_loop = new WP_Query( $query_args );
 
 		if ( $post_loop->have_posts() ) :
 			if ( ! $instance['format'] ) {
