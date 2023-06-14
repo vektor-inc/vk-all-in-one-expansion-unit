@@ -304,7 +304,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			$title = $instance['label'];
 		}
 		?>
-		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
+		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" class="admin_widget_input" />
 
 		<?php // Display Format ?>
 		<h3 class="admin-custom-h3">
@@ -405,11 +405,13 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		</h3>
 		<input type="text" id="<?php echo $this->get_field_id( 'terms' ); ?>" name="<?php echo $this->get_field_name( 'terms' ); ?>" value="<?php echo esc_attr( $instance['terms'] ); ?>" class="admin-custom-input" />
 		
+		<p>
 		<?php
 		_e( 'if you need filtering by term, add the term ID separate by ",".', 'vk-all-in-one-expansion-unit' );
 		echo '<br/>';
 		_e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-unit' );
 		?>
+		</p>
 
 
 		<?php // Read more ?>
