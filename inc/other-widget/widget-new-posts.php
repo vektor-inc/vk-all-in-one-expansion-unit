@@ -86,11 +86,11 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		);
 
 		if ( isset( $instance['terms'] ) && $instance['terms'] ) {
-			$taxonomies          = get_taxonomies( array() );
+			$taxonomies              = get_taxonomies( array() );
 			$query_args['tax_query'] = array(
 				'relation' => 'OR',
 			);
-			$terms_array         = explode( ',', $instance['terms'] );
+			$terms_array             = explode( ',', $instance['terms'] );
 			foreach ( $taxonomies as $taxonomy ) {
 				$query_args['tax_query'][] = array(
 					'taxonomy' => $taxonomy,
@@ -100,15 +100,20 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			}
 		}
 
-		$widget_area_id = $args['id'];
+		if ( ! empty( $args['id'] ) ) {
+			$widget_area_id = $args['id'];
+		} else {
+			$widget_area_id = '';
+		}
 
 		/**
 		 * Add veu_widget_new_posts_query filter
+		 *
 		 * @since 9.90.0.0
 		 * https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/974
 		 */
 		$query_args = apply_filters( 'veu_widget_new_posts_query', $query_args, $widget_area_id );
-		$post_loop = new WP_Query( $query_args );
+		$post_loop  = new WP_Query( $query_args );
 
 		if ( $post_loop->have_posts() ) :
 			if ( ! $instance['format'] ) {

@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Nwe post widget ] Fix PHP Error
+
 = 9.90.0.1 =
 [ Add filter ][ New Posts Widget ] Add veu_widget_new_posts_query filter
 [ Bug Fix ] Fix widget panel design corruption / Update VK Admin 0.4.0
