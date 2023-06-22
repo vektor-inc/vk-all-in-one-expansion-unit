@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Share button ] Fix js file path ( // -> / )
+
 = 9.90.1.0 =
 [ Bug fix ][ Nwe post widget ] Fix PHP Error
 
