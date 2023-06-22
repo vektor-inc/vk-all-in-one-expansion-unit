@@ -407,7 +407,7 @@ function vkExUnit_add_sns_options_page() {
 function veu_enqueue_clipboard() {
 	$options = veu_get_sns_options();
 	if ( ! empty( $options['useCopy'] ) ) {
-		wp_enqueue_script( 'copy-button', plugin_dir_url( __FILE__ ) . '/assets/js/copy-button.js', array( 'clipboard' ), null, true );
+		wp_enqueue_script( 'copy-button', plugin_dir_url( __FILE__ ) . 'assets/js/copy-button.js', array( 'clipboard' ), null, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'veu_enqueue_clipboard' );

@@ -1,11 +1,11 @@
 === Plugin Name ===
-Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23
+Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.9.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 9.90.1.0
+Stable tag: 9.90.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.90.2.0 =
+[ Bug fix ][ Share button ] Fix js file path ( // -> / )
 
 = 9.90.1.0 =
 [ Bug fix ][ Nwe post widget ] Fix PHP Error
