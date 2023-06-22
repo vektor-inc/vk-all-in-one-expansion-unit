@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 9.90.0.1
+Stable tag: 9.90.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.90.1.0 =
 [ Bug fix ][ Nwe post widget ] Fix PHP Error
 
 = 9.90.0.1 =
