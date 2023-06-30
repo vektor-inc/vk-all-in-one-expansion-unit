@@ -1,3 +1,4 @@
+.editor-styles-wrapper{}
 @font-face {
   font-family: 'vk_sns';
   src:  url('fonts/vk_sns.eot?jl09gx');
@@ -10,36 +11,37 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'vk_sns' !important;
-  speak: never;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+[class^="vk_icon_w_r_sns_"],
+[class*=" vk_icon_w_r_sns_"] {
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-family: "vk_sns";
+    line-height: 1;
 
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-vk_w_r_sns_fb:before {
-  content: "\e600";
+.vk_icon_w_r_sns_fb:before {
+    content: "\e600";
 }
-.icon-vk_w_r_sns_google:before {
-  content: "\e601";
+.vk_icon_w_r_sns_google:before {
+    content: "\e601";
 }
-.icon-vk_w_r_sns_hatena:before {
-  content: "\e602";
+.vk_icon_w_r_sns_hatena:before {
+    content: "\e602";
 }
-.icon-vk_w_r_sns_line:before {
-  content: "\e603";
+.vk_icon_w_r_sns_line:before {
+    content: "\e603";
 }
-.icon-vk_w_r_sns_pocket:before {
-  content: "\e604";
+.vk_icon_w_r_sns_pocket:before {
+    content: "\e604";
 }
-.icon-vk_w_r_sns_twitter:before {
-  content: "\e605";
+.vk_icon_w_r_sns_twitter:before {
+    content: "\e605";
 }
+
