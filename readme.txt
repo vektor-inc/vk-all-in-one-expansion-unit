@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Share button ] load sns icon correctly.
+
 = 9.90.2.0 =
 [ Bug fix ][ Share button ] Fix js file path ( // -> / )
 
