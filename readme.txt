@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ VK Admin ] Fixed problem of filepath on Windows local environment.
 [ Bug fix ][ Share button ] load sns icon correctly.
 
 = 9.90.2.0 =
