@@ -68,3 +68,8 @@ function veu_share_button_block_callback( $attributes, $content ) {
     
 	return $r;
 }
+
+function veu_sns_icon_enqueue_block_assets() {
+    wp_enqueue_style( 'veu-block-share-icon',  VEU_DIRECTORY_URI . '/inc/sns/icons/style.css', array(), VEU_VERSION, 'all' );
+}
+add_action( 'enqueue_block_editor_assets', 'veu_sns_icon_enqueue_block_assets' );

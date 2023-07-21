@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.90.３.0 =
+[ Bug fix ][ VK Admin ] Fixed problem of filepath on Windows local environment.
+[ Bug fix ][ Share button ] load sns icon correctly.
+
 = 9.90.2.0 =
 [ Bug fix ][ Share button ] Fix js file path ( // -> / )
 
