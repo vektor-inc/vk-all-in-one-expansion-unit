@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 9.90.3.1
+Stable tag: 9.90.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,10 @@ e.g.
 
 == Changelog ==
 
-= 9.90.３.1 =
+= 9.90.3.2 =
+[ Other ] Version only
+
+= 9.90.3.1 =
 [ Bug fix ][ VK Admin ] Fixed problem of filepath on Windows local environment.
 [ Bug fix ][ Share button ] load sns icon correctly.
 
