@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Custum CSS on article will affect on front view.
+
 = 9.90.3.2 =
 [ Other ] Version only
 
