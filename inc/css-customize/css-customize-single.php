@@ -16,22 +16,13 @@ add_action( 'after_setup_theme', 'veu_css_customize_single_load' );
 function veu_insert_custom_css() {
 
 	if ( is_singular() ) {
-		// if 現在の WordPress クエリにループできる結果があるかどうか
-		// while 記事がある間ループして１件ずつ処理する
-		if ( have_posts() ) :
-			while ( have_posts() ) :
-				the_post();
-					global $post;
-					$css = veu_get_the_custom_css_single( $post );
-					if ( $css ){
-						echo '<style type="text/css">/* '. esc_html( veu_get_short_name() ).' CSS Customize Single */' . $css . '</style>';
-					}
-				endwhile;
-		endif;
-		// ページ上の別の場所で同じクエリを再利用するために、ループの投稿情報を巻き戻し、前回と同じ順序で先頭の投稿を取得できるように
-		rewind_posts();
+		global $post;
+		$css = veu_get_the_custom_css_single( $post );
+		if ( $css ){
+			echo '<style type="text/css">/* '. esc_html( veu_get_short_name() ).' CSS Customize Single */' . $css . '</style>';
+		}
 	}
-} // function veu_insert_custom_css() {
+}
 
 function veu_get_the_custom_css_single( $post ) {
 	$css_customize = get_post_meta( $post->ID, '_veu_custom_css', true );
