@@ -27,21 +27,23 @@
 }
 
 .vk_icon_w_r_sns_fb:before {
-    content: "\e600";
+  content: "\e600";
 }
 .vk_icon_w_r_sns_google:before {
-    content: "\e601";
+  content: "\e601";
 }
 .vk_icon_w_r_sns_hatena:before {
-    content: "\e602";
+  content: "\e602";
 }
 .vk_icon_w_r_sns_line:before {
-    content: "\e603";
+  content: "\e603";
 }
 .vk_icon_w_r_sns_pocket:before {
-    content: "\e604";
+  content: "\e604";
 }
 .vk_icon_w_r_sns_twitter:before {
-    content: "\e605";
+  content: "\e605";
 }
-
+.vk_icon_w_r_sns_x_twitter:before {
+  content: "\e606";
+}
