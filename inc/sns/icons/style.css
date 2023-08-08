@@ -1,29 +1,29 @@
 .editor-styles-wrapper{}
 @font-face {
   font-family: 'vk_sns';
-  src:  url('fonts/vk_sns.eot?jl09gx');
-  src:  url('fonts/vk_sns.eot?jl09gx#iefix') format('embedded-opentype'),
-    url('fonts/vk_sns.ttf?jl09gx') format('truetype'),
-    url('fonts/vk_sns.woff?jl09gx') format('woff'),
-    url('fonts/vk_sns.svg?jl09gx#vk_sns') format('svg');
+  src:  url('fonts/vk_sns.eot?3t468i');
+  src:  url('fonts/vk_sns.eot?3t468i#iefix') format('embedded-opentype'),
+    url('fonts/vk_sns.ttf?3t468i') format('truetype'),
+    url('fonts/vk_sns.woff?3t468i') format('woff'),
+    url('fonts/vk_sns.svg?3t468i#vk_sns') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="vk_icon_w_r_sns_"],
-[class*=" vk_icon_w_r_sns_"] {
-    text-transform: none;
-    font-weight: normal;
-    font-style: normal;
-    font-variant: normal;
-    font-family: "vk_sns";
-    line-height: 1;
+[class^="vk_icon_w_r_sns_"], [class*=" vk_icon_w_r_sns_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'vk_sns' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
 
-    /* Better Font Rendering =========== */
-    speak: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .vk_icon_w_r_sns_fb:before {
