@@ -3,43 +3,43 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import { PanelBody, BaseControl, CheckboxControl } from '@wordpress/components';
 
-export default function ContactSectionEdit(props) {
+export default function ContactSectionEdit( props ) {
 	const { attributes, setAttributes } = props;
 	const { vertical } = attributes;
 
-	const blockProps = useBlockProps({
+	const blockProps = useBlockProps( {
 		className: `veu_contact_section_block`,
-	});
+	} );
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={__(
+					title={ __(
 						'Display conditions',
 						'vk-all-in-one-expansion-unit'
-					)}
-					initialOpen={false}
+					) }
+					initialOpen={ false }
 				>
 					<BaseControl>
 						<CheckboxControl
-							label={__(
+							label={ __(
 								'Set telephone and mail form vertically',
 								'vk-all-in-one-expansion-unit'
-							)}
-							className={'mb-1'}
-							checked={vertical}
-							onChange={(checked) =>
-								setAttributes({ vertical: checked })
+							) }
+							className={ 'mb-1' }
+							checked={ vertical }
+							onChange={ ( checked ) =>
+								setAttributes( { vertical: checked } )
 							}
 						/>
 					</BaseControl>
 				</PanelBody>
 			</InspectorControls>
-			<div {...blockProps}>
+			<div { ...blockProps }>
 				<ServerSideRender
 					block="vk-blocks/contact-section"
-					attributes={props.attributes}
+					attributes={ props.attributes }
 				/>
 			</div>
 		</>
