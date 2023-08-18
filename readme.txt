@@ -44,7 +44,7 @@ Many features can be stopped individually.
 
 * Print Social Bookmarks
 * Print OG Tags
-* Print Twitter Card Tags
+* Print X Card Tags
 
 [ Others ]
 
@@ -80,6 +80,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.91.0.0 =
+[ Specification Change ] Change "Twitter" to "X".
+[ Bug fix ] Custum CSS on article will affect on front view.
 
 = 9.90.3.2 =
 [ Other ] Version only

@@ -45,6 +45,7 @@
 		"build": "npx gulp text-domain && npm run build:block && npx gulp build",
 		"build:block": "wp-scripts build --config webpack.config.js",
 		"phpunit": "npx wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-all-in-one-expansion-unit/.phpunit.xml --verbose'",
+		
 		"prepare": "husky install"
 	},
 	"repository": {

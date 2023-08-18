@@ -9,23 +9,19 @@ test('CTA', async ({ page }) => {
   await page.getByLabel('Username or Email Address').press('Tab');
   await page.getByLabel('Password', { exact: true } ).fill('password');
   await page.getByLabel('Password', { exact: true } ).press('Enter');
-
-  // Activate CTA ///////////////////////////////////////////.
-
-  await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
-  await page.getByLabel('Call To Action').check();
-  await page.getByRole('button', { name: 'Save Changes' }).click();
-
   // Put CTA ( Not registered ) ///////////////////////////////////////////.
 
   // Got to New Post
   await page.goto('http://localhost:8889/wp-admin/post-new.php');
 
   // 最初の投稿ダイアログを閉じる
-  // ※ 環境に応じてダイアログが出たり出なかったりするので状況に応じて 有効・コメントアウトを切り替えてください ）
-  // ※ ダイアログが出ている場合だけ close ボタンを押す という処理が書ける人はぜひ書いてプルリクください。
-  await page.waitForTimeout(500); // ダイアログが出るまで待つ
-  await page.getByRole('button', { name: 'Close' }).click();
+  await page.waitForTimeout( 1000 );
+  // Check if the modal is visible
+  const isModalVisible = await page.isVisible( '.components-modal__frame' );
+  // If the modal is visible, click the close button
+  if ( isModalVisible ) {
+	  await page.click( 'button[aria-label="Close"]' );
+  }
 
   // ブロック追加
   await page.getByRole('button', { name: 'Add block' }).click();

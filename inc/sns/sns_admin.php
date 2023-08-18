@@ -51,7 +51,7 @@
 </td>
 </tr>
 <tr>
-<th><?php _e( 'twitter ID', 'vk-all-in-one-expansion-unit' ); ?></th>
+<th><?php _e( 'X ID', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>@<input type="text" name="vkExUnit_sns_options[twitterId]" id="twitterId" value="<?php echo esc_attr( $options['twitterId'] ); ?>" /></td>
 </tr>
 
@@ -64,9 +64,9 @@
 </tr>
 
 <tr>
-<th><?php _e( 'Twitter Card tags', 'vk-all-in-one-expansion-unit' ); ?></th>
+<th><?php _e( 'X Card tags', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><label>
-<input type="checkbox" name="vkExUnit_sns_options[enableTwitterCardTags]" id="enableTwitterCardTags" value="true" <?php echo ( $options['enableTwitterCardTags'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the Twitter Card tags', 'vk-all-in-one-expansion-unit' ); ?></label>
+<input type="checkbox" name="vkExUnit_sns_options[enableTwitterCardTags]" id="enableTwitterCardTags" value="true" <?php echo ( $options['enableTwitterCardTags'] ) ? 'checked' : ''; ?> /><?php _e( 'Print the X Card tags', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td>
 </tr>
 
@@ -131,7 +131,7 @@ if ( $options['useFacebook'] ) {
 if ( $options['useTwitter'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Twitter', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+ /> <?php _e( 'X', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php
 if ( $options['useHatena'] ) {

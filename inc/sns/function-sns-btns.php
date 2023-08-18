@@ -237,12 +237,12 @@ function veu_get_sns_btns( $attr = array() ) {
 		$social_btns .= '</li>';
 	}
 
-	// Twitter.
+	// X.
 	if ( ! empty( $options['useTwitter'] ) ) {
-		$social_btns .= '<li class="sb_twitter sb_icon">';
+		$social_btns .= '<li class="sb_x_twitter sb_icon">';
 		$social_btns .= '<a class="sb_icon_inner" href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
-		$social_btns .= '<span class="vk_icon_w_r_sns_twitter icon_sns"' . $icon_css . '></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>twitter</span>';
+		$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns"' . $icon_css . '></span>';
+		$social_btns .= '<span class="sns_txt"' . $icon_css . '>X</span>';
 		$social_btns .= '</a>';
 		$social_btns .= '</li>';
 	}
