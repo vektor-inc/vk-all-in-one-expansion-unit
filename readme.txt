@@ -83,14 +83,14 @@ e.g.
 
 = 9.91.0 =
 [ Specification Change ] Change "Twitter" to "X".
-[ Bug fix ] Custum CSS on article will affect on front view.
+[ Bug fix ] Custum CSS on article will affect on front view on Block theme.
 
 = 9.90.3.2 =
 [ Other ] Version only
 
 = 9.90.3.1 =
 [ Bug fix ][ VK Admin ] Fixed problem of filepath on Windows local environment.
-[ Bug fix ][ Share button ] load sns icon correctly.
+[ Bug fix ][ Share button ] load sns icon correctly on site editor.
 
 = 9.90.2.0 =
 [ Bug fix ][ Share button ] Fix js file path ( // -> / )
