@@ -9,13 +9,6 @@ test('CTA', async ({ page }) => {
   await page.getByLabel('Username or Email Address').press('Tab');
   await page.getByLabel('Password', { exact: true } ).fill('password');
   await page.getByLabel('Password', { exact: true } ).press('Enter');
-
-  // Activate CTA ///////////////////////////////////////////.
-
-  await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
-  await page.getByRole('cell', { name: 'Call To Action Setting | Contents setting' }).getByText('Call To Action').click();
-  await page.getByRole('button', { name: 'Save Changes' }).click();
-
   // Put CTA ( Not registered ) ///////////////////////////////////////////.
 
   // Got to New Post
