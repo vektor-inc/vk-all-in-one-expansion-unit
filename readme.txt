@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 9.90.3.2
+Stable tag: 9.91.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-= 9.91.0.0 =
+= 9.91.0 =
 [ Specification Change ] Change "Twitter" to "X".
 [ Bug fix ] Custum CSS on article will affect on front view.
 
