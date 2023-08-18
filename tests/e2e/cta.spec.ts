@@ -25,10 +25,10 @@ test('CTA', async ({ page }) => {
   // CTAブロックを検索
   await page.getByPlaceholder('Search').fill('cta');
   // CTAブロックを追加
-  await page.getByRole('option', { name: 'Call to action' }).locator('div').nth(2).click();
+  await page.getByRole('option', { name: 'CTA' }).click();
 
   // ******* CTAが登録されていないメッセージが表示されることを確認
-  //await expect(page.locator('.veu-cta-block-edit-alert .alert-title')).toContainText('No CTA registered.');
+  await expect(page.locator('.veu-cta-block-edit-alert .alert-title')).toContainText('No CTA registered.');
 
   // Save Check
   await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
