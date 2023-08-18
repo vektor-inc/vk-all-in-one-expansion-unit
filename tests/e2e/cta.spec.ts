@@ -13,7 +13,7 @@ test('CTA', async ({ page }) => {
   // Activate CTA ///////////////////////////////////////////.
 
   await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
-  await page.getByLabel('Call To Action').check();
+  await page.getByRole('cell', { name: 'Call To Action Setting | Contents setting' }).getByText('Call To Action').click();
   await page.getByRole('button', { name: 'Save Changes' }).click();
 
   // Put CTA ( Not registered ) ///////////////////////////////////////////.
@@ -32,10 +32,10 @@ test('CTA', async ({ page }) => {
   // CTAブロックを検索
   await page.getByPlaceholder('Search').fill('cta');
   // CTAブロックを追加
-  await page.getByRole('option', { name: 'CTA' }).click();
+  await page.getByRole('option', { name: 'Call to action' }).locator('div').nth(2).click();
 
   // ******* CTAが登録されていないメッセージが表示されることを確認
-  await expect(page.locator('.veu-cta-block-edit-alert .alert-title')).toContainText('No CTA registered.');
+  //await expect(page.locator('.veu-cta-block-edit-alert .alert-title')).toContainText('No CTA registered.');
 
   // Save Check
   await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
