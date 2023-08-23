@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 9.91.0.1
+Stable tag: 9.91.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,16 +81,19 @@ e.g.
 
 == Changelog ==
 
+= 9.91.1 =
+[ Bug fix ][ Description ] delete "do_blocks".
+
 = 9.91.0 =
 [ Specification Change ] Change "Twitter" to "X".
-[ Bug fix ] Custum CSS on article will affect on front view.
+[ Bug fix ] Custum CSS on article will affect on front view on Block theme.
 
 = 9.90.3.2 =
 [ Other ] Version only
 
 = 9.90.3.1 =
 [ Bug fix ][ VK Admin ] Fixed problem of filepath on Windows local environment.
-[ Bug fix ][ Share button ] load sns icon correctly.
+[ Bug fix ][ Share button ] load sns icon correctly on site editor.
 
 = 9.90.2.0 =
 [ Bug fix ][ Share button ] Fix js file path ( // -> / )
