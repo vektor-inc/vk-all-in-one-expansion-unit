@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Description ] delete "do_blocks".
+
 = 9.91.0 =
 [ Specification Change ] Change "Twitter" to "X".
 [ Bug fix ] Custum CSS on article will affect on front view on Block theme.
