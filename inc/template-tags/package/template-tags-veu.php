@@ -22,7 +22,7 @@ function veu_get_common_options_default( $is_block_theme = null ) {
 	// hook veu_package_is_enable()
 	// パッケージの情報を取得してデフォルトの配列を作成
 	$defaults = array();
-	$packages = veu_get_packages( $is_block_theme  );
+	$packages = veu_get_packages( $is_block_theme );
 	foreach ( $packages as $key => $value ) {
 		$name                                 = $value['name'];
 		$default_options[ 'active_' . $name ] = $value['default'];
