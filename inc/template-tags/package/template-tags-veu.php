@@ -19,10 +19,6 @@ function veu_get_common_options() {
 
 function veu_get_common_options_default( $is_block_theme = null ) {
 
-	if ( null === $is_block_theme ) {
-		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
-	}
-
 	// hook veu_package_is_enable()
 	// パッケージの情報を取得してデフォルトの配列を作成
 	$defaults = array();
