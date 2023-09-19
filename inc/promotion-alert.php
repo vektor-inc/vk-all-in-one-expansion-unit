@@ -74,7 +74,7 @@ class VK_Promotion_Alert {
      * Sanitize Space 
      */
     public static function sanitize_space( $input ) {
-        if ( preg_match( '/^(\s|　)+$/u', $input ) ) {
+        if ( preg_match( '/^(\s)+$/u', $input ) ) {
             return '';
         }
         return $input;
