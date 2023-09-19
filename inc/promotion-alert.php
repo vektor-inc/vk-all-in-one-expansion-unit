@@ -129,12 +129,16 @@ class VK_Promotion_Alert {
                 <tr>
                     <th><?php _e( 'Display Post Types', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
+                        <ul class="no-style">
                         <?php foreach ( $post_types as $post_type ) : ?>
-                            <label>
-                                <input type="checkbox" name="vkExUnit_PA[alert-display][<?php echo esc_attr( $post_type ); ?>]" <?php checked( $options['alert-display'][ $post_type ], 'display' ); ?>>
-                                <?php echo esc_html( $post_type ); ?>
-                            </label>
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="vkExUnit_PA[alert-display][<?php echo esc_attr( $post_type ); ?>]" <?php checked( $options['alert-display'][ $post_type ], 'display' ); ?>>
+                                    <?php echo esc_html( $post_type ); ?>
+                                </label>
+                            </li>
                         <?php endforeach; ?>
+                        </ul>
                     </td>
                 </tr>
                 <tr>
