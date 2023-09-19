@@ -160,7 +160,7 @@ class VK_Promotion_Alert {
                 __( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),
                 array( __CLASS__, 'render_meta_box' ),
                 $post_type,
-                'normal',
+                'side',
                 'high'
             );
         }
@@ -177,13 +177,14 @@ class VK_Promotion_Alert {
         // Use get_post_meta to retrieve an existing value from the database.
 		$value = get_post_meta( $post->ID, 'alert-display', true );
         ?>
-
-        <label><?php _e( 'Promotion Atert Setting', 'vk-all-in-one-expansion-unit' ); ?></label>
-        <select name="alert-display">
-            <option value="common" <?php selected( $value, 'common' ); ?>><?php _e( 'Apply common settings', 'vk-all-in-one-expansion-unit' ); ?></option>
-            <option value="display" <?php selected( $value, 'display' ); ?>><?php _e( 'Display', 'vk-all-in-one-expansion-unit' ); ?></option>
-            <option value="hide" <?php selected( $value, 'hide' ); ?>><?php _e( 'Hide', 'vk-all-in-one-expansion-unit' ); ?></option>
-        </select>
+        <div class="veu-promotion-alert-meta-fields">
+            <h4><?php _e( 'Promotion Atert Setting', 'vk-all-in-one-expansion-unit' ); ?></h4>
+            <select name="alert-display">
+                <option value="common" <?php selected( $value, 'common' ); ?>><?php _e( 'Apply common settings', 'vk-all-in-one-expansion-unit' ); ?></option>
+                <option value="display" <?php selected( $value, 'display' ); ?>><?php _e( 'Display', 'vk-all-in-one-expansion-unit' ); ?></option>
+                <option value="hide" <?php selected( $value, 'hide' ); ?>><?php _e( 'Hide', 'vk-all-in-one-expansion-unit' ); ?></option>
+            </select>
+        </div>
         <?php
     }
 
