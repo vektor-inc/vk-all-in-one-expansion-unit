@@ -457,9 +457,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		print PHP_EOL;
 
-		foreach ( $test_array as $test_value ) {
-
-			
+		foreach ( $test_array as $test_value ) {			
 
 			// Set site name
 			update_option( 'vkExUnit_PA', $test_value['options'] );
