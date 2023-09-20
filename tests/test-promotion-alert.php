@@ -342,7 +342,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'Promotion Alert Test' . PHP_EOL;
+		print 'Promotion Alert Condition Test' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print PHP_EOL;
 
@@ -350,9 +350,6 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 			// Set site name
 			update_option( 'vkExUnit_PA', $test_value['options'] );
-
-			var_dump( get_option( 'vkExUnit_PA' ) );
-
 
 			$return  = VK_Promotion_Alert::get_display_condition( $test_value['post_id'] );
 			$correct = $test_value['correct'];
@@ -366,5 +363,120 @@ class PromotionAlertTest extends WP_UnitTestCase {
 		}
 
     }
+
+	public function test_get_alert_content() {
+
+		$data = self::setup_data();
+
+        $test_array = array(
+			array(
+				'options' => array(
+					'alert-text'    => '',
+					'alert-content' => '',
+					'alert-display' => array(
+						'post' => 'display',
+					)
+				),
+				'correct' => '',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => 'aaaa',
+					'alert-content' => '',
+					'alert-display' => array(
+						'post' => 'display',
+					)
+				),
+				'correct' => '<div class="veu-promotion-alert"><span class="veu-promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu-promotion-alert-text">aaaa</span></div>',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => '',
+					'alert-content' => 'bbbb',
+					'alert-display' => array(
+						'post' => 'display',
+					)
+				),
+				'correct' => '<div class="veu-promotion-alert">bbbb</div>',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => 'aaaa',
+					'alert-content' => 'bbbb',
+					'alert-display' => array(
+						'post' => 'display',
+					)
+				),
+				'correct' => '<div class="veu-promotion-alert">bbbb</div>',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => '',
+					'alert-content' => '',
+					'alert-display' => array(
+						'post' => 'hide',
+					)
+				),
+				'correct' => '',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => 'aaaa',
+					'alert-content' => '',
+					'alert-display' => array(
+						'post' => 'hide',
+					)
+				),
+				'correct' => '',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => '',
+					'alert-content' => 'bbbb',
+					'alert-display' => array(
+						'post' => 'hide',
+					)
+				),
+				'correct' => '',
+			),
+			array(
+				'options' => array(
+					'alert-text'    => 'aaaa',
+					'alert-content' => 'bbbb',
+					'alert-display' => array(
+						'post' => 'hide',
+					)
+				),
+				'correct' => '',
+			),
+		);
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'Promotion Alert Content Test' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print PHP_EOL;
+
+		foreach ( $test_array as $test_value ) {
+
+			
+
+			// Set site name
+			update_option( 'vkExUnit_PA', $test_value['options'] );
+
+			$this->go_to( get_permalink( $data['post_id_01'] ) );
+
+			$return  = VK_Promotion_Alert::get_alert_content();
+			$correct = $test_value['correct'];
+
+			$this->assertEquals( $correct, $return );
+
+			print PHP_EOL;
+			print 'correct ::::' . $correct . PHP_EOL;
+			print 'return  ::::' . $return . PHP_EOL;
+
+		}
+
+	}
 
 }
