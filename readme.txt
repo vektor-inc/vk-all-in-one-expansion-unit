@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Fixed the bug that causes a Fatal error when trying to preview a block theme on the theme selection screen.
+
 = 9.91.1 =
 [ Bug fix ][ Description ] delete "do_blocks".
 
