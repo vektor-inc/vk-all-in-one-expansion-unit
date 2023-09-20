@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add Function ] Promotion Alert
+
 = 9.91.1 =
 [ Bug fix ][ Description ] delete "do_blocks".
 
