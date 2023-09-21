@@ -12,7 +12,7 @@ class VK_Promotion_Alert {
 		add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
         add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_box' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
-        add_action( 'after_setup_theme', array( __CLASS__, 'display_alert' ) );
+        add_action( 'wp', array( __CLASS__, 'display_alert' ) );
 	}
 
     /**
@@ -115,15 +115,20 @@ class VK_Promotion_Alert {
         <div id="vkExUnit_PA" class="sectionBox">
             <table class="form-table">
                 <tr>
-                    <th><?php _e( 'Atert Text', 'vk-all-in-one-expansion-unit' ); ?></th>
+                    <th><?php _e( 'Alert Text', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
                         <input type="text" name="vkExUnit_PA[alert-text]" value="<?php echo esc_attr( $options['alert-text'] ); ?>" class="large-text">
                     </td>
                 </tr>
                 <tr>
-                    <th><?php _e( 'Atert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
+                    <th><?php _e( 'Alert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
                         <textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo wp_kses_post( $options['alert-content'] ); ?></textarea>
+                        <ul>
+                            <li><?php _e( 'If there is any input in "Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
+                            <li><?php _e( 'You can insert HTML tags here.', 'vk-all-in-one-expansion-unit' ); ?></li>
+                        </ul>
+                                
                     </td>
                 </tr>
                 <tr>
@@ -139,13 +144,15 @@ class VK_Promotion_Alert {
                             </li>
                         <?php endforeach; ?>
                         </ul>
+                        <p><?php _e( 'Settings for individual articles take precedence over settings here.', 'vk-all-in-one-expansion-unit' ); ?></p>
                     </td>
                 </tr>
                 <tr>
-                    <th><?php _e( 'Atert Hook', 'vk-all-in-one-expansion-unit' ); ?></th>
+                    <th><?php _e( 'Alert Hook', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
                         <input type="text" name="vkExUnit_PA[alert-hook]" value="<?php echo esc_attr( $options['alert-hook'] ); ?>" class="large-text">
                     </td>
+                    <p><?php _e( 'By default, it is output at the top of the content.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'If you want to change the location of any action hook, enter the action hook name.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'Ex) lightning_entry_body_prepend', 'vk-all-in-one-expansion-unit' ); ?></p>
                 </tr>
             </table>
             <?php submit_button(); ?>
@@ -181,8 +188,8 @@ class VK_Promotion_Alert {
         // Use get_post_meta to retrieve an existing value from the database.
 		$value = get_post_meta( $post->ID, 'alert-display', true );
         ?>
-        <div class="veu-promotion-alert-meta-fields">
-            <h4><?php _e( 'Promotion Atert Setting', 'vk-all-in-one-expansion-unit' ); ?></h4>
+        <div class="veu_promotion-alert-meta-fields">
+            <h4><?php _e( 'Promotion Alert Setting', 'vk-all-in-one-expansion-unit' ); ?></h4>
             <select name="alert-display">
                 <option value="common" <?php selected( $value, 'common' ); ?>><?php _e( 'Apply common settings', 'vk-all-in-one-expansion-unit' ); ?></option>
                 <option value="display" <?php selected( $value, 'display' ); ?>><?php _e( 'Display', 'vk-all-in-one-expansion-unit' ); ?></option>
@@ -290,12 +297,12 @@ class VK_Promotion_Alert {
             if ( ! empty( $options['alert-content'] ) ) {
                 $alert_content = $options['alert-content'];
             } elseif ( ! empty( $options['alert-text'] ) ) {
-                $alert_content = '<span class="veu-promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu-promotion-alert-text">' . $options['alert-text'] . '</span>';
+                $alert_content = '<span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert-text">' . $options['alert-text'] . '</span>';
             }
 
             // アラートの中身がある場合はアラートを作成
             if ( ! empty( $alert_content ) ) {
-                $alert = '<div class="veu-promotion-alert">' . $alert_content . '</div>';
+                $alert = '<div class="veu_promotion-alert" data-nosnippet>' . $alert_content . '</div>';
             }                      
         }
        
@@ -334,11 +341,12 @@ class VK_Promotion_Alert {
 
         // オプションを取得
         $options = self::get_options();
-
-        if ( ! empty( $options['alert-hook'] ) ) {
-            add_action( $options['alert-hook'], array( __CLASS__, 'display_alert_action' ) );
-        } else {
-            add_filter( 'the_content', array( __CLASS__, 'display_alert_filter' ) );
+        if ( is_singular() ) {
+            if ( ! empty( $options['alert-hook'] ) ) {
+                add_action( $options['alert-hook'], array( __CLASS__, 'display_alert_action' ) );
+            } else {
+                add_filter( 'the_content', array( __CLASS__, 'display_alert_filter' ) );           
+            }
         }
     }
 }
