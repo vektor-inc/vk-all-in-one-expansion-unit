@@ -2,7 +2,13 @@
 function veu_get_packages( $is_block_theme = null ) {
 	$required_packages = array();
 	if ( null === $is_block_theme ) {
-		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		// テーマプレビュー画面では wp_is_block_theme を使うとの中の処理でエラーになる (6.3現在)。
+		// とはいえ wp_is_block_theme は初期段階で有効化するパッケージの設定で使用しているだけで、
+		// テーマプレビュー画面においては wp_is_block_theme が trueでもfalseでも特にどうでも良いため、
+		// テーマプレビュー画面じゃない場合のみ判定させている。
+		if ( empty( $_GET['wp_theme_preview'] ) ) {
+			$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		}
 	}
 
 	/*
