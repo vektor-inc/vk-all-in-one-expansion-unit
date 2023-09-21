@@ -152,7 +152,7 @@ class VK_Promotion_Alert {
                 <hr>
                 <table class="form-table">
                 <tr>
-                    <th><?php _e( 'Alert Hook ( Option )', 'vk-all-in-one-expansion-unit' ); ?></th>
+                    <th><?php _e( 'Alert Hook ( Optional )', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
                         <p><?php _e( 'By default, it is output at the top of the content.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'If you want to change the location of any action hook, enter the action hook name.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'Ex) lightning_entry_body_prepend', 'vk-all-in-one-expansion-unit' ); ?></p>
                         <input type="text" name="vkExUnit_PA[alert-hook]" value="<?php echo esc_attr( $options['alert-hook'] ); ?>" class="large-text">
