@@ -255,6 +255,7 @@ class VK_Promotion_Alert {
 
         // カスタムフィールドを取得
         $meta = get_post_meta( $post_id, 'alert-display', true );
+        $meta = ! empty( $meta ) ? $meta : 'common';
 
         // オプションを取得
         $options = self::get_options();
