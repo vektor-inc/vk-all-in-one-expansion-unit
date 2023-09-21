@@ -12,6 +12,7 @@ class VK_Promotion_Alert {
 		add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
         add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_box' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
+        // is_singular() で判定するため wp で実行
         add_action( 'wp', array( __CLASS__, 'display_alert' ) );
 	}
 
