@@ -123,8 +123,9 @@ class VK_Promotion_Alert {
                 <tr>
                     <th><?php _e( 'Alert Text', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
+						<p>
                         <input type="text" name="vkExUnit_PA[alert-text]" value="<?php echo esc_attr( $options['alert-text'] ); ?>" class="large-text">
-
+						</p>
 						<p>Ex)</p>
 						<ul>
 						<li><?php _e( 'This article contains affiliate advertisements.', 'vk-all-in-one-expansion-unit' ); ?></li>
