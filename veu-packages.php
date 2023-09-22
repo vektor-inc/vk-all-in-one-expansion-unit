@@ -403,7 +403,7 @@ function veu_get_packages( $is_block_theme = null ) {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => $is_block_theme ? true : true,
+		'default'     => $is_block_theme ? false : true,
 		'include'     => 'insert-ads.php',
 	);
 
@@ -421,7 +421,7 @@ function veu_get_packages( $is_block_theme = null ) {
 				'enable_only' => 1,
 			),
 		),
-		'default'     => $is_block_theme ? false : true,
+		'default'     => $is_block_theme ? true : true,
 		'include'     => 'promotion-alert.php',
 	);
 	/*
