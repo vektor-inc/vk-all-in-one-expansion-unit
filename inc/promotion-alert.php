@@ -114,11 +114,23 @@ class VK_Promotion_Alert {
         ?>
         <h3><?php _e( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ); ?></h3>
         <div id="vkExUnit_PA" class="sectionBox">
+			<P>
+			<?php _e( 'If the article contains advertisements, it\'s necessary to provide a clear notation for general consumers to recognize.', 'vk-all-in-one-expansion-unit' ); ?>
+			<br>
+			<?php _e( 'By inputting here, you can automatically insert it at the beginning of the article.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
             <table class="form-table">
                 <tr>
                     <th><?php _e( 'Alert Text', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
                         <input type="text" name="vkExUnit_PA[alert-text]" value="<?php echo esc_attr( $options['alert-text'] ); ?>" class="large-text">
+
+						<p>Ex)</p>
+						<ul>
+						<li><?php _e( 'This article contains affiliate advertisements.', 'vk-all-in-one-expansion-unit' ); ?></li>
+						<li><?php _e( 'This article contains promotions.', 'vk-all-in-one-expansion-unit' ); ?></li>
+						<li><?php _e( 'This article is posted with products provided by ***.', 'vk-all-in-one-expansion-unit' ); ?></li>
+						</ul>
                     </td>
                 </tr>
                 <tr>
