@@ -14,6 +14,7 @@ class VK_Promotion_Alert {
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
         // is_singular() で判定するため wp で実行
         add_action( 'wp', array( __CLASS__, 'display_alert' ) );
+        add_action( 'wp_head', array( __CLASS__, 'inline_style' ), 5 );
 	}
 
     /**
@@ -366,6 +367,35 @@ class VK_Promotion_Alert {
                 add_filter( 'the_content', array( __CLASS__, 'display_alert_filter' ) );           
             }
         }
+    }
+
+    /**
+     * Inline Style
+     */
+    public static function inline_style() {
+
+        $dynamic_css = '
+        .veu_promotion-alert {
+            border: 1px solid rgba(0,0,0,0.125);
+            padding: 0.5em 1em;
+            border-radius: var(--vk-size-radius);
+            margin-bottom: var(--vk-margin-block-bottom);
+            font-size: 0.875rem;
+        }
+        /* Alert Content部分に段落タグを入れた場合に最後の段落の余白を0にする */
+        .veu_promotion-alert p:last-of-type{
+            margin-bottom:0;
+            margin-top: 0;
+        }
+        ';
+    
+        // delete before after space
+        $dynamic_css = trim( $dynamic_css );
+        // convert tab and br to space
+        $dynamic_css = preg_replace( '/[\n\r\t]/', '', $dynamic_css );
+        // Change multiple spaces to single space
+        $dynamic_css = preg_replace( '/\s(?=\s)/', '', $dynamic_css );
+        wp_add_inline_style( 'vkExUnit_common_style', $dynamic_css );
     }
 }
 VK_Promotion_Alert::init();
