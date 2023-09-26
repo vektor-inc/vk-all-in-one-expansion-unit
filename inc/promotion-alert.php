@@ -269,22 +269,15 @@ class VK_Promotion_Alert {
             // オプションを取得
             $options = self::get_options();
 
-            // アラートの中身を初期化
-            $alert_content = '';
-
             // アラートの中身を作成
             if ( ! empty( $options['alert-content'] ) ) {
-                $alert_content = $options['alert-content'];
+                $alert = $options['alert-content'];
             } elseif ( ! empty( $options['alert-text'] ) ) {
-                $alert_content = '<span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert-text">' . $options['alert-text'] . '</span>';
+                $alert = '<div class="veu_promotion-alert" data-nosnippet><span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert-text">' . $options['alert-text'] . '</span></div>';
             }
 
-            // アラートの中身がある場合はアラートを作成
-            if ( ! empty( $alert_content ) ) {
-                $alert = '<div class="veu_promotion-alert" data-nosnippet>' . $alert_content . '</div>';
-            }                      
         }
-       
+
         return $alert;
     }
 
