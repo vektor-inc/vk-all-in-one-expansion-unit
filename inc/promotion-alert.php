@@ -140,7 +140,7 @@ class VK_Promotion_Alert {
                         <textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo wp_kses_post( $options['alert-content'] ); ?></textarea>
                         <ul>
                             <li><?php _e( 'If there is any input in "Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
-                            <li><?php _e( 'You can insert HTML tags here.', 'vk-all-in-one-expansion-unit' ); ?></li>
+                            <li><?php _e( 'You can insert HTML tags here. This is designed to be used by pasting content created in the Block Editor.', 'vk-all-in-one-expansion-unit' ); ?></li>
                         </ul>
                                 
                     </td>
