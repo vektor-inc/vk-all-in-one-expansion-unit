@@ -3,7 +3,7 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.9.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.4
 Stable tag: 9.91.1.0
 License: GPLv2 or later
@@ -80,6 +80,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.92.0 =
+[ Add Function ] Promotion Alert
+[ Bug fix ] Fixed the bug that causes a Fatal error when trying to preview a block theme on the theme selection screen.
 
 = 9.91.1 =
 [ Bug fix ][ Description ] delete "do_blocks".
