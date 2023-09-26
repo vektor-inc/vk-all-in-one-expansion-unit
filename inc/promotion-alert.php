@@ -10,7 +10,6 @@ class VK_Promotion_Alert {
      */
     public static function init() {
 		add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
-        add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_box' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
         // is_singular() で判定するため wp で実行
         add_action( 'wp', array( __CLASS__, 'display_alert' ) );
@@ -179,45 +178,6 @@ class VK_Promotion_Alert {
     }
 
     /**
-     * Add Meta Box
-     */
-    public static function add_meta_box() {
-        $post_types = self::get_post_types();
-        foreach ( $post_types as $post_type ) {
-            add_meta_box(
-                'vkExUnit_PA',
-                __( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),
-                array( __CLASS__, 'render_meta_box' ),
-                $post_type,
-                'side',
-                'high'
-            );
-        }
-    }
-
-    /**
-     * Render Meta Box
-     */
-    public static function render_meta_box( $post ) {
-
-		// Add an nonce field so we can check for it later.
-		wp_nonce_field( 'veu_promotion_alert', 'veu_promotion_alert_nonce' );
-
-        // Use get_post_meta to retrieve an existing value from the database.
-		$value = get_post_meta( $post->ID, 'alert-display', true );
-        ?>
-        <div class="veu_promotion-alert-meta-fields">
-            <h4><?php _e( 'Promotion Alert Setting', 'vk-all-in-one-expansion-unit' ); ?></h4>
-            <select name="alert-display">
-                <option value="common" <?php selected( $value, 'common' ); ?>><?php _e( 'Apply common settings', 'vk-all-in-one-expansion-unit' ); ?></option>
-                <option value="display" <?php selected( $value, 'display' ); ?>><?php _e( 'Display', 'vk-all-in-one-expansion-unit' ); ?></option>
-                <option value="hide" <?php selected( $value, 'hide' ); ?>><?php _e( 'Hide', 'vk-all-in-one-expansion-unit' ); ?></option>
-            </select>
-        </div>
-        <?php
-    }
-
-    /**
      * Save Meta Box
      */
     public static function save_meta_box( $post_id ) {
@@ -256,10 +216,10 @@ class VK_Promotion_Alert {
         /* OK, it's safe for us to save the data now. */
 
 		// Sanitize the user input.
-		$mydata = sanitize_text_field( $_POST['alert-display'] );
+		$mydata = sanitize_text_field( $_POST['veu_display_promotion_alert'] );
 
 		// Update the meta field.
-		update_post_meta( $post_id, 'alert-display', $mydata );
+		update_post_meta( $post_id, 'veu_display_promotion_alert', $mydata );
     }
 
     /**
@@ -271,7 +231,7 @@ class VK_Promotion_Alert {
         $return = false;
 
         // カスタムフィールドを取得
-        $meta = get_post_meta( $post_id, 'alert-display', true );
+        $meta = get_post_meta( $post_id, 'veu_display_promotion_alert', true );
         $meta = ! empty( $meta ) ? $meta : 'common';
 
         // オプションを取得
@@ -399,3 +359,51 @@ class VK_Promotion_Alert {
     }
 }
 VK_Promotion_Alert::init();
+
+if ( ! class_exists( 'VEU_Metabox' ) ) {
+	return;
+}
+
+class VEU_Metabox_Promotion_Alert extends VEU_Metabox {
+
+	public function __construct( $args = array() ) {
+
+		$this->args = array(
+			'slug'     => 'veu_display_promotion_alert',
+			'cf_name'  => 'veu_display_promotion_alert',
+			'title'    => __( 'Promotion Alert Setting', 'vk-all-in-one-expansion-unit' ),
+			'priority' => 50,
+		);
+
+		parent::__construct( $this->args );
+
+	}
+
+	/**
+	 * metabox_body_form
+	 * Form inner
+	 *
+	 * @return [type] [description]
+	 */
+	public function metabox_body_form( $cf_value ) {
+
+		$form = '';
+
+        // Add an nonce field so we can check for it later.
+		wp_nonce_field( 'veu_promotion_alert', 'veu_promotion_alert_nonce' );
+
+        $form .= '<div class="veu_promotion-alert-meta-fields">';
+        $form .= '<h4>' . __( 'Promotion Alert Setting', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+        $form .= '<select name="veu_display_promotion_alert">';
+        $form .= '<option value="common" ' . selected( $cf_value, 'common', false ) . '>' . __( 'Apply common settings', 'vk-all-in-one-expansion-unit' ) . '</option>';
+        $form .= '<option value="display" ' .  selected( $cf_value, 'display', false ) . '>' . __( 'Display', 'vk-all-in-one-expansion-unit' ). '</option>';
+        $form .= '<option value="hide" ' . selected( $cf_value, 'hide', false ) . '>' . __( 'Hide', 'vk-all-in-one-expansion-unit' ) . '</option>';
+        $form .= '</select>';
+        $form .= '</div>';
+
+		return $form;
+	}
+
+} // class VEU_Metabox_CTA {
+
+$veu_metabox_promotion_alert = new VEU_Metabox_Promotion_Alert();
