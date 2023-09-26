@@ -64,6 +64,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
                     'post_metabox_individual'                => false,
                     'delete_options_at_deactivate'           => false,
                     'content_filter_state'                   => 'content',
+                    'active_promotion_alert'                 => true,
                 ),
                 array(
                     'is_block_theme' => false,

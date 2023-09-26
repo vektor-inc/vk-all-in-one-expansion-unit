@@ -406,6 +406,24 @@ function veu_get_packages( $is_block_theme = null ) {
 		'default'     => $is_block_theme ? false : true,
 		'include'     => 'insert-ads.php',
 	);
+
+	/*
+	  promotion_alert
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'promotion_alert',
+		'title'       => __( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'If the article contains advertisements, it\'s essential to have a notation that general consumers can recognize.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'Using this feature, you can automatically insert the content set in ExUnit > Main Settings into the post.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_PA',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => $is_block_theme ? true : true,
+		'include'     => 'promotion-alert.php',
+	);
 	/*
 	  relatedPosts
 	/*-------------------------------------------*/
