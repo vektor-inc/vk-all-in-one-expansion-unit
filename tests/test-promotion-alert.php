@@ -59,7 +59,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			'post_category' => array( $data['category_id'] ),
 		);
 		$data['post_id_01'] = wp_insert_post( $post );
-        add_post_meta( $data['post_id_01'], 'alert-display', 'common' );
+        add_post_meta( $data['post_id_01'], 'veu_display_promotion_alert', 'common' );
 
         // 投稿「テスト02」を追加
 		$post    = array(
@@ -70,7 +70,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			'post_category' => array( $data['category_id'] ),
 		);
 		$data['post_id_02'] = wp_insert_post( $post );
-        add_post_meta( $data['post_id_02'], 'alert-display', 'display' );
+        add_post_meta( $data['post_id_02'], 'veu_display_promotion_alert', 'display' );
 
         // 投稿「テスト03」を追加
 		$post    = array(
@@ -81,7 +81,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			'post_category' => array( $data['category_id'] ),
 		);
 		$data['post_id_03'] = wp_insert_post( $post );
-        add_post_meta( $data['post_id_03'], 'alert-display', 'hide' );
+        add_post_meta( $data['post_id_03'], 'veu_display_promotion_alert', 'hide' );
 
 		// 固定ページ「テスト0１」を追加
 		$post    = array(
@@ -91,7 +91,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			'post_content'  => 'Page Test 01',
 		);
 		$data['page_id_01'] = wp_insert_post( $post );
-        add_post_meta( $data['page_id_01'], 'alert-display', 'common' );
+        add_post_meta( $data['page_id_01'], 'veu_display_promotion_alert', 'common' );
 
 		// 固定ページ「テスト02」を追加
 		$post    = array(
@@ -101,7 +101,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			'post_content'  => 'Page Test 02',
 		);
 		$data['page_id_02'] = wp_insert_post( $post );
-        add_post_meta( $data['page_id_02'], 'alert-display', 'display' );
+        add_post_meta( $data['page_id_02'], 'veu_display_promotion_alert', 'display' );
 
 		// 固定ページ「テスト03」を追加
 		$post    = array(
@@ -111,7 +111,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			'post_content'  => 'Page Test 03',
 		);
 		$data['page_id_03'] = wp_insert_post( $post );
-        add_post_meta( $data['page_id_03'], 'alert-display', 'hide' );
+        add_post_meta( $data['page_id_03'], 'veu_display_promotion_alert', 'hide' );
 
 		// イベント「テスト01」を追加
 		$post    = array(
@@ -122,7 +122,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 		);
 		$data['event_id_01'] = wp_insert_post( $post );
         wp_set_object_terms( $data['event_id_01'], 'event_category_name', 'event_cat' );
-        add_post_meta( $data['event_id_01'], 'alert-display', 'common' );
+        add_post_meta( $data['event_id_01'], 'veu_display_promotion_alert', 'common' );
 
         // イベント「テスト02」を追加
 		$post    = array(
@@ -133,7 +133,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 		);
 		$data['event_id_02'] = wp_insert_post( $post );
         wp_set_object_terms( $data['event_id_02'], 'event_category_name', 'event_cat' );
-        add_post_meta( $data['event_id_02'], 'alert-display', 'display' );
+        add_post_meta( $data['event_id_02'], 'veu_display_promotion_alert', 'display' );
 
         // イベント「テスト03」を追加
 		$post    = array(
@@ -144,7 +144,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 		);
 		$data['event_id_03'] = wp_insert_post( $post );
         wp_set_object_terms( $data['event_id_03'], 'event_category_name', 'event_cat' );
-        add_post_meta( $data['event_id_03'], 'alert-display', 'hide' );
+        add_post_meta( $data['event_id_03'], 'veu_display_promotion_alert', 'hide' );
 
         return $data;
 		
