@@ -14,6 +14,7 @@ class VK_Promotion_Alert {
         // is_singular() で判定するため wp で実行
         add_action( 'wp', array( __CLASS__, 'display_alert' ) );
         add_action( 'wp_head', array( __CLASS__, 'inline_style' ), 5 );
+        add_action( 'after_setup_theme', array( __CLASS__, 'content_filter' ) );
 	}
 
     /**
@@ -99,8 +100,31 @@ class VK_Promotion_Alert {
 				'style' => array(),
 				'href'  => array(),
 			),
+            'img'    => array(
+                'id'    => array(),
+                'class' => array(),
+                'style' => array(),
+                'src'   => array(),
+                'alt'   => array(),                
+            ),
 			'style'  => array(),
+            '!'    => array(),
 		);
+	}
+
+    	/**
+	 * コンテンツにかけるフィルター
+	 */
+	public static function content_filter() {
+		add_filter( 'veu_promotion_alert_content', 'do_blocks', 9 );
+		add_filter( 'veu_promotion_alert_content', 'wptexturize' );
+		add_filter( 'veu_promotion_alert_content', 'convert_smilies', 20 );
+		add_filter( 'veu_promotion_alert_content', 'shortcode_unautop' );
+		add_filter( 'veu_promotion_alert_content', 'prepend_attachment' );
+		add_filter( 'veu_promotion_alert_content', 'wp_filter_content_tags' );
+		add_filter( 'veu_promotion_alert_content', 'do_shortcode', 11 );
+		add_filter( 'veu_promotion_alert_content', 'capital_P_dangit', 11 );
+		add_filter( 'veu_promotion_alert_content', 'wp_replace_insecure_home_url' );
 	}
 
     /**
@@ -199,7 +223,7 @@ class VK_Promotion_Alert {
         // サニタイズ
         $options = array();
         $options['alert-text']    = ! empty( $input['alert-text'] ) ?  self::sanitize_space( esc_html( $input['alert-text'] ) ) : '';
-        $options['alert-content'] = ! empty( $input['alert-content'] ) ? self::sanitize_space( wp_kses(  $input['alert-content'], $allowed_html ) ) : '';
+        $options['alert-content'] = ! empty( $input['alert-content'] ) ? self::sanitize_space( stripslashes( htmlspecialchars( $input['alert-content'] ) ) ) : '';
 
         foreach ( $post_types as $post_type ) {
             $options['alert-display'][ $post_type['name'] ] = ! empty( $input['alert-display'][ $post_type['name'] ] ) ? 'display' : 'hide';
@@ -247,7 +271,7 @@ class VK_Promotion_Alert {
                 <tr>
                     <th><?php _e( 'Alert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
-                        <textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo wp_kses( $options['alert-content'], $allowed_html ); ?></textarea>
+                        <textarea name='vkExUnit_PA[alert-content]' style='width:100%;' rows='10'><?php echo $options['alert-content']; ?></textarea>
                         <ul>
                             <li><?php _e( 'If there is any input in "Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
                             <li><?php _e( 'You can insert HTML tags here. This is designed to be used by pasting content created in the Block Editor.', 'vk-all-in-one-expansion-unit' ); ?></li>
@@ -385,10 +409,9 @@ class VK_Promotion_Alert {
             } elseif ( ! empty( $options['alert-text'] ) ) {
                 $alert = '<div class="veu_promotion-alert" data-nosnippet><span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert-text">' . $options['alert-text'] . '</span></div>';
             }
-
         }
 
-        return $alert;
+        return apply_filters( 'veu_promotion_alert_content', htmlspecialchars_decode( $alert ) );
     }
 
     /**
