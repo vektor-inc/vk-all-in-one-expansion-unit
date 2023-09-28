@@ -397,7 +397,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 						'post' => 'display',
 					)
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet>bbbb</div>',
+				'correct' => 'bbbb',
 			),
 			array(
 				'options' => array(
@@ -407,7 +407,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 						'post' => 'display',
 					)
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet>bbbb</div>',
+				'correct' => 'bbbb',
 			),
 			array(
 				'options' => array(
