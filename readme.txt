@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+= 9.92.1 =
+[ Specification Change ][ Promotion Alert ] Change labels of post type choice.
+[ Specification Change ][ Promotion Alert ] Change HTML escape method of "Alert Content".
+
 = 9.92.0 =
 [ Add Function ] Promotion Alert
 [ Bug fix ] Fixed the bug that causes a Fatal error when trying to preview a block theme on the theme selection screen.
