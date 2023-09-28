@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.92.1 =
 [ Specification Change ][ Promotion Alert ] Change labels of post type choice.
 [ Specification Change ][ Promotion Alert ] Change HTML escape method of "Alert Content".
 
