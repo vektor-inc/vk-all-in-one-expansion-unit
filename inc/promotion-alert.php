@@ -271,7 +271,7 @@ class VK_Promotion_Alert {
                 <tr>
                     <th><?php _e( 'Alert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
-                        <textarea name='vkExUnit_PA[alert-content]' style='width:100%;' rows='10'><?php echo $options['alert-content']; ?></textarea>
+                        <textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo $options['alert-content']; ?></textarea>
                         <ul>
                             <li><?php _e( 'If there is any input in "Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
                             <li><?php _e( 'You can insert HTML tags here. This is designed to be used by pasting content created in the Block Editor.', 'vk-all-in-one-expansion-unit' ); ?></li>
