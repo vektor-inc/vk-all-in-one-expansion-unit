@@ -17,18 +17,122 @@ class VK_Promotion_Alert {
 	}
 
     /**
+	 * HTML Allowed
+	 */
+	public static function kses_allowed() {
+		return array(
+			'div'    => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h1'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h2'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h3'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h4'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h5'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h6'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'p'      => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'ul'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'ol'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'li'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'i'      => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'a'      => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+				'href'  => array(),
+			),
+			'span'   => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'button' => array(
+				'id'    => array(),
+				'type'  => array(),
+				'class' => array(),
+				'style' => array(),
+				'href'  => array(),
+			),
+			'style'  => array(),
+		);
+	}
+
+    /**
      * Get Post Types
      */
     public static function get_post_types() {
 
         // 投稿タイプの事前準備
-        $post_types_default = array( 'post', 'page' );
-        $post_types_extra   = get_post_types(
+        $post_types_default = array( 
+            array(
+                'label' => __( 'Post', 'vk-all-in-one-expansion-unit' ),
+                'name' => 'post'
+            ),
+            array(
+                'label' => __( 'Page', 'vk-all-in-one-expansion-unit' ),
+                'name' => 'page'
+            ),
+        );
+        $post_types_extra = array();
+        $extra_post_types   = get_post_types(
             array(
                 'public' => true,
                 '_builtin' => false
-            )
+            ),
+            'objects'
         );
+        foreach ( $extra_post_types as $post_type ) {
+            $post_types_extra[] = array(
+                'label' => $post_type->label,
+                'name' => $post_type->name
+            );
+        }
         $post_types = array_merge( $post_types_default, $post_types_extra );
         return $post_types;
     }
@@ -48,7 +152,7 @@ class VK_Promotion_Alert {
         // 投稿タイプ毎に初期化
         $post_types = self::get_post_types();
         foreach ( $post_types as $post_type ) {
-            $default['alert-display'][ $post_type ] = 'hide';
+            $default['alert-display'][ $post_type['name'] ] = 'hide';
         }
 
         // オプション取得
@@ -89,13 +193,16 @@ class VK_Promotion_Alert {
         // 投稿タイプを取得
         $post_types = self::get_post_types();
 
+        // 許可されたHTMLタグ
+        $allowed_html = self::kses_allowed();
+
         // サニタイズ
         $options = array();
         $options['alert-text']    = ! empty( $input['alert-text'] ) ?  self::sanitize_space( esc_html( $input['alert-text'] ) ) : '';
-        $options['alert-content'] = ! empty( $input['alert-content'] ) ? self::sanitize_space( wp_kses_post(  $input['alert-content'] ) ) : '';
+        $options['alert-content'] = ! empty( $input['alert-content'] ) ? self::sanitize_space( wp_kses(  $input['alert-content'], $allowed_html ) ) : '';
 
         foreach ( $post_types as $post_type ) {
-            $options['alert-display'][ $post_type ] = ! empty( $input['alert-display'][ $post_type ] ) ? 'display' : 'hide';
+            $options['alert-display'][ $post_type['name'] ] = ! empty( $input['alert-display'][ $post_type['name'] ] ) ? 'display' : 'hide';
         }
         $options['alert-hook'] = ! empty( $input['alert-hook'] ) ? self::sanitize_space( esc_html( $input['alert-hook'] ) ) : '';
         return $options;
@@ -108,6 +215,9 @@ class VK_Promotion_Alert {
 
         // 投稿タイプを取得
         $post_types = self::get_post_types();
+
+        // 許可されたHTMLタグ
+        $allowed_html = self::kses_allowed();
 
         // オプションを取得
         $options = self::get_options();
@@ -137,7 +247,7 @@ class VK_Promotion_Alert {
                 <tr>
                     <th><?php _e( 'Alert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
                     <td>
-                        <textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo wp_kses_post( $options['alert-content'] ); ?></textarea>
+                        <textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo wp_kses( $options['alert-content'], $allowed_html ); ?></textarea>
                         <ul>
                             <li><?php _e( 'If there is any input in "Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
                             <li><?php _e( 'You can insert HTML tags here.', 'vk-all-in-one-expansion-unit' ); ?></li>
@@ -152,8 +262,8 @@ class VK_Promotion_Alert {
                         <?php foreach ( $post_types as $post_type ) : ?>
                             <li>
                                 <label>
-                                    <input type="checkbox" name="vkExUnit_PA[alert-display][<?php echo esc_attr( $post_type ); ?>]" <?php checked( $options['alert-display'][ $post_type ], 'display' ); ?>>
-                                    <?php echo esc_html( $post_type ); ?>
+                                    <input type="checkbox" name="vkExUnit_PA[alert-display][<?php echo esc_attr( $post_type['name'] ); ?>]" <?php checked( $options['alert-display'][ $post_type['name'] ], 'display' ); ?>>
+                                    <?php echo esc_html( $post_type['label'] ); ?>
                                 </label>
                             </li>
                         <?php endforeach; ?>
@@ -309,8 +419,10 @@ class VK_Promotion_Alert {
 
         // アラートを取得
         $alert = self::get_alert_content();
+        // 許可されたHTMLタグ
+        $allowed_html = self::kses_allowed();
 
-         echo wp_kses_post( $alert );       
+        echo wp_kses( $alert, $allowed_html );       
     }
 
     /**
