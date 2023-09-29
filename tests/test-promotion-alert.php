@@ -387,7 +387,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 						'post' => 'display',
 					)
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert-text">aaaa</span></div>',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert-content--text"><span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert-text">aaaa</span></div></div>',
 			),
 			array(
 				'options' => array(
@@ -397,7 +397,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 						'post' => 'display',
 					)
 				),
-				'correct' => 'bbbb',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert-content--html">bbbb</div></div>',
 			),
 			array(
 				'options' => array(
@@ -407,7 +407,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 						'post' => 'display',
 					)
 				),
-				'correct' => 'bbbb',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert-content--html">bbbb</div></div>',
 			),
 			array(
 				'options' => array(
