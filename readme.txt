@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification Change ][ Promotion Alert ] Change HTML structure.
+[ Specification Change ][ Promotion Alert ] Change the label 'Alert Content' to 'Custom Alert Content'.
 
 = 9.92.1 =
 [ Specification Change ][ Promotion Alert ] Change labels of post type choice.
