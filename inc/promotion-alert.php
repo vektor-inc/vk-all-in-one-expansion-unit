@@ -406,13 +406,13 @@ class VK_Promotion_Alert {
 
             // アラートの中身を作成
             if ( ! empty( $options['alert-content'] ) ) {
-                $alert_content  = '<div class="veu_promotion-alert-content--html">';
+                $alert_content  = '<div class="veu_promotion-alert__content--html">';
                 $alert_content .= $options['alert-content'];
                 $alert_content .= '</div>';
             } elseif ( ! empty( $options['alert-text'] ) ) {
-                $alert_content  = '<div class="veu_promotion-alert-content--text">';
-                $alert_content .= '<span class="veu_promotion-alert-icon"><i class="fa-solid fa-circle-info"></i></span>';
-                $alert_content .= '<span class="veu_promotion-alert-text">' . $options['alert-text'] . '</span>';
+                $alert_content  = '<div class="veu_promotion-alert__content--text">';
+                $alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span>';
+                $alert_content .= '<span class="veu_promotion-alert__text">' . $options['alert-text'] . '</span>';
                 $alert_content .= '</div>';
             }
 
@@ -473,7 +473,7 @@ class VK_Promotion_Alert {
     public static function inline_style() {
 
         $dynamic_css = '
-        .veu_promotion-alert-content--text {
+        .veu_promotion-alert__content--text {
             border: 1px solid rgba(0,0,0,0.125);
             padding: 0.5em 1em;
             border-radius: var(--vk-size-radius);
@@ -481,7 +481,7 @@ class VK_Promotion_Alert {
             font-size: 0.875rem;
         }
         /* Alert Content部分に段落タグを入れた場合に最後の段落の余白を0にする */
-        .veu_promotion-alert-content--text p:last-of-type{
+        .veu_promotion-alert__content--text p:last-of-type{
             margin-bottom:0;
             margin-top: 0;
         }
