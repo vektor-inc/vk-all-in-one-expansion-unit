@@ -406,7 +406,7 @@ class VK_Promotion_Alert {
 
             // アラートの中身を作成
             if ( ! empty( $options['alert-content'] ) ) {
-                $alert_content  = '<div class="veu_promotion-alert__content--custom">';
+                $alert_content  = '<div class="veu_promotion-alert__content--html">';
                 $alert_content .= $options['alert-content'];
                 $alert_content .= '</div>';
             } elseif ( ! empty( $options['alert-text'] ) ) {
