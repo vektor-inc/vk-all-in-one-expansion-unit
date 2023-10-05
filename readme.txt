@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Promotion Alert ] Fix no post type error.
+[ Specification Change ][ Custom Post Type Manager ] Auto flash rewrite rule.
+
 = 9.92.2 =
 [ Specification Change ][ Promotion Alert ] Change HTML structure.
 [ Specification Change ][ Promotion Alert ] Change the label 'Alert Content' to 'Custom Alert Content'.

@@ -378,7 +378,7 @@ class VK_Promotion_Alert {
         if ( 'display' === $meta ) {
             // カスタムフィールドが display の場合は true
             $return = true;
-        } elseif ( 'common' === $meta && 'display' === $options['alert-display'][ $post_type ] ) {
+        } elseif ( ! empty( $options['alert-display'][ $post_type ] ) && 'common' === $meta && 'display' === $options['alert-display'][ $post_type ] ) {
             // カスタムフィールドが common でオプションが display の場合は true
             $return = true;
         }
