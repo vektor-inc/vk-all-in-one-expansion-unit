@@ -415,7 +415,17 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				),
 				'target_url' => get_permalink( $data['event_id_03'] ),
 				'correct'    => false,
-			)
+			),
+			array(
+				'options' => array(
+					'snsBtn_exclude_post_types' => array(
+						'event' => true,
+					),
+					'snsBtn_ignorePosts' => json_encode( $ignore_posts ),
+				),
+				'target_url' => home_url( '/' ) . '?p=9999',
+				'correct'    => false,
+			),
 		);
 		
 		print PHP_EOL;
@@ -435,6 +445,7 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			$this->assertEquals( $correct, $return );
 
 			print PHP_EOL;
+			print 'url     ::::' . $test_value['target_url'] . PHP_EOL;
 			print 'correct ::::' . $correct . PHP_EOL;
 			print 'return  ::::' . $return . PHP_EOL;
 
