@@ -92,7 +92,7 @@ function veu_is_sns_btns_display() {
 	
 	// 非表示対象の中にこの投稿IDが含まれる場合は表示しない.
 	if ( ! empty( $ignore_posts ) && is_array( $ignore_posts ) && in_array( (string) get_the_ID(), $ignore_posts, true ) ) {
-			return false;
+		return false;
 	}
 	
 	// 上記に該当しない場合は表示.
