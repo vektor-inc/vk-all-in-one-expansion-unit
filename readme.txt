@@ -81,8 +81,9 @@ e.g.
 
 == Changelog ==
 
-[ Bug fix ][ Promotion Alert ] Fix no post type error.
 [ Specification Change ][ Custom Post Type Manager ] Auto flash rewrite rule.
+[ Bug fix ][ Share Button ] Fixed a bug where the hide function did not work properly when the display target was not set to 'post content'.
+[ Bug fix ][ Promotion Alert ] Fix no post type error.
 
 = 9.92.2 =
 [ Specification Change ][ Promotion Alert ] Change HTML structure.
