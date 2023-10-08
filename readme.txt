@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 9.92.3.1
+Stable tag: 9.92.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.92.4 =
+[ Bug fix ][ Share Button ] Changed to always display the checkbox for hiding the share button.
 
 = 9.92.3 =
 [ Bug fix ][ Share Button ] Fixed a bug where the hide function did not work properly when the display target was not set to 'post content'.
