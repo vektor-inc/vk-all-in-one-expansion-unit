@@ -81,7 +81,9 @@ e.g.
 
 == Changelog ==
 
-[ Specification Change ][ Share Button ] Change Display Logic.
+= 9.92.3 =
+[ Bug fix ][ Share Button ] Fixed a bug where the hide function did not work properly when the display target was not set to 'post content'.
+
 = 9.92.2 =
 [ Specification Change ][ Promotion Alert ] Change HTML structure.
 [ Specification Change ][ Promotion Alert ] Change the label 'Alert Content' to 'Custom Alert Content'.
