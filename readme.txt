@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Share Button ] Changed to always display the checkbox for hiding the share button.
+
 = 9.92.3 =
 [ Bug fix ][ Share Button ] Fixed a bug where the hide function did not work properly when the display target was not set to 'post content'.
 
