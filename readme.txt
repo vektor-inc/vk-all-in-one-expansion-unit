@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.92.4 =
 [ Bug fix ][ Share Button ] Changed to always display the checkbox for hiding the share button.
 
 = 9.92.3 =
