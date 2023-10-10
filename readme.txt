@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add function ] Add function of front page structure data
+
 = 9.92.2 =
 [ Specification Change ][ Promotion Alert ] Change HTML structure.
 [ Specification Change ][ Promotion Alert ] Change the label 'Alert Content' to 'Custom Alert Content'.
