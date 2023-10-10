@@ -1,11 +1,11 @@
 <?php
 /**
- * Class Pront_Page_Structure_Test
+ * Class Front_Page_Structure_Test
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
 
-class Pront_Page_Structure_Test extends WP_UnitTestCase {
+class Front_Page_Structure_Test extends WP_UnitTestCase {
 	function test_get_front_page_array() {
 
 		print PHP_EOL;
