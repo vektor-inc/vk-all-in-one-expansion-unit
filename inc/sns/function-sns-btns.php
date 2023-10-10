@@ -70,55 +70,32 @@ function veu_is_sns_btns_auto_insert(){
  * @return bool
  */
 function veu_is_sns_btns_display() {
-	global $post;
-	$options      = veu_get_sns_options();
-	$ignore_posts = explode( ',', $options['snsBtn_ignorePosts'] );
-	$post_type    = vk_get_post_type();
-	$post_type    = $post_type['slug'];
+	$options               = veu_get_sns_options();
+	$ignore_posts          = explode( ',', $options['snsBtn_ignorePosts'] );
+	$post_type             = vk_get_post_type();
+	$post_type             = $post_type['slug'];
+	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
+	// カスタムフィールドで非表示の場合は表示しない
+	if ( ! empty( $sns_share_button_hide ) ) {
+		return false;
+	}
+
 	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように
 	if ( is_404() ){
 		return false;
 	}
-	if ( isset( $options['snsBtn_exclude_post_types'][ $post_type ] ) && $options['snsBtn_exclude_post_types'][ $post_type ] ) {
-		return false;
-	} elseif ( ! isset( $options['snsBtn_ignorePosts'] ) ) {
-		return true;
-	} elseif ( isset( $options['snsBtn_ignorePosts'] ) && $options['snsBtn_ignorePosts'] === $post->ID ) {
-		return false;
-	} elseif ( is_array( $ignore_posts ) && in_array( $post->ID, $ignore_posts, true ) ) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
-/**
- * メイン設定で非表示に指定されているかどうか
- *
- * @param string $post_type : 投稿タイプスラッグ.
- * @return bool
- */
-function veu_sns_is_sns_btns_meta_chekbox_hide( $post_type ) {
-	// SNS設定のオプション値を取得.
-	$options = veu_get_sns_options();
-
-	// 表示する にチェックが入っていない場合は 投稿詳細画面でボタン非表示のチェックボックスを表示しない.
-	if ( empty( $options['enableSnsBtns'] ) ) {
-		return false;
-	}
 
 	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）.
-	if ( isset( $options['snsBtn_exclude_post_types'] ) && is_array( $options['snsBtn_exclude_post_types'] ) ) {
-		foreach ( $options['snsBtn_exclude_post_types'] as $key => $value ) {
-			// 非表示チェックが入っている場合.
-			if ( $value ) {
-				// 今の投稿タイプと比較。同じだったら...
-				if ( $post_type === $key ) {
-					return false;
-				}
-			}
-		}
+	if ( ! empty( $options['snsBtn_exclude_post_types'][ $post_type ] ) ) {
+		return false;
+	} 
+	
+	// 非表示対象の中にこの投稿IDが含まれる場合は表示しない.
+	if ( ! empty( $ignore_posts ) && is_array( $ignore_posts ) && in_array( (string) get_the_ID(), $ignore_posts, true ) ) {
+		return false;
 	}
+	
+	// 上記に該当しない場合は表示.
 	return true;
 }
 
@@ -214,80 +191,86 @@ function veu_get_sns_btns( $attr = array() ) {
 	$page_title = rawurlencode( veu_get_the_sns_title() );
 
 	$classes = '';
-	if ( function_exists( 'veu_add_common_attributes_class' ) ) {
-		$classes .= veu_add_common_attributes_class( $classes, $attr );
+	$social_btns = '';
+	// 個別の記事で ボタンを表示しない指定にしてある場合.
+	if ( veu_is_sns_btns_display() ) {
+		
+		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
+			$classes .= veu_add_common_attributes_class( $classes, $attr );
+		}
+
+		if ( isset( $attr['position'] ) ) {
+			$classes .= ' veu_socialSet-position-' . $attr['position'];
+		}
+		if ( isset( $attr['className'] ) ) {
+			$classes .= ' ' . $attr['className'];
+		}
+
+		$social_btns = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
+		// facebook.
+		if ( ! empty( $options['useFacebook'] ) ) {
+			$social_btns .= '<li class="sb_facebook sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner" href="//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&amp;t=' . $page_title . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+			$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
+			$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+
+		// X.
+		if ( ! empty( $options['useTwitter'] ) ) {
+			$social_btns .= '<li class="sb_x_twitter sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner" href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
+			$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns"' . $icon_css . '></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>X</span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+
+		// hatena.
+		if ( ! empty( $options['useHatena'] ) ) {
+			$social_btns .= '<li class="sb_hatena sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner" href="//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&amp;title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+			$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
+			$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+
+		// line.
+		if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
+			$social_btns .= '<li class="sb_line sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner"  href="line://msg/text/' . $page_title . ' ' . $link_url . '" ' . $outer_css . '>';
+			$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		endif;
+		// pocket.
+		if ( $options['usePocket'] ) {
+			$social_btns .= '<li class="sb_pocket sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner"  href="//getpocket.com/edit?url=' . $link_url . '&title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+			$social_btns .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
+			$social_btns .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+		// copy.
+		if ( ! empty( $options['useCopy'] ) ) {
+			$social_btns .= '<li class="sb_copy sb_icon">';
+			$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . urldecode( $page_title ) . ' ' . urldecode( $link_url ) . '">';
+			$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
+			$social_btns .= '</button>';
+			$social_btns .= '</li>';
+		}
+
+		$social_btns .= '</ul></div><!-- [ /.socialSet ] -->';
 	}
 
-	if ( isset( $attr['position'] ) ) {
-		$classes .= ' veu_socialSet-position-' . $attr['position'];
-	}
-	if ( isset( $attr['className'] ) ) {
-		$classes .= ' ' . $attr['className'];
-	}
-
-	$social_btns = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
-	// facebook.
-	if ( ! empty( $options['useFacebook'] ) ) {
-		$social_btns .= '<li class="sb_facebook sb_icon">';
-		$social_btns .= '<a class="sb_icon_inner" href="//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&amp;t=' . $page_title . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-		$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
-		$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
-		$social_btns .= '</a>';
-		$social_btns .= '</li>';
-	}
-
-	// X.
-	if ( ! empty( $options['useTwitter'] ) ) {
-		$social_btns .= '<li class="sb_x_twitter sb_icon">';
-		$social_btns .= '<a class="sb_icon_inner" href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
-		$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns"' . $icon_css . '></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>X</span>';
-		$social_btns .= '</a>';
-		$social_btns .= '</li>';
-	}
-
-	// hatena.
-	if ( ! empty( $options['useHatena'] ) ) {
-		$social_btns .= '<li class="sb_hatena sb_icon">';
-		$social_btns .= '<a class="sb_icon_inner" href="//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&amp;title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-		$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
-		$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
-		$social_btns .= '</a>';
-		$social_btns .= '</li>';
-	}
-
-	// line.
-	if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
-		$social_btns .= '<li class="sb_line sb_icon">';
-		$social_btns .= '<a class="sb_icon_inner"  href="line://msg/text/' . $page_title . ' ' . $link_url . '" ' . $outer_css . '>';
-		$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
-		$social_btns .= '</a>';
-		$social_btns .= '</li>';
-	endif;
-	// pocket.
-	if ( $options['usePocket'] ) {
-		$social_btns .= '<li class="sb_pocket sb_icon">';
-		$social_btns .= '<a class="sb_icon_inner"  href="//getpocket.com/edit?url=' . $link_url . '&title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-		$social_btns .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
-		$social_btns .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
-		$social_btns .= '</a>';
-		$social_btns .= '</li>';
-	}
-	// copy.
-	if ( ! empty( $options['useCopy'] ) ) {
-		$social_btns .= '<li class="sb_copy sb_icon">';
-		$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . urldecode( $page_title ) . ' ' . urldecode( $link_url ) . '">';
-		$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
-		$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
-		$social_btns .= '</button>';
-		$social_btns .= '</li>';
-	}
-
-	$social_btns .= '</ul></div><!-- [ /.socialSet ] -->';
 	return $social_btns;
 }
 
@@ -299,26 +282,23 @@ function veu_get_sns_btns( $attr = array() ) {
  */
 function veu_add_sns_btns( $content ) {
 
-	// 個別の記事で ボタンを表示しない指定にしてある場合.
-	global $post;
-	if ( isset( $post->sns_share_botton_hide ) && $post->sns_share_botton_hide ) {
-		return $content;
-	}
-
 	// ウィジェットなら表示しない.
 	global $is_pagewidget;
 	if ( $is_pagewidget ) {
-		return $content; }
+		return $content; 
+	}
 
 	// 抜粋でも表示しない.
 	if ( function_exists( 'vk_is_excerpt' ) ) {
 		if ( vk_is_excerpt() ) {
-			return $content; }
+			return $content;
+		}
 	}
 
 	// アーカイブページでも表示しない.
 	if ( is_archive() ) {
-		return $content; }
+		return $content;
+	}
 
 	if ( veu_is_sns_btns_display() ) {
 
