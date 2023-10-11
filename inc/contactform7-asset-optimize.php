@@ -2,7 +2,7 @@
 /**
  * VkExUnit contactform7-asset-optimize.php
  *
- * @package  VkExUnit
+ * @package  vektor-inc/vk-all-in-one-expansion-unit
  * @since    19/March/2020
  */
 
@@ -11,10 +11,10 @@
   *
   * @since 9.93.0.0
   */
-function load_recaptcha_js() {
+function veu_deregister_recaptcha_js() {
 	wp_deregister_script( 'google-recaptcha' );
 }
-add_action( 'wp_enqueue_scripts', 'load_recaptcha_js', 100 );
+add_action( 'wp_enqueue_scripts', 'veu_deregister_recaptcha_js', 100 );
 
 
 add_action(
