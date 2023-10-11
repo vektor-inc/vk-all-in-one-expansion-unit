@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ Contact Form Optimize ] Add code to prevent reCAPTCHA from displaying on pages other than Contact Form 7.
+
 = 9.92.4 =
 [ Bug fix ][ Share Button ] Changed to always display the checkbox for hiding the share button.
 
