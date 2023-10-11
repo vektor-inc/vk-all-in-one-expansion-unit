@@ -272,7 +272,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				} elseif ( '' === $field_value ) {
 					delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 				}
-			}			
+			}		
+			
+			// リライトルールを更新するように.
+			delete_post_meta( $post_id, 'veu_post_type_flush_rewrite_rules' );
 		}
 
 		/**
