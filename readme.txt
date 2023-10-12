@@ -81,8 +81,10 @@ e.g.
 
 == Changelog ==
 
+
 [ Add function ][ Contact Form Optimize ] Add code to prevent reCAPTCHA from displaying on pages other than Contact Form 7.
 [ Add function ] Add function of front page structure data
+[ Specification Change ][ Custom Post Type Manager ] Auto flash rewrite rule.
 [ Bug fix ][ Promotion Alert ] In the checkbox for selecting post types to display advertising alerts, we fixed a bug where changes to the label names of posts and pages were not reflected.
 [ Bug fix ][ Promotion Alert ] Fix no post type error.
 
