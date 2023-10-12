@@ -176,6 +176,17 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/**
+	 * Structured data - Front Page
+	 */
+	$required_packages[] = array(
+		'name'        => 'front_page_structure_data',
+		'title'       => __( 'Structured data - Front Page', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the Front Page to the html header.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'front-page-structure-data/class-vk-front-page-structure-data.php',
+	);
+
+	/**
 	 * Structured data - Article
 	 */
 	$required_packages[] = array(
