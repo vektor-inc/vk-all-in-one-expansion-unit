@@ -81,13 +81,16 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Promotion Alert ] Change labels of post type choice.
 [ Add function ] Add function of front page structure data
+[ Bug fix ][ Promotion Alert ] Fix no post type error.
 
 = 9.92.4 =
 [ Bug fix ][ Share Button ] Changed to always display the checkbox for hiding the share button.
 
 = 9.92.3 =
 [ Bug fix ][ Share Button ] Fixed a bug where the hide function did not work properly when the display target was not set to 'post content'.
+
 
 = 9.92.2 =
 [ Specification Change ][ Promotion Alert ] Change HTML structure.
