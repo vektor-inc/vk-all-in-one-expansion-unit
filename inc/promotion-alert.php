@@ -135,18 +135,18 @@ class VK_Promotion_Alert {
         // 投稿タイプの事前準備
         $post_types_default = array( 
             array(
-                'label' => __( 'Post', 'vk-all-in-one-expansion-unit' ),
-                'name' => 'post'
+                'label' => get_post_type_object( 'post' )->label,
+                'name'  => get_post_type_object( 'page' )->label
             ),
             array(
                 'label' => __( 'Page', 'vk-all-in-one-expansion-unit' ),
-                'name' => 'page'
+                'name'  => 'page',
             ),
         );
         $post_types_extra = array();
         $extra_post_types   = get_post_types(
             array(
-                'public' => true,
+                'public'   => true,
                 '_builtin' => false
             ),
             'objects'
@@ -154,7 +154,7 @@ class VK_Promotion_Alert {
         foreach ( $extra_post_types as $post_type ) {
             $post_types_extra[] = array(
                 'label' => $post_type->label,
-                'name' => $post_type->name
+                'name'  => $post_type->name
             );
         }
         $post_types = array_merge( $post_types_default, $post_types_extra );
@@ -170,7 +170,7 @@ class VK_Promotion_Alert {
         $default = array(
             'alert-text'     => '',
             'alert-content'  => '',
-            'alert-hook' => '',
+            'alert-hook'     => '',
         );
 
         // 投稿タイプ毎に初期化
@@ -378,7 +378,7 @@ class VK_Promotion_Alert {
         if ( 'display' === $meta ) {
             // カスタムフィールドが display の場合は true
             $return = true;
-        } elseif ( ! empty( $options['alert-display'][ $post_type ] ) && 'common' === $meta && 'display' === $options['alert-display'][ $post_type ] ) {
+        } elseif ( 'common' === $meta && ! empty( $options['alert-display'][ $post_type ] ) && 'display' === $options['alert-display'][ $post_type ] ) {
             // カスタムフィールドが common でオプションが display の場合は true
             $return = true;
         }

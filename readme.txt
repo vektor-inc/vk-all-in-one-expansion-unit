@@ -82,6 +82,8 @@ e.g.
 == Changelog ==
 
 [ Specification Change ][ Custom Post Type Manager ] Auto flash rewrite rule.
+[ Specification Change ][ Promotion Alert ] Change labels of post type choice.
+[ Add function ] Add function of front page structure data
 [ Bug fix ][ Promotion Alert ] Fix no post type error.
 
 = 9.92.4 =
