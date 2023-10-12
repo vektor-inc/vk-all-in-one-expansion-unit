@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-
+= 9.93.0 =
 [ Add function ][ Contact Form Optimize ] Add code to prevent reCAPTCHA from displaying on pages other than Contact Form 7.
 [ Add function ] Add function of front page structure data
 [ Specification Change ][ Custom Post Type Manager ] Auto flash rewrite rule.
