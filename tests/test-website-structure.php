@@ -1,16 +1,16 @@
 <?php
 /**
- * Class Front_Page_Structure_Test
+ * Class Website_Structure_Test
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
 
-class Front_Page_Structure_Test extends WP_UnitTestCase {
-	function test_get_front_page_array() {
+class Website_Structure_Test extends WP_UnitTestCase {
+	function test_get_website_array() {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'test_get_front_page_array' . PHP_EOL;
+		print 'test_get_website_array' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
 
@@ -39,7 +39,7 @@ class Front_Page_Structure_Test extends WP_UnitTestCase {
 
 			$this->go_to( $test_value['target_url'] );
 
-			$actual = VK_Front_Page_Srtuctured_Data::get_front_page_structure_array();
+			$actual = VK_Website_Srtuctured_Data::get_website_structure_array();
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;

@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ] Changed "front page" to "website" regarding structured data.
+
 = 9.93.0 =
 [ Add function ][ Contact Form Optimize ] Add code to prevent reCAPTCHA from displaying on pages other than Contact Form 7.
 [ Add function ] Add function of front page structure data
