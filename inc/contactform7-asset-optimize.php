@@ -77,3 +77,33 @@ add_filter(
 	10,
 	4
 );
+
+/**
+ * reCAPTCHA の位置調整CSSを出力するかどうか
+ *
+ * @since 9.93.0.0
+ * */
+function veu_is_print_recapcha_position_adjustment_style() {
+	$options = veu_get_common_options();
+	if ( ! empty( $options['active_pagetop_button'] ) ) {
+		$option = get_option( 'vkExUnit_pagetop' );
+		if ( ! wp_is_mobile() ||
+			( wp_is_mobile() && empty( $option['hide_mobile'] ) )
+			) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * reCAPTCHA の位置調整CSSを出力
+ *
+ * @since 9.93.0.0
+ */
+function veu_print_recapcha_position_adjustment_style() {
+	if ( veu_is_print_recapcha_position_adjustment_style() ) {
+		wp_add_inline_style( 'vkExUnit_common_style', '.grecaptcha-badge{bottom: 80px !important;}' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'veu_print_recapcha_position_adjustment_style' );
