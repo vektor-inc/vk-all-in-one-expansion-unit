@@ -39,7 +39,7 @@ class Website_Structure_Test extends WP_UnitTestCase {
 
 			$this->go_to( $test_value['target_url'] );
 
-			$actual = VK_Website_Srtuctured_Data::get_website_structure_array();
+			$actual = VK_WebSite_Srtuctured_Data::get_website_structure_array();
 			$correct = $test_value['correct'];
 
 			print PHP_EOL;

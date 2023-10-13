@@ -1,11 +1,11 @@
 <?php
 /**
- * VK_Website_Srtuctured_Data
+ * VK_WebSite_Srtuctured_Data
  *
  * @package vektor-inc/vk-all-in-one-expanaion-unit
  */
 
-class VK_Website_Srtuctured_Data {
+class VK_WebSite_Srtuctured_Data {
 
 	public function __construct() {
 		add_action( 'wp_head', array( __CLASS__, 'the_website_structure_data' ), 9999 );
@@ -45,4 +45,4 @@ class VK_Website_Srtuctured_Data {
 	}
 }
 
-new VK_Website_Srtuctured_Data();
+new VK_WebSite_Srtuctured_Data();
