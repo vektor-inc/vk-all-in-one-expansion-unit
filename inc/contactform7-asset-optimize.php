@@ -111,7 +111,8 @@ function veu_is_print_recapcha_position_adjustment_style() {
  */
 function veu_print_recapcha_position_adjustment_style() {
 	if ( veu_is_print_recapcha_position_adjustment_style() ) {
-		wp_add_inline_style( 'vkExUnit_common_style', '.grecaptcha-badge{bottom: 80px !important;}' );
+		/* When the developer tools are open, the badge is displayed about 5mm higher. Please check when the developer tools are closed. */
+		wp_add_inline_style( 'vkExUnit_common_style', '.grecaptcha-badge{bottom: 85px !important;}' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'veu_print_recapcha_position_adjustment_style' );
