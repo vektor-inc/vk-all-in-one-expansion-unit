@@ -176,6 +176,17 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/**
+	 * Structured data - WebSite
+	 */
+	$required_packages[] = array(
+		'name'        => 'website_structure_data',
+		'title'       => __( 'Structured data - WebSite', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the WebSite to the html header.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'website-structure-data/class-vk-website-structure-data.php',
+	);
+
+	/**
 	 * Structured data - Article
 	 */
 	$required_packages[] = array(

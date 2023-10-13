@@ -245,7 +245,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// 自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return $post_id; }
+				return $post_id;
+			}
 
 				// 保存しているカスタムフィールド.
 			$fields = array(
@@ -271,29 +272,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				} elseif ( '' === $field_value ) {
 					delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 				}
-			}
-
-		}
-
-		/**
-		 * Add post notice
-		 *
-		 * @return void
-		 */
-		public static function add_post_notice() {
-			global $pagenow;
-			if ( 'post.php' === $pagenow && 'post_type_manage' === get_post_type() && 'edit' === $_GET['action'] ) {
-				$html = '<div class="notice-warning notice is-dismissible">';
-				$link = admin_url() . 'options-permalink.php';
-				/* translators: %s: permalink url */
-				$html .= '<p>' . sprintf( __( 'Please save a <a href="%s">permanent link configuration</a> After updating the setting.', 'vk-all-in-one-expansion-unit' ), $link ) . '</p>';
-				$html .= '  <button type="button" class="notice-dismiss">';
-				$html .= '    <span class="screen-reader-text">この通知を非表示にする</span>';
-				$html .= '  </button>';
-				$html .= '</div>';
-
-				echo wp_kses_post( $html );
-			}
+			}		
+			
+			// リライトルールを更新するように.
+			delete_post_meta( $post_id, 'veu_post_type_flush_rewrite_rules' );
 		}
 
 		/**
@@ -347,7 +329,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						);
 
 						// REST API に出力するかどうかをカスタムフィールドから取得.
-						$rest_api = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
+						$rest_api   = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
+						$flush_flag = get_post_meta( $post->ID, 'veu_post_type_flush_rewrite_rules', true );
 						// REST APIに出力する場合.
 						if ( 'true' === $rest_api || '1' === $rest_api ) {
 							$rest_args = array(
@@ -359,6 +342,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 						// カスタム投稿タイプを発行.
 						register_post_type( $post_type_id, $args );
+
+						// パーマリンク設定を更新するかどうか.
+						if ( empty( $flush_flag ) ) {
+							flush_rewrite_rules();
+							update_post_meta( $post->ID, 'veu_post_type_flush_rewrite_rules', 'true' );
+						}
 
 						/*******************************************
 						 * カスタム分類を追加
@@ -430,7 +419,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// after_setup_theme では 6.0 頃から翻訳があたらなくなる .
 			// init でも 0 などなど早めのpriority 指定しないと投稿タイプに連動するウィジェットエリアが動作しない .
 			add_action( 'init', array( $this, 'add_post_type' ), 0 );
-			add_action( 'admin_notices', array( $this, 'add_post_notice' ) );
 		}
 
 	} // class VK_Post_Type_Manager
