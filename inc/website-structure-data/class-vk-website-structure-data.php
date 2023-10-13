@@ -20,9 +20,9 @@ class VK_Website_Srtuctured_Data {
 		if ( is_front_page() ) {
 			$website_array = self::get_website_structure_array();
 			if ( $website_array && is_array( $website_array ) ) {
-				echo '<!-- [ VK All in One Expansion Unit Website Structure Data ] -->';
+				echo '<!-- [ VK All in One Expansion Unit WebSite Structure Data ] -->';
                 echo '<script type="application/ld+json">' . wp_kses( json_encode( $website_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
-				echo '<!-- [ / VK All in One Expansion Unit Website Structure Data ] -->';
+				echo '<!-- [ / VK All in One Expansion Unit WebSite Structure Data ] -->';
 			}
 		}
 	}
