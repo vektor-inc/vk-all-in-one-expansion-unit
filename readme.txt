@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Profile Widget ] Fix Twitter icon to X icon
+
 = 9.93.1 =
 [ Specification Change ] Change Footer Copyright
 
