@@ -120,7 +120,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 </p>
 
 		<?php //twitter_URL ?>
-<p><label for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+<p><label for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'X ( Twitter ) URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 <input type="text" id="<?php echo $this->get_field_id( 'twitter' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo esc_attr( $instance['twitter'] ); ?>" />
 </p>
 
@@ -429,36 +429,62 @@ $icon_css  = $this->icon_css( $instance );
 ?>
 <ul class="sns_btns">
 <?php
-$sns_names = array( 'facebook', 'twitter', 'mail', 'youtube', 'rss', 'instagram', 'linkedin' );
+$sns_names = array( 
+	array(
+		'name'     => 'facebook',
+		'icon_fa4' => 'fa fa-facebook',
+		'icon_fa6' => 'fa-solid fa-brands fa-facebook',
+	),
+	array(
+		'name'     => 'twitter',
+		'icon_fa4' => 'fa fa-twitter',
+		'icon_fa6' => 'fa-brands fa-x-twitter',
+	),
+	array(
+		'name'     => 'mail',
+		'icon_fa4' => 'fa fa-envelope',
+		'icon_fa6' => 'fa-solid fa-envelope',
+	),
+	array(
+		'name'     => 'youtube',
+		'icon_fa4' => 'fa fa-youtube',
+		'icon_fa6' => 'fa-brands fa-youtube',
+	),
+	array(
+		'name'     => 'rss',
+		'icon_fa4' => 'fa fa-rss',
+		'icon_fa6' => 'fa-solid fa-rss',
+	),
+	array(
+		'name'     => 'instagram',
+		'icon_fa4' => 'fa fa-instagram',
+		'icon_fa6' => 'fa-brands fa-instagram',
+	),
+	array(
+		'name'     => 'linkedin',
+		'icon_fa4' => 'fa fa-linkedin',
+		'icon_fa6' => 'fa-brands fa-linkedin',
+	),
+
+);
 if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 	$font_awesome = Vk_Font_Awesome_Versions::current_info();
 } else {
 	$font_awesome = array( 'version' => VEU_FONT_AWESOME_DEFAULT_VERSION );
 }
 
-foreach ( $sns_names as $key => $sns_name ) {
-	if ( ! empty( $instance[ $sns_name ] ) ) { // $instance[$sns_name] 入力されたURLが返ってくる
+foreach ( $sns_names as $sns_name ) {
+	if ( ! empty( $instance[ $sns_name['name'] ] ) ) { // $instance[$sns_name] 入力されたURLが返ってくる
 
 		// font awesome 4.7
 		if ( $font_awesome['version'] == 4.7 ) {
-			if ( $sns_name == 'mail' ) {
-				$sns_name_class = 'fa fa-envelope';
-			} else {
-				$sns_name_class = 'fa fa-' . $sns_name;
-			}
+			$sns_name_class = $sns_name['icon_fa4'];
 
-			// font awesome 5
 		} else {
-			if ( $sns_name == 'mail' ) {
-				$sns_name_class = 'fas fa-envelope';
-			} elseif ( $sns_name == 'rss' ) {
-					$sns_name_class = 'fas fa-rss';
-			} else {
-				$sns_name_class = 'fab fa-' . $sns_name;
-			}
+			$sns_name_class = $sns_name['icon_fa6'];
 		}
 
-		echo '<li class="' . $sns_name . '_btn"><a href="' . esc_url( $instance[ $sns_name ] ) . '" target="_blank"' . $outer_css . '><i class="' . $sns_name_class . ' icon"' . $icon_css . '></i></a></li>';
+		echo '<li class="' . $sns_name['name'] . '_btn"><a href="' . esc_url( $instance[ $sns_name['name'] ] ) . '" target="_blank"' . $outer_css . '><i class="' . $sns_name_class . ' icon"' . $icon_css . '></i></a></li>';
 	} // if ( ! empty( $instance[$sns_name] ) ) :
 } // foreach ( $sns_names as $key => $sns_name ) {
 	?>
