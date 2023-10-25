@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Share Button ] Display on site editor.
+
 = 9.93.2 =
 [ Bug Fix ][ Profile Widget ] Fix Twitter icon to X icon
 
