@@ -187,13 +187,16 @@ function veu_get_sns_btns( $attr = array() ) {
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
 
+	// 現在のURL.
+	$current_url = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+
 	$link_url   = rawurlencode( get_permalink() );
 	$page_title = rawurlencode( veu_get_the_sns_title() );
 
 	$classes = '';
 	$social_btns = '';
-	// 個別の記事で ボタンを表示しない指定にしてある場合.
-	if ( veu_is_sns_btns_display() ) {
+	// 個別の記事で ボタンを表示する指定にしてある場合 or サイトエディターの場合.
+	if ( veu_is_sns_btns_display() || false !== strpos( $current_url, 'context=edit' ) ) {
 		
 		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
 			$classes .= veu_add_common_attributes_class( $classes, $attr );
