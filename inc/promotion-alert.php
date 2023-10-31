@@ -136,10 +136,10 @@ class VK_Promotion_Alert {
         $post_types_default = array( 
             array(
                 'label' => get_post_type_object( 'post' )->label,
-                'name'  => get_post_type_object( 'page' )->label
+                'name'  => 'post'
             ),
             array(
-                'label' => __( 'Page', 'vk-all-in-one-expansion-unit' ),
+                'label' =>  get_post_type_object( 'page' )->label,
                 'name'  => 'page',
             ),
         );
@@ -173,15 +173,17 @@ class VK_Promotion_Alert {
             'alert-hook'     => '',
         );
 
+        // オプション取得
+        $options = get_option( 'vkExUnit_PA' );      
+        $options = wp_parse_args( $options, $default );
+
         // 投稿タイプ毎に初期化
         $post_types = self::get_post_types();
         foreach ( $post_types as $post_type ) {
-            $default['alert-display'][ $post_type['name'] ] = 'hide';
+            if ( empty( $options['alert-display'][ $post_type['name'] ] ) ) {
+                $options['alert-display'][ $post_type['name'] ] = 'hide';
+            }
         }
-
-        // オプション取得
-        $options = get_option( 'vkExUnit_PA' );
-        $options = wp_parse_args( $options, $default );
 
         return $options;
     }
