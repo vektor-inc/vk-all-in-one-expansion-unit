@@ -136,10 +136,10 @@ class VK_Promotion_Alert {
         $post_types_default = array( 
             array(
                 'label' => get_post_type_object( 'post' )->label,
-                'name'  => get_post_type_object( 'page' )->label
+                'name'  => 'post'
             ),
             array(
-                'label' => __( 'Page', 'vk-all-in-one-expansion-unit' ),
+                'label' =>  get_post_type_object( 'page' )->label,
                 'name'  => 'page',
             ),
         );
