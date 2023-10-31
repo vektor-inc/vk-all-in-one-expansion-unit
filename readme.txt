@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Promotion Alert ] Fix post-type checkbox.
 [ Bug Fix ][ Share Button ] Display on site editor.
 
 = 9.93.2 =
