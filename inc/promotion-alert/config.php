@@ -4,6 +4,7 @@
  */
 
 require dirname( __FILE__ ) . '/package/class-veu-promotion-alert.php';
+VEU_Promotion_Alert::init();
 
 function veu_load_promotion_alert_metabox() {
     require_once dirname( __FILE__ ) . '/package/class-veu-promotion-alert-metabox.php';

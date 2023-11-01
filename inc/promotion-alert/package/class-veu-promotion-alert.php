@@ -498,9 +498,6 @@ class VEU_Promotion_Alert {
         wp_add_inline_style( 'vkExUnit_common_style', $dynamic_css );
     }
 }
-VEU_Promotion_Alert::init();
 
-if ( ! class_exists( 'VEU_Metabox' ) ) {
-	return;
-}
+
 

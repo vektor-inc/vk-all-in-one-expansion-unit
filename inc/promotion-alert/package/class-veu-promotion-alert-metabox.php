@@ -3,6 +3,11 @@
  * VEU Metabox Promotion Alert
  */
 
+if ( ! class_exists( 'VEU_Metabox' ) ) {
+	return;
+}
+
+
 class VEU_Promotion_Alert_Metabox extends VEU_Metabox {
 
     public function __construct( $args = array() ) {
