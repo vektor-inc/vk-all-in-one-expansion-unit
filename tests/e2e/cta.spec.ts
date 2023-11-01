@@ -9,6 +9,7 @@ test('CTA', async ({ page }) => {
   await page.getByLabel('Username or Email Address').press('Tab');
   await page.getByLabel('Password', { exact: true } ).fill('password');
   await page.getByLabel('Password', { exact: true } ).press('Enter');
+
   // Put CTA ( Not registered ) ///////////////////////////////////////////.
 
   // Got to New Post
