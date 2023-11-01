@@ -83,7 +83,7 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ][ Promotion Alert ] Display promotion alert metabox custom post type.
+[ Bug Fix ][ Promotion Alert ] Fixed a bug where the 'Promotion Alert' settings metabox was not displayed on the post edit screen for custom post types.
 
 = 9.93.3 =
 [ Bug Fix ][ Promotion Alert ] Fix post-type checkbox.
