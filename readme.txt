@@ -83,7 +83,7 @@ e.g.
 
 == Changelog ==
 
-[ Specification Change ][ Promotion Alert ] Cope with custom post type.
+[ Bug Fix ][ Promotion Alert ] Display promotion alert metabox custom post type.
 
 = 9.93.3 =
 [ Bug Fix ][ Promotion Alert ] Fix post-type checkbox.
