@@ -79,7 +79,11 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
+
+
 == Changelog ==
+
+[ Specification Change ][ Promotion Alert ] Cope with custom post type.
 
 = 9.93.3 =
 [ Bug Fix ][ Promotion Alert ] Fix post-type checkbox.
