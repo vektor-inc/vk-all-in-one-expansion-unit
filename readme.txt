@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 9.93.3.0
+Stable tag: 9.94.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,7 @@ e.g.
 
 == Changelog ==
 
+= 9.94.0 =
 [ Update ][ Font Awesome ] Update font awesome 6.4.3 ( with delete version 5 )
 [ Bug Fix ][ Promotion Alert ] Fixed a bug where the 'Promotion Alert' settings metabox was not displayed on the post edit screen for custom post types.
 
