@@ -351,7 +351,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			// Set site name
 			update_option( 'vkExUnit_PA', $test_value['options'] );
 
-			$return  = VK_Promotion_Alert::get_display_condition( $test_value['post_id'] );
+			$return  = VEU_Promotion_Alert::get_display_condition( $test_value['post_id'] );
 			$correct = $test_value['correct'];
 
 			$this->assertEquals( $correct, $return );
@@ -464,7 +464,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 			$this->go_to( get_permalink( $data['post_id_01'] ) );
 
-			$return  = VK_Promotion_Alert::get_alert_content();
+			$return  = VEU_Promotion_Alert::get_alert_content();
 			$correct = $test_value['correct'];
 
 			$this->assertEquals( $correct, $return );

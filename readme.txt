@@ -79,7 +79,12 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
+
+
 == Changelog ==
+
+[ Update ][ Font Awesome ] Update font awesome 6.4.3 ( with delete version 5 )
+[ Bug Fix ][ Promotion Alert ] Fixed a bug where the 'Promotion Alert' settings metabox was not displayed on the post edit screen for custom post types.
 
 = 9.93.3 =
 [ Bug Fix ][ Promotion Alert ] Fix post-type checkbox.

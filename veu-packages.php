@@ -433,7 +433,7 @@ function veu_get_packages( $is_block_theme = null ) {
 			),
 		),
 		'default'     => $is_block_theme ? true : true,
-		'include'     => 'promotion-alert.php',
+		'include'     => 'promotion-alert/config.php',
 	);
 	/*
 	  relatedPosts
