@@ -128,7 +128,7 @@ class VkExUnit_Contact {
 		$option  = get_option( 'vkExUnit_contact' );
 		// オプション値が無い時は get_option の第２引数で登録されるが、
 		// 既に値が存在しているが、項目があとから追加された時用に wp_parse_args をしている
-		return wp_parse_args( $option, $default );
+		return apply_filters( 'vkExUnit_contact', wp_parse_args( $option, $default ) );
 	}
 
 
