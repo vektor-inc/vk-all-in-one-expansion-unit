@@ -181,10 +181,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				// slug.
 				echo '<td>' . esc_html__( 'Custon taxonomy name(slug)', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td><input type="text" id="veu_taxonomy[' . esc_attr( $i ) . '][slug]" name="veu_taxonomy[' . esc_attr( $i ) . '][slug]" value="' . esc_attr( $slug ) . '" size="20">';
-				$locale = get_locale();
-				if ( ! in_array( $locale, array( 'en_US', 'en_CA', 'en_NZ', 'en_AU', 'en_ZA', 'en_GB' ) ) ) {
-					echo '<div>' . esc_html__( '* Please enter a string consisting of half-width lowercase alphanumeric characters, half-width hyphens, and half-width underscores.', 'vk-all-in-one-expansion-unit' ) . '</div>';
-				}
+				echo '<div>' . esc_html__( '* Please enter a string consisting of half-width lowercase alphanumeric characters, half-width hyphens, and half-width underscores.', 'vk-all-in-one-expansion-unit' ) . '</div>';
 				echo '</td>';
 
 				// 表示名.
