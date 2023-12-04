@@ -83,6 +83,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ][ PostTypeManager ] Fix alert of post type slug and taxonomy slug.
+
 = 9.94.0 =
 [ Update ][ Font Awesome ] Update font awesome 6.4.3 ( with delete version 5 )
 [ Bug Fix ][ Promotion Alert ] Fixed a bug where the 'Promotion Alert' settings metabox was not displayed on the post edit screen for custom post types.
