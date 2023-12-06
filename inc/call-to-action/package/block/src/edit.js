@@ -27,8 +27,6 @@ export default function CTAEdit( props ) {
 			.getEditedPostAttribute( 'meta' ).vkexunit_cta_each_option;
 	}
 
-	const postType = wp.data.select( 'core/editor' ).getCurrentPostType();
-
 	let editContent;
 
 	// If no CTA registered.
@@ -77,22 +75,6 @@ export default function CTAEdit( props ) {
 				) }
 			</div>
 		);
-	}
-	if ( ! postType ) {
-		if ( ! postId ) {
-			editContent = (
-				<div className="veu-cta-block-edit-alert alert alert-warning">
-					{ __(
-						'Please select CTA from Setting sidebar.',
-						'vk-all-in-one-expansion-unit'
-					) }
-				</div>
-			);
-		} else {
-			editContent = (
-				<div>{ __( 'CTA', 'vk-all-in-one-expansion-unit' ) }</div>
-			);
-		}
 	}
 
 	const blockProps = useBlockProps( {
