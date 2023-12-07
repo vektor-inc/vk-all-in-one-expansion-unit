@@ -3,7 +3,7 @@
  * Plugin Name: VK All in One Expansion Unit
  * Plugin URI: https://ex-unit.nagoya
  * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
- * Version: 9.94.0.1
+ * Version: 9.94.1.0
  * Requires PHP: 7.4
  * Requires at least: 5.9
  * Author: Vektor,Inc.
@@ -34,12 +34,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 // $sample = new Sample();
 
 define( 'VEU_FONT_AWESOME_DEFAULT_VERSION', 5 );
-define( 'VEU_DIRECTORY_PATH', dirname( __FILE__ ) );
+define( 'VEU_DIRECTORY_PATH', __DIR__ );
 define( 'VEU_DIRECTORY_URI', plugins_url( '', __FILE__ ) );
 
 // Set Plugin version.
@@ -69,7 +69,7 @@ function veu_uninstall_function() {
  */
 add_action(
 	'admin_head',
-	function() {
+	function () {
 		echo '<style>.block-editor-writing-flow { height: auto; }</style>'; // phpcs:ignore
 	}
 );
