@@ -82,7 +82,9 @@ e.g.
 
 
 == Changelog ==
+
 [ Specification Change ][ ChildPageList ] add post id / class for post infomation.
+[ Bug Fix ][ CTA Block ] Fix error at widget.
 [ Other ][ PostTypeManager ] Fix alert of post type slug and taxonomy slug.
 
 = 9.94.0 =
