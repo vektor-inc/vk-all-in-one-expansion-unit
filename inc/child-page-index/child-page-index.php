@@ -75,9 +75,11 @@ function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 	foreach ( $childrens as $children ) :
 
 			$postExcerpt = veu_child_page_excerpt( $children );
+			$outer_class = 'childPage_list_box veu_card ' . implode( ' ', get_post_class( '', $children->ID ) );
 
 			// Page Item build
-			$childPageList_html .= '<a href="' . esc_url( get_permalink( $children->ID ) ) . '" class="childPage_list_box veu_card"><div class="childPage_list_box_inner veu_card_inner">';
+			$childPageList_html .= '<a href="' . esc_url( get_permalink( $children->ID ) ) . '" id="post-' . esc_attr( $children->ID ) . '" class="' . $outer_class . '">';
+			$childPageList_html .= '<div class="childPage_list_box_inner veu_card_inner">';
 			$childPageList_html .= '<h3 class="childPage_list_title veu_card_title">' . wp_kses_post( $children->post_title ) . '</h3>';
 			$childPageList_html .= '<div class="childPage_list_body">';
 			$childPageList_html .= apply_filters( 'veu_child_index_thumbnail', get_the_post_thumbnail( $children->ID, 'thumbnail' ), $children->ID );
