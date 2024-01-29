@@ -2,7 +2,13 @@
 function veu_get_packages( $is_block_theme = null ) {
 	$required_packages = array();
 	if ( null === $is_block_theme ) {
-		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		// テーマプレビュー画面では wp_is_block_theme を使うとの中の処理でエラーになる (6.3現在)。
+		// とはいえ wp_is_block_theme は初期段階で有効化するパッケージの設定で使用しているだけで、
+		// テーマプレビュー画面においては wp_is_block_theme が trueでもfalseでも特にどうでも良いため、
+		// テーマプレビュー画面じゃない場合のみ判定させている。
+		if ( empty( $_GET['wp_theme_preview'] ) ) {
+			$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		}
 	}
 
 	/*
@@ -106,7 +112,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	$settingPage = '<a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">' . __( 'Main setting page' ) . '</a>';
 	$deskSns[]   = '<ul>';
 	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print twitter card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print X card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
 	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vk-all-in-one-expansion-unit' ) . '</li>';
@@ -167,6 +173,17 @@ function veu_get_packages( $is_block_theme = null ) {
 		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'meta-description.php',
+	);
+
+	/**
+	 * Structured data - WebSite
+	 */
+	$required_packages[] = array(
+		'name'        => 'website_structure_data',
+		'title'       => __( 'Structured data - WebSite', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the WebSite to the html header.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'website-structure-data/class-vk-website-structure-data.php',
 	);
 
 	/**
@@ -399,6 +416,24 @@ function veu_get_packages( $is_block_theme = null ) {
 		),
 		'default'     => $is_block_theme ? false : true,
 		'include'     => 'insert-ads.php',
+	);
+
+	/*
+	  promotion_alert
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'promotion_alert',
+		'title'       => __( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'If the article contains advertisements, it\'s essential to have a notation that general consumers can recognize.', 'vk-all-in-one-expansion-unit' ).'<br>'.__( 'Using this feature, you can automatically insert the content set in ExUnit > Main Settings into the post.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_PA',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => $is_block_theme ? true : true,
+		'include'     => 'promotion-alert/config.php',
 	);
 	/*
 	  relatedPosts

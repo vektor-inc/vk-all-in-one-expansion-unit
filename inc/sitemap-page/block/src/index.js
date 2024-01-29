@@ -18,5 +18,5 @@ const settings = {
 	icon: <Icon />,
 	edit,
 };
-unstable__bootstrapServerSideBlockDefinitions({ [name]: metadata });
-registerBlockType(metadata, settings);
+unstable__bootstrapServerSideBlockDefinitions( { [ name ]: metadata } );
+registerBlockType( metadata, settings );

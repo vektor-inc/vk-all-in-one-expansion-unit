@@ -3,9 +3,9 @@ Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki
 Donate link:
 Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
 Requires at least: 5.9.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 9.90.3.2
+Stable tag: 9.94.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,7 @@ Many features can be stopped individually.
 
 * Print Social Bookmarks
 * Print OG Tags
-* Print Twitter Card Tags
+* Print X Card Tags
 
 [ Others ]
 
@@ -79,14 +79,68 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
+
+
 == Changelog ==
+
+= 9.94.1 =
+[ Specification Change ][ ChildPageList ] add post id / class for post infomation.
+[ Bug Fix ][ CTA Block ] Fix error at widget.
+[ Other ][ PostTypeManager ] Fix alert of post type slug and taxonomy slug.
+
+= 9.94.0 =
+[ Update ][ Font Awesome ] Update font awesome 6.4.3 ( with delete version 5 )
+[ Bug Fix ][ Promotion Alert ] Fixed a bug where the 'Promotion Alert' settings metabox was not displayed on the post edit screen for custom post types.
+
+= 9.93.3 =
+[ Bug Fix ][ Promotion Alert ] Fix post-type checkbox.
+[ Bug Fix ][ Share Button ] Display on site editor.
+
+= 9.93.2 =
+[ Bug Fix ][ Profile Widget ] Fix Twitter icon to X icon
+
+= 9.93.1 =
+[ Specification Change ] Change Footer Copyright
+
+= 9.93.0 =
+[ Add function ][ Contact Form Optimize ] Add code to prevent reCAPTCHA from displaying on pages other than Contact Form 7.
+[ Add function ] Add function of front page structure data
+[ Specification Change ][ Custom Post Type Manager ] Auto flash rewrite rule.
+[ Bug fix ][ Promotion Alert ] In the checkbox for selecting post types to display advertising alerts, we fixed a bug where changes to the label names of posts and pages were not reflected.
+[ Bug fix ][ Promotion Alert ] Fix no post type error.
+
+= 9.92.4 =
+[ Bug fix ][ Share Button ] Changed to always display the checkbox for hiding the share button.
+
+= 9.92.3 =
+[ Bug fix ][ Share Button ] Fixed a bug where the hide function did not work properly when the display target was not set to 'post content'.
+
+
+= 9.92.2 =
+[ Specification Change ][ Promotion Alert ] Change HTML structure.
+[ Specification Change ][ Promotion Alert ] Change the label 'Alert Content' to 'Custom Alert Content'.
+
+= 9.92.1 =
+[ Specification Change ][ Promotion Alert ] Change labels of post type choice.
+[ Specification Change ][ Promotion Alert ] Change HTML escape method of "Alert Content".
+
+= 9.92.0 =
+[ Add Function ] Promotion Alert
+[ Bug fix ] Fixed the bug that causes a Fatal error when trying to preview a block theme on the theme selection screen.
+
+= 9.91.1 =
+[ Bug fix ][ Description ] delete "do_blocks".
+
+= 9.91.0 =
+[ Specification Change ] Change "Twitter" to "X".
+[ Bug fix ] Custum CSS on article will affect on front view on Block theme.
 
 = 9.90.3.2 =
 [ Other ] Version only
 
 = 9.90.3.1 =
 [ Bug fix ][ VK Admin ] Fixed problem of filepath on Windows local environment.
-[ Bug fix ][ Share button ] load sns icon correctly.
+[ Bug fix ][ Share button ] load sns icon correctly on site editor.
 
 = 9.90.2.0 =
 [ Bug fix ][ Share button ] Fix js file path ( // -> / )

@@ -154,7 +154,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 	$content = '';
 
 	global $post;
-	$post_config = 'disable';
+	$post_config = '';
 	if ( $post ){
 		$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
 	}

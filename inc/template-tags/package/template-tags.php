@@ -283,15 +283,16 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		なので、ショートコードの実行は行わないが、ショートコードの引き値としての " は不具合の原因となるので
 		 " esc_attr でエスケープを実施する
 		本来ショートコードが出る場合は適切に抜粋欄に記入して運用でカバーする。
+		動的ブロックの場合も同様とする。
 		*/
 		// この関数は get_the_ ではないので関数内では esc_attr() は行わない
 
 		// 余計なスタイルタグ・スクリプトタグを除去
 		$page_description = preg_replace( '/<(style|script).*?>(.|\r|\n)*?<\/(style|script)>/', '', $page_description );
-		// 再利用ブロックや動的ブロックは実行しないと HTML 展開されない
-		$page_description = do_blocks( $page_description );
+
 		// HTML タグを除去
 		$page_description = strip_tags( $page_description );
+
 		// ショートコードを削除
 		$page_description = strip_shortcodes( $page_description );
 
