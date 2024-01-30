@@ -24,6 +24,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 			array(
 				'is_block_theme' => true,
 				'correct'        => array(
+
 					'active_fontawesome'                   => false,
 					'active_wpTitle'                       => true,
 					'active_addReusableBlockMenu'          => true,
@@ -61,6 +62,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 					'active_Contactform7AssetOptimize'     => false,
 					'active_article_structure_data'        => true,
 					'active_website_structure_data'     => true,
+                    'active_icon_accessibility'              => true,
 					'active_page_exclude_from_list_pages'  => true,
 					'post_metabox_individual'              => false,
 					'delete_options_at_deactivate'         => false,
@@ -107,12 +109,15 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 						'active_Contactform7AssetOptimize' => false,
 						'active_article_structure_data'    => true,
 						'active_website_structure_data' => true,
+                        'active_icon_accessibility'              => true,
 						'active_page_exclude_from_list_pages' => true,
 						'post_metabox_individual'          => false,
 						'delete_options_at_deactivate'     => false,
 						'content_filter_state'             => 'content',
 					),
-				),
+	
+                ),
+
 			),
 		);
 
@@ -121,14 +126,15 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 			$return  = veu_get_common_options_default( $test_value['is_block_theme'] );
 			$correct = $test_value['correct'];
 
-			// 取得できたHTMLが、意図したHTMLと等しいかテスト
-			$this->assertEquals( $correct, $return );
-
 			print PHP_EOL;
 			print 'correct :' . PHP_EOL;
 			var_dump( $correct );
 			print 'return  :' . PHP_EOL;
-			var_dump( $return );
+            var_dump( $return );
+
+			// 取得できたHTMLが、意図したHTMLと等しいかテスト
+			$this->assertEquals( $correct, $return );
+
 		}
 	}
 }
