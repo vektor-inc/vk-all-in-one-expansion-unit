@@ -83,6 +83,7 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ Icon Accessability ] Font Awesome Icon A11y Hide.
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
 
 = 9.94.1 =

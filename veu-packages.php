@@ -505,7 +505,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'icon_accessibility',
-		'title'       => __( 'FA Icon A11y Hide', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Font Awesome Icon A11y Hide', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Add aria-hidden="true" to Font Awesome icons to hide them from screen readers, improving accessibility', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'icon-accessibility/icon-accessibility.php',
