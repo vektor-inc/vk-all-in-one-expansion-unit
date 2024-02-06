@@ -51,8 +51,8 @@ class IconAccessibilityTest extends WP_UnitTestCase {
 				'correct' => '<footer><i class="fa fa-twitter" aria-hidden="true"></i> Follow us!</footer>'
 			),
 			array(
-				'content' => '<footer><i aria-hidden="true" class="fa fa-twitter"></i> Follow us!</footer>',
-				'correct' => '<footer><i aria-hidden="true" class="fa fa-twitter"></i> Follow us!</footer>'
+				'content' => '<footer><i aria-hidden="false" class="fa fa-twitter"></i> Follow us!</footer>',
+				'correct' => '<footer><i aria-hidden="false" class="fa fa-twitter"></i> Follow us!</footer>'
 			),			
 		);
 
