@@ -63,6 +63,6 @@
 		"smoothscroll-polyfill": "^0.4.4"
 	},
 	"volta": {
-		"node": "14.21.2"
+		"node": "18.18.0"
 	}
 }

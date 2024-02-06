@@ -83,6 +83,8 @@ e.g.
 
 == Changelog ==
 
+[ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
+
 = 9.94.1 =
 [ Specification Change ][ ChildPageList ] add post id / class for post infomation.
 [ Bug Fix ][ CTA Block ] Fix error at widget.
