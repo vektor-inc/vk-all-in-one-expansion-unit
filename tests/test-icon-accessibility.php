@@ -49,7 +49,11 @@ class IconAccessibilityTest extends WP_UnitTestCase {
 			array(
 				'content' => '<footer><i class="fa fa-twitter"></i> Follow us!</footer>',
 				'correct' => '<footer><i class="fa fa-twitter" aria-hidden="true"></i> Follow us!</footer>'
-			)
+			),
+			array(
+				'content' => '<footer><i aria-hidden="true" class="fa fa-twitter"></i> Follow us!</footer>',
+				'correct' => '<footer><i aria-hidden="true" class="fa fa-twitter"></i> Follow us!</footer>'
+			),			
 		);
 
 		foreach ( $test_cases as $key => $test_value ) {
@@ -59,8 +63,8 @@ class IconAccessibilityTest extends WP_UnitTestCase {
 			$this->assertEquals( $test_value['correct'], $return );
 
 			print PHP_EOL;
-			print 'correct :' . esc_attr( $test_value['correct'] ) . PHP_EOL;
-			print 'return  :' . esc_attr( $return ) . PHP_EOL;
+			print 'correct :' . $test_value['correct'] . PHP_EOL;
+			print 'return  :' . $return . PHP_EOL;
 		}
 	}
 
