@@ -84,6 +84,7 @@ e.g.
 == Changelog ==
 
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
+[ Bug Fix ] Update CSS Optimizer 0.2.2
 
 = 9.94.1 =
 [ Specification Change ][ ChildPageList ] add post id / class for post infomation.
