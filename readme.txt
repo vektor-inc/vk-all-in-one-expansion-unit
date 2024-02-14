@@ -5,7 +5,7 @@ Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Fa
 Requires at least: 5.9.0
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 9.94.1.1
+Stable tag: 9.94.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,7 +84,10 @@ e.g.
 == Changelog ==
 
 [ Add function ][ Icon Accessability ] Font Awesome Icon A11y Hide.
+
+= 9.94.2 =
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
+[ Bug Fix ] Update CSS Optimizer 0.2.2
 
 = 9.94.1 =
 [ Specification Change ][ ChildPageList ] add post id / class for post infomation.
