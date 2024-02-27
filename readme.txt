@@ -83,6 +83,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ][ PostTypeManager ] Add Rewrite option of Post Type / Taxonomy.
+
 = 9.94.2 =
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
 [ Bug Fix ] Update CSS Optimizer 0.2.2
