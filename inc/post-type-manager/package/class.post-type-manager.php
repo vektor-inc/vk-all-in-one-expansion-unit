@@ -136,7 +136,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			/*******************************************
 			 * Export to Rest api
 			 */
-			echo '<h4>' . esc_html__( 'Corresponds to the block editor ( optional )', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			echo '<h4>' . esc_html__( 'Corresponds to the block editor (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
 			// 現在保存されているカスタムフィールドの値を取得.
 			$export_to_api_value = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
@@ -149,7 +149,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<label><input type="radio" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="false"' . checked( $export_to_api_value, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
 
 			echo '<p>' . esc_html__( 'If you want to use the block editor that, you have to use the REST API.', 'vk-all-in-one-expansion-unit' ) . '</p>';
-			echo '<hr>';			
+			echo '<hr>';
 
 			/**
 			 * Enable / Disable Rewrite.
@@ -157,12 +157,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 */
 			echo '<h4>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			$post_type_rewrite_value = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
-			if ( 'false' !== $post_type_rewrite_value  && 'true' !== $post_type_rewrite_value  ) {
+			if ( 'false' !== $post_type_rewrite_value && 'true' !== $post_type_rewrite_value ) {
 				$post_type_rewrite_value = 'true';
 			}
-			echo '<label><input type="radio" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="true"' . checked( $post_type_rewrite_value , 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
+			echo '<label><input type="radio" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="true"' . checked( $post_type_rewrite_value, 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 			echo '<br />';
-			echo '<label><input type="radio" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="false"' . checked( $post_type_rewrite_value , 'false', false ) . '> ' . esc_html__( 'Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
+			echo '<label><input type="radio" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="false"' . checked( $post_type_rewrite_value, 'false', false ) . '> ' . esc_html__( 'Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 
 			echo '<hr>';
 
@@ -194,7 +194,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '<th rowspan="5">' . esc_attr( $i ) . '</th>';
 
 				// slug.
-				echo '<td>' . esc_html__( 'Custon taxonomy name(slug)', 'vk-all-in-one-expansion-unit' ) . '</td>';
+				echo '<td>' . esc_html__( 'Custon taxonomy name (slug)', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td><input type="text" id="veu_taxonomy[' . esc_attr( $i ) . '][slug]" name="veu_taxonomy[' . esc_attr( $i ) . '][slug]" value="' . esc_attr( $slug ) . '" size="20">';
 				echo '<div>' . esc_html__( '* Please enter a string consisting of half-width lowercase alphanumeric characters, half-width hyphens, and half-width underscores.', 'vk-all-in-one-expansion-unit' ) . '</div>';
 				echo '</td>';
@@ -237,20 +237,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				// Rewrite.
 				// 普段は有効なので、デフォルトは true にしておく.
 				$taxonomy_rewrite_value = ( isset( $taxonomy[ $i ]['rewrite'] ) ) ? $taxonomy[ $i ]['rewrite'] : 'true';
-				if ( 'false' !== $taxonomy_rewrite_value  && 'true' !== $taxonomy_rewrite_value  ) {
+				if ( 'false' !== $taxonomy_rewrite_value && 'true' !== $taxonomy_rewrite_value ) {
 					$taxonomy_rewrite_value = 'true';
 				}
 				echo '<tr>';
 				echo '<td>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td>';
-				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="true"' . checked( $taxonomy_rewrite_value , 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="true"' . checked( $taxonomy_rewrite_value, 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '<br />';
-				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="false"' . checked( $taxonomy_rewrite_value , 'false', false ) . '> ' . esc_html__( 'Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="false"' . checked( $taxonomy_rewrite_value, 'false', false ) . '> ' . esc_html__( 'Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
-
 		}
 
 		/***
@@ -299,8 +298,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				} elseif ( '' === $field_value ) {
 					delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
 				}
-			}		
-			
+			}
+
 			// リライトルールを更新するように.
 			delete_post_meta( $post_id, 'veu_post_type_flush_rewrite_rules' );
 		}
@@ -309,14 +308,14 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * 登録したカスタム投稿タイプを実際に作成
 		 */
 		public static function add_post_type() {
-			$args              = array(
+			$args = array(
 				'posts_per_page'   => -1,
 				'post_type'        => 'post_type_manage',
 				'post_status'      => 'publish',
 				'order'            => 'ASC',
 				'orderby'          => 'menu_order',
 				'suppress_filters' => true,
-				
+
 			);
 			$custom_post_types = get_posts( $args );
 			if ( $custom_post_types ) {
@@ -442,7 +441,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				} // foreach ($custom_post_types as $key => $post) {
 
 			} // if ( $custom_post_types ) {
-
 		}
 
 		/**
@@ -457,7 +455,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// init でも 0 などなど早めのpriority 指定しないと投稿タイプに連動するウィジェットエリアが動作しない .
 			add_action( 'init', array( $this, 'add_post_type' ), 0 );
 		}
-
 	} // class VK_Post_Type_Manager
 
 	$VK_Post_Type_Manager = new VK_Post_Type_Manager(); // phpcs:ignore
