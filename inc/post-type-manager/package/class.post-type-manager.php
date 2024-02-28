@@ -155,7 +155,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 * Enable / Disable Rewrite.
 			 * パーマリンクのリライトを有効にするかどうか.
 			 */
-			echo '<h4>' . esc_html__( 'Enable / Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			echo '<h4>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			$post_type_rewrite_value = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
 			if ( 'false' !== $post_type_rewrite_value  && 'true' !== $post_type_rewrite_value  ) {
 				$post_type_rewrite_value = 'true';
@@ -241,7 +241,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$taxonomy_rewrite_value = 'true';
 				}
 				echo '<tr>';
-				echo '<td>' . esc_html__( 'Enable / Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</td>';
+				echo '<td>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td>';
 				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="true"' . checked( $taxonomy_rewrite_value , 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '<br />';
