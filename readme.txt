@@ -81,7 +81,8 @@ e.g.
 
 == Changelog ==
 
-[ Other ][ PostTypeManager ] Add Rewrite option of Post Type / Taxonomy.
+[ Add function ][ Icon Accessability ] Font Awesome Icon A11y Hide.
+[ Other ][ PostType Manager ] Add Rewrite option of Post Type / Taxonomy.
 [ Bug Fix ][ Page content to widget ] Fixed an issue where a warning occurs when the target page is deleted.
 
 = 9.94.2 =

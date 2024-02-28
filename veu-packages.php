@@ -500,6 +500,17 @@ function veu_get_packages( $is_block_theme = null ) {
 		'include'     => 'disable-emojis.php',
 	);
 
+	/*
+	  icon_accessibility
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'icon_accessibility',
+		'title'       => __( 'Font Awesome Icon A11y Hide', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add aria-hidden="true" to Font Awesome icons to hide them from screen readers, improving accessibility', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'icon-accessibility/icon-accessibility.php',
+	);
+
 	$required_packages[] = array(
 		'name'        => 'admin_bar',
 		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
