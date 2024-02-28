@@ -79,7 +79,7 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
-
+[ Bug Fix ] Fix Other Widget Warning.
 
 == Changelog ==
 

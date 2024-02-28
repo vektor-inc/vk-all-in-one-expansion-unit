@@ -222,6 +222,11 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$widget_pageid = $pageid;
 
 		$page = get_page( $pageid );
+		
+		// ページが存在しない場合は何もしない
+		if ( empty( $page ) ) {
+			return;
+		}
 		echo $args['before_widget'];
 
 		$widget_title = $this->widget_title( $instance );
