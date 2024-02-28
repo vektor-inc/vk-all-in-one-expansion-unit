@@ -79,11 +79,10 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
-[ Bug Fix ] Fix Other Widget Warning.
-
 == Changelog ==
 
 [ Other ][ PostTypeManager ] Add Rewrite option of Post Type / Taxonomy.
+[ Bug Fix ][ Page content to widget ] Fixed an issue where a warning occurs when the target page is deleted.
 
 = 9.94.2 =
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
