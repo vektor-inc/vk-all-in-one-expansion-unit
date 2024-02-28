@@ -409,6 +409,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									'name' => $taxonomy['label'],
 								);
 
+								// $taxonomy['rewrite'] が存在し、値が false だった場合は $rewrite に false を、
+								// それ以外の場合は true を入れる.
+								$rewrite = ( isset( $taxonomy['rewrite'] ) && 'false' === $taxonomy['rewrite'] ) ? false : true;
+
 								$args = array(
 									'hierarchical'      => $hierarchical_true,
 									'update_count_callback' => '_update_post_term_count',
@@ -417,7 +421,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									'show_ui'           => true,
 									'show_in_rest'      => $rest_api_true,
 									'show_admin_column' => true,
-									'rewrite'           => $taxonomy['rewrite'] === 'false' ? false : true,
+									'rewrite'           => $rewrite,
 								);
 
 								if ( $rest_api_true ) {
