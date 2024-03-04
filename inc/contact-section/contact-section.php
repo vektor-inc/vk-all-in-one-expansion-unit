@@ -9,11 +9,12 @@
  */
 
 
- /*
-   load files
- /*-------------------------------------------*/
- /*
-   VkExUnit_Contact
+/*
+	load files
+/*
+-------------------------------------------*/
+/*
+	VkExUnit_Contact
 			public static function instance() {
 			private function __construct() {
 			protected function run_init() {
@@ -33,23 +34,23 @@
 			public static function render_widget_contact_btn_html() {
 /*
 /*
-  Contact Button Widget
+	Contact Button Widget
 /*
-  Contact Section Widget
+	Contact Section Widget
 /*-------------------------------------------*/
 
 
 
- /*
-   load files
- /*-------------------------------------------*/
+/*
+	load files
+/*-------------------------------------------*/
 require_once 'customizer.php';
 
 
 
- /*
-   VkExUnit_Contact
- /*-------------------------------------------*/
+/*
+	VkExUnit_Contact
+/*-------------------------------------------*/
 class VkExUnit_Contact {
 
 	// singleton instance
@@ -60,16 +61,15 @@ class VkExUnit_Contact {
 			return self::$instance;
 		}
 
-		self::$instance = new VkExUnit_Contact;
+		self::$instance = new VkExUnit_Contact();
 		self::$instance->run_init();
 		return self::$instance;
 	}
 
 	private function __construct() {
 		/***
-		 * 
+		 *
 		 * * do noting
-		 * 
 		 * */
 	}
 
@@ -77,7 +77,7 @@ class VkExUnit_Contact {
 		add_action( 'veu_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
-		require_once dirname( __FILE__ ) . '/block/index.php';
+		require_once __DIR__ . '/block/index.php';
 
 		// 固定ページ編集画にお問い合わせ情報を表示のチェックボックスを表示する
 		add_action( 'veu_metabox_insert_items', array( $this, 'render_meta_box' ) );
@@ -113,17 +113,17 @@ class VkExUnit_Contact {
 
 	public static function get_option() {
 		$default = array(
-			'contact_txt'       => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
-			'tel_icon'          => 'fas fa-phone-square',
-			'tel_number'        => '000-000-0000',
-			'contact_time'      => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
-			'contact_link'      => home_url(),
-			'contact_target_blank'    => false,
-			'button_text'       => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
-			'button_text_small' => '',
-			'short_text'        => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
-			'contact_image'     => '',
-			'contact_html'      => '',
+			'contact_txt'          => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
+			'tel_icon'             => 'fas fa-phone-square',
+			'tel_number'           => '000-000-0000',
+			'contact_time'         => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
+			'contact_link'         => home_url(),
+			'contact_target_blank' => false,
+			'button_text'          => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
+			'button_text_small'    => '',
+			'short_text'           => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
+			'contact_image'        => '',
+			'contact_html'         => '',
 		);
 		$option  = get_option( 'vkExUnit_contact' );
 		// オプション値が無い時は get_option の第２引数で登録されるが、
@@ -134,95 +134,95 @@ class VkExUnit_Contact {
 
 	public function options_page() {
 		$options = self::get_option();
-	?>
-   <h3><?php _e( 'Contact Information', 'vk-all-in-one-expansion-unit' ); ?></h3>
-   <div id="meta_description" class="sectionBox">
+		?>
+	<h3><?php _e( 'Contact Information', 'vk-all-in-one-expansion-unit' ); ?></h3>
+	<div id="meta_description" class="sectionBox">
 	<p><?php _e( 'The contents entered here will be reflected in the bottom of each fixed page, the "Contact Section" widget, the "Contact Button" widget, etc.', 'vk-all-in-one-expansion-unit' ); ?>
-   <br/>
-	<?php _e( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vk-all-in-one-expansion-unit' ); ?></p>
+	<br/>
+		<?php _e( 'When I display it on the page, it is necessary to classify a check into "Display Contact Section" checkbox with the edit page of each page.', 'vk-all-in-one-expansion-unit' ); ?></p>
 
-   <table class="form-table">
-   <tr>
-   <th scope="row"><label for="contact_txt"><?php _e( 'Message', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <input type="text" name="vkExUnit_contact[contact_txt]" id="contact_txt" value="<?php echo esc_attr( $options['contact_txt'] ); ?>" style="width:50%;" /><br />
-   <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ); ?></span>
-   </td>
-   </tr>
-   <tr>
-   <th scope="row"><label for="tel_number"><?php _e( 'Phone number', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <input type="text" name="vkExUnit_contact[tel_number]" id="tel_number" value="<?php echo esc_attr( $options['tel_number'] ); ?>" style="width:50%;" /><br />
-   <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>000-000-0000</span>
-   </td>
-   </tr>
-	 <tr>
-   <th scope="row"><label for="tel_icon"><?php _e( 'Phone icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <input type="text" name="vkExUnit_contact[tel_icon]" id="tel_icon" value="<?php echo esc_attr( $options['tel_icon'] ); ?>" style="width:50%;" /><br />
-   <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>fas fa-phone-square  [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
-   </td>
-   </tr>
-   <tr>
-   <th scope="row"><label for="contact_time"><?php _e( 'Office hours', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <textarea cols="20" rows="2" name="vkExUnit_contact[contact_time]" id="contact_time" value="" style="width:50%;" /><?php echo esc_attr( $options['contact_time'] ); ?></textarea><br />
-   <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'Office hours', 'vk-all-in-one-expansion-unit' ); ?> 9:00 - 18:00 [ <?php _e( 'Weekdays except holidays', 'vk-all-in-one-expansion-unit' ); ?> ]</span>
-   </td>
-   </tr>
-   <!-- he URL of contact page -->
-   <tr>
-   <th scope="row"><label for="contact_link"><?php _e( 'The contact page URL', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
-   <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>http://www.********.com/contact/ <?php _e( 'or', 'vk-all-in-one-expansion-unit' ); ?> /contact/</span><br />
-	<?php _e( '* If you fill in the blank, widget\'s contact button does not appear.', 'vk-all-in-one-expansion-unit' ); ?>
-   </td>
-   </tr>
+	<table class="form-table">
+	<tr>
+	<th scope="row"><label for="contact_txt"><?php _e( 'Message', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<input type="text" name="vkExUnit_contact[contact_txt]" id="contact_txt" value="<?php echo esc_attr( $options['contact_txt'] ); ?>" style="width:50%;" /><br />
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ); ?></span>
+	</td>
+	</tr>
+	<tr>
+	<th scope="row"><label for="tel_number"><?php _e( 'Phone number', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<input type="text" name="vkExUnit_contact[tel_number]" id="tel_number" value="<?php echo esc_attr( $options['tel_number'] ); ?>" style="width:50%;" /><br />
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>000-000-0000</span>
+	</td>
+	</tr>
+	<tr>
+	<th scope="row"><label for="tel_icon"><?php _e( 'Phone icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<input type="text" name="vkExUnit_contact[tel_icon]" id="tel_icon" value="<?php echo esc_attr( $options['tel_icon'] ); ?>" style="width:50%;" /><br />
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>fas fa-phone-square  [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
+	</td>
+	</tr>
+	<tr>
+	<th scope="row"><label for="contact_time"><?php _e( 'Office hours', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<textarea cols="20" rows="2" name="vkExUnit_contact[contact_time]" id="contact_time" value="" style="width:50%;" /><?php echo esc_attr( $options['contact_time'] ); ?></textarea><br />
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'Office hours', 'vk-all-in-one-expansion-unit' ); ?> 9:00 - 18:00 [ <?php _e( 'Weekdays except holidays', 'vk-all-in-one-expansion-unit' ); ?> ]</span>
+	</td>
+	</tr>
+	<!-- he URL of contact page -->
+	<tr>
+	<th scope="row"><label for="contact_link"><?php _e( 'The contact page URL', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<input type="text" name="vkExUnit_contact[contact_link]" id="contact_link" value="<?php echo esc_attr( $options['contact_link'] ); ?>" class="width-500" /><br />
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>http://www.********.com/contact/ <?php _e( 'or', 'vk-all-in-one-expansion-unit' ); ?> /contact/</span><br />
+		<?php _e( '* If you fill in the blank, widget\'s contact button does not appear.', 'vk-all-in-one-expansion-unit' ); ?>
+	</td>
+	</tr>
 	<!-- Contact Target -->
 	<tr>
-   <th scope="row"><label for="contact_target_blank"><?php _e( 'Contact button link target setting', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <input type="checkbox" name="vkExUnit_contact[contact_target_blank]" id="contact_target_blank" <?php checked( ! empty( $options['contact_target_blank'] ) ) ?> />
-   <?php _e( 'Open in New Tab', 'vk-all-in-one-expansion-unit' ); ?>
-   </td>
-   </tr>
-   <tr>
-   <th scope="row"><label for="sub_sitename"><?php _e( 'Contact button Text', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <textarea cols="20" rows="2" name="vkExUnit_contact[button_text]" id="sub_sitename" value="" style="width:50%;" /><?php echo esc_attr( $options['button_text'] ); ?></textarea><br />
-   <span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'Contact Us from email.', 'vk-all-in-one-expansion-unit' ); ?></span>
-   </td>
-   </tr>
-   <!-- Company address -->
-   <tr>
-   <th scope="row"><label for="button_text_small"><?php _e( 'Contact button text( sub )', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-   <textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small']; ?></textarea><br />
+	<th scope="row"><label for="contact_target_blank"><?php _e( 'Contact button link target setting', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<input type="checkbox" name="vkExUnit_contact[contact_target_blank]" id="contact_target_blank" <?php checked( ! empty( $options['contact_target_blank'] ) ); ?> />
+		<?php _e( 'Open in New Tab', 'vk-all-in-one-expansion-unit' ); ?>
+	</td>
+	</tr>
+	<tr>
+	<th scope="row"><label for="sub_sitename"><?php _e( 'Contact button Text', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<textarea cols="20" rows="2" name="vkExUnit_contact[button_text]" id="sub_sitename" value="" style="width:50%;" /><?php echo esc_attr( $options['button_text'] ); ?></textarea><br />
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php _e( 'Contact Us from email.', 'vk-all-in-one-expansion-unit' ); ?></span>
+	</td>
+	</tr>
+	<!-- Company address -->
+	<tr>
+	<th scope="row"><label for="button_text_small"><?php _e( 'Contact button text( sub )', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+	<textarea cols="20" rows="2" name="vkExUnit_contact[button_text_small]" id="button_text_small" value="" style="width:50%;" /><?php echo $options['button_text_small']; ?></textarea><br />
 	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>
-	<?php _e( 'Email contact form', 'vk-all-in-one-expansion-unit' ); ?>
+		<?php _e( 'Email contact form', 'vk-all-in-one-expansion-unit' ); ?>
 	</span>
-   </td>
-   </tr>
-   <tr>
-   <th scope="row"><label for="widget_text"><?php _e( 'Contact button short text for side widget', 'vk-all-in-one-expansion-unit' ); ?></label></th>
-   <td>
-	<?php $short_text = ( isset( $options['short_text'] ) && $options['short_text'] ) ? $options['short_text'] : ''; ?>
-   <input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $short_text ); ?>" style="width:50%;" /><br />
-   <span><?php _e( 'This will used to "Contact Button" widget.', 'vk-all-in-one-expansion-unit' ); ?></span>
-   </td>
-   </tr>
-   </table>
-   <button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e( 'Advanced Setting', 'vk-all-in-one-expansion-unit' ); ?></button>
+	</td>
+	</tr>
+	<tr>
+	<th scope="row"><label for="widget_text"><?php _e( 'Contact button short text for side widget', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+	<td>
+		<?php $short_text = ( isset( $options['short_text'] ) && $options['short_text'] ) ? $options['short_text'] : ''; ?>
+	<input type="text" name="vkExUnit_contact[short_text]" id="widget_text" value="<?php echo esc_attr( $short_text ); ?>" style="width:50%;" /><br />
+	<span><?php _e( 'This will used to "Contact Button" widget.', 'vk-all-in-one-expansion-unit' ); ?></span>
+	</td>
+	</tr>
+	</table>
+	<button onclick="javascript:jQuery('#vkEx_contact_info').toggle(); return false;" class="button"><?php _e( 'Advanced Setting', 'vk-all-in-one-expansion-unit' ); ?></button>
 		<?php
 		$display = '';
 		if ( ! $options['contact_image'] and ! $options['contact_html'] ) {
 			$display = ' style="display:none;"';
 		}
 		?>
-   <table class="form-table" id="vkEx_contact_info"<?php echo $display; ?>>
-   <tr>
-   <th><?php _e( 'Inquiry Banner image', 'vk-all-in-one-expansion-unit' ); ?></th>
+	<table class="form-table" id="vkEx_contact_info"<?php echo $display; ?>>
+	<tr>
+	<th><?php _e( 'Inquiry Banner image', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><input type="text" name="vkExUnit_contact[contact_image]" id="contact_image" value="<?php echo $options['contact_image']; ?>" style="width:60%;" />
 <button id="media_src_contact_image" class="media_btn button button-default"><?php _e( 'Select Image' ); ?></button>
 <p><?php _e( 'Display the image instead of the above inquiry information', 'vk-all-in-one-expansion-unit' ); ?><p>
@@ -235,22 +235,22 @@ class VkExUnit_Contact {
 </td>
 </tr>
 </table>
-<?php submit_button(); ?>
+		<?php submit_button(); ?>
 </div>
-	<?php
+		<?php
 	}
 
 	public function option_sanitaize( $option ) {
-		$option['contact_txt']  = stripslashes( $option['contact_txt'] );
-		$option['tel_number']  = stripslashes( $option['tel_number'] );
-		$option['tel_icon']  = stripslashes( $option['tel_icon'] );
-		$option['contact_time']  = stripslashes( $option['contact_time'] );
-		$option['contact_link']  = stripslashes( $option['contact_link'] );
-		$option['button_text']  = stripslashes( $option['button_text'] );
-		$option['button_text_small']  = stripslashes( $option['button_text_small'] );
-		$option['short_text']  = stripslashes( $option['short_text'] );
-		$option['contact_image']  = esc_url( $option['contact_image'] );
-		$option['contact_html'] = stripslashes( $option['contact_html'] );
+		$option['contact_txt']       = stripslashes( $option['contact_txt'] );
+		$option['tel_number']        = stripslashes( $option['tel_number'] );
+		$option['tel_icon']          = stripslashes( $option['tel_icon'] );
+		$option['contact_time']      = stripslashes( $option['contact_time'] );
+		$option['contact_link']      = stripslashes( $option['contact_link'] );
+		$option['button_text']       = stripslashes( $option['button_text'] );
+		$option['button_text_small'] = stripslashes( $option['button_text_small'] );
+		$option['short_text']        = stripslashes( $option['short_text'] );
+		$option['contact_image']     = esc_url( $option['contact_image'] );
+		$option['contact_html']      = stripslashes( $option['contact_html'] );
 		return $option;
 	}
 
@@ -258,14 +258,14 @@ class VkExUnit_Contact {
 	public function render_meta_box() {
 		$enable = get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true );
 		?>
-   <div>
-   <input type="hidden" name="_nonce_vkExUnit_contact" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
-   <label for="vkExUnit_contact">
+	<div>
+	<input type="hidden" name="_nonce_vkExUnit_contact" id="_nonce_vkExUnit__custom_auto_eyecatch_noonce" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
+	<label for="vkExUnit_contact">
 	<input type="checkbox" id="vkExUnit_contact" name="vkExUnit_contact_enable"<?php echo ( $enable ) ? ' checked' : ''; ?> />
-	<?php _e( 'Display Contact Section', 'vk-all-in-one-expansion-unit' ); ?>
-   </label>
-   </div>
-	<?php
+		<?php _e( 'Display Contact Section', 'vk-all-in-one-expansion-unit' ); ?>
+	</label>
+	</div>
+		<?php
 	}
 
 
@@ -319,7 +319,6 @@ class VkExUnit_Contact {
 		} else {
 			return false;
 		}
-
 	}
 
 	public function set_content( $content ) {
@@ -333,10 +332,10 @@ class VkExUnit_Contact {
 
 
 	/*
-	  contact_section_html
+		contact_section_html
 	/*-------------------------------------------*/
 
-	public static function render_contact_section_html( $additional_classes='', $show_edit_button=true ) {
+	public static function render_contact_section_html( $additional_classes = '', $show_edit_button = true ) {
 		$options     = self::get_option();
 		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
 		$cont        = '';
@@ -353,7 +352,7 @@ class VkExUnit_Contact {
 		} elseif ( $options['contact_image'] ) {
 
 			$cont .= '<section class="veu_contentAddSection' . $additional_classes . '">';
-			$cont .= '<a href="' . esc_url( $options['contact_link'] )  . '"' . $link_target . '>';
+			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . '>';
 			$cont .= '<img src="' . esc_attr( $options['contact_image'] ) . '" alt="contact_txt">';
 			$cont .= '</a>';
 			$cont .= '</section>';
@@ -367,7 +366,12 @@ class VkExUnit_Contact {
 
 			$tel_icon = '';
 			if ( ! empty( $options['tel_icon'] ) ) {
-				$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
+				// $options['tel_icon'] の中が <i class="fas fa-mobile-alt"></i> など i タグの場合
+				if ( preg_match( '/<i class="(.+?)"><\/i>/', $options['tel_icon'], $matches ) ) {
+					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $matches[1] ) . '"></i>';
+				} else {
+					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
+				}
 			}
 
 			if ( wp_is_mobile() ) {
@@ -413,7 +417,7 @@ class VkExUnit_Contact {
 		}
 
 		// if ( $show_edit_button && current_user_can( 'edit_theme_options' ) && ! is_customize_preview() ) {
-		// 	$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+		// $cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank">' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 		// }
 
 		$cont = apply_filters( 'vkExUnit_contact_custom', $cont );
@@ -426,7 +430,7 @@ class VkExUnit_Contact {
 	}
 
 	/*
-	  render_widget_contact_btn_html
+		render_widget_contact_btn_html
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
@@ -463,21 +467,20 @@ class VkExUnit_Contact {
 			$cont .= '</a>';
 		}
 		// if ( current_user_can( 'edit_theme_options' ) ) {
-		// 	$class = 'fas fa-edit';
-		// 	if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-		// 		$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-pencil-square-o', 'fas fa-edit' );
-		// 	}
-		// 	$cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="' . $class . '"></i> ' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+		// $class = 'fas fa-edit';
+		// if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+		// $class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-pencil-square-o', 'fas fa-edit' );
+		// }
+		// $cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="' . $class . '"></i> ' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 		// }
 		return $cont;
 	}
-
 }
 
 VkExUnit_Contact::instance();
 
 /*
-  Contact Button(Button Only) Widget
+	Contact Button(Button Only) Widget
 /*-------------------------------------------*/
 
 class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
@@ -526,7 +529,7 @@ function veu_widget_contact_button() {
 
 
 /*
-  Contact Section Widget
+	Contact Section Widget
 /*-------------------------------------------*/
 class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
@@ -552,7 +555,7 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 		if ( empty( $instance['vertical'] ) ) {
 			$additional_classes = 'veu_contact-layout-horizontal';
 		}
-		echo VkExUnit_Contact::render_contact_section_html($additional_classes);
+		echo VkExUnit_Contact::render_contact_section_html( $additional_classes );
 		echo $args['after_widget'];
 	}
 
@@ -569,7 +572,7 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 		echo '<h3 class="admin-custom-h3">' . __( 'Display Setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 		echo '<div style="padding:1em 0;">';
 		echo '<label>';
-		echo '<input type="checkbox" name="' . $this->get_field_name('vertical') . '" ' . checked( isset( $instance['vertical'] ), true, false ) . '">';
+		echo '<input type="checkbox" name="' . $this->get_field_name( 'vertical' ) . '" ' . checked( isset( $instance['vertical'] ), true, false ) . '">';
 		_e( 'Set telephone and mail form vertically', 'vk-all-in-one-expansion-unit' );
 		echo '</label>';
 		echo '</div>';
