@@ -1,9 +1,4 @@
 <?php // phpcs:ignore
-/*
-このファイルの元ファイルは
-https://github.com/vektor-inc/vektor-wp-libraries
-にあります。修正の際は上記リポジトリのデータを修正してください。
-*/
 
 if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
@@ -101,13 +96,14 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<hr>';
 
 			$post_type_items_array = array(
-				'title'     => __( 'title', 'vk-all-in-one-expansion-unit' ),
-				'editor'    => __( 'editor', 'vk-all-in-one-expansion-unit' ),
-				'author'    => __( 'author', 'vk-all-in-one-expansion-unit' ),
-				'thumbnail' => __( 'thumbnail', 'vk-all-in-one-expansion-unit' ),
-				'excerpt'   => __( 'excerpt', 'vk-all-in-one-expansion-unit' ),
-				'comments'  => __( 'comments', 'vk-all-in-one-expansion-unit' ),
-				'revisions' => __( 'revisions', 'vk-all-in-one-expansion-unit' ),
+				'title'         => __( 'title', 'vk-all-in-one-expansion-unit' ),
+				'editor'        => __( 'editor', 'vk-all-in-one-expansion-unit' ),
+				'author'        => __( 'author', 'vk-all-in-one-expansion-unit' ),
+				'thumbnail'     => __( 'thumbnail', 'vk-all-in-one-expansion-unit' ),
+				'excerpt'       => __( 'excerpt', 'vk-all-in-one-expansion-unit' ),
+				'comments'      => __( 'comments', 'vk-all-in-one-expansion-unit' ),
+				'revisions'     => __( 'revisions', 'vk-all-in-one-expansion-unit' ),
+				'custom-fields' => __( 'custom-fields', 'vk-all-in-one-expansion-unit' ),
 			);
 
 			/*******************************************
