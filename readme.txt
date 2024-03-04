@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Add setting ][ Post Type Manager ] Add a custom field setting.
 [ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format. 
 
 = 9.95.0 =
