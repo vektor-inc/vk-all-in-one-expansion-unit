@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format. 
+
 = 9.95.0 =
 [ Add function ][ Icon Accessability ] Font Awesome Icon A11y Hide.
 [ Other ][ PostType Manager ] Add Rewrite option of Post Type / Taxonomy.

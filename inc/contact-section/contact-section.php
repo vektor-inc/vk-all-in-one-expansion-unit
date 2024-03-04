@@ -366,7 +366,12 @@ class VkExUnit_Contact {
 
 			$tel_icon = '';
 			if ( ! empty( $options['tel_icon'] ) ) {
-				$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
+				// $options['tel_icon'] の中が <i class="fas fa-mobile-alt"></i> など i タグの場合
+				if ( preg_match( '/<i class="(.+?)"><\/i>/', $options['tel_icon'], $matches ) ) {
+					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $matches[1] ) . '"></i>';
+				} else {
+					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
+				}
 			}
 
 			if ( wp_is_mobile() ) {
