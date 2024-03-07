@@ -83,6 +83,7 @@ e.g.
 
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
 [ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format. 
+[ Design Bug Fix ][ Child Page List ] Fixed an issue where a blank space appeared above the excerpt when using this block in themes other than Lightning.
 
 = 9.95.0 =
 [ Add function ][ Icon Accessability ] Font Awesome Icon A11y Hide.
