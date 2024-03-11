@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ SNS ] Hide SNS buttons at password required content. 
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
 [ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format. 
 [ Design Bug Fix ][ Child Page List ] Fixed an issue where a blank space appeared above the excerpt.
