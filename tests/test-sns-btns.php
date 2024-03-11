@@ -106,6 +106,18 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		$data['post_id_03'] = wp_insert_post( $post );
 		add_post_meta( $data['post_id_03'], 'sns_share_botton_hide', false );
 
+		// 投稿「テスト04」を追加
+		$post    = array(
+			'post_title'    => 'Post Test 04',
+			'post_type'     => 'post',
+			'post_status'   => 'publish',
+			'post_content'  => 'Post Test 04',
+			'post_category' => array( $data['category_id'] ),
+			'post_password' => 'password',
+		);
+		$data['post_id_04'] = wp_insert_post( $post );
+		add_post_meta( $data['post_id_03'], 'sns_share_botton_hide', true );
+
 		// 固定ページ「テスト0１」を追加
 		$post    = array(
 			'post_title'    => 'Page Test 01',
@@ -205,6 +217,16 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				),
 				'target_url' => get_permalink( $data['post_id_03'] ),
 				'correct'    => true,
+			),
+			array(
+				'options' => array(
+					'snsBtn_exclude_post_types' => array(
+						'post' => false,
+					),
+					'snsBtn_ignorePosts' => json_encode( $ignore_posts ),
+				),
+				'target_url' => get_permalink( $data['post_id_04'] ),
+				'correct'    => false,
 			),
 			array(
 				'options' => array(

@@ -94,6 +94,11 @@ function veu_is_sns_btns_display() {
 	if ( ! empty( $ignore_posts ) && is_array( $ignore_posts ) && in_array( (string) get_the_ID(), $ignore_posts, true ) ) {
 		return false;
 	}
+
+	// パスワード保護された投稿の場合は表示しない.
+	if ( post_password_required() ) {
+		return false;
+	}
 	
 	// 上記に該当しない場合は表示.
 	return true;
