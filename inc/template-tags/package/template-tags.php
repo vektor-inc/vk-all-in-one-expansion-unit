@@ -205,7 +205,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			$page_description = '';
 		} elseif ( is_front_page() ) {
 			if ( isset( $post->post_excerpt ) && $post->post_excerpt ) {
-				$page_description = get_the_excerpt();
+				$page_description = get_the_excerpt( $post->ID );
 			} else {
 				$page_description = get_bloginfo( 'description' );
 			}
@@ -214,7 +214,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			if ( $page_for_posts['post_top_use'] ) {
 				$page             = get_post( $page_for_posts['post_top_id'] );
 				if( ! empty( $page->post_excerpt )  ) {
-					$page_description = $page->post_excerpt;
+					$page_description = get_the_excerpt( $page->ID );
 				} else {
 					$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( $page_for_posts['post_top_name'] ) );
 					$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
@@ -258,9 +258,9 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			}
 		} elseif ( is_page() || is_single() ) {
 			if ( $post->post_excerpt ) {
-				$page_description = $post->post_excerpt;
+				$page_description = get_the_excerpt( $post->ID );
 			} else {
-				$page_description = $post->post_content;
+				$page_description = get_the_content( null, false, $post->ID );
 			}
 		} else {
 			$page_description = get_bloginfo( 'description' );

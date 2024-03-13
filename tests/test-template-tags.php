@@ -190,6 +190,22 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		wp_set_object_terms( $data['post_id_02'], array( $data['tag_id_01'], $data['tag_id_02'] ), 'post_tag' );
 
 		/**
+		 * Test Post 03 を作成
+		 */
+		$post               = array(
+			'post_name'     => 'test-post',
+			'post_title'    => 'test-post',
+			'post_status'   => 'publish',
+			'post_content'  => 'test-post-content',
+			'post_category' => array( $data['cate_id_01'], $data['cate_id_02'] ),
+			'post_password' => 'test-password',
+			'post_date'     => '2021-11-01 00:00:00',
+			'post_modified' => '2022-01-01 00:00:00',
+		);
+		$data['post_id_03'] = wp_insert_post( $post );
+		wp_set_object_terms( $data['post_id_03'], array( $data['tag_id_01'], $data['tag_id_02'] ), 'post_tag' );
+
+		/**
 		 * Test Page 01 を作成
 		 */
 		$post            = array(
@@ -217,6 +233,21 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			'post_modified' => '2022-01-01 00:00:00',
 		);
 		$data['page_id_02'] = wp_insert_post( $post );
+
+		/**
+		 * Test Page 03 を作成
+		 */
+		$post            = array(
+			'post_name'     => 'test-page',
+			'post_title'    => 'test-page',
+			'post_type'     => 'page',
+			'post_password' => 'test-password',
+			'post_status'   => 'publish',
+			'post_content'  => 'test-page-content',
+			'post_date'     => '2020-07-01 00:00:00',
+			'post_modified' => '2022-01-01 00:00:00',
+		);
+		$data['page_id_03'] = wp_insert_post( $post );
 
 		/**
 		 * Test Event 01 を作成.
@@ -248,6 +279,22 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		);
 		$data['event_id_02'] = wp_insert_post( $post );
 		wp_set_object_terms( $data['event_id_02'], array( $data['genre_id_01'], $data['genre_id_02'] ), 'genre' );
+
+		/**
+		 * Test Event 02 を作成.
+		 */
+		$post                = array(
+			'post_name'     => 'test-event',
+			'post_title'    => 'test-event',
+			'post_type'     => 'event',
+			'post_status'   => 'publish',
+			'post_password' => 'test-password',
+			'post_content'  => 'test-event-content',
+			'post_date'     => '2021-12-01 00:00:00',
+			'post_modified' => '2021-11-01 12:00:00',
+		);
+		$data['event_id_03'] = wp_insert_post( $post );
+		wp_set_object_terms( $data['event_id_03'], array( $data['genre_id_01'], $data['genre_id_02'] ), 'genre' );
 
 		update_option( 'blogname', 'PHP Unit Test' ); // 抜粋
 		update_option( 'blogdescription', 'This test is checker for PHP.' ); // 抜粋		
@@ -462,6 +509,14 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				'correct'   => 'test-page-content',
 			),
 			array(
+				'test_name'  => 'Page has Password',
+				'target_url' => get_permalink( $data['page_id_03'] ),
+				'options'    => array(
+					'show_on_front' => 'posts',
+				),				
+				'correct'   => 'This content is password protected. To view it please enter your password below:Password:  ',
+			),
+			array(
 				'test_name'  => 'Post Description',
 				'target_url' => get_permalink( $data['post_id_01'] ),
 				'options'    => array(
@@ -478,6 +533,14 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				'correct'   => 'test-post-content',
 			),
 			array(
+				'test_name'  => 'Post has Password',
+				'target_url' => get_permalink( $data['post_id_03'] ),
+				'options'    => array(
+					'show_on_front' => 'posts',
+				),				
+				'correct'   => 'This content is password protected. To view it please enter your password below:Password:  ',
+			),
+			array(
 				'test_name'  => 'Event Description',
 				'target_url' => get_permalink( $data['event_id_01'] ),
 				'options'    => array(
@@ -492,6 +555,14 @@ class TemplateTagsTest extends WP_UnitTestCase {
 					'show_on_front' => 'posts',
 				),				
 				'correct'   => 'test-event-content',
+			),
+			array(
+				'test_name'  => 'Event has Password',
+				'target_url' => get_permalink( $data['event_id_03'] ),
+				'options'    => array(
+					'show_on_front' => 'posts',
+				),				
+				'correct'   => 'This content is password protected. To view it please enter your password below:Password:  ',
 			),
 			array(
 				'test_name'  => 'Search Result',
