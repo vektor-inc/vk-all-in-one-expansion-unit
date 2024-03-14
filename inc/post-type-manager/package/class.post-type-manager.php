@@ -423,8 +423,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 										// 'rewrite_slug' => false,
 									);
 								} elseif ( isset( $taxonomy['rewrite'] ) && 'false' === $taxonomy['rewrite'] ) {
+									// 旧バージョンではカスタム分類毎でリライト設定があったのでその設定を参照
 									// 'false' の設定は旧バージョンのもので、9.96 で廃止したが、
 									// 設定しているユーザーがいるかもしれないので、一応残してある
+									// この $taxonomy['rewrite'] による指定は 2024年9月以降に削除可
 									$rewrite = 'false';
 								} else {
 									$rewrite = true;
