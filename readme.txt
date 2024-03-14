@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
+[ Specification Change ][ Post Type Manager ] Change so that "with_front" can be specified as false in permalink settings
 [ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format. 
 [ Design Bug Fix ][ Child Page List ] Fixed an issue where a blank space appeared above the excerpt.
 
