@@ -514,7 +514,7 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				'options'    => array(
 					'show_on_front' => 'posts',
 				),				
-				'correct'   => 'This content is password protected. To view it please enter your password below:Password:  ',
+				'correct'   => 'This article is protected by a password.',
 			),
 			array(
 				'test_name'  => 'Post Description',
@@ -538,7 +538,7 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				'options'    => array(
 					'show_on_front' => 'posts',
 				),				
-				'correct'   => 'This content is password protected. To view it please enter your password below:Password:  ',
+				'correct'   => 'This article is protected by a password.',
 			),
 			array(
 				'test_name'  => 'Event Description',
@@ -562,7 +562,7 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				'options'    => array(
 					'show_on_front' => 'posts',
 				),				
-				'correct'   => 'This content is password protected. To view it please enter your password below:Password:  ',
+				'correct'   => 'This article is protected by a password.',
 			),
 			array(
 				'test_name'  => 'Search Result',
