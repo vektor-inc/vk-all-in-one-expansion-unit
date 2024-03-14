@@ -152,14 +152,25 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 * パーマリンクのリライトを有効にするかどうか.
 			 */
 			echo '<h4>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
-			$post_type_rewrite_value = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
-			if ( 'false' !== $post_type_rewrite_value && 'true' !== $post_type_rewrite_value ) {
-				$post_type_rewrite_value = 'true';
-			}
-			echo '<label><input type="radio" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="true"' . checked( $post_type_rewrite_value, 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
-			echo '<br />';
-			echo '<label><input type="radio" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="false"' . checked( $post_type_rewrite_value, 'false', false ) . '> ' . esc_html__( 'Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 
+			$post_type_rewrite_value = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
+			// post_type_rewrite_value の値が with_front_false だった場合はチェックを入れる.
+			$checked = ( 'with_front_false' === $post_type_rewrite_value ) ? ' checked' : '';
+
+			echo '<label><input type="checkbox" id="veu_post_type_rewrite" name="veu_post_type_rewrite" value="with_front_false"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable the permalink settings specified in Custom Structure.（ Set with_front to false ）', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
+
+			echo '<p>';
+			echo wp_kses_post(
+				sprintf(
+					__( 'For example, if "news/%%postname%%/" is set in the Custom Structure of the <a href="%1$s" target="_blank">Permalink Settings</a>, the URL for the custom post type "event" will also include "news", resulting in a URL like https://xxxx.xxx/news/event/%%postname%%/.', 'vk-all-in-one-expansion-unit' ),
+					admin_url( 'options-permalink.php' )
+				)
+			);
+			echo '<br>';
+			echo esc_html__( 'By setting with_front to false, you can ensure the URL is formatted as https://xxxx.xxx/event/%postname%/ without being affected by the Custom Structure settings.', 'vk-all-in-one-expansion-unit' );
+			echo '<br>';
+			echo esc_html__( 'It is not affected if you do not add strings like "news" to the Custom Structure.', 'vk-all-in-one-expansion-unit' );
+			echo '</p>';
 			echo '<hr>';
 
 			/*******************************************
@@ -187,7 +198,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 				echo '<tr>';
 
-				echo '<th rowspan="5">' . esc_attr( $i ) . '</th>';
+				echo '<th rowspan="4">' . esc_attr( $i ) . '</th>';
 
 				// slug.
 				echo '<td>' . esc_html__( 'Custon taxonomy name (slug)', 'vk-all-in-one-expansion-unit' ) . '</td>';
@@ -227,21 +238,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="true"' . checked( $checked, 'true', false ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '<br />';
 				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="false"' . checked( $checked, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
-				echo '</td>';
-				echo '</tr>';
-
-				// Rewrite.
-				// 普段は有効なので、デフォルトは true にしておく.
-				$taxonomy_rewrite_value = ( isset( $taxonomy[ $i ]['rewrite'] ) ) ? $taxonomy[ $i ]['rewrite'] : 'true';
-				if ( 'false' !== $taxonomy_rewrite_value && 'true' !== $taxonomy_rewrite_value ) {
-					$taxonomy_rewrite_value = 'true';
-				}
-				echo '<tr>';
-				echo '<td>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</td>';
-				echo '<td>';
-				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="true"' . checked( $taxonomy_rewrite_value, 'true', false ) . '> ' . esc_html__( 'Enable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
-				echo '<br />';
-				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" name="veu_taxonomy[' . esc_attr( $i ) . '][rewrite]" value="false"' . checked( $taxonomy_rewrite_value, 'false', false ) . '> ' . esc_html__( 'Disable Permalink Rewrite', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '</td>';
 				echo '</tr>';
 			}
@@ -334,8 +330,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						$supports[] = $key;
 					}
 
-					$rewrite = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
-
 					// カスタム投稿タイプのスラッグ.
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
 
@@ -346,13 +340,29 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 							$menu_position = 5;
 						}
 
+						$veu_post_type_rewrite = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
+
+						if ( 'with_front_false' === $veu_post_type_rewrite ) {
+							$rewrite = array(
+								'slug'       => $post_type_id,
+								'with_front' => false,
+								// 'rewrite_slug' => false,
+							);
+						} elseif ( 'false' === $veu_post_type_rewrite ) {
+							// 'false' の設定は旧バージョンのもので、9.96 で廃止したが、
+							// 設定しているユーザーがいるかもしれないので、一応残してある
+							$rewrite = 'false';
+						} else {
+							$rewrite = true;
+						}
+
 						$args = array(
 							'labels'        => $labels,
 							'public'        => true,
 							'has_archive'   => true,
 							'menu_position' => $menu_position,
 							'supports'      => $supports,
-							'rewrite'       => $rewrite === 'false' ? false : true,
+							'rewrite'       => $rewrite,
 						);
 
 						// REST API に出力するかどうかをカスタムフィールドから取得.
@@ -404,9 +414,21 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									'name' => $taxonomy['label'],
 								);
 
-								// $taxonomy['rewrite'] が存在し、値が false だった場合は $rewrite に false を、
-								// それ以外の場合は true を入れる.
-								$rewrite = ( isset( $taxonomy['rewrite'] ) && 'false' === $taxonomy['rewrite'] ) ? false : true;
+								// リライトルールの設定 //////////////////////////////////////
+								// 投稿タイプのリライトルールを反映させる
+								if ( 'with_front_false' === $veu_post_type_rewrite ) {
+									$rewrite = array(
+										'slug'       => $taxonomy['slug'],
+										'with_front' => false,
+										// 'rewrite_slug' => false,
+									);
+								} elseif ( isset( $taxonomy['rewrite'] ) && 'false' === $taxonomy['rewrite'] ) {
+									// 'false' の設定は旧バージョンのもので、9.96 で廃止したが、
+									// 設定しているユーザーがいるかもしれないので、一応残してある
+									$rewrite = 'false';
+								} else {
+									$rewrite = true;
+								}
 
 								$args = array(
 									'hierarchical'      => $hierarchical_true,
