@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ SNS ] Fix OGP description on password protected page.
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
 [ Specification Change ][ Post Type Manager ] Change so that "with_front" can be specified as false in permalink settings
 [ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format. 
