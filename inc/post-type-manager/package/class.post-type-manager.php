@@ -351,6 +351,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						} elseif ( 'false' === $veu_post_type_rewrite ) {
 							// 'false' の設定は旧バージョンのもので、9.96 で廃止したが、
 							// 設定しているユーザーがいるかもしれないので、一応残してある
+							// この false による指定は 2024年9月以降に削除可
 							$rewrite = 'false';
 						} else {
 							$rewrite = true;
