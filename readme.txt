@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification Change ] Grouping in the activation interface.
+[ Bug Fix ][ Description ] Fixed the issue about PHP error under specified conditions.
 
 = 9.96.0 =
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
