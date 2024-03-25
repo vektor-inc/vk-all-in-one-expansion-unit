@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ] Grouping in the activation interface.
+
 = 9.96.0 =
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
 [ Specification Change ][ Post Type Manager ] Change so that "with_front" can be specified as false in permalink settings

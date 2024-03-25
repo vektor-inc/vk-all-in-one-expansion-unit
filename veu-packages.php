@@ -30,6 +30,8 @@ function veu_get_packages( $is_block_theme = null ) {
 
 	*/
 
+	$deprecated = ' ( ' . __( 'Deprecated', 'vk-all-in-one-expansion-unit' ) . ' )';
+
 	/*
 		SEO functions
 	/*-------------------------------------------------------------------------*/
@@ -216,9 +218,9 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'addReusableBlockMenu',
-		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ) . '<br />' . $deprecated,
 		'description' => __( 'Add Manage all reusable blocks menu to admin menu.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
+		'default'     => false,
 		'include'     => 'add_menu_to_block_reuse.php',
 	);
 
@@ -368,7 +370,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'auto_eyecatch',
-		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ) . $deprecated,
 		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'auto-eyecatch/auto-eyecatch.php',
@@ -415,7 +417,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	 */
 	$required_packages[] = array(
 		'name'        => 'display_ie_alert',
-		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ) . $deprecated,
 		'description' => __( 'Display a warning if the user who is viewing this site is using IE.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'IE is a very old browser and its creator Microsoft does not recommend its use. Encouraging IE users to switch to the next-generation browser will greatly contribute to the evolution of the website.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'display-ie-alert.php',
@@ -652,8 +654,8 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'fontawesome',
-		'title'       => __( 'Print link Fontawesome', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print fontawesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Print link Font Awesome', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print Font Awesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'font-awesome/font-awesome-config.php',
 	);
