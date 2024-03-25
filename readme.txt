@@ -81,7 +81,8 @@ e.g.
 
 == Changelog ==
 
-[ Bug fix ][ child page index ] Fix className vulnerability.
+[ Bug fix ][ Child page index ] Fix className vulnerability.
+[ Bug Fix ][ Description ] Fixed the issue about PHP error under specified conditions.
 
 = 9.96.0 =
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
