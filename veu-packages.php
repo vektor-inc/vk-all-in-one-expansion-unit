@@ -30,39 +30,14 @@ function veu_get_packages( $is_block_theme = null ) {
 
 	*/
 
-	/*
-		fontawesome
-		wpTitle
-		metaDescription
-		sns
-		ga
-		otherWidgets
-		css_customize
-		Contact Section
-		ChildPageIndex
-		pageList_ancestor
-		Sitemap_page
-		Call To Action
-		insert_ads
-		relatedPosts
-		disable_ping-back
-		Page Top Button
-		Smooth Scroll
-		Add Body Class
-		Nav Menu Class Custom
-		auto_eyecatch
-		Contactform7AssetOptimize
-	/*-------------------------------------------*/
+	$deprecated = ' ( ' . __( 'Deprecated', 'vk-all-in-one-expansion-unit' ) . ' )';
 
 	/*
-		fontawesome
-	/*-------------------------------------------*/
+		SEO functions
+	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'fontawesome',
-		'title'       => __( 'Print link fontawesome', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Print fontawesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'font-awesome/font-awesome-config.php',
+		'name'          => 'seo_functions',
+		'section_title' => __( 'SEO', 'vk-all-in-one-expansion-unit' ),
 	);
 
 	/*
@@ -84,87 +59,6 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		addReusableBlockMenu
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'addReusableBlockMenu',
-		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add Manage all reusable blocks menu to admin menu.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'add_menu_to_block_reuse.php',
-	);
-
-	/*
-		Add Plugin Link to admin bar
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'add_plugin_link_to_admin_menu',
-		'title'       => __( 'Add Plugin link to admin bar', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add Plugin setting page link to admin bar.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'add_plugin_link_to_adminbar.php',
-	);
-
-	/*
-		sns
-	/*-------------------------------------------*/
-	$deskSns     = array();
-	$settingPage = '<a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">' . __( 'Main setting page' ) . '</a>';
-	$deskSns[]   = '<ul>';
-	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print X card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$deskSns[]   = '</ul>';
-	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vk-all-in-one-expansion-unit' ), $settingPage ) . '</p>';
-
-	$required_packages[] = array(
-		'name'          => 'sns',
-		'title'         => __( 'Social media cooperation', 'vk-all-in-one-expansion-unit' ),
-		'description'   => $deskSns,
-		'attr'          => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options',
-				'enable_only' => 1,
-			),
-		),
-		'default'       => true,
-		'use_ex_blocks' => true,
-		'include'       => 'sns/sns.php',
-	);
-
-	/*
-		ga
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'ga',
-		'title'       => 'Google Analytics',
-		'description' => __( 'Print Google Analytics tracking code.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => true,
-		'include'     => 'google_analytics/google_analytics.php',
-	);
-
-	/*
-		vk-google-tag-manager
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'google-tag-manager',
-		'title'       => __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Setting of Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'vk-google-tag-manager/config.php',
-	);
-
-	/*
 		metaDescription
 	/*-------------------------------------------*/
 	$required_packages[] = array(
@@ -173,6 +67,24 @@ function veu_get_packages( $is_block_theme = null ) {
 		'description' => __( 'Print meta description to html head.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
 		'include'     => 'meta-description.php',
+	);
+
+	/*
+		noindex
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'noindex',
+		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you want add to the other page such as archive page that, you can set to ExUnit Main Setting Page.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_noindex',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => true,
+		'include'     => 'noindex/noindex.php',
 	);
 
 	/**
@@ -209,109 +121,115 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		noindex
+		External Integration
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'External_Integration',
+		'section_title' => __( 'External integration', 'vk-all-in-one-expansion-unit' ),
+	);
+	/*
+		ga
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'noindex',
-		'title'       => __( 'Noindex additional function', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Outputs the noindex tag to the html head of the specified page.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you want to add the noindex tag to specific page that, move to that post edit screen and set from VK All in One Expansion Unit metabox in lower part of content editing field.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you want add to the other page such as archive page that, you can set to ExUnit Main Setting Page.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'ga',
+		'title'       => 'Google Analytics',
+		'description' => __( 'Print Google Analytics tracking code.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_noindex',
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_ga_options',
 				'enable_only' => 1,
 			),
 		),
 		'default'     => true,
-		'include'     => 'noindex/noindex.php',
+		'include'     => 'google_analytics/google_analytics.php',
 	);
 
 	/*
-		otherWidgets
-	/*-------------------------------------------*/
-	$desk   = array();
-	$desk[] = '<p>' . __( 'You can use various widgets.', 'vk-all-in-one-expansion-unit' ) . '</p>';
-	$desk[] = '<ul>';
-	$desk[] = '<li>' . __( 'VK_Recent Posts - display the link text and the date of the latest article title.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_Page content to widget - display the contents of the page to the widgets.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_Profile - display the profile entered in the widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '<li>' . __( 'VK_3PR area - display the 3PR area.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '<li>VK_' . __( 'categories/tags list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a categories, tags or format list.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '<li>VK_' . __( 'archive list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ) . '</li>';
-	$desk[] = '</ul>';
-
-	$required_packages[] = array(
-		'name'        => 'otherWidgets',
-		'title'       => __( 'Widgets', 'vk-all-in-one-expansion-unit' ),
-		'description' => $desk,
-		'attr'        => array(
-			array(
-				'name'        => __( 'Enable Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_setting_page#widget_enablation',
-				'enable_only' => 1,
-			),
-			array(
-				'name'        => __( 'Widget Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'widgets.php',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => $is_block_theme ? false : true,
-		'include'     => 'other-widget/other-widget.php',
-	);
-
-	/*
-		Before loop widget area
+		vk-google-tag-manager
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'archive_loop_before_widget_area',
-		'title'       => __( 'Before loop widget area', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add widget area before loop at published post type archive page', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
-			// array(
-			// 'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-			// 'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
-			// 'enable_only' => 1,
-			// ),
-		),
+		'name'        => 'google-tag-manager',
+		'title'       => __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Setting of Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'add_archive_loop_before_widget_area.php',
-	);
-
-	/**
-	 * Defualt Thumbnail
-	 */
-	$required_packages[] = array(
-		'name'        => 'default_thumbnail',
-		'title'       => __( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can set Default Thumbnail.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
-			array(
-				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_default_thumbnail',
-				'enable_only' => 1,
-			),
-		),
-		'default'     => true,
-		'include'     => 'default-thumbnail/default-thumbnail.php',
+		'include'     => 'vk-google-tag-manager/config.php',
 	);
 
 	/*
-		css_customize
+		sns
 	/*-------------------------------------------*/
+	$deskSns     = array();
+	$settingPage = '<a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options">' . __( 'Main setting page' ) . '</a>';
+	$deskSns[]   = '<ul>';
+	$deskSns[]   = '<li>' . __( 'Print og tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print X card tags to html head.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print social bookmark buttons.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'VK_FB Page Plugin - display the Facebook Page Plugin widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '<li>' . __( 'Print Follow me box to content bottom.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$deskSns[]   = '</ul>';
+	$deskSns[]   = '<p>' . sprintf( __( '* You can stop the function separately from the %s.', 'vk-all-in-one-expansion-unit' ), $settingPage ) . '</p>';
+
 	$required_packages[] = array(
-		'name'        => 'css_customize',
-		'title'       => __( 'CSS customize', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can set Customize CSS.', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(
+		'name'          => 'sns',
+		'title'         => __( 'Social media cooperation', 'vk-all-in-one-expansion-unit' ),
+		'description'   => $deskSns,
+		'attr'          => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'admin.php?page=vkExUnit_css_customize',
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options',
 				'enable_only' => 1,
 			),
 		),
+		'default'       => true,
+		'use_ex_blocks' => true,
+		'include'       => 'sns/sns.php',
+	);
+
+	/*
+		Admin Page features
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'admin_page',
+		'section_title' => __( 'Admin page features', 'vk-all-in-one-expansion-unit' ),
+	);
+
+	/*
+		Add Plugin Link to admin bar
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'add_plugin_link_to_admin_menu',
+		'title'       => __( 'Add Plugin link to admin bar', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add Plugin setting page link to admin bar.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => true,
-		'include'     => 'css-customize/css-customize.php',
+		'include'     => 'add_plugin_link_to_adminbar.php',
+	);
+
+	$required_packages[] = array(
+		'name'        => 'admin_bar',
+		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add ExUnit menu to admin bar.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => '../admin/admin_bar.php',
+	);
+
+	/*
+		addReusableBlockMenu
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'addReusableBlockMenu',
+		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ) . '<br />' . $deprecated,
+		'description' => __( 'Add Manage all reusable blocks menu to admin menu.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'add_menu_to_block_reuse.php',
+	);
+
+	/*
+		Insert Item functions
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'add_visible_element',
+		'section_title' => __( 'Add visible elements', 'vk-all-in-one-expansion-unit' ),
 	);
 
 	$insert_item_description = '<br />' . __( 'You can insert by metabox of bottom of content edit area at post edit screen, or from by the block or widget and so on.', 'vk-all-in-one-expansion-unit' );
@@ -435,6 +353,7 @@ function veu_get_packages( $is_block_theme = null ) {
 		'default'     => $is_block_theme ? true : true,
 		'include'     => 'promotion-alert/config.php',
 	);
+
 	/*
 		relatedPosts
 	/*-------------------------------------------*/
@@ -447,94 +366,32 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		disable_ping-back
+		auto_eyecatch
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'disable_ping-back',
-		'title'       => __( 'Disable ping back', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Disable xmlrpc ping back.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'auto_eyecatch',
+		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ) . $deprecated,
+		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'disable_ping-back.php',
-		'hidden'      => true,
-	);
-
-	$required_packages[] = array(
-		'name'        => 'disable_dashbord',
-		'title'       => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'disable-dashbord.php',
-		'hidden'      => true,
+		'include'     => 'auto-eyecatch/auto-eyecatch.php',
 	);
 
 	/**
-	 * IE Alart.
+	 * Defualt Thumbnail
 	 */
 	$required_packages[] = array(
-		'name'        => 'display_ie_alert',
-		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Display a warning if the user who is viewing this site is using IE.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'IE is a very old browser and its creator Microsoft does not recommend its use. Encouraging IE users to switch to the next-generation browser will greatly contribute to the evolution of the website.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'display-ie-alert.php',
-	);
-
-	/**
-	 * Disable Core XML Sitemap.
-	 */
-	$required_packages[] = array(
-		'name'        => 'disable_xml_sitemap',
-		'title'       => __( 'Disable XML Sitemap', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Stop the XML Sitemap feature added from WordPress 5.5.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you already creating XML Sitemap by another Plugin that you can stop  native WordPress Sitemap function by this function.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'disable-xml-sitemap.php',
-	);
-
-	/**
-	 * Disable Emoji.
-	 */
-	$required_packages[] = array(
-		'name'        => 'disable_emoji',
-		'title'       => __( 'Disable Emojis', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can disable emojis.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you do not using Emojis that I recommend to enable this function.', 'vk-all-in-one-expansion-unit' ) . __( 'If disable emoji that you can stop print emoji codes on html head and it bring to small effect of speeding up.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => false,
-		'include'     => 'disable-emojis.php',
-	);
-
-	/*
-		icon_accessibility
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'icon_accessibility',
-		'title'       => __( 'Font Awesome Icon Accessibility', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add aria-hidden="true" to Font Awesome icons to hide them from screen readers, improving accessibility', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'icon-accessibility/icon-accessibility.php',
-	);
-
-	$required_packages[] = array(
-		'name'        => 'admin_bar',
-		'title'       => __( 'Admin bar manu', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add ExUnit menu to admin bar.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => '../admin/admin_bar.php',
-	);
-
-	/*
-		post_type_manager
-	/*-------------------------------------------*/
-	$required_packages[] = array(
-		'name'        => 'post_type_manager',
-		'title'       => __( 'Post Type Manager', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Add custom post types and custom taxonomies.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'default_thumbnail',
+		'title'       => __( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Default Thumbnail.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
-				'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_default_thumbnail',
 				'enable_only' => 1,
 			),
 		),
 		'default'     => true,
-		'include'     => 'post-type-manager/post-type-manager-config.php',
+		'include'     => 'default-thumbnail/default-thumbnail.php',
 	);
 
 	/*
@@ -555,6 +412,157 @@ function veu_get_packages( $is_block_theme = null ) {
 		),
 	);
 
+	/**
+	 * IE Alart.
+	 */
+	$required_packages[] = array(
+		'name'        => 'display_ie_alert',
+		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ) . $deprecated,
+		'description' => __( 'Display a warning if the user who is viewing this site is using IE.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'IE is a very old browser and its creator Microsoft does not recommend its use. Encouraging IE users to switch to the next-generation browser will greatly contribute to the evolution of the website.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'display-ie-alert.php',
+	);
+
+	/*
+		Widget functions
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'Widget_plugins',
+		'section_title' => __( 'Widget features', 'vk-all-in-one-expansion-unit' ),
+	);
+	/*
+		otherWidgets
+	/*-------------------------------------------*/
+	$desk   = array();
+	$desk[] = '<p>' . __( 'You can use various widgets.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$desk[] = '<ul>';
+	$desk[] = '<li>' . __( 'VK_Recent Posts - display the link text and the date of the latest article title.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_Page content to widget - display the contents of the page to the widgets.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_Profile - display the profile entered in the widget.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>' . __( 'VK_3PR area - display the 3PR area.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>VK_' . __( 'categories/tags list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a categories, tags or format list.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '<li>VK_' . __( 'archive list', 'vk-all-in-one-expansion-unit' ) . __( 'Displays a list of archives. You can choose the post type and also to display archives by month or by year.', 'vk-all-in-one-expansion-unit' ) . '</li>';
+	$desk[] = '</ul>';
+
+	$required_packages[] = array(
+		'name'        => 'otherWidgets',
+		'title'       => __( 'Widgets', 'vk-all-in-one-expansion-unit' ),
+		'description' => $desk,
+		'attr'        => array(
+			array(
+				'name'        => __( 'Enable Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_setting_page#widget_enablation',
+				'enable_only' => 1,
+			),
+			array(
+				'name'        => __( 'Widget Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'widgets.php',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => $is_block_theme ? false : true,
+		'include'     => 'other-widget/other-widget.php',
+	);
+
+	/*
+		Before loop widget area
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'archive_loop_before_widget_area',
+		'title'       => __( 'Before loop widget area', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add widget area before loop at published post type archive page', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			// array(
+			// 'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+			// 'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
+			// 'enable_only' => 1,
+			// ),
+		),
+		'default'     => false,
+		'include'     => 'add_archive_loop_before_widget_area.php',
+	);
+
+	/*
+		Deactive functions
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'Deactive_plugins',
+		'section_title' => __( 'Deactive features', 'vk-all-in-one-expansion-unit' ),
+	);
+	/**
+	 * Disable Emoji.
+	 */
+	$required_packages[] = array(
+		'name'        => 'disable_emoji',
+		'title'       => __( 'Disable Emojis', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can disable emojis.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you do not using Emojis that I recommend to enable this function.', 'vk-all-in-one-expansion-unit' ) . __( 'If disable emoji that you can stop print emoji codes on html head and it bring to small effect of speeding up.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'disable-emojis.php',
+	);
+
+	/**
+	 * Disable Core XML Sitemap.
+	 */
+	$required_packages[] = array(
+		'name'        => 'disable_xml_sitemap',
+		'title'       => __( 'Disable XML Sitemap', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Stop the XML Sitemap feature added from WordPress 5.5.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you already creating XML Sitemap by another Plugin that you can stop  native WordPress Sitemap function by this function.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'disable-xml-sitemap.php',
+	);
+
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'other_plugins',
+		'section_title' => __( 'Related to other plugins', 'vk-all-in-one-expansion-unit' ),
+	);
+	/*
+		Contactform7AssetOptimize
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'Contactform7AssetOptimize',
+		'title'       => __( 'Contactform7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(),
+		'default'     => false,
+		'include'     => '/contactform7-asset-optimize.php',
+	);
+
+	/*-------------------------------------------------------------------------*/
+	$required_packages[] = array(
+		'name'          => 'others',
+		'section_title' => __( 'Others', 'vk-all-in-one-expansion-unit' ),
+	);
+
+		/*
+		post_type_manager
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'post_type_manager',
+		'title'       => __( 'Post Type Manager', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add custom post types and custom taxonomies.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
+				'enable_only' => 1,
+			),
+		),
+		'default'     => true,
+		'include'     => 'post-type-manager/post-type-manager-config.php',
+	);
+
+	/*
+		Page exclude from wp_list_pages()
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'page_exclude_from_list_pages',
+		'title'       => __( 'Exclude Page from Page List', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can exclude pages specified from the edit screen from the fixed page list (wp_list_pages).', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'page-exclude-from-list-pages/page-exclude-from-list-pages.php',
+	);
+
 	/*
 		Smooth Scroll
 	/*-------------------------------------------*/
@@ -571,6 +579,16 @@ function veu_get_packages( $is_block_theme = null ) {
 				'enable_only' => true,
 			),
 		),
+	);
+	/*
+		icon_accessibility
+	/*-------------------------------------------*/
+	$required_packages[] = array(
+		'name'        => 'icon_accessibility',
+		'title'       => __( 'Font Awesome Icon Accessibility', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Add aria-hidden="true" to Font Awesome icons to hide them from screen readers, improving accessibility', 'vk-all-in-one-expansion-unit' ),
+		'default'     => true,
+		'include'     => 'icon-accessibility/icon-accessibility.php',
 	);
 
 	/*
@@ -596,14 +614,21 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		Page exclude from wp_list_pages()
+		css_customize
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'page_exclude_from_list_pages',
-		'title'       => __( 'Exclude Page from Page List', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'You can exclude pages specified from the edit screen from the fixed page list (wp_list_pages).', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'css_customize',
+		'title'       => __( 'CSS customize', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'You can set Customize CSS.', 'vk-all-in-one-expansion-unit' ),
+		'attr'        => array(
+			array(
+				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),
+				'url'         => admin_url() . 'admin.php?page=vkExUnit_css_customize',
+				'enable_only' => 1,
+			),
+		),
 		'default'     => true,
-		'include'     => 'page-exclude-from-list-pages/page-exclude-from-list-pages.php',
+		'include'     => 'css-customize/css-customize.php',
 	);
 
 	/*
@@ -625,37 +650,35 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		Contactform7AssetOptimize
+		fontawesome
 	/*-------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'Contactform7AssetOptimize',
-		'title'       => __( 'Contact Form 7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(),
-		'default'     => true,
-		'include'     => '/contactform7-asset-optimize.php',
+		'name'        => 'fontawesome',
+		'title'       => __( 'Print link Font Awesome', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Print Font Awesome link tag to html head.', 'vk-all-in-one-expansion-unit' ),
+		'default'     => false,
+		'include'     => 'font-awesome/font-awesome-config.php',
 	);
 
 	/*
-		auto_eyecatch
-	/*-------------------------------------------*/
+		To be abolished in the coming days
+	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
-		'name'        => 'auto_eyecatch',
-		'title'       => __( 'Automatic Eye Catch insert', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Display Eye Catch image at before content.', 'vk-all-in-one-expansion-unit' ),
+		'name'        => 'disable_ping-back',
+		'title'       => __( 'Disable ping back', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Disable xmlrpc ping back.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => 'auto-eyecatch/auto-eyecatch.php',
+		'include'     => 'disable_ping-back.php',
+		'hidden'      => true,
 	);
-	/*
-		Contactform7AssetOptimize
-	/*-------------------------------------------*/
+
 	$required_packages[] = array(
-		'name'        => 'Contactform7AssetOptimize',
-		'title'       => __( 'Contactform7 Asset Optimize', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'unqueue Contact Form 7 assets at page of unuse form.', 'vk-all-in-one-expansion-unit' ) . '<br/>* ' . __( 'Do not activate if you using css/js optimize plugin like "Autoptimize".', 'vk-all-in-one-expansion-unit' ),
-		'attr'        => array(),
+		'name'        => 'disable_dashbord',
+		'title'       => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Disable dashbord', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
-		'include'     => '/contactform7-asset-optimize.php',
+		'include'     => 'disable-dashbord.php',
+		'hidden'      => true,
 	);
 
 	return $required_packages;

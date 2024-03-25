@@ -27,6 +27,11 @@ use VektorInc\VK_Admin\VkAdmin;
 global $vkExUnit_packages;
 foreach ( $vkExUnit_packages as $package ) :
 	$active = veu_package_is_enable( $package['name'] );
+
+	if ( ! empty( $package['section_title'] ) ){
+		echo '<tr><th colspan="3" class="section_title">' . $package['section_title'] . '</th></tr>';
+	} else {
+
 	?>
 		<tr class="
 		<?php
@@ -84,6 +89,7 @@ foreach ( $vkExUnit_packages as $package ) :
 				</div><!-- [ /.plugin-description ] -->
 			</td>
 		</tr>
+		<?php } ?>
 
 <?php
 	endforeach;
