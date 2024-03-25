@@ -27,7 +27,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 
 					'active_fontawesome'                   => false,
 					'active_wpTitle'                       => true,
-					'active_addReusableBlockMenu'          => true,
+					'active_addReusableBlockMenu'          => false,
 					'active_add_plugin_link_to_admin_menu' => true,
 					'active_sns'                           => true,
 					'active_ga'                            => true,
