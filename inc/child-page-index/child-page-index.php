@@ -71,7 +71,7 @@ function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 		wp_reset_query();
 		return false; }
 
-	$childPageList_html = PHP_EOL . '<div class="veu_childPage_list ' . $classes . '">' . PHP_EOL;
+	$childPageList_html = PHP_EOL . '<div class="veu_childPage_list ' . esc_attr( $classes ) . '">' . PHP_EOL;
 	foreach ( $childrens as $children ) :
 
 			$postExcerpt = veu_child_page_excerpt( $children );
