@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ] Grouping in the activation interface.
 [ Bug fix ][ Child page index ] Fix className vulnerability.
 [ Bug Fix ][ Description ] Fixed the issue about PHP error under specified conditions.
 
