@@ -35,7 +35,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
 		'name'          => 'seo_functions',
-		'section_title' => __( 'SEO Functions', 'vk-all-in-one-expansion-unit' ),
+		'section_title' => __( 'SEO', 'vk-all-in-one-expansion-unit' ),
 	);
 
 	/*
@@ -123,7 +123,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
 		'name'          => 'External_Integration',
-		'section_title' => __( 'External Integration', 'vk-all-in-one-expansion-unit' ),
+		'section_title' => __( 'External integration', 'vk-all-in-one-expansion-unit' ),
 	);
 	/*
 		ga
@@ -185,11 +185,11 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		Admin Page functions
+		Admin Page features
 	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
 		'name'          => 'admin_page',
-		'section_title' => __( 'Admin Page Functions', 'vk-all-in-one-expansion-unit' ),
+		'section_title' => __( 'Admin page features', 'vk-all-in-one-expansion-unit' ),
 	);
 
 	/*
@@ -226,8 +226,8 @@ function veu_get_packages( $is_block_theme = null ) {
 		Insert Item functions
 	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
-		'name'          => 'insert_visible_content',
-		'section_title' => __( 'Add Visible Elements Functions', 'vk-all-in-one-expansion-unit' ),
+		'name'          => 'add_visible_element',
+		'section_title' => __( 'Add visible elements', 'vk-all-in-one-expansion-unit' ),
 	);
 
 	$insert_item_description = '<br />' . __( 'You can insert by metabox of bottom of content edit area at post edit screen, or from by the block or widget and so on.', 'vk-all-in-one-expansion-unit' );
@@ -426,7 +426,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
 		'name'          => 'Widget_plugins',
-		'section_title' => __( 'Widget functions', 'vk-all-in-one-expansion-unit' ),
+		'section_title' => __( 'Widget features', 'vk-all-in-one-expansion-unit' ),
 	);
 	/*
 		otherWidgets
@@ -485,7 +485,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------------------------------------*/
 	$required_packages[] = array(
 		'name'          => 'Deactive_plugins',
-		'section_title' => __( 'Deactive functions', 'vk-all-in-one-expansion-unit' ),
+		'section_title' => __( 'Deactive features', 'vk-all-in-one-expansion-unit' ),
 	);
 	/**
 	 * Disable Emoji.
