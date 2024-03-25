@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Description ] Fixed the issue about PHP error under specified conditions.
+
 = 9.96.0 =
 [ Add setting ][ Post Type Manager ] Add a custom field setting.
 [ Specification Change ][ Post Type Manager ] Change so that "with_front" can be specified as false in permalink settings

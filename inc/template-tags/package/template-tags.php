@@ -213,7 +213,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			$page_for_posts = vk_get_page_for_posts();
 			if ( $page_for_posts['post_top_use'] ) {
 				$page = get_post( $page_for_posts['post_top_id'] );
-				if ( ! empty( $page->post_excerpt ) && ! post_password_required( $post->ID ) ) {
+				if ( ! empty( $page->post_excerpt ) && ! post_password_required( $page->ID ) ) {
 					$page_description = get_the_excerpt( $page->ID );
 				} else {
 					$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( $page_for_posts['post_top_name'] ) );

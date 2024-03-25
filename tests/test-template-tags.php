@@ -393,6 +393,19 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				),
 				'correct'    => 'blog-excerpt',
 			),
+
+			// https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1076
+			array(
+				'test_name'  => 'Page for Posts Description( PHP Error test )',
+				'target_url' => home_url() . '/?author=0',
+				'options'    => array(
+					'show_on_front'  => 'page',
+					'page_on_front'  => $data['front_page_id_01'],
+					'page_for_posts' => $data['home_page_id_01'],
+				),
+				'correct'    => 'blog-excerpt',
+			),
+
 			array(
 				'test_name'  => 'Page for Posts no Description',
 				'target_url' => get_permalink( $data['home_page_id_02'] ),
