@@ -24,8 +24,10 @@ function veu_get_common_options_default( $is_block_theme = null ) {
 	$defaults = array();
 	$packages = veu_get_packages( $is_block_theme );
 	foreach ( $packages as $key => $value ) {
-		$name                                 = $value['name'];
-		$default_options[ 'active_' . $name ] = $value['default'];
+		if ( empty( $value['section_title'] ) ) {
+			$name                                 = $value['name'];
+			$default_options[ 'active_' . $name ] = $value['default'];
+		}
 	}
 	$default_options['post_metabox_individual']      = false;
 	$default_options['delete_options_at_deactivate'] = false;
