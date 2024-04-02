@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Design Bug Fix ][ Faq ] Fix stitching styles in Group blocks.
+
 = 9.97.0 =
 [ Specification Change ] Grouping in the activation interface.
 [ Bug fix ][ Child page index ] Fix className vulnerability.
