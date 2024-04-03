@@ -124,6 +124,11 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 				'class'    => 'abcde" onmouseover="alert(123)"',
 				'expected' => '<div class="veu_childPage_list abcde&quot; onmouseover=&quot;alert(123)&quot;"><a href="http://localhost:8889/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
 			),
+			array(
+				'parrent_id'    => array(),
+				'class'    => '',
+				'expected' => '<div class="veu_childPage_list "><a href="http://localhost:8889/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
+			),
 		);
 
 		print PHP_EOL;
@@ -132,8 +137,20 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 
 		foreach ( $test_array as $key => $value ) {
+			$test_parent_id = $parent_id;
 
-			$return = vkExUnit_childPageIndex_shortcode( $parent_id, $value['class'] );
+			if ( isset( $value['parrent_id'] ) ) {
+				// parrent_id が渡されなかった場合用のテスト ///////////////////////////////////////
+				// $this->go_to で $post がうまくセットできなかったため、
+				// global $post; をセットするために一旦 get_post で現在のページ（親ページ）のデータを取得する
+				$parent_post = get_post( $parent_id );
+				global $post;
+				$post = $parent_post;
+				// テスト用に作った投稿の親ページのIDではなく、テスト対象の親ページのID（空の場合など）を代入する
+				$test_parent_id = $value['parrent_id'];
+			}
+
+			$return = vkExUnit_childPageIndex_shortcode( $test_parent_id, $value['class'] );
 			// delete before after space
 			$return = trim( $return );
 			// convert tab and br to space
@@ -142,11 +159,13 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			$return = preg_replace( '/\s(?=\s)/', '', $return );
 			$expected = $value['expected'];
 
-			// 返ってきた抜粋値と期待する結果が同じかどうかテスト
-			$this->assertEquals( $expected , $return );
-
+			print  PHP_EOL;
 			print 'return  :' . $return . PHP_EOL;
 			print 'correct :' . $expected  . PHP_EOL;
+
+			// 返ってきた抜粋値と期待する結果が同じかどうかテスト
+			$this->assertEquals( $expected , $return );
+			wp_reset_postdata();
 		}
 
 	}
