@@ -36,7 +36,7 @@ function veu_child_page_excerpt( $post ) {
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 
-	if ( empty( $parentId ) ) {
+	if ( empty( $parentId ) && '0' !== $parentId && 0 !== $parentId  ) {
 		global $is_pagewidget;
 
 		if ( $is_pagewidget ) {
