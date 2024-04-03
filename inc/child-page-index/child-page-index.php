@@ -36,8 +36,7 @@ function veu_child_page_excerpt( $post ) {
 add_shortcode( 'vkExUnit_childs', 'vkExUnit_childPageIndex_shortcode' );
 function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 
-	// null じゃなくstring(0) "" が来る事がある
-	if ( $parentId === null || $parentId == '' ) {
+	if ( empty( $parentId ) ) {
 		global $is_pagewidget;
 
 		if ( $is_pagewidget ) {

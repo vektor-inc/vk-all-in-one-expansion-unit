@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Child page index ] In the case of automatically inserting the child page list without using a block, the issue where all pages were displayed in WordPress 6.5 has been fixed.
+
 = 9.97.0 =
 [ Specification Change ] Grouping in the activation interface.
 [ Bug fix ][ Child page index ] Fix className vulnerability.
