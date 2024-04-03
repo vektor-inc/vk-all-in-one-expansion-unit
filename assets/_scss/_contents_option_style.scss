@@ -24,10 +24,10 @@ dl.veu_qaItem  { display:block; overflow:hidden;border-bottom:1px dotted #ccc; p
 	dt:before,
 	dd:before { position: absolute;left:0;font-size:24px;line-height: 105%; }
 	dt { margin-bottom:15px;font-size:18px;
-		&:before { font-family:"areal";content:"Q ";color:#e50000; }
+		&:before { font-family:"Arial";content:"Q ";color:#e50000; }
 	}
 	dd { margin-bottom:0px;
-		&:before { content:"A ";color:#337ab7;font-family: "" }
+		&:before { font-family:"Arial";content:"A ";color:#337ab7; }
 	}
 }
 
