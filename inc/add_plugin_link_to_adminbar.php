@@ -41,7 +41,7 @@ function veu_is_add_plugin_link_to_adminbar( $wp_version, $is_admin = false ){
 		return true;
 	}  else {
 		// 公開画面
-		if ( version_compare( $wp_version, '6.5', '>=' ) ) {
+		if ( version_compare( get_bloginfo( 'version' ), '6.5', '>=' ) ) {
 			// WordPress 6.5 以上の場合はコアが追加してくるので何もしない
 			return false;
 		} else {
