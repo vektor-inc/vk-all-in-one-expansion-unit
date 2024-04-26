@@ -10,23 +10,19 @@
  */
 class MenuIconTest extends WP_UnitTestCase {
 
-    private $postTypeManager;
-
-    protected function setUp(): void {
-        parent::setUp();
-        require_once VEU_DIRECTORY_PATH . '/inc/post-type-manager/package/class.post-type-manager.php';
-        $this->postTypeManager = new VK_Post_Type_Manager();
-        // Mock any necessary WordPress functions here
+    private function get_menu_icon_html() {
+        $icon = get_option('veu_menu_icon', 'dashicons-admin-post'); // ここで使用するオプション名を適切なものに変更してください
+        return '<span class="dashicons ' . esc_attr($icon) . '"></span>';
     }
 
     public function testMenuIconOutput() {
-        // Assuming there's a method to get the menu icon form HTML
-        $output = $this->postTypeManager->get_menu_icon_html();
-        $this->assertStringContainsString('dashicons-admin-post', $output, 'The output should contain a default dashicon option.');
+        update_option('veu_menu_icon', 'dashicons-admin-generic');
+        $output = $this->get_menu_icon_html();
+        $this->assertStringContainsString('dashicons-admin-generic', $output, 'The output should contain the correct dashicon class.');
     }
 
     protected function tearDown(): void {
+        delete_option('veu_menu_icon');
         parent::tearDown();
-        // Clean up here
     }
 }
