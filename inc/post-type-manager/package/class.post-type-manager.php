@@ -170,21 +170,24 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// JavaScript to update icon selection and validate input
 			echo '<script>
-			function updateIconSelection(icon) {
-				document.getElementById("veu_menu_icon").value = icon;
-			}
-			
-			document.addEventListener("DOMContentLoaded", function () {
-				var inputField = document.getElementById("veu_menu_icon");
-				
-				inputField.addEventListener("input", function() {
-					if (!this.value.startsWith("dashicons-")) {
-						alert("' . __( 'Please enter a valid Dashicon class.', 'vk-all-in-one-expansion-unit' ) . '");
-						this.value = ""; // 不正な入力をクリア
-					}
-				});
-			});
-			</script>';
+function updateIconSelection(icon) {
+    document.getElementById("veu_menu_icon").value = icon;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var inputField = document.getElementById("veu_menu_icon");
+    
+    // `change` イベントを使用して、フォーカスが外れたときにチェックする
+    inputField.addEventListener("change", function() {
+        // SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
+        if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
+            alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
+            this.value = ""; // 不正な入力をクリア
+        }
+    });
+});
+</script>';
+
 
 			/*******************************************
 			 * Export to Rest api
@@ -369,7 +372,20 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 			$custom_post_types = get_posts( $args );
 			if ( $custom_post_types ) {
+
 				foreach ( $custom_post_types as $key => $post ) {
+
+					/*******************************************
+					 * メニューアイコンを設定するためのコード
+					 */
+					$menu_icon = get_post_meta($post->ID, 'veu_menu_icon', true);
+					if (empty($menu_icon)) {
+						$menu_icon = 'dashicons-admin-post';
+					} elseif ($menu_icon === 'none') {
+						$menu_icon = ''; // CSSでスタイリング可能に
+					} elseif (!strpos($menu_icon, 'dashicons-') === 0 && !strpos($menu_icon, 'data:image/svg+xml;base64,') === 0) {
+						$menu_icon = 'dashicons-admin-post';
+					}
 
 					/*******************************************
 					 * 投稿タイプ追加.
@@ -390,7 +406,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					
 					// 投稿タイプのアイコンを取得
 					$menu_icon = get_post_meta($post->ID, 'veu_menu_icon', true);
-					$menu_icon = !empty($menu_icon) ? $menu_icon : 'dashicons-admin-generic';		
+					$menu_icon = !empty($menu_icon) ? $menu_icon : 'dashicons-admin-post';		
 
 					// カスタム投稿タイプのスラッグ.
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
