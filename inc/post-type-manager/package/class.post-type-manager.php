@@ -159,9 +159,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '</button>';
 			}
 
+			echo '<div>';
 			echo '<input type="text" id="veu_menu_icon" name="veu_menu_icon" value="' . esc_attr($post->veu_menu_icon) . '" style="margin-right: 10px;" size="30">';
 			echo '<a href="https://developer.wordpress.org/resource/dashicons/" class="button" target="_blank">' . esc_html__('Dashicons Library', 'vk-all-in-one-expansion-unit') . '</a>';
-
+			echo '</div>';
+			
 			echo '</div>';
 
 			echo '<hr>';
