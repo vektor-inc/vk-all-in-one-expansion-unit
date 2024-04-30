@@ -128,6 +128,66 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<input class="form-control" type="text" id="veu_menu_position" name="veu_menu_position" value="' . esc_attr( $post->veu_menu_position ) . '" size="30">';
 
 			echo '<hr>';
+			
+			/*******************************************
+			 * Menu Icon
+			 */
+			echo '<h4>' . esc_html__( 'Menu Icon(Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			echo '<p>' . esc_html__( 'Select an icon from the images below, or enter a custom Dashicon class.' ) . '</p>';
+			
+			echo '<div style="margin-bottom: 1rem;">';
+			$icons = [
+				'dashicons-admin-post',
+				'dashicons-admin-site',
+				'dashicons-admin-users',
+				'dashicons-admin-media',
+				'dashicons-admin-comments',
+				'dashicons-admin-appearance',
+				'dashicons-welcome-write-blog',
+				'dashicons-dashboard',
+				'dashicons-admin-plugins',
+				'dashicons-admin-settings',
+				'dashicons-admin-network',
+				'dashicons-admin-home',
+				'dashicons-admin-generic',
+				'dashicons-admin-collapse',
+			];
+			
+			foreach ($icons as $icon) {
+				echo '<button type="button" class="button" style="margin-right: 10px; margin-bottom: 10px; width: 40px; height: 40px; padding: 5px;" onclick="updateIconSelection(\'' . esc_attr($icon) . '\');">';
+				echo '<span class="dashicons ' . esc_attr($icon) . '" style="font-size: 20px; vertical-align: sub;"></span>';
+				echo '</button>';
+			}
+
+			echo '<div>';
+			echo '<input type="text" id="veu_menu_icon" name="veu_menu_icon" value="' . esc_attr($post->veu_menu_icon) . '" style="margin-right: 10px;" size="30">';
+			echo '<a href="https://developer.wordpress.org/resource/dashicons/" class="button" target="_blank">' . esc_html__('Dashicons Library', 'vk-all-in-one-expansion-unit') . '</a>';
+			echo '</div>';
+			
+			echo '</div>';
+
+			echo '<hr>';
+
+			// JavaScript to update icon selection and validate input
+			echo '<script>
+function updateIconSelection(icon) {
+    document.getElementById("veu_menu_icon").value = icon;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var inputField = document.getElementById("veu_menu_icon");
+    
+    // `change` イベントを使用して、フォーカスが外れたときにチェックする
+    inputField.addEventListener("change", function() {
+        // SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
+        if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
+            alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
+            this.value = ""; // 不正な入力をクリア
+        }
+    });
+});
+</script>';
+
 
 			/*******************************************
 			 * Export to Rest api
@@ -270,6 +330,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				'veu_post_type_id',
 				'veu_post_type_items',
 				'veu_menu_position',
+				'veu_menu_icon',
 				'veu_post_type_export_to_api',
 				'veu_post_type_rewrite',
 				'veu_taxonomy',
@@ -311,7 +372,20 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 			$custom_post_types = get_posts( $args );
 			if ( $custom_post_types ) {
+
 				foreach ( $custom_post_types as $key => $post ) {
+
+					/*******************************************
+					 * メニューアイコンを設定するためのコード
+					 */
+					$menu_icon = get_post_meta($post->ID, 'veu_menu_icon', true);
+					if (empty($menu_icon)) {
+						$menu_icon = 'dashicons-admin-post';
+					} elseif ($menu_icon === 'none') {
+						$menu_icon = ''; // CSSでスタイリング可能に
+					} elseif (!strpos($menu_icon, 'dashicons-') === 0 && !strpos($menu_icon, 'data:image/svg+xml;base64,') === 0) {
+						$menu_icon = 'dashicons-admin-post';
+					}
 
 					/*******************************************
 					 * 投稿タイプ追加.
@@ -329,6 +403,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					foreach ( $post_type_items as $key => $value ) {
 						$supports[] = $key;
 					}
+					
+					// 投稿タイプのアイコンを取得
+					$menu_icon = get_post_meta($post->ID, 'veu_menu_icon', true);
+					$menu_icon = !empty($menu_icon) ? $menu_icon : 'dashicons-admin-post';		
 
 					// カスタム投稿タイプのスラッグ.
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
@@ -362,6 +440,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 							'public'        => true,
 							'has_archive'   => true,
 							'menu_position' => $menu_position,
+							'menu_icon' => $menu_icon,
 							'supports'      => $supports,
 							'rewrite'       => $rewrite,
 						);

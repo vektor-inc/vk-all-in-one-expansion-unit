@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add setting ][ Post Type Manager ] Add a menu icon setting.
+
 = 9.97.2 =
 [ Bug fix ] In WordPress 6.5, a link to the plugin page has been added to the admin bar on the front end by default. Consequently, ExUnit has been modified to no longer add this link on the front end.
 
