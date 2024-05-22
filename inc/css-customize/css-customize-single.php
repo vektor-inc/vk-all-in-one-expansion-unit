@@ -33,9 +33,10 @@ function veu_get_the_custom_css_single( $post ) {
 		// Delete tab
 		$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
 		// Multi space convert to single space
-		$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
+		$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
+		$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
 		// Delete comment
-		$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
+		$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
 		// Remove HTML tags
 		$css_customize = strip_tags($css_customize);
 	}

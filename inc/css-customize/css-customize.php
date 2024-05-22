@@ -25,7 +25,7 @@ class veu_css_customize {
 
 		// 編集画面への反映
 		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
-		//
+
 		add_action( 'admin_menu', array( $this, 'css_customize_menu' ), 20 );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( dirname( __FILE__ ) . '/css-customize-single.php' );
@@ -40,7 +40,6 @@ class veu_css_customize {
 				require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
 			}
 		);
-
 	}
 
 	public function admin_bar( $wp_admin_bar ) {
@@ -73,14 +72,10 @@ class veu_css_customize {
 		);
 	}
 
-
 	public function css_customize_render_page() {
-
 		$data = $this->css_customize_valid_form();
 		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
-
 	}
-
 
 	/*
 	  設定画面のCSSとJS
@@ -106,9 +101,7 @@ class veu_css_customize {
 		}
 	}
 
-
 	public function css_customize_valid_form() {
-
 		$data = array(
 			'mess'      => '',
 			'customCss' => '',
@@ -145,9 +138,10 @@ class veu_css_customize {
 				// Delete tab
 				$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
 				// Multi space convert to single space
-				$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
+				$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
+				$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
 				// Delete comment
-				$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
+				$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
 			}
 			return $css_customize;
 		}
