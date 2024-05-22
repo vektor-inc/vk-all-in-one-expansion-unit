@@ -139,6 +139,8 @@ class veu_css_customize {
 				$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
 				// Delete comment
 				$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
+				// Remove HTML tags
+				$css_customize = strip_tags($css_customize);
 			}
 			return $css_customize;
 		}

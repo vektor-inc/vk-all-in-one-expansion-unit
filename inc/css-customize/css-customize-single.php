@@ -36,6 +36,8 @@ function veu_get_the_custom_css_single( $post ) {
 		$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
 		// Delete comment
 		$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
+		// Remove HTML tags
+		$css_customize = strip_tags($css_customize);
 	}
 	return $css_customize;
 }
