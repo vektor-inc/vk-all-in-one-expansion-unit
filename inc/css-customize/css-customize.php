@@ -133,13 +133,13 @@ class veu_css_customize {
 
 		if ( $css_customize !== false ) {
 			$css_customize = htmlspecialchars_decode($css_customize);
-			// delete br
+			// Delete br
 			$css_customize = str_replace( PHP_EOL, '', $css_customize );
-			// delete tab
+			// Delete tab
 			$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
-			// multi space convert to single space
+			// Multi space convert to single space
 			$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
-			// Delete Comment
+			// Delete comment
 			$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
 		}
 		return $css_customize !== false ? $css_customize : '';
