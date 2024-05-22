@@ -1,119 +1,176 @@
 <?php
-/**
- * Class veu_css_customize
- *
- * @package Vk_All_In_One_Expansion_Unit
- */
+$wp_theme = wp_get_theme();
 
-/**
- * veu_css_customize test case.
- */
-class CssCustomizeTest extends WP_UnitTestCase {
+$customize = new veu_css_customize();
 
-	/**
-	 * カスタマイズCSSのテスト
-	 */
-	public function test_css_customize_get_the_css_min() {
-		$tests = array(
-			array(
-				'option'  => '@media (width > 1000px) {p { color: red   ;}}',
-				'correct' => '@media (width > 1000px) {p {color: red;}}',
-			),
-			array(
-				'option'  => '@media (width > 1000px) {
-					p {
-						color: red;
-					}
-				}',
-				'correct' => '@media (width > 1000px) {p {color: red;}}',
-			),
-			array(
-				'option'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
-				'correct' => '@media (width > 1000px) {p {color: red;}}',
-			),
-		);
+class veu_css_customize {
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'veu_css_customize' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		$before_option = get_option( 'vkExUnit_css_customize' );
-
-		foreach ( $tests as $key => $test_value ) {
-			update_option( 'vkExUnit_css_customize', $test_value['option'] );
-			$return = veu_css_customize::css_customize_get_the_css_min();
-			print PHP_EOL;
-			print 'return    :' . $return . PHP_EOL;
-			print 'correct   :' . $test_value['correct'] . PHP_EOL;
-			$this->assertEquals( $test_value['correct'], $return );
-		}
-		update_option( 'vkExUnit_css_customize', $before_option );
+	public function __construct() {
+		$this->set_hook();
+		/**
+		 * Reason of Using through the after_setup_theme is 
+		 * to be able to change the action hook point of css load from theme..
+		 */
+		add_action( 'after_setup_theme', array( get_called_class(), 'load_css_action' ) );
 	}
 
-	/**
-	 * Singular page css
-	 */
-	public function test_veu_get_the_custom_css_single() {
+	public static function load_css_action() {
+		$hook_point = apply_filters( 'veu_enqueue_point_css_customize_common', 'wp_head' );
+		// get_called_class()じゃないと外しにくい
+		add_action( $hook_point, array( get_called_class(), 'css_customize_push_css' ), 200 );
+	}
 
-		// 要件と期待する結果
-		$test_array = array(
-			array(
-				'post_title' => 'タイトル',
-				'post_meta'  => '@media (width > 1000px) {p { color: red   ;}}',
-				'correct'    => '@media (width > 1000px) {p {color: red;}}',
-			),
-			array(
-				'post_title' => 'タイトル',
-				'post_meta'  => '@media (width > 1000px) {
-					p {
-						color: red;
-					}
-				}',
-				'correct'    => '@media (width > 1000px) {p {color: red;}}',
-			),
-			array(
-				'post_title' => 'タイトル',
-				'post_meta'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
-				'correct'    => '@media (width > 1000px) {p {color: red;}}',
-			),
+	public function set_hook() {
+		add_action( 'admin_footer', array( $this, 'css_customize_page_js_and_css' ) );
+
+		// 編集画面への反映
+		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
+
+		add_action( 'admin_menu', array( $this, 'css_customize_menu' ), 20 );
+		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
+		require_once( dirname( __FILE__ ) . '/css-customize-single.php' );
+
+		/*
+		VEU_Metabox 内の get_post_type が実行タイミングによっては
+		カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
+		admin_menu のタイミングで読み込んでいる
+		 */
+		add_action(
+			'admin_menu', function() {
+				require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
+			}
 		);
+	}
 
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_veu_get_the_custom_css_single' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
-		foreach ( $test_array as $key => $value ) {
-
-			// テスト用のデータを投稿する
-			$post_data = array(
-				'post_title'   => $value['post_title'],
-				'post_content' => $value['post_title'],
-				'post_status'  => 'publish',
-				'post_type'    => 'post',
+	public function admin_bar( $wp_admin_bar ) {
+		// 「CSSカスタマイズ」は edit_theme_options 権限にはアクセスさせない
+		if ( current_user_can( 'activate_plugins' ) ) {
+			$wp_admin_bar->add_node(
+				array(
+					'parent' => 'veu_adminlink',
+					'id'     => 'veu_adminlink_css',
+					'title'  => __( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
+					'href'   => admin_url() . 'admin.php?page=vkExUnit_css_customize',
+				)
 			);
-
-			// 投稿が成功すると投稿IDが返ってくる
-			$post_id = wp_insert_post( $post_data );
-
-			// カスタムCSSをカスタムフィールドに投稿
-			add_post_meta( $post_id, '_veu_custom_css', $value['post_meta'] );
-
-			// 実際に投稿されたデータを取得する
-			$post = get_post( $post_id );
-
-			// その投稿データの場合のカスタムCSS
-			$return = veu_get_the_custom_css_single( $post );
-
-			// 返ってきた値と期待する結果が同じかどうかテスト
-			$this->assertEquals( $value['correct'], $return );
-
-			print 'return  :' . $return . PHP_EOL;
-			print 'correct :' . $value['correct'] . PHP_EOL;
-
-			// テスト用データを消去
-			wp_delete_post( $post_id, true );
-
 		}
 	}
-}
+
+	/*
+	  「CSSカスタマイズ」のメニュー
+	/*-------------------------------------------*/
+	public function css_customize_menu() {
+		// $capability_required = veu_get_capability_required();
+		add_submenu_page(
+			'vkExUnit_setting_page',
+			__( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
+			__( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
+			// $capability_required, // edit_theme_optionsのユーザーにもアクセスさせないため
+			'activate_plugins',
+			'vkExUnit_css_customize',
+			array( $this, 'css_customize_render_page' )
+		);
+	}
+
+	public function css_customize_render_page() {
+		$data = $this->css_customize_valid_form();
+		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
+	}
+
+	/*
+	  設定画面のCSSとJS
+	/*-------------------------------------------*/
+	public function css_customize_page_js_and_css( $hook_suffix ) {
+		global $hook_suffix;
+		if (
+			$hook_suffix == 'appearance_page_theme-css-customize' ||
+			$hook_suffix == 'appearance_page_bv_grid_unit_options'
+		) {
+			?>
+			<script type="text/javascript">
+				jQuery(document).ready(function($){
+					jQuery("#tipsBody dl").each(function(){
+						var targetId = jQuery(this).attr("id");
+						var targetTxt = jQuery(this).find("dt").text();
+						var listItem = '<li><a href="#'+ targetId +'">'+ targetTxt +'</a></li>'
+						jQuery('#tipsList ul').append(listItem);
+					});
+				});
+			</script>
+			<?php
+		}
+	}
+
+	public function css_customize_valid_form() {
+		$data = array(
+			'mess'      => '',
+			'customCss' => '',
+		);
+
+		if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] )
+			&& isset( $_POST['bv-css-css'] )
+			&& isset( $_POST['biz-vektor-css-nonce'] ) && wp_verify_nonce( $_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit' ) ) {
+				// エスケープ処理を行わずに保存
+				$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
+		
+				if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
+					$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
+				}
+			} else {
+				if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] ) ) {
+					$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>';
+				}
+			}
+		
+			$custom_css_option = get_option( 'vkExUnit_css_customize' );
+			$data['customCss'] = $custom_css_option !== false ? htmlspecialchars_decode( $custom_css_option ) : '';
+		
+			return $data;
+		}
+	
+		public static function css_customize_get_css_min() {
+			$css_customize = get_option( 'vkExUnit_css_customize' );
+			if ( $css_customize ) {
+				// Remove HTML tags, but keep <style> and <media> tags
+				$css_customize = preg_replace('/<(?!\/?style|\/?media\b)[^>]+>/', '', $css_customize);
+				// Delete br
+				$css_customize = str_replace( PHP_EOL, '', $css_customize );
+				// Delete tab
+				$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
+				// Multi space convert to single space
+				$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
+				$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
+				// Delete comment
+				$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
+			}
+			return $css_customize;
+		}
+	
+		public static function css_customize_get_the_css_min() {
+			$css_customize = self::css_customize_get_css_min();
+			return $css_customize;
+		}
+	
+		public static function css_customize_push_css() {
+			$css_customize = self::css_customize_get_the_css_min();
+			if ( $css_customize ) {
+			?>
+		<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
+				<?php
+			}
+		}
+	
+		// public function css_customize_push_editor_css( $settings ) {
+		// $css_customize = $this->css_customize_get_css_min();
+		//
+		// .editor-styles-wrapper h2 { font-size:30px; }
+		//
+		// if ( isset( $settings['content_style'] ) ) {
+		// $settings['content_style'] .= $css_customize;
+		// } else {
+		// $settings['content_style'] = $css_customize;
+		// }
+		// $settings['content_style'] = $css_customize;
+		// return $settings;
+		// }
+	}
