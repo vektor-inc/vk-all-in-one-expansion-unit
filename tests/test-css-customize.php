@@ -14,28 +14,28 @@ class CssCustomizeTest extends WP_UnitTestCase {
 	 * カスタマイズCSSのテスト
 	 */
 	function test_css_customize_get_the_css_min() {
-			$tests = array(
-				array(
-					'option'  => 'div > h1 { color:red;   }',
-					'correct' => 'div > h1 { color:red; }',
-				),
-				array(
-					'option'  => 'div > h1 {
-						color:red;
-						}',
-					'correct' => 'div > h1 {color:red;}',
-				),
-				array(
-					'option'  => '<script></script>div > h1 {color:red;}',
-					'correct' => 'div > h1 {color:red;}',
-				),
-			);
+		$tests = array(
+			array(
+				'option'  => 'div > h1 { color:red;   }',
+				'correct' => 'div > h1 { color:red; }',
+			),
+			array(
+				'option'  => 'div > h1 {
+					color:red;
+					}',
+				'correct' => 'div > h1 {color:red;}',
+			),
+			array(
+				'option'  => '<script></script>div > h1 {color:red;}',
+				'correct' => 'div > h1 {color:red;}',
+			),
+		);
 
-			print PHP_EOL;
-			print '------------------------------------' . PHP_EOL;
-			print 'veu_css_customize' . PHP_EOL;
-			print '------------------------------------' . PHP_EOL;
-			$before_option = get_option( 'vkExUnit_css_customize' );
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'veu_css_customize' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		$before_option = get_option( 'vkExUnit_css_customize' );
 
 		foreach ( $tests as $key => $test_value ) {
 			update_option( 'vkExUnit_css_customize', $test_value['option'] );
@@ -44,9 +44,9 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			print 'return    :' . $return . PHP_EOL;
 			print 'correct   :' . $test_value['correct'] . PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
-		} // foreach ( $tests as $key => $test_value ) {
-		$before_option = update_option( 'vkExUnit_css_customize', $before_option );
-	} // function test_css_customize_get_the_css_min() {
+		}
+		update_option( 'vkExUnit_css_customize', $before_option );
+	}
 
 	/* Singular page css */
 	function test_veu_get_the_custom_css_single() {
@@ -61,8 +61,8 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => 'div > h1 {
-						color:red;
-						}',
+					color:red;
+					}',
 				'correct'    => 'div > h1 {color:red;}',
 			),
 			array(
@@ -80,7 +80,12 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		foreach ( $test_array as $key => $value ) {
 
 			// テスト用のデータを投稿する
-			$post_data['post_content'] = $value['post_title'];
+			$post_data = array(
+				'post_title'   => $value['post_title'],
+				'post_content' => $value['post_title'],
+				'post_status'  => 'publish',
+				'post_type'    => 'post',
+			);
 
 			// 投稿が成功すると投稿IDが返ってくる
 			$post_id = wp_insert_post( $post_data );
@@ -103,8 +108,6 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			// テスト用データを消去
 			wp_delete_post( $post_id, true );
 
-		} // foreach ( $test_array as $key => $value ) {
-
-	} // function test_veu_get_the_custom_css_single() {
-
+		}
+	}
 }
