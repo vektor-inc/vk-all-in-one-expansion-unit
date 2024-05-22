@@ -40,6 +40,8 @@ function veu_get_the_custom_css_single( $post ) {
 		$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
 		// Remove HTML tags
 		$css_customize = strip_tags($css_customize);
+		// Trim leading and trailing spaces
+		$css_customize = trim($css_customize);
 	}
 	return $css_customize;
 }
