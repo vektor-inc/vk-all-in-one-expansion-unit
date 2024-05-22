@@ -72,14 +72,10 @@ class veu_css_customize {
 		);
 	}
 
-
 	public function css_customize_render_page() {
-
 		$data = $this->css_customize_valid_form();
-
 		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
 	}
-
 
 	/*
 	  設定画面のCSSとJS
@@ -105,9 +101,7 @@ class veu_css_customize {
 		}
 	}
 
-
 	public function css_customize_valid_form() {
-
 		$data = array(
 			'mess'      => '',
 			'customCss' => '',
@@ -129,7 +123,7 @@ class veu_css_customize {
 		}
 	
 		$custom_css_option = get_option( 'vkExUnit_css_customize' );
-		$data['customCss'] = $custom_css_option !== false ? $custom_css_option : '';
+		$data['customCss'] = $custom_css_option !== false ? htmlspecialchars_decode( $custom_css_option ) : '';
 	
 		return $data;
 	}
@@ -138,6 +132,7 @@ class veu_css_customize {
 		$css_customize = get_option( 'vkExUnit_css_customize' );
 
 		if ( $css_customize !== false ) {
+			$css_customize = htmlspecialchars_decode($css_customize);
 			// delete br
 			$css_customize = str_replace( PHP_EOL, '', $css_customize );
 			// delete tab

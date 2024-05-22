@@ -37,5 +37,5 @@ function veu_get_the_custom_css_single( $post ) {
 		// Delete comment
 		$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
 	}
-	return $css_customize;
+	return $css_customize !== false ? $css_customize : '';
 }
