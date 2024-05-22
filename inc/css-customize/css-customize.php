@@ -139,6 +139,7 @@ class veu_css_customize {
 				$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
 				// Multi space convert to single space
 				$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
+				// Ensure proper spacing and remove extra spaces
 				$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
 				// Delete comment
 				$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
