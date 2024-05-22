@@ -1,19 +1,19 @@
 <?php
 /**
- * Class veu_css_customize
+ * Class CssCustomizeTest
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
 
 /**
- * veu_css_customize test case.
+ * CssCustomizeTest test case.
  */
 class CssCustomizeTest extends WP_UnitTestCase {
 
 	/**
 	 * カスタマイズCSSのテスト
 	 */
-	function test_css_customize_get_the_css_min() {
+	public function test_css_customize_get_the_css_min() {
 		$tests = array(
 			array(
 				'option'  => 'div > h1 { color:red;   }',
@@ -48,8 +48,10 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		update_option( 'vkExUnit_css_customize', $before_option );
 	}
 
-	/* Singular page css */
-	function test_veu_get_the_custom_css_single() {
+	/**
+	 * Singular page css
+	 */
+	public function test_veu_get_the_custom_css_single() {
 
 		// 要件と期待する結果
 		$test_array = array(
