@@ -16,19 +16,20 @@ class CssCustomizeTest extends WP_UnitTestCase {
 	public function test_css_customize_get_the_css_min() {
 		$tests = array(
 			array(
-				'option'  => '@media (width > 1000px) { p { color: red;   }}',
-				'correct' => '@media (width > 1000px) { p { color: red; }}',
+				'option'  => '@media (width > 1000px) {p { color: red   ;}}',
+				'correct' => '@media (width > 1000px) {p { color: red;}}',
 			),
 			array(
 				'option'  => '@media (width > 1000px) {
-					p { color: red;
+					p {
+						color: red;
 					}
 				}',
-				'correct' => '@media (width > 1000px) { p { color: red; }}',
+				'correct' => '@media (width > 1000px) {p { color: red;}}',
 			),
 			array(
-				'option'  => '<script></script>@media (width > 1000px) { p { color: red; }}',
-				'correct' => '@media (width > 1000px) { p { color: red; }}',
+				'option'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
+				'correct' => '@media (width > 1000px) {p { color: red;}}',
 			),
 		);
 
@@ -58,21 +59,22 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		$test_array = array(
 			array(
 				'post_title' => 'タイトル',
-				'post_meta'  => '@media (width > 1000px) { p { color: red;   }}',
-				'correct'    => '@media (width > 1000px) { p { color: red; }}',
+				'post_meta'  => '@media (width > 1000px) {p { color: red   ;}}',
+				'correct'    => '@media (width > 1000px) {p { color: red;}}',
 			),
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '@media (width > 1000px) {
-					p { color: red;
+					p {
+						color: red;
 					}
 				}',
-				'correct'    => '@media (width > 1000px) { p { color: red; }}',
+				'correct'    => '@media (width > 1000px) {p { color: red;}}',
 			),
 			array(
 				'post_title' => 'タイトル',
-				'post_meta'  => '<script></script>@media (width > 1000px) { p { color: red; }}',
-				'correct'    => '@media (width > 1000px) { p { color: red; }}',
+				'post_meta'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
+				'correct'    => '@media (width > 1000px) {p { color: red;}}',
 			),
 		);
 
