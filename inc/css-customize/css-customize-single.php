@@ -20,6 +20,7 @@ function veu_insert_custom_css() {
 		if ( $css ) {
 			// Decode entities and remove HTML tags and their contents
 			$css = html_entity_decode($css);
+			$css = strip_tags($css);
 			echo '<style type="text/css">/* '. esc_html( veu_get_short_name() ).' CSS Customize Single */' . $css . '</style>';
 		}
 	}
@@ -28,8 +29,6 @@ function veu_insert_custom_css() {
 function veu_get_the_custom_css_single( $post ) {
 	$css_customize = get_post_meta( $post->ID, '_veu_custom_css', true );
 	if ( $css_customize ) {
-		// Delete br
-		$css_customize = str_replace( PHP_EOL, '', $css_customize );
 		// Delete tab
 		$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
 		// Multi space convert to single space

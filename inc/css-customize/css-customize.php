@@ -131,6 +131,8 @@ class veu_css_customize {
 		public static function css_customize_get_css_min() {
 			$css_customize = get_option( 'vkExUnit_css_customize' );
 			if ( $css_customize ) {
+				// Remove HTML tags, but keep <style> and <media> tags
+				$css_customize = preg_replace('/<(?!\/?style|\/?media\b)[^>]+>/', '', $css_customize);
 				// Delete br
 				$css_customize = str_replace( PHP_EOL, '', $css_customize );
 				// Delete tab
@@ -139,8 +141,6 @@ class veu_css_customize {
 				$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
 				// Delete comment
 				$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
-				// Remove HTML tags
-				$css_customize = strip_tags($css_customize);
 			}
 			return $css_customize;
 		}
