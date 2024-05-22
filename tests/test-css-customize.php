@@ -17,7 +17,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		$tests = array(
 			array(
 				'option'  => '@media (width > 1000px) {p { color: red   ;}}',
-				'correct' => '@media (width > 1000px) {p {color: red;}}',
+				'correct' => '@media (width > 1000px){p{color:red;}}',
 			),
 			array(
 				'option'  => '@media (width > 1000px) {
@@ -25,11 +25,11 @@ class CssCustomizeTest extends WP_UnitTestCase {
 						color: red;
 					}
 				}',
-				'correct' => '@media (width > 1000px) {p {color: red;}}',
+				'correct' => '@media (width > 1000px){p{color:red;}}',
 			),
 			array(
 				'option'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
-				'correct' => '@media (width > 1000px) {p {color: red;}}',
+				'correct' => '@media (width > 1000px){p{color:red;}}',
 			),
 		);
 
@@ -60,7 +60,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '@media (width > 1000px) {p { color: red   ;}}',
-				'correct'    => '@media (width > 1000px) {p {color: red;}}',
+				'correct'    => '@media (width > 1000px){p{color:red;}}',
 			),
 			array(
 				'post_title' => 'タイトル',
@@ -69,12 +69,12 @@ class CssCustomizeTest extends WP_UnitTestCase {
 						color: red;
 					}
 				}',
-				'correct'    => '@media (width > 1000px) {p {color: red;}}',
+				'correct'    => '@media (width > 1000px){p{color:red;}}',
 			),
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
-				'correct'    => '@media (width > 1000px) {p {color: red;}}',
+				'correct'    => '@media (width > 1000px){p{color:red;}}',
 			),
 		);
 

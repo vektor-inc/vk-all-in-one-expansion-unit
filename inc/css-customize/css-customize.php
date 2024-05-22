@@ -143,6 +143,8 @@ class veu_css_customize {
 				$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
 				// Delete comment
 				$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
+				// Trim leading and trailing spaces
+				$css_customize = trim($css_customize);
 			}
 			return $css_customize;
 		}
