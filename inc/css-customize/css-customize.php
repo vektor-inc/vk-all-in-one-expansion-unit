@@ -110,66 +110,64 @@ class veu_css_customize {
 		if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] )
 			&& isset( $_POST['bv-css-css'] )
 			&& isset( $_POST['biz-vektor-css-nonce'] ) && wp_verify_nonce( $_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit' ) ) {
-			// エスケープ処理を行わずに保存
-			$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
-	
-			if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
-				$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
+				// エスケープ処理を行わずに保存
+				$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
+		
+				if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
+					$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
+				}
+			} else {
+				if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] ) ) {
+					$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>';
+				}
 			}
-		} else {
-			if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] ) ) {
-				$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>';
+		
+			$custom_css_option = get_option( 'vkExUnit_css_customize' );
+			$data['customCss'] = $custom_css_option !== false ? htmlspecialchars_decode( $custom_css_option ) : '';
+		
+			return $data;
+		}
+	
+		public static function css_customize_get_css_min() {
+			$css_customize = get_option( 'vkExUnit_css_customize' );
+			if ( $css_customize ) {
+				// Delete br
+				$css_customize = str_replace( PHP_EOL, '', $css_customize );
+				// Delete tab
+				$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
+				// Multi space convert to single space
+				$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
+				// Delete comment
+				$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
+			}
+			return $css_customize;
+		}
+	
+		public static function css_customize_get_the_css_min() {
+			$css_customize = self::css_customize_get_css_min();
+			return $css_customize;
+		}
+	
+		public static function css_customize_push_css() {
+			$css_customize = self::css_customize_get_the_css_min();
+			if ( $css_customize ) {
+			?>
+		<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
+				<?php
 			}
 		}
 	
-		$custom_css_option = get_option( 'vkExUnit_css_customize' );
-		$data['customCss'] = $custom_css_option !== false ? htmlspecialchars_decode( $custom_css_option ) : '';
-	
-		return $data;
+		// public function css_customize_push_editor_css( $settings ) {
+		// $css_customize = $this->css_customize_get_css_min();
+		//
+		// .editor-styles-wrapper h2 { font-size:30px; }
+		//
+		// if ( isset( $settings['content_style'] ) ) {
+		// $settings['content_style'] .= $css_customize;
+		// } else {
+		// $settings['content_style'] = $css_customize;
+		// }
+		// $settings['content_style'] = $css_customize;
+		// return $settings;
+		// }
 	}
-
-	public static function css_customize_get_css_min() {
-		$css_customize = get_option( 'vkExUnit_css_customize' );
-
-		if ( $css_customize !== false ) {
-			$css_customize = htmlspecialchars_decode($css_customize);
-			// Delete br
-			$css_customize = str_replace( PHP_EOL, '', $css_customize );
-			// Delete tab
-			$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
-			// Multi space convert to single space
-			$css_customize = preg_replace( '/\s(?=\s)/', '', $css_customize );
-			// Delete comment
-			$css_customize = preg_replace( '/[\s\t]*\/\*\/?(\n|[^\/]|[^*]\/)*\*\//', '', $css_customize );
-		}
-		return $css_customize !== false ? $css_customize : '';
-	}
-
-	public static function css_customize_get_the_css_min() {
-		$css_customize = veu_css_customize::css_customize_get_css_min();
-		return $css_customize;
-	}
-
-	public static function css_customize_push_css() {
-		$css_customize = veu_css_customize::css_customize_get_the_css_min();
-		if ( $css_customize ) {
-		?>
-	<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
-			<?php
-		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
-	} // public function css_customize_push_css() {
-
-	// public function css_customize_push_editor_css( $settings ) {
-	// $css_customize = $this->css_customize_get_css_min();
-	//
-	// .editor-styles-wrapper h2 { font-size:30px; }
-	//
-	// if ( isset( $settings['content_style'] ) ) {
-	// $settings['content_style'] .= $css_customize;
-	// } else {
-	// $settings['content_style'] = $css_customize;
-	// }
-	// $settings['content_style'] = $css_customize;
-	// return $settings;
-	// }
-}
