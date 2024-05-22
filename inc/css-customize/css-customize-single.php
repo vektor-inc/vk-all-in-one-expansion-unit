@@ -14,7 +14,7 @@ add_action( 'after_setup_theme', 'veu_css_customize_single_load' );
  入力された CSS をソースに出力
 /* ------------------------------------------------ */
 function veu_insert_custom_css() {
-	
+
 	if ( is_singular() ) {
 		global $post;
 		$css = veu_get_the_custom_css_single( $post );

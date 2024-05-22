@@ -75,8 +75,10 @@ class veu_css_customize {
 
 
 	public function css_customize_render_page() {
+
 		$data = $this->css_customize_valid_form();
 		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
+
 	}
 
 
@@ -106,7 +108,7 @@ class veu_css_customize {
 
 
 	public function css_customize_valid_form() {
-		
+
 		$data = array(
 			'mess'      => '',
 			'customCss' => '',
