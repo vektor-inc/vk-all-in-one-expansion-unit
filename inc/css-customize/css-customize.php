@@ -60,20 +60,26 @@ class veu_css_customize {
 	  「CSSカスタマイズ」のメニュー
 	/*-------------------------------------------*/
 	public function css_customize_menu() {
+		// $capability_required = veu_get_capability_required();
 		add_submenu_page(
 			'vkExUnit_setting_page',
 			__( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
 			__( 'CSS Customize', 'vk-all-in-one-expansion-unit' ),
+			// $capability_required, // edit_theme_optionsのユーザーにもアクセスさせないため
 			'activate_plugins',
 			'vkExUnit_css_customize',
 			array( $this, 'css_customize_render_page' )
 		);
 	}
 
+
 	public function css_customize_render_page() {
+
 		$data = $this->css_customize_valid_form();
+
 		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
 	}
+
 
 	/*
 	  設定画面のCSSとJS
@@ -99,12 +105,14 @@ class veu_css_customize {
 		}
 	}
 
+
 	public function css_customize_valid_form() {
+
 		$data = array(
 			'mess'      => '',
 			'customCss' => '',
 		);
-	
+
 		if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] )
 			&& isset( $_POST['bv-css-css'] )
 			&& isset( $_POST['biz-vektor-css-nonce'] ) && wp_verify_nonce( $_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit' ) ) {
@@ -128,7 +136,7 @@ class veu_css_customize {
 
 	public static function css_customize_get_css_min() {
 		$css_customize = get_option( 'vkExUnit_css_customize' );
-	
+
 		if ( $css_customize !== false ) {
 			// delete br
 			$css_customize = str_replace( PHP_EOL, '', $css_customize );
@@ -150,11 +158,10 @@ class veu_css_customize {
 	public static function css_customize_push_css() {
 		$css_customize = veu_css_customize::css_customize_get_the_css_min();
 		if ( $css_customize ) {
-			?>
-			<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
+		?>
+	<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
 			<?php
-		}
-	 // if ( get_option( 'vkExUnit_css_customize' ) ) {
+		} // if ( get_option( 'vkExUnit_css_customize' ) ) {
 	} // public function css_customize_push_css() {
 
 	// public function css_customize_push_editor_css( $settings ) {
