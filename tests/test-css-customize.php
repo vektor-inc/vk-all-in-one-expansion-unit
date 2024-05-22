@@ -114,6 +114,8 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			// テスト用データを消去
 			wp_delete_post( $post_id, true );
 
-		}
-	}
+		} // foreach ( $test_array as $key => $value ) {
+
+		} // function test_veu_get_the_custom_css_single() {
+	
 }
