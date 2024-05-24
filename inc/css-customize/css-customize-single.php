@@ -19,9 +19,8 @@ function veu_insert_custom_css() {
 		global $post;
 		$css = veu_get_the_custom_css_single( $post );
 		if ( $css ) {
-			// Decode entities and remove HTML tags and their contents
-			$css = html_entity_decode($css);
-			$css = strip_tags($css);
+			// HTMLエンティティをデコードし、HTMLタグとその内容を削除
+			$css = html_entity_decode($css, ENT_QUOTES | ENT_HTML5);
 			echo '<style type="text/css">/* '. esc_html( veu_get_short_name() ).' CSS Customize Single */' . $css . '</style>';
 		}
 	}
@@ -30,17 +29,19 @@ function veu_insert_custom_css() {
 function veu_get_the_custom_css_single( $post ) {
 	$css_customize = get_post_meta( $post->ID, '_veu_custom_css', true );
 	if ( $css_customize ) {
-		// Delete tab
+		// タブの削除
 		$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
-		// Multi space convert to single space
+		// 複数スペースを単一スペースに変換
 		$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
-		// Ensure proper spacing and remove extra spaces
+		// 適切なスペースを確保し、余分なスペースを削除
 		$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
-		// Delete comment
+		// コメントの削除
 		$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
-		// Remove HTML tags
-		$css_customize = strip_tags($css_customize);
-		// Trim leading and trailing spaces
+		// HTMLタグの削除（styleやmediaタグは保持）
+		$css_customize = preg_replace('/<(?!\/?style|\/?media\b)[^>]+>/', '', $css_customize);
+		// 改行の削除
+		$css_customize = str_replace( PHP_EOL, '', $css_customize );
+		// 先頭と末尾のスペースを削除
 		$css_customize = trim($css_customize);
 	}
 	return $css_customize;
