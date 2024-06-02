@@ -41,7 +41,7 @@ class veu_css_customize {
 				require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
 			}
 		);
-		
+
 	}
 
 	public function admin_bar( $wp_admin_bar ) {
@@ -91,8 +91,7 @@ class veu_css_customize {
 		if (
 			$hook_suffix == 'appearance_page_theme-css-customize' ||
 			$hook_suffix == 'appearance_page_bv_grid_unit_options'
-			) {
-				
+			) {	
 		?>
 	 <script type="text/javascript">
 	jQuery(document).ready(function($){
