@@ -23,9 +23,10 @@ class veu_css_customize {
 	public function set_hook() {
 		add_action( 'admin_footer', array( $this, 'css_customize_page_js_and_css' ) );
 
+	
 		// 編集画面への反映
 		// add_filter( 'tiny_mce_before_init', array( $this, 'css_customize_push_editor_css' ) );
-
+		//
 		add_action( 'admin_menu', array( $this, 'css_customize_menu' ), 20 );
 		add_action( 'vkExUnit_action_adminbar', array( $this, 'admin_bar' ) );
 		require_once( dirname( __FILE__ ) . '/css-customize-single.php' );
@@ -40,6 +41,7 @@ class veu_css_customize {
 				require_once( dirname( __FILE__ ) . '/class-veu-metabox-css-customize.php' );
 			}
 		);
+		
 	}
 
 	public function admin_bar( $wp_admin_bar ) {
@@ -72,10 +74,14 @@ class veu_css_customize {
 		);
 	}
 
+
 	public function css_customize_render_page() {
+
 		$data = $this->css_customize_valid_form();
+
 		include( VEU_DIRECTORY_PATH . '/inc/css-customize/css-customize-edit.php' );
 	}
+
 
 	/*
 	  設定画面のCSSとJS
@@ -85,23 +91,26 @@ class veu_css_customize {
 		if (
 			$hook_suffix == 'appearance_page_theme-css-customize' ||
 			$hook_suffix == 'appearance_page_bv_grid_unit_options'
-		) {
-			?>
-			<script type="text/javascript">
-				jQuery(document).ready(function($){
-					jQuery("#tipsBody dl").each(function(){
-						var targetId = jQuery(this).attr("id");
-						var targetTxt = jQuery(this).find("dt").text();
-						var listItem = '<li><a href="#'+ targetId +'">'+ targetTxt +'</a></li>'
-						jQuery('#tipsList ul').append(listItem);
-					});
-				});
-			</script>
-			<?php
+			) {
+				
+		?>
+	 <script type="text/javascript">
+	jQuery(document).ready(function($){
+		jQuery("#tipsBody dl").each(function(){
+			var targetId = jQuery(this).attr("id");
+			var targetTxt = jQuery(this).find("dt").text();
+			var listItem = '<li><a href="#'+ targetId +'">'+ targetTxt +'</a></li>'
+			jQuery('#tipsList ul').append(listItem);
+		});
+	});
+	</script>
+		<?php
 		}
 	}
 
+
 	public function css_customize_valid_form() {
+
 		$data = array(
 			'mess'      => '',
 			'customCss' => '',
@@ -112,6 +121,7 @@ class veu_css_customize {
 			&& isset( $_POST['biz-vektor-css-nonce'] ) && wp_verify_nonce( $_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit' ) ) {
 				// エスケープ処理を行わずに保存
 				$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
+				$cleanCSS = strip_tags( stripslashes( trim( $_POST['bv-css-css'] ) ) );
 		
 				if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
 					$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
