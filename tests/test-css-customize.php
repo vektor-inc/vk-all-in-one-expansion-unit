@@ -17,17 +17,17 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		$tests = array(
 			array(
 				'option'  => 'div > h1 { color:red;   }',
-				'correct' => 'div > h1 { color:red; }',
+				'correct' => 'div > h1{color:red;}',
 			),
 			array(
 				'option'  => 'div > h1 {
 					color:red;
 					}',
-				'correct' => 'div > h1 {color:red;}',
+				'correct' => 'div > h1{color:red;}',
 			),
 			array(
 				'option'  => '<script></script>div > h1 {color:red;}',
-				'correct' => 'div > h1 {color:red;}',
+				'correct' => 'div > h1{color:red;}',
 			),
 			// メディアクエリがある状態のテストケース
 			array(
@@ -75,21 +75,20 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => 'div > h1 { color:red;   }',
-				'correct'    => 'div > h1 { color:red; }',
+				'correct'    => 'div > h1{color:red;}'
 			),
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => 'div > h1 {
 						color:red;
 						}',
-				'correct'    => 'div > h1 {color:red;}',
+				'correct'    => 'div > h1{color:red;}',
 			),
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '<script></script>div > h1 {color:red;}',
-				'correct'    => 'div > h1 {color:red;}',
-			),
-			// メディアクエリがある状態のテストケース
+				'correct'    => 'div > h1{color:red;}',
+			),// メディアクエリがある状態のテストケース
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '@media (width > 1000px) {p { color: red   ;}}',
