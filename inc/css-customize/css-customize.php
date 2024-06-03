@@ -115,26 +115,30 @@ class veu_css_customize {
 			'customCss' => '',
 		);
 
-		if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] )
-			&& isset( $_POST['bv-css-css'] )
-			&& isset( $_POST['biz-vektor-css-nonce'] ) && wp_verify_nonce( $_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit' ) ) {
-				// エスケープ処理を行わずに保存
-				$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
-				$cleanCSS = strip_tags( stripslashes( trim( $_POST['bv-css-css'] ) ) );
-		
-				if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
-					$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
-				}
-			} else {
-				if ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] ) ) {
-					$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>';
-				}
-			}
-		
-			$custom_css_option = get_option( 'vkExUnit_css_customize' );
-			$data['customCss'] = $custom_css_option !== false ? htmlspecialchars_decode( $custom_css_option ) : '';
-		
-			return $data;
+		if (isset($_POST['bv-css-submit']) && !empty($_POST['bv-css-submit'])
+        && isset($_POST['bv-css-css'])
+        && isset($_POST['biz-vektor-css-nonce']) && wp_verify_nonce($_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit')) {
+            // 生のCSSをそのまま保存
+            $cleanCSS = stripslashes(trim($_POST['bv-css-css']));
+        
+            if (update_option('vkExUnit_css_customize', $cleanCSS)) {
+                $data['mess'] = '<div id="message" class="updated"><p>' . __('Your custom CSS was saved.', 'biz-vektor') . '</p></div>';
+            }
+        } else {
+            if (isset($_POST['bv-css-submit']) && !empty($_POST['bv-css-submit'])) {
+                $data['mess'] = '<div id="message" class="error"><p>' . __('Error occured. Please try again.', 'biz-vektor') . '</p></div>';
+            }
+        }
+    
+        $custom_css_option = get_option('vkExUnit_css_customize');
+        // htmlspecialchars_decode を使ってデコード
+        $custom_css_option = htmlspecialchars_decode($custom_css_option);
+        // 特定のHTMLエンティティを置換
+        $custom_css_option = str_replace('&gt;=', '>=', $custom_css_option);
+        $custom_css_option = str_replace('&lt;=', '<=', $custom_css_option);
+        $data['customCss'] = $custom_css_option !== false ? $custom_css_option : '';
+    
+        return $data;
 		}
 	
 		public static function css_customize_get_css_min() {
