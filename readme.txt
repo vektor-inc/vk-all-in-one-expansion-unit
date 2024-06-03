@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Custom CSS ] Preserving media query operators in custom CSS.
 [ Add setting ][ Post Type Manager ] Add a menu icon setting.
 
 = 9.97.2 =
