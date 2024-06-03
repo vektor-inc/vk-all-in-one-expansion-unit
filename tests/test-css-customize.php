@@ -16,6 +16,21 @@ class CssCustomizeTest extends WP_UnitTestCase {
 	public function test_css_customize_get_the_css_min() {
 		$tests = array(
 			array(
+				'option'  => 'div > h1 { color:red;   }',
+				'correct' => 'div > h1 { color:red; }',
+			),
+			array(
+				'option'  => 'div > h1 {
+					color:red;
+					}',
+				'correct' => 'div > h1 {color:red;}',
+			),
+			array(
+				'option'  => '<script></script>div > h1 {color:red;}',
+				'correct' => 'div > h1 {color:red;}',
+			),
+			// メディアクエリがある状態のテストケース
+			array(
 				'option'  => '@media (width > 1000px) {p { color: red   ;}}',
 				'correct' => '@media (width > 1000px){p{color:red;}}',
 			),
@@ -57,6 +72,24 @@ class CssCustomizeTest extends WP_UnitTestCase {
 
 		// 要件と期待する結果
 		$test_array = array(
+			array(
+				'post_title' => 'タイトル',
+				'post_meta'  => 'div > h1 { color:red;   }',
+				'correct'    => 'div > h1 { color:red; }',
+			),
+			array(
+				'post_title' => 'タイトル',
+				'post_meta'  => 'div > h1 {
+						color:red;
+						}',
+				'correct'    => 'div > h1 {color:red;}',
+			),
+			array(
+				'post_title' => 'タイトル',
+				'post_meta'  => '<script></script>div > h1 {color:red;}',
+				'correct'    => 'div > h1 {color:red;}',
+			),
+			// メディアクエリがある状態のテストケース
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '@media (width > 1000px) {p { color: red   ;}}',
@@ -116,6 +149,5 @@ class CssCustomizeTest extends WP_UnitTestCase {
 
 		} // foreach ( $test_array as $key => $value ) {
 
-		} // function test_veu_get_the_custom_css_single() {
-	
+	} // function test_veu_get_the_custom_css_single() {
 }
