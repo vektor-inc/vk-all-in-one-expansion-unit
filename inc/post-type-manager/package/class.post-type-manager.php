@@ -128,7 +128,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<input class="form-control" type="text" id="veu_menu_position" name="veu_menu_position" value="' . esc_attr( $post->veu_menu_position ) . '" size="30">';
 
 			echo '<hr>';
-			
+
 			/*******************************************
 			 * Menu Icon
 			 */
@@ -136,7 +136,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<p>' . esc_html__( 'Select an icon from the images below, or enter a custom Dashicon class.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
 			echo '<div style="margin-bottom: 1rem;">';
-			$icons = [
+			$icons = array(
 				'dashicons-admin-post',
 				'dashicons-admin-site',
 				'dashicons-admin-users',
@@ -151,19 +151,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				'dashicons-admin-home',
 				'dashicons-admin-generic',
 				'dashicons-admin-collapse',
-			];
-			
-			foreach ($icons as $icon) {
-				echo '<button type="button" class="button" style="margin-right: 10px; margin-bottom: 10px; width: 40px; height: 40px; padding: 5px;" onclick="updateIconSelection(\'' . esc_attr($icon) . '\');">';
-				echo '<span class="dashicons ' . esc_attr($icon) . '" style="font-size: 20px; vertical-align: sub;"></span>';
+			);
+
+			foreach ( $icons as $icon ) {
+				echo '<button type="button" class="button" style="margin-right: 10px; margin-bottom: 10px; width: 40px; height: 40px; padding: 5px;" onclick="updateIconSelection(\'' . esc_attr( $icon ) . '\');">';
+				echo '<span class="dashicons ' . esc_attr( $icon ) . '" style="font-size: 20px; vertical-align: sub;"></span>';
 				echo '</button>';
 			}
 
 			echo '<div>';
-			echo '<input type="text" id="veu_menu_icon" name="veu_menu_icon" value="' . esc_attr($post->veu_menu_icon) . '" style="margin-right: 10px;" size="30">';
-			echo '<a href="https://developer.wordpress.org/resource/dashicons/" class="button" target="_blank">' . esc_html__('Dashicons Library', 'vk-all-in-one-expansion-unit') . '</a>';
+			echo '<input type="text" id="veu_menu_icon" name="veu_menu_icon" value="' . esc_attr( $post->veu_menu_icon ) . '" style="margin-right: 10px;" size="30">';
+			echo '<a href="https://developer.wordpress.org/resource/dashicons/" class="button" target="_blank">' . esc_html__( 'Dashicons Library', 'vk-all-in-one-expansion-unit' ) . '</a>';
 			echo '</div>';
-			
+
 			echo '</div>';
 
 			echo '<hr>';
@@ -187,7 +187,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>';
-
 
 			/*******************************************
 			 * Export to Rest api
@@ -378,12 +377,12 @@ document.addEventListener("DOMContentLoaded", function () {
 					/*******************************************
 					 * メニューアイコンを設定するためのコード
 					 */
-					$menu_icon = get_post_meta($post->ID, 'veu_menu_icon', true);
-					if (empty($menu_icon)) {
+					$menu_icon = get_post_meta( $post->ID, 'veu_menu_icon', true );
+					if ( empty( $menu_icon ) ) {
 						$menu_icon = 'dashicons-admin-post';
-					} elseif ($menu_icon === 'none') {
+					} elseif ( $menu_icon === 'none' ) {
 						$menu_icon = ''; // CSSでスタイリング可能に
-					} elseif (!strpos($menu_icon, 'dashicons-') === 0 && !strpos($menu_icon, 'data:image/svg+xml;base64,') === 0) {
+					} elseif ( ! strpos( $menu_icon, 'dashicons-' ) === 0 && ! strpos( $menu_icon, 'data:image/svg+xml;base64,' ) === 0 ) {
 						$menu_icon = 'dashicons-admin-post';
 					}
 
@@ -403,10 +402,10 @@ document.addEventListener("DOMContentLoaded", function () {
 					foreach ( $post_type_items as $key => $value ) {
 						$supports[] = $key;
 					}
-					
+
 					// 投稿タイプのアイコンを取得
-					$menu_icon = get_post_meta($post->ID, 'veu_menu_icon', true);
-					$menu_icon = !empty($menu_icon) ? $menu_icon : 'dashicons-admin-post';		
+					$menu_icon = get_post_meta( $post->ID, 'veu_menu_icon', true );
+					$menu_icon = ! empty( $menu_icon ) ? $menu_icon : 'dashicons-admin-post';
 
 					// カスタム投稿タイプのスラッグ.
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
@@ -440,7 +439,7 @@ document.addEventListener("DOMContentLoaded", function () {
 							'public'        => true,
 							'has_archive'   => true,
 							'menu_position' => $menu_position,
-							'menu_icon' => $menu_icon,
+							'menu_icon'     => $menu_icon,
 							'supports'      => $supports,
 							'rewrite'       => $rewrite,
 						);
