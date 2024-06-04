@@ -133,8 +133,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 * Menu Icon
 			 */
 			echo '<h4>' . esc_html__( 'Menu Icon(Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
-			echo '<p>' . esc_html__( 'Select an icon from the images below, or enter a custom Dashicon class.' ) . '</p>';
-			
+			echo '<p>' . esc_html__( 'Select an icon from the images below, or enter a custom Dashicon class.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+
 			echo '<div style="margin-bottom: 1rem;">';
 			$icons = [
 				'dashicons-admin-post',

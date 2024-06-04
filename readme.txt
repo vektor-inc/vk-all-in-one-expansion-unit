@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 5.9.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 9.98.0.1
+Stable tag: 9.98.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,9 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.98.1 =
+[ Bug fix ] Fix translation
 
 = 9.98.0 =
 [ Add setting ][ Post Type Manager ] Add a menu icon setting.
