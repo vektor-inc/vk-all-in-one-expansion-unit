@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-
+[Fix] Add #top on body for pagetop btn
 [Fix] Add a title attribute on  Google Tag Manager (noscript)
 
 = 9.98.1 =
