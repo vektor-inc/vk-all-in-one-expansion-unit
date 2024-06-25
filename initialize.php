@@ -110,6 +110,8 @@ function change_old_options() {
 		unset( $option['js_footer'] );
 	}
 
+	update_option( 'vkExUnit_pagespeeding', $option );
+
 }
 add_action( 'after_setup_theme', 'change_old_options', 4 );
 
