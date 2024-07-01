@@ -81,8 +81,8 @@ e.g.
 
 == Changelog ==
 
-
-[Fix] Add a title attribute on  Google Tag Manager (noscript)
+[ Fix ] Foce Load JS from footer is abolished.
+[ Fix ] Add a title attribute on  Google Tag Manager (noscript)
 
 = 9.98.1 =
 [ Bug fix ] Fix translation
