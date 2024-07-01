@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
       with:
-          node-version: 14.19.0
+          node-version: 20.x
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
