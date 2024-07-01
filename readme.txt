@@ -81,7 +81,8 @@ e.g.
 
 == Changelog ==
 
-[ Fix ] Foce Load JS from footer is abolished.
+= 9.99.0 =
+[ Specification Change ] Foce Load JS from footer is abolished.
 [ Fix ] Add a title attribute on  Google Tag Manager (noscript)
 
 = 9.98.1 =
