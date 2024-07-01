@@ -1,5 +1,5 @@
 === VK All in One Expansion Unit ===
-Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
+Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
 Donate link:
 Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 5.9.0
@@ -81,8 +81,10 @@ e.g.
 
 == Changelog ==
 
-[Fix] Add #top on body for pagetop btn
-[Fix] Add a title attribute on  Google Tag Manager (noscript)
+= 9.99.0 =
+[ Specification Change ] Foce Load JS from footer is abolished.
+[ Specification Change ] Add #top on body for pagetop btn
+[ Fix ] Add a title attribute on  Google Tag Manager (noscript)
 
 = 9.98.1 =
 [ Bug fix ] Fix translation
