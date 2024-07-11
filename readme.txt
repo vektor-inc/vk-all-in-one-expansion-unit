@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Taxonomy Widget ] Add dropdown mode. 
+
 = 9.99.0 =
 [ Specification Change ] Foce Load JS from footer is abolished.
 [ Fix ] Add a title attribute on  Google Tag Manager (noscript)
