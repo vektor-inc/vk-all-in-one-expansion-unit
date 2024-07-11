@@ -72,6 +72,7 @@ add_action( 'init', 'veu_print_block_editor_css' );
 -------------------------------------------*/
 add_action( 'wp_enqueue_scripts', 'veu_print_js' );
 function veu_print_js() {
+	
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
 	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), VEU_VERSION, true );
