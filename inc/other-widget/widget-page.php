@@ -190,7 +190,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	// 保存・更新する値
 	function update( $new_instance, $old_instance ) {
 		$instance                       = $old_instance;
-		$instance['title']              = $new_instance['title'];
+		$instance['title']              = wp_kses_post( $new_instance['title'] );
 		$instance['page_id']            = $new_instance['page_id'];
 		$instance['set_title']          = $new_instance['set_title'];
 		$instance['child_page_index']   = $new_instance['child_page_index'];

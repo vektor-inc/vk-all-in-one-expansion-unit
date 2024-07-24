@@ -181,14 +181,14 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 	/*-------------------------------------------*/
 	function update( $new_instance, $old_instance ) {
 		$instance                    = $old_instance;
-		$instance['label']           = $new_instance['label'];
-		$instance['mediaFile']       = $new_instance['mediaFile'];
-		$instance['mediaAlt']        = $new_instance['mediaAlt'];
-		$instance['profile']         = $new_instance['profile'];
+		$instance['label']           = wp_kses_post( $new_instance['label'] );
+		$instance['mediaFile']       = esc_url( $new_instance['mediaFile'] );
+		$instance['mediaAlt']        = esc_html( $new_instance['mediaAlt'] );
+		$instance['profile']         = wp_kses_post( $new_instance['profile'] );
 		$instance['mediaAlign_left'] = $new_instance['mediaAlign_left'];
 		$instance['mediaAlign']      = $new_instance['mediaAlign'];
 		$instance['mediaRound']      = $new_instance['mediaRound'];
-		$instance['mediaSize']       = $new_instance['mediaSize'];
+		$instance['mediaSize']       = esc_html( $new_instance['mediaSize'] );
 		$instance['mediaFloat']      = $new_instance['mediaFloat'];
 		$instance['facebook']        = esc_url( $new_instance['facebook'] );
 		$instance['twitter']         = esc_url( $new_instance['twitter'] );
@@ -198,7 +198,7 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		$instance['instagram']       = esc_url( $new_instance['instagram'] );
 		$instance['linkedin']        = esc_url( $new_instance['linkedin'] );
 		$instance['iconFont_bgType'] = $new_instance['iconFont_bgType'];
-		$instance['icon_color']      = $new_instance['icon_color'];
+		$instance['icon_color']      = esc_html( $new_instance['icon_color'] );
 		return $instance;
 	}	
 	/*-------------------------------------------*/

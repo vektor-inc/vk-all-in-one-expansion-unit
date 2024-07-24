@@ -166,31 +166,31 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
-						'escape_type' => '',
+						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_img_position'       => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_button_text'        => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon'        => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon_before' => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon_after'  => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_url'                => array(
-						'escape_type' => '',
+						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_url_blank'          => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_text'               => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 				);
 
@@ -198,8 +198,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
-						if ( isset( $custom_field_name['escape_type'] ) && $custom_field_name['escape_type'] == 'stripslashes' ) {
-							$data = stripslashes( $_POST[ $custom_field_name ] );
+						if ( ! empty( $custom_field_name['escape_type'] )  ) {
+							$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
 						} else {
 							$data = $_POST[ $custom_field_name ];
 						}
@@ -545,7 +545,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			wp_reset_postdata();
 
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			return do_blocks( do_shortcode( $content ) );
+			return do_blocks( do_shortcode( wp_kses_post( $content ) ) );
 		}
 
 		/**

@@ -241,16 +241,16 @@ class VkExUnit_Contact {
 	}
 
 	public function option_sanitaize( $option ) {
-		$option['contact_txt']       = stripslashes( $option['contact_txt'] );
-		$option['tel_number']        = stripslashes( $option['tel_number'] );
-		$option['tel_icon']          = stripslashes( $option['tel_icon'] );
-		$option['contact_time']      = stripslashes( $option['contact_time'] );
-		$option['contact_link']      = stripslashes( $option['contact_link'] );
-		$option['button_text']       = stripslashes( $option['button_text'] );
-		$option['button_text_small'] = stripslashes( $option['button_text_small'] );
-		$option['short_text']        = stripslashes( $option['short_text'] );
+		$option['contact_txt']       = wp_kses_post( $option['contact_txt'] );
+		$option['tel_number']        = wp_kses_post( $option['tel_number'] );
+		$option['tel_icon']          = wp_kses_post( $option['tel_icon'] );
+		$option['contact_time']      = wp_kses_post( $option['contact_time'] );
+		$option['contact_link']      = wp_kses_post( $option['contact_link'] );
+		$option['button_text']       = wp_kses_post( $option['button_text'] );
+		$option['button_text_small'] = wp_kses_post( $option['button_text_small'] );
+		$option['short_text']        = wp_kses_post( $option['short_text'] );
 		$option['contact_image']     = esc_url( $option['contact_image'] );
-		$option['contact_html']      = stripslashes( $option['contact_html'] );
+		$option['contact_html']      = wp_kses_post( $option['contact_html'] );
 		return $option;
 	}
 
