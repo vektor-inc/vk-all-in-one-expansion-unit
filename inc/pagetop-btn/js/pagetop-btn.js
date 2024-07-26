@@ -10,20 +10,31 @@
 })(window, document, 'scrolled');
 
 ((window, document, cls) => {
-	// add #top on body
-	var add_id = '';
+	// check footer pagetop btn
 	var exist_id = document.body.id;
 	if(exist_id){
-		var ary_id = exist_id.split(' ');
-		if (!ary_id.find(item => item === 'top')){
-			add_id = exist_id + ' top';
+		//  use existing body ID
+		var body_id = exist_id.split(' ');
+		if (!body_id.find(item => item === 'top')){
+			document.getElementById('page_top').href = '#' + body_id[0];
 		}
 	}
 	else{
-		add_id = 'top';	
-	}
+		// add #top on body
+		let new_id = 'top';
 
-	if(add_id){
-		document.body.id = add_id;
+		// check double ID
+		let i = 0;
+		const allElements = document.querySelectorAll('*');		
+		while (Array.from(allElements).some(element => element.id === new_id)) {
+			new_id = `top`;
+			if( 0 < i ){
+				new_id += `-${i}`;
+			}
+			document.getElementById('page_top').href = '#' + new_id;
+			i++;
+		}		
+
+		document.body.id = new_id;
 	}
 })(window, document, 'ready');   
