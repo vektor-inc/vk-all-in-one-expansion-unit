@@ -69,7 +69,7 @@ class WP_Widget_Button extends WP_Widget {
 
 		if ( $options['linkurl'] && $options['title'] ) : ?>
 		<div class="veu_button">
-			<a class="<?php echo implode( ' ', $classes ); ?>" href="<?php echo $options['linkurl']; ?>"<?php echo $blank; ?>>
+			<a class="<?php echo implode( ' ', $classes ); ?>" href="<?php echo esc_url( $options['linkurl'] ); ?>"<?php echo $blank; ?>>
 			<span class="button_mainText">
 
 			<?php
