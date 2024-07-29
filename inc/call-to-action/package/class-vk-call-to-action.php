@@ -471,8 +471,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			'itemtype'  => array(),
 		),
 		'i'    => array(
-			'id'    => array(),
-			'class' => array(),
+			'id'          => array(),
+			'class'       => array(),
+			'aria-hidden' => array()
 		),
 	);
 	?>
@@ -586,8 +587,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'style'     => array(),
 				),
 				'i'    => array(
-					'id'    => array(),
-					'class' => array(),
+					'id'          => array(),
+					'class'       => array(),
+					'aria-hidden' => array()
 				),
 			);
 			return $allowed_html;
