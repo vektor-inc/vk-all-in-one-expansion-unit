@@ -206,14 +206,14 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 		}
 
 		for ( $i = 1; $i <= 4; ) {
-			$instance[ 'label_' . $i ]            = $new_instance[ 'label_' . $i ];
-			$instance[ 'media_image_' . $i ]      = $new_instance[ 'media_image_' . $i ];
-			$instance[ 'media_alt_' . $i ]        = $new_instance[ 'media_alt_' . $i ];
-			$instance[ 'iconFont_class_' . $i ]   = $new_instance[ 'iconFont_class_' . $i ];
-			$instance[ 'iconFont_bgColor_' . $i ] = $new_instance[ 'iconFont_bgColor_' . $i ];
+			$instance[ 'label_' . $i ]            = wp_kses_post( stripslashes( $new_instance[ 'label_' . $i ] ) );
+			$instance[ 'media_image_' . $i ]      = esc_url( $new_instance[ 'media_image_' . $i ] );
+			$instance[ 'media_alt_' . $i ]        = esc_html( stripslashes( $new_instance[ 'media_alt_' . $i ] ) );
+			$instance[ 'iconFont_class_' . $i ]   = esc_html( $new_instance[ 'iconFont_class_' . $i ] );
+			$instance[ 'iconFont_bgColor_' . $i ] = esc_html( $new_instance[ 'iconFont_bgColor_' . $i ] );
 			$instance[ 'iconFont_bgType_' . $i ]  = $new_instance[ 'iconFont_bgType_' . $i ];
-			$instance[ 'summary_' . $i ]          = $new_instance[ 'summary_' . $i ];
-			$instance[ 'linkurl_' . $i ]          = $new_instance[ 'linkurl_' . $i ];
+			$instance[ 'summary_' . $i ]          = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ) );
+			$instance[ 'linkurl_' . $i ]          = esc_url( $new_instance[ 'linkurl_' . $i ] );
 			$instance[ 'blank_' . $i ]            = ( isset( $new_instance[ 'blank_' . $i ] ) && $new_instance[ 'blank_' . $i ] == 'true' );
 			$i++;
 		}
@@ -285,7 +285,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 				// title text
 				echo '<h1 class="prBlock_title">';
 				if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
-					echo $instance[ 'label_' . $i ];
+					echo wp_kses_post( $instance[ 'label_' . $i ] );
 				} else {
 					_e( 'PR Block', 'vk-all-in-one-expansion-unit' );
 				}
