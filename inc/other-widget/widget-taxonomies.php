@@ -55,7 +55,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); // 9.13.0.0
 
 					wp_list_categories( $tax_args );
-				} elseif ( 'pulldown' === $instance['form_design'] ) {
+				} elseif ( 'select' === $instance['form_design'] ) {
 					//
 					$tax_args = array(
 						'echo'              => 1,
@@ -97,35 +97,37 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		$instance = static::get_defaults( $instance );
 		$taxs     = get_taxonomies( array( 'public' => true ), 'objects' );
 		?>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label to display', 'vk-all-in-one-expansion-unit' ); ?></label>
-		<input type="text"  id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" ><br/>
-		<input type="hidden" name="<?php echo $this->get_field_name( 'hide' ); ?>" ><br/>
 
-		<label for="<?php echo $this->get_field_id( 'tax_name' ); ?>"><?php _e( 'Display page', 'vk-all-in-one-expansion-unit' ); ?></label>
-		<select name="<?php echo $this->get_field_name( 'tax_name' ); ?>" >
+		<!-- タイトル -->
+		<div style="margin-top:15px;">
+			<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label to display', 'vk-all-in-one-expansion-unit' ); ?>:</label>
+			<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>"  class="admin-custom-input">
+		</div>
 
-		<?php foreach ( $taxs as $tax ) { ?>
-			<option value="<?php echo $tax->name; ?>"
-										<?php
-										if ( $instance['tax_name'] == $tax->name ) {
-											echo 'selected="selected"'; }
-										?>
- ><?php echo $tax->labels->name; ?></option>
-		<?php } ?>
-		</select><br/><br/>
+		<input type="hidden" name="<?php echo $this->get_field_name( 'hide' ); ?>" >
 
-		<label for="<?php echo $this->get_field_id( 'form_design' ); ?>"><?php _e( 'Form Design', 'vk-all-in-one-expansion-unit' ); ?></label>
-		<select name="<?php echo $this->get_field_name( 'form_design' ); ?>" >
-			<option value="list" <?php selected( $instance['form_design'], 'list' ); ?>><?php _e( 'List', 'vk-all-in-one-expansion-unit' ); ?></option>
-			<option value="pulldown" <?php selected( $instance['form_design'], 'pulldown' ); ?>><?php _e( 'Pull Down', 'vk-all-in-one-expansion-unit' ); ?></option>
-		</select><br/><br/>
+		<!-- [ Select Taxonomy ] -->
+		<div>
+			<label for="<?php echo $this->get_field_id( 'tax_name' ); ?>"><?php _e( 'Category / Taxonomy', 'vk-all-in-one-expansion-unit' ); ?>:</label>
+			<select name="<?php echo $this->get_field_name( 'tax_name' ); ?>" class="admin-custom-input">
+				<?php foreach ( $taxs as $tax ) { ?>
+					<option value="<?php echo $tax->name; ?>"<?php if ( $instance['tax_name'] === $tax->name ) { echo ' selected="selected"'; } ?>>
+						<?php echo $tax->labels->name; ?>
+					</option>
+				<?php } ?>
+			</select>
+		</div>
 
-		<input type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true"
-												<?php
-												if ( $instance['hide_empty'] ) {
-													echo 'checked';}
-												?>
+		<!-- [ Form format ] -->
+		<div>
+			<label for="<?php echo $this->get_field_id( 'form_design' ); ?>"><?php _e( 'Display design', 'vk-all-in-one-expansion-unit' ); ?>:</label>
+			<select name="<?php echo $this->get_field_name( 'form_design' ); ?>" class="admin-custom-input">
+				<option value="list" <?php selected( $instance['form_design'], 'list' ); ?>><?php _e( 'Lists', 'vk-all-in-one-expansion-unit' ); ?></option>
+				<option value="select" <?php selected( $instance['form_design'], 'select' ); ?>><?php _e( 'Drop down', 'vk-all-in-one-expansion-unit' ); ?></option>
+			</select>
+		</div>
+
+		<input style="margin-top:3px" type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true"<?php if ( $instance['hide_empty'] ) { echo ' checked';} ?>
  />
 		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Do not display terms without posts', 'vk-all-in-one-expansion-unit' ); ?></label>
 		</p>
