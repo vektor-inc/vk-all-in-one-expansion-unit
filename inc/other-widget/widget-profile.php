@@ -356,9 +356,7 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 		echo PHP_EOL . '<div class="veu_profile">' . PHP_EOL;
 
 		if ( isset( $instance['label'] ) && $instance['label'] ) {
-			echo $args['before_title'];
-			echo $instance['label'];
-			echo $args['after_title'];
+			echo wp_kses_post( $args['before_title'] . $instance['label'] . $args['after_title'] );
 		}
 		?>
 <div class="profile" >
