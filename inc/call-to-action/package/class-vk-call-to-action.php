@@ -200,13 +200,15 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
 						if ( ! empty( $custom_field_name['escape_type'] ) ) {
 							if ( is_array( $custom_field_name['escape_type'] ) ) {
+								// エスケープ処理が複数ある場合
 								$data =  $_POST[ $custom_field_name ];
 								foreach ( $custom_field_name['escape_type'] as $escape ) {
 									$data = call_user_func( $escape, $data );
 								}
 							} else {
+								// エスケープ処理が一つの場合
 								$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
-							}							
+							}
 						} else {
 							$data = $_POST[ $custom_field_name ];
 						}
