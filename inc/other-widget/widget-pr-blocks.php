@@ -285,7 +285,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 				// title text
 				echo '<h1 class="prBlock_title">';
 				if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
-					echo $instance[ 'label_' . $i ];
+					echo wp_kses_post( $instance[ 'label_' . $i ] );
 				} else {
 					_e( 'PR Block', 'vk-all-in-one-expansion-unit' );
 				}
