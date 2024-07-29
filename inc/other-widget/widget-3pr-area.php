@@ -163,7 +163,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 
 				echo '<h1 class="subSection-title">';
 				if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
-					echo $instance[ 'label_' . $i ];
+					echo wp_kses_posts( $instance[ 'label_' . $i ] );
 				} else {
 					_e( '3PR area', 'vk-all-in-one-expansion-unit' );
 				}
