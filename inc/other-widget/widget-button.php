@@ -205,10 +205,10 @@ class WP_Widget_Button extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$opt                = array();
-		$opt['title']       = wp_kses_post( $new_instance['title'] );
+		$opt['title']       = wp_kses_post( stripslashes( $new_instance['title'] ) );
 		$opt['icon_before'] = wp_kses_post( $new_instance['icon_before'] );
 		$opt['icon_after']  = wp_kses_post( $new_instance['icon_after'] );
-		$opt['subtext']     = wp_kses_post( $new_instance['subtext'] );
+		$opt['subtext']     = wp_kses_post( stripslashes( $new_instance['subtext'] ) );
 		$opt['linkurl']     = esc_url( $new_instance['linkurl'] );
 		$opt['blank']       = ( isset( $new_instance['blank'] ) && $new_instance['blank'] == 'true' );
 		$opt['size']        = in_array( $new_instance['size'], array( 'sm', 'lg' ) ) ? $new_instance['size'] : 'md';

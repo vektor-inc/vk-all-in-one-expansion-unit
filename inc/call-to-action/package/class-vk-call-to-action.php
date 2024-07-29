@@ -172,7 +172,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_button_text'        => array(
-						'escape_type' => 'wp_kses_post',
+						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
 					),
 					'vkExUnit_cta_button_icon'        => array(
 						'escape_type' => 'wp_kses_post',
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_text'               => array(
-						'escape_type' => 'wp_kses_post',
+						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
 					),
 				);
 
@@ -198,8 +198,15 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
-						if ( ! empty( $custom_field_name['escape_type'] )  ) {
-							$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
+						if ( ! empty( $custom_field_name['escape_type'] ) ) {
+							if ( is_array( $custom_field_name['escape_type'] ) ) {
+								$data =  $_POST[ $custom_field_name ];
+								foreach ( $custom_field_name['escape_type'] as $escape ) {
+									$data = call_user_func( $escape, $data );
+								}
+							} else {
+								$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
+							}							
 						} else {
 							$data = $_POST[ $custom_field_name ];
 						}

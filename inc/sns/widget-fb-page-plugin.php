@@ -51,7 +51,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance              = $old_instance;
-		$instance['label']     = wp_kses_post( $new_instance['label'] );
+		$instance['label']     = wp_kses_post( stripslashes($new_instance['label'] ) );
 		$instance['page_url']  = esc_url( $new_instance['page_url'] );
 		$instance['height']    = esc_html( $new_instance['height'] );
 		$instance['showFaces'] = $new_instance['showFaces'];

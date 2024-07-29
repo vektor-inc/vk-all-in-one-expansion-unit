@@ -137,12 +137,12 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		$instance = $old_instance;
 
 		for ( $i = 1; $i <= 3; ) {
-			$instance[ 'label_' . $i ]              = wp_kses_post( $new_instance[ 'label_' . $i ] );
+			$instance[ 'label_' . $i ]              = wp_kses_post( stripslashes($new_instance[ 'label_' . $i ] ) );
 			$instance[ 'media_3pr_image_' . $i ]    = esc_url( $new_instance[ 'media_3pr_image_' . $i ] );
-			$instance[ 'media_3pr_alt_' . $i ]      = esc_html( $new_instance[ 'media_3pr_alt_' . $i ] );
+			$instance[ 'media_3pr_alt_' . $i ]      = esc_html( stripslashes( $new_instance[ 'media_3pr_alt_' . $i ] ) );
 			$instance[ 'media_3pr_image_sp_' . $i ] = esc_url( $new_instance[ 'media_3pr_image_sp_' . $i ] );
-			$instance[ 'media_3pr_alt_sp_' . $i ]   = esc_html( $new_instance[ 'media_3pr_alt_sp_' . $i ] );
-			$instance[ 'summary_' . $i ]            = wp_kses_post( $new_instance[ 'summary_' . $i ] );
+			$instance[ 'media_3pr_alt_sp_' . $i ]   = esc_html( stripslashes( $new_instance[ 'media_3pr_alt_sp_' . $i ] ) );
+			$instance[ 'summary_' . $i ]            = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ) );
 			$instance[ 'linkurl_' . $i ]            = esc_url( $new_instance[ 'linkurl_' . $i ] );
 			$instance[ 'blank_' . $i ]              = ( isset( $new_instance[ 'blank_' . $i ] ) && $new_instance[ 'blank_' . $i ] == 'true' );
 			$i++;

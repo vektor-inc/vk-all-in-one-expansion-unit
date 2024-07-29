@@ -181,10 +181,10 @@ $checked = ( isset( $instance['iconFont_bgType'] ) && $instance['iconFont_bgType
 	/*-------------------------------------------*/
 	function update( $new_instance, $old_instance ) {
 		$instance                    = $old_instance;
-		$instance['label']           = wp_kses_post( $new_instance['label'] );
+		$instance['label']           = wp_kses_post( stripslashes($new_instance['label'] ) );
 		$instance['mediaFile']       = esc_url( $new_instance['mediaFile'] );
-		$instance['mediaAlt']        = esc_html( $new_instance['mediaAlt'] );
-		$instance['profile']         = wp_kses_post( $new_instance['profile'] );
+		$instance['mediaAlt']        = esc_html( stripslashes( $new_instance['mediaAlt'] ) );
+		$instance['profile']         = wp_kses_post( stripslashes( $new_instance['profile'] ) );
 		$instance['mediaAlign_left'] = $new_instance['mediaAlign_left'];
 		$instance['mediaAlign']      = $new_instance['mediaAlign'];
 		$instance['mediaRound']      = $new_instance['mediaRound'];
