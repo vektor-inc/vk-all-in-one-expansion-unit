@@ -451,7 +451,7 @@ class VkExUnit_Contact {
 			}
 			$cont .= '<i class="' . $class . '"></i> ';
 
-			$cont .= $options['short_text'];
+			$cont .= wp_kses_post( $options['short_text'] );
 
 			// Arrow Icon
 			$class = 'far fa-arrow-alt-circle-right';
@@ -462,7 +462,7 @@ class VkExUnit_Contact {
 
 			$cont .= '</span>';
 			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
-				$cont .= '<span class="contact_bt_subTxt contact_bt_subTxt_side">' . $options['button_text_small'] . '</span>';
+				$cont .= '<span class="contact_bt_subTxt contact_bt_subTxt_side">' . wp_kses_post( $options['button_text_small'] ) . '</span>';
 			}
 			$cont .= '</a>';
 		}
