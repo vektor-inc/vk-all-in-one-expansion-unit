@@ -16,12 +16,12 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 
 	function widget( $args, $instance ) {
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 		echo '<div class="veu_fbPagePlugin">';
 		if ( isset( $instance['label'] ) && $instance['label'] ) {
-			echo $args['before_title'];
-			echo $instance['label'];
-			echo $args['after_title'];
+			echo wp_kses_post( $args['before_title'] );
+			echo wp_kses_post( $instance['label'] );
+			echo wp_kses_post( $args['after_title'] );
 		}
 
 		$page_url  = ( isset( $instance['page_url'] ) && $instance['page_url'] ) ? $instance['page_url'] : '';
@@ -32,10 +32,10 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		?>
 
 		<div class="fbPagePlugin_body">
-			<div class="fb-page" data-href="<?php echo $page_url; ?>" data-width="500"  data-height="<?php echo $height; ?>" data-hide-cover="<?php echo $hideCover; ?>" data-show-facepile="<?php echo $showFaces; ?>" data-show-posts="<?php echo $showPosts; ?>">
+			<div class="fb-page" data-href="<?php echo esc_url( $page_url ); ?>" data-width="500"  data-height="<?php echo esc_attr( $height ); ?>" data-hide-cover="<?php echo esc_attr( $hideCover ); ?>" data-show-facepile="<?php echo esc_attr( $showFaces ); ?>" data-show-posts="<?php echo esc_attr( $showPosts ); ?>">
 				<div class="fb-xfbml-parse-ignore">
 					<blockquote cite="<?php echo $page_url; ?>">
-					<a href="<?php echo $page_url; ?>">Facebook page</a>
+					<a href="<?php echo esc_url( $page_url ); ?>">Facebook page</a>
 					</blockquote>
 				</div>
 			</div>
@@ -43,7 +43,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 		<?php
 		echo '</div>';
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['after_widget'] );
 
 		veu_set_facebook_script();
 	} // widget($args, $instance)
