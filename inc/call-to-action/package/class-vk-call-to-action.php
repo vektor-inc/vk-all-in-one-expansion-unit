@@ -505,6 +505,91 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return $target;
 		}
 
+		/**
+		 * 許可する HTML
+		 */
+		public static function cta_allow_html() {
+			$allowed_html = array(
+				'div'  => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'h3' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h4' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h5' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h6' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'p'    => array(
+					'id'    => array(),
+					'class' => array(),
+					'style'     => array(),
+				),
+				'ul'   => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'ol'   => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'li'   => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'a'    => array(
+					'id'       => array(),
+					'class'    => array(),
+					'href'     => array(),
+					'target'   => array(),
+					'itemprop' => array(),
+					'style'     => array(),
+				),
+				'span' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'i'    => array(
+					'id'    => array(),
+					'class' => array(),
+				),
+			);
+			return $allowed_html;
+		}
 
 		/**
 		 * CTAとして返す内容の処理
@@ -552,7 +637,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			wp_reset_postdata();
 
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			return do_blocks( do_shortcode( wp_kses_post( $content ) ) );
+			return do_blocks( do_shortcode( wp_kses( $content, cta_allow_html() ) ) );
 		}
 
 		/**
@@ -724,7 +809,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// ↓ これであかんの？
 			// $output_option = wp_parse_args( $option, $default );
 			if ( ! $option || ! is_array( $option ) ) {
-				return $default; }
+				return $default; 
+			}
 
 			$posttypes = array_merge(
 				array(
