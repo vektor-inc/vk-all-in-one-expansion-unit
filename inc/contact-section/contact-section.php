@@ -243,7 +243,7 @@ class VkExUnit_Contact {
 	public function option_sanitaize( $option ) {
 		$option['contact_txt']       = wp_kses_post( stripslashes( $option['contact_txt'] ) );
 		$option['tel_number']        = wp_kses_post( stripslashes( $option['tel_number'] ) );
-		$option['tel_icon']          = wp_kses( $option['tel_icon'] , array( 'i' => array( 'class' => array(), 'aria-hidden' => array() )) );
+		$option['tel_icon']          = wp_kses( $option['tel_icon'] , array( 'i' => array( 'class' => array(), 'aria-hidden' => array() ) ) );
 		$option['contact_time']      = wp_kses_post( stripslashes( $option['contact_time'] ) );
 		$option['contact_link']      = esc_url ( $option['contact_link'] );
 		$option['button_text']       = wp_kses_post( stripslashes( $option['button_text'] ) );
