@@ -166,31 +166,31 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
-						'escape_type' => '',
+						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_img_position'       => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_button_text'        => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
 					),
 					'vkExUnit_cta_button_icon'        => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon_before' => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon_after'  => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_url'                => array(
-						'escape_type' => '',
+						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_url_blank'          => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_text'               => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
 					),
 				);
 
@@ -198,8 +198,17 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
-						if ( isset( $custom_field_name['escape_type'] ) && $custom_field_name['escape_type'] == 'stripslashes' ) {
-							$data = stripslashes( $_POST[ $custom_field_name ] );
+						if ( ! empty( $custom_field_name['escape_type'] ) ) {
+							if ( is_array( $custom_field_name['escape_type'] ) ) {
+								// エスケープ処理が複数ある場合
+								$data =  $_POST[ $custom_field_name ];
+								foreach ( $custom_field_name['escape_type'] as $escape ) {
+									$data = call_user_func( $escape, $data );
+								}
+							} else {
+								// エスケープ処理が一つの場合
+								$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
+							}
 						} else {
 							$data = $_POST[ $custom_field_name ];
 						}
@@ -462,8 +471,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			'itemtype'  => array(),
 		),
 		'i'    => array(
-			'id'    => array(),
-			'class' => array(),
+			'id'          => array(),
+			'class'       => array(),
+			'aria-hidden' => array()
 		),
 	);
 	?>
@@ -498,6 +508,92 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return $target;
 		}
 
+		/**
+		 * 許可する HTML
+		 */
+		public static function cta_allow_html() {
+			$allowed_html = array(
+				'div'  => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'h3' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h4' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h5' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h6' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'p'    => array(
+					'id'    => array(),
+					'class' => array(),
+					'style'     => array(),
+				),
+				'ul'   => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'ol'   => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'li'   => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'a'    => array(
+					'id'       => array(),
+					'class'    => array(),
+					'href'     => array(),
+					'target'   => array(),
+					'itemprop' => array(),
+					'style'     => array(),
+				),
+				'span' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'i'    => array(
+					'id'          => array(),
+					'class'       => array(),
+					'aria-hidden' => array()
+				),
+			);
+			return $allowed_html;
+		}
 
 		/**
 		 * CTAとして返す内容の処理
@@ -545,7 +641,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			wp_reset_postdata();
 
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			return do_blocks( do_shortcode( $content ) );
+			return do_blocks( do_shortcode( wp_kses( $content, cta_allow_html() ) ) );
 		}
 
 		/**
@@ -717,7 +813,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// ↓ これであかんの？
 			// $output_option = wp_parse_args( $option, $default );
 			if ( ! $option || ! is_array( $option ) ) {
-				return $default; }
+				return $default; 
+			}
 
 			$posttypes = array_merge(
 				array(

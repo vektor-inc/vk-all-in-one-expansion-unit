@@ -241,16 +241,16 @@ class VkExUnit_Contact {
 	}
 
 	public function option_sanitaize( $option ) {
-		$option['contact_txt']       = stripslashes( $option['contact_txt'] );
-		$option['tel_number']        = stripslashes( $option['tel_number'] );
-		$option['tel_icon']          = stripslashes( $option['tel_icon'] );
-		$option['contact_time']      = stripslashes( $option['contact_time'] );
-		$option['contact_link']      = stripslashes( $option['contact_link'] );
-		$option['button_text']       = stripslashes( $option['button_text'] );
-		$option['button_text_small'] = stripslashes( $option['button_text_small'] );
-		$option['short_text']        = stripslashes( $option['short_text'] );
+		$option['contact_txt']       = wp_kses_post( stripslashes( $option['contact_txt'] ) );
+		$option['tel_number']        = wp_kses_post( stripslashes( $option['tel_number'] ) );
+		$option['tel_icon']          = wp_kses( $option['tel_icon'] , array( 'i' => array( 'class' => array(), 'aria-hidden' => array() ) ) );
+		$option['contact_time']      = wp_kses_post( stripslashes( $option['contact_time'] ) );
+		$option['contact_link']      = esc_url ( $option['contact_link'] );
+		$option['button_text']       = wp_kses_post( stripslashes( $option['button_text'] ) );
+		$option['button_text_small'] = wp_kses_post( stripslashes( $option['button_text_small'] ) );
+		$option['short_text']        = wp_kses_post( stripslashes( $option['short_text'] ) );
 		$option['contact_image']     = esc_url( $option['contact_image'] );
-		$option['contact_html']      = stripslashes( $option['contact_html'] );
+		$option['contact_html']      = wp_kses_post( stripslashes( $option['contact_html'] ) );
 		return $option;
 	}
 
@@ -451,7 +451,7 @@ class VkExUnit_Contact {
 			}
 			$cont .= '<i class="' . $class . '"></i> ';
 
-			$cont .= $options['short_text'];
+			$cont .= wp_kses_post( $options['short_text'] );
 
 			// Arrow Icon
 			$class = 'far fa-arrow-alt-circle-right';
@@ -462,7 +462,7 @@ class VkExUnit_Contact {
 
 			$cont .= '</span>';
 			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
-				$cont .= '<span class="contact_bt_subTxt contact_bt_subTxt_side">' . $options['button_text_small'] . '</span>';
+				$cont .= '<span class="contact_bt_subTxt contact_bt_subTxt_side">' . wp_kses_post( $options['button_text_small'] ) . '</span>';
 			}
 			$cont .= '</a>';
 		}

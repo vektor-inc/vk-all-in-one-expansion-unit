@@ -109,8 +109,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			/*******************************************
 			 * Supports(Required)
 			 */
-			echo '<h4>' . esc_html__( 'Supports(Required)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			echo '<h4>' . esc_html__( 'Supports ( Required )', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			$post_type_items_value = get_post_meta( $post->ID, 'veu_post_type_items', true );
+
 			echo '<ul>';
 			foreach ( $post_type_items_array as $key => $label ) {
 				$checked = ( isset( $post_type_items_value[ $key ] ) && $post_type_items_value[ $key ] ) ? ' checked' : '';
@@ -323,33 +324,42 @@ document.addEventListener("DOMContentLoaded", function () {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return $post_id;
 			}
+			
+			$post_type_id            = ! empty( $_POST['veu_post_type_id'] )            ? esc_html( strip_tags( $_POST['veu_post_type_id'] ) )  : '';
+			$post_type_items         = ! empty( $_POST['veu_post_type_items'] )         ? $_POST['veu_post_type_items']                         : '';
+			$menu_posttion           = ! empty( $_POST['veu_menu_position'] )           ? esc_html( strip_tags( $_POST['veu_menu_position'] ) ) : '';
+			$menu_icon               = ! empty( $_POST['veu_menu_icon'] )               ? esc_html( strip_tags( $_POST['veu_menu_icon'] ) )     : '';
+			$post_type_export_to_api = ! empty( $_POST['veu_post_type_export_to_api'] ) ? esc_html( $_POST['veu_post_type_export_to_api'] )     : '';
+			$post_type_rewrite       = ! empty( $_POST['veu_post_type_rewrite'] )       ? esc_html( $_POST['veu_post_type_rewrite'] )           : '';
+			
+			if ( ! empty ( $_POST['veu_taxonomy'] ) ) {
+				$taxonomy      = $_POST['veu_taxonomy'];
 
-				// 保存しているカスタムフィールド.
+				for ( $i = 1; $i <= apply_filters( 'veu_post_type_taxonomies', 5 ); $i++ ) {
+					$taxonomy[$i]['slug']     = ! empty( $taxonomy[$i]['slug'] )     ? esc_html( strip_tags( $taxonomy[$i]['slug'] ) )  : '';
+					$taxonomy[$i]['label']    = ! empty( $taxonomy[$i]['label'] )    ? esc_html( strip_tags( $taxonomy[$i]['label'] ) ) : '';
+					$taxonomy[$i]['tag']      = ! empty( $taxonomy[$i]['tag'] )      ? esc_html( $taxonomy[$i]['tag'] )                 : '';
+					$taxonomy[$i]['rest_api'] = ! empty( $taxonomy[$i]['rest_api'] ) ? esc_html( $taxonomy[$i]['rest_api'] )            : '';						
+				}
+			}
+
+			// 保存しているカスタムフィールド.
 			$fields = array(
-				'veu_post_type_id',
-				'veu_post_type_items',
-				'veu_menu_position',
-				'veu_menu_icon',
-				'veu_post_type_export_to_api',
-				'veu_post_type_rewrite',
-				'veu_taxonomy',
+				'veu_post_type_id'            => $post_type_id,
+				'veu_post_type_items'         => $post_type_items,
+				'veu_menu_position'           => $menu_posttion,
+				'veu_menu_icon'               => $menu_icon,
+				'veu_post_type_export_to_api' => $post_type_export_to_api,
+				'veu_post_type_rewrite'       => $post_type_rewrite,
+				'veu_taxonomy'                => $taxonomy,
 			);
 
-			foreach ( $fields as $key => $field ) {
-					$field_value = ( isset( $_POST[ $field ] ) ) ? $_POST[ $field ] : '';
-
-					// データが空だったら入れる.
-				if ( get_post_meta( $post_id, $field ) == '' ) {
-					add_post_meta( $post_id, $field, $field_value, true );
-
-					// 今入ってる値と違ってたらアップデートする.
-				} elseif ( get_post_meta( $post_id, $field, true ) !== $field_value ) {
-					update_post_meta( $post_id, $field, $field_value );
-
-					// 入力がなかったら消す.
-				} elseif ( '' === $field_value ) {
-					delete_post_meta( $post_id, $field, get_post_meta( $post_id, $field, true ) );
-				}
+			foreach ( $fields as $field_name => $field_value ) {
+				if ( ! empty( $field_value ) ) {
+					update_post_meta( $post_id, $field_name, $field_value );
+				} else {
+					delete_post_meta(  $post_id, $field_name );
+				}				
 			}
 
 			// リライトルールを更新するように.

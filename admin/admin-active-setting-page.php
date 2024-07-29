@@ -41,8 +41,8 @@ foreach ( $vkExUnit_packages as $package ) :
 ?>
 " >
 			<th scope='row' class='check-column'>
-				<label class='screen-reader-text' for='checkbox_active_<?php echo $package['name']; ?>' ><?php echo $package['title']; ?></label>
-				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo $package['name']; ?>]" id="checkbox_active_<?php echo $package['name']; ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
+				<label class='screen-reader-text' for='checkbox_active_<?php echo esc_attr( $package['name'] ); ?>' ><?php echo esc_html( $package['title'] ); ?></label>
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo asc_attr( $package['name'] ); ?>]" id="checkbox_active_<?php echo esc_attr( $package['name'] ); ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
 																						<?php
 																						if ( $active ) {
 																							echo 'checked'; }
@@ -50,7 +50,7 @@ foreach ( $vkExUnit_packages as $package ) :
  />
 			</th>
 			<td class='plugin-title'>
-				<label for='checkbox_active_<?php echo $package['name']; ?>'><strong><?php echo $package['title']; ?></strong></label>
+				<label for='checkbox_active_<?php echo esc_attr( $package['name'] ); ?>'><strong><?php echo esc_html( $package['title'] ); ?></strong></label>
 
 				<?php
 				$count = '';
@@ -66,8 +66,8 @@ foreach ( $vkExUnit_packages as $package ) :
 				?>
 				<?php echo ( $count > 1 && $i >= 1 ) ? ' | ' : ''; ?>
 				<span>
-				<a href="<?php echo ( $att['url'] ) ? $att['url'] : admin_url() . 'admin.php?page=vkExUnit_main_setting'; ?>">
-				<?php echo $att['name']; ?>
+				<a href="<?php echo ( $att['url'] ) ? esc_html( $att['url'] ) : admin_url() . 'admin.php?page=vkExUnit_main_setting'; ?>">
+				<?php echo esc_html( $att['name'] ); ?>
 				</a></span>
 
 				<?php
@@ -82,9 +82,9 @@ foreach ( $vkExUnit_packages as $package ) :
 					<?php
 					if ( is_array( $package['description'] ) ) :
 						foreach ( $package['description'] as $desk ) {
-							echo $desk; } else :
+							echo wp_kses_post( $desk ); } else :
 													?>
-												<p><?php echo $package['description']; ?></p>
+												<p><?php echo wp_kses_post( $package['description'] ); ?></p>
 												<?php endif; ?>
 				</div><!-- [ /.plugin-description ] -->
 			</td>

@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Fix XSS of Widgets, CTA, Custom Post Type Manager.
+
 = 9.99.0 =
 [ Specification Change ] Foce Load JS from footer is abolished.
 [ Specification Change ] Add #top on body for pagetop btn
