@@ -81,11 +81,12 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Page top button ] Add #top on body for pagetop btn
+[ Specification Change ][ Taxonomy Widget ] Add dropdown mode. 
 [ Bug fix ] Fix XSS of Widgets, CTA, Custom Post Type Manager.
 
 = 9.99.0 =
 [ Specification Change ] Foce Load JS from footer is abolished.
-[ Specification Change ] Add #top on body for pagetop btn
 [ Fix ] Add a title attribute on  Google Tag Manager (noscript)
 
 = 9.98.1 =
