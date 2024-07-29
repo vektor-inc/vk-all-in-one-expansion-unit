@@ -85,6 +85,7 @@ e.g.
 
 = 9.99.0 =
 [ Specification Change ] Foce Load JS from footer is abolished.
+[ Specification Change ] Add #top on body for pagetop btn
 [ Fix ] Add a title attribute on  Google Tag Manager (noscript)
 
 = 9.98.1 =
