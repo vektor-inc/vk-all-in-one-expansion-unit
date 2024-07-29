@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.100.0 =
 [ Specification Change ][ Page top button ] Add #top on body for pagetop btn
 [ Specification Change ][ Taxonomy Widget ] Add dropdown mode. 
 [ Bug fix ] Fix XSS of Widgets, CTA, Custom Post Type Manager.
