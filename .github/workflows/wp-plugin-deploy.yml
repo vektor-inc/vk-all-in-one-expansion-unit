@@ -48,11 +48,11 @@ jobs:
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
       with:
-          node-version: 14.19.0
+          node-version: 20.15.0
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-          php-version: 7.4
+          php-version: 8.1
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
