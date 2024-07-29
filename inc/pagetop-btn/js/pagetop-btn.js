@@ -14,27 +14,27 @@
 	var exist_id = document.body.id;
 	if(exist_id){
 		//  use existing body ID
-		var body_id = exist_id.split(' ');
-		if (!body_id.find(item => item === 'top')){
-			document.getElementById('page_top').href = '#' + body_id[0];
+		if (exist_id !== 'top'){
+			document.getElementById('page_top').href = '#' + exist_id;
 		}
-	}
-	else{
+	} else{
 		// add #top on body
-		let new_id = 'top';
+		let newBodyId = 'top';
 
 		// check double ID
 		let i = 0;
 		const allElements = document.querySelectorAll('*');		
-		while (Array.from(allElements).some(element => element.id === new_id)) {
-			new_id = `top`;
+		// 既存のHTML内に newBodyId の値と同じ id がある場合
+		while (Array.from(allElements).some(element => element.id === newBodyId)) {
+			newBodyId = `top`;
 			if( 0 < i ){
-				new_id += `-${i}`;
+				newBodyId += `-${i}`;
 			}
-			document.getElementById('page_top').href = '#' + new_id;
+			// page_top のリンク先を変更
+			document.getElementById('page_top').href = '#' + newBodyId;
 			i++;
-		}		
+		}
 
-		document.body.id = new_id;
+		document.body.id = newBodyId;
 	}
 })(window, document, 'ready');   
