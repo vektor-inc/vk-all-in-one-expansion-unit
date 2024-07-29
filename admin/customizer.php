@@ -65,7 +65,7 @@ function veu_customize_register_add_control() {
 		  <input type="text" value="<?php echo esc_attr( $this->value() ); ?>"<?php echo $style; ?> <?php $this->link(); ?> />
 			<?php echo wp_kses_post( $this->input_after ); ?>
 		  </div>
-		  <span><?php echo $this->description; ?></span>
+		  <span><?php echo wp_kses_post( $this->description ); ?></span>
 		</label>
 			<?php
 		} // public function render_content() {

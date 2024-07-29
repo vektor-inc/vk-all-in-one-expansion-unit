@@ -190,7 +190,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	// 保存・更新する値
 	function update( $new_instance, $old_instance ) {
 		$instance                       = $old_instance;
-		$instance['title']              = $new_instance['title'];
+		$instance['title']              = wp_kses_post( stripslashes( $new_instance['title'] ) );
 		$instance['page_id']            = $new_instance['page_id'];
 		$instance['set_title']          = $new_instance['set_title'];
 		$instance['child_page_index']   = $new_instance['child_page_index'];
@@ -233,7 +233,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 		echo PHP_EOL . '<div id="widget-page-' . $pageid . '" class="widget_pageContent entry-body">' . PHP_EOL;
 		if ( $widget_title['display'] ) {
-			echo $args['before_title'] . $widget_title['title'] . $args['after_title'] . PHP_EOL;
+			echo wp_kses_post( $args['before_title'] . $widget_title['title'] . $args['after_title'] ) . PHP_EOL;
 		}
 		echo apply_filters( 'the_content', $page->post_content );
 

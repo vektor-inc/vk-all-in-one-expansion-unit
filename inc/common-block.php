@@ -52,6 +52,7 @@ function veu_block_deprecated_alart() {
 
 		$text .= '</ol>';
 		$text .= '</div>';
+		// 入力由来でないのでエスケープ不要
 		echo $text;
 	}
 }
