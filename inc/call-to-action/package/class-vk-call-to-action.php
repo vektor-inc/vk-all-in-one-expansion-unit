@@ -513,12 +513,30 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		 */
 		public static function cta_allow_html() {
 			$allowed_html = array(
+				'section'  => array(
+					'id'        => array(),
+					'class'     => array(),
+					'itemprop'  => array(),
+					'itemscope' => array(),
+					'itemtype'  => array(),
+					'style'     => array(),
+				),
 				'div'  => array(
 					'id'        => array(),
 					'class'     => array(),
 					'itemprop'  => array(),
 					'itemscope' => array(),
 					'itemtype'  => array(),
+					'style'     => array(),
+				),
+				'h1' => array(
+					'id'        => array(),
+					'class'     => array(),
+					'style'     => array(),
+				),
+				'h2' => array(
+					'id'        => array(),
+					'class'     => array(),
 					'style'     => array(),
 				),
 				'h3' => array(
@@ -576,7 +594,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'href'     => array(),
 					'target'   => array(),
 					'itemprop' => array(),
-					'style'     => array(),
+					'style'    => array(),
+					'role'     => array(),
+					'rel'      => array(),
 				),
 				'span' => array(
 					'id'        => array(),
@@ -641,7 +661,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			wp_reset_postdata();
 
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			return do_blocks( do_shortcode( wp_kses( $content, array( __CLASS__, 'cta_allow_html' ) ) ) );
+			$allow_html = Vk_Call_To_Action::cta_allow_html();
+			return wp_kses( do_blocks( do_shortcode(  $content ) ), $allow_html );
 		}
 
 		/**
