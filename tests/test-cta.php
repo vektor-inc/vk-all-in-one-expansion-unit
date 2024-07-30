@@ -105,7 +105,7 @@ class CTATest extends WP_UnitTestCase {
 		);
 		$test_posts['cta_post_id'] = wp_insert_post( $post );
 
-		// テスト用のCTAを作成
+		// テスト用のページを作成
 		$page                      = array(
 			'post_title'   => 'Page',
 			'post_type'    => 'Page',
@@ -181,4 +181,55 @@ class CTATest extends WP_UnitTestCase {
 			$this->assertEquals( $test_value['expected'], $actual );
 		}
 	}
+
+	/**
+	 * Test render_cta_content()
+	 *
+	 * @return void
+	 */
+	function test_render_cta_content() {
+		$test_posts = array();
+
+		// テスト用のCTAを作成
+		$cta_post                      = array(
+			'post_title'   => 'cta_published',
+			'post_type'    => 'cta',
+			'post_status'  => 'publish',
+			'post_content' => 'CTA content',
+		);
+		$test_posts['cta_post_id'] = wp_insert_post( $cta_post );
+
+		// テスト配列
+		$test_array = array(
+			'normal text'                    => array(
+				'cta_content' => 'cta',
+				'expected'   => 'cta',
+			),
+			'xss test'                    => array(
+				'cta_content' => '"><script>alert(0)</script>',
+				'expected'   => '"&gt;alert(0)',
+			),
+		);
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_render_cta_content' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		$content = '';
+		foreach ( $test_array as $key => $value ) {
+			// $test_posts['cta_post_id'] の投稿の post_content の中身を $value['cta_content'] で上書きする
+			wp_update_post(
+				array(
+					'ID'           => $test_posts['cta_post_id'],
+					'post_content' => $value['cta_content'],
+				)
+			);
+
+			$actual = Vk_Call_To_Action::render_cta_content( $test_posts['cta_post_id'] );
+			print 'expected ::' . $value['expected'] . PHP_EOL;
+			print 'actual ::::' . $actual . PHP_EOL;
+			$this->assertEquals( $value['expected'], $actual );
+		}
+	}
+
 }
