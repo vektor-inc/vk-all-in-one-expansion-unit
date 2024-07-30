@@ -190,7 +190,6 @@ class CTATest extends WP_UnitTestCase {
 	function test_render_cta_content() {
 		$test_posts = array();
 
-
 		// テスト用のCTAを作成
 		$cta_post                      = array(
 			'post_title'   => 'cta_published',
@@ -206,7 +205,7 @@ class CTATest extends WP_UnitTestCase {
 				'cta_content' => 'cta',
 				'expected'   => 'cta',
 			),
-			'normal text'                    => array(
+			'xss test'                    => array(
 				'cta_content' => '"><script>alert(0)</script>',
 				'expected'   => '"&gt;alert(0)',
 			),
