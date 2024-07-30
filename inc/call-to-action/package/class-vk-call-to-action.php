@@ -626,7 +626,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			$cta_content = $cta_post->post_content;
 			if ( $cta_content && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
 				$content = $cta_content;
-				// $content = 'aaavvv';
 			} else {
 				// 旧 CTA レイアウト.
 				include dirname( __FILE__ ) . '/view-actionbox.php';
