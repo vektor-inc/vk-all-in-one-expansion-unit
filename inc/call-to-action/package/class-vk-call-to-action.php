@@ -641,7 +641,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			wp_reset_postdata();
 
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			return do_blocks( do_shortcode( wp_kses( $content, cta_allow_html() ) ) );
+			return do_blocks( do_shortcode( wp_kses( $content, array( __CLASS__, 'cta_allow_html' ) ) ) );
 		}
 
 		/**

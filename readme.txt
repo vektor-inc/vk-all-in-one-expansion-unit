@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ CTA ] Fix Uncaught Error
+
 = 9.99.0 =
 [ Specification Change ][ Page top button ] Add #top on body for pagetop btn
 [ Specification Change ][ Taxonomy Widget ] Add dropdown mode. 
