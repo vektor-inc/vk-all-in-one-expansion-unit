@@ -227,6 +227,16 @@ class CTATest extends WP_UnitTestCase {
 				),
 				'expected'   => '<section class="veu_cta" id="veu_cta-'. $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
+			'classic CTA XSS test'                    => array(
+				'cta_title' => 'Classic Title',
+				'cta_content' => '',
+				'post_meta' => array(
+					'vkExUnit_cta_text' => '"><script>alert(0)</script>',
+					'vkExUnit_cta_button_text' => '"><script>alert(0)</script>',
+					'vkExUnit_cta_url' => 'https://example.com'
+				),
+				'expected'   => '<section class="veu_cta" id="veu_cta-'. $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+			),
 		);
 
 		print PHP_EOL;

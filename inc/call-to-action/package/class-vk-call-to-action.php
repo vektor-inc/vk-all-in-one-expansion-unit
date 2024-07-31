@@ -406,85 +406,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
 </th>
 <td>
-	<?php
-	$allowed_html    = array(
-		'div'  => array(
-			'id'        => array(),
-			'class'     => array(),
-			'itemprop'  => array(),
-			'itemscope' => array(),
-			'itemtype'  => array(),
-		),
-		'h3' => array(
-			'id'        => array(),
-			'class'     => array(),
-		),
-		'h4' => array(
-			'id'        => array(),
-			'class'     => array(),
-		),
-		'h5' => array(
-			'id'        => array(),
-			'class'     => array(),
-		),
-		'h6' => array(
-			'id'        => array(),
-			'class'     => array(),
-		),
-		'p'    => array(
-			'id'    => array(),
-			'class' => array(),
-		),
-		'ul'   => array(
-			'id'        => array(),
-			'class'     => array(),
-			'itemprop'  => array(),
-			'itemscope' => array(),
-			'itemtype'  => array(),
-		),
-		'ol'   => array(
-			'id'        => array(),
-			'class'     => array(),
-			'itemprop'  => array(),
-			'itemscope' => array(),
-			'itemtype'  => array(),
-		),
-		'li'   => array(
-			'id'        => array(),
-			'class'     => array(),
-			'itemprop'  => array(),
-			'itemscope' => array(),
-			'itemtype'  => array(),
-		),
-		'a'    => array(
-			'id'       => array(),
-			'class'    => array(),
-			'href'     => array(),
-			'target'   => array(),
-			'itemprop' => array(),
-		),
-		'span' => array(
-			'id'        => array(),
-			'class'     => array(),
-			'itemprop'  => array(),
-			'itemscope' => array(),
-			'itemtype'  => array(),
-		),
-		'i'    => array(
-			'id'          => array(),
-			'class'       => array(),
-			'aria-hidden' => array()
-		),
-	);
-	?>
+<?php $allowed_html = Vk_Call_To_Action::allowed_html(); ?>
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ), $allowed_html ); ?></textarea>
 </td></tr>
 </table>
 <a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
 			<?php
 		}
-
-
 
 		/**
 		 * Get CTA Post
@@ -511,7 +439,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		/**
 		 * 許可する HTML
 		 */
-		public static function cta_allow_html() {
+		public static function allowed_html() {
 			$allowed_html = array(
 				'section'  => array(
 					'id'        => array(),
@@ -604,12 +532,28 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'itemprop'  => array(),
 					'itemscope' => array(),
 					'itemtype'  => array(),
-					'style'     => array(),
+					'style'     => array(
+						'opacity' => array(),
+					),
 				),
 				'i'    => array(
 					'id'          => array(),
 					'class'       => array(),
 					'aria-hidden' => array()
+				),
+				'style'    => array(
+					'type'          => array(),
+				),
+				'svg'    => array(
+					'xmlns' 	   => array(),
+					'viewBox' 	   => array(),
+					'preserveAspectRatio' 	   => array(),
+				),
+				'path'    => array(
+					'd' 	   => array(),
+					'fill' 	   => array(),
+					'class' 	   => array(),
+					'stroke-width' 	   => array(),
 				),
 			);
 			return $allowed_html;
@@ -660,9 +604,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.
 			wp_reset_postdata();
 
-			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			$allow_html = Vk_Call_To_Action::cta_allow_html();
-			return wp_kses( do_blocks( do_shortcode(  $content ) ), $allow_html );
+			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化されるので使わないように.
+			// 出力時にエスケープしたいが、wp_kses_post だと style属性が無効化される / wp_kses でも allow_html で opacity を許可しても無視・削除される。
+			// 結局本文欄はどのみち HTML ブロックで <script>alert(0)</script> 入れられ標準でXSSは実行可能なので、ここでは処理していない。
+			return do_blocks( do_shortcode(  $content ) );
 		}
 
 		/**
