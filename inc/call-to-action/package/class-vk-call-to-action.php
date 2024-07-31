@@ -406,8 +406,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
 </th>
 <td>
-<?php $allowed_html = Vk_Call_To_Action::allowed_html(); ?>
-<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ), $allowed_html ); ?></textarea>
+<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses_post( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ) ); ?></textarea>
 </td></tr>
 </table>
 <a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
@@ -434,127 +433,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			$target = $query->posts[0];
 			wp_reset_postdata();
 			return $target;
-		}
-
-		/**
-		 * 許可する HTML
-		 */
-		public static function allowed_html() {
-			$allowed_html = array(
-				'section'  => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-					'style'     => array(),
-				),
-				'div'  => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-					'style'     => array(),
-				),
-				'h1' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'style'     => array(),
-				),
-				'h2' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'style'     => array(),
-				),
-				'h3' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'style'     => array(),
-				),
-				'h4' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'style'     => array(),
-				),
-				'h5' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'style'     => array(),
-				),
-				'h6' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'style'     => array(),
-				),
-				'p'    => array(
-					'id'    => array(),
-					'class' => array(),
-					'style'     => array(),
-				),
-				'ul'   => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-					'style'     => array(),
-				),
-				'ol'   => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-					'style'     => array(),
-				),
-				'li'   => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-					'style'     => array(),
-				),
-				'a'    => array(
-					'id'       => array(),
-					'class'    => array(),
-					'href'     => array(),
-					'target'   => array(),
-					'itemprop' => array(),
-					'style'    => array(),
-					'role'     => array(),
-					'rel'      => array(),
-				),
-				'span' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-					'style'     => array(),
-				),
-				'i'    => array(
-					'id'          => array(),
-					'class'       => array(),
-					'aria-hidden' => array()
-				),
-				'style'    => array(
-					'type'          => array(),
-				),
-				'svg'    => array(
-					'xmlns' 	   => array(),
-					'viewBox' 	   => array(),
-					'preserveAspectRatio' 	   => array(),
-				),
-				'path'    => array(
-					'd' 	   => array(),
-					'fill' 	   => array(),
-					'class' 	   => array(),
-					'stroke-width' 	   => array(),
-				),
-			);
-			return $allowed_html;
 		}
 
 		/**
