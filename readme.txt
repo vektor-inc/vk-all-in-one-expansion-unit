@@ -81,7 +81,11 @@ e.g.
 
 == Changelog ==
 
-[ Bug fix ][ CTA ] Fix Uncaught Error
+= 9.99.2 =
+[ Bug fix ] Fix the layout issue of the CTA
+
+= 9.99.1 =
+[ Bug fix ] Roll back to 9.98.1
 
 = 9.99.0 =
 [ Specification Change ][ Page top button ] Add #top on body for pagetop btn
