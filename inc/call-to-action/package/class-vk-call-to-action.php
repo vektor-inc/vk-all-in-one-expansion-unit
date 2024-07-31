@@ -532,9 +532,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'itemprop'  => array(),
 					'itemscope' => array(),
 					'itemtype'  => array(),
-					'style'     => array(
-						'opacity' => array(),
-					),
+					'style'     => array(),
 				),
 				'i'    => array(
 					'id'          => array(),
