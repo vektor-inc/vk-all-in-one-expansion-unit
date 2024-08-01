@@ -603,11 +603,11 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			$this->go_to( $test['target_url'] );
 			$return  = vk_get_page_description();
 			$correct = $test['correct'];
-			print PHP_EOL;
-			print 'Name    : ' . $test['test_name'] . PHP_EOL;
-			print 'url     : ' . $test['target_url'] . PHP_EOL;
-			print 'return  : ' . $return . PHP_EOL;
-			print 'correct : ' . $correct . PHP_EOL;
+			// print PHP_EOL;
+			// print 'Name    : ' . $test['test_name'] . PHP_EOL;
+			// print 'url     : ' . $test['target_url'] . PHP_EOL;
+			// print 'return  : ' . $return . PHP_EOL;
+			// print 'correct : ' . $correct . PHP_EOL;
 
 			$this->assertEquals( $correct, $return );
 

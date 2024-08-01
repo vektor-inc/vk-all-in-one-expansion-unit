@@ -93,9 +93,9 @@ class InsertItemMetaBoxDisplayTest extends WP_UnitTestCase {
 
 			print PHP_EOL;
 
-			print $_SERVER['REQUEST_URI'] . PHP_EOL;
-			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			// print $_SERVER['REQUEST_URI'] . PHP_EOL;
+			// print 'correct ::::' . $test_value['correct'] . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
 
 			// テスト用投稿を削除
 			if ( ! empty( $posted_id ) ) {

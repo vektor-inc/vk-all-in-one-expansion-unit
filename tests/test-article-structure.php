@@ -282,8 +282,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			$return = VK_Article_Srtuctured_Data::get_article_structure_array();
 			$correct = $test_value['correct'];
 
-			print PHP_EOL;
-
+			// print PHP_EOL;
 			// print 'correct ::::' . $test_value['correct'] . PHP_EOL;
 			// print 'return  ::::' . $return['author'] . PHP_EOL;
 

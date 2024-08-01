@@ -57,11 +57,11 @@ class ChangeOldOptionsTest extends WP_UnitTestCase {
 
 			$this->assertEquals( $correct, $return );
 
-			print PHP_EOL;
-			print 'correct ::::' . PHP_EOL;
-			var_dump( $correct );
-			print 'return  ::::' . PHP_EOL;
-			var_dump( $return );
+			// print PHP_EOL;
+			// print 'correct ::::' . PHP_EOL;
+			// var_dump( $correct );
+			// print 'return  ::::' . PHP_EOL;
+			// var_dump( $return );
 
 		}
     }

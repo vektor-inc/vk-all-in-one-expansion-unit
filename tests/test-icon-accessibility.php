@@ -62,9 +62,9 @@ class IconAccessibilityTest extends WP_UnitTestCase {
 
 			$this->assertEquals( $test_value['correct'], $return );
 
-			print PHP_EOL;
-			print 'correct :' . $test_value['correct'] . PHP_EOL;
-			print 'return  :' . $return . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct :' . $test_value['correct'] . PHP_EOL;
+			// print 'return  :' . $return . PHP_EOL;
 		}
 	}
 

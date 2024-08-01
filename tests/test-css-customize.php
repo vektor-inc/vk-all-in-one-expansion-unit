@@ -140,8 +140,8 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			// 返ってきた値と期待する結果が同じかどうかテスト
 			$this->assertEquals( $value['correct'], $return );
 
-			print 'return  :' . $return . PHP_EOL;
-			print 'correct :' . $value['correct'] . PHP_EOL;
+			// print 'return  :' . $return . PHP_EOL;
+			// print 'correct :' . $value['correct'] . PHP_EOL;
 
 			// テスト用データを消去
 			wp_delete_post( $post_id, true );

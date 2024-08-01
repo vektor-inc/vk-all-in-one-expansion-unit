@@ -126,11 +126,11 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 			$return  = veu_get_common_options_default( $test_value['is_block_theme'] );
 			$correct = $test_value['correct'];
 
-			print PHP_EOL;
-			print 'correct :' . PHP_EOL;
-			var_dump( $correct );
-			print 'return  :' . PHP_EOL;
-            var_dump( $return );
+			// print PHP_EOL;
+			// print 'correct :' . PHP_EOL;
+			// var_dump( $correct );
+			// print 'return  :' . PHP_EOL;
+            // var_dump( $return );
 
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $correct, $return );
