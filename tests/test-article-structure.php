@@ -115,12 +115,12 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			$return = VK_Article_Srtuctured_Data::get_author_array( $user_id );
 			$correct = $test_value['correct'];
 
-			print PHP_EOL;
+			// print PHP_EOL;
 
-			print 'correct ::::' . PHP_EOL;
-			var_dump( $correct );
-			print 'return  ::::' . PHP_EOL;
-			var_dump( $return );
+			// print 'correct ::::' . PHP_EOL;
+			// var_dump( $correct );
+			// print 'return  ::::' . PHP_EOL;
+			// var_dump( $return );
 			$this->assertEquals( $correct, $return );
 		}
 

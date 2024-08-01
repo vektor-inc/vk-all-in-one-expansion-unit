@@ -57,9 +57,9 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		foreach ( $tests as $key => $test_value ) {
 			update_option( 'vkExUnit_css_customize', $test_value['option'] );
 			$return = veu_css_customize::css_customize_get_the_css_min();
-			print PHP_EOL;
-			print 'return    :' . $return . PHP_EOL;
-			print 'correct   :' . $test_value['correct'] . PHP_EOL;
+			// print PHP_EOL;
+			// print 'return    :' . $return . PHP_EOL;
+			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
 		} // foreach ( $tests as $key => $test_value ) {
 			$before_option = update_option( 'vkExUnit_css_customize', $before_option );
