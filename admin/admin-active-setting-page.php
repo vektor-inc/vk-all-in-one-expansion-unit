@@ -42,7 +42,7 @@ foreach ( $vkExUnit_packages as $package ) :
 " >
 			<th scope='row' class='check-column'>
 				<label class='screen-reader-text' for='checkbox_active_<?php echo esc_attr( $package['name'] ); ?>' ><?php echo esc_html( $package['title'] ); ?></label>
-				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo asc_attr( $package['name'] ); ?>]" id="checkbox_active_<?php echo esc_attr( $package['name'] ); ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo esc_attr( $package['name'] ); ?>]" id="checkbox_active_<?php echo esc_attr( $package['name'] ); ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
 																						<?php
 																						if ( $active ) {
 																							echo 'checked'; }
