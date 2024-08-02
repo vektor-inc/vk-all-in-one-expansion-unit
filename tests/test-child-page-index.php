@@ -159,9 +159,9 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			$return = preg_replace( '/\s(?=\s)/', '', $return );
 			$expected = $value['expected'];
 
-			print  PHP_EOL;
-			print 'return  :' . $return . PHP_EOL;
-			print 'correct :' . $expected  . PHP_EOL;
+			// print  PHP_EOL;
+			// print 'return  :' . $return . PHP_EOL;
+			// print 'correct :' . $expected  . PHP_EOL;
 
 			// 返ってきた抜粋値と期待する結果が同じかどうかテスト
 			$this->assertEquals( $expected , $return );

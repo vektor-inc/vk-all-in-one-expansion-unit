@@ -66,9 +66,9 @@ class SnsBtnsStyle extends WP_UnitTestCase {
 
 			$this->assertEquals( $test_value['correct'], $return );
 
-			print PHP_EOL;
-			print 'correct :' . esc_attr( $test_value['correct'] ) . PHP_EOL;
-			print 'return  :' . esc_attr( $return ) . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct :' . esc_attr( $test_value['correct'] ) . PHP_EOL;
+			// print 'return  :' . esc_attr( $return ) . PHP_EOL;
 		}
 	}
 
@@ -107,9 +107,9 @@ class SnsBtnsStyle extends WP_UnitTestCase {
 
 			$this->assertEquals( $test_value['correct'], $return );
 
-			print PHP_EOL;
-			print 'correct :' . esc_attr( $test_value['correct'] ) . PHP_EOL;
-			print 'return  :' . esc_attr( $return ) . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct :' . esc_attr( $test_value['correct'] ) . PHP_EOL;
+			// print 'return  :' . esc_attr( $return ) . PHP_EOL;
 		}
 	}
 

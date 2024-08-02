@@ -81,8 +81,8 @@ class CTATest extends WP_UnitTestCase {
 			if ( isset( $return->post_title ) ) {
 				$return = $return->post_title;
 			}
-			print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
-			print 'return  ::::' . esc_attr( $return ) . PHP_EOL;
+			// print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
+			// print 'return  ::::' . esc_attr( $return ) . PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
 
 		}
@@ -176,8 +176,8 @@ class CTATest extends WP_UnitTestCase {
 			}
 			$actual = '';
 			$actual = veu_cta_block_callback( $test_value['attributes'], $content );
-			print 'expected ::' . $test_value['expected'] . PHP_EOL;
-			print 'actual ::::' . $actual . PHP_EOL;
+			// print 'expected ::' . $test_value['expected'] . PHP_EOL;
+			// print 'actual ::::' . $actual . PHP_EOL;
 			$this->assertEquals( $test_value['expected'], $actual );
 		}
 	}
@@ -261,8 +261,8 @@ class CTATest extends WP_UnitTestCase {
 			}
 
 			$actual = Vk_Call_To_Action::render_cta_content( $test_posts['cta_post_id'] );
-			print 'expected ::' . $value['expected'] . PHP_EOL;
-			print 'actual ::::' . $actual . PHP_EOL;
+			// print 'expected ::' . $value['expected'] . PHP_EOL;
+			// print 'actual ::::' . $actual . PHP_EOL;
 			$this->assertEquals( $value['expected'], $actual );
 		}
 	}

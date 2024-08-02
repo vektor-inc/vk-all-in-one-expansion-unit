@@ -60,9 +60,9 @@ class WidgetNewPostsTest extends WP_UnitTestCase {
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $test_value['correct_more_link_html'], $more_link_html );
 
-			print PHP_EOL;
-			print 'correct_more_link_html :' . $test_value['correct_more_link_html'] . PHP_EOL;
-			print 'more_link_html         :' . $more_link_html . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct_more_link_html :' . $test_value['correct_more_link_html'] . PHP_EOL;
+			// print 'more_link_html         :' . $more_link_html . PHP_EOL;
 		}
 
 		$this->assertTrue( true );

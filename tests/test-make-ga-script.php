@@ -92,10 +92,10 @@ class MakeGAScriptTest extends WP_UnitTestCase {
 			$return = make_ga_script();
 
 			// PHPunit
-            print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+            // print 'correct ::::' . $test_value['correct'] . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
+			// print PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
-			print PHP_EOL;
 			delete_option( 'vkExUnit_ga_options' );
 		}
 		delete_option( 'vkExUnit_ga_options' );

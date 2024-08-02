@@ -57,7 +57,7 @@ class InsertAdsTest extends WP_UnitTestCase {
 
 			// PHPunit
 			$this->assertEquals( $test_value['correct'], $return['post_types'] );
-			print PHP_EOL;
+			// print PHP_EOL;
 			// 帰り値が配列だから print してもエラーになるだけなのでコメントアウト
 			// print 'return    :' . $return['post_types'] . PHP_EOL;
 			// print 'correct   :' . $test_value['correct'] . PHP_EOL;

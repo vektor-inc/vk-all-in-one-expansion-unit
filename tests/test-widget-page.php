@@ -149,11 +149,11 @@ class WidgetPage extends WP_UnitTestCase {
 
 			// widget_title() で タイトル情報を取得
 			$widget_title = WP_Widget_vkExUnit_widget_page::widget_title( $instance );
-			print PHP_EOL;
-			print 'widget_title         :'.$widget_title['title'].PHP_EOL;
-			print 'widget_title correct :'.$test_value['title_correct'].PHP_EOL;
-			print 'widget_display         :'.$widget_title['display'].PHP_EOL;
-			print 'widget_display_correct :'.$test_value['display_correct'].PHP_EOL;
+			// print PHP_EOL;
+			// print 'widget_title         :'.$widget_title['title'].PHP_EOL;
+			// print 'widget_title correct :'.$test_value['title_correct'].PHP_EOL;
+			// print 'widget_display         :'.$widget_title['display'].PHP_EOL;
+			// print 'widget_display_correct :'.$test_value['display_correct'].PHP_EOL;
 			// 取得できたタイトルの値と、想定する正しいタイトル名が等しいかテスト
 			$this->assertEquals( $test_value['title_correct'], $widget_title['title'] );
 			$this->assertEquals( $test_value['display_correct'], $widget_title['display'] );

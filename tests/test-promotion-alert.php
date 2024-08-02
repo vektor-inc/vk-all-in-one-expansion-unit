@@ -364,9 +364,9 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 			$this->assertEquals( $correct, $return );
 
-			print PHP_EOL;
-			print 'correct ::::' . $correct . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct ::::' . $correct . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
 
 		}
 
@@ -475,16 +475,17 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			$this->go_to( get_permalink( $data['post_id_01'] ) );
 
 			$options = get_option( 'vkExUnit_common_options' );
-			var_dump($options['active_icon_accessibility']);
+
+			// var_dump($options['active_icon_accessibility']);
 
 			$return  = VEU_Promotion_Alert::get_alert_content();
 			$correct = $test_value['correct'];
 
 			$this->assertEquals( $correct, $return );
 
-			print PHP_EOL;
-			print 'correct ::::' . $correct . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct ::::' . $correct . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
 
 		}
 

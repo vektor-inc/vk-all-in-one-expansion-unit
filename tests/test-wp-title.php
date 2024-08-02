@@ -281,11 +281,10 @@ class WpTitleTest extends WP_UnitTestCase {
 
 			$actual = vkExUnit_get_wp_head_title();
 
-			print PHP_EOL;
-
-			print $value['target_url'] . PHP_EOL;
-			print 'expected::::' . $value['expected'] . PHP_EOL;
-			print 'actual  ::::' . $actual . PHP_EOL;
+			// print PHP_EOL;
+			// print $value['target_url'] . PHP_EOL;
+			// print 'expected::::' . $value['expected'] . PHP_EOL;
+			// print 'actual  ::::' . $actual . PHP_EOL;
 
 			$this->assertEquals( $value['expected'], $actual );
 

@@ -384,10 +384,10 @@ class SnsBtnsTest extends WP_UnitTestCase {
 
 			$this->assertEquals( $correct, $return );
 
-			print PHP_EOL;
-			print 'url     ::::' . $test_value['target_url'] . PHP_EOL;
-			print 'correct ::::' . $correct . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			// print PHP_EOL;
+			// print 'url     ::::' . $test_value['target_url'] . PHP_EOL;
+			// print 'correct ::::' . $correct . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
 
 		}
 	}
