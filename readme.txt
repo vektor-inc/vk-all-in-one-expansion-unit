@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ] Fix taxonomy widget for post_tag and custom_taxonomy
+
 = 9.99.3 =
 [ Bug fix ] Fix an issue where the activation screen causes an error in version 9.99.2
 
