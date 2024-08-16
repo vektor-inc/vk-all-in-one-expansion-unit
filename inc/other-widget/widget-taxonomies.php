@@ -32,6 +32,8 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		if ( ! isset( $instance['form_design'] ) ) {
 			$instance['form_design'] = 'list';
 		}
+
+
 		
 		?>
 		<?php echo $args['before_widget']; ?>
@@ -56,7 +58,13 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 					wp_list_categories( $tax_args );
 				} elseif ( 'select' === $instance['form_design'] ) {
-					//
+					$name = $instance['tax_name'];
+					if ( 'category' === $name ) {
+						$name = 'category_name';
+					} elseif ( 'post_tag' === $name ) {
+						$name = 'tag';
+					}
+
 					$tax_args = array(
 						'echo'              => 1,
 						'class'             => 'veu_widget_taxonmomy',
@@ -66,6 +74,8 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 						'hide_empty'        => $instance['hide_empty'],
 						'hierarchical'      => true,
 						'taxonomy'          => $instance['tax_name'],
+						'name'              => $name,
+						'value_field'       => 'slug',
 					);
 					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); //
 
