@@ -218,7 +218,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	/*-------------------------------------------*/
 	$required_packages[] = array(
 		'name'        => 'addReusableBlockMenu',
-		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ) . '<br />' . $deprecated,
+		'title'       => __( 'Add Reusable block menu', 'vk-all-in-one-expansion-unit' ) . $deprecated,
 		'description' => __( 'Add Manage all reusable blocks menu to admin menu.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'add_menu_to_block_reuse.php',
