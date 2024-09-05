@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+= 9.99.4 =
+[ Bug fix ] Delete the unnecessary <br> tag.
 [ Bug fix ] Fix taxonomy widget for post_tag and custom_taxonomy
 
 = 9.99.3 =
