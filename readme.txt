@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.99.5 =
+[ Other ] Update VK CSS Optimize 0.2.5
+
 = 9.99.4 =
 [ Bug fix ] Delete the unnecessary <br> tag.
 [ Bug fix ] Fix taxonomy widget for post_tag and custom_taxonomy
