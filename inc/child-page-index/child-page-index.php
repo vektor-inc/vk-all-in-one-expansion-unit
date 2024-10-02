@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Child page index
+	Child page index
 /*-------------------------------------------*/
 
 function veu_child_page_excerpt( $post ) {
@@ -45,7 +45,9 @@ function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 			$parentId = $widget_pageid;
 		} else {
 			global $post;
-			$parentId = $post->ID;
+			if ( ! empty( $post->ID ) ) {
+				$parentId = $post->ID;
+			}
 		}
 	}
 
@@ -110,7 +112,7 @@ function vkExUnit_chidPageIndex_loopend( $query ) {
 }
 
 /*
-  Print Child Page Box at Page
+	Print Child Page Box at Page
 /*-------------------------------------------*/
 function vkExUnit_childPageIndex_contentHook( $content ) {
 
@@ -134,7 +136,7 @@ function vkExUnit_childPageIndex_contentHook( $content ) {
 }
 
 /*
- admin_metabox_content
+admin_metabox_content
 /*-------------------------------------------*/
 add_action( 'veu_metabox_insert_items', 'veu_child_page_index_admin_metabox_content' );
 function veu_child_page_index_admin_metabox_content() {
@@ -152,7 +154,7 @@ function veu_child_page_index_admin_metabox_content() {
 }
 
 /*
- save_custom_field
+save_custom_field
 /*-------------------------------------------*/
 add_action( 'save_post', 'veu_child_page_index_save_custom_field' );
 function veu_child_page_index_save_custom_field( $post_id ) {
@@ -183,4 +185,4 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 	do_action( 'vkExUnit_customField_Page_save_customField' );
 }
 
-require_once dirname( __FILE__ ) . '/block/index.php';
+require_once __DIR__ . '/block/index.php';
