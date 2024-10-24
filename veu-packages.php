@@ -547,6 +547,12 @@ function veu_get_packages( $is_block_theme = null ) {
 				'url'         => admin_url() . 'edit.php?post_type=post_type_manage',
 				'enable_only' => 1,
 			),
+			( get_locale() === 'ja' ) ? array(
+				'name'        => __( 'Learn more', 'vk-all-in-one-expansion-unit' ),
+				'url'         => 'https://ex-unit.nagoya/ja/about/custom_post_type_manager',
+				'target'      => '_blank',
+				'enable_only' => false,
+			) : null,
 		),
 		'default'     => true,
 		'include'     => 'post-type-manager/post-type-manager-config.php',
