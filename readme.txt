@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ Post Type Manager ] Added links to explanatory articles and Vectre from the custom post type settings.
+
 = 9.99.6 =
 [ Bug fix ][ Child Page List ] Fixed an issue related to a PHP error.
 
