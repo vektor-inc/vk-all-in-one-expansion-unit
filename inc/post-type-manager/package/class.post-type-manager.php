@@ -57,6 +57,55 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$role->add_cap( 'publish_others_' . $post_type_name . 's' );
 		}
 
+		/**
+		 * ヘルプ通知
+		 *
+		 * @return string
+		 */
+		public static function get_help_notice() {
+			// サイトの言語が日本語 (ja) であるかどうかを判定
+			if ( get_locale() !== 'ja' ) {
+				return ''; // 日本語以外の場合は何も返さない
+			}
+
+			$dismiss_url = esc_url(
+				wp_nonce_url(
+					add_query_arg('vkblocks-dismiss-pro', 'dismiss_admin_notice'),
+					'vkblocks-dismiss-pro-' . get_current_user_id()
+				)
+			);
+
+			// ヘルプ通知のHTMLを生成して返す
+			return wp_kses_post(
+				'<div class="notice notice-info is-dismissible">
+					<p style="margin-top: 10px;"><strong>' . __( 'Help and Documentation', 'vk-all-in-one-expansion-unit' ) . ':</strong> ' . __( 'Learn more about custom post type settings by visiting the following resources:', 'vk-all-in-one-expansion-unit' ) . '</p>
+					<ul style="list-style-type: disc; margin-top: 0; margin-left: 20px;">
+						<li><a href="https://ex-unit.nagoya/ja/about/custom_post_type_manager" target="_blank">' . __( 'ExUnit Site: Custom Post Type Manager', 'vk-all-in-one-expansion-unit' ) . '</a></li>
+						<li><a href="https://training.vektor-inc.co.jp/courses/x-t9-custom-post-type/" target="_blank">' . __( 'Vektor Training: X-T9 Setup Guide for Custom Post Types', 'vk-all-in-one-expansion-unit' ) . '</a></li>
+						<li><a href="https://training.vektor-inc.co.jp/courses/lightning-basic-settings/lessons/lightning-custom-post-type-lightning/" target="_blank">' . __( 'Vektor Training: Lightning Basic Settings for Custom Post Types', 'vk-all-in-one-expansion-unit' ) . '</a></li>
+					</ul>
+					<p><a href="' . $dismiss_url . '" target="_parent">' . esc_html__( 'Dismiss this notice', 'vk-blocks' ) . '</a></p>
+				</div>'
+			);
+		}
+		
+		/**
+		 * Display help notice on specific page
+		 *
+		 * @return void
+		 */
+		public static function display_help_notice() {
+			// 現在のページを取得
+			global $pagenow;
+
+			// 特定のページのみ通知を表示する
+			if ($pagenow === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === 'post_type_manage') {
+				// 通知のHTMLを取得して表示
+				echo self::get_help_notice();
+			}
+
+		}
+
 		/*******************************************
 		 * カスタムフィールドの meta box を作成.
 		 */
@@ -70,11 +119,15 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * @return void
 		 */
 		public static function add_meta_box_action() {
+
 			global $post;
 
 			// CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）.
 			wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__post_type_manager' );
 
+			// 通知メッセージを取得して表示
+			echo self::get_help_notice();
+			
 			?>
 			<style type="text/css">
 			table.table { border-collapse: collapse; border-spacing: 0;width:100%; }
@@ -170,24 +223,25 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<hr>';
 
 			// JavaScript to update icon selection and validate input
-			echo '<script>
-function updateIconSelection(icon) {
-    document.getElementById("veu_menu_icon").value = icon;
-}
+			echo '
+			<script>
+				function updateIconSelection(icon) {
+					document.getElementById("veu_menu_icon").value = icon;
+				}
 
-document.addEventListener("DOMContentLoaded", function () {
-    var inputField = document.getElementById("veu_menu_icon");
-    
-    // `change` イベントを使用して、フォーカスが外れたときにチェックする
-    inputField.addEventListener("change", function() {
-        // SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
-        if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
-            alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
-            this.value = ""; // 不正な入力をクリア
-        }
-    });
-});
-</script>';
+				document.addEventListener("DOMContentLoaded", function () {
+					var inputField = document.getElementById("veu_menu_icon");
+					
+					// `change` イベントを使用して、フォーカスが外れたときにチェックする
+					inputField.addEventListener("change", function() {
+						// SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
+						if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
+							alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
+							this.value = ""; // 不正な入力をクリア
+						}
+					});
+				});
+			</script>';
 
 			/*******************************************
 			 * Export to Rest api
@@ -567,5 +621,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	} // class VK_Post_Type_Manager
 
 	$VK_Post_Type_Manager = new VK_Post_Type_Manager(); // phpcs:ignore
+
+	add_action('admin_notices', array('VK_Post_Type_Manager', 'display_help_notice'), 20);
 
 }
