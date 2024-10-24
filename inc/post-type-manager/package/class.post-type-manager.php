@@ -62,7 +62,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 *
 		 * @return string
 		 */
-		public static function get_help_notice() {
+		public static function add_post_type_get_help_notice() {
 			// サイトの言語が日本語 (ja) であるかどうかを判定
 			if ( get_locale() !== 'ja' ) {
 				return ''; // 日本語以外の場合は何も返さない
@@ -101,7 +101,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// 特定のページのみ通知を表示する
 			if ($pagenow === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === 'post_type_manage') {
 				// 通知のHTMLを取得して表示
-				echo self::get_help_notice();
+				echo self::add_post_type_get_help_notice();
 			}
 
 		}
@@ -126,7 +126,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__post_type_manager' );
 
 			// 通知メッセージを取得して表示
-			echo self::get_help_notice();
+			echo self::add_post_type_get_help_notice();
 			
 			?>
 			<style type="text/css">
