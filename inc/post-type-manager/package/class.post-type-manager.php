@@ -68,6 +68,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				return ''; // 日本語以外の場合は何も返さない
 			}
 
+			// ユーザーが通知を無視したフラグが保存されているかをチェック
+			if ( get_user_meta( get_current_user_id(), 'vkblocks_dismissed_notice', true ) ) {
+				return ''; // 通知を無視している場合は何も返さない
+			}
+
 			$dismiss_url = esc_url(
 				wp_nonce_url(
 					add_query_arg('vkblocks-dismiss-pro', 'dismiss_admin_notice'),
@@ -88,7 +93,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				</div>'
 			);
 		}
-		
+
 		/**
 		 * Display help notice on specific page
 		 *
@@ -104,6 +109,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo self::add_post_type_get_help_notice();
 			}
 
+			// 通知の無視パラメーターをチェック
+			if ( isset( $_GET['vkblocks-dismiss-pro'] ) && $_GET['vkblocks-dismiss-pro'] === 'dismiss_admin_notice' ) {
+				check_admin_referer( 'vkblocks-dismiss-pro-' . get_current_user_id() );
+				update_user_meta( get_current_user_id(), 'vkblocks_dismissed_notice', true );
+			}
 		}
 
 		/*******************************************
