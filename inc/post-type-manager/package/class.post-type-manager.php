@@ -69,16 +69,16 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			// ユーザーが通知を無視したフラグが保存されているかをチェック
-			if ( get_user_meta( get_current_user_id(), 'vkblocks_dismissed_notice', true ) ) {
+			if ( get_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true ) ) {
 				return ''; // 通知を無視している場合は何も返さない
 			}
 
 			$dismiss_url = esc_url(
 				wp_nonce_url(
-					add_query_arg('vkblocks-dismiss-pro', 'dismiss_admin_notice'),
-					'vkblocks-dismiss-pro-' . get_current_user_id()
+					add_query_arg('vk-all-in-one-expansion-unit-dismiss', 'dismiss_admin_notice'),
+					'vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id()
 				)
-			);
+			);			
 
 			// ヘルプ通知のHTMLを生成して返す
 			return wp_kses_post(
@@ -110,9 +110,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			// 通知の無視パラメーターをチェック
-			if ( isset( $_GET['vkblocks-dismiss-pro'] ) && $_GET['vkblocks-dismiss-pro'] === 'dismiss_admin_notice' ) {
-				check_admin_referer( 'vkblocks-dismiss-pro-' . get_current_user_id() );
-				update_user_meta( get_current_user_id(), 'vkblocks_dismissed_notice', true );
+			if ( isset( $_GET['vk-all-in-one-expansion-unit-dismiss'] ) && $_GET['vk-all-in-one-expansion-unit-dismiss'] === 'dismiss_admin_notice' ) {
+				check_admin_referer( 'vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id() );
+				update_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true );
 			}
 		}
 
