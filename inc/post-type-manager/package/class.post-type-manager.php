@@ -95,24 +95,41 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
-		 * Display help notice on specific page
+		 * Check if the help notice should be displayed on the current page.
 		 *
-		 * @return void
+		 * @return bool
 		 */
-		public static function display_help_notice() {
+		public static function is_display_help_notice() {
 			// 現在のページを取得
 			global $pagenow;
 
 			// 特定のページのみ通知を表示する
 			if ($pagenow === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === 'post_type_manage') {
+				// 通知の無視パラメーターが保存されていないかどうかを確認
+				if (!get_user_meta(get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Display help notice on specific page
+		 *
+		 * @return void
+		 */
+		public static function display_help_notice() {
+			// 通知を表示するかどうかの判定
+			if (self::is_display_help_notice()) {
 				// 通知のHTMLを取得して表示
 				echo self::add_post_type_get_help_notice();
 			}
 
 			// 通知の無視パラメーターをチェック
-			if ( isset( $_GET['vk-all-in-one-expansion-unit-dismiss'] ) && $_GET['vk-all-in-one-expansion-unit-dismiss'] === 'dismiss_admin_notice' ) {
-				check_admin_referer( 'vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id() );
-				update_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true );
+			if (isset($_GET['vk-all-in-one-expansion-unit-dismiss']) && $_GET['vk-all-in-one-expansion-unit-dismiss'] === 'dismiss_admin_notice') {
+				check_admin_referer('vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id());
+				update_user_meta(get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true);
 			}
 		}
 
