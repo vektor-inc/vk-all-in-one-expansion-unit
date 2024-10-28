@@ -35,9 +35,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		if ( ! isset( $instance['form_sort'] ) ) {
 			$instance['form_sort'] = 'asc';
 		}
-
-
-		?>
+	?>
 		<?php echo $args['before_widget']; ?>
 		<div class="sideWidget widget_taxonomies widget_nav_menu">
 			<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
@@ -55,7 +53,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 						'hierarchical'    => true,
 						'title_li'        => '',
 						'taxonomy'        => $instance['tax_name'],
-						'orderby'         => 'title',
+						'orderby'         => 'name',
 						'order'           => $instance['form_sort']
 					);
 					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); // 9.13.0.0
@@ -80,7 +78,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 						'taxonomy'          => $instance['tax_name'],
 						'name'              => $name,
 						'value_field'       => 'slug',
-						'orderby'           => 'title',
+						'orderby'           => 'name',
 						'order'             => $instance['form_sort']
 					);
 					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); //
