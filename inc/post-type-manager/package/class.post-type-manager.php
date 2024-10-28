@@ -63,15 +63,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * @return string
 		 */
 		public static function add_post_type_get_help_notice() {
-			// サイトの言語が日本語 (ja) であるかどうかを判定
-			if ( get_locale() !== 'ja' ) {
-				return ''; // 日本語以外の場合は何も返さない
-			}
-
-			// ユーザーが通知を無視したフラグが保存されているかをチェック
-			if ( get_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true ) ) {
-				return ''; // 通知を無視している場合は何も返さない
-			}
 
 			$dismiss_url = esc_url(
 				wp_nonce_url(
@@ -102,13 +93,17 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function is_display_help_notice() {
 			global $pagenow;
 
+			if ( get_locale() !== 'ja' ) {
+				return false;
+			}
+		
+			// 特定のページのみ通知を表示する
 			if ($pagenow === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === 'post_type_manage') {
+				// ユーザーが通知を無視したフラグが保存されているかどうかを確認
 				if (!get_user_meta(get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true)) {
 					return true;
 				}
 			}
-
-			return false;
 		}
 
 		/**
