@@ -42,12 +42,11 @@ class Website_Structure_Test extends WP_UnitTestCase {
 			$actual = VK_WebSite_Srtuctured_Data::get_website_structure_array();
 			$correct = $test_value['correct'];
 
-			print PHP_EOL;
-
-			print 'correct ::::' . PHP_EOL;
-			var_dump( $correct );
-			print 'return  ::::' . PHP_EOL;
-			var_dump( $actual );
+			// print PHP_EOL;
+			// print 'correct ::::' . PHP_EOL;
+			// var_dump( $correct );
+			// print 'return  ::::' . PHP_EOL;
+			// var_dump( $actual );
 
 			$this->assertEquals( $correct, $actual );
 

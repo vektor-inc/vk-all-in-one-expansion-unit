@@ -57,7 +57,7 @@ $content .= '</div>';
 if ( $url && $btn_text ) {
 	$content .= '<div class="cta_body_link">';
 	$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
-	$content .= $btn_before . $btn_text . $btn_after;
+	$content .= wp_kses_post( $btn_before . $btn_text . $btn_after );
 	$content .= '</a>';
 	$content .= '</div>';
 }

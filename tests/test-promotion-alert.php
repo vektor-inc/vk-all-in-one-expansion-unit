@@ -10,6 +10,14 @@
  */
 class PromotionAlertTest extends WP_UnitTestCase {
 
+	public function set_up() {
+		parent::set_up();
+
+		// アイコンアクセサビリティのテストが影響するのでフィルターを外す
+		remove_filter('the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ));
+		remove_filter('render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10);
+	}
+
     /**
      * テストデータ作成
      */
@@ -356,15 +364,17 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 			$this->assertEquals( $correct, $return );
 
-			print PHP_EOL;
-			print 'correct ::::' . $correct . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct ::::' . $correct . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
 
 		}
 
     }
 
 	public function test_get_alert_content() {
+
+	
 
 		$data = self::setup_data();
 
@@ -464,14 +474,18 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 			$this->go_to( get_permalink( $data['post_id_01'] ) );
 
+			$options = get_option( 'vkExUnit_common_options' );
+
+			// var_dump($options['active_icon_accessibility']);
+
 			$return  = VEU_Promotion_Alert::get_alert_content();
 			$correct = $test_value['correct'];
 
 			$this->assertEquals( $correct, $return );
 
-			print PHP_EOL;
-			print 'correct ::::' . $correct . PHP_EOL;
-			print 'return  ::::' . $return . PHP_EOL;
+			// print PHP_EOL;
+			// print 'correct ::::' . $correct . PHP_EOL;
+			// print 'return  ::::' . $return . PHP_EOL;
 
 		}
 

@@ -78,9 +78,10 @@ class VEU_Promotion_Alert {
 				'style' => array(),
 			),
 			'i'      => array(
-				'id'    => array(),
-				'class' => array(),
-				'style' => array(),
+				'id'          => array(),
+				'class'       => array(),
+				'style'       => array(),
+				'aria-hidden' => array()
 			),
 			'a'      => array(
 				'id'    => array(),

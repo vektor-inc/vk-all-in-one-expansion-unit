@@ -46,8 +46,8 @@ class CTADiaplayTest extends WP_UnitTestCase {
 			$return = Vk_Call_To_Action::get_option();
 
 			$this->assertEquals( $test_value['correct'], $return[$test_value['target_post_type']] );
-			print 'correct ::::' . $test_value['correct'] . PHP_EOL;
-			print 'return  ::::' . $return[$test_value['target_post_type']] . PHP_EOL;
+			// print 'correct ::::' . $test_value['correct'] . PHP_EOL;
+			// print 'return  ::::' . $return[$test_value['target_post_type']] . PHP_EOL;
 		}
 
 	} // function test_chlild_page_excerpt() {

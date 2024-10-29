@@ -11,15 +11,15 @@
 		"vektor-inc/vk-wp-unit-test-tools": "^0.11.0",
 		"sirbrillig/phpcs-variable-analysis": "^2.8",
 		"wp-phpunit/wp-phpunit": "^6.1.1",
-		"yoast/phpunit-polyfills": "^1.0",
+		"yoast/phpunit-polyfills": "^1.1",
 		"doctrine/instantiator": "^1.5.0",
-		"phpunit/phpunit": "^9.5.28"
+		"phpunit/phpunit": "^9.6"
 	},
 	"require": {
 		"vektor-inc/vk-admin": "^0.4.1",
 		"vektor-inc/vk-breadcrumb": "^0.2.2",
 		"vektor-inc/font-awesome-versions": "^0.5.0",
 		"vektor-inc/vk-term-color": "^0.1.0",
-		"vektor-inc/vk-css-optimize": "^0.2.2"
+		"vektor-inc/vk-css-optimize": "^0.2.5"
 	}
 }

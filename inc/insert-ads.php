@@ -125,7 +125,6 @@ class vExUnit_Ads {
 		$option = $this->get_option();
 		if ( $option['google-ads-active'] && $option['google-pub-id'] ) {
 
-			$overlay = ',overlays: {bottom: true}';
 ?><!-- [ <?php echo veu_get_name(); ?> GoogleAd ] -->
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
@@ -134,7 +133,7 @@ class vExUnit_Ads {
 		  enable_page_level_ads: true
 			<?php
 			if ( $option['google-ads-overlays-bottom'] ) {
-				echo $overlay;}
+				echo ',overlays: {bottom: true}';}
 ?>
 	 });
 </script>
@@ -230,7 +229,7 @@ class vExUnit_Ads {
 		$lang          = ( get_locale() == 'ja' ) ? 'ja' : 'en';
 		$Google_ad_url = 'https://support.google.com/adsense/answer/7478040?hl=' . $lang;
 		?>
-		[ <a href="<?php echo $Google_ad_url; ?>" target="_blank"><?php _e( 'About Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?></a> ]
+		[ <a href="<?php echo esc_url( $Google_ad_url ); ?>" target="_blank"><?php _e( 'About Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?></a> ]
 	</th>
 	<td>
 		<?php _e( 'If you would like to set to Google Auto ads,Please fill in Publisher ID.', 'vk-all-in-one-expansion-unit' ); ?>

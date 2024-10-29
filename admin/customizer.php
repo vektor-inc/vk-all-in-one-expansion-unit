@@ -65,7 +65,7 @@ function veu_customize_register_add_control() {
 		  <input type="text" value="<?php echo esc_attr( $this->value() ); ?>"<?php echo $style; ?> <?php $this->link(); ?> />
 			<?php echo wp_kses_post( $this->input_after ); ?>
 		  </div>
-		  <span><?php echo $this->description; ?></span>
+		  <span><?php echo wp_kses_post( $this->description ); ?></span>
 		</label>
 			<?php
 		} // public function render_content() {
@@ -98,42 +98,3 @@ function veu_customize_register_add_control() {
 	}
 
 } // function veu_customize_register_add_control(){
-
-
-add_action( 'customize_register', 'veu_customize_register_pagespeed' );
-function veu_customize_register_pagespeed( $wp_customize ) {
-
-	/*
-		Page speedind setting
-	/*-------------------------------------------*/
-	$wp_customize->add_section(
-		'veu_speeding_setting',
-		array(
-			'title'    => __( 'Page Speedind Setting', 'vk-all-in-one-expansion-unit' ),
-			'priority' => 1,
-			'panel'    => 'veu_setting',
-		)
-	);
-
-	// JS Footer Setting.
-	$wp_customize->add_setting(
-		'vkExUnit_pagespeeding[js_footer]',
-		array(
-			'default'           => false,
-			'type'              => 'option',
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'veu_sanitize_boolean',
-		)
-	);
-	$wp_customize->add_control(
-		'vkExUnit_pagespeeding[js_footer]',
-		array(
-			'label'       => __( 'Load JS from footer', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_speeding_setting',
-			'settings'    => 'vkExUnit_pagespeeding[js_footer]',
-			'type'        => 'checkbox',
-			'description' => __( 'If you enable this setting that JavaScript of ExUnit, WordPress, and more will be loaded from footer.', 'vk-all-in-one-expansion-unit' ),
-		)
-	);
-
-}

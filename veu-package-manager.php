@@ -83,6 +83,21 @@ function veu_package_include() {
 	}
 
 	if ( $use_ex_blocks ) {
+		add_action(
+			'init',
+			function() {
+				// WordPress 6.5 以下の対策
+				if ( ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
+					wp_register_script(
+						'react-jsx-runtime',
+						plugins_url( 'assets/js/react-jsx-runtime.js', __FILE__ ),
+						array( 'react' ),
+						'18.3.1',
+						true
+					);
+				}
+			}
+		);
 		// ver5.8.0 block_categories_all
 		if ( function_exists( 'get_default_block_categories' ) && function_exists( 'get_block_editor_settings' ) ) {
 			add_filter( 'block_categories_all', 'veu_add_block_category', 10, 2 );

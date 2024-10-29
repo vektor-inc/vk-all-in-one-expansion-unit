@@ -81,8 +81,8 @@ class CTATest extends WP_UnitTestCase {
 			if ( isset( $return->post_title ) ) {
 				$return = $return->post_title;
 			}
-			print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
-			print 'return  ::::' . esc_attr( $return ) . PHP_EOL;
+			// print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
+			// print 'return  ::::' . esc_attr( $return ) . PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
 
 		}
@@ -105,7 +105,7 @@ class CTATest extends WP_UnitTestCase {
 		);
 		$test_posts['cta_post_id'] = wp_insert_post( $post );
 
-		// テスト用のCTAを作成
+		// テスト用のページを作成
 		$page                      = array(
 			'post_title'   => 'Page',
 			'post_type'    => 'Page',
@@ -176,9 +176,95 @@ class CTATest extends WP_UnitTestCase {
 			}
 			$actual = '';
 			$actual = veu_cta_block_callback( $test_value['attributes'], $content );
-			print 'expected ::' . $test_value['expected'] . PHP_EOL;
-			print 'actual ::::' . $actual . PHP_EOL;
+			// print 'expected ::' . $test_value['expected'] . PHP_EOL;
+			// print 'actual ::::' . $actual . PHP_EOL;
 			$this->assertEquals( $test_value['expected'], $actual );
 		}
 	}
+
+	/**
+	 * Test render_cta_content()
+	 *
+	 * @return void
+	 */
+	function test_render_cta_content() {
+		$test_posts = array();
+
+		// テスト用のCTAを作成
+		$cta_post                      = array(
+			'post_title'   => 'cta_published',
+			'post_type'    => 'cta',
+			'post_status'  => 'publish',
+			'post_content' => 'CTA content',
+		);
+		$test_posts['cta_post_id'] = wp_insert_post( $cta_post );
+
+		// テスト配列
+		$test_array = array(
+			'post_content text'                    => array(
+				'cta_content' => 'cta',
+				'expected'   => 'cta',
+			),
+			'post_content html simple'                    => array(
+				'cta_content' => '<!-- wp:heading --><h2 class="wp-block-heading">テストタイトル</h2><!-- /wp:heading -->',
+				'expected'   => '<h2 class="wp-block-heading">テストタイトル</h2>',
+			),
+			'post_content html middle'                    => array(
+				'cta_content' => '<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"black","layout":{"type":"constrained"}} --><div class="wp-block-group has-black-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center","className":"vkp-title-short-border\u002d\u002dcenter is-style-vk-heading-plain vk_block-margin-0\u002d\u002dmargin-bottom vk_custom_css","style":{"typography":{"fontSize":"2.2rem","letterSpacing":"2px"}},"textColor":"white"} --><h2 class="wp-block-heading has-text-align-center vkp-title-short-border--center is-style-vk-heading-plain vk_block-margin-0--margin-bottom vk_custom_css has-white-color has-text-color" style="font-size:2.2rem;letter-spacing:2px">テストタイトル</h2><!-- /wp:heading --><!-- wp:vk-blocks/button {"buttonUrl":"https://demo.dev3.biz/architect/recruit/","buttonType":"1","buttonColor":"custom","buttonColorCustom":"white","buttonAlign":"center","blockId":"e6f30732-b8f9-435d-8f9d-27d691e7d303","className":"vkp_button-through-arrow vk_custom_css"} --><div class="wp-block-vk-blocks-button vk_button vk_button-color-custom vk_button-align-center vkp_button-through-arrow vk_custom_css"><a href="https://demo.dev3.biz/architect/recruit/" class="vk_button_link btn has-text-color is-style-outline has-white-color btn-md" role="button" aria-pressed="true" rel="noopener"><div class="vk_button_link_caption"><span class="vk_button_link_txt">ボタン</span></div></a></div><!-- /wp:vk-blocks/button --></div><!-- /wp:group -->',
+				'expected'   => '<div class="wp-block-group has-black-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><div class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"><h2 class="wp-block-heading has-text-align-center vkp-title-short-border--center is-style-vk-heading-plain vk_block-margin-0--margin-bottom vk_custom_css has-white-color has-text-color" style="font-size:2.2rem;letter-spacing:2px">テストタイトル</h2><div class="wp-block-vk-blocks-button vk_button vk_button-color-custom vk_button-align-center vkp_button-through-arrow vk_custom_css"><a href="https://demo.dev3.biz/architect/recruit/" class="vk_button_link btn has-text-color is-style-outline has-white-color btn-md" role="button" rel="noopener"><div class="vk_button_link_caption"><span class="vk_button_link_txt">ボタン</span></div></a></div></div></div>',
+			),
+			'post_content xss test'                    => array(
+				'cta_content' => '"><script>alert(0)</script>',
+				'expected'   => '"&gt;alert(0)',
+			),
+			'classic CTA test'                    => array(
+				'cta_title' => 'Classic Title',
+				'cta_content' => '',
+				'post_meta' => array(
+					'vkExUnit_cta_text' => 'cta',
+					'vkExUnit_cta_button_text' => 'Read more',
+					'vkExUnit_cta_url' => 'https://example.com'
+				),
+				'expected'   => '<section class="veu_cta" id="veu_cta-'. $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+			),
+			'classic CTA XSS test'                    => array(
+				'cta_title' => 'Classic Title',
+				'cta_content' => '',
+				'post_meta' => array(
+					'vkExUnit_cta_text' => '"><script>alert(0)</script>',
+					'vkExUnit_cta_button_text' => '"><script>alert(0)</script>',
+					'vkExUnit_cta_url' => 'https://example.com'
+				),
+				'expected'   => '<section class="veu_cta" id="veu_cta-'. $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+			),
+		);
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_render_cta_content' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		$content = '';
+		foreach ( $test_array as $key => $value ) {
+			// $test_posts['cta_post_id'] の投稿の post_content の中身を $value['cta_content'] で上書きする
+			$post_args = array(
+				'ID'           => $test_posts['cta_post_id'],
+				'post_content' => $value['cta_content'],
+			);
+			if  ( ! empty( $value['cta_title'] ) ) {
+				$post_args['post_title'] = $value['cta_title'];
+			}
+			wp_update_post( $post_args );
+			if ( ! empty( $value['post_meta'] ) ) {
+				foreach ( $value['post_meta'] as $meta_key => $meta_value ) {
+					update_post_meta( $test_posts['cta_post_id'], $meta_key, $meta_value );
+				}
+			}
+
+			$actual = Vk_Call_To_Action::render_cta_content( $test_posts['cta_post_id'] );
+			// print 'expected ::' . $value['expected'] . PHP_EOL;
+			// print 'actual ::::' . $actual . PHP_EOL;
+			$this->assertEquals( $value['expected'], $actual );
+		}
+	}
+
 }

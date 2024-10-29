@@ -3,6 +3,12 @@
 //@import "compass";
 @use "_mixin";
 
+.wp-list-table .section_title{
+	font-weight: bold;
+	background-color: #ccc;
+	border-left:4px solid #333;
+}
+
 .wrap.debug_mode {
 	tr.dev_object {
 		display: table-row;

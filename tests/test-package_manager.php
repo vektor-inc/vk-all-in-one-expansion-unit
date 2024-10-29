@@ -38,9 +38,9 @@ class PackageManagerTest extends WP_UnitTestCase {
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $test_value['correct'], $result );
 
-			print PHP_EOL;
-			print 'Package         :' . $result . PHP_EOL;
-			print 'Package Correct :' . $test_value['correct'] . PHP_EOL;
+			// print PHP_EOL;
+			// print 'Package         :' . $result . PHP_EOL;
+			// print 'Package Correct :' . $test_value['correct'] . PHP_EOL;
 		}
 
 	}
@@ -79,9 +79,9 @@ class PackageManagerTest extends WP_UnitTestCase {
 			// 判定結果
 			$output = veu_common_options_validate( $test_value );
 
-			print PHP_EOL;
-			print 'options_validate         :' . $output['active_pagetop_button'] . PHP_EOL;
-			print 'options_validate Correct :' . $test_value['correct'] . PHP_EOL;
+			// print PHP_EOL;
+			// print 'options_validate         :' . $output['active_pagetop_button'] . PHP_EOL;
+			// print 'options_validate Correct :' . $test_value['correct'] . PHP_EOL;
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $test_value['correct'], $output['active_pagetop_button'] );
@@ -112,9 +112,9 @@ class PackageManagerTest extends WP_UnitTestCase {
 			// 判定結果
 			$output = veu_common_options_validate( $options );
 
-			print PHP_EOL;
-			print 'options_validate 2         :' . $output[ $key ] . PHP_EOL;
-			print 'options_validate Correct 2 :' . $value['correct'] . PHP_EOL;
+			// print PHP_EOL;
+			// print 'options_validate 2         :' . $output[ $key ] . PHP_EOL;
+			// print 'options_validate Correct 2 :' . $value['correct'] . PHP_EOL;
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $value['correct'], $output[ $key ] );

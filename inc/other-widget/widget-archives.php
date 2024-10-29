@@ -146,7 +146,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 
 			<!-- タイトル -->
 			<div style="margin-top:15px;">
-				<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title', 'vk-all-in-one-expansion-unit' ); ?>:</label>
+				<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label to display', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 				<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $instance['label'] ); ?>"  class="admin-custom-input">
 			</div>
 

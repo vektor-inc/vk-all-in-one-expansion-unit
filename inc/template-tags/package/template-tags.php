@@ -7,13 +7,13 @@ https://github.com/vektor-inc/vektor-wp-libraries
 */
 
 /*
-  Chack use post top page
-  Chack post type info
-  Archive title
-  Page description
-  vk_is_plugin_active
-  Sanitize
-  Post Type Check Box
+	Chack use post top page
+	Chack post type info
+	Archive title
+	Page description
+	vk_is_plugin_active
+	Sanitize
+	Post Type Check Box
 	vk_is_checked
 */
 
@@ -35,7 +35,7 @@ if ( ! function_exists( 'vk_is_excerpt' ) ) {
 
 
 /*
-  Chack use post top page
+	Chack use post top page
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 	function vk_get_page_for_posts() {
@@ -54,7 +54,7 @@ if ( ! function_exists( 'vk_get_page_for_posts' ) ) {
 
 
 /*
-  Chack post type info
+	Chack post type info
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_post_type' ) ) {
 	function vk_get_post_type() {
@@ -135,7 +135,7 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 }
 
 /*
-  Archive title
+	Archive title
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 	function vk_get_the_archive_title() {
@@ -194,36 +194,36 @@ if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 
 
 /*
-  Page description
+	Page description
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_get_page_description' ) ) {
 	function vk_get_page_description() {
 		global $wp_query;
 		$page_description = '';
-		$post = $wp_query->get_queried_object();
+		$post             = $wp_query->get_queried_object();
 		if ( is_search() || is_404() ) {
 			$page_description = '';
 		} elseif ( is_front_page() ) {
-			if ( isset( $post->post_excerpt ) && $post->post_excerpt ) {
-				$page_description = get_the_excerpt();
+			if ( isset( $post->post_excerpt ) && $post->post_excerpt && ! post_password_required( $post->ID ) ) {
+				$page_description = get_the_excerpt( $post->ID );
 			} else {
 				$page_description = get_bloginfo( 'description' );
 			}
 		} elseif ( is_home() ) {
 			$page_for_posts = vk_get_page_for_posts();
 			if ( $page_for_posts['post_top_use'] ) {
-				$page             = get_post( $page_for_posts['post_top_id'] );
-				if( ! empty( $page->post_excerpt )  ) {
-					$page_description = $page->post_excerpt;
+				$page = get_post( $page_for_posts['post_top_id'] );
+				if ( ! empty( $page->post_excerpt ) && ! post_password_required( $page->ID ) ) {
+					$page_description = get_the_excerpt( $page->ID );
 				} else {
 					$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( $page_for_posts['post_top_name'] ) );
 					$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
-				}				
+				}
 			} else {
 				$page_description = get_bloginfo( 'description' );
 			}
 		} elseif ( is_category() || is_tax() ) {
-			if ( ! $post->description ) {
+			if ( empty( $post->description ) ) {
 				$page_description = sprintf( __( 'About %s', 'vk-all-in-one-expansion-unit' ), single_cat_title( '', false ) ) . ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 			} else {
 				$page_description = $post->description;
@@ -257,10 +257,12 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 				}
 			}
 		} elseif ( is_page() || is_single() ) {
-			if ( $post->post_excerpt ) {
-				$page_description = $post->post_excerpt;
+			if ( post_password_required( $post->ID ) ) {
+				$page_description = __( 'This article is protected by a password.', 'vk-all-in-one-expansion-unit' );
+			} elseif ( ! empty( $post->post_excerpt ) ) {
+				$page_description = get_the_excerpt( $post->ID );
 			} else {
-				$page_description = $post->post_content;
+				$page_description = get_the_content( null, false, $post->ID );
 			}
 		} else {
 			$page_description = get_bloginfo( 'description' );
@@ -281,7 +283,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 
 		しかし、ここで do_shortcode 入れるとWooCommerceなどのエラーメッセージが正常に表示されなくなる。
 		なので、ショートコードの実行は行わないが、ショートコードの引き値としての " は不具合の原因となるので
-		 " esc_attr でエスケープを実施する
+		" esc_attr でエスケープを実施する
 		本来ショートコードが出る場合は適切に抜粋欄に記入して運用でカバーする。
 		動的ブロックの場合も同様とする。
 		*/
@@ -308,7 +310,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 }
 
 /*
-  vk_is_plugin_active
+	vk_is_plugin_active
 /*-------------------------------------------*/
 if ( ! function_exists( 'vk_is_plugin_active' ) ) {
 	function vk_is_plugin_active( $plugin_path = '' ) {
@@ -324,7 +326,7 @@ if ( ! function_exists( 'vk_is_plugin_active' ) ) {
 }
 
 /*
-  Sanitize
+	Sanitize
 /*-------------------------------------------*/
 if ( ! function_exists( 'veu_sanitize_boolean' ) ) {
 	function veu_sanitize_boolean( $input ) {
@@ -361,7 +363,7 @@ if ( ! function_exists( 'vk_sanitize_array' ) ) {
 }
 
 /*
-  Post Type Check Box
+	Post Type Check Box
 /*-------------------------------------------*/
 /**
  * 投稿タイプのチェックボックスを表示する関数

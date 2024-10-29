@@ -67,3 +67,18 @@
 	}, false)
 
 })(window, document, 'veu_socialSet');
+
+const taxonomyWidgetAll = document.querySelectorAll('.veu_widget_taxonmomy');
+if (taxonomyWidgetAll.length) {
+	taxonomyWidgetAll.forEach((taxonomyWidget) => {
+		taxonomyWidget.addEventListener('change', () => {
+
+			taxName = taxonomyWidget.name;
+			taxValue = taxonomyWidget.value;
+			if (taxValue !== '') {
+				document.location.href = vkExOpt.homeUrl + '/?' + taxName + '=' + taxValue;
+			}
+			
+		});
+	});		
+};

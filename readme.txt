@@ -1,11 +1,11 @@
-=== Plugin Name ===
-Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki
+=== VK All in One Expansion Unit ===
+Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
 Donate link:
-Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
-Requires at least: 5.9.0
-Tested up to: 6.3
+Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
+Requires at least: 6.2
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 9.94.2.1
+Stable tag: 9.99.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,11 +79,67 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
-
-
 == Changelog ==
 
 [ Specification Change ][ Twitter widget ] Added "Not recommended" to the name and added a note to the description.
+[ Add setting ][ Category list ] Enable to specify ascending/descending order
+
+= 9.99.6 =
+[ Bug fix ][ Child Page List ] Fixed an issue related to a PHP error.
+
+= 9.99.5 =
+[ Other ] Update VK CSS Optimize 0.2.5
+
+= 9.99.4 =
+[ Bug fix ] Delete the unnecessary <br> tag.
+[ Bug fix ] Fix taxonomy widget for post_tag and custom_taxonomy
+
+= 9.99.3 =
+[ Bug fix ] Fix an issue where the activation screen causes an error in version 9.99.2
+
+= 9.99.2 =
+[ Bug fix ] Fix the layout issue of the CTA
+
+= 9.99.1 =
+[ Bug fix ] Roll back to 9.98.1
+
+= 9.99.0 =
+[ Specification Change ][ Page top button ] Add #top on body for pagetop btn
+[ Specification Change ][ Taxonomy Widget ] Add dropdown mode.
+[ Specification Change ] Foce Load JS from footer is abolished.
+[ Fix ] Add a title attribute on Google Tag Manager (noscript)
+[ Bug fix ] Fix XSS of Widgets, CTA, Custom Post Type Manager.
+
+= 9.98.1 =
+[ Bug fix ] Fix translation
+
+= 9.98.0 =
+[ Add setting ][ Post Type Manager ] Add a menu icon setting.
+[ Bug fix ][ Custom CSS ] Preserving media query operators in custom CSS.
+
+= 9.97.2 =
+[ Bug fix ] In WordPress 6.5, a link to the plugin page has been added to the admin bar on the front end by default. Consequently, ExUnit has been modified to no longer add this link on the front end.
+
+= 9.97.1 =
+[ Bug fix ][ Child page index ] In the case of automatically inserting the child page list without using a block, the issue where all pages were displayed in WordPress 6.5 has been fixed.
+[ Design Bug Fix ][ Faq ] Fix stitching styles in Group blocks.
+
+= 9.97.0 =
+[ Specification Change ] Grouping in the activation interface.
+[ Bug fix ][ Child page index ] Fix className vulnerability.
+[ Bug Fix ][ Description ] Fixed the issue about PHP error under specified conditions.
+
+= 9.96.0 =
+[ Add setting ][ Post Type Manager ] Add a custom field setting.
+[ Specification Change ][ Post Type Manager ] Change so that "with_front" can be specified as false in permalink settings
+[ Bug Fix ][ SNS ] Fix OGP description on password protected page.
+[ Bug Fix ][ Contact Section ] Fixed an issue where icons do not display when input in <i> tag format.
+[ Design Bug Fix ][ Child Page List ] Fixed an issue where a blank space appeared above the excerpt.
+
+= 9.95.0 =
+[ Add function ][ Icon Accessability ] Font Awesome Icon A11y Hide.
+[ Other ][ PostType Manager ] Add Rewrite option of Post Type / Taxonomy.
+[ Bug Fix ][ Page content to widget ] Fixed an issue where a warning occurs when the target page is deleted.
 
 = 9.94.2 =
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types

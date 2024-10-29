@@ -72,6 +72,7 @@ add_action( 'init', 'veu_print_block_editor_css' );
 -------------------------------------------*/
 add_action( 'wp_enqueue_scripts', 'veu_print_js' );
 function veu_print_js() {
+	
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
 	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), VEU_VERSION, true );
@@ -106,34 +107,14 @@ function change_old_options() {
 		unset( $option['css_exunit'] );
 	}
 
+	if ( isset( $option['js_footer'] ) ) {
+		unset( $option['js_footer'] );
+	}
+
+	update_option( 'vkExUnit_pagespeeding', $option );
+
 }
 add_action( 'after_setup_theme', 'change_old_options', 4 );
-
-/**
- * Move JavaScripts To Footer
- * https://nelog.jp/header-js-to-footer
- */
-function veu_move_scripts_to_footer() {
-	$default = array(
-		'css_exunit' => false,
-		'js_footer'  => false,
-	);
-	$option  = get_option( 'vkExUnit_pagespeeding', $default );
-	$option  = wp_parse_args( $option, $default );
-	if ( $option['js_footer'] ) {
-		// Remove Header Scripts.
-		remove_action( 'wp_head', 'wp_print_scripts' );
-		remove_action( 'wp_head', 'wp_print_head_scripts', 9 );
-		remove_action( 'wp_head', 'wp_enqueue_scripts', 1 );
-
-		// Remove Footer Scripts.
-		add_action( 'wp_footer', 'wp_print_scripts', 5 );
-		add_action( 'wp_footer', 'wp_print_head_scripts', 5 );
-		add_action( 'wp_footer', 'wp_enqueue_scripts', 5 );
-	}
-}
-add_action( 'wp_enqueue_scripts', 'veu_move_scripts_to_footer' );
-
 
 function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 	$enqueue_point = 'wp_footer';
