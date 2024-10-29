@@ -5,14 +5,24 @@ class VK_Twitter_Widget extends WP_Widget {
 	/**
 	 * ウィジェット名などを設定
 	 */
-	public function __construct() {
-		$widget_name = veu_get_prefix() . __( 'Twitter', 'vk-all-in-one-expansion-unit' );
+	function __construct() {
 		parent::__construct(
 			'vk_twitter_widget', // Base ID
-			$widget_name, // Name
-			array( 'description' => __( 'Display Twitter timeline.', 'vk-all-in-one-expansion-unit' ) ) // Args
+			self::veu_widget_name(), // Name
+			array( 'description' => self::veu_widget_description() ) // Args
 		);
 		// widget actual processes
+	}
+
+	public static function veu_widget_name() {
+		$name = veu_get_prefix() . __( 'Twitter', 'vk-all-in-one-expansion-unit' );
+		$name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
+		return $name;
+	}
+
+	public static function veu_widget_description() {
+		$description = __( 'Display Twitter timeline.', 'vk-all-in-one-expansion-unit' );
+		return $description;
 	}
 
 	/**
