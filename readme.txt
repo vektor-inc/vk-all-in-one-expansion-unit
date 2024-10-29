@@ -83,6 +83,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Twitter widget ] Added "Not recommended" to the name and added a note to the description.
+
 = 9.94.2 =
 [ Add filter ][ HTML Sitemap ] veu_sitemap_exclude_post_types
 [ Bug Fix ] Update CSS Optimizer 0.2.2
