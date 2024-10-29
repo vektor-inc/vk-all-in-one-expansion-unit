@@ -22,7 +22,8 @@ class VK_Twitter_Widget extends WP_Widget {
 
 	public static function veu_widget_description() {
 		$description = __( 'Display Twitter timeline.', 'vk-all-in-one-expansion-unit' );
-		return $description;
+		$description .= __( 'Note: ', 'vk-all-in-one-expansion-unit' ) . __( 'Due to recent changes in X policies, embedded timelines may not display as expected.', 'vk-all-in-one-expansion-unit' );
+		return wp_kses( $description, array( 'br' => array() ) );
 	}
 
 	/**
