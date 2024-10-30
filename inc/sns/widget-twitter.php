@@ -8,8 +8,8 @@ class VK_Twitter_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'vk_twitter_widget', // Base ID
-			self::veu_widget_name(), // Name
-			array( 'description' => self::veu_widget_description() ) // Args
+			self::widget_name(), // Name
+			array( 'description' => self::widget_description() ) // Args
 		);
 		// widget actual processes
 	}
