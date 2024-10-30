@@ -14,7 +14,7 @@ class VK_Twitter_Widget extends WP_Widget {
 		// widget actual processes
 	}
 
-	public static function veu_widget_name() {
+	public static function widget_name() {
 		$name = veu_get_prefix() . __( 'Twitter', 'vk-all-in-one-expansion-unit' );
 		$name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
 		return $name;
