@@ -66,9 +66,11 @@ foreach ( $vkExUnit_packages as $package ) :
 				?>
 				<?php echo ( $count > 1 && $i >= 1 ) ? ' | ' : ''; ?>
 				<span>
-				<a href="<?php echo ( $att['url'] ) ? esc_html( $att['url'] ) : admin_url() . 'admin.php?page=vkExUnit_main_setting'; ?>">
-				<?php echo esc_html( $att['name'] ); ?>
-				</a></span>
+				<a href="<?php echo ( $att['url'] ) ? esc_url( $att['url'] ) : admin_url() . 'admin.php?page=vkExUnit_main_setting'; ?>"
+					<?php echo ( isset( $att['target'] ) && $att['target'] === '_blank' ) ? 'target="_blank"' : ''; ?>>
+					<?php echo esc_html( $att['name'] ); ?>
+				</a>
+				</span>
 
 				<?php
 					endif;
