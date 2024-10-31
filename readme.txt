@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Twitter widget ] Added "Not recommended" to the name and added a note to the description.
 [ Add setting ][ Category list ] Enable to specify ascending/descending order
 
 = 9.99.6 =
