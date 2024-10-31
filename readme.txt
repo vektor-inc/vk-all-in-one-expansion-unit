@@ -81,8 +81,9 @@ e.g.
 
 == Changelog ==
 
-[ Add function ][ Post Type Manager ] Added links to explanatory articles and Vectre from the custom post type settings.
 [ Add setting ][ Category list ] Enable to specify ascending/descending order
+[ Specification Change ][ Twitter widget ] Added "Not recommended" to the name and added a note to the description.
+[ Other ][ Post Type Manager ] Added links to explanatory articles and Vectre from the custom post type settings.
 
 = 9.99.6 =
 [ Bug fix ][ Child Page List ] Fixed an issue related to a PHP error.
