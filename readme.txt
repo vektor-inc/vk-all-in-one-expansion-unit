@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.100.0 =
 [ Add setting ][ Category list ] Enable to specify ascending/descending order
 [ Specification Change ][ Twitter widget ] Added "Not recommended" to the name and added a note to the description.
 [ Other ][ Post Type Manager ] Added links to explanatory articles and Vectre from the custom post type settings.
