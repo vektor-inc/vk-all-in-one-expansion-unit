@@ -19,8 +19,6 @@ class VEU_Promotion_Alert {
 		add_action( 'wp', array( __CLASS__, 'display_alert' ) );
 		add_action( 'wp_head', array( __CLASS__, 'inline_style' ), 5 );
 		add_action( 'after_setup_theme', array( __CLASS__, 'content_filter' ) );
-		add_filter( 'wp_kses_allowed_css', array( __CLASS__, 'promotion_alert_allowed_css' ) );
-		add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'modify_wp_kses_allowed_html' ), 99, 2 );
 	}
 
 	/**
