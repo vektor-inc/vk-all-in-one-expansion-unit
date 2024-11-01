@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Promotion Alert ] Fixed filtering in Promotion Alert by adding data-nosnippet attribute to the div tag. 
+
 = 9.100.0 =
 [ Add setting ][ Category list ] Enable to specify ascending/descending order
 [ Specification Change ][ Twitter widget ] Added "Not recommended" to the name and added a note to the description.
