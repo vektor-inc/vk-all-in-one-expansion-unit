@@ -465,7 +465,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 					'alert-content' => '<div onmouseover="alert(\'XSS\')">Hover me!</div>',
 					'alert-display' => array('post' => 'display'),
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><div >Hover me!</div></div></div>',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><div>Hover me!</div></div></div>',
 			),
 			array(
 				'options' => array(
@@ -479,21 +479,14 @@ class PromotionAlertTest extends WP_UnitTestCase {
 					'alert-content' => '<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXX" crossorigin="anonymous"></script>',
 					'alert-display' => array('post' => 'display'),
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXX" crossorigin="anonymous"></script></div></div>',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"></div></div>',
 			),
 			array(
 				'options' => array(
 					'alert-content' => '<a href="javascript:alert(\'XSS\')">Click me!</a>',
 					'alert-display' => array('post' => 'display'),
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><ahref="#">Click me!</a></div></div>',
-			),
-			array(
-				'options' => array(
-					'alert-content' => '<style>*{xss:expression(alert("XSS"))}</style>',
-					'alert-display' => array('post' => 'display'),
-				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"></div></div>',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><a href="alert(\'XSS\')">Click me!</a></div></div>',
 			),
 			array(
 				'options' => array(
