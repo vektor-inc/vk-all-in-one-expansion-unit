@@ -9,56 +9,127 @@ class VEU_Promotion_Alert {
 	 * Constructor Define
 	 */
 	public static function init() {
+		global $allowedposttags;
+		if ( isset( $allowedposttags['ins'] ) ) {
+			$allowedposttags['ins']['style'] = array();
+		}
 		add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
 		// is_singular() で判定するため wp で実行
 		add_action( 'wp', array( __CLASS__, 'display_alert' ) );
 		add_action( 'wp_head', array( __CLASS__, 'inline_style' ), 5 );
 		add_action( 'after_setup_theme', array( __CLASS__, 'content_filter' ) );
+		add_filter( 'wp_kses_allowed_css', array( __CLASS__, 'promotion_alert_allowed_css' ) );
+		add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'modify_wp_kses_allowed_html' ), 99, 2 );
+	}
+
+	/**
+	 * Allow data-nosnippet attribute on div tags for kses filtering.
+	 */
+	public static function modify_wp_kses_allowed_html( $allowed_tags, $context ) {
+		// 必要な属性やタグを追加
+		if ( 'post' === $context ) {
+			$allowed_tags['div']['data-nosnippet'] = true;
+		}
+		return $allowed_tags;
 	}
 
 	/**
 	 * HTML Allowed
 	 */
-	public static function sanitize_alert_content($content) {
-    
-		// 1. <style>タグおよびその内容の削除
-		$content = preg_replace('/<style\b[^>]*>.*?<\/style>/is', '', $content);
-	
-		// 2. <script> および <ins> タグ内の内容を保持し、一時的にプレースホルダーに置き換え
-		$placeholders = [];
-		$content = preg_replace_callback(
-			'/(<script\b[^>]*>.*?<\/script>|<ins\b[^>]*>.*?<\/ins>)/is',
-			function($matches) use (&$placeholders) {
-				$placeholder = '%%PLACEHOLDER_' . count($placeholders) . '%%';
-				$placeholders[$placeholder] = $matches[0];
-				return $placeholder;
-			},
-			$content
+	public static function kses_allowed() {
+		return array(
+			'div'    => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h1'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h2'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h3'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h4'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h5'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'h6'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'p'      => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'ul'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'ol'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'li'     => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'i'      => array(
+				'id'          => array(),
+				'class'       => array(),
+				'style'       => array(),
+				'aria-hidden' => array()
+			),
+			'a'      => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+				'href'  => array(),
+			),
+			'span'   => array(
+				'id'    => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+			'button' => array(
+				'id'    => array(),
+				'type'  => array(),
+				'class' => array(),
+				'style' => array(),
+				'href'  => array(),
+			),
+            'img'    => array(
+                'id'    => array(),
+                'class' => array(),
+                'style' => array(),
+                'src'   => array(),
+                'alt'   => array(),                
+            ),
+			'style'  => array(),
+            '!'    => array(),
 		);
-	
-		// 3. 基本的なタグのサニタイズ
-		$allowed_tags = array('div', 'p', 'a', 'img', 'span', 'i', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'button');
-		$allowed_attributes = array('id', 'class', 'style', 'href', 'target', 'src', 'alt', 'type', 'rel');
-	
-		$content = preg_replace_callback('/<(\/?)(\w+)([^>]*)>/i', function($matches) use ($allowed_tags, $allowed_attributes) {
-			if (in_array(strtolower($matches[2]), $allowed_tags)) {
-				$attributes = preg_replace('/(\b(?!' . implode('|', $allowed_attributes) . ')\w+)\s*=\s*("[^"]*"|\'[^\']*\')/', '', $matches[3]);
-				return "<{$matches[1]}{$matches[2]}{$attributes}>";
-			}
-			return '';
-		}, $content);
-	
-		// 4. プレースホルダーを元の <script> および <ins> タグに戻す
-		$content = str_replace(array_keys($placeholders), array_values($placeholders), $content);
-	
-		// 5. JavaScriptリンクの無効化
-		$content = preg_replace('/\s*on\w+\s*=\s*"[^"]*"|\s*on\w+\s*=\s*\'[^\']*\'/', '', $content);
-		$content = preg_replace('/\s*href\s*=\s*"javascript:[^"]*"|\s*href\s*=\s*\'javascript:[^\']*\'/', 'href="#"', $content);
-	
-		return $content;
-	}	
-	
+	}
+ 
 	/**
 	 * コンテンツにかけるフィルター
 	 */
@@ -163,8 +234,8 @@ class VEU_Promotion_Alert {
 	 */
 	public static function sanitize_setting( $input ) {
 
-		// 投稿タイプを取得
-		$post_types = self::get_post_types();
+		// 許可されたHTMLタグのリストを取得
+		$allowed_html = self::kses_allowed();
 		
 		// サニタイズ処理
 		$options = array();
@@ -174,13 +245,15 @@ class VEU_Promotion_Alert {
 		if ( ! empty( $input['alert-content'] ) ) {
 			// サニタイズ前のデバッグ出力
 			error_log( 'Before wp_kses: ' . print_r( stripslashes( $input['alert-content'] ), true ) );
-			$options['alert-content'] = self::sanitize_alert_content( stripslashes( $input['alert-content'] ) );
+			$options['alert-content'] = wp_kses( stripslashes( $input['alert-content'] ), $allowed_html );
 			// サニタイズ後のデバッグ出力
 			error_log( 'After wp_kses: ' . print_r( $options['alert-content'], true ) );
 		} else {
 			$options['alert-content'] = '';
 		}
 
+		// 投稿タイプごとの設定をサニタイズ
+		$post_types = self::get_post_types();
 		foreach ( $post_types as $post_type ) {
 			$options['alert-display'][ $post_type['name'] ] = ! empty( $input['alert-display'][ $post_type['name'] ] ) ? 'display' : 'hide';
 		}
@@ -196,6 +269,9 @@ class VEU_Promotion_Alert {
 
 		// 投稿タイプを取得
 		$post_types = self::get_post_types();
+
+		// 許可されたHTMLタグ
+		$allowed_html = self::kses_allowed();
 
 		// オプションを取得
 		$options = self::get_options();
@@ -344,35 +420,44 @@ class VEU_Promotion_Alert {
 	 * Alert Content
 	 */
 	public static function get_alert_content() {
-
-		if ( ! self::get_display_condition( get_the_ID() ) ) {
-			return '';
-		}
-
+		// アラートを初期化
 		$alert = '';
 		$alert_content = '';
-		$options = self::get_options();
 	
-		if ( ! empty( $options['alert-content'] ) ) {
-			$alert_content  = '<div class="veu_promotion-alert__content--custom">';
-			// alert-contentにのみsanitize_alert_contentを適用
-			$alert_content .= self::sanitize_alert_content( $options['alert-content'] ); 
-			$alert_content .= '</div>';
-		} elseif ( ! empty( $options['alert-text'] ) ) {
-			$alert_content  = '<div class="veu_promotion-alert__content--text">';
-			$alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span>';
-			$alert_content .= '<span class="veu_promotion-alert__text">' . esc_html( $options['alert-text'] ) . '</span>';
-			$alert_content .= '</div>';
+		// 表示条件を判定
+		$display = self::get_display_condition( get_the_ID() );
+	
+		// 表示条件が true の場合はアラートを表示
+		if ( ! empty( $display ) ) {
+	
+			// オプションを取得
+			$options = self::get_options();
+	
+			// 許可されたHTMLタグ
+			$allowed_html = self::kses_allowed();
+	
+			// アラートの中身を作成
+			if ( ! empty( $options['alert-content'] ) ) {
+				$alert_content  = '<div class="veu_promotion-alert__content--custom">';
+				$alert_content .= wp_kses( $options['alert-content'], $allowed_html );
+				$alert_content .= '</div>';
+			} elseif ( ! empty( $options['alert-text'] ) ) {
+				$alert_content  = '<div class="veu_promotion-alert__content--text">';
+				$alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span>';
+				$alert_content .= '<span class="veu_promotion-alert__text">' . esc_html( $options['alert-text'] ) . '</span>';
+				$alert_content .= '</div>';
+			}
+	
+			if ( ! empty( $alert_content ) ) {
+				// wp_ksesを通した後にdata-nosnippetを追加
+				$alert = wp_kses( '<div class="veu_promotion-alert">' . $alert_content . '</div>', $allowed_html );
+				$alert = str_replace('<div class="veu_promotion-alert">', '<div class="veu_promotion-alert" data-nosnippet>', $alert);
+			}
 		}
-
-		
-		
-		if ( ! empty( $alert_content ) ) {
-			$alert = '<div class="veu_promotion-alert" data-nosnippet>' . $alert_content . '</div>';
-		}
-
-		return apply_filters( 'veu_promotion_alert_content', htmlspecialchars_decode( $alert ) );
-	}
+	
+		// 許可されたHTMLタグで再度サニタイズ
+		return apply_filters( 'veu_promotion_alert_content', $alert );
+	}	 
 
 	/**
 	 * Display Alert Content Filter Hook
@@ -385,16 +470,20 @@ class VEU_Promotion_Alert {
 		// 文頭にアラートを追加
 		$content = $alert . $content;
 	   
-		return $content;       
+		return $content;
 	}
 
 	/**
 	 * Display Alert Content Action Hook
 	 */
 	public static function display_alert_action() {
-		// アラートを取得し表示
+
+		// アラートを取得
 		$alert = self::get_alert_content();
-		echo self::sanitize_alert_content( $alert );       
+		// 許可されたHTMLタグ
+		$allowed_html = self::kses_allowed();
+
+		echo wp_kses( $alert, $allowed_html );       
 	}
 
 	/**
