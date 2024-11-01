@@ -244,11 +244,7 @@ class VEU_Promotion_Alert {
 		
 		// alert-contentを許可リストに基づいてサニタイズ
 		if ( ! empty( $input['alert-content'] ) ) {
-			// サニタイズ前のデバッグ出力
-			error_log( 'Before wp_kses: ' . print_r( stripslashes( $input['alert-content'] ), true ) );
 			$options['alert-content'] = wp_kses( stripslashes( $input['alert-content'] ), $allowed_html );
-			// サニタイズ後のデバッグ出力
-			error_log( 'After wp_kses: ' . print_r( $options['alert-content'], true ) );
 		} else {
 			$options['alert-content'] = '';
 		}
