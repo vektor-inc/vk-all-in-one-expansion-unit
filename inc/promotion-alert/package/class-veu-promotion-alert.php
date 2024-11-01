@@ -232,8 +232,11 @@ class VEU_Promotion_Alert {
 	 */
 	public static function sanitize_setting( $input ) {
 
-		// 許可されたHTMLタグのリストを取得
-		$allowed_html = self::kses_allowed();
+		 // 投稿タイプを取得
+	        $post_types = self::get_post_types();
+
+	        // 許可されたHTMLタグ
+        	$allowed_html = self::kses_allowed();
 		
 		// サニタイズ処理
 		$options = array();
