@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.100.1 =
 [ Bug Fix ][ Promotion Alert ] Fixed filtering in Promotion Alert by adding data-nosnippet attribute to the div tag. 
 
 = 9.100.0 =
