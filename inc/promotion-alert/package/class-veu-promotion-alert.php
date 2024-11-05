@@ -9,27 +9,12 @@ class VEU_Promotion_Alert {
 	 * Constructor Define
 	 */
 	public static function init() {
-		global $allowedposttags;
-		if ( isset( $allowedposttags['ins'] ) ) {
-			$allowedposttags['ins']['style'] = array();
-		}
 		add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
 		// is_singular() で判定するため wp で実行
 		add_action( 'wp', array( __CLASS__, 'display_alert' ) );
 		add_action( 'wp_head', array( __CLASS__, 'inline_style' ), 5 );
 		add_action( 'after_setup_theme', array( __CLASS__, 'content_filter' ) );
-	}
-
-	/**
-	 * Allow data-nosnippet attribute on div tags for kses filtering.
-	 */
-	public static function modify_wp_kses_allowed_html( $allowed_tags, $context ) {
-		// 必要な属性やタグを追加
-		if ( 'post' === $context ) {
-			$allowed_tags['div']['data-nosnippet'] = true;
-		}
-		return $allowed_tags;
 	}
 
 	/**
