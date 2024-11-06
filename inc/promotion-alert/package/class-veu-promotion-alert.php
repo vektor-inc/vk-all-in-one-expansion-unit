@@ -381,7 +381,7 @@ class VEU_Promotion_Alert {
 		// オプションを取得
 		$options = self::get_options();
 
-			// 投稿タイプを取得
+		// 投稿タイプを取得
 		$post_type = get_post_type( $post_id );
 
 		// 表示条件を判定
