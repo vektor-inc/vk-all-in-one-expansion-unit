@@ -22,20 +22,20 @@ class VEU_Promotion_Alert {
 	 */
 	public static function kses_allowed() {
 		return array(
-			'div'    => array(
+'div'    => array(
 				'id'    => array(),
 				'class' => array(),
 				'style' => array(),
-			),
+),
 			'h1'     => array(
-				'id'    => array(),
-				'class' => array(),
-				'style' => array(),
+			'id'    => array(),
+			'class' => array(),
+			'style' => array(),
 			),
 			'h2'     => array(
-				'id'    => array(),
-				'class' => array(),
-				'style' => array(),
+			'id'    => array(),
+			'class' => array(),
+			'style' => array(),
 			),
 			'h3'     => array(
 				'id'    => array(),
