@@ -1,6 +1,7 @@
 <?php
 /**
  * VEU Promotion Alert
+ * _|＼○_ﾋｬｯ ε=＼＿○ﾉ ﾎｰｳ!!
  */
 
 class VEU_Promotion_Alert {
