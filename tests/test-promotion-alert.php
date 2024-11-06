@@ -390,6 +390,16 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			),
 			array(
 				'options' => array(
+					'alert-text'    => '',
+					'alert-content' => '',
+					'alert-display' => array(
+						'post' => 'display',
+					),
+				),
+				'correct' => '',
+			),
+			array(
+				'options' => array(
 					'alert-text'    => 'aaaa',
 					'alert-content' => '',
 					'alert-display' => array(
