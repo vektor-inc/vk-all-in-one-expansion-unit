@@ -85,7 +85,7 @@ function veu_package_include() {
 	if ( $use_ex_blocks ) {
 		add_action(
 			'init',
-			function() {
+			function () {
 				// WordPress 6.5 以下の対策
 				if ( ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
 					wp_register_script(
