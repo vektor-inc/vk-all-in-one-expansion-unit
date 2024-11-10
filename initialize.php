@@ -28,15 +28,14 @@ if ( empty( $options['9.72.0'] ) ) {
  */
 function veu_load_packages(){
 	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
+	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
+	require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
+	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php
 }
 add_action( 'init', 'veu_load_packages' );
-
-// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
-require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
-require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
-require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
-require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 
 /*
   Add vkExUnit css
