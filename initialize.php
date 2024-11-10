@@ -9,7 +9,12 @@
 /*
   Delete old function data
 /*-------------------------------------------*/
-require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+function veu_load_package(){
+	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+	veu_package_include(); // package_manager.php
+}
+add_action( 'init', 'veu_load_package' );
+
 $options = get_option( 'veu_deprecated' );
 if ( empty( $options['9.72.0'] ) ) {
 	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
@@ -26,8 +31,6 @@ require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
-
-veu_package_include(); // package_manager.php
 
 /*
   Add vkExUnit css

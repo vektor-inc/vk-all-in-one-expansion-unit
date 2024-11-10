@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ] Addressing PHP notices related to translations in WordPress 6.7
+
 = 9.100.1 =
 [ Bug Fix ][ Promotion Alert ] Fixed filtering in Promotion Alert by adding data-nosnippet attribute to the div tag. 
 
