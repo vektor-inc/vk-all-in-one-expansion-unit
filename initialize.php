@@ -6,15 +6,20 @@
   Add vkExUnit js
 /*-------------------------------------------*/
 
-/*
-  Delete old function data
-/*-------------------------------------------*/
+/**
+ * Load package manager & package
+ * 
+ * @return void
+ */
 function veu_load_package(){
 	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 	veu_package_include(); // package_manager.php
 }
 add_action( 'init', 'veu_load_package' );
 
+/*
+  Delete old function data
+/*-------------------------------------------*/
 $options = get_option( 'veu_deprecated' );
 if ( empty( $options['9.72.0'] ) ) {
 	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
