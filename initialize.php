@@ -7,15 +7,15 @@
 /*-------------------------------------------*/
 
 /**
- * Load package manager & package
+ * Load package manager & packages
  * 
  * @return void
  */
-function veu_load_package(){
+function veu_load_packages(){
 	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 	veu_package_include(); // package_manager.php
 }
-add_action( 'init', 'veu_load_package' );
+add_action( 'init', 'veu_load_packages' );
 
 /*
   Delete old function data
