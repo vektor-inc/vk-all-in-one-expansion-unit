@@ -6,17 +6,6 @@
   Add vkExUnit js
 /*-------------------------------------------*/
 
-/**
- * Load package manager & packages
- * 
- * @return void
- */
-function veu_load_packages(){
-	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
-	veu_package_include(); // package_manager.php
-}
-add_action( 'init', 'veu_load_packages' );
-
 /*
   Delete old function data
 /*-------------------------------------------*/
@@ -31,6 +20,18 @@ if ( empty( $options['9.72.0'] ) ) {
   Load modules
 /*
 -------------------------------------------*/
+
+/**
+ * Load package manager & packages
+ * 
+ * @return void
+ */
+function veu_load_packages(){
+	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+	veu_package_include(); // package_manager.php
+}
+add_action( 'init', 'veu_load_packages' );
+
 // template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
