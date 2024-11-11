@@ -385,7 +385,7 @@ class VEU_Promotion_Alert {
 	 * @param int $post_id : 投稿id
 	 * @return bool
 	 */
-	public static function get_display_condition( $post_id ) {
+	public static function is_display( $post_id ) {
 
 		// 通常は false
 		$return = false;
@@ -424,7 +424,7 @@ class VEU_Promotion_Alert {
 		$alert_content = '';
 
 		// 表示条件を判定
-		$display = self::get_display_condition( get_the_ID() );
+		$display = self::is_display( get_the_ID() );
 
 		// 表示条件が true の場合はアラートを表示
 		if ( ! empty( $display ) ) {

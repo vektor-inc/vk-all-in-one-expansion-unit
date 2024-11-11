@@ -157,7 +157,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 		return $data;
 	}
 
-	public function test_get_display_condition() {
+	public function test_is_display() {
 
 		$data = self::setup_data();
 
@@ -361,7 +361,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			// Set site name
 			update_option( 'vkExUnit_PA', $test_value['options'] );
 
-			$return  = VEU_Promotion_Alert::get_display_condition( $test_value['post_id'] );
+			$return  = VEU_Promotion_Alert::is_display( $test_value['post_id'] );
 			$correct = $test_value['correct'];
 
 			$this->assertEquals( $correct, $return );
