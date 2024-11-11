@@ -27,7 +27,7 @@ if ( empty( $options['9.72.0'] ) ) {
  * @return void
  */
 function veu_load_packages(){
-	require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
