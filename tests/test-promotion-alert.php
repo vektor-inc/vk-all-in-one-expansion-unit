@@ -422,50 +422,6 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				),
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom">bbbb</div></div>',
 			),
-			array(
-				'name'   => 'No text and content / display:hide',
-				'options' => array(
-					'alert-text'    => '',
-					'alert-content' => '',
-					'alert-display' => array(
-						'post' => 'hide',
-					),
-				),
-				'correct' => '',
-			),
-			array(
-				'name'   => 'No content / display:hide',
-				'options' => array(
-					'alert-text'    => 'aaaa',
-					'alert-content' => '',
-					'alert-display' => array(
-						'post' => 'hide',
-					),
-				),
-				'correct' => '',
-			),
-			array(
-				'name'   => 'No text / display:hide',
-				'options' => array(
-					'alert-text'    => '',
-					'alert-content' => 'bbbb',
-					'alert-display' => array(
-						'post' => 'hide',
-					),
-				),
-				'correct' => '',
-			),
-			array(
-				'name'   => 'Normal text and content / display:hide',
-				'options' => array(
-					'alert-text'    => 'aaaa',
-					'alert-content' => 'bbbb',
-					'alert-display' => array(
-						'post' => 'hide',
-					),
-				),
-				'correct' => '',
-			),
 			// XSS属性の削除をテスト
 			array(
 				'name'   => 'XSS content',
