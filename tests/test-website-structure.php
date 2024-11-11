@@ -24,7 +24,7 @@ class Website_Structure_Test extends WP_UnitTestCase {
 					'@context'      => 'https://schema.org/',
 					'@type'         => 'WebSite',
 					'name'          => 'Site name',
-					'url'           => 'http://localhost:8889',
+					'url'           => home_url(),
 				),
 			),
 		);
