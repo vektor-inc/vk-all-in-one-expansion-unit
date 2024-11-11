@@ -130,6 +130,8 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Get Post Types
+	 * 
+	 * @return array $post_types
 	 */
 	public static function get_post_types() {
 
@@ -164,6 +166,8 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Get Options
+	 * 
+	 * @return array $options
 	 */
 	public static function get_options() {
 
@@ -178,7 +182,7 @@ class VEU_Promotion_Alert {
 		$options = get_option( 'vkExUnit_PA' );
 		$options = wp_parse_args( $options, $default );
 
-		// 投稿タイプ毎に初期化
+		// 投稿タイプ毎に初期化（ hide に指定 ）
 		$post_types = self::get_post_types();
 		foreach ( $post_types as $post_type ) {
 			if ( empty( $options['alert-display'][ $post_type['name'] ] ) ) {
@@ -192,6 +196,8 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Add Setting Page
+	 * 
+	 * @return void
 	 */
 	public static function option_init() {
 		vkExUnit_register_setting(
@@ -204,6 +210,8 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Sanitize Space
+	 * 
+	 * @return string
 	 */
 	public static function sanitize_space( $input ) {
 		if ( preg_match( '/^(\s)+$/u', $input ) ) {
@@ -214,6 +222,10 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Sanitize Setting
+	 * 配列に格納されている入力された内容をサニタイズ
+	 * 
+	 * @param array $input : 入力された内容
+	 * @return array $options : サニタイズされた内容
 	 */
 	public static function sanitize_setting( $input ) {
 
@@ -368,14 +380,19 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Display Condition
+	 * アラートコンテンツを表示するかどうか
+	 * 
+	 * @param int $post_id : 投稿id
+	 * @return bool
 	 */
-	public static function get_display_condition( $post_id ) {
+	public static function is_display( $post_id ) {
 
 		// 通常は false
 		$return = false;
 
-		// カスタムフィールドを取得
+		// カスタムフィールドを取得（記事個別で非表示設定の情報があれば取得）
 		$meta = get_post_meta( $post_id, 'veu_display_promotion_alert', true );
+		// 投稿個別の設定がない場合は 共通設定 を指定
 		$meta = ! empty( $meta ) ? $meta : 'common';
 
 		// オプションを取得
@@ -389,7 +406,7 @@ class VEU_Promotion_Alert {
 			// カスタムフィールドが display の場合は true
 			$return = true;
 		} elseif ( 'common' === $meta && ! empty( $options['alert-display'][ $post_type ] ) && 'display' === $options['alert-display'][ $post_type ] ) {
-			// カスタムフィールドが common でオプションが display の場合は true
+			// カスタムフィールドが common && オプションが display の場合は true
 			$return = true;
 		}
 
@@ -398,6 +415,8 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Alert Content
+	 * 
+	 * @return string
 	 */
 	public static function get_alert_content() {
 		// アラートを初期化
@@ -405,7 +424,7 @@ class VEU_Promotion_Alert {
 		$alert_content = '';
 
 		// 表示条件を判定
-		$display = self::get_display_condition( get_the_ID() );
+		$display = self::is_display( get_the_ID() );
 
 		// 表示条件が true の場合はアラートを表示
 		if ( ! empty( $display ) ) {
@@ -441,6 +460,8 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Display Alert Content Filter Hook
+	 * 
+	 * @return string $content
 	 */
 	public static function display_alert_filter( $content ) {
 
