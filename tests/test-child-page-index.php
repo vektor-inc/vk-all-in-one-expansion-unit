@@ -118,16 +118,16 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 		$test_array = array(
 			array(
 				'class'    => 'abcde',
-				'expected' => '<div class="veu_childPage_list abcde"><a href="http://localhost:8889/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
+				'expected' => '<div class="veu_childPage_list abcde"><a href="' . home_url() . '/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
 			),
 			array(
 				'class'    => 'abcde" onmouseover="alert(123)"',
-				'expected' => '<div class="veu_childPage_list abcde&quot; onmouseover=&quot;alert(123)&quot;"><a href="http://localhost:8889/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
+				'expected' => '<div class="veu_childPage_list abcde&quot; onmouseover=&quot;alert(123)&quot;"><a href="' . home_url() . '/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
 			),
 			array(
 				'parrent_id'    => array(),
 				'class'    => '',
-				'expected' => '<div class="veu_childPage_list "><a href="http://localhost:8889/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
+				'expected' => '<div class="veu_childPage_list "><a href="' . home_url() . '/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
 			),
 		);
 
