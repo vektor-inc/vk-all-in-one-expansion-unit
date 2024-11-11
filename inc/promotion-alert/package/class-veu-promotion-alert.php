@@ -423,12 +423,6 @@ class VEU_Promotion_Alert {
 		$alert         = '';
 		$alert_content = '';
 
-		// 表示条件を判定
-		$display = self::is_display( get_the_ID() );
-
-		// 表示条件が true の場合はアラートを表示
-		if ( ! empty( $display ) ) {
-
 			// オプションを取得
 			$options = self::get_options();
 
@@ -452,7 +446,6 @@ class VEU_Promotion_Alert {
 				$alert = wp_kses( '<div class="veu_promotion-alert">' . $alert_content . '</div>', $allowed_html );
 				$alert = str_replace( '<div class="veu_promotion-alert">', '<div class="veu_promotion-alert" data-nosnippet>', $alert );
 			}
-		}
 
 		// 許可されたHTMLタグで再度サニタイズ
 		return apply_filters( 'veu_promotion_alert_content', $alert );
@@ -465,11 +458,12 @@ class VEU_Promotion_Alert {
 	 */
 	public static function display_alert_filter( $content ) {
 
-		// アラートを取得
-		$alert = self::get_alert_content();
-
-		// 文頭にアラートを追加
-		$content = $alert . $content;
+		if ( self::is_display( get_the_ID() ) ){
+			// アラートを取得
+			$alert = self::get_alert_content();
+			// 文頭にアラートを追加
+			$content = $alert . $content;
+		}
 
 		return $content;
 	}
@@ -479,12 +473,15 @@ class VEU_Promotion_Alert {
 	 */
 	public static function display_alert_action() {
 
-		// アラートを取得
-		$alert = self::get_alert_content();
-		// 許可されたHTMLタグ
-		$allowed_html = self::kses_allowed();
-
-		echo wp_kses( $alert, $allowed_html );
+		if ( self::is_display( get_the_ID() ) ){
+			// アラートを取得
+			$alert = self::get_alert_content();
+			// 許可されたHTMLタグ
+			$allowed_html = self::kses_allowed();
+			echo wp_kses( $alert, $allowed_html );
+		} else {
+			return;
+		}
 	}
 
 	/**
