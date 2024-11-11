@@ -95,6 +95,9 @@ if ( function_exists( 'register_activation_hook' ) ) {
 function veu_install_function() {
 	$opt = get_option( 'vkExUnit_common_options' );
 	if ( ! $opt ) {
+		if ( ! function_exists( 'veu_get_common_options_default' ) ) {
+			require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+		}
 		add_option( 'vkExUnit_common_options', veu_get_common_options_default() );
 	}
 }
