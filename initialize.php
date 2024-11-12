@@ -9,7 +9,6 @@
 /*
   Delete old function data
 /*-------------------------------------------*/
-require VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 $options = get_option( 'veu_deprecated' );
 if ( empty( $options['9.72.0'] ) ) {
 	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
@@ -21,13 +20,38 @@ if ( empty( $options['9.72.0'] ) ) {
   Load modules
 /*
 -------------------------------------------*/
-// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
-require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
-require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
+// ./admin/admin.php は veu_load_packages() の中に入れると 
+// * ExUnit のカスタマイズパネルが出なくなる
+// * ExUnit_Custom_Html の読み込みでエラーになる
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
-require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 
-veu_package_include(); // package_manager.php
+/**
+ * Load package manager & packages
+ * 
+ * @return void
+ */
+function veu_load_packages(){
+	// after_setup_theme を経由して veu-package-manager.php を読み込まないと
+	// 6.7 で _load_textdomain_just_in_time のエラーが出る
+	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
+	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
+	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
+	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
+	veu_package_include(); // package_manager.php
+
+	// vkExUnit_common_options initialize
+	register_setting(
+		'options',
+		'vkExUnit_common_options',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => null,
+			'default'           => veu_get_common_options_default(),
+		)
+	);
+}
+add_action( 'after_setup_theme', 'veu_load_packages' );
 
 /*
   Add vkExUnit css
@@ -78,17 +102,6 @@ function veu_print_js() {
 	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), VEU_VERSION, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', $options ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
-}
-
-if ( function_exists( 'register_activation_hook' ) ) {
-	register_activation_hook( dirname( __FILE__ ) . '/vkExUnit.php', 'veu_install_function' );
-}
-
-function veu_install_function() {
-	$opt = get_option( 'vkExUnit_common_options' );
-	if ( ! $opt ) {
-		add_option( 'vkExUnit_common_options', veu_get_common_options_default() );
-	}
 }
 
 /**

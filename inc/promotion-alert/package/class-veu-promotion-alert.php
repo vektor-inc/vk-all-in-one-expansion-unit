@@ -447,6 +447,8 @@ class VEU_Promotion_Alert {
 				$alert = str_replace( '<div class="veu_promotion-alert">', '<div class="veu_promotion-alert" data-nosnippet>', $alert );
 			}
 
+		// 投稿本文に含まれるHTML要素の属性を補完（ veu_promotion_alert_content フィルター ではタイミングの問題で動作しない ）
+		$alert = wp_filter_content_tags( $alert );
 		// 許可されたHTMLタグで再度サニタイズ
 		return apply_filters( 'veu_promotion_alert_content', $alert );
 	}

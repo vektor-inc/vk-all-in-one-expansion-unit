@@ -44,9 +44,7 @@
 /*
 	load files
 /*-------------------------------------------*/
-require_once 'customizer.php';
-
-
+require_once dirname( __FILE__ ) . '/customizer.php';
 
 /*
 	VkExUnit_Contact
