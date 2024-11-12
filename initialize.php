@@ -31,6 +31,8 @@ require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
  * @return void
  */
 function veu_load_packages(){
+	// after_setup_theme を経由して veu-package-manager.php を読み込まないと
+	// 6.7 で _load_textdomain_just_in_time のエラーが出る
 	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
