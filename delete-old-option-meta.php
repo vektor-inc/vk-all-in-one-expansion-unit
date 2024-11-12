@@ -9,8 +9,6 @@
  * Disable Old Packages
  */
 function veu_disable_old_packages() {
-	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
-	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
     $options = veu_get_common_options();
     // 古いパッケージのリスト
     $old_packages = array(
