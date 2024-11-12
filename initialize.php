@@ -20,6 +20,10 @@ if ( empty( $options['9.72.0'] ) ) {
   Load modules
 /*
 -------------------------------------------*/
+// admin.php は veu_load_packages() の中に入れると 
+// * ExUnit のカスタマイズパネルが出なくなる
+// * ExUnit_Custom_Html の読み込みでエラーになる
+require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 
 /**
  * Load package manager & packages
@@ -31,7 +35,6 @@ function veu_load_packages(){
 	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる
 	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
-	require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php
 

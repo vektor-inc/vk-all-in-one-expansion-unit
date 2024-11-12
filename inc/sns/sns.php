@@ -9,11 +9,7 @@
   Add Customize Panel
 /*-------------------------------------------*/
 
-function veu_sns_load_customizer() {
-	require_once dirname( __FILE__ ) . '/sns_customizer.php';
-}
-add_action( 'after_setup_theme', 'veu_sns_load_customizer' );
-
+require_once dirname( __FILE__ ) . '/sns_customizer.php';
 require_once dirname( __FILE__ ) . '/block/index.php';
 
 function veu_sns_inline_styles() {

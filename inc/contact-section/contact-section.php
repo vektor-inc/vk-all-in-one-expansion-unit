@@ -44,11 +44,7 @@
 /*
 	load files
 /*-------------------------------------------*/
-function veu_contact_section_load_customizer() {
-	require_once dirname( __FILE__ ) . '/customizer.php';
-}
-add_action( 'after_setup_theme', 'veu_contact_section_load_customizer' );
-
+require_once dirname( __FILE__ ) . '/customizer.php';
 
 /*
 	VkExUnit_Contact
