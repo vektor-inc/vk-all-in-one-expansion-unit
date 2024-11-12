@@ -20,7 +20,7 @@ if ( empty( $options['9.72.0'] ) ) {
   Load modules
 /*
 -------------------------------------------*/
-// admin.php は veu_load_packages() の中に入れると 
+// ./admin/admin.php は veu_load_packages() の中に入れると 
 // * ExUnit のカスタマイズパネルが出なくなる
 // * ExUnit_Custom_Html の読み込みでエラーになる
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
@@ -38,6 +38,7 @@ function veu_load_packages(){
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php
 
+	// vkExUnit_common_options initialize
 	register_setting(
 		'options',
 		'vkExUnit_common_options',
