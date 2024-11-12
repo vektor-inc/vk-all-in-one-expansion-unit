@@ -45,7 +45,7 @@ function veu_load_packages(){
 		)
 	);
 }
-add_action( 'init', 'veu_load_packages' );
+add_action( 'after_setup_theme', 'veu_load_packages' );
 
 /*
   Add vkExUnit css
