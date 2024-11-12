@@ -41,7 +41,6 @@ function veu_load_packages(){
 		array(
 			'type'              => 'array',
 			'sanitize_callback' => null,
-			'show_in_rest'      => true,
 			'default'           => veu_get_common_options_default(),
 		)
 	);
