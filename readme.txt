@@ -3,7 +3,7 @@ Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catheri
 Donate link:
 Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.2
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 9.100.1.1
 License: GPLv2 or later
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.100.2 =
 [ Other ] Addressing PHP notices related to translations in WordPress 6.7
 
 = 9.100.1 =
