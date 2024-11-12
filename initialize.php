@@ -34,6 +34,17 @@ function veu_load_packages(){
 	require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php
+
+	register_setting(
+		'options',
+		'vkExUnit_common_options',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => null,
+			'show_in_rest'      => true,
+			'default'           => veu_get_common_options_default(),
+		)
+	);
 }
 add_action( 'init', 'veu_load_packages' );
 
@@ -86,20 +97,6 @@ function veu_print_js() {
 	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), VEU_VERSION, true );
 	wp_localize_script( 'vkExUnit_master-js', 'vkExOpt', apply_filters( 'vkExUnit_localize_options', $options ) );
 	wp_enqueue_script( 'vkExUnit_master-js' );
-}
-
-if ( function_exists( 'register_activation_hook' ) ) {
-	register_activation_hook( dirname( __FILE__ ) . '/vkExUnit.php', 'veu_install_function' );
-}
-
-function veu_install_function() {
-	$opt = get_option( 'vkExUnit_common_options' );
-	if ( ! $opt ) {
-		if ( ! function_exists( 'veu_get_common_options_default' ) ) {
-			require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
-		}
-		add_option( 'vkExUnit_common_options', veu_get_common_options_default() );
-	}
 }
 
 /**
