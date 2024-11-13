@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.100.3 =
 [ Bug Fix ][ CSS Customize ] Fixed an issue where CSS customizations were not applied on single page.
 
 = 9.100.2 =
