@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fixed a PHP error that occurs when the activation settings have never been saved.
+
 = 9.100.3 =
 [ Bug Fix ][ CSS Customize ] Fixed an issue where CSS customizations were not applied on single page.
 

@@ -39,17 +39,6 @@ function veu_load_packages(){
 	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php
-
-	// vkExUnit_common_options initialize
-	register_setting(
-		'options',
-		'vkExUnit_common_options',
-		array(
-			'type'              => 'array',
-			'sanitize_callback' => null,
-			'default'           => veu_get_common_options_default(),
-		)
-	);
 }
 add_action( 'after_setup_theme', 'veu_load_packages' );
 
