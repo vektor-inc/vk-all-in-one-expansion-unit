@@ -23,7 +23,7 @@ add_action( 'admin_footer', 'veu_css_customize_single_load_edit',11 );
 /* ------------------------------------------------ */
 function veu_insert_custom_css() {
 
-	if ( is_singular() || is_admin() ) {
+	if ( is_singular() || ( is_admin() && isset( $_GET['post'] ) ) ) {
 		global $post;
 		$css = veu_get_the_custom_css_single( $post );
 		if ( $css ) {
