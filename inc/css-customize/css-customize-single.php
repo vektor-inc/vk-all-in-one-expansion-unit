@@ -1,21 +1,29 @@
 <?php
-/*
-	Custom CSS
-/* ------------------------------------------- */
-
+/**
+ * CSS Customize Single Load to Front Page
+ */
 function veu_css_customize_single_load() {
 	$hook_point = apply_filters( 'veu_enqueue_point_css_customize_single', 'wp_head' );
 	add_action( $hook_point, 'veu_insert_custom_css', 201 );
 }
+add_action( 'after_setup_theme', 'veu_css_customize_single_load',11 );
 
-add_action( 'after_setup_theme', 'veu_css_customize_single_load' );
+/**
+ * CSS Customize Single Load to Edit Page
+ */
+function veu_css_customize_single_load_edit() {
+	global $post;
+	veu_insert_custom_css();
+}
+add_action( 'admin_footer', 'veu_css_customize_single_load_edit',11 );
+
 
 /*
 入力された CSS をソースに出力
 /* ------------------------------------------------ */
 function veu_insert_custom_css() {
 
-	if ( is_singular() ) {
+	if ( is_singular() || is_admin() ) {
 		global $post;
 		$css = veu_get_the_custom_css_single( $post );
 		if ( $css ) {
