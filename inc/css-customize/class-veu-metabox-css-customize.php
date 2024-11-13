@@ -16,7 +16,6 @@ class VEU_Metabox_CSS_Customize extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -33,7 +32,6 @@ class VEU_Metabox_CSS_Customize extends VEU_Metabox {
 
 		return $form;
 	}
-
 } // class VEU_Metabox_CSS_Customize {
 
 $veu_metabox_css_customize = new VEU_Metabox_CSS_Customize();
