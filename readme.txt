@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ CSS Customize ] Fixed an issue where CSS customizations were not applied on single page.
+
 = 9.100.2 =
 [ Other ] Addressing PHP notices related to translations in WordPress 6.7
 
