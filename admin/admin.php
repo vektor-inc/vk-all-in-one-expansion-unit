@@ -21,9 +21,15 @@ VkAdmin::admin_scripts( $admin_pages );
 
 function veu_common_options_init() {
 	register_setting(
-		'vkExUnit_common_options_fields',   //  Immediately following form tag of edit page.
+		'vkExUnit_common_options_fields',   // Immediately following form tag of edit page.
 		'vkExUnit_common_options',          // name attr
-		'veu_common_options_validate'
+		array(
+			'type'              => 'array',
+			'description'       => 'vkExUnit common options',
+			'sanitize_callback' => 'veu_common_options_validate',
+			'show_in_rest'      => false,
+			'default'           => veu_get_common_options_default(),
+		)
 	);
 }
 add_action( 'admin_init', 'veu_common_options_init' );
