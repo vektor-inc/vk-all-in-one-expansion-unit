@@ -9,8 +9,9 @@ class veu_css_customize {
 		/**
 		 * Reason of Using through the after_setup_theme is
 		 * to be able to change the action hook point of css load from theme..
+		 * 11 以降にしないと効かなくなる
 		 */
-		add_action( 'after_setup_theme', array( get_called_class(), 'load_css_action' ) );
+		add_action( 'after_setup_theme', array( get_called_class(), 'load_css_action' ), 11 );
 	}
 
 	public static function load_css_action() {

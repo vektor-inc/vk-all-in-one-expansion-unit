@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ CSS Customize ] Fixed an issue where CSS customizations( ExUnit > CSS Customize ) were not applied.
+
 = 9.100.4 =
 [ Bug Fix ] Fixed a PHP error that occurs when the activation settings have never been saved.
 
