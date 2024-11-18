@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.100.6 =
 [ Bug Fix ][ Loop before widget area ] Fixed an issue where widgets placed in the "Loop Before Widget Area" were not displaying correctly.
 
 = 9.100.5 =
