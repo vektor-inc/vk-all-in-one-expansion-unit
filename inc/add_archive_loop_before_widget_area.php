@@ -96,4 +96,5 @@ function veu_loop_before_widget_run() {
 	$loop_action_point = veu_get_loop_before_widget_action_point();
 	add_action( $loop_action_point, 'veu_display_archive_loop_before_widget_area' );
 }
-add_action( 'after_setup_theme', 'veu_loop_before_widget_run' );
+
+add_action( 'after_setup_theme', 'veu_loop_before_widget_run', 11 );

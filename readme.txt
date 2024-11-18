@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Loop before widget area ] Fixed an issue where widgets placed in the "Loop Before Widget Area" were not displaying correctly.
+
 = 9.100.5 =
 [ Bug Fix ][ CSS Customize ] Fixed an issue where CSS customizations( ExUnit > CSS Customize ) were not applied.
 
