@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ Categories/Custom taxonomies list widget ] Display order translation
+
 = 9.100.6 =
 [ Bug Fix ][ Loop before widget area ] Fixed an issue where widgets placed in the "Loop Before Widget Area" were not displaying correctly.
 
