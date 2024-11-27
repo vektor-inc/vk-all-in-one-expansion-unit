@@ -147,7 +147,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 		<!-- [ Form sort ] -->
 		<div>
-			<label for="<?php echo $this->get_field_id( 'form_sort' ); ?>">Display order:</label>
+			<label for="<?php echo $this->get_field_id( 'form_sort' ); ?>"><?php _e( 'Display order', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 			<select name="<?php echo $this->get_field_name( 'form_sort' ); ?>" class="admin-custom-input">
 				<option value="asc" <?php selected( $instance['form_sort'], 'asc' ); ?>><?php _e('Ascending Order ( A → Z )','vk-all-in-one-expansion-unit');?></option>
 				<option value="desc" <?php selected( $instance['form_sort'], 'desc' ); ?>><?php _e('Descending Order ( Z → A )','vk-all-in-one-expansion-unit');?></option>
