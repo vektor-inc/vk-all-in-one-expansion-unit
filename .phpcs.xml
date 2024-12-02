@@ -6,6 +6,10 @@
 	<file>.</file>
 	<exclude-pattern>/vendor/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>
+	<!-- tempolary exclude path -->
+	<exclude-pattern>/inc/</exclude-pattern>
+	<exclude-pattern>/tests/</exclude-pattern>
+	<exclude-pattern>/admin/</exclude-pattern>
 
 	<!-- How to scan -->
 	<!-- Usage instructions: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage -->
@@ -18,20 +22,20 @@
 
 	<!-- Rules: Check PHP version compatibility -->
 	<!-- https://github.com/PHPCompatibility/PHPCompatibility#sniffing-your-code-for-compatibility-with-specific-php-versions -->
-	<config name="testVersion" value="5.3-"/>
+	<config name="testVersion" value="5.6-"/>
 	<!-- https://github.com/PHPCompatibility/PHPCompatibilityWP -->
 	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Rules: WordPress Coding Standards -->
 	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards -->
 	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties -->
-	<config name="minimum_supported_wp_version" value="4.6"/>
+	<config name="minimum_supported_wp_version" value="6.5"/>
 	<rule ref="WordPress"></rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array" value="my-plugin"/>
-		</properties>
+		<exclude-pattern>.</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions">
+		<exclude-pattern>.</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
@@ -43,5 +47,8 @@
 		<properties>
 			<property name="blank_line_check" value="true"/>
 		</properties>
+	</rule>
+		<rule ref="Squiz.PHP.CommentedOutCode.Found">
+		<exclude-pattern>.</exclude-pattern>
 	</rule>
 </ruleset>

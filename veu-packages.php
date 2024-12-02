@@ -1,4 +1,15 @@
 <?php
+/**
+ * Packages
+ *
+ * @package VK All in One Expansion Unit
+ */
+
+/**
+ * Get packages
+ *
+ * @param bool $is_block_theme Block Theme or not.
+ */
 function veu_get_packages( $is_block_theme = null ) {
 	$required_packages = array();
 	if ( null === $is_block_theme ) {
