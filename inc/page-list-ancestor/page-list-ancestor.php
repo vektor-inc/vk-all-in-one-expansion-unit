@@ -1,7 +1,5 @@
 <?php
 /*
--------------------------------------------*/
-/*
 	pageList_ancestor
 /*-------------------------------------------*/
 
@@ -97,8 +95,6 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 }
 
 /*
--------------------------------------------*/
-/*
 admin_metabox_content
 /*-------------------------------------------*/
 add_action( 'veu_metabox_insert_items', 'vkExUnit_pageList_ancestor_admin_metabox_content' );
@@ -117,8 +113,6 @@ function vkExUnit_pageList_ancestor_admin_metabox_content() {
 }
 
 
-/*
--------------------------------------------*/
 /*
 save_custom_field
 /*-------------------------------------------*/

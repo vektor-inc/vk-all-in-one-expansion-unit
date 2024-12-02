@@ -1,7 +1,5 @@
 <?php
 /*
--------------------------------------------*/
-/*
 	fbPagePlugin widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {

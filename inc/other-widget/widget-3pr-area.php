@@ -1,8 +1,6 @@
 <?php
 
 /*
--------------------------------------------*/
-/*
 	PR area widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {

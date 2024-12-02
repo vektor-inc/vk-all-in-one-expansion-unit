@@ -10,8 +10,6 @@ https://github.com/vektor-inc/vektor-wp-libraries
 
 
 /*
--------------------------------------------*/
-/*
 	Contact widget
 /*-------------------------------------------*/
 class Widget_CTA extends \WP_Widget {

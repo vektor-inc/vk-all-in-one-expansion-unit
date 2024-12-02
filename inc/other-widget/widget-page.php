@@ -1,8 +1,6 @@
 <?php
 
 /*
--------------------------------------------*/
-/*
 	page widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {

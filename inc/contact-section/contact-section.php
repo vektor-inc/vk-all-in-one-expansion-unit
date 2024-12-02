@@ -12,8 +12,6 @@
 /*
 	load files
 /*
--------------------------------------------*/
-/*
 	VkExUnit_Contact
 			public static function instance() {
 			private function __construct() {

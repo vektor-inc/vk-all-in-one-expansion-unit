@@ -1,8 +1,6 @@
 <?php
 
 /*
--------------------------------------------*/
-/*
 	VK PR Blocks
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {

@@ -35,8 +35,6 @@ function veu_get_common_options_default( $is_block_theme = null ) {
 }
 
 /*
--------------------------------------------*/
-/*
 	validate
 /*-------------------------------------------*/
 

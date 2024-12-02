@@ -1,8 +1,6 @@
 <?php
 
 /*
--------------------------------------------*/
-/*
 	Side Profile widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_profile extends WP_Widget {
