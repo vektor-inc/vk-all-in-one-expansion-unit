@@ -16,7 +16,6 @@ class VEU_Metabox_CTA extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -34,19 +33,22 @@ class VEU_Metabox_CTA extends VEU_Metabox {
 		$ctas = Vk_Call_To_Action::get_ctas( true, '  - ' );
 		// ランダムを先頭に追加
 		array_unshift(
-			$ctas, array(
+			$ctas,
+			array(
 				'key'   => 'random',
 				'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
 			)
 		);
 		array_unshift(
-			$ctas, array(
+			$ctas,
+			array(
 				'key'   => 'disable',
 				'label' => __( 'Disable display', 'vk-all-in-one-expansion-unit' ),
 			)
 		);
 		array_unshift(
-			$ctas, array(
+			$ctas,
+			array(
 				'key'   => 0,
 				'label' => __( 'Follow common setting', 'vk-all-in-one-expansion-unit' ),
 			)
@@ -65,7 +67,6 @@ class VEU_Metabox_CTA extends VEU_Metabox {
 
 		return $form;
 	}
-
 } // class VEU_Metabox_CTA {
 
 $veu_metabox_noindex = new VEU_Metabox_CTA();

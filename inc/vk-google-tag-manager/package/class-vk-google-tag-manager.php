@@ -3,14 +3,14 @@
 このファイルの元ファイルは
 https://github.com/vektor-inc/vektor-wp-libraries
 にあります。修正の際は上記リポジトリのデータを修正してください。
- → まだない。Lightning Pro がマスター
+→ まだない。Lightning Pro がマスター
 */
 
 // add_action( 'after_setup_theme', 'vkmn_nav_add_customize_panel' );
 //
 // // カスタマイズパネルを出力するかどうかの判別
 // function vkmn_nav_add_customize_panel() {
-// 		// カスタマイザーが利用されるので、独自のコントロールクラスを追加
+// カスタマイザーが利用されるので、独自のコントロールクラスを追加
 //
 // }
 
@@ -22,8 +22,8 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 
 		public static $version = '0.0.0';
 
-		/*-------------------------------------------*/
-		/*	Customizer
+		/*
+			Customizer
 		/*-------------------------------------------*/
 
 		public function __construct() {
@@ -59,13 +59,14 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 			if ( ! $vk_gtm_panel ) {
 				$vk_gtm_panel = '';
 			}
-			if ( ! $vk_gtm_priority ){
+			if ( ! $vk_gtm_priority ) {
 				$vk_gtm_priority = 900;
 			}
 
 			// セクション追加
 			$wp_customize->add_section(
-				'vk_google_tag_manager_related_setting', array(
+				'vk_google_tag_manager_related_setting',
+				array(
 					'title'    => $vk_gtm_prefix . __( 'Google Tag Manager', 'vk-all-in-one-expansion-unit' ),
 					'priority' => $vk_gtm_priority,
 					'panel'    => $vk_gtm_panel,
@@ -86,7 +87,9 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 			if ( class_exists( 'ExUnit_Custom_Text_Control' ) ) {
 				$wp_customize->add_control(
 					new ExUnit_Custom_Text_Control(
-						$wp_customize, 'gtm_id', array(
+						$wp_customize,
+						'gtm_id',
+						array(
 							'label'        => __( 'Google tag manager ID :', 'vk-all-in-one-expansion-unit' ),
 							'section'      => 'vk_google_tag_manager_related_setting',
 							'settings'     => 'vk_google_tag_manager_related_options[gtm_id]',
@@ -98,7 +101,8 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 				);
 			} else {
 				$wp_customize->add_control(
-					'gtm_id', array(
+					'gtm_id',
+					array(
 						'label'       => __( 'Google tag manager ID :', 'vk-all-in-one-expansion-unit' ),
 						'section'     => 'vk_google_tag_manager_related_setting',
 						'settings'    => 'vk_google_tag_manager_related_options[gtm_id]',
@@ -110,39 +114,39 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 
 			// gtm_id セッティング
 			// $wp_customize->add_setting(
-			// 		'vk_google_tag_manager_related_options[gtm_id]', array(
-			// 		'default'           => '',
-			// 		'type'              => 'option', // 保存先 option or theme_mod
-			// 		'capability'        => 'edit_theme_options', // サイト編集者
-			// 		'sanitize_callback' => 'sanitize_text_field',
-			// 		)
+			// 'vk_google_tag_manager_related_options[gtm_id]', array(
+			// 'default'           => '',
+			// 'type'              => 'option', // 保存先 option or theme_mod
+			// 'capability'        => 'edit_theme_options', // サイト編集者
+			// 'sanitize_callback' => 'sanitize_text_field',
+			// )
 			// );
 
 			// gtm_id コントロール
 			// $wp_customize->add_control(
-			// 		'gtm_id', array(
-			// 		'label'    => __( 'Google tag manager ID :', 'vk-all-in-one-expansion-unit' ),
-			// 		'section'  => 'vk_google_tag_manager_related_setting',
-			// 		'settings' => 'vk_google_tag_manager_related_options[gtm_id]',
-			// 		'type'     => 'text',
-			// 		)
+			// 'gtm_id', array(
+			// 'label'    => __( 'Google tag manager ID :', 'vk-all-in-one-expansion-unit' ),
+			// 'section'  => 'vk_google_tag_manager_related_setting',
+			// 'settings' => 'vk_google_tag_manager_related_options[gtm_id]',
+			// 'type'     => 'text',
+			// )
 			// );
 
-			/*-------------------------------------------*/
-			/*	Add Edit Customize Link Btn
+			/*
+			-------------------------------------------*/
+			/*
+				Add Edit Customize Link Btn
 			/*-------------------------------------------*/
 			// $wp_customize->selective_refresh->add_partial(
-			//   'vk_google_tag_manager_related_options[nav_bg_color]', array(
-			//     'selector'        => '.mobil-fix-nav',
-			//     'render_callback' => '',
-			//   )
+			// 'vk_google_tag_manager_related_options[nav_bg_color]', array(
+			// 'selector'        => '.mobil-fix-nav',
+			// 'render_callback' => '',
+			// )
 			// );
-
 		} // function vk_google_tag_manager_customize_register( $wp_customize ) {
 	} // class Vk_Goole_Tag_Manager {
 
 	$vk_mobile_fix_nav = new Vk_Goole_Tag_Manager();
-
 } // if ( ! class_exists('Vk_Goole_Tag_Manager') )  {
 
 // head に読み込むコード
@@ -165,7 +169,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 		echo $gtm_head;
 	} // if( isset( 'vk_google_tag_manager_related_options'['head_code'] ) ) {
-
 } // function vk_gtm_head() {
 
 // body に読み込むコード

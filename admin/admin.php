@@ -1,9 +1,9 @@
 <?php
 
 /*
-  Add Parent menu
-  Load master setting page
-  Print admin js
+	Add Parent menu
+	Load master setting page
+	Print admin js
 */
 use VektorInc\VK_Admin\VkAdmin;
 VkAdmin::init();
@@ -34,28 +34,28 @@ function veu_common_options_init() {
 }
 add_action( 'admin_init', 'veu_common_options_init' );
 
-require dirname( __FILE__ ) . '/disable-guide.php';
-require dirname( __FILE__ ) . '/customizer.php';
+require __DIR__ . '/disable-guide.php';
+require __DIR__ . '/customizer.php';
 
 // plugins_loaded の位置ではmetaboxを統合しない設定にしても個別のmetaboxが表示されない
 // 統合親メタボックスの読み込み
-require dirname( __FILE__ ) . '/admin-post-metabox.php';
+require __DIR__ . '/admin-post-metabox.php';
 
-require_once dirname( __FILE__ ) . '/admin-main-setting-page.php';
+require_once __DIR__ . '/admin-main-setting-page.php';
 
 /*
-  Add Parent menu
+	Add Parent menu
 /*-------------------------------------------*/
 add_action( 'admin_menu', 'veu_setting_menu_parent', 10 );
 function veu_setting_menu_parent() {
 	global $menu;
 
-	$page_title = veu_get_little_short_name();
-	$menu_title = veu_get_little_short_name();
+	$page_title          = veu_get_little_short_name();
+	$menu_title          = veu_get_little_short_name();
 	$capability_required = 'activate_plugins';
-	$menu_slug = 'vkExUnit_setting_page';
-	$callback_function = 'veu_add_setting_page';
-	$icon_url = 'none';	
+	$menu_slug           = 'vkExUnit_setting_page';
+	$callback_function   = 'veu_add_setting_page';
+	$icon_url            = 'none';
 
 	$custom_page = add_menu_page(
 		$page_title,
@@ -63,11 +63,11 @@ function veu_setting_menu_parent() {
 		$capability_required,
 		$menu_slug,
 		$callback_function,
-		$icon_url		
+		$icon_url
 	);
 
 	if ( ! $custom_page ) {
-		return; 
+		return;
 	}
 }
 
@@ -76,11 +76,11 @@ function veu_active_setting_menu() {
 	// $capability_required = veu_get_capability_required();
 	add_submenu_page(
 		// parent_menu_slug
-		'vkExUnit_setting_page', 
-		 // sub_menu_page_title
+		'vkExUnit_setting_page',
+		// sub_menu_page_title
 		__( 'Active Setting', 'vk-all-in-one-expansion-unit' ),
 		// sub_menu_label
-		__( 'Active Setting', 'vk-all-in-one-expansion-unit' ), 
+		__( 'Active Setting', 'vk-all-in-one-expansion-unit' ),
 		// capability_required
 		// edit_theme_optionsのユーザーにもアクセスさせないため
 		'activate_plugins',
@@ -92,35 +92,41 @@ function veu_active_setting_menu() {
 }
 
 // ブロックを有効化する際、プラグインが有効になっていたらこれを無効にする
-add_filter('pre_update_option_vkExUnit_common_options', function( $new_option, $old_value, $option ){
-	if (
-		!empty($new_option['active_vk-blocks']) &&
-		empty($old_value['active_vk-blocks'])
-	) {
-		foreach( get_option( 'active_plugins' ) as $plugin ) {
-			if (
-				strpos($plugin, 'vk-blocks-pro/') === 0
-				|| strpos($plugin, 'vk-blocks/') === 0
-			) {
-				$new_option['active_vk-blocks'] = false;
-				break;
+add_filter(
+	'pre_update_option_vkExUnit_common_options',
+	function ( $new_option, $old_value, $option ) {
+		if (
+		! empty( $new_option['active_vk-blocks'] ) &&
+		empty( $old_value['active_vk-blocks'] )
+		) {
+			foreach ( get_option( 'active_plugins' ) as $plugin ) {
+				if (
+				strpos( $plugin, 'vk-blocks-pro/' ) === 0
+				|| strpos( $plugin, 'vk-blocks/' ) === 0
+				) {
+					$new_option['active_vk-blocks'] = false;
+					break;
+				}
 			}
 		}
-	}
-	return $new_option;
-},10, 3);
+		return $new_option;
+	},
+	10,
+	3
+);
 
 
 /*
-  Load master setting page
+	Load master setting page
 /*-------------------------------------------*/
 function veu_add_setting_page() {
-	require dirname( __FILE__ ) . '/admin-active-setting-page.php';
+	require __DIR__ . '/admin-active-setting-page.php';
 }
 
 /*
-  Print admin js
-/*-------------------------------------------*/
+	Print admin js
+/*
+-------------------------------------------*/
 // add_action( 'admin_print_scripts-exunit_page_vkExUnit_main_setting', 'veu_admin_add_js' );
 add_action( 'admin_enqueue_scripts', 'veu_admin_add_js' );
 function veu_admin_add_js( $hook_suffix ) {
@@ -136,8 +142,9 @@ function veu_admin_css() {
 }
 
 /*
-  管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
-/*-------------------------------------------*/
+	管理画面_admin_head JavaScriptのデバッグコンソールにhook_suffixの値を出力
+/*
+-------------------------------------------*/
 // add_action("admin_head", 'vkExUnit_suffix2console');
 // function vkExUnit_suffix2console() {
 // global $hook_suffix;

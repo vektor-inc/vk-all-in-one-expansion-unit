@@ -12,8 +12,6 @@
 /*
 	load files
 /*
--------------------------------------------*/
-/*
 	VkExUnit_Contact
 			public static function instance() {
 			private function __construct() {
@@ -44,7 +42,7 @@
 /*
 	load files
 /*-------------------------------------------*/
-require_once dirname( __FILE__ ) . '/customizer.php';
+require_once __DIR__ . '/customizer.php';
 
 /*
 	VkExUnit_Contact
@@ -241,9 +239,17 @@ class VkExUnit_Contact {
 	public function option_sanitaize( $option ) {
 		$option['contact_txt']       = wp_kses_post( stripslashes( $option['contact_txt'] ) );
 		$option['tel_number']        = wp_kses_post( stripslashes( $option['tel_number'] ) );
-		$option['tel_icon']          = wp_kses( $option['tel_icon'] , array( 'i' => array( 'class' => array(), 'aria-hidden' => array() ) ) );
+		$option['tel_icon']          = wp_kses(
+			$option['tel_icon'],
+			array(
+				'i' => array(
+					'class'       => array(),
+					'aria-hidden' => array(),
+				),
+			)
+		);
 		$option['contact_time']      = wp_kses_post( stripslashes( $option['contact_time'] ) );
-		$option['contact_link']      = esc_url ( $option['contact_link'] );
+		$option['contact_link']      = esc_url( $option['contact_link'] );
 		$option['button_text']       = wp_kses_post( stripslashes( $option['button_text'] ) );
 		$option['button_text_small'] = wp_kses_post( stripslashes( $option['button_text_small'] ) );
 		$option['short_text']        = wp_kses_post( stripslashes( $option['short_text'] ) );
@@ -342,21 +348,16 @@ class VkExUnit_Contact {
 			$additional_classes = ' ' . esc_attr( $additional_classes );
 		}
 		if ( $options['contact_html'] ) {
-
 			$cont .= '<section class="veu_contentAddSection' . $additional_classes . '">';
 			$cont .= $options['contact_html'];
 			$cont .= '</section>';
-
 		} elseif ( $options['contact_image'] ) {
-
 			$cont .= '<section class="veu_contentAddSection' . $additional_classes . '">';
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . '>';
 			$cont .= '<img src="' . esc_attr( $options['contact_image'] ) . '" alt="contact_txt">';
 			$cont .= '</a>';
 			$cont .= '</section>';
-
 		} else {
-
 			$cont .= '<section class="veu_contact veu_contentAddSection vk_contact veu_card' . $additional_classes . '">';
 			$cont .= '<div class="contact_frame veu_card_inner">';
 			$cont .= '<p class="contact_txt">';
@@ -439,7 +440,6 @@ class VkExUnit_Contact {
 		if ( ( isset( $options['contact_link'] ) && $options['contact_link'] )
 			&& ( isset( $options['short_text'] ) && $options['short_text'] )
 		) {
-
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . ' class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 
 			// Envelope Icon

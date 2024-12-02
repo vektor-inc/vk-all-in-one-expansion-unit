@@ -26,7 +26,7 @@
 			if ( in_array( $package['id'], $_enable_ids ) ) {
 				echo 'checked'; }
 			?>
-			 onclick="veuwd()" /></td>
+			onclick="veuwd()" /></td>
 			<td><label for="vew_widget_enable_input_<?php echo $package['id']; ?>" ><?php echo $package['class']::veu_widget_name(); ?></label></td>
 			<td><?php echo $package['class']::veu_widget_description(); ?></td>
 		</tr>

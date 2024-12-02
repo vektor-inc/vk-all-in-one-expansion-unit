@@ -10,22 +10,20 @@ function veu_add_follow( $content ) {
 
 	global $is_pagewidget;
 
-	if ( $is_pagewidget ) { return $content; }
+	if ( $is_pagewidget ) {
+		return $content; }
 
 	$postType = vk_get_post_type();
 
 	if ( is_single() && $postType['slug'] == 'post' ) :
-
 		$content .= veu_get_follow_html();
-
 	endif;
 
 	return $content;
-
 }
 
-/*----------------------------------------------*/
-/* 記事がよかったらいいね　ここから
+/*
+記事がよかったらいいね　ここから
 /*----------------------------------------------*/
 /**
  * since 9.37.0.0
@@ -49,11 +47,11 @@ function veu_get_follow_html() {
 	$image_url = wp_get_attachment_image_src( $image_id, true );
 
 	$follow_html = '<div class="veu_followSet">';
-	
+
 	// 画像
 	if ( has_post_thumbnail() ) {
 		if ( ! $image_url ) {
-		   if ( veu_package_is_enable( 'default_thumbnail' ) ) {
+			if ( veu_package_is_enable( 'default_thumbnail' ) ) {
 				$image_option     = get_option( 'veu_defualt_thumbnail' );
 				$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
 				if ( $image_default_id ) {
@@ -68,7 +66,7 @@ function veu_get_follow_html() {
 
 	$follow_html .= '
 	<div class="followSet_body">
-	<p class="followSet_title">' . wp_kses_post( $title ). '</p>' . "\n";
+	<p class="followSet_title">' . wp_kses_post( $title ) . '</p>' . "\n";
 	// fb
 	if ( $fbPageUrl ) {
 		$follow_html .= '

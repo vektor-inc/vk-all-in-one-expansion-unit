@@ -1,6 +1,6 @@
 <?php
 /*
-  Default Thumbnail
+	Default Thumbnail
 /*-------------------------------------------*/
 $options = get_option( 'veu_defualt_thumbnail' );
 ?>

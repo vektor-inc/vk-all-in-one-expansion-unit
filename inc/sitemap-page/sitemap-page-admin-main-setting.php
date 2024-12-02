@@ -1,6 +1,6 @@
 <?php
-/*-------------------------------------------*/
-/*  Main setting
+/*
+	Main setting
 /*-------------------------------------------*/
 
 function veu_sitemap_set_main_setting() {
@@ -13,8 +13,8 @@ function veu_sitemap_set_main_setting() {
 }
 add_action( 'veu_package_init', 'veu_sitemap_set_main_setting' );
 
-/*-------------------------------------------*/
-/*  validate
+/*
+	validate
 /*-------------------------------------------*/
 function veu_sitemap_options_validate( $input ) {
 	$output = $defaults = veu_get_sitemap_options_default();
@@ -39,8 +39,8 @@ function veu_sitemap_options_validate( $input ) {
 function veu_add_sitemap_options_page() {
 	$options = veu_get_sitemap_options();
 
-	/*-------------------------------------------*/
-	/*  sitemap page
+	/*
+		sitemap page
 	/*-------------------------------------------*/
 	?>
 	<div id="sitemapSetting" class="sectionBox">
@@ -64,21 +64,21 @@ function veu_add_sitemap_options_page() {
 	</table>
 	<p><?php _e( 'If you want to do not display specific page that, you can set on that page edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 
-<?php
-// 以前は除外設定をここから IDを , 区切りで行っていた。
-// 除外指定がもし , 区切りで保存してあった場合に固定ページ側での除外指定で自動上書きする
-if ( ! empty( $options['excludeId'] ) ) {
-	$excludes = esc_attr( $options['excludeId'] );
-	$excludes = str_replace( '，', ',', $excludes );
-	$excludes = mb_convert_kana( $excludes, 'kvrn' );
-	$excludes = explode( ',', $excludes );
-	foreach ( $excludes as $key => $exclude_id ) {
-		update_post_meta( $exclude_id, 'sitemap_hide', true );
-	}
-	$options['excludeId'] = '';
-	update_option( 'vkExUnit_sitemap_options', $options );
-} // if ( ! empty( $options['excludeId'] ) ) {
-?>
+	<?php
+	// 以前は除外設定をここから IDを , 区切りで行っていた。
+	// 除外指定がもし , 区切りで保存してあった場合に固定ページ側での除外指定で自動上書きする
+	if ( ! empty( $options['excludeId'] ) ) {
+		$excludes = esc_attr( $options['excludeId'] );
+		$excludes = str_replace( '，', ',', $excludes );
+		$excludes = mb_convert_kana( $excludes, 'kvrn' );
+		$excludes = explode( ',', $excludes );
+		foreach ( $excludes as $key => $exclude_id ) {
+			update_post_meta( $exclude_id, 'sitemap_hide', true );
+		}
+		$options['excludeId'] = '';
+		update_option( 'vkExUnit_sitemap_options', $options );
+	} // if ( ! empty( $options['excludeId'] ) ) {
+	?>
 	<?php submit_button(); ?>
 	</div>
 	<?php

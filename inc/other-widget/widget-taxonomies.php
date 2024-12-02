@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Taxonomy list widget
+	Taxonomy list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	function __construct() {
@@ -35,7 +35,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		if ( ! isset( $instance['form_sort'] ) ) {
 			$instance['form_sort'] = 'asc';
 		}
-	?>
+		?>
 		<?php echo $args['before_widget']; ?>
 		<div class="sideWidget widget_taxonomies widget_nav_menu">
 			<?php echo $args['before_title'] . $instance['label'] . $args['after_title']; ?>
@@ -43,22 +43,21 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 				<?php
 				if ( 'list' === $instance['form_design'] ) {
-					//
-					$tax_args = array(
-						'echo'            => 1,
-						'style'           => 'list',
-						'show_count'      => false,
-						'show_option_all' => false,
-						'hide_empty'      => $instance['hide_empty'],
-						'hierarchical'    => true,
-						'title_li'        => '',
-						'taxonomy'        => $instance['tax_name'],
-						'orderby'         => 'name',
-						'order'           => $instance['form_sort']
-					);
-					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); // 9.13.0.0
+										$tax_args = array(
+											'echo'         => 1,
+											'style'        => 'list',
+											'show_count'   => false,
+											'show_option_all' => false,
+											'hide_empty'   => $instance['hide_empty'],
+											'hierarchical' => true,
+											'title_li'     => '',
+											'taxonomy'     => $instance['tax_name'],
+											'orderby'      => 'name',
+											'order'        => $instance['form_sort'],
+										);
+										$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); // 9.13.0.0
 
-					wp_list_categories( $tax_args );
+										wp_list_categories( $tax_args );
 				} elseif ( 'select' === $instance['form_design'] ) {
 					$name = $instance['tax_name'];
 					if ( 'category' === $name ) {
@@ -79,10 +78,9 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 						'name'              => $name,
 						'value_field'       => 'slug',
 						'orderby'           => 'name',
-						'order'             => $instance['form_sort']
+						'order'             => $instance['form_sort'],
 					);
-					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args ); //
-
+					$tax_args = apply_filters( 'veu_widget_taxlist_args', $tax_args );
 					wp_dropdown_categories( $tax_args );
 				}
 				?>
@@ -110,7 +108,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	function form( $instance ) {
 		$instance = static::get_defaults( $instance );
 		$taxs     = get_taxonomies( array( 'public' => true ), 'objects' );
-?>
+		?>
 
 		<!-- タイトル -->
 		<div style="margin-top:15px;">
@@ -125,7 +123,12 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'tax_name' ); ?>"><?php _e( 'Category / Taxonomy', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 			<select name="<?php echo $this->get_field_name( 'tax_name' ); ?>" class="admin-custom-input">
 				<?php foreach ( $taxs as $tax ) { ?>
-					<option value="<?php echo $tax->name; ?>"<?php if ( $instance['tax_name'] === $tax->name ) { echo ' selected="selected"'; } ?>>
+					<option value="<?php echo $tax->name; ?>"
+												<?php
+												if ( $instance['tax_name'] === $tax->name ) {
+													echo ' selected="selected"'; }
+												?>
+					>
 						<?php echo $tax->labels->name; ?>
 					</option>
 				<?php } ?>
@@ -141,16 +144,20 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			</select>
 		</div>
 
-		<input style="margin-top:3px" type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true"<?php if ( $instance['hide_empty'] ) { echo ' checked';} ?>
- />
+		<input style="margin-top:3px" type="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="true"
+																	<?php
+																	if ( $instance['hide_empty'] ) {
+																		echo ' checked';}
+																	?>
+/>
 		<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Do not display terms without posts', 'vk-all-in-one-expansion-unit' ); ?></label>
 
 		<!-- [ Form sort ] -->
 		<div>
 			<label for="<?php echo $this->get_field_id( 'form_sort' ); ?>"><?php _e( 'Display order', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 			<select name="<?php echo $this->get_field_name( 'form_sort' ); ?>" class="admin-custom-input">
-				<option value="asc" <?php selected( $instance['form_sort'], 'asc' ); ?>><?php _e('Ascending Order ( A → Z )','vk-all-in-one-expansion-unit');?></option>
-				<option value="desc" <?php selected( $instance['form_sort'], 'desc' ); ?>><?php _e('Descending Order ( Z → A )','vk-all-in-one-expansion-unit');?></option>
+				<option value="asc" <?php selected( $instance['form_sort'], 'asc' ); ?>><?php _e( 'Ascending Order ( A → Z )', 'vk-all-in-one-expansion-unit' ); ?></option>
+				<option value="desc" <?php selected( $instance['form_sort'], 'desc' ); ?>><?php _e( 'Descending Order ( Z → A )', 'vk-all-in-one-expansion-unit' ); ?></option>
 			</select>
 		</div>
 
@@ -197,7 +204,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 add_filter(
 	'vkExUnit_master_js_options',
-	function( $options ) {
+	function ( $options ) {
 		$options['homeUrl'] = home_url( '/' );
 		return $options;
 	},

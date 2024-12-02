@@ -29,7 +29,6 @@ function veu_set_archive_loop_before_widget_area() {
 				)
 			);
 		} // if( $post_type_object ){
-
 	} // foreach ($postTypes as $postType) {
 }
 add_action( 'widgets_init', 'veu_set_archive_loop_before_widget_area' );

@@ -20,7 +20,6 @@ class VEU_Metabox_Head_Title extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -45,5 +44,4 @@ class VEU_Metabox_Head_Title extends VEU_Metabox {
 		$form .= '</label>';
 		return $form;
 	}
-
 } // class VEU_Metabox_Head_Title {

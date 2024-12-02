@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
-  Add Customize Panel
+	Add Customize Panel
 /*-------------------------------------------*/
 add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_default_thumbnail' );
 function veu_customize_panel_activation_default_thumbnail() {
@@ -13,14 +13,14 @@ if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 
 function veu_customize_register_default_thumbnail( $wp_customize ) {
 	/*
-	  Defualt Thumbnail Settings
-	 /*-------------------------------------------*/
+		Defualt Thumbnail Settings
+	/*-------------------------------------------*/
 	// 1. テーマカスタマイザー上に新しいセクションを追加
 	$wp_customize->add_section(
 		'veu_default_thumbnail_setting',
 		array(
-			'title'    => __( 'Defualt Thumbnail Settings', 'vk-all-in-one-expansion-unit' ),
-			'panel'    => 'veu_setting',
+			'title' => __( 'Defualt Thumbnail Settings', 'vk-all-in-one-expansion-unit' ),
+			'panel' => 'veu_setting',
 		)
 	);
 
@@ -40,11 +40,11 @@ function veu_customize_register_default_thumbnail( $wp_customize ) {
 			$wp_customize,
 			'veu_defualt_thumbnail[default_thumbnail_image]',
 			array(
-				'label'       =>  __( 'Default List Image', 'lightning' ),
+				'label'       => __( 'Default List Image', 'lightning' ),
 				'section'     => 'veu_default_thumbnail_setting',
 				'settings'    => 'veu_defualt_thumbnail[default_thumbnail_image]',
 				'description' => '',
-				'mime_type' => 'image',
+				'mime_type'   => 'image',
 				'priority'    => 700,
 			)
 		)

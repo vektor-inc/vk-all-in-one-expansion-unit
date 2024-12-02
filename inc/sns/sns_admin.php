@@ -3,7 +3,7 @@
 	$options = veu_get_sns_options();
 
 /*
-  SNS
+	SNS
 /*-------------------------------------------*/
 ?>
 <div id="snsSetting" class="sectionBox">
@@ -110,7 +110,7 @@ _e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-uni
 echo '<br/>';
 _e( 'example', 'vk-all-in-one-expansion-unit' );
 ?>
-  (12,31,553)
+	(12,31,553)
 </dd>
 </dl>
 </td>
@@ -125,37 +125,37 @@ _e( 'example', 'vk-all-in-one-expansion-unit' );
 if ( $options['useFacebook'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Facebook', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'Facebook', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useTwitter]" value="true"
 <?php
 if ( $options['useTwitter'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'X', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'X', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php
 if ( $options['useHatena'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Hatena', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'Hatena', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[usePocket]" value="true"
 <?php
 if ( $options['usePocket'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Pocket', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'Pocket', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useLine]" value="true"
 <?php
 if ( $options['useLine'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'LINE (mobile only)', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'LINE (mobile only)', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useCopy]" value="true"
 <?php
 if ( $options['useCopy'] ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Copy', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'Copy', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 </ul>
 </td>
 </tr>
@@ -169,13 +169,13 @@ if ( $options['useCopy'] ) {
 if ( ! empty( $options['snsBtn_position']['before'] ) ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'Before content', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'Before content', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_position][after]" value="true"
 <?php
 if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 	echo 'checked';}
 ?>
- /> <?php _e( 'After content', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'After content', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 </ul>
 </td>
 </tr>
@@ -187,19 +187,19 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 	if ( $options['entry_count'] == 'disable' ) {
 		echo 'checked';}
 	?>
-	 /><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	/><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" 
 	<?php
 	if ( $options['entry_count'] == 'get' ) {
 		echo 'checked';}
 	?>
-	 /><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
+	/><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" 
 	<?php
 	if ( $options['entry_count'] == 'post' ) {
 		echo 'checked';}
 	?>
-	 /><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
+	/><?php _e( 'POST', 'vk-all-in-one-expansion-unit' ); ?></label>
 	<p><?php _e( '* manage entry count Api. change to \'POST\' if fail entry count. (POST mode is can\'t use cache)', 'vk-all-in-one-expansion-unit' ); ?></p>
 </td>
 </tr>

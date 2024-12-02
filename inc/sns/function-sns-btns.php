@@ -5,9 +5,9 @@
  * @package vk-all-in-one-expantion-unit
  */
 
- // global なので $options にすると ExUnit 全体の $options の値を汚染するので $sns_options を使用
+// global なので $options にすると ExUnit 全体の $options の値を汚染するので $sns_options を使用
 $sns_options = veu_get_sns_options();
-if ( veu_is_sns_btns_auto_insert() ){
+if ( veu_is_sns_btns_auto_insert() ) {
 	if ( ! empty( $sns_options['hook_point'] ) ) {
 		$hook_points = explode( "\n", $sns_options['hook_point'] );
 		foreach ( $hook_points as $hook_point ) {
@@ -55,9 +55,9 @@ function veu_add_sns_btns_loopend( $query ) {
  * @param string $content : post content.
  * @return bool $auto_insert : post content.
  */
-function veu_is_sns_btns_auto_insert(){
+function veu_is_sns_btns_auto_insert() {
 	$auto_insert = false;
-	$options      = veu_get_sns_options();
+	$options     = veu_get_sns_options();
 	if ( ! empty( $options['enableSnsBtns'] ) ) {
 		$auto_insert = true;
 	}
@@ -81,20 +81,20 @@ function veu_is_sns_btns_display() {
 	}
 
 	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように
-	if ( is_404() ){
+	if ( is_404() ) {
 		return false;
 	}
 
 	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）.
 	if ( ! empty( $options['snsBtn_exclude_post_types'][ $post_type ] ) ) {
 		return false;
-	} 
-	
+	}
+
 	// 非表示対象の中にこの投稿IDが含まれる場合は表示しない.
 	if ( ! empty( $ignore_posts ) && is_array( $ignore_posts ) && in_array( (string) get_the_ID(), $ignore_posts, true ) ) {
 		return false;
 	}
-	
+
 	// 上記に該当しない場合は表示.
 	return true;
 }
@@ -193,11 +193,10 @@ function veu_get_sns_btns( $attr = array() ) {
 	$link_url   = rawurlencode( get_permalink() );
 	$page_title = rawurlencode( veu_get_the_sns_title() );
 
-	$classes = '';
+	$classes     = '';
 	$social_btns = '';
 	// 個別の記事で ボタンを表示する指定にしてある場合 or サイトエディターの場合.
 	if ( veu_is_sns_btns_display() || false !== strpos( $current_url, 'context=edit' ) ) {
-		
 		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
 			$classes .= veu_add_common_attributes_class( $classes, $attr );
 		}
@@ -288,7 +287,7 @@ function veu_add_sns_btns( $content ) {
 	// ウィジェットなら表示しない.
 	global $is_pagewidget;
 	if ( $is_pagewidget ) {
-		return $content; 
+		return $content;
 	}
 
 	// 抜粋でも表示しない.
@@ -304,7 +303,6 @@ function veu_add_sns_btns( $content ) {
 	}
 
 	if ( veu_is_sns_btns_display() ) {
-
 		$options = veu_get_sns_options();
 
 		if ( ! empty( $options['snsBtn_position']['before'] ) ) {
@@ -377,7 +375,7 @@ add_action(
 
 add_filter(
 	'vkExUnit_master_js_options',
-	function( $options ) {
+	function ( $options ) {
 		$opt                              = veu_get_sns_options();
 		$options['hatena_entry']          = get_rest_url( 0, 'vk_ex_unit/v1/hatena_entry/' );
 		$options['facebook_entry']        = get_rest_url( 0, 'vk_ex_unit/v1/facebook_entry/' );
@@ -403,10 +401,10 @@ add_filter(
  */
 function vew_sns_hatena_restapi_callback( $data ) {
 
-	$siteurl  = get_site_url();
+	$siteurl = get_site_url();
 
 	// Avoiding Apache config "AllowEncodedSlashes" option issue
-	$link_url = str_replace( "-#-", "/", urldecode( $data['linkurl'] ) );
+	$link_url = str_replace( '-#-', '/', urldecode( $data['linkurl'] ) );
 
 	if ( strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
 		$response = new WP_REST_Response( array() );
@@ -447,10 +445,10 @@ function vew_sns_hatena_restapi_callback( $data ) {
  */
 function vew_sns_facebook_restapi_callback( $data ) {
 
-	$siteurl  = get_site_url();
+	$siteurl = get_site_url();
 
 	// Avoiding Apache config "AllowEncodedSlashes" option issue
-	$link_url = str_replace( "-#-", "/", urldecode( $data['linkurl'] ) );
+	$link_url = str_replace( '-#-', '/', urldecode( $data['linkurl'] ) );
 
 	if ( strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) < 0 ) {
 		$response = new WP_REST_Response( array() );

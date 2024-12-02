@@ -63,7 +63,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			$this->assertEquals( $test_value['correct'], $return );
 		} // foreach ( $tests as $key => $test_value ) {
 			$before_option = update_option( 'vkExUnit_css_customize', $before_option );
-		} // function test_css_customize_get_the_css_min() {
+	} // function test_css_customize_get_the_css_min() {
 
 	/**
 	 * Singular page css
@@ -75,7 +75,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => 'div > h1 { color:red;   }',
-				'correct'    => 'div > h1{color:red;}'
+				'correct'    => 'div > h1{color:red;}',
 			),
 			array(
 				'post_title' => 'タイトル',
@@ -88,7 +88,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'post_title' => 'タイトル',
 				'post_meta'  => '<script></script>div > h1 {color:red;}',
 				'correct'    => 'div > h1{color:red;}',
-			),// メディアクエリがある状態のテストケース
+			), // メディアクエリがある状態のテストケース
 			array(
 				'post_title' => 'タイトル',
 				'post_meta'  => '@media (width > 1000px) {p { color: red   ;}}',
@@ -145,8 +145,6 @@ class CssCustomizeTest extends WP_UnitTestCase {
 
 			// テスト用データを消去
 			wp_delete_post( $post_id, true );
-
 		} // foreach ( $test_array as $key => $value ) {
-
 	} // function test_veu_get_the_custom_css_single() {
 }

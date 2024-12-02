@@ -6,7 +6,7 @@ if ( is_admin() ) {
 	if ( version_compare( $wp_version, '5.3', '>=' ) ) {
 		add_action(
 			'admin_menu',
-			function() {
+			function () {
 				global $menu;
 				$position   = 20;
 				$menu_slug  = 'edit.php?post_type=wp_block';

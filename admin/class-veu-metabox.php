@@ -39,7 +39,6 @@ class VEU_Metabox {
 			// 通常メタボックスの追加タイミングは admin_menu だが,
 			// ここでは admin_init でないと反映されないため
 			add_action( 'admin_init', array( $this, 'add_individual_metabox' ) );
-
 		} else {
 
 			// Parent metabox activate
@@ -57,12 +56,11 @@ class VEU_Metabox {
 		}
 
 		add_action( 'save_post', array( $this, 'save_custom_field' ) );
-
 	}
 
 	public function add_sub_parent_metabox_insert_items() {
 		// 子ページリストやサイトマップなど「挿入アイテムの設定」を読み込むための子metaboxを読み込む
-		require_once dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php';
+		require_once __DIR__ . '/class-veu-metabox-insert-items.php';
 	}
 
 
@@ -115,7 +113,6 @@ class VEU_Metabox {
 			echo '</div><!-- [ /.veu_metabox_section_body ] -->';
 			echo '</div><!-- [ /.veu_metabox_section ] -->';
 		}
-
 	} // if ( is_array( $this->args['post_types'] ) && in_array( $now_post_type, $this->args['post_types'] ) ) {
 
 	/**
@@ -182,6 +179,5 @@ class VEU_Metabox {
 		if ( ! empty( $_POST[ $this->args['cf_name'] ] ) ) {
 			add_post_meta( $post_id, $this->args['cf_name'], $_POST[ $this->args['cf_name'] ] );
 		}
-
 	}
 } // class VEU_Metabox {

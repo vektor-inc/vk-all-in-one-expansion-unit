@@ -16,7 +16,6 @@ class VEU_Metabox_SNS_Title extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -33,7 +32,6 @@ class VEU_Metabox_SNS_Title extends VEU_Metabox {
 
 		return $form;
 	}
-
 } // class VEU_Metabox_SNS_Title {
 
 $veu_metabox_sns_title = new VEU_Metabox_SNS_Title();

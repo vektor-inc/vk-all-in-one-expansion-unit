@@ -1,6 +1,6 @@
 <?php
 /*
-  Side Post list widget
+	Side Post list widget
 /*-------------------------------------------*/
 
 // vendor/vektor-inc/vk-term-color/src
@@ -24,7 +24,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	/*
-	  一覧へのリンクhtmlを出力する関数
+		一覧へのリンクhtmlを出力する関数
 	/*-------------------------------------------*/
 	public static function more_link_html( $instance ) {
 		if ( ! empty( $instance['more_text'] ) && ! empty( $instance['more_url'] ) ) {
@@ -49,7 +49,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 	}
 
 	/*
-	  Widget
+		Widget
 	/*-------------------------------------------*/
 	function widget( $args, $instance ) {
 		$instance = static::get_options( $instance );
@@ -131,7 +131,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 				endwhile;
 				echo '</ul>';
 			}
-
 		endif;
 
 		echo $this->more_link_html( $instance );
@@ -142,7 +141,6 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		wp_reset_postdata();
 		wp_reset_query();
-
 	} // widget($args, $instance)
 
 
@@ -302,9 +300,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 	function form( $instance ) {
 		/*
-		 下記 get_options($instance) が無いと Charm テスト環境ではエラーが発生する
-		 但し、これがある事で過去にnotice が出た経緯があるようなので、要調査
-		 ※20行目付近にも同様の記述あり
+		下記 get_options($instance) が無いと Charm テスト環境ではエラーが発生する
+		但し、これがある事で過去にnotice が出た経緯があるようなので、要調査
+		※20行目付近にも同様の記述あり
 		*/
 		$instance = static::get_options( $instance );
 		?>

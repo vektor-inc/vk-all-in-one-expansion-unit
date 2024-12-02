@@ -5,8 +5,8 @@
  * @package ExUnit
  */
 
- use VektorInc\VK_CSS_Optimize\VkCssOptimize;
- new VkCssOptimize();
+use VektorInc\VK_CSS_Optimize\VkCssOptimize;
+new VkCssOptimize();
 
 function veu_css_tree_shaking_handles( $vk_css_tree_shaking_handles ) {
 
@@ -14,7 +14,7 @@ function veu_css_tree_shaking_handles( $vk_css_tree_shaking_handles ) {
 		$vk_css_tree_shaking_handles,
 		array(
 			'veu-cta',
-			'vkExUnit_common_style'
+			'vkExUnit_common_style',
 		)
 	);
 	return $vk_css_tree_shaking_handles;

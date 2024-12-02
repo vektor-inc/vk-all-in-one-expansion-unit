@@ -22,7 +22,6 @@ add_action( 'veu_package_init', 'vkExUnit_wp_title_init' );
 /*********************************************
  * Head title
  */
-
 function vkExUnit_get_wp_head_title() {
 	global $wp_query;
 	$post  = $wp_query->get_queried_object();
@@ -41,7 +40,6 @@ function vkExUnit_get_wp_head_title() {
 	}
 
 	if ( ! $title ) {
-
 		if ( is_front_page() ) {
 			$options = vkExUnit_get_wp_title_options();
 			if ( empty( $options['extend_frontTitle'] ) ) {

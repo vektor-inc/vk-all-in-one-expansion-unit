@@ -24,7 +24,6 @@ function veu_child_page_excerpt( $post ) {
 			$page_excerpt = mb_substr( $page_excerpt, 0, 90 );
 			// ... を追加
 			$page_excerpt .= '...';
-
 		}
 	}
 
@@ -66,7 +65,6 @@ function vkExUnit_childPageIndex_shortcode( $parentId = null, $classes = '' ) {
 
 	$childPageList_html = PHP_EOL . '<div class="veu_childPage_list ' . esc_attr( $classes ) . '">' . PHP_EOL;
 	foreach ( $childrens as $children ) :
-
 			$postExcerpt = veu_child_page_excerpt( $children );
 			$outer_class = 'childPage_list_box veu_card ' . implode( ' ', get_post_class( '', $children->ID ) );
 

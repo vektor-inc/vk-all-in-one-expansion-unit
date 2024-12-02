@@ -610,7 +610,6 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			// print 'correct : ' . $correct . PHP_EOL;
 
 			$this->assertEquals( $correct, $return );
-
 		}
 	}
 }

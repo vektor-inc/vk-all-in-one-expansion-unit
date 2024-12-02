@@ -1,6 +1,6 @@
 <?php
-/*-------------------------------------------*/
-/*  pageList_ancestor
+/*
+	pageList_ancestor
 /*-------------------------------------------*/
 
 add_shortcode( 'pageList_ancestor', 'vkExUnit_pageList_ancestor_shortcode' );
@@ -28,13 +28,13 @@ function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false 
 		$post = get_post( $widget_pageid );
 	} else {
 		global $post;
-		if(
-			!$force
+		if (
+			! $force
 			&& (
 				! is_page()
 				|| ! get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true )
 			)
-		){
+		) {
 			return '';
 		}
 	}
@@ -48,11 +48,13 @@ function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false 
 	}
 
 	if ( $post_id ) {
-		$children = wp_list_pages( array(
-			'title_li' => '',
-			'child_of' => $post_id,
-			'echo' => 0
-		) );
+		$children = wp_list_pages(
+			array(
+				'title_li' => '',
+				'child_of' => $post_id,
+				'echo'     => 0,
+			)
+		);
 
 		$classes = 'veu_pageList_ancestor veu_card';
 		if ( ! empty( $class_name ) ) {
@@ -92,8 +94,8 @@ function vkExUnit_pageList_ancestor_contentHook( $content ) {
 	return $content;
 }
 
-/*-------------------------------------------*/
-/* admin_metabox_content
+/*
+admin_metabox_content
 /*-------------------------------------------*/
 add_action( 'veu_metabox_insert_items', 'vkExUnit_pageList_ancestor_admin_metabox_content' );
 function vkExUnit_pageList_ancestor_admin_metabox_content() {
@@ -107,12 +109,12 @@ function vkExUnit_pageList_ancestor_admin_metabox_content() {
 	<?php _e( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' ); ?>
 </label>
 </div>
-<?php
+	<?php
 }
 
 
-/*-------------------------------------------*/
-/* save_custom_field
+/*
+save_custom_field
 /*-------------------------------------------*/
 add_action( 'save_post', 'veu_page_list_ancestor_save_custom_field' );
 function veu_page_list_ancestor_save_custom_field( $post_id ) {
@@ -144,4 +146,4 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 	do_action( 'vkExUnit_customField_Page_save_customField' );
 }
 
-require_once dirname( __FILE__ ) . '/block/index.php';
+require_once __DIR__ . '/block/index.php';

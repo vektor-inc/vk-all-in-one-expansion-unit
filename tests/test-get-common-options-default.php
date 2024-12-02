@@ -61,8 +61,8 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 					'active_auto_eyecatch'                 => false,
 					'active_Contactform7AssetOptimize'     => false,
 					'active_article_structure_data'        => true,
-					'active_website_structure_data'     => true,
-                    'active_icon_accessibility'              => true,
+					'active_website_structure_data'        => true,
+					'active_icon_accessibility'            => true,
 					'active_page_exclude_from_list_pages'  => true,
 					'post_metabox_individual'              => false,
 					'delete_options_at_deactivate'         => false,
@@ -108,21 +108,20 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 						'active_auto_eyecatch'             => false,
 						'active_Contactform7AssetOptimize' => false,
 						'active_article_structure_data'    => true,
-						'active_website_structure_data' => true,
-                        'active_icon_accessibility'              => true,
+						'active_website_structure_data'    => true,
+						'active_icon_accessibility'        => true,
 						'active_page_exclude_from_list_pages' => true,
 						'post_metabox_individual'          => false,
 						'delete_options_at_deactivate'     => false,
 						'content_filter_state'             => 'content',
 					),
-	
-                ),
+
+				),
 
 			),
 		);
 
 		foreach ( $test_array as $key => $test_value ) {
-
 			$return  = veu_get_common_options_default( $test_value['is_block_theme'] );
 			$correct = $test_value['correct'];
 
@@ -130,11 +129,10 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 			// print 'correct :' . PHP_EOL;
 			// var_dump( $correct );
 			// print 'return  :' . PHP_EOL;
-            // var_dump( $return );
+			// var_dump( $return );
 
 			// 取得できたHTMLが、意図したHTMLと等しいかテスト
 			$this->assertEquals( $correct, $return );
-
 		}
 	}
 }

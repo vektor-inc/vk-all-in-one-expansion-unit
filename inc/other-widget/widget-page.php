@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  page widget
+/*
+	page widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
@@ -23,20 +23,20 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		return __( 'Displays a page contents to widget.', 'vk-all-in-one-expansion-unit' );
 	}
 
-	/*-------------------------------------------*/
-	/*  template-tags
+	/*
+		template-tags
 	/*-------------------------------------------*/
 	/*
 	$input 保存されてる値
 	$value 今のinputタグのvalueの値
 	*/
-	static public function echo_checked( $input, $value ) {
+	public static function echo_checked( $input, $value ) {
 		if ( $input === $value ) {
 			echo ' checked';
 		}
 	}
 
-	static public function is_active_child_page_index( $options ) {
+	public static function is_active_child_page_index( $options ) {
 		if (
 			! isset( $options['active_childPageIndex'] ) || // 5.7.4 以前を利用で一度も有効化設定を保存していないユーザー
 			isset( $options['active_childPageIndex'] ) && $options['active_childPageIndex'] // Activate User
@@ -47,7 +47,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		}
 	}
 
-	static public function is_active_page_list_ancestor( $options ) {
+	public static function is_active_page_list_ancestor( $options ) {
 		if (
 			! isset( $options['active_pageList_ancestor'] ) || // 5.7.4 以前を利用で一度も有効化設定を保存していないユーザー
 			isset( $options['active_pageList_ancestor'] ) && $options['active_pageList_ancestor'] // Activate User
@@ -64,13 +64,14 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	$widget_title['display'] : 表示するかどうか // → 5.4.3以降は不要のはず。
 	$widget_title['title'] : ウィジェットのタイトルとして表示する文字
 	*/
-	static public function widget_title( $instance ) {
+	public static function widget_title( $instance ) {
 
 		$pageid = $instance['page_id'];
 		$page   = get_page( $pageid );
 
 		// Set display
-		/*-------------------------------------------*/
+		/*
+		-------------------------------------------*/
 		// 5.3以前のユーザーで、タイトル表示にチェックしていなかった場合
 		if ( $instance['set_title'] == null ) {
 			$widget_title['display'] = false;
@@ -78,7 +79,6 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			// 5.3以前のユーザーで、タイトル表示にチェックがはいっていた場合
 		} elseif ( $instance['set_title'] === true ) {
 			$widget_title['display'] = true;
-
 		} elseif ( $instance['set_title'] == 'title-hidden' ) {
 			$widget_title['display'] = false;
 
@@ -95,13 +95,13 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			// 固定ページのタイトルが選択されている場合は
 		} elseif ( $instance['set_title'] == 'title-page' ) {
 			$widget_title['display'] = true;
-
 		} else {
 			$widget_title['display'] = false;
 		}
 
 		// Set title
-		/*-------------------------------------------*/
+		/*
+		-------------------------------------------*/
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
 		if ( $instance['set_title'] == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
 			$widget_title['title'] = $instance['title'];
@@ -116,8 +116,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 
-	/*-------------------------------------------*/
-	/*  form
+	/*
+		form
 	/*-------------------------------------------*/
 	function form( $instance ) {
 		$defaults = array(
@@ -127,9 +127,9 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-	  <p>
+		<p>
 
-			<?php //タイトル ?>
+			<?php // タイトル ?>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 			<br />
@@ -182,9 +182,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 				<?php _e( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' ); ?>
 			</label>
 		</p>
-		<?php
+			<?php
 		endif;
-
 	}
 
 	// 保存・更新する値
@@ -198,8 +197,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		return $instance;
 	}
 
-	/*-------------------------------------------*/
-	/*  widget
+	/*
+		widget
 	/*-------------------------------------------*/
 	function widget( $args, $instance ) {
 		global $is_pagewidget;
@@ -211,8 +210,8 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 
-	/*-------------------------------------------*/
-	/*  display_page
+	/*
+		display_page
 	/*-------------------------------------------*/
 	function display_page( $args, $instance ) {
 		$pageid = $instance['page_id'];
@@ -222,7 +221,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		$widget_pageid = $pageid;
 
 		$page = get_page( $pageid );
-		
+
 		// ページが存在しない場合は何もしない
 		if ( empty( $page ) ) {
 			return;
@@ -250,11 +249,11 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		}
 
 		if ( current_user_can( 'edit_pages' ) ) {
-		?>
+			?>
 	<div class="veu_adminEdit">
 		<a href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $pageid; ?>&action=edit" class="btn btn-default btn-sm"><?php _e( 'Edit', 'vk-all-in-one-expansion-unit' ); ?></a>
 	</div>
-<?php
+			<?php
 		}
 		echo '</div>' . PHP_EOL;
 		echo $args['after_widget'];

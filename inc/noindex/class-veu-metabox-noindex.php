@@ -12,7 +12,6 @@ class VEU_Metabox_Noindex extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -39,7 +38,6 @@ class VEU_Metabox_Noindex extends VEU_Metabox {
 
 		return $form;
 	}
-
 } // class VEU_Metabox_Noindex {
 
 $veu_metabox_noindex = new VEU_Metabox_Noindex();

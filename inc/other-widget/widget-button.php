@@ -1,6 +1,6 @@
 <?php
-/*-------------------------------------------*/
-/*  Button Widget
+/*
+	Button Widget
 /*-------------------------------------------*/
 class WP_Widget_Button extends WP_Widget {
 
@@ -43,7 +43,7 @@ class WP_Widget_Button extends WP_Widget {
 	}
 
 	public static function veu_widget_description() {
-		$description  = __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' );
+		$description = __( 'You can set buttons for arbitrary text.', 'vk-all-in-one-expansion-unit' );
 		// $description .= '<br>* * * * * * * * * * * * * * * * * * * * * * * *<br>' . __( '現在はブロックエディタで「VK ボタン」ブロックか WordPress標準の「ボタン」ブロックで代用可能です。', 'vk-all-in-one-expansion-unit' );
 		return $description;
 	}
@@ -97,8 +97,8 @@ class WP_Widget_Button extends WP_Widget {
 			</a>
 		</div>
 		<?php endif; ?>
-	<?php echo $args['after_widget']; ?>
-	<?php
+		<?php echo $args['after_widget']; ?>
+		<?php
 	}
 
 	public static function get_btn_options( $option = array() ) {
@@ -128,7 +128,7 @@ class WP_Widget_Button extends WP_Widget {
 		<?php
 		// icon font class input
 		echo '<p>' . __( 'Class name of the icon font', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
-		echo  __( 'To choose your favorite icon, and enter the class.', 'vk-all-in-one-expansion-unit' ) . '<br>';
+		echo __( 'To choose your favorite icon, and enter the class.', 'vk-all-in-one-expansion-unit' ) . '<br>';
 		echo '<label for="' . $this->get_field_id( 'icon_before' ) . '">' . __( 'Before :', 'vk-all-in-one-expansion-unit' );
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_before' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_before' ) . '" value="' . esc_attr( $instance['icon_before'] ) . '" /><br>';
 		echo '<label for="' . $this->get_field_id( 'icon_after' ) . '">' . __( 'After :', 'vk-all-in-one-expansion-unit' );
@@ -139,7 +139,7 @@ class WP_Widget_Button extends WP_Widget {
 		}
 
 		echo '</p>';
-?>
+		?>
 		<?php _e( 'Sub text:', 'vk-all-in-one-expansion-unit' ); ?>
 		<input type="text" id="<?php echo $this->get_field_id( 'subtext' ); ?>" name="<?php echo $this->get_field_name( 'subtext' ); ?>" style="width:100%; margin-bottom: 0.5em;" value="<?php echo esc_attr( $instance['subtext'] ); ?>">
 
@@ -152,8 +152,8 @@ class WP_Widget_Button extends WP_Widget {
 												<?php
 												if ( $instance['blank'] ) {
 													echo 'checked';}
-?>
-  />
+												?>
+	/>
 		<label for="<?php echo $this->get_field_id( 'blank' ); ?>"><?php _e( 'Open with new tab', 'vk-all-in-one-expansion-unit' ); ?></label>
 
 		<br/>
@@ -163,20 +163,20 @@ class WP_Widget_Button extends WP_Widget {
 			<?php
 			if ( $instance['size'] == 'sm' ) {
 				echo 'selected';}
-?>
- ><?php _e( 'Small', 'vk-all-in-one-expansion-unit' ); ?></option>
+			?>
+><?php _e( 'Small', 'vk-all-in-one-expansion-unit' ); ?></option>
 			<option value="md"
 			<?php
 			if ( ! in_array( $instance['size'], array( 'sm', 'lg' ) ) ) {
 				echo 'selected';}
-?>
- ><?php _e( 'Medium', 'vk-all-in-one-expansion-unit' ); ?></option>
+			?>
+><?php _e( 'Medium', 'vk-all-in-one-expansion-unit' ); ?></option>
 			<option value="lg"
 			<?php
 			if ( $instance['size'] == 'lg' ) {
 				echo 'selected';}
-?>
- ><?php _e( 'Large', 'vk-all-in-one-expansion-unit' ); ?></option>
+			?>
+><?php _e( 'Large', 'vk-all-in-one-expansion-unit' ); ?></option>
 		</select>
 
 		<br/>
@@ -187,13 +187,13 @@ class WP_Widget_Button extends WP_Widget {
 			$instance['color'] = $default['color'];
 		}
 		foreach ( static::button_otherlabels() as $key => $label ) :
-		?>
+			?>
 			<option value="<?php echo $key; ?>"
 										<?php
 										if ( $instance['color'] == $key ) {
 											echo 'selected';}
-?>
- >
+										?>
+>
 			<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
 			</option>
 		<?php endforeach; ?>

@@ -18,5 +18,4 @@ function veu_add_body_class( $class ) {
 	} // if ( is_archive() ) {
 
 	return $class;
-
 } // function veu_add_body_class( $class ) {

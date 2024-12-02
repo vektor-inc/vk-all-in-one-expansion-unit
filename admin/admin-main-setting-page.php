@@ -1,13 +1,13 @@
 <?php
 /*
- Main Setting Page  _ ExUnit > メイン設定 メニューを追加
- Main Setting Page  _ ページのフレーム（ メニューとメインエリア両方 ）
- Main Setting Page  _ メインエリアの中身
+Main Setting Page  _ ExUnit > メイン設定 メニューを追加
+Main Setting Page  _ ページのフレーム（ メニューとメインエリア両方 ）
+Main Setting Page  _ メインエリアの中身
 
 
 
 /*
- Main Setting Page  _ ExUnit > メイン設定 メニューを追加
+Main Setting Page  _ ExUnit > メイン設定 メニューを追加
 /*-------------------------------------------*/
 use VektorInc\VK_Admin\VkAdmin;
 
@@ -18,7 +18,7 @@ function veu_add_main_setting() {
 		__( 'Main setting', 'vk-all-in-one-expansion-unit' ),   // Name of page
 		__( 'Main setting', 'vk-all-in-one-expansion-unit' ),   // Label in menu
 		'activate_plugins',                         // veu_get_capability_required()でないのは edit_theme_options権限を付与したユーザーにもアクセスさせないためにactivate_pluginsにしている。
-		// $capability_required,		// Capability
+		// $capability_required,        // Capability
 		'vkExUnit_main_setting',        // ユニークなこのサブメニューページの識別子
 		'veu_render_main_frame'         // メニューページのコンテンツを出力する関数
 	);
@@ -29,7 +29,7 @@ add_action( 'admin_menu', 'veu_add_main_setting', 15 );
 
 
 /*
- Main Setting Page  _ ページのフレーム（ メニューとメインエリア両方 ）
+Main Setting Page  _ ページのフレーム（ メニューとメインエリア両方 ）
 /*-------------------------------------------*/
 function veu_render_main_frame() {
 
@@ -65,11 +65,10 @@ function veu_render_main_frame() {
 	}
 
 	VkAdmin::admin_page_frame( $get_page_title, 'vkExUnit_the_main_setting_body', $get_logo_html, $get_menu_html );
-
 }
 
 /*
- Main Setting Page  _ メインエリアの中身
+Main Setting Page  _ メインエリアの中身
 /*-------------------------------------------*/
 function vkExUnit_the_main_setting_body() {
 	global $vkExUnit_options;?>
@@ -79,7 +78,6 @@ function vkExUnit_the_main_setting_body() {
 	if ( is_array( $vkExUnit_options ) ) {
 		echo '<div>'; // jsでfirst-child取得用
 		foreach ( $vkExUnit_options as $vkoption ) {
-
 			if ( empty( $vkoption['render_page'] ) ) {
 				continue; }
 
@@ -90,19 +88,16 @@ function vkExUnit_the_main_setting_body() {
 			echo '</section>';
 		}
 		echo '</div>';
-
 	} else {
-
-		echo  __( 'Activated Packages is noting. please activate some package.', 'vk-all-in-one-expansion-unit' );
-
+		echo __( 'Activated Packages is noting. please activate some package.', 'vk-all-in-one-expansion-unit' );
 	}
-	echo  '</form>';
+	echo '</form>';
 }
 
 /*
- Main Setting Page  _ 値をアップデート
- Main Setting Page で複数のoption値が送信される。
- それらをループしながらサニタイズしながらアップデートする
+Main Setting Page  _ 値をアップデート
+Main Setting Page で複数のoption値が送信される。
+それらをループしながらサニタイズしながらアップデートする
 /*-------------------------------------------*/
 function veu_main_sanitaize_and_update( $_post ) {
 
@@ -141,6 +136,7 @@ global $vkExUnit_options に各種値を登録するための関数
  */
 /**
  * [vkExUnit_register_setting description]
+ *
  * @param  string $tab_label         管理画面に表示される機能の名前
  * @param  string $option_name       option保存値
  * @param  string $sanitize_callback 保存時のサニタイズ関数

@@ -3,7 +3,7 @@
 add_post_type_support( 'page', 'excerpt' ); // add excerpt
 
 /*
-  Add OGP
+	Add OGP
 /*-------------------------------------------*/
 add_action( 'wp_head', 'vkExUnit_print_og', 20 );
 function vkExUnit_print_og() {
@@ -41,7 +41,6 @@ function vkExUnit_print_og() {
 	}
 
 	if ( is_singular() && has_post_thumbnail() ) {
-
 		$image_id         = get_post_thumbnail_id();
 		$image_default_id = '';
 
@@ -91,20 +90,17 @@ function vkExUnit_print_og() {
 
 	// image:width,image:height INSERT
 	if ( is_array( $addImageTag ) ) {
-
 		if ( $addImageTag['type'] == 'id' ) {
 			$width  = $addImageTag['width'];
 			$height = $addImageTag['height'];
-
 		} elseif ( $addImageTag['type'] == 'url' ) {
-
 			$findPos = strpos( $addImageTag['url'], '/uploads/' );
 			if ( $findPos > 0 ) {
 				$lpath = '';
 				$lpath = substr( $addImageTag['url'], strlen( '/uploads/' ) + $findPos );
 				if ( strlen( $lpath ) ) {
-					$imgpath                         = dirname( get_theme_root() ) . '/uploads/' . $lpath;
-					list($width,$height,$type,$text) = @getimagesize( $imgpath );
+					$imgpath                            = dirname( get_theme_root() ) . '/uploads/' . $lpath;
+					list($width, $height, $type, $text) = @getimagesize( $imgpath );
 				}
 			}
 		}

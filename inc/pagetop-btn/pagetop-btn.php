@@ -1,16 +1,15 @@
 <?php
 /*
-  footer add pagetop btn
+	footer add pagetop btn
 /*-------------------------------------------*/
 add_action( 'wp_footer', 'veu_add_pagetop' );
 function veu_add_pagetop() {
-  $option = get_option( 'vkExUnit_pagetop' );
-  if ( 
-	  ! wp_is_mobile() ||  
-	  ( wp_is_mobile() && empty( $option['hide_mobile'] ) ) 
-	  ) {
-	echo '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>';
-  }
+	$option = get_option( 'vkExUnit_pagetop' );
+	if ( ! wp_is_mobile() ||
+		( wp_is_mobile() && empty( $option['hide_mobile'] ) )
+		) {
+		echo '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>';
+	}
 }
 
 add_action( 'customize_register', 'veu_customize_register_pagetop' );
@@ -40,25 +39,26 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$wp_customize->add_control(
 		'vkExUnit_pagetop[hide_mobile]',
 		array(
-    		'label'       => __( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_pagetop_setting',
-			'settings'    => 'vkExUnit_pagetop[hide_mobile]',
-			'type'        => 'checkbox',
-		)
-  );
-  $wp_customize->selective_refresh->add_partial(
-		'vkExUnit_pagetop[hide_mobile]', array(
-			'selector'        => '.page_top_btn',
-			'render_callback' => '',
-			'supports' => [],
+			'label'    => __( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_pagetop_setting',
+			'settings' => 'vkExUnit_pagetop[hide_mobile]',
+			'type'     => 'checkbox',
 		)
 	);
-
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_pagetop[hide_mobile]',
+		array(
+			'selector'        => '.page_top_btn',
+			'render_callback' => '',
+			'supports'        => array(),
+		)
+	);
 }
 
 
 /**
  * ExUnitの機能管理パッケージに登録
+ *
  * @return [type] [description]
  */
 function veu_pagetop_admin_register() {
@@ -72,7 +72,7 @@ add_action( 'veu_package_init', 'veu_pagetop_admin_register' );
 
 function veu_pagetop_admin() {
 	$options = veu_pagetop_options();
-?>
+	?>
 <div id="seoSetting" class="sectionBox">
 <h3><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <table class="form-table">
@@ -80,13 +80,18 @@ function veu_pagetop_admin() {
 <tr>
 <th><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?> </th>
 <td><label>
-<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="true"<?php if( ! empty( $options['hide_mobile'] ) ) echo ' checked'; ?> /> <?php _e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> </label>
+<input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="true"
+	<?php
+	if ( ! empty( $options['hide_mobile'] ) ) {
+		echo ' checked';}
+	?>
+	/> <?php _e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> </label>
 </td>
 </tr>
 </table>
-<?php submit_button(); ?>
+	<?php submit_button(); ?>
 </div>
-<?php
+	<?php
 }
 
 
@@ -104,8 +109,8 @@ function veu_pagetop_default() {
 }
 
 function veu_pagetop_sanitize( $input ) {
-	$output                = array();
-	if ( isset($input['hide_mobile']) ){
+	$output = array();
+	if ( isset( $input['hide_mobile'] ) ) {
 		$output['hide_mobile'] = esc_attr( $input['hide_mobile'] );
 	}
 	return $output;

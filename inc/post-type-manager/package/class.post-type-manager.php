@@ -66,10 +66,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			$dismiss_url = esc_url(
 				wp_nonce_url(
-					add_query_arg('vk-all-in-one-expansion-unit-dismiss', 'dismiss_admin_notice'),
+					add_query_arg( 'vk-all-in-one-expansion-unit-dismiss', 'dismiss_admin_notice' ),
 					'vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id()
 				)
-			);			
+			);
 
 			// ヘルプ通知のHTMLを生成して返す
 			return wp_kses_post(
@@ -96,11 +96,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			if ( get_locale() !== 'ja' ) {
 				return false;
 			}
-		
+
 			// 特定のページのみ通知を表示する
-			if ($pagenow === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === 'post_type_manage') {
+			if ( $pagenow === 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] === 'post_type_manage' ) {
 				// ユーザーが通知を無視したフラグが保存されているかどうかを確認
-				if (!get_user_meta(get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true)) {
+				if ( ! get_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true ) ) {
 					return true;
 				}
 			}
@@ -113,14 +113,13 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 */
 		public static function display_help_notice() {
 
-			if (self::is_display_help_notice()) {
-
+			if ( self::is_display_help_notice() ) {
 				echo self::add_post_type_get_help_notice();
 			}
 
-			if (isset($_GET['vk-all-in-one-expansion-unit-dismiss']) && $_GET['vk-all-in-one-expansion-unit-dismiss'] === 'dismiss_admin_notice') {
-				check_admin_referer('vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id());
-				update_user_meta(get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true);
+			if ( isset( $_GET['vk-all-in-one-expansion-unit-dismiss'] ) && $_GET['vk-all-in-one-expansion-unit-dismiss'] === 'dismiss_admin_notice' ) {
+				check_admin_referer( 'vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id() );
+				update_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true );
 			}
 		}
 
@@ -145,7 +144,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// 通知メッセージを取得して表示
 			echo self::add_post_type_get_help_notice();
-			
+
 			?>
 			<style type="text/css">
 			table.table { border-collapse: collapse; border-spacing: 0;width:100%; }
@@ -322,7 +321,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
 
 			for ( $i = 1; $i <= apply_filters( 'veu_post_type_taxonomies', 5 ); $i++ ) {
-
 				$slug     = ( isset( $taxonomy[ $i ]['slug'] ) ) ? $taxonomy[ $i ]['slug'] : '';
 				$label    = ( isset( $taxonomy[ $i ]['label'] ) ) ? $taxonomy[ $i ]['label'] : '';
 				$tag      = ( isset( $taxonomy[ $i ]['tag'] ) ) ? $taxonomy[ $i ]['tag'] : '';
@@ -396,22 +394,22 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return $post_id;
 			}
-			
-			$post_type_id            = ! empty( $_POST['veu_post_type_id'] )            ? esc_html( strip_tags( $_POST['veu_post_type_id'] ) )  : '';
-			$post_type_items         = ! empty( $_POST['veu_post_type_items'] )         ? $_POST['veu_post_type_items']                         : '';
-			$menu_posttion           = ! empty( $_POST['veu_menu_position'] )           ? esc_html( strip_tags( $_POST['veu_menu_position'] ) ) : '';
-			$menu_icon               = ! empty( $_POST['veu_menu_icon'] )               ? esc_html( strip_tags( $_POST['veu_menu_icon'] ) )     : '';
-			$post_type_export_to_api = ! empty( $_POST['veu_post_type_export_to_api'] ) ? esc_html( $_POST['veu_post_type_export_to_api'] )     : '';
-			$post_type_rewrite       = ! empty( $_POST['veu_post_type_rewrite'] )       ? esc_html( $_POST['veu_post_type_rewrite'] )           : '';
-			
-			if ( ! empty ( $_POST['veu_taxonomy'] ) ) {
-				$taxonomy      = $_POST['veu_taxonomy'];
+
+			$post_type_id            = ! empty( $_POST['veu_post_type_id'] ) ? esc_html( strip_tags( $_POST['veu_post_type_id'] ) ) : '';
+			$post_type_items         = ! empty( $_POST['veu_post_type_items'] ) ? $_POST['veu_post_type_items'] : '';
+			$menu_posttion           = ! empty( $_POST['veu_menu_position'] ) ? esc_html( strip_tags( $_POST['veu_menu_position'] ) ) : '';
+			$menu_icon               = ! empty( $_POST['veu_menu_icon'] ) ? esc_html( strip_tags( $_POST['veu_menu_icon'] ) ) : '';
+			$post_type_export_to_api = ! empty( $_POST['veu_post_type_export_to_api'] ) ? esc_html( $_POST['veu_post_type_export_to_api'] ) : '';
+			$post_type_rewrite       = ! empty( $_POST['veu_post_type_rewrite'] ) ? esc_html( $_POST['veu_post_type_rewrite'] ) : '';
+
+			if ( ! empty( $_POST['veu_taxonomy'] ) ) {
+				$taxonomy = $_POST['veu_taxonomy'];
 
 				for ( $i = 1; $i <= apply_filters( 'veu_post_type_taxonomies', 5 ); $i++ ) {
-					$taxonomy[$i]['slug']     = ! empty( $taxonomy[$i]['slug'] )     ? esc_html( strip_tags( $taxonomy[$i]['slug'] ) )  : '';
-					$taxonomy[$i]['label']    = ! empty( $taxonomy[$i]['label'] )    ? esc_html( strip_tags( $taxonomy[$i]['label'] ) ) : '';
-					$taxonomy[$i]['tag']      = ! empty( $taxonomy[$i]['tag'] )      ? esc_html( $taxonomy[$i]['tag'] )                 : '';
-					$taxonomy[$i]['rest_api'] = ! empty( $taxonomy[$i]['rest_api'] ) ? esc_html( $taxonomy[$i]['rest_api'] )            : '';						
+					$taxonomy[ $i ]['slug']     = ! empty( $taxonomy[ $i ]['slug'] ) ? esc_html( strip_tags( $taxonomy[ $i ]['slug'] ) ) : '';
+					$taxonomy[ $i ]['label']    = ! empty( $taxonomy[ $i ]['label'] ) ? esc_html( strip_tags( $taxonomy[ $i ]['label'] ) ) : '';
+					$taxonomy[ $i ]['tag']      = ! empty( $taxonomy[ $i ]['tag'] ) ? esc_html( $taxonomy[ $i ]['tag'] ) : '';
+					$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? esc_html( $taxonomy[ $i ]['rest_api'] ) : '';
 				}
 			}
 
@@ -430,8 +428,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				if ( ! empty( $field_value ) ) {
 					update_post_meta( $post_id, $field_name, $field_value );
 				} else {
-					delete_post_meta(  $post_id, $field_name );
-				}				
+					delete_post_meta( $post_id, $field_name );
+				}
 			}
 
 			// リライトルールを更新するように.
@@ -453,7 +451,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 			$custom_post_types = get_posts( $args );
 			if ( $custom_post_types ) {
-
 				foreach ( $custom_post_types as $key => $post ) {
 
 					/*******************************************
@@ -493,7 +490,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
 
 					if ( $post_type_id ) {
-
 						$menu_position = intval( mb_convert_kana( get_post_meta( $post->ID, 'veu_menu_position', true ), 'n' ) );
 						if ( ! $menu_position ) {
 							$menu_position = 5;
@@ -555,7 +551,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						$veu_taxonomies = get_post_meta( $post->ID, 'veu_taxonomy', true );
 
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
-
 							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
 
 								// カスタム分類を階層化するかどうか.
@@ -614,13 +609,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									$args
 								);
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
-
 						} // foreach ($veu_taxonomies as $key => $taxonomy) {
-
 					} // if ( $post_type_id ) {
-
 				} // foreach ($custom_post_types as $key => $post) {
-
 			} // if ( $custom_post_types ) {
 		}
 
@@ -640,6 +631,5 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 	$VK_Post_Type_Manager = new VK_Post_Type_Manager(); // phpcs:ignore
 
-	add_action('admin_notices', array('VK_Post_Type_Manager', 'display_help_notice'), 20);
-
+	add_action( 'admin_notices', array( 'VK_Post_Type_Manager', 'display_help_notice' ), 20 );
 }

@@ -4,7 +4,7 @@
  */
 
 // 本来この VEU_Page_Exclude_From_List_Pages クラスだけで完結するが、ExUnit固有の統合 metabox に表示するためのその他の処理を行っている
-require_once dirname( __FILE__ ) . '/class-page-exclude-from-list-pages.php';
+require_once __DIR__ . '/class-page-exclude-from-list-pages.php';
 
 class VEU_Metabox_Exclude_From_List_Pages extends VEU_Metabox {
 
@@ -18,7 +18,6 @@ class VEU_Metabox_Exclude_From_List_Pages extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -44,7 +43,6 @@ class VEU_Metabox_Exclude_From_List_Pages extends VEU_Metabox {
 
 		return $form;
 	}
-
 }
 
 $veu_metabox_noindex = new VEU_Metabox_Exclude_From_List_Pages();

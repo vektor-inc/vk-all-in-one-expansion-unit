@@ -58,7 +58,7 @@ class WpTitleTest extends WP_UnitTestCase {
 		$test_posts['front_page_id'] = wp_insert_post( $post );
 
 		// カスタム投稿タイプ event の投稿 Test Event を投稿.
-		$post          = array(
+		$post                   = array(
 			'post_title'   => 'Test Event',
 			'post_type'    => 'event',
 			'post_status'  => 'publish',
@@ -78,7 +78,7 @@ class WpTitleTest extends WP_UnitTestCase {
 		$sep        = ' | ';
 
 		/*
-		 Test Array
+		Test Array
 		/*--------------------------------*/
 		$test_array = array(
 
@@ -168,10 +168,10 @@ class WpTitleTest extends WP_UnitTestCase {
 				'target_url'    => home_url( '/' ),
 				'target_id'     => $test_posts['front_page_id'],
 				'options'       => array(
-					'blogname' => 'Site name',
-					'vkExUnit_wp_title' => [
-						'extend_frontTitle' => 'ExUnit Front Page Title'
-					],
+					'blogname'          => 'Site name',
+					'vkExUnit_wp_title' => array(
+						'extend_frontTitle' => 'ExUnit Front Page Title',
+					),
 				),
 				'custom_fields' => array(
 					'veu_head_title' => array(
@@ -183,6 +183,7 @@ class WpTitleTest extends WP_UnitTestCase {
 			),
 			/***********************************************************
 			 * トップページ仕様変更
+			 *
 			 * @since 9.84.0.0
 			 */
 			// トップページ / カスタムタイトル : 指定あり / サイト名追加 : なし
@@ -191,13 +192,13 @@ class WpTitleTest extends WP_UnitTestCase {
 				'target_url'    => home_url( '/' ),
 				'target_id'     => $test_posts['front_page_id'],
 				'options'       => array(
-					'blogname' => 'Site name',
-					'page_on_front'  => $test_posts['front_page_id'],
-					'show_on_front'  => 'page',
-					'page_for_posts' => $test_posts['home_page_id'],
-					'vkExUnit_wp_title' => [
-						'extend_frontTitle' => 'ExUnit Front Page Title'
-					],
+					'blogname'          => 'Site name',
+					'page_on_front'     => $test_posts['front_page_id'],
+					'show_on_front'     => 'page',
+					'page_for_posts'    => $test_posts['home_page_id'],
+					'vkExUnit_wp_title' => array(
+						'extend_frontTitle' => 'ExUnit Front Page Title',
+					),
 				),
 				'custom_fields' => array(
 					'veu_head_title' => array(
@@ -300,6 +301,4 @@ class WpTitleTest extends WP_UnitTestCase {
 			}
 		}
 	}
-
-
 }

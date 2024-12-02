@@ -90,7 +90,6 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			print 'return  :' . $return . PHP_EOL;
 			print 'correct :' . $value['correct'] . PHP_EOL;
 		}
-
 	} // function test_chlild_page_excerpt() {
 
 	function test_childPageIndex_shortcode() {
@@ -125,9 +124,9 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 				'expected' => '<div class="veu_childPage_list abcde&quot; onmouseover=&quot;alert(123)&quot;"><a href="' . home_url() . '/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
 			),
 			array(
-				'parrent_id'    => array(),
-				'class'    => '',
-				'expected' => '<div class="veu_childPage_list "><a href="' . home_url() . '/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
+				'parrent_id' => array(),
+				'class'      => '',
+				'expected'   => '<div class="veu_childPage_list "><a href="' . home_url() . '/?page_id=' . $child_id . '" id="post-' . $child_id . '" class="childPage_list_box veu_card post-' . $child_id . ' page type-page status-publish hentry"><div class="childPage_list_box_inner veu_card_inner"><h3 class="childPage_list_title veu_card_title">Child Page</h3><div class="childPage_list_body"><p class="childPage_list_text">child page excerpt</p><span class="childPage_list_more btn btn-primary btn-sm">Read more</span></div></div></a></div><!-- [ /.veu_childPage_list ] -->',
 			),
 		);
 
@@ -156,7 +155,7 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			// convert tab and br to space
 			$return = preg_replace( '/[\n\r\t]/', '', $return );
 			// Change multiple spaces to single space
-			$return = preg_replace( '/\s(?=\s)/', '', $return );
+			$return   = preg_replace( '/\s(?=\s)/', '', $return );
 			$expected = $value['expected'];
 
 			// print  PHP_EOL;
@@ -164,9 +163,8 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			// print 'correct :' . $expected  . PHP_EOL;
 
 			// 返ってきた抜粋値と期待する結果が同じかどうかテスト
-			$this->assertEquals( $expected , $return );
+			$this->assertEquals( $expected, $return );
 			wp_reset_postdata();
 		}
-
 	}
 }

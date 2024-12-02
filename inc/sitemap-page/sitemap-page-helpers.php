@@ -13,8 +13,8 @@ function veu_get_sitemap_options_default() {
 	return apply_filters( 'vkExUnit_sitemap_options_default', $default_options );
 }
 
-/*-------------------------------------------*/
-/*  サイトマップで非表示にする
+/*
+	サイトマップで非表示にする
 /*-------------------------------------------*/
 
 function veu_sitemap_exclude_page_ids() {
@@ -39,7 +39,7 @@ function veu_sitemap_exclude_page_ids() {
 			// print_r($value);
 
 			if ( ! $excludes ) {
-				 $excludes .= $value->ID;
+				$excludes .= $value->ID;
 			} else {
 				$excludes .= ',' . $value->ID;
 			}
@@ -49,5 +49,4 @@ function veu_sitemap_exclude_page_ids() {
 
 		return $excludes;
 	} // if( $sitemap_hide_customPosts ) {
-
 } // function veu_sitemap_exclude_page_ids() {

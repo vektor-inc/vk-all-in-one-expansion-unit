@@ -2,7 +2,7 @@
 	$options = vkExUnit_get_ga_options();
 	// $options_default = veu_get_sns_options_default();
 /*
-  Google Analytics
+	Google Analytics
 /*-------------------------------------------*/
 ?>
 <div id="seoSetting" class="sectionBox">

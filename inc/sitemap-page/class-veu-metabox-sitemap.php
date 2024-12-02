@@ -17,7 +17,6 @@ class VEU_Metabox_Sitemap extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -43,7 +42,6 @@ class VEU_Metabox_Sitemap extends VEU_Metabox {
 
 		return $form;
 	}
-
 } // class VEU_Metabox_Sitemap {
 
 $veu_metabox_sitemap = new VEU_Metabox_Sitemap();

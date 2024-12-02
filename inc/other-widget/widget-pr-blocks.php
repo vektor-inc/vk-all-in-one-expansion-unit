@@ -1,16 +1,18 @@
 <?php
 
-/*-------------------------------------------*/
-/*  VK PR Blocks
+/*
+	VK PR Blocks
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
+	/*
+		form
 	/*-------------------------------------------*/
-	/*  form
+	/*
+		Update
 	/*-------------------------------------------*/
-	/*  Update
-	/*-------------------------------------------*/
-	/*  widget
+	/*
+		widget
 	/*-------------------------------------------*/
 
 	function __construct() {
@@ -79,106 +81,108 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 
-	/*-------------------------------------------*/
-	/*  form
+	/*
+		form
 	/*-------------------------------------------*/
 	public function form( $instance ) {
 		$instance = self::default_options( $instance );
-	?>
+		?>
 
-	<?php if ( is_customize_preview() ) { ?>
+		<?php if ( is_customize_preview() ) { ?>
 		<p><?php _e( 'If you want to change the number of columns, please change from Appearance -> Widgets screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 	<?php } else { ?>
 	<p>
 	<label for="<?php echo $this->get_field_id( 'block_count' ); ?>"><?php _e( 'The choice of the number of columns:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 	<select name="<?php echo $this->get_field_name( 'block_count' ); ?>" id="<?php echo $this->get_field_id( 'block_count' ); ?>">
-		<?php
-		$selected = '';
-		if ( intval( $instance['block_count'] ) === 3 ) {
-			$selected = ' selected';
-		}
-		echo '<option value="3"' . $selected . '>' . __( '3column', 'vk-all-in-one-expansion-unit' ) . '</option>';
-		$selected = '';
-		if ( intval( $instance['block_count'] ) === 4 ) {
-			$selected = ' selected';
-		}
-		echo '<option value="4"' . $selected . '>' . __( '4column', 'vk-all-in-one-expansion-unit' ) . '</option>';
-		?>
+			<?php
+			$selected = '';
+			if ( intval( $instance['block_count'] ) === 3 ) {
+				$selected = ' selected';
+			}
+			echo '<option value="3"' . $selected . '>' . __( '3column', 'vk-all-in-one-expansion-unit' ) . '</option>';
+			$selected = '';
+			if ( intval( $instance['block_count'] ) === 4 ) {
+				$selected = ' selected';
+			}
+			echo '<option value="4"' . $selected . '>' . __( '4column', 'vk-all-in-one-expansion-unit' ) . '</option>';
+			?>
 		</select><br>
-		<?php _e( 'If you change the number of columns, click to "Save" botton and exit the edit page. When restart the edit page, the column input form is increased or decreased.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php _e( 'If you change the number of columns, click to "Save" botton and exit the edit page. When restart the edit page, the column input form is increased or decreased.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 	<?php } ?>
 
-<?php
-// PR Blocks
-for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
+		<?php
+		// PR Blocks
+		for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
-	// PR Block admin title
-	echo '<div class="admin-custom-section">';
-	echo '<h2 class="admin-custom-h2">' . __( 'PR Block' . $i . ' setting', 'vk-all-in-one-expansion-unit' ) . '</h2>';
+			// PR Block admin title
+			echo '<div class="admin-custom-section">';
+			echo '<h2 class="admin-custom-h2">' . __( 'PR Block' . $i . ' setting', 'vk-all-in-one-expansion-unit' ) . '</h2>';
 
-	// PR Block display title
+			// PR Block display title
 
-	echo '<p><label for="' . $this->get_field_id( 'label_' . $i ) . '">' . __( 'Title:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>' .
-		'<input type="text" id="' . $this->get_field_id( 'label_' . $i ) . '-title" class="admin-custom-input" name="' . $this->get_field_name( 'label_' . $i ) . '" value="' . esc_attr( $instance[ 'label_' . $i ] ) . '" /></p>';
+			echo '<p><label for="' . $this->get_field_id( 'label_' . $i ) . '">' . __( 'Title:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>' .
+				'<input type="text" id="' . $this->get_field_id( 'label_' . $i ) . '-title" class="admin-custom-input" name="' . $this->get_field_name( 'label_' . $i ) . '" value="' . esc_attr( $instance[ 'label_' . $i ] ) . '" /></p>';
 
-		// summary text
-		echo '<p><label for="' . $this->get_field_id( 'summary_' . $i ) . '">' . __( 'Summary Text:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
-		echo '<textarea rows="4" cols="40" id="' . $this->get_field_id( 'summary_' . $i ) . '_text" class="admin-custom-input" name="' . $this->get_field_name( 'summary_' . $i ) . '">' . esc_textarea( $instance[ 'summary_' . $i ] ) . '</textarea>';
-		echo '</p>';
+				// summary text
+				echo '<p><label for="' . $this->get_field_id( 'summary_' . $i ) . '">' . __( 'Summary Text:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
+				echo '<textarea rows="4" cols="40" id="' . $this->get_field_id( 'summary_' . $i ) . '_text" class="admin-custom-input" name="' . $this->get_field_name( 'summary_' . $i ) . '">' . esc_textarea( $instance[ 'summary_' . $i ] ) . '</textarea>';
+				echo '</p>';
 
-		// link_URL
-		echo '<p><label for="' . $this->get_field_id( 'linkurl_' . $i ) . '">' . __( 'Link URL:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>' .
+				// link_URL
+				echo '<p><label for="' . $this->get_field_id( 'linkurl_' . $i ) . '">' . __( 'Link URL:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>' .
 			'<input type="text" id="' . $this->get_field_id( 'linkurl_' . $i ) . '_title" class="admin-custom-input" name="' . $this->get_field_name( 'linkurl_' . $i ) . '" value="' . esc_attr( $instance[ 'linkurl_' . $i ] ) . '" style="margin-bottom:0.5em" />';
-		$checked = ( isset( $instance[ 'blank_' . $i ] ) && $instance[ 'blank_' . $i ] ) ? ' checked' : '';
-		echo '<input type="checkbox" value="true" id="' . $this->get_field_id( 'blank_' . $i ) . '" name="' . $this->get_field_name( 'blank_' . $i ) . '"' . $checked . ' />';
-		echo '<label for="' . $this->get_field_id( 'blank_' . $i ) . '">' . __( 'Open link new tab.', 'vk-all-in-one-expansion-unit' ) . '</label>';
-		echo '</p>';
+				$checked = ( isset( $instance[ 'blank_' . $i ] ) && $instance[ 'blank_' . $i ] ) ? ' checked' : '';
+				echo '<input type="checkbox" value="true" id="' . $this->get_field_id( 'blank_' . $i ) . '" name="' . $this->get_field_name( 'blank_' . $i ) . '"' . $checked . ' />';
+				echo '<label for="' . $this->get_field_id( 'blank_' . $i ) . '">' . __( 'Open link new tab.', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '</p>';
 
-		/*  Icon font
-		/*-------------------------------------------*/
-		echo '<h3 class="admin-custom-h3">' . __( 'Icon', 'vk-all-in-one-expansion-unit' ) . ' ' . $i . '</h3>';
+				/*
+			Icon font
+				/*-------------------------------------------*/
+				echo '<h3 class="admin-custom-h3">' . __( 'Icon', 'vk-all-in-one-expansion-unit' ) . ' ' . $i . '</h3>';
 
-	// icon font class input
-	echo '<p><label for="' . $this->get_field_id( 'iconFont_' . $i ) . '">' . __( 'Class name of the icon font you want to use:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
-	echo '<input type="text" id="' . $this->get_field_id( 'iconFont_class_' . $i ) . '-font" class="font_class" name="' . $this->get_field_name( 'iconFont_class_' . $i ) . '" value="' . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . '" /><br>';
+			// icon font class input
+			echo '<p><label for="' . $this->get_field_id( 'iconFont_' . $i ) . '">' . __( 'Class name of the icon font you want to use:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
+			echo '<input type="text" id="' . $this->get_field_id( 'iconFont_class_' . $i ) . '-font" class="font_class" name="' . $this->get_field_name( 'iconFont_class_' . $i ) . '" value="' . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . '" /><br>';
 
-	if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-		echo Vk_Font_Awesome_Versions::ex_and_link();
-	}
+			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
+				echo Vk_Font_Awesome_Versions::ex_and_link();
+			}
 
-	echo '</p>';
+			echo '</p>';
 
-	// icon font color
-	echo '<p class="color_picker_wrap">' .
-		'<label for="' . $this->get_field_id( 'iconFont_bgColor_' . $i ) . '">' . __( 'Icon color:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>' .
-		'<input type="text" id="' . $this->get_field_id( 'iconFont_bgColor_' . $i ) . '-color" class="color_picker" name="' . $this->get_field_name( 'iconFont_bgColor_' . $i ) . '" value="' . esc_attr( $instance[ 'iconFont_bgColor_' . $i ] ) . '" /></p>';
+			// icon font color
+			echo '<p class="color_picker_wrap">' .
+				'<label for="' . $this->get_field_id( 'iconFont_bgColor_' . $i ) . '">' . __( 'Icon color:', 'vk-all-in-one-expansion-unit' ) . '</label><br/>' .
+				'<input type="text" id="' . $this->get_field_id( 'iconFont_bgColor_' . $i ) . '-color" class="color_picker" name="' . $this->get_field_name( 'iconFont_bgColor_' . $i ) . '" value="' . esc_attr( $instance[ 'iconFont_bgColor_' . $i ] ) . '" /></p>';
 
-	// icon font type
-	echo '<p>' . __( 'Icon Background:', 'vk-all-in-one-expansion-unit' ) . '<br>';
+			// icon font type
+			echo '<p>' . __( 'Icon Background:', 'vk-all-in-one-expansion-unit' ) . '<br>';
 
-	$checked = ( ! isset( $instance[ 'iconFont_bgType_' . $i ] ) || ! $instance[ 'iconFont_bgType_' . $i ] ) ? ' checked' : '';
-	echo '<input type="radio" id="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_solid" name="' . $this->get_field_name( 'iconFont_bgType_' . $i ) . '" value=""' . $checked . ' />';
-	echo '<label for="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_solid">' . __( 'Solid color', 'vk-all-in-one-expansion-unit' ) . '</label>  ';
+			$checked = ( ! isset( $instance[ 'iconFont_bgType_' . $i ] ) || ! $instance[ 'iconFont_bgType_' . $i ] ) ? ' checked' : '';
+			echo '<input type="radio" id="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_solid" name="' . $this->get_field_name( 'iconFont_bgType_' . $i ) . '" value=""' . $checked . ' />';
+			echo '<label for="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_solid">' . __( 'Solid color', 'vk-all-in-one-expansion-unit' ) . '</label>  ';
 
-	$checked = ( isset( $instance[ 'iconFont_bgType_' . $i ] ) && $instance[ 'iconFont_bgType_' . $i ] === 'no_paint' ) ? ' checked' : '';
-	echo '<input type="radio" id="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_no_paint" name="' . $this->get_field_name( 'iconFont_bgType_' . $i ) . '" value="no_paint"' . $checked . ' />';
-	echo '<label for="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_no_paint">' . __( 'No background', 'vk-all-in-one-expansion-unit' ) . '</label>';
-	echo '</p>';
+			$checked = ( isset( $instance[ 'iconFont_bgType_' . $i ] ) && $instance[ 'iconFont_bgType_' . $i ] === 'no_paint' ) ? ' checked' : '';
+			echo '<input type="radio" id="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_no_paint" name="' . $this->get_field_name( 'iconFont_bgType_' . $i ) . '" value="no_paint"' . $checked . ' />';
+			echo '<label for="' . $this->get_field_id( 'iconFont_bgType_' . $i ) . '_no_paint">' . __( 'No background', 'vk-all-in-one-expansion-unit' ) . '</label>';
+			echo '</p>';
 
-	/*  PR Image
-	/*-------------------------------------------*/
-	// media uploader imageurl input area
-	echo '<h3 class="admin-custom-h3"><label for="' . $this->get_field_id( 'media_image_' . $i ) . '">' . __( 'PR Image', 'vk-all-in-one-expansion-unit' ) . ' ' . $i . '</label></h3>';
-	echo '<p>' . __( 'When you have an image. Image is displayed with priority', 'vk-all-in-one-expansion-unit' ) . '</p>';
+			/*
+			PR Image
+			/*-------------------------------------------*/
+			// media uploader imageurl input area
+			echo '<h3 class="admin-custom-h3"><label for="' . $this->get_field_id( 'media_image_' . $i ) . '">' . __( 'PR Image', 'vk-all-in-one-expansion-unit' ) . ' ' . $i . '</label></h3>';
+			echo '<p>' . __( 'When you have an image. Image is displayed with priority', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
-?>
+			?>
 
 <div class="media_image_section">
 	<div class="_display admin-custom-thumb-outer">
-		<?php
-		if ( ! empty( $instance[ 'media_image_' . $i ] ) ) :
-			?>
+			<?php
+			if ( ! empty( $instance[ 'media_image_' . $i ] ) ) :
+				?>
 			<img src="<?php echo esc_url( $instance[ 'media_image_' . $i ] ); ?>" class="admin-custom-thumb" />
 		<?php endif; ?>
 	</div>
@@ -190,13 +194,13 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 	</div>
 </div><!-- [ /.media_image_section ] -->
 </div><!-- [ /.admin-custom-secrion ] -->
-<?php
-	$i++;
-}
+			<?php
+			++$i;
+		}
 	}
 
-	/*-------------------------------------------*/
-	/*  Update
+	/*
+		Update
 	/*-------------------------------------------*/
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -215,14 +219,14 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 			$instance[ 'summary_' . $i ]          = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ) );
 			$instance[ 'linkurl_' . $i ]          = esc_url( $new_instance[ 'linkurl_' . $i ] );
 			$instance[ 'blank_' . $i ]            = ( isset( $new_instance[ 'blank_' . $i ] ) && $new_instance[ 'blank_' . $i ] == 'true' );
-			$i++;
+			++$i;
 		}
 		return $instance;
 	}
 
 
-	/*-------------------------------------------*/
-	/*  widget
+	/*
+		widget
 	/*-------------------------------------------*/
 	public function widget( $args, $instance ) {
 		$instance = self::default_options( $instance );
@@ -252,7 +256,6 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 					// iconFont_class_が空じゃない（ font-awesomeのアイコンが入力されている ）場合
 					! empty( $instance[ 'iconFont_class_' . $i ] )
 				) {
-
 					$styles = 'border:1px solid ' . esc_attr( $instance[ 'iconFont_bgColor_' . $i ] ) . ';';
 
 					if (
@@ -293,7 +296,6 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 
 				// summary text
 				if ( ! empty( $instance[ 'summary_' . $i ] ) ) {
-
 					echo '<p class="prBlock_summary">' . nl2br( wp_kses_post( $instance[ 'summary_' . $i ] ) ) . '</p>' . PHP_EOL;
 				}
 
@@ -304,7 +306,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 				echo '</div>' . PHP_EOL;
 				echo '<!--//.prBlock -->' . PHP_EOL;
 			}
-			$i++;
+			++$i;
 		}
 		echo '</article>' . $args['after_widget'] . PHP_EOL . '<!-- //.pr_blocks -->';
 	}
@@ -313,7 +315,7 @@ for ( $i = 1; $i <= intval( $instance['block_count'] ); ) {
 // uploader js
 function admin_scripts_pr_media() {
 	global $hook_suffix;
-	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix) {
+	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix ) {
 		wp_enqueue_media();
 		wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
 		wp_enqueue_script( 'vk-admin-widget' );

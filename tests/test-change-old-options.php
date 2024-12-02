@@ -10,16 +10,16 @@
  */
 class ChangeOldOptionsTest extends WP_UnitTestCase {
 
-    public function test_change_old_options() {
+	public function test_change_old_options() {
 
-        $test_array = array(
+		$test_array = array(
 			array(
 				'options' => array(
 					'common' => true,
 				),
 				'correct' => array(
 					'css_optimize' => 'tree-shaking',
-				)
+				),
 			),
 			array(
 				'options' => array(
@@ -27,7 +27,7 @@ class ChangeOldOptionsTest extends WP_UnitTestCase {
 				),
 				'correct' => array(
 					'css_optimize' => 'tree-shaking',
-				)
+				),
 			),
 			array(
 				'options' => array(
@@ -36,9 +36,9 @@ class ChangeOldOptionsTest extends WP_UnitTestCase {
 				),
 				'correct' => array(
 					'css_optimize' => 'tree-shaking',
-				)
+				),
 			),
-        );
+		);
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
@@ -64,5 +64,5 @@ class ChangeOldOptionsTest extends WP_UnitTestCase {
 			// var_dump( $return );
 
 		}
-    }
+	}
 }

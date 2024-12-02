@@ -330,7 +330,7 @@ function veu_customize_register_contact( $wp_customize ) {
 	);
 
 	/*
-	  Add Edit Customize Link Btn
+		Add Edit Customize Link Btn
 	/*-------------------------------------------*/
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_contact[contact_txt]',

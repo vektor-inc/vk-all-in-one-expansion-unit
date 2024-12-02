@@ -84,7 +84,6 @@ class CTATest extends WP_UnitTestCase {
 			// print 'correct ::::' . esc_attr( $test_value['correct'] ) . PHP_EOL;
 			// print 'return  ::::' . esc_attr( $return ) . PHP_EOL;
 			$this->assertEquals( $test_value['correct'], $return );
-
 		}
 	}
 
@@ -106,7 +105,7 @@ class CTATest extends WP_UnitTestCase {
 		$test_posts['cta_post_id'] = wp_insert_post( $post );
 
 		// テスト用のページを作成
-		$page                      = array(
+		$page               = array(
 			'post_title'   => 'Page',
 			'post_type'    => 'Page',
 			'post_status'  => 'publish',
@@ -132,7 +131,7 @@ class CTATest extends WP_UnitTestCase {
 				// 未指定の場合は index.jsx の方で表示されるので、コールバック関数としては空を返す
 				// 'expected'   => '<div class="veu-cta-block-edit-alert alert alert-warning">Please select CTA from Setting sidebar.</div>',
 			),
-			'Deleted CTA'            => array(
+			'Deleted CTA'                 => array(
 				'attributes' => array(
 					'postId' => 999999,
 				),
@@ -191,7 +190,7 @@ class CTATest extends WP_UnitTestCase {
 		$test_posts = array();
 
 		// テスト用のCTAを作成
-		$cta_post                      = array(
+		$cta_post                  = array(
 			'post_title'   => 'cta_published',
 			'post_type'    => 'cta',
 			'post_status'  => 'publish',
@@ -201,41 +200,41 @@ class CTATest extends WP_UnitTestCase {
 
 		// テスト配列
 		$test_array = array(
-			'post_content text'                    => array(
+			'post_content text'        => array(
 				'cta_content' => 'cta',
-				'expected'   => 'cta',
+				'expected'    => 'cta',
 			),
-			'post_content html simple'                    => array(
+			'post_content html simple' => array(
 				'cta_content' => '<!-- wp:heading --><h2 class="wp-block-heading">テストタイトル</h2><!-- /wp:heading -->',
-				'expected'   => '<h2 class="wp-block-heading">テストタイトル</h2>',
+				'expected'    => '<h2 class="wp-block-heading">テストタイトル</h2>',
 			),
-			'post_content html middle'                    => array(
+			'post_content html middle' => array(
 				'cta_content' => '<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"black","layout":{"type":"constrained"}} --><div class="wp-block-group has-black-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:heading {"textAlign":"center","className":"vkp-title-short-border\u002d\u002dcenter is-style-vk-heading-plain vk_block-margin-0\u002d\u002dmargin-bottom vk_custom_css","style":{"typography":{"fontSize":"2.2rem","letterSpacing":"2px"}},"textColor":"white"} --><h2 class="wp-block-heading has-text-align-center vkp-title-short-border--center is-style-vk-heading-plain vk_block-margin-0--margin-bottom vk_custom_css has-white-color has-text-color" style="font-size:2.2rem;letter-spacing:2px">テストタイトル</h2><!-- /wp:heading --><!-- wp:vk-blocks/button {"buttonUrl":"https://demo.dev3.biz/architect/recruit/","buttonType":"1","buttonColor":"custom","buttonColorCustom":"white","buttonAlign":"center","blockId":"e6f30732-b8f9-435d-8f9d-27d691e7d303","className":"vkp_button-through-arrow vk_custom_css"} --><div class="wp-block-vk-blocks-button vk_button vk_button-color-custom vk_button-align-center vkp_button-through-arrow vk_custom_css"><a href="https://demo.dev3.biz/architect/recruit/" class="vk_button_link btn has-text-color is-style-outline has-white-color btn-md" role="button" aria-pressed="true" rel="noopener"><div class="vk_button_link_caption"><span class="vk_button_link_txt">ボタン</span></div></a></div><!-- /wp:vk-blocks/button --></div><!-- /wp:group -->',
-				'expected'   => '<div class="wp-block-group has-black-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><div class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"><h2 class="wp-block-heading has-text-align-center vkp-title-short-border--center is-style-vk-heading-plain vk_block-margin-0--margin-bottom vk_custom_css has-white-color has-text-color" style="font-size:2.2rem;letter-spacing:2px">テストタイトル</h2><div class="wp-block-vk-blocks-button vk_button vk_button-color-custom vk_button-align-center vkp_button-through-arrow vk_custom_css"><a href="https://demo.dev3.biz/architect/recruit/" class="vk_button_link btn has-text-color is-style-outline has-white-color btn-md" role="button" rel="noopener"><div class="vk_button_link_caption"><span class="vk_button_link_txt">ボタン</span></div></a></div></div></div>',
+				'expected'    => '<div class="wp-block-group has-black-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><div class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"><h2 class="wp-block-heading has-text-align-center vkp-title-short-border--center is-style-vk-heading-plain vk_block-margin-0--margin-bottom vk_custom_css has-white-color has-text-color" style="font-size:2.2rem;letter-spacing:2px">テストタイトル</h2><div class="wp-block-vk-blocks-button vk_button vk_button-color-custom vk_button-align-center vkp_button-through-arrow vk_custom_css"><a href="https://demo.dev3.biz/architect/recruit/" class="vk_button_link btn has-text-color is-style-outline has-white-color btn-md" role="button" rel="noopener"><div class="vk_button_link_caption"><span class="vk_button_link_txt">ボタン</span></div></a></div></div></div>',
 			),
-			'post_content xss test'                    => array(
+			'post_content xss test'    => array(
 				'cta_content' => '"><script>alert(0)</script>',
-				'expected'   => '"&gt;alert(0)',
+				'expected'    => '"&gt;alert(0)',
 			),
-			'classic CTA test'                    => array(
-				'cta_title' => 'Classic Title',
+			'classic CTA test'         => array(
+				'cta_title'   => 'Classic Title',
 				'cta_content' => '',
-				'post_meta' => array(
-					'vkExUnit_cta_text' => 'cta',
+				'post_meta'   => array(
+					'vkExUnit_cta_text'        => 'cta',
 					'vkExUnit_cta_button_text' => 'Read more',
-					'vkExUnit_cta_url' => 'https://example.com'
+					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'   => '<section class="veu_cta" id="veu_cta-'. $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
-			'classic CTA XSS test'                    => array(
-				'cta_title' => 'Classic Title',
+			'classic CTA XSS test'     => array(
+				'cta_title'   => 'Classic Title',
 				'cta_content' => '',
-				'post_meta' => array(
-					'vkExUnit_cta_text' => '"><script>alert(0)</script>',
+				'post_meta'   => array(
+					'vkExUnit_cta_text'        => '"><script>alert(0)</script>',
 					'vkExUnit_cta_button_text' => '"><script>alert(0)</script>',
-					'vkExUnit_cta_url' => 'https://example.com'
+					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'   => '<section class="veu_cta" id="veu_cta-'. $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 		);
 
@@ -250,7 +249,7 @@ class CTATest extends WP_UnitTestCase {
 				'ID'           => $test_posts['cta_post_id'],
 				'post_content' => $value['cta_content'],
 			);
-			if  ( ! empty( $value['cta_title'] ) ) {
+			if ( ! empty( $value['cta_title'] ) ) {
 				$post_args['post_title'] = $value['cta_title'];
 			}
 			wp_update_post( $post_args );
@@ -266,5 +265,4 @@ class CTATest extends WP_UnitTestCase {
 			$this->assertEquals( $value['expected'], $actual );
 		}
 	}
-
 }

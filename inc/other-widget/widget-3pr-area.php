@@ -1,7 +1,7 @@
 <?php
 
-/*-------------------------------------------*/
-/*  PR area widget
+/*
+	PR area widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 	function __construct() {
@@ -64,7 +64,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			<input type="text" id="<?php echo $this->get_field_id( 'label_' . $i ); ?>-title" class="pr-input" name="<?php echo $this->get_field_name( 'label_' . $i ); ?>" value="<?php echo esc_attr( $instance[ 'label_' . $i ] ); ?>" />
 		</p>
 
-		<?php // 3PR area 1 メディアアップローダー PC ?>
+			<?php // 3PR area 1 メディアアップローダー PC ?>
 
 				<label for="<?php echo $this->get_field_id( 'media_3pr_image_' . $i ); ?>"><?php _e( 'Select image for PC:', 'vk-all-in-one-expansion-unit' ); ?></label>
 
@@ -102,33 +102,32 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 					</div>
 				</div><!-- [ /.media_image_section ] -->
 
-		<?php // 3PR area 1 メディアアップローダー sp image ?>
-		   <br/>
+			<?php // 3PR area 1 メディアアップローダー sp image ?>
+			<br/>
 
-		<?php // 概要テキスト ?>
+			<?php // 概要テキスト ?>
 		<p><label for="<?php echo $this->get_field_id( 'summary_' . $i ); ?>"><?php _e( 'Summary Text:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		</p>
 
 		<textarea rows="4" cols="40" id="<?php echo $this->get_field_id( 'summary_' . $i ); ?>_text" class="admin-custom-input" name="<?php echo $this->get_field_name( 'summary_' . $i ); ?>"><?php echo esc_textarea( $instance[ 'summary_' . $i ] ); ?></textarea>
 
-		<?php // リンク先_URL ?>
+			<?php // リンク先_URL ?>
 		<p><label for="<?php echo $this->get_field_id( 'linkurl_' . $i ); ?>"><?php _e( 'Link URL:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'linkurl_' . $i ); ?>_title" class="pr_input text" name="<?php echo $this->get_field_name( 'linkurl_' . $i ); ?>" value="<?php echo esc_attr( $instance[ 'linkurl_' . $i ] ); ?>" style="margin-bottom:0.5em;" /><br/>
 		<input type="checkbox" id="<?php echo $this->get_field_id( 'blank_' . $i ); ?>" class="pr_input checkbox" name="<?php echo $this->get_field_name( 'blank_' . $i ); ?>"
 												<?php
 												if ( $instance[ 'blank_' . $i ] ) {
 													echo 'checked';}
-?>
- value="true" />
+												?>
+value="true" />
 		<label for="<?php echo $this->get_field_id( 'blank_' . $i ); ?>"><?php _e( 'Open link new tab.', 'vk-all-in-one-expansion-unit' ); ?></label>
 		</p>
 
 <hr />
 
-<?php
-			$i++;
+			<?php
+			++$i;
 		} // for ( $i = 1; $i <= 3 ;) {
-
 	}
 
 
@@ -137,7 +136,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		$instance = $old_instance;
 
 		for ( $i = 1; $i <= 3; ) {
-			$instance[ 'label_' . $i ]              = wp_kses_post( stripslashes($new_instance[ 'label_' . $i ] ) );
+			$instance[ 'label_' . $i ]              = wp_kses_post( stripslashes( $new_instance[ 'label_' . $i ] ) );
 			$instance[ 'media_3pr_image_' . $i ]    = esc_url( $new_instance[ 'media_3pr_image_' . $i ] );
 			$instance[ 'media_3pr_alt_' . $i ]      = esc_html( stripslashes( $new_instance[ 'media_3pr_alt_' . $i ] ) );
 			$instance[ 'media_3pr_image_sp_' . $i ] = esc_url( $new_instance[ 'media_3pr_image_sp_' . $i ] );
@@ -145,7 +144,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 			$instance[ 'summary_' . $i ]            = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ) );
 			$instance[ 'linkurl_' . $i ]            = esc_url( $new_instance[ 'linkurl_' . $i ] );
 			$instance[ 'blank_' . $i ]              = ( isset( $new_instance[ 'blank_' . $i ] ) && $new_instance[ 'blank_' . $i ] == 'true' );
-			$i++;
+			++$i;
 		}
 
 		return $instance;
@@ -157,7 +156,6 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 		echo $args['before_widget'];
 		echo '<div class="veu_3prArea row">';
 		for ( $i = 1; $i <= 3; ) {
-
 			if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
 				echo '<div class="prArea col-sm-4">';
 
@@ -197,9 +195,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				}
 
 				if ( ! empty( $instance[ 'summary_' . $i ] ) ) {
-
 					echo '<p class="summary">' . nl2br( wp_kses_post( $instance[ 'summary_' . $i ] ) ) . '</p>';
-
 				}
 				if ( ! empty( $instance[ 'linkurl_' . $i ] ) ) {
 					echo '<p class="linkurl"><a href="' . esc_url( $instance[ 'linkurl_' . $i ] ) . '" class="btn btn-default btn-sm"' . $blank . '>' . apply_filters( 'vkExUnit_widget_3pr_read_more_txt', __( 'Read more', 'vk-all-in-one-expansion-unit' ) ) . '</a></p>';
@@ -208,11 +204,11 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 				echo '</div>';
 			} // if ( isset( $instance['label_'.$i] ) && $instance['label_'.$i] ) {
 
-			$i++;
+			++$i;
 		} // for ( $i = 1; $i <= 3 ;) {
-?>
+		?>
 	</div>
-	<?php
+		<?php
 		echo $args['after_widget'];
 	}
 }
@@ -220,7 +216,7 @@ class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 // メディアアップローダーjs
 function admin_scripts_3pr_media() {
 	global $hook_suffix;
-	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix) {
+	if ( 'widgets.php' === $hook_suffix || 'customize.php' === $hook_suffix ) {
 		wp_enqueue_media();
 		wp_register_script( 'vk-admin-widget', plugin_dir_url( __FILE__ ) . 'js/admin-widget.js', array( 'jquery' ), false, true );
 		wp_enqueue_script( 'vk-admin-widget' );

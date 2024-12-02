@@ -1,10 +1,10 @@
 <?php
-/*-------------------------------------------*/
-/*  Load modules
+/*
+	Load modules
 /*-------------------------------------------*/
 if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
-	require_once dirname( __FILE__ ) . '/package/class-vk-google-tag-manager.php';
-	require_once dirname( __FILE__ ) . '/admin.php';
+	require_once __DIR__ . '/package/class-vk-google-tag-manager.php';
+	require_once __DIR__ . '/admin.php';
 	global $vk_gtm_prefix;
 	$vk_gtm_prefix = '';
 

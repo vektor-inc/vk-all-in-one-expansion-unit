@@ -15,13 +15,13 @@ class VK_Twitter_Widget extends WP_Widget {
 	}
 
 	public static function widget_name() {
-		$name = veu_get_prefix() . __( 'Twitter', 'vk-all-in-one-expansion-unit' );
+		$name  = veu_get_prefix() . __( 'Twitter', 'vk-all-in-one-expansion-unit' );
 		$name .= ' ( ' . __( 'Not recommended', 'vk-all-in-one-expansion-unit' ) . ' )';
 		return $name;
 	}
 
 	public static function widget_description() {
-		$description = __( 'Display Twitter timeline.', 'vk-all-in-one-expansion-unit' );
+		$description  = __( 'Display Twitter timeline.', 'vk-all-in-one-expansion-unit' );
 		$description .= __( 'Note: ', 'vk-all-in-one-expansion-unit' ) . __( 'Due to recent changes in X policies, embedded timelines may not display as expected.', 'vk-all-in-one-expansion-unit' );
 		return wp_kses( $description, array( 'br' => array() ) );
 	}
@@ -52,10 +52,10 @@ class VK_Twitter_Widget extends WP_Widget {
 		} else {
 			$height = 400;
 		}
-	?>
+		?>
 	<a class="twitter-timeline" href="<?php echo esc_url( $account ); ?>" data-height="<?php echo $height; ?>" data-theme="<?php echo wp_kses_post( $instance['bg_color'] ); ?>" data-link-color="<?php echo sanitize_hex_color( $instance['link_color'] ); ?>" data-chrome="noheader nofooter">
 	</a>
-	<?php
+		<?php
 		echo '</div>'; // .vk-twitter-plugin
 		echo $args['after_widget'];
 
@@ -67,7 +67,6 @@ class VK_Twitter_Widget extends WP_Widget {
 	 *
 	 * @param array $instance ウィジェットオプション
 	 */
-
 	static function time_line_color() {
 		return array(
 			'light' => 'Light',
@@ -78,7 +77,7 @@ class VK_Twitter_Widget extends WP_Widget {
 	public function form( $instance ) {
 		// 管理用のオプションのフォームを出力
 		/**
-	  * 入力された値とデフォルト値を結合するメソッド
+	 * 入力された値とデフォルト値を結合するメソッド
 	*/
 		$defaults = array(
 			'title'      => '',
@@ -88,57 +87,57 @@ class VK_Twitter_Widget extends WP_Widget {
 			'link_color' => '#2b7bb9',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
-	?>
+		?>
 
-	<?php // title ?>
+		<?php // title ?>
 	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 	</p>
 
-	<?php // account ?>
+		<?php // account ?>
 	<p><label for="<?php echo $this->get_field_id( 'account' ); ?>"><?php _e( 'Account:<br>Please enter your Twitter account.', 'vk-all-in-one-expansion-unit' ); ?></label><br>
-	<?php _e( '@', 'vk-all-in-one-expansion-unit' ); ?><input type="" id="<?php echo $this->get_field_id( 'account' ); ?>" class="" name="<?php echo $this->get_field_name( 'account' ); ?>" value="<?php echo esc_attr( $instance['account'] ); ?>" />
+		<?php _e( '@', 'vk-all-in-one-expansion-unit' ); ?><input type="" id="<?php echo $this->get_field_id( 'account' ); ?>" class="" name="<?php echo $this->get_field_name( 'account' ); ?>" value="<?php echo esc_attr( $instance['account'] ); ?>" />
 	</p>
 
-	<?php // height ?>
+		<?php // height ?>
 	<p><label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height:<br>Please enter an arbitrary number.(Example: 300)', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" class="admin-custom-input" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo esc_attr( $instance['height'] ); ?>" />
 	</p>
 
-	<?php // bg color ?>
+		<?php // bg color ?>
 	<p><label for="<?php echo $this->get_field_id( 'bg_color' ); ?>"><?php _e( 'Background color:', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<select id="<?php echo $this->get_field_id( 'bg_color' ); ?>" name="<?php echo $this->get_field_name( 'bg_color' ); ?>" class="admin-custom-input">
-	<?php
-	if ( ! isset( $instance['bg_color'] ) || ! $instance['bg_color'] ) {
-		$instance['bg_color'] = $default['bg_color'];
-	}
-	foreach ( static::time_line_color() as $key => $label ) :
-	?>
-	<option value="<?php echo $key; ?>"
 		<?php
-		if ( $instance['bg_color'] == $key ) {
-			echo 'selected';
+		if ( ! isset( $instance['bg_color'] ) || ! $instance['bg_color'] ) {
+			$instance['bg_color'] = $default['bg_color'];
 		}
-	?>
+		foreach ( static::time_line_color() as $key => $label ) :
+			?>
+	<option value="<?php echo $key; ?>"
+			<?php
+			if ( $instance['bg_color'] == $key ) {
+				echo 'selected';
+			}
+			?>
 	>
-		<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
+			<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
 	</option>
 	<?php endforeach; ?>
 	</select>
 	</p>
 
-	<?php // link color ?>
+		<?php // link color ?>
 	<p class="color_picker_wrap">
 	<label for="<?php echo $this->get_field_id( 'link_color' ); ?>"><?php _e( 'Link color:', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="text" id="<?php echo $this->get_field_id( 'link_color' ); ?>" class="color_picker admin-custom-input" name="<?php echo $this->get_field_name( 'link_color' ); ?>" value="
 										<?php
 										if ( $instance['link_color'] ) {
 											echo esc_attr( $instance['link_color'] ); }
-?>
+										?>
 " />
 	</p>
 
-<?php
+		<?php
 	}
 
 	/**

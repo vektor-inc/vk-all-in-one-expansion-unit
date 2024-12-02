@@ -52,5 +52,4 @@ class WidgetBtnTest extends WP_UnitTestCase {
 			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
 		}
 	}
-
 }

@@ -4,9 +4,9 @@
  */
 
 
- // フィルターフックを追加
- // フルサイト編集意では本文欄を経由しないため、CTAのコンテンツに対して WordPress が通常の投稿に行っているものと同じ処理をする
- // Add fiter for render post content( Cope with FSE )
+// フィルターフックを追加
+// フルサイト編集意では本文欄を経由しないため、CTAのコンテンツに対して WordPress が通常の投稿に行っているものと同じ処理をする
+// Add fiter for render post content( Cope with FSE )
 add_filter( 'veu_cta_content', 'do_blocks', 9 );
 add_filter( 'veu_cta_content', 'wptexturize' );
 add_filter( 'veu_cta_content', 'convert_smilies', 20 );
@@ -16,9 +16,9 @@ add_filter( 'veu_cta_content', 'wp_filter_content_tags' );
 add_filter( 'veu_cta_content', 'do_shortcode', 11 );
 add_filter( 'veu_cta_content', 'capital_P_dangit', 11 );
 
- /**
-  * CTA ブロックを追加
-  */
+/**
+ * CTA ブロックを追加
+ */
 function veu_register_cta_block() {
 
 	$asset_file = include plugin_dir_path( __FILE__ ) . '/build/block.asset.php';
@@ -71,7 +71,6 @@ function veu_register_cta_block() {
 			)
 		);
 	}
-
 }
 add_action( 'init', 'veu_register_cta_block', 15 );
 
@@ -81,7 +80,7 @@ add_action( 'init', 'veu_register_cta_block', 15 );
 function veu_cta_block_translation() {
 	if ( function_exists( 'wp_set_script_translations' ) ) {
 		wp_set_script_translations( 'veu-block-cta', 'vk-all-in-one-expansion-unit' );
-	}	
+	}
 }
 add_action( 'init', 'veu_cta_block_translation', 15 );
 
@@ -134,7 +133,7 @@ function veu_cta_block_data() {
 		'veu-block-cta',
 		'veuBlockOption',
 		array(
-			'cta_option' => $cta_options,
+			'cta_option'      => $cta_options,
 			'cta_posts_exist' => $cta_posts_exist,
 			'admin_url'       => admin_url(),
 		)
@@ -155,22 +154,20 @@ function veu_cta_block_callback( $attributes, $content ) {
 
 	global $post;
 	$post_config = '';
-	if ( $post ){
+	if ( $post ) {
 		$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
 	}
 
 	// 各記事で非表示指定されていなかったら表示する
 	if ( 'disable' !== $post_config ) {
 		if ( ! empty( $attributes['postId'] ) ) {
-			$cta_id   = 'random' !== $attributes['postId'] ? $attributes['postId'] : Vk_Call_To_Action::cta_id_random();
+			$cta_id = 'random' !== $attributes['postId'] ? $attributes['postId'] : Vk_Call_To_Action::cta_id_random();
 
 			// Vk_Call_To_Action::cta_id_random() では該当する CTA がない場合 null が帰ってくる
 			// get_post( $id, $output, $filter ); は $id が null の場合は現在の投稿を返すのでそれを阻止する条件分岐
 			if ( $cta_id !== null ) {
-
 				$cta_post = get_post( $cta_id );
-				if ( 
-					( empty( $cta_post ) && 'random' !== $attributes['postId'] ) || 
+				if ( ( empty( $cta_post ) && 'random' !== $attributes['postId'] ) ||
 					( ! empty( $cta_post ) && ( 'trash' === $cta_post->post_status ) )
 					) {
 					// IDが指定されているが、指定されたIの CTA が存在しない場合はエラーを表示.
@@ -190,16 +187,13 @@ function veu_cta_block_callback( $attributes, $content ) {
 
 					// 最後に wp_kses_post でエスケープはしているが、wp_kses_post は style は通してしまうので、
 					// クラス名入力欄に " style="background-color:red" など入力されると通してしまうため esc_attr でエスケープ.
-					$content .= '<div class="' . esc_attr( $class_name  ) . '">';
+					$content .= '<div class="' . esc_attr( $class_name ) . '">';
 
 					// 本文に入力がある場合は本文を表示.
 					$cta_content = $cta_post->post_content;
 					if ( ! empty( $cta_content ) && 'veu_cta_normal' !== $cta_post->vkExUnit_cta_use_type ) {
-
 						$content .= apply_filters( 'veu_cta_content', $cta_content );
-
 					} else {
-
 						$fa = '';
 
 						if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
@@ -280,5 +274,4 @@ function veu_cta_block_callback( $attributes, $content ) {
 	}
 
 	return wp_kses_post( $content );
-
 }

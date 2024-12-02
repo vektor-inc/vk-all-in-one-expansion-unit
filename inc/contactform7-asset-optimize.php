@@ -9,7 +9,7 @@
 
 add_action(
 	'wp_print_styles',
-	function() {
+	function () {
 		wp_dequeue_style( 'contact-form-7' );
 	},
 	0
@@ -17,7 +17,7 @@ add_action(
 
 add_action(
 	'wp_print_scripts',
-	function() {
+	function () {
 		wp_dequeue_script( 'contact-form-7' );
 	},
 	0
@@ -30,7 +30,7 @@ function veu_reregister_contact_form_assets() {
 
 add_filter(
 	'do_shortcode_tag',
-	function( $output, $tag, $attr, $m ) {
+	function ( $output, $tag, $attr, $m ) {
 		if ( $tag == 'contact-form-7' ) {
 			add_action( 'wp_footer', 'veu_reregister_contact_form_assets' );
 			add_action( 'wp_footer', 'veu_add_recapcha_cf7' );
@@ -43,9 +43,9 @@ add_filter(
 
 /**
  * Contact Form 7 の reCAPTCHA v3 は全ページで出力されてしまうので、一旦削除
-*
-* @since 9.93.0.0
-*/
+ *
+ * @since 9.93.0.0
+ */
 function veu_deregister_recaptcha_js() {
 	wp_deregister_script( 'google-recaptcha' );
 }

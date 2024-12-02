@@ -1,6 +1,6 @@
 <?php
-/*-------------------------------------------*/
-/*  fbPagePlugin widget
+/*
+	fbPagePlugin widget
 /*-------------------------------------------*/
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
@@ -51,7 +51,7 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance              = $old_instance;
-		$instance['label']     = wp_kses_post( stripslashes($new_instance['label'] ) );
+		$instance['label']     = wp_kses_post( stripslashes( $new_instance['label'] ) );
 		$instance['page_url']  = esc_url( $new_instance['page_url'] );
 		$instance['height']    = esc_html( $new_instance['height'] );
 		$instance['showFaces'] = $new_instance['showFaces'];
@@ -76,32 +76,32 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		?>
 
-		<?php //タイトル ?>
+		<?php // タイトル ?>
 		<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'label' ); ?>-title" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo $instance['label']; ?>" />
 		<br/>
 
-		<?php //URL ?>
+		<?php // URL ?>
 		<label for="<?php echo $this->get_field_id( 'page_url' ); ?>"><?php echo 'Facebook Page URL'; ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'page_url' ); ?>" name="<?php echo $this->get_field_name( 'page_url' ); ?>" value="<?php echo $instance['page_url']; ?>" />
 		<br/>
 
-		<?php //Height ?>
+		<?php // Height ?>
 		<label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e( 'Height', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="text" id="<?php echo $this->get_field_id( 'height' ); ?>" name="<?php echo $this->get_field_name( 'height' ); ?>" value="<?php echo $instance['height']; ?>" />
 		<br/>
 
-		<?php //showFaces ?>
+		<?php // showFaces ?>
 		<label for="<?php echo $this->get_field_id( 'showFaces' ); ?>"><?php _e( "Show Friend's Faces", 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name( 'showFaces' ); ?>" value="true" <?php echo ( $instance['showFaces'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 
-		<?php //hideCover ?>
+		<?php // hideCover ?>
 		<label for="<?php echo $this->get_field_id( 'hideCover' ); ?>"><?php _e( 'Hide Cover Photo', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name( 'hideCover' ); ?>" value="true" <?php echo ( $instance['hideCover'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
 
-		<?php //showPosts ?>
+		<?php // showPosts ?>
 		<label for="<?php echo $this->get_field_id( 'showPosts' ); ?>"><?php _e( 'Show Page Posts', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 		<input type="checkbox" name="<?php echo $this->get_field_name( 'showPosts' ); ?>" value="true" <?php echo ( $instance['showPosts'] == 'true' ) ? 'checked' : ''; ?> >
 		<br/>
@@ -109,7 +109,8 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 	}
 } // class WP_Widget_top_list_post
 add_action(
-	'widgets_init', function() {
+	'widgets_init',
+	function () {
 		return register_widget( 'WP_Widget_vkExUnit_fbPagePlugin' );
 	}
 );

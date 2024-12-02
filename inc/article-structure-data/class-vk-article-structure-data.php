@@ -32,7 +32,7 @@ class VK_Article_Srtuctured_Data {
 
 		?>
 <h2 style="margin-top:2em;">
-	<?php esc_html_e( 'Author information structured data', 'vk-all-in-one-expansion-unit' ); ?>
+		<?php esc_html_e( 'Author information structured data', 'vk-all-in-one-expansion-unit' ); ?>
 </h2>
 <table class="form-table">
 	<tr>
@@ -84,7 +84,7 @@ class VK_Article_Srtuctured_Data {
 		</td>
 	</tr>
 </table>
-<?php
+		<?php
 	}
 
 	/**
@@ -113,11 +113,11 @@ class VK_Article_Srtuctured_Data {
 	public static function the_article_structure_data() {
 		global $post;
 		if ( is_single() ) {
-			$author_id = $post->post_author;
+			$author_id     = $post->post_author;
 			$article_array = self::get_article_structure_array( $author_id );
 			if ( $article_array && is_array( $article_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
-                echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
+				echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
 				echo '<!-- [ / VK All in One Expansion Unit Article Structure Data ] -->';
 			}
 		}
@@ -148,7 +148,7 @@ class VK_Article_Srtuctured_Data {
 				$image_url = get_the_post_thumbnail_url();
 			} else {
 				$image_url = '';
-			};
+			}
 			$post_title = get_the_title();
 		}
 

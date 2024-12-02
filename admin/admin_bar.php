@@ -25,7 +25,6 @@ function vkExUnit_adminbar_link( $wp_admin_bar ) {
 
 	// 「有効化設定」は edit_theme_options 権限にはアクセスさせない
 	if ( current_user_can( 'activate_plugins' ) ) {
-
 		$wp_admin_bar->add_node(
 			array(
 				'parent' => 'veu_adminlink',
@@ -34,7 +33,6 @@ function vkExUnit_adminbar_link( $wp_admin_bar ) {
 				'href'   => admin_url() . 'admin.php?page=vkExUnit_setting_page',
 			)
 		);
-
 	}
 
 	$wp_admin_bar->add_node(

@@ -12,24 +12,22 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 	// 付与するカレントクラス名
 	$add_current_class_name = 'current-menu-ancestor';
 
-	/*  投稿アーカイブの指定された固定ページメニューアイテムの処理
+	/*
+		投稿アーカイブの指定された固定ページメニューアイテムの処理
 	/*-------------------------------------------*/
 	$post_top_id  = get_option( 'page_for_posts' );
 	$post_top_url = get_the_permalink( $post_top_id );
 
 	if ( $post_top_url === $item->url ) {
-
 		if ( $post_type_info['slug'] === 'post' ) {
 			// 今表示しているページの投稿タイプが post の場合
 			// currentクラスを付与
 			$classes[] = $add_current_class_name;
-
 		} else {
 			// 今表示しているページの投稿タイプが post 以外の場合
 
 			// 現在配列に入っているclassをループ
 			for ( $i = 1; $i <= count( $classes ); $i++ ) {
-
 				if ( isset( $classes[ $i ] ) ) {
 					// currentがあった場合
 					if ( $classes[ $i ] == $add_current_class_name || $classes[ $i ] == 'current_page_parent' ) {
@@ -41,14 +39,14 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 
 			// キーのフリなおし
 			$classes = array_values( $classes );
-
 		}
 	}
 
-	/*	カスタムメニューに設定されたURLの投稿タイプ名を取得する
+	/*
+		カスタムメニューに設定されたURLの投稿タイプ名を取得する
 	/*-------------------------------------------*/
 
-	//   メニューがカスタムリンクでリンク先がカスタム投稿タイプのアーカイブの時
+	// メニューがカスタムリンクでリンク先がカスタム投稿タイプのアーカイブの時
 
 	if ( $item->type == 'custom' || $item->type == 'post_type_archive' ) {
 
@@ -69,7 +67,6 @@ function veu_nav_menu_class_custom( $classes, $item ) {
 			} else {
 				$menu_url_post_type = '';
 			}// if ( isset( $matches[1] ) ) {
-
 		} else {
 
 			// リライトルールが普通に保存されている場合

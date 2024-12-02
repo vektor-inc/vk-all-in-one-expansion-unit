@@ -4,10 +4,10 @@
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
- /*
- cd $(wp plugin path --dir vk-all-in-one-expansion-unit)
- bash bin/install-wp-tests.sh wordpress_test root 'WordPress' localhost latest
-  */
+/*
+cd $(wp plugin path --dir vk-all-in-one-expansion-unit)
+bash bin/install-wp-tests.sh wordpress_test root 'WordPress' localhost latest
+ */
 /**
  * SNS title test case.
  */
@@ -41,21 +41,21 @@ class SnsTitleTest extends WP_UnitTestCase {
 		);
 
 		// カテゴリ「親カテゴリ」を追加
-		$catarr             = array(
+		$catarr              = array(
 			'cat_name'          => 'Category Test',
 			'category_nicename' => 'category-test',
 		);
 		$data['category_id'] = wp_insert_category( $catarr );
 
 		// イベントカテゴリ「イベントカテゴリ」を追加
-		$args          = array(
+		$args                 = array(
 			'slug' => 'event-category-test',
 		);
-		$term_info     = wp_insert_term( 'Event Category Test', 'event_cat', $args );
+		$term_info            = wp_insert_term( 'Event Category Test', 'event_cat', $args );
 		$data['event_cat_id'] = $term_info['term_id'];
 
 		// 投稿「テスト01」を追加
-		$post    = array(
+		$post            = array(
 			'post_title'    => 'Post Test',
 			'post_status'   => 'publish',
 			'post_content'  => 'Post Test',
@@ -64,7 +64,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 		$data['post_id'] = wp_insert_post( $post );
 
 		// Create test Home
-		$post         = array(
+		$post            = array(
 			'post_title'   => 'Page Test',
 			'post_type'    => 'page',
 			'post_status'  => 'publish',
@@ -73,7 +73,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 		$data['page_id'] = wp_insert_post( $post );
 
 		// Create test Home
-		$post         = array(
+		$post                 = array(
 			'post_title'   => 'Home',
 			'post_type'    => 'page',
 			'post_status'  => 'publish',
@@ -82,7 +82,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 		$data['home_page_id'] = wp_insert_post( $post );
 
 		// Create test Home
-		$post          = array(
+		$post                  = array(
 			'post_title'   => 'Front Page',
 			'post_type'    => 'page',
 			'post_status'  => 'publish',
@@ -91,7 +91,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 		$data['front_page_id'] = wp_insert_post( $post );
 
 		// custom post type.
-		$post          = array(
+		$post             = array(
 			'post_title'   => 'Event Test',
 			'post_type'    => 'event',
 			'post_status'  => 'publish',
@@ -1228,7 +1228,6 @@ class SnsTitleTest extends WP_UnitTestCase {
 		$before_vkExUnit_common_options = get_option( 'vkExUnit_common_options' );
 
 		foreach ( $test_array as $key => $test_value ) {
-
 			$post_id = $test_value['target_id'];
 
 			// Set Site Name
@@ -1244,7 +1243,7 @@ class SnsTitleTest extends WP_UnitTestCase {
 				'is_home' === $test_value['target_type'] ||
 				'is_singular' === $test_value['target_type']
 			) {
-				if ($test_value['vkExUnit_sns_title'] !== null ) {
+				if ( $test_value['vkExUnit_sns_title'] !== null ) {
 					add_post_meta( $post_id, 'vkExUnit_sns_title', $test_value['vkExUnit_sns_title'] );
 				} else {
 					delete_post_meta( $post_id, 'vkExUnit_sns_title' );
@@ -1254,11 +1253,11 @@ class SnsTitleTest extends WP_UnitTestCase {
 
 			// タイトル書き換えの設定
 			if ( $test_value['package_wp_title'] === false ) {
-				$options = get_option( 'vkExUnit_common_options' );
+				$options                   = get_option( 'vkExUnit_common_options' );
 				$options['active_wpTitle'] = false;
 				update_option( 'vkExUnit_common_options', $options );
 			} elseif ( $test_value['package_wp_title'] === true ) {
-				$options = get_option( 'vkExUnit_common_options' );
+				$options                   = get_option( 'vkExUnit_common_options' );
 				$options['active_wpTitle'] = true;
 				update_option( 'vkExUnit_common_options', $options );
 			}
@@ -1272,7 +1271,6 @@ class SnsTitleTest extends WP_UnitTestCase {
 			// print PHP_EOL;
 			// print 'correct ::::' . $test_value['correct'] . PHP_EOL;
 			// print 'return  ::::' . $return . PHP_EOL;
-
 
 		}
 
@@ -1292,6 +1290,5 @@ class SnsTitleTest extends WP_UnitTestCase {
 		update_option( 'page_for_posts', $before_page_for_posts ); // 投稿トップに指定するページ
 		update_option( 'page_on_front', $before_page_on_front ); // フロントに指定する固定ページ
 		update_option( 'show_on_front', $before_show_on_front ); // トップページ指定するかどうか page or posts
-
 	}
 }

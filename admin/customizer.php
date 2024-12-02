@@ -31,8 +31,8 @@ function veu_customize_register( $wp_customize ) {
 	require_once VEU_DIRECTORY_PATH . '/admin/class-exunit-custom-text-control.php';
 
 	/*
-	  Add ExUnit Panel
-	 /*-------------------------------------------*/
+		Add ExUnit Panel
+	/*-------------------------------------------*/
 	$wp_customize->add_panel(
 		'veu_setting',
 		array(
@@ -42,5 +42,4 @@ function veu_customize_register( $wp_customize ) {
 			'title'          => veu_get_prefix_customize_panel() . ' ' . __( 'Settings', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
-
 }
