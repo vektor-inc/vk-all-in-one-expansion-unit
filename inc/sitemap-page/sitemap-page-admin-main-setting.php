@@ -44,8 +44,6 @@ function veu_add_sitemap_options_page() {
 	$options = veu_get_sitemap_options();
 
 	/*
-	-------------------------------------------*/
-	/*
 		sitemap page
 	/*-------------------------------------------*/
 	?>

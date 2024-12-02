@@ -26,8 +26,6 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 	/*
-	-------------------------------------------*/
-	/*
 		template-tags
 	/*-------------------------------------------*/
 	/*
@@ -121,8 +119,6 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 
 	/*
-	-------------------------------------------*/
-	/*
 		form
 	/*-------------------------------------------*/
 	function form( $instance ) {
@@ -204,8 +200,6 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 	/*
-	-------------------------------------------*/
-	/*
 		widget
 	/*-------------------------------------------*/
 	function widget( $args, $instance ) {
@@ -218,8 +212,6 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	}
 
 
-	/*
-	-------------------------------------------*/
 	/*
 		display_page
 	/*-------------------------------------------*/

@@ -8,8 +8,6 @@
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 	/*
-	-------------------------------------------*/
-	/*
 		form
 	/*-------------------------------------------*/
 	/*
@@ -85,8 +83,6 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 
-	/*
-	-------------------------------------------*/
 	/*
 		form
 	/*-------------------------------------------*/
@@ -206,8 +202,6 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 	/*
-	-------------------------------------------*/
-	/*
 		Update
 	/*-------------------------------------------*/
 	public function update( $new_instance, $old_instance ) {
@@ -233,8 +227,6 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 	}
 
 
-	/*
-	-------------------------------------------*/
 	/*
 		widget
 	/*-------------------------------------------*/

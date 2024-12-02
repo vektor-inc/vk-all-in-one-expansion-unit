@@ -23,8 +23,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	}
 
 	/*
-	-------------------------------------------*/
-	/*
 		form
 	/*-------------------------------------------*/
 	/*
@@ -35,8 +33,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	/*-------------------------------------------*/
 
 
-	/*
-	-------------------------------------------*/
 	/*
 		form
 	/*-------------------------------------------*/
@@ -187,8 +183,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 	}
 
 	/*
-	-------------------------------------------*/
-	/*
 		update
 	/*-------------------------------------------*/
 	function update( $new_instance, $old_instance ) {
@@ -213,8 +207,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		$instance['icon_color']      = esc_html( $new_instance['icon_color'] );
 		return $instance;
 	}
-	/*
-	-------------------------------------------*/
 	/*
 		SNSアイコンに出力するCSSを出力する関数
 	/*-------------------------------------------*/
@@ -356,8 +348,6 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		return $media_outer_size_css;
 	}
 
-	/*
-	-------------------------------------------*/
 	/*
 		widget
 	/*-------------------------------------------*/
