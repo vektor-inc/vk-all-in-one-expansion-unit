@@ -61,7 +61,6 @@ class SnsBtnsStyle extends WP_UnitTestCase {
 		);
 
 		foreach ( $test_array as $key => $test_value ) {
-
 			$return = veu_sns_outer_css( $test_value['options'] );
 
 			$this->assertEquals( $test_value['correct'], $return );
@@ -102,7 +101,6 @@ class SnsBtnsStyle extends WP_UnitTestCase {
 		);
 
 		foreach ( $test_array as $key => $test_value ) {
-
 			$return = veu_sns_icon_css( $test_value['options'] );
 
 			$this->assertEquals( $test_value['correct'], $return );
@@ -112,5 +110,4 @@ class SnsBtnsStyle extends WP_UnitTestCase {
 			// print 'return  :' . esc_attr( $return ) . PHP_EOL;
 		}
 	}
-
 }

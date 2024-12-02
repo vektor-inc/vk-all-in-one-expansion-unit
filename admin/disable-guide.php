@@ -13,14 +13,14 @@ function vkExUnit_adminbar_disable( $wp_admin_bar ) {
 	if ( is_user_logged_in() && ! is_admin() && current_user_can( 'administrator' ) || current_user_can( 'editor' ) ) {
 		$args = array(
 			'id'    => 'veu_disable_admin_edit',
-			'title' => __( 'Edit Guide', 'vk-all-in-one-expansion-unit' ).' : <span class="_show">SHOW</span><span class="_hide">HIDE</span>',
+			'title' => __( 'Edit Guide', 'vk-all-in-one-expansion-unit' ) . ' : <span class="_show">SHOW</span><span class="_hide">HIDE</span>',
 			'meta'  => array( 'class' => 'veu_admin_bar_disable_button' ),
 		);
 		$wp_admin_bar->add_node( $args );
 	}
 }
 
-add_action( 'wp_head','vkExUnit_adminbar_edit_header' );
+add_action( 'wp_head', 'vkExUnit_adminbar_edit_header' );
 function vkExUnit_adminbar_edit_header() {
 	if ( is_user_logged_in() && ! is_admin() && current_user_can( 'administrator' ) || current_user_can( 'editor' ) ) {  ?>
 <style>
@@ -46,5 +46,6 @@ body.vew_hide_edit_guide .veu_adminEdit { display: none; }
 	})}})
 })(window,document,'wp-admin-bar-veu_disable_admin_edit','active','vew_hide_edit_guide')
 </script>
-	<?php }
+		<?php
+	}
 }

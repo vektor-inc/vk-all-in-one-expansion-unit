@@ -42,7 +42,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 			// print 'Package         :' . $result . PHP_EOL;
 			// print 'Package Correct :' . $test_value['correct'] . PHP_EOL;
 		}
-
 	}
 
 	function test_veu_common_options_validate() {
@@ -63,15 +62,15 @@ class PackageManagerTest extends WP_UnitTestCase {
 			),
 			array(
 				'active_pagetop_button' => null,
-				'correct'          => false,
+				'correct'               => false,
 			),
 			array(
 				'active_pagetop_button' => 1,
-				'correct'          => true,
+				'correct'               => true,
 			),
 			array(
 				'active_pagetop_button' => '',
-				'correct'          => '',
+				'correct'               => '',
 			),
 		);
 
@@ -85,7 +84,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $test_value['correct'], $output['active_pagetop_button'] );
-
 		}
 
 		$test_array = array(
@@ -118,8 +116,6 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $value['correct'], $output[ $key ] );
-
 		}
-
 	}
 }

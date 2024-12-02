@@ -21,7 +21,7 @@ class VK_WebSite_Srtuctured_Data {
 			$website_array = self::get_website_structure_array();
 			if ( $website_array && is_array( $website_array ) ) {
 				echo '<!-- [ VK All in One Expansion Unit WebSite Structure Data ] -->';
-                echo '<script type="application/ld+json">' . wp_kses( json_encode( $website_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
+				echo '<script type="application/ld+json">' . wp_kses( json_encode( $website_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
 				echo '<!-- [ / VK All in One Expansion Unit WebSite Structure Data ] -->';
 			}
 		}
@@ -35,10 +35,10 @@ class VK_WebSite_Srtuctured_Data {
 	public static function get_website_structure_array() {
 
 		$website_array = array(
-			'@context'      => 'https://schema.org/',
-			'@type'         => 'WebSite',
-			'name'          => get_bloginfo('name'),
-			'url'           => home_url(),
+			'@context' => 'https://schema.org/',
+			'@type'    => 'WebSite',
+			'name'     => get_bloginfo( 'name' ),
+			'url'      => home_url(),
 		);
 
 		return $website_array;

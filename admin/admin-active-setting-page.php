@@ -28,26 +28,31 @@ global $vkExUnit_packages;
 foreach ( $vkExUnit_packages as $package ) :
 	$active = veu_package_is_enable( $package['name'] );
 
-	if ( ! empty( $package['section_title'] ) ){
+	if ( ! empty( $package['section_title'] ) ) {
 		echo '<tr><th colspan="3" class="section_title">' . $package['section_title'] . '</th></tr>';
 	} else {
 
-	?>
+		?>
 		<tr class="
 		<?php
 		echo ( $active ) ? 'active' : 'inactive';
 		if ( $package['hidden'] ) {
 			echo ' dev_object'; }
-?>
+		?>
 " >
 			<th scope='row' class='check-column'>
 				<label class='screen-reader-text' for='checkbox_active_<?php echo esc_attr( $package['name'] ); ?>' ><?php echo esc_html( $package['title'] ); ?></label>
-				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo esc_attr( $package['name'] ); ?>]" id="checkbox_active_<?php echo esc_attr( $package['name'] ); ?>" value="true" <?php if(!$package['hidden']){echo 'class="vew-module-checkbox"';}; ?>
+				<input type="checkbox" name="vkExUnit_common_options[active_<?php echo esc_attr( $package['name'] ); ?>]" id="checkbox_active_<?php echo esc_attr( $package['name'] ); ?>" value="true" 
+																						<?php
+																						if ( ! $package['hidden'] ) {
+																							echo 'class="vew-module-checkbox"';
+																						}
+																						?>
 																						<?php
 																						if ( $active ) {
 																							echo 'checked'; }
-?>
- />
+																						?>
+/>
 			</th>
 			<td class='plugin-title'>
 				<label for='checkbox_active_<?php echo esc_attr( $package['name'] ); ?>'><strong><?php echo esc_html( $package['title'] ); ?></strong></label>
@@ -58,25 +63,24 @@ foreach ( $vkExUnit_packages as $package ) :
 				$i     = 0;
 				if ( $count ) :
 					foreach ( $package['attr'] as $att ) :
-						if ( 
-							// パッケージが有効化されている
+						if ( // パッケージが有効化されている
 							$active ||
 							// 有効ではないが enable only が false のとき
 							empty( $att['enable_only'] ) ) :
-				?>
-				<?php echo ( $count > 1 && $i >= 1 ) ? ' | ' : ''; ?>
+							?>
+							<?php echo ( $count > 1 && $i >= 1 ) ? ' | ' : ''; ?>
 				<span>
 				<a href="<?php echo ( $att['url'] ) ? esc_url( $att['url'] ) : admin_url() . 'admin.php?page=vkExUnit_main_setting'; ?>"
-					<?php echo ( isset( $att['target'] ) && $att['target'] === '_blank' ) ? 'target="_blank"' : ''; ?>>
-					<?php echo esc_html( $att['name'] ); ?>
+							<?php echo ( isset( $att['target'] ) && $att['target'] === '_blank' ) ? 'target="_blank"' : ''; ?>>
+							<?php echo esc_html( $att['name'] ); ?>
 				</a>
 				</span>
 
-				<?php
+							<?php
 					endif;
-						$i++;
+						++$i;
 					endforeach;
-				endif; //if($count):
+				endif; // if($count):
 				?>
 			</td>
 			<td class='column-description desc'>
@@ -85,7 +89,7 @@ foreach ( $vkExUnit_packages as $package ) :
 					if ( is_array( $package['description'] ) ) :
 						foreach ( $package['description'] as $desk ) {
 							echo wp_kses_post( $desk ); } else :
-													?>
+								?>
 												<p><?php echo wp_kses_post( $package['description'] ); ?></p>
 												<?php endif; ?>
 				</div><!-- [ /.plugin-description ] -->
@@ -93,7 +97,7 @@ foreach ( $vkExUnit_packages as $package ) :
 		</tr>
 		<?php } ?>
 
-<?php
+	<?php
 	endforeach;
 ?>
 		</tbody>
@@ -109,7 +113,7 @@ foreach ( $vkExUnit_packages as $package ) :
 <br />
 
 <?php
-	do_action( 'vew_admin_setting_block', $options);
+	do_action( 'vew_admin_setting_block', $options );
 ?>
 
 <button onclick="javascript:jQuery('#vkEx_extention').toggle(); return false;" class="button"><?php _e( 'Extension Setting', 'vk-all-in-one-expansion-unit' ); ?></button>
@@ -123,7 +127,7 @@ foreach ( $vkExUnit_packages as $package ) :
 if ( veu_content_filter_state() == 'loop_end' ) {
 	echo 'checked';}
 ?>
- /><?php _e( 'set extension contents to loop_end hook', 'vk-all-in-one-expansion-unit' ); ?></label>
+/><?php _e( 'set extension contents to loop_end hook', 'vk-all-in-one-expansion-unit' ); ?></label>
 <?php do_action( 'vkExUnit_extention_contents_message' ); ?>
 </td>
 </tr>

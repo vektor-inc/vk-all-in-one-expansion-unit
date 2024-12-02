@@ -229,12 +229,10 @@ function vkExUnit_sitemap( $attr ) {
 										$sitemap_html .= wp_list_categories( $args );
 										$sitemap_html .= '</ul>' . PHP_EOL;
 				} // if ( $taxonomy_object->show_in_menu ) {
-
 			} // foreach ( $taxonomies as $taxonomy ) {
 
 			$sitemap_html .= '</div><!-- [ /.sectionBox ] -->' . PHP_EOL;
 			$sitemap_html .= '</div>' . PHP_EOL;
-
 		} // if ( $post_type_object ) {
 	} // foreach ( $all_post_types as $postType ) {
 

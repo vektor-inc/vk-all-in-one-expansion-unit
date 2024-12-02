@@ -130,7 +130,7 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Get Post Types
-	 * 
+	 *
 	 * @return array $post_types
 	 */
 	public static function get_post_types() {
@@ -166,7 +166,7 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Get Options
-	 * 
+	 *
 	 * @return array $options
 	 */
 	public static function get_options() {
@@ -196,7 +196,7 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Add Setting Page
-	 * 
+	 *
 	 * @return void
 	 */
 	public static function option_init() {
@@ -210,7 +210,7 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Sanitize Space
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function sanitize_space( $input ) {
@@ -223,7 +223,7 @@ class VEU_Promotion_Alert {
 	/**
 	 * Sanitize Setting
 	 * 配列に格納されている入力された内容をサニタイズ
-	 * 
+	 *
 	 * @param array $input : 入力された内容
 	 * @return array $options : サニタイズされた内容
 	 */
@@ -381,7 +381,7 @@ class VEU_Promotion_Alert {
 	/**
 	 * Display Condition
 	 * アラートコンテンツを表示するかどうか
-	 * 
+	 *
 	 * @param int $post_id : 投稿id
 	 * @return bool
 	 */
@@ -415,7 +415,7 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Alert Content
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function get_alert_content() {
@@ -430,22 +430,22 @@ class VEU_Promotion_Alert {
 			$allowed_html = self::kses_allowed();
 
 			// アラートの中身を作成
-			if ( ! empty( $options['alert-content'] ) ) {
-				$alert_content  = '<div class="veu_promotion-alert__content--custom">';
-				$alert_content .= wp_kses( $options['alert-content'], $allowed_html );
-				$alert_content .= '</div>';
-			} elseif ( ! empty( $options['alert-text'] ) ) {
-				$alert_content  = '<div class="veu_promotion-alert__content--text">';
-				$alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span>';
-				$alert_content .= '<span class="veu_promotion-alert__text">' . esc_html( $options['alert-text'] ) . '</span>';
-				$alert_content .= '</div>';
-			}
+		if ( ! empty( $options['alert-content'] ) ) {
+			$alert_content  = '<div class="veu_promotion-alert__content--custom">';
+			$alert_content .= wp_kses( $options['alert-content'], $allowed_html );
+			$alert_content .= '</div>';
+		} elseif ( ! empty( $options['alert-text'] ) ) {
+			$alert_content  = '<div class="veu_promotion-alert__content--text">';
+			$alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span>';
+			$alert_content .= '<span class="veu_promotion-alert__text">' . esc_html( $options['alert-text'] ) . '</span>';
+			$alert_content .= '</div>';
+		}
 
-			if ( ! empty( $alert_content ) ) {
-				// wp_ksesを通した後にdata-nosnippetを追加
-				$alert = wp_kses( '<div class="veu_promotion-alert">' . $alert_content . '</div>', $allowed_html );
-				$alert = str_replace( '<div class="veu_promotion-alert">', '<div class="veu_promotion-alert" data-nosnippet>', $alert );
-			}
+		if ( ! empty( $alert_content ) ) {
+			// wp_ksesを通した後にdata-nosnippetを追加
+			$alert = wp_kses( '<div class="veu_promotion-alert">' . $alert_content . '</div>', $allowed_html );
+			$alert = str_replace( '<div class="veu_promotion-alert">', '<div class="veu_promotion-alert" data-nosnippet>', $alert );
+		}
 
 		// 投稿本文に含まれるHTML要素の属性を補完（ veu_promotion_alert_content フィルター ではタイミングの問題で動作しない ）
 		$alert = wp_filter_content_tags( $alert );
@@ -455,12 +455,12 @@ class VEU_Promotion_Alert {
 
 	/**
 	 * Display Alert Content Filter Hook
-	 * 
+	 *
 	 * @return string $content
 	 */
 	public static function display_alert_filter( $content ) {
 
-		if ( self::is_display( get_the_ID() ) ){
+		if ( self::is_display( get_the_ID() ) ) {
 			// アラートを取得
 			$alert = self::get_alert_content();
 			// 文頭にアラートを追加
@@ -475,7 +475,7 @@ class VEU_Promotion_Alert {
 	 */
 	public static function display_alert_action() {
 
-		if ( self::is_display( get_the_ID() ) ){
+		if ( self::is_display( get_the_ID() ) ) {
 			// アラートを取得
 			$alert = self::get_alert_content();
 			// 許可されたHTMLタグ

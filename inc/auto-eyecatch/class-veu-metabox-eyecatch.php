@@ -13,7 +13,6 @@ class VEU_Metabox_Eyecatch extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	/**
@@ -39,7 +38,6 @@ class VEU_Metabox_Eyecatch extends VEU_Metabox {
 
 		return $form;
 	}
-
 } // class VEU_Metabox_Eyecatch {
 
 $veu_metabox_eyecatch = new VEU_Metabox_Eyecatch();

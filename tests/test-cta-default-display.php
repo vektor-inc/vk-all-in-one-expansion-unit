@@ -40,15 +40,13 @@ class CTADiaplayTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 
 		foreach ( $test_array as $key => $test_value ) {
-
 			update_option( 'vkExUnit_cta_settings', $test_value['options'] );
 
 			$return = Vk_Call_To_Action::get_option();
 
-			$this->assertEquals( $test_value['correct'], $return[$test_value['target_post_type']] );
+			$this->assertEquals( $test_value['correct'], $return[ $test_value['target_post_type'] ] );
 			// print 'correct ::::' . $test_value['correct'] . PHP_EOL;
 			// print 'return  ::::' . $return[$test_value['target_post_type']] . PHP_EOL;
 		}
-
 	} // function test_chlild_page_excerpt() {
 }

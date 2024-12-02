@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/customize.php';
+require_once __DIR__ . '/customize.php';
 
 /**
  * Defualt Thumbnail Change.
@@ -12,7 +12,7 @@ require_once dirname( __FILE__ ) . '/customize.php';
  *                           Default 'post-thumbnail'.
  * @param string|array $attr Optional. Query string or array of attributes. Default empty.
  */
- function veu_post_thumbnail_html( $html, $post = null, $post_thumbnail_id = null, $size = 'post-thumbnail', $attr = '' ) {
+function veu_post_thumbnail_html( $html, $post = null, $post_thumbnail_id = null, $size = 'post-thumbnail', $attr = '' ) {
 	$post = get_post( $post );
 	if ( ! $post ) {
 		return '';
@@ -64,15 +64,15 @@ function veu_has_post_thumbnail( $has_thumbnail, $post = null ) {
 add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail' );
 
 function veu_change_vk_components_image_default_url( $options ) {
-    if ( veu_package_is_enable( 'default_thumbnail' ) ) {
-        $image_option     = get_option( 'veu_defualt_thumbnail' );
-        $image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
-        if ( $image_default_id ) {
-            $image = wp_get_attachment_image_src( $image_default_id, 'large', true );
-            $options['image_default_url'] = $image[0];
-        }
-    }
-    return $options;
+	if ( veu_package_is_enable( 'default_thumbnail' ) ) {
+		$image_option     = get_option( 'veu_defualt_thumbnail' );
+		$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
+		if ( $image_default_id ) {
+			$image                        = wp_get_attachment_image_src( $image_default_id, 'large', true );
+			$options['image_default_url'] = $image[0];
+		}
+	}
+	return $options;
 }
 add_filter( 'vk_post_options', 'veu_change_vk_components_image_default_url' );
 
@@ -87,15 +87,14 @@ function veu_default_thumbnail_options_init() {
 add_action( 'veu_package_init', 'veu_default_thumbnail_options_init' );
 
 function veu_default_thumbnail_options_validate( $input ) {
-    $output['default_thumbnail_image'] = vk_sanitize_number( $input['default_thumbnail_image'] );
-    return $output;
+	$output['default_thumbnail_image'] = vk_sanitize_number( $input['default_thumbnail_image'] );
+	return $output;
 }
 
 /*
-  Add setting page
+	Add setting page
 /*-------------------------------------------*/
 
 function veu_add_default_thumbnail_options_page() {
-	require dirname( __FILE__ ) . '/default-thumbnail-admin.php';
-
+	require __DIR__ . '/default-thumbnail-admin.php';
 }

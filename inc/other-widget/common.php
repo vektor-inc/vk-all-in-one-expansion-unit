@@ -59,7 +59,6 @@ add_filter( 'get_archives_link', 'vkExUnit_rewrite_archives_link' );
 function vkExUnit_rewrite_archives_link( $link_html ) {
 	global $my_archives_post_type;
 	if ( $my_archives_post_type && $my_archives_post_type != 'post' ) {
-
 		$link_url_before = preg_replace( "/^.+<a.+href=\'(.+)\'.+$/is", '$1', $link_html );
 		if ( $link_html == $link_url_before ) {
 			return $link_html;

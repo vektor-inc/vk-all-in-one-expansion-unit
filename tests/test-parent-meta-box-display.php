@@ -100,6 +100,5 @@ class ParentMetaBoxDisplayManualTest extends WP_UnitTestCase {
 
 		// もとの値に戻す
 		update_option( 'vkExUnit_common_options', $before_vkExUnit_common_options );
-
 	}
 }

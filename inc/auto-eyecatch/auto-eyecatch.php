@@ -5,9 +5,10 @@ VEU_Metabox 内の get_post_type が実行タイミングによっては
 admin_menu のタイミングで読み込んでいる
  */
 add_action(
-	'admin_menu', function() {
-		require_once( dirname( __FILE__ ) . '/class-veu-metabox-eyecatch.php' );
+	'admin_menu',
+	function () {
+		require_once __DIR__ . '/class-veu-metabox-eyecatch.php';
 	}
 );
 
-require_once( dirname( __FILE__ ) . '/class-veu-auto-eyecatch.php' );
+require_once __DIR__ . '/class-veu-auto-eyecatch.php';

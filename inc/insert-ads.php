@@ -16,7 +16,7 @@ class vExUnit_Ads {
 		if ( isset( self::$instance ) ) {
 			return self::$instance; }
 
-		self::$instance = new vExUnit_Ads;
+		self::$instance = new vExUnit_Ads();
 		self::$instance->run_init();
 		return self::$instance;
 	}
@@ -125,20 +125,20 @@ class vExUnit_Ads {
 		$option = $this->get_option();
 		if ( $option['google-ads-active'] && $option['google-pub-id'] ) {
 
-?><!-- [ <?php echo veu_get_name(); ?> GoogleAd ] -->
+			?><!-- [ <?php echo veu_get_name(); ?> GoogleAd ] -->
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
-	 (adsbygoogle = window.adsbygoogle || []).push({
-		  google_ad_client: "ca-pub-<?php echo esc_attr( $option['google-pub-id'] ); ?>",
-		  enable_page_level_ads: true
+	(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-<?php echo esc_attr( $option['google-pub-id'] ); ?>",
+			enable_page_level_ads: true
 			<?php
 			if ( $option['google-ads-overlays-bottom'] ) {
 				echo ',overlays: {bottom: true}';}
-?>
-	 });
+			?>
+	});
 </script>
 <!-- [ / <?php echo veu_get_name(); ?> GoogleAd ] -->
-		<?php
+			<?php
 		}
 	}
 
@@ -213,16 +213,16 @@ class vExUnit_Ads {
 
 	public function render_configPage() {
 		$option = $this->get_option();
-	?>
+		?>
 	<h3><?php _e( 'Insert ads', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <div id="vkExUnit_Ads" class="sectionBox">
 
 <table class="form-table">
-<?php
-/*
-  Google Auto ads
-/*--------------------------------------------------*/
-	?>
+		<?php
+		/*
+		Google Auto ads
+		/*--------------------------------------------------*/
+		?>
 <tr>
 	<th><?php _e( 'Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?><br>
 		<?php
@@ -239,9 +239,9 @@ class vExUnit_Ads {
 		<label><?php _e( 'Publisher ID', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 		pub-<input type="text" name="vkExUnit_Ads[google-pub-id]" id="gaId" value="<?php echo esc_attr( $option['google-pub-id'] ); ?>" style="width:90%;">
 	</p>
-	<?php
-	$link = '<a href="https://www.google.com/adsense/" target="_blank">' . __( 'Google AdSense dashboard', 'vk-all-in-one-expansion-unit' ) . '</a>';
-	?>
+		<?php
+		$link = '<a href="https://www.google.com/adsense/" target="_blank">' . __( 'Google AdSense dashboard', 'vk-all-in-one-expansion-unit' ) . '</a>';
+		?>
 	<p>* <?php printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vk-all-in-one-expansion-unit' ), $link ); ?>
 	</p>
 	<p><label>
@@ -250,14 +250,14 @@ class vExUnit_Ads {
 	<p>* <?php _e( 'The layout may collapse by inserting Google Auto ads, but the correspondence varies depending on the kind, specification, theme etc. of advertisement, so please write CSS according to your needs about the display collapse and correct it.', 'vk-all-in-one-expansion-unit' ); ?></p>
 	</td>
 </tr>
-<?php
-/*
-  Manual set Ads
-/*--------------------------------------------------*/
-	?>
+		<?php
+		/*
+		Manual set Ads
+		/*--------------------------------------------------*/
+		?>
 <tr><th><?php _e( 'Insert ads to post.', 'vk-all-in-one-expansion-unit' ); ?>
 </th><td style="max-width:80em;">
-<?php _e( 'Insert ads to before content and more tag and after content.', 'vk-all-in-one-expansion-unit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vk-all-in-one-expansion-unit' ); ?>
+		<?php _e( 'Insert ads to before content and more tag and after content.', 'vk-all-in-one-expansion-unit' ); ?><br/><?php _e( 'If you want to separate ads area, you fill two fields.', 'vk-all-in-one-expansion-unit' ); ?>
 <dl>
 	<dt><label for="ad_content_before"><?php _e( 'insert the ad [ before content ]', 'vk-all-in-one-expansion-unit' ); ?></label></dt>
 	<dd>
@@ -284,7 +284,7 @@ class vExUnit_Ads {
 </dl>
 </td></tr>
 <tr>
-<th><?php echo esc_html( 'Post type to display', 'vk-all-in-one-expansion-unit' );?></th>
+<th><?php echo esc_html( 'Post type to display', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
 		<?php
 		$args = array(
@@ -296,9 +296,9 @@ class vExUnit_Ads {
 		</td>
 	</tr>
 	</table>
-	<?php submit_button(); ?>
+		<?php submit_button(); ?>
 	</div>
-	<?php
+		<?php
 	}
 }
 

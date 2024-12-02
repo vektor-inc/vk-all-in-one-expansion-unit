@@ -6,7 +6,7 @@ function veu_css_customize_single_load() {
 	$hook_point = apply_filters( 'veu_enqueue_point_css_customize_single', 'wp_head' );
 	add_action( $hook_point, 'veu_insert_custom_css', 201 );
 }
-add_action( 'after_setup_theme', 'veu_css_customize_single_load',11 );
+add_action( 'after_setup_theme', 'veu_css_customize_single_load', 11 );
 
 /**
  * CSS Customize Single Load to Edit Page
@@ -15,7 +15,7 @@ function veu_css_customize_single_load_edit() {
 	global $post;
 	veu_insert_custom_css();
 }
-add_action( 'admin_footer', 'veu_css_customize_single_load_edit',11 );
+add_action( 'admin_footer', 'veu_css_customize_single_load_edit', 11 );
 
 
 /*

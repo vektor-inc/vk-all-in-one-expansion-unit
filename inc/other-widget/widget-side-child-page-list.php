@@ -48,7 +48,6 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 				}
 			}
 		} // is_page
-
 	}
 
 	function form( $instance ) {
@@ -57,5 +56,4 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		return $new_instance;
 	}
-
 }

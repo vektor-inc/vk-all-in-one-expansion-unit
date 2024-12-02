@@ -6,7 +6,7 @@
  */
 
 /**
- * 
+ *
  */
 class addPluginLinkToAdminbarTest extends WP_UnitTestCase {
 
@@ -14,22 +14,22 @@ class addPluginLinkToAdminbarTest extends WP_UnitTestCase {
 
 		$tests = array(
 			array(
-				'title'  => '6.5 / 公開画面',
+				'title'      => '6.5 / 公開画面',
 				'wp_version' => '6.5',
-				'is_admin' => false,
-				'expected' => false,
+				'is_admin'   => false,
+				'expected'   => false,
 			),
 			array(
-				'title'  => '6.5 / 管理画面',
+				'title'      => '6.5 / 管理画面',
 				'wp_version' => '6.5',
-				'is_admin' => true,
-				'expected' => true,
+				'is_admin'   => true,
+				'expected'   => true,
 			),
 			array(
-				'title'  => '6.4 / 公開画面',
+				'title'      => '6.4 / 公開画面',
 				'wp_version' => '6.4',
-				'is_admin' => false,
-				'expected' => true,
+				'is_admin'   => false,
+				'expected'   => true,
 			),
 
 		);

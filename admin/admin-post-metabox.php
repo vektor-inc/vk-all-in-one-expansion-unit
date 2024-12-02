@@ -1,16 +1,15 @@
 <?php
 /*
-  add page custom field
+	add page custom field
 /*-------------------------------------------*/
 
-require_once( dirname( __FILE__ ) . '/class-veu-metabox.php' );
+require_once __DIR__ . '/class-veu-metabox.php';
 
 function veu_add_parent_metabox() {
 
 	// parent metabox（統合metabox）を出力する
 
 	if ( veu_is_parent_metabox_display() ) {
-
 		$meta_box_name = veu_get_name();
 
 		/*
@@ -39,7 +38,7 @@ function veu_add_parent_metabox() {
 	*/
 	// 子ページリストやサイトマップなど「挿入アイテムの設定」を読み込むための子metaboxを読み込む
 	if ( veu_is_insert_item_metabox_display() ) {
-		require_once( dirname( __FILE__ ) . '/class-veu-metabox-insert-items.php' );
+		require_once __DIR__ . '/class-veu-metabox-insert-items.php';
 	}
 }
 

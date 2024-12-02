@@ -86,22 +86,17 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 		$page_for_posts   = vk_get_page_for_posts();
 		$postType['slug'] = get_post_type();
 		if ( ! $postType['slug'] ) {
-
 			if ( isset( $wp_query->query_vars['post_type'] ) && $wp_query->query_vars['post_type'] ) {
-
 				$postType['slug'] = $wp_query->query_vars['post_type'];
-
 			} else {
 				// Case of no post type query
 				if ( ! empty( $wp_query->queried_object->taxonomy ) ) {
 					// Case of tax archive and no posts
 					$taxonomy         = $wp_query->queried_object->taxonomy;
 					$postType['slug'] = get_taxonomy( $taxonomy )->object_type[0];
-
 				} else {
 					// Case of no tax query and no post type query and no posts
 					$postType['slug'] = 'post';
-
 				} // if ( ! empty( $wp_query->queried_object->taxonomy ) ) {
 			}
 		}
@@ -387,9 +382,7 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
 
 		echo '<ul class="no-style">';
 		foreach ( $post_types as $key => $value ) {
-
 			if ( ! in_array( $key, $args['exclude_post_types'] ) ) {
-
 				$checked = ( isset( $args['checked'][ $key ] ) && ( $args['checked'][ $key ] ) ) ? ' checked' : '';
 
 				if ( ! empty( $args['id'][ $key ] ) ) {

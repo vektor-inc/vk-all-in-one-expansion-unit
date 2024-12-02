@@ -1,16 +1,16 @@
 <?php
 /*
-  Options Init
-  validate
-  set global $vkExUnit_sns_options
-  Add facebook aprication id
-  SNSアイコンに出力するCSSを出力する関数
-  Add setting page
-  Add Customize Panel
+	Options Init
+	validate
+	set global $vkExUnit_sns_options
+	Add facebook aprication id
+	SNSアイコンに出力するCSSを出力する関数
+	Add setting page
+	Add Customize Panel
 /*-------------------------------------------*/
 
-require_once dirname( __FILE__ ) . '/sns_customizer.php';
-require_once dirname( __FILE__ ) . '/block/index.php';
+require_once __DIR__ . '/sns_customizer.php';
+require_once __DIR__ . '/block/index.php';
 
 function veu_sns_inline_styles() {
 	$dynamic_css = '
@@ -216,14 +216,13 @@ function veu_get_the_sns_title( $post_id = '' ) {
 
 	if ( ! $title ) {
 		$title = wp_title( '', false );
-
 	}
 
 	return strip_tags( $title );
 }
 
 /*
-  validate
+	validate
 /*-------------------------------------------*/
 
 function vkExUnit_sns_options_validate( $input ) {
@@ -267,7 +266,7 @@ function vkExUnit_sns_options_validate( $input ) {
 }
 
 /*
-  set global $vkExUnit_sns_options
+	set global $vkExUnit_sns_options
 /*-------------------------------------------*/
 add_action( 'wp_head', 'vkExUnit_set_sns_options', 1 );
 function vkExUnit_set_sns_options() {
@@ -276,7 +275,7 @@ function vkExUnit_set_sns_options() {
 }
 
 /*
-  Add facebook aprication id
+	Add facebook aprication id
 /*-------------------------------------------*/
 function veu_set_facebook_script() {
 	add_action( 'wp_footer', 'exUnit_print_fbId_script', 100 );
@@ -351,8 +350,8 @@ function veu_print_twitter_script() {
 
 $vkExUnit_sns_options = veu_get_sns_options();
 
-require dirname( __FILE__ ) . '/widget-fb-page-plugin.php';
-require dirname( __FILE__ ) . '/widget-twitter.php';
+require __DIR__ . '/widget-fb-page-plugin.php';
+require __DIR__ . '/widget-twitter.php';
 
 
 /*
@@ -362,17 +361,17 @@ admin_menu のタイミングで読み込んでいる
  */
 add_action(
 	'admin_menu',
-	function() {
-		require dirname( __FILE__ ) . '/class-veu-metabox-sns-title.php';
+	function () {
+		require __DIR__ . '/class-veu-metabox-sns-title.php';
 	}
 );
 
 if ( $vkExUnit_sns_options['enableOGTags'] == true ) {
-	require dirname( __FILE__ ) . '/function_og.php';
+	require __DIR__ . '/function_og.php';
 }
 
 // シェアボタンを表示する設定の読み込み
-require dirname( __FILE__ ) . '/function-sns-btns.php';
+require __DIR__ . '/function-sns-btns.php';
 /*
 VEU_Metabox 内の get_post_type が実行タイミングによっては
 カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために
@@ -380,25 +379,25 @@ admin_menu のタイミングで読み込んでいる
 	*/
 add_action(
 	'admin_menu',
-	function() {
-		require dirname( __FILE__ ) . '/class-veu-metabox-sns-button.php';
+	function () {
+		require __DIR__ . '/class-veu-metabox-sns-button.php';
 	}
 );
 
 if ( $vkExUnit_sns_options['enableTwitterCardTags'] == true ) {
-	require dirname( __FILE__ ) . '/function_twitterCard.php';
+	require __DIR__ . '/function_twitterCard.php';
 }
 if ( $vkExUnit_sns_options['enableFollowMe'] == true ) {
-	require dirname( __FILE__ ) . '/function_follow.php';
+	require __DIR__ . '/function_follow.php';
 }
 
 
 /*
-  Add setting page
+	Add setting page
 /*-------------------------------------------*/
 
 function vkExUnit_add_sns_options_page() {
-	require dirname( __FILE__ ) . '/sns_admin.php';
+	require __DIR__ . '/sns_admin.php';
 }
 
 /**

@@ -379,7 +379,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 		$test_array = array(
 			array(
-				'name'   => 'No alert text and content',
+				'name'    => 'No alert text and content',
 				'options' => array(
 					'alert-text'    => '',
 					'alert-content' => '',
@@ -390,7 +390,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '',
 			),
 			array(
-				'name'   => 'No alert content',
+				'name'    => 'No alert content',
 				'options' => array(
 					'alert-text'    => 'aaaa',
 					'alert-content' => '',
@@ -401,7 +401,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--text"><span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert__text">aaaa</span></div></div>',
 			),
 			array(
-				'name'   => 'No alert text',
+				'name'    => 'No alert text',
 				'options' => array(
 					'alert-text'    => '',
 					'alert-content' => 'bbbb',
@@ -412,7 +412,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom">bbbb</div></div>',
 			),
 			array(
-				'name'   => 'Normal text and content',
+				'name'    => 'Normal text and content',
 				'options' => array(
 					'alert-text'    => 'aaaa',
 					'alert-content' => 'bbbb',
@@ -424,7 +424,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			),
 			// XSS属性の削除をテスト
 			array(
-				'name'   => 'XSS content',
+				'name'    => 'XSS content',
 				'options' => array(
 					'alert-content' => '<div onmouseover="alert(\'XSS\')">Hover me!</div>',
 					'alert-display' => array( 'post' => 'display' ),
@@ -432,7 +432,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><div>Hover me!</div></div></div>',
 			),
 			array(
-				'name' => 'XSS content image onerror',
+				'name'    => 'XSS content image onerror',
 				'options' => array(
 					'alert-content' => '<img src="#" onerror="alert(\'XSS\')"/>',
 					'alert-display' => array( 'post' => 'display' ),
@@ -440,7 +440,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><img decoding="async" src="#" /></div></div>',
 			),
 			array(
-				'name' => 'XSS content script',
+				'name'    => 'XSS content script',
 				'options' => array(
 					'alert-content' => '<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXX" crossorigin="anonymous"></script>',
 					'alert-display' => array( 'post' => 'display' ),
@@ -448,7 +448,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"></div></div>',
 			),
 			array(
-				'name' => 'XSS content a tag js',
+				'name'    => 'XSS content a tag js',
 				'options' => array(
 					'alert-content' => '<a href="javascript:alert(\'XSS\')">Click me!</a>',
 					'alert-display' => array( 'post' => 'display' ),
@@ -456,7 +456,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><a href="alert(\'XSS\')">Click me!</a></div></div>',
 			),
 			array(
-				'name' => 'XSS content iframe',
+				'name'    => 'XSS content iframe',
 				'options' => array(
 					'alert-content' => '<iframe src="javascript:alert(\'XSS\')"></iframe>',
 					'alert-display' => array( 'post' => 'display' ),

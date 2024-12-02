@@ -14,39 +14,39 @@ function veu_block_deprecated_alart() {
 	if ( 'index.php' === $pagenow && veu_package_is_enable( 'vk-blocks' ) ) {
 
 		// 既に有効化されている場合は表示しない
-		//  → 本来ははプラグイン側が有効化されてたらExUnitの方は停止されるのでここを追加しない
-		//  → と、言いたい所だがExUnitとプラグインの VK Blocks が同時に有効化されているケースが未だにある
-		//  → けれど、プラグイン側が有効化されていようが ExUnit の　VK Blocks がアクティブな場合は問答無用で表示させるべき
-		//  → return しない
+		// → 本来ははプラグイン側が有効化されてたらExUnitの方は停止されるのでここを追加しない
+		// → と、言いたい所だがExUnitとプラグインの VK Blocks が同時に有効化されているケースが未だにある
+		// → けれど、プラグイン側が有効化されていようが ExUnit の　VK Blocks がアクティブな場合は問答無用で表示させるべき
+		// → return しない
 		// if ( is_plugin_active('vk-blocks') || is_plugin_active('vk-blocks-pro' ) ){
-		// 	return;
+		// return;
 		// }
 
 		// プラグイン有効化権限がない人にも表示しない
-		//  → 権限がある人に連絡してもらわないといけないから表示まま
+		// → 権限がある人に連絡してもらわないといけないから表示まま
 		// if ( ! current_user_can( 'activate_plugins' ) ) {
-		// 	return;
+		// return;
 		// }
 
 		// このメッセージを表示したくない人は VK Blocks を停止すれば良いので、特別な停止処理は不要
 
-		$text  = '<div class="notice notice-info"><p>';	
+		$text  = '<div class="notice notice-info"><p>';
 		$text .= '<strong>ExUnit : </strong> ';
-		$text .= __( 'VK Blocks in ExUnit will be deleted soon.', 'vk-all-in-one-expansion-unit' ).'</p>';
+		$text .= __( 'VK Blocks in ExUnit will be deleted soon.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 		$text .= '<ol>';
 
 		// プラグイン版が有効化されているのに ExUnit の VK Blocks も有効化されたままのケースがあるため
 		// プラグイン版が既に有効化されている場合はインストールを促さないように処理追加
-		if ( ! is_plugin_active('vk-blocks') && ! is_plugin_active('vk-blocks-pro' ) ){
+		if ( ! is_plugin_active( 'vk-blocks' ) && ! is_plugin_active( 'vk-blocks-pro' ) ) {
 			$text .= '<li>';
 			$text .= __( 'Please install VK Blocks Plugin.', 'vk-all-in-one-expansion-unit' ) . ' ';
-			$text .= '[ <a href="' . admin_url('plugin-install.php?s=VK+Blocks&tab=search&type=term') . '">' . __( 'Install VK Blocks', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
+			$text .= '[ <a href="' . admin_url( 'plugin-install.php?s=VK+Blocks&tab=search&type=term' ) . '">' . __( 'Install VK Blocks', 'vk-all-in-one-expansion-unit' ) . '</a> ]';
 			$text .= '</li>';
 		}
 
 		$text .= '<li>';
 		$text .= __( 'Deactive VK Blocks at ExUnit', 'vk-all-in-one-expansion-unit' ) . ' ';
-		$text .= '[ <a href="' . admin_url('?page=vkExUnit_setting_page') . '" target="_blank">' . __( 'Active Setting', 'vk-all-in-one-expansion-unit' ) . '</a> ]<br>';
+		$text .= '[ <a href="' . admin_url( '?page=vkExUnit_setting_page' ) . '" target="_blank">' . __( 'Active Setting', 'vk-all-in-one-expansion-unit' ) . '</a> ]<br>';
 		$text .= __( '* Normally if VK Blocks plugin activate that VK Blocks in ExUnit is deactivated automatically.', 'vk-all-in-one-expansion-unit' );
 		$text .= '</li>';
 

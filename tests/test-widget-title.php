@@ -47,5 +47,4 @@ class WP_Widget_vkExUnit_post_list_Test extends WP_UnitTestCase {
 			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
 		}
 	}
-
 }

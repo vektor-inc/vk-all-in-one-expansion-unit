@@ -2,16 +2,16 @@
 require_once VEU_DIRECTORY_PATH . '/inc/other-widget/class-veu-widget-control.php';
 require_once VEU_DIRECTORY_PATH . '/inc/other-widget/common.php';
 
-require dirname( __FILE__ ) . '/widget-new-posts.php';
-require dirname( __FILE__ ) . '/widget-profile.php';
-require dirname( __FILE__ ) . '/widget-3pr-area.php';
-require dirname( __FILE__ ) . '/widget-page.php';
-require dirname( __FILE__ ) . '/widget-taxonomies.php';
-require dirname( __FILE__ ) . '/widget-archives.php';
-require dirname( __FILE__ ) . '/widget-pr-blocks.php';
-require dirname( __FILE__ ) . '/widget-side-child-page-list.php';
-require dirname( __FILE__ ) . '/widget-button.php';
-require dirname( __FILE__ ) . '/widget-banner.php';
+require __DIR__ . '/widget-new-posts.php';
+require __DIR__ . '/widget-profile.php';
+require __DIR__ . '/widget-3pr-area.php';
+require __DIR__ . '/widget-page.php';
+require __DIR__ . '/widget-taxonomies.php';
+require __DIR__ . '/widget-archives.php';
+require __DIR__ . '/widget-pr-blocks.php';
+require __DIR__ . '/widget-side-child-page-list.php';
+require __DIR__ . '/widget-button.php';
+require __DIR__ . '/widget-banner.php';
 
 if ( is_admin() ) {
 	// ウィジェットの個別有効化機能管理画面読み込み

@@ -237,11 +237,10 @@ function veu_get_related_posts_html() {
 		$related_posts_html .= '<div class="row">';
 		foreach ( $related_posts as $key => $post ) {
 			$related_posts_html .= veu_add_related_posts_item_html( $post );
-			$i++;
+			++$i;
 		} // foreach
 		$related_posts_html .= '</div>';
 		$related_posts_html .= '</aside><!-- [ /.relatedPosts ] -->';
-
 	}
 
 	wp_reset_postdata();
@@ -312,7 +311,7 @@ function veu_customize_register_related( $wp_customize ) {
 	);
 
 	/*
-	  Add Edit Customize Link Btn
+		Add Edit Customize Link Btn
 	/*-------------------------------------------*/
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_related_options[related_title]',

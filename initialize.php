@@ -1,13 +1,13 @@
 <?php
 /*
-  Delete old function data
-  Load modules
-  Add vkExUnit css
-  Add vkExUnit js
+	Delete old function data
+	Load modules
+	Add vkExUnit css
+	Add vkExUnit js
 /*-------------------------------------------*/
 
 /*
-  Delete old function data
+	Delete old function data
 /*-------------------------------------------*/
 $options = get_option( 'veu_deprecated' );
 if ( empty( $options['9.72.0'] ) ) {
@@ -17,20 +17,20 @@ if ( empty( $options['9.72.0'] ) ) {
 }
 
 /*
-  Load modules
+	Load modules
 /*
 -------------------------------------------*/
-// ./admin/admin.php は veu_load_packages() の中に入れると 
+// ./admin/admin.php は veu_load_packages() の中に入れると
 // * ExUnit のカスタマイズパネルが出なくなる
 // * ExUnit_Custom_Html の読み込みでエラーになる
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 
 /**
  * Load package manager & packages
- * 
+ *
  * @return void
  */
-function veu_load_packages(){
+function veu_load_packages() {
 	// after_setup_theme を経由して veu-package-manager.php を読み込まないと
 	// 6.7 で _load_textdomain_just_in_time のエラーが出る
 	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
@@ -43,7 +43,7 @@ function veu_load_packages(){
 add_action( 'after_setup_theme', 'veu_load_packages' );
 
 /*
-  Add vkExUnit css
+	Add vkExUnit css
 /*-------------------------------------------*/
 add_action( 'after_setup_theme', 'veu_load_css_action' );
 function veu_load_css_action() {
@@ -81,11 +81,11 @@ function veu_print_block_editor_css() {
 add_action( 'init', 'veu_print_block_editor_css' );
 
 /*
-  Add vkExUnit js
+	Add vkExUnit js
 -------------------------------------------*/
 add_action( 'wp_enqueue_scripts', 'veu_print_js' );
 function veu_print_js() {
-	
+
 	$options = apply_filters( 'vkExUnit_master_js_options', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
 	wp_register_script( 'vkExUnit_master-js', plugins_url( '', __FILE__ ) . '/assets/js/all.min.js', array(), VEU_VERSION, true );
@@ -114,7 +114,6 @@ function change_old_options() {
 	}
 
 	update_option( 'vkExUnit_pagespeeding', $option );
-
 }
 add_action( 'after_setup_theme', 'change_old_options', 4 );
 

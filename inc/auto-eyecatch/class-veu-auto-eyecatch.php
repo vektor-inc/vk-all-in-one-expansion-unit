@@ -15,7 +15,7 @@ class VEU_Auto_Eyecatch {
 		if ( isset( self::$instance ) ) {
 			return self::$instance; }
 
-		self::$instance = new VEU_Auto_Eyecatch;
+		self::$instance = new VEU_Auto_Eyecatch();
 		self::$instance->run_init();
 		return self::$instance;
 	}
@@ -46,15 +46,11 @@ class VEU_Auto_Eyecatch {
 			return false; }
 
 		if ( get_the_id() ) {
-
 			$post_types = self::post_types();
 
 			if ( in_array( get_post_type( get_the_id() ), $post_types ) ) {
-
 				if ( has_post_thumbnail( get_the_id() ) ) {
-
 					if ( ! get_post_meta( get_the_id(), 'vkExUnit_EyeCatch_disable', true ) ) {
-
 						return true;
 					}
 				}

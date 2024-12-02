@@ -13,24 +13,22 @@ class Website_Structure_Test extends WP_UnitTestCase {
 		print 'test_get_website_array' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
-
 		$test_data = array(
 			array(
-				'target_url'    => home_url( '/' ),
-				'options'       => array(
+				'target_url' => home_url( '/' ),
+				'options'    => array(
 					'blogname' => 'Site name',
 				),
-				'correct' => array(
-					'@context'      => 'https://schema.org/',
-					'@type'         => 'WebSite',
-					'name'          => 'Site name',
-					'url'           => home_url(),
+				'correct'    => array(
+					'@context' => 'https://schema.org/',
+					'@type'    => 'WebSite',
+					'name'     => 'Site name',
+					'url'      => home_url(),
 				),
 			),
 		);
 
-		foreach( $test_data as $test_value) {
-
+		foreach ( $test_data as $test_value ) {
 			if ( ! empty( $test_value['options'] ) && is_array( $test_value['options'] ) ) {
 				foreach ( $test_value['options'] as $option_key => $option_value ) {
 					update_option( $option_key, $option_value );
@@ -39,7 +37,7 @@ class Website_Structure_Test extends WP_UnitTestCase {
 
 			$this->go_to( $test_value['target_url'] );
 
-			$actual = VK_WebSite_Srtuctured_Data::get_website_structure_array();
+			$actual  = VK_WebSite_Srtuctured_Data::get_website_structure_array();
 			$correct = $test_value['correct'];
 
 			// print PHP_EOL;

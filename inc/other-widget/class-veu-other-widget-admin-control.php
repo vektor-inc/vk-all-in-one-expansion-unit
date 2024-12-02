@@ -9,7 +9,7 @@ class VEU_Other_Widget_Admin_Control {
 		// Add Widget activation list table to ExUnit Active Setting page.
 		add_action( 'vew_admin_setting_block', array( $this, 'admin_setting' ), 10, 1 );
 		// veu_get_common_options_default() の中で走る。
-		// 普通はアクションフックでええんちゃう？と思ったりするが 
+		// 普通はアクションフックでええんちゃう？と思ったりするが
 		// $input の値を受け取る手法としてこのフィルターを使っているっぽい
 		add_filter( 'vkExUnit_common_options_validate', array( $this, 'admin_config_validate' ), 10, 3 );
 	}

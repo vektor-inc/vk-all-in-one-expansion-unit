@@ -16,7 +16,7 @@ class WidgetBanner extends WP_Widget {
 	}
 
 	public static function veu_widget_description() {
-		$description  = __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' );
+		$description = __( 'You can easily set up a banner simply by registering images and link destinations.', 'vk-all-in-one-expansion-unit' );
 		// $description .= '<br>* * * * * * * * * * * * * * * * * * * * * * * *<br>' . __( '現在はWordPress標準の画像ウィジェットかブロックエディタの画像ブロックで代用可能です。', 'vk-all-in-one-expansion-unit' );
 		return $description;
 	}

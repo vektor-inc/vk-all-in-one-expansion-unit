@@ -24,8 +24,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				add_filter( 'the_content', array( __CLASS__, 'content_filter' ), self::CONTENT_NUMBER, 1 );
 			}
 
-			require_once dirname( __FILE__ ) . '/widget-call-to-action.php';
-			require_once dirname( __FILE__ ) . '/block/index.php';
+			require_once __DIR__ . '/widget-call-to-action.php';
+			require_once __DIR__ . '/block/index.php';
 
 			/*
 			VEU_Metabox 内の get_post_type が実行タイミングによっては
@@ -34,8 +34,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			 */
 			add_action(
 				'admin_menu',
-				function() {
-					require_once dirname( __FILE__ ) . '/class-veu-metabox-cta.php';
+				function () {
+					require_once __DIR__ . '/class-veu-metabox-cta.php';
 				}
 			);
 		}
@@ -62,7 +62,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		 * get_ctas
 		 * render_configPage
 		 */
-
 		public static function option_init() {
 			vkExUnit_register_setting(
 				'Call To Action',                       // tab label.
@@ -196,12 +195,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				// カスタムフィールドの保存.
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
-
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
 						if ( ! empty( $custom_field_name['escape_type'] ) ) {
 							if ( is_array( $custom_field_name['escape_type'] ) ) {
 								// エスケープ処理が複数ある場合
-								$data =  $_POST[ $custom_field_name ];
+								$data = $_POST[ $custom_field_name ];
 								foreach ( $custom_field_name['escape_type'] as $escape ) {
 									$data = call_user_func( $escape, $data );
 								}
@@ -468,7 +466,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				$content = $cta_content;
 			} else {
 				// 旧 CTA レイアウト.
-				include dirname( __FILE__ ) . '/view-actionbox.php';
+				include __DIR__ . '/view-actionbox.php';
 			}
 
 			// Display Edit Button.
@@ -483,7 +481,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化されるので使わないように.
 			// 出力時にエスケープしたいが、wp_kses_post だと style属性が無効化される / wp_kses でも allow_html で opacity を許可しても無視・削除される。
 			// 結局本文欄はどのみち HTML ブロックで <script>alert(0)</script> 入れられ標準でXSSは実行可能なので、ここでは処理していない。
-			return do_blocks( do_shortcode(  $content ) );
+			return do_blocks( do_shortcode( $content ) );
 		}
 
 		/**
@@ -612,12 +610,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				foreach ( $input as $key => $value ) {
 					if ( $value == 'random' ) {
 						$option[ $key ] = 'random';
-					} else {
-						if ( 'hook_point' === $key ) {
+					} elseif ( 'hook_point' === $key ) {
 							$option[ $key ] = stripslashes( sanitize_text_field( $value ) );
-						} else {
-							$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
-						}
+					} else {
+						$option[ $key ] = ( is_numeric( $value ) ) ? $value : 0;
 					}
 				}
 			}
@@ -655,7 +651,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// ↓ これであかんの？
 			// $output_option = wp_parse_args( $option, $default );
 			if ( ! $option || ! is_array( $option ) ) {
-				return $default; 
+				return $default;
 			}
 
 			$posttypes = array_merge(
@@ -726,10 +722,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				)
 			);
 
-			include dirname( __FILE__ ) . '/view-adminsetting.php';
+			include __DIR__ . '/view-adminsetting.php';
 		}
 	}
 
 	Vk_Call_To_Action::init();
-
 } // if ( ! class_exists( 'Vk_Call_To_Action' ) )

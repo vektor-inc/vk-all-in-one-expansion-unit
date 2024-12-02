@@ -1,6 +1,6 @@
 <?php
 
-require_once( VEU_DIRECTORY_PATH . '/admin/class-veu-metabox.php' );
+require_once VEU_DIRECTORY_PATH . '/admin/class-veu-metabox.php';
 
 class VEU_Metabox_Insert_Items extends VEU_Metabox {
 
@@ -15,14 +15,11 @@ class VEU_Metabox_Insert_Items extends VEU_Metabox {
 		);
 
 		parent::__construct( $this->args );
-
 	}
 
 	public function metabox_body( $display = true ) {
 		do_action( 'veu_metabox_insert_items' );
 	}
-
-
 } // class VEU_Metabox_Insert_Items {
 
 $veu_metabox_insert_items = new VEU_Metabox_Insert_Items();

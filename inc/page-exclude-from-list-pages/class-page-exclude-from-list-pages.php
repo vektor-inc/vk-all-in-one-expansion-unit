@@ -1,7 +1,7 @@
 <?php
 /**
  * VEU_Page_Exclude_From_List_Pages
- * 
+ *
  * @package vektor-inc/all-in-one-expansion-unit
  */
 
@@ -80,10 +80,8 @@ class VEU_Page_Exclude_From_List_Pages {
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return;
 			}
-		} else {
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return;
-			}
 		}
 
 		if ( isset( $_POST['exclude_from_list_pages'] ) ) {

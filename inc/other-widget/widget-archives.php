@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Archive list widget
+	Archive list widget
 /*-------------------------------------------*/
 class WP_Widget_VK_archive_list extends WP_Widget {
 	/**
@@ -40,12 +40,12 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 
 		// 表示タイプ
 		if ( isset( $instance['display_type'] ) && $instance['display_type'] == 'y' ) {
-			$arg['type']      = 'yearly';
+			$arg['type'] = 'yearly';
 			if ( strtoupper( get_locale() ) == 'JA' ) {
 				$arg['after'] = '年';
 			}
 		} else {
-			$arg['type']      = 'monthly';
+			$arg['type'] = 'monthly';
 		}
 
 		// 表示デザイン
@@ -57,11 +57,11 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 
 		$get_posts = get_posts(
 			array(
-				'post_type' => $arg['post_type']
+				'post_type' => $arg['post_type'],
 			)
 		);
 		if ( ! empty( $get_posts ) ) {
-		?>
+			?>
 			<?php echo $args['before_widget']; ?>
 			<div class="sideWidget widget_archive">
 				<?php
@@ -89,7 +89,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public function get_option_defaults() {
 		$defaults = array(
@@ -110,7 +110,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		// 投稿タイプをオブジェクトで取得.
-		$the_post_types    = get_post_types(
+		$the_post_types = get_post_types(
 			array(
 				'public'   => true,
 				'show_ui'  => true,
@@ -155,7 +155,7 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'vk-all-in-one-expansion-unit' ); ?>:</label>
 				<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" class="admin-custom-input">
 					<?php foreach ( $select_post_types as $select_post_type ) : ?>
-						<option value="<?php echo $select_post_type['value']; ?>" <?php selected( $select_post_type['value'], $instance['post_type'] , true  ); ?>>
+						<option value="<?php echo $select_post_type['value']; ?>" <?php selected( $select_post_type['value'], $instance['post_type'], true ); ?>>
 							<?php echo $select_post_type['label']; ?>
 						</option>
 					<?php endforeach; ?>
@@ -179,8 +179,8 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 				<?php _e( 'Display design', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
 				<select name="<?php echo $this->get_field_name( 'display_design' ); ?>" class="admin-custom-input">
-					<option value="list" <?php selected( $instance['display_design'],'list',true ); ?>><?php _e( 'Lists', 'vk-all-in-one-expansion-unit' ); ?></option>
-					<option value="select" <?php selected( $instance['display_design'],'select',true ); ?>><?php _e( 'Drop down', 'vk-all-in-one-expansion-unit' ); ?></option>
+					<option value="list" <?php selected( $instance['display_design'], 'list', true ); ?>><?php _e( 'Lists', 'vk-all-in-one-expansion-unit' ); ?></option>
+					<option value="select" <?php selected( $instance['display_design'], 'select', true ); ?>><?php _e( 'Drop down', 'vk-all-in-one-expansion-unit' ); ?></option>
 				</select>
 			</div>
 
@@ -190,10 +190,10 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 
 
 	function update( $new_instance, $old_instance ) {
-		$instance                 = $old_instance;
-		$instance['label'] = $new_instance['label'];
-		$instance['post_type']    = $new_instance['post_type'];
-		$instance['display_type'] = $new_instance['display_type'];
+		$instance                   = $old_instance;
+		$instance['label']          = $new_instance['label'];
+		$instance['post_type']      = $new_instance['post_type'];
+		$instance['display_type']   = $new_instance['display_type'];
 		$instance['display_design'] = $new_instance['display_design'];
 		return $instance;
 	}

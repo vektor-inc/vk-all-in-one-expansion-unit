@@ -11,15 +11,14 @@ function veu_gtm_options_init() {
 add_action( 'veu_package_init', 'veu_gtm_options_init' );
 
 function veu_gtm_options_validate( $input ) {
-    $output['gtm_id'] = sanitize_text_field( $input['gtm_id'] );
-    return $output;
+	$output['gtm_id'] = sanitize_text_field( $input['gtm_id'] );
+	return $output;
 }
 
 /*
-  Add setting page
+	Add setting page
 /*-------------------------------------------*/
 
 function veu_add_gtm_options_page() {
-	require dirname( __FILE__ ) . '/admin-page.php';
-
+	require __DIR__ . '/admin-page.php';
 }
