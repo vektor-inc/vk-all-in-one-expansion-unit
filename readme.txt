@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bud Fix ][ Taxonomy Widget / Post Type Manager ] Fix Translate Text Domain.
+
 = 9.100.7 =
 [ Bug fix ][ Categories/Custom taxonomies list widget ] Display order translation
 
