@@ -69,7 +69,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 					$tax_args = array(
 						'echo'              => 1,
 						'class'             => 'veu_widget_taxonmomy',
-						'show_option_none'  => __( 'Any', 'vk-filter-search-pro' ),
+						'show_option_none'  => __( 'Any', 'vk-all-in-one-expansion-unit' ),
 						'option_none_value' => '',
 						'show_count'        => false,
 						'hide_empty'        => $instance['hide_empty'],
