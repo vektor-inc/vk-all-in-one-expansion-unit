@@ -1,4 +1,9 @@
 <?php
+/**
+ * Uninstall VK All in One Expansion Unit
+ *
+ * @package VK All in One Expansion Unit
+ */
 
 $vkExUnit_options = veu_get_common_options();
 if ( ! $vkExUnit_options['delete_options_at_deactivate'] ) {

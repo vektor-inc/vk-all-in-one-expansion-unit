@@ -80,7 +80,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						<li><a href="https://training.vektor-inc.co.jp/courses/x-t9-custom-post-type/" target="_blank">' . __( 'Vektor Training: X-T9 Setup Guide for Custom Post Types', 'vk-all-in-one-expansion-unit' ) . '</a></li>
 						<li><a href="https://training.vektor-inc.co.jp/courses/lightning-basic-settings/lessons/lightning-custom-post-type-lightning/" target="_blank">' . __( 'Vektor Training: Lightning Basic Settings for Custom Post Types', 'vk-all-in-one-expansion-unit' ) . '</a></li>
 					</ul>
-					<p><a href="' . $dismiss_url . '" target="_parent">' . esc_html__( 'Dismiss this notice', 'vk-blocks' ) . '</a></p>
+					<p><a href="' . $dismiss_url . '" target="_parent">' . esc_html__( 'Dismiss this notice', 'vk-all-in-one-expansion-unit' ) . '</a></p>
 				</div>'
 			);
 		}
