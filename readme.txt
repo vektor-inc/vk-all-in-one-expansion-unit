@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bud Fix ][ Taxonomy Widget / Post Type Manager ] Fix Translate Text Domain.
 [ Bug Fix ][ CSS Customize ] Fix PHP warning on the settings screen of Contact Form 7. 
 
 = 9.100.7 =
