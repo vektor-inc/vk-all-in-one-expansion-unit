@@ -25,11 +25,13 @@ function veu_insert_custom_css() {
 
 	if ( is_singular() || ( is_admin() && isset( $_GET['post'] ) ) ) {
 		global $post;
-		$css = veu_get_the_custom_css_single( $post );
-		if ( $css ) {
-			// HTMLエンティティをデコードし、HTMLタグとその内容を削除
-			$css = html_entity_decode( $css, ENT_QUOTES | ENT_HTML5 );
-			echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
+		if ( $post ) {
+			$css = veu_get_the_custom_css_single( $post );
+			if ( $css ) {
+				// HTMLエンティティをデコードし、HTMLタグとその内容を削除
+				$css = html_entity_decode( $css, ENT_QUOTES | ENT_HTML5 );
+				echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
+			}
 		}
 	}
 }

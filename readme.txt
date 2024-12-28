@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ CSS Customize ] Fix PHP warning on the settings screen of Contact Form 7. 
+
 = 9.100.7 =
 [ Bug fix ][ Categories/Custom taxonomies list widget ] Display order translation
 
