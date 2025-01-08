@@ -639,8 +639,8 @@ function veu_get_packages( $is_block_theme = null ) {
 		'name'        => 'nav_menu_class_custom',
 		'title'       => __( 'Navi menu class custom', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Current class tuning of navi menu.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => $is_block_theme ? false : true,
-		'include'     => 'nav-menu-class-custom.php',
+		'default'     => true,
+		'include'     => 'nav-menu-class-custom/nav-menu-class-custom.php',
 	);
 
 	/*

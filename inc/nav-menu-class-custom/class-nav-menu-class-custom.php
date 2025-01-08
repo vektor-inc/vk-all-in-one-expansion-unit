@@ -17,7 +17,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		}
 
 		/**
-		 * クラシックナビにカレントクラスを追加する
+		 * Add current class to classic navigation item
 		 *
 		 * @param array  $classes : メニューのクラス配列
 		 * @param object $item : メニューオブジェクト
@@ -52,7 +52,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		}
 
 		/**
-		 * ナビゲーションアイテムブロックにカレントクラスを追加する
+		 * Add current class to navigation block item
 		 *
 		 * @param string $block_content : ブロックのコンテンツ
 		 * @param array  $block : ブロックの属性
@@ -183,5 +183,3 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 	}
 
 }
-
-VkNavMenuClassCustom::init();
