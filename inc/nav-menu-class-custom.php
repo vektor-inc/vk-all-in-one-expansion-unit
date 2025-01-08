@@ -139,22 +139,6 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		}
 
 		/**
-		 * Get displaying page post type slug
-		 *
-		 * @return string : post type slug
-		 */
-		public static function get_displaying_page_post_type_slug() {
-			// 今表示しているページが属する投稿タイプを取得
-			if ( function_exists( 'vk_get_post_type' ) ) {
-				$displaying_page_post_type_info = vk_get_post_type();
-				$displaying_page_post_type_slug = $displaying_page_post_type_info['slug'];
-			} else {
-				$displaying_page_post_type_slug = get_post_type();
-			}
-			return $displaying_page_post_type_slug;
-		}
-
-		/**
 		 * カレントメニューアイテムかどうかを判定する
 		 *
 		 * @param array $item_src : メニューアイテムの属性
@@ -164,7 +148,12 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 			$return = false;
 
 			// 今表示しているページが属する投稿タイプを取得
-			$displaying_page_post_type_slug = self::get_displaying_page_post_type_slug();
+			if ( function_exists( 'vk_get_post_type' ) ) {
+				$displaying_page_post_type_info = vk_get_post_type();
+				$displaying_page_post_type_slug = $displaying_page_post_type_info['slug'];
+			} else {
+				$displaying_page_post_type_slug = get_post_type();
+			}
 
 			/*
 				投稿アーカイブの指定された固定ページメニューアイテムの処理
