@@ -50,20 +50,20 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		}
 
 		/**
-		 * URLからそのURLのページの投稿タイプを取得する
+		 * Get post type from URL
 		 *
 		 * @param string $url : URL
-		 * @return string : 投稿タイプ名
+		 * @return string : post type name
 		 */
-		public static function vk_get_post_type_from_url( $url ) {
+		public static function get_post_type_from_url( $url ) {
 			$menu_url_post_type = '';
 
-			// リライトルールを取得
+			// Get rewrite rules
 			$rewrite_rules = get_option( 'rewrite_rules' );
 
 			if ( ! $rewrite_rules || ! is_array( $rewrite_rules ) ) {
 
-				// リライトルールを無指定で使っている場合
+				// In case of default permalink structure
 
 				$pattern = '/.*post_type=(.*)/';
 				$subject = $url;
@@ -118,12 +118,13 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		 * @return bool : カレントメニューアイテムかどうか
 		 */
 		public static function is_active_menu_item( $item_src ) {
-			$return = false;
+			$return                         = false;
+			$displaying_page_post_type_info = array();
 			// 今表示しているページが属する投稿タイプを取得
 			if ( function_exists( 'vk_get_post_type' ) ) {
-				$post_type_info = vk_get_post_type();
+				$displaying_page_post_type_info = vk_get_post_type();
 			} else {
-				$post_type_info['slug'] = get_post_type();
+				$displaying_page_post_type_info['slug'] = get_post_type();
 			}
 
 			/*
@@ -134,16 +135,16 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 			// 投稿トップのメニューアイテム
 			if ( $post_top_url === $item_src ) {
-				if ( $post_type_info['slug'] === 'post' ) {
+				if ( $displaying_page_post_type_info['slug'] === 'post' ) {
 					// 今表示しているページの投稿タイプが post の場合
 					$return = true;
 				}
 			}
 
-			$menu_url_post_type = self::vk_get_post_type_from_url( $item_src );
+			$menu_url_post_type = self::get_post_type_from_url( $item_src );
 			// 今表示しているページの投稿タイプとメニューに記入されているURLの投稿タイプが同じ場合
-			if ( isset( $menu_url_post_type ) && isset( $post_type_info['slug'] ) ) {
-				if ( $post_type_info['slug'] === $menu_url_post_type ) {
+			if ( isset( $menu_url_post_type ) && isset( $displaying_page_post_type_info['slug'] ) ) {
+				if ( $displaying_page_post_type_info['slug'] === $menu_url_post_type ) {
 					$return = true;
 				}
 			}
