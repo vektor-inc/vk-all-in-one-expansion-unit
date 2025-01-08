@@ -169,10 +169,11 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 				}
 			}
 
+			// メニュー項目のリンク先のページの投稿タイプを取得
 			$menu_url_post_type = self::get_post_type_from_url( $item_src );
 
 			if ( ! empty( $menu_url_post_type ) && ! empty( $displaying_page_post_type_slug ) ) {
-				// 今表示しているページの投稿タイプとメニューに記入されているURLの投稿タイプが同じ場合
+				// 今表示しているページの投稿タイプとメニューに記入されているURLのページの投稿タイプが同じ場合
 				if ( $displaying_page_post_type_slug === $menu_url_post_type ) {
 					$return = true;
 				}
