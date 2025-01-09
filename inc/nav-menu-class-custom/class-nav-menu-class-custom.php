@@ -77,6 +77,20 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		}
 
 		/**
+		 * URLに ? を含んでいない場合に末尾に / を追加する
+		 */
+		public static function ensureTrailingSlash( $url ) {
+			// `?` を含んでいない場合
+			if ( strpos( $url, '?' ) === false ) {
+				// 末尾が `/` で終わっていない場合に追加
+				if ( substr( $url, -1 ) !== '/' ) {
+					$url .= '/';
+				}
+			}
+			return $url;
+		}
+
+		/**
 		 * Get post type from URL
 		 *
 		 * @param string $url : URL
@@ -84,6 +98,21 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		 */
 		public static function get_post_type_from_url( $url ) {
 			$menu_url_post_type = '';
+
+			// Check if the URL is the post top page //////////////////
+
+			// 投稿トップのURLを取得
+			$post_top_id  = get_option( 'page_for_posts' );
+			$post_top_url = get_the_permalink( $post_top_id );
+
+			// 投稿トップのURLと引数のURL（メニュー項目の参照URL）が一致する場合
+			// ※ 片方のURLだけ末尾に / が入っていなかったりする場合があるので、ensureTrailingSlash() で調整
+			if ( self::ensureTrailingSlash( $url ) === self::ensureTrailingSlash( $post_top_url ) ) {
+				// 投稿トップのメニューアイテムの場合は投稿タイプは post
+				return 'post';
+			}
+
+			// Other URLs ///////////////////////////////////////////////
 
 			// Get rewrite rules
 			$rewrite_rules = get_option( 'rewrite_rules' );
@@ -132,7 +161,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 							// 最初にマッチしてクラスを付与したら抜ける
 							break;
 						} // if ( isset( $matches[1] ) ) {
-					} // if ( $matches ) {
+					}
 				} // foreach ( $rewrite_rules as $key => $value ) {
 			}
 			return $menu_url_post_type;
