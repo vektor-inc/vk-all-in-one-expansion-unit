@@ -2,7 +2,7 @@
 Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
 Donate link:
 Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
-Requires at least: 6.3
+Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 9.100.8.1
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.101.0 =
 [ Add function ][ Navigation Menu Custom ] Navigation Block Support
 
 = 9.100.8 =
