@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ Navigation Menu Custom ] Navigation Block Support
+
 = 9.100.8 =
 [ Bud Fix ][ Taxonomy Widget / Post Type Manager ] Fix Translate Text Domain.
 [ Bug Fix ][ CSS Customize ] Fix PHP warning on the settings screen of Contact Form 7. 

@@ -56,7 +56,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 					'active_pagetop_button'                => true,
 					'active_smooth_scroll'                 => true,
 					'active_add_body_class'                => true,
-					'active_nav_menu_class_custom'         => false,
+					'active_nav_menu_class_custom'         => true,
 					'active_css_optimize'                  => false,
 					'active_auto_eyecatch'                 => false,
 					'active_Contactform7AssetOptimize'     => false,
