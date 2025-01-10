@@ -2,7 +2,7 @@
 /**
  * Class VkNavMenuClassCustomTest
  *
- * @package Vk_All_In_One_Expansion_Unit
+ * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
 class VkNavMenuClassCustomTest extends WP_UnitTestCase {
@@ -50,7 +50,6 @@ class VkNavMenuClassCustomTest extends WP_UnitTestCase {
 		foreach ( $tests as $key => $test_value ) {
 			$return = VkNavMenuClassCustom::class_name_custom( $test_value['content'], $test_value['class_name'], $test_value['add'] );
 
-			// PHPunit
 			$this->assertEquals( $test_value['expected'], $return, $test_value['test_name'] );
 		}
 	}
