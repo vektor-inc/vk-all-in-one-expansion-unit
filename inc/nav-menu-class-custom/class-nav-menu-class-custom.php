@@ -98,9 +98,15 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 				// $class_name が class= の中に存在する場合は削除
 				$content = preg_replace(
 					'/class="([^"]*)\b' . preg_quote( $class_name, '/' ) . '\b\s*([^"]*)"/',
-					'class="$1$2"',
+					'class="$1 $2"',
 					$content,
 					1
+				);
+				// 余分なスペースを削除
+				$content = preg_replace(
+					'/class="\s*([^"]*?)\s*"/',
+					'class="$1"',
+					$content
 				);
 			}
 			return $content;
