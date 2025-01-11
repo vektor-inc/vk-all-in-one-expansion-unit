@@ -11,9 +11,9 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 		public static function init() {
 			// Classic Navigation custom
-			add_filter( 'nav_menu_css_class', array( __CLASS__, 'add_current_class_to_classic_navi' ), 10, 2 );
+			add_filter( 'nav_menu_css_class', array( __CLASS__, 'classic_navi_class_custom' ), 10, 2 );
 			// Navigation Block custom
-			add_filter( 'render_block', array( __CLASS__, 'add_current_class_to_navigation_item_block' ), 10, 2 );
+			add_filter( 'render_block', array( __CLASS__, 'navigation_item_block_class_custom' ), 10, 2 );
 		}
 
 		/**
@@ -23,7 +23,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		 * @param object $item : メニューオブジェクト
 		 * @return array $classes : メニューのクラス配列
 		 */
-		public static function add_current_class_to_classic_navi( $classes, $item ) {
+		public static function classic_navi_class_custom( $classes, $item ) {
 			// 付与するカレントクラス名
 			$add_current_class_name = 'current-menu-ancestor';
 
@@ -58,22 +58,64 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		 * @param array  $block : ブロックの属性
 		 * @return string : カレントクラスを追加したブロックのコンテンツ
 		 */
-		public static function add_current_class_to_navigation_item_block( $block_content, $block ) {
+		public static function navigation_item_block_class_custom( $block_content, $block ) {
 			// ナビゲーションアイテムブロックに対して処理を適用
 			if ( 'core/navigation-link' === $block['blockName'] || 'core/navigation-submenu' === $block['blockName'] ) {
-				if ( self::is_active_menu_item( $block['attrs']['url'] ) ) {
-					// $block_content の中の class=" 中に current-menu-item という文字列がない場合に current-menu-ancestor を追加する
-					if ( strpos( $block_content, 'current-menu-item' ) === false ) {
-						$block_content = preg_replace(
-							'/class="([^"]*)"/',
-							'class="$1 current-menu-item"',
-							$block_content,
-							1
-						);
+				// 固定ページの時の動作はもともと問題ないので、それ以外の場合のみ処理する
+				if ( ! is_page() ) {
+					if ( self::is_active_menu_item( $block['attrs']['url'] ) ) {
+						$block_content = self::class_name_custom( $block_content, 'current-menu-item', true );
+					} else {
+						// カスタム投稿タイプのページを表示していても、カレントクラスが付与されるので、
+						// アクティブでないと判断された項目に current クラスがあった場合は削除
+						$block_content = self::class_name_custom( $block_content, 'current-menu-ancestor', false );
 					}
 				}
 			}
 			return $block_content;
+		}
+
+		/**
+		 * クラス名を改変する
+		 *
+		 * @param string $content : 対象文字列
+		 * @param string $class_name : 追加・削除するクラス名
+		 * @param bool   $add : true の場合は $class_name を class= の中に追加する、false の場合は削除する
+		 * @return string : クラス名を改変したコンテンツ
+		 */
+		public static function class_name_custom( $content, $class_name, $add = true ) {
+			if ( $add ) {
+				// $class_name が class= の中に存在しない場合にのみ追加
+				if ( strpos( $content, $class_name ) === false ) {
+					$content = preg_replace(
+						'/class="([^"]*)"/',
+						'class="$1 ' . $class_name . '"',
+						$content,
+						1
+					);
+				}
+			} else {
+				// $class_name が class= の中に存在する場合は削除
+				$content = preg_replace(
+					'/class="([^"]*)\b' . preg_quote( $class_name, '/' ) . '\b([^"]*)"/',
+					'class="$1$2"',
+					$content,
+					1
+				);
+				// 余分なスペースを削除
+				$content = preg_replace(
+					'/class="\s*([^"]*?)\s*"/',
+					'class="$1"',
+					$content
+				);
+				// 連続するスペースを1つにする
+				$content = preg_replace(
+					'/\s+/',
+					' ',
+					$content
+				);
+			}
+			return $content;
 		}
 
 		/**
@@ -92,6 +134,10 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 		/**
 		 * Get post type from URL
+		 *
+		 * ヘッダーメニューのアクティブラベル用なので、トップメニューに入る項目として、
+		 * 投稿トップ / カスタム投稿タイプのトップ の投稿タイプが検出できればよい
+		 * （詳細ページの検出は不要）
 		 *
 		 * @param string $url : URL
 		 * @return string : post type name
@@ -129,7 +175,17 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 				if ( isset( $matches[1] ) ) {
 					$menu_url_post_type = $matches[1];
 				} else {
-					$menu_url_post_type = '';
+					// home_url() . /?p=数字 の場合（ "ドメイン/" と "?p=" の間には index.php は不要）は、その数字をget_postに渡して投稿タイプを取得する
+					$pattern = '/[?&]p=([^&]+)/';
+					$subject = $url;
+					preg_match( $pattern, $subject, $matches );
+					// マッチした場合
+					if ( $matches ) {
+						// 抽出した数字をget_postに渡して投稿タイプを取得する
+						$post_id            = $matches[1];
+						$post_type          = get_post_type( $post_id );
+						$menu_url_post_type = $post_type;
+					}
 				}// if ( isset( $matches[1] ) ) {
 			} else {
 
@@ -176,6 +232,9 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		public static function is_active_menu_item( $item_src ) {
 			$return = false;
 
+			// メニュー項目のリンク先のページの投稿タイプを取得
+			$menu_url_post_type = self::get_post_type_from_url( $item_src );
+
 			// 今表示しているページが属する投稿タイプを取得
 			if ( function_exists( 'vk_get_post_type' ) ) {
 				$displaying_page_post_type_info = vk_get_post_type();
@@ -197,9 +256,6 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 					$return = true;
 				}
 			}
-
-			// メニュー項目のリンク先のページの投稿タイプを取得
-			$menu_url_post_type = self::get_post_type_from_url( $item_src );
 
 			if ( ! empty( $menu_url_post_type ) && ! empty( $displaying_page_post_type_slug ) ) {
 				// 今表示しているページの投稿タイプとメニューに記入されているURLのページの投稿タイプが同じ場合
