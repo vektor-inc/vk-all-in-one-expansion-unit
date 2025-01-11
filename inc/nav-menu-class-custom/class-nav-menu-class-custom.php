@@ -135,6 +135,10 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		/**
 		 * Get post type from URL
 		 *
+		 * ヘッダーメニューのアクティブラベル用なので、トップメニューに入る項目として、
+		 * 投稿トップ / カスタム投稿タイプのトップ の投稿タイプが検出できればよい
+		 * （詳細ページの検出は不要）
+		 *
 		 * @param string $url : URL
 		 * @return string : post type name
 		 */
@@ -171,7 +175,17 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 				if ( isset( $matches[1] ) ) {
 					$menu_url_post_type = $matches[1];
 				} else {
-					$menu_url_post_type = '';
+					// home_url() . /?p=数字 の場合（ "ドメイン/" と "?p=" の間には index.php は不要）は、その数字をget_postに渡して投稿タイプを取得する
+					$pattern = '/[?&]p=([^&]+)/';
+					$subject = $url;
+					preg_match( $pattern, $subject, $matches );
+					// マッチした場合
+					if ( $matches ) {
+						// 抽出した数字をget_postに渡して投稿タイプを取得する
+						$post_id            = $matches[1];
+						$post_type          = get_post_type( $post_id );
+						$menu_url_post_type = $post_type;
+					}
 				}// if ( isset( $matches[1] ) ) {
 			} else {
 
