@@ -13,6 +13,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class VkNavMenuClassCustomTest extends WP_UnitTestCase {
 
+	function setUp(): void {
+		parent::setUp();
+		// キャッシュをクリア
+		wp_cache_flush();
+	}
+
 	function test_class_name_custom() {
 
 		$tests = array(
@@ -74,9 +80,10 @@ class VkNavMenuClassCustomTest extends WP_UnitTestCase {
 			array(
 				'test_name' => '投稿詳細',
 				'options'   => array(
-					'page_on_front'  => $test_posts['front_page_id'],
-					'show_on_front'  => 'page',
-					'page_for_posts' => $test_posts['home_page_id'],
+					'page_on_front'       => $test_posts['front_page_id'],
+					'show_on_front'       => 'page',
+					'page_for_posts'      => $test_posts['home_page_id'],
+					'permalink_structure' => null,
 				),
 				'url'       => get_permalink( $test_posts['post_id'] ),
 				'expected'  => 'post',
@@ -84,9 +91,10 @@ class VkNavMenuClassCustomTest extends WP_UnitTestCase {
 			array(
 				'test_name' => '投稿トップ',
 				'options'   => array(
-					'page_on_front'  => $test_posts['front_page_id'],
-					'show_on_front'  => 'page',
-					'page_for_posts' => $test_posts['home_page_id'],
+					'page_on_front'       => $test_posts['front_page_id'],
+					'show_on_front'       => 'page',
+					'page_for_posts'      => $test_posts['home_page_id'],
+					'permalink_structure' => null,
 				),
 				'url'       => get_permalink( $test_posts['home_page_id'] ),
 				'expected'  => 'post',
@@ -94,8 +102,20 @@ class VkNavMenuClassCustomTest extends WP_UnitTestCase {
 			array(
 				'test_name' => 'カスタム投稿タイプトップ',
 				'url'       => home_url( '/?post_type=event' ),
+				'options'   => array(
+					'permalink_structure' => null,
+				),
 				'expected'  => 'event',
 			),
+			array(
+				'test_name' => 'カスタム投稿タイプトップ',
+				'url'       => home_url( '/event' ),
+				'options'   => array(
+					'permalink_structure' => '/%postname%/',
+				),
+				'expected'  => 'event',
+			),
+
 		);
 
 		print PHP_EOL;
@@ -106,14 +126,25 @@ class VkNavMenuClassCustomTest extends WP_UnitTestCase {
 		foreach ( $tests as $key => $value ) {
 			if ( ! empty( $value['options'] ) && is_array( $value['options'] ) ) {
 				foreach ( $value['options'] as $option_key => $option_value ) {
+					// オプションを更新し、成功したかどうかを確認
 					update_option( $option_key, $option_value );
 				}
+				// リライトルールをフラッシュ
+				flush_rewrite_rules();
 			}
-						// print 'expected::::' . $value['expected'] . PHP_EOL;
-			print 'actual  ::::' . $value['url'] . PHP_EOL;
-			$return = VkNavMenuClassCustom::get_post_type_from_url( $value['url'] );
 
+			$rewrite_rules = get_option( 'rewrite_rules' );
+			print '<pre style="text-align:left">';
+			print_r( $rewrite_rules );
+			print '</pre>';
+						// print 'expected::::' . $value['expected'] . PHP_EOL;
+			print 'URL  ::::' . $value['url'] . PHP_EOL;
+			$return = VkNavMenuClassCustom::get_post_type_from_url( $value['url'] );
 			$this->assertEquals( $value['expected'], $return, $value['test_name'] );
+
+			// テスト後にオプションをリセット
+			delete_option( 'permalink_structure' );
+			flush_rewrite_rules();
 		}
 	}
 }

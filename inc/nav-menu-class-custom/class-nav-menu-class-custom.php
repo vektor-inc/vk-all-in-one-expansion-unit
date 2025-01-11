@@ -191,6 +191,8 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 				// リライトルールが普通に保存されている場合
 
+				echo '<br />_|＼○_ﾋｬｯ ε=＼＿○ﾉ ﾎｰｳ!!' . '<br />' . "\n";
+
 				// リライトルールをループ
 				foreach ( $rewrite_rules as $key => $value ) {
 
