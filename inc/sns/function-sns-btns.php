@@ -230,6 +230,16 @@ function veu_get_sns_btns( $attr = array() ) {
 			$social_btns .= '</li>';
 		}
 
+		// bluesky.
+		if ( ! empty( $options['useBluesky'] ) ) {
+			$social_btns .= '<li class="sb_bluesky sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner" href="https://bsky.app/intent/compose?text=' . $page_title . '%0A' . $link_url . '" target="_blank" ' . $outer_css . '>';
+			$social_btns .= '<span class="vk_icon_w_r_sns_bluesky icon_sns"' . $icon_css . '></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Bluesky</span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+
 		// hatena.
 		if ( ! empty( $options['useHatena'] ) ) {
 			$social_btns .= '<li class="sb_hatena sb_icon">';

@@ -132,6 +132,12 @@ if ( $options['useTwitter'] ) {
 	echo 'checked';}
 ?>
 /> <?php _e( 'X', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useBluesky]" value="true"
+<?php
+if ( $options['useBluesky'] ) {
+	echo 'checked';}
+?>
+/> <?php _e( 'Bluesky', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php
 if ( $options['useHatena'] ) {
@@ -182,19 +188,19 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 <tr>
 <th><?php _e( 'Entry Count', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable" 
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="disable"
 	<?php
 	if ( $options['entry_count'] == 'disable' ) {
 		echo 'checked';}
 	?>
 	/><?php _e( 'Disable', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get" 
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="get"
 	<?php
 	if ( $options['entry_count'] == 'get' ) {
 		echo 'checked';}
 	?>
 	/><?php _e( 'GET (Default)', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
-	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post" 
+	<label><input type="radio" name="vkExUnit_sns_options[entry_count]" value="post"
 	<?php
 	if ( $options['entry_count'] == 'post' ) {
 		echo 'checked';}
@@ -212,7 +218,7 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 <?php _e( 'If you want to change the location of share buttons, please enter the action hook name.', 'vk-all-in-one-expansion-unit' ); ?><br>
 <?php _e( 'If you want to multiple display that, input action hook name separated by line breaks.', 'vk-all-in-one-expansion-unit' ); ?><br>
 <?php _e( 'Ex) lightning_comment_before', 'vk-all-in-one-expansion-unit' ); ?>
-</p>	
+</p>
 <textarea name="vkExUnit_sns_options[hook_point]" id="hook_point" style="width:100%;" rows="2"><?php echo esc_html( $options['hook_point'] ); ?></textarea>
 </td>
 </tr>

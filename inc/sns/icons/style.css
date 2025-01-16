@@ -47,3 +47,6 @@
 .vk_icon_w_r_sns_x_twitter:before {
   content: "\e606";
 }
+.vk_icon_w_r_sns_bluesky:before {
+  content: "\e607";
+}
