@@ -11,9 +11,14 @@
     margin-bottom: 1.5em;
     ul {
         display: flex;
+		flex-wrap: wrap;
+		gap:5;
+		padding: 0;
+		margin: 0;
+		list-style: none;
     }
     li {
-        width: 50%;
+        flex: 1 1 135px;
         background: none;
         position: relative;
         display: block;
@@ -53,9 +58,6 @@
             }
         }
     }
-    // iframe {
-    //     border: none;
-    // }
     .sb_facebook a {
         background: #1877f2;
         box-shadow: 0 2px 0 rgb(52, 78, 132);
@@ -111,12 +113,6 @@
 
 @media (max-width: 767px) {
     .veu_socialSet {
-        ul {
-            flex-wrap: wrap;
-        }
-        li {
-            width: calc(50% - 6px);
-        }
         .veu_count_sns_pocket,
         .veu_count_sns_fb,
         .veu_count_sns_hb {
@@ -141,6 +137,6 @@
 }
 @media (max-width: 767px) {
     .veu_socialSet.veu_contentAddSection ul li {
-        margin-bottom: 9px;
+        margin-bottom: 0;
     }
 }
