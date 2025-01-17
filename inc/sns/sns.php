@@ -81,6 +81,7 @@ function veu_get_sns_options_default() {
 		'followMe_title'              => 'Follow me!',
 		'useFacebook'                 => true,
 		'useTwitter'                  => true,
+		'useBluesky'                  => true,
 		'useHatena'                   => true,
 		'usePocket'                   => true,
 		'useLine'                     => true,
@@ -244,6 +245,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['followMe_title']              = stripslashes( $input['followMe_title'] );
 	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
+	$output['useBluesky']                  = ( isset( $input['useBluesky'] ) && $input['useBluesky'] == 'true' );
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
 	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
 	$output['useCopy']                     = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
@@ -410,4 +412,3 @@ function veu_enqueue_clipboard() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'veu_enqueue_clipboard' );
-

@@ -80,13 +80,14 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+[ Add function ][ Share button ] Added Bluesky share button.
 
 = 9.101.0 =
 [ Add function ][ Navigation Menu Custom ] Navigation Block Support
 
 = 9.100.8 =
 [ Bud Fix ][ Taxonomy Widget / Post Type Manager ] Fix Translate Text Domain.
-[ Bug Fix ][ CSS Customize ] Fix PHP warning on the settings screen of Contact Form 7. 
+[ Bug Fix ][ CSS Customize ] Fix PHP warning on the settings screen of Contact Form 7.
 
 = 9.100.7 =
 [ Bug fix ][ Categories/Custom taxonomies list widget ] Display order translation
@@ -107,7 +108,7 @@ e.g.
 [ Other ] Addressing PHP notices related to translations in WordPress 6.7
 
 = 9.100.1 =
-[ Bug Fix ][ Promotion Alert ] Fixed filtering in Promotion Alert by adding data-nosnippet attribute to the div tag. 
+[ Bug Fix ][ Promotion Alert ] Fixed filtering in Promotion Alert by adding data-nosnippet attribute to the div tag.
 
 = 9.100.0 =
 [ Add setting ][ Category list ] Enable to specify ascending/descending order

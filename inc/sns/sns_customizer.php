@@ -519,6 +519,27 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+	// SNS Btn (Bluesky)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useBluesky]',
+		array(
+			'default'           => $default_options['useBluesky'],
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'useBluesky',
+		array(
+			'label'    => __( 'Bluesky', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useBluesky]',
+			'type'     => 'checkbox',
+		)
+	);
+
 	// SNS Btn (Hatena)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useHatena]',
