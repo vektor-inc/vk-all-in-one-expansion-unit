@@ -80,6 +80,8 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.102.0 =
 [ Add function ][ Share button ] Added Bluesky share button.
 
 = 9.101.0 =
