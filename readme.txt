@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification change ] Fixed the zoom-out toggle not always displaying in the editor toolbar (updated blocks.json API version from 2 to 3).
+
 = 9.102.0 =
 [ Add function ][ Share button ] Added Bluesky share button.
 

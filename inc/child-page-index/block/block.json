@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "vk-blocks/child-page-index",
 	"title": "Child Page Index",
 	"category": "veu-block",

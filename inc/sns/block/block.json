@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "vk-blocks/share-button",
 	"title": "Share button",
 	"category": "veu-block",
