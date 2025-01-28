@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Design Bug Fix ][ Share button ]Resolved an issue where `gap` in the `.veu_socialSet` component was not applying proper spacing between elements.
 [ Specification change ] Fixed the zoom-out toggle not always displaying in the editor toolbar (updated blocks.json API version from 2 to 3).
 
 = 9.102.0 =
