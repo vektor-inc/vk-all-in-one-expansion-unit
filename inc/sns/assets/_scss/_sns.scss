@@ -12,9 +12,9 @@
     ul {
         display: flex;
 		flex-wrap: wrap;
-		gap:5;
+		gap: 6px;
 		padding: 0;
-		margin: 0;
+		margin: 0 0 3px 0;
 		list-style: none;
     }
     li {
@@ -24,6 +24,7 @@
         display: block;
         overflow: visible;
         box-sizing: border-box;
+        margin: 0;
     }
     .sb_icon {
         .sb_icon_inner {
@@ -40,7 +41,7 @@
             text-align: left;
             border:none;
             &:hover {
-                box-shadow: none;
+                box-shadow: none !important;
                 transform: translateY(2px);
                 cursor: pointer;
                 transition: all 0.3s ease-in-out;
@@ -128,10 +129,9 @@
 .veu_socialSet と .veu_contentAddSection ２つつけているのは一つだと .content ul などの継承に負けるため
 */
 .veu_socialSet.veu_contentAddSection ul {
-    margin: 0px;
     padding: 0;
     li {
-        margin: 3px;
-        padding: 0px;
+        padding: 0;
+        margin: 0;
     } //li
 }
