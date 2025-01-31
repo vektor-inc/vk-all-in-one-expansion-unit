@@ -273,5 +273,51 @@ function veu_cta_block_callback( $attributes, $content ) {
 		}
 	}
 
-	return wp_kses_post( $content );
+	return veu_cta_block_safe_kses_post( $content );
+}
+
+// ksesから特定のiframeを除外
+function veu_allow_custom_iframes( $tags, $context ) {
+	if ( 'post' === $context ) { // 'post' は wp_kses_post() に適用されるコンテキスト
+		$tags['iframe'] = array(
+			'src'             => true,
+			'width'           => true,
+			'height'          => true,
+			'style'           => true,
+			'allowfullscreen' => true,
+			'loading'         => true,
+			'sandbox'         => true,
+		);
+	}
+	return $tags;
+}
+
+function veu_cta_block_safe_kses_post( $content ) {
+	// 許可する iframe の URL パターン（正規表現）
+	$allowed_iframe_patterns = array(
+		'/https:\/\/(www\.)?google\.com\//i',   // Google Maps
+		'/https:\/\/(www\.)?youtube\.com\//i', // YouTube
+		'/https:\/\/www\.openstreetmap\.org\//i', // OpenStreetMap
+		'/https:\/\/player\.vimeo\.com\//i', // Vimeo
+	);
+
+	// 許可リストに該当する iframe が含まれているかチェック
+	$should_allow_iframe = false;
+	foreach ( $allowed_iframe_patterns as $pattern ) {
+		if ( preg_match( $pattern, $content ) ) {
+			$should_allow_iframe = true;
+			break;
+		}
+	}
+
+	// 許可対象の iframe がある場合のみフィルターを適用
+	if ( $should_allow_iframe ) {
+		add_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
+		$content = wp_kses_post( $content );
+		remove_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
+	} else {
+		$content = wp_kses_post( $content );
+	}
+
+	return $content;
 }
