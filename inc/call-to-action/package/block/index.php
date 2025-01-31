@@ -278,7 +278,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 
 // ksesから特定のiframeを除外
 function veu_allow_custom_iframes( $tags, $context ) {
-	if ( 'post' === $context ) { // 'post' は wp_kses_post() に適用されるコンテキスト
+	if ( $context ) {
 		$tags['iframe'] = array(
 			'src'             => true,
 			'width'           => true,
