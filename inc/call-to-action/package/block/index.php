@@ -293,7 +293,6 @@ function veu_allow_custom_iframes( $tags, $context ) {
 }
 
 function veu_cta_block_safe_kses_post( $content ) {
-	// 許可する iframe の URL パターン（正規表現）
 	$allowed_iframe_patterns = array(
 		'/https:\/\/(www\.)?google\.com\//i',   // Google Maps
 		'/https:\/\/(www\.)?youtube\.com\//i', // YouTube
@@ -301,22 +300,25 @@ function veu_cta_block_safe_kses_post( $content ) {
 		'/https:\/\/player\.vimeo\.com\//i', // Vimeo
 	);
 
-	// 許可リストに該当する iframe が含まれているかチェック
-	$should_allow_iframe = false;
-	foreach ( $allowed_iframe_patterns as $pattern ) {
-		if ( preg_match( $pattern, $content ) ) {
-			$should_allow_iframe = true;
-			break;
+	preg_match_all( '/<iframe.*?src=["\'](.*?)["\'].*?>.*?<\/iframe>/i', $content, $matches );
+
+	$valid_iframes = array();
+
+	foreach ( $matches[1] as $index => $iframe_src ) {
+		foreach ( $allowed_iframe_patterns as $pattern ) {
+			if ( preg_match( $pattern, $iframe_src ) ) {
+				$valid_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 元の `iframe` タグを保存
+				break;
+			}
 		}
 	}
 
-	// 許可対象の iframe がある場合のみフィルターを適用
-	if ( $should_allow_iframe ) {
-		add_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
-		$content = wp_kses_post( $content );
-		remove_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
-	} else {
-		$content = wp_kses_post( $content );
+	add_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
+	$content = wp_kses_post( $content );
+	remove_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
+
+	foreach ( $valid_iframes as $original_iframe ) {
+		$content = str_replace( '[iframe-placeholder]', $original_iframe, $content );
 	}
 
 	return $content;
