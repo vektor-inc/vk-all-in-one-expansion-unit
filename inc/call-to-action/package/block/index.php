@@ -302,12 +302,12 @@ function veu_cta_block_safe_kses_post( $content ) {
 
 	preg_match_all( '/<iframe.*?src=["\'](.*?)["\'].*?>.*?<\/iframe>/i', $content, $matches );
 
-	$valid_iframes = array();
+	$allowed_iframes = array();
 
 	foreach ( $matches[1] as $index => $iframe_src ) {
 		foreach ( $allowed_iframe_patterns as $pattern ) {
 			if ( preg_match( $pattern, $iframe_src ) ) {
-				$valid_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 元の `iframe` タグを保存
+				$allowed_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 元の `iframe` タグを保存
 				break;
 			}
 		}
@@ -317,7 +317,7 @@ function veu_cta_block_safe_kses_post( $content ) {
 	$content = wp_kses_post( $content );
 	remove_filter( 'wp_kses_allowed_html', 'veu_allow_custom_iframes', 10, 2 );
 
-	foreach ( $valid_iframes as $original_iframe ) {
+	foreach ( $allowed_iframes as $original_iframe ) {
 		$content = str_replace( '[iframe-placeholder]', $original_iframe, $content );
 	}
 
