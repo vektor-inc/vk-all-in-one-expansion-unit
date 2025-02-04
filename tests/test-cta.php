@@ -265,4 +265,39 @@ class CTATest extends WP_UnitTestCase {
 			$this->assertEquals( $value['expected'], $actual );
 		}
 	}
+
+	/**
+	 * Test safe_kses_post()
+	 *
+	 * @return void
+	 */
+	function test_safe_kses_post() {
+		$test_cases = array(
+			array(
+				'input'    => '<iframe src="https://www.google.com/maps/embed?pb=!1m18"></iframe>',
+				'expected' => '<iframe src="https://www.google.com/maps/embed?pb=!1m18"></iframe>',
+			),
+			array(
+				'input'    => '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>',
+				'expected' => '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>',
+			),
+			array(
+				'input'    => '<iframe src="https://www.openstreetmap.org/export/embed.html"></iframe>',
+				'expected' => '<iframe src="https://www.openstreetmap.org/export/embed.html"></iframe>',
+			),
+			array(
+				'input'    => '<iframe src="https://player.vimeo.com/video/123456789"></iframe>',
+				'expected' => '<iframe src="https://player.vimeo.com/video/123456789"></iframe>',
+			),
+			array(
+				'input'    => '<iframe src="https://www.vektor-inc.co.jp/"></iframe>',
+				'expected' => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = Vk_Call_To_Action::safe_kses_post( $case['input'] );
+			$this->assertEquals( $case['expected'], $actual );
+		}
+	}
 }
