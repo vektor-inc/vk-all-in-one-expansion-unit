@@ -43,7 +43,7 @@ class Widget_CTA extends \WP_Widget {
 			if ( $instance['id'] == 'random' ) {
 				$instance['id'] = Vk_Call_To_Action::cta_id_random();
 			}
-			echo Vk_Call_To_Action::render_cta_content( $instance['id'] );
+			echo Vk_Call_To_Action::safe_kses_post( Vk_Call_To_Action::render_cta_content( $instance['id'] ) );
 			echo $args['after_widget'];
 		}
 		return;
