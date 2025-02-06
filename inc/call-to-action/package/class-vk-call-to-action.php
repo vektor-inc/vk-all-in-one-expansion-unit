@@ -478,10 +478,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.
 			wp_reset_postdata();
 
-			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化されるので使わないように.
-			// 出力時にエスケープしたいが、wp_kses_post だと style属性が無効化される / wp_kses でも allow_html で opacity を許可しても無視・削除される。
-			// 結局本文欄はどのみち HTML ブロックで <script>alert(0)</script> 入れられ標準でXSSは実行可能なので、ここでは処理していない。
-			return do_blocks( do_shortcode( $content ) );
+			return self::safe_kses_post( do_blocks( do_shortcode( $content ) ) );
 		}
 
 		/**
@@ -723,6 +720,63 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 
 			include __DIR__ . '/view-adminsetting.php';
+		}
+
+		public static function safe_kses_post( $content ) {
+			$allowed_iframe_patterns = array(
+				'/https:\/\/(www\.)?google\.com\//i',
+				'/https:\/\/(www\.)?youtube\.com\//i',
+				'/https:\/\/www\.openstreetmap\.org\//i',
+				'/https:\/\/player\.vimeo\.com\//i',
+			);
+
+			// すべての iframe タグを検索
+			preg_match_all( '/<iframe.*?src=["\'](.*?)["\'].*?>.*?<\/iframe>/i', $content, $matches );
+
+			$allowed_iframes    = array();
+			$disallowed_iframes = array();
+
+			foreach ( $matches[1] as $index => $iframe_src ) {
+				$allowed = false;
+				foreach ( $allowed_iframe_patterns as $pattern ) {
+					if ( preg_match( $pattern, $iframe_src ) ) {
+						$allowed_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 許可リストに追加
+						$allowed                                  = true;
+						break;
+					}
+				}
+				if ( ! $allowed ) {
+					$disallowed_iframes[] = $matches[0][ $index ]; // 非許可リストに追加
+				}
+			}
+
+			// すべての iframe を一旦削除
+			$content = str_replace( $disallowed_iframes, '', $content );
+
+			// HTMLのフィルタリング
+			add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
+			$content = wp_kses_post( $content );
+			remove_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
+
+			return $content;
+		}
+
+		public static function allow_custom_iframes( $tags, $context ) {
+			if ( $context ) {
+				$tags['iframe'] = array(
+					'src'             => true,
+					'width'           => true,
+					'height'          => true,
+					'style'           => true,
+					'allowfullscreen' => true,
+					'loading'         => true,
+					'sandbox'         => true,
+				);
+				$tags['style']  = array(
+					'type' => true,
+				);
+			}
+			return $tags;
 		}
 	}
 

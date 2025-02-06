@@ -274,5 +274,5 @@ function veu_cta_block_callback( $attributes, $content ) {
 		}
 	}
 
-	return wp_kses_post( $content );
+	return Vk_Call_To_Action::safe_kses_post( $content );
 }
