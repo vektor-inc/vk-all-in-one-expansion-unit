@@ -308,15 +308,15 @@ class CTATest extends WP_UnitTestCase {
 				'input'    => '<div>CTA</div><style>.target-class { background-image: url(http://localhost:8888/image.jpg);}</style>',
 				'expected' => '<div>CTA</div><style>.target-class { background-image: url(http://localhost:8888/image.jpg);}</style>',
 			),
-			// array(
-			// 'name'     => 'allow style tag',
-			// 'input'    => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
-			// background-image: url(http://localhost:8888/image.jpg);
-			// background-position: 50% 50%!important;}}</style>',
-			// 'expected' => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
-			// background-image: url(http://localhost:8888/image.jpg);
-			// background-position: 50% 50%!important;}}</style>',
-			// ),
+			array(
+				'name'     => 'allow style tag with media query',
+				'input'    => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
+			background-image: url(http://localhost:8888/image.jpg);
+			background-position: 50% 50%!important;}}</style>',
+				'expected' => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
+			background-image: url(http://localhost:8888/image.jpg);
+			background-position: 50% 50%!important;}}</style>',
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
