@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 9.102.0.1
+Stable tag: 9.103.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,9 +81,10 @@ e.g.
 
 == Changelog ==
 
-[ Bug fix ][ CTA ] Fixed iframes escaping only whitelisted URLs
-[ Design Bug Fix ][ Share button ]Resolved an issue where `gap` in the `.veu_socialSet` component was not applying proper spacing between elements.
+= 9.103.0 =
 [ Specification change ] Fixed the zoom-out toggle not always displaying in the editor toolbar (updated blocks.json API version from 2 to 3).
+[ Design Bug Fix ][ Share button ]Resolved an issue where `gap` in the `.veu_socialSet` component was not applying proper spacing between elements.
+[ Bug fix ][ CTA ] Fixed iframes escaping only whitelisted URLs
 
 = 9.102.0 =
 [ Add function ][ Share button ] Added Bluesky share button.
