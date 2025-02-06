@@ -274,30 +274,54 @@ class CTATest extends WP_UnitTestCase {
 	function test_safe_kses_post() {
 		$test_cases = array(
 			array(
+				'name'     => 'allow google',
 				'input'    => '<iframe src="https://www.google.com/maps/embed?pb=!1m18"></iframe>',
 				'expected' => '<iframe src="https://www.google.com/maps/embed?pb=!1m18"></iframe>',
 			),
 			array(
+				'name'     => 'allow iframe youtube',
 				'input'    => '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>',
 				'expected' => '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>',
 			),
 			array(
+				'name'     => 'allow iframe openstreetmap',
 				'input'    => '<iframe src="https://www.openstreetmap.org/export/embed.html"></iframe>',
 				'expected' => '<iframe src="https://www.openstreetmap.org/export/embed.html"></iframe>',
 			),
 			array(
+				'name'     => 'allow iframe vimeo',
 				'input'    => '<iframe src="https://player.vimeo.com/video/123456789"></iframe>',
 				'expected' => '<iframe src="https://player.vimeo.com/video/123456789"></iframe>',
 			),
 			array(
+				'name'     => 'escape iframe',
 				'input'    => '<iframe src="https://www.vektor-inc.co.jp/"></iframe>',
 				'expected' => '',
 			),
+			array(
+				'name'     => 'class and style',
+				'input'    => '<div class="class-name" style="margin-bottom:3rem">CTA</div>',
+				'expected' => '<div class="class-name" style="margin-bottom:3rem">CTA</div>',
+			),
+			array(
+				'name'     => 'allow style tag',
+				'input'    => '<div>CTA</div><style>.target-class { background-image: url(http://localhost:8888/image.jpg);}</style>',
+				'expected' => '<div>CTA</div><style>.target-class { background-image: url(http://localhost:8888/image.jpg);}</style>',
+			),
+			// array(
+			// 'name'     => 'allow style tag',
+			// 'input'    => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
+			// background-image: url(http://localhost:8888/image.jpg);
+			// background-position: 50% 50%!important;}}</style>',
+			// 'expected' => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
+			// background-image: url(http://localhost:8888/image.jpg);
+			// background-position: 50% 50%!important;}}</style>',
+			// ),
 		);
 
 		foreach ( $test_cases as $case ) {
 			$actual = Vk_Call_To_Action::safe_kses_post( $case['input'] );
-			$this->assertEquals( $case['expected'], $actual );
+			$this->assertEquals( $case['expected'], $actual, $case['name'] );
 		}
 	}
 }
