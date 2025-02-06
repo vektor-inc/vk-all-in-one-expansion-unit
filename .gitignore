@@ -14,4 +14,4 @@ vendor/
 /playwright-report/
 /playwright/.cache/
 .phpunit.result.cache
-*/block/build/
+**/block/build/
