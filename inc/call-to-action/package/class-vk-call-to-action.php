@@ -478,9 +478,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.
 			wp_reset_postdata();
 
-			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化されるので使わないように.
-			// 出力時にエスケープしたいが、wp_kses_post だと style属性が無効化される / wp_kses でも allow_html で opacity を許可しても無視・削除される。
-			// 結局本文欄はどのみち HTML ブロックで <script>alert(0)</script> 入れられ標準でXSSは実行可能なので、ここでは処理していない。
 			return self::safe_kses_post( do_blocks( do_shortcode( $content ) ) );
 		}
 
@@ -774,6 +771,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'allowfullscreen' => true,
 					'loading'         => true,
 					'sandbox'         => true,
+				);
+				$tags['style']  = array(
+					'type' => true,
 				);
 			}
 			return $tags;
