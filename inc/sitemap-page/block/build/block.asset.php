@@ -1,4 +1,4 @@
 <?php return array(
 	'dependencies' => array( 'react', 'wp-block-editor', 'wp-blocks', 'wp-server-side-render' ),
-	'version'      => '521d6140e19cd38630bd',
+	'version'      => '5d90d1fec584ea4e6d03',
 );
