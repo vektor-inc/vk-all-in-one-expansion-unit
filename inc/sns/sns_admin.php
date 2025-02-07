@@ -2,6 +2,12 @@
 <?php
 	$options = veu_get_sns_options();
 
+if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+	$options['snsBtn_bg_fill_not'] = isset( $_POST['vkExUnit_sns_options']['snsBtn_bg_fill_not'] ) ? true : false;
+	$options['snsBtn_color']       = sanitize_hex_color( $_POST['vkExUnit_sns_options']['snsBtn_color'] );
+	update_option( 'vkExUnit_sns_options', $options );
+}
+
 /*
 	SNS
 /*-------------------------------------------*/
@@ -9,6 +15,7 @@
 <div id="snsSetting" class="sectionBox">
 
 <!-- OGP hidden -->
+<form method="post" action="">
 <table class="form-table">
 <tr>
 <th><?php _e( 'Post title custom for SNS', 'vk-all-in-one-expansion-unit' ); ?></th>
@@ -80,6 +87,15 @@
 <th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Automatic insertion', 'vk-all-in-one-expansion-unit' ); ?></label>
 <p><?php _e( 'Automatically insert social bookmarks (share buttons and tweet buttons) into the body content field or specified action hooks.', 'vk-all-in-one-expansion-unit' ); ?></p>
+<dl>
+<dt><?php _e( 'Social button style setting', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd>
+	<label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_bg_fill_not]" value="true" <?php echo ( $options['snsBtn_bg_fill_not'] ) ? 'checked' : ''; ?> /><?php _e( 'No background', 'vk-all-in-one-expansion-unit' ); ?></label><br>
+	<label><?php _e( 'Btn color', 'vk-all-in-one-expansion-unit' ); ?></label><br>
+	<input type="color" id="snsBtn_color_picker" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
+	<input type="text" name="vkExUnit_sns_options[snsBtn_color]" id="snsBtn_color" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
+</dd>
+</dl>
 <dl>
 <dt><?php _e( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
@@ -236,4 +252,14 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 </table>
 
 <?php submit_button(); ?>
+</form>
 </div>
+
+<script>
+document.getElementById('snsBtn_color_picker').addEventListener('input', function() {
+	document.getElementById('snsBtn_color').value = this.value;
+});
+document.getElementById('snsBtn_color').addEventListener('input', function() {
+	document.getElementById('snsBtn_color_picker').value = this.value;
+});
+</script>
