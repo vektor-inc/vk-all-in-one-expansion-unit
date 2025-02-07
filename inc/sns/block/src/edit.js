@@ -22,10 +22,12 @@ export default function ShareButtonEdit( props ) {
 					initialOpen={ true }
 				>
 					<BaseControl>
-						<p>{__(
-							'You can configure the icon style from the admin panel under ExUnit > Main Settings > SNS Setting.',
-							'vk-all-in-one-expansion-unit'
-						) }</p>
+						<p>
+							{ __(
+								'You can configure the icon style from the admin panel under ExUnit > Main Settings > SNS Setting.',
+								'vk-all-in-one-expansion-unit'
+							) }
+						</p>
 					</BaseControl>
 				</PanelBody>
 			</InspectorControls>
