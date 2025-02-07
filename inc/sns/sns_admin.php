@@ -94,6 +94,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	<label><?php _e( 'Btn color', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<input type="color" id="snsBtn_color_picker" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
 	<input type="text" name="vkExUnit_sns_options[snsBtn_color]" id="snsBtn_color" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
+	<button type="button" id="select_color_btn"><?php _e( 'Select Color', 'vk-all-in-one-expansion-unit' ); ?></button>
 </dd>
 </dl>
 <dl>
@@ -261,5 +262,8 @@ document.getElementById('snsBtn_color_picker').addEventListener('input', functio
 });
 document.getElementById('snsBtn_color').addEventListener('input', function() {
 	document.getElementById('snsBtn_color_picker').value = this.value;
+});
+document.getElementById('select_color_btn').addEventListener('click', function() {
+	document.getElementById('snsBtn_color_picker').click();
 });
 </script>
