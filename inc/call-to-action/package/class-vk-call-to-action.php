@@ -773,6 +773,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'sandbox'         => true,
 				);
 				$tags['style']  = array(
+				$tags['mark']['style'] = true;
+				$tags['style']         = array(
 					'type' => true,
 				);
 			}

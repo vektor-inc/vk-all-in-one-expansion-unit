@@ -317,6 +317,11 @@ class CTATest extends WP_UnitTestCase {
 			background-image: url(http://localhost:8888/image.jpg);
 			background-position: 50% 50%!important;}}</style>',
 			),
+			array(
+				'name'     => 'allow style tag with various style properties',
+				'input'    => '<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30);background-image:url(\'http://localhost:8888/wp-content/uploads/2021/06/pr-img.png\');background-size:cover"><p class="has-text-align-center">text</p></div>',
+				'expected' => '<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30);background-image:url(\'http://localhost:8888/wp-content/uploads/2021/06/pr-img.png\');background-size:cover"><p class="has-text-align-center">text</p></div>',
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
