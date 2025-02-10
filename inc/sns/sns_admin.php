@@ -9,7 +9,6 @@
 <div id="snsSetting" class="sectionBox">
 
 <!-- OGP hidden -->
-
 <table class="form-table">
 <tr>
 <th><?php _e( 'Post title custom for SNS', 'vk-all-in-one-expansion-unit' ); ?></th>
