@@ -2,12 +2,6 @@
 <?php
 	$options = veu_get_sns_options();
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-	$options['snsBtn_bg_fill_not'] = isset( $_POST['vkExUnit_sns_options']['snsBtn_bg_fill_not'] ) ? true : false;
-	$options['snsBtn_color']       = sanitize_hex_color( $_POST['vkExUnit_sns_options']['snsBtn_color'] );
-	update_option( 'vkExUnit_sns_options', $options );
-}
-
 /*
 	SNS
 /*-------------------------------------------*/
@@ -15,7 +9,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 <div id="snsSetting" class="sectionBox">
 
 <!-- OGP hidden -->
-<form method="post" action="">
+
 <table class="form-table">
 <tr>
 <th><?php _e( 'Post title custom for SNS', 'vk-all-in-one-expansion-unit' ); ?></th>
@@ -252,7 +246,7 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 </table>
 
 <?php submit_button(); ?>
-</form>
+
 </div>
 
 <script>
