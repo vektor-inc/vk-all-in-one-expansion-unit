@@ -322,6 +322,11 @@ class CTATest extends WP_UnitTestCase {
 				'input'    => '<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30);background-image:url(\'http://localhost:8888/wp-content/uploads/2021/06/pr-img.png\');background-size:cover"><p class="has-text-align-center">text</p></div>',
 				'expected' => '<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30);background-image:url(\'http://localhost:8888/wp-content/uploads/2021/06/pr-img.png\');background-size:cover"><p class="has-text-align-center">text</p></div>',
 			),
+			array(
+				'name'     => 'mark style',
+				'input'    => '<h2 class="wp-block-heading is-style-default has-x-large-font-size">Banner <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-luminous-vivid-amber-color">T</mark>itle</h2>',
+				'expected' => '<h2 class="wp-block-heading is-style-default has-x-large-font-size">Banner <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-luminous-vivid-amber-color">T</mark>itle</h2>',
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
