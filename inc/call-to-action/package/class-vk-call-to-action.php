@@ -758,10 +758,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				}
 			}
 
-			// HTMLのフィルタリングを適用（`iframe` に関係なく実行）
-			add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
-			remove_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
-
 			return $content;
 		}
 
