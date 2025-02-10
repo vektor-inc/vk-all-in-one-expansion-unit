@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.103.1 =
 [ Bug fix ][ CTA ] Fixed some CSS being escaped.
 
 = 9.103.0 =
