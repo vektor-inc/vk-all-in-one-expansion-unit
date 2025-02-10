@@ -733,31 +733,33 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// すべての iframe タグを検索
 			preg_match_all( '/<iframe.*?src=["\'](.*?)["\'].*?>.*?<\/iframe>/i', $content, $matches );
 
-			$allowed_iframes    = array();
-			$disallowed_iframes = array();
+			// iframe が含まれている場合のみ処理する
+			if ( ! empty( $matches[1] ) ) {
+				$allowed_iframes    = array();
+				$disallowed_iframes = array();
 
-			foreach ( $matches[1] as $index => $iframe_src ) {
-				$allowed = false;
-				foreach ( $allowed_iframe_patterns as $pattern ) {
-					if ( preg_match( $pattern, $iframe_src ) ) {
-						$allowed_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 許可リストに追加
-						$allowed                                  = true;
-						break;
+				foreach ( $matches[1] as $index => $iframe_src ) {
+					$allowed = false;
+					foreach ( $allowed_iframe_patterns as $pattern ) {
+						if ( preg_match( $pattern, $iframe_src ) ) {
+							$allowed_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 許可リストに追加
+							$allowed                                  = true;
+							break;
+						}
+					}
+					if ( ! $allowed ) {
+						$disallowed_iframes[] = $matches[0][ $index ]; // 非許可リストに追加
 					}
 				}
-				if ( ! $allowed ) {
-					$disallowed_iframes[] = $matches[0][ $index ]; // 非許可リストに追加
+
+				// 許可されていない iframe を削除
+				if ( ! empty( $disallowed_iframes ) ) {
+					$content = str_replace( $disallowed_iframes, '', $content );
 				}
 			}
 
-			// すべての iframe を一旦削除
-			$content = str_replace( $disallowed_iframes, '', $content );
-
-			// HTMLのフィルタリング
-			add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
-			$content = wp_kses_post( $content );
-			remove_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
-
+			// 文字のハイライトによる mark タグへの style 属性やグループブロックの背景画像指定の style 属性が削除されるため wp_kses は通していない
+			// https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/1172
 			return $content;
 		}
 
