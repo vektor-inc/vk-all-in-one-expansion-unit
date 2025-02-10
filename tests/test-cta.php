@@ -300,8 +300,8 @@ class CTATest extends WP_UnitTestCase {
 			),
 			array(
 				'name'     => 'class and style',
-				'input'    => '<div class="class-name" style="margin-bottom:3rem">CTA</div>',
-				'expected' => '<div class="class-name" style="margin-bottom:3rem">CTA</div>',
+				'input'    => '<div class="class-name" style="margin-bottom:3rem; background-image: url(http://localhost:8888/image.jpg);">CTA</div>',
+				'expected' => '<div class="class-name" style="margin-bottom:3rem; background-image: url(http://localhost:8888/image.jpg);">CTA</div>',
 			),
 			array(
 				'name'     => 'allow style tag',
@@ -316,6 +316,11 @@ class CTATest extends WP_UnitTestCase {
 				'expected' => '<div>CTA</div><style>@media screen and (max-width: 575.98px) {.target-class {
 			background-image: url(http://localhost:8888/image.jpg);
 			background-position: 50% 50%!important;}}</style>',
+			),
+			array(
+				'name'     => 'allow mark tag with class and style',
+				'input'    => '<mark class="has-inline-color" style="background-color: yellow;">Highlight</mark>',
+				'expected' => '<mark class="has-inline-color" style="background-color: yellow;">Highlight</mark>',
 			),
 		);
 
