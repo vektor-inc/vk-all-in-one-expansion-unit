@@ -92,8 +92,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 <dd>
 	<label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_bg_fill_not]" value="true" <?php echo ( $options['snsBtn_bg_fill_not'] ) ? 'checked' : ''; ?> /><?php _e( 'No background', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 	<label><?php _e( 'Btn color', 'vk-all-in-one-expansion-unit' ); ?></label><br>
-	<input type="color" id="snsBtn_color_picker" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
-	<input type="text" name="vkExUnit_sns_options[snsBtn_color]" id="snsBtn_color" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
+	<input type="color" id="snsBtn_color_picker" value="<?php echo esc_attr( $options['snsBtn_color'] ? $options['snsBtn_color'] : '#f6f7f7' ); ?>" />	<input type="text" name="vkExUnit_sns_options[snsBtn_color]" id="snsBtn_color" value="<?php echo esc_attr( $options['snsBtn_color'] ); ?>" />
 	<button type="button" id="select_color_btn"><?php _e( 'Select Color', 'vk-all-in-one-expansion-unit' ); ?></button>
 </dd>
 </dl>
