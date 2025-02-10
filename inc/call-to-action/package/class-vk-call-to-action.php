@@ -758,6 +758,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				}
 			}
 
+			// 文字のハイライトによる mark タグへの style 属性やグループブロックの背景画像指定の style 属性が削除されるため wp_kses は通していない
 			return $content;
 		}
 
