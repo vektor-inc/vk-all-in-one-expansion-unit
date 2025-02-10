@@ -763,7 +763,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		public static function allow_custom_iframes( $tags, $context ) {
 			if ( $context ) {
-				$tags['iframe'] = array(
+				$tags['iframe']        = array(
 					'src'             => true,
 					'width'           => true,
 					'height'          => true,
@@ -772,7 +772,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'loading'         => true,
 					'sandbox'         => true,
 				);
-				$tags['style']  = array(
+				$tags['style']         = true;
 				$tags['mark']['style'] = true;
 				$tags['style']         = array(
 					'type' => true,
