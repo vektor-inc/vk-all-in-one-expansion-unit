@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ CTA ] Fixed some CSS being escaped.
+
 = 9.103.0 =
 [ Specification change ] Fixed the zoom-out toggle not always displaying in the editor toolbar (updated blocks.json API version from 2 to 3).
 [ Design Bug Fix ][ Share button ]Resolved an issue where `gap` in the `.veu_socialSet` component was not applying proper spacing between elements.
