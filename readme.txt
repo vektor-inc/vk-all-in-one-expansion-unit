@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ SNS : Share button ] Added a main setting page for Share button style in ExUnit.
 = 9.103.0 =
 [ Specification change ] Fixed the zoom-out toggle not always displaying in the editor toolbar (updated blocks.json API version from 2 to 3).
 [ Design Bug Fix ][ Share button ]Resolved an issue where `gap` in the `.veu_socialSet` component was not applying proper spacing between elements.
