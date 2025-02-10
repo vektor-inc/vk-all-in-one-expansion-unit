@@ -165,39 +165,48 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
-						'escape_type' => '',
+						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_img_position'       => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_button_text'        => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
 					),
 					'vkExUnit_cta_button_icon'        => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon_before' => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon_after'  => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_url'                => array(
-						'escape_type' => '',
+						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_url_blank'          => array(
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_text'               => array(
-						'escape_type' => 'stripslashes',
+						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
 					),
 				);
 
 				// カスタムフィールドの保存.
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
-						if ( isset( $custom_field_name['escape_type'] ) && $custom_field_name['escape_type'] == 'stripslashes' ) {
-							$data = stripslashes( $_POST[ $custom_field_name ] );
+						if ( ! empty( $custom_field_name['escape_type'] ) ) {
+							if ( is_array( $custom_field_name['escape_type'] ) ) {
+								// エスケープ処理が複数ある場合
+								$data = $_POST[ $custom_field_name ];
+								foreach ( $custom_field_name['escape_type'] as $escape ) {
+									$data = call_user_func( $escape, $data );
+								}
+							} else {
+								// エスケープ処理が一つの場合
+								$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
+							}
 						} else {
 							$data = $_POST[ $custom_field_name ];
 						}
@@ -395,84 +404,12 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
 </th>
 <td>
-			<?php
-			$allowed_html = array(
-				'div'  => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-				),
-				'h3'   => array(
-					'id'    => array(),
-					'class' => array(),
-				),
-				'h4'   => array(
-					'id'    => array(),
-					'class' => array(),
-				),
-				'h5'   => array(
-					'id'    => array(),
-					'class' => array(),
-				),
-				'h6'   => array(
-					'id'    => array(),
-					'class' => array(),
-				),
-				'p'    => array(
-					'id'    => array(),
-					'class' => array(),
-				),
-				'ul'   => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-				),
-				'ol'   => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-				),
-				'li'   => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-				),
-				'a'    => array(
-					'id'       => array(),
-					'class'    => array(),
-					'href'     => array(),
-					'target'   => array(),
-					'itemprop' => array(),
-				),
-				'span' => array(
-					'id'        => array(),
-					'class'     => array(),
-					'itemprop'  => array(),
-					'itemscope' => array(),
-					'itemtype'  => array(),
-				),
-				'i'    => array(
-					'id'    => array(),
-					'class' => array(),
-				),
-			);
-			?>
-<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ), $allowed_html ); ?></textarea>
+<textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses_post( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ) ); ?></textarea>
 </td></tr>
 </table>
 <a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
 			<?php
 		}
-
-
 
 		/**
 		 * Get CTA Post
@@ -496,11 +433,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return $target;
 		}
 
-
 		/**
 		 * CTAとして返す内容の処理
 		 *
-		 * @param  [type] $id [description]
+		 * @param  [type] $id CTA Post ID
 		 * @return [type]     [description]
 		 */
 		public static function render_cta_content( $id ) {
@@ -542,8 +478,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.
 			wp_reset_postdata();
 
-			// wp_kses_post でエスケープすると outerブロックが出力するstyle属性を無効化される.
-			return do_blocks( do_shortcode( $content ) );
+			return self::safe_kses_post( do_blocks( do_shortcode( $content ) ) );
 		}
 
 		/**
@@ -713,7 +648,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// ↓ これであかんの？
 			// $output_option = wp_parse_args( $option, $default );
 			if ( ! $option || ! is_array( $option ) ) {
-				return $default; }
+				return $default;
+			}
 
 			$posttypes = array_merge(
 				array(
@@ -797,30 +733,35 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// すべての iframe タグを検索
 			preg_match_all( '/<iframe.*?src=["\'](.*?)["\'].*?>.*?<\/iframe>/i', $content, $matches );
 
-			$allowed_iframes    = array();
-			$disallowed_iframes = array();
+			// iframe が含まれている場合のみ処理する
+			if ( ! empty( $matches[1] ) ) {
+				$allowed_iframes    = array();
+				$disallowed_iframes = array();
 
-			foreach ( $matches[1] as $index => $iframe_src ) {
-				$allowed = false;
-				foreach ( $allowed_iframe_patterns as $pattern ) {
-					if ( preg_match( $pattern, $iframe_src ) ) {
-						$allowed_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 許可リストに追加
-						$allowed                                  = true;
-						break;
+				foreach ( $matches[1] as $index => $iframe_src ) {
+					$allowed = false;
+					foreach ( $allowed_iframe_patterns as $pattern ) {
+						if ( preg_match( $pattern, $iframe_src ) ) {
+							$allowed_iframes[ $matches[0][ $index ] ] = $matches[0][ $index ]; // 許可リストに追加
+							$allowed                                  = true;
+							break;
+						}
+					}
+					if ( ! $allowed ) {
+						$disallowed_iframes[] = $matches[0][ $index ]; // 非許可リストに追加
 					}
 				}
-				if ( ! $allowed ) {
-					$disallowed_iframes[] = $matches[0][ $index ]; // 非許可リストに追加
+
+				// 許可されていない iframe を削除
+				if ( ! empty( $disallowed_iframes ) ) {
+					$content = str_replace( $disallowed_iframes, '', $content );
 				}
 			}
 
-			// すべての iframe を一旦削除
-			$content = str_replace( $disallowed_iframes, '', $content );
-
-			// HTMLのフィルタリング
+			// HTMLのフィルタリングを適用（`iframe` に関係なく実行）
 			add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
-			$content = wp_kses_post( $content );
 			remove_filter( 'wp_kses_allowed_html', array( __CLASS__, 'allow_custom_iframes' ), 10, 2 );
+
 			return $content;
 		}
 
@@ -835,8 +776,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'loading'         => true,
 					'sandbox'         => true,
 				);
-
-				$tags['style'] = array(
+				$tags['style']  = array(
 					'type' => true,
 				);
 			}
