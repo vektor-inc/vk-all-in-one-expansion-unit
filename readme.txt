@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ SNS : Share button ] Added a main setting page for Share button style in ExUnit.
+
 = 9.103.1 =
 [ Bug fix ][ CTA ] Fixed some CSS being escaped.
 
