@@ -256,7 +256,7 @@ if ( ! empty( $options['snsBtn_position']['after'] ) ) {
 		document.getElementById('snsBtn_color_picker').click();
 	});
 	document.getElementById('clear_color_btn').addEventListener('click', function() {
-		document.getElementById('snsBtn_color_picker').value = '#f6f7f7'; // カラーピッカーはデフォルト色を表示
-		document.getElementById('snsBtn_color').value = ''; // テキストボックスの値は空（保存時に '' になる）
+		document.getElementById('snsBtn_color_picker').value = '#f6f7f7';
+		document.getElementById('snsBtn_color').value = '';
 	});
 </script>
