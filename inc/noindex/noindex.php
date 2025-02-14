@@ -305,7 +305,7 @@ function veu_display_nest_checkbox( $array, $raw_array, $options ) {
  * If the site is set to not be indexed by search engines, display an alert on the dashboard.
  */
 function veu_noindex_admin_notice() {
-	if ( get_option( 'blog_public' ) == '0' ) {
+	if ( get_option( 'blog_public' ) == '0' && get_current_screen()->base === 'dashboard' ) {
 		$reading_settings_url = admin_url( 'options-reading.php' );
 		echo '<div class="notice notice-warning is-dismissible">';
 		echo '<p>';
@@ -317,4 +317,5 @@ function veu_noindex_admin_notice() {
 		echo '</p>';
 		echo '</div>';
 	}
-}add_action( 'admin_notices', 'veu_noindex_admin_notice' );
+}
+add_action( 'admin_notices', 'veu_noindex_admin_notice' );
