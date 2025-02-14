@@ -300,7 +300,10 @@ function veu_display_nest_checkbox( $array, $raw_array, $options ) {
 	}
 }
 
-add_action( 'admin_notices', 'veu_noindex_admin_notice' );
+/**
+ * 検索にインデックスしない設定の場合にダッシュボードにアラートを表示
+ * If the site is set to not be indexed by search engines, display an alert on the dashboard.
+ */
 function veu_noindex_admin_notice() {
 	if ( get_option( 'blog_public' ) == '0' ) {
 		$reading_settings_url = admin_url( 'options-reading.php' );
@@ -314,4 +317,4 @@ function veu_noindex_admin_notice() {
 		echo '</p>';
 		echo '</div>';
 	}
-}
+}add_action( 'admin_notices', 'veu_noindex_admin_notice' );
