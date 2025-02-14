@@ -299,3 +299,31 @@ function veu_display_nest_checkbox( $array, $raw_array, $options ) {
 		echo '</ul>';
 	}
 }
+
+/**
+ * 検索にインデックスしない設定の場合にダッシュボードにアラートを表示
+ * If the site is set to not be indexed by search engines, display an alert on the dashboard.
+ */
+function veu_noindex_admin_notice() {
+	if ( get_option( 'blog_public' ) == '0' && get_current_screen()->base === 'dashboard' ) {
+		$reading_settings_url = admin_url( 'options-reading.php' );
+		echo '<div class="notice notice-warning is-dismissible">';
+		echo '<p>';
+		echo __( 'This site is set to not be indexed by search engines.', 'vk-all-in-one-expansion-unit' ) . '<br>';
+		printf(
+			__( 'To disable this setting, go to <a href="%s">Settings > Reading</a> and uncheck "Discourage search engines from indexing this site".', 'vk-all-in-one-expansion-unit' ),
+			esc_url( $reading_settings_url )
+		);
+		echo '</p>';
+		echo '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'vk-all-in-one-expansion-unit' ) . '</span></button>';
+		echo '</div>';
+		echo '<script type="text/javascript">
+			(function($){
+				$(document).on("click", ".notice-dismiss", function(){
+					$(this).closest(".notice").fadeOut();
+				});
+			})(jQuery);
+		</script>';
+	}
+}
+add_action( 'admin_notices', 'veu_noindex_admin_notice' );
