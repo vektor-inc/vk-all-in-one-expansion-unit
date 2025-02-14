@@ -299,3 +299,19 @@ function veu_display_nest_checkbox( $array, $raw_array, $options ) {
 		echo '</ul>';
 	}
 }
+
+add_action( 'admin_notices', 'veu_noindex_admin_notice' );
+function veu_noindex_admin_notice() {
+	if ( get_option( 'blog_public' ) == '0' ) {
+		$reading_settings_url = admin_url( 'options-reading.php' );
+		echo '<div class="notice notice-warning is-dismissible">';
+		echo '<p>';
+		echo __( 'This site is set to not be indexed by search engines.', 'vk-all-in-one-expansion-unit' ) . '<br>';
+		printf(
+			__( 'To disable this setting, go to <a href="%s">Settings > Reading</a> and uncheck "Discourage search engines from indexing this site".', 'vk-all-in-one-expansion-unit' ),
+			esc_url( $reading_settings_url )
+		);
+		echo '</p>';
+		echo '</div>';
+	}
+}
