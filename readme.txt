@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Add function ][ SNS : Share button ] Added a main setting page for Share button style in ExUnit.
+[ Add function ][ No index ] Add a feature to display an alert on the dashboard if "Discourage search engines from indexing this site" is enabled in Settings > Reading.
 
 = 9.103.1 =
 [ Bug fix ][ CTA ] Fixed some CSS being escaped.
