@@ -315,15 +315,7 @@ function veu_noindex_admin_notice() {
 			esc_url( $reading_settings_url )
 		);
 		echo '</p>';
-		echo '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'vk-all-in-one-expansion-unit' ) . '</span></button>';
 		echo '</div>';
-		echo '<script type="text/javascript">
-			(function($){
-				$(document).on("click", ".notice-dismiss", function(){
-					$(this).closest(".notice").fadeOut();
-				});
-			})(jQuery);
-		</script>';
 	}
 }
 add_action( 'admin_notices', 'veu_noindex_admin_notice' );
