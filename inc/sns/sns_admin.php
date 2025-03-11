@@ -97,27 +97,6 @@
 	</p>
 </dd>
 </dl>
-
-<dl>
-<dt><?php _e( 'Exclude Post ID', 'vk-all-in-one-expansion-unit' ); ?></dt>
-<dd>
-<input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="
-<?php
-if ( isset( $options['snsBtn_ignorePosts'] ) ) {
-	echo esc_attr( $options['snsBtn_ignorePosts'] );}
-?>
-" />
-<br/>
-<?php
-_e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vk-all-in-one-expansion-unit' );
-echo '<br/>';
-_e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-unit' );
-echo '<br/>';
-_e( 'example', 'vk-all-in-one-expansion-unit' );
-?>
-	(12,31,553)
-</dd>
-</dl>
 </td>
 </tr>
 

@@ -169,19 +169,12 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		wp_set_object_terms( $data['event_id_03'], 'event_category_name', 'event_cat' );
 		add_post_meta( $data['event_id_03'], 'sns_share_botton_hide', false );
 
-		$ignore_posts = array(
-			$data['post_id_02'],
-			$data['page_id_02'],
-			$data['event_id_02'],
-		);
-
 		$test_array = array(
 			array(
 				'options'    => array(
 					'snsBtn_exclude_post_types' => array(
 						'post' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['post_id_01'] ),
 				'correct'    => false,
@@ -191,7 +184,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'post' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['post_id_02'] ),
 				'correct'    => false,
@@ -201,7 +193,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'post' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['post_id_03'] ),
 				'correct'    => true,
@@ -211,7 +202,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'post' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['post_id_01'] ),
 				'correct'    => false,
@@ -221,17 +211,15 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'post' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['post_id_02'] ),
-				'correct'    => false,
+				'correct'    => true,
 			),
 			array(
 				'options'    => array(
 					'snsBtn_exclude_post_types' => array(
 						'post' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['post_id_03'] ),
 				'correct'    => false,
@@ -241,7 +229,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'page' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['page_id_01'] ),
 				'correct'    => false,
@@ -251,7 +238,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'page' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['page_id_02'] ),
 				'correct'    => false,
@@ -261,7 +247,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'page' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['page_id_03'] ),
 				'correct'    => true,
@@ -271,7 +256,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'page' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['page_id_01'] ),
 				'correct'    => false,
@@ -281,7 +265,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'page' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['page_id_02'] ),
 				'correct'    => false,
@@ -291,7 +274,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'page' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['page_id_03'] ),
 				'correct'    => false,
@@ -301,7 +283,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['event_id_01'] ),
 				'correct'    => false,
@@ -311,7 +292,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['event_id_02'] ),
 				'correct'    => false,
@@ -321,7 +301,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => false,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['event_id_03'] ),
 				'correct'    => true,
@@ -331,7 +310,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['event_id_01'] ),
 				'correct'    => false,
@@ -341,7 +319,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['event_id_02'] ),
 				'correct'    => false,
@@ -351,7 +328,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => get_permalink( $data['event_id_03'] ),
 				'correct'    => false,
@@ -361,7 +337,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					'snsBtn_exclude_post_types' => array(
 						'event' => true,
 					),
-					'snsBtn_ignorePosts'        => json_encode( $ignore_posts ),
 				),
 				'target_url' => home_url( '/' ) . '?p=9999',
 				'correct'    => false,
