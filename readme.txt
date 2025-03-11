@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification change ] Delete SNS button hidden setting from main setting.
+
 = 9.104.0 =
 [ Add function ][ SNS : Share button ] Added a main setting page for Share button style in ExUnit.
 [ Add function ][ No index ] Add a feature to display an alert on the dashboard if "Discourage search engines from indexing this site" is enabled in Settings > Reading.
