@@ -37,7 +37,7 @@ function veu_fix_sns_btns_hide() {
 		update_option( 'vkExUnit_sns_options', $options );
 	}
 }
-add_action( 'plugin_loaded', 'veu_fix_sns_btns_hide' );
+add_action( 'admin_init', 'veu_fix_sns_btns_hide' );
 
 
 /**
