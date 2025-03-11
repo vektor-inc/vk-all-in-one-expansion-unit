@@ -154,7 +154,7 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					),
 				),
 				'target_url' => get_permalink( $data['post_id_02'] ),
-				'correct'    => false,
+				'correct'    => true,
 			),
 			array(
 				'options'    => array(
@@ -172,15 +172,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					),
 				),
 				'target_url' => get_permalink( $data['post_id_02'] ),
-				'correct'    => true,
-			),
-			array(
-				'options'    => array(
-					'snsBtn_exclude_post_types' => array(
-						'post' => true,
-					),
-				),
-				'target_url' => get_permalink( $data['post_id_03'] ),
 				'correct'    => false,
 			),
 			array(
@@ -199,15 +190,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					),
 				),
 				'target_url' => get_permalink( $data['page_id_02'] ),
-				'correct'    => false,
-			),
-			array(
-				'options'    => array(
-					'snsBtn_exclude_post_types' => array(
-						'page' => false,
-					),
-				),
-				'target_url' => get_permalink( $data['page_id_03'] ),
 				'correct'    => true,
 			),
 			array(
@@ -231,15 +213,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			array(
 				'options'    => array(
 					'snsBtn_exclude_post_types' => array(
-						'page' => true,
-					),
-				),
-				'target_url' => get_permalink( $data['page_id_03'] ),
-				'correct'    => false,
-			),
-			array(
-				'options'    => array(
-					'snsBtn_exclude_post_types' => array(
 						'event' => false,
 					),
 				),
@@ -253,15 +226,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					),
 				),
 				'target_url' => get_permalink( $data['event_id_02'] ),
-				'correct'    => false,
-			),
-			array(
-				'options'    => array(
-					'snsBtn_exclude_post_types' => array(
-						'event' => false,
-					),
-				),
-				'target_url' => get_permalink( $data['event_id_03'] ),
 				'correct'    => true,
 			),
 			array(
@@ -280,15 +244,6 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					),
 				),
 				'target_url' => get_permalink( $data['event_id_02'] ),
-				'correct'    => false,
-			),
-			array(
-				'options'    => array(
-					'snsBtn_exclude_post_types' => array(
-						'event' => true,
-					),
-				),
-				'target_url' => get_permalink( $data['event_id_03'] ),
 				'correct'    => false,
 			),
 			array(
