@@ -79,22 +79,13 @@ function veu_print_css() {
  * Print vkExUnit editor css
  */
 function veu_print_editor_css() {
-	add_editor_style( plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_editor_style.css' );
-}
-add_action( 'after_setup_theme', 'veu_print_editor_css' );
+	$css_url  = plugins_url( 'assets/css/vkExUnit_editor_style.css', __FILE__ );
+	$css_path = plugin_dir_path( __FILE__ ) . 'assets/css/vkExUnit_editor_style.css';
+	$version  = file_exists( $css_path ) ? filemtime( $css_path ) : VEU_VERSION;
 
-/**
- * ブロックエディタ用のCSS読み込み（ ↑ だけだと効かない ）
- */
-function veu_print_block_editor_css() {
-	wp_register_style(
-		'veu-block-editor',
-		plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_editor_style.css',
-		array(),
-		filemtime( plugin_dir_path( __FILE__ ) )
-	);
+	wp_enqueue_style( 'vkExUnit_editor_style', $css_url, array(), $version );
 }
-add_action( 'init', 'veu_print_block_editor_css' );
+add_action( 'admin_enqueue_scripts', 'veu_print_editor_css' );
 
 /**
  * Print Js
