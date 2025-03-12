@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.104.1 =
 [ Bug fix ] Fixed editor style not loading in environments using basic authentication.
 
 = 9.104.0 =
