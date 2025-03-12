@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification change ] Delete SNS button hidden setting from main setting.
+[ Bug fix ] Fixed editor style not loading in environments using basic authentication.
 
 = 9.104.0 =
 [ Add function ][ SNS : Share button ] Added a main setting page for Share button style in ExUnit.
