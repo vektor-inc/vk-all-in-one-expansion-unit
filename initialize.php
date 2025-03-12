@@ -76,20 +76,14 @@ function veu_print_css() {
 }
 
 /**
- * Print vkExUnit editor css for both Classic Editor and Block Editor
+ * Print vkExUnit editor css
  */
 function veu_print_editor_css() {
 	$css_url  = plugins_url( 'assets/css/vkExUnit_editor_style.css', __FILE__ );
 	$css_path = plugin_dir_path( __FILE__ ) . 'assets/css/vkExUnit_editor_style.css';
-	$version  = filemtime( $css_path );
+	$version  = file_exists( $css_path ) ? filemtime( $css_path ) : VEU_VERSION;
 
-	if ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( get_the_ID() ) ) {
-		// ブロックエディター用のCSSを適用
-		wp_enqueue_style( 'vkExUnit_editor_style', $css_url, array(), $version );
-	} else {
-		// Classic Editor用のCSSを適用
-		wp_enqueue_style( 'vkExUnit_editor_style', $css_url, array(), $version );
-	}
+	wp_enqueue_style( 'vkExUnit_editor_style', $css_url, array(), $version );
 }
 add_action( 'admin_enqueue_scripts', 'veu_print_editor_css' );
 
