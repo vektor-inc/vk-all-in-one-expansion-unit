@@ -66,7 +66,7 @@ function vwu_register_css() {
 	wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'vwu_register_css', 3 );
-add_action( 'admin_enqueue_scripts', 'vwu_register_css', 3 );
+add_action( 'admin_head', 'vwu_register_css', 3 );
 
 /**
  * Print vkExUnit css
@@ -79,7 +79,12 @@ function veu_print_css() {
  * Print vkExUnit editor css
  */
 function veu_print_editor_css() {
-	add_editor_style( plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_editor_style.css' );
+    add_editor_style(
+        'vkExUnit_editor_style',
+        plugins_url( 'assets/css/vkExUnit_editor_style.css', __FILE__ ),
+        array(),
+		filemtime( plugin_dir_path( __FILE__ ) )
+    );
 }
 add_action( 'after_setup_theme', 'veu_print_editor_css' );
 
