@@ -21,8 +21,9 @@ export default function ShareButtonEdit( props ) {
 	useEffect( () => {
 		if ( editorRoot ) {
 			// サイトマップのリンクをクリックできないようにする
-			const shareButtonLinks =
-				editorRoot.querySelectorAll( '.veu_share_button_block' );
+			const shareButtonLinks = editorRoot.querySelectorAll(
+				'.veu_share_button_block'
+			);
 			shareButtonLinks.forEach( ( link ) => {
 				link.addEventListener( 'click', function ( event ) {
 					event.preventDefault();
