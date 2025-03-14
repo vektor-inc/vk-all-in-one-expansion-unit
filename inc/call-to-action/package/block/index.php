@@ -75,6 +75,19 @@ function veu_register_cta_block() {
 add_action( 'init', 'veu_register_cta_block', 15 );
 
 /**
+ * Gutenberg ブロックにスタイルを適用
+ */
+function vk_call_to_action_enqueue_assets() {
+	wp_enqueue_style(
+		'vk-call-to-action-style',
+		plugins_url('../assets/css/style.css', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . '../assets/css/style.css')
+	);
+}
+add_action('enqueue_block_assets', 'vk_call_to_action_enqueue_assets');
+
+/**
  * 翻訳を設定
  */
 function veu_cta_block_translation() {
