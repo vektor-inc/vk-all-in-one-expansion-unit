@@ -92,21 +92,6 @@ gulp.task('sass', function(done) {
 		.pipe(autoprefixer())
 		.pipe(cleanCss())
 		.pipe(gulp.dest('./inc/call-to-action/package/assets/css/'));
-	gulp.src( 
-			'./inc/call-to-action/package/block/src/*.scss',
-			{
-				base: './inc/call-to-action/package/block/src/'
-			}
-		)
-			.pipe(sass())
-			.pipe(cmq(
-				{
-					log: true
-				}
-			))
-			.pipe(autoprefixer())
-			.pipe(cleanCss())
-			.pipe(gulp.dest('./inc/call-to-action/package/block/build/'));
 	done();
 });
 
