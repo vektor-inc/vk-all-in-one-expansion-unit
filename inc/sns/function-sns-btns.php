@@ -21,6 +21,26 @@ if ( veu_is_sns_btns_auto_insert() ) {
 }
 
 /**
+ * Fix share button hide option
+ */
+function veu_fix_sns_btns_hide() {
+	$options = veu_get_sns_options();
+	if ( ! empty( $options['snsBtn_ignorePosts'] ) ) {
+		$ignore_post_ids = explode( ',', $options['snsBtn_ignorePosts'] );
+		foreach ( $ignore_post_ids as $ignore_post_id ) {
+			$ignore_post_id = trim( $ignore_post_id );
+			if ( ! empty( get_post( $ignore_post_id ) ) ) {
+				update_post_meta( $ignore_post_id, 'sns_share_botton_hide', true );
+			}
+		}
+		unset( $options['snsBtn_ignorePosts'] );
+		update_option( 'vkExUnit_sns_options', $options );
+	}
+}
+add_action( 'admin_init', 'veu_fix_sns_btns_hide' );
+
+
+/**
  * Display share button on hook point
  *
  * @param object $query : main query.
@@ -71,7 +91,6 @@ function veu_is_sns_btns_auto_insert() {
  */
 function veu_is_sns_btns_display() {
 	$options               = veu_get_sns_options();
-	$ignore_posts          = explode( ',', $options['snsBtn_ignorePosts'] );
 	$post_type             = vk_get_post_type();
 	$post_type             = $post_type['slug'];
 	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
@@ -87,11 +106,6 @@ function veu_is_sns_btns_display() {
 
 	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）.
 	if ( ! empty( $options['snsBtn_exclude_post_types'][ $post_type ] ) ) {
-		return false;
-	}
-
-	// 非表示対象の中にこの投稿IDが含まれる場合は表示しない.
-	if ( ! empty( $ignore_posts ) && is_array( $ignore_posts ) && in_array( (string) get_the_ID(), $ignore_posts, true ) ) {
 		return false;
 	}
 

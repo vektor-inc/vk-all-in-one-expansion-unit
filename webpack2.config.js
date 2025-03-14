@@ -1,5 +1,6 @@
 module.exports = [
 	{
+		mode: 'production',
 		entry: {
 			'react-jsx-runtime': {
 				import: 'react/jsx-runtime',

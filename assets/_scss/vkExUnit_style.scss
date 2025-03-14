@@ -156,13 +156,13 @@
 	.followSet_body {
 		display: table-cell;
 		padding: 15px;
-		@media (min-width: 481px) {
-			padding: 40px;
-		}
 		text-align: center;
 		vertical-align: middle;
 		line-height: 1.4;
 		font-size: 20px;
+		@media (min-width: 481px) {
+			padding: 40px;
+		}
 	}
 
 	.followSet_title {
@@ -540,13 +540,13 @@ iframe.twitter-timeline {
 }
 .veu_3prArea_image {
 	margin-bottom: 0.8em;
+	border: 1px solid #e5e5e5;
 	.image_pc {
 		display: block;
 	}
 	.image_sp {
 		display: none;
 	}
-	border: 1px solid #e5e5e5;
 	img {
 		width: 100%;
 	}

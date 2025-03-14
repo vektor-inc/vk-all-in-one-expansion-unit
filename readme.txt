@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification change ][ Blocks ] Disable all links except for edit links.
+[ Specification change ] Delete SNS button hidden setting from main setting.
 
 = 9.104.1 =
 [ Bug fix ] Fixed editor style not loading in environments using basic authentication.

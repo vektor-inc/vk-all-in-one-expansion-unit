@@ -80,7 +80,18 @@
 <th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Automatic insertion', 'vk-all-in-one-expansion-unit' ); ?></label>
 <p><?php _e( 'Automatically insert social bookmarks (share buttons and tweet buttons) into the body content field or specified action hooks.', 'vk-all-in-one-expansion-unit' ); ?></p>
-
+<dl>
+<dt><?php _e( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd>
+<?php
+$args = array(
+	'name'    => 'vkExUnit_sns_options[snsBtn_exclude_post_types]',
+	'checked' => $options['snsBtn_exclude_post_types'],
+);
+vk_the_post_type_check_list( $args );
+?>
+</dd>
+</dl>
 <dl>
 <dt><?php _e( 'Social button style setting', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
@@ -95,27 +106,6 @@
 		<button type="button" id="select_color_btn"><?php _e( 'Select', 'vk-all-in-one-expansion-unit' ); ?></button>
 		<button type="button" id="clear_color_btn"><?php _e( 'Clear', 'vk-all-in-one-expansion-unit' ); ?></button>
 	</p>
-</dd>
-</dl>
-
-<dl>
-<dt><?php _e( 'Exclude Post ID', 'vk-all-in-one-expansion-unit' ); ?></dt>
-<dd>
-<input type="text" id="snsBtn_ignorePosts" name="vkExUnit_sns_options[snsBtn_ignorePosts]" value="
-<?php
-if ( isset( $options['snsBtn_ignorePosts'] ) ) {
-	echo esc_attr( $options['snsBtn_ignorePosts'] );}
-?>
-" />
-<br/>
-<?php
-_e( 'if you need filtering by post_ID, add the ignore post_ID separate by ",".', 'vk-all-in-one-expansion-unit' );
-echo '<br/>';
-_e( 'if empty this area, I will do not filtering.', 'vk-all-in-one-expansion-unit' );
-echo '<br/>';
-_e( 'example', 'vk-all-in-one-expansion-unit' );
-?>
-	(12,31,553)
 </dd>
 </dl>
 </td>
