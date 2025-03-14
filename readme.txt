@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 9.104.0.1
+Stable tag: 9.104.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,8 @@ e.g.
 == Changelog ==
 
 [ Specification change ] Delete SNS button hidden setting from main setting.
+
+= 9.104.1 =
 [ Bug fix ] Fixed editor style not loading in environments using basic authentication.
 
 = 9.104.0 =
