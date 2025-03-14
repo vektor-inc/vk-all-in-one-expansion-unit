@@ -31,6 +31,13 @@ function veu_register_cta_block() {
 		true
 	);
 
+	wp_register_style(
+		'veu-block-editor',
+		plugin_dir_url( __FILE__ ) . '../assets/css/style.css',
+		array( 'wp-edit-blocks' ),
+		VEU_VERSION
+	);
+
 	register_block_type(
 		__DIR__,
 		array(
