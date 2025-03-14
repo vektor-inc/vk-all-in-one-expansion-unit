@@ -80,7 +80,18 @@
 <th><label for="enableSnsBtns"><?php _e( 'Social bookmark buttons', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><label><input type="checkbox" name="vkExUnit_sns_options[enableSnsBtns]" id="enableSnsBtns" value="true" <?php echo ( $options['enableSnsBtns'] ) ? 'checked' : ''; ?> /><?php _e( 'Automatic insertion', 'vk-all-in-one-expansion-unit' ); ?></label>
 <p><?php _e( 'Automatically insert social bookmarks (share buttons and tweet buttons) into the body content field or specified action hooks.', 'vk-all-in-one-expansion-unit' ); ?></p>
-
+<dl>
+<dt><?php _e( 'Exclude Post Types', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd>
+<?php
+$args = array(
+	'name'    => 'vkExUnit_sns_options[snsBtn_exclude_post_types]',
+	'checked' => $options['snsBtn_exclude_post_types'],
+);
+vk_the_post_type_check_list( $args );
+?>
+</dd>
+</dl>
 <dl>
 <dt><?php _e( 'Social button style setting', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
