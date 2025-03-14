@@ -2,6 +2,7 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 module.exports = [
 	{
 		...defaultConfig,
+		mode: 'production',
 		entry: __dirname + '/inc/call-to-action/package/block/src/index.js',
 		output: {
 			path: __dirname + '/inc/call-to-action/package/block/build/',
@@ -29,6 +30,7 @@ module.exports = [
 	},
 	{
 		...defaultConfig,
+		mode: 'production',
 		entry: __dirname + '/inc/child-page-index/block/src/index.js',
 		output: {
 			path: __dirname + '/inc/child-page-index/block/build/',
@@ -56,6 +58,7 @@ module.exports = [
 	},
 	{
 		...defaultConfig,
+		mode: 'production',
 		entry: __dirname + '/inc/contact-section/block/src/index.js',
 		output: {
 			path: __dirname + '/inc/contact-section/block/build/',
@@ -83,6 +86,7 @@ module.exports = [
 	},
 	{
 		...defaultConfig,
+		mode: 'production',
 		entry: __dirname + '/inc/page-list-ancestor/block/src/index.js',
 		output: {
 			path: __dirname + '/inc/page-list-ancestor/block/build/',
@@ -110,6 +114,7 @@ module.exports = [
 	},
 	{
 		...defaultConfig,
+		mode: 'production',
 		entry: __dirname + '/inc/sitemap-page/block/src/index.js',
 		output: {
 			path: __dirname + '/inc/sitemap-page/block/build/',
@@ -137,6 +142,7 @@ module.exports = [
 	},
 	{
 		...defaultConfig,
+		mode: 'production',
 		entry: __dirname + '/inc/sns/block/src/index.js',
 		output: {
 			path: __dirname + '/inc/sns/block/build/',

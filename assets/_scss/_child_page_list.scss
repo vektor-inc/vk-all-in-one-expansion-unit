@@ -1,14 +1,14 @@
 .veu_childPage_list {
 	margin-top: 2.5em;
-	&:first-child{
-		margin-top:0;
-	}
 	display: flex;
 	align-items: stretch;
 	flex-wrap: wrap;
 	-webkit-flex-wrap: wrap; /* Safari */
 	justify-content: space-between;
 	-webkit-justify-content: space-between; /* Safari */
+	&:first-child{
+		margin-top:0;
+	}
 	.childPage_list_box {
 		margin-bottom: 1.5em;
 		width: 100%;
