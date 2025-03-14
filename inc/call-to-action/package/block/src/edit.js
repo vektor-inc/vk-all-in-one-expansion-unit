@@ -21,9 +21,7 @@ export default function CTAEdit( props ) {
 	useEffect( () => {
 		if ( editorRoot ) {
 			// サイトマップのリンクをクリックできないようにする
-			const CTALinks = editorRoot.querySelectorAll(
-				'.veu-cta-block'
-			);
+			const CTALinks = editorRoot.querySelectorAll( '.veu-cta-block' );
 			CTALinks.forEach( ( link ) => {
 				link.addEventListener( 'click', function ( event ) {
 					event.preventDefault();
