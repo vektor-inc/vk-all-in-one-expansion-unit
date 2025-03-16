@@ -19,8 +19,9 @@ export default function SiteMapEdit( props ) {
 	useEffect( () => {
 		if ( editorRoot ) {
 			// サイトマップのリンクをクリックできないようにする
-			const sitemapLinks =
-				editorRoot.querySelectorAll( '.veu_sitemap_block .veu_sitemap' );
+			const sitemapLinks = editorRoot.querySelectorAll(
+				'.veu_sitemap_block .veu_sitemap'
+			);
 			sitemapLinks.forEach( ( link ) => {
 				link.addEventListener( 'click', function ( event ) {
 					event.preventDefault();
