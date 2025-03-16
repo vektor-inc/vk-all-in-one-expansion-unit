@@ -22,7 +22,7 @@ export default function ContactSectionEdit( props ) {
 		if ( editorRoot ) {
 			// サイトマップのリンクをクリックできないようにする
 			const contsctSectionLinks = editorRoot.querySelectorAll(
-				'.veu_contact_section_block'
+				'.veu_contact_section_block .veu_contact'
 			);
 			contsctSectionLinks.forEach( ( link ) => {
 				link.addEventListener( 'click', function ( event ) {

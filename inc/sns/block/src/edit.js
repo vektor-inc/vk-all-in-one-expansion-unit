@@ -22,7 +22,7 @@ export default function ShareButtonEdit( props ) {
 		if ( editorRoot ) {
 			// サイトマップのリンクをクリックできないようにする
 			const shareButtonLinks = editorRoot.querySelectorAll(
-				'.veu_share_button_block'
+				'.veu_share_button_block .veu_socialSet'
 			);
 			shareButtonLinks.forEach( ( link ) => {
 				link.addEventListener( 'click', function ( event ) {
