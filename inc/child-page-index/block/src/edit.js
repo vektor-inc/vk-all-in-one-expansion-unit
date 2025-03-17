@@ -30,7 +30,7 @@ export default withSelect( ( select ) => {
 		if ( editorRoot ) {
 			// サイトマップのリンクをクリックできないようにする
 			const childPageIndexLinks = editorRoot.querySelectorAll(
-				'.veu_child_page_list_block'
+				'.veu_child_page_list_block .veu_childPage_list'
 			);
 			childPageIndexLinks.forEach( ( link ) => {
 				link.addEventListener( 'click', function ( event ) {
