@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.105.0 =
 [ Specification change ] Delete SNS button hidden setting from main setting.
 
 = 9.104.1 =
