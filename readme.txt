@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification change ] Delete SNS button hidden setting from main setting.
+[ Bug fix ][ CTA ] Fixed the missing style application in the editor when creating a CTA using the "Use traditional layout" option.
 
 = 9.104.1 =
 [ Bug fix ] Fixed editor style not loading in environments using basic authentication.
