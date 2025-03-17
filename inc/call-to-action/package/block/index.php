@@ -80,12 +80,12 @@ add_action( 'init', 'veu_register_cta_block', 15 );
 function vk_call_to_action_enqueue_assets() {
 	wp_enqueue_style(
 		'vk-call-to-action-style',
-		plugins_url('../assets/css/style.css', __FILE__),
+		plugin_dir_url( __DIR__ ) . 'assets/css/style.css',
 		array(),
-		filemtime(plugin_dir_path(__FILE__) . '../assets/css/style.css')
+		filemtime( plugin_dir_path( __DIR__ ) . 'assets/css/style.css' )
 	);
 }
-add_action('enqueue_block_assets', 'vk_call_to_action_enqueue_assets');
+add_action( 'enqueue_block_assets', 'vk_call_to_action_enqueue_assets' );
 
 /**
  * 翻訳を設定
