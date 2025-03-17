@@ -78,14 +78,17 @@ add_action( 'init', 'veu_register_cta_block', 15 );
  * Gutenberg ブロックにスタイルを適用
  */
 function veu_cta_block_enqueue_styles() {
-	wp_enqueue_style(
-		'vk-call-to-action-style',
-		plugin_dir_url( __DIR__ ) . 'assets/css/style.css',
-		array(),
-		filemtime( plugin_dir_path( __DIR__ ) . 'assets/css/style.css' )
-	);
+	// 管理画面（エディタ）でのみ適用
+	if ( is_admin() ) {
+		wp_enqueue_style(
+			'vk-call-to-action-style-editor',
+			plugin_dir_url( __DIR__ ) . 'assets/css/style.css',
+			array(),
+			filemtime( plugin_dir_path( __DIR__ ) . 'assets/css/style.css' )
+		);
+	}
 }
-add_action( 'enqueue_block_editor_assets', 'veu_cta_block_enqueue_styles' );
+add_action( 'enqueue_block_assets', 'veu_cta_block_enqueue_styles' );
 
 /**
  * 翻訳を設定
