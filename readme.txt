@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification change ][ Blocks ] Disable all links except for edit links.
+
 = 9.105.0 =
 [ Specification change ] Delete SNS button hidden setting from main setting.
 
