@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug fix ][ CTA ] Fixed a warning that occurred when displaying the CTA on the 404 page.
+
 = 9.105.0 =
 [ Specification change ] Delete SNS button hidden setting from main setting.
 
