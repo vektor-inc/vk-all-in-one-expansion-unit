@@ -8,29 +8,39 @@ export default function ShareButtonEdit( props ) {
 	const { attributes } = props;
 	const { className } = attributes;
 
-	// iframe がある場合それを取得
-	const iframe = document.querySelector( '.block-editor__container iframe' );
-	// iframe の中の document を取得
-	const iframeDoc = iframe?.contentWindow?.document;
-
-	// エディターのルート要素を取得
-	const editorRoot =
-		iframeDoc?.querySelector( '.block-editor-block-list__layout' ) ||
-		document.querySelector( '.block-editor-block-list__layout' );
-
 	useEffect( () => {
-		if ( editorRoot ) {
-			// サイトマップのリンクをクリックできないようにする
+		const iframe = document.querySelector(
+			'.block-editor__container iframe'
+		);
+		const iframeDoc = iframe?.contentWindow?.document;
+		const targetDoc = iframeDoc || document;
+
+		// eslint-disable-next-line no-undef
+		const observer = new MutationObserver( () => {
+			const editorRoot = targetDoc.querySelector(
+				'.block-editor-block-list__layout'
+			);
+			if ( ! editorRoot ) {
+				return;
+			}
+
 			const shareButtonLinks = editorRoot.querySelectorAll(
 				'.veu_share_button_block .veu_socialSet'
 			);
+			if ( shareButtonLinks.length === 0 ) {
+				return;
+			}
+
 			shareButtonLinks.forEach( ( link ) => {
+				if ( link.dataset.prevented ) {
+					return;
+				} // 二重適用防止
+
+				link.dataset.prevented = 'true';
 				link.addEventListener( 'click', function ( event ) {
 					event.preventDefault();
 					link.style.cursor = 'default';
 					link.style.boxShadow = 'unset';
-
-					// ホバー効果を無効化
 					link.style.color = 'inherit';
 					link.style.textDecorationColor = 'inherit';
 					link.style.pointerEvents = 'none';
@@ -39,15 +49,28 @@ export default function ShareButtonEdit( props ) {
 					event.preventDefault();
 					link.style.cursor = 'default';
 					link.style.boxShadow = 'unset';
-
-					// ホバー効果を無効化
 					link.style.color = 'inherit';
 					link.style.textDecorationColor = 'inherit';
 					link.style.pointerEvents = 'none';
 				} );
 			} );
+		} );
+
+		const observeTarget =
+			targetDoc.querySelector( '.block-editor-block-list__layout' ) ||
+			targetDoc.body;
+		if ( observeTarget ) {
+			observer.observe( observeTarget, {
+				childList: true,
+				subtree: true,
+			} );
 		}
-	}, [ editorRoot ] );
+
+		// クリーンアップ
+		return () => {
+			observer.disconnect();
+		};
+	}, [] );
 
 	const blockProps = useBlockProps( {
 		className: `veu_share_button_block ${ className }`,
