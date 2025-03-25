@@ -33,9 +33,11 @@ class Widget_CTA extends \WP_Widget {
 
 		// 各記事で非表示指定されてたら表示しない
 		global $post;
-		$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
-		if ( 'disable' === $post_config ) {
-			return;
+		if ( ! empty( $post->ID ) ) {
+			$post_config = get_post_meta( $post->ID, 'vkexunit_cta_each_option', true );
+			if ( 'disable' === $post_config ) {
+				return;
+			}
 		}
 
 		if ( isset( $instance['id'] ) && $instance['id'] ) {
