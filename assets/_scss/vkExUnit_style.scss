@@ -190,6 +190,9 @@
 	.followSet_tw_follow {
 		width: 100%;
 		padding: 0;
+		iframe {
+			margin-bottom:0;
+		}
 	}
 	.followSet_feedly {
 		text-align: center;
