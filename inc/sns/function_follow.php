@@ -37,6 +37,16 @@ function veu_get_follow_html() {
 	if ( ! empty( $options['followMe_title'] ) ) {
 		$title = $options['followMe_title'];
 	} else {
+		if ( function_exists( 'veu_get_sns_options_default' ) ) {
+			// 基本的にはデフォルト値を取得
+			// Basically, get the default value
+			$options_default = veu_get_sns_options_default();
+			$title           = $options_default['followMe_title'];
+		} else {
+			// デフォルト関数がない場合は、念の為デフォルト値を直接指定（ほぼ使われる事はない）
+			// In case the default function does not exist, specify the default value directly (almost never used)
+			$title = __( '＼ Get the latest news ／', 'vk-all-in-one-expansion-unit' );
+		}
 		$options_default = veu_get_sns_options_default();
 		$title           = $options_default['followMe_title'];
 	}
