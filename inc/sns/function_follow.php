@@ -64,9 +64,10 @@ function veu_get_follow_html() {
 		}
 	}
 
-	$follow_html .= '
+	$options_default = veu_get_sns_options_default();
+	$follow_html    .= '
 	<div class="followSet_body">
-	<p class="followSet_title">' . wp_kses_post( $title ) . '</p>' . "\n";
+	<p class="followSet_title">' . wp_kses_post( $options_default['followMe_title'] ) . '</p>' . "\n";
 	// fb
 	if ( $fbPageUrl ) {
 		$follow_html .= '

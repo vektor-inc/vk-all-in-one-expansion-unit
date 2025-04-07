@@ -78,7 +78,7 @@ function veu_get_sns_options_default() {
 		'snsBtn_bg_fill_not'          => false,
 		'snsBtn_color'                => false,
 		'enableFollowMe'              => true,
-		'followMe_title'              => 'Follow me!',
+		'followMe_title'              => __( '＼ Get the latest news ／', 'vk-all-in-one-expansion-unit' ),
 		'useFacebook'                 => true,
 		'useTwitter'                  => true,
 		'useBluesky'                  => true,
