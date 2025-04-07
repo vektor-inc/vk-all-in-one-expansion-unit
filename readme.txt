@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification change ][ Blocks ] Disable all links except for edit links.
+
 = 9.105.1 =
 [ Bug fix ][ CTA ] Fixed a warning that occurred when displaying the CTA on the 404 page.
 
