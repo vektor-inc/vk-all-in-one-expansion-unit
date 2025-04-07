@@ -34,10 +34,11 @@ function veu_get_follow_html() {
 	if ( ! $options['enableFollowMe'] ) {
 		return $content; }
 
-	if ( isset( $options['followMe_title'] ) && $options['followMe_title'] ) {
+	if ( ! empty( $options['followMe_title'] ) ) {
 		$title = $options['followMe_title'];
 	} else {
-		$title = __( 'Follow me', 'vk-all-in-one-expansion-unit' ) . '!';
+		$options_default = veu_get_sns_options_default();
+		$title           = $options_default['followMe_title'];
 	}
 
 	$fbPageUrl = ( isset( $options['fbPageUrl'] ) ) ? $options['fbPageUrl'] : '';
@@ -64,10 +65,9 @@ function veu_get_follow_html() {
 		}
 	}
 
-	$options_default = veu_get_sns_options_default();
-	$follow_html    .= '
+	$follow_html .= '
 	<div class="followSet_body">
-	<p class="followSet_title">' . wp_kses_post( $options_default['followMe_title'] ) . '</p>' . "\n";
+	<p class="followSet_title">' . wp_kses_post( $title ) . '</p>' . "\n";
 	// fb
 	if ( $fbPageUrl ) {
 		$follow_html .= '
