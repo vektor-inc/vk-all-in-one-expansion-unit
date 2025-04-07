@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Specification change ][ Follow Me Box ] Change default text and design tuning
 [ Specification change ][ Blocks ] Disable all links except for edit links.
 
 = 9.105.1 =
