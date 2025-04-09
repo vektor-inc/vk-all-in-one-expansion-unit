@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Add setting ][ Post Type Manager ] Add is_embeddable support for oEmbed control on WP6.8
+
 = 9.106.0 =
 [ Specification change ][ Follow Me Box ] Change default text and design tuning
 [ Specification change ][ Blocks ] Disable all links except for edit links.
