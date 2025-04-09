@@ -239,6 +239,27 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<hr>';
 
+			// JavaScript to update icon selection and validate input
+			echo '
+			<script>
+				function updateIconSelection(icon) {
+					document.getElementById("veu_menu_icon").value = icon;
+				}
+
+				document.addEventListener("DOMContentLoaded", function () {
+					var inputField = document.getElementById("veu_menu_icon");
+					
+					// `change` イベントを使用して、フォーカスが外れたときにチェックする
+					inputField.addEventListener("change", function() {
+						// SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
+						if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
+							alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
+							this.value = ""; // 不正な入力をクリア
+						}
+					});
+				});
+			</script>';
+
 			/*******************************************
 			 * Export to Rest api
 			 */
@@ -403,11 +424,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$taxonomy[ $i ]['tag']      = ! empty( $taxonomy[ $i ]['tag'] ) ? esc_html( $taxonomy[ $i ]['tag'] ) : '';
 					$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? esc_html( $taxonomy[ $i ]['rest_api'] ) : '';
 				}
-			}
-
-			// Save menu icon
-			if ( isset( $_POST['veu_menu_icon'] ) ) {
-				update_post_meta( $post_id, 'veu_menu_icon', sanitize_text_field( $_POST['veu_menu_icon'] ) );
 			}
 
 			// Save is_embeddable option (WordPress 6.8+)
