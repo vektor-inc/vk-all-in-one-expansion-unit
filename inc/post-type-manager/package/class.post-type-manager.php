@@ -29,6 +29,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					'has_archive'     => false,
 					'menu_icon'       => 'dashicons-admin-generic',
 					'supports'        => array( 'title' ),
+					'is_embeddable'   => false,
 				)
 			);
 		}
