@@ -239,27 +239,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<hr>';
 
-			// JavaScript to update icon selection and validate input
-			echo '
-			<script>
-				function updateIconSelection(icon) {
-					document.getElementById("veu_menu_icon").value = icon;
-				}
-
-				document.addEventListener("DOMContentLoaded", function () {
-					var inputField = document.getElementById("veu_menu_icon");
-					
-					// `change` イベントを使用して、フォーカスが外れたときにチェックする
-					inputField.addEventListener("change", function() {
-						// SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
-						if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
-							alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
-							this.value = ""; // 不正な入力をクリア
-						}
-					});
-				});
-			</script>';
-
 			/*******************************************
 			 * Export to Rest api
 			 */
@@ -276,6 +255,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<label><input type="radio" id="veu_post_type_export_to_api" name="veu_post_type_export_to_api" value="false"' . checked( $export_to_api_value, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
 
 			echo '<p>' . esc_html__( 'If you want to use the block editor that, you have to use the REST API.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+			echo '<hr>';
+
+			/*******************************************
+			 * Embed Settings
+			 */
+			echo '<h4>' . esc_html__( 'Embed Settings (Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			
+			$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
+			$checked = ( 'false' === $is_embeddable ) ? ' checked' : '';
+			
+			echo '<label><input type="checkbox" id="veu_is_embeddable" name="veu_is_embeddable" value="true"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable embedding from external sites (oEmbed)', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
+			echo '<p>' . esc_html__( 'When checked, this post type will not be embeddable from external sites. This prevents blog card-like embedding when the URL is shared on other sites. Useful for creating post types that you want to prevent from being visible externally.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+			
 			echo '<hr>';
 
 			/**
@@ -311,7 +303,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<p>';
 			echo esc_html__( 'Custom taxonomy is like a category in post.', 'vk-all-in-one-expansion-unit' ) . '<br />';
-			echo esc_html__( 'However, it refers to the "category" itself, not to the “item” of the category.', 'vk-all-in-one-expansion-unit' ) . '<br />';
+			echo esc_html__( 'However, it refers to the "category" itself, not to the "item" of the category.', 'vk-all-in-one-expansion-unit' ) . '<br />';
 			echo esc_html__( 'For example, if you create a post type "construction result", Custom taxonomy will be "construction type", "construction area", etc.', 'vk-all-in-one-expansion-unit' );
 			echo '</p>';
 
@@ -411,6 +403,17 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$taxonomy[ $i ]['tag']      = ! empty( $taxonomy[ $i ]['tag'] ) ? esc_html( $taxonomy[ $i ]['tag'] ) : '';
 					$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? esc_html( $taxonomy[ $i ]['rest_api'] ) : '';
 				}
+			}
+
+			// Save menu icon
+			if ( isset( $_POST['veu_menu_icon'] ) ) {
+				update_post_meta( $post_id, 'veu_menu_icon', sanitize_text_field( $_POST['veu_menu_icon'] ) );
+			}
+
+			// Save is_embeddable option (WordPress 6.8+)
+			if ( version_compare( get_bloginfo( 'version' ), '6.8', '>=' ) ) {
+				$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'true' : 'false';
+				update_post_meta( $post_id, 'veu_is_embeddable', $is_embeddable );
 			}
 
 			// 保存しているカスタムフィールド.
@@ -534,6 +537,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 							$args      = array_merge( $args, $rest_args );
 						}
 
+						// Add is_embeddable option for WordPress 6.8+
+						if ( version_compare( get_bloginfo( 'version' ), '6.8', '>=' ) ) {
+							$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
+							$args['is_embeddable'] = ( 'false' === $is_embeddable ) ? false : true;
+						}
+
 						// カスタム投稿タイプを発行.
 						register_post_type( $post_type_id, $args );
 
@@ -542,6 +551,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 							flush_rewrite_rules();
 							update_post_meta( $post->ID, 'veu_post_type_flush_rewrite_rules', 'true' );
 						}
+
+						// Add filter for post embeddable control
+						add_filter( 'is_post_embeddable', array( __CLASS__, 'control_post_embeddable' ), 10, 2 );
 
 						/*******************************************
 						 * カスタム分類を追加
@@ -613,6 +625,35 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					} // if ( $post_type_id ) {
 				} // foreach ($custom_post_types as $key => $post) {
 			} // if ( $custom_post_types ) {
+		}
+
+		/**
+		 * Control whether a post is embeddable
+		 *
+		 * @param bool   $is_embeddable Whether the post is embeddable.
+		 * @param object $post          Post object.
+		 * @return bool
+		 */
+		public static function control_post_embeddable( $is_embeddable, $post ) {
+			// Get post type settings
+			$post_type_settings = get_posts( array(
+				'post_type'      => 'post_type_manage',
+				'posts_per_page' => 1,
+				'meta_key'       => 'veu_post_type_id',
+				'meta_value'     => $post->post_type,
+			) );
+
+			if ( ! empty( $post_type_settings ) ) {
+				$settings = $post_type_settings[0];
+				$is_embeddable_setting = get_post_meta( $settings->ID, 'veu_is_embeddable', true );
+				
+				// If setting is explicitly set to false, disable embedding
+				if ( 'false' === $is_embeddable_setting ) {
+					return false;
+				}
+			}
+
+			return $is_embeddable;
 		}
 
 		/**
