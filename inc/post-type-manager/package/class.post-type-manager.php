@@ -283,7 +283,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 * Embed Settings
 			 */
 			// WordPress 6.8以上の場合のみ表示
-			if ( version_compare( get_bloginfo( 'version' ), '6.8', '>=' ) ) {
+			$wp_version = get_bloginfo( 'version' );
+			if ( version_compare( $wp_version, '6.7.2', '>' ) ) {
 				echo '<h4>' . esc_html__( 'Embed Settings (Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
 				$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
