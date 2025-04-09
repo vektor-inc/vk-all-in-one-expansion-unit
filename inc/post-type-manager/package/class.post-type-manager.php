@@ -303,7 +303,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<p>';
 			echo esc_html__( 'Custom taxonomy is like a category in post.', 'vk-all-in-one-expansion-unit' ) . '<br />';
-			echo esc_html__( 'However, it refers to the "category" itself, not to the "item" of the category.', 'vk-all-in-one-expansion-unit' ) . '<br />';
+			echo esc_html__( 'However, it refers to the "category" itself, not to the “item” of the category.', 'vk-all-in-one-expansion-unit' ) . '<br />';
 			echo esc_html__( 'For example, if you create a post type "construction result", Custom taxonomy will be "construction type", "construction area", etc.', 'vk-all-in-one-expansion-unit' );
 			echo '</p>';
 
