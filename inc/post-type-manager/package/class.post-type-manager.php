@@ -261,13 +261,13 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 * Embed Settings
 			 */
 			echo '<h4>' . esc_html__( 'Embed Settings (Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
-			
+
 			$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
-			$checked = ( 'false' === $is_embeddable ) ? ' checked' : '';
-			
+			$checked       = ( 'false' === $is_embeddable ) ? ' checked' : '';
+
 			echo '<label><input type="checkbox" id="veu_is_embeddable" name="veu_is_embeddable" value="true"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable embedding from external sites (oEmbed)', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
 			echo '<p>' . esc_html__( 'When checked, this post type will not be embeddable from external sites. This prevents blog card-like embedding when the URL is shared on other sites. Useful for creating post types that you want to prevent from being visible externally.', 'vk-all-in-one-expansion-unit' ) . '</p>';
-			
+
 			echo '<hr>';
 
 			/**
@@ -539,7 +539,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 						// Add is_embeddable option for WordPress 6.8+
 						if ( version_compare( get_bloginfo( 'version' ), '6.8', '>=' ) ) {
-							$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
+							$is_embeddable         = get_post_meta( $post->ID, 'veu_is_embeddable', true );
 							$args['is_embeddable'] = ( 'false' === $is_embeddable ) ? false : true;
 						}
 
@@ -636,17 +636,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 */
 		public static function control_post_embeddable( $is_embeddable, $post ) {
 			// Get post type settings
-			$post_type_settings = get_posts( array(
-				'post_type'      => 'post_type_manage',
-				'posts_per_page' => 1,
-				'meta_key'       => 'veu_post_type_id',
-				'meta_value'     => $post->post_type,
-			) );
+			$post_type_settings = get_posts(
+				array(
+					'post_type'      => 'post_type_manage',
+					'posts_per_page' => 1,
+					'meta_key'       => 'veu_post_type_id',
+					'meta_value'     => $post->post_type,
+				)
+			);
 
 			if ( ! empty( $post_type_settings ) ) {
-				$settings = $post_type_settings[0];
+				$settings              = $post_type_settings[0];
 				$is_embeddable_setting = get_post_meta( $settings->ID, 'veu_is_embeddable', true );
-				
+
 				// If setting is explicitly set to false, disable embedding
 				if ( 'false' === $is_embeddable_setting ) {
 					return false;
