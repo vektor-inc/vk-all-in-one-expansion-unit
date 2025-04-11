@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ][ SNS ] Fix Worning on ExUnit Main Setting screen.
+[ Bug Fix ][ SNS ] Fix Warning on ExUnit Main Setting screen.
 
 = 9.106.0 =
 [ Specification change ][ Follow Me Box ] Change default text and design tuning
