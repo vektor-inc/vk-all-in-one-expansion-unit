@@ -229,12 +229,12 @@ function veu_get_the_sns_title( $post_id = '' ) {
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
-	$output['fbAppId']                     = stripslashes( esc_attr( $input['fbAppId'] ) );
-	$output['fbPageUrl']                   = esc_url( $input['fbPageUrl'] );
-	$output['fbAccessToken']               = stripslashes( esc_attr( $input['fbAccessToken'] ) );
-	$output['ogImage']                     = esc_url( $input['ogImage'] );
-	$output['twitterId']                   = stripslashes( esc_attr( $input['twitterId'] ) );
-	$output['snsBtn_ignorePosts']          = preg_replace( '/[^0-9,]/', '', esc_attr( $input['snsBtn_ignorePosts'] ) );
+	$output['fbAppId']                     = ! empty( $input['fbAppId'] ) ? stripslashes( esc_attr( $input['fbAppId'] ) ) : '';
+	$output['fbPageUrl']                   = ! empty( $input['fbPageUrl'] ) ? esc_url( $input['fbPageUrl'] ) : '';
+	$output['fbAccessToken']               = ! empty( $input['fbAccessToken'] ) ? stripslashes( esc_attr( $input['fbAccessToken'] ) ) : '';
+	$output['ogImage']                     = ! empty( $input['ogImage'] ) ? esc_url( $input['ogImage'] ) : '';
+	$output['twitterId']                   = ! empty( $input['twitterId'] ) ? stripslashes( esc_attr( $input['twitterId'] ) ) : '';
+	$output['snsBtn_ignorePosts']          = ! empty( $input['snsBtn_ignorePosts'] ) ? preg_replace( '/[^0-9,]/', '', esc_attr( $input['snsBtn_ignorePosts'] ) ) : '';
 	$output['snsTitle_use_only_postTitle'] = ( isset( $input['snsTitle_use_only_postTitle'] ) && $input['snsTitle_use_only_postTitle'] ) ? true : false;
 	$output['enableOGTags']                = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
 	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
@@ -242,7 +242,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['snsBtn_exclude_post_types']   = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
 	$output['snsBtn_position']             = ( isset( $input['snsBtn_position'] ) ) ? $input['snsBtn_position'] : '';
 	$output['enableFollowMe']              = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;
-	$output['followMe_title']              = stripslashes( $input['followMe_title'] );
+	$output['followMe_title']              = ! empty( $input['followMe_title'] ) ? stripslashes( $input['followMe_title'] ) : '';
 	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
 	$output['useBluesky']                  = ( isset( $input['useBluesky'] ) && $input['useBluesky'] == 'true' );
@@ -250,9 +250,9 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
 	$output['useCopy']                     = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
-	$output['entry_count']                 = esc_attr( $input['entry_count'] );
+	$output['entry_count']                 = ! empty( $input['entry_count'] ) ? esc_attr( $input['entry_count'] ) : '';
 
-	$output['hook_point'] = esc_html( $input['hook_point'] );
+	$output['hook_point'] = ! empty( $input['hook_point'] ) ? esc_html( $input['hook_point'] ) : '';
 	$output['hook_point'] = str_replace( array( ' ', '　', "\t", "\r\n", "\r", "\n", ',' ), "\n", $output['hook_point'] );
 	$output['hook_point'] = str_replace( "\n\n", "\n", $output['hook_point'] );
 
