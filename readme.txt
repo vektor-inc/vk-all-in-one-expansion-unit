@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 = 9.106.1 =
+[ Bug Fix ][ SNS ] Fix Warning on ExUnit Main Setting screen.
 [ Bug fix ][ Nav Menu Class ] Fix PHP warning
 
 = 9.106.0 =
