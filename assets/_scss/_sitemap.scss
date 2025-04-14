@@ -1,10 +1,18 @@
 .veu_sitemap {
+	display: flex;
+	width:100%;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	.sectionBox {
 		padding-top: 0;
 	}
 	.sitemap-col {
 		margin-top: 1em;
 		padding-bottom: 2em;
+		width: 100%;
+		@media (min-width: 768px) {
+			width: 48%;
+		}
 		.link-list {
 			a {
 				display: block;
