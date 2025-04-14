@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ HTML Sitemap ] Add CSS to create a two-column layout.
+
 = 9.106.1 =
 [ Bug Fix ][ SNS ] Fix Warning on ExUnit Main Setting screen.
 [ Bug fix ][ Nav Menu Class ] Fix PHP warning
