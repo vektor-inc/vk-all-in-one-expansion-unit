@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 9.106.0.1
+Stable tag: 9.106.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,11 @@ e.g.
 == Changelog ==
 
 [ Add setting ][ Post Type Manager ] Add is_embeddable support for oEmbed control on WP6.8
+[ Specification Change ][ HTML Sitemap ] Add CSS to create a two-column layout.
+
+= 9.106.1 =
+[ Bug Fix ][ SNS ] Fix Warning on ExUnit Main Setting screen.
+[ Bug fix ][ Nav Menu Class ] Fix PHP warning
 
 = 9.106.0 =
 [ Specification change ][ Follow Me Box ] Change default text and design tuning

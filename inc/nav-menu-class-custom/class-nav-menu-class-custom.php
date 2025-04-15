@@ -27,7 +27,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 			// 付与するカレントクラス名
 			$add_current_class_name = 'current-menu-ancestor';
 
-			if ( self::is_active_menu_item( $item->url ) ) {
+			if ( isset( $item->url ) && self::is_active_menu_item( $item->url ) ) {
 				$classes[] = $add_current_class_name;
 			} else {
 				// 投稿のトップのメニューアイテムは、カスタム投稿タイプのページを表示していても
@@ -63,7 +63,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 			if ( 'core/navigation-link' === $block['blockName'] || 'core/navigation-submenu' === $block['blockName'] ) {
 				// 固定ページの時の動作はもともと問題ないので、それ以外の場合のみ処理する
 				if ( ! is_page() ) {
-					if ( self::is_active_menu_item( $block['attrs']['url'] ) ) {
+					if ( isset( $block['attrs']['url'] ) && self::is_active_menu_item( $block['attrs']['url'] ) ) {
 						$block_content = self::class_name_custom( $block_content, 'current-menu-item', true );
 					} else {
 						// カスタム投稿タイプのページを表示していても、カレントクラスが付与されるので、
@@ -123,7 +123,7 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 		 */
 		public static function ensureTrailingSlash( $url ) {
 			// `?` を含んでいない場合
-			if ( strpos( $url, '?' ) === false ) {
+			if ( $url !== null && strpos( $url, '?' ) === false ) {
 				// 末尾が `/` で終わっていない場合に追加
 				if ( substr( $url, -1 ) !== '/' ) {
 					$url .= '/';
@@ -169,7 +169,9 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 				$pattern = '/.*post_type=(.*)/';
 				$subject = $url;
-				preg_match( $pattern, $subject, $matches );
+				if ( $subject !== null ) {
+					preg_match( $pattern, $subject, $matches );
+				}
 
 				// メニューの投稿タイプが取得できたら
 				if ( isset( $matches[1] ) ) {
@@ -178,7 +180,9 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 					// home_url() . /?p=数字 の場合（ "ドメイン/" と "?p=" の間には index.php は不要）は、その数字をget_postに渡して投稿タイプを取得する
 					$pattern = '/[?&]p=([^&]+)/';
 					$subject = $url;
-					preg_match( $pattern, $subject, $matches );
+					if ( $subject !== null ) {
+						preg_match( $pattern, $subject, $matches );
+					}
 					// マッチした場合
 					if ( $matches ) {
 						// 抽出した数字をget_postに渡して投稿タイプを取得する
@@ -199,7 +203,9 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 					// ループ中のりライトルールがメニューのURLと合致するか正規表現で検出
 					$pattern = '{' . $key . '}';
 					$subject = $url;
-					preg_match( $pattern, $subject, $matches );
+					if ( $subject !== null ) {
+						preg_match( $pattern, $subject, $matches );
+					}
 
 					// マッチした場合
 					if ( $matches ) {
@@ -209,7 +215,9 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 						$pattern = '/index.php\?post_type=(.*)/';
 						$subject = $value;
-						preg_match( $pattern, $subject, $matches );
+						if ( $subject !== null ) {
+							preg_match( $pattern, $subject, $matches );
+						}
 
 						// メニューの投稿タイプが取得できたら
 						if ( isset( $matches[1] ) ) {
