@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Add setting ][ Post Type Manager ] Add is_embeddable support for oEmbed control on WP6.8
 [ Specification Change ][ HTML Sitemap ] Add CSS to create a two-column layout.
 
 = 9.106.1 =
