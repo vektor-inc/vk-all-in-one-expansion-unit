@@ -288,9 +288,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '<h4>' . esc_html__( 'Embed Settings (Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
 				$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
-				$checked       = ( 'false' === $is_embeddable ) ? ' checked' : '';
+				if ( empty( $is_embeddable ) ) {
+					$is_embeddable = 'true';
+				}
+				$checked = ( 'false' === $is_embeddable ) ? ' checked' : '';
 
-				echo '<label><input type="checkbox" id="veu_is_embeddable" name="veu_is_embeddable" value="true"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable embedding from external sites (oEmbed)', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
+				echo '<label><input type="checkbox" id="veu_is_embeddable" name="veu_is_embeddable" value="false"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable embedding from external sites (oEmbed)', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
 				echo '<p>' . esc_html__( 'When checked, this post type will not be embeddable from external sites. This prevents blog card-like embedding when the URL is shared on other sites. Useful for creating post types that you want to prevent from being visible externally.', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
 				echo '<hr>';
@@ -432,7 +435,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			// Save is_embeddable option
-			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'true' : 'false';
+			$is_embeddable = ! empty( $_POST['veu_is_embeddable'] ) ? 'false' : 'true';
 			update_post_meta( $post_id, 'veu_is_embeddable', $is_embeddable );
 
 			// 保存しているカスタムフィールド.
