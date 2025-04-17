@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.107.1 =
 [ Bug Fix ][ Post Type Manager ] Fix is_embeddable checkbox not saving properly.
 
 = 9.107.0 =
