@@ -432,7 +432,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			// Save is_embeddable option
-			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'true' : 'false';
+			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'false' : 'true';
 			update_post_meta( $post_id, 'veu_is_embeddable', $is_embeddable );
 
 			// 保存しているカスタムフィールド.
@@ -558,7 +558,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 						// Add is_embeddable option
 						$is_embeddable         = get_post_meta( $post->ID, 'veu_is_embeddable', true );
-						$args['is_embeddable'] = ( 'false' === $is_embeddable ) ? false : true;
+						$args['is_embeddable'] = ( 'false' !== $is_embeddable );
 
 						// カスタム投稿タイプを発行.
 						register_post_type( $post_type_id, $args );
