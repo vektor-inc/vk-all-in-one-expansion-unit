@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Post Type Manager ] Fix is_embeddable checkbox not saving properly.
+
 = 9.107.0 =
 [ Add setting ][ Post Type Manager ] Add is_embeddable support for oEmbed control on WP6.8
 [ Specification Change ][ HTML Sitemap ] Add CSS to create a two-column layout.
