@@ -618,7 +618,8 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	 */
 	public function test_is_post_type_embeddable() {
 		// Create a post and set the meta value for 'veu_is_embeddable'.
-		$post_id = $this->factory->post->create();
+		$factory = new WP_UnitTest_Factory();
+		$post_id = $factory->post->create();
 
 		// Test when 'veu_is_embeddable' is not set (default should be true).
 		$this->assertTrue( VK_Post_Type_Manager::is_post_type_embeddable( $post_id ) );
