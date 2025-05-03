@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ 不具合修正 ][ HTML Sitemap ] 9.107.0 の変更の影響で記事編集画面において HTML Sitemap 設定の metabox のレイアウトが崩れる不具合を修正
+[ Bug Fix ][ HTML Sitemap ] Fix an issue where the HTML Sitemap settings metabox appears broken on the post edit screen due to changes introduced in version 9.107.0.
 
 = 9.107.1 =
 [ Bug Fix ][ Post Type Manager ] Fix is_embeddable checkbox not saving properly.
