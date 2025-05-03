@@ -3,9 +3,9 @@
  * Plugin Name: VK All in One Expansion Unit
  * Plugin URI: https://ex-unit.nagoya
  * Description: This plug-in is an integrated plug-in with a variety of features that make it powerful your web site. Many features can be stopped individually. Example Facebook Page Plugin,Social Bookmarks,Print OG Tags,Print Twitter Card Tags,Print Google Analytics tag,New post widget,Insert Related Posts and more!
- * Version: 9.107.1.1
+ * Version: 9.108.0.0
  * Requires PHP: 7.4
- * Requires at least: 6.3
+ * Requires at least: 6.4
  * Author: Vektor,Inc.
  * Text Domain: vk-all-in-one-expansion-unit
  * Domain Path: /languages
