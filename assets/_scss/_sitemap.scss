@@ -1,4 +1,4 @@
-.veu_sitemap {
+.veu_sitemap:where(:not(.veu_metabox_section)) {
 	display: flex;
 	width:100%;
 	flex-wrap: wrap;
