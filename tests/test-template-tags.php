@@ -612,4 +612,24 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			$this->assertEquals( $correct, $return );
 		}
 	}
+
+	/**
+	 * 投稿タイプの埋め込み可能判定テスト
+	 */
+	public function test_is_post_type_embeddable() {
+		// Create a post and set the meta value for 'veu_is_embeddable'.
+		$factory = new WP_UnitTest_Factory();
+		$post_id = $factory->post->create();
+
+		// Test when 'veu_is_embeddable' is not set (default should be true).
+		$this->assertTrue( VK_Post_Type_Manager::is_post_type_embeddable( $post_id ) );
+
+		// Test when 'veu_is_embeddable' is set to 'true'.
+		update_post_meta( $post_id, 'veu_is_embeddable', 'true' );
+		$this->assertTrue( VK_Post_Type_Manager::is_post_type_embeddable( $post_id ) );
+
+		// Test when 'veu_is_embeddable' is set to 'false'.
+		update_post_meta( $post_id, 'veu_is_embeddable', 'false' );
+		$this->assertFalse( VK_Post_Type_Manager::is_post_type_embeddable( $post_id ) );
+	}
 }

@@ -557,8 +557,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						}
 
 						// Add is_embeddable option
-						$is_embeddable         = get_post_meta( $post->ID, 'veu_is_embeddable', true );
-						$args['is_embeddable'] = ( 'false' !== $is_embeddable );
+						$args['is_embeddable'] = self::is_post_type_embeddable( $post->ID );
 
 						// カスタム投稿タイプを発行.
 						register_post_type( $post_type_id, $args );
@@ -645,6 +644,17 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
+		 * Check if the post type is embeddable based on saved settings.
+		 *
+		 * @param int $post_id The post ID to check.
+		 * @return bool True if embeddable, false otherwise.
+		 */
+		public static function is_post_type_embeddable( $post_id ) {
+			$is_embeddable = get_post_meta( $post_id, 'veu_is_embeddable', true );
+			return ( 'false' !== $is_embeddable );
+		}
+
+		/**
 		 * Control whether a post is embeddable
 		 *
 		 * @param bool   $is_embeddable Whether the post is embeddable.
@@ -663,13 +673,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 
 			if ( ! empty( $post_type_settings ) ) {
-				$settings              = $post_type_settings[0];
-				$is_embeddable_setting = get_post_meta( $settings->ID, 'veu_is_embeddable', true );
-
-				// If setting is explicitly set to false, disable embedding
-				if ( 'false' === $is_embeddable_setting ) {
-					return false;
-				}
+				$settings = $post_type_settings[0];
+				return self::is_post_type_embeddable( $settings->ID );
 			}
 
 			return $is_embeddable;
