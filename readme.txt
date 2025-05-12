@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Meta Description ] Refactor meta-description.php to improve excerpt support and sanitize function
+
 = 9.108.0 =
 [ Specification Change ][ CTA ] Change the position of the Edit button.
 [ Bug Fix ][ HTML Sitemap ] Fix an issue where the HTML Sitemap settings metabox appears broken on the post edit screen due to changes introduced in version 9.107.0.

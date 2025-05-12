@@ -12,14 +12,16 @@
 $postTypes = get_post_types( array( 'public' => true ) );
 
 foreach ( $postTypes as $postType ) {
-	add_post_type_support( $postType, 'excerpt' );
+	if ( post_type_supports( $postType, 'excerpt' ) ) {
+		add_post_type_support( $postType, 'excerpt' );
+	}
 } // foreach ($postTypes as $postType) {
 
 function vkExUnit_description_options_init() {
 	vkExUnit_register_setting(
 		__( 'Meta Description', 'vk-all-in-one-expansion-unit' ),    // tab label.
 		'vkExUnit_description_options',          // name attr
-		false,                                   // sanitaise function name
+		'sanitize_text_field',                   // sanitaise function name
 		'vkExUnit_add_description_options_page'  // setting_page function name
 	);
 }
