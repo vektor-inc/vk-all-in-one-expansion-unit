@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 9.107.1.1
+Stable tag: 9.108.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,14 @@ e.g.
 
 == Changelog ==
 
-[ Add function ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
+[ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
+
+= 9.108.1 =
+[ Bug Fix ][ Meta Description ] Refactor meta-description.php to improve excerpt support and sanitize function
+
+= 9.108.0 =
+[ Specification Change ][ CTA ] Change the position of the Edit button.
+[ Bug Fix ][ HTML Sitemap ] Fix an issue where the HTML Sitemap settings metabox appears broken on the post edit screen due to changes introduced in version 9.107.0.
 
 = 9.107.1 =
 [ Bug Fix ][ Post Type Manager ] Fix is_embeddable checkbox not saving properly.
