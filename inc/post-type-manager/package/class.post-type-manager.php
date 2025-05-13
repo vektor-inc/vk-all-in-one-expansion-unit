@@ -585,10 +585,18 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 								// 既存のタクソノミーをチェック
 								if (!taxonomy_exists($taxonomy['slug'])) {
-									// カスタム分類を階層化するかどうか
-									$hierarchical_true = (empty($taxonomy['tag'])) ? true : false;
-									// REST API を使用するかどうか
-									$rest_api_true = ('true' === $taxonomy['rest_api'] || '1' === $taxonomy['rest_api']);
+								// カスタム分類を階層化するかどうか.
+								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
+								// REST API を使用するかどうか.
+								if ( isset( $taxonomy['rest_api'] ) ) {
+									$rest_api = $taxonomy['rest_api'];
+								}
+
+								if ( 'true' === $rest_api || '1' === $rest_api ) {
+									$rest_api_true = true;
+								} else {
+									$rest_api_true = false;
+								}
 
 								$labels = array(
 									'name' => $taxonomy['label'],
