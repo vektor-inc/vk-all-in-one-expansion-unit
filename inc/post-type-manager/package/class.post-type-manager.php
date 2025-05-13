@@ -338,6 +338,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// カスタム分類の情報は カスタムフィールドの veu_taxonomy に連想配列で格納している.
 			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
 
+			// タクソノミーの階層化設定を保存するためのメタデータを追加
+			$taxonomy_hierarchy = get_option('veu_taxonomy_hierarchy', array());
+
+			// REST APIの設定を保存するためのメタデータを追加
+			$taxonomy_rest_api = get_option('veu_taxonomy_rest_api', array());
+
 			for ( $i = 1; $i <= apply_filters( 'veu_post_type_taxonomies', 5 ); $i++ ) {
 				$slug     = ( isset( $taxonomy[ $i ]['slug'] ) ) ? $taxonomy[ $i ]['slug'] : '';
 				$label    = ( isset( $taxonomy[ $i ]['label'] ) ) ? $taxonomy[ $i ]['label'] : '';
@@ -388,6 +394,47 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="false"' . checked( $checked, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '</td>';
 				echo '</tr>';
+
+				// タクソノミーの階層化設定を保存するためのメタデータを追加
+				if (!isset($taxonomy_hierarchy[$slug])) {
+					$taxonomy_hierarchy[$slug] = $checked === 'true';
+					update_option('veu_taxonomy_hierarchy', $taxonomy_hierarchy);
+				} else {
+					$checked = $taxonomy_hierarchy[$slug];
+				}
+
+				// REST APIの登録時に、既存の設定を確認し、必要に応じて更新
+				if (isset($taxonomy['slug']) && $taxonomy['slug']) {
+					if (!isset($taxonomy_rest_api[$taxonomy['slug']])) {
+						$taxonomy_rest_api[$taxonomy['slug']] = isset($rest_api_true) ? $rest_api_true : false;
+						update_option('veu_taxonomy_rest_api', $taxonomy_rest_api);
+					} else {
+						$rest_api_true = $taxonomy_rest_api[$taxonomy['slug']];
+					}
+				}
+
+				// REST APIの設定が変更された場合に、すべての関連する投稿タイプにその変更を反映
+				if (isset($rest_api_true) && $rest_api_true !== $taxonomy_rest_api[$taxonomy['slug']]) {
+					$taxonomy_rest_api[$taxonomy['slug']] = $rest_api_true;
+					update_option('veu_taxonomy_rest_api', $taxonomy_rest_api);
+					// すべての関連する投稿タイプを更新
+					$related_post_types = get_posts(array(
+						'post_type' => 'post_type_manage',
+						'posts_per_page' => -1,
+						'meta_query' => array(
+							array(
+								'key' => 'veu_taxonomy',
+								'value' => $taxonomy['slug'],
+								'compare' => 'LIKE'
+							)
+						)
+					));
+					foreach ($related_post_types as $related_post) {
+						// ラジオボタンの状態を更新
+						update_post_meta($related_post->ID, 'veu_post_type_export_to_api', $rest_api_true ? 'true' : 'false');
+						register_taxonomy_for_object_type($taxonomy['slug'], $related_post->post_type);
+					}
+				}
 			}
 			echo '</table>';
 		}
@@ -473,6 +520,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 			$custom_post_types = get_posts( $args );
 			if ( $custom_post_types ) {
+				$post_type_ids = array();
 				foreach ( $custom_post_types as $key => $post ) {
 
 					/*******************************************
@@ -512,6 +560,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
 
 					if ( $post_type_id ) {
+						$post_type_ids[] = $post_type_id;
 						$menu_position = intval( mb_convert_kana( get_post_meta( $post->ID, 'veu_menu_position', true ), 'n' ) );
 						if ( ! $menu_position ) {
 							$menu_position = 5;
@@ -581,6 +630,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
 							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
 
+								// 既存のタクソノミーをチェック
+								if (!taxonomy_exists($taxonomy['slug'])) {
 								// カスタム分類を階層化するかどうか.
 								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 								// REST API を使用するかどうか.
@@ -631,11 +682,16 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									$args['rest_base'] = $taxonomy['slug'];
 								}
 
-								register_taxonomy(
-									$taxonomy['slug'],
-									$post_type_id,
-									$args
-								);
+									// 特定の投稿タイプにのみタクソノミーを登録
+									register_taxonomy(
+										$taxonomy['slug'],
+										array($post_type_id),
+										$args
+									);
+								} else {
+									// 既存のタクソノミーを再利用
+									register_taxonomy_for_object_type($taxonomy['slug'], $post_type_id);
+								}
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
 						} // foreach ($veu_taxonomies as $key => $taxonomy) {
 					} // if ( $post_type_id ) {

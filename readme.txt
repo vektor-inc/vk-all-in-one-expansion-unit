@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
+
 = 9.108.1 =
 [ Bug Fix ][ Meta Description ] Refactor meta-description.php to improve excerpt support and sanitize function
 
