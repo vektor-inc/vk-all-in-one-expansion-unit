@@ -430,6 +430,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						)
 					));
 					foreach ($related_post_types as $related_post) {
+						// ラジオボタンの状態を更新
+						update_post_meta($related_post->ID, 'veu_post_type_export_to_api', $rest_api_true ? 'true' : 'false');
 						register_taxonomy_for_object_type($taxonomy['slug'], $related_post->post_type);
 					}
 				}
