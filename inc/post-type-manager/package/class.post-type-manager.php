@@ -473,6 +473,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 			$custom_post_types = get_posts( $args );
 			if ( $custom_post_types ) {
+				$post_type_ids = array();
 				foreach ( $custom_post_types as $key => $post ) {
 
 					/*******************************************
@@ -512,6 +513,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
 
 					if ( $post_type_id ) {
+						$post_type_ids[] = $post_type_id;
 						$menu_position = intval( mb_convert_kana( get_post_meta( $post->ID, 'veu_menu_position', true ), 'n' ) );
 						if ( ! $menu_position ) {
 							$menu_position = 5;
@@ -557,7 +559,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						}
 
 						// Add is_embeddable option
-						$args['is_embeddable'] = self::is_post_type_embeddable( $post->ID );
+						$is_embeddable         = get_post_meta( $post->ID, 'veu_is_embeddable', true );
+						$args['is_embeddable'] = ( 'false' !== $is_embeddable );
 
 						// カスタム投稿タイプを発行.
 						register_post_type( $post_type_id, $args );
@@ -633,7 +636,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 								register_taxonomy(
 									$taxonomy['slug'],
-									$post_type_id,
+									$post_type_ids, // 動的に取得した投稿タイプを指定
 									$args
 								);
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
@@ -641,17 +644,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					} // if ( $post_type_id ) {
 				} // foreach ($custom_post_types as $key => $post) {
 			} // if ( $custom_post_types ) {
-		}
-
-		/**
-		 * Check if the post type is embeddable based on saved settings.
-		 *
-		 * @param int $post_id The post ID to check.
-		 * @return bool True if embeddable, false otherwise.
-		 */
-		public static function is_post_type_embeddable( $post_id ) {
-			$is_embeddable = get_post_meta( $post_id, 'veu_is_embeddable', true );
-			return ( 'false' !== $is_embeddable );
 		}
 
 		/**
@@ -673,8 +665,13 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			);
 
 			if ( ! empty( $post_type_settings ) ) {
-				$settings = $post_type_settings[0];
-				return self::is_post_type_embeddable( $settings->ID );
+				$settings              = $post_type_settings[0];
+				$is_embeddable_setting = get_post_meta( $settings->ID, 'veu_is_embeddable', true );
+
+				// If setting is explicitly set to false, disable embedding
+				if ( 'false' === $is_embeddable_setting ) {
+					return false;
+				}
 			}
 
 			return $is_embeddable;
