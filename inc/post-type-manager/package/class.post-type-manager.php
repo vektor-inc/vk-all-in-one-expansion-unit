@@ -636,7 +636,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 								register_taxonomy(
 									$taxonomy['slug'],
-									$post_type_ids, // 動的に取得した投稿タイプを指定
+									$post_type_ids,
 									$args
 								);
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
@@ -644,6 +644,17 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					} // if ( $post_type_id ) {
 				} // foreach ($custom_post_types as $key => $post) {
 			} // if ( $custom_post_types ) {
+		}
+
+		/**
+		 * Check if the post type is embeddable based on saved settings.
+		 *
+		 * @param int $post_id The post ID to check.
+		 * @return bool True if embeddable, false otherwise.
+		 */
+		public static function is_post_type_embeddable( $post_id ) {
+			$is_embeddable = get_post_meta( $post_id, 'veu_is_embeddable', true );
+			return ( 'false' !== $is_embeddable );
 		}
 
 		/**
