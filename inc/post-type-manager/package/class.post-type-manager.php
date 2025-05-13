@@ -583,18 +583,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
 							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
 
-								// カスタム分類を階層化するかどうか.
-								$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
-								// REST API を使用するかどうか.
-								if ( isset( $taxonomy['rest_api'] ) ) {
-									$rest_api = $taxonomy['rest_api'];
-								}
-
-								if ( 'true' === $rest_api || '1' === $rest_api ) {
-									$rest_api_true = true;
-								} else {
-									$rest_api_true = false;
-								}
+								// 既存のタクソノミーをチェック
+								if (!taxonomy_exists($taxonomy['slug'])) {
+									// カスタム分類を階層化するかどうか
+									$hierarchical_true = (empty($taxonomy['tag'])) ? true : false;
+									// REST API を使用するかどうか
+									$rest_api_true = ('true' === $taxonomy['rest_api'] || '1' === $taxonomy['rest_api']);
 
 								$labels = array(
 									'name' => $taxonomy['label'],
@@ -633,11 +627,16 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									$args['rest_base'] = $taxonomy['slug'];
 								}
 
-								register_taxonomy(
-									$taxonomy['slug'],
-									$post_type_ids,
-									$args
-								);
+									// 特定の投稿タイプにのみタクソノミーを登録
+									register_taxonomy(
+										$taxonomy['slug'],
+										array($post_type_id),
+										$args
+									);
+								} else {
+									// 既存のタクソノミーを再利用
+									register_taxonomy_for_object_type($taxonomy['slug'], $post_type_id);
+								}
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
 						} // foreach ($veu_taxonomies as $key => $taxonomy) {
 					} // if ( $post_type_id ) {
