@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ SNS Buttons ] Fixed SNS buttons from being displayed inside forms.
+
 = 9.108.1 =
 [ Bug Fix ][ Meta Description ] Refactor meta-description.php to improve excerpt support and sanitize function
 
