@@ -90,11 +90,11 @@ function veu_is_sns_btns_auto_insert() {
  * @return bool
  */
 function veu_is_sns_btns_display() {
-	$options               = veu_get_sns_options();
-	$post_type             = vk_get_post_type();
-	$post_type             = $post_type['slug'];
+	$options = veu_get_sns_options();
+	$post_type = vk_get_post_type();
+	$post_type = $post_type['slug'];
+
 	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
-	// カスタムフィールドで非表示の場合は表示しない
 	if ( ! empty( $sns_share_button_hide ) ) {
 		return false;
 	}
@@ -209,6 +209,7 @@ function veu_get_sns_btns( $attr = array() ) {
 
 	$classes     = '';
 	$social_btns = '';
+
 	// 個別の記事で ボタンを表示する指定にしてある場合 or サイトエディターの場合.
 	if ( veu_is_sns_btns_display() || false !== strpos( $current_url, 'context=edit' ) ) {
 		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
@@ -307,7 +308,6 @@ function veu_get_sns_btns( $attr = array() ) {
  * @return string $content add sns btns
  */
 function veu_add_sns_btns( $content ) {
-
 	// ウィジェットなら表示しない.
 	global $is_pagewidget;
 	if ( $is_pagewidget ) {
@@ -324,6 +324,27 @@ function veu_add_sns_btns( $content ) {
 	// アーカイブページでも表示しない.
 	if ( is_archive() ) {
 		return $content;
+	}
+
+	// フォーム内のSNSボタンを削除
+	if ( strpos( $content, '<form' ) !== false ) {
+		// フォームの開始位置と終了位置を特定
+		$form_start = strpos( $content, '<form' );
+		if ( preg_match('/<\/form>/', $content, $matches, PREG_OFFSET_CAPTURE, $form_start) ) {
+			$form_end = $matches[0][1] + strlen($matches[0][0]);
+		} else {
+			return $content; // </form>が見つからない場合
+		}
+
+		// フォーム内のコンテンツを取得し、SNSボタンを削除
+		$form_content = preg_replace('/<div class="veu_socialSet.*?<\/div>/s', '', substr( $content, $form_start, $form_end - $form_start ));
+
+		// フォームの外のコンテンツを取得
+		$before_form = substr( $content, 0, $form_start );
+		$after_form = substr( $content, $form_end );
+
+		// フォームの外にSNSボタンを追加
+		$content = $before_form . $form_content . $after_form;
 	}
 
 	if ( veu_is_sns_btns_display() ) {
