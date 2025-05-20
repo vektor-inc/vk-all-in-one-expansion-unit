@@ -90,10 +90,10 @@ function veu_is_sns_btns_auto_insert() {
  * @return bool
  */
 function veu_is_sns_btns_display() {
-	$options               = veu_get_sns_options();		$options   = veu_get_sns_options();
-	$post_type             = vk_get_post_type();		$post_type = vk_get_post_type();
-	$post_type             = $post_type['slug'];		$post_type = $post_type['slug'];
-	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );	
+	$options               = veu_get_sns_options();
+	$post_type             = vk_get_post_type();
+	$post_type             = $post_type['slug'];
+	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
 	// カスタムフィールドで非表示の場合は表示しない
 	if ( ! empty( $sns_share_button_hide ) ) {
 		return false;
