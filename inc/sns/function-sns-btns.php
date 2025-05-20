@@ -94,6 +94,12 @@ function veu_is_sns_btns_display() {
 	$post_type             = vk_get_post_type();
 	$post_type             = $post_type['slug'];
 	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
+
+	// メインループ外なら除外
+	if ( ! apply_filters( 'veu_sns_btns_check_mainloop', in_the_loop() && is_main_query() ) ) {
+		return false;
+	}
+	
 	// カスタムフィールドで非表示の場合は表示しない
 	if ( ! empty( $sns_share_button_hide ) ) {
 		return false;
