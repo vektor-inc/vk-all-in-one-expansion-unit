@@ -224,7 +224,9 @@ function veu_get_sns_btns( $attr = array() ) {
 			$classes .= ' ' . $attr['className'];
 		}
 
-		$social_btns = '<div class="veu_socialSet' . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
+		$auto_class = ( isset( $attr['auto'] ) && $attr['auto'] ) ? ' veu_socialSet-auto' : '';
+	
+		$social_btns = '<div class="veu_socialSet' . $auto_class . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook.
 		if ( ! empty( $options['useFacebook'] ) ) {
 			$social_btns .= '<li class="sb_facebook sb_icon">';
@@ -333,36 +335,36 @@ function veu_add_sns_btns( $content ) {
 		return $content;
 	}
 
-	// フォーム内のSNSボタンを削除
+	// フォーム内の自動挿入SNSボタンを表示しない.
 	if ( strpos( $content, '<form' ) !== false ) {
-		// フォームの開始位置と終了位置を特定
 		$form_start = strpos( $content, '<form' );
 		if ( preg_match( '/<\/form>/', $content, $matches, PREG_OFFSET_CAPTURE, $form_start ) ) {
 			$form_end = $matches[0][1] + strlen( $matches[0][0] );
 		} else {
-			return $content; // </form>が見つからない場合
+			return $content; // </form> が見つからない場合はそのまま返す
 		}
 
-		// フォーム内のコンテンツを取得し、SNSボタンを削除
-		$form_content = preg_replace( '/<div class="veu_socialSet.*?<\/div>/s', '', substr( $content, $form_start, $form_end - $form_start ) );
+		$form_inner = substr( $content, $form_start, $form_end - $form_start );
 
-		// フォームの外のコンテンツを取得
-		$before_form = substr( $content, 0, $form_start );
-		$after_form  = substr( $content, $form_end );
+		// veu_socialSet-auto クラスを含む要素だけ削除（ブロックは残す）
+		$form_inner_cleaned = preg_replace(
+			'/<div[^>]+class="[^"]*veu_socialSet-auto[^"]*"[^>]*>.*?<\/div>/s',
+			'',
+			$form_inner
+		);
 
-		// フォームの外にSNSボタンを追加
-		$content = $before_form . $form_content . $after_form;
+		$content = substr( $content, 0, $form_start ) . $form_inner_cleaned . substr( $content, $form_end );
 	}
 
 	if ( veu_is_sns_btns_display() ) {
 		$options = veu_get_sns_options();
 
 		if ( ! empty( $options['snsBtn_position']['before'] ) ) {
-			$content = veu_get_sns_btns( array( 'position' => 'before' ) ) . $content;
+			$content = veu_get_sns_btns( array( 'position' => 'before', 'auto' => true ) ) . $content;
 		}
 
 		if ( ! empty( $options['snsBtn_position']['after'] ) ) {
-			$content .= veu_get_sns_btns( array( 'position' => 'after' ) );
+			$content .= veu_get_sns_btns( array( 'position' => 'after', 'auto' => true ) );
 		}
 	}
 
