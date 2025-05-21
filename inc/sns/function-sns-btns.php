@@ -94,7 +94,7 @@ function veu_is_sns_btns_display() {
 	$post_type             = vk_get_post_type();
 	$post_type             = $post_type['slug'];
 	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
-	
+
 	// カスタムフィールドで非表示の場合は表示しない
 	if ( ! empty( $sns_share_button_hide ) ) {
 		return false;
@@ -225,7 +225,7 @@ function veu_get_sns_btns( $attr = array() ) {
 		}
 
 		$auto_class = ( isset( $attr['auto'] ) && $attr['auto'] ) ? ' veu_socialSet-auto' : '';
-	
+
 		$social_btns = '<div class="veu_socialSet' . $auto_class . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook.
 		if ( ! empty( $options['useFacebook'] ) ) {
@@ -360,11 +360,21 @@ function veu_add_sns_btns( $content ) {
 		$options = veu_get_sns_options();
 
 		if ( ! empty( $options['snsBtn_position']['before'] ) ) {
-			$content = veu_get_sns_btns( array( 'position' => 'before', 'auto' => true ) ) . $content;
+			$content = veu_get_sns_btns(
+				array(
+					'position' => 'before',
+					'auto'     => true,
+				)
+			) . $content;
 		}
 
 		if ( ! empty( $options['snsBtn_position']['after'] ) ) {
-			$content .= veu_get_sns_btns( array( 'position' => 'after', 'auto' => true ) );
+			$content .= veu_get_sns_btns(
+				array(
+					'position' => 'after',
+					'auto'     => true,
+				)
+			);
 		}
 	}
 
