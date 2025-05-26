@@ -561,27 +561,6 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
-	// SNS Btn (Pocket)
-	$wp_customize->add_setting(
-		'vkExUnit_sns_options[usePocket]',
-		array(
-			'default'           => $default_options['usePocket'],
-			'type'              => 'option', // 保存先 option or theme_mod
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'veu_sanitize_boolean',
-		)
-	);
-
-	$wp_customize->add_control(
-		'usePocket',
-		array(
-			'label'    => __( 'Pocket', 'vk-all-in-one-expansion-unit' ),
-			'section'  => 'veu_sns_setting',
-			'settings' => 'vkExUnit_sns_options[usePocket]',
-			'type'     => 'checkbox',
-		)
-	);
-
 	// SNS Btn (LINE)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useLine]',

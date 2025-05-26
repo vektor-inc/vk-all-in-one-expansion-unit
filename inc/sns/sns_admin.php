@@ -139,12 +139,7 @@ if ( $options['useHatena'] ) {
 	echo 'checked';}
 ?>
 /> <?php _e( 'Hatena', 'vk-all-in-one-expansion-unit' ); ?></label></li>
-<li><label><input type="checkbox" name="vkExUnit_sns_options[usePocket]" value="true"
-<?php
-if ( $options['usePocket'] ) {
-	echo 'checked';}
-?>
-/> <?php _e( 'Pocket', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useLine]" value="true"
 <?php
 if ( $options['useLine'] ) {

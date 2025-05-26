@@ -87,10 +87,6 @@
         background: #6ebd30;
         box-shadow: 0 2px 0 #5b9c28;
     }
-    .sb_pocket a {
-        background: #ea4654;
-        box-shadow: 0 2px 0 #c1303c;
-    }
     .sb_copy .sb_icon_inner {
         background: #555;
         box-shadow: 0 2px 0 #333;
@@ -101,7 +97,6 @@
     }
 } //.veu_socialSet ul
 
-.veu_count_sns_pocket,
 .veu_count_sns_fb,
 .veu_count_sns_hb {
     position: absolute;
@@ -114,7 +109,6 @@
 
 @media (max-width: 767px) {
     .veu_socialSet {
-        .veu_count_sns_pocket,
         .veu_count_sns_fb,
         .veu_count_sns_hb {
             bottom: 2px;

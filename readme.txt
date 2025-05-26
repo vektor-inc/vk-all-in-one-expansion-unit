@@ -80,6 +80,7 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+[ Specification Change ][ Share button ] Remove Poket share button.
 
 = 9.108.2 =
 [ Bug Fix ][ Share button ] Fixed share buttons from being displayed inside forms.

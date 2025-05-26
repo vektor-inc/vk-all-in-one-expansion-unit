@@ -83,7 +83,6 @@ function veu_get_sns_options_default() {
 		'useTwitter'                  => true,
 		'useBluesky'                  => true,
 		'useHatena'                   => true,
-		'usePocket'                   => true,
 		'useLine'                     => true,
 		'useCopy'                     => true,
 		'entry_count'                 => 'get',
@@ -247,7 +246,6 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
 	$output['useBluesky']                  = ( isset( $input['useBluesky'] ) && $input['useBluesky'] == 'true' );
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
-	$output['usePocket']                   = ( isset( $input['usePocket'] ) && $input['usePocket'] == 'true' );
 	$output['useCopy']                     = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
 	$output['entry_count']                 = ! empty( $input['entry_count'] ) ? esc_attr( $input['entry_count'] ) : '';

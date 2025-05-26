@@ -278,16 +278,6 @@ function veu_get_sns_btns( $attr = array() ) {
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
 		endif;
-		// pocket.
-		if ( $options['usePocket'] ) {
-			$social_btns .= '<li class="sb_pocket sb_icon">';
-			$social_btns .= '<a class="sb_icon_inner"  href="//getpocket.com/edit?url=' . $link_url . '&title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Pokcetwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-			$social_btns .= '<span class="vk_icon_w_r_sns_pocket icon_sns"' . $icon_css . '></span>';
-			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Pocket</span>';
-			$social_btns .= '<span class="veu_count_sns_pocket"' . $icon_css . '></span>';
-			$social_btns .= '</a>';
-			$social_btns .= '</li>';
-		}
 		// copy.
 		if ( ! empty( $options['useCopy'] ) ) {
 			$social_btns .= '<li class="sb_copy sb_icon">';
