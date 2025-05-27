@@ -394,9 +394,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 				echo '<td>' . esc_html__( 'Corresponds to the block editor', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td>';
-				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="true"' . checked( $rest_api, 'true', false ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="true"' . checked( $checked, 'true', false ) . '> ' . esc_html__( 'Corresponds to the block editor ( Export to REST API / optional )', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '<br />';
-				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="false"' . checked( $rest_api, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
+				echo '<br />';
+				echo '<label><input type="radio" id="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" name="veu_taxonomy[' . esc_attr( $i ) . '][rest_api]" value="false"' . checked( $checked, 'false', false ) . '> ' . esc_html__( 'Does not correspond to the block editor', 'vk-all-in-one-expansion-unit' ) . '</label>';
 				echo '</td>';
 				echo '</tr>';
 			}
@@ -520,6 +521,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						$settings = array(
 							'tag'      => $taxonomy[ $i ]['tag'],
 							'rest_api' => $taxonomy[ $i ]['rest_api'],
+							'label'    => $taxonomy[ $i ]['label'],
 						);
 						self::update_global_taxonomy_settings( $taxonomy[ $i ]['slug'], $settings );
 					}
@@ -788,7 +790,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * カスタム分類の共通設定を更新
 		 *
 		 * @param string $taxonomy_slug タクソノミーのスラッグ
-		 * @param array  $settings      設定配列（tag, rest_api）
+		 * @param array  $settings      設定配列（tag, rest_api, label）
 		 */
 		public static function update_global_taxonomy_settings( $taxonomy_slug, $settings ) {
 			if ( empty( $taxonomy_slug ) ) {
@@ -818,6 +820,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					if ( isset( $taxonomy['slug'] ) && $taxonomy['slug'] === $taxonomy_slug ) {
 						$taxonomy_data[ $key ]['tag']      = $settings['tag'];
 						$taxonomy_data[ $key ]['rest_api'] = $settings['rest_api'];
+						$taxonomy_data[ $key ]['label']    = $settings['label'];
 						$updated                           = true;
 					}
 				}
