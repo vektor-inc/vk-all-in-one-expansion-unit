@@ -408,28 +408,84 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// カスタム分類の共通設定管理用JavaScript
 			echo '<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				var globalSettings = ' . wp_json_encode( get_option( 'veu_global_taxonomy_settings', array() ) ) . ';
-				var currentPostId = ' . intval( $post->ID ) . ';
-				var ajaxUrl = "' . admin_url( 'admin-ajax.php' ) . '";
-				var nonce = "' . wp_create_nonce( 'check_taxonomy_shared' ) . '";
-				
-				// タクソノミー設定を更新する関数
-				function updateTaxonomySettings(index, slug) {
-					if (!slug || !globalSettings[slug]) return;
+				// グローバルスコープで関数を定義
+				window.importSettings = function(index, settingsAttr) {
+					if (!settingsAttr) return;
 					
-					var tagField = document.getElementById("veu_taxonomy[" + index + "][tag]");
-					var restApiFields = document.querySelectorAll("input[name=\"veu_taxonomy[" + index + "][rest_api]\"]");
-					
-					if (tagField) {
-						tagField.checked = globalSettings[slug].tag === "true";
+					try {
+						var settings = JSON.parse(decodeURIComponent(settingsAttr));
+						
+						// ラベルを設定
+						var labelField = document.getElementById("veu_taxonomy[" + index + "][label]");
+						if (labelField) {
+							labelField.value = settings.label;
+						}
+
+						// タグ設定を更新
+						var tagField = document.getElementById("veu_taxonomy[" + index + "][tag]");
+						if (tagField) {
+							tagField.checked = settings.tag === "true";
+						}
+
+						// REST API設定を更新
+						var restApiInputs = document.querySelectorAll("input[name=\'veu_taxonomy[" + index + "][rest_api]\']");
+						restApiInputs.forEach(function(input) {
+							input.checked = input.value === settings.rest_api;
+						});
+					} catch (e) {
+						console.error("設定のインポートに失敗しました:", e);
 					}
+				};
+
+				document.addEventListener("DOMContentLoaded", function() {
+					var globalSettings = ' . wp_json_encode( get_option( 'veu_global_taxonomy_settings', array() ) ) . ';
+					var currentPostId = ' . intval( $post->ID ) . ';
+					var ajaxUrl = "' . admin_url( 'admin-ajax.php' ) . '";
+					var nonce = "' . wp_create_nonce( 'check_taxonomy_shared' ) . '";
 					
-					restApiFields.forEach(function(field) {
-						field.checked = field.value === globalSettings[slug].rest_api;
-					});
-				}
-				
+					// スラッグフィールドの処理
+					for (var i = 1; i <= ' . apply_filters( 'veu_post_type_taxonomies', 5 ) . '; i++) {
+						(function(index) {
+							var slugField = document.getElementById("veu_taxonomy[" + index + "][slug]");
+							if (!slugField) return;
+							
+							slugField.addEventListener("blur", function() {
+								var slug = this.value.trim();
+								var container = this.parentNode;
+								
+								if (!slug) {
+									toggleNotice(container, false);
+									return;
+								}
+								
+								// AJAX でチェック
+								fetch(ajaxUrl, {
+									method: "POST",
+									headers: {"Content-Type": "application/x-www-form-urlencoded"},
+									body: "action=check_taxonomy_shared&taxonomy_slug=" + encodeURIComponent(slug) + 
+										  "&current_post_id=" + currentPostId + "&nonce=" + nonce
+								})
+								.then(response => response.json())
+								.then(data => {
+									if (data.success && data.data.is_shared) {
+										var settings = data.data.existing_settings;
+										var settingsAttr = encodeURIComponent(JSON.stringify(settings));
+										var importMessage = data.data.message + 
+											\'<div style="margin-top: 10px;">\' +
+											\'<button type="button" class="button" data-settings="\' + settingsAttr + \'" data-index="\' + index + \'" onclick="importSettings(this.dataset.index, this.dataset.settings)">\' + 
+											\'' . esc_js( __( 'Import existing settings', 'vk-all-in-one-expansion-unit' ) ) . '\' +
+											\'</button>\' +
+											\'</div>\';
+										toggleNotice(container, true, importMessage);
+									} else {
+										toggleNotice(container, false);
+									}
+								});
+							});
+						})(i);
+					}
+				});
+
 				// 通知を表示/削除する関数
 				function toggleNotice(container, show, message) {
 					var notice = container.querySelector(".taxonomy-shared-notice");
@@ -443,42 +499,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						container.appendChild(newNotice);
 					}
 				}
-				
-				// スラッグフィールドの処理
-				for (var i = 1; i <= ' . apply_filters( 'veu_post_type_taxonomies', 5 ) . '; i++) {
-					(function(index) {
-						var slugField = document.getElementById("veu_taxonomy[" + index + "][slug]");
-						if (!slugField) return;
-						
-						slugField.addEventListener("blur", function() {
-							var slug = this.value.trim();
-							var container = this.parentNode;
-							
-							if (!slug) {
-								toggleNotice(container, false);
-								return;
-							}
-							
-							// AJAX でチェック
-							fetch(ajaxUrl, {
-								method: "POST",
-								headers: {"Content-Type": "application/x-www-form-urlencoded"},
-								body: "action=check_taxonomy_shared&taxonomy_slug=" + encodeURIComponent(slug) + 
-									  "&current_post_id=" + currentPostId + "&nonce=" + nonce
-							})
-							.then(response => response.json())
-							.then(data => {
-								if (data.success && data.data.is_shared) {
-									updateTaxonomySettings(index, slug);
-									toggleNotice(container, true, data.data.message);
-								} else {
-									toggleNotice(container, false);
-								}
-							});
-						});
-					})(i);
-				}
-			});
 			</script>';
 		}
 
@@ -871,10 +891,39 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$is_shared = self::get_taxonomy_shared_info( $taxonomy_slug, $current_post_id, 'check' );
 			$message   = $is_shared ? self::get_taxonomy_shared_info( $taxonomy_slug, $current_post_id, 'message' ) : '';
 
+			// 既存の設定を取得
+			$existing_settings = array();
+			if ( $is_shared ) {
+				$args = array(
+					'post_type'      => 'post_type_manage',
+					'posts_per_page' => 1,
+					'post_status'    => 'publish',
+					'post__not_in'   => array( $current_post_id ),
+				);
+
+				$posts = get_posts( $args );
+				foreach ( $posts as $post ) {
+					$taxonomy_data = get_post_meta( $post->ID, 'veu_taxonomy', true );
+					if ( is_array( $taxonomy_data ) ) {
+						foreach ( $taxonomy_data as $taxonomy ) {
+							if ( isset( $taxonomy['slug'] ) && $taxonomy['slug'] === $taxonomy_slug ) {
+								$existing_settings = array(
+									'label'    => $taxonomy['label'],
+									'tag'      => $taxonomy['tag'],
+									'rest_api' => $taxonomy['rest_api'],
+								);
+								break 2;
+							}
+						}
+					}
+				}
+			}
+
 			wp_send_json_success(
 				array(
-					'is_shared' => $is_shared,
-					'message'   => $message,
+					'is_shared'         => $is_shared,
+					'message'           => $message,
+					'existing_settings' => $existing_settings,
 				)
 			);
 		}
