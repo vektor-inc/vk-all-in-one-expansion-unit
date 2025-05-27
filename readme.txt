@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 9.108.1.0
+Stable tag: 9.108.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,9 @@ e.g.
 == Changelog ==
 
 [ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
+
+= 9.108.2 =
+[ Bug Fix ][ Share button ] Fixed share buttons from being displayed inside forms.
 
 = 9.108.1 =
 [ Bug Fix ][ Meta Description ] Refactor meta-description.php to improve excerpt support and sanitize function
