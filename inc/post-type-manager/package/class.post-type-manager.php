@@ -388,8 +388,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				// 過去の仕様ではデフォルトで REST API はチェック無しだった.
 				// しかし、一般的にブロックエディタ対応にする方が需要が高いため、デフォルトで true になるように変更した。
 				// そのため、そのため、設定画面においては true で保存されていない場合は true にして返す.
-				if ( 'false' !== $rest_api && 'true' !== $rest_api ) {
-					$rest_api = 'true';
+				if ( isset( $taxonomy[ $i ]['rest_api'] ) ) {
+					$checked = $taxonomy[ $i ]['rest_api'];
+				}
+				if ( 'false' !== $checked && 'true' !== $checked ) {
+					$checked = 'true';
 				}
 
 				echo '<td>' . esc_html__( 'Corresponds to the block editor', 'vk-all-in-one-expansion-unit' ) . '</td>';
