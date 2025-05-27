@@ -953,4 +953,3 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 	add_action( 'admin_notices', array( 'VK_Post_Type_Manager', 'display_help_notice' ), 20 );
 }
-
