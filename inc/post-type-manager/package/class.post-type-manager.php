@@ -344,6 +344,15 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				$tag      = ( isset( $taxonomy[ $i ]['tag'] ) ) ? $taxonomy[ $i ]['tag'] : '';
 				$rest_api = ( isset( $taxonomy[ $i ]['rest_api'] ) ) ? $taxonomy[ $i ]['rest_api'] : '';
 
+				// グローバル設定があるかチェック
+				if ( ! empty( $slug ) ) {
+					$global_settings = self::get_global_taxonomy_settings( $slug );
+					if ( $global_settings ) {
+						$tag      = $global_settings['tag'];
+						$rest_api = $global_settings['rest_api'];
+					}
+				}
+
 				echo '<tr>';
 
 				echo '<th rowspan="4">' . esc_attr( $i ) . '</th>';
@@ -352,7 +361,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '<td>' . esc_html__( 'Custon taxonomy name (slug)', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td><input type="text" id="veu_taxonomy[' . esc_attr( $i ) . '][slug]" name="veu_taxonomy[' . esc_attr( $i ) . '][slug]" value="' . esc_attr( $slug ) . '" size="20">';
 				echo '<div>' . esc_html__( '* Please enter a string consisting of half-width lowercase alphanumeric characters, half-width hyphens, and half-width underscores.', 'vk-all-in-one-expansion-unit' ) . '</div>';
-				if ( ! empty( $slug ) && taxonomy_exists( $slug ) ) {
+				if ( ! empty( $slug ) && self::is_taxonomy_shared( $slug, $post->ID ) ) {
 					echo '<div style="color: #0073aa; font-size: 12px; margin-top: 5px;">' . esc_html__( '* This taxonomy is used by other post types.', 'vk-all-in-one-expansion-unit' ) . '</div>';
 				}
 				echo '</td>';
@@ -387,6 +396,81 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				echo '</tr>';
 			}
 			echo '</table>';
+
+			// カスタム分類の共通設定管理用JavaScript
+			echo '<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var globalSettings = ' . wp_json_encode( get_option( 'veu_global_taxonomy_settings', array() ) ) . ';
+				var currentPostId = ' . intval( $post->ID ) . ';
+				var ajaxUrl = "' . admin_url( 'admin-ajax.php' ) . '";
+				var nonce = "' . wp_create_nonce( 'check_taxonomy_shared' ) . '";
+				
+				// タクソノミー設定を更新する関数
+				function updateTaxonomySettings(index, slug) {
+					if (!slug || !globalSettings[slug]) return;
+					
+					var tagField = document.getElementById("veu_taxonomy[" + index + "][tag]");
+					var restApiFields = document.querySelectorAll("input[name=\"veu_taxonomy[" + index + "][rest_api]\"]");
+					
+					if (tagField) {
+						tagField.checked = globalSettings[slug].tag === "true";
+					}
+					
+					restApiFields.forEach(function(field) {
+						field.checked = field.value === globalSettings[slug].rest_api;
+					});
+				}
+				
+				// 通知を表示/削除する関数
+				function toggleNotice(container, show) {
+					var notice = container.querySelector(".taxonomy-shared-notice");
+					if (notice) notice.remove();
+					
+					if (show) {
+						var newNotice = document.createElement("div");
+						newNotice.className = "taxonomy-shared-notice";
+						newNotice.style.cssText = "color: #0073aa; font-size: 12px; margin-top: 5px;";
+						newNotice.textContent = "' . esc_js( __( '* This taxonomy is used by other post types.', 'vk-all-in-one-expansion-unit' ) ) . '";
+						container.appendChild(newNotice);
+					}
+				}
+				
+				// スラッグフィールドの処理
+				for (var i = 1; i <= ' . apply_filters( 'veu_post_type_taxonomies', 5 ) . '; i++) {
+					(function(index) {
+						var slugField = document.getElementById("veu_taxonomy[" + index + "][slug]");
+						if (!slugField) return;
+						
+						slugField.addEventListener("blur", function() {
+							var slug = this.value.trim();
+							var container = this.parentNode;
+							
+							if (!slug) {
+								toggleNotice(container, false);
+								return;
+							}
+							
+							// AJAX でチェック
+							fetch(ajaxUrl, {
+								method: "POST",
+								headers: {"Content-Type": "application/x-www-form-urlencoded"},
+								body: "action=check_taxonomy_shared&taxonomy_slug=" + encodeURIComponent(slug) + 
+									  "&current_post_id=" + currentPostId + "&nonce=" + nonce
+							})
+							.then(response => response.json())
+							.then(data => {
+								if (data.success && data.data.is_shared) {
+									updateTaxonomySettings(index, slug);
+									toggleNotice(container, true);
+								} else {
+									toggleNotice(container, false);
+								}
+							});
+						});
+					})(i);
+				}
+			});
+			</script>';
 		}
 
 		/***
@@ -425,6 +509,15 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$taxonomy[ $i ]['label']    = ! empty( $taxonomy[ $i ]['label'] ) ? esc_html( strip_tags( $taxonomy[ $i ]['label'] ) ) : '';
 					$taxonomy[ $i ]['tag']      = ! empty( $taxonomy[ $i ]['tag'] ) ? esc_html( $taxonomy[ $i ]['tag'] ) : '';
 					$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? esc_html( $taxonomy[ $i ]['rest_api'] ) : '';
+
+					// カスタム分類の共通設定を更新
+					if ( ! empty( $taxonomy[ $i ]['slug'] ) ) {
+						$settings = array(
+							'tag'      => $taxonomy[ $i ]['tag'],
+							'rest_api' => $taxonomy[ $i ]['rest_api'],
+						);
+						self::update_global_taxonomy_settings( $taxonomy[ $i ]['slug'], $settings );
+					}
 				}
 			}
 
@@ -511,7 +604,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 					if ( $post_type_id ) {
 						$post_type_ids[] = $post_type_id;
-						$menu_position = intval( mb_convert_kana( get_post_meta( $post->ID, 'veu_menu_position', true ), 'n' ) );
+						$menu_position   = intval( mb_convert_kana( get_post_meta( $post->ID, 'veu_menu_position', true ), 'n' ) );
 						if ( ! $menu_position ) {
 							$menu_position = 5;
 						}
@@ -605,36 +698,41 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 										$rewrite = array(
 											'slug'       => $taxonomy['slug'],
 											'with_front' => false,
+										// 'rewrite_slug' => false,
 										);
 									} elseif ( isset( $taxonomy['rewrite'] ) && 'false' === $taxonomy['rewrite'] ) {
+										// 旧バージョンではカスタム分類毎でリライト設定があったのでその設定を参照
+										// 'false' の設定は旧バージョンのもので、9.96 で廃止したが、
+										// 設定しているユーザーがいるかもしれないので、一応残してある
+										// この $taxonomy['rewrite'] による指定は 2024年9月以降に削除可
 										$rewrite = 'false';
 									} else {
 										$rewrite = true;
 									}
 
 									$args = array(
-										'hierarchical'          => $hierarchical_true,
+										'hierarchical' => $hierarchical_true,
 										'update_count_callback' => '_update_post_term_count',
-										'labels'                => $labels,
-										'public'                => true,
-										'show_ui'               => true,
-										'show_in_rest'          => $rest_api_true,
-										'show_admin_column'     => true,
-										'rewrite'               => $rewrite,
+										'labels'       => $labels,
+										'public'       => true,
+										'show_ui'      => true,
+										'show_in_rest' => $rest_api_true,
+										'show_admin_column' => true,
+										'rewrite'      => $rewrite,
 									);
 
 									if ( $rest_api_true ) {
 										$args['rest_base'] = $taxonomy['slug'];
 									}
 
-									// 新しいタクソノミーを登録
+									// 特定の投稿タイプにのみタクソノミーを登録
 									register_taxonomy(
 										$taxonomy['slug'],
 										array( $post_type_id ),
 										$args
 									);
 								} else {
-									// 既存のタクソノミーを現在の投稿タイプに紐づけ
+									// 既存のタクソノミーを再利用
 									register_taxonomy_for_object_type( $taxonomy['slug'], $post_type_id );
 								}
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
@@ -682,6 +780,123 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
+		 * カスタム分類の共通設定を更新
+		 *
+		 * @param string $taxonomy_slug タクソノミーのスラッグ
+		 * @param array  $settings      設定配列（tag, rest_api）
+		 */
+		public static function update_global_taxonomy_settings( $taxonomy_slug, $settings ) {
+			if ( empty( $taxonomy_slug ) ) {
+				return;
+			}
+
+			// グローバル設定を更新
+			$global_taxonomy_settings                   = get_option( 'veu_global_taxonomy_settings', array() );
+			$global_taxonomy_settings[ $taxonomy_slug ] = $settings;
+			update_option( 'veu_global_taxonomy_settings', $global_taxonomy_settings );
+
+			// 同じスラッグを使用している全ての投稿タイプを更新
+			$related_posts = self::get_posts_using_taxonomy( $taxonomy_slug );
+			foreach ( $related_posts as $post_data ) {
+				$taxonomy_data = $post_data['taxonomy_data'];
+				$updated       = false;
+
+				foreach ( $taxonomy_data as $key => $taxonomy ) {
+					if ( isset( $taxonomy['slug'] ) && $taxonomy['slug'] === $taxonomy_slug ) {
+						$taxonomy_data[ $key ]['tag']      = $settings['tag'];
+						$taxonomy_data[ $key ]['rest_api'] = $settings['rest_api'];
+						$updated                           = true;
+					}
+				}
+
+				if ( $updated ) {
+					update_post_meta( $post_data['post_id'], 'veu_taxonomy', $taxonomy_data );
+				}
+			}
+		}
+
+		/**
+		 * グローバルなカスタム分類設定を取得
+		 *
+		 * @param string $taxonomy_slug タクソノミーのスラッグ
+		 * @return array|null 設定配列またはnull
+		 */
+		public static function get_global_taxonomy_settings( $taxonomy_slug ) {
+			$global_taxonomy_settings = get_option( 'veu_global_taxonomy_settings', array() );
+			return isset( $global_taxonomy_settings[ $taxonomy_slug ] ) ? $global_taxonomy_settings[ $taxonomy_slug ] : null;
+		}
+
+		/**
+		 * 指定されたタクソノミーを使用している投稿を取得（共通処理）
+		 *
+		 * @param string $taxonomy_slug タクソノミーのスラッグ
+		 * @param int    $exclude_post_id 除外する投稿ID
+		 * @return array 投稿データの配列
+		 */
+		private static function get_posts_using_taxonomy( $taxonomy_slug, $exclude_post_id = 0 ) {
+			if ( empty( $taxonomy_slug ) ) {
+				return array();
+			}
+
+			$args           = array(
+				'post_type'      => 'post_type_manage',
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+				'post__not_in'   => $exclude_post_id ? array( $exclude_post_id ) : array(),
+			);
+			$all_post_types = get_posts( $args );
+			$result         = array();
+
+			foreach ( $all_post_types as $post_type_post ) {
+				$taxonomy_data = get_post_meta( $post_type_post->ID, 'veu_taxonomy', true );
+				if ( ! is_array( $taxonomy_data ) ) {
+					continue;
+				}
+
+				foreach ( $taxonomy_data as $taxonomy ) {
+					if ( isset( $taxonomy['slug'] ) && $taxonomy['slug'] === $taxonomy_slug ) {
+						$result[] = array(
+							'post_id'       => $post_type_post->ID,
+							'taxonomy_data' => $taxonomy_data,
+						);
+						break; // 同じ投稿で複数回マッチしないように
+					}
+				}
+			}
+
+			return $result;
+		}
+
+		/**
+		 * タクソノミーが他の投稿タイプでも使用されているかチェック
+		 *
+		 * @param string $taxonomy_slug タクソノミーのスラッグ
+		 * @param int    $current_post_id 現在の投稿ID（除外用）
+		 * @return bool 他の投稿タイプで使用されている場合true
+		 */
+		public static function is_taxonomy_shared( $taxonomy_slug, $current_post_id = 0 ) {
+			$related_posts = self::get_posts_using_taxonomy( $taxonomy_slug, $current_post_id );
+			return ! empty( $related_posts );
+		}
+
+		/**
+		 * AJAX: タクソノミーが共有されているかチェック
+		 */
+		public static function ajax_check_taxonomy_shared() {
+			// nonce チェック
+			if ( ! wp_verify_nonce( $_POST['nonce'], 'check_taxonomy_shared' ) ) {
+				wp_die( 'Security check failed' );
+			}
+
+			$taxonomy_slug   = sanitize_text_field( $_POST['taxonomy_slug'] );
+			$current_post_id = intval( $_POST['current_post_id'] );
+
+			$is_shared = self::is_taxonomy_shared( $taxonomy_slug, $current_post_id );
+
+			wp_send_json_success( array( 'is_shared' => $is_shared ) );
+		}
+
+		/**
 		 * Constructer
 		 */
 		public function __construct() {
@@ -692,6 +907,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// after_setup_theme では 6.0 頃から翻訳があたらなくなる .
 			// init でも 0 などなど早めのpriority 指定しないと投稿タイプに連動するウィジェットエリアが動作しない .
 			add_action( 'init', array( $this, 'add_post_type' ), 0 );
+
+			// AJAX ハンドラーを追加
+			add_action( 'wp_ajax_check_taxonomy_shared', array( __CLASS__, 'ajax_check_taxonomy_shared' ) );
 		}
 	} // class VK_Post_Type_Manager
 
@@ -699,3 +917,4 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 	add_action( 'admin_notices', array( 'VK_Post_Type_Manager', 'display_help_notice' ), 20 );
 }
+
