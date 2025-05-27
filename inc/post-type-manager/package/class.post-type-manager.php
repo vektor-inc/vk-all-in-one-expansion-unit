@@ -376,7 +376,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 				// tag.
 				echo '<tr>';
-				$checked = ( $tag && 'true' === $tag ) ? ' checked' : '';
+				$checked = ( isset( $taxonomy[ $i ]['tag'] ) && $taxonomy[ $i ]['tag'] ) ? ' checked' : '';
 				echo '<td>' . esc_html__( 'Hierarchy', 'vk-all-in-one-expansion-unit' ) . '</td>';
 				echo '<td><label><input type="checkbox" id="veu_taxonomy[' . esc_attr( $i ) . '][tag]" name="veu_taxonomy[' . esc_attr( $i ) . '][tag]" value="true"' . esc_attr( $checked ) . '> ' . esc_html__( 'Make it a tag (do not hierarchize)', 'vk-all-in-one-expansion-unit' ) . '</label></td>';
 				echo '</tr>';
@@ -384,7 +384,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				// REST API.
 				echo '<tr>';
 
-				// デフォルトで REST API は true
+				// チェックが元々入ってるかどうか.
+				// 過去の仕様ではデフォルトで REST API はチェック無しだった.
+				// しかし、一般的にブロックエディタ対応にする方が需要が高いため、デフォルトで true になるように変更した。
+				// そのため、そのため、設定画面においては true で保存されていない場合は true にして返す.
 				if ( 'false' !== $rest_api && 'true' !== $rest_api ) {
 					$rest_api = 'true';
 				}
