@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
+
 = 9.108.2 =
 [ Bug Fix ][ Share button ] Fixed share buttons from being displayed inside forms.
 
