@@ -80,6 +80,7 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+[ Specification Change ][ Share button ] Remove Pocket share button.
 
 [ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
 
