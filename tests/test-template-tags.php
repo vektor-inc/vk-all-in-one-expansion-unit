@@ -642,56 +642,68 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		register_post_type( 'voice', array( 'public' => true ) );
 
 		// タクソノミー設定を再登録し、最新の設定を取得
-		$refresh_taxonomy = function($taxonomy, $args) {
+		$refresh_taxonomy = function ( $taxonomy, $args ) {
 			register_taxonomy( $taxonomy, array( 'event', 'voice' ), $args );
 			return get_taxonomy( $taxonomy );
 		};
 
 		// タクソノミーの初期設定
-		$taxonomy = $refresh_taxonomy('genre', array(
-			'label'        => 'Genre',
-			'hierarchical' => true,
-			'show_in_rest' => true,
-			'rest_base'    => 'genre-api',
-		));
+		$taxonomy = $refresh_taxonomy(
+			'genre',
+			array(
+				'label'        => 'Genre',
+				'hierarchical' => true,
+				'show_in_rest' => true,
+				'rest_base'    => 'genre-api',
+			)
+		);
 		$this->assertTrue( $taxonomy->hierarchical );
 		$this->assertTrue( $taxonomy->show_in_rest );
 
 		// メタデータを使用して階層化設定を変更
-		update_option('veu_taxonomy_hierarchy', array('genre' => false));
+		update_option( 'veu_taxonomy_hierarchy', array( 'genre' => false ) );
 
 		// 設定を反映
-		$taxonomy = $refresh_taxonomy('genre', array(
-			'label'        => 'Genre',
-			'hierarchical' => false,
-			'show_in_rest' => true,
-			'rest_base'    => 'genre-api',
-		));
+		$taxonomy = $refresh_taxonomy(
+			'genre',
+			array(
+				'label'        => 'Genre',
+				'hierarchical' => false,
+				'show_in_rest' => true,
+				'rest_base'    => 'genre-api',
+			)
+		);
 		$this->assertFalse( $taxonomy->hierarchical );
 
 		// メタデータを使用してREST API設定を変更
-		update_option('veu_taxonomy_rest_api', array('genre' => false));
+		update_option( 'veu_taxonomy_rest_api', array( 'genre' => false ) );
 
 		// 設定を反映
-		$taxonomy = $refresh_taxonomy('genre', array(
-			'label'        => 'Genre',
-			'hierarchical' => false,
-			'show_in_rest' => false,
-			'rest_base'    => 'genre-api',
-		));
+		$taxonomy = $refresh_taxonomy(
+			'genre',
+			array(
+				'label'        => 'Genre',
+				'hierarchical' => false,
+				'show_in_rest' => false,
+				'rest_base'    => 'genre-api',
+			)
+		);
 		$this->assertFalse( $taxonomy->show_in_rest );
 
 		// メタデータを使用して設定を元に戻す
-		update_option('veu_taxonomy_hierarchy', array('genre' => true));
-		update_option('veu_taxonomy_rest_api', array('genre' => true));
+		update_option( 'veu_taxonomy_hierarchy', array( 'genre' => true ) );
+		update_option( 'veu_taxonomy_rest_api', array( 'genre' => true ) );
 
 		// 設定を反映
-		$taxonomy = $refresh_taxonomy('genre', array(
-			'label'        => 'Genre',
-			'hierarchical' => true,
-			'show_in_rest' => true,
-			'rest_base'    => 'genre-api',
-		));
+		$taxonomy = $refresh_taxonomy(
+			'genre',
+			array(
+				'label'        => 'Genre',
+				'hierarchical' => true,
+				'show_in_rest' => true,
+				'rest_base'    => 'genre-api',
+			)
+		);
 		$this->assertTrue( $taxonomy->hierarchical );
 		$this->assertTrue( $taxonomy->show_in_rest );
 	}
