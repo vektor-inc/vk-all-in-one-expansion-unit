@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.109.0 =
 [ Specification Change ][ Share button ] Modified to display by default on posts when using a block theme.
 [ Specification Change ][ Share button ] Modified to hidden by default on page.
 [ Specification Change ][ Share button ] Remove Pocket share button.
