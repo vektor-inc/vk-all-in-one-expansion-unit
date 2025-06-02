@@ -90,7 +90,6 @@ function veu_get_sns_options_default() {
 	);
 	// In case of block theme
 	if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
-		$default_options['enableSnsBtns']  = false;
 		$default_options['enableFollowMe'] = false;
 	}
 	return apply_filters( 'vkExUnit_sns_options_default', $default_options );
