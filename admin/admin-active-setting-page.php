@@ -63,6 +63,10 @@ foreach ( $vkExUnit_packages as $package ) :
 				$i     = 0;
 				if ( $count ) :
 					foreach ( $package['attr'] as $att ) :
+						if ( ! is_array( $att ) ) {
+							// null で送られてきたりするケースがある（ Post Type Manager で英語の場合など ）
+							continue; // 配列でない場合はスキップ
+						}
 						if ( // パッケージが有効化されている
 							$active ||
 							// 有効ではないが enable only が false のとき
