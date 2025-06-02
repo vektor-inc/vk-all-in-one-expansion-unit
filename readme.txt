@@ -80,9 +80,10 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
-[ Specification Change ][ Share button ] Remove Pocket share button.
 
+[ Specification Change ][ Share button ] Remove Pocket share button.
 [ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
+[ Bug Fix ] Fixed the PHP error on the Activation Settings page that occurred when the language setting was not Japanese.
 
 = 9.108.2 =
 [ Bug Fix ][ Share button ] Fixed share buttons from being displayed inside forms.
