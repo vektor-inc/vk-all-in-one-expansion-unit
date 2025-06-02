@@ -68,7 +68,7 @@ function veu_get_sns_options_default() {
 		'enableSnsBtns'               => true,
 		'snsBtn_exclude_post_types'   => array(
 			'post' => false,
-			'page' => false,
+			'page' => true,
 		),
 		'snsBtn_position'             => array(
 			'before' => false,
