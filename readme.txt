@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Specification Change ][ Share button ] Modified to display by default on posts when using a block theme.
+[ Specification Change ][ Share button ] Modified to hidden by default on page.
 [ Specification Change ][ Share button ] Remove Pocket share button.
 [ Specification Change ][ Post Type Manager ] Allow using the same taxonomy slug across multiple custom post types with automatic synchronization of hierarchical settings.
 [ Bug Fix ] Fixed the PHP error on the Activation Settings page that occurred when the language setting was not Japanese.
