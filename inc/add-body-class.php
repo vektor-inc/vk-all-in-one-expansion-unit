@@ -10,7 +10,10 @@ function veu_add_body_class( $class ) {
 		$categories = get_the_category( $post->ID );
 		if ( $categories && ! is_wp_error( $categories ) ) {
 			foreach ( $categories as $category ) {
-				$class[] = 'category-id-' . $category->term_id;
+				$slug_class = 'category-' . $category->slug;
+				if ( ! in_array( $slug_class, $class, true ) ) {
+					$class[] = $slug_class;
+				}
 			}
 		}
 
@@ -18,21 +21,31 @@ function veu_add_body_class( $class ) {
 		$tags = get_the_tags( $post->ID );
 		if ( $tags && ! is_wp_error( $tags ) ) {
 			foreach ( $tags as $tag ) {
-				$class[] = 'tag-id-' . $tag->term_id;
+				$slug_class = 'tag-' . $tag->slug;
+				if ( ! in_array( $slug_class, $class, true ) ) {
+					$class[] = $slug_class;
+				}
 			}
 		}
 
 		// カスタムタクソノミーIDを追加
 		$taxonomies = get_object_taxonomies( get_post_type( $post ), 'objects' );
 		foreach ( $taxonomies as $taxonomy ) {
-			// カテゴリー・タグ以外のタクソノミーのみ対象にする
-			if ( in_array( $taxonomy->name, array( 'category', 'post_tag' ) ) ) {
+			if ( in_array( $taxonomy->name, array( 'category', 'post_tag' ), true ) ) {
 				continue;
 			}
 			$terms = wp_get_post_terms( $post->ID, $taxonomy->name );
 			if ( $terms && ! is_wp_error( $terms ) ) {
+				$tax_class = 'tax-' . $taxonomy->name;
+				if ( ! in_array( $tax_class, $class, true ) ) {
+					$class[] = $tax_class;
+				}
+
 				foreach ( $terms as $term ) {
-					$class[] = $taxonomy->name . '-id-' . $term->term_id;
+					$term_class = $taxonomy->name . '-' . $term->slug;
+					if ( ! in_array( $term_class, $class, true ) ) {
+						$class[] = $term_class;
+					}
 				}
 			}
 		}
