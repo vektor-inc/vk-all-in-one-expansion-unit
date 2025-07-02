@@ -6,7 +6,7 @@ function veu_add_body_class( $class ) {
 		if ( $post->post_name ) {
 			$class[] = 'post-name-' . esc_attr( $post->post_name );
 		}
-		// カテゴリーIDを追加
+		// カテゴリーslugを追加
 		$categories = get_the_category( $post->ID );
 		if ( $categories && ! is_wp_error( $categories ) ) {
 			foreach ( $categories as $category ) {
@@ -17,7 +17,7 @@ function veu_add_body_class( $class ) {
 			}
 		}
 
-		// タグIDを追加
+		// タグslugを追加
 		$tags = get_the_tags( $post->ID );
 		if ( $tags && ! is_wp_error( $tags ) ) {
 			foreach ( $tags as $tag ) {
@@ -28,7 +28,7 @@ function veu_add_body_class( $class ) {
 			}
 		}
 
-		// カスタムタクソノミーIDを追加
+		// カスタムタクソノミー名及び、slugを追加
 		$taxonomies = get_object_taxonomies( get_post_type( $post ), 'objects' );
 		foreach ( $taxonomies as $taxonomy ) {
 			if ( in_array( $taxonomy->name, array( 'category', 'post_tag' ), true ) ) {
