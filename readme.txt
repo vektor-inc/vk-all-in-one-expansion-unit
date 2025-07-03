@@ -80,6 +80,7 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+[ Specification Change ][ body class ] The body tag of the post page now has classes that include the category, tag, and taxonomy slugs.
 
 = 9.109.0 =
 [ Specification Change ][ Share button ] Modified to display by default on posts when using a block theme.
