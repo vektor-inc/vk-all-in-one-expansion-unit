@@ -80,6 +80,8 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+[ Specification Change ][ CTA ] Fix edit button color.
 [ Specification Change ][ body class ] The body tag of the post page now has classes that include the category, tag, and taxonomy slugs.
 
 = 9.109.0 =

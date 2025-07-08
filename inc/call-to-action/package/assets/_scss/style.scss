@@ -11,6 +11,14 @@ $section_margin : 30px;
 	z-index: 999;
 	& > .btn {
 		font-size:12px;
+		text-box: trim-both text;
+		background-color: var(--vk-color-primary);
+		border: 1px solid var(--vk-color-primary);
+		color: #fff;
+		&:hover {
+			background-color: rgba(255,255,255,0.9);
+			color: var(--vk-color-primary);
+		}
 	}
 	.btn-block {
 		width: initial; // デフォルトテーマ用
