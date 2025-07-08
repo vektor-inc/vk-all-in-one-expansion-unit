@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.110.0 =
 [ Specification Change ][ CTA ] Fix edit button color.
 [ Specification Change ][ body class ] The body tag of the post page now has classes that include the category, tag, and taxonomy slugs.
 
