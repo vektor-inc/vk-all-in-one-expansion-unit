@@ -40,7 +40,7 @@ function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false 
 		}
 	}
 
-	if ( ! empty( $post ) || ! is_object( $post ) ) {
+	if ( empty( $post ) || ! is_object( $post ) ) {
 		return '';
 	}
 
