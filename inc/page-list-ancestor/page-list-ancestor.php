@@ -22,6 +22,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 
 function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false ) {
 	global $is_pagewidget;
+	$pageList_ancestor_html = '';
 
 	if ( $is_pagewidget ) {
 		global $widget_pageid;
@@ -39,7 +40,11 @@ function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false 
 		}
 	}
 
-	if ( $post->ancestors ) {
+	if ( empty( $post ) || ! is_object( $post ) ) {
+		return '';
+	}
+
+	if ( ! empty( $post->ancestors ) ) {
 		foreach ( $post->ancestors as $post_anc_id ) {
 			$post_id = $post_anc_id;
 		}
@@ -62,7 +67,7 @@ function vkExUnit_pageList_ancestor_shortcode( $class_name = '', $force = false 
 		}
 
 		if ( $children ) {
-			$pageList_ancestor_html  = '<section class="' . esc_attr( $classes ) . '">';
+			$pageList_ancestor_html .= '<section class="' . esc_attr( $classes ) . '">';
 			$pageList_ancestor_html .= '<div class="veu_card_inner">';
 			$pageList_ancestor_html .= '<h3 class="pageList_ancestor_title veu_card_title"><a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a></h3>';
 			$pageList_ancestor_html .= '<ul class="pageList">';
