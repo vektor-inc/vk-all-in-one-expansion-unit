@@ -210,8 +210,16 @@ function vkExUnit_sitemap( $attr ) {
 				// taxonomyの詳細情報を取得
 				$taxonomy_object = get_taxonomy( $taxonomy );
 
+				// ここでタームが1つ以上あるか確認
+				$terms = get_terms(
+					array(
+						'taxonomy'   => $taxonomy,
+						'hide_empty' => true,
+					)
+				);
+
 				// 管理画面のUIに表示させているものだけに限定
-				if ( $taxonomy_object->show_in_menu ) {
+				if ( $taxonomy_object->show_in_menu && ! empty( $terms ) ) {
 					$sitemap_html .= '<h5 class="sitemap-taxonomy-title sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
 
 					/*

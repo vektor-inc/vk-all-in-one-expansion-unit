@@ -71,8 +71,7 @@ e.g.
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
-
-
+[ Specification Change ][ sitemap ] Terms and taxonomies with zero articles will no longer be displayed.
 
 == Screenshots ==
 
