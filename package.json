@@ -7,7 +7,7 @@
 		"@babel/preset-env": "^7.25.3",
 		"@playwright/test": "^1.46.0",
 		"@wordpress/babel-plugin-makepot": "^6.4.0",
-		"@wordpress/env": "^10.4.0",
+		"@wordpress/env": "^10.28.0",
 		"@wordpress/scripts": "^30.16.0",
 		"babel-plugin-transform-react-jsx": "^6.24.1",
 		"child_process": "^1.0.2",
