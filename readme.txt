@@ -80,6 +80,7 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+[ Bug Fix ][ New Post Widget ] Fix PHP warning.
 [ Specification Change ][ sitemap ] Terms and taxonomies with zero articles will no longer be displayed.
 
 = 9.110.1 =

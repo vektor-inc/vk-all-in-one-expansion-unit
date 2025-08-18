@@ -451,7 +451,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		$instance['media_id']  = esc_attr( $new_instance['media_id'] );
 		$instance['media_alt'] = esc_attr( $new_instance['media_alt'] );
 		$instance['orderby']   = in_array( $new_instance['orderby'], array( 'date', 'modified' ) ) ? $new_instance['orderby'] : 'date';
-		$instance['post_type'] = $new_instance['post_type'];
+		$instance['post_type'] = ! empty( $new_instance['post_type'] ) && is_array( $new_instance['post_type'] ) ? $new_instance['post_type'] : array( 'post' );
 		$instance['terms']     = preg_replace( '/([^0-9,]+)/', '', $new_instance['terms'] );
 		$instance['more_url']  = $new_instance['more_url'];
 		$instance['more_text'] = $new_instance['more_text'];
