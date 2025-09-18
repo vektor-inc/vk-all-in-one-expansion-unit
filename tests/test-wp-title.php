@@ -66,6 +66,27 @@ class WpTitleTest extends WP_UnitTestCase {
 		);
 		$test_posts['event_id'] = wp_insert_post( $post );
 
+		/******************************************
+		 * テスト用タクソノミーの登録 */
+
+		// カテゴリー Test Category を登録
+		$category_result = wp_insert_term( 'Test Category', 'category' );
+		if ( ! is_wp_error( $category_result ) ) {
+			$test_posts['category_id'] = $category_result['term_id'];
+		}
+
+		// タグ Test Tag を登録
+		$tag_result = wp_insert_term( 'Test Tag', 'post_tag' );
+		if ( ! is_wp_error( $tag_result ) ) {
+			$test_posts['tag_id'] = $tag_result['term_id'];
+		}
+
+		// カスタムタクソノミー event_category を登録
+		$custom_tax_result = wp_insert_term( 'Test Event Category', 'event_category' );
+		if ( ! is_wp_error( $custom_tax_result ) ) {
+			$test_posts['custom_tax_id'] = $custom_tax_result['term_id'];
+		}
+
 		return $test_posts;
 	}
 
@@ -257,6 +278,150 @@ class WpTitleTest extends WP_UnitTestCase {
 				),
 				'expected'      => 'Test Event' . $sep . 'Site name',
 			),
+			// カテゴリーアーカイブページ / カスタムタイトル : 指定あり / サイト名追加 : なし
+			// Return : カスタムタイトル
+			array(
+				'target_url'    => get_term_link( $test_posts['category_id'] ),
+				'target_id'     => $test_posts['category_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => 'Category Custom Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Category Custom Title',
+			),
+			// カテゴリーアーカイブページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_term_link( $test_posts['category_id'] ),
+				'target_id'     => $test_posts['category_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => 'Category Custom Title',
+						'add_site_title' => true,
+					),
+				),
+				'expected'      => 'Category Custom Title' . $sep . 'Site name',
+			),
+			// カテゴリーアーカイブページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : カテゴリー名 + セパレータ + サイト名
+			array(
+				'target_url'    => get_term_link( $test_posts['category_id'] ),
+				'target_id'     => $test_posts['category_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => null,
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Test Category' . $sep . 'Site name',
+			),
+			// タグアーカイブページ / カスタムタイトル : 指定あり / サイト名追加 : なし
+			// Return : カスタムタイトル
+			array(
+				'target_url'    => get_term_link( $test_posts['tag_id'] ),
+				'target_id'     => $test_posts['tag_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => 'Tag Custom Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Tag Custom Title',
+			),
+			// タグアーカイブページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_term_link( $test_posts['tag_id'] ),
+				'target_id'     => $test_posts['tag_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => 'Tag Custom Title',
+						'add_site_title' => true,
+					),
+				),
+				'expected'      => 'Tag Custom Title' . $sep . 'Site name',
+			),
+			// タグアーカイブページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : タグ名 + セパレータ + サイト名
+			array(
+				'target_url'    => get_term_link( $test_posts['tag_id'] ),
+				'target_id'     => $test_posts['tag_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => null,
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Test Tag' . $sep . 'Site name',
+			),
+			// カスタムタクソノミーアーカイブページ / カスタムタイトル : 指定あり / サイト名追加 : なし
+			// Return : カスタムタイトル
+			array(
+				'target_url'    => get_term_link( $test_posts['custom_tax_id'] ),
+				'target_id'     => $test_posts['custom_tax_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => 'Custom Taxonomy Title',
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Custom Taxonomy Title',
+			),
+			// カスタムタクソノミーアーカイブページ / カスタムタイトル : 指定あり / サイト名追加 : あり
+			// Return : カスタムタイトル + セパレータ + サイト名
+			array(
+				'target_url'    => get_term_link( $test_posts['custom_tax_id'] ),
+				'target_id'     => $test_posts['custom_tax_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => 'Custom Taxonomy Title',
+						'add_site_title' => true,
+					),
+				),
+				'expected'      => 'Custom Taxonomy Title' . $sep . 'Site name',
+			),
+			// カスタムタクソノミーアーカイブページ / カスタムタイトル : 指定なし / サイト名追加 : なし
+			// Return : タクソノミー名 + セパレータ + サイト名
+			array(
+				'target_url'    => get_term_link( $test_posts['custom_tax_id'] ),
+				'target_id'     => $test_posts['custom_tax_id'],
+				'options'       => array(
+					'blogname' => 'Site name',
+				),
+				'custom_fields' => array(
+					'veu_taxonomy_title' => array(
+						'title'          => null,
+						'add_site_title' => false,
+					),
+				),
+				'expected'      => 'Test Event Category' . $sep . 'Site name',
+			),
 		);
 
 		print PHP_EOL;
@@ -273,7 +438,13 @@ class WpTitleTest extends WP_UnitTestCase {
 
 			if ( ! empty( $value['custom_fields'] ) && is_array( $value['custom_fields'] ) ) {
 				foreach ( $value['custom_fields'] as $cf_key => $cf_value ) {
-					update_post_meta( $value['target_id'], $cf_key, $cf_value );
+					if ( $cf_key === 'veu_taxonomy_title' ) {
+						// タクソノミーのメタデータを設定
+						update_term_meta( $value['target_id'], $cf_key, $cf_value );
+					} else {
+						// 投稿のメタデータを設定
+						update_post_meta( $value['target_id'], $cf_key, $cf_value );
+					}
 				}
 			}
 
@@ -296,7 +467,13 @@ class WpTitleTest extends WP_UnitTestCase {
 			}
 			if ( ! empty( $value['custom_fields'] ) && is_array( $value['custom_fields'] ) ) {
 				foreach ( $value['custom_fields'] as $cf_key => $cf_value ) {
-					delete_post_meta( $value['target_id'], $cf_key );
+					if ( $cf_key === 'veu_taxonomy_title' ) {
+						// タクソノミーのメタデータを削除
+						delete_term_meta( $value['target_id'], $cf_key );
+					} else {
+						// 投稿のメタデータを削除
+						delete_post_meta( $value['target_id'], $cf_key );
+					}
 				}
 			}
 		}
