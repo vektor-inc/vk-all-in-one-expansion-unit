@@ -70,10 +70,10 @@ class VEU_Title_Form_Helper {
 
 		ob_start();
 		?>
-		<tr class="form-field veu_form-field_section veu_metabox_section">
+		<tr class="form-field veu_form-field_section">
 			<th scope="row" valign="top">
 				<label for="<?php echo esc_attr( $input_id ); ?>">
-					<?php _e( 'Title Tag', 'vk-all-in-one-expansion-unit' ); ?>
+					<?php _e( 'Head Title', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
 			</th>
 			<td>
