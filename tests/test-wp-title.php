@@ -81,8 +81,18 @@ class WpTitleTest extends WP_UnitTestCase {
 			$test_posts['tag_id'] = $tag_result['term_id'];
 		}
 
-		// カスタムタクソノミー event_category を登録
-		$custom_tax_result = wp_insert_term( 'Test Event Category', 'event_category' );
+		// テスト用カスタムタクソノミー test_taxonomy を登録
+		if ( ! taxonomy_exists( 'test_taxonomy' ) ) {
+			register_taxonomy( 'test_taxonomy', 'post', array(
+				'label'        => 'Test Taxonomy',
+				'public'       => true,
+				'rewrite'      => false,
+				'hierarchical' => false,
+			) );
+		}
+
+		// カスタムタクソノミー test_taxonomy のタームを登録
+		$custom_tax_result = wp_insert_term( 'Test Event Category', 'test_taxonomy' );
 		if ( ! is_wp_error( $custom_tax_result ) ) {
 			$test_posts['custom_tax_id'] = $custom_tax_result['term_id'];
 		}
