@@ -57,6 +57,7 @@
 
 .veu_metabox_section,
 .veu_form-field_section td {
+
 	p {
 		margin-top:0;
 		margin-bottom:10px;
@@ -117,6 +118,13 @@
 	}
 	.veu_metabox_section_body {
 		display: block;
+	}
+}
+
+.veu_form-field_section th {
+	label {
+		word-break: auto-phrase;
+		word-break: keep-all; // Firefox、Safariで非対応のため
 	}
 }
 
