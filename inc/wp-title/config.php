@@ -5,7 +5,8 @@
  * @package WP Title
  */
 require __DIR__ . '/package/wp-title.php';
-require __DIR__ . '/package/class-veu-title-form-helper.php';
+require_once __DIR__ . '/package/class-veu-title-form-helper.php';
+
 /*
 VEU_Metabox 内の get_post_type が実行タイミングによっては
 カスタム投稿タイプマネージャーで作成した投稿タイプが取得できず、
@@ -15,7 +16,6 @@ admin_menu のタイミングで読み込んでいる
 add_action(
 	'admin_menu',
 	function () {
-		require_once __DIR__ . '/package/class-veu-title-form-helper.php';
 		require_once __DIR__ . '/package/class-veu-metabox-head-title.php';
 		$VEU_Metabox_Head_Title = new VEU_Metabox_Head_Title();
 	}
@@ -25,7 +25,6 @@ add_action(
 add_action(
 	'init',
 	function () {
-		require_once __DIR__ . '/package/class-veu-title-form-helper.php';
 		require_once __DIR__ . '/package/class-veu-metabox-taxonomy-title.php';
 		$VEU_Metabox_Taxonomy_Title = new VEU_Metabox_Taxonomy_Title();
 	}
