@@ -83,12 +83,16 @@ class WpTitleTest extends WP_UnitTestCase {
 
 		// テスト用カスタムタクソノミー test_taxonomy を登録
 		if ( ! taxonomy_exists( 'test_taxonomy' ) ) {
-			register_taxonomy( 'test_taxonomy', 'post', array(
-				'label'        => 'Test Taxonomy',
-				'public'       => true,
-				'rewrite'      => false,
-				'hierarchical' => false,
-			) );
+			register_taxonomy(
+				'test_taxonomy',
+				'event',
+				array(
+					'label'        => 'Test Taxonomy',
+					'public'       => true,
+					'rewrite'      => false,
+					'hierarchical' => false,
+				)
+			);
 		}
 
 		// カスタムタクソノミー test_taxonomy のタームを登録
