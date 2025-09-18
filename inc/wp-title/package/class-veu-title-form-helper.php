@@ -72,7 +72,7 @@ class VEU_Title_Form_Helper {
 		?>
 		<tr class="form-field veu_form-field_section">
 			<th scope="row" valign="top">
-				<label for="<?php echo esc_attr( $input_id ); ?>">
+				<label style="word-break: keep-all;word-break: auto-phrase;" for="<?php echo esc_attr( $input_id ); ?>">
 					<?php _e( 'Head Title', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
 			</th>

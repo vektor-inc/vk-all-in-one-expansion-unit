@@ -121,13 +121,6 @@
 	}
 }
 
-.veu_form-field_section th {
-	label {
-		word-break: auto-phrase;
-		word-break: keep-all; // Firefox、Safariで非対応のため
-	}
-}
-
 .vkExUnit_cta_button_icon_inputset dl{
 	display: flex;
 	dt {
