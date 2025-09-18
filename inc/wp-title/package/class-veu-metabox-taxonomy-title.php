@@ -13,7 +13,6 @@ class VEU_Metabox_Taxonomy_Title {
 		add_action( 'post_tag_edit_form_fields', array( $this, 'add_title_field' ) );
 
 		// カスタムタクソノミーにも対応（動的にフックを追加）
-		add_action( 'init', array( $this, 'add_custom_taxonomy_hooks' ) );
 		add_action( 'admin_init', array( $this, 'add_custom_taxonomy_hooks' ) );
 
 		// 保存処理
@@ -69,8 +68,19 @@ class VEU_Metabox_Taxonomy_Title {
 	public function save_title_field( $term_id ) {
 		$meta_key = 'veu_taxonomy_title';
 
-		// 権限チェック
-		if ( ! current_user_can( 'manage_categories' ) ) {
+		// CSRF保護: nonce検証
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-tag_' . $term_id ) ) {
+			return;
+		}
+
+		// 権限チェック: タクソノミーに応じた適切な権限をチェック
+		$term = get_term( $term_id );
+		if ( ! $term || is_wp_error( $term ) ) {
+			return;
+		}
+
+		$taxonomy = get_taxonomy( $term->taxonomy );
+		if ( ! $taxonomy || ! current_user_can( $taxonomy->cap->edit_terms ) ) {
 			return;
 		}
 
