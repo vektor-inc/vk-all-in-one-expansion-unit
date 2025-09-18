@@ -165,7 +165,7 @@ function vkExUnit_add_wp_title_page() {
 	</tr>
 
 	<tr>
-		<th><?php _e( 'Category / Tag / Taxonomy', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<th><?php _e( 'Category / Tag', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td>
 		<p>
 		<?php _e( 'Taxonomy title tag can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
