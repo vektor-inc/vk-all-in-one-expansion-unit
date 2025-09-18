@@ -80,6 +80,8 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+[ Add function ][ Title Tag ] Add taxonomy title tag setting functionality for archive pages of categories, tags, and custom taxonomies.
 [ Specification Change ][ sitemap ] Terms and taxonomies with zero articles will no longer be displayed.
 
 = 9.110.1 =
