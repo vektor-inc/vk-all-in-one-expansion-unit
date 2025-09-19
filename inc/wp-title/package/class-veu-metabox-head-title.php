@@ -26,7 +26,8 @@ class VEU_Metabox_Head_Title extends VEU_Metabox {
 	 * metabox_body_form
 	 * Form inner
 	 *
-	 * @return [type] [description]
+	 * @param [string] $cf_value : ここでは使用しないが親クラスで受け取っているため形だけ合わせる
+	 * @return [string] form html
 	 */
 	public function metabox_body_form( $cf_value ) {
 		global $post;
