@@ -43,11 +43,11 @@ add_filter( 'post_thumbnail_html', 'veu_post_thumbnail_html', 10, 5 );
 /**
  * Change Has Post Thumbnail.
  *
- * @param bool        $has_thumbnail Post has thumbnail or not.
- * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
+ * @param bool             $has_thumbnail true if the post has a post thumbnail, otherwise false.
+ * @param int|WP_Post|null $post          Post ID or WP_Post object. Default is global `$post`.
+ * @param int|false        $thumbnail_id  Post thumbnail ID or false if the post does not exist.
  */
-function veu_has_post_thumbnail( $has_thumbnail, $post = null ) {
-	$thumbnail_id = get_post_thumbnail_id( $post );
+function veu_has_post_thumbnail( $has_thumbnail, $post, $thumbnail_id ) {
 
 	$image_option     = get_option( 'veu_defualt_thumbnail' );
 	$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
@@ -61,7 +61,26 @@ function veu_has_post_thumbnail( $has_thumbnail, $post = null ) {
 	}
 	return $has_thumbnail;
 }
-add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail' );
+add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail', 10, 3 );
+
+/**
+ * Change Post Thumbnail ID.
+ *
+ * @param int         $thumbnail_id Post thumbnail ID.
+ * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
+ */
+function veu_post_thumbnail_id( $thumbnail_id, $post ) {
+
+	if ( empty( $thumbnail_id ) ) {
+		$image_option     = get_option( 'veu_defualt_thumbnail' );
+		$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
+		if ( $image_default_id ) {
+			$thumbnail_id = $image_default_id;
+		}
+	}
+	return $thumbnail_id;
+}
+add_filter( 'post_thumbnail_id', 'veu_post_thumbnail_id', 10, 2 );
 
 function veu_change_vk_components_image_default_url( $options ) {
 	if ( veu_package_is_enable( 'default_thumbnail' ) ) {
