@@ -81,10 +81,10 @@ class WpTitleTest extends WP_UnitTestCase {
 			$test_posts['tag_id'] = $tag_result['term_id'];
 		}
 
-		// テスト用カスタムタクソノミー test_taxonomy を登録
-		if ( ! taxonomy_exists( 'test_taxonomy' ) ) {
+		// テスト用カスタムタクソノミー event_category を登録
+		if ( ! taxonomy_exists( 'event_category' ) ) {
 			register_taxonomy(
-				'test_taxonomy',
+				'event_category',
 				'event',
 				array(
 					'label'        => 'Test Taxonomy',
@@ -95,8 +95,8 @@ class WpTitleTest extends WP_UnitTestCase {
 			);
 		}
 
-		// カスタムタクソノミー test_taxonomy のタームを登録
-		$custom_tax_result = wp_insert_term( 'Test Event Category', 'test_taxonomy' );
+		// カスタムタクソノミー event_category のタームを登録
+		$custom_tax_result = wp_insert_term( 'Test Event Category', 'event_category' );
 		if ( ! is_wp_error( $custom_tax_result ) ) {
 			$test_posts['custom_tax_id'] = $custom_tax_result['term_id'];
 		}
