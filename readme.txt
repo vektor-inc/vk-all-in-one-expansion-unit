@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Add function ][ Title Tag ] Add taxonomy title tag setting functionality for archive pages of categories, tags, and custom taxonomies.
 [ Bug Fix ][ Default Thumbnail ] Fix an issue where post_thumbnail_id() returns null even when a default thumbnail is specified, in cases where no featured image is set.
 
 = 9.111.0 =

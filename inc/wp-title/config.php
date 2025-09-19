@@ -5,6 +5,8 @@
  * @package WP Title
  */
 require __DIR__ . '/package/wp-title.php';
+require_once __DIR__ . '/package/class-veu-title-form-helper.php';
+
 /*
 VEU_Metabox 内の get_post_type が実行タイミングによっては
 カスタム投稿タイプマネージャーで作成した投稿タイプが取得できず、
@@ -16,5 +18,14 @@ add_action(
 	function () {
 		require_once __DIR__ . '/package/class-veu-metabox-head-title.php';
 		$VEU_Metabox_Head_Title = new VEU_Metabox_Head_Title();
+	}
+);
+
+// タクソノミー用タイトルタグ設定を初期化
+add_action(
+	'init',
+	function () {
+		require_once __DIR__ . '/package/class-veu-taxonomy-head-title.php';
+		$VEU_Taxonomy_Head_Title = new VEU_Taxonomy_Head_Title();
 	}
 );

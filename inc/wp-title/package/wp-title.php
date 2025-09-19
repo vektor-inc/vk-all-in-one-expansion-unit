@@ -50,7 +50,13 @@ function vkExUnit_get_wp_head_title() {
 		} elseif ( is_home() && ! is_front_page() ) {
 			$title = vkExUnit_get_the_archive_title() . $sep . get_bloginfo( 'name' );
 		} elseif ( is_archive() ) {
-			$title = vkExUnit_get_the_archive_title() . $sep . get_bloginfo( 'name' );
+			// タクソノミーのカスタムタイトルタグをチェック
+			$custom_title = vkExUnit_get_taxonomy_custom_title( $post );
+			if ( ! empty( $custom_title ) ) {
+				$title = $custom_title;
+			} else {
+				$title = vkExUnit_get_the_archive_title() . $sep . get_bloginfo( 'name' );
+			}
 			// Page
 		} elseif ( is_singular() ) {
 			$post_meta = get_post_meta( $post->ID, 'veu_head_title', true );
@@ -157,6 +163,18 @@ function vkExUnit_add_wp_title_page() {
 
 		</td>
 	</tr>
+
+	<tr>
+		<th><?php _e( 'Category / Tag', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<td>
+		<p>
+		<?php _e( 'Taxonomy title tag can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
+			<?php if ( get_locale() === 'ja' ) { ?>
+				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url( VEU_DIRECTORY_URI ); ?>/inc/wp-title/package/images/title-setting-from-taxonomy.png" alt="" />
+			<?php } ?>
+
+		</td>
+	</tr>
 </table>
 	<?php submit_button(); ?>
 </div>
@@ -180,4 +198,33 @@ function vkExUnit_wp_title_validate( $input ) {
 	$output                      = array();
 	$output['extend_frontTitle'] = stripslashes( htmlspecialchars( $input['extend_frontTitle'] ) );
 	return $output;
+}
+
+/**
+ * タクソノミーのカスタムタイトルタグを取得
+ *
+ * @param WP_Term $term
+ * @return string
+ */
+function vkExUnit_get_taxonomy_custom_title( $term ) {
+	if ( ! is_object( $term ) || ! isset( $term->term_id ) ) {
+		return '';
+	}
+
+	$term_meta = get_term_meta( $term->term_id, 'veu_taxonomy_title', true );
+
+	if ( empty( $term_meta['title'] ) ) {
+		return '';
+	}
+
+	$title = $term_meta['title'];
+
+	// サイトタイトルを追加するかチェック
+	if ( ! empty( $term_meta['add_site_title'] ) ) {
+		$sep    = ' | ';
+		$sep    = apply_filters( 'vkExUnit_get_wp_head_title_sep', $sep );
+		$title .= $sep . get_bloginfo( 'name' );
+	}
+
+	return $title;
 }
