@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Default Thumbnail ] Fix an issue where post_thumbnail_id() returns null even when a default thumbnail is specified, in cases where no featured image is set.
+
 = 9.111.0 =
 [ Specification Change ][ sitemap ] Terms and taxonomies with zero articles will no longer be displayed.
 [ Bug Fix ][ New Post Widget ] Fix PHP warning.
