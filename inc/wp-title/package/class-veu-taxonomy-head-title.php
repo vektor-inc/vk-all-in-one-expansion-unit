@@ -5,7 +5,7 @@
  * @package VK All in One Expansion Unit
  */
 
-class VEU_Metabox_Taxonomy_Title {
+class VEU_Taxonomy_Head_Title {
 
 	public function __construct() {
 		// カテゴリー編集画面にフィールドを追加
@@ -109,4 +109,4 @@ class VEU_Metabox_Taxonomy_Title {
 	public static function get_taxonomy_title( $term_id ) {
 		return get_term_meta( $term_id, 'veu_taxonomy_title', true );
 	}
-} // class VEU_Metabox_Taxonomy_Title {
+} // class VEU_Taxonomy_Head_Title {

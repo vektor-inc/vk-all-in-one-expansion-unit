@@ -25,7 +25,7 @@ add_action(
 add_action(
 	'init',
 	function () {
-		require_once __DIR__ . '/package/class-veu-metabox-taxonomy-title.php';
-		$VEU_Metabox_Taxonomy_Title = new VEU_Metabox_Taxonomy_Title();
+		require_once __DIR__ . '/package/class-veu-taxonomy-head-title.php';
+		$VEU_Taxonomy_Head_Title = new VEU_Taxonomy_Head_Title();
 	}
 );
