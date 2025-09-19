@@ -71,7 +71,7 @@ add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail', 10, 3 );
  */
 function veu_post_thumbnail_id( $thumbnail_id, $post ) {
 
-	if ( empty( $thumbnail_id ) ){
+	if ( empty( $thumbnail_id ) ) {
 		$image_option     = get_option( 'veu_defualt_thumbnail' );
 		$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
 		if ( $image_default_id ) {
