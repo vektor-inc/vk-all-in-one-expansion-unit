@@ -10,6 +10,7 @@ class VEU_Taxonomy_Head_Title {
 	public function __construct() {
 		// カテゴリー編集画面にフィールドを追加
 		add_action( 'category_edit_form_fields', array( $this, 'add_title_field' ) );
+		// タグ編集画面にフィールドを追加
 		add_action( 'post_tag_edit_form_fields', array( $this, 'add_title_field' ) );
 
 		// カスタムタクソノミーにも対応（動的にフックを追加）
