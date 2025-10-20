@@ -5,7 +5,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.25.2",
 		"@babel/preset-env": "^7.25.3",
-		"@playwright/test": "^1.46.0",
+		"@playwright/test": "^1.56.1",
 		"@wordpress/babel-plugin-makepot": "^6.4.0",
 		"@wordpress/env": "^10.28.0",
 		"@wordpress/scripts": "^30.16.0",
