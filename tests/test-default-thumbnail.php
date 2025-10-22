@@ -193,33 +193,33 @@ class DefaultThumbnailTest extends WP_UnitTestCase {
 
 		foreach ( $attachments as $attachment_id ) {
 			$post = get_post( $attachment_id );
-			
+
 			// メディアライブラリでの処理をシミュレート
 			$attachment_id_for_display = $attachment_id;
-			
+
 			// has_post_thumbnail() の結果をチェック
 			$has_thumbnail = has_post_thumbnail( $post );
 			$this->assertFalse( $has_thumbnail, "Attachment {$attachment_id} should not have thumbnail" );
-			
+
 			// get_post_thumbnail_id() の結果をチェック
 			$thumbnail_id = get_post_thumbnail_id( $post );
 			$this->assertEquals( 0, $thumbnail_id, "Attachment {$attachment_id} should have thumbnail ID 0" );
-			
+
 			// メディアライブラリでの表示用IDは元のアタッチメントIDのまま
 			if ( $has_thumbnail && ! empty( $thumbnail_id ) ) {
 				$attachment_id_for_display = $thumbnail_id;
 			}
-			
+
 			// 表示用IDは元のアタッチメントIDのまま（デフォルトサムネイルの影響を受けない）
-			$this->assertEquals( $attachment_id, $attachment_id_for_display, "Display ID should be original attachment ID" );
-			
+			$this->assertEquals( $attachment_id, $attachment_id_for_display, 'Display ID should be original attachment ID' );
+
 			// 実際の画像表示をテスト
 			$thumb = wp_get_attachment_image( $attachment_id_for_display, array( 60, 60 ), true, array( 'alt' => '' ) );
 			$this->assertNotEmpty( $thumb, "Thumbnail should be displayed for attachment {$attachment_id}" );
-			
+
 			// デフォルトサムネイルのURLが含まれていないことを確認
 			$default_thumbnail_url = wp_get_attachment_url( $this->default_thumbnail_attachment_id );
-			$this->assertStringNotContainsString( $default_thumbnail_url, $thumb, "Default thumbnail URL should not appear in media library" );
+			$this->assertStringNotContainsString( $default_thumbnail_url, $thumb, 'Default thumbnail URL should not appear in media library' );
 		}
 	}
 }

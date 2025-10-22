@@ -17,8 +17,7 @@ function veu_post_thumbnail_html( $html, $post = null, $post_thumbnail_id = null
 	if ( ! $post ) {
 		return '';
 	}
-	
-	
+
 	$post_thumbnail_id = get_post_thumbnail_id( $post );
 
 	$size = apply_filters( 'post_thumbnail_size', $size, $post->ID );
