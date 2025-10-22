@@ -50,8 +50,11 @@ add_filter( 'post_thumbnail_html', 'veu_post_thumbnail_html', 10, 5 );
  */
 function veu_has_post_thumbnail( $has_thumbnail, $post, $thumbnail_id ) {
 	// アタッチメント自体の表示では適用しない
-	if ( $post && $post->post_type === 'attachment' ) {
-		return $has_thumbnail;
+	if ( $post ) {
+		$post_obj = get_post( $post );
+		if ( $post_obj && $post_obj->post_type === 'attachment' ) {
+			return $has_thumbnail;
+		}
 	}
 
 	$image_option     = get_option( 'veu_defualt_thumbnail' );
@@ -76,8 +79,11 @@ add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail', 10, 3 );
  */
 function veu_post_thumbnail_id( $thumbnail_id, $post ) {
 	// アタッチメント自体の表示では適用しない
-	if ( $post && $post->post_type === 'attachment' ) {
-		return $thumbnail_id;
+	if ( $post ) {
+		$post_obj = get_post( $post );
+		if ( $post_obj && $post_obj->post_type === 'attachment' ) {
+			return $thumbnail_id;
+		}
 	}
 
 	if ( empty( $thumbnail_id ) ) {
