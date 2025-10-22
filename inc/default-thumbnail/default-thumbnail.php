@@ -18,6 +18,11 @@ function veu_post_thumbnail_html( $html, $post = null, $post_thumbnail_id = null
 		return '';
 	}
 
+	// アタッチメント自体の表示では適用しない
+	if ( $post->post_type === 'attachment' ) {
+		return $html;
+	}
+
 	$post_thumbnail_id = get_post_thumbnail_id( $post );
 
 	$size = apply_filters( 'post_thumbnail_size', $size, $post->ID );
