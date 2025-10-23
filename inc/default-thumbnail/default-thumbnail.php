@@ -17,6 +17,12 @@ function veu_post_thumbnail_html( $html, $post = null, $post_thumbnail_id = null
 	if ( ! $post ) {
 		return '';
 	}
+
+	// アタッチメント自体の表示では適用しない
+	if ( $post->post_type === 'attachment' ) {
+		return $html;
+	}
+
 	$post_thumbnail_id = get_post_thumbnail_id( $post );
 
 	$size = apply_filters( 'post_thumbnail_size', $size, $post->ID );
@@ -48,6 +54,13 @@ add_filter( 'post_thumbnail_html', 'veu_post_thumbnail_html', 10, 5 );
  * @param int|false        $thumbnail_id  Post thumbnail ID or false if the post does not exist.
  */
 function veu_has_post_thumbnail( $has_thumbnail, $post, $thumbnail_id ) {
+	// アタッチメント自体の表示では適用しない
+	if ( $post ) {
+		$post_obj = get_post( $post );
+		if ( $post_obj && $post_obj->post_type === 'attachment' ) {
+			return $has_thumbnail;
+		}
+	}
 
 	$image_option     = get_option( 'veu_defualt_thumbnail' );
 	$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
@@ -70,6 +83,13 @@ add_filter( 'has_post_thumbnail', 'veu_has_post_thumbnail', 10, 3 );
  * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global `$post`.
  */
 function veu_post_thumbnail_id( $thumbnail_id, $post ) {
+	// アタッチメント自体の表示では適用しない
+	if ( $post ) {
+		$post_obj = get_post( $post );
+		if ( $post_obj && $post_obj->post_type === 'attachment' ) {
+			return $thumbnail_id;
+		}
+	}
 
 	if ( empty( $thumbnail_id ) ) {
 		$image_option     = get_option( 'veu_defualt_thumbnail' );

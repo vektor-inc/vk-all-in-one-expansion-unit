@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Default Thumbnail ] Fix issue where default thumbnail appears in media library list view.
+
 = 9.112.0 =
 [ Add function ][ Title Tag ] Add taxonomy title tag setting functionality for archive pages of categories, tags, and custom taxonomies.
 [ Bug Fix ][ Default Thumbnail ] Fix an issue where post_thumbnail_id() returns null even when a default thumbnail is specified, in cases where no featured image is set.
