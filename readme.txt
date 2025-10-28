@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Title Tag ] Prevent the separator from appearing on the front page when the site description is empty.
+
 = 9.112.1 =
 [ Bug Fix ][ Default Thumbnail ] Fix issue where default thumbnail appears in media library list view.
 
