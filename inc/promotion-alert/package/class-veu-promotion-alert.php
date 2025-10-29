@@ -279,7 +279,7 @@ class VEU_Promotion_Alert {
 			</p>
 			<table class="form-table">
 				<tr>
-					<th><?php _e( 'Alert Text', 'vk-all-in-one-expansion-unit' ); ?></th>
+					<th><?php _e( 'Notation Text', 'vk-all-in-one-expansion-unit' ); ?></th>
 					<td>
 						<p>
 						<input type="text" name="vkExUnit_PA[alert-text]" value="<?php echo esc_attr( $options['alert-text'] ); ?>" class="large-text">
@@ -293,11 +293,11 @@ class VEU_Promotion_Alert {
 					</td>
 				</tr>
 				<tr>
-					<th><?php _e( 'Custom Alert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
+					<th><?php _e( 'Custom Notation Content', 'vk-all-in-one-expansion-unit' ); ?></th>
 					<td>
 						<textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo $options['alert-content']; ?></textarea>
 						<ul>
-							<li><?php _e( 'If there is any input in "Custom Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Custom Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
+							<li><?php _e( 'If there is any input in "Custom Notation Content", "Notation Text" will not be displayed and will be overwritten by the content entered in "Custom Notation Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
 							<li><?php _e( 'You can insert HTML tags here. This is designed to be used by pasting content created in the Block Editor.', 'vk-all-in-one-expansion-unit' ); ?></li>
 						</ul>
 								
@@ -323,7 +323,7 @@ class VEU_Promotion_Alert {
 				<hr>
 				<table class="form-table">
 				<tr>
-					<th><?php _e( 'Alert Hook ( Optional )', 'vk-all-in-one-expansion-unit' ); ?></th>
+					<th><?php _e( 'Notation Hook ( Optional )', 'vk-all-in-one-expansion-unit' ); ?></th>
 					<td>
 						<p><?php _e( 'By default, it is output at the top of the content.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'If you want to change the location of any action hook, enter the action hook name.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'Ex) lightning_entry_body_prepend', 'vk-all-in-one-expansion-unit' ); ?></p>
 						<input type="text" name="vkExUnit_PA[alert-hook]" value="<?php echo esc_attr( $options['alert-hook'] ); ?>" class="large-text">
