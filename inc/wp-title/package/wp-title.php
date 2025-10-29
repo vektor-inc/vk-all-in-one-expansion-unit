@@ -43,7 +43,11 @@ function vkExUnit_get_wp_head_title() {
 		if ( is_front_page() ) {
 			$options = vkExUnit_get_wp_title_options();
 			if ( empty( $options['extend_frontTitle'] ) ) {
-				$title = get_bloginfo( 'name' ) . $sep . get_bloginfo( 'description' );
+				$description = get_bloginfo( 'description' );
+				$title       = get_bloginfo( 'name' );
+				if ( ! empty( $description ) ) {
+					$title .= $sep . $description;
+				}
 			} else {
 				$title = $options['extend_frontTitle'];
 			}

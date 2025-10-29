@@ -216,6 +216,20 @@ class WpTitleTest extends WP_UnitTestCase {
 				),
 				'expected'      => 'ExUnit Front Page Title',
 			),
+			// トップページ / サイトの説明が空
+			// Return : サイト名のみ（セパレータなし）
+			array(
+				'target_url'    => home_url( '/' ),
+				'target_id'     => $test_posts['front_page_id'],
+				'options'       => array(
+					'blogname'          => 'Site name',
+					'blogdescription'   => '',
+					'show_on_front'     => 'posts',
+					'vkExUnit_wp_title' => array(),
+				),
+				'custom_fields' => array(),
+				'expected'      => 'Site name',
+			),
 			/***********************************************************
 			 * トップページ仕様変更
 			 *
