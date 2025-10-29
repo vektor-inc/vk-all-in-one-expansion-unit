@@ -15,7 +15,7 @@ class VEU_Promotion_Alert_Metabox extends VEU_Metabox {
 		$this->args = array(
 			'slug'     => 'veu_display_promotion_alert',
 			'cf_name'  => 'veu_display_promotion_alert',
-			'title'    => __( 'Promotion Alert Setting', 'vk-all-in-one-expansion-unit' ),
+			'title'    => __( 'Promotion Notation Setting', 'vk-all-in-one-expansion-unit' ),
 			'priority' => 1,
 		);
 

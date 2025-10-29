@@ -201,7 +201,7 @@ class VEU_Promotion_Alert {
 	 */
 	public static function option_init() {
 		vkExUnit_register_setting(
-			__( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),           // tab label.
+			__( 'Promotion Notation', 'vk-all-in-one-expansion-unit' ),           // tab label.
 			'vkExUnit_PA',                         // name attr
 			array( __CLASS__, 'sanitize_setting' ),      // sanitaise function name
 			array( __CLASS__, 'render_setting' )     // setting_page function name
@@ -270,7 +270,7 @@ class VEU_Promotion_Alert {
 		// オプションを取得
 		$options = self::get_options();
 		?>
-		<h3><?php _e( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ); ?></h3>
+		<h3><?php _e( 'Promotion Notation', 'vk-all-in-one-expansion-unit' ); ?></h3>
 		<div id="vkExUnit_PA" class="sectionBox">
 			<P>
 			<?php _e( 'If the article contains advertisements, it\'s necessary to provide a clear notation for general consumers to recognize.', 'vk-all-in-one-expansion-unit' ); ?>
