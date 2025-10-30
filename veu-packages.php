@@ -351,11 +351,11 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/*
-		Promotion Alert
+		Promotion Notation
 	*/
 	$required_packages[] = array(
 		'name'        => 'promotion_alert',
-		'title'       => __( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Promotion Notation', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'If the article contains advertisements, it\'s essential to have a notation that general consumers can recognize.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'Using this feature, you can automatically insert the content set in ExUnit > Main Settings into the post.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(

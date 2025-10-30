@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Promotion Alert', async ({ page }) => {
+test('Promotion Notation', async ({ page }) => {
 
 	// login ///////////////////////////////////////////.
 	await page.goto('http://localhost:8889/wp-login.php');
@@ -32,7 +32,7 @@ test('Promotion Alert', async ({ page }) => {
 	await page.goto('http://localhost:8889/wp-admin/post-new.php?post_type=test-post-type');
 
 	// 設定メタボックスがあるかどうか
-	await expect(page.locator('.veu_display_promotion_alert .veu_metabox_section_title')).toContainText('Promotion Alert Setting');
+	await expect(page.locator('.veu_display_promotion_alert .veu_metabox_section_title')).toContainText('Promotion Notation Setting');
 
 	// Delete CTA ///////////////////////////////////////////.
 	await page.goto('http://localhost:8889/wp-admin/edit.php?post_type=post_type_manage');

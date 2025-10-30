@@ -1,6 +1,6 @@
 <?php
 /**
- * VEU Promotion Alert
+ * VEU Promotion Notation
  */
 
 class VEU_Promotion_Alert {

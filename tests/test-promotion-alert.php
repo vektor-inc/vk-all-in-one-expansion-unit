@@ -1,12 +1,12 @@
 <?php
 /**
- * Promotion Alert Test
+ * Promotion Notation Test
  *
  * @package VK All in One Expansion Unit
  */
 
 /**
- * Promotion Alert Test
+ * Promotion Notation Test
  */
 class PromotionAlertTest extends WP_UnitTestCase {
 
@@ -352,7 +352,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'Promotion Alert Condition Test' . PHP_EOL;
+		print 'Promotion Notation Condition Test' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print PHP_EOL;
 
@@ -467,7 +467,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'Promotion Alert Content Test' . PHP_EOL;
+		print 'Promotion Notation Content Test' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print PHP_EOL;
 

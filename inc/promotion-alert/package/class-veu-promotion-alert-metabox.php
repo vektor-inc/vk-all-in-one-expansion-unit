@@ -1,6 +1,6 @@
 <?php
 /**
- * VEU Metabox Promotion Alert
+ * VEU Metabox Promotion Notation
  */
 
 if ( ! class_exists( 'VEU_Metabox' ) ) {
