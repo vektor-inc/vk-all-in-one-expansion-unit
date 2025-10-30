@@ -1,6 +1,6 @@
 <?php
 /**
- * VEU Promotion Notation Setting
+ * VEU Promotion Disclosure Setting
  */
 
 require __DIR__ . '/package/class-veu-promotion-alert.php';
