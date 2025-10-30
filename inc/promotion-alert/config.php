@@ -1,6 +1,6 @@
 <?php
 /**
- * VEU Promotion Alert Setting
+ * VEU Promotion Disclosure Setting
  */
 
 require __DIR__ . '/package/class-veu-promotion-alert.php';

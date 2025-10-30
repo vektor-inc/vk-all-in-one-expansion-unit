@@ -1,6 +1,6 @@
 <?php
 /**
- * VEU Promotion Alert
+ * VEU Promotion Disclosure
  */
 
 class VEU_Promotion_Alert {
@@ -201,7 +201,7 @@ class VEU_Promotion_Alert {
 	 */
 	public static function option_init() {
 		vkExUnit_register_setting(
-			__( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ),           // tab label.
+			__( 'Promotion Disclosure', 'vk-all-in-one-expansion-unit' ),           // tab label.
 			'vkExUnit_PA',                         // name attr
 			array( __CLASS__, 'sanitize_setting' ),      // sanitaise function name
 			array( __CLASS__, 'render_setting' )     // setting_page function name
@@ -270,16 +270,16 @@ class VEU_Promotion_Alert {
 		// オプションを取得
 		$options = self::get_options();
 		?>
-		<h3><?php _e( 'Promotion Alert', 'vk-all-in-one-expansion-unit' ); ?></h3>
+		<h3><?php _e( 'Promotion Disclosure', 'vk-all-in-one-expansion-unit' ); ?></h3>
 		<div id="vkExUnit_PA" class="sectionBox">
 			<P>
-			<?php _e( 'If the article contains advertisements, it\'s necessary to provide a clear notation for general consumers to recognize.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php _e( 'If the article contains advertisements, it\'s necessary to provide a clear disclosure for general consumers to recognize.', 'vk-all-in-one-expansion-unit' ); ?>
 			<br>
 			<?php _e( 'By inputting here, you can automatically insert it at the beginning of the article.', 'vk-all-in-one-expansion-unit' ); ?>
 			</p>
 			<table class="form-table">
 				<tr>
-					<th><?php _e( 'Alert Text', 'vk-all-in-one-expansion-unit' ); ?></th>
+					<th><?php _e( 'Disclosure Text', 'vk-all-in-one-expansion-unit' ); ?></th>
 					<td>
 						<p>
 						<input type="text" name="vkExUnit_PA[alert-text]" value="<?php echo esc_attr( $options['alert-text'] ); ?>" class="large-text">
@@ -293,11 +293,11 @@ class VEU_Promotion_Alert {
 					</td>
 				</tr>
 				<tr>
-					<th><?php _e( 'Custom Alert Content', 'vk-all-in-one-expansion-unit' ); ?></th>
+					<th><?php _e( 'Custom Disclosure Content', 'vk-all-in-one-expansion-unit' ); ?></th>
 					<td>
 						<textarea name="vkExUnit_PA[alert-content]" style="width:100%;" rows="10"><?php echo $options['alert-content']; ?></textarea>
 						<ul>
-							<li><?php _e( 'If there is any input in "Custom Alert Content", "Alert Text" will not be displayed and will be overwritten by the content entered in "Custom Alert Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
+							<li><?php _e( 'If there is any input in "Custom Disclosure Content", "Disclosure Text" will not be displayed and will be overwritten by the content entered in "Custom Disclosure Content".', 'vk-all-in-one-expansion-unit' ); ?></li>
 							<li><?php _e( 'You can insert HTML tags here. This is designed to be used by pasting content created in the Block Editor.', 'vk-all-in-one-expansion-unit' ); ?></li>
 						</ul>
 								
@@ -323,7 +323,7 @@ class VEU_Promotion_Alert {
 				<hr>
 				<table class="form-table">
 				<tr>
-					<th><?php _e( 'Alert Hook ( Optional )', 'vk-all-in-one-expansion-unit' ); ?></th>
+					<th><?php _e( 'Disclosure Hook ( Optional )', 'vk-all-in-one-expansion-unit' ); ?></th>
 					<td>
 						<p><?php _e( 'By default, it is output at the top of the content.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'If you want to change the location of any action hook, enter the action hook name.', 'vk-all-in-one-expansion-unit' ); ?><br><?php _e( 'Ex) lightning_entry_body_prepend', 'vk-all-in-one-expansion-unit' ); ?></p>
 						<input type="text" name="vkExUnit_PA[alert-hook]" value="<?php echo esc_attr( $options['alert-hook'] ); ?>" class="large-text">
