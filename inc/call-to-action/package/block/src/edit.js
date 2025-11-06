@@ -42,7 +42,6 @@ export default function CTAEdit( props ) {
 					link.style.boxShadow = 'unset';
 					link.style.color = 'inherit';
 					link.style.textDecorationColor = 'inherit';
-					link.style.pointerEvents = 'none';
 				} );
 				link.addEventListener( 'mouseover', function ( event ) {
 					event.preventDefault();
@@ -50,7 +49,6 @@ export default function CTAEdit( props ) {
 					link.style.boxShadow = 'unset';
 					link.style.color = 'inherit';
 					link.style.textDecorationColor = 'inherit';
-					link.style.pointerEvents = 'none';
 				} );
 			} );
 		} );
