@@ -171,7 +171,7 @@ class VEU_Metabox {
 		$noncename__value = isset( $_POST[ 'noncename__' . $this->args['cf_name'] ] ) ? $_POST[ 'noncename__' . $this->args['cf_name'] ] : null;
 
 		// nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
-		if ( ! wp_verify_nonce( $noncename__value, wp_create_nonce( __FILE__ ) ) ) {
+		if ( ! wp_verify_nonce( $noncename__value, __FILE__ ) ) {
 			return $post_id;
 		}
 
