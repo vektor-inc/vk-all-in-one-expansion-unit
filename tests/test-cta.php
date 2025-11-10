@@ -11,6 +11,14 @@
 class CTATest extends WP_UnitTestCase {
 
 	/**
+	 * Reset globals after each test.
+	 */
+	protected function tearDown(): void {
+		parent::tearDown();
+		$_POST = array();
+	}
+
+	/**
 	 * Create test post
 	 *
 	 * @return array $test_posts
@@ -44,6 +52,124 @@ class CTATest extends WP_UnitTestCase {
 		$test_posts['post_id_draft'] = wp_insert_post( $post );
 
 		return $test_posts;
+	}
+
+	/**
+	 * Create the nonce expected by save_custom_field().
+	 *
+	 * @return string
+	 */
+	private function create_cta_nonce() {
+		$cta_class_path = dirname( __DIR__, 1 ) . '/inc/call-to-action/package/class-vk-call-to-action.php';
+		return wp_create_nonce( plugin_basename( $cta_class_path ) );
+	}
+
+	/**
+	 * save_custom_field() should bail when CTA switch isn't provided.
+	 */
+	public function test_save_custom_field_requires_switch() {
+		$post_id = self::factory()->post->create(
+			array(
+				'post_type'    => Vk_Call_To_Action::POST_TYPE,
+				'post_status'  => 'publish',
+				'post_title'   => 'CTA Save Test',
+				'post_content' => 'content',
+			)
+		);
+
+		$_POST = array(
+			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
+		);
+
+		$return = Vk_Call_To_Action::save_custom_field( $post_id );
+
+		$this->assertSame( $post_id, $return );
+		$this->assertEmpty( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) );
+	}
+
+	/**
+	 * save_custom_field() should add, update and delete vkexunit_cta_each_option.
+	 */
+	public function test_save_custom_field_cta_number_meta_lifecycle() {
+		$post_id = self::factory()->post->create(
+			array(
+				'post_type'    => Vk_Call_To_Action::POST_TYPE,
+				'post_status'  => 'publish',
+				'post_title'   => 'CTA Number Test',
+				'post_content' => 'content',
+			)
+		);
+
+		$_POST = array(
+			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
+			'_vkExUnit_cta_switch'       => 'cta_number',
+			'vkexunit_cta_each_option'   => array(
+				'design' => 'primary',
+			),
+		);
+		Vk_Call_To_Action::save_custom_field( $post_id );
+		$this->assertSame(
+			$_POST['vkexunit_cta_each_option'],
+			get_post_meta( $post_id, 'vkexunit_cta_each_option', true )
+		);
+
+		$_POST['vkexunit_cta_each_option'] = array(
+			'layout' => 'wide',
+		);
+		Vk_Call_To_Action::save_custom_field( $post_id );
+		$this->assertSame(
+			$_POST['vkexunit_cta_each_option'],
+			get_post_meta( $post_id, 'vkexunit_cta_each_option', true )
+		);
+
+		$_POST['vkexunit_cta_each_option'] = '';
+		Vk_Call_To_Action::save_custom_field( $post_id );
+		$this->assertSame( '', get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) );
+	}
+
+	/**
+	 * save_custom_field() should sanitize CTA content field values.
+	 */
+	public function test_save_custom_field_cta_content_sanitizes_fields() {
+		$post_id = self::factory()->post->create(
+			array(
+				'post_type'    => Vk_Call_To_Action::POST_TYPE,
+				'post_status'  => 'publish',
+				'post_title'   => 'CTA Content Test',
+				'post_content' => 'content',
+			)
+		);
+
+		$raw_button_text = "Click <script>alert(1)</script> O\\'Clock";
+		$raw_cta_text    = "Line 1\\nLine 2<script>alert(2)</script>";
+		$raw_url         = 'https://example.com/?q=<script>';
+		$raw_img_url     = 'https://example.com/image.php?param=<script>';
+
+		$_POST = array(
+			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
+			'_vkExUnit_cta_switch'       => 'cta_content',
+			'vkExUnit_cta_use_type'      => 'veu_cta_normal',
+			'vkExUnit_cta_img'           => $raw_img_url,
+			'vkExUnit_cta_button_text'   => $raw_button_text,
+			'vkExUnit_cta_url'           => $raw_url,
+			'vkExUnit_cta_url_blank'     => 'window_self',
+			'vkExUnit_cta_text'          => $raw_cta_text,
+		);
+
+		Vk_Call_To_Action::save_custom_field( $post_id );
+
+		$this->assertSame( 'veu_cta_normal', get_post_meta( $post_id, 'vkExUnit_cta_use_type', true ) );
+		$this->assertSame( esc_url( $raw_img_url ), get_post_meta( $post_id, 'vkExUnit_cta_img', true ) );
+		$this->assertSame(
+			wp_kses_post( stripslashes( $raw_button_text ) ),
+			get_post_meta( $post_id, 'vkExUnit_cta_button_text', true )
+		);
+		$this->assertSame( esc_url( $raw_url ), get_post_meta( $post_id, 'vkExUnit_cta_url', true ) );
+		$this->assertSame( 'window_self', get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) );
+		$this->assertSame(
+			wp_kses_post( stripslashes( $raw_cta_text ) ),
+			get_post_meta( $post_id, 'vkExUnit_cta_text', true )
+		);
 	}
 
 	/**
