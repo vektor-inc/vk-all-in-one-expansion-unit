@@ -8,6 +8,29 @@ function veu_css_customize_single_load() {
 }
 add_action( 'after_setup_theme', 'veu_css_customize_single_load', 11 );
 
+if ( ! function_exists( 'veu_sanitize_custom_css_input' ) ) {
+	/**
+	 * Basic sanitization for the Custom CSS meta field.
+	 * Removes HTML tags while keeping CSS-specific characters intact.
+	 *
+	 * @param string $css Raw CSS provided by editors.
+	 * @return string Sanitized CSS string.
+	 */
+	function veu_sanitize_custom_css_input( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
+
+		$css = wp_check_invalid_utf8( $css );
+		$css = html_entity_decode( $css, ENT_QUOTES | ENT_HTML5 );
+		$css = wp_strip_all_tags( $css, false );
+		$css = preg_replace( '/<\/?style[^>]*>/i', '', $css );
+		$css = trim( $css );
+
+		return $css;
+	}
+}
+
 /**
  * CSS Customize Single Load to Edit Page
  */
@@ -28,9 +51,10 @@ function veu_insert_custom_css() {
 		if ( $post ) {
 			$css = veu_get_the_custom_css_single( $post );
 			if ( $css ) {
-				// HTMLエンティティをデコードし、HTMLタグとその内容を削除
-				$css = html_entity_decode( $css, ENT_QUOTES | ENT_HTML5 );
-				echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
+				$css = veu_sanitize_custom_css_input( $css );
+				if ( $css ) {
+					echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
+				}
 			}
 		}
 	}
@@ -39,6 +63,7 @@ function veu_insert_custom_css() {
 function veu_get_the_custom_css_single( $post ) {
 	$css_customize = get_post_meta( $post->ID, '_veu_custom_css', true );
 	if ( $css_customize ) {
+		$css_customize = veu_sanitize_custom_css_input( $css_customize );
 		// Delete br
 		$css_customize = str_replace( PHP_EOL, '', $css_customize );
 		// Delete tab

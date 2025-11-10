@@ -230,7 +230,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 							$btn_after = ' <i class="' . $fa . esc_attr( $btn_after ) . ' font_icon"></i>';
 						}
 
-						$url   = get_post_meta( $cta_id, 'vkExUnit_cta_url', true );
+						$url   = esc_url( get_post_meta( $cta_id, 'vkExUnit_cta_url', true ) );
 						$text  = get_post_meta( $cta_id, 'vkExUnit_cta_text', true );
 						$text  = preg_replace( '/\n/', '<br/>', $text );
 						$imgid = get_post_meta( $cta_id, 'vkExUnit_cta_img', true );
@@ -281,7 +281,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 					$content .= '</div>';
 
 					// Display Edit Button.
-					$url = get_edit_post_link( $cta_post->ID );
+					$url = esc_url( get_edit_post_link( $cta_post->ID ) );
 					if ( $url ) {
 						$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 					}

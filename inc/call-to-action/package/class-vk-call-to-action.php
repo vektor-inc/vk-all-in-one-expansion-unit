@@ -195,19 +195,21 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 				// カスタムフィールドの保存.
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
+					$data = '';
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
-						if ( ! empty( $custom_field_name['escape_type'] ) ) {
-							if ( is_array( $custom_field_name['escape_type'] ) ) {
+						if ( ! empty( $custom_field_options['escape_type'] ) ) {
+							if ( is_array( $custom_field_options['escape_type'] ) ) {
 								// エスケープ処理が複数ある場合
 								$data = $_POST[ $custom_field_name ];
-								foreach ( $custom_field_name['escape_type'] as $escape ) {
+								foreach ( $custom_field_options['escape_type'] as $escape ) {
 									$data = call_user_func( $escape, $data );
 								}
 							} else {
 								// エスケープ処理が一つの場合
-								$data = call_user_func( $custom_field_name['escape_type'], $_POST[ $custom_field_name ] );
+								$data = call_user_func( $custom_field_options['escape_type'], $_POST[ $custom_field_name ] );
 							}
 						} else {
+							// エスケープ処理が無い場合
 							$data = $_POST[ $custom_field_name ];
 						}
 					}
