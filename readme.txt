@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fix CTA / Custom CSS XSS.
 [ Specification Change ][ Promotion Alert ] Change UI labels from "Promotion Alert" to "Promotion Disclosure" for better accuracy of functionality description.
 [ Bug Fix ][ Title Tag ] Prevent the separator from appearing on the front page when the site description is empty.
 
