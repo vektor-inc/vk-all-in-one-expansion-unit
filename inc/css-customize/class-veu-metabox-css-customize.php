@@ -48,7 +48,7 @@ class VEU_Metabox_CSS_Customize extends VEU_Metabox {
 		$nonce_key   = 'noncename__' . $this->args['cf_name'];
 		$nonce_value = isset( $_POST[ $nonce_key ] ) ? $_POST[ $nonce_key ] : null;
 
-		if ( ! wp_verify_nonce( $nonce_value, wp_create_nonce( __FILE__ ) ) ) {
+		if ( ! wp_verify_nonce( $nonce_value, __FILE__ ) ) {
 			return $post_id;
 		}
 

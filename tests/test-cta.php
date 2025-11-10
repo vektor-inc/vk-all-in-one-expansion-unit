@@ -60,7 +60,9 @@ class CTATest extends WP_UnitTestCase {
 	 * @return string
 	 */
 	private function create_cta_nonce() {
-		$cta_class_path = dirname( __DIR__, 1 ) . '/inc/call-to-action/package/class-vk-call-to-action.php';
+		// Use reflection to get the actual file path if available
+		$reflection     = new ReflectionClass( 'Vk_Call_To_Action' );
+		$cta_class_path = $reflection->getFileName();
 		return wp_create_nonce( plugin_basename( $cta_class_path ) );
 	}
 
