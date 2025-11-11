@@ -81,8 +81,9 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ] Fix CTA / Custom CSS XSS.
+[ Specification Change ][ Add Reusable block menu ] Change menu name "Manage all reusable blocks" -> "Patterns"
 [ Specification Change ][ Promotion Alert ] Change UI labels from "Promotion Alert" to "Promotion Disclosure" for better accuracy of functionality description.
+[ Bug Fix ] Fix CTA / Custom CSS XSS.
 [ Bug Fix ][ Title Tag ] Prevent the separator from appearing on the front page when the site description is empty.
 
 = 9.112.1 =

@@ -10,7 +10,7 @@ if ( is_admin() ) {
 				global $menu;
 				$position   = 20;
 				$menu_slug  = 'edit.php?post_type=wp_block';
-				$menu_title = __( 'Manage all reusable blocks', 'vk-all-in-one-expansion-unit' );
+				$menu_title = __( 'Patterns', 'vk-all-in-one-expansion-unit' );
 
 				while ( isset( $menu[ $position ] ) ) {
 					$position++;
