@@ -23,7 +23,7 @@ if ( is_admin() ) {
 					'',
 					'menu-top ',
 					'',
-					'dashicons-controls-repeat',
+					'dashicons-tagcloud',
 				);
 			},
 			10
