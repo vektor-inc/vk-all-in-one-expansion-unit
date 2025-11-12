@@ -14,7 +14,7 @@ class VEU_Metabox {
 	 */
 	public $args;
 	public $veu_get_common_options;
-	private $nonce_action;
+	protected $nonce_action;
 
 	public function __construct( $args = array() ) {
 
