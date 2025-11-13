@@ -14,6 +14,7 @@ class VEU_Metabox {
 	 */
 	public $args;
 	public $veu_get_common_options;
+	protected $nonce_action;
 
 	public function __construct( $args = array() ) {
 
@@ -32,7 +33,8 @@ class VEU_Metabox {
 			'post_types' => get_post_types( $post_type_paras ),
 		);
 
-		$this->args = wp_parse_args( $args, $defaults );
+		$this->args         = wp_parse_args( $args, $defaults );
+		$this->nonce_action = 'veu_metabox_' . $this->args['cf_name'];
 
 		if ( $this->args['individual'] ) {
 			// 各機能毎に独立metaboxを表示
@@ -126,7 +128,7 @@ class VEU_Metabox {
 		$cf_value = get_post_meta( get_the_id(), $this->args['cf_name'], true );
 
 		$body  = '';
-		$body .= wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__' . $this->args['cf_name'], true, false );
+		$body .= wp_nonce_field( $this->nonce_action, 'noncename__' . $this->args['cf_name'], true, false );
 
 		$body .= $this->metabox_body_form( $cf_value );
 
@@ -171,7 +173,7 @@ class VEU_Metabox {
 		$noncename__value = isset( $_POST[ 'noncename__' . $this->args['cf_name'] ] ) ? $_POST[ 'noncename__' . $this->args['cf_name'] ] : null;
 
 		// nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
-		if ( ! wp_verify_nonce( $noncename__value, __FILE__ ) ) {
+		if ( ! wp_verify_nonce( $noncename__value, $this->nonce_action ) ) {
 			return $post_id;
 		}
 
