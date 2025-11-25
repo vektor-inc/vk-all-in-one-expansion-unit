@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Custom CSS Single ] Fix backslash removal in custom CSS metabox on save.
+
 = 9.112.3 =
 [ Bug Fix ][ Custom CSS Single ] Fix can't save css.
 
