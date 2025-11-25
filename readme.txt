@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ SNS OGP Title ] Fix XSS.
 [ Bug Fix ][ Custom CSS Single ] Fix backslash removal in custom CSS metabox on save.
 
 = 9.112.3 =
