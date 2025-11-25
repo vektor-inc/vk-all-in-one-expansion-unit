@@ -118,7 +118,7 @@ class veu_css_customize {
 		&& isset( $_POST['bv-css-css'] )
 		&& isset( $_POST['biz-vektor-css-nonce'] ) && wp_verify_nonce( $_POST['biz-vektor-css-nonce'], 'biz-vektor-css-submit' ) ) {
 			// 生のCSSをそのまま保存
-			$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
+			$cleanCSS = wp_unslash( trim( $_POST['bv-css-css'] ) );
 
 			if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
 				$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
