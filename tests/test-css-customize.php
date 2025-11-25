@@ -187,6 +187,8 @@ class CssCustomizeTest extends WP_UnitTestCase {
 
 		foreach ( $test_cases as $test_case ) {
 			// $_POST をモック
+			// save_post フックが呼ばれる時点では WordPress が既に $_POST をアンスラッシュしている
+			// そのため、テストでもアンスラッシュ済みの値（バックスラッシュが1つ）を設定する
 			$_POST['_veu_custom_css'] = $test_case['input'];
 			// nonce_action は 'veu_metabox_' . cf_name の形式
 			$nonce_action = 'veu_metabox__veu_custom_css';
@@ -199,12 +201,14 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			$saved_css = get_post_meta( $post_id, '_veu_custom_css', true );
 
 			// バックスラッシュが正しく保存されているか確認
-			// 実際の保存結果に合わせて期待値を調整
 			// veu_sanitize_custom_css_input() がバックスラッシュを保持することを確認
-			$this->assertStringContainsString( '\f508', $saved_css, 'Backslash should be preserved in Font Awesome icon code' );
-			// サニタイズ後の結果と比較（html_entity_decode や wp_strip_all_tags の影響を考慮）
+			// PHPの文字列リテラルでは "\f508" は \f508 という1つのバックスラッシュを含む文字列になる
+			// サニタイズ後の結果と比較
 			$sanitized_expected = veu_sanitize_custom_css_input( $test_case['expected'] );
 			$this->assertEquals( $sanitized_expected, $saved_css, 'CSS with backslash should be saved correctly after sanitization' );
+			// バックスラッシュが含まれていることを確認（サニタイズ後も保持されるべき）
+			$this->assertStringContainsString( '\f508', $sanitized_expected, 'Sanitized CSS should preserve backslash' );
+			$this->assertStringContainsString( '\f508', $saved_css, 'Backslash should be preserved in Font Awesome icon code' );
 
 			// クリーンアップ
 			delete_post_meta( $post_id, '_veu_custom_css' );
