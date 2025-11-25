@@ -523,6 +523,19 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// 各投稿編集画面で プルダウンで指定されている 表示するCTAの投稿ID（もしくは共通設定や非表示）
 			$post_config = get_post_meta( $id, 'vkexunit_cta_each_option', true );
 
+			// アーカイブなどの複数投稿表示時はメイン設定で非表示指定されている場合はCTAを無効化.
+			// 個別ページじゃない場合
+			if ( ! is_singular() ) {
+				// 投稿タイプを取得
+				$post_type = get_post_type( $id );
+				if ( $post_type ) {
+					$option = self::get_option();
+					if ( isset( $option[ $post_type ] ) && in_array( $option[ $post_type ], array( '0', 0 ), true ) ) {
+						return null;
+					}
+				}
+			}
+
 			// 「共通設定を使用」じゃなかった場合
 			if ( $post_config ) {
 
