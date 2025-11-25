@@ -58,7 +58,7 @@ class VEU_Metabox_CSS_Customize extends VEU_Metabox {
 			return $post_id;
 		}
 
-		$raw_css       = wp_unslash( $_POST[ $this->args['cf_name'] ] );
+		$raw_css       = $_POST[ $this->args['cf_name'] ];
 		$sanitized_css = veu_sanitize_custom_css_input( $raw_css );
 		if ( '' !== $sanitized_css ) {
 			add_post_meta( $post_id, $this->args['cf_name'], $sanitized_css );
