@@ -453,6 +453,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				}
 			}
 
+			// 表示するCTAのIDが指定されていない場合は空を返す.
 			if ( ! $id ) {
 				return '';
 			}
@@ -504,9 +505,15 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			return $return;
 		}
 
+		/**
+		 * 表示するCTAのIDを取得
+		 *
+		 * @param int $id 表示先のページの投稿のID
+		 * @return int|null 表示するCTAのID。CTAを表示しない場合は null を返す。
+		 */
 		public static function is_cta_id( $id = null ) {
 
-			// 表示する投稿のIDを取得
+			// CTAを表示する先の投稿のIDを取得
 			if ( ! $id ) {
 				$id = get_the_id(); }
 			// ?
