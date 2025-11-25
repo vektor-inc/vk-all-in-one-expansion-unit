@@ -985,8 +985,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				return '';
 			}
 
-				/* translators: %s: list of post type titles. */
 				return sprintf(
+					// translators: %s: list of post type titles.
 					__( 'This taxonomy is already used by the following post types: %s', 'vk-all-in-one-expansion-unit' ),
 					'<strong>' . esc_html( implode( ', ', $post_titles ) ) . '</strong>'
 				);
