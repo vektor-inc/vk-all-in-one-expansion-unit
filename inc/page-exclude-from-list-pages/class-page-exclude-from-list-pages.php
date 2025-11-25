@@ -53,7 +53,7 @@ class VEU_Page_Exclude_From_List_Pages {
 		$exclude_from_list_pages = get_post_meta( $post->ID, self::$meta_key, true );
 		$meta_body               = '<p class="vk_checklist_item vk_checklist_item-style-vertical">
 		<input type="checkbox" id="' . esc_attr( self::$meta_key ) . '" name="' . esc_attr( self::$meta_key ) . '" value="true" ' . checked( $exclude_from_list_pages, 'true', false ) . '>
-		<label for="' . esc_attr( self::$meta_key ) . '" class="vk_checklist_item_label">' . __( self::$label, 'vk-all-in-one-expansion-unit' ) . '</label>
+		<label for="' . esc_attr( self::$meta_key ) . '" class="vk_checklist_item_label">' . esc_html( self::$label ) . '</label>
 		</p>';
 		return $meta_body;
 	}

@@ -139,6 +139,7 @@ if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 		} elseif ( is_tag() ) {
 			$title = single_tag_title( '', false );
 		} elseif ( is_author() ) {
+			/* translators: %s: author name. */
 			$title = sprintf( __( 'Author: %s', 'vk-all-in-one-expansion-unit' ), '<span class="vcard">' . get_the_author() . '</span>' );
 		} elseif ( is_year() ) {
 			$title = get_the_date( _x( 'Y', 'yearly archives date format', 'vk-all-in-one-expansion-unit' ) );
@@ -148,23 +149,23 @@ if ( ! function_exists( 'vk_get_the_archive_title' ) ) {
 			$title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'vk-all-in-one-expansion-unit' ) );
 		} elseif ( is_tax( 'post_format' ) ) {
 			if ( is_tax( 'post_format', 'post-format-aside' ) ) {
-				$title = _x( 'Asides', 'post format archive title' );
+				$title = _x( 'Asides', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) {
-				$title = _x( 'Galleries', 'post format archive title' );
+				$title = _x( 'Galleries', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-image' ) ) {
-				$title = _x( 'Images', 'post format archive title' );
+				$title = _x( 'Images', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-video' ) ) {
-				$title = _x( 'Videos', 'post format archive title' );
+				$title = _x( 'Videos', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-quote' ) ) {
-				$title = _x( 'Quotes', 'post format archive title' );
+				$title = _x( 'Quotes', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-link' ) ) {
-				$title = _x( 'Links', 'post format archive title' );
+				$title = _x( 'Links', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-status' ) ) {
-				$title = _x( 'Statuses', 'post format archive title' );
+				$title = _x( 'Statuses', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-audio' ) ) {
-				$title = _x( 'Audio', 'post format archive title' );
+				$title = _x( 'Audio', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			} elseif ( is_tax( 'post_format', 'post-format-chat' ) ) {
-				$title = _x( 'Chats', 'post format archive title' );
+				$title = _x( 'Chats', 'post format archive title', 'vk-all-in-one-expansion-unit' );
 			}
 		} elseif ( is_post_type_archive() ) {
 			$title = post_type_archive_title( '', false );
@@ -211,6 +212,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 				if ( ! empty( $page->post_excerpt ) && ! post_password_required( $page->ID ) ) {
 					$page_description = get_the_excerpt( $page->ID );
 				} else {
+					/* translators: %s: posts page name. */
 					$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( $page_for_posts['post_top_name'] ) );
 					$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 				}
@@ -219,6 +221,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			}
 		} elseif ( is_category() || is_tax() ) {
 			if ( empty( $post->description ) ) {
+				/* translators: %s: term name. */
 				$page_description = sprintf( __( 'About %s', 'vk-all-in-one-expansion-unit' ), single_cat_title( '', false ) ) . ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 			} else {
 				$page_description = $post->description;
@@ -227,24 +230,29 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 			$page_description = strip_tags( tag_description() );
 			$page_description = str_replace( array( "\r\n", "\r", "\n" ), '', $page_description );  // delete br
 			if ( ! $page_description ) {
+				/* translators: %s: tag name. */
 				$page_description = sprintf( __( 'About %s', 'vk-all-in-one-expansion-unit' ), single_tag_title( '', false ) ) . ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 			}
 		} elseif ( is_archive() ) {
 			if ( is_year() ) {
-				$description_date  = get_the_date( _x( 'Y', 'yearly archives date format', 'vk-all-in-one-expansion-unit' ) );
+				$description_date = get_the_date( _x( 'Y', 'yearly archives date format', 'vk-all-in-one-expansion-unit' ) );
+				/* translators: %s: year. */
 				$page_description  = sprintf( _x( 'Article of %s.', 'Yearly archive description', 'vk-all-in-one-expansion-unit' ), $description_date );
 				$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 			} elseif ( is_month() ) {
-				$description_date  = get_the_date( _x( 'F Y', 'monthly archives date format', 'vk-all-in-one-expansion-unit' ) );
+				$description_date = get_the_date( _x( 'F Y', 'monthly archives date format', 'vk-all-in-one-expansion-unit' ) );
+				/* translators: %s: year and month. */
 				$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), $description_date );
 				$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 			} elseif ( is_author() ) {
-				$userObj           = get_queried_object();
+				$userObj = get_queried_object();
+				/* translators: %s: author name. */
 				$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( $userObj->display_name ) );
 				$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 			} else {
 				$postType = get_post_type();
 				if ( $postType ) {
+					/* translators: %s: post type label. */
 					$page_description  = sprintf( _x( 'Article of %s.', 'Archive description', 'vk-all-in-one-expansion-unit' ), esc_html( get_post_type_object( $postType )->label ) );
 					$page_description .= ' ' . get_bloginfo( 'name' ) . ' ' . get_bloginfo( 'description' );
 				} else {
@@ -264,6 +272,7 @@ if ( ! function_exists( 'vk_get_page_description' ) ) {
 		}
 		global $paged;
 		if ( $paged != '0' ) {
+			/* translators: %s: page number. */
 			$page_description = '[' . sprintf( __( 'Page of %s', 'vk-all-in-one-expansion-unit' ), $paged ) . '] ' . $page_description;
 		}
 		// This filter (vkExUnit_pageDescriptionCustom) is deprecated.

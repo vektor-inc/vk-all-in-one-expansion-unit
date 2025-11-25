@@ -242,7 +242,11 @@ class vExUnit_Ads {
 		<?php
 		$link = '<a href="https://www.google.com/adsense/" target="_blank">' . __( 'Google AdSense dashboard', 'vk-all-in-one-expansion-unit' ) . '</a>';
 		?>
-	<p>* <?php printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vk-all-in-one-expansion-unit' ), $link ); ?>
+	<p>* 
+		<?php
+		/* translators: %s: link to Google AdSense dashboard. */
+		printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vk-all-in-one-expansion-unit' ), $link );
+		?>
 	</p>
 	<p><label>
 		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php vk_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vk-all-in-one-expansion-unit' ); ?></label></p>

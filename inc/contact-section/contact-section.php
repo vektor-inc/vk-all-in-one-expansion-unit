@@ -217,10 +217,10 @@ class VkExUnit_Contact {
 		}
 		?>
 	<table class="form-table" id="vkEx_contact_info"<?php echo $display; ?>>
-	<tr>
-	<th><?php _e( 'Inquiry Banner image', 'vk-all-in-one-expansion-unit' ); ?></th>
+<tr>
+<th><?php _e( 'Inquiry Banner image', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><input type="text" name="vkExUnit_contact[contact_image]" id="contact_image" value="<?php echo $options['contact_image']; ?>" style="width:60%;" />
-<button id="media_src_contact_image" class="media_btn button button-default"><?php _e( 'Select Image' ); ?></button>
+<button id="media_src_contact_image" class="media_btn button button-default"><?php _e( 'Select Image', 'vk-all-in-one-expansion-unit' ); ?></button>
 <p><?php _e( 'Display the image instead of the above inquiry information', 'vk-all-in-one-expansion-unit' ); ?><p>
 </td>
 </tr>
@@ -484,8 +484,9 @@ VkExUnit_Contact::instance();
 class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
 
 	function __construct() {
-		$widget_name         = veu_get_prefix() . __( 'Contact Button', 'vk-all-in-one-expansion-unit' );
-		$widget_description  = __( 'Display contact button.', 'vk-all-in-one-expansion-unit' );
+		$widget_name        = veu_get_prefix() . __( 'Contact Button', 'vk-all-in-one-expansion-unit' );
+		$widget_description = __( 'Display contact button.', 'vk-all-in-one-expansion-unit' );
+		/* translators: %s: plugin short name. */
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ) . ' ) ';
 		parent::__construct(
 			'vkExUnit_contact',
@@ -512,7 +513,8 @@ class WP_Widget_VkExUnit_Contact_Button extends WP_Widget {
 
 	function form( $instance ) {
 		echo '<div style="padding:1em 0;">';
-		$widget_description  = __( 'Display contact button', 'vk-all-in-one-expansion-unit' );
+		$widget_description = __( 'Display contact button', 'vk-all-in-one-expansion-unit' );
+		/* translators: %s: plugin short name. */
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ) . ' ) ';
 		echo $widget_description;
 		echo '</div>';
@@ -533,8 +535,9 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function __construct() {
 
-		$widget_name         = veu_get_prefix() . __( 'Contact Section', 'vk-all-in-one-expansion-unit' );
-		$widget_description  = __( 'Display Phone number and contact button etc.', 'vk-all-in-one-expansion-unit' );
+		$widget_name        = veu_get_prefix() . __( 'Contact Section', 'vk-all-in-one-expansion-unit' );
+		$widget_description = __( 'Display Phone number and contact button etc.', 'vk-all-in-one-expansion-unit' );
+		/* translators: %s: plugin short name. */
 		$widget_description .= ' ( ' . sprintf( __( 'It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ) . ' ) ';
 
 		parent::__construct(
@@ -565,7 +568,8 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 
 	function form( $instance ) {
 		echo '<div style="padding:1em 0;">';
-		_e( sprintf( __( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() ) );
+		/* translators: %s: plugin short name. */
+		printf( esc_html__( '*It is necessary to set the "%s" -> "Contact Information" section in "Main setting" page.', 'vk-all-in-one-expansion-unit' ), veu_get_little_short_name() );
 		echo '</div>';
 		echo '<h3 class="admin-custom-h3">' . __( 'Display Setting', 'vk-all-in-one-expansion-unit' ) . '</h3>';
 		echo '<div style="padding:1em 0;">';

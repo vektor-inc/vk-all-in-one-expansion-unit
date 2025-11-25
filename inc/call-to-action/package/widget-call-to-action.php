@@ -16,14 +16,13 @@ class Widget_CTA extends \WP_Widget {
 
 
 	function __construct() {
-		global $vk_call_to_action_textdomain;
-		$widget_name = veu_get_prefix() . __( 'CTA', $vk_call_to_action_textdomain );
+		$widget_name = veu_get_prefix() . __( 'CTA', 'vk-all-in-one-expansion-unit' );
 
 		parent::__construct(
 			'vkExUnit_cta',
 			$widget_name,
 			array(
-				'description' => __( 'Select CTA and display it.', $vk_call_to_action_textdomain ),
+				'description' => __( 'Select CTA and display it.', 'vk-all-in-one-expansion-unit' ),
 			)
 		);
 	}
@@ -64,7 +63,6 @@ class Widget_CTA extends \WP_Widget {
 
 
 	function form( $instance ) {
-		global $vk_call_to_action_textdomain;
 		$defaults = array(
 			'id' => null,
 		);
@@ -73,7 +71,7 @@ class Widget_CTA extends \WP_Widget {
 		$ctas     = Vk_Call_To_Action::get_ctas( true, '- ' );
 		?>
 <div style="padding:1em 0;">
-		<?php _e( 'Please select CTA to display.', $vk_call_to_action_textdomain ); ?>
+		<?php _e( 'Please select CTA to display.', 'vk-all-in-one-expansion-unit' ); ?>
 </div>
 <div style="padding-bottom: 0.5em;">
 		<?php
@@ -82,13 +80,13 @@ class Widget_CTA extends \WP_Widget {
 			$ctas,
 			array(
 				'key'   => 'random',
-				'label' => __( 'Random', $vk_call_to_action_textdomain ),
+				'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
 			)
 		);
 		?>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
 <select name="<?php echo $this->get_field_name( 'id' ); ?>" style="width: 100%" >
-<option value="">[ <?php _e( 'Please select', $vk_call_to_action_textdomain ); ?> ]</option>
+<option value="">[ <?php _e( 'Please select', 'vk-all-in-one-expansion-unit' ); ?> ]</option>
 		<?php foreach ( $ctas as $cta ) : ?>
 	<option value="<?php echo $cta['key']; ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo $cta['label']; ?></option>
 <?php endforeach; ?>
@@ -96,10 +94,10 @@ class Widget_CTA extends \WP_Widget {
 </div>
 <div style="padding-bottom: 1em;">
 <a href="<?php echo admin_url( 'edit.php?post_type=cta' ); ?>" class="button button-default" target="_blank">
-		<?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?>
+		<?php _e( 'Show CTA index page', 'vk-all-in-one-expansion-unit' ); ?>
 </a>
 <a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank">
-		<?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?>
+		<?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?>
 </a>
 </div>
 		<?php

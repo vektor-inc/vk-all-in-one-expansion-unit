@@ -117,7 +117,8 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 			// PR Block admin title
 			echo '<div class="admin-custom-section">';
-			echo '<h2 class="admin-custom-h2">' . __( 'PR Block' . $i . ' setting', 'vk-all-in-one-expansion-unit' ) . '</h2>';
+			/* translators: %s: block number. */
+			echo '<h2 class="admin-custom-h2">' . sprintf( __( 'PR Block%s setting', 'vk-all-in-one-expansion-unit' ), $i ) . '</h2>';
 
 			// PR Block display title
 

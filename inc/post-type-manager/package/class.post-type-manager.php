@@ -311,6 +311,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<p>';
 			echo wp_kses_post(
 				sprintf(
+					/* translators: %1$s: permalink settings admin url. */
 					__( 'For example, if "news/%%postname%%/" is set in the Custom Structure of the <a href="%1$s" target="_blank">Permalink Settings</a>, the URL for the custom post type "event" will also include "news", resulting in a URL like https://xxxx.xxx/news/event/%%postname%%/.', 'vk-all-in-one-expansion-unit' ),
 					admin_url( 'options-permalink.php' )
 				)
@@ -979,15 +980,16 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				return $post_types;
 			}
 
-			// message
+				// message
 			if ( empty( $post_titles ) ) {
 				return '';
 			}
 
-			return sprintf(
-				__( 'This taxonomy is already used by the following post types: %s', 'vk-all-in-one-expansion-unit' ),
-				'<strong>' . esc_html( implode( ', ', $post_titles ) ) . '</strong>'
-			);
+				/* translators: %s: list of post type titles. */
+				return sprintf(
+					__( 'This taxonomy is already used by the following post types: %s', 'vk-all-in-one-expansion-unit' ),
+					'<strong>' . esc_html( implode( ', ', $post_titles ) ) . '</strong>'
+				);
 		}
 
 		/**

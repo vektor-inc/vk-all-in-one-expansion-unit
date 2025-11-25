@@ -130,7 +130,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		<p>
 
 			<?php // タイトル ?>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label><br/>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label><br/>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 			<br />
 			<br />

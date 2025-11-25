@@ -121,10 +121,10 @@ class veu_css_customize {
 			$cleanCSS = stripslashes( trim( $_POST['bv-css-css'] ) );
 
 			if ( update_option( 'vkExUnit_css_customize', $cleanCSS ) ) {
-				$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'biz-vektor' ) . '</p></div>';
+				$data['mess'] = '<div id="message" class="updated"><p>' . __( 'Your custom CSS was saved.', 'vk-all-in-one-expansion-unit' ) . '</p></div>';
 			}
 		} elseif ( isset( $_POST['bv-css-submit'] ) && ! empty( $_POST['bv-css-submit'] ) ) {
-				$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'biz-vektor' ) . '</p></div>';
+				$data['mess'] = '<div id="message" class="error"><p>' . __( 'Error occured. Please try again.', 'vk-all-in-one-expansion-unit' ) . '</p></div>';
 		}
 
 		$custom_css_option = get_option( 'vkExUnit_css_customize' );

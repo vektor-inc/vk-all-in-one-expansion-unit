@@ -40,7 +40,7 @@ function veu_customize_register_default_thumbnail( $wp_customize ) {
 			$wp_customize,
 			'veu_defualt_thumbnail[default_thumbnail_image]',
 			array(
-				'label'       => __( 'Default List Image', 'lightning' ),
+				'label'       => __( 'Default List Image', 'vk-all-in-one-expansion-unit' ),
 				'section'     => 'veu_default_thumbnail_setting',
 				'settings'    => 'veu_defualt_thumbnail[default_thumbnail_image]',
 				'description' => '',

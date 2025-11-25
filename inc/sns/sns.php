@@ -132,6 +132,7 @@ function veu_get_the_sns_title( $post_id = '' ) {
 	// 検索結果ページの場合
 	elseif ( is_search() ) {
 		if ( ! empty( get_search_query() ) ) {
+			/* translators: %s: search keyword. */
 			$search_text = sprintf( __( 'Search Results for : %s', 'vk-all-in-one-expansion-unit' ), get_search_query() );
 		} else {
 			$search_text = __( 'Search Results', 'vk-all-in-one-expansion-unit' );

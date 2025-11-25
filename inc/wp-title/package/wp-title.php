@@ -90,6 +90,7 @@ function vkExUnit_get_wp_head_title() {
 			// Search
 		} elseif ( is_search() ) {
 			if ( get_search_query() ) {
+				/* translators: %s: search keyword. */
 				$title = sprintf( __( 'Search Results for : %s', 'vk-all-in-one-expansion-unit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );
 			} else {
 				$title = sprintf( __( 'Search Results', 'vk-all-in-one-expansion-unit' ), get_search_query() ) . $sep . get_bloginfo( 'name' );
@@ -106,6 +107,7 @@ function vkExUnit_get_wp_head_title() {
 	// Add Page numner.
 	global $paged;
 	if ( $paged >= 2 ) {
+		/* translators: %s: page number. */
 		$title = '[' . sprintf( __( 'Page of %s', 'vk-all-in-one-expansion-unit' ), $paged ) . '] ' . $title;
 	}
 
@@ -122,10 +124,15 @@ function vkExUnit_add_wp_title_page() {
 <p>
 	<?php
 	$sitetitle_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'title of the site', 'vk-all-in-one-expansion-unit' ) . '</a>';
+	/* translators: %1$s: link to site title setting page. */
 	printf( __( 'Normally "%1$s" is placed in the title tags of all the pages.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link );
 	?>
 <br />
-	<?php printf( __( 'For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link ); ?><br />
+	<?php
+	/* translators: %1$s: link to site title setting page. */
+	printf( __( 'For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link );
+	?>
+<br />
 </p>
 <table class="form-table">
 	<tr>
@@ -134,6 +141,7 @@ function vkExUnit_add_wp_title_page() {
 		<p>
 		<?php
 		$tagline_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'Tagline', 'vk-all-in-one-expansion-unit' ) . '</a>';
+		/* translators: 1: link to site title setting page, 2: link to tagline setting. */
 		printf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vk-all-in-one-expansion-unit' ), $sitetitle_link, $tagline_link );
 		?>
 		<br />
@@ -149,6 +157,7 @@ function vkExUnit_add_wp_title_page() {
 			<p>* 
 				<?php
 				$edit_link = '<a href="' . $edit_url . '" target="_blank" rel="noopener noreferrer">' . __( 'Edit screen of the page specified as the front page', 'vk-all-in-one-expansion-unit' ) . '</a>';
+				/* translators: %s: link to front page edit screen. */
 				printf( __( 'If you specify the content of the title tag in %s, that will take precedence.', 'vk-all-in-one-expansion-unit' ), $edit_link );
 				?>
 			</p>

@@ -311,6 +311,7 @@ function veu_noindex_admin_notice() {
 		echo '<p>';
 		echo __( 'This site is set to not be indexed by search engines.', 'vk-all-in-one-expansion-unit' ) . '<br>';
 		printf(
+			/* translators: %s: URL to Reading settings screen. */
 			__( 'To disable this setting, go to <a href="%s">Settings > Reading</a> and uncheck "Discourage search engines from indexing this site".', 'vk-all-in-one-expansion-unit' ),
 			esc_url( $reading_settings_url )
 		);

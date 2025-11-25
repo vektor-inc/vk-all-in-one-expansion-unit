@@ -19,6 +19,7 @@ function veu_set_archive_loop_before_widget_area() {
 			// Set post type widget area
 			register_sidebar(
 				array(
+					/* translators: %s: post type label. */
 					'name'          => sprintf( __( 'Post type archive before loop (%s)', 'vk-all-in-one-expansion-unit' ), $postType_name ),
 					'id'            => $postType . '-archive-loop-before',
 					'description'   => '',

@@ -1,4 +1,4 @@
-<h3><?php echo __( 'SNS Settings' ); ?></h3>
+<h3><?php echo __( 'SNS Settings', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <?php
 	$options = veu_get_sns_options();
 

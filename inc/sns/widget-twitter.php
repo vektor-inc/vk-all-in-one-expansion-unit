@@ -69,8 +69,8 @@ class VK_Twitter_Widget extends WP_Widget {
 	 */
 	static function time_line_color() {
 		return array(
-			'light' => 'Light',
-			'dark'  => 'Dark',
+			'light' => __( 'Light', 'vk-all-in-one-expansion-unit' ),
+			'dark'  => __( 'Dark', 'vk-all-in-one-expansion-unit' ),
 		);
 	}
 
@@ -120,7 +120,7 @@ class VK_Twitter_Widget extends WP_Widget {
 			}
 			?>
 	>
-			<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
+			<?php echo esc_html( $label ); ?>
 	</option>
 	<?php endforeach; ?>
 	</select>

@@ -309,7 +309,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		<?php // タイトル ?>
 		<h3 class="admin-custom-h3">
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'vk-all-in-one-expansion-unit' ); ?></label>
 		</h3>
 		<?php
 		if ( isset( $instance['title'] ) && $instance['title'] ) {

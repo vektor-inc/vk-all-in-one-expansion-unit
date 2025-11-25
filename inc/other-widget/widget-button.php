@@ -6,12 +6,12 @@ class WP_Widget_Button extends WP_Widget {
 
 	static function button_otherlabels() {
 		return array(
-			'primary' => 'Key Color(.primary)',
-			'default' => 'No paint(.default)',
-			'success' => 'Light green(.success)',
-			'info'    => 'Light blue(.info)',
-			'warning' => 'Orange(.warning)',
-			'danger'  => 'Red(.danger)',
+			'primary' => __( 'Key Color(.primary)', 'vk-all-in-one-expansion-unit' ),
+			'default' => __( 'No paint(.default)', 'vk-all-in-one-expansion-unit' ),
+			'success' => __( 'Light green(.success)', 'vk-all-in-one-expansion-unit' ),
+			'info'    => __( 'Light blue(.info)', 'vk-all-in-one-expansion-unit' ),
+			'warning' => __( 'Orange(.warning)', 'vk-all-in-one-expansion-unit' ),
+			'danger'  => __( 'Red(.danger)', 'vk-all-in-one-expansion-unit' ),
 		);
 	}
 
@@ -194,7 +194,7 @@ class WP_Widget_Button extends WP_Widget {
 											echo 'selected';}
 										?>
 >
-			<?php _e( $label, 'vk-all-in-one-expansion-unit' ); ?>
+			<?php echo esc_html( $label ); ?>
 			</option>
 		<?php endforeach; ?>
 		</select>
