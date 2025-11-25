@@ -53,7 +53,7 @@ function veu_insert_custom_css() {
 			if ( $css ) {
 				$css = veu_sanitize_custom_css_input( $css );
 				if ( $css ) {
-					echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
+					echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			}
 		}

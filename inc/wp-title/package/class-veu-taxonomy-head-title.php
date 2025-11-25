@@ -58,7 +58,7 @@ class VEU_Taxonomy_Head_Title {
 		$term_meta = get_term_meta( $term_id, $meta_key, true );
 
 		// 共通ヘルパーを使用
-		echo VEU_Title_Form_Helper::render_taxonomy_form_row( $meta_key, $term_meta );
+		echo wp_kses_post( VEU_Title_Form_Helper::render_taxonomy_form_row( $meta_key, $term_meta ) );
 	}
 
 	/**

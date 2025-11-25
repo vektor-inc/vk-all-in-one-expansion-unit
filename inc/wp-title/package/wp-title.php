@@ -120,32 +120,32 @@ function vkExUnit_add_wp_title_page() {
 	$options = vkExUnit_get_wp_title_options();
 	?>
 <div id="seoSetting" class="sectionBox">
-<h3><?php _e( '&lt;title&gt; tag setting', 'vk-all-in-one-expansion-unit' ); ?></h3>
+<h3><?php esc_html_e( '&lt;title&gt; tag setting', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <p>
 	<?php
 	$sitetitle_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'title of the site', 'vk-all-in-one-expansion-unit' ) . '</a>';
 	/* translators: %1$s: link to site title setting page. */
-	printf( __( 'Normally "%1$s" is placed in the title tags of all the pages.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link );
+	echo wp_kses_post( sprintf( __( 'Normally "%1$s" is placed in the title tags of all the pages.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link ) );
 	?>
 <br />
 	<?php
 	/* translators: %1$s: link to site title setting page. */
-	printf( __( 'For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link );
+	echo wp_kses_post( sprintf( __( 'For example, it appears in the form of <br />&lt;title&gt;page title | %1$s&lt;/title&gt;<br /> if using a static page.', 'vk-all-in-one-expansion-unit' ), $sitetitle_link ) );
 	?>
 <br />
 </p>
 <table class="form-table">
 	<tr>
-		<th><?php _e( 'Homepage', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<th><?php esc_html_e( 'Homepage', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td>
 		<p>
 		<?php
 		$tagline_link = '<a href="' . get_admin_url() . 'options-general.php" target="_blank">' . __( 'Tagline', 'vk-all-in-one-expansion-unit' ) . '</a>';
 		/* translators: 1: link to site title setting page, 2: link to tagline setting. */
-		printf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vk-all-in-one-expansion-unit' ), $sitetitle_link, $tagline_link );
+		echo wp_kses_post( sprintf( __( 'In the top page will be output usually in the form of <br />&lt;title&gt;%1$s | %2$s&lt;/title&gt;', 'vk-all-in-one-expansion-unit' ), $sitetitle_link, $tagline_link ) );
 		?>
 		<br />
-		<?php _e( 'However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vk-all-in-one-expansion-unit' ); ?>
+		<?php esc_html_e( 'However, it may be too long in the above format. If the input to the input field of the following, its contents will be reflected.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 
 		<input type="text" name="vkExUnit_wp_title[extend_frontTitle]" value="<?php echo esc_attr( $options['extend_frontTitle'] ); ?>" />
@@ -154,22 +154,22 @@ function vkExUnit_add_wp_title_page() {
 		if ( 'page' === get_option( 'show_on_front' ) && $page_on_front ) {
 			$edit_url = get_edit_post_link( $page_on_front );
 			?>
-			<p>* 
-				<?php
-				$edit_link = '<a href="' . $edit_url . '" target="_blank" rel="noopener noreferrer">' . __( 'Edit screen of the page specified as the front page', 'vk-all-in-one-expansion-unit' ) . '</a>';
-				/* translators: %s: link to front page edit screen. */
-				printf( __( 'If you specify the content of the title tag in %s, that will take precedence.', 'vk-all-in-one-expansion-unit' ), $edit_link );
-				?>
-			</p>
+				<p>* 
+					<?php
+					$edit_link = '<a href="' . $edit_url . '" target="_blank" rel="noopener noreferrer">' . __( 'Edit screen of the page specified as the front page', 'vk-all-in-one-expansion-unit' ) . '</a>';
+					/* translators: %s: link to front page edit screen. */
+					echo wp_kses_post( sprintf( __( 'If you specify the content of the title tag in %s, that will take precedence.', 'vk-all-in-one-expansion-unit' ), $edit_link ) );
+					?>
+				</p>
 		<?php } ?>
 		</td>
 	</tr>
 
 	<tr>
-		<th><?php _e( 'Page / Posts', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<th><?php esc_html_e( 'Page / Posts', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td>
 		<p>
-		<?php _e( 'Title tags for pages and post can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
+		<?php esc_html_e( 'Title tags for pages and post can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 			<?php if ( get_locale() === 'ja' ) { ?>
 				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url( VEU_DIRECTORY_URI ); ?>/inc/wp-title/package/images/title-setting-from-page.png" alt="" />
 			<?php } ?>
@@ -178,10 +178,10 @@ function vkExUnit_add_wp_title_page() {
 	</tr>
 
 	<tr>
-		<th><?php _e( 'Category / Tag', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<th><?php esc_html_e( 'Category / Tag', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td>
 		<p>
-		<?php _e( 'Taxonomy title tag can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
+		<?php esc_html_e( 'Taxonomy title tag can be specified from the VK all in One Expansion Unit Metabox under the content edit area of each edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 			<?php if ( get_locale() === 'ja' ) { ?>
 				<img style="max-width:100%;border:1px solid #ccc;" src="<?php echo esc_url( VEU_DIRECTORY_URI ); ?>/inc/wp-title/package/images/title-setting-from-taxonomy.png" alt="" />
 			<?php } ?>

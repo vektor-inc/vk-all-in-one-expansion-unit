@@ -16,7 +16,7 @@ function vkExUnit_pageList_ancestor_loopend( $query ) {
 	if ( ! $query->is_main_query() ) {
 		return;
 	}
-	echo vkExUnit_pageList_ancestor_shortcode();
+	echo wp_kses_post( vkExUnit_pageList_ancestor_shortcode() );
 }
 
 
@@ -108,10 +108,10 @@ function vkExUnit_pageList_ancestor_admin_metabox_content() {
 	$enable = get_post_meta( $post->ID, 'vkExUnit_pageList_ancestor', true ); ?>
 
 <div>
-<input type="hidden" name="_nonce_vkExUnit__custom_field_pageList_ancestor" id="_nonce_vkExUnit__custom_field_pageList_ancestor" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
+<input type="hidden" name="_nonce_vkExUnit__custom_field_pageList_ancestor" id="_nonce_vkExUnit__custom_field_pageList_ancestor" value="<?php echo esc_attr( wp_create_nonce( plugin_basename( __FILE__ ) ) ); ?>" />
 <label for="vkExUnit_pageList_ancestor">
 	<input type="checkbox" id="vkExUnit_pageList_ancestor" name="vkExUnit_pageList_ancestor"<?php echo ( $enable ) ? ' checked' : ''; ?> />
-	<?php _e( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' ); ?>
+	<?php esc_html_e( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' ); ?>
 </label>
 </div>
 	<?php

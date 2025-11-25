@@ -167,9 +167,7 @@ class veu_css_customize {
 	public static function css_customize_push_css() {
 		$css_customize = self::css_customize_get_the_css_min();
 		if ( $css_customize ) {
-			?>
-		<style type="text/css">/* <?php echo veu_get_short_name(); ?> CSS Customize */<?php echo $css_customize; ?>/* End <?php echo veu_get_short_name(); ?> CSS Customize */</style>
-			<?php
+			echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize */' . $css_customize . '/* End ' . esc_html( veu_get_short_name() ) . ' CSS Customize */</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 

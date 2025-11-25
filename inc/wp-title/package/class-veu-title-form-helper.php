@@ -73,11 +73,11 @@ class VEU_Title_Form_Helper {
 		<tr class="form-field veu_form-field_section">
 			<th scope="row" valign="top">
 				<label style="word-break: keep-all;word-break: auto-phrase;" for="<?php echo esc_attr( $input_id ); ?>">
-					<?php _e( 'Head Title', 'vk-all-in-one-expansion-unit' ); ?>
+					<?php esc_html_e( 'Head Title', 'vk-all-in-one-expansion-unit' ); ?>
 				</label>
 			</th>
 			<td>
-				<?php echo $form_fields; ?>
+				<?php echo wp_kses_post( $form_fields ); ?>
 			</td>
 		</tr>
 		<?php

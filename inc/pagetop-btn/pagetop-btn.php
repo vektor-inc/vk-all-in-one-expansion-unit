@@ -74,18 +74,18 @@ function veu_pagetop_admin() {
 	$options = veu_pagetop_options();
 	?>
 <div id="seoSetting" class="sectionBox">
-<h3><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?></h3>
+<h3><?php esc_html_e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?></h3>
 <table class="form-table">
 <!-- Google Analytics -->
 <tr>
-<th><?php _e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?> </th>
+<th><?php esc_html_e( 'Page Top Button', 'vk-all-in-one-expansion-unit' ); ?> </th>
 <td><label>
 <input type="checkbox" name="vkExUnit_pagetop[hide_mobile]" value="true"
 	<?php
 	if ( ! empty( $options['hide_mobile'] ) ) {
 		echo ' checked';}
 	?>
-	/> <?php _e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> </label>
+	/> <?php esc_html_e( 'Do not display on touch screen devices', 'vk-all-in-one-expansion-unit' ); ?> </label>
 </td>
 </tr>
 </table>
