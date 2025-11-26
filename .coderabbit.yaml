@@ -55,7 +55,7 @@ instructions: |-
                     if ( '' === $post_meta_value || null === $post_meta_value ){
                         delete_post_meta( $case['conditions']['post_id'], $post_meta_name );
                     } else {
-                        update_post_meta( $case['conditions']['post_id'], $post_meta_name );
+                        update_post_meta( $case['conditions']['post_id'], $post_meta_name, $post_meta_value );
                     }
                 }
             }
