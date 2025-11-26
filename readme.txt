@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Bug Fix ][ Custom CSS Single ] Fix backslash removal in custom CSS metabox on save.
+[ Bug Fix ][ CTA ] CTAをショートコード等で配置した場合、メイン設定で投稿タイプに対して非表示設定しても、一覧に表示される個別の投稿で表示設定になっているとCTAが表示されてしまう不具合を修正
 
 = 9.112.3 =
 [ Bug Fix ][ Custom CSS Single ] Fix can't save css.
