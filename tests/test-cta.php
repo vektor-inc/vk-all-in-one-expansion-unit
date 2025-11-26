@@ -55,6 +55,20 @@ class CTATest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Restore CTA option after test execution.
+	 *
+	 * @param mixed $original_option Original option value.
+	 * @return void
+	 */
+	private function restore_cta_option( $original_option = false ) {
+		if ( false === $original_option ) {
+			delete_option( 'vkExUnit_cta_settings' );
+		} else {
+			update_option( 'vkExUnit_cta_settings', $original_option );
+		}
+	}
+
+	/**
 	 * Create the nonce expected by save_custom_field().
 	 *
 	 * @return string
@@ -306,6 +320,116 @@ class CTATest extends WP_UnitTestCase {
 			// print 'expected ::' . $test_value['expected'] . PHP_EOL;
 			// print 'actual ::::' . $actual . PHP_EOL;
 			$this->assertEquals( $test_value['expected'], $actual );
+		}
+	}
+
+	/**
+	 * is_cta_id() の挙動を複数条件で検証する.
+	 */
+	public function test_is_cta_id_behaviors() {
+		// CTA投稿を作成
+		$cta_id = self::factory()->post->create(
+			array(
+				'post_type'    => Vk_Call_To_Action::POST_TYPE,
+				'post_status'  => 'publish',
+				'post_title'   => 'CTA Primary',
+				'post_content' => 'content',
+			)
+		);
+		// CTA表示検証用の投稿を作成
+		$post_id = self::factory()->post->create(
+			array(
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_title'   => 'Target Post',
+				'post_content' => 'content',
+			)
+		);
+
+		$original_option       = get_option( 'vkExUnit_cta_settings' );
+		$original_show_onfront = get_option( 'show_on_front' );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'Archive respects main disable setting',
+				'conditions'          => array(
+					'options'    => array(
+						'vkExUnit_cta_settings' => array(
+							'post' => '0',
+							'page' => '0',
+						),
+						'show_on_front'         => 'posts',
+					),
+					'post_meta'  => (string) $cta_id,
+					'target_url' => home_url( '/' ),
+				),
+				'expected'            => null,
+			),
+			array(
+				'test_condition_name' => 'Archive uses main CTA when enabled',
+				'conditions'          => array(
+					'options'    => array(
+						'vkExUnit_cta_settings' => array(
+							'post' => (string) $cta_id,
+							'page' => '0',
+						),
+						'show_on_front'         => 'posts',
+					),
+					'post_meta'  => '',
+					'target_url' => home_url( '/' ),
+				),
+				'expected'            => (string) $cta_id,
+			),
+			array(
+				'test_condition_name' => 'Singular prefers post meta even if main disabled',
+				'conditions'          => array(
+					'options'    => array(
+						'vkExUnit_cta_settings' => array(
+							'post' => '0',
+							'page' => '0',
+						),
+					),
+					'post_meta'  => (string) $cta_id,
+					'target_url' => get_permalink( $post_id ),
+				),
+				'expected'            => (string) $cta_id,
+			),
+		);
+
+		try {
+			foreach ( $test_cases as $case ) {
+				// Reset meta before setting new value.
+				delete_post_meta( $post_id, 'vkexunit_cta_each_option' );
+
+				if ( isset( $case['conditions']['post_meta'] ) ) {
+					if ( '' === $case['conditions']['post_meta'] ) {
+						delete_post_meta( $post_id, 'vkexunit_cta_each_option' );
+					} else {
+						update_post_meta( $post_id, 'vkexunit_cta_each_option', $case['conditions']['post_meta'] );
+					}
+				}
+
+				if ( ! empty( $case['conditions']['options'] ) ) {
+					foreach ( $case['conditions']['options'] as $option_name => $option_value ) {
+						update_option( $option_name, $option_value );
+					}
+				}
+
+				if ( ! empty( $case['conditions']['target_url'] ) ) {
+					$this->go_to( $case['conditions']['target_url'] );
+				}
+
+				$actual = Vk_Call_To_Action::is_cta_id( $post_id );
+				$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+			}
+		} finally {
+			$this->restore_cta_option( $original_option );
+			if ( false === $original_show_onfront ) {
+				delete_option( 'show_on_front' );
+			} else {
+				update_option( 'show_on_front', $original_show_onfront );
+			}
+			delete_post_meta( $post_id, 'vkexunit_cta_each_option' );
 		}
 	}
 
