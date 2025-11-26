@@ -346,13 +346,51 @@ class CTATest extends WP_UnitTestCase {
 			)
 		);
 
-		$original_option       = get_option( 'vkExUnit_cta_settings' );
-		$original_show_onfront = get_option( 'show_on_front' );
+		$front_page_id = self::factory()->post->create(
+			array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_title'   => 'Front Page',
+				'post_content' => 'content',
+			)
+		);
+		$posts_page_id = self::factory()->post->create(
+			array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_title'   => 'Posts Page',
+				'post_content' => 'content',
+			)
+		);
+
+		register_post_type(
+			'event',
+			array(
+				'label'       => 'Event',
+				'public'      => true,
+				'has_archive' => true,
+				'supports'    => array( 'title', 'editor' ),
+			)
+		);
+		$event_post_id = self::factory()->post->create(
+			array(
+				'post_type'    => 'event',
+				'post_status'  => 'publish',
+				'post_title'   => 'Event Target',
+				'post_content' => 'content',
+			)
+		);
+
+		$original_option         = get_option( 'vkExUnit_cta_settings' );
+		$original_show_onfront   = get_option( 'show_on_front' );
+		$original_page_on_front  = get_option( 'page_on_front' );
+		$original_page_for_posts = get_option( 'page_for_posts' );
 
 		$test_cases = array(
 			array(
-				'test_condition_name' => 'Archive respects main disable setting',
+				'test_condition_name' => 'フロントページ | フロント:投稿一覧 / メイン設定投稿:非表示 / 個別投稿:表示 -> 非表示',
 				'conditions'          => array(
+					'post_id'    => $post_id,
 					'options'    => array(
 						'vkExUnit_cta_settings' => array(
 							'post' => '0',
@@ -366,7 +404,7 @@ class CTATest extends WP_UnitTestCase {
 				'expected'            => null,
 			),
 			array(
-				'test_condition_name' => 'Archive uses main CTA when enabled',
+				'test_condition_name' => 'フロントページ | フロント:投稿一覧 / メイン設定投稿:CTA表示 / 個別投稿:"" -> CTA表示',
 				'conditions'          => array(
 					'options'    => array(
 						'vkExUnit_cta_settings' => array(
@@ -375,13 +413,14 @@ class CTATest extends WP_UnitTestCase {
 						),
 						'show_on_front'         => 'posts',
 					),
+					'post_id'    => $post_id,
 					'post_meta'  => '',
 					'target_url' => home_url( '/' ),
 				),
 				'expected'            => (string) $cta_id,
 			),
 			array(
-				'test_condition_name' => 'Singular prefers post meta even if main disabled',
+				'test_condition_name' => '個別投稿 | メイン設定投稿:非表示 / 個別投稿:CTA表示 -> CTA表示',
 				'conditions'          => array(
 					'options'    => array(
 						'vkExUnit_cta_settings' => array(
@@ -390,22 +429,63 @@ class CTATest extends WP_UnitTestCase {
 						),
 					),
 					'post_meta'  => (string) $cta_id,
+					'post_id'    => $post_id,
 					'target_url' => get_permalink( $post_id ),
 				),
 				'expected'            => (string) $cta_id,
 			),
+			array(
+				'test_condition_name' => '投稿トップ | メイン設定:非表示 / 個別投稿:表示 -> 非表示',
+				'conditions'          => array(
+					'post_id'    => $post_id,
+					'options'    => array(
+						'vkExUnit_cta_settings' => array(
+							'post' => '0',
+							'page' => '0',
+						),
+						'show_on_front'         => 'page',
+						'page_on_front'         => $front_page_id,
+						'page_for_posts'        => $posts_page_id,
+					),
+					'post_meta'  => (string) $cta_id,
+					'target_url' => get_permalink( $posts_page_id ),
+				),
+				'assert_id'           => $post_id,
+				'expected'            => null,
+			),
+			array(
+				'test_condition_name' => 'カスタム投稿アーカイブ | メイン設定:非表示 / 個別投稿:表示 -> 非表示',
+				'conditions'          => array(
+					'post_id'    => $event_post_id,
+					'options'    => array(
+						'vkExUnit_cta_settings' => array(
+							'post'  => '0',
+							'page'  => '0',
+							'event' => '0',
+						),
+					),
+					'post_meta'  => (string) $cta_id,
+					'target_url' => get_post_type_archive_link( 'event' ),
+				),
+				'expected'            => null,
+			),
 		);
+
+		$meta_targets = array();
 
 		try {
 			foreach ( $test_cases as $case ) {
-				// Reset meta before setting new value.
-				delete_post_meta( $post_id, 'vkexunit_cta_each_option' );
+				$target_post_id = isset( $case['conditions']['post_id'] ) ? $case['conditions']['post_id'] : $post_id;
+				$meta_targets[] = $target_post_id;
 
-				if ( isset( $case['conditions']['post_meta'] ) ) {
-					if ( '' === $case['conditions']['post_meta'] ) {
-						delete_post_meta( $post_id, 'vkexunit_cta_each_option' );
+				// Reset meta before setting new value.
+				delete_post_meta( $target_post_id, 'vkexunit_cta_each_option' );
+
+				if ( array_key_exists( 'post_meta', $case['conditions'] ) ) {
+					if ( '' === $case['conditions']['post_meta'] || null === $case['conditions']['post_meta'] ) {
+						delete_post_meta( $target_post_id, 'vkexunit_cta_each_option' );
 					} else {
-						update_post_meta( $post_id, 'vkexunit_cta_each_option', $case['conditions']['post_meta'] );
+						update_post_meta( $target_post_id, 'vkexunit_cta_each_option', $case['conditions']['post_meta'] );
 					}
 				}
 
@@ -419,7 +499,8 @@ class CTATest extends WP_UnitTestCase {
 					$this->go_to( $case['conditions']['target_url'] );
 				}
 
-				$actual = Vk_Call_To_Action::is_cta_id( $post_id );
+				$assert_id = isset( $case['assert_id'] ) ? $case['assert_id'] : $target_post_id;
+				$actual    = Vk_Call_To_Action::is_cta_id( $assert_id );
 				$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
 			}
 		} finally {
@@ -429,7 +510,22 @@ class CTATest extends WP_UnitTestCase {
 			} else {
 				update_option( 'show_on_front', $original_show_onfront );
 			}
-			delete_post_meta( $post_id, 'vkexunit_cta_each_option' );
+			if ( false === $original_page_on_front ) {
+				delete_option( 'page_on_front' );
+			} else {
+				update_option( 'page_on_front', $original_page_on_front );
+			}
+			if ( false === $original_page_for_posts ) {
+				delete_option( 'page_for_posts' );
+			} else {
+				update_option( 'page_for_posts', $original_page_for_posts );
+			}
+			foreach ( array_unique( $meta_targets ) as $meta_target_id ) {
+				delete_post_meta( $meta_target_id, 'vkexunit_cta_each_option' );
+			}
+			if ( post_type_exists( 'event' ) ) {
+				unregister_post_type( 'event' );
+			}
 		}
 	}
 
