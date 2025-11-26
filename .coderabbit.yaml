@@ -49,9 +49,17 @@ instructions: |-
                 update_option( $option_name, $option_value );
             }
             if ( $case['conditions']['post_id'] ){
-                update_post_meta( $case['conditions']['post_id'], 'test_post_meta_name', $case['conditions']['post_meta']['test_post_meta_value'] );
+                if( $case['conditions']['post_meta'] && is_array( $case['conditions']['post_meta'] ) ){
+                    foreach( $case['conditions']['post_meta'] as $post_meta_name => $post_meta_value ){
+                        if ( '' === $post_meta_value || null === $post_meta_value ){
+                            delete_post_meta( $case['conditions']['post_id'], $post_meta_name );
+                        } else {
+                            update_post_meta( $case['conditions']['post_id'], $post_meta_name );
+                        }
+                    }
+                }
             }
-            $this->go_to( $test_value['target_url'] );
+            $this->go_to( $case['target_url'] );
             $return = function_name();
             $this->assertEquals( $case['expected'], $return, $case['test_condition_name'] );
         }
