@@ -14,3 +14,51 @@ reviews:
     base_branches:
       - master
     auto_incremental_review: false
+instructions: |-
+  ## AI 向けルール
+
+  特定の関数やメソッドについて、PHPUnit テストを追加する時には、
+  多数の条件で正しい結果を返すかをテストしたり、条件と結果の組み合わせを簡単に増やせるようにするために、
+  テスト条件と期待する結果を配列で記載し、その配列をループしながらテストを実行する形式で書いてください。
+
+  基本的な形式の例としては、
+  例えばあらかじめテスト用の投稿（id=1）を作った上で
+  ```
+  function test_function_name(){
+    $test_cases = array(
+        array(
+            'test_condition_name'     => 'test_function_name',
+            'conditions'    => array(
+                'options' => array(
+                    'test_option_name1' => 'test_option_value1',
+                    'test_option_name2' => 'test_option_value2',
+                ),
+                'post_id' => 1,
+                'post_meta' => array(
+                    'test_post_meta_name' => 'test_post_meta_value',
+                ),
+            ),
+            'target_url' => home_url( '/' ) . '?p=1',
+            'expected' => true,
+        ),
+    );
+
+    foreach ( $test_cases as $case ) {
+        if ( $case['conditions']['options'] ){
+            foreach($case['conditions']['options'] as $option_name => $option_value){
+                update_option( $option_name, $option_value );
+            }
+            if ( $case['conditions']['post_id'] ){
+                update_post_meta( $case['conditions']['post_id'], 'test_post_meta_name', $case['conditions']['post_meta']['test_post_meta_value'] );
+            }
+            $this->go_to( $test_value['target_url'] );
+            $return = function_name();
+            $this->assertEquals( $case['expected'], $return, $case['test_condition_name'] );
+        }
+    }
+  }
+  ```
+
+  のように書いて、function_name() が期待する値を返すかどうかのテストします。
+  ただ、あくまで $test_cases の中身の配列は例なので、実際にはテストしたい関数やメソッドに応じて
+  適切な条件や期待する結果を設定してください。
