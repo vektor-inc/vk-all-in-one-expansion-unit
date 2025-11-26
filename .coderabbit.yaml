@@ -28,47 +28,47 @@ instructions: |-
   実際にはテストしたい関数やメソッドに応じて適切な条件や期待する結果を設定してください。
   
   ```
-  function test_function_name(){
+  function test_function_name() {
     $test_cases = array(
-        array(
-            'test_condition_name'     => 'test_function_name',
-            'conditions'    => array(
-                'options' => array(
-                    'test_option_name1' => 'test_option_value1',
-                    'test_option_name2' => 'test_option_value2',
-                ),
-                'post_id' => 1,
-                'post_meta' => array(
-                    'test_post_meta_name' => 'test_post_meta_value',
-                ),
-            ),
-            'target_url' => home_url( '/' ) . '?p=1',
-            'expected' => true,
+      array(
+        'test_condition_name' => 'test_function_name',
+        'conditions'          => array(
+          'options'   => array(
+            'test_option_name1' => 'test_option_value1',
+            'test_option_name2' => 'test_option_value2',
+          ),
+          'post_id'   => 1,
+          'post_meta' => array(
+            'test_post_meta_name' => 'test_post_meta_value',
+          ),
         ),
+        'target_url'          => home_url( '/' ) . '?p=1',
+        'expected'            => true,
+      ),
     );
 
     foreach ( $test_cases as $case ) {
-        if ( ! empty( $case['conditions']['options'] ) && is_array( $case['conditions']['options'] ) ){
-            foreach ( $case['conditions']['options'] as $option_name => $option_value ){
-                update_option( $option_name, $option_value );
+      if ( ! empty( $case['conditions']['options'] ) && is_array( $case['conditions']['options'] ) ) {
+        foreach ( $case['conditions']['options'] as $option_name => $option_value ) {
+          update_option( $option_name, $option_value );
+        }
+      }
+      if ( ! empty( $case['conditions']['post_id'] ) ) {
+        if ( ! empty( $case['conditions']['post_meta'] ) && is_array( $case['conditions']['post_meta'] ) ) {
+          foreach ( $case['conditions']['post_meta'] as $post_meta_name => $post_meta_value ) {
+            if ( '' === $post_meta_value || null === $post_meta_value ) {
+              delete_post_meta( $case['conditions']['post_id'], $post_meta_name );
+            } else {
+              update_post_meta( $case['conditions']['post_id'], $post_meta_name, $post_meta_value );
             }
+          }
         }
-        if ( ! empty( $case['conditions']['post_id'] ) ){
-            if ( ! empty( $case['conditions']['post_meta'] ) && is_array( $case['conditions']['post_meta'] ) ){
-                foreach ( $case['conditions']['post_meta'] as $post_meta_name => $post_meta_value ){
-                    if ( '' === $post_meta_value || null === $post_meta_value ){
-                        delete_post_meta( $case['conditions']['post_id'], $post_meta_name );
-                    } else {
-                        update_post_meta( $case['conditions']['post_id'], $post_meta_name, $post_meta_value );
-                    }
-                }
-            }
-        }
-        if ( ! empty( $case['target_url'] ) ){
-            $this->go_to( $case['target_url'] );
-        }
-        $return = function_name();
-        $this->assertEquals( $case['expected'], $return, $case['test_condition_name'] );
+      }
+      if ( ! empty( $case['target_url'] ) ) {
+        $this->go_to( $case['target_url'] );
+      }
+      $return = function_name();
+      $this->assertEquals( $case['expected'], $return, $case['test_condition_name'] );
     }
   }
   ```
