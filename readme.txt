@@ -82,7 +82,7 @@ e.g.
 == Changelog ==
 
 [ Bug Fix ][ Custom CSS Single ] Fix backslash removal in custom CSS metabox on save.
-[ Bug Fix ][ CTA ] CTAをショートコード等で配置した場合、メイン設定で投稿タイプに対して非表示設定しても、一覧に表示される個別の投稿で表示設定になっているとCTAが表示されてしまう不具合を修正
+[ Bug Fix ][ CTA ] Fixed an issue where if a CTA was placed using an action hook, even if it was set to hidden for the post type in the main settings, the CTA would still be displayed if it was set to visible for an individual post displayed in the list.
 
 = 9.112.3 =
 [ Bug Fix ][ Custom CSS Single ] Fix can't save css.
