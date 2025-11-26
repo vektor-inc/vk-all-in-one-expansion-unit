@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ SNS OGP Title ] Fix XSS.
 [ Bug Fix ][ Custom CSS Single ] Fix backslash removal in custom CSS metabox on save.
 [ Bug Fix ][ CTA ] Fixed an issue where if a CTA was placed using an action hook, even if it was set to hidden for the post type in the main settings, the CTA would still be displayed if it was set to visible for an individual post displayed in the list.
 

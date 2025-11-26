@@ -25,7 +25,7 @@ function vkExUnit_print_og() {
 	$vkExUnitOGP  = '<!-- [ ' . veu_get_name() . ' OGP ] -->' . "\n";
 	$vkExUnitOGP .= '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '" />' . "\n";
 	$vkExUnitOGP .= '<meta property="og:url" content="' . esc_url( $linkUrl ) . '" />' . "\n";
-	$vkExUnitOGP .= '<meta property="og:title" content="' . veu_get_the_sns_title() . '" />' . "\n";
+	$vkExUnitOGP .= '<meta property="og:title" content="' . esc_attr( veu_get_the_sns_title() ) . '" />' . "\n";
 	$vkExUnitOGP .= '<meta property="og:description" content="' . esc_attr( vk_get_page_description() ) . '" />' . "\n";
 
 	$addImageTag = false;
