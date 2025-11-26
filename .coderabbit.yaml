@@ -51,10 +51,10 @@ instructions: |-
             if ( $case['conditions']['post_id'] ){
                 if( $case['conditions']['post_meta'] && is_array( $case['conditions']['post_meta'] ) ){
                     foreach( $case['conditions']['post_meta'] as $post_meta_name => $post_meta_value ){
-                        if ( !empty( $post_meta_value ) ){
-                            update_post_meta( $case['conditions']['post_id'], $post_meta_name, $post_meta_value );
-                        } else {
+                        if ( '' === $post_meta_value || null === $post_meta_value ){
                             delete_post_meta( $case['conditions']['post_id'], $post_meta_name );
+                        } else {
+                            update_post_meta( $case['conditions']['post_id'], $post_meta_name );
                         }
                     }
                 }
