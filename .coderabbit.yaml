@@ -49,13 +49,13 @@ instructions: |-
 
     foreach ( $test_cases as $case ) {
         if ( ! empty( $case['conditions']['options'] ) && is_array( $case['conditions']['options'] ) ){
-            foreach( $case['conditions']['options'] as $option_name => $option_value ){
-              update_option( $option_name, $option_value );
+            foreach ( $case['conditions']['options'] as $option_name => $option_value ){
+                update_option( $option_name, $option_value );
             }
         }
         if ( ! empty( $case['conditions']['post_id'] ) ){
-            if( $case['conditions']['post_meta'] && is_array( $case['conditions']['post_meta'] ) ){
-                foreach( $case['conditions']['post_meta'] as $post_meta_name => $post_meta_value ){
+            if ( ! empty( $case['conditions']['post_meta'] ) && is_array( $case['conditions']['post_meta'] ) ){
+                foreach ( $case['conditions']['post_meta'] as $post_meta_name => $post_meta_value ){
                     if ( '' === $post_meta_value || null === $post_meta_value ){
                         delete_post_meta( $case['conditions']['post_id'], $post_meta_name );
                     } else {
@@ -64,7 +64,7 @@ instructions: |-
                 }
             }
         }
-        if ( ! empty( $case['condisions']['target_url'] ) ){
+        if ( ! empty( $case['target_url'] ) ){
             $this->go_to( $case['target_url'] );
         }
         $return = function_name();
