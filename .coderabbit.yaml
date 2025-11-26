@@ -23,6 +23,10 @@ instructions: |-
 
   基本的な形式の例としては、
   例えばあらかじめテスト用の投稿（id=1）を作った上で
+  以下のように書いて、function_name() が期待する値を返すかどうかのテストします。
+  ただ、あくまで $test_cases の中身の配列は一つの例なので、
+  実際にはテストしたい関数やメソッドに応じて適切な条件や期待する結果を設定してください。
+  
   ```
   function test_function_name(){
     $test_cases = array(
@@ -44,9 +48,9 @@ instructions: |-
     );
 
     foreach ( $test_cases as $case ) {
-        if ( ! empty( $case['conditions']['options'] ) ){
-            foreach($case['conditions']['options'] as $option_name => $option_value){
-                update_option( $option_name, $option_value );
+        if ( ! empty( $case['conditions']['options'] ) && is_array( $case['conditions']['options'] ) ){
+            foreach( $case['conditions']['options'] as $option_name => $option_value ){
+              update_option( $option_name, $option_value );
             }
         }
         if ( ! empty( $case['conditions']['post_id'] ) ){
@@ -60,13 +64,11 @@ instructions: |-
                 }
             }
         }
-        $this->go_to( $case['target_url'] );
+        if ( ! empty( $case['condisions']['target_url'] ) ){
+            $this->go_to( $case['target_url'] );
+        }
         $return = function_name();
         $this->assertEquals( $case['expected'], $return, $case['test_condition_name'] );
     }
   }
   ```
-
-  のように書いて、function_name() が期待する値を返すかどうかのテストします。
-  ただ、あくまで $test_cases の中身の配列は例なので、実際にはテストしたい関数やメソッドに応じて
-  適切な条件や期待する結果を設定してください。
