@@ -426,17 +426,6 @@ function veu_get_packages( $is_block_theme = null ) {
 		),
 	);
 
-	/**
-	 * IE Alart.
-	 */
-	$required_packages[] = array(
-		'name'        => 'display_ie_alert',
-		'title'       => __( 'Display IE Alert', 'vk-all-in-one-expansion-unit' ) . $deprecated,
-		'description' => __( 'Display a warning if the user who is viewing this site is using IE.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'IE is a very old browser and its creator Microsoft does not recommend its use. Encouraging IE users to switch to the next-generation browser will greatly contribute to the evolution of the website.', 'vk-all-in-one-expansion-unit' ),
-		'default'     => true,
-		'include'     => 'display-ie-alert.php',
-	);
-
 	/*
 		Widget functions
 	*/

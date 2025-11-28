@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ IE Alert ] Delete IE Alert function.
+
 = 9.112.4 =
 [ Bug Fix ][ SNS OGP Title ] Fix XSS.
 [ Bug Fix ][ Custom CSS Single ] Fix backslash removal in custom CSS metabox on save.
