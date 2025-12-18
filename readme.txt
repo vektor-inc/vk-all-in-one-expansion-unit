@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Other ] Font Awesome 7.1.0 support
 [ Specification Change ][ IE Alert ] Delete IE Alert function.
 
 = 9.112.4 =

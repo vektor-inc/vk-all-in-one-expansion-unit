@@ -156,7 +156,7 @@ class VkExUnit_Contact {
 	<th scope="row"><label for="tel_icon"><?php _e( 'Phone icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 	<td>
 	<input type="text" name="vkExUnit_contact[tel_icon]" id="tel_icon" value="<?php echo esc_attr( $options['tel_icon'] ); ?>" style="width:50%;" /><br />
-	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>fas fa-phone-square  [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><code><?php echo esc_html( '<i class="fa-solid fa-mobile"></i>' ); ?></code>  [ <a href="https://fontawesome.com/search?q=phone&ic=free-collection" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
 	</td>
 	</tr>
 	<tr>
