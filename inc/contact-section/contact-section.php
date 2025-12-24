@@ -110,7 +110,7 @@ class VkExUnit_Contact {
 	public static function get_option() {
 		$default = array(
 			'contact_txt'          => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
-			'tel_icon'             => 'fas fa-phone-square',
+			'tel_icon'             => '<i class="fa-solid fa-mobile"></i>',
 			'tel_number'           => '000-000-0000',
 			'contact_time'         => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
 			'contact_link'         => home_url(),
@@ -156,7 +156,7 @@ class VkExUnit_Contact {
 	<th scope="row"><label for="tel_icon"><?php _e( 'Phone icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 	<td>
 	<input type="text" name="vkExUnit_contact[tel_icon]" id="tel_icon" value="<?php echo esc_attr( $options['tel_icon'] ); ?>" style="width:50%;" /><br />
-	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><code><?php echo esc_html( '<i class="fa-solid fa-mobile"></i>' ); ?></code>  [ <a href="https://fontawesome.com/search?q=phone&ic=free-collection" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><code><?php echo esc_html( '<i class="fa-solid fa-mobile"></i>' ); ?></code>  [ <a href="https://fontawesome.com/search?q=phone&ic=free-collection" target="_blank" rel="noopener noreferrer">Icon list</a> ]</span>
 	</td>
 	</tr>
 	<tr>
