@@ -110,7 +110,7 @@ class VkExUnit_Contact {
 	public static function get_option() {
 		$default = array(
 			'contact_txt'          => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
-			'tel_icon'             => '<i class="fa-solid fa-mobile"></i>',
+			'tel_icon'             => '<i class="fa-solid fa-phone-square"></i>',
 			'tel_number'           => '000-000-0000',
 			'contact_time'         => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
 			'contact_link'         => home_url(),
