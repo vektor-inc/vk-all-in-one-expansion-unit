@@ -45,7 +45,7 @@ function veu_load_packages() {
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php.
 }
-add_action( 'after_setup_theme', 'veu_load_packages' );
+add_action( 'after_setup_theme', 'veu_load_packages', 0 );
 
 /**
  * Add vkExUnit css
