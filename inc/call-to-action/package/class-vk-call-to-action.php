@@ -365,7 +365,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<tr><th>
 	<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 	<td>
-	<p><?php _e( 'To choose your favorite icon, and enter the class.', 'vk-all-in-one-expansion-unit' ); ?></p>
+	<p><?php _e( 'To choose your favorite icon, and enter the icon html.', 'vk-all-in-one-expansion-unit' ); ?></p>
 	<div class="vkExUnit_cta_button_icon_inputset">
 		<dl>
 		<dt><label for="icon_before"><?php _e( 'Before :', 'vk-all-in-one-expansion-unit' ); ?></label></dt>

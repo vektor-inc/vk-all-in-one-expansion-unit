@@ -427,39 +427,32 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			<?php
 			$sns_names = array(
 				array(
-					'name'     => 'facebook',
-					'icon_fa4' => 'fa fa-facebook',
-					'icon_fa6' => 'fa-solid fa-brands fa-facebook',
+					'name' => 'facebook',
+					'icon' => 'fa-brands fa-facebook-f',
 				),
 				array(
-					'name'     => 'twitter',
-					'icon_fa4' => 'fa fa-twitter',
-					'icon_fa6' => 'fa-brands fa-x-twitter',
+					'name' => 'twitter',
+					'icon' => 'fa-brands fa-x-twitter',
 				),
 				array(
-					'name'     => 'mail',
-					'icon_fa4' => 'fa fa-envelope',
-					'icon_fa6' => 'fa-solid fa-envelope',
+					'name' => 'mail',
+					'icon' => 'fa-solid fa-envelope',
 				),
 				array(
-					'name'     => 'youtube',
-					'icon_fa4' => 'fa fa-youtube',
-					'icon_fa6' => 'fa-brands fa-youtube',
+					'name' => 'youtube',
+					'icon' => 'fa-brands fa-youtube',
 				),
 				array(
-					'name'     => 'rss',
-					'icon_fa4' => 'fa fa-rss',
-					'icon_fa6' => 'fa-solid fa-rss',
+					'name' => 'rss',
+					'icon' => 'fa-solid fa-rss',
 				),
 				array(
-					'name'     => 'instagram',
-					'icon_fa4' => 'fa fa-instagram',
-					'icon_fa6' => 'fa-brands fa-instagram',
+					'name' => 'instagram',
+					'icon' => 'fa-brands fa-instagram',
 				),
 				array(
-					'name'     => 'linkedin',
-					'icon_fa4' => 'fa fa-linkedin',
-					'icon_fa6' => 'fa-brands fa-linkedin',
+					'name' => 'linkedin',
+					'icon' => 'fa-brands fa-linkedin',
 				),
 
 			);
@@ -472,12 +465,7 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			foreach ( $sns_names as $sns_name ) {
 				if ( ! empty( $instance[ $sns_name['name'] ] ) ) { // $instance[$sns_name] 入力されたURLが返ってくる
 
-					// font awesome 4.7
-					if ( $font_awesome['version'] == 4.7 ) {
-							$sns_name_class = $sns_name['icon_fa4'];
-					} else {
-								$sns_name_class = $sns_name['icon_fa6'];
-					}
+					$sns_name_class = $sns_name['icon'];
 
 					echo '<li class="' . $sns_name['name'] . '_btn"><a href="' . esc_url( $instance[ $sns_name['name'] ] ) . '" target="_blank"' . $outer_css . '><i class="' . $sns_name_class . ' icon"' . $icon_css . '></i></a></li>';
 				} // if ( ! empty( $instance[$sns_name] ) ) :
