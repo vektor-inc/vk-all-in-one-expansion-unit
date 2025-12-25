@@ -15,7 +15,7 @@
 /*
 	Delete old function data
 */
-$options = get_option( 'veu_deprecated' );
+$options = get_option( 'veu_deprecated', array() );
 if ( empty( $options['9.72.0'] ) ) {
 	require VEU_DIRECTORY_PATH . '/delete-old-option-meta.php';
 	$options['9.72.0'] = 'done';

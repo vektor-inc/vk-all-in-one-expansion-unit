@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fix PHP Deprecated.
 [ Specification Change ][ IE Alert ] Delete IE Alert function.
 
 = 9.112.4 =
