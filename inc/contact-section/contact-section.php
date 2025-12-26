@@ -110,7 +110,7 @@ class VkExUnit_Contact {
 	public static function get_option() {
 		$default = array(
 			'contact_txt'          => __( 'Please feel free to inquire.', 'vk-all-in-one-expansion-unit' ),
-			'tel_icon'             => 'fas fa-phone-square',
+			'tel_icon'             => '<i class="fa-solid fa-phone-square"></i>',
 			'tel_number'           => '000-000-0000',
 			'contact_time'         => __( 'Office hours 9:00 - 18:00 [ Weekdays except holidays ]', 'vk-all-in-one-expansion-unit' ),
 			'contact_link'         => home_url(),
@@ -156,7 +156,7 @@ class VkExUnit_Contact {
 	<th scope="row"><label for="tel_icon"><?php _e( 'Phone icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 	<td>
 	<input type="text" name="vkExUnit_contact[tel_icon]" id="tel_icon" value="<?php echo esc_attr( $options['tel_icon'] ); ?>" style="width:50%;" /><br />
-	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?>fas fa-phone-square  [ <a href="https://fontawesome.com/icons?d=gallery&q=phone&m=free" target="_blank" rel="noopener noreferrer">lcon list</a> ]</span>
+	<span><?php _e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><code><?php echo esc_html( '<i class="fa-solid fa-phone-square"></i>' ); ?></code>  [ <a href="https://fontawesome.com/search?q=phone&ic=free-collection" target="_blank" rel="noopener noreferrer">Icon list</a> ]</span>
 	</td>
 	</tr>
 	<tr>
@@ -386,22 +386,12 @@ class VkExUnit_Contact {
 			if ( $options['contact_link'] && $options['button_text'] ) {
 				$cont .= '<a href="' . $options['contact_link'] . '"' . $link_target . ' class="btn btn-primary btn-lg contact_bt">';
 				$cont .= '<span class="contact_bt_txt">';
-
-				// Envelope Icon
-				$class = 'far fa-envelope';
-				if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-					$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-envelope-o', 'far fa-envelope' );
-				}
-				$cont .= '<i class="' . $class . '"></i> ';
+				$cont .= '<i class="fa-regular fa-envelope"></i> ';
 
 				$cont .= wp_kses_post( $options['button_text'] );
 
 				// Arrow Icon
-				$class = 'far fa-arrow-alt-circle-right';
-				if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-					$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-arrow-circle-o-right', 'far fa-arrow-alt-circle-right' );
-				}
-				$cont .= ' <i class="' . $class . '"></i>';
+				$cont .= ' <i class="fa-regular fa-circle-right"></i>';
 
 				$cont .= '</span>';
 
@@ -433,6 +423,7 @@ class VkExUnit_Contact {
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
+		echo 'aaaa';
 		$options     = self::get_option();
 		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
 		$cont        = '';
@@ -442,21 +433,12 @@ class VkExUnit_Contact {
 		) {
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . ' class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 
-			// Envelope Icon
-			$class = 'far fa-envelope';
-			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-				$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-envelope-o', 'far fa-envelope' );
-			}
-			$cont .= '<i class="' . $class . '"></i> ';
+			$cont .= '<i class="fa-regular fa-envelope"></i> ';
 
 			$cont .= wp_kses_post( $options['short_text'] );
 
 			// Arrow Icon
-			$class = 'far fa-arrow-alt-circle-right';
-			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-				$class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-arrow-circle-o-right', 'far fa-arrow-alt-circle-right' );
-			}
-			$cont .= ' <i class="' . $class . '"></i>';
+			$cont .= ' <i class="fa-regular fa-circle-right"></i>';
 
 			$cont .= '</span>';
 			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {
@@ -465,11 +447,7 @@ class VkExUnit_Contact {
 			$cont .= '</a>';
 		}
 		// if ( current_user_can( 'edit_theme_options' ) ) {
-		// $class = 'fas fa-edit';
-		// if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-		// $class = Vk_Font_Awesome_Versions::class_switch( 'fa fa-pencil-square-o', 'fas fa-edit' );
-		// }
-		// $cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="' . $class . '"></i> ' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+		// $cont .= '<div class="veu_adminEdit"><a href="' . admin_url() . 'admin.php?page=vkExUnit_main_setting#vkExUnit_contact" class="btn btn-default" target="_blank"><i class="fa-solid fa-pen-to-square"></i> ' . __( 'Edit contact information', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 		// }
 		return $cont;
 	}

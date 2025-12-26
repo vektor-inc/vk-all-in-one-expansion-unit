@@ -80,13 +80,29 @@ class WP_Widget_Button extends WP_Widget {
 			}
 
 			if ( isset( $instance['icon_before'] ) && $instance['icon_before'] ) {
-				echo '<i class="' . $fa . esc_attr( $instance['icon_before'] ) . ' font_icon"></i>';
+				if ( strpos( $instance['icon_before'], '<i' ) !== false ) {
+					// <i>タグが入っているケース
+					preg_match( '/<i[^>]*class=["\']([^"\']+)/', $instance['icon_before'], $m );
+					$icon_class = $m[1] ?? '';
+				} else {
+					// クラス名のみが入っているケース
+					$icon_class = $instance['icon_before'];
+				}
+				echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i>';
 			}
 
 			echo wp_kses_post( $options['title'] );
 
 			if ( isset( $instance['icon_after'] ) && $instance['icon_after'] ) {
-				echo '<i class="' . $fa . esc_attr( $instance['icon_after'] ) . ' font_icon"></i>';
+				if ( strpos( $instance['icon_after'], '<i' ) !== false ) {
+					// <i>タグが入っているケース
+					preg_match( '/<i[^>]*class=["\']([^"\']+)/', $instance['icon_after'], $m );
+					$icon_class = $m[1] ?? '';
+				} else {
+					// クラス名のみが入っているケース
+					$icon_class = $instance['icon_after'];
+				}
+				echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i>';
 			}
 			?>
 
@@ -127,8 +143,8 @@ class WP_Widget_Button extends WP_Widget {
 
 		<?php
 		// icon font class input
-		echo '<p>' . __( 'Class name of the icon font', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
-		echo __( 'To choose your favorite icon, and enter the class.', 'vk-all-in-one-expansion-unit' ) . '<br>';
+		echo '<p>' . __( 'icon font', 'vk-all-in-one-expansion-unit' ) . '</label><br/>';
+		echo __( 'To choose your favorite icon, and enter the icon html.', 'vk-all-in-one-expansion-unit' ) . '<br>';
 		echo '<label for="' . $this->get_field_id( 'icon_before' ) . '">' . __( 'Before :', 'vk-all-in-one-expansion-unit' );
 		echo '<input type="text" id="' . $this->get_field_id( 'icon_before' ) . '-font" class="font_class" name="' . $this->get_field_name( 'icon_before' ) . '" value="' . esc_attr( $instance['icon_before'] ) . '" /><br>';
 		echo '<label for="' . $this->get_field_id( 'icon_after' ) . '">' . __( 'After :', 'vk-all-in-one-expansion-unit' );

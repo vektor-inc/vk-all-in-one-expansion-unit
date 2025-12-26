@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ] Font Awesome 7.1.0 support
+
 = 9.113.0 =
 [ Bug Fix ] Fix PHP Deprecated.
 [ Specification Change ][ IE Alert ] Delete IE Alert function.

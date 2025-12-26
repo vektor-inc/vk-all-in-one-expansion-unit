@@ -213,7 +213,7 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			$instance[ 'label_' . $i ]            = wp_kses_post( stripslashes( $new_instance[ 'label_' . $i ] ) );
 			$instance[ 'media_image_' . $i ]      = esc_url( $new_instance[ 'media_image_' . $i ] );
 			$instance[ 'media_alt_' . $i ]        = esc_html( stripslashes( $new_instance[ 'media_alt_' . $i ] ) );
-			$instance[ 'iconFont_class_' . $i ]   = esc_html( $new_instance[ 'iconFont_class_' . $i ] );
+			$instance[ 'iconFont_class_' . $i ]   = wp_kses_post( stripslashes( $new_instance[ 'iconFont_class_' . $i ] ) );
 			$instance[ 'iconFont_bgColor_' . $i ] = esc_html( $new_instance[ 'iconFont_bgColor_' . $i ] );
 			$instance[ 'iconFont_bgType_' . $i ]  = $new_instance[ 'iconFont_bgType_' . $i ];
 			$instance[ 'summary_' . $i ]          = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ) );
@@ -277,8 +277,15 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 					if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 						$fa = Vk_Font_Awesome_Versions::print_fa();
 					}
-					echo '<i class="' . $fa . esc_attr( $instance[ 'iconFont_class_' . $i ] ) . ' font_icon prBlock_icon"' . $icon_styles . '></i></div>' . PHP_EOL;
-
+					if ( strpos( $instance[ 'iconFont_class_' . $i ], '<i' ) !== false ) {
+						// <i>タグが入っているケース
+						preg_match( '/<i[^>]*class=["\']([^"\']+)/', $instance[ 'iconFont_class_' . $i ], $m );
+						$icon_class = $m[1] ?? '';
+					} else {
+						// クラス名のみが入っているケース
+						$icon_class = $instance[ 'iconFont_class_' . $i ];
+					}
+					echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon prBlock_icon"' . $icon_styles . '></i></div>' . PHP_EOL;
 					// image display
 				} elseif ( ! empty( $instance[ 'media_image_' . $i ] ) ) {
 					echo '<div class="prBlock_image" style="background:url(' . esc_url( $instance[ 'media_image_' . $i ] ) . ') no-repeat 50% center;background-size: cover;">';

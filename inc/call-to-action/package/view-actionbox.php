@@ -15,11 +15,35 @@ if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
 $btn_text   = get_post_meta( $id, 'vkExUnit_cta_button_text', true );
 $btn_before = get_post_meta( $id, 'vkExUnit_cta_button_icon_before', true );
 if ( $btn_before ) {
-		$btn_before = '<i class="' . $fa . esc_attr( $btn_before ) . ' font_icon"></i> ';
+	$raw = trim( (string) $btn_before );
+	if ( strpos( $raw, '<i' ) !== false ) {
+		// <i>タグが入っているケース
+		preg_match( '/<i[^>]*class=["\']([^"\']+)/', $raw, $m );
+		$icon_class = $m[1] ?? '';
+	} else {
+		// クラス名のみが入っているケース
+		$icon_class = $raw;
+	}
+
+	$btn_before = $icon_class
+		? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i> '
+		: '';
 }
 $btn_after = get_post_meta( $id, 'vkExUnit_cta_button_icon_after', true );
 if ( $btn_after ) {
-		$btn_after = ' <i class="' . $fa . esc_attr( $btn_after ) . ' font_icon"></i>';
+	$raw = trim( (string) $btn_after );
+	if ( strpos( $raw, '<i' ) !== false ) {
+		// <i>タグが入っているケース
+		preg_match( '/<i[^>]*class=["\']([^"\']+)/', $raw, $m );
+		$icon_class = $m[1] ?? '';
+	} else {
+		// クラス名のみが入っているケース
+		$icon_class = $raw;
+	}
+
+	$btn_after = $icon_class
+		? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i> '
+		: '';
 }
 $url   = get_post_meta( $id, 'vkExUnit_cta_url', true );
 $text  = get_post_meta( $id, 'vkExUnit_cta_text', true );
