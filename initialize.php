@@ -79,13 +79,16 @@ function veu_print_css() {
  * Print vkExUnit editor css
  */
 function veu_print_editor_css() {
+	if ( ! is_admin() ) {
+		return;
+	}
 	$css_url  = plugins_url( 'assets/css/vkExUnit_editor_style.css', __FILE__ );
 	$css_path = plugin_dir_path( __FILE__ ) . 'assets/css/vkExUnit_editor_style.css';
 	$version  = file_exists( $css_path ) ? filemtime( $css_path ) : VEU_VERSION;
 
 	wp_enqueue_style( 'vkExUnit_editor_style', $css_url, array(), $version );
 }
-add_action( 'admin_enqueue_scripts', 'veu_print_editor_css' );
+add_action( 'enqueue_block_assets', 'veu_print_editor_css' );
 
 /**
  * Print Js

@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Other ] Fix editor CSS loading method.
 [ Other ] Font Awesome 7.1.0 support
 
 = 9.113.0 =
