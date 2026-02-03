@@ -83,6 +83,7 @@ e.g.
 
 [ Other ] Fix editor CSS loading method.
 [ Other ] Font Awesome 7.1.0 support
+[ Bug Fix ] Fix issue where first save of Active Setting turned all modules on and all widgets off.
 
 = 9.113.0 =
 [ Bug Fix ] Fix PHP Deprecated.

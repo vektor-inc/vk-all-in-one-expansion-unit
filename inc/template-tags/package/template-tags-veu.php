@@ -45,10 +45,12 @@ function veu_common_options_validate( $input ) {
 	veu_get_common_options_default() の中で package に登録してある項目・デフォルト値を読み込み、それをループ処理する
 	*/
 	$defaults = veu_get_common_options_default();
+	$input    = is_array( $input ) ? $input : array();
 	foreach ( $defaults as $key => $default_value ) {
 		// 'content_filter_state'　以外は true か false しか返ってこない
 		if ( $key != 'content_filter_state' ) {
-				$output[ $key ] = ( isset( $input[ $key ] ) ) ? esc_html( $input[ $key ] ) : $default_value;
+				// Unchecked checkboxes are not posted, so treat missing keys as false.
+				$output[ $key ] = ( isset( $input[ $key ] ) ) ? esc_html( $input[ $key ] ) : false;
 		} else {
 				$output['content_filter_state'] = ( ! empty( $input['content_filter_state'] ) ) ? 'loop_end' : 'content';
 		}

@@ -70,7 +70,7 @@ class PackageManagerTest extends WP_UnitTestCase {
 			),
 			array(
 				'active_pagetop_button' => '',
-				'correct'               => '',
+				'correct'               => false,
 			),
 		);
 
@@ -117,5 +117,22 @@ class PackageManagerTest extends WP_UnitTestCase {
 			// 取得できた値と、想定する値が等しいかテスト
 			$this->assertEquals( $value['correct'], $output[ $key ] );
 		}
+	}
+
+	function test_veu_common_package_options_validate_empty_value() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_veu_common_package_options_validate_empty_value' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		$output = array();
+		$input  = array(
+			'active_metaDescription' => '',
+		);
+
+		$result = veu_common_package_options_validate( $output, $input );
+
+		$this->assertFalse( $result['active_metaDescription'] );
 	}
 }

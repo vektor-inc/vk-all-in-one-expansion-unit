@@ -173,7 +173,8 @@ function veu_common_package_options_validate( $output, $input ) {
 			$output[ 'active_' . $package['name'] ] === $input[ 'active_' . $package['name'] ] ) ? true : false
 		) {
 			continue; }
-		$output[ 'active_' . $package['name'] ] = ( isset( $input[ 'active_' . $package['name'] ] ) ) ? true : false;
+		// Treat empty values as unchecked to avoid forcing ON when empty keys are posted.
+		$output[ 'active_' . $package['name'] ] = ( ! empty( $input[ 'active_' . $package['name'] ] ) ) ? true : false;
 	}
 	return $output;
 }
