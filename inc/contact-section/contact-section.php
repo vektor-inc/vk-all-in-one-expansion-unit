@@ -423,7 +423,6 @@ class VkExUnit_Contact {
 	/*-------------------------------------------*/
 
 	public static function render_widget_contact_btn_html() {
-		echo 'aaaa';
 		$options     = self::get_option();
 		$link_target = ! empty( $options['contact_target_blank'] ) ? ' target="_blank"' : '';
 		$cont        = '';

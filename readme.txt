@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Contact Widget ] Delete unintended aaaa string
+
 = 9.113.1 =
 [ Other ] Font Awesome 7.1.0 support
 [ Bug Fix ] Fix issue where first save of Active Setting turned all modules on and all widgets off.
