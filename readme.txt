@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 9.113.0.1
+Stable tag: 9.113.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,11 @@ e.g.
 == Changelog ==
 
 [ Other ] Fix editor CSS loading method.
+
+= 9.113.2 =
+[ Bug Fix ][ Contact Widget ] Delete unintended aaaa string
+
+= 9.113.1 =
 [ Other ] Font Awesome 7.1.0 support
 [ Bug Fix ] Fix issue where first save of Active Setting turned all modules on and all widgets off.
 
