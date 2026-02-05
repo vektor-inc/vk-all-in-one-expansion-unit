@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ] Fix editor CSS loading method.
+
 = 9.113.2 =
 [ Bug Fix ][ Contact Widget ] Delete unintended aaaa string
 
