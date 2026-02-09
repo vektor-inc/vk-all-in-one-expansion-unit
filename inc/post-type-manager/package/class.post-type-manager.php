@@ -1106,26 +1106,43 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// 既存の設定を取得.
 			$existing_settings = array();
 			if ( $is_shared ) {
+				// グローバル設定があればそれを優先（最も期待通りの値になりやすい）.
+				$global_settings = self::get_global_taxonomy_settings( $taxonomy_slug );
+				if ( is_array( $global_settings ) ) {
+					$existing_settings = array(
+						'label'    => isset( $global_settings['label'] ) ? (string) $global_settings['label'] : '',
+						'tag'      => isset( $global_settings['tag'] ) ? (string) $global_settings['tag'] : '',
+						'rest_api' => isset( $global_settings['rest_api'] ) ? (string) $global_settings['rest_api'] : '',
+					);
+				}
+
+				// グローバル設定が無い場合は、実際に同じスラッグを持つ投稿タイプから設定を取得.
 				$args = array(
 					'post_type'      => 'post_type_manage',
-					'posts_per_page' => 1,
+					'posts_per_page' => -1,
 					'post_status'    => 'publish',
 					'post__not_in'   => array( $current_post_id ),
 				);
 
-				$posts = get_posts( $args );
-				foreach ( $posts as $post ) {
-					$taxonomy_data = get_post_meta( $post->ID, 'veu_taxonomy', true );
-					if ( is_array( $taxonomy_data ) ) {
+				if ( empty( $existing_settings ) ) {
+					$posts = get_posts( $args );
+					foreach ( $posts as $post ) {
+						$taxonomy_data = get_post_meta( $post->ID, 'veu_taxonomy', true );
+						if ( ! is_array( $taxonomy_data ) ) {
+							continue;
+						}
+
 						foreach ( $taxonomy_data as $taxonomy ) {
-							if ( isset( $taxonomy['slug'] ) && $taxonomy['slug'] === $taxonomy_slug ) {
-								$existing_settings = array(
-									'label'    => $taxonomy['label'],
-									'tag'      => $taxonomy['tag'],
-									'rest_api' => $taxonomy['rest_api'],
-								);
-								break 2;
+							if ( ! isset( $taxonomy['slug'] ) || $taxonomy['slug'] !== $taxonomy_slug ) {
+								continue;
 							}
+
+							$existing_settings = array(
+								'label'    => isset( $taxonomy['label'] ) ? (string) $taxonomy['label'] : '',
+								'tag'      => isset( $taxonomy['tag'] ) ? (string) $taxonomy['tag'] : '',
+								'rest_api' => isset( $taxonomy['rest_api'] ) ? (string) $taxonomy['rest_api'] : '',
+							);
+							break 2;
 						}
 					}
 				}
