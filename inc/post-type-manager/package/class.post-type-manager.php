@@ -41,6 +41,38 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
+		 * Sanitize taxonomy payload from POST for saving/drafting.
+		 *
+		 * @param mixed $raw            Raw taxonomy payload (usually $_POST['veu_taxonomy']).
+		 * @param int   $taxonomy_count Number of taxonomy rows.
+		 * @return array Sanitized taxonomy payload.
+		 */
+		private static function sanitize_taxonomy_payload( $raw, $taxonomy_count ) {
+			if ( empty( $raw ) || ! is_array( $raw ) ) {
+				return array();
+			}
+
+			$taxonomy = $raw;
+			for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
+				if ( ! isset( $taxonomy[ $i ] ) || ! is_array( $taxonomy[ $i ] ) ) {
+					$taxonomy[ $i ] = array();
+				}
+
+				$taxonomy[ $i ]['slug']  = ! empty( $taxonomy[ $i ]['slug'] ) ? sanitize_key( wp_strip_all_tags( $taxonomy[ $i ]['slug'] ) ) : '';
+				$taxonomy[ $i ]['label'] = ! empty( $taxonomy[ $i ]['label'] ) ? sanitize_text_field( wp_strip_all_tags( $taxonomy[ $i ]['label'] ) ) : '';
+
+				$taxonomy[ $i ]['tag'] = ! empty( $taxonomy[ $i ]['tag'] ) ? sanitize_text_field( $taxonomy[ $i ]['tag'] ) : '';
+
+				$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? sanitize_text_field( $taxonomy[ $i ]['rest_api'] ) : '';
+				if ( 'true' !== $taxonomy[ $i ]['rest_api'] && 'false' !== $taxonomy[ $i ]['rest_api'] ) {
+					$taxonomy[ $i ]['rest_api'] = '';
+				}
+			}
+
+			return $taxonomy;
+		}
+
+		/**
 		 * カスタム投稿タイプ制御用投稿タイプを追加
 		 *
 		 * @return void
@@ -324,10 +356,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<h4>' . esc_html__( 'Corresponds to the block editor (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
 			// 現在保存されているカスタムフィールドの値を取得.
-			$export_to_api_value = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
-			if ( array_key_exists( 'veu_post_type_export_to_api', $draft_values ) ) {
-				$export_to_api_value = $draft_values['veu_post_type_export_to_api'];
-			}
+			$export_to_api_value = $get_draft_or_meta( 'veu_post_type_export_to_api', 'veu_post_type_export_to_api' );
 			if ( 'false' !== $export_to_api_value && 'true' !== $export_to_api_value ) {
 				$export_to_api_value = 'true';
 			}
@@ -347,11 +376,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			if ( version_compare( $wp_version, '6.8', '>=' ) ) {
 				echo '<h4>' . esc_html__( 'Embed Settings (Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
-				$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
-				if ( array_key_exists( 'veu_is_embeddable', $draft_values ) ) {
-					$is_embeddable = $draft_values['veu_is_embeddable'];
-				}
-				$checked = ( 'false' === $is_embeddable ) ? ' checked' : '';
+				$is_embeddable = $get_draft_or_meta( 'veu_is_embeddable', 'veu_is_embeddable' );
+				$checked       = ( 'false' === $is_embeddable ) ? ' checked' : '';
 
 				echo '<label><input type="checkbox" id="veu_is_embeddable" name="veu_is_embeddable" value="true"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable embedding from external sites (oEmbed)', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
 				echo '<p>' . esc_html__( 'When checked, this post type will not be embeddable from external sites. This prevents blog card-like embedding when the URL is shared on other sites. Useful for creating post types that you want to prevent from being visible externally.', 'vk-all-in-one-expansion-unit' ) . '</p>';
@@ -365,10 +391,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 */
 			echo '<h4>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
-			$post_type_rewrite_value = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
-			if ( array_key_exists( 'veu_post_type_rewrite', $draft_values ) ) {
-				$post_type_rewrite_value = $draft_values['veu_post_type_rewrite'];
-			}
+			$post_type_rewrite_value = $get_draft_or_meta( 'veu_post_type_rewrite', 'veu_post_type_rewrite' );
 			// post_type_rewrite_value の値が with_front_false だった場合はチェックを入れる.
 			$checked = ( 'with_front_false' === $post_type_rewrite_value ) ? ' checked' : '';
 
@@ -404,10 +427,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<table class="table table-border">';
 
 			// カスタム分類の情報は カスタムフィールドの veu_taxonomy に連想配列で格納している.
-			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
-			if ( array_key_exists( 'veu_taxonomy', $draft_values ) ) {
-				$taxonomy = $draft_values['veu_taxonomy'];
-			}
+			$taxonomy = $get_draft_or_meta( 'veu_taxonomy', 'veu_taxonomy' );
 			if ( ! is_array( $taxonomy ) ) {
 				$taxonomy = array();
 			}
@@ -647,7 +667,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			// 復元用に入力値を一時保存（バリデーションエラー時にフォームへ反映）.
-			$draft_to_save      = array(
+			$draft_to_save                 = array(
 				'veu_post_type_id'            => $post_type_id,
 				'veu_post_type_items'         => $post_type_items,
 				'veu_menu_position'           => $menu_posttion,
@@ -656,22 +676,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				'veu_post_type_rewrite'       => $post_type_rewrite,
 				'veu_is_embeddable'           => $is_embeddable,
 			);
-			$taxonomy_draft_raw = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			if ( ! empty( $taxonomy_draft_raw ) && is_array( $taxonomy_draft_raw ) ) {
-				$taxonomy_draft = $taxonomy_draft_raw;
-				for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
-					if ( ! isset( $taxonomy_draft[ $i ] ) || ! is_array( $taxonomy_draft[ $i ] ) ) {
-						$taxonomy_draft[ $i ] = array();
-					}
-					$taxonomy_draft[ $i ]['slug']     = ! empty( $taxonomy_draft[ $i ]['slug'] ) ? sanitize_key( wp_strip_all_tags( $taxonomy_draft[ $i ]['slug'] ) ) : '';
-					$taxonomy_draft[ $i ]['label']    = ! empty( $taxonomy_draft[ $i ]['label'] ) ? sanitize_text_field( wp_strip_all_tags( $taxonomy_draft[ $i ]['label'] ) ) : '';
-					$taxonomy_draft[ $i ]['tag']      = ! empty( $taxonomy_draft[ $i ]['tag'] ) ? sanitize_text_field( $taxonomy_draft[ $i ]['tag'] ) : '';
-					$taxonomy_draft[ $i ]['rest_api'] = ! empty( $taxonomy_draft[ $i ]['rest_api'] ) ? sanitize_text_field( $taxonomy_draft[ $i ]['rest_api'] ) : '';
-				}
-				$draft_to_save['veu_taxonomy'] = $taxonomy_draft;
-			} else {
-				$draft_to_save['veu_taxonomy'] = array();
-			}
+			$taxonomy_draft_raw            = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$draft_to_save['veu_taxonomy'] = self::sanitize_taxonomy_payload( $taxonomy_draft_raw, $taxonomy_count );
 
 			// エラー時はメタ更新を行わず、管理画面に通知を表示する.
 			if ( ! empty( $validation_errors ) ) {
@@ -681,24 +687,20 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			$taxonomy_raw = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			if ( ! empty( $taxonomy_raw ) && is_array( $taxonomy_raw ) ) {
-				$taxonomy = $taxonomy_raw;
+			$taxonomy     = self::sanitize_taxonomy_payload( $taxonomy_raw, $taxonomy_count );
+			for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
+				if ( empty( $taxonomy[ $i ] ) || ! is_array( $taxonomy[ $i ] ) ) {
+					continue;
+				}
 
-				for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
-					$taxonomy[ $i ]['slug']     = ! empty( $taxonomy[ $i ]['slug'] ) ? sanitize_key( wp_strip_all_tags( $taxonomy[ $i ]['slug'] ) ) : '';
-					$taxonomy[ $i ]['label']    = ! empty( $taxonomy[ $i ]['label'] ) ? sanitize_text_field( wp_strip_all_tags( $taxonomy[ $i ]['label'] ) ) : '';
-					$taxonomy[ $i ]['tag']      = ! empty( $taxonomy[ $i ]['tag'] ) ? esc_html( $taxonomy[ $i ]['tag'] ) : '';
-					$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? esc_html( $taxonomy[ $i ]['rest_api'] ) : '';
-
-					// カスタム分類の共通設定を更新.
-					if ( ! empty( $taxonomy[ $i ]['slug'] ) ) {
-						$settings = array(
-							'tag'      => $taxonomy[ $i ]['tag'],
-							'rest_api' => $taxonomy[ $i ]['rest_api'],
-							'label'    => $taxonomy[ $i ]['label'],
-						);
-						self::update_global_taxonomy_settings( $taxonomy[ $i ]['slug'], $settings );
-					}
+				// カスタム分類の共通設定を更新.
+				if ( ! empty( $taxonomy[ $i ]['slug'] ) ) {
+					$settings = array(
+						'tag'      => $taxonomy[ $i ]['tag'],
+						'rest_api' => $taxonomy[ $i ]['rest_api'],
+						'label'    => $taxonomy[ $i ]['label'],
+					);
+					self::update_global_taxonomy_settings( $taxonomy[ $i ]['slug'], $settings );
 				}
 			}
 
@@ -832,10 +834,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					foreach ( $post_type_items as $key => $value ) {
 						$supports[] = $key;
 					}
-
-					// 投稿タイプのアイコンを取得.
-					$menu_icon = get_post_meta( $post->ID, 'veu_menu_icon', true );
-					$menu_icon = ! empty( $menu_icon ) ? $menu_icon : 'dashicons-admin-post';
 
 					// カスタム投稿タイプのスラッグ.
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
