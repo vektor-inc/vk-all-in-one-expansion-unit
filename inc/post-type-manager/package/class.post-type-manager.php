@@ -1118,16 +1118,20 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 				// グローバル設定が無い場合は、実際に同じスラッグを持つ投稿タイプから設定を取得.
 				$args = array(
-					'post_type'      => 'post_type_manage',
-					'posts_per_page' => -1,
-					'post_status'    => 'publish',
-					'post__not_in'   => array( $current_post_id ),
+					'post_type'              => 'post_type_manage',
+					'posts_per_page'         => -1,
+					'post_status'            => 'publish',
+					'post__not_in'           => array( $current_post_id ),
+					'fields'                 => 'ids',
+					'no_found_rows'          => true,
+					// Performance: this is a lightweight lookup for import settings.
+					'update_post_term_cache' => false,
 				);
 
 				if ( empty( $existing_settings ) ) {
-					$posts = get_posts( $args );
-					foreach ( $posts as $post ) {
-						$taxonomy_data = get_post_meta( $post->ID, 'veu_taxonomy', true );
+					$post_ids = get_posts( $args );
+					foreach ( $post_ids as $post_id ) {
+						$taxonomy_data = get_post_meta( $post_id, 'veu_taxonomy', true );
 						if ( ! is_array( $taxonomy_data ) ) {
 							continue;
 						}
