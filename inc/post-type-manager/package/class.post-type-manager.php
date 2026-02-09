@@ -6,6 +6,22 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 	 * Post Type Manager
 	 */
 	class VK_Post_Type_Manager {
+		/**
+		 * Transient key prefix for validation errors.
+		 *
+		 * @var string
+		 */
+		private static $validation_error_transient_prefix = 'veu_ptm_validation_errors_';
+
+		/**
+		 * Get transient key for validation errors.
+		 *
+		 * @param int $post_id Post ID.
+		 * @return string
+		 */
+		private static function get_validation_error_transient_key( $post_id ) {
+			return self::$validation_error_transient_prefix . get_current_user_id() . '_' . intval( $post_id );
+		}
 
 		/**
 		 * カスタム投稿タイプ制御用投稿タイプを追加
@@ -180,8 +196,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			/*******************************************
 			 * Supports(Required)
 			 */
-			echo '<h4>' . esc_html__( 'Supports ( Required )', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			echo '<h4>' . esc_html__( 'Supports(Required)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			$post_type_items_value = get_post_meta( $post->ID, 'veu_post_type_items', true );
+			// 旧データ互換: Supports が未保存の場合は title を既定で選択状態にする.
+			if ( empty( $post_type_items_value ) || ! is_array( $post_type_items_value ) ) {
+				$post_type_items_value = array( 'title' => 'true' );
+			}
 
 			echo '<ul>';
 			foreach ( $post_type_items_array as $key => $label ) {
@@ -510,6 +530,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function save_cf_value( $post_id ) {
 			global $post;
 
+			// 対象は post_type_manage のみ.
+			if ( get_post_type( $post_id ) !== 'post_type_manage' ) {
+				return $post_id;
+			}
+
 			// 設定したnonce を取得（CSRF対策）.
 			$noncename__post_type_manager = isset( $_POST['noncename__post_type_manager'] ) ? wp_unslash( $_POST['noncename__post_type_manager'] ) : null;
 
@@ -529,6 +554,22 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$menu_icon               = ! empty( $_POST['veu_menu_icon'] ) ? esc_html( strip_tags( $_POST['veu_menu_icon'] ) ) : '';
 			$post_type_export_to_api = ! empty( $_POST['veu_post_type_export_to_api'] ) ? esc_html( $_POST['veu_post_type_export_to_api'] ) : '';
 			$post_type_rewrite       = ! empty( $_POST['veu_post_type_rewrite'] ) ? esc_html( $_POST['veu_post_type_rewrite'] ) : '';
+			$taxonomy                = array();
+
+			// 必須項目バリデーション.
+			$validation_errors = array();
+			if ( empty( $post_type_id ) ) {
+				$validation_errors[] = __( 'Post Type ID is required.', 'vk-all-in-one-expansion-unit' );
+			}
+			if ( empty( $post_type_items ) || ! is_array( $post_type_items ) ) {
+				$validation_errors[] = __( 'Supports is required. Please select at least one.', 'vk-all-in-one-expansion-unit' );
+			}
+
+			// エラー時はメタ更新を行わず、管理画面に通知を表示する.
+			if ( ! empty( $validation_errors ) ) {
+				set_transient( self::get_validation_error_transient_key( $post_id ), $validation_errors, 30 );
+				return $post_id;
+			}
 
 			if ( ! empty( $_POST['veu_taxonomy'] ) ) {
 				$taxonomy = $_POST['veu_taxonomy'];
@@ -576,6 +617,62 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// リライトルールを更新するように.
 			delete_post_meta( $post_id, 'veu_post_type_flush_rewrite_rules' );
+		}
+
+		/**
+		 * Add query arg to redirect location when validation errors exist.
+		 *
+		 * @param string $location Redirect location.
+		 * @param int    $post_id   Post ID.
+		 * @return string
+		 */
+		public static function add_validation_error_query_arg( $location, $post_id ) {
+			if ( get_post_type( $post_id ) !== 'post_type_manage' ) {
+				return $location;
+			}
+			$errors = get_transient( self::get_validation_error_transient_key( $post_id ) );
+			if ( ! empty( $errors ) ) {
+				$location = add_query_arg( 'veu_ptm_validation_error', '1', $location );
+			}
+			return $location;
+		}
+
+		/**
+		 * Display validation error notice on edit screen.
+		 *
+		 * @return void
+		 */
+		public static function display_validation_error_notice() {
+			if ( empty( $_GET['veu_ptm_validation_error'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				return;
+			}
+
+			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			if ( empty( $screen ) || empty( $screen->post_type ) || $screen->post_type !== 'post_type_manage' ) {
+				return;
+			}
+
+			$post_id = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( ! $post_id ) {
+				return;
+			}
+
+			$transient_key = self::get_validation_error_transient_key( $post_id );
+			$errors        = get_transient( $transient_key );
+			if ( empty( $errors ) || ! is_array( $errors ) ) {
+				return;
+			}
+
+			// 表示後に削除.
+			delete_transient( $transient_key );
+
+			echo '<div class="notice notice-error"><p>';
+			echo esc_html__( 'Could not save because required fields are missing.', 'vk-all-in-one-expansion-unit' );
+			echo '</p><ul style="margin-left: 1.2em; list-style: disc;">';
+			foreach ( $errors as $error ) {
+				echo '<li>' . esc_html( $error ) . '</li>';
+			}
+			echo '</ul></div>';
 		}
 
 		/**
@@ -1004,6 +1101,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			// AJAX ハンドラーを追加
 			add_action( 'wp_ajax_check_taxonomy_shared', array( __CLASS__, 'ajax_check_taxonomy_shared' ) );
+
+			// バリデーションエラー表示用.
+			add_filter( 'redirect_post_location', array( __CLASS__, 'add_validation_error_query_arg' ), 99, 2 );
+			add_action( 'admin_notices', array( __CLASS__, 'display_validation_error_notice' ), 5 );
 		}
 	} // class VK_Post_Type_Manager
 
