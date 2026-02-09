@@ -198,10 +198,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 */
 			echo '<h4>' . esc_html__( 'Supports(Required)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			$post_type_items_value = get_post_meta( $post->ID, 'veu_post_type_items', true );
-			// 旧データ互換: Supports が未保存の場合は title を既定で選択状態にする.
-			if ( empty( $post_type_items_value ) || ! is_array( $post_type_items_value ) ) {
-				$post_type_items_value = array( 'title' => 'true' );
-			}
 
 			echo '<ul>';
 			foreach ( $post_type_items_array as $key => $label ) {
