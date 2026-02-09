@@ -654,6 +654,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				$post_type_rewrite = '';
 			}
 
+			$taxonomy_raw = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
 			$taxonomy      = array();
 			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'false' : 'true';
 
@@ -676,8 +678,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				'veu_post_type_rewrite'       => $post_type_rewrite,
 				'veu_is_embeddable'           => $is_embeddable,
 			);
-			$taxonomy_draft_raw            = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$draft_to_save['veu_taxonomy'] = self::sanitize_taxonomy_payload( $taxonomy_draft_raw, $taxonomy_count );
+			$draft_to_save['veu_taxonomy'] = self::sanitize_taxonomy_payload( $taxonomy_raw, $taxonomy_count );
 
 			// エラー時はメタ更新を行わず、管理画面に通知を表示する.
 			if ( ! empty( $validation_errors ) ) {
@@ -686,8 +687,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				return $post_id;
 			}
 
-			$taxonomy_raw = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$taxonomy     = self::sanitize_taxonomy_payload( $taxonomy_raw, $taxonomy_count );
+			$taxonomy = self::sanitize_taxonomy_payload( $taxonomy_raw, $taxonomy_count );
 			for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
 				if ( empty( $taxonomy[ $i ] ) || ! is_array( $taxonomy[ $i ] ) ) {
 					continue;
