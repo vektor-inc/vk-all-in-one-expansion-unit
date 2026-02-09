@@ -742,6 +742,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$errors = get_transient( self::get_validation_error_transient_key( $post_id ) );
 			if ( ! empty( $errors ) ) {
 				$location = add_query_arg( 'veu_ptm_validation_error', '1', $location );
+				// WordPress core の成功メッセージ（message=...）を消し、エラー通知のみ表示する.
+				$location = remove_query_arg( 'message', $location );
 			}
 			return $location;
 		}
