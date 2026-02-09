@@ -126,6 +126,7 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 			VK_Post_Type_Manager::ajax_check_taxonomy_shared();
 		} catch ( Exception $e ) {
 			// Expected: wp_send_json_* ends with wp_die().
+			$this->assertSame( 'wp_die', $e->getMessage() );
 		}
 		$output = ob_get_clean();
 
@@ -363,4 +364,3 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 		$this->assertSame( 'true', $json['data']['existing_settings']['rest_api'] );
 	}
 }
-
