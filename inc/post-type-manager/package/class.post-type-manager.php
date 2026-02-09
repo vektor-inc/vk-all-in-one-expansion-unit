@@ -555,10 +555,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// 必須項目バリデーション.
 			$validation_errors = array();
 			if ( empty( $post_type_id ) ) {
-				$validation_errors[] = __( 'Post Type ID is required.', 'vk-all-in-one-expansion-unit' );
+				$validation_errors[] = __( 'Post Type ID (Required): please enter a value.', 'vk-all-in-one-expansion-unit' );
 			}
 			if ( empty( $post_type_items ) || ! is_array( $post_type_items ) ) {
-				$validation_errors[] = __( 'Supports is required. Please select at least one.', 'vk-all-in-one-expansion-unit' );
+				$validation_errors[] = __( 'Supports (Required): please select at least one item.', 'vk-all-in-one-expansion-unit' );
 			}
 
 			// エラー時はメタ更新を行わず、管理画面に通知を表示する.
