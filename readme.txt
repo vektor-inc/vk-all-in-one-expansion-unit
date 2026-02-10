@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Post Type Manager ] Prevent saving when required fields are empty (Post Type ID / Supports).
 [ Other ] Fix editor CSS loading method.
 
 = 9.113.2 =

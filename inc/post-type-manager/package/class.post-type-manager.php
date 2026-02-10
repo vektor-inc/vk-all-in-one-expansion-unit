@@ -6,6 +6,71 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 	 * Post Type Manager
 	 */
 	class VK_Post_Type_Manager {
+		/**
+		 * Transient key prefix for validation errors.
+		 *
+		 * @var string
+		 */
+		private static $validation_error_transient_prefix = 'veu_ptm_validation_errors_';
+
+		/**
+		 * Transient key prefix for validation draft values.
+		 *
+		 * @var string
+		 */
+		private static $validation_draft_transient_prefix = 'veu_ptm_validation_draft_';
+
+		/**
+		 * Get transient key for validation errors.
+		 *
+		 * @param int $post_id Post ID.
+		 * @return string
+		 */
+		private static function get_validation_error_transient_key( $post_id ) {
+			return self::$validation_error_transient_prefix . get_current_user_id() . '_' . intval( $post_id );
+		}
+
+		/**
+		 * Get transient key for validation draft values.
+		 *
+		 * @param int $post_id Post ID.
+		 * @return string
+		 */
+		private static function get_validation_draft_transient_key( $post_id ) {
+			return self::$validation_draft_transient_prefix . get_current_user_id() . '_' . intval( $post_id );
+		}
+
+		/**
+		 * Sanitize taxonomy payload from POST for saving/drafting.
+		 *
+		 * @param mixed $raw            Raw taxonomy payload (usually $_POST['veu_taxonomy']).
+		 * @param int   $taxonomy_count Number of taxonomy rows.
+		 * @return array Sanitized taxonomy payload.
+		 */
+		private static function sanitize_taxonomy_payload( $raw, $taxonomy_count ) {
+			if ( empty( $raw ) || ! is_array( $raw ) ) {
+				return array();
+			}
+
+			$taxonomy = $raw;
+			for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
+				if ( ! isset( $taxonomy[ $i ] ) || ! is_array( $taxonomy[ $i ] ) ) {
+					$taxonomy[ $i ] = array();
+				}
+
+				$taxonomy[ $i ]['slug']  = ! empty( $taxonomy[ $i ]['slug'] ) ? sanitize_key( wp_strip_all_tags( $taxonomy[ $i ]['slug'] ) ) : '';
+				$taxonomy[ $i ]['label'] = ! empty( $taxonomy[ $i ]['label'] ) ? sanitize_text_field( wp_strip_all_tags( $taxonomy[ $i ]['label'] ) ) : '';
+
+				$taxonomy[ $i ]['tag'] = ! empty( $taxonomy[ $i ]['tag'] ) ? sanitize_text_field( $taxonomy[ $i ]['tag'] ) : '';
+
+				$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? sanitize_text_field( $taxonomy[ $i ]['rest_api'] ) : '';
+				if ( 'true' !== $taxonomy[ $i ]['rest_api'] && 'false' !== $taxonomy[ $i ]['rest_api'] ) {
+					$taxonomy[ $i ]['rest_api'] = '';
+				}
+			}
+
+			return $taxonomy;
+		}
 
 		/**
 		 * カスタム投稿タイプ制御用投稿タイプを追加
@@ -72,7 +137,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				)
 			);
 
-			// ヘルプ通知のHTMLを生成して返す
+			// ヘルプ通知のHTMLを生成して返す.
 			return wp_kses_post(
 				'<div class="notice notice-info is-dismissible">
 					<p style="margin-top: 10px;"><strong>' . __( 'Help and Documentation', 'vk-all-in-one-expansion-unit' ) . ':</strong> ' . __( 'Learn more about custom post type settings by visiting the following resources:', 'vk-all-in-one-expansion-unit' ) . '</p>
@@ -94,13 +159,14 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function is_display_help_notice() {
 			global $pagenow;
 
-			if ( get_locale() !== 'ja' ) {
+			if ( 'ja' !== get_locale() ) {
 				return false;
 			}
 
-			// 特定のページのみ通知を表示する
-			if ( $pagenow === 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] === 'post_type_manage' ) {
-				// ユーザーが通知を無視したフラグが保存されているかどうかを確認
+			// 特定のページのみ通知を表示する.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Viewing screen state only.
+			if ( 'edit.php' === $pagenow && isset( $_GET['post_type'] ) && 'post_type_manage' === $_GET['post_type'] ) {
+				// ユーザーが通知を無視したフラグが保存されているかどうかを確認.
 				if ( ! get_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true ) ) {
 					return true;
 				}
@@ -115,10 +181,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function display_help_notice() {
 
 			if ( self::is_display_help_notice() ) {
-				echo self::add_post_type_get_help_notice();
+				echo wp_kses_post( self::add_post_type_get_help_notice() );
 			}
 
-			if ( isset( $_GET['vk-all-in-one-expansion-unit-dismiss'] ) && $_GET['vk-all-in-one-expansion-unit-dismiss'] === 'dismiss_admin_notice' ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified below.
+			if ( isset( $_GET['vk-all-in-one-expansion-unit-dismiss'] ) && 'dismiss_admin_notice' === $_GET['vk-all-in-one-expansion-unit-dismiss'] ) {
 				check_admin_referer( 'vk-all-in-one-expansion-unit-dismiss-' . get_current_user_id() );
 				update_user_meta( get_current_user_id(), 'vk-all-in-one-expansion-unit_dismissed_notice', true );
 			}
@@ -140,11 +207,27 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			global $post;
 
+			// バリデーションエラー時は、入力内容を一時的に復元できるようにする.
+			$draft_values = get_transient( self::get_validation_draft_transient_key( $post->ID ) );
+			if ( ! is_array( $draft_values ) ) {
+				$draft_values = array();
+			}
+
+			$get_draft_or_meta = function ( $key, $default_meta_key = '' ) use ( $draft_values, $post ) {
+				if ( array_key_exists( $key, $draft_values ) ) {
+					return $draft_values[ $key ];
+				}
+				if ( $default_meta_key ) {
+					return get_post_meta( $post->ID, $default_meta_key, true );
+				}
+				return '';
+			};
+
 			// CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）.
 			wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__post_type_manager' );
 
-			// 通知メッセージを取得して表示
-			echo self::add_post_type_get_help_notice();
+			// 通知メッセージを取得して表示.
+			echo wp_kses_post( self::add_post_type_get_help_notice() );
 
 			?>
 			<style type="text/css">
@@ -163,7 +246,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 */
 			echo '<h4>' . esc_html__( 'Post Type ID(Required)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			echo '<p>' . esc_html__( 'Please enter a string of up to 20 characters consisting of half-width lowercase alphanumeric characters, half-width hyphens, and half-width underscores.', 'vk-all-in-one-expansion-unit' ) . '</p>';
-			echo '<input class="form-control" type="text" id="veu_post_type_id" name="veu_post_type_id" value="' . esc_attr( mb_strimwidth( mb_convert_kana( mb_strtolower( $post->veu_post_type_id ), 'a' ), 0, 20, '', 'UTF-8' ) ) . '" size="30">';
+			$post_type_id_value = $get_draft_or_meta( 'veu_post_type_id', 'veu_post_type_id' );
+			echo '<input class="form-control" type="text" id="veu_post_type_id" name="veu_post_type_id" value="' . esc_attr( mb_strimwidth( mb_convert_kana( mb_strtolower( $post_type_id_value ), 'a' ), 0, 20, '', 'UTF-8' ) ) . '" size="30">';
 			echo '<hr>';
 
 			$post_type_items_array = array(
@@ -180,8 +264,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			/*******************************************
 			 * Supports(Required)
 			 */
-			echo '<h4>' . esc_html__( 'Supports ( Required )', 'vk-all-in-one-expansion-unit' ) . '</h4>';
-			$post_type_items_value = get_post_meta( $post->ID, 'veu_post_type_items', true );
+			echo '<h4>' . esc_html__( 'Supports(Required)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
+			$post_type_items_value = $get_draft_or_meta( 'veu_post_type_items', 'veu_post_type_items' );
+			if ( ! is_array( $post_type_items_value ) ) {
+				$post_type_items_value = array();
+			}
 
 			echo '<ul>';
 			foreach ( $post_type_items_array as $key => $label ) {
@@ -197,7 +284,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 */
 			echo '<h4>' . esc_html__( 'Menu position(optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 			echo '<p>' . esc_html__( 'Please enter a number.', 'vk-all-in-one-expansion-unit' ) . '</p>';
-			echo '<input class="form-control" type="text" id="veu_menu_position" name="veu_menu_position" value="' . esc_attr( $post->veu_menu_position ) . '" size="30">';
+			$menu_position_value = $get_draft_or_meta( 'veu_menu_position', 'veu_menu_position' );
+			echo '<input class="form-control" type="text" id="veu_menu_position" name="veu_menu_position" value="' . esc_attr( $menu_position_value ) . '" size="30">';
 
 			echo '<hr>';
 
@@ -232,7 +320,8 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 
 			echo '<div>';
-			echo '<input type="text" id="veu_menu_icon" name="veu_menu_icon" value="' . esc_attr( $post->veu_menu_icon ) . '" style="margin-right: 10px;" size="30">';
+			$menu_icon_value = $get_draft_or_meta( 'veu_menu_icon', 'veu_menu_icon' );
+			echo '<input type="text" id="veu_menu_icon" name="veu_menu_icon" value="' . esc_attr( $menu_icon_value ) . '" style="margin-right: 10px;" size="30">';
 			echo '<a href="https://developer.wordpress.org/resource/dashicons/" class="button" target="_blank">' . esc_html__( 'Dashicons Library', 'vk-all-in-one-expansion-unit' ) . '</a>';
 			echo '</div>';
 
@@ -240,7 +329,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<hr>';
 
-			// JavaScript to update icon selection and validate input
+			// JavaScript to update icon selection and validate input.
 			echo '
 			<script>
 				function updateIconSelection(icon) {
@@ -250,11 +339,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				document.addEventListener("DOMContentLoaded", function () {
 					var inputField = document.getElementById("veu_menu_icon");
 					
-					// `change` イベントを使用して、フォーカスが外れたときにチェックする
+					// `change` イベントを使用して、フォーカスが外れたときにチェックする.
 					inputField.addEventListener("change", function() {
-						// SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可
+						// SVGデータURI、\'none\'、または\'dashicons-\'で始まる値を許可.
 						if (!this.value.startsWith("dashicons-") && !this.value.startsWith("data:image/svg+xml;base64,") && this.value !== \'none\') {
-							alert("' . __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) . '");
+							alert("' . esc_js( __( 'Please enter a valid input. You can enter a Dashicon class, a base64-encoded SVG, or \'none\' to leave it blank for CSS customization.', 'vk-all-in-one-expansion-unit' ) ) . '");
 							this.value = ""; // 不正な入力をクリア
 						}
 					});
@@ -267,7 +356,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<h4>' . esc_html__( 'Corresponds to the block editor (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
 			// 現在保存されているカスタムフィールドの値を取得.
-			$export_to_api_value = get_post_meta( $post->ID, 'veu_post_type_export_to_api', true );
+			$export_to_api_value = $get_draft_or_meta( 'veu_post_type_export_to_api', 'veu_post_type_export_to_api' );
 			if ( 'false' !== $export_to_api_value && 'true' !== $export_to_api_value ) {
 				$export_to_api_value = 'true';
 			}
@@ -282,12 +371,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			/*******************************************
 			 * Embed Settings
 			 */
-			// WordPress 6.8以上の場合のみ表示
+			// WordPress 6.8以上の場合のみ表示.
 			$wp_version = get_bloginfo( 'version' );
 			if ( version_compare( $wp_version, '6.8', '>=' ) ) {
 				echo '<h4>' . esc_html__( 'Embed Settings (Optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
-				$is_embeddable = get_post_meta( $post->ID, 'veu_is_embeddable', true );
+				$is_embeddable = $get_draft_or_meta( 'veu_is_embeddable', 'veu_is_embeddable' );
 				$checked       = ( 'false' === $is_embeddable ) ? ' checked' : '';
 
 				echo '<label><input type="checkbox" id="veu_is_embeddable" name="veu_is_embeddable" value="true"' . esc_attr( $checked ) . '> ' . esc_html( __( 'Disable embedding from external sites (oEmbed)', 'vk-all-in-one-expansion-unit' ) ) . '</label>';
@@ -302,7 +391,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			 */
 			echo '<h4>' . esc_html__( 'Rewrite permalink (optional)', 'vk-all-in-one-expansion-unit' ) . '</h4>';
 
-			$post_type_rewrite_value = get_post_meta( $post->ID, 'veu_post_type_rewrite', true );
+			$post_type_rewrite_value = $get_draft_or_meta( 'veu_post_type_rewrite', 'veu_post_type_rewrite' );
 			// post_type_rewrite_value の値が with_front_false だった場合はチェックを入れる.
 			$checked = ( 'with_front_false' === $post_type_rewrite_value ) ? ' checked' : '';
 
@@ -311,8 +400,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<p>';
 			echo wp_kses_post(
 				sprintf(
+					/* translators: %1$s: URL to the Permalink Settings screen. */
 					__( 'For example, if "news/%%postname%%/" is set in the Custom Structure of the <a href="%1$s" target="_blank">Permalink Settings</a>, the URL for the custom post type "event" will also include "news", resulting in a URL like https://xxxx.xxx/news/event/%%postname%%/.', 'vk-all-in-one-expansion-unit' ),
-					admin_url( 'options-permalink.php' )
+					esc_url( admin_url( 'options-permalink.php' ) )
 				)
 			);
 			echo '<br>';
@@ -337,15 +427,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			echo '<table class="table table-border">';
 
 			// カスタム分類の情報は カスタムフィールドの veu_taxonomy に連想配列で格納している.
-			$taxonomy = get_post_meta( $post->ID, 'veu_taxonomy', true );
+			$taxonomy = $get_draft_or_meta( 'veu_taxonomy', 'veu_taxonomy' );
+			if ( ! is_array( $taxonomy ) ) {
+				$taxonomy = array();
+			}
 
-			for ( $i = 1; $i <= apply_filters( 'veu_post_type_taxonomies', 5 ); $i++ ) {
+			$taxonomy_count = apply_filters( 'veu_post_type_taxonomies', 5 );
+			for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
 				$slug     = ( isset( $taxonomy[ $i ]['slug'] ) ) ? $taxonomy[ $i ]['slug'] : '';
 				$label    = ( isset( $taxonomy[ $i ]['label'] ) ) ? $taxonomy[ $i ]['label'] : '';
 				$tag      = ( isset( $taxonomy[ $i ]['tag'] ) ) ? $taxonomy[ $i ]['tag'] : '';
 				$rest_api = ( isset( $taxonomy[ $i ]['rest_api'] ) ) ? $taxonomy[ $i ]['rest_api'] : '';
 
-				// グローバル設定があるかチェック
+				// グローバル設定があるかチェック.
 				if ( ! empty( $slug ) ) {
 					$global_settings = self::get_global_taxonomy_settings( $slug );
 					if ( $global_settings ) {
@@ -406,7 +500,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			}
 			echo '</table>';
 
-			// カスタム分類の共通設定管理用JavaScript
+			// カスタム分類の共通設定管理用JavaScript.
 			echo '<script>
 				// グローバルスコープで関数を定義
 				window.importSettings = function(index, settingsAttr) {
@@ -440,11 +534,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				document.addEventListener("DOMContentLoaded", function() {
 					var globalSettings = ' . wp_json_encode( get_option( 'veu_global_taxonomy_settings', array() ) ) . ';
 					var currentPostId = ' . intval( $post->ID ) . ';
-					var ajaxUrl = "' . admin_url( 'admin-ajax.php' ) . '";
-					var nonce = "' . wp_create_nonce( 'check_taxonomy_shared' ) . '";
+					var ajaxUrl = "' . esc_url( admin_url( 'admin-ajax.php' ) ) . '";
+					var nonce = "' . esc_js( wp_create_nonce( 'check_taxonomy_shared' ) ) . '";
 					
 					// スラッグフィールドの処理
-					for (var i = 1; i <= ' . apply_filters( 'veu_post_type_taxonomies', 5 ) . '; i++) {
+					for (var i = 1; i <= ' . intval( $taxonomy_count ) . '; i++) {
 						(function(index) {
 							var slugField = document.getElementById("veu_taxonomy[" + index + "][slug]");
 							if (!slugField) return;
@@ -500,6 +594,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					}
 				}
 			</script>';
+
+			// 復元用の一時データは表示後に削除.
+			if ( ! empty( $draft_values ) ) {
+				delete_transient( self::get_validation_draft_transient_key( $post->ID ) );
+			}
 		}
 
 		/***
@@ -510,8 +609,13 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function save_cf_value( $post_id ) {
 			global $post;
 
+			// 対象は post_type_manage のみ.
+			if ( get_post_type( $post_id ) !== 'post_type_manage' ) {
+				return $post_id;
+			}
+
 			// 設定したnonce を取得（CSRF対策）.
-			$noncename__post_type_manager = isset( $_POST['noncename__post_type_manager'] ) ? wp_unslash( $_POST['noncename__post_type_manager'] ) : null;
+			$noncename__post_type_manager = isset( $_POST['noncename__post_type_manager'] ) ? sanitize_text_field( wp_unslash( $_POST['noncename__post_type_manager'] ) ) : '';
 
 			// nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）.
 			if ( ! wp_verify_nonce( $noncename__post_type_manager, wp_create_nonce( __FILE__ ) ) ) {
@@ -523,36 +627,84 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				return $post_id;
 			}
 
-			$post_type_id            = ! empty( $_POST['veu_post_type_id'] ) ? esc_html( strip_tags( $_POST['veu_post_type_id'] ) ) : '';
-			$post_type_items         = ! empty( $_POST['veu_post_type_items'] ) ? $_POST['veu_post_type_items'] : '';
-			$menu_posttion           = ! empty( $_POST['veu_menu_position'] ) ? esc_html( strip_tags( $_POST['veu_menu_position'] ) ) : '';
-			$menu_icon               = ! empty( $_POST['veu_menu_icon'] ) ? esc_html( strip_tags( $_POST['veu_menu_icon'] ) ) : '';
-			$post_type_export_to_api = ! empty( $_POST['veu_post_type_export_to_api'] ) ? esc_html( $_POST['veu_post_type_export_to_api'] ) : '';
-			$post_type_rewrite       = ! empty( $_POST['veu_post_type_rewrite'] ) ? esc_html( $_POST['veu_post_type_rewrite'] ) : '';
+			$taxonomy_count = apply_filters( 'veu_post_type_taxonomies', 5 );
 
-			if ( ! empty( $_POST['veu_taxonomy'] ) ) {
-				$taxonomy = $_POST['veu_taxonomy'];
+			$post_type_id_raw = isset( $_POST['veu_post_type_id'] ) ? wp_unslash( $_POST['veu_post_type_id'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$post_type_id     = substr( sanitize_key( $post_type_id_raw ), 0, 20 );
 
-				for ( $i = 1; $i <= apply_filters( 'veu_post_type_taxonomies', 5 ); $i++ ) {
-					$taxonomy[ $i ]['slug']     = ! empty( $taxonomy[ $i ]['slug'] ) ? esc_html( strip_tags( $taxonomy[ $i ]['slug'] ) ) : '';
-					$taxonomy[ $i ]['label']    = ! empty( $taxonomy[ $i ]['label'] ) ? esc_html( strip_tags( $taxonomy[ $i ]['label'] ) ) : '';
-					$taxonomy[ $i ]['tag']      = ! empty( $taxonomy[ $i ]['tag'] ) ? esc_html( $taxonomy[ $i ]['tag'] ) : '';
-					$taxonomy[ $i ]['rest_api'] = ! empty( $taxonomy[ $i ]['rest_api'] ) ? esc_html( $taxonomy[ $i ]['rest_api'] ) : '';
-
-					// カスタム分類の共通設定を更新
-					if ( ! empty( $taxonomy[ $i ]['slug'] ) ) {
-						$settings = array(
-							'tag'      => $taxonomy[ $i ]['tag'],
-							'rest_api' => $taxonomy[ $i ]['rest_api'],
-							'label'    => $taxonomy[ $i ]['label'],
-						);
-						self::update_global_taxonomy_settings( $taxonomy[ $i ]['slug'], $settings );
-					}
+			$post_type_items_raw = isset( $_POST['veu_post_type_items'] ) ? (array) wp_unslash( $_POST['veu_post_type_items'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$post_type_items     = array();
+			foreach ( $post_type_items_raw as $key => $value ) {
+				$key = sanitize_key( $key );
+				if ( '' !== $key ) {
+					$post_type_items[ $key ] = 'true';
 				}
 			}
 
-			// Save is_embeddable option
+			$menu_posttion = isset( $_POST['veu_menu_position'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_menu_position'] ) ) : '';
+			$menu_icon     = isset( $_POST['veu_menu_icon'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_menu_icon'] ) ) : '';
+
+			$post_type_export_to_api = isset( $_POST['veu_post_type_export_to_api'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_post_type_export_to_api'] ) ) : '';
+			if ( 'true' !== $post_type_export_to_api && 'false' !== $post_type_export_to_api ) {
+				$post_type_export_to_api = '';
+			}
+
+			$post_type_rewrite = isset( $_POST['veu_post_type_rewrite'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_post_type_rewrite'] ) ) : '';
+			if ( 'with_front_false' !== $post_type_rewrite ) {
+				$post_type_rewrite = '';
+			}
+
+			$taxonomy_raw = isset( $_POST['veu_taxonomy'] ) ? wp_unslash( $_POST['veu_taxonomy'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+			$taxonomy      = array();
 			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'false' : 'true';
+
+			// 必須項目バリデーション.
+			$validation_errors = array();
+			if ( empty( $post_type_id ) ) {
+				$validation_errors[] = __( 'Post Type ID (Required): please enter a value.', 'vk-all-in-one-expansion-unit' );
+			}
+			if ( empty( $post_type_items ) ) {
+				$validation_errors[] = __( 'Supports (Required): please select at least one item.', 'vk-all-in-one-expansion-unit' );
+			}
+
+			// 復元用に入力値を一時保存（バリデーションエラー時にフォームへ反映）.
+			$draft_to_save                 = array(
+				'veu_post_type_id'            => $post_type_id,
+				'veu_post_type_items'         => $post_type_items,
+				'veu_menu_position'           => $menu_posttion,
+				'veu_menu_icon'               => $menu_icon,
+				'veu_post_type_export_to_api' => $post_type_export_to_api,
+				'veu_post_type_rewrite'       => $post_type_rewrite,
+				'veu_is_embeddable'           => $is_embeddable,
+			);
+			$draft_to_save['veu_taxonomy'] = self::sanitize_taxonomy_payload( $taxonomy_raw, $taxonomy_count );
+
+			// エラー時はメタ更新を行わず、管理画面に通知を表示する.
+			if ( ! empty( $validation_errors ) ) {
+				set_transient( self::get_validation_error_transient_key( $post_id ), $validation_errors, 30 );
+				set_transient( self::get_validation_draft_transient_key( $post_id ), $draft_to_save, 30 );
+				return $post_id;
+			}
+
+			$taxonomy = self::sanitize_taxonomy_payload( $taxonomy_raw, $taxonomy_count );
+			for ( $i = 1; $i <= $taxonomy_count; $i++ ) {
+				if ( empty( $taxonomy[ $i ] ) || ! is_array( $taxonomy[ $i ] ) ) {
+					continue;
+				}
+
+				// カスタム分類の共通設定を更新.
+				if ( ! empty( $taxonomy[ $i ]['slug'] ) ) {
+					$settings = array(
+						'tag'      => $taxonomy[ $i ]['tag'],
+						'rest_api' => $taxonomy[ $i ]['rest_api'],
+						'label'    => $taxonomy[ $i ]['label'],
+					);
+					self::update_global_taxonomy_settings( $taxonomy[ $i ]['slug'], $settings );
+				}
+			}
+
+			// Save is_embeddable option.
 			update_post_meta( $post_id, 'veu_is_embeddable', $is_embeddable );
 
 			// 保存しているカスタムフィールド.
@@ -579,6 +731,64 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
+		 * Add query arg to redirect location when validation errors exist.
+		 *
+		 * @param string $location Redirect location.
+		 * @param int    $post_id   Post ID.
+		 * @return string
+		 */
+		public static function add_validation_error_query_arg( $location, $post_id ) {
+			if ( 'post_type_manage' !== get_post_type( $post_id ) ) {
+				return $location;
+			}
+			$errors = get_transient( self::get_validation_error_transient_key( $post_id ) );
+			if ( ! empty( $errors ) ) {
+				$location = add_query_arg( 'veu_ptm_validation_error', '1', $location );
+				// WordPress core の成功メッセージ（message=...）を消し、エラー通知のみ表示する.
+				$location = remove_query_arg( 'message', $location );
+			}
+			return $location;
+		}
+
+		/**
+		 * Display validation error notice on edit screen.
+		 *
+		 * @return void
+		 */
+		public static function display_validation_error_notice() {
+			if ( empty( $_GET['veu_ptm_validation_error'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				return;
+			}
+
+			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			if ( empty( $screen ) || empty( $screen->post_type ) || 'post_type_manage' !== $screen->post_type ) {
+				return;
+			}
+
+			$post_id = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( ! $post_id ) {
+				return;
+			}
+
+			$transient_key = self::get_validation_error_transient_key( $post_id );
+			$errors        = get_transient( $transient_key );
+			if ( empty( $errors ) || ! is_array( $errors ) ) {
+				return;
+			}
+
+			// 表示後に削除.
+			delete_transient( $transient_key );
+
+			echo '<div class="notice notice-error"><p>';
+			echo esc_html__( 'Could not save because required fields are missing.', 'vk-all-in-one-expansion-unit' );
+			echo '</p><ul style="margin-left: 1.2em; list-style: disc;">';
+			foreach ( $errors as $error ) {
+				echo '<li>' . esc_html( $error ) . '</li>';
+			}
+			echo '</ul></div>';
+		}
+
+		/**
 		 * 登録したカスタム投稿タイプを実際に作成
 		 */
 		public static function add_post_type() {
@@ -602,9 +812,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					$menu_icon = get_post_meta( $post->ID, 'veu_menu_icon', true );
 					if ( empty( $menu_icon ) ) {
 						$menu_icon = 'dashicons-admin-post';
-					} elseif ( $menu_icon === 'none' ) {
-						$menu_icon = ''; // CSSでスタイリング可能に
-					} elseif ( ! strpos( $menu_icon, 'dashicons-' ) === 0 && ! strpos( $menu_icon, 'data:image/svg+xml;base64,' ) === 0 ) {
+					} elseif ( 'none' === $menu_icon ) {
+						$menu_icon = ''; // CSSでスタイリング可能に.
+					} elseif ( 0 !== strpos( $menu_icon, 'dashicons-' ) && 0 !== strpos( $menu_icon, 'data:image/svg+xml;base64,' ) ) {
 						$menu_icon = 'dashicons-admin-post';
 					}
 
@@ -624,10 +834,6 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					foreach ( $post_type_items as $key => $value ) {
 						$supports[] = $key;
 					}
-
-					// 投稿タイプのアイコンを取得
-					$menu_icon = get_post_meta( $post->ID, 'veu_menu_icon', true );
-					$menu_icon = ! empty( $menu_icon ) ? $menu_icon : 'dashicons-admin-post';
 
 					// カスタム投稿タイプのスラッグ.
 					$post_type_id = mb_strimwidth( mb_convert_kana( mb_strtolower( esc_html( get_post_meta( $post->ID, 'veu_post_type_id', true ) ) ), 'a' ), 0, 20, '', 'UTF-8' );
@@ -678,7 +884,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 							$args      = array_merge( $args, $rest_args );
 						}
 
-						// Add is_embeddable option
+						// Add is_embeddable option.
 						$args['is_embeddable'] = self::is_post_type_embeddable( $post->ID );
 
 						// カスタム投稿タイプを発行.
@@ -690,7 +896,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 							update_post_meta( $post->ID, 'veu_post_type_flush_rewrite_rules', 'true' );
 						}
 
-						// Add filter for post embeddable control
+						// Add filter for post embeddable control.
 						add_filter( 'is_post_embeddable', array( __CLASS__, 'control_post_embeddable' ), 10, 2 );
 
 						/*******************************************
@@ -703,7 +909,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
 							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
 
-								// 既存のタクソノミーをチェック
+								// 既存のタクソノミーをチェック.
 								if ( ! taxonomy_exists( $taxonomy['slug'] ) ) {
 									// カスタム分類を階層化するかどうか.
 									$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
@@ -723,7 +929,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 									);
 
 									// リライトルールの設定 //////////////////////////////////////
-									// 投稿タイプのリライトルールを反映させる
+									// 投稿タイプのリライトルールを反映させる.
 									if ( 'with_front_false' === $veu_post_type_rewrite ) {
 										$rewrite = array(
 											'slug'       => $taxonomy['slug'],
@@ -734,7 +940,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 										// 旧バージョンではカスタム分類毎でリライト設定があったのでその設定を参照
 										// 'false' の設定は旧バージョンのもので、9.96 で廃止したが、
 										// 設定しているユーザーがいるかもしれないので、一応残してある
-										// この $taxonomy['rewrite'] による指定は 2024年9月以降に削除可
+										// この $taxonomy['rewrite'] による指定は 2024年9月以降に削除可.
 										$rewrite = 'false';
 									} else {
 										$rewrite = true;
@@ -755,14 +961,14 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 										$args['rest_base'] = $taxonomy['slug'];
 									}
 
-									// 特定の投稿タイプにのみタクソノミーを登録
+									// 特定の投稿タイプにのみタクソノミーを登録.
 									register_taxonomy(
 										$taxonomy['slug'],
 										array( $post_type_id ),
 										$args
 									);
 								} else {
-									// 既存のタクソノミーを再利用
+									// 既存のタクソノミーを再利用.
 									register_taxonomy_for_object_type( $taxonomy['slug'], $post_type_id );
 								}
 							} // if ( $taxonomy['slug'] && $taxonomy['label']){
@@ -791,12 +997,14 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * @return bool
 		 */
 		public static function control_post_embeddable( $is_embeddable, $post ) {
-			// Get post type settings
+			// Get post type settings.
 			$post_type_settings = get_posts(
 				array(
 					'post_type'      => 'post_type_manage',
 					'posts_per_page' => 1,
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Used for settings lookup.
 					'meta_key'       => 'veu_post_type_id',
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Used for settings lookup.
 					'meta_value'     => $post->post_type,
 				)
 			);
@@ -810,22 +1018,22 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
-		 * カスタム分類の共通設定を更新
+		 * カスタム分類の共通設定を更新.
 		 *
-		 * @param string $taxonomy_slug タクソノミーのスラッグ
-		 * @param array  $settings      設定配列（tag, rest_api, label）
+		 * @param string $taxonomy_slug タクソノミーのスラッグ.
+		 * @param array  $settings      設定配列（tag, rest_api, label）.
 		 */
 		public static function update_global_taxonomy_settings( $taxonomy_slug, $settings ) {
 			if ( empty( $taxonomy_slug ) ) {
 				return;
 			}
 
-			// グローバル設定を更新
+			// グローバル設定を更新.
 			$global_taxonomy_settings                   = get_option( 'veu_global_taxonomy_settings', array() );
 			$global_taxonomy_settings[ $taxonomy_slug ] = $settings;
 			update_option( 'veu_global_taxonomy_settings', $global_taxonomy_settings );
 
-			// 同じスラッグを使用している全ての投稿タイプを更新
+			// 同じスラッグを使用している全ての投稿タイプを更新.
 			$args = array(
 				'post_type'      => 'post_type_manage',
 				'posts_per_page' => -1,
@@ -855,10 +1063,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
-		 * グローバルなカスタム分類設定を取得
+		 * グローバルなカスタム分類設定を取得.
 		 *
-		 * @param string $taxonomy_slug タクソノミーのスラッグ
-		 * @return array|null 設定配列またはnull
+		 * @param string $taxonomy_slug タクソノミーのスラッグ.
+		 * @return array|null 設定配列またはnull.
 		 */
 		public static function get_global_taxonomy_settings( $taxonomy_slug ) {
 			$global_taxonomy_settings = get_option( 'veu_global_taxonomy_settings', array() );
@@ -866,11 +1074,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
-		 * タクソノミーが他の投稿タイプでも使用されているかチェック
+		 * タクソノミーが他の投稿タイプでも使用されているかチェック.
 		 *
-		 * @param string $taxonomy_slug タクソノミーのスラッグ
-		 * @param int    $current_post_id 現在の投稿ID（除外用）
-		 * @return bool 他の投稿タイプで使用されている場合true
+		 * @param string $taxonomy_slug    タクソノミーのスラッグ.
+		 * @param int    $current_post_id  現在の投稿ID（除外用）.
+		 * @return bool 他の投稿タイプで使用されている場合true.
 		 */
 		public static function is_taxonomy_shared( $taxonomy_slug, $current_post_id = 0 ) {
 			return self::get_taxonomy_shared_info( $taxonomy_slug, $current_post_id, 'check' );
@@ -880,40 +1088,65 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * AJAX: タクソノミーが共有されているかチェック
 		 */
 		public static function ajax_check_taxonomy_shared() {
-			// nonce チェック
-			if ( ! wp_verify_nonce( $_POST['nonce'], 'check_taxonomy_shared' ) ) {
+			// nonce チェック.
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'check_taxonomy_shared' ) ) {
 				wp_die( 'Security check failed' );
 			}
 
-			$taxonomy_slug   = sanitize_text_field( $_POST['taxonomy_slug'] );
-			$current_post_id = intval( $_POST['current_post_id'] );
+			$taxonomy_slug   = isset( $_POST['taxonomy_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['taxonomy_slug'] ) ) : '';
+			$current_post_id = isset( $_POST['current_post_id'] ) ? absint( wp_unslash( $_POST['current_post_id'] ) ) : 0;
+			if ( '' === $taxonomy_slug ) {
+				wp_send_json_error( array( 'message' => 'Invalid taxonomy slug' ) );
+			}
 
 			$is_shared = self::get_taxonomy_shared_info( $taxonomy_slug, $current_post_id, 'check' );
 			$message   = $is_shared ? self::get_taxonomy_shared_info( $taxonomy_slug, $current_post_id, 'message' ) : '';
 
-			// 既存の設定を取得
+			// 既存の設定を取得.
 			$existing_settings = array();
 			if ( $is_shared ) {
+				// グローバル設定があればそれを優先（最も期待通りの値になりやすい）.
+				$global_settings = self::get_global_taxonomy_settings( $taxonomy_slug );
+				if ( is_array( $global_settings ) ) {
+					$existing_settings = array(
+						'label'    => isset( $global_settings['label'] ) ? (string) $global_settings['label'] : '',
+						'tag'      => isset( $global_settings['tag'] ) ? (string) $global_settings['tag'] : '',
+						'rest_api' => isset( $global_settings['rest_api'] ) ? (string) $global_settings['rest_api'] : '',
+					);
+				}
+
+				// グローバル設定が無い場合は、実際に同じスラッグを持つ投稿タイプから設定を取得.
 				$args = array(
-					'post_type'      => 'post_type_manage',
-					'posts_per_page' => 1,
-					'post_status'    => 'publish',
-					'post__not_in'   => array( $current_post_id ),
+					'post_type'              => 'post_type_manage',
+					'posts_per_page'         => -1,
+					'post_status'            => 'publish',
+					'post__not_in'           => array( $current_post_id ),
+					'fields'                 => 'ids',
+					'no_found_rows'          => true,
+					// Performance: this is a lightweight lookup for import settings.
+					'update_post_term_cache' => false,
 				);
 
-				$posts = get_posts( $args );
-				foreach ( $posts as $post ) {
-					$taxonomy_data = get_post_meta( $post->ID, 'veu_taxonomy', true );
-					if ( is_array( $taxonomy_data ) ) {
+				if ( empty( $existing_settings ) ) {
+					$post_ids = get_posts( $args );
+					foreach ( $post_ids as $post_id ) {
+						$taxonomy_data = get_post_meta( $post_id, 'veu_taxonomy', true );
+						if ( ! is_array( $taxonomy_data ) ) {
+							continue;
+						}
+
 						foreach ( $taxonomy_data as $taxonomy ) {
-							if ( isset( $taxonomy['slug'] ) && $taxonomy['slug'] === $taxonomy_slug ) {
-								$existing_settings = array(
-									'label'    => $taxonomy['label'],
-									'tag'      => $taxonomy['tag'],
-									'rest_api' => $taxonomy['rest_api'],
-								);
-								break 2;
+							if ( ! isset( $taxonomy['slug'] ) || $taxonomy['slug'] !== $taxonomy_slug ) {
+								continue;
 							}
+
+							$existing_settings = array(
+								'label'    => isset( $taxonomy['label'] ) ? (string) $taxonomy['label'] : '',
+								'tag'      => isset( $taxonomy['tag'] ) ? (string) $taxonomy['tag'] : '',
+								'rest_api' => isset( $taxonomy['rest_api'] ) ? (string) $taxonomy['rest_api'] : '',
+							);
+							break 2;
 						}
 					}
 				}
@@ -929,12 +1162,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		}
 
 		/**
-		 * タクソノミー共有情報を取得（統合メソッド）
+		 * タクソノミー共有情報を取得（統合メソッド）.
 		 *
-		 * @param string $taxonomy_slug タクソノミーのスラッグ
-		 * @param int    $exclude_post_id 除外する投稿ID
-		 * @param string $return_type 戻り値の型 ('check'|'message'|'types')
-		 * @return mixed
+		 * @param string $taxonomy_slug   タクソノミーのスラッグ.
+		 * @param int    $exclude_post_id 除外する投稿ID.
+		 * @param string $return_type     戻り値の型 ('check'|'message'|'types').
+		 * @return mixed 戻り値.
 		 */
 		public static function get_taxonomy_shared_info( $taxonomy_slug, $exclude_post_id = 0, $return_type = 'check' ) {
 			if ( empty( $taxonomy_slug ) ) {
@@ -979,12 +1212,13 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				return $post_types;
 			}
 
-			// message
+			// message.
 			if ( empty( $post_titles ) ) {
 				return '';
 			}
 
 			return sprintf(
+				/* translators: %s: Post type titles list. */
 				__( 'This taxonomy is already used by the following post types: %s', 'vk-all-in-one-expansion-unit' ),
 				'<strong>' . esc_html( implode( ', ', $post_titles ) ) . '</strong>'
 			);
@@ -1002,8 +1236,12 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			// init でも 0 などなど早めのpriority 指定しないと投稿タイプに連動するウィジェットエリアが動作しない .
 			add_action( 'init', array( $this, 'add_post_type' ), 0 );
 
-			// AJAX ハンドラーを追加
+			// AJAX ハンドラーを追加.
 			add_action( 'wp_ajax_check_taxonomy_shared', array( __CLASS__, 'ajax_check_taxonomy_shared' ) );
+
+			// バリデーションエラー表示用.
+			add_filter( 'redirect_post_location', array( __CLASS__, 'add_validation_error_query_arg' ), 99, 2 );
+			add_action( 'admin_notices', array( __CLASS__, 'display_validation_error_notice' ), 5 );
 		}
 	} // class VK_Post_Type_Manager
 
