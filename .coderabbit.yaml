@@ -29,8 +29,8 @@ reviews:
         ただ、あくまで $test_cases の中身の配列は一つの例なので、
         実際にはテストしたい関数やメソッドに応じて適切な条件や期待する結果を設定してください。
 
-        ```
-        function test_function_name() {
+        ```php
+        public function test_function_name(): void {
           $test_cases = array(
             array(
               'test_condition_name' => 'test_function_name',
@@ -69,8 +69,8 @@ reviews:
             if ( ! empty( $case['target_url'] ) ) {
               $this->go_to( $case['target_url'] );
             }
-            $return = function_name();
-            $this->assertEquals( $case['expected'], $return, $case['test_condition_name'] );
+            $actual = function_name();
+            $this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
           }
         }
         ```
