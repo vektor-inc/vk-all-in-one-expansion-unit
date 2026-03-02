@@ -81,8 +81,8 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ][ Share Button ] Fix margin-top of share button after content being overwritten by core margin-block-start.
 [ Bug Fix ][ Post Type Manager ] Prevent saving when required fields are empty (Post Type ID / Supports).
+[ Design Bug Fix ][ Share Button ] Fix margin-top of share button after content being overwritten by core margin-block-start.
 [ Other ] Fix editor CSS loading method.
 
 = 9.113.2 =
