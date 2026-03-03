@@ -1,14 +1,13 @@
 /* 通常タイトルと本文の間に一定の余白があるが、余白分離れてSNSボタンが表示されると微妙なのでマイナスオフセットで余白を詰めている */
-.veu_socialSet-position-before {
-    margin-top: -1em;
-    margin-bottom: 2em;
-}
-.veu_socialSet-position-after {
-    margin-top: 3em;
-}
-
 .veu_socialSet {
     margin-bottom: 1.5em;
+    &.veu_socialSet-position-before {
+        margin-top: -1em;
+        margin-bottom: 2em;
+    }
+    &.veu_socialSet-auto.veu_socialSet-position-after {
+        margin-top: 3em;
+    }
     ul {
         display: flex;
 		flex-wrap: wrap;
