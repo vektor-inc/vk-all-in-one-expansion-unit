@@ -81,8 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.113.3 =
 [ Bug Fix ][ Post Type Manager ] Prevent saving when required fields are empty (Post Type ID / Supports).
-[ Other ] Fix editor CSS loading method.
+[ Bug Fix ] Fix editor CSS loading method.
 
 = 9.113.2 =
 [ Bug Fix ][ Contact Widget ] Delete unintended aaaa string
