@@ -21,6 +21,7 @@ vendor/
 **/.github/copilot-instructions.md
 **/.github/instructions/
 **/.claude/memories
+**/.claude/settings.local.json
 **/.cursor/rules
 **/.gemini/memories/
 **/.mcp.json
