@@ -281,7 +281,7 @@ function veu_get_sns_btns( $attr = array() ) {
 		// copy.
 		if ( ! empty( $options['useCopy'] ) ) {
 			$social_btns .= '<li class="sb_copy sb_icon">';
-			$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . urldecode( $page_title ) . ' ' . urldecode( $link_url ) . '">';
+			$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . esc_attr( urldecode( $page_title ) ) . ' ' . esc_attr( urldecode( $link_url ) ) . '">';
 			$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 			$social_btns .= '</button>';
