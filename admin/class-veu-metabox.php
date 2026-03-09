@@ -179,7 +179,7 @@ class VEU_Metabox {
 
 		delete_post_meta( $post_id, $this->args['cf_name'] );
 		if ( ! empty( $_POST[ $this->args['cf_name'] ] ) ) {
-			add_post_meta( $post_id, $this->args['cf_name'], $_POST[ $this->args['cf_name'] ] );
+			add_post_meta( $post_id, $this->args['cf_name'], sanitize_text_field( wp_unslash( $_POST[ $this->args['cf_name'] ] ) ) );
 		}
 	}
 } // class VEU_Metabox {
