@@ -1,3 +1,5 @@
+> **注意:** このファイルは https://github.com/vektor-inc/agent-skills-coding で管理されています。内容を変更する場合は、このファイルを直接編集せず、元リポジトリの方で変更してください。
+
 # 技術構成の共通方針（コーディングルール）
 
 - **コーディング規約:** WordPress Coding Standards ( https://github.com/WordPress/wpcs-docs/blob/master/wordpress-coding-standards.md ) に準拠します。可能な限り `phpcs`（WordPress ルールセット）でチェックを行ってください。
