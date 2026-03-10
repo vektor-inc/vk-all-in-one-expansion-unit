@@ -2,6 +2,10 @@
 /* .veu_relatedPosts
 /*-------------------------------------------*/
 .veu_relatedPosts {
+	/* core の margin-block-start に margin-top が上書きされるのを防ぐ */
+	&.veu_contentAddSection {
+		margin-top: var(--vk-margin-block-bottom);
+	}
 	a {
 		color: var(--vk-color-text-body);
 		text-decoration: none;

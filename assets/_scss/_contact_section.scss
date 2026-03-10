@@ -1,4 +1,8 @@
 .veu_contact {
+    /* core の margin-block-start に margin-top が上書きされるのを防ぐ */
+    &.veu_contentAddSection {
+        margin-top: var(--vk-margin-block-bottom);
+    }
     .contact_frame {
         display: block;
         overflow: hidden;
