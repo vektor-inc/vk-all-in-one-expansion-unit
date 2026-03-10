@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Design Bug Fix ][ Share Button ] Fix margin-top of share button after content being overwritten by core margin-block-start.
+[ Design Bug Fix ][ Share Button / Related Posts / Contact Section ] Fix margin-top being overwritten by core margin-block-start.
 
 = 9.113.4 =
 [ Security Fix ][ SNS Share Button ] Fix stored XSS vulnerability in SNS Title meta box field (vkExUnit_sns_title). Added esc_attr() escaping on output to data-clipboard-text attribute and sanitize_text_field() on save to prevent attribute-breakout injection.
