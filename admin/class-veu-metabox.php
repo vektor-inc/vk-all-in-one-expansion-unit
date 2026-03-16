@@ -179,7 +179,15 @@ class VEU_Metabox {
 
 		delete_post_meta( $post_id, $this->args['cf_name'] );
 		if ( ! empty( $_POST[ $this->args['cf_name'] ] ) ) {
-			add_post_meta( $post_id, $this->args['cf_name'], sanitize_text_field( wp_unslash( $_POST[ $this->args['cf_name'] ] ) ) );
+			// wp_unslash でスラッシュを除去してからサニタイズ
+			$value = wp_unslash( $_POST[ $this->args['cf_name'] ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			// 配列の場合は map_deep で再帰的にサニタイズ、文字列の場合は直接サニタイズ
+			if ( is_array( $value ) ) {
+				$value = map_deep( $value, 'sanitize_text_field' );
+			} else {
+				$value = sanitize_text_field( $value );
+			}
+			add_post_meta( $post_id, $this->args['cf_name'], $value );
 		}
 	}
 } // class VEU_Metabox {

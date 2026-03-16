@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ 不具合修正 ] SNS タイトルの XSS 修正の影響で、配列形式のカスタムフィールド（veu_head_title 等）が保存されなくなっていた問題を修正。
 [ Design Bug Fix ][ Share Button / Related Posts / Contact Section ] Fix margin-top being overwritten by core margin-block-start.
 
 = 9.113.4 =
