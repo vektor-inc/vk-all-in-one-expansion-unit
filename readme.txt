@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.113.5 =
 [ Bug Fix ] Fix array-type custom fields (e.g. veu_head_title) not being saved due to the SNS title XSS fix.
 [ Design Bug Fix ][ Share Button / Related Posts / Contact Section ] Fix margin-top being overwritten by core margin-block-start.
 
