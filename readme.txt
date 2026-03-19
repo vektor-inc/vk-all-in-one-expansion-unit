@@ -80,6 +80,7 @@ e.g.
 
 == Changelog ==
 
+= 9.113.6 =
 [ Specification Change ] Update vektor-inc/font-awesome-versions from 0.7.0 to 0.7.2
 [ Specification Change ] Update vektor-inc/vk-admin from 0.4.1 to 0.5.0
 [ Specification Change ] Update vektor-inc/vk-term-color from 0.1.0 to 0.7.1
