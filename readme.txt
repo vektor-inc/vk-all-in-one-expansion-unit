@@ -80,6 +80,10 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ] Update vektor-inc/font-awesome-versions from 0.7.0 to 0.7.2
+[ Specification Change ] Update vektor-inc/vk-admin from 0.4.1 to 0.5.0
+[ Specification Change ] Update vektor-inc/vk-term-color from 0.1.0 to 0.7.1
+
 = 9.113.5 =
 [ Bug Fix ] Fix array-type custom fields (e.g. veu_head_title) not being saved due to the SNS title XSS fix.
 [ Design Bug Fix ][ Share Button / Related Posts / Contact Section ] Fix margin-top being overwritten by core margin-block-start.
