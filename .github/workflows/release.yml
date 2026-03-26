@@ -33,17 +33,24 @@ jobs:
               run: npm install
             - name: Create dist
               run: npm run dist
+            - name: Upload dist artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
             - name: Setup wp-env override for dist
               run: |
                   echo '{"plugins":["./dist/${{ env.plugin_name }}"]}' > wp-env.override.json
             - name: Start wp-env
-              run: npx wp-env start
+              run: |
+                  for n in 1 2 3; do npx wp-env start --update && break || [ "$n" -lt 3 ] || exit 1; done
             - name: Smoke test
               # vektor-inc/wp-actions main as of 2026-03-18
               uses: vektor-inc/wp-actions/smoke-test@90f5a231bc956543bf235f36be4928d57af2edab
     php_unit:
         name: PHP Unit Test
         runs-on: ubuntu-latest
+        needs: [smoke_test]
         steps:
             - uses: actions/checkout@v4
             - name: Setup Node.js
@@ -68,10 +75,17 @@ jobs:
               run: npm install
             - name: Install Composer Packages
               run: composer install
-            - name: Build
-              run: npm run build
+            - name: Download dist artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
+            - name: Setup wp-env override for dist
+              run: |
+                  echo '{"plugins":["./dist/${{ env.plugin_name }}"]}' > wp-env.override.json
             - name: Start wp-env
-              run: npx wp-env start
+              run: |
+                  for n in 1 2 3; do npx wp-env start --update && break || [ "$n" -lt 3 ] || exit 1; done
             - name: Run PHP Unit Test
               run: npm run phpunit
     deploy:
@@ -80,28 +94,11 @@ jobs:
         needs: [smoke_test, php_unit]
         steps:
             - uses: actions/checkout@v4
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
+            - name: Download dist artifact
+              uses: actions/download-artifact@v4
               with:
-                  node-version: 20.x
-                  cache: npm
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.1
-            - name: Get Composer cache directory
-              id: composer-cache
-              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-            - name: Cache Composer dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: ${{ runner.os }}-composer-
-            - name: Install NPM Scripts
-              run: npm install
-            - name: Create dist
-              run: npm run dist
+                  name: dist
+                  path: dist/
             - name: WordPress Plugin Deploy
               # 10up/action-wordpress-plugin-deploy 2.3.0 / stable
               uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2
@@ -116,29 +113,11 @@ jobs:
         permissions:
             contents: write
         steps:
-            - uses: actions/checkout@v4
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
+            - name: Download dist artifact
+              uses: actions/download-artifact@v4
               with:
-                  node-version: 20.x
-                  cache: npm
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.1
-            - name: Get Composer cache directory
-              id: composer-cache
-              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-            - name: Cache Composer dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: ${{ runner.os }}-composer-
-            - name: Install NPM Scripts
-              run: npm install
-            - name: Create dist
-              run: npm run dist
+                  name: dist
+                  path: dist/
             - name: Create zip
               run: cd dist && zip -r ${{ env.plugin_name }}.zip ${{ env.plugin_name }}/
             - name: Create Release
