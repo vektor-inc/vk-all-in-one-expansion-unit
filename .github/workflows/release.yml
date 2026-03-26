@@ -125,8 +125,6 @@ jobs:
               with:
                   name: dist
                   path: dist/
-            - name: Create zip
-              run: cd dist && zip -r ${{ env.plugin_name }}.zip ${{ env.plugin_name }}/
             - name: Create Release
               # softprops/action-gh-release v2.6.1 / v2
               uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe
