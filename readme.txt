@@ -80,6 +80,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
+
 = 9.113.6 =
 [ Specification Change ] Update vektor-inc/font-awesome-versions from 0.7.0 to 0.7.2
 [ Specification Change ] Update vektor-inc/vk-admin from 0.4.1 to 0.5.0

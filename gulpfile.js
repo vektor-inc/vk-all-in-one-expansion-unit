@@ -195,7 +195,12 @@ gulp.task('dist', function() {
 				"!./dist/**",
 				"!./node_modules/**"
 			],
-			{ base: './' }
+			{
+				base: './',
+				// Gulp 5 ではデフォルトの encoding が utf8 に変更されたため、
+				// バイナリファイル（画像など）が破損する。encoding: false を指定して回避する。
+				encoding: false,
+			}
 		)
 		.pipe( gulp.dest( 'dist/vk-all-in-one-expansion-unit' ) ); // distディレクトリに出力
 } );
