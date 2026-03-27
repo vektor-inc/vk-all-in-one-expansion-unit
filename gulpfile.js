@@ -197,8 +197,7 @@ gulp.task('dist', function() {
 			],
 			{
 				base: './',
-				// Gulp 5 ではデフォルトの encoding が utf8 に変更されたため、
-				// バイナリファイル（画像など）が破損する。encoding: false を指定して回避する。
+				// バイナリファイル（画像など）の破損を防ぐため encoding: false を指定する。
 				encoding: false,
 			}
 		)
