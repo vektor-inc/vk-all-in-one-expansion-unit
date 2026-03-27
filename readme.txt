@@ -80,7 +80,7 @@ e.g.
 
 == Changelog ==
 
-[ Other ] Improve dist process to prevent binary file corruption
+[ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
 
 = 9.113.6 =
 [ Specification Change ] Update vektor-inc/font-awesome-versions from 0.7.0 to 0.7.2
