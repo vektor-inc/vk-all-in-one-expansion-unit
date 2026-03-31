@@ -195,7 +195,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		 * カスタムフィールドの meta box を作成.
 		 */
 		public static function add_meta_box() {
-			add_meta_box( 'meta_box_post_type_manage', __( 'Custom Post Type Setting', 'vk-all-in-one-expansion-unit' ), array( __CLASS__, 'add_meta_box_action' ), 'post_type_manage', 'normal', 'high' );
+			add_meta_box( 'meta_box_post_type_manage', __( 'Custom Post Type Setting', 'vk-all-in-one-expansion-unit' ), array( __CLASS__, 'add_meta_box_action' ), 'post_type_manage', 'normal', 'high', array( '__back_compat_meta_box' => true ) );
 		}
 
 		/**
