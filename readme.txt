@@ -5,6 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 7.4
+Stable tag: 9.113.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,7 +81,8 @@ e.g.
 
 == Changelog ==
 
-[ Security Fix ] Replace htmlspecialchars() with sanitize_text_field( wp_unslash() ) for $_POST input sanitization in save_post handlers.
+[ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
+[ Other ] Replace htmlspecialchars() with sanitize_text_field( wp_unslash() ) for $_POST input sanitization in save_post handlers.
 
 = 9.113.6 =
 [ Specification Change ] Update vektor-inc/font-awesome-versions from 0.7.0 to 0.7.2
