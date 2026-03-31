@@ -28,7 +28,7 @@ function veu_add_parent_metabox() {
 
 		// Add parent meta box on exists post types
 		foreach ( $post_types as $key => $post_type ) {
-			add_meta_box( 'veu_parent_post_metabox', $meta_box_name, 'veu_parent_metabox_body', $post_type, 'normal', 'high', array( '__back_compat_meta_box' => true ) );
+			add_meta_box( 'veu_parent_post_metabox', $meta_box_name, 'veu_parent_metabox_body', $post_type, 'normal', 'high', array( '__back_compat_meta_box' => false ) );
 		}
 	}
 	/*

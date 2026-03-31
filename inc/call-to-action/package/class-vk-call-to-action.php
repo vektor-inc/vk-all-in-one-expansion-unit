@@ -123,7 +123,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function add_metabox_cta_register() {
 
 			// Meta box of CTA edit and register page.
-			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high', array( '__back_compat_meta_box' => true ) );
+			add_meta_box( 'vkExUnit_cta_url', __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ), array( __CLASS__, 'render_meta_box_cta' ), self::POST_TYPE, 'normal', 'high', array( '__back_compat_meta_box' => false ) );
 		}
 
 
