@@ -274,9 +274,9 @@ class VkExUnit_Contact {
 
 
 	public function save_custom_field_postdata( $post_id ) {
-		$childPageIndex = isset( $_POST['_nonce_vkExUnit_contact'] ) ? sanitize_text_field( wp_unslash( $_POST['_nonce_vkExUnit_contact'] ) ) : null;
+		$contact_nonce = isset( $_POST['_nonce_vkExUnit_contact'] ) ? sanitize_text_field( wp_unslash( $_POST['_nonce_vkExUnit_contact'] ) ) : null;
 
-		if ( ! wp_verify_nonce( $childPageIndex, plugin_basename( __FILE__ ) ) ) {
+		if ( ! wp_verify_nonce( $contact_nonce, plugin_basename( __FILE__ ) ) ) {
 			return $post_id;
 		}
 
