@@ -124,7 +124,7 @@ save_custom_field
 add_action( 'save_post', 'veu_page_list_ancestor_save_custom_field' );
 function veu_page_list_ancestor_save_custom_field( $post_id ) {
 
-	$pageList_ancestor = isset( $_POST['_nonce_vkExUnit__custom_field_pageList_ancestor'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit__custom_field_pageList_ancestor'] ) : null;
+	$pageList_ancestor = isset( $_POST['_nonce_vkExUnit__custom_field_pageList_ancestor'] ) ? sanitize_text_field( wp_unslash( $_POST['_nonce_vkExUnit__custom_field_pageList_ancestor'] ) ) : null;
 
 	if ( ! wp_verify_nonce( $pageList_ancestor, plugin_basename( __FILE__ ) ) ) {
 		return $post_id;
@@ -133,7 +133,7 @@ function veu_page_list_ancestor_save_custom_field( $post_id ) {
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return $post_id; }
 
-	$mydata = isset( $_POST['vkExUnit_pageList_ancestor'] ) ? htmlspecialchars( $_POST['vkExUnit_pageList_ancestor'] ) : null;
+	$mydata = isset( $_POST['vkExUnit_pageList_ancestor'] ) ? sanitize_text_field( wp_unslash( $_POST['vkExUnit_pageList_ancestor'] ) ) : null;
 
 	if ( 'page' == $mydata ) {
 		if ( ! current_user_can( 'edit_page', $post_id ) ) {

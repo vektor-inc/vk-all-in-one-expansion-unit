@@ -274,7 +274,7 @@ class VkExUnit_Contact {
 
 
 	public function save_custom_field_postdata( $post_id ) {
-		$childPageIndex = isset( $_POST['_nonce_vkExUnit_contact'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_contact'] ) : null;
+		$childPageIndex = isset( $_POST['_nonce_vkExUnit_contact'] ) ? sanitize_text_field( wp_unslash( $_POST['_nonce_vkExUnit_contact'] ) ) : null;
 
 		if ( ! wp_verify_nonce( $childPageIndex, plugin_basename( __FILE__ ) ) ) {
 			return $post_id;
@@ -284,7 +284,7 @@ class VkExUnit_Contact {
 			return $post_id;
 		}
 
-		$data = isset( $_POST['vkExUnit_contact_enable'] ) ? htmlspecialchars( $_POST['vkExUnit_contact_enable'] ) : null;
+		$data = isset( $_POST['vkExUnit_contact_enable'] ) ? sanitize_text_field( wp_unslash( $_POST['vkExUnit_contact_enable'] ) ) : null;
 
 		if ( 'page' == $data ) {
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
