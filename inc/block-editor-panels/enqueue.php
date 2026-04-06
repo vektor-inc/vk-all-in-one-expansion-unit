@@ -174,6 +174,15 @@ function veu_enqueue_block_editor_panels() {
 		true
 	);
 
+	// Panel spacing styles.
+	wp_add_inline_style(
+		'wp-components',
+		'.plugin-document-setting-panel-veu-settings .components-base-control,
+		 .plugin-document-setting-panel-veu-cta-contents .components-base-control {
+			margin-bottom: 12px;
+		}'
+	);
+
 	// Get active features list.
 	// 有効な機能リストを取得する。
 	$active_features = veu_get_active_panel_features();
