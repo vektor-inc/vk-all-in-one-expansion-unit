@@ -6,6 +6,7 @@ import {
 	TextareaControl,
 	SelectControl,
 	Button,
+	PanelRow,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
@@ -19,8 +20,35 @@ const activeFeatures = data.activeFeatures || [];
 const isActive = ( feature ) => activeFeatures.includes( feature );
 
 /**
+ * Section heading component.
+ */
+const SectionHeading = ( { children } ) => (
+	<div
+		style={ {
+			borderBottom: '1px solid #ddd',
+			paddingBottom: '4px',
+			marginTop: '16px',
+			marginBottom: '8px',
+			fontSize: '12px',
+			fontWeight: 600,
+			textTransform: 'uppercase',
+			color: '#757575',
+			letterSpacing: '0.5px',
+		} }
+	>
+		{ children }
+	</div>
+);
+
+/**
+ * Section group wrapper.
+ */
+const SectionGroup = ( { children } ) => (
+	<div style={ { marginBottom: '12px' } }>{ children }</div>
+);
+
+/**
  * ExUnit common settings panel.
- * ExUnit 共通設定パネル。
  */
 const VeuSettingsPanel = () => {
 	const postType = useSelect(
@@ -36,13 +64,25 @@ const VeuSettingsPanel = () => {
 		return null;
 	}
 
+	const hasSnsSection = isActive( 'sns' );
+	const hasSeoSection =
+		isActive( 'noindex' ) ||
+		isActive( 'sitemap_page' ) ||
+		isActive( 'wpTitle' );
+	const hasDisplaySection =
+		isActive( 'auto_eyecatch' ) || isActive( 'promotion_alert' );
+	const hasPageSection =
+		isActive( 'page_exclude_from_list_pages' ) && postType === 'page';
+	const hasCssSection = isActive( 'css_customize' );
+
 	return (
 		<PluginDocumentSettingPanel
 			name="veu-settings"
 			title={ data.panelTitle || 'VK ExUnit' }
 		>
-			{ isActive( 'sns' ) && (
-				<>
+			{ hasSnsSection && (
+				<SectionGroup>
+					<SectionHeading>SNS</SectionHeading>
 					<CheckboxControl
 						label={
 							i18n.snsHide ||
@@ -63,78 +103,103 @@ const VeuSettingsPanel = () => {
 							update( 'vkExUnit_sns_title', v )
 						}
 					/>
-				</>
+				</SectionGroup>
 			) }
-			{ isActive( 'noindex' ) && (
-				<CheckboxControl
-					label={ i18n.noindex || 'noindex' }
-					checked={ isChecked( '_vk_print_noindex' ) }
-					onChange={ ( c ) =>
-						update( '_vk_print_noindex', c ? 'true' : '' )
-					}
-				/>
-			) }
-			{ isActive( 'sitemap_page' ) && (
-				<CheckboxControl
-					label={
-						i18n.sitemapHide || "Don't display on sitemap"
-					}
-					checked={ isChecked( 'sitemap_hide' ) }
-					onChange={ ( c ) =>
-						update( 'sitemap_hide', c ? 'true' : '' )
-					}
-				/>
-			) }
-			{ isActive( 'wpTitle' ) && (
-				<TextControl
-					label={ i18n.headTitle || 'Head Title' }
-					value={ meta?.veu_head_title || '' }
-					onChange={ ( v ) => update( 'veu_head_title', v ) }
-				/>
-			) }
-			{ isActive( 'auto_eyecatch' ) && (
-				<CheckboxControl
-					label={
-						i18n.eyecatchHide || "Don't display eyecatch"
-					}
-					checked={ isChecked(
-						'vkExUnit_EyeCatch_disable'
+
+			{ hasSeoSection && (
+				<SectionGroup>
+					<SectionHeading>SEO</SectionHeading>
+					{ isActive( 'noindex' ) && (
+						<CheckboxControl
+							label={ i18n.noindex || 'noindex' }
+							checked={ isChecked( '_vk_print_noindex' ) }
+							onChange={ ( c ) =>
+								update(
+									'_vk_print_noindex',
+									c ? 'true' : ''
+								)
+							}
+						/>
 					) }
-					onChange={ ( c ) =>
-						update(
-							'vkExUnit_EyeCatch_disable',
-							c ? 'true' : ''
-						)
-					}
-				/>
-			) }
-			{ isActive( 'promotion_alert' ) && (
-				<CheckboxControl
-					label={
-						i18n.promotionAlert ||
-						'Display promotion alert'
-					}
-					checked={ isChecked(
-						'veu_display_promotion_alert'
+					{ isActive( 'sitemap_page' ) && (
+						<CheckboxControl
+							label={
+								i18n.sitemapHide ||
+								"Don't display on sitemap"
+							}
+							checked={ isChecked( 'sitemap_hide' ) }
+							onChange={ ( c ) =>
+								update(
+									'sitemap_hide',
+									c ? 'true' : ''
+								)
+							}
+						/>
 					) }
-					onChange={ ( c ) =>
-						update(
-							'veu_display_promotion_alert',
-							c ? 'true' : ''
-						)
-					}
-				/>
+					{ isActive( 'wpTitle' ) && (
+						<TextControl
+							label={ i18n.headTitle || 'Head Title' }
+							value={ meta?.veu_head_title || '' }
+							onChange={ ( v ) =>
+								update( 'veu_head_title', v )
+							}
+						/>
+					) }
+				</SectionGroup>
 			) }
-			{ isActive( 'page_exclude_from_list_pages' ) &&
-				postType === 'page' && (
+
+			{ hasDisplaySection && (
+				<SectionGroup>
+					<SectionHeading>
+						{ i18n.displaySection || 'Display' }
+					</SectionHeading>
+					{ isActive( 'auto_eyecatch' ) && (
+						<CheckboxControl
+							label={
+								i18n.eyecatchHide ||
+								"Don't display eyecatch"
+							}
+							checked={ isChecked(
+								'vkExUnit_EyeCatch_disable'
+							) }
+							onChange={ ( c ) =>
+								update(
+									'vkExUnit_EyeCatch_disable',
+									c ? 'true' : ''
+								)
+							}
+						/>
+					) }
+					{ isActive( 'promotion_alert' ) && (
+						<CheckboxControl
+							label={
+								i18n.promotionAlert ||
+								'Display promotion alert'
+							}
+							checked={ isChecked(
+								'veu_display_promotion_alert'
+							) }
+							onChange={ ( c ) =>
+								update(
+									'veu_display_promotion_alert',
+									c ? 'true' : ''
+								)
+							}
+						/>
+					) }
+				</SectionGroup>
+			) }
+
+			{ hasPageSection && (
+				<SectionGroup>
+					<SectionHeading>
+						{ i18n.pageSection || 'Page' }
+					</SectionHeading>
 					<CheckboxControl
 						label={
-							i18n.pageExclude ||
-							'Exclude from page list'
+							i18n.pageExclude || 'Exclude from page list'
 						}
-						checked={ isChecked(
-							'_exclude_from_list_pages'
-						) }
+						checked={ isChecked( '_exclude_from_list_pages' ) }
 						onChange={ ( c ) =>
 							update(
 								'_exclude_from_list_pages',
@@ -142,14 +207,21 @@ const VeuSettingsPanel = () => {
 							)
 						}
 					/>
-				) }
-			{ isActive( 'css_customize' ) && (
-				<TextareaControl
-					label={ i18n.customCss || 'Custom CSS' }
-					value={ meta?._veu_custom_css || '' }
-					onChange={ ( v ) => update( '_veu_custom_css', v ) }
-					rows={ 4 }
-				/>
+				</SectionGroup>
+			) }
+
+			{ hasCssSection && (
+				<SectionGroup>
+					<SectionHeading>CSS</SectionHeading>
+					<TextareaControl
+						label={ i18n.customCss || 'Custom CSS' }
+						value={ meta?._veu_custom_css || '' }
+						onChange={ ( v ) =>
+							update( '_veu_custom_css', v )
+						}
+						rows={ 4 }
+					/>
+				</SectionGroup>
 			) }
 		</PluginDocumentSettingPanel>
 	);
@@ -157,7 +229,6 @@ const VeuSettingsPanel = () => {
 
 /**
  * CTA Contents panel (cta post type only).
- * CTA コンテンツパネル（cta 投稿タイプのみ）。
  */
 const VeuCtaPanel = () => {
 	const postType = useSelect(
@@ -190,7 +261,9 @@ const VeuCtaPanel = () => {
 					ctaI18n.useClassic ||
 					'Use following data (Do not use content data)'
 				}
-				checked={ meta?.vkExUnit_cta_use_type === 'veu_cta_normal' }
+				checked={
+					meta?.vkExUnit_cta_use_type === 'veu_cta_normal'
+				}
 				onChange={ ( c ) =>
 					update(
 						'vkExUnit_cta_use_type',
@@ -199,10 +272,10 @@ const VeuCtaPanel = () => {
 				}
 			/>
 
-			<div style={ { marginTop: '16px' } }>
-				<p style={ { fontWeight: 'bold', marginBottom: '8px' } }>
+			<SectionGroup>
+				<SectionHeading>
 					{ ctaI18n.ctaImage || 'CTA image' }
-				</p>
+				</SectionHeading>
 				{ ctaImg && image ? (
 					<img
 						src={ image.source_url }
@@ -211,94 +284,134 @@ const VeuCtaPanel = () => {
 							maxWidth: '100%',
 							height: 'auto',
 							marginBottom: '8px',
+							borderRadius: '4px',
 						} }
 					/>
 				) : null }
 				<MediaUploadCheck>
 					<MediaUpload
 						onSelect={ ( media ) =>
-							update( 'vkExUnit_cta_img', String( media.id ) )
+							update(
+								'vkExUnit_cta_img',
+								String( media.id )
+							)
 						}
 						allowedTypes={ [ 'image' ] }
 						value={ ctaImg }
 						render={ ( { open } ) => (
-							<>
+							<div
+								style={ {
+									display: 'flex',
+									gap: '8px',
+								} }
+							>
 								<Button
 									onClick={ open }
-									variant={ ctaImg ? 'secondary' : 'primary' }
-									style={ { marginRight: '8px' } }
+									variant={
+										ctaImg
+											? 'secondary'
+											: 'primary'
+									}
 								>
 									{ ctaImg
-										? ctaI18n.changeImage || 'Change image'
-										: ctaI18n.addImage || 'Add image' }
+										? ctaI18n.changeImage ||
+										  'Change image'
+										: ctaI18n.addImage ||
+										  'Add image' }
 								</Button>
 								{ ctaImg ? (
 									<Button
 										onClick={ () =>
-											update( 'vkExUnit_cta_img', '' )
+											update(
+												'vkExUnit_cta_img',
+												''
+											)
 										}
 										isDestructive
 										variant="tertiary"
 									>
-										{ ctaI18n.removeImage || 'Remove image' }
+										{ ctaI18n.removeImage ||
+											'Remove image' }
 									</Button>
 								) : null }
-							</>
+							</div>
 						) }
 					/>
 				</MediaUploadCheck>
-			</div>
 
-			<SelectControl
-				label={ ctaI18n.imgPosition || 'Image position' }
-				value={ meta?.vkExUnit_cta_img_position || '' }
-				options={ [
-					{ label: ctaI18n.posNormal || 'Normal', value: '' },
-					{
-						label: ctaI18n.posRight || 'Right',
-						value: 'right',
-					},
-				] }
-				onChange={ ( v ) =>
-					update( 'vkExUnit_cta_img_position', v )
-				}
-				style={ { marginTop: '16px' } }
-			/>
+				<SelectControl
+					label={
+						ctaI18n.imgPosition || 'Image position'
+					}
+					value={ meta?.vkExUnit_cta_img_position || '' }
+					options={ [
+						{
+							label:
+								ctaI18n.posNormal || 'Normal',
+							value: '',
+						},
+						{
+							label:
+								ctaI18n.posRight || 'Right',
+							value: 'right',
+						},
+					] }
+					onChange={ ( v ) =>
+						update( 'vkExUnit_cta_img_position', v )
+					}
+				/>
+			</SectionGroup>
 
-			<TextControl
-				label={ ctaI18n.buttonText || 'Button text' }
-				value={ meta?.vkExUnit_cta_button_text || '' }
-				onChange={ ( v ) =>
-					update( 'vkExUnit_cta_button_text', v )
-				}
-			/>
+			<SectionGroup>
+				<SectionHeading>
+					{ ctaI18n.buttonSection || 'Button' }
+				</SectionHeading>
+				<TextControl
+					label={ ctaI18n.buttonText || 'Button text' }
+					value={ meta?.vkExUnit_cta_button_text || '' }
+					onChange={ ( v ) =>
+						update( 'vkExUnit_cta_button_text', v )
+					}
+				/>
+				<TextControl
+					label={ ctaI18n.ctaUrl || 'URL' }
+					value={ meta?.vkExUnit_cta_url || '' }
+					onChange={ ( v ) =>
+						update( 'vkExUnit_cta_url', v )
+					}
+					type="url"
+				/>
+				<CheckboxControl
+					label={
+						ctaI18n.urlBlank ||
+						'Open link in new window'
+					}
+					checked={
+						meta?.vkExUnit_cta_url_blank === 'true' ||
+						meta?.vkExUnit_cta_url_blank === '1'
+					}
+					onChange={ ( c ) =>
+						update(
+							'vkExUnit_cta_url_blank',
+							c ? 'true' : ''
+						)
+					}
+				/>
+			</SectionGroup>
 
-			<TextControl
-				label={ ctaI18n.ctaUrl || 'URL' }
-				value={ meta?.vkExUnit_cta_url || '' }
-				onChange={ ( v ) => update( 'vkExUnit_cta_url', v ) }
-				type="url"
-			/>
-
-			<CheckboxControl
-				label={
-					ctaI18n.urlBlank || 'Open link in new window'
-				}
-				checked={
-					meta?.vkExUnit_cta_url_blank === 'true' ||
-					meta?.vkExUnit_cta_url_blank === '1'
-				}
-				onChange={ ( c ) =>
-					update( 'vkExUnit_cta_url_blank', c ? 'true' : '' )
-				}
-			/>
-
-			<TextareaControl
-				label={ ctaI18n.ctaText || 'CTA text' }
-				value={ meta?.vkExUnit_cta_text || '' }
-				onChange={ ( v ) => update( 'vkExUnit_cta_text', v ) }
-				rows={ 4 }
-			/>
+			<SectionGroup>
+				<SectionHeading>
+					{ ctaI18n.textSection || 'Text' }
+				</SectionHeading>
+				<TextareaControl
+					label={ ctaI18n.ctaText || 'CTA text' }
+					value={ meta?.vkExUnit_cta_text || '' }
+					onChange={ ( v ) =>
+						update( 'vkExUnit_cta_text', v )
+					}
+					rows={ 4 }
+				/>
+			</SectionGroup>
 		</PluginDocumentSettingPanel>
 	);
 };
