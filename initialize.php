@@ -30,7 +30,6 @@ if ( empty( $options['9.72.0'] ) ) {
 // * ExUnit_Custom_Html の読み込みでエラーになる
 require_once VEU_DIRECTORY_PATH . '/admin/admin.php';
 // Block editor sidebar panels (RTC compatibility).
-require_once VEU_DIRECTORY_PATH . '/inc/block-editor-panels/register-meta.php';
 require_once VEU_DIRECTORY_PATH . '/inc/block-editor-panels/enqueue.php';
 
 /**
