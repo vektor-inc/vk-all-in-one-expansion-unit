@@ -114,6 +114,38 @@ function veu_register_active_feature_meta() {
 			}
 		}
 	}
+	// CTA meta keys (cta post type only).
+	$cta_metas = array(
+		'vkExUnit_cta_use_type',
+		'vkExUnit_cta_img',
+		'vkExUnit_cta_img_position',
+		'vkExUnit_cta_button_text',
+		'vkExUnit_cta_button_icon',
+		'vkExUnit_cta_button_icon_before',
+		'vkExUnit_cta_button_icon_after',
+		'vkExUnit_cta_url',
+		'vkExUnit_cta_url_blank',
+		'vkExUnit_cta_text',
+	);
+	foreach ( $cta_metas as $cta_key ) {
+		$sanitize = 'sanitize_text_field';
+		if ( in_array( $cta_key, array( 'vkExUnit_cta_url', 'vkExUnit_cta_img' ), true ) ) {
+			$sanitize = 'sanitize_text_field';
+		}
+		register_post_meta(
+			'cta',
+			$cta_key,
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => $sanitize,
+				'show_in_rest'      => true,
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+	}
 }
 add_action( 'init', 'veu_register_active_feature_meta' );
 
@@ -162,6 +194,19 @@ function veu_enqueue_block_editor_panels() {
 				'customCss'      => __( 'Custom CSS', 'vk-all-in-one-expansion-unit' ),
 				'promotionAlert' => __( 'Promotion Disclosure Setting', 'vk-all-in-one-expansion-unit' ),
 				'pageExclude'    => __( 'Exclude from displaying Page List (wp_list_pages)', 'vk-all-in-one-expansion-unit' ),
+			),
+			'ctaI18n'        => array(
+				'panelTitle'  => __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ),
+				'useClassic'  => __( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ),
+				'ctaImage'    => __( 'CTA image', 'vk-all-in-one-expansion-unit' ),
+				'addImage'    => __( 'Add image', 'vk-all-in-one-expansion-unit' ),
+				'changeImage' => __( 'Change image', 'vk-all-in-one-expansion-unit' ),
+				'removeImage' => __( 'Remove image', 'vk-all-in-one-expansion-unit' ),
+				'imgPosition' => __( 'Image position', 'vk-all-in-one-expansion-unit' ),
+				'buttonText'  => __( 'Button text', 'vk-all-in-one-expansion-unit' ),
+				'ctaUrl'      => __( 'URL', 'vk-all-in-one-expansion-unit' ),
+				'urlBlank'    => __( 'Open link in new window', 'vk-all-in-one-expansion-unit' ),
+				'ctaText'     => __( 'CTA text', 'vk-all-in-one-expansion-unit' ),
 			),
 		)
 	);
