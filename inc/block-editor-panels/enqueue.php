@@ -179,7 +179,11 @@ function veu_enqueue_block_editor_panels() {
 		'wp-components',
 		'.plugin-document-setting-panel-veu-settings .components-base-control,
 		 .plugin-document-setting-panel-veu-cta-contents .components-base-control {
-			margin-bottom: 12px;
+			margin-bottom: 16px;
+		}
+		.plugin-document-setting-panel-veu-settings .components-checkbox-control,
+		.plugin-document-setting-panel-veu-cta-contents .components-checkbox-control {
+			margin-bottom: 8px;
 		}'
 	);
 
