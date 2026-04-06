@@ -81,7 +81,7 @@ class VEU_Metabox {
 	public function add_individual_metabox() {
 		// add_meta_box( 'aaa', 'ArrayIterator', array( $this, 'metabox_body' ), 'page', 'normal', 'high' );
 		foreach ( $this->args['post_types'] as $key => $post_type ) {
-			add_meta_box( $this->args['slug'], $this->args['title'], array( $this, 'metabox_body' ), $post_type, 'normal', 'high', array( '__back_compat_meta_box' => false ) );
+			add_meta_box( $this->args['slug'], $this->args['title'], array( $this, 'metabox_body' ), $post_type, 'normal', 'high', array( '__back_compat_meta_box' => true ) );
 		}
 	}
 

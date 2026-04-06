@@ -44,7 +44,7 @@ class VEU_Page_Exclude_From_List_Pages {
 			'page',
 			'side',
 			'high',
-			array( '__back_compat_meta_box' => false )
+			array( '__back_compat_meta_box' => true )
 		);
 	}
 
