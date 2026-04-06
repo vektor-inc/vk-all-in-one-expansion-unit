@@ -122,6 +122,13 @@ add_action( 'init', 'veu_register_active_feature_meta' );
  * ブロックエディタ用パネルスクリプトを読み込む。
  */
 function veu_enqueue_block_editor_panels() {
+	// Only load on post editor, not Site Editor or Widgets Editor.
+	// 投稿エディタのみで読み込む（サイトエディタ・ウィジェットエディタでは不要）。
+	$screen = get_current_screen();
+	if ( ! $screen || ! $screen->is_block_editor || empty( $screen->post_type ) ) {
+		return;
+	}
+
 	$asset_path = plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
 	if ( ! file_exists( $asset_path ) ) {
 		return;
