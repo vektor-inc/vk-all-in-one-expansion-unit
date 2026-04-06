@@ -177,13 +177,11 @@ function veu_enqueue_block_editor_panels() {
 	// Panel spacing styles.
 	wp_add_inline_style(
 		'wp-components',
-		'.plugin-document-setting-panel-veu-settings .components-base-control,
-		 .plugin-document-setting-panel-veu-cta-contents .components-base-control {
-			margin-bottom: 16px;
-		}
-		.plugin-document-setting-panel-veu-settings .components-checkbox-control,
-		.plugin-document-setting-panel-veu-cta-contents .components-checkbox-control {
-			margin-bottom: 8px;
+		'.plugin-document-setting-panel-veu-settings > div,
+		 .plugin-document-setting-panel-veu-cta-contents > div {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
 		}'
 	);
 
