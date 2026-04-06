@@ -6,7 +6,6 @@ import {
 	TextareaControl,
 	SelectControl,
 	Button,
-	PanelRow,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
@@ -21,6 +20,9 @@ const isActive = ( feature ) => activeFeatures.includes( feature );
 
 /**
  * Section heading component.
+ *
+ * @param {Object} root0          Component props.
+ * @param {Object} root0.children Children elements.
  */
 const SectionHeading = ( { children } ) => (
 	<div
@@ -42,6 +44,9 @@ const SectionHeading = ( { children } ) => (
 
 /**
  * Section group wrapper.
+ *
+ * @param {Object} root0          Component props.
+ * @param {Object} root0.children Children elements.
  */
 const SectionGroup = ( { children } ) => (
 	<div style={ { marginBottom: '12px' } }>{ children }</div>
@@ -85,23 +90,17 @@ const VeuSettingsPanel = () => {
 					<SectionHeading>SNS</SectionHeading>
 					<CheckboxControl
 						label={
-							i18n.snsHide ||
-							"Don't display sns share button"
+							i18n.snsHide || "Don't display sns share button"
 						}
 						checked={ isChecked( 'sns_share_botton_hide' ) }
 						onChange={ ( c ) =>
-							update(
-								'sns_share_botton_hide',
-								c ? 'true' : ''
-							)
+							update( 'sns_share_botton_hide', c ? 'true' : '' )
 						}
 					/>
 					<TextControl
 						label={ i18n.snsTitle || 'SNS Title' }
 						value={ meta?.vkExUnit_sns_title || '' }
-						onChange={ ( v ) =>
-							update( 'vkExUnit_sns_title', v )
-						}
+						onChange={ ( v ) => update( 'vkExUnit_sns_title', v ) }
 					/>
 				</SectionGroup>
 			) }
@@ -114,25 +113,18 @@ const VeuSettingsPanel = () => {
 							label={ i18n.noindex || 'noindex' }
 							checked={ isChecked( '_vk_print_noindex' ) }
 							onChange={ ( c ) =>
-								update(
-									'_vk_print_noindex',
-									c ? 'true' : ''
-								)
+								update( '_vk_print_noindex', c ? 'true' : '' )
 							}
 						/>
 					) }
 					{ isActive( 'sitemap_page' ) && (
 						<CheckboxControl
 							label={
-								i18n.sitemapHide ||
-								"Don't display on sitemap"
+								i18n.sitemapHide || "Don't display on sitemap"
 							}
 							checked={ isChecked( 'sitemap_hide' ) }
 							onChange={ ( c ) =>
-								update(
-									'sitemap_hide',
-									c ? 'true' : ''
-								)
+								update( 'sitemap_hide', c ? 'true' : '' )
 							}
 						/>
 					) }
@@ -140,9 +132,7 @@ const VeuSettingsPanel = () => {
 						<TextControl
 							label={ i18n.headTitle || 'Head Title' }
 							value={ meta?.veu_head_title || '' }
-							onChange={ ( v ) =>
-								update( 'veu_head_title', v )
-							}
+							onChange={ ( v ) => update( 'veu_head_title', v ) }
 						/>
 					) }
 				</SectionGroup>
@@ -156,12 +146,9 @@ const VeuSettingsPanel = () => {
 					{ isActive( 'auto_eyecatch' ) && (
 						<CheckboxControl
 							label={
-								i18n.eyecatchHide ||
-								"Don't display eyecatch"
+								i18n.eyecatchHide || "Don't display eyecatch"
 							}
-							checked={ isChecked(
-								'vkExUnit_EyeCatch_disable'
-							) }
+							checked={ isChecked( 'vkExUnit_EyeCatch_disable' ) }
 							onChange={ ( c ) =>
 								update(
 									'vkExUnit_EyeCatch_disable',
@@ -173,8 +160,7 @@ const VeuSettingsPanel = () => {
 					{ isActive( 'promotion_alert' ) && (
 						<CheckboxControl
 							label={
-								i18n.promotionAlert ||
-								'Display promotion alert'
+								i18n.promotionAlert || 'Display promotion alert'
 							}
 							checked={ isChecked(
 								'veu_display_promotion_alert'
@@ -196,9 +182,7 @@ const VeuSettingsPanel = () => {
 						{ i18n.pageSection || 'Page' }
 					</SectionHeading>
 					<CheckboxControl
-						label={
-							i18n.pageExclude || 'Exclude from page list'
-						}
+						label={ i18n.pageExclude || 'Exclude from page list' }
 						checked={ isChecked( '_exclude_from_list_pages' ) }
 						onChange={ ( c ) =>
 							update(
@@ -216,9 +200,7 @@ const VeuSettingsPanel = () => {
 					<TextareaControl
 						label={ i18n.customCss || 'Custom CSS' }
 						value={ meta?._veu_custom_css || '' }
-						onChange={ ( v ) =>
-							update( '_veu_custom_css', v )
-						}
+						onChange={ ( v ) => update( '_veu_custom_css', v ) }
 						rows={ 4 }
 					/>
 				</SectionGroup>
@@ -237,12 +219,6 @@ const VeuCtaPanel = () => {
 	);
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
 
-	if ( postType !== 'cta' ) {
-		return null;
-	}
-
-	const update = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
-
 	const ctaImg = meta?.vkExUnit_cta_img
 		? parseInt( meta.vkExUnit_cta_img, 10 )
 		: 0;
@@ -250,6 +226,12 @@ const VeuCtaPanel = () => {
 		( s ) => ( ctaImg ? s( 'core' ).getMedia( ctaImg ) : null ),
 		[ ctaImg ]
 	);
+
+	if ( postType !== 'cta' ) {
+		return null;
+	}
+
+	const update = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
 
 	return (
 		<PluginDocumentSettingPanel
@@ -261,14 +243,9 @@ const VeuCtaPanel = () => {
 					ctaI18n.useClassic ||
 					'Use following data (Do not use content data)'
 				}
-				checked={
-					meta?.vkExUnit_cta_use_type === 'veu_cta_normal'
-				}
+				checked={ meta?.vkExUnit_cta_use_type === 'veu_cta_normal' }
 				onChange={ ( c ) =>
-					update(
-						'vkExUnit_cta_use_type',
-						c ? 'veu_cta_normal' : ''
-					)
+					update( 'vkExUnit_cta_use_type', c ? 'veu_cta_normal' : '' )
 				}
 			/>
 
@@ -291,10 +268,7 @@ const VeuCtaPanel = () => {
 				<MediaUploadCheck>
 					<MediaUpload
 						onSelect={ ( media ) =>
-							update(
-								'vkExUnit_cta_img',
-								String( media.id )
-							)
+							update( 'vkExUnit_cta_img', String( media.id ) )
 						}
 						allowedTypes={ [ 'image' ] }
 						value={ ctaImg }
@@ -307,25 +281,16 @@ const VeuCtaPanel = () => {
 							>
 								<Button
 									onClick={ open }
-									variant={
-										ctaImg
-											? 'secondary'
-											: 'primary'
-									}
+									variant={ ctaImg ? 'secondary' : 'primary' }
 								>
 									{ ctaImg
-										? ctaI18n.changeImage ||
-										  'Change image'
-										: ctaI18n.addImage ||
-										  'Add image' }
+										? ctaI18n.changeImage || 'Change image'
+										: ctaI18n.addImage || 'Add image' }
 								</Button>
 								{ ctaImg ? (
 									<Button
 										onClick={ () =>
-											update(
-												'vkExUnit_cta_img',
-												''
-											)
+											update( 'vkExUnit_cta_img', '' )
 										}
 										isDestructive
 										variant="tertiary"
@@ -340,19 +305,15 @@ const VeuCtaPanel = () => {
 				</MediaUploadCheck>
 
 				<SelectControl
-					label={
-						ctaI18n.imgPosition || 'Image position'
-					}
+					label={ ctaI18n.imgPosition || 'Image position' }
 					value={ meta?.vkExUnit_cta_img_position || '' }
 					options={ [
 						{
-							label:
-								ctaI18n.posNormal || 'Normal',
+							label: ctaI18n.posNormal || 'Normal',
 							value: '',
 						},
 						{
-							label:
-								ctaI18n.posRight || 'Right',
+							label: ctaI18n.posRight || 'Right',
 							value: 'right',
 						},
 					] }
@@ -376,25 +337,17 @@ const VeuCtaPanel = () => {
 				<TextControl
 					label={ ctaI18n.ctaUrl || 'URL' }
 					value={ meta?.vkExUnit_cta_url || '' }
-					onChange={ ( v ) =>
-						update( 'vkExUnit_cta_url', v )
-					}
+					onChange={ ( v ) => update( 'vkExUnit_cta_url', v ) }
 					type="url"
 				/>
 				<CheckboxControl
-					label={
-						ctaI18n.urlBlank ||
-						'Open link in new window'
-					}
+					label={ ctaI18n.urlBlank || 'Open link in new window' }
 					checked={
 						meta?.vkExUnit_cta_url_blank === 'true' ||
 						meta?.vkExUnit_cta_url_blank === '1'
 					}
 					onChange={ ( c ) =>
-						update(
-							'vkExUnit_cta_url_blank',
-							c ? 'true' : ''
-						)
+						update( 'vkExUnit_cta_url_blank', c ? 'true' : '' )
 					}
 				/>
 			</SectionGroup>
@@ -406,9 +359,7 @@ const VeuCtaPanel = () => {
 				<TextareaControl
 					label={ ctaI18n.ctaText || 'CTA text' }
 					value={ meta?.vkExUnit_cta_text || '' }
-					onChange={ ( v ) =>
-						update( 'vkExUnit_cta_text', v )
-					}
+					onChange={ ( v ) => update( 'vkExUnit_cta_text', v ) }
 					rows={ 4 }
 				/>
 			</SectionGroup>
