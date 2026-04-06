@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Other ][ 7.0 ] Add __back_compat_meta_box flag to add_meta_box() for WordPress 7.0 RTC compatibility
+[ Specification change ] Migrate meta boxes to block editor native sidebar panels for WordPress 7.0 RTC (Real-Time Collaboration) compatibility.
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
 
 = 9.113.6 =
