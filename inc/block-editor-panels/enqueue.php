@@ -7,12 +7,33 @@
  */
 
 /**
+ * Get list of active panel features.
+ * 有効なパネル機能のリストを返す。
+ *
+ * @return array Active feature names.
+ */
+function veu_get_active_panel_features() {
+	$options      = veu_get_common_options();
+	$all_features = array( 'sns', 'noindex', 'sitemap_page', 'wpTitle', 'auto_eyecatch', 'css_customize', 'promotion_alert', 'page_exclude_from_list_pages' );
+	$active       = array();
+	foreach ( $all_features as $feature ) {
+		if (
+			( isset( $options[ 'active_' . $feature ] ) && $options[ 'active_' . $feature ] )
+			|| ! isset( $options[ 'active_' . $feature ] )
+		) {
+			$active[] = $feature;
+		}
+	}
+	return $active;
+}
+
+/**
  * Register post meta for active features only.
  * 有効な機能のメタキーのみ登録する。
  */
 function veu_register_active_feature_meta() {
-	$options    = veu_get_common_options();
-	$post_types = get_post_types( array( 'public' => true ) );
+	$active_features = veu_get_active_panel_features();
+	$post_types      = get_post_types( array( 'public' => true ) );
 
 	$feature_meta_map = array(
 		'sns'                          => array(
@@ -71,10 +92,7 @@ function veu_register_active_feature_meta() {
 	);
 
 	foreach ( $feature_meta_map as $feature_name => $metas ) {
-		$is_active = ( isset( $options[ 'active_' . $feature_name ] ) && $options[ 'active_' . $feature_name ] )
-			|| ( ! isset( $options[ 'active_' . $feature_name ] ) );
-
-		if ( ! $is_active ) {
+		if ( ! in_array( $feature_name, $active_features, true ) ) {
 			continue;
 		}
 
@@ -90,7 +108,7 @@ function veu_register_active_feature_meta() {
 					},
 				);
 				if ( 'string' === $meta['type'] ) {
-					$args['sanitize_callback'] = ( '_veu_custom_css' === $meta['key'] ) ? null : 'sanitize_text_field';
+					$args['sanitize_callback'] = ( '_veu_custom_css' === $meta['key'] ) ? 'veu_sanitize_custom_css_input' : 'sanitize_text_field';
 				}
 				register_post_meta( $post_type, $meta['key'], $args );
 			}
@@ -117,19 +135,9 @@ function veu_enqueue_block_editor_panels() {
 		true
 	);
 
-	// Build active features list.
-	// 有効な機能リストを構築する。
-	$options         = veu_get_common_options();
-	$all_features    = array( 'sns', 'noindex', 'sitemap_page', 'wpTitle', 'auto_eyecatch', 'css_customize', 'promotion_alert', 'page_exclude_from_list_pages' );
-	$active_features = array();
-	foreach ( $all_features as $feature ) {
-		if (
-			( isset( $options[ 'active_' . $feature ] ) && $options[ 'active_' . $feature ] )
-			|| ! isset( $options[ 'active_' . $feature ] )
-		) {
-			$active_features[] = $feature;
-		}
-	}
+	// Get active features list.
+	// 有効な機能リストを取得する。
+	$active_features = veu_get_active_panel_features();
 
 	wp_localize_script(
 		'veu-block-editor-panels',
