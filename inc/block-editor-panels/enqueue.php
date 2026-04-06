@@ -153,15 +153,15 @@ function veu_enqueue_block_editor_panels() {
 			'panelTitle'     => veu_get_name() ? veu_get_name() : 'VK ExUnit',
 			'activeFeatures' => $active_features,
 			'i18n'           => array(
-				'snsHide'        => __( "Don't display sns share button on this page", 'vk-all-in-one-expansion-unit' ),
+				'snsHide'        => __( "Don't display share bottons.", 'vk-all-in-one-expansion-unit' ),
 				'snsTitle'       => __( 'SNS Title', 'vk-all-in-one-expansion-unit' ),
-				'noindex'        => __( 'No print noindex to this page', 'vk-all-in-one-expansion-unit' ),
-				'sitemapHide'    => __( "Don't display on the sitemap", 'vk-all-in-one-expansion-unit' ),
+				'noindex'        => __( 'Print noindex tag that to be do not display on search result.', 'vk-all-in-one-expansion-unit' ),
+				'sitemapHide'    => __( 'Hide this page to HTML Sitemap.', 'vk-all-in-one-expansion-unit' ),
 				'headTitle'      => __( 'Head Title', 'vk-all-in-one-expansion-unit' ),
-				'eyecatchHide'   => __( "Don't display eyecatch on this page", 'vk-all-in-one-expansion-unit' ),
+				'eyecatchHide'   => __( 'Do not set eyecatch image automatic.', 'vk-all-in-one-expansion-unit' ),
 				'customCss'      => __( 'Custom CSS', 'vk-all-in-one-expansion-unit' ),
-				'promotionAlert' => __( 'Display promotion alert', 'vk-all-in-one-expansion-unit' ),
-				'pageExclude'    => __( 'Exclude from page list', 'vk-all-in-one-expansion-unit' ),
+				'promotionAlert' => __( 'Promotion Disclosure Setting', 'vk-all-in-one-expansion-unit' ),
+				'pageExclude'    => __( 'Exclude from displaying Page List (wp_list_pages)', 'vk-all-in-one-expansion-unit' ),
 			),
 		)
 	);
