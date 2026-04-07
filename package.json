@@ -41,7 +41,7 @@
 		"lint:page-list-ancestor": "wp-scripts format inc/page-list-ancestor/block/ && wp-scripts lint-js inc/page-list-ancestor/block/ --fix",
 		"lint:sitemap-page": "wp-scripts format inc/sitemap-page/block/ && wp-scripts lint-js inc/sitemap-page/block/ --fix",
 		"lint:sns": "wp-scripts format inc/sns/block/ && wp-scripts lint-js inc/sns/block/ --fix",
-"lint:panel": "wp-scripts format inc/block-editor-panels/ && wp-scripts lint-js inc/block-editor-panels/ --fix",
+"lint:panel": "wp-scripts format src/editor-panel/ && wp-scripts lint-js src/editor-panel/ --fix",
 		"dist": "rm -rf dist/vk-all-in-one-expansion-unit && composer install --optimize-autoloader --prefer-dist --no-dev && npm run build && npx gulp dist",
 		"dist:github": "composer install --optimize-autoloader --prefer-dist --no-dev && npx gulp dist",
 		"dist:org": "composer install --optimize-autoloader --prefer-dist --no-dev",

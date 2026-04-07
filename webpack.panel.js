@@ -4,9 +4,9 @@ const path = require( 'path' );
 module.exports = {
 	...defaultConfig,
 	mode: 'production',
-	entry: path.resolve( __dirname, 'inc/block-editor-panels/src/index.js' ),
+	entry: path.resolve( __dirname, 'src/editor-panel/index.js' ),
 	output: {
-		path: path.resolve( __dirname, 'inc/block-editor-panels/build' ),
+		path: path.resolve( __dirname, 'build/editor-panel' ),
 		filename: 'index.js',
 	},
 };

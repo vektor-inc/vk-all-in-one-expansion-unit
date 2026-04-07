@@ -161,14 +161,14 @@ function veu_enqueue_block_editor_panels() {
 		return;
 	}
 
-	$asset_path = plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
+	$asset_path = VEU_DIRECTORY_PATH . '/build/editor-panel/index.asset.php';
 	if ( ! file_exists( $asset_path ) ) {
 		return;
 	}
 	$asset_file = include $asset_path;
 	wp_enqueue_script(
 		'veu-block-editor-panels',
-		plugins_url( 'build/index.js', __FILE__ ),
+		VEU_DIRECTORY_URI . '/build/editor-panel/index.js',
 		$asset_file['dependencies'],
 		$asset_file['version'],
 		true
