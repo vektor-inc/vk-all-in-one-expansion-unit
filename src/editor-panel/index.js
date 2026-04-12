@@ -1,11 +1,20 @@
+/**
+ * VK All in One Expansion Unit - Editor Panel
+ *
+ * ブロックエディタのサイドバーにExUnit設定パネルを追加する。
+ * PluginSidebar を使い、ツールバーに専用アイコンを表示。
+ * 各セクションは PanelBody で折りたたみ可能。
+ */
+
 import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel } from '@wordpress/editor';
+import { PluginSidebar } from '@wordpress/editor';
 import {
 	CheckboxControl,
 	TextControl,
 	TextareaControl,
 	SelectControl,
 	Button,
+	PanelBody,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
@@ -19,55 +28,37 @@ const activeFeatures = data.activeFeatures || [];
 const isActive = ( feature ) => activeFeatures.includes( feature );
 
 /**
- * Section heading component.
+ * ExUnit sidebar component.
  *
- * @param {Object} root0          Component props.
- * @param {Object} root0.children Children elements.
+ * PluginSidebar 内に各機能セクションを PanelBody で配置。
+ * 機能の有効/無効に応じてセクションを条件表示。
+ * CTA投稿タイプではCTAセクションも表示。
  */
-const SectionHeading = ( { children } ) => (
-	<div
-		style={ {
-			borderBottom: '1px solid #ddd',
-			paddingBottom: '4px',
-			marginTop: '16px',
-			marginBottom: '8px',
-			fontSize: '12px',
-			fontWeight: 600,
-			textTransform: 'uppercase',
-			color: '#757575',
-			letterSpacing: '0.5px',
-		} }
-	>
-		{ children }
-	</div>
-);
-
-/**
- * Section group wrapper.
- *
- * @param {Object} root0          Component props.
- * @param {Object} root0.children Children elements.
- */
-const SectionGroup = ( { children } ) => (
-	<div style={ { marginBottom: '12px' } }>{ children }</div>
-);
-
-/**
- * ExUnit common settings panel.
- */
-const VeuSettingsPanel = () => {
+const VeuSidebar = () => {
 	const postType = useSelect(
 		( s ) => s( 'core/editor' ).getCurrentPostType(),
 		[]
 	);
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
 
-	const update = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
-	const isChecked = ( key ) => meta?.[ key ] === 'true';
+	// CTA の画像関連（フックは早期リターンの前に呼ぶ必要がある）
+	const isCta = postType === 'cta';
+	const ctaImg =
+		isCta && meta?.vkExUnit_cta_img
+			? parseInt( meta.vkExUnit_cta_img, 10 )
+			: 0;
+	const image = useSelect(
+		( s ) => ( ctaImg ? s( 'core' ).getMedia( ctaImg ) : null ),
+		[ ctaImg ]
+	);
 
-	if ( ! activeFeatures.length ) {
+	// activeFeatures が空で CTA でもない場合は何も表示しない
+	if ( ! activeFeatures.length && ! isCta ) {
 		return null;
 	}
+
+	const update = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
+	const isChecked = ( key ) => meta?.[ key ] === 'true';
 
 	const hasSnsSection = isActive( 'sns' );
 	const hasSeoSection =
@@ -81,13 +72,13 @@ const VeuSettingsPanel = () => {
 	const hasCssSection = isActive( 'css_customize' );
 
 	return (
-		<PluginDocumentSettingPanel
+		<PluginSidebar
 			name="veu-settings"
 			title={ data.panelTitle || 'VK ExUnit' }
+			icon="admin-plugins"
 		>
 			{ hasSnsSection && (
-				<SectionGroup>
-					<SectionHeading>SNS</SectionHeading>
+				<PanelBody title="SNS" initialOpen={ false }>
 					<CheckboxControl
 						label={
 							i18n.snsHide || "Don't display sns share button"
@@ -102,12 +93,11 @@ const VeuSettingsPanel = () => {
 						value={ meta?.vkExUnit_sns_title || '' }
 						onChange={ ( v ) => update( 'vkExUnit_sns_title', v ) }
 					/>
-				</SectionGroup>
+				</PanelBody>
 			) }
 
 			{ hasSeoSection && (
-				<SectionGroup>
-					<SectionHeading>SEO</SectionHeading>
+				<PanelBody title="SEO" initialOpen={ false }>
 					{ isActive( 'noindex' ) && (
 						<CheckboxControl
 							label={ i18n.noindex || 'noindex' }
@@ -135,14 +125,14 @@ const VeuSettingsPanel = () => {
 							onChange={ ( v ) => update( 'veu_head_title', v ) }
 						/>
 					) }
-				</SectionGroup>
+				</PanelBody>
 			) }
 
 			{ hasDisplaySection && (
-				<SectionGroup>
-					<SectionHeading>
-						{ i18n.displaySection || 'Display' }
-					</SectionHeading>
+				<PanelBody
+					title={ i18n.displaySection || 'Display' }
+					initialOpen={ false }
+				>
 					{ isActive( 'auto_eyecatch' ) && (
 						<CheckboxControl
 							label={
@@ -173,14 +163,14 @@ const VeuSettingsPanel = () => {
 							}
 						/>
 					) }
-				</SectionGroup>
+				</PanelBody>
 			) }
 
 			{ hasPageSection && (
-				<SectionGroup>
-					<SectionHeading>
-						{ i18n.pageSection || 'Page' }
-					</SectionHeading>
+				<PanelBody
+					title={ i18n.pageSection || 'Page' }
+					initialOpen={ false }
+				>
 					<CheckboxControl
 						label={ i18n.pageExclude || 'Exclude from page list' }
 						checked={ isChecked( '_exclude_from_list_pages' ) }
@@ -191,181 +181,174 @@ const VeuSettingsPanel = () => {
 							)
 						}
 					/>
-				</SectionGroup>
+				</PanelBody>
 			) }
 
 			{ hasCssSection && (
-				<SectionGroup>
-					<SectionHeading>CSS</SectionHeading>
+				<PanelBody title="CSS" initialOpen={ false }>
 					<TextareaControl
 						label={ i18n.customCss || 'Custom CSS' }
 						value={ meta?._veu_custom_css || '' }
 						onChange={ ( v ) => update( '_veu_custom_css', v ) }
 						rows={ 4 }
 					/>
-				</SectionGroup>
+				</PanelBody>
 			) }
-		</PluginDocumentSettingPanel>
-	);
-};
 
-/**
- * CTA Contents panel (cta post type only).
- */
-const VeuCtaPanel = () => {
-	const postType = useSelect(
-		( s ) => s( 'core/editor' ).getCurrentPostType(),
-		[]
-	);
-	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
-
-	const ctaImg = meta?.vkExUnit_cta_img
-		? parseInt( meta.vkExUnit_cta_img, 10 )
-		: 0;
-	const image = useSelect(
-		( s ) => ( ctaImg ? s( 'core' ).getMedia( ctaImg ) : null ),
-		[ ctaImg ]
-	);
-
-	if ( postType !== 'cta' ) {
-		return null;
-	}
-
-	const update = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
-
-	return (
-		<PluginDocumentSettingPanel
-			name="veu-cta-contents"
-			title={ ctaI18n.panelTitle || 'CTA Contents' }
-		>
-			<CheckboxControl
-				label={
-					ctaI18n.useClassic ||
-					'Use following data (Do not use content data)'
-				}
-				checked={ meta?.vkExUnit_cta_use_type === 'veu_cta_normal' }
-				onChange={ ( c ) =>
-					update( 'vkExUnit_cta_use_type', c ? 'veu_cta_normal' : '' )
-				}
-			/>
-
-			<SectionGroup>
-				<SectionHeading>
-					{ ctaI18n.ctaImage || 'CTA image' }
-				</SectionHeading>
-				{ ctaImg && image ? (
-					<img
-						src={ image.source_url }
-						alt="CTA"
-						style={ {
-							maxWidth: '100%',
-							height: 'auto',
-							marginBottom: '8px',
-							borderRadius: '4px',
-						} }
-					/>
-				) : null }
-				<MediaUploadCheck>
-					<MediaUpload
-						onSelect={ ( media ) =>
-							update( 'vkExUnit_cta_img', String( media.id ) )
-						}
-						allowedTypes={ [ 'image' ] }
-						value={ ctaImg }
-						render={ ( { open } ) => (
-							<div
+			{ isCta && (
+				<>
+					<PanelBody
+						title={ ctaI18n.ctaImage || 'CTA image' }
+						initialOpen={ true }
+					>
+						<CheckboxControl
+							label={
+								ctaI18n.useClassic ||
+								'Use following data (Do not use content data)'
+							}
+							checked={
+								meta?.vkExUnit_cta_use_type === 'veu_cta_normal'
+							}
+							onChange={ ( c ) =>
+								update(
+									'vkExUnit_cta_use_type',
+									c ? 'veu_cta_normal' : ''
+								)
+							}
+						/>
+						{ ctaImg > 0 && image ? (
+							<img
+								src={ image.source_url }
+								alt="CTA"
 								style={ {
-									display: 'flex',
-									gap: '8px',
+									maxWidth: '100%',
+									height: 'auto',
+									marginBottom: '8px',
+									borderRadius: '4px',
 								} }
-							>
-								<Button
-									onClick={ open }
-									variant={ ctaImg ? 'secondary' : 'primary' }
-								>
-									{ ctaImg
-										? ctaI18n.changeImage || 'Change image'
-										: ctaI18n.addImage || 'Add image' }
-								</Button>
-								{ ctaImg ? (
-									<Button
-										onClick={ () =>
-											update( 'vkExUnit_cta_img', '' )
-										}
-										isDestructive
-										variant="tertiary"
+							/>
+						) : null }
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ ( media ) =>
+									update(
+										'vkExUnit_cta_img',
+										String( media.id )
+									)
+								}
+								allowedTypes={ [ 'image' ] }
+								value={ ctaImg }
+								render={ ( { open } ) => (
+									<div
+										style={ {
+											display: 'flex',
+											gap: '8px',
+										} }
 									>
-										{ ctaI18n.removeImage ||
-											'Remove image' }
-									</Button>
-								) : null }
-							</div>
-						) }
-					/>
-				</MediaUploadCheck>
+										<Button
+											onClick={ open }
+											variant={
+												ctaImg ? 'secondary' : 'primary'
+											}
+										>
+											{ ctaImg
+												? ctaI18n.changeImage ||
+												  'Change image'
+												: ctaI18n.addImage ||
+												  'Add image' }
+										</Button>
+										{ ctaImg > 0 && (
+											<Button
+												onClick={ () =>
+													update(
+														'vkExUnit_cta_img',
+														''
+													)
+												}
+												isDestructive
+												variant="tertiary"
+											>
+												{ ctaI18n.removeImage ||
+													'Remove image' }
+											</Button>
+										) }
+									</div>
+								) }
+							/>
+						</MediaUploadCheck>
 
-				<SelectControl
-					label={ ctaI18n.imgPosition || 'Image position' }
-					value={ meta?.vkExUnit_cta_img_position || '' }
-					options={ [
-						{
-							label: ctaI18n.posNormal || 'Normal',
-							value: '',
-						},
-						{
-							label: ctaI18n.posRight || 'Right',
-							value: 'right',
-						},
-					] }
-					onChange={ ( v ) =>
-						update( 'vkExUnit_cta_img_position', v )
-					}
-				/>
-			</SectionGroup>
+						<SelectControl
+							label={ ctaI18n.imgPosition || 'Image position' }
+							value={ meta?.vkExUnit_cta_img_position || '' }
+							options={ [
+								{
+									label: ctaI18n.posNormal || 'Normal',
+									value: '',
+								},
+								{
+									label: ctaI18n.posRight || 'Right',
+									value: 'right',
+								},
+							] }
+							onChange={ ( v ) =>
+								update( 'vkExUnit_cta_img_position', v )
+							}
+						/>
+					</PanelBody>
 
-			<SectionGroup>
-				<SectionHeading>
-					{ ctaI18n.buttonSection || 'Button' }
-				</SectionHeading>
-				<TextControl
-					label={ ctaI18n.buttonText || 'Button text' }
-					value={ meta?.vkExUnit_cta_button_text || '' }
-					onChange={ ( v ) =>
-						update( 'vkExUnit_cta_button_text', v )
-					}
-				/>
-				<TextControl
-					label={ ctaI18n.ctaUrl || 'URL' }
-					value={ meta?.vkExUnit_cta_url || '' }
-					onChange={ ( v ) => update( 'vkExUnit_cta_url', v ) }
-					type="url"
-				/>
-				<CheckboxControl
-					label={ ctaI18n.urlBlank || 'Open link in new window' }
-					checked={
-						meta?.vkExUnit_cta_url_blank === 'true' ||
-						meta?.vkExUnit_cta_url_blank === '1'
-					}
-					onChange={ ( c ) =>
-						update( 'vkExUnit_cta_url_blank', c ? 'true' : '' )
-					}
-				/>
-			</SectionGroup>
+					<PanelBody
+						title={ ctaI18n.buttonSection || 'Button' }
+						initialOpen={ false }
+					>
+						<TextControl
+							label={ ctaI18n.buttonText || 'Button text' }
+							value={ meta?.vkExUnit_cta_button_text || '' }
+							onChange={ ( v ) =>
+								update( 'vkExUnit_cta_button_text', v )
+							}
+						/>
+						<TextControl
+							label={ ctaI18n.ctaUrl || 'URL' }
+							value={ meta?.vkExUnit_cta_url || '' }
+							onChange={ ( v ) =>
+								update( 'vkExUnit_cta_url', v )
+							}
+							type="url"
+						/>
+						<CheckboxControl
+							label={
+								ctaI18n.urlBlank || 'Open link in new window'
+							}
+							checked={
+								meta?.vkExUnit_cta_url_blank === 'true' ||
+								meta?.vkExUnit_cta_url_blank === '1'
+							}
+							onChange={ ( c ) =>
+								update(
+									'vkExUnit_cta_url_blank',
+									c ? 'true' : ''
+								)
+							}
+						/>
+					</PanelBody>
 
-			<SectionGroup>
-				<SectionHeading>
-					{ ctaI18n.textSection || 'Text' }
-				</SectionHeading>
-				<TextareaControl
-					label={ ctaI18n.ctaText || 'CTA text' }
-					value={ meta?.vkExUnit_cta_text || '' }
-					onChange={ ( v ) => update( 'vkExUnit_cta_text', v ) }
-					rows={ 4 }
-				/>
-			</SectionGroup>
-		</PluginDocumentSettingPanel>
+					<PanelBody
+						title={ ctaI18n.textSection || 'Text' }
+						initialOpen={ false }
+					>
+						<TextareaControl
+							label={ ctaI18n.ctaText || 'CTA text' }
+							value={ meta?.vkExUnit_cta_text || '' }
+							onChange={ ( v ) =>
+								update( 'vkExUnit_cta_text', v )
+							}
+							rows={ 4 }
+						/>
+					</PanelBody>
+				</>
+			) }
+		</PluginSidebar>
 	);
 };
 
-registerPlugin( 'veu-settings-panel', { render: VeuSettingsPanel } );
-registerPlugin( 'veu-cta-panel', { render: VeuCtaPanel } );
+registerPlugin( 'veu-settings-panel', { render: VeuSidebar } );
