@@ -28,20 +28,36 @@ const activeFeatures = data.activeFeatures || [];
 const isActive = ( feature ) => activeFeatures.includes( feature );
 
 /**
- * ExUnit sidebar component.
- *
- * PluginSidebar 内に各機能セクションを PanelBody で配置。
- * 機能の有効/無効に応じてセクションを条件表示。
- * CTA投稿タイプではCTAセクションも表示。
+ * 外側コンポーネント: postType を取得し、未定義なら何も描画しない。
+ * postType が確定してから内側コンポーネントに渡すことで
+ * useEntityProp のフック呼び出し順序を安定させる。
  */
 const VeuSidebar = () => {
 	const postType = useSelect(
 		( s ) => s( 'core/editor' ).getCurrentPostType(),
 		[]
 	);
+
+	if ( ! postType ) {
+		return null;
+	}
+
+	return <VeuSidebarInner postType={ postType } />;
+};
+
+/**
+ * 内側コンポーネント: postType が確定した状態でフックを呼ぶ。
+ * PluginSidebar 内に各機能セクションを PanelBody で配置。
+ * 機能の有効/無効に応じてセクションを条件表示。
+ * CTA投稿タイプではCTAセクションも表示。
+ *
+ * @param {Object} props          Component props.
+ * @param {string} props.postType 投稿タイプスラッグ
+ */
+const VeuSidebarInner = ( { postType } ) => {
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
 
-	// CTA の画像関連（フックは早期リターンの前に呼ぶ必要がある）
+	// CTA の画像関連
 	const isCta = postType === 'cta';
 	const ctaImg =
 		isCta && meta?.vkExUnit_cta_img
