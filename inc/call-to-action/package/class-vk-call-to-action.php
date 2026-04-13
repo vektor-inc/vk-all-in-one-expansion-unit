@@ -109,7 +109,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				'has_archive'        => false,
 				'hierarchical'       => false,
 				'taxonomies'         => array(),
-				'supports'           => array( 'title', 'editor' ),
+				'supports'           => array( 'title', 'editor', 'custom-fields' ),
 				'show_in_rest'       => true,
 			);
 			register_post_type( self::POST_TYPE, $args );
