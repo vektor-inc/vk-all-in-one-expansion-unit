@@ -103,8 +103,8 @@ function veu_register_active_feature_meta() {
 					'type'          => $meta['type'],
 					'single'        => true,
 					'show_in_rest'  => true,
-					'auth_callback' => function () {
-						return current_user_can( 'edit_posts' );
+					'auth_callback' => function ( $allowed, $meta_key, $object_id ) {
+						return current_user_can( 'edit_post', $object_id );
 					},
 				);
 				if ( 'string' === $meta['type'] ) {
@@ -140,8 +140,8 @@ function veu_register_active_feature_meta() {
 				'single'            => true,
 				'sanitize_callback' => $sanitize,
 				'show_in_rest'      => true,
-				'auth_callback'     => function () {
-					return current_user_can( 'edit_posts' );
+				'auth_callback'     => function ( $allowed, $meta_key, $object_id ) {
+					return current_user_can( 'edit_post', $object_id );
 				},
 			)
 		);
@@ -205,21 +205,47 @@ function veu_enqueue_block_editor_panels() {
 				'customCss'      => __( 'Custom CSS', 'vk-all-in-one-expansion-unit' ),
 				'promotionAlert' => __( 'Promotion Disclosure Setting', 'vk-all-in-one-expansion-unit' ),
 				'pageExclude'    => __( 'Exclude from displaying Page List (wp_list_pages)', 'vk-all-in-one-expansion-unit' ),
+				'displaySection' => __( 'Display', 'vk-all-in-one-expansion-unit' ),
+				'pageSection'    => __( 'Page', 'vk-all-in-one-expansion-unit' ),
 			),
 			'ctaI18n'        => array(
-				'panelTitle'  => __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ),
-				'useClassic'  => __( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ),
-				'ctaImage'    => __( 'CTA image', 'vk-all-in-one-expansion-unit' ),
-				'addImage'    => __( 'Add image', 'vk-all-in-one-expansion-unit' ),
-				'changeImage' => __( 'Change image', 'vk-all-in-one-expansion-unit' ),
-				'removeImage' => __( 'Remove image', 'vk-all-in-one-expansion-unit' ),
-				'imgPosition' => __( 'Image position', 'vk-all-in-one-expansion-unit' ),
-				'buttonText'  => __( 'Button text', 'vk-all-in-one-expansion-unit' ),
-				'ctaUrl'      => __( 'URL', 'vk-all-in-one-expansion-unit' ),
-				'urlBlank'    => __( 'Open link in new window', 'vk-all-in-one-expansion-unit' ),
-				'ctaText'     => __( 'CTA text', 'vk-all-in-one-expansion-unit' ),
+				'panelTitle'    => __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ),
+				'useClassic'    => __( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ),
+				'ctaImage'      => __( 'CTA image', 'vk-all-in-one-expansion-unit' ),
+				'addImage'      => __( 'Add image', 'vk-all-in-one-expansion-unit' ),
+				'changeImage'   => __( 'Change image', 'vk-all-in-one-expansion-unit' ),
+				'removeImage'   => __( 'Remove image', 'vk-all-in-one-expansion-unit' ),
+				'imgPosition'   => __( 'Image position', 'vk-all-in-one-expansion-unit' ),
+				'posNormal'     => __( 'Normal', 'vk-all-in-one-expansion-unit' ),
+				'posRight'      => __( 'Right', 'vk-all-in-one-expansion-unit' ),
+				'buttonSection' => __( 'Button', 'vk-all-in-one-expansion-unit' ),
+				'buttonText'    => __( 'Button text', 'vk-all-in-one-expansion-unit' ),
+				'ctaUrl'        => __( 'URL', 'vk-all-in-one-expansion-unit' ),
+				'urlBlank'      => __( 'Open link in new window', 'vk-all-in-one-expansion-unit' ),
+				'textSection'   => __( 'Text', 'vk-all-in-one-expansion-unit' ),
+				'ctaText'       => __( 'CTA text', 'vk-all-in-one-expansion-unit' ),
 			),
 		)
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'veu_enqueue_block_editor_panels' );
+
+/**
+ * Remove the legacy metabox on block editor screens.
+ * ブロックエディタ画面では旧メタボックスを非表示にする。
+ *
+ * The new sidebar panel replaces the metabox in the block editor.
+ * Classic Editor users will still see the original metabox.
+ * 新しいサイドバーパネルがブロックエディタでメタボックスの代わりになる。
+ * クラシックエディタのユーザーには従来のメタボックスがそのまま表示される。
+ *
+ * @return void
+ */
+function veu_remove_legacy_metabox_on_block_editor() {
+	$screen = get_current_screen();
+	if ( ! $screen || ! $screen->is_block_editor ) {
+		return;
+	}
+	remove_meta_box( 'veu_parent_post_metabox', $screen->post_type, 'normal' );
+}
+add_action( 'add_meta_boxes', 'veu_remove_legacy_metabox_on_block_editor', 20 );
