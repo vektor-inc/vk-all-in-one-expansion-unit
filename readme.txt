@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Specification change ] Migrate meta boxes to block editor native sidebar panels for WordPress 7.0 RTC (Real-Time Collaboration) compatibility.
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
 
 = 9.113.6 =
