@@ -14,7 +14,20 @@
  */
 function veu_get_active_panel_features() {
 	$options      = veu_get_common_options();
-	$all_features = array( 'sns', 'noindex', 'sitemap_page', 'wpTitle', 'auto_eyecatch', 'css_customize', 'promotion_alert', 'page_exclude_from_list_pages' );
+	$all_features = array(
+		'sns',
+		'noindex',
+		'sitemap_page',
+		'wpTitle',
+		'auto_eyecatch',
+		'css_customize',
+		'promotion_alert',
+		'page_exclude_from_list_pages',
+		'call_to_action',
+		'childPageIndex',
+		'pageList_ancestor',
+		'contact_section',
+	);
 	$active       = array();
 	foreach ( $all_features as $feature ) {
 		if (
@@ -57,13 +70,17 @@ function veu_register_active_feature_meta() {
 				'key'  => 'sitemap_hide',
 				'type' => 'string',
 			),
-		),
-		'wpTitle'                      => array(
 			array(
-				'key'  => 'veu_head_title',
-				'type' => 'string',
+				'key'       => 'vkExUnit_sitemap',
+				'type'      => 'string',
+				'post_type' => 'page',
 			),
 		),
+		// Note: 'veu_head_title' is stored as a serialized array (title + add_site_title).
+		// It is registered as type=string to preserve existing data, and exposed as an object
+		// via register_rest_field below so the block editor panel can read/write it.
+		// veu_head_title は配列としてシリアライズ保存されている。既存データを壊さないため
+		// type=string で登録し、下部の register_rest_field でオブジェクトとして露出させる。
 		'auto_eyecatch'                => array(
 			array(
 				'key'  => 'vkExUnit_EyeCatch_disable',
@@ -85,6 +102,33 @@ function veu_register_active_feature_meta() {
 		'page_exclude_from_list_pages' => array(
 			array(
 				'key'       => '_exclude_from_list_pages',
+				'type'      => 'string',
+				'post_type' => 'page',
+			),
+		),
+		'call_to_action'               => array(
+			array(
+				'key'  => 'vkexunit_cta_each_option',
+				'type' => 'string',
+			),
+		),
+		'childPageIndex'               => array(
+			array(
+				'key'       => 'vkExUnit_childPageIndex',
+				'type'      => 'string',
+				'post_type' => 'page',
+			),
+		),
+		'pageList_ancestor'            => array(
+			array(
+				'key'       => 'vkExUnit_pageList_ancestor',
+				'type'      => 'string',
+				'post_type' => 'page',
+			),
+		),
+		'contact_section'              => array(
+			array(
+				'key'       => 'vkExUnit_contact_enable',
 				'type'      => 'string',
 				'post_type' => 'page',
 			),
@@ -148,6 +192,73 @@ function veu_register_active_feature_meta() {
 	}
 }
 add_action( 'init', 'veu_register_active_feature_meta' );
+
+/**
+ * Register REST field for veu_head_title (array meta).
+ * 配列型メタ veu_head_title を REST API にオブジェクトとして露出する。
+ *
+ * The old metabox stores this as a serialized array with 'title' and 'add_site_title' keys.
+ * We cannot use register_post_meta(type=object) because WP treats existing serialized
+ * data as invalid. Instead we expose it as a separate REST field that the block editor
+ * panel reads and writes, while the underlying meta key remains untouched.
+ *
+ * 旧メタボックスは title と add_site_title をシリアライズ配列として保存している。
+ * register_post_meta(type=object) では既存データが無効と扱われるため、
+ * 別の REST field として露出し、ブロックエディタパネルが読み書きする。
+ * 実体のメタキーは変更しない。
+ */
+function veu_register_head_title_rest_field() {
+	$active_features = veu_get_active_panel_features();
+	if ( ! in_array( 'wpTitle', $active_features, true ) ) {
+		return;
+	}
+
+	$post_types = get_post_types( array( 'public' => true ) );
+
+	register_rest_field(
+		$post_types,
+		'veu_head_title_object',
+		array(
+			'get_callback'    => function ( $object ) {
+				$value = get_post_meta( $object['id'], 'veu_head_title', true );
+				if ( ! is_array( $value ) ) {
+					$value = array();
+				}
+				return array(
+					'title'          => isset( $value['title'] ) ? (string) $value['title'] : '',
+					'add_site_title' => isset( $value['add_site_title'] ) ? (string) $value['add_site_title'] : '',
+				);
+			},
+			'update_callback' => function ( $value, $object ) {
+				if ( ! current_user_can( 'edit_post', $object->ID ) ) {
+					return new WP_Error( 'rest_cannot_update', __( 'Sorry, you are not allowed to edit this post.', 'vk-all-in-one-expansion-unit' ), array( 'status' => rest_authorization_required_code() ) );
+				}
+				if ( ! is_array( $value ) ) {
+					return false;
+				}
+				$sanitized = array(
+					'title'          => isset( $value['title'] ) ? sanitize_text_field( $value['title'] ) : '',
+					'add_site_title' => isset( $value['add_site_title'] ) ? sanitize_text_field( $value['add_site_title'] ) : '',
+				);
+				update_post_meta( $object->ID, 'veu_head_title', $sanitized );
+				return true;
+			},
+			'schema'          => array(
+				'type'       => 'object',
+				'properties' => array(
+					'title'          => array(
+						'type' => 'string',
+					),
+					'add_site_title' => array(
+						'type' => 'string',
+					),
+				),
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'veu_register_head_title_rest_field' );
+
 
 /**
  * Enqueue block editor panel scripts.
