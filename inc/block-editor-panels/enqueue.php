@@ -300,24 +300,89 @@ function veu_enqueue_block_editor_panels() {
 	// 有効な機能リストを取得する。
 	$active_features = veu_get_active_panel_features();
 
+	// Build CTA options list (for regular posts, not just CTA post type).
+	// 通常投稿用のCTA選択肢を構築する。
+	$cta_options = array();
+	if ( in_array( 'call_to_action', $active_features, true ) && class_exists( 'Vk_Call_To_Action' ) ) {
+		$cta_options[] = array(
+			'value' => '0',
+			'label' => __( 'Follow common setting', 'vk-all-in-one-expansion-unit' ),
+		);
+		$cta_options[] = array(
+			'value' => 'disable',
+			'label' => __( 'Disable display', 'vk-all-in-one-expansion-unit' ),
+		);
+		$cta_options[] = array(
+			'value' => 'random',
+			'label' => __( 'Random', 'vk-all-in-one-expansion-unit' ),
+		);
+		$ctas          = Vk_Call_To_Action::get_ctas( true, '  - ' );
+		foreach ( $ctas as $cta ) {
+			$cta_options[] = array(
+				'value' => (string) $cta['key'],
+				'label' => $cta['label'],
+			);
+		}
+	}
+
+	// CTA setting page URLs for help links.
+	// CTA設定ページのリンク。
+	$cta_setting_url = ( in_array( 'call_to_action', $active_features, true ) && class_exists( 'Vk_Call_To_Action' ) ) ? Vk_Call_To_Action::setting_page_url() : '';
+	$cta_index_url   = admin_url( 'edit.php?post_type=cta' );
+
 	wp_localize_script(
 		'veu-block-editor-panels',
 		'veuPanelData',
 		array(
 			'panelTitle'     => veu_get_name() ? veu_get_name() : 'VK ExUnit',
 			'activeFeatures' => $active_features,
+			'ctaOptions'     => $cta_options,
+			'ctaSettingUrl'  => $cta_setting_url,
+			'ctaIndexUrl'    => $cta_index_url,
 			'i18n'           => array(
-				'snsHide'        => __( "Don't display share bottons.", 'vk-all-in-one-expansion-unit' ),
-				'snsTitle'       => __( 'SNS Title', 'vk-all-in-one-expansion-unit' ),
-				'noindex'        => __( 'Print noindex tag that to be do not display on search result.', 'vk-all-in-one-expansion-unit' ),
-				'sitemapHide'    => __( 'Hide this page to HTML Sitemap.', 'vk-all-in-one-expansion-unit' ),
-				'headTitle'      => __( 'Head Title', 'vk-all-in-one-expansion-unit' ),
-				'eyecatchHide'   => __( 'Do not set eyecatch image automatic.', 'vk-all-in-one-expansion-unit' ),
-				'customCss'      => __( 'Custom CSS', 'vk-all-in-one-expansion-unit' ),
-				'promotionAlert' => __( 'Promotion Disclosure Setting', 'vk-all-in-one-expansion-unit' ),
-				'pageExclude'    => __( 'Exclude from displaying Page List (wp_list_pages)', 'vk-all-in-one-expansion-unit' ),
-				'displaySection' => __( 'Display', 'vk-all-in-one-expansion-unit' ),
-				'pageSection'    => __( 'Page', 'vk-all-in-one-expansion-unit' ),
+				// Section titles (match legacy metabox labels) / セクションタイトル（旧メタボックスと統一）
+				'promotionSection'   => __( 'Promotion Disclosure Setting', 'vk-all-in-one-expansion-unit' ),
+				'insertItemsSection' => __( 'Setting of insert items', 'vk-all-in-one-expansion-unit' ),
+				'snsTitleSection'    => __( 'OGP Title', 'vk-all-in-one-expansion-unit' ),
+				'snsHideSection'     => __( 'Hide setting of share button', 'vk-all-in-one-expansion-unit' ),
+				'noindexSection'     => __( 'Noindex setting', 'vk-all-in-one-expansion-unit' ),
+				'sitemapHideSection' => __( 'Hide setting of HTML sitemap', 'vk-all-in-one-expansion-unit' ),
+				'headTitleSection'   => __( 'Head Title (Title tag)', 'vk-all-in-one-expansion-unit' ),
+				'eyecatchSection'    => __( 'Automatic EyeCatch', 'vk-all-in-one-expansion-unit' ),
+				'ctaSection'         => __( 'Call to Action setting', 'vk-all-in-one-expansion-unit' ),
+				'pageExcludeSection' => __( 'Exclusion settings from the page list', 'vk-all-in-one-expansion-unit' ),
+				'cssSection'         => __( 'Custom CSS', 'vk-all-in-one-expansion-unit' ),
+
+				// Field labels / フィールドラベル
+				'snsHide'            => __( "Don't display share bottons.", 'vk-all-in-one-expansion-unit' ),
+				'snsTitle'           => __( 'SNS Title', 'vk-all-in-one-expansion-unit' ),
+				'noindex'            => __( 'Print noindex tag that to be do not display on search result.', 'vk-all-in-one-expansion-unit' ),
+				'sitemapHide'        => __( 'Hide this page to HTML Sitemap.', 'vk-all-in-one-expansion-unit' ),
+				'headTitle'          => __( 'Head Title', 'vk-all-in-one-expansion-unit' ),
+				'addSiteTitle'       => __( 'Add Separator and Site Title', 'vk-all-in-one-expansion-unit' ),
+				'eyecatchHide'       => __( 'Do not set eyecatch image automatic.', 'vk-all-in-one-expansion-unit' ),
+				'customCss'          => __( 'Custom CSS', 'vk-all-in-one-expansion-unit' ),
+				'pageExclude'        => __( 'Exclude from displaying Page List (wp_list_pages)', 'vk-all-in-one-expansion-unit' ),
+
+				// Promotion alert select options / 広告開示設定の3択ラベル
+				'promotionCommon'    => __( 'Apply common settings', 'vk-all-in-one-expansion-unit' ),
+				'promotionDisplay'   => __( 'Display', 'vk-all-in-one-expansion-unit' ),
+				'promotionHide'      => __( 'Hide', 'vk-all-in-one-expansion-unit' ),
+
+				// Insert items (page only) / 挿入アイテム（固定ページのみ）
+				'sitemapInsert'      => __( 'Display a HTML sitemap', 'vk-all-in-one-expansion-unit' ),
+				'childPageIndex'     => __( 'Display a child page index', 'vk-all-in-one-expansion-unit' ),
+				'pageListAncestor'   => __( 'Display a page list from ancestor', 'vk-all-in-one-expansion-unit' ),
+				'contactEnable'      => __( 'Display Contact Section', 'vk-all-in-one-expansion-unit' ),
+
+				// Help texts / 説明文
+				'snsTitleHelp'       => __( 'if filled this area then override title of OGP and Twitter Card', 'vk-all-in-one-expansion-unit' ),
+				'headTitleHelp'      => __( 'If there is any input here, the input will be reflected in the title tag.', 'vk-all-in-one-expansion-unit' ),
+				'headTitleHelp2'     => __( 'Please note that the notation on the page will not be rewritten.', 'vk-all-in-one-expansion-unit' ),
+
+				// CTA links / CTAリンク
+				'ctaCommonSetting'   => __( 'CTA common setting', 'vk-all-in-one-expansion-unit' ),
+				'ctaIndexPage'       => __( 'Show CTA index page', 'vk-all-in-one-expansion-unit' ),
 			),
 			'ctaI18n'        => array(
 				'panelTitle'    => __( 'CTA Contents', 'vk-all-in-one-expansion-unit' ),

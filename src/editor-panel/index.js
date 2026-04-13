@@ -4,6 +4,9 @@
  * ブロックエディタのサイドバーにExUnit設定パネルを追加する。
  * PluginSidebar を使い、ツールバーに専用アイコンを表示。
  * 各セクションは PanelBody で折りたたみ可能。
+ *
+ * 旧メタボックス（admin/admin-post-metabox.php経由）と同じ機能・ラベル・データ構造を維持し、
+ * 既存ユーザーの保存データとの互換性を確保する。
  */
 
 import { registerPlugin } from '@wordpress/plugins';
@@ -15,8 +18,9 @@ import {
 	SelectControl,
 	Button,
 	PanelBody,
+	ExternalLink,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 
@@ -24,6 +28,9 @@ const data = window.veuPanelData || {};
 const i18n = data.i18n || {};
 const ctaI18n = data.ctaI18n || {};
 const activeFeatures = data.activeFeatures || [];
+const ctaOptions = data.ctaOptions || [];
+const ctaSettingUrl = data.ctaSettingUrl || '';
+const ctaIndexUrl = data.ctaIndexUrl || '';
 
 const isActive = ( feature ) => activeFeatures.includes( feature );
 
@@ -47,9 +54,7 @@ const VeuSidebar = () => {
 
 /**
  * 内側コンポーネント: postType が確定した状態でフックを呼ぶ。
- * PluginSidebar 内に各機能セクションを PanelBody で配置。
- * 機能の有効/無効に応じてセクションを条件表示。
- * CTA投稿タイプではCTAセクションも表示。
+ * 旧メタボックスと同じセクション構成で PanelBody を並べる。
  *
  * @param {Object} props          Component props.
  * @param {string} props.postType 投稿タイプスラッグ
@@ -57,7 +62,38 @@ const VeuSidebar = () => {
 const VeuSidebarInner = ( { postType } ) => {
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
 
-	// CTA の画像関連
+	// veu_head_title は配列メタのため meta 経由では扱えない。
+	// REST の独自フィールド veu_head_title_object を読み書きする。
+	const postId = useSelect(
+		( s ) => s( 'core/editor' ).getCurrentPostId(),
+		[]
+	);
+	const headTitleObject = useSelect(
+		( s ) => {
+			const record = s( 'core' ).getEntityRecord(
+				'postType',
+				postType,
+				postId
+			);
+			return record?.veu_head_title_object || null;
+		},
+		[ postType, postId ]
+	);
+	const { editEntityRecord } = useDispatch( 'core' );
+	const updateHeadTitle = ( key, value ) => {
+		const current = headTitleObject || {
+			title: '',
+			add_site_title: '',
+		};
+		editEntityRecord( 'postType', postType, postId, {
+			veu_head_title_object: {
+				...current,
+				[ key ]: value,
+			},
+		} );
+	};
+
+	// CTA 投稿タイプ自身の編集UI（旧実装を維持）
 	const isCta = postType === 'cta';
 	const ctaImg =
 		isCta && meta?.vkExUnit_cta_img
@@ -76,16 +112,15 @@ const VeuSidebarInner = ( { postType } ) => {
 	const update = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
 	const isChecked = ( key ) => meta?.[ key ] === 'true';
 
-	const hasSnsSection = isActive( 'sns' );
-	const hasSeoSection =
-		isActive( 'noindex' ) ||
-		isActive( 'sitemap_page' ) ||
-		isActive( 'wpTitle' );
-	const hasDisplaySection =
-		isActive( 'auto_eyecatch' ) || isActive( 'promotion_alert' );
-	const hasPageSection =
-		isActive( 'page_exclude_from_list_pages' ) && postType === 'page';
-	const hasCssSection = isActive( 'css_customize' );
+	const isPage = postType === 'page';
+
+	// 挿入アイテムは page 投稿タイプかつ関連機能が有効な時だけ表示
+	const hasInsertItemsSection =
+		isPage &&
+		( ( isActive( 'sitemap_page' ) ) ||
+			isActive( 'childPageIndex' ) ||
+			isActive( 'pageList_ancestor' ) ||
+			isActive( 'contact_section' ) );
 
 	return (
 		<PluginSidebar
@@ -93,87 +128,112 @@ const VeuSidebarInner = ( { postType } ) => {
 			title={ data.panelTitle || 'VK ExUnit' }
 			icon="admin-plugins"
 		>
-			{ hasSnsSection && (
-				<PanelBody title="SNS" initialOpen={ false }>
-					<CheckboxControl
-						label={
-							i18n.snsHide || "Don't display sns share button"
-						}
-						checked={ isChecked( 'sns_share_botton_hide' ) }
-						onChange={ ( c ) =>
-							update( 'sns_share_botton_hide', c ? 'true' : '' )
-						}
-					/>
-					<TextControl
-						label={ i18n.snsTitle || 'SNS Title' }
-						value={ meta?.vkExUnit_sns_title || '' }
-						onChange={ ( v ) => update( 'vkExUnit_sns_title', v ) }
-					/>
-				</PanelBody>
-			) }
-
-			{ hasSeoSection && (
-				<PanelBody title="SEO" initialOpen={ false }>
-					{ isActive( 'noindex' ) && (
-						<CheckboxControl
-							label={ i18n.noindex || 'noindex' }
-							checked={ isChecked( '_vk_print_noindex' ) }
-							onChange={ ( c ) =>
-								update( '_vk_print_noindex', c ? 'true' : '' )
-							}
-						/>
-					) }
-					{ isActive( 'sitemap_page' ) && (
-						<CheckboxControl
-							label={
-								i18n.sitemapHide || "Don't display on sitemap"
-							}
-							checked={ isChecked( 'sitemap_hide' ) }
-							onChange={ ( c ) =>
-								update( 'sitemap_hide', c ? 'true' : '' )
-							}
-						/>
-					) }
-					{ isActive( 'wpTitle' ) && (
-						<TextControl
-							label={ i18n.headTitle || 'Head Title' }
-							value={ meta?.veu_head_title || '' }
-							onChange={ ( v ) => update( 'veu_head_title', v ) }
-						/>
-					) }
-				</PanelBody>
-			) }
-
-			{ hasDisplaySection && (
+			{ /* 広告開示設定: priority 1, 3択セレクト */ }
+			{ isActive( 'promotion_alert' ) && (
 				<PanelBody
-					title={ i18n.displaySection || 'Display' }
+					title={
+						i18n.promotionSection ||
+						'Promotion Disclosure Setting'
+					}
 					initialOpen={ false }
 				>
-					{ isActive( 'auto_eyecatch' ) && (
+					<SelectControl
+						label={
+							i18n.promotionSection ||
+							'Promotion Disclosure Setting'
+						}
+						value={ meta?.veu_display_promotion_alert || '' }
+						options={ [
+							{
+								value: 'common',
+								label:
+									i18n.promotionCommon ||
+									'Apply common settings',
+							},
+							{
+								value: 'display',
+								label: i18n.promotionDisplay || 'Display',
+							},
+							{
+								value: 'hide',
+								label: i18n.promotionHide || 'Hide',
+							},
+						] }
+						onChange={ ( v ) =>
+							update( 'veu_display_promotion_alert', v )
+						}
+					/>
+				</PanelBody>
+			) }
+
+			{ /* 挿入アイテムの設定: priority 10, 固定ページのみ */ }
+			{ hasInsertItemsSection && (
+				<PanelBody
+					title={
+						i18n.insertItemsSection || 'Setting of insert items'
+					}
+					initialOpen={ false }
+				>
+					{ isActive( 'sitemap_page' ) && (
 						<CheckboxControl
+							__nextHasNoMarginBottom
 							label={
-								i18n.eyecatchHide || "Don't display eyecatch"
+								i18n.sitemapInsert || 'Display a HTML sitemap'
 							}
-							checked={ isChecked( 'vkExUnit_EyeCatch_disable' ) }
+							checked={ isChecked( 'vkExUnit_sitemap' ) }
 							onChange={ ( c ) =>
 								update(
-									'vkExUnit_EyeCatch_disable',
+									'vkExUnit_sitemap',
 									c ? 'true' : ''
 								)
 							}
 						/>
 					) }
-					{ isActive( 'promotion_alert' ) && (
+					{ isActive( 'childPageIndex' ) && (
 						<CheckboxControl
+							__nextHasNoMarginBottom
 							label={
-								i18n.promotionAlert || 'Display promotion alert'
+								i18n.childPageIndex ||
+								'Display a child page index'
+							}
+							checked={ isChecked( 'vkExUnit_childPageIndex' ) }
+							onChange={ ( c ) =>
+								update(
+									'vkExUnit_childPageIndex',
+									c ? 'true' : ''
+								)
+							}
+						/>
+					) }
+					{ isActive( 'pageList_ancestor' ) && (
+						<CheckboxControl
+							__nextHasNoMarginBottom
+							label={
+								i18n.pageListAncestor ||
+								'Display a page list from ancestor'
 							}
 							checked={ isChecked(
-								'veu_display_promotion_alert'
+								'vkExUnit_pageList_ancestor'
 							) }
 							onChange={ ( c ) =>
 								update(
-									'veu_display_promotion_alert',
+									'vkExUnit_pageList_ancestor',
+									c ? 'true' : ''
+								)
+							}
+						/>
+					) }
+					{ isActive( 'contact_section' ) && (
+						<CheckboxControl
+							__nextHasNoMarginBottom
+							label={
+								i18n.contactEnable ||
+								'Display Contact Section'
+							}
+							checked={ isChecked( 'vkExUnit_contact_enable' ) }
+							onChange={ ( c ) =>
+								update(
+									'vkExUnit_contact_enable',
 									c ? 'true' : ''
 								)
 							}
@@ -182,13 +242,193 @@ const VeuSidebarInner = ( { postType } ) => {
 				</PanelBody>
 			) }
 
-			{ hasPageSection && (
+			{ /* シェアボタンの非表示設定: priority 50 */ }
+			{ isActive( 'sns' ) && (
 				<PanelBody
-					title={ i18n.pageSection || 'Page' }
+					title={
+						i18n.snsHideSection || 'Hide setting of share button'
+					}
 					initialOpen={ false }
 				>
 					<CheckboxControl
-						label={ i18n.pageExclude || 'Exclude from page list' }
+						__nextHasNoMarginBottom
+						label={
+							i18n.snsHide || "Don't display share bottons."
+						}
+						checked={ isChecked( 'sns_share_botton_hide' ) }
+						onChange={ ( c ) =>
+							update(
+								'sns_share_botton_hide',
+								c ? 'true' : ''
+							)
+						}
+					/>
+				</PanelBody>
+			) }
+
+			{ /* OGPタイトル: priority 50 */ }
+			{ isActive( 'sns' ) && (
+				<PanelBody
+					title={ i18n.snsTitleSection || 'OGP Title' }
+					initialOpen={ false }
+				>
+					<TextControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ i18n.snsTitle || 'SNS Title' }
+						value={ meta?.vkExUnit_sns_title || '' }
+						onChange={ ( v ) => update( 'vkExUnit_sns_title', v ) }
+						help={ i18n.snsTitleHelp }
+					/>
+				</PanelBody>
+			) }
+
+			{ /* noindex設定: priority 50 */ }
+			{ isActive( 'noindex' ) && (
+				<PanelBody
+					title={ i18n.noindexSection || 'Noindex setting' }
+					initialOpen={ false }
+				>
+					<CheckboxControl
+						__nextHasNoMarginBottom
+						label={
+							i18n.noindex ||
+							'Print noindex tag that to be do not display on search result.'
+						}
+						checked={ isChecked( '_vk_print_noindex' ) }
+						onChange={ ( c ) =>
+							update( '_vk_print_noindex', c ? 'true' : '' )
+						}
+					/>
+				</PanelBody>
+			) }
+
+			{ /* サイトマップ非表示: priority 50, 固定ページのみ */ }
+			{ isActive( 'sitemap_page' ) && isPage && (
+				<PanelBody
+					title={
+						i18n.sitemapHideSection ||
+						'Hide setting of HTML sitemap'
+					}
+					initialOpen={ false }
+				>
+					<CheckboxControl
+						__nextHasNoMarginBottom
+						label={
+							i18n.sitemapHide ||
+							'Hide this page to HTML Sitemap.'
+						}
+						checked={ isChecked( 'sitemap_hide' ) }
+						onChange={ ( c ) =>
+							update( 'sitemap_hide', c ? 'true' : '' )
+						}
+					/>
+				</PanelBody>
+			) }
+
+			{ /* head タグ内の title タグ: priority 50 */ }
+			{ isActive( 'wpTitle' ) && (
+				<PanelBody
+					title={
+						i18n.headTitleSection || 'Head Title (Title tag)'
+					}
+					initialOpen={ false }
+				>
+					<TextControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ i18n.headTitle || 'Head Title' }
+						value={ headTitleObject?.title || '' }
+						onChange={ ( v ) => updateHeadTitle( 'title', v ) }
+						help={
+							i18n.headTitleHelp
+								? i18n.headTitleHelp +
+								  ( i18n.headTitleHelp2
+										? ' ' + i18n.headTitleHelp2
+										: '' )
+								: undefined
+						}
+					/>
+					<CheckboxControl
+						__nextHasNoMarginBottom
+						label={
+							i18n.addSiteTitle || 'Add Separator and Site Title'
+						}
+						checked={ !! headTitleObject?.add_site_title }
+						onChange={ ( c ) =>
+							updateHeadTitle( 'add_site_title', c ? 'checked' : '' )
+						}
+					/>
+				</PanelBody>
+			) }
+
+			{ /* 自動アイキャッチ: priority 50 */ }
+			{ isActive( 'auto_eyecatch' ) && (
+				<PanelBody
+					title={ i18n.eyecatchSection || 'Automatic EyeCatch' }
+					initialOpen={ false }
+				>
+					<CheckboxControl
+						__nextHasNoMarginBottom
+						label={
+							i18n.eyecatchHide ||
+							'Do not set eyecatch image automatic.'
+						}
+						checked={ isChecked( 'vkExUnit_EyeCatch_disable' ) }
+						onChange={ ( c ) =>
+							update(
+								'vkExUnit_EyeCatch_disable',
+								c ? 'true' : ''
+							)
+						}
+					/>
+				</PanelBody>
+			) }
+
+			{ /* CTA設定: priority 50, 全投稿タイプ（ただしCTA投稿タイプ自身は除く） */ }
+			{ isActive( 'call_to_action' ) && ! isCta && (
+				<PanelBody
+					title={ i18n.ctaSection || 'Call to Action setting' }
+					initialOpen={ false }
+				>
+					<SelectControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ i18n.ctaSection || 'Call to Action setting' }
+						value={ meta?.vkexunit_cta_each_option ?? '0' }
+						options={ ctaOptions }
+						onChange={ ( v ) =>
+							update( 'vkexunit_cta_each_option', v )
+						}
+					/>
+					<p style={ { display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' } }>
+						{ ctaSettingUrl && (
+							<ExternalLink href={ ctaSettingUrl }>
+								{ i18n.ctaCommonSetting || 'CTA common setting' }
+							</ExternalLink>
+						) }
+						<ExternalLink href={ ctaIndexUrl }>
+							{ i18n.ctaIndexPage || 'Show CTA index page' }
+						</ExternalLink>
+					</p>
+				</PanelBody>
+			) }
+
+			{ /* ページリストからの除外: priority 60, 固定ページのみ */ }
+			{ isActive( 'page_exclude_from_list_pages' ) && isPage && (
+				<PanelBody
+					title={
+						i18n.pageExcludeSection ||
+						'Exclusion settings from the page list'
+					}
+					initialOpen={ false }
+				>
+					<CheckboxControl
+						__nextHasNoMarginBottom
+						label={
+							i18n.pageExclude ||
+							'Exclude from displaying Page List (wp_list_pages)'
+						}
 						checked={ isChecked( '_exclude_from_list_pages' ) }
 						onChange={ ( c ) =>
 							update(
@@ -200,17 +440,23 @@ const VeuSidebarInner = ( { postType } ) => {
 				</PanelBody>
 			) }
 
-			{ hasCssSection && (
-				<PanelBody title="CSS" initialOpen={ false }>
+			{ /* カスタムCSS: priority 100 */ }
+			{ isActive( 'css_customize' ) && (
+				<PanelBody
+					title={ i18n.cssSection || 'Custom CSS' }
+					initialOpen={ false }
+				>
 					<TextareaControl
+						__nextHasNoMarginBottom
 						label={ i18n.customCss || 'Custom CSS' }
 						value={ meta?._veu_custom_css || '' }
 						onChange={ ( v ) => update( '_veu_custom_css', v ) }
-						rows={ 4 }
+						rows={ 5 }
 					/>
 				</PanelBody>
 			) }
 
+			{ /* CTA投稿タイプ自身の編集UI（既存実装を維持） */ }
 			{ isCta && (
 				<>
 					<PanelBody
@@ -218,6 +464,7 @@ const VeuSidebarInner = ( { postType } ) => {
 						initialOpen={ true }
 					>
 						<CheckboxControl
+							__nextHasNoMarginBottom
 							label={
 								ctaI18n.useClassic ||
 								'Use following data (Do not use content data)'
@@ -294,6 +541,8 @@ const VeuSidebarInner = ( { postType } ) => {
 						</MediaUploadCheck>
 
 						<SelectControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 							label={ ctaI18n.imgPosition || 'Image position' }
 							value={ meta?.vkExUnit_cta_img_position || '' }
 							options={ [
@@ -317,6 +566,8 @@ const VeuSidebarInner = ( { postType } ) => {
 						initialOpen={ false }
 					>
 						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 							label={ ctaI18n.buttonText || 'Button text' }
 							value={ meta?.vkExUnit_cta_button_text || '' }
 							onChange={ ( v ) =>
@@ -324,6 +575,8 @@ const VeuSidebarInner = ( { postType } ) => {
 							}
 						/>
 						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 							label={ ctaI18n.ctaUrl || 'URL' }
 							value={ meta?.vkExUnit_cta_url || '' }
 							onChange={ ( v ) =>
@@ -332,6 +585,7 @@ const VeuSidebarInner = ( { postType } ) => {
 							type="url"
 						/>
 						<CheckboxControl
+							__nextHasNoMarginBottom
 							label={
 								ctaI18n.urlBlank || 'Open link in new window'
 							}
@@ -353,6 +607,7 @@ const VeuSidebarInner = ( { postType } ) => {
 						initialOpen={ false }
 					>
 						<TextareaControl
+							__nextHasNoMarginBottom
 							label={ ctaI18n.ctaText || 'CTA text' }
 							value={ meta?.vkExUnit_cta_text || '' }
 							onChange={ ( v ) =>
