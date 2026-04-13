@@ -285,14 +285,20 @@ function veu_enqueue_block_editor_panels() {
 		true
 	);
 
-	// Panel spacing styles.
+	// Panel spacing styles for the VK ExUnit sidebar (PluginSidebar 'veu-settings').
+	// 新パネル内のフィールド間に余白を確保し、help テキストの行間を WordPress 標準に揃える。
 	wp_add_inline_style(
 		'wp-components',
-		'.plugin-document-setting-panel-veu-settings > div,
-		 .plugin-document-setting-panel-veu-cta-contents > div {
-			display: flex;
-			flex-direction: column;
-			gap: 12px;
+		'#veu-settings-panel\\:veu-settings .components-panel__body .components-base-control + .components-base-control,
+		 #veu-settings-panel\\:veu-settings .components-panel__body .components-base-control + .components-checkbox-control,
+		 #veu-settings-panel\\:veu-settings .components-panel__body .components-checkbox-control + .components-base-control,
+		 #veu-settings-panel\\:veu-settings .components-panel__body .components-checkbox-control + .components-checkbox-control,
+		 #veu-settings-panel\\:veu-settings .components-panel__body .components-base-control + p,
+		 #veu-settings-panel\\:veu-settings .components-panel__body p + .components-base-control {
+			margin-top: 16px;
+		}
+		#veu-settings-panel\\:veu-settings .components-base-control__help {
+			line-height: 1.5;
 		}'
 	);
 

@@ -323,7 +323,6 @@ const VeuSidebarInner = ( { postType } ) => {
 					initialOpen={ false }
 				>
 					<TextControl
-						__nextHasNoMarginBottom
 						__next40pxDefaultSize
 						label={ i18n.headTitle || 'Head Title' }
 						value={ headTitleObject?.title || '' }
