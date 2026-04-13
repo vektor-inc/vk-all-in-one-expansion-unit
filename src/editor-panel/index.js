@@ -117,7 +117,7 @@ const VeuSidebarInner = ( { postType } ) => {
 	// 挿入アイテムは page 投稿タイプかつ関連機能が有効な時だけ表示
 	const hasInsertItemsSection =
 		isPage &&
-		( ( isActive( 'sitemap_page' ) ) ||
+		( isActive( 'sitemap_page' ) ||
 			isActive( 'childPageIndex' ) ||
 			isActive( 'pageList_ancestor' ) ||
 			isActive( 'contact_section' ) );
@@ -132,8 +132,7 @@ const VeuSidebarInner = ( { postType } ) => {
 			{ isActive( 'promotion_alert' ) && (
 				<PanelBody
 					title={
-						i18n.promotionSection ||
-						'Promotion Disclosure Setting'
+						i18n.promotionSection || 'Promotion Disclosure Setting'
 					}
 					initialOpen={ false }
 				>
@@ -182,10 +181,7 @@ const VeuSidebarInner = ( { postType } ) => {
 							}
 							checked={ isChecked( 'vkExUnit_sitemap' ) }
 							onChange={ ( c ) =>
-								update(
-									'vkExUnit_sitemap',
-									c ? 'true' : ''
-								)
+								update( 'vkExUnit_sitemap', c ? 'true' : '' )
 							}
 						/>
 					) }
@@ -227,8 +223,7 @@ const VeuSidebarInner = ( { postType } ) => {
 						<CheckboxControl
 							__nextHasNoMarginBottom
 							label={
-								i18n.contactEnable ||
-								'Display Contact Section'
+								i18n.contactEnable || 'Display Contact Section'
 							}
 							checked={ isChecked( 'vkExUnit_contact_enable' ) }
 							onChange={ ( c ) =>
@@ -252,15 +247,10 @@ const VeuSidebarInner = ( { postType } ) => {
 				>
 					<CheckboxControl
 						__nextHasNoMarginBottom
-						label={
-							i18n.snsHide || "Don't display share bottons."
-						}
+						label={ i18n.snsHide || "Don't display share bottons." }
 						checked={ isChecked( 'sns_share_botton_hide' ) }
 						onChange={ ( c ) =>
-							update(
-								'sns_share_botton_hide',
-								c ? 'true' : ''
-							)
+							update( 'sns_share_botton_hide', c ? 'true' : '' )
 						}
 					/>
 				</PanelBody>
@@ -329,9 +319,7 @@ const VeuSidebarInner = ( { postType } ) => {
 			{ /* head タグ内の title タグ: priority 50 */ }
 			{ isActive( 'wpTitle' ) && (
 				<PanelBody
-					title={
-						i18n.headTitleSection || 'Head Title (Title tag)'
-					}
+					title={ i18n.headTitleSection || 'Head Title (Title tag)' }
 					initialOpen={ false }
 				>
 					<TextControl
@@ -356,7 +344,10 @@ const VeuSidebarInner = ( { postType } ) => {
 						}
 						checked={ !! headTitleObject?.add_site_title }
 						onChange={ ( c ) =>
-							updateHeadTitle( 'add_site_title', c ? 'checked' : '' )
+							updateHeadTitle(
+								'add_site_title',
+								c ? 'checked' : ''
+							)
 						}
 					/>
 				</PanelBody>
@@ -401,10 +392,18 @@ const VeuSidebarInner = ( { postType } ) => {
 							update( 'vkexunit_cta_each_option', v )
 						}
 					/>
-					<p style={ { display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' } }>
+					<p
+						style={ {
+							display: 'flex',
+							gap: '8px',
+							flexWrap: 'wrap',
+							marginTop: '8px',
+						} }
+					>
 						{ ctaSettingUrl && (
 							<ExternalLink href={ ctaSettingUrl }>
-								{ i18n.ctaCommonSetting || 'CTA common setting' }
+								{ i18n.ctaCommonSetting ||
+									'CTA common setting' }
 							</ExternalLink>
 						) }
 						<ExternalLink href={ ctaIndexUrl }>
