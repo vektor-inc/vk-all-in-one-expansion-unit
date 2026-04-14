@@ -428,6 +428,16 @@ function veu_remove_legacy_metabox_on_block_editor() {
 	if ( ! $screen || ! $screen->is_block_editor ) {
 		return;
 	}
+	// Remove the unified legacy metabox used on post/page/custom post types.
+	// 投稿・固定ページ・カスタム投稿タイプで使われる統合版の旧メタボックスを削除。
 	remove_meta_box( 'veu_parent_post_metabox', $screen->post_type, 'normal' );
+
+	// Remove the page-exclude metabox on page edit screen (replaced by the sidebar panel).
+	// 固定ページ編集画面で、ページ一覧除外の旧メタボックスを削除（サイドバーパネルに置き換え）。
+	remove_meta_box( 'exclude_from_list_pages', 'page', 'side' );
+
+	// Remove the CTA content metabox on CTA post type edit screen (replaced by the sidebar panel).
+	// CTA投稿タイプの編集画面で、CTAコンテンツ編集用の旧メタボックスを削除（サイドバーパネルに置き換え）。
+	remove_meta_box( 'vkExUnit_cta_url', 'cta', 'normal' );
 }
 add_action( 'add_meta_boxes', 'veu_remove_legacy_metabox_on_block_editor', 20 );
