@@ -173,8 +173,10 @@ function veu_register_active_feature_meta() {
 	);
 	foreach ( $cta_metas as $cta_key ) {
 		$sanitize = 'sanitize_text_field';
-		if ( in_array( $cta_key, array( 'vkExUnit_cta_url', 'vkExUnit_cta_img' ), true ) ) {
-			$sanitize = 'sanitize_text_field';
+		if ( 'vkExUnit_cta_url' === $cta_key ) {
+			$sanitize = 'esc_url_raw';
+		} elseif ( 'vkExUnit_cta_img' === $cta_key ) {
+			$sanitize = 'absint';
 		}
 		register_post_meta(
 			'cta',
