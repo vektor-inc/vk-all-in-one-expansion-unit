@@ -26,7 +26,9 @@
 		"npm-check-updates": "^17.0.3",
 		"po2json": "^1.0.0-beta-3",
 		"run-sequence": "^2.2.1",
-		"sass": "^1.77.8"
+		"sass": "^1.77.8",
+		"webpack": "^5.105.0",
+		"webpack-cli": "^5.1.4"
 	},
 	"scripts": {
 		"start": "npx wp-env start",
@@ -41,7 +43,7 @@
 		"lint:page-list-ancestor": "wp-scripts format inc/page-list-ancestor/block/ && wp-scripts lint-js inc/page-list-ancestor/block/ --fix",
 		"lint:sitemap-page": "wp-scripts format inc/sitemap-page/block/ && wp-scripts lint-js inc/sitemap-page/block/ --fix",
 		"lint:sns": "wp-scripts format inc/sns/block/ && wp-scripts lint-js inc/sns/block/ --fix",
-"lint:panel": "wp-scripts format src/editor-panel/ && wp-scripts lint-js src/editor-panel/ --fix",
+		"lint:panel": "wp-scripts format src/editor-panel/ && wp-scripts lint-js src/editor-panel/ --fix",
 		"dist": "rm -rf dist/vk-all-in-one-expansion-unit && composer install --optimize-autoloader --prefer-dist --no-dev && npm run build && npx gulp dist",
 		"dist:github": "composer install --optimize-autoloader --prefer-dist --no-dev && npx gulp dist",
 		"dist:org": "composer install --optimize-autoloader --prefer-dist --no-dev",

@@ -176,7 +176,11 @@ function veu_register_active_feature_meta() {
 		if ( 'vkExUnit_cta_url' === $cta_key ) {
 			$sanitize = 'esc_url_raw';
 		} elseif ( 'vkExUnit_cta_img' === $cta_key ) {
-			$sanitize = 'absint';
+			// Image attachment ID: stored as string in DB for backward compatibility.
+			// 画像アタッチメントID: 後方互換のためDBでは文字列として保持。
+			$sanitize = function ( $value ) {
+				return (string) absint( $value );
+			};
 		}
 		register_post_meta(
 			'cta',
