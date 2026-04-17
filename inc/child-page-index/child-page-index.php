@@ -156,7 +156,7 @@ save_custom_field
 /*-------------------------------------------*/
 add_action( 'save_post', 'veu_child_page_index_save_custom_field' );
 function veu_child_page_index_save_custom_field( $post_id ) {
-	$childPageIndex = isset( $_POST['_nonce_vkExUnit__custom_field_childPageIndex'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit__custom_field_childPageIndex'] ) : null;
+	$childPageIndex = isset( $_POST['_nonce_vkExUnit__custom_field_childPageIndex'] ) ? sanitize_text_field( wp_unslash( $_POST['_nonce_vkExUnit__custom_field_childPageIndex'] ) ) : null;
 
 	if ( ! wp_verify_nonce( $childPageIndex, plugin_basename( __FILE__ ) ) ) {
 		return $post_id;
@@ -165,7 +165,7 @@ function veu_child_page_index_save_custom_field( $post_id ) {
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return $post_id; }
 
-	$data = isset( $_POST['vkExUnit_childPageIndex'] ) ? htmlspecialchars( $_POST['vkExUnit_childPageIndex'] ) : null;
+	$data = isset( $_POST['vkExUnit_childPageIndex'] ) ? sanitize_text_field( wp_unslash( $_POST['vkExUnit_childPageIndex'] ) ) : null;
 
 	if ( 'page' == $data ) {
 		if ( ! current_user_can( 'edit_page', $post_id ) ) {

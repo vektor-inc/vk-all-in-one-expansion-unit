@@ -136,7 +136,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		public static function save_custom_field( $post_id ) {
 			if ( ! isset( $_POST['_vkExUnit_cta_switch'] ) ) {
 				return $post_id; }
-			$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? htmlspecialchars( $_POST['_nonce_vkExUnit_custom_cta'] ) : null;
+			$noonce = isset( $_POST['_nonce_vkExUnit_custom_cta'] ) ? sanitize_text_field( wp_unslash( $_POST['_nonce_vkExUnit_custom_cta'] ) ) : null;
 
 			// if autosave is to deny.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
