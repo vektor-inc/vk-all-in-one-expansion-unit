@@ -23,6 +23,7 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import Icon from './icon.svg';
 
 const data = window.veuPanelData || {};
 const i18n = data.i18n || {};
@@ -126,7 +127,7 @@ const VeuSidebarInner = ( { postType } ) => {
 		<PluginSidebar
 			name="veu-settings"
 			title={ data.panelTitle || 'VK ExUnit' }
-			icon="admin-plugins"
+			icon={ <Icon /> }
 		>
 			{ /* 広告開示設定: priority 1, 3択セレクト */ }
 			{ isActive( 'promotion_alert' ) && (
