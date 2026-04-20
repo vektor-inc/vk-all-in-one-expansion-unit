@@ -12,9 +12,15 @@ module.exports = {
 	module: {
 		...defaultConfig.module,
 		rules: [
-			...( defaultConfig.module?.rules || [] ).filter(
-				( rule ) => ! ( rule.test && rule.test.toString().includes( 'svg' ) )
-			),
+			...( defaultConfig.module?.rules || [] ).filter( ( rule ) => {
+				if ( ! rule.test ) {
+					return true;
+				}
+				if ( ! ( rule.test instanceof RegExp ) ) {
+					return true;
+				}
+				return ! rule.test.toString().includes( 'svg' );
+			} ),
 			{
 				test: /\.svg$/i,
 				oneOf: [
