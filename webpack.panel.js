@@ -16,32 +16,40 @@ module.exports = {
 				( rule ) => ! ( rule.test && rule.test.toString().includes( 'svg' ) )
 			),
 			{
-				test: /\.svg$/,
-				use: [
+				test: /\.svg$/i,
+				oneOf: [
 					{
-						loader: '@svgr/webpack',
-						options: {
-							svgoConfig: {
-								plugins: [
-									{
-										name: 'preset-default',
-										params: {
-											overrides: {
-												inlineStyles: {
-													onlyMatchedOnce: false,
+						issuer: /\.[jt]sx?$/,
+						use: [
+							{
+								loader: '@svgr/webpack',
+								options: {
+									svgoConfig: {
+										plugins: [
+											{
+												name: 'preset-default',
+												params: {
+													overrides: {
+														inlineStyles: {
+															onlyMatchedOnce: false,
+														},
+														removeViewBox: false,
+													},
 												},
-												removeViewBox: false,
 											},
-										},
+											'convertStyleToAttrs',
+											{
+												name: 'convertColors',
+												params: { currentColor: true },
+											},
+										],
 									},
-									'convertStyleToAttrs',
-									{
-										name: 'convertColors',
-										params: { currentColor: true },
-									},
-								],
+								},
 							},
-						},
+						],
+					},
+					{
+						type: 'asset/resource',
 					},
 				],
 			},
