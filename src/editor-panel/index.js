@@ -70,7 +70,12 @@ const VeuSidebarInner = ( { postType } ) => {
 	);
 	const headTitleObject = useSelect(
 		( s ) => {
-			const record = s( 'core' ).getEntityRecord(
+			// fetch をトリガー（初回 resolver 起動用）
+			s( 'core' ).getEntityRecord( 'postType', postType, postId );
+			// 編集中の値を含めて読むため getEditedEntityRecord を使う。
+			// getEntityRecord だと editEntityRecord で書いた値が反映されず、
+			// TextControl の value が固定されて入力できなくなる。
+			const record = s( 'core' ).getEditedEntityRecord(
 				'postType',
 				postType,
 				postId
