@@ -83,6 +83,7 @@ e.g.
 
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
+[ Other ] Replace htmlspecialchars() with sanitize_text_field( wp_unslash() ) for $_POST input sanitization in save_post handlers.
 
 = 9.113.6 =
 [ Specification Change ] Update vektor-inc/font-awesome-versions from 0.7.0 to 0.7.2
