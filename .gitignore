@@ -15,6 +15,7 @@ vendor/
 /playwright/.cache/
 .phpunit.result.cache
 **/block/build/
+/build/
 
 # for AI Agents
 **/.serena

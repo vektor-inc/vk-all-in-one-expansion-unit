@@ -54,7 +54,7 @@
 		"build:block": "wp-scripts build --config webpack.config.js && webpack --config webpack2.config.js && webpack --config webpack.panel.js",
 		"phpunit": "wp-env run tests-cli --env-cwd='wp-content/plugins/vk-all-in-one-expansion-unit' vendor/bin/phpunit -c .phpunit.xml --verbose",
 		"prepare": "husky install",
-		"zip": "npx gulp dist && cd dist && zip -r vk-all-in-one-expansion-unit.zip vk-all-in-one-expansion-unit"
+		"zip": "npm run build && npx gulp dist && cd dist && zip -r vk-all-in-one-expansion-unit.zip vk-all-in-one-expansion-unit"
 	},
 	"repository": {
 		"type": "git",
