@@ -9,4 +9,56 @@ module.exports = {
 		path: path.resolve( __dirname, 'build/editor-panel' ),
 		filename: 'index.js',
 	},
+	module: {
+		...defaultConfig.module,
+		rules: [
+			...( defaultConfig.module?.rules || [] ).filter( ( rule ) => {
+				if ( ! rule.test ) {
+					return true;
+				}
+				if ( ! ( rule.test instanceof RegExp ) ) {
+					return true;
+				}
+				return ! rule.test.toString().includes( 'svg' );
+			} ),
+			{
+				test: /\.svg$/i,
+				oneOf: [
+					{
+						issuer: /\.[jt]sx?$/,
+						use: [
+							{
+								loader: '@svgr/webpack',
+								options: {
+									svgoConfig: {
+										plugins: [
+											{
+												name: 'preset-default',
+												params: {
+													overrides: {
+														inlineStyles: {
+															onlyMatchedOnce: false,
+														},
+														removeViewBox: false,
+													},
+												},
+											},
+											'convertStyleToAttrs',
+											{
+												name: 'convertColors',
+												params: { currentColor: true },
+											},
+										],
+									},
+								},
+							},
+						],
+					},
+					{
+						type: 'asset/resource',
+					},
+				],
+			},
+		],
+	},
 };
