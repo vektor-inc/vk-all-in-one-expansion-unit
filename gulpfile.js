@@ -189,6 +189,7 @@ gulp.task('dist', function() {
 				'./assets/**',
 				'./admin/**',
 				'./languages/**',
+				'./build/**',
 				"!./compile.bat",
 				"!./config.rb",
 				"!./tests/**",

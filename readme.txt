@@ -83,6 +83,7 @@ e.g.
 
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
+[ Bug Fix ] Fixed block editor sidebar panels not appearing on sites installed from the dist zip because the build/ directory was excluded from the dist package.
 [ Other ] Replace htmlspecialchars() with sanitize_text_field( wp_unslash() ) for $_POST input sanitization in save_post handlers.
 
 = 9.113.6 =
