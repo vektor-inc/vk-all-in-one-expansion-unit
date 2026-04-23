@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Other ][ 全ブロック ] WordPress 7.0 のパターン挿入時に各ブロックがロックされて編集できなくなる問題に対応。supports.contentRole を追加してパターン内で選択・操作可能にしました。
+
 = 9.114.0 =
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
