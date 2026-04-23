@@ -33,7 +33,9 @@ function veu_register_child_page_index_block() {
 			'editor_script'   => 'veu-block-child-page-index',
 			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_child_page_index_block_callback',
-			'supports'        => array(),
+			'supports'        => array(
+				'contentRole' => true,
+			),
 		)
 	);
 }

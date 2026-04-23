@@ -38,7 +38,9 @@ function veu_register_contact_section_block() {
 			'editor_script'   => 'veu-block-contact-section',
 			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_contact_section_block_callback',
-			'supports'        => array(),
+			'supports'        => array(
+				'contentRole' => true,
+			),
 		)
 	);
 }

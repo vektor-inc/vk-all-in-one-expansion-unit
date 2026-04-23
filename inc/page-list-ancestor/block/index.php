@@ -34,7 +34,9 @@ function veu_register_page_list_ancestor_block() {
 			'editor_script'   => 'veu-block-page-list-ancestor',
 			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_page_list_ancestor_block_callback',
-			'supports'        => array(),
+			'supports'        => array(
+				'contentRole' => true,
+			),
 		)
 	);
 }
