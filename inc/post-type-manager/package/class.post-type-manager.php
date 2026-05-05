@@ -684,12 +684,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'false' : 'true';
 
 			// 必須項目バリデーション.
+			// custom-fields は常に強制注入されるため、Supports の空チェックは不要（issue #1322）.
+			// custom-fields is always force-injected, so the Supports empty check is unnecessary (issue #1322).
 			$validation_errors = array();
 			if ( empty( $post_type_id ) ) {
 				$validation_errors[] = __( 'Post Type ID (Required): please enter a value.', 'vk-all-in-one-expansion-unit' );
-			}
-			if ( empty( $post_type_items ) ) {
-				$validation_errors[] = __( 'Supports (Required): please select at least one item.', 'vk-all-in-one-expansion-unit' );
 			}
 
 			// 復元用に入力値を一時保存（バリデーションエラー時にフォームへ反映）.

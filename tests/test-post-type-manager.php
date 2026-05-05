@@ -175,12 +175,15 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Required: Supports missing should not save meta, but should store draft transient.
+	 * Supports が POST に含まれない場合でも、custom-fields が強制補完されるため
+	 * バリデーションエラーは発生せず、メタが保存される事を確認する。
+	 * Issue #1322 の仕様に伴う既存テストの更新。
+	 *
+	 * Even when Supports is missing from POST, custom-fields is force-injected,
+	 * so validation does not fail and meta is saved (issue #1322).
 	 */
-	public function test_save_cf_value_missing_supports_sets_transients_and_does_not_update_meta() {
+	public function test_save_cf_value_missing_supports_still_saves_with_forced_custom_fields() {
 		$post_id = $this->create_post_type_manage_post();
-
-		update_post_meta( $post_id, 'veu_menu_position', '1' );
 
 		$_POST = array(
 			'noncename__post_type_manager' => $this->create_post_type_manager_nonce(),
@@ -191,16 +194,20 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 
 		VK_Post_Type_Manager::save_cf_value( $post_id );
 
-		$this->assertSame( '1', get_post_meta( $post_id, 'veu_menu_position', true ) );
-		$this->assertSame( '', get_post_meta( $post_id, 'veu_post_type_id', true ) );
+		// バリデーションエラーが発生しないため Post Type ID も保存される.
+		// Post Type ID is saved because validation does not fail.
+		$this->assertSame( 'event', get_post_meta( $post_id, 'veu_post_type_id', true ) );
 
+		// custom-fields は強制補完されている / custom-fields is force-injected.
+		$saved_items = get_post_meta( $post_id, 'veu_post_type_items', true );
+		$this->assertIsArray( $saved_items );
+		$this->assertArrayHasKey( 'custom-fields', $saved_items );
+		$this->assertSame( 'true', $saved_items['custom-fields'] );
+
+		// バリデーションエラーの transient はセットされない.
+		// Validation error transient should not be set.
 		$errors = get_transient( $this->get_validation_error_key( $post_id ) );
-		$this->assertIsArray( $errors );
-		$this->assertNotEmpty( $errors );
-
-		$draft = get_transient( $this->get_validation_draft_key( $post_id ) );
-		$this->assertIsArray( $draft );
-		$this->assertSame( 'event', $draft['veu_post_type_id'] );
+		$this->assertFalse( $errors );
 	}
 
 	/**
