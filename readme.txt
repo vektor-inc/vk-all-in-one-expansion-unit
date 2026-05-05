@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Post Type Manager ] Custom post types created via the Post Type Manager now always support 'custom-fields'. The 'custom-fields' checkbox in the Supports list has been replaced with an "Always enabled" indicator and can no longer be unchecked, so ExUnit settings (noindex / CSS / CTA, etc.) are guaranteed to be saved.
+
 [ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support, because the new block editor sidebar panel relies on REST API meta which is not exposed for those post types. The legacy metabox is now kept as a fallback on such post types.
 
 = 9.114.0 =

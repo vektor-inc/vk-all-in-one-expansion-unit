@@ -175,32 +175,100 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Required: Supports missing should not save meta, but should store draft transient.
+	 * Supports が POST に含まれない・空配列でも custom-fields が強制補完されるため
+	 * バリデーションエラーは発生せずメタが保存される事を、複数条件でまとめて検証する。
+	 * Issue #1322 の仕様に伴うテーブル駆動テスト。
+	 *
+	 * Table-driven test verifying that custom-fields is force-injected even when
+	 * Supports is missing or empty in POST, and that Post Type ID validation
+	 * still gates meta updates as a boundary case (issue #1322).
 	 */
-	public function test_save_cf_value_missing_supports_sets_transients_and_does_not_update_meta() {
-		$post_id = $this->create_post_type_manage_post();
-
-		update_post_meta( $post_id, 'veu_menu_position', '1' );
-
-		$_POST = array(
-			'noncename__post_type_manager' => $this->create_post_type_manager_nonce(),
-			'veu_post_type_id'             => 'event',
-			// 'veu_post_type_items' is intentionally missing.
-			'veu_menu_position'            => '10',
+	public function test_save_cf_value_missing_supports_still_saves_with_forced_custom_fields() {
+		// テスト条件と期待値の配列 / Test conditions and expected results.
+		$test_cases = array(
+			array(
+				'test_condition_name'          => 'Supports が POST に含まれない場合 => custom-fields が補完されメタが保存される',
+				'post_type_id'                 => 'event',
+				'include_post_type_items_post' => false,
+				'post_type_items_post'         => null,
+				'expected_meta_saved'          => true,
+				'expected_post_type_id_meta'   => 'event',
+				'expected_validation_error'    => false,
+			),
+			array(
+				'test_condition_name'          => 'Supports が空配列の場合 => custom-fields のみ補完されメタが保存される',
+				'post_type_id'                 => 'event',
+				'include_post_type_items_post' => true,
+				'post_type_items_post'         => array(),
+				'expected_meta_saved'          => true,
+				'expected_post_type_id_meta'   => 'event',
+				'expected_validation_error'    => false,
+			),
+			array(
+				'test_condition_name'          => 'Post Type ID 空 + Supports 未指定 => バリデーションエラーでメタは更新されない（境界値）',
+				'post_type_id'                 => '',
+				'include_post_type_items_post' => false,
+				'post_type_items_post'         => null,
+				'expected_meta_saved'          => false,
+				'expected_post_type_id_meta'   => '',
+				'expected_validation_error'    => true,
+			),
 		);
 
-		VK_Post_Type_Manager::save_cf_value( $post_id );
+		foreach ( $test_cases as $case ) {
+			// ケース毎にクリーンな投稿を作成 / Create a fresh post per case.
+			$post_id = $this->create_post_type_manage_post();
 
-		$this->assertSame( '1', get_post_meta( $post_id, 'veu_menu_position', true ) );
-		$this->assertSame( '', get_post_meta( $post_id, 'veu_post_type_id', true ) );
+			$_POST = array(
+				'noncename__post_type_manager' => $this->create_post_type_manager_nonce(),
+				'veu_post_type_id'             => $case['post_type_id'],
+				'veu_menu_position'            => '10',
+			);
+			// Supports（veu_post_type_items）を POST に含めるかどうかをケースで切替.
+			// Decide whether to include veu_post_type_items in POST per case.
+			if ( $case['include_post_type_items_post'] ) {
+				$_POST['veu_post_type_items'] = $case['post_type_items_post'];
+			}
 
-		$errors = get_transient( $this->get_validation_error_key( $post_id ) );
-		$this->assertIsArray( $errors );
-		$this->assertNotEmpty( $errors );
+			VK_Post_Type_Manager::save_cf_value( $post_id );
 
-		$draft = get_transient( $this->get_validation_draft_key( $post_id ) );
-		$this->assertIsArray( $draft );
-		$this->assertSame( 'event', $draft['veu_post_type_id'] );
+			// Post Type ID メタの期待値を検証 / Verify Post Type ID meta.
+			$this->assertSame(
+				$case['expected_post_type_id_meta'],
+				get_post_meta( $post_id, 'veu_post_type_id', true ),
+				$case['test_condition_name']
+			);
+
+			$saved_items = get_post_meta( $post_id, 'veu_post_type_items', true );
+
+			if ( $case['expected_meta_saved'] ) {
+				// custom-fields が強制補完されメタが保存されている事を検証.
+				// Verify that custom-fields is force-injected and meta is persisted.
+				$this->assertIsArray( $saved_items, $case['test_condition_name'] );
+				$this->assertArrayHasKey( 'custom-fields', $saved_items, $case['test_condition_name'] );
+				$this->assertSame( 'true', $saved_items['custom-fields'], $case['test_condition_name'] );
+			} else {
+				// バリデーション失敗時はメタが更新されていない事を検証.
+				// On validation failure, meta should not be updated.
+				$this->assertSame( '', $saved_items, $case['test_condition_name'] );
+			}
+
+			// バリデーションエラー transient の状態を検証.
+			// Verify validation error transient state.
+			$errors = get_transient( $this->get_validation_error_key( $post_id ) );
+			if ( $case['expected_validation_error'] ) {
+				$this->assertIsArray( $errors, $case['test_condition_name'] );
+				$this->assertNotEmpty( $errors, $case['test_condition_name'] );
+			} else {
+				$this->assertFalse( $errors, $case['test_condition_name'] );
+			}
+
+			// 後片付け / Cleanup.
+			delete_transient( $this->get_validation_error_key( $post_id ) );
+			delete_transient( $this->get_validation_draft_key( $post_id ) );
+			wp_delete_post( $post_id, true );
+			$_POST = array();
+		}
 	}
 
 	/**
@@ -221,10 +289,138 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 		VK_Post_Type_Manager::save_cf_value( $post_id );
 
 		$this->assertSame( 'event', get_post_meta( $post_id, 'veu_post_type_id', true ) );
-		$this->assertIsArray( get_post_meta( $post_id, 'veu_post_type_items', true ) );
+		$saved_items = get_post_meta( $post_id, 'veu_post_type_items', true );
+		$this->assertIsArray( $saved_items );
+		// custom-fields は強制有効化されるため必ず含まれる（issue #1322）.
+		// custom-fields must always be included (issue #1322).
+		$this->assertArrayHasKey( 'custom-fields', $saved_items );
+		$this->assertSame( 'true', $saved_items['custom-fields'] );
 		$this->assertSame( '10', get_post_meta( $post_id, 'veu_menu_position', true ) );
 		$this->assertSame( 'dashicons-admin-post', get_post_meta( $post_id, 'veu_menu_icon', true ) );
 		$this->assertSame( 'true', get_post_meta( $post_id, 'veu_post_type_export_to_api', true ) );
+	}
+
+	/**
+	 * custom-fields should always be present in saved meta even when not posted.
+	 * issue #1322
+	 */
+	public function test_save_cf_value_always_includes_custom_fields_meta() {
+		// テスト条件と期待値の配列。custom-fields の有無に関わらず必ずメタに含まれる事を確認する.
+		// Each case verifies that 'custom-fields' is always present in saved meta.
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'POST に custom-fields が含まれない場合でも、保存後メタに custom-fields => true が含まれる',
+				'post_items'          => array( 'title' => 'true' ),
+			),
+			array(
+				'test_condition_name' => 'POST に複数項目（title, editor）が含まれていても、custom-fields も自動付与される',
+				'post_items'          => array(
+					'title'  => 'true',
+					'editor' => 'true',
+				),
+			),
+			array(
+				'test_condition_name' => 'POST に custom-fields が明示指定されている場合も、メタに custom-fields => true が保持される',
+				'post_items'          => array(
+					'title'         => 'true',
+					'custom-fields' => 'true',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$post_id = $this->create_post_type_manage_post();
+
+			$_POST = array(
+				'noncename__post_type_manager' => $this->create_post_type_manager_nonce(),
+				'veu_post_type_id'             => 'event',
+				'veu_post_type_items'          => $case['post_items'],
+			);
+
+			VK_Post_Type_Manager::save_cf_value( $post_id );
+
+			$saved_items = get_post_meta( $post_id, 'veu_post_type_items', true );
+			$this->assertIsArray( $saved_items, $case['test_condition_name'] );
+			$this->assertArrayHasKey( 'custom-fields', $saved_items, $case['test_condition_name'] );
+			$this->assertSame( 'true', $saved_items['custom-fields'], $case['test_condition_name'] );
+
+			// 後片付け / Cleanup.
+			wp_delete_post( $post_id, true );
+			$_POST = array();
+		}
+	}
+
+	/**
+	 * Registered CPT should always declare 'custom-fields' support, even when meta does not include it.
+	 * Issue #1322 の仕様に伴うテーブル駆動テスト。
+	 *
+	 * Table-driven test verifying that VK_Post_Type_Manager::add_post_type() always
+	 * registers the CPT with custom-fields support, regardless of stored meta state
+	 * (legacy data without custom-fields, partial meta, or already-explicit meta).
+	 */
+	public function test_add_post_type_registers_with_custom_fields_support() {
+		// テスト条件と期待値の配列 / Test conditions and expected results.
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'メタに veu_post_type_items が未保存（旧データ）でも、登録時に custom-fields がサポートされる',
+				'post_type_id'        => 'force_cf_cpt_legacy',
+				'set_post_type_items' => false,
+				'post_type_items'     => null,
+				'expected_supports'   => array( 'title', 'custom-fields' ),
+			),
+			array(
+				'test_condition_name' => 'メタに title のみ含まれる場合でも、登録時に custom-fields が補完される',
+				'post_type_id'        => 'force_cf_cpt_partial',
+				'set_post_type_items' => true,
+				'post_type_items'     => array( 'title' => 'true' ),
+				'expected_supports'   => array( 'title', 'custom-fields' ),
+			),
+			array(
+				'test_condition_name' => 'メタに既に custom-fields が含まれる場合は重複追加されない（境界値）',
+				'post_type_id'        => 'force_cf_cpt_explicit',
+				'set_post_type_items' => true,
+				'post_type_items'     => array(
+					'title'         => 'true',
+					'custom-fields' => 'true',
+				),
+				'expected_supports'   => array( 'title', 'custom-fields' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// ケース毎にクリーンな post_type_manage 投稿を作成.
+			// Create a fresh post_type_manage post per case.
+			$post_id = $this->create_post_type_manage_post(
+				array(
+					'post_title' => 'Force CF CPT (' . $case['post_type_id'] . ')',
+				)
+			);
+
+			update_post_meta( $post_id, 'veu_post_type_id', $case['post_type_id'] );
+			if ( $case['set_post_type_items'] ) {
+				update_post_meta( $post_id, 'veu_post_type_items', $case['post_type_items'] );
+			}
+
+			// 念のため既に登録されていれば一度解除する / Unregister if already registered.
+			if ( post_type_exists( $case['post_type_id'] ) ) {
+				unregister_post_type( $case['post_type_id'] );
+			}
+
+			VK_Post_Type_Manager::add_post_type();
+
+			// 期待される全 supports が宣言されている事を検証.
+			// Verify that all expected supports are declared.
+			foreach ( $case['expected_supports'] as $support ) {
+				$this->assertTrue(
+					post_type_supports( $case['post_type_id'], $support ),
+					$case['test_condition_name'] . ' / supports: ' . $support
+				);
+			}
+
+			// 後片付け / Cleanup.
+			unregister_post_type( $case['post_type_id'] );
+			wp_delete_post( $post_id, true );
+		}
 	}
 
 	/**
