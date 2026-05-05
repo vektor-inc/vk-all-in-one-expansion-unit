@@ -26,9 +26,27 @@ function veu_add_parent_metabox() {
 		);
 		$post_types = get_post_types( $args );
 
-		// Add parent meta box on exists post types
+		// Add parent meta box on exists post types.
+		// 投稿タイプごとに統合メタボックスを登録する。
 		foreach ( $post_types as $key => $post_type ) {
-			add_meta_box( 'veu_parent_post_metabox', $meta_box_name, 'veu_parent_metabox_body', $post_type, 'normal', 'high', array( '__back_compat_meta_box' => true ) );
+			// __back_compat_meta_box => true means "this metabox is replaced by a Block Editor
+			// equivalent, so hide it on Block Editor screens (still show on Classic Editor)".
+			// We only set this flag for post types that support 'custom-fields', because the
+			// new sidebar panel relies on REST API meta which WordPress only exposes when
+			// 'custom-fields' is supported. For post types without that support, the sidebar
+			// panel cannot save values, so we must NOT mark the legacy metabox as back-compat;
+			// it has to remain visible on the Block Editor screen as the working UI.
+			//
+			// __back_compat_meta_box => true は「ブロックエディタで代替されるので
+			// ブロックエディタ画面では非表示（クラシックエディタでは表示）」を意味する。
+			// サイドバーパネルは REST API メタに依存しており、これは 'custom-fields' を
+			// サポートする投稿タイプでのみ露出される。非対応の投稿タイプではサイドバー
+			// パネルから保存できないため、このフラグを付けてはならない（旧メタボックスを
+			// ブロックエディタ画面でも実働 UI として表示し続ける必要がある）。
+			$callback_args = post_type_supports( $post_type, 'custom-fields' )
+				? array( '__back_compat_meta_box' => true )
+				: null;
+			add_meta_box( 'veu_parent_post_metabox', $meta_box_name, 'veu_parent_metabox_body', $post_type, 'normal', 'high', $callback_args );
 		}
 	}
 	/*
