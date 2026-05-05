@@ -856,7 +856,7 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					}
 					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.
 					$supports = array();
-					foreach ( $post_type_items as $key => $value ) {
+					foreach ( array_keys( $post_type_items ) as $key ) {
 						$supports[] = $key;
 					}
 
