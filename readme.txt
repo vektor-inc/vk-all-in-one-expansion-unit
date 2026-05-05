@@ -85,6 +85,8 @@ e.g.
 
 [ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support, because the new block editor sidebar panel relies on REST API meta which is not exposed for those post types. The legacy metabox is now kept as a fallback on such post types.
 
+[ Bug Fix ][ SNS Share Button ] Fixed an issue where the URL validation in the Hatena Bookmark and Facebook share count REST API callbacks was always skipped, allowing share counts to be fetched for URLs other than the current site. The condition used `strpos() < 0`, but `strpos()` returns `false` when the needle is not found and `false < 0` evaluates to `false` in PHP, so the 403 branch was never taken. Changed to `=== false` so external URLs are correctly rejected.
+
 [ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
 
 = 9.114.0 =
