@@ -85,6 +85,8 @@ e.g.
 
 [ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support, because the new block editor sidebar panel relies on REST API meta which is not exposed for those post types. The legacy metabox is now kept as a fallback on such post types.
 
+[ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
+
 = 9.114.0 =
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
