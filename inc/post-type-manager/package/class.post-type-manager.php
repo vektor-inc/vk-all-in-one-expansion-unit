@@ -272,10 +272,29 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<ul>';
 			foreach ( $post_type_items_array as $key => $label ) {
+				// custom-fields は ExUnit の各種設定（noindex / CSS / CTA 等）保存に必須のため強制有効化する.
+				// custom-fields is force-enabled because it is required to save ExUnit settings (noindex / CSS / CTA, etc.).
+				// See issue #1322.
+				if ( 'custom-fields' === $key ) {
+					echo '<li>';
+					echo '<span class="dashicons dashicons-yes" aria-hidden="true"></span> ';
+					echo esc_html( $label );
+					echo ' <small>(' . esc_html__( 'Always enabled', 'vk-all-in-one-expansion-unit' ) . ')</small>';
+					// 強制保存用の hidden を併置（保存処理側でも上書きしているが UI からも値が POST されるようにする）.
+					// Hidden input ensures the value is POSTed even though the save handler also enforces it.
+					echo '<input type="hidden" name="veu_post_type_items[custom-fields]" value="true">';
+					echo '</li>';
+					continue;
+				}
+
 				$checked = ( isset( $post_type_items_value[ $key ] ) && $post_type_items_value[ $key ] ) ? ' checked' : '';
 				echo '<li><label><input type="checkbox" id="veu_post_type_items[' . esc_attr( $key ) . ']" name="veu_post_type_items[' . esc_attr( $key ) . ']" value="true"' . esc_attr( $checked ) . '> ' . esc_html( $label ) . '</label></li>';
 			}
 			echo '</ul>';
+
+			// custom-fields 強制有効化に関する注記.
+			// Notice about forced custom-fields support.
+			echo '<p class="description">' . esc_html__( '"custom-fields" is always enabled to save ExUnit settings (noindex / CSS / CTA, etc.).', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
 			echo '<hr>';
 
@@ -641,6 +660,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				}
 			}
 
+			// custom-fields は ExUnit の各種設定（noindex / CSS / CTA 等）保存に必須のため強制注入する.
+			// Force-enable custom-fields support to ensure ExUnit settings (noindex / CSS / CTA, etc.) can be saved.
+			// See issue #1322.
+			$post_type_items['custom-fields'] = 'true';
+
 			$menu_posttion = isset( $_POST['veu_menu_position'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_menu_position'] ) ) : '';
 			$menu_icon     = isset( $_POST['veu_menu_icon'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_menu_icon'] ) ) : '';
 
@@ -831,8 +855,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					if ( ! $post_type_items ) {
 						$post_type_items = array( 'title' );
 					}
+					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.
+					$supports = array();
 					foreach ( $post_type_items as $key => $value ) {
 						$supports[] = $key;
+					}
+
+					// 強制サポートする項目（issue #1322）。配列にしておくことで将来の追加要件にも対応しやすくする.
+					// Forced supports (issue #1322). Kept as an array for future extensibility.
+					$forced_supports = array( 'custom-fields' );
+					foreach ( $forced_supports as $forced ) {
+						if ( ! in_array( $forced, $supports, true ) ) {
+							$supports[] = $forced;
+						}
 					}
 
 					// カスタム投稿タイプのスラッグ.

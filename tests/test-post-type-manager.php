@@ -221,10 +221,106 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 		VK_Post_Type_Manager::save_cf_value( $post_id );
 
 		$this->assertSame( 'event', get_post_meta( $post_id, 'veu_post_type_id', true ) );
-		$this->assertIsArray( get_post_meta( $post_id, 'veu_post_type_items', true ) );
+		$saved_items = get_post_meta( $post_id, 'veu_post_type_items', true );
+		$this->assertIsArray( $saved_items );
+		// custom-fields は強制有効化されるため必ず含まれる（issue #1322）.
+		// custom-fields must always be included (issue #1322).
+		$this->assertArrayHasKey( 'custom-fields', $saved_items );
+		$this->assertSame( 'true', $saved_items['custom-fields'] );
 		$this->assertSame( '10', get_post_meta( $post_id, 'veu_menu_position', true ) );
 		$this->assertSame( 'dashicons-admin-post', get_post_meta( $post_id, 'veu_menu_icon', true ) );
 		$this->assertSame( 'true', get_post_meta( $post_id, 'veu_post_type_export_to_api', true ) );
+	}
+
+	/**
+	 * custom-fields should always be present in saved meta even when not posted.
+	 * issue #1322
+	 */
+	public function test_save_cf_value_always_includes_custom_fields_meta() {
+		// テスト条件と期待値の配列。custom-fields の有無に関わらず必ずメタに含まれる事を確認する.
+		// Each case verifies that 'custom-fields' is always present in saved meta.
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'POST に custom-fields が含まれない場合でも、保存後メタに custom-fields => true が含まれる',
+				'post_items'          => array( 'title' => 'true' ),
+			),
+			array(
+				'test_condition_name' => 'POST に複数項目（title, editor）が含まれていても、custom-fields も自動付与される',
+				'post_items'          => array(
+					'title'  => 'true',
+					'editor' => 'true',
+				),
+			),
+			array(
+				'test_condition_name' => 'POST に custom-fields が明示指定されている場合も、メタに custom-fields => true が保持される',
+				'post_items'          => array(
+					'title'         => 'true',
+					'custom-fields' => 'true',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$post_id = $this->create_post_type_manage_post();
+
+			$_POST = array(
+				'noncename__post_type_manager' => $this->create_post_type_manager_nonce(),
+				'veu_post_type_id'             => 'event',
+				'veu_post_type_items'          => $case['post_items'],
+			);
+
+			VK_Post_Type_Manager::save_cf_value( $post_id );
+
+			$saved_items = get_post_meta( $post_id, 'veu_post_type_items', true );
+			$this->assertIsArray( $saved_items, $case['test_condition_name'] );
+			$this->assertArrayHasKey( 'custom-fields', $saved_items, $case['test_condition_name'] );
+			$this->assertSame( 'true', $saved_items['custom-fields'], $case['test_condition_name'] );
+
+			// 後片付け / Cleanup.
+			wp_delete_post( $post_id, true );
+			$_POST = array();
+		}
+	}
+
+	/**
+	 * Registered CPT should always declare 'custom-fields' support, even when meta does not include it.
+	 * issue #1322
+	 */
+	public function test_add_post_type_registers_with_custom_fields_support() {
+		$post_id = $this->create_post_type_manage_post(
+			array(
+				'post_title' => 'Force CF CPT',
+			)
+		);
+
+		// あえて custom-fields をメタに入れずに CPT を登録する（旧データ想定）.
+		// Intentionally save meta without custom-fields to simulate legacy data.
+		update_post_meta( $post_id, 'veu_post_type_id', 'force_cf_cpt' );
+		update_post_meta(
+			$post_id,
+			'veu_post_type_items',
+			array(
+				'title'  => 'true',
+				'editor' => 'true',
+			)
+		);
+
+		// 念のため、既に登録されていれば一度解除する / Unregister if already registered.
+		if ( post_type_exists( 'force_cf_cpt' ) ) {
+			unregister_post_type( 'force_cf_cpt' );
+		}
+
+		VK_Post_Type_Manager::add_post_type();
+
+		// add_post_type 後は custom-fields がサポートされている事.
+		// After add_post_type(), custom-fields support must be declared.
+		$this->assertTrue(
+			post_type_supports( 'force_cf_cpt', 'custom-fields' ),
+			'CPT must support custom-fields even if meta did not include it (issue #1322).'
+		);
+
+		// 後片付け / Cleanup.
+		unregister_post_type( 'force_cf_cpt' );
 	}
 
 	/**
