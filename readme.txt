@@ -87,6 +87,8 @@ e.g.
 
 [ Bug Fix ][ SNS Share Button ] Fixed an issue where the URL validation in the Hatena Bookmark and Facebook share count REST API callbacks was always skipped, allowing share counts to be fetched for URLs other than the current site. The condition used `strpos() < 0`, but `strpos()` returns `false` when the needle is not found and `false < 0` evaluates to `false` in PHP, so the 403 branch was never taken. Changed to `=== false` so external URLs are correctly rejected.
 
+[ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
+
 = 9.114.0 =
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process

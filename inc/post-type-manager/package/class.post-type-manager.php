@@ -938,7 +938,15 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						 */
 
 						// カスタムフィールドに連想配列で格納しておいたカスタム分類の情報を取得.
+						// Retrieve custom taxonomy info stored as an associative array in custom fields.
 						$veu_taxonomies = get_post_meta( $post->ID, 'veu_taxonomy', true );
+
+						// 配列以外（空文字列など）が保存されているレコードに対する PHP 8 系 Warning 対策.
+						// Guard against non-array values (e.g. empty string) saved in some legacy records,
+						// which would otherwise trigger PHP 8 warnings on the foreach below.
+						if ( ! is_array( $veu_taxonomies ) ) {
+							$veu_taxonomies = array();
+						}
 
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
 							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
