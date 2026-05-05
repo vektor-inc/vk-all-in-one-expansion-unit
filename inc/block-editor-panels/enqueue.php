@@ -143,6 +143,16 @@ function veu_register_active_feature_meta() {
 		foreach ( $metas as $meta ) {
 			$target_post_types = isset( $meta['post_type'] ) ? array( $meta['post_type'] ) : $post_types;
 			foreach ( $target_post_types as $post_type ) {
+				// Skip post types that do not support 'custom-fields'.
+				// REST API does not expose meta on such post types, so register_post_meta would
+				// not be saved through the block editor sidebar panel. The legacy metabox is
+				// kept (via __back_compat_meta_box) and will be used as a fallback instead.
+				// 'custom-fields' をサポートしない投稿タイプはスキップする。
+				// REST API がメタを露出しないためサイドバーパネルから保存できないので、
+				// __back_compat_meta_box によって残された旧メタボックスにフォールバックさせる。
+				if ( ! post_type_supports( $post_type, 'custom-fields' ) ) {
+					continue;
+				}
 				$args = array(
 					'type'          => $meta['type'],
 					'single'        => true,
@@ -221,6 +231,25 @@ function veu_register_head_title_rest_field() {
 
 	$post_types = get_post_types( array( 'public' => true ) );
 
+	// Limit REST field registration to post types that support 'custom-fields'.
+	// Post types without this support do not expose meta via REST and cannot
+	// persist values from the sidebar panel; they fall back to the legacy metabox.
+	// 'custom-fields' をサポートする投稿タイプのみに REST フィールド登録を限定する。
+	// 非対応の投稿タイプは REST にメタを露出できずサイドバーから保存できないため、
+	// 旧メタボックスにフォールバックさせる。
+	$post_types = array_values(
+		array_filter(
+			$post_types,
+			function ( $post_type ) {
+				return post_type_supports( $post_type, 'custom-fields' );
+			}
+		)
+	);
+
+	if ( empty( $post_types ) ) {
+		return;
+	}
+
 	register_rest_field(
 		$post_types,
 		'veu_head_title_object',
@@ -275,6 +304,16 @@ function veu_enqueue_block_editor_panels() {
 	// 投稿エディタのみで読み込む（サイトエディタ・ウィジェットエディタでは不要）。
 	$screen = get_current_screen();
 	if ( ! $screen || ! $screen->is_block_editor || empty( $screen->post_type ) ) {
+		return;
+	}
+
+	// Bail out for post types without 'custom-fields' support.
+	// REST API hides meta on such post types, so the sidebar panel cannot
+	// persist values; the legacy metabox is shown instead as a fallback.
+	// 'custom-fields' をサポートしない投稿タイプでは早期リターンする。
+	// REST API がメタを隠すためサイドバーパネルから保存できず、
+	// 旧メタボックスへフォールバックさせる必要があるため。
+	if ( ! post_type_supports( $screen->post_type, 'custom-fields' ) ) {
 		return;
 	}
 
@@ -431,9 +470,20 @@ add_action( 'enqueue_block_editor_assets', 'veu_enqueue_block_editor_panels' );
  */
 function veu_remove_legacy_metabox_on_block_editor() {
 	$screen = get_current_screen();
-	if ( ! $screen || ! $screen->is_block_editor ) {
+	if ( ! $screen || ! $screen->is_block_editor || empty( $screen->post_type ) ) {
 		return;
 	}
+
+	// Keep the legacy metabox visible for post types without 'custom-fields' support.
+	// The sidebar panel cannot save values for these post types (REST API does not
+	// expose their meta), so the legacy metabox must remain as the working UI.
+	// 'custom-fields' をサポートしない投稿タイプでは旧メタボックスを残す。
+	// サイドバーパネルでは保存できない（REST API がメタを露出しない）ため、
+	// 旧メタボックスを実働 UI として残す必要がある。
+	if ( ! post_type_supports( $screen->post_type, 'custom-fields' ) ) {
+		return;
+	}
+
 	// Remove the unified legacy metabox used on post/page/custom post types.
 	// 投稿・固定ページ・カスタム投稿タイプで使われる統合版の旧メタボックスを削除。
 	remove_meta_box( 'veu_parent_post_metabox', $screen->post_type, 'normal' );
