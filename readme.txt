@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 9.114.0
+Stable tag: 9.115.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,16 @@ e.g.
 
 == Changelog ==
 
-[ Other ][ 全ブロック ] WordPress 7.0 のパターン挿入時にブロックがロックされて編集できなくなる問題に対応。
+= 9.115.0 =
+[ Spec Change ][ Post Type Manager ] Custom post types created via the Post Type Manager now always support 'custom-fields'. The 'custom-fields' checkbox in the Supports list has been replaced with an "Always enabled" indicator and can no longer be unchecked, so ExUnit settings (noindex / CSS / CTA, etc.) are guaranteed to be saved.
+
+[ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support, because the new block editor sidebar panel relies on REST API meta which is not exposed for those post types. The legacy metabox is now kept as a fallback on such post types.
+
+[ Bug Fix ][ SNS Share Button ] Fixed an issue where the URL validation in the Hatena Bookmark and Facebook share count REST API callbacks was always skipped, allowing share counts to be fetched for URLs other than the current site. The condition used `strpos() < 0`, but `strpos()` returns `false` when the needle is not found and `false < 0` evaluates to `false` in PHP, so the 403 branch was never taken. Changed to `=== false` so external URLs are correctly rejected.
+
+[ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
+
+[ Other ][ All Blocks ] Fixed an issue where blocks inserted from patterns could not be edited in WordPress 7.0.
 
 = 9.114.0 =
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels

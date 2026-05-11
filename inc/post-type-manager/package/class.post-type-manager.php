@@ -272,10 +272,29 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 			echo '<ul>';
 			foreach ( $post_type_items_array as $key => $label ) {
+				// custom-fields は ExUnit の各種設定（noindex / CSS / CTA 等）保存に必須のため強制有効化する.
+				// custom-fields is force-enabled because it is required to save ExUnit settings (noindex / CSS / CTA, etc.).
+				// See issue #1322.
+				if ( 'custom-fields' === $key ) {
+					echo '<li>';
+					echo '<span class="dashicons dashicons-yes" aria-hidden="true"></span> ';
+					echo esc_html( $label );
+					echo ' <small>(' . esc_html__( 'Always enabled', 'vk-all-in-one-expansion-unit' ) . ')</small>';
+					// 強制保存用の hidden を併置（保存処理側でも上書きしているが UI からも値が POST されるようにする）.
+					// Hidden input ensures the value is POSTed even though the save handler also enforces it.
+					echo '<input type="hidden" name="veu_post_type_items[custom-fields]" value="true">';
+					echo '</li>';
+					continue;
+				}
+
 				$checked = ( isset( $post_type_items_value[ $key ] ) && $post_type_items_value[ $key ] ) ? ' checked' : '';
 				echo '<li><label><input type="checkbox" id="veu_post_type_items[' . esc_attr( $key ) . ']" name="veu_post_type_items[' . esc_attr( $key ) . ']" value="true"' . esc_attr( $checked ) . '> ' . esc_html( $label ) . '</label></li>';
 			}
 			echo '</ul>';
+
+			// custom-fields 強制有効化に関する注記.
+			// Notice about forced custom-fields support.
+			echo '<p class="description">' . esc_html__( '"custom-fields" is always enabled to save ExUnit settings (noindex / CSS / CTA, etc.).', 'vk-all-in-one-expansion-unit' ) . '</p>';
 
 			echo '<hr>';
 
@@ -641,6 +660,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 				}
 			}
 
+			// custom-fields は ExUnit の各種設定（noindex / CSS / CTA 等）保存に必須のため強制注入する.
+			// Force-enable custom-fields support to ensure ExUnit settings (noindex / CSS / CTA, etc.) can be saved.
+			// See issue #1322.
+			$post_type_items['custom-fields'] = 'true';
+
 			$menu_posttion = isset( $_POST['veu_menu_position'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_menu_position'] ) ) : '';
 			$menu_icon     = isset( $_POST['veu_menu_icon'] ) ? sanitize_text_field( wp_unslash( $_POST['veu_menu_icon'] ) ) : '';
 
@@ -660,12 +684,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$is_embeddable = isset( $_POST['veu_is_embeddable'] ) ? 'false' : 'true';
 
 			// 必須項目バリデーション.
+			// custom-fields は常に強制注入されるため、Supports の空チェックは不要（issue #1322）.
+			// custom-fields is always force-injected, so the Supports empty check is unnecessary (issue #1322).
 			$validation_errors = array();
 			if ( empty( $post_type_id ) ) {
 				$validation_errors[] = __( 'Post Type ID (Required): please enter a value.', 'vk-all-in-one-expansion-unit' );
-			}
-			if ( empty( $post_type_items ) ) {
-				$validation_errors[] = __( 'Supports (Required): please select at least one item.', 'vk-all-in-one-expansion-unit' );
 			}
 
 			// 復元用に入力値を一時保存（バリデーションエラー時にフォームへ反映）.
@@ -831,8 +854,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					if ( ! $post_type_items ) {
 						$post_type_items = array( 'title' );
 					}
-					foreach ( $post_type_items as $key => $value ) {
+					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.
+					$supports = array();
+					foreach ( array_keys( $post_type_items ) as $key ) {
 						$supports[] = $key;
+					}
+
+					// 強制サポートする項目（issue #1322）。配列にしておくことで将来の追加要件にも対応しやすくする.
+					// Forced supports (issue #1322). Kept as an array for future extensibility.
+					$forced_supports = array( 'custom-fields' );
+					foreach ( $forced_supports as $forced ) {
+						if ( ! in_array( $forced, $supports, true ) ) {
+							$supports[] = $forced;
+						}
 					}
 
 					// カスタム投稿タイプのスラッグ.
@@ -904,7 +938,15 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						 */
 
 						// カスタムフィールドに連想配列で格納しておいたカスタム分類の情報を取得.
+						// Retrieve custom taxonomy info stored as an associative array in custom fields.
 						$veu_taxonomies = get_post_meta( $post->ID, 'veu_taxonomy', true );
+
+						// 配列以外（空文字列など）が保存されているレコードに対する PHP 8 系 Warning 対策.
+						// Guard against non-array values (e.g. empty string) saved in some legacy records,
+						// which would otherwise trigger PHP 8 warnings on the foreach below.
+						if ( ! is_array( $veu_taxonomies ) ) {
+							$veu_taxonomies = array();
+						}
 
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
 							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
