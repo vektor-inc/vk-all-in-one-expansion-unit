@@ -38,17 +38,19 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        # Composer 2.9.7 が JWT 形式の GITHUB_TOKEN (ghs_*.*.*) を
-        # "invalid characters" として弾くため、v2.8 系に固定
-        tools: composer:v2.8
-    - name: Setup Node 
+    - name: Setup Node
       uses: actions/setup-node@v1
       with:
         node-version: 20.x
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
-      run: composer install
+      # GitHub Actions の GITHUB_TOKEN が JWT 入りの ghs_*.*.* 形式に変更され、
+      # Composer の OAuth トークン検証 (英数字 + アンダースコアのみ許可) を通らず
+      # "invalid characters" で失敗するため、auth.json から該当エントリを除去してから install する。
+      run: |
+        composer config --global --unset github-oauth.github.com || true
+        composer install
     - name: Install WP-CLI
       run: |
         curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
