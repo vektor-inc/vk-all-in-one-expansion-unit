@@ -38,6 +38,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
+        tools: composer:v2.8
     - name: Setup Node 
       uses: actions/setup-node@v1
       with:
