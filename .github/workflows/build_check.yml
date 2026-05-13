@@ -38,6 +38,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
+        # Composer 2.9.7 が JWT 形式の GITHUB_TOKEN (ghs_*.*.*) を
+        # "invalid characters" として弾くため、v2.8 系に固定
         tools: composer:v2.8
     - name: Setup Node 
       uses: actions/setup-node@v1
