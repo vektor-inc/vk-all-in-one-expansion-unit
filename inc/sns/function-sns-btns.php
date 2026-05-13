@@ -460,10 +460,20 @@ function vew_sns_hatena_restapi_callback( $data ) {
 	// Avoiding Apache config "AllowEncodedSlashes" option issue
 	$link_url = str_replace( '-#-', '/', urldecode( $data['linkurl'] ) );
 
-	// strpos() returns false when the needle is not found, and false < 0 evaluates to false in PHP,
-	// which previously caused the URL validation to be skipped entirely. Use === false to correctly
-	// reject URLs that do not belong to this site.
-	if ( false === strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) ) {
+	// ホスト名のみを抽出して厳密に比較する。
+	// 部分文字列一致 (strpos) では example.com.attacker.com のような
+	// 攻撃者制御下のドメインで自サイトのホスト名を含めることでバリデーションを
+	// 迂回されうるため、wp_parse_url() でホスト名のみを取り出し、
+	// 大文字小文字を無視して完全一致 (strcasecmp) で判定する。サブドメインは許可しない。
+	// Extract only the host name and compare strictly. Substring matching with
+	// strpos can be bypassed by attacker-controlled domains such as
+	// example.com.attacker.com that contain the site's host name, so we extract
+	// the host with wp_parse_url() and compare for an exact, case-insensitive
+	// match. Subdomains are not allowed.
+	$link_host = wp_parse_url( $link_url, PHP_URL_HOST );
+	$site_host = wp_parse_url( $siteurl, PHP_URL_HOST );
+
+	if ( empty( $link_host ) || empty( $site_host ) || 0 !== strcasecmp( $link_host, $site_host ) ) {
 		$response = new WP_REST_Response( array() );
 		$response->set_status( 403 );
 		return $response;
@@ -507,10 +517,20 @@ function vew_sns_facebook_restapi_callback( $data ) {
 	// Avoiding Apache config "AllowEncodedSlashes" option issue
 	$link_url = str_replace( '-#-', '/', urldecode( $data['linkurl'] ) );
 
-	// strpos() returns false when the needle is not found, and false < 0 evaluates to false in PHP,
-	// which previously caused the URL validation to be skipped entirely. Use === false to correctly
-	// reject URLs that do not belong to this site.
-	if ( false === strpos( preg_replace( '/^https?:\/\//', '', $link_url ), preg_replace( '/^https?:\/\//', '', $siteurl ) ) ) {
+	// ホスト名のみを抽出して厳密に比較する。
+	// 部分文字列一致 (strpos) では example.com.attacker.com のような
+	// 攻撃者制御下のドメインで自サイトのホスト名を含めることでバリデーションを
+	// 迂回されうるため、wp_parse_url() でホスト名のみを取り出し、
+	// 大文字小文字を無視して完全一致 (strcasecmp) で判定する。サブドメインは許可しない。
+	// Extract only the host name and compare strictly. Substring matching with
+	// strpos can be bypassed by attacker-controlled domains such as
+	// example.com.attacker.com that contain the site's host name, so we extract
+	// the host with wp_parse_url() and compare for an exact, case-insensitive
+	// match. Subdomains are not allowed.
+	$link_host = wp_parse_url( $link_url, PHP_URL_HOST );
+	$site_host = wp_parse_url( $siteurl, PHP_URL_HOST );
+
+	if ( empty( $link_host ) || empty( $site_host ) || 0 !== strcasecmp( $link_host, $site_host ) ) {
 		$response = new WP_REST_Response( array() );
 		$response->set_status( 403 );
 		return $response;

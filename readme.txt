@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Security Fix ][ SNS Share Button ] Strengthened URL validation in the Hatena Bookmark and Facebook share count REST API callbacks. The previous substring-based check could be bypassed by attacker-controlled hosts that embed the site's host name (e.g. example.com.attacker.com), allowing share counts to be fetched for external URLs. The host name is now extracted with wp_parse_url() and compared with the site's host name using a case-insensitive exact match. Subdomains are not allowed.
+
 = 9.115.0 =
 [ Spec Change ][ Post Type Manager ] Custom post types created via the Post Type Manager now always support 'custom-fields'. The 'custom-fields' checkbox in the Supports list has been replaced with an "Always enabled" indicator and can no longer be unchecked, so ExUnit settings (noindex / CSS / CTA, etc.) are guaranteed to be saved.
 
