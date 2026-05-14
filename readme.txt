@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 9.115.0
+Stable tag: 9.115.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.115.1 =
 [ Security Fix ][ SNS Share Button ] Strengthened URL validation in the Hatena Bookmark and Facebook share count REST API callbacks. The previous substring-based check could be bypassed by attacker-controlled hosts that embed the site's host name (e.g. example.com.attacker.com), allowing share counts to be fetched for external URLs. The host name is now extracted with wp_parse_url() and compared with the site's host name using a case-insensitive exact match. Subdomains are not allowed.
 
 [ Bug Fix ] Fixed an issue where vk_admin.js and the related CSS returned 404 on sites where WordPress is installed in a custom directory or wp-content has been moved, because the asset URL was resolved from the absolute filesystem path. The asset URL is now resolved via plugins_url() so that it works regardless of the WordPress directory structure.
