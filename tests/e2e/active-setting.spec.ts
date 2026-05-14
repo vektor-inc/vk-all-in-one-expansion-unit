@@ -18,14 +18,14 @@ test('Active Setting first save respects selections', async ({ page }) => {
   }
 
   // login
-  await page.goto('http://localhost:8889/wp-login.php');
+  await page.goto('/wp-login.php');
   await page.getByLabel('Username or Email Address').fill('admin');
   await page.getByLabel('Username or Email Address').press('Tab');
   await page.getByLabel('Password', { exact: true }).fill('password');
   await page.getByLabel('Password', { exact: true }).press('Enter');
 
   // Go to Active Setting page
-  await page.goto('http://localhost:8889/wp-admin/admin.php?page=vkExUnit_setting_page');
+  await page.goto('/wp-admin/admin.php?page=vkExUnit_setting_page');
 
   const metaCheckbox = page.locator('#checkbox_active_metaDescription');
   await expect(metaCheckbox).toBeVisible();
