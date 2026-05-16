@@ -44,36 +44,51 @@ const editorFrame = ( page: Page ): FrameLocator =>
 
 // 投稿 / CTA 投稿をすべて強制削除して初期化する。
 // テスト用の Test CTA / Post with CTA 等の残骸を取り除く。
+// セットアップ失敗が flake の原因にならないよう、wp-cli の失敗は throw で表面化する。
+// （wp-env が立っていない・コンテナ取得不能などの致命的な状況は早期に検出したい）
 const resetPosts = (): void => {
 	for ( const postType of [ 'post', 'cta' ] ) {
+		let ids: string;
 		try {
-			const ids = runWpCli( [
+			ids = runWpCli( [
 				'post',
 				'list',
 				`--post_type=${ postType }`,
 				'--post_status=any',
 				'--format=ids',
 			] ).trim();
-			if ( ids ) {
-				runWpCli( [
-					'post',
-					'delete',
-					'--force',
-					...ids.split( /\s+/ ),
-				] );
-			}
-		} catch ( _e ) {
-			// 取得・削除失敗は無視（テストを止めない）
+		} catch ( e ) {
+			const message = e instanceof Error ? e.message : String( e );
+			throw new Error(
+				`resetPosts: failed to list ${ postType } via tests-cli: ${ message }`
+			);
+		}
+		if ( ! ids ) {
+			continue;
+		}
+		try {
+			runWpCli( [
+				'post',
+				'delete',
+				'--force',
+				...ids.split( /\s+/ ),
+			] );
+		} catch ( e ) {
+			const message = e instanceof Error ? e.message : String( e );
+			throw new Error(
+				`resetPosts: failed to delete ${ postType } posts via tests-cli: ${ message }`
+			);
 		}
 	}
 };
 
 // 編集画面で Welcome guide modal が表示されたら閉じる。
 const closeWelcomeModalIfPresent = async ( page: Page ): Promise<void> => {
-	const isModalVisible = await page.isVisible( '.components-modal__frame' );
-	if ( isModalVisible ) {
+	const modal = page.locator( '.components-modal__frame' );
+	if ( await modal.isVisible() ) {
 		await page.click( 'button[aria-label="Close"]' );
-		await page.waitForTimeout( 300 );
+		// 固定スリープではなく、モーダルが実際に閉じるまで待つ。
+		await modal.waitFor( { state: 'hidden', timeout: 5000 } );
 	}
 };
 
@@ -132,12 +147,27 @@ const publishPost = async ( page: Page ): Promise<void> => {
 			exact: true,
 		} );
 	}
-	// 公開パネルが表示されるまで少し待つ。
-	await page.waitForTimeout( 500 );
-	await confirmBtn.last().click();
+	// 公開パネルが完全に表示されてからクリックする（固定スリープ廃止）。
+	const target = confirmBtn.last();
+	await target.waitFor( { state: 'visible', timeout: 5000 } );
+	await target.click();
 
-	// 公開完了を確実に反映させる。
-	await page.waitForTimeout( 1500 );
+	// 公開完了を UI 状態で待つ。Block Editor は公開後に top bar の
+	// Publish ボタンが "Saved" / "Update" 表示に切替わるか、"Post published"
+	// スナックバーが表示されるため、いずれかを待機する。
+	const snackbar = page.locator( '.components-snackbar' ).filter( {
+		hasText: /Published|published/i,
+	} );
+	const savedBtn = page
+		.getByRole( 'region', { name: 'Editor top bar' } )
+		.getByRole( 'button', { name: /^(Saved|Save|Update)$/, exact: false } );
+	await Promise.race( [
+		snackbar.first().waitFor( { state: 'visible', timeout: 10000 } ),
+		savedBtn.first().waitFor( { state: 'visible', timeout: 10000 } ),
+	] ).catch( () => {
+		// どちらも掴めなくても致命ではないため握りつぶす（後続の goto で
+		// ページ遷移すれば自然に確定する）。
+	} );
 };
 
 test.describe( 'CTA', () => {
@@ -274,8 +304,11 @@ test.describe( 'CTA', () => {
 
 		// --- 削除済み CTA を参照している投稿を再オープン ---
 		await page.goto( '/wp-admin/edit.php' );
+		// アクセシブルネームに含まれる引用符は WordPress / ロケールにより
+		// "…" / "..." / "&quot;" など揺らぐため、タイトル部分のみで部分一致させる。
 		await page
-			.getByRole( 'link', { name: '“Post with CTA” (Edit)' } )
+			.getByRole( 'link', { name: /Post with CTA/i } )
+			.first()
 			.click();
 		await waitForBlockEditorReady( page );
 		await closeWelcomeModalIfPresent( page );

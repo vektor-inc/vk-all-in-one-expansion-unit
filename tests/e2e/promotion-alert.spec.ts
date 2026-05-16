@@ -35,32 +35,65 @@ const runWpCli = ( args: string[] ): string => {
 };
 
 // テスト用 CPT 設定投稿（post_type_manage）と Promotion 設定をリセット。
-// option / 投稿の不存在エラーは握りつぶす（reset 用なので未存在は OK）。
+// option / 投稿が未存在の場合だけ握りつぶし、それ以外の wp-cli 失敗は
+// セットアップ起因の flake を防ぐため throw で表面化する。
 const resetPromotionAlertState = (): void => {
 	try {
 		runWpCli( [ 'option', 'delete', 'vkExUnit_PA' ] );
-	} catch ( _e ) {
-		// option が無い場合は無視
+	} catch ( e ) {
+		// wp-cli は未存在 option を delete しようとすると
+		// "Could not delete '...' option. Does it exist?" を返す。
+		// これだけは想定内として握りつぶし、それ以外は再 throw する。
+		const stderr =
+			e && typeof e === 'object' && 'stderr' in e
+				? String( ( e as { stderr?: unknown } ).stderr ?? '' )
+				: '';
+		const message = e instanceof Error ? e.message : String( e );
+		const haystack = `${ stderr }\n${ message }`;
+		const isMissingOption =
+			/Could not delete\s+'vkExUnit_PA'\s+option\.\s*Does it exist\?/i.test(
+				haystack
+			) ||
+			( /vkExUnit_PA/.test( haystack ) &&
+				/does(?:\s+not)?\s+exist/i.test( haystack ) );
+		if ( ! isMissingOption ) {
+			throw new Error(
+				`resetPromotionAlertState: failed to delete vkExUnit_PA option via tests-cli: ${ message }`
+			);
+		}
 	}
+
+	// post_type_manage 投稿を全削除（強制削除でゴミ箱経由しない）。
+	let ids: string;
 	try {
-		// post_type_manage 投稿を全削除（強制削除でゴミ箱経由しない）。
-		const ids = runWpCli( [
+		ids = runWpCli( [
 			'post',
 			'list',
 			'--post_type=post_type_manage',
 			'--post_status=any',
 			'--format=ids',
 		] ).trim();
-		if ( ids ) {
-			runWpCli( [
-				'post',
-				'delete',
-				'--force',
-				...ids.split( /\s+/ ),
-			] );
-		}
-	} catch ( _e ) {
-		// 失敗してもテスト続行
+	} catch ( e ) {
+		const message = e instanceof Error ? e.message : String( e );
+		throw new Error(
+			`resetPromotionAlertState: failed to list post_type_manage via tests-cli: ${ message }`
+		);
+	}
+	if ( ! ids ) {
+		return;
+	}
+	try {
+		runWpCli( [
+			'post',
+			'delete',
+			'--force',
+			...ids.split( /\s+/ ),
+		] );
+	} catch ( e ) {
+		const message = e instanceof Error ? e.message : String( e );
+		throw new Error(
+			`resetPromotionAlertState: failed to delete post_type_manage posts via tests-cli: ${ message }`
+		);
 	}
 };
 
@@ -135,12 +168,11 @@ test.describe( 'Promotion Disclosure', () => {
 			.waitFor( { timeout: 15000 } );
 
 		// Welcome guide modal が出る場合は閉じる。
-		const isModalVisible = await page.isVisible(
-			'.components-modal__frame'
-		);
-		if ( isModalVisible ) {
+		const modal = page.locator( '.components-modal__frame' );
+		if ( await modal.isVisible() ) {
 			await page.click( 'button[aria-label="Close"]' );
-			await page.waitForTimeout( 300 );
+			// 固定スリープではなく、モーダルが実際に閉じるまで待つ。
+			await modal.waitFor( { state: 'hidden', timeout: 5000 } );
 		}
 
 		// VK ExUnit の PluginSidebar アイコンをクリックして開く。
@@ -158,14 +190,8 @@ test.describe( 'Promotion Disclosure', () => {
 			} )
 		).toBeVisible();
 
-		// --- 後片付け: 作成した CPT 設定投稿を削除 ---
-		await page.goto(
-			'/wp-admin/edit.php?post_type=post_type_manage'
-		);
-		await page.locator( '#cb-select-all-1' ).check();
-		await page
-			.locator( '#bulk-action-selector-top' )
-			.selectOption( 'trash' );
-		await page.locator( '#doaction' ).click();
+		// 後片付けは afterAll の resetPromotionAlertState() に任せる。
+		// UI 経由のクリーンアップは失敗しても検出できないため、
+		// wp-cli ベースの確実な削除に一本化する。
 	} );
 } );
