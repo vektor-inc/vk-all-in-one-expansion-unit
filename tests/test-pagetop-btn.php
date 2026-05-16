@@ -1,0 +1,327 @@
+<?php
+/**
+ * Tests for the page top button (inc/pagetop-btn/pagetop-btn.php).
+ *
+ * @package Vk_All_In_One_Expansion_Unit
+ */
+
+/**
+ * Class Test_Pagetop_Btn
+ */
+class Test_Pagetop_Btn extends WP_UnitTestCase {
+
+	/**
+	 * Reset option between tests so cases stay independent.
+	 * テスト間でオプションをクリアして独立性を保つ。
+	 */
+	public function tear_down() {
+		delete_option( 'vkExUnit_pagetop' );
+		parent::tear_down();
+	}
+
+	/**
+	 * Test veu_pagetop_sanitize_image_url() with various inputs.
+	 *
+	 * 画像 URL サニタイザーの境界値・XSS ペイロードを網羅的にテストする。
+	 * 配列形式で条件と期待値をセットにし、ループで一括検証する。
+	 */
+	public function test_veu_pagetop_sanitize_image_url() {
+
+		// テストケース配列。
+		$test_cases = array(
+			array(
+				'test_condition_name' => '空文字を渡した場合は空文字を返す',
+				'input'               => '',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '配列など文字列以外を渡した場合は空文字を返す',
+				'input'               => array( 'http://example.com/a.png' ),
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'null を渡した場合は空文字を返す',
+				'input'               => null,
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '前後の空白付き png URL は trim して許可',
+				'input'               => '  https://example.com/image.png  ',
+				'expected'            => 'https://example.com/image.png',
+			),
+			array(
+				'test_condition_name' => 'png URL（正常系1）はそのまま返す',
+				'input'               => 'https://example.com/image.png',
+				'expected'            => 'https://example.com/image.png',
+			),
+			array(
+				'test_condition_name' => 'svg URL（正常系2）はそのまま返す',
+				'input'               => 'https://example.com/path/to/icon.svg',
+				'expected'            => 'https://example.com/path/to/icon.svg',
+			),
+			array(
+				'test_condition_name' => 'jpeg URL（正常系3）はそのまま返す',
+				'input'               => 'https://example.com/photo.jpeg',
+				'expected'            => 'https://example.com/photo.jpeg',
+			),
+			array(
+				'test_condition_name' => 'クエリ文字列付き png URL も拡張子判定して許可',
+				'input'               => 'https://example.com/image.png?ver=1.2.3',
+				'expected'            => 'https://example.com/image.png?ver=1.2.3',
+			),
+			array(
+				'test_condition_name' => '大文字拡張子 .PNG も小文字判定で許可',
+				'input'               => 'https://example.com/IMAGE.PNG',
+				'expected'            => 'https://example.com/IMAGE.PNG',
+			),
+			array(
+				'test_condition_name' => '相対パスの png URL も拡張子判定して許可',
+				'input'               => '/wp-content/uploads/2026/05/icon.png',
+				'expected'            => '/wp-content/uploads/2026/05/icon.png',
+			),
+			array(
+				'test_condition_name' => 'PHP 拡張子は拡張子ホワイトリストで弾く',
+				'input'               => 'https://example.com/evil.php',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '拡張子なし URL は弾く',
+				'input'               => 'https://example.com/image',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'javascript: スキームは esc_url_raw で除去され空文字になる',
+				'input'               => 'javascript:alert(1)//.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'CSS injection ペイロード（クォート + 括弧）は弾く',
+				'input'               => 'https://example.com/a.png");}body{background:red;//',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'シングルクォートを含む値は弾く',
+				'input'               => "https://example.com/a'.png",
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '空白を含む値は弾く（URL中央スペース）',
+				'input'               => 'https://example.com/a b.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '括弧を含む値は弾く',
+				'input'               => 'https://example.com/a).png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'バックスラッシュを含む値は弾く',
+				'input'               => 'https://example.com/a\\.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '改行を含む値は弾く',
+				'input'               => "https://example.com/a.png\nfoo",
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'HTML タグ風ペイロードは弾く（クォート/山括弧/空白いずれかでNG）',
+				'input'               => '"><script>alert(1)</script>',
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_sanitize_image_url( $case['input'] );
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_render() output for various option states.
+	 *
+	 * 画像未設定／設定済み／XSSペイロード混入時の出力を検証する。
+	 */
+	public function test_veu_pagetop_render() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '画像未設定（デフォルト）は style 属性を出力しない',
+				'options'             => array(),
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_not'        => array( 'style=', '--veu_page_top_button_url', 'has-image' ),
+			),
+			array(
+				'test_condition_name' => '画像 URL（正常系1: png）が指定されたら style 属性に CSS 変数が入る',
+				'options'             => array( 'image_url' => 'https://example.com/icon.png' ),
+				'expected_contains'   => 'style="--veu_page_top_button_url:url(&quot;https://example.com/icon.png&quot;);"',
+				'expected_not'        => array(),
+			),
+			array(
+				'test_condition_name' => '画像 URL（正常系2: svg）が指定されたら has-image クラスが付く',
+				'options'             => array( 'image_url' => 'https://example.com/icon.svg' ),
+				'expected_contains'   => 'class="page_top_btn has-image"',
+				'expected_not'        => array(),
+			),
+			array(
+				'test_condition_name' => 'XSS ペイロード入り URL は sanitize されて style 属性も has-image も出ない',
+				'options'             => array( 'image_url' => 'https://example.com/a.png");}body{background:red;//' ),
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_not'        => array( 'style=', 'background:red', 'has-image' ),
+			),
+			array(
+				'test_condition_name' => 'PHP 拡張子の URL は sanitize されて style 属性が出ない（境界値）',
+				'options'             => array( 'image_url' => 'https://example.com/evil.php' ),
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_not'        => array( 'evil.php', 'style=', 'has-image' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_render( $case['options'] );
+
+			// 期待される部分文字列が含まれるか。
+			$this->assertStringContainsString(
+				$case['expected_contains'],
+				$actual,
+				$case['test_condition_name']
+			);
+
+			// 含まれてはいけない文字列のチェック。
+			foreach ( $case['expected_not'] as $needle ) {
+				$this->assertStringNotContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / NG文字列: ' . $needle
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_sanitize() merges hide_mobile and image_url correctly.
+	 *
+	 * メイン設定画面サニタイズ関数の戻り値配列を検証する。
+	 */
+	public function test_veu_pagetop_sanitize() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '正常系1: 全部入りで両方サニタイズされる',
+				'input'               => array(
+					'hide_mobile' => 'true',
+					'image_url'   => 'https://example.com/a.png',
+				),
+				'expected'            => array(
+					'hide_mobile' => 'true',
+					'image_url'   => 'https://example.com/a.png',
+				),
+			),
+			array(
+				'test_condition_name' => '正常系2: image_url のみ。 hide_mobile キーが無ければ image_url のみ返る',
+				'input'               => array(
+					'image_url' => 'https://example.com/b.svg',
+				),
+				'expected'            => array(
+					'image_url' => 'https://example.com/b.svg',
+				),
+			),
+			array(
+				'test_condition_name' => '異常系: image_url に XSS ペイロードを渡しても空文字に正規化される',
+				'input'               => array(
+					'image_url' => 'https://example.com/a.png");}body{background:red;//',
+				),
+				'expected'            => array(
+					'image_url' => '',
+				),
+			),
+			array(
+				'test_condition_name' => '境界値: 配列以外（null）は空配列を返す（image_url は空にフォールバック）',
+				'input'               => null,
+				'expected'            => array(
+					'image_url' => '',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_sanitize( $case['input'] );
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_default() includes image_url key.
+	 *
+	 * デフォルト配列に image_url キーが追加されているか検証する。
+	 */
+	public function test_veu_pagetop_default() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'デフォルト配列に image_url キーが含まれ、初期値は空文字',
+				'key'                 => 'image_url',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'デフォルト配列に hide_mobile キーが含まれ、初期値は false',
+				'key'                 => 'hide_mobile',
+				'expected'            => false,
+			),
+		);
+
+		$defaults = veu_pagetop_default();
+
+		foreach ( $test_cases as $case ) {
+			$this->assertArrayHasKey( $case['key'], $defaults, $case['test_condition_name'] );
+			$this->assertSame( $case['expected'], $defaults[ $case['key'] ], $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_options() merges saved option with defaults.
+	 *
+	 * 保存済みオプションがデフォルトとマージされることを確認する。
+	 */
+	public function test_veu_pagetop_options() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '正常系1: 何も保存していなければデフォルトが返る',
+				'saved'               => null,
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => '',
+				),
+			),
+			array(
+				'test_condition_name' => '正常系2: image_url のみ保存している場合はマージされる',
+				'saved'               => array( 'image_url' => 'https://example.com/c.png' ),
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => 'https://example.com/c.png',
+				),
+			),
+			array(
+				'test_condition_name' => '異常系: option に非配列が保存されていてもデフォルト配列にフォールバックする',
+				'saved'               => 'invalid string',
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => '',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// クリーンアップ。
+			delete_option( 'vkExUnit_pagetop' );
+
+			if ( null !== $case['saved'] ) {
+				update_option( 'vkExUnit_pagetop', $case['saved'] );
+			}
+
+			$actual = veu_pagetop_options();
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+}

@@ -20,6 +20,16 @@
 	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: center;
+
+	// When a user-uploaded image is applied via the inline `--veu_` override,
+	// use `contain` so that the entire image fits the button without being
+	// cropped. The default icon keeps the 50% size for visual balance.
+	// ユーザーがアップロードした画像が style 属性で適用された場合、
+	// `contain` で全体が収まるようにする。デフォルトアイコンは見た目の
+	// 都合で 50% のままにしておく。
+	&.has-image {
+		background-size: contain;
+	}
 	opacity: 0;
 	transition: opacity 0.3s;
 	text-decoration: none;
