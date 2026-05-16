@@ -310,6 +310,39 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url'   => '',
 				),
 			),
+			array(
+				'test_condition_name' => '異常系: image_url に配列が保存されていても空文字に正規化される',
+				'saved'               => array(
+					'hide_mobile' => false,
+					'image_url'   => array( 'https://example.com/a.png' ),
+				),
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => '',
+				),
+			),
+			array(
+				'test_condition_name' => '異常系: image_url に null が保存されていても空文字に正規化される',
+				'saved'               => array(
+					'hide_mobile' => false,
+					'image_url'   => null,
+				),
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => '',
+				),
+			),
+			array(
+				'test_condition_name' => '異常系: image_url に XSS ペイロード文字列が保存されていても空文字に正規化される',
+				'saved'               => array(
+					'hide_mobile' => false,
+					'image_url'   => 'https://example.com/a.png");}body{background:red;//',
+				),
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => '',
+				),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {

@@ -16,27 +16,50 @@
  * テスト前後で wp-cli を使い `vkExUnit_pagetop` オプションを直接初期化する。
  */
 import { test, expect } from '@playwright/test';
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'password';
 
 // wp-env の cli コンテナ経由で wp-cli を実行するためのヘルパー。
-// ローカル & CI どちらでも動くように、wp-env が無い場合は素の wp に
-// フォールバックする想定だが、本リポでは wp-env 前提のため wp-env を使う。
-const runWpCli = ( command: string ): string => {
-	return execSync( `npx wp-env run cli wp ${ command }`, {
-		encoding: 'utf-8',
-		stdio: [ 'ignore', 'pipe', 'pipe' ],
-	} );
+// shell 経由ではなく execFileSync で引数を配列のまま渡すことで、
+// JSON 等にクォートや空白が含まれてもシェル解釈を経由しない。
+const runWpCli = ( args: string[] ): string => {
+	return execFileSync(
+		'npx',
+		[ 'wp-env', 'run', 'cli', 'wp', ...args ],
+		{
+			encoding: 'utf-8',
+			stdio: [ 'ignore', 'pipe', 'pipe' ],
+		}
+	);
 };
 
 // vkExUnit_pagetop オプションを削除して既知の初期状態に戻す。
+// wp-cli が「option がそもそも存在しない」と返すケースのみ握りつぶし、
+// それ以外の予期しないエラー（wp-env が動いていない等）は throw する。
 const resetPagetopOption = (): void => {
 	try {
-		runWpCli( 'option delete vkExUnit_pagetop' );
+		runWpCli( [ 'option', 'delete', 'vkExUnit_pagetop' ] );
 	} catch ( e ) {
-		// オプションが存在しない場合は何もしない。
+		// wp-cli は存在しない option を delete しようとすると
+		// "Could not delete 'xxx' option. Does it exist?" や
+		// "No such option" 系のメッセージで終了コード非0を返す。
+		// これだけは想定内なので握りつぶし、それ以外は再 throw する。
+		const stderr =
+			e && typeof e === 'object' && 'stderr' in e
+				? String( ( e as { stderr?: unknown } ).stderr ?? '' )
+				: '';
+		const message = e instanceof Error ? e.message : String( e );
+		const haystack = `${ stderr }\n${ message }`;
+		if (
+			/Could not delete|does it exist\?|No such option|not exist/i.test(
+				haystack
+			)
+		) {
+			return;
+		}
+		throw e;
 	}
 };
 
@@ -88,8 +111,8 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 
 		// 画像 URL を直接テキストフィールドに入力する
 		// （メディアライブラリ操作は wp-env の挙動が不安定なため URL 直入力で検証）。
-		const sampleUrl =
-			'http://localhost:9108/wp-content/plugins/agent-a0770b13a7058d64a/assets/images/to-top-btn-icon.svg';
+		// worktree 名や localhost ポートに依存しないよう、固定 URL を使う。
+		const sampleUrl = 'https://example.com/icon.svg';
 		const urlInput = page.locator( '#pagetop_image_url' );
 		// セクションが視界外でも fill 可能。scrollIntoViewIfNeeded で
 		// admin の sticky bar 等の影響を受けないようにスクロールする。
@@ -129,18 +152,22 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		page,
 	} ) => {
 		// 事前に option へ画像 URL を直接保存しておく。
-		const sampleUrl =
-			'http://localhost:9108/wp-content/plugins/agent-a0770b13a7058d64a/assets/images/to-top-btn-icon.svg';
+		// worktree 名や localhost ポートに依存しないよう、固定 URL を使う。
+		const sampleUrl = 'https://example.com/icon.svg';
 		// PHP serialize で保存するため wp option update --format=json を使う。
 		const json = JSON.stringify( {
 			hide_mobile: false,
 			image_url: sampleUrl,
 		} );
-		// シェルエスケープを単純化するため、stdin 経由ではなく
-		// dashes_form の JSON で直接渡す。
-		runWpCli(
-			`option update vkExUnit_pagetop '${ json }' --format=json`
-		);
+		// execFileSync + 引数配列なので JSON にクォートや空白が含まれていても
+		// シェル解釈を経由せず安全にそのまま wp-cli へ渡る。
+		runWpCli( [
+			'option',
+			'update',
+			'vkExUnit_pagetop',
+			json,
+			'--format=json',
+		] );
 
 		// 設定画面で値が反映されていることを確認。
 		await page.goto(

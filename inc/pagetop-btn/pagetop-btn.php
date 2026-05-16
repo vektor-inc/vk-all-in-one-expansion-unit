@@ -420,6 +420,10 @@ function veu_pagetop_admin() {
 /**
  * Get vkExUnit_pagetop options merged with defaults.
  *
+ * 取得時点で `image_url` を必ず `veu_pagetop_sanitize_image_url()` に
+ * 通すことで、option 直書き等で配列・null・破損文字列が保存されていた場合でも
+ * 後段の `esc_url()` / `esc_attr()` で TypeError を起こさず安全に空文字へ正規化する。
+ *
  * @return array
  */
 function veu_pagetop_options() {
@@ -428,6 +432,16 @@ function veu_pagetop_options() {
 		$options = array();
 	}
 	$options = wp_parse_args( $options, veu_pagetop_default() );
+
+	// Defensive normalization: option storage can hold non-string values
+	// (e.g. arrays / null) when written directly by other code. The sanitizer
+	// itself rejects non-string inputs and returns an empty string, but we
+	// keep the explicit guard here to make the contract obvious to readers.
+	// 取得時の防御的サニタイズ。サニタイザー側で非文字列は空文字にされるが、
+	// 意図を明示するため `is_string` ガードも残す。
+	$image_url            = isset( $options['image_url'] ) ? $options['image_url'] : '';
+	$options['image_url'] = is_string( $image_url ) ? veu_pagetop_sanitize_image_url( $image_url ) : '';
+
 	return $options;
 }
 
