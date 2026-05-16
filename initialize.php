@@ -142,10 +142,27 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 
 /**
  * Inline styles
+ *
+ * Outputs both `--ver_page_top_button_url` (legacy name, kept for
+ * backward compatibility) and `--veu_page_top_button_url` (corrected
+ * name that follows the `--veu_` (vk Ex Unit) naming convention).
+ *
+ * Both custom properties point to the same default page-top button
+ * icon. The SCSS uses `var( --ver_..., var( --veu_... ) )` so existing
+ * sites overriding `--ver_` continue to work.
+ *
+ * インラインスタイルを出力する。
+ *
+ * `--ver_page_top_button_url`（旧名・互換のため残す）と
+ * `--veu_page_top_button_url`（`--veu_` (vk Ex Unit) 命名に揃えた新名）の
+ * 両方を `:root` に出力する。SCSS 側で `--ver_` を優先し未指定時に
+ * `--veu_` にフォールバックするため、既存上書きユーザーの動作も保たれる。
  */
 function veu_inline_styles() {
-	$dynamic_css = ':root {
-		--ver_page_top_button_url:url(' . VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg);
+	$page_top_button_url = VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg';
+	$dynamic_css         = ':root {
+		--ver_page_top_button_url:url(' . $page_top_button_url . ');
+		--veu_page_top_button_url:url(' . $page_top_button_url . ');
 	}
 	@font-face {
 		font-weight: normal;
