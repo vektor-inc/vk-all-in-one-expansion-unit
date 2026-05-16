@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Feature ][ Page Top Button ] Added an "image" setting so users can upload their own icon for the page top button from the ExUnit main setting page and the Customizer. The selected image URL is applied via an inline `style` attribute that overrides the `--veu_page_top_button_url` CSS custom property, so themes / custom CSS that already override the legacy `--ver_page_top_button_url` continue to work unchanged. The URL is sanitized with a dedicated sanitizer that rejects values containing quotes, parentheses, whitespace or control characters, and only allows image extensions (svg / png / jpg / jpeg / gif / webp) to mitigate CSS injection.
+
 [ Spec Change ][ Page Top Button ] Renamed the `--ver_page_top_button_url` CSS custom property to `--veu_page_top_button_url` to align with the `--veu_` (vk Ex Unit) naming convention. For backward compatibility, the SCSS `background-image` keeps a `var( --ver_..., var( --veu_... ) )` fallback so existing themes / custom CSS overriding `--ver_page_top_button_url` continue to work without any change.
 
 = 9.115.1 =
