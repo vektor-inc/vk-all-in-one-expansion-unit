@@ -324,4 +324,63 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
 		}
 	}
+
+	/**
+	 * Test veu_pagetop_partial_render() respects hide_mobile on mobile UA.
+	 *
+	 * カスタマイザの selective refresh パーシャルが
+	 * モバイル非表示設定をフロント側 (veu_add_pagetop) と同じく
+	 * 尊重して空文字を返すことを検証する。
+	 * `wp_is_mobile()` は `HTTP_USER_AGENT` を見るためテスト中だけ UA を差し替える。
+	 */
+	public function test_veu_pagetop_partial_render_respects_hide_mobile() {
+		// 元の UA を退避（必ず元に戻すため）。
+		$original_ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : null;
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'モバイル UA + hide_mobile=true: 空文字を返す（フロントと挙動一致）',
+				'user_agent'          => 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+				'options'             => array( 'hide_mobile' => true ),
+				'expect_empty'        => true,
+			),
+			array(
+				'test_condition_name' => 'モバイル UA + hide_mobile=false: 通常通り <a> を返す',
+				'user_agent'          => 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+				'options'             => array( 'hide_mobile' => false ),
+				'expect_empty'        => false,
+			),
+			array(
+				'test_condition_name' => 'デスクトップ UA + hide_mobile=true: 通常通り <a> を返す（モバイルではないので影響なし）',
+				'user_agent'          => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+				'options'             => array( 'hide_mobile' => true ),
+				'expect_empty'        => false,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// UA を差し替えてからオプションを保存する。
+			$_SERVER['HTTP_USER_AGENT'] = $case['user_agent'];
+			update_option( 'vkExUnit_pagetop', $case['options'] );
+
+			$actual = veu_pagetop_partial_render();
+
+			if ( $case['expect_empty'] ) {
+				$this->assertSame( '', $actual, $case['test_condition_name'] );
+			} else {
+				// 非モバイル or hide_mobile 無効時は `<a` を含む HTML が返る。
+				$this->assertStringContainsString( '<a ', $actual, $case['test_condition_name'] );
+				$this->assertStringContainsString( 'id="page_top"', $actual, $case['test_condition_name'] );
+			}
+
+			delete_option( 'vkExUnit_pagetop' );
+		}
+
+		// UA を元に戻す。
+		if ( null === $original_ua ) {
+			unset( $_SERVER['HTTP_USER_AGENT'] );
+		} else {
+			$_SERVER['HTTP_USER_AGENT'] = $original_ua;
+		}
+	}
 }

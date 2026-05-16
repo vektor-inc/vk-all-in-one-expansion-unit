@@ -254,10 +254,21 @@ function veu_customize_register_pagetop( $wp_customize ) {
 /**
  * Render callback for the selective refresh partial.
  *
- * @return string The page top button HTML.
+ * `veu_add_pagetop()` と同じく、モバイル非表示オプションが有効で
+ * モバイル端末の場合は空文字を返してプレビュー表示も非表示にする。
+ * これを行わないと、フロント側では非表示なのにカスタマイザのプレビュー
+ * だけ表示されてしまい挙動が一致しなくなる。
+ *
+ * @return string The page top button HTML, or empty string when hidden on mobile.
  */
 function veu_pagetop_partial_render() {
-	return veu_pagetop_render( veu_pagetop_options() );
+	$options = veu_pagetop_options();
+	// Match veu_add_pagetop() behavior: return empty on mobile when hide_mobile is enabled.
+	// veu_add_pagetop() と挙動を合わせ、モバイル非表示時は空文字を返す。
+	if ( wp_is_mobile() && ! empty( $options['hide_mobile'] ) ) {
+		return '';
+	}
+	return veu_pagetop_render( $options );
 }
 
 
@@ -352,11 +363,35 @@ function veu_pagetop_admin() {
 			preview.style.display = ( '' !== src ) ? '' : 'none';
 		};
 
+		// Sync the preview from the URL text input.
+		// When the user pastes / types a URL directly into the text field,
+		// the shared media handler does not fire so we have to mirror the
+		// value into thumb.src ourselves and re-evaluate the preview state.
+		// URL テキスト欄にユーザーが直接 URL を貼り付け / 入力した場合は
+		// 共通ヘルパーが発火しないため、ここで thumb.src に反映して
+		// プレビューの表示状態を再評価する。
+		var syncPreviewFromInput = function() {
+			if ( ! urlInput || ! thumb ) {
+				return;
+			}
+			thumb.setAttribute( 'src', urlInput.value );
+			togglePreview();
+		};
+
 		// Watch for src changes coming from the shared .media_btn handler.
 		// MutationObserver なら共通ハンドラが src を書き換えた瞬間に検知できる。
 		if ( thumb && 'MutationObserver' in window ) {
 			var observer = new MutationObserver( togglePreview );
 			observer.observe( thumb, { attributes: true, attributeFilter: [ 'src' ] } );
+		}
+
+		// URL input: react to manual edits (paste, typing, etc.) so the
+		// thumbnail preview stays in sync without requiring a save.
+		// URL 入力欄: 手入力や貼り付けに反応してプレビューを同期させる。
+		// `change` は確定時、`blur` はフォーカスアウト時のフォールバック。
+		if ( urlInput ) {
+			urlInput.addEventListener( 'change', syncPreviewFromInput );
+			urlInput.addEventListener( 'blur', syncPreviewFromInput );
 		}
 
 		// Clear button: empty the URL input, clear the thumb src and hide the preview.
