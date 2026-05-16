@@ -43,20 +43,24 @@ const resetPagetopOption = (): void => {
 		runWpCli( [ 'option', 'delete', 'vkExUnit_pagetop' ] );
 	} catch ( e ) {
 		// wp-cli は存在しない option を delete しようとすると
-		// "Could not delete 'xxx' option. Does it exist?" や
-		// "No such option" 系のメッセージで終了コード非0を返す。
-		// これだけは想定内なので握りつぶし、それ以外は再 throw する。
+		// "Could not delete 'vkExUnit_pagetop' option. Does it exist?"
+		// 形式のメッセージで終了コード非0を返す。これだけは想定内なので
+		// 握りつぶし、それ以外（wp-env が動いていない等）は再 throw する。
+		// 「`vkExUnit_pagetop` が未存在」を示す文言に限定し、
+		// option delete 以外の障害メッセージを誤って握りつぶさないようにする。
 		const stderr =
 			e && typeof e === 'object' && 'stderr' in e
 				? String( ( e as { stderr?: unknown } ).stderr ?? '' )
 				: '';
 		const message = e instanceof Error ? e.message : String( e );
 		const haystack = `${ stderr }\n${ message }`;
-		if (
-			/Could not delete|does it exist\?|No such option|not exist/i.test(
+		const isMissingPagetopOption =
+			/Could not delete\s+'vkExUnit_pagetop'\s+option\.\s*Does it exist\?/i.test(
 				haystack
-			)
-		) {
+			) ||
+			( /vkExUnit_pagetop/.test( haystack ) &&
+				/does(?:\s+not)?\s+exist/i.test( haystack ) );
+		if ( isMissingPagetopOption ) {
 			return;
 		}
 		throw e;
