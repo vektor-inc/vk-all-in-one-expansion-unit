@@ -142,10 +142,20 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 
 /**
  * Inline styles
+ *
+ * Outputs the `--veu_page_top_button_url` CSS custom property on
+ * `:root`. The property follows the `--veu_` (vk Ex Unit) naming
+ * convention and points to the default page-top button icon URL.
+ *
+ * インラインスタイルを出力する。
+ *
+ * `--veu_` (vk Ex Unit) 命名規則に揃えた `--veu_page_top_button_url`
+ * を `:root` に出力する。値はページトップへ戻るボタンの
+ * デフォルトアイコン URL。
  */
 function veu_inline_styles() {
 	$dynamic_css = ':root {
-		--ver_page_top_button_url:url(' . VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg);
+		--veu_page_top_button_url:url(' . VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg);
 	}
 	@font-face {
 		font-weight: normal;
