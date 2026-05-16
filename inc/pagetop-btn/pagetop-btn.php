@@ -190,15 +190,43 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'transport'         => 'refresh',
 		)
 	);
+	// Build the description for the customizer image control.
+	// Translation rule: split into one sentence per translation call. Each
+	// sentence is concatenated with a newline; an empty line is used to
+	// visually separate groups.
+	// 翻訳ルールに従い 1 文ずつ翻訳関数で区切り、改行で連結する。
+	// グループ間は空行で視覚的に分ける。。
+	$customizer_description  = __( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ) . "\n";
+	$customizer_description .= __( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$customizer_description .= __( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ) . "\n";
+	$customizer_description .= __( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$customizer_description .= __( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$customizer_description .= __( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' );
+
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
 			'vkExUnit_pagetop_image_url',
 			array(
-				'label'       => __( 'Page top button image', 'vk-all-in-one-expansion-unit' ),
-				'section'     => 'veu_pagetop_setting',
-				'settings'    => 'vkExUnit_pagetop[image_url]',
-				'description' => __( 'Upload an image to replace the default page top button icon. Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ),
+				'label'         => __( 'Page top button image', 'vk-all-in-one-expansion-unit' ),
+				'section'       => 'veu_pagetop_setting',
+				'settings'      => 'vkExUnit_pagetop[image_url]',
+				'description'   => $customizer_description,
+				// Customize the built-in image control button labels so that
+				// "Remove" is interpreted as "clear this setting", not
+				// "delete from the media library".
+				// ビルトインの button_labels をカスタマイズして、
+				// 「削除」がメディアライブラリからの削除ではなく
+				// 「設定値を解除」である事をユーザーに明示する。
+				'button_labels' => array(
+					'select'       => __( 'Select image', 'vk-all-in-one-expansion-unit' ),
+					'change'       => __( 'Change image', 'vk-all-in-one-expansion-unit' ),
+					'remove'       => __( 'Clear image selection', 'vk-all-in-one-expansion-unit' ),
+					'default'      => __( 'Default', 'vk-all-in-one-expansion-unit' ),
+					'placeholder'  => __( 'No image selected', 'vk-all-in-one-expansion-unit' ),
+					'frame_title'  => __( 'Select image', 'vk-all-in-one-expansion-unit' ),
+					'frame_button' => __( 'Choose image', 'vk-all-in-one-expansion-unit' ),
+				),
 			)
 		)
 	);
@@ -281,10 +309,15 @@ function veu_pagetop_admin() {
 	<p>
 		<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
 		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
-		<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image', 'vk-all-in-one-expansion-unit' ); ?></button>
+		<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
 	</p>
 	<p class="description">
-		<?php esc_html_e( 'Upload an image to replace the default page top button icon. Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?><br />
+		<?php esc_html_e( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ); ?><br />
+		<?php esc_html_e( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?><br />
+		<?php esc_html_e( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ); ?><br />
+		<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?><br />
+		<?php esc_html_e( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ); ?><br />
+		<?php esc_html_e( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' ); ?><br />
 		<a href="<?php echo esc_url( $customizer_url ); ?>"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
 	</p>
 </td>
@@ -293,51 +326,54 @@ function veu_pagetop_admin() {
 	<?php submit_button(); ?>
 </div>
 <script>
-	// Clear the page top button image input and hide the preview.
-	// 画像 URL 入力欄を空にし、プレビューを非表示にする。
+	// Toggle the thumbnail preview in sync with the shared vk_admin.js
+	// .media_btn handler, which updates `#thumb_pagetop_image_url` (img src)
+	// and `#pagetop_image_url` (text input value) when a user picks an image.
+	// We observe the img src via MutationObserver instead of polling, so the
+	// preview reflects changes the moment the shared handler writes to it.
+	// 共通ヘルパー (vk_admin.js .media_btn) が `#thumb_pagetop_image_url` の
+	// src と `#pagetop_image_url` の value を更新するので、MutationObserver
+	// で src の変化を検知してプレビューの表示/非表示を切り替える。
+	// (以前は setInterval で 250ms × 60 回のポーリングをしていたが、
+	// 共通ヘルパーと二重に src を更新する形になっていたため廃止。)
 	(function(){
+		var urlInput = document.getElementById('pagetop_image_url');
+		var thumb    = document.getElementById('thumb_pagetop_image_url');
+		var preview  = thumb ? thumb.parentNode : null;
 		var clearBtn = document.getElementById('veu_pagetop_image_clear');
-		if ( ! clearBtn ) {
-			return;
-		}
-		clearBtn.addEventListener('click', function(){
-			var urlInput = document.getElementById('pagetop_image_url');
-			var thumb    = document.getElementById('thumb_pagetop_image_url');
-			var preview  = thumb ? thumb.parentNode : null;
-			if ( urlInput ) {
-				urlInput.value = '';
-			}
-			if ( thumb ) {
-				thumb.setAttribute( 'src', '' );
-			}
-			if ( preview ) {
-				preview.style.display = 'none';
-			}
-		});
 
-		// Show the preview when the shared media_btn handler injects a URL.
-		// 共通ハンドラ (.media_btn) が URL を入れたらプレビューを表示する。
-		var selectBtn = document.getElementById('media_src_pagetop_image_url');
-		if ( selectBtn ) {
-			selectBtn.addEventListener('click', function(){
-				// Defer until the media frame's `select` handler has populated
-				// the input. The frame stays open across clicks so we poll briefly.
-				// メディアフレームの select 反映を待ってからプレビュー表示。
-				var attempts = 0;
-				var timer = setInterval(function(){
-					attempts++;
-					var urlInput = document.getElementById('pagetop_image_url');
-					var thumb    = document.getElementById('thumb_pagetop_image_url');
-					var preview  = thumb ? thumb.parentNode : null;
-					if ( urlInput && urlInput.value && thumb && preview ) {
-						thumb.setAttribute( 'src', urlInput.value );
-						preview.style.display = '';
-						clearInterval( timer );
-					}
-					if ( attempts > 60 ) {
-						clearInterval( timer );
-					}
-				}, 250);
+		// Toggle the preview wrapper visibility based on the current img src.
+		// 現在の thumb.src を見てプレビュー枠の表示/非表示を切り替える。
+		var togglePreview = function() {
+			if ( ! thumb || ! preview ) {
+				return;
+			}
+			var src = thumb.getAttribute( 'src' ) || '';
+			preview.style.display = ( '' !== src ) ? '' : 'none';
+		};
+
+		// Watch for src changes coming from the shared .media_btn handler.
+		// MutationObserver なら共通ハンドラが src を書き換えた瞬間に検知できる。
+		if ( thumb && 'MutationObserver' in window ) {
+			var observer = new MutationObserver( togglePreview );
+			observer.observe( thumb, { attributes: true, attributeFilter: [ 'src' ] } );
+		}
+
+		// Clear button: empty the URL input, clear the thumb src and hide the preview.
+		// 「画像の指定を解除」ボタン: URL を空にし thumb.src を空に、プレビューを非表示にする。
+		if ( clearBtn ) {
+			clearBtn.addEventListener('click', function(){
+				if ( urlInput ) {
+					urlInput.value = '';
+				}
+				if ( thumb ) {
+					// Setting src triggers the observer which hides the preview.
+					// src を空にすると observer 経由でプレビューも非表示になる。
+					thumb.setAttribute( 'src', '' );
+				}
+				// Fallback for environments without MutationObserver.
+				// MutationObserver 非対応環境向けのフォールバック。
+				togglePreview();
 			});
 		}
 	})();
