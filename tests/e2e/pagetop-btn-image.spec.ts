@@ -77,10 +77,12 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		resetPagetopOption();
 
 		// 管理画面にログインしておく。
+		// wp-admin の言語設定（日本語等）でラベルテキストが変わってもテストが
+		// 落ちないよう、Core が安定的に提供している input id をセレクタに使う。
 		await page.goto( '/wp-login.php' );
-		await page.getByLabel( 'Username or Email Address' ).fill( ADMIN_USER );
-		await page.getByLabel( 'Password', { exact: true } ).fill( ADMIN_PASS );
-		await page.getByLabel( 'Password', { exact: true } ).press( 'Enter' );
+		await page.locator( '#user_login' ).fill( ADMIN_USER );
+		await page.locator( '#user_pass' ).fill( ADMIN_PASS );
+		await page.locator( '#wp-submit' ).click();
 		// ダッシュボードのロード完了まで待つ。
 		await page.waitForURL( /wp-admin\// );
 		await page.waitForLoadState( 'networkidle' );
