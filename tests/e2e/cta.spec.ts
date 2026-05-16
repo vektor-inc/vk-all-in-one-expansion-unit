@@ -1,137 +1,288 @@
-import { test, expect } from '@playwright/test';
-// const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+/**
+ * CTA - e2e テスト
+ *
+ * Call to Action 機能の主要シナリオを検証する:
+ *
+ * 1. CTA 未登録の状態で投稿に CTA ブロックを挿入すると
+ *    「No CTA registered.」というアラートが出る
+ * 2. CTA 投稿を 1 件作成（Test CTA）
+ * 3. 通常投稿に CTA ブロックを追加し、Test CTA を選択すると
+ *    本文がプレビュー表示される
+ * 4. CTA を一括削除して別の CTA を 1 件作っておく
+ * 5. 既存の "Post with CTA" を再オープンすると
+ *    「Specified CTA does not exist.」エラーが表示される
+ *
+ * WordPress 6.x のブロックエディタは編集領域が
+ * `editor-canvas` iframe 内に描画されるため、本文・タイトル等の
+ * 操作はすべて `editorFrame(page)` 経由で行う。
+ * ブロック追加ボタンの aria-label は WP の更新により
+ * "Add block" → "Block Inserter" に変わっている。
+ */
+import { test, expect, type Page, type FrameLocator } from '@playwright/test';
+import { execFileSync } from 'child_process';
 
-test('CTA', async ({ page }) => {
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'password';
 
-  // login ///////////////////////////////////////////.
-  await page.goto('/wp-login.php');
-  await page.getByLabel('Username or Email Address').fill('admin');
-  await page.getByLabel('Username or Email Address').press('Tab');
-  await page.getByLabel('Password', { exact: true } ).fill('password');
-  await page.getByLabel('Password', { exact: true } ).press('Enter');
+// wp-env の tests-cli コンテナ経由で wp-cli を実行するヘルパー。
+// e2e は testsPort (デフォルト 8889) のテスト用 WordPress を使うため、
+// データ初期化も tests-cli コンテナで行う必要がある。
+const runWpCli = ( args: string[] ): string => {
+	return execFileSync(
+		'npx',
+		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
+		{
+			encoding: 'utf-8',
+			stdio: [ 'ignore', 'pipe', 'pipe' ],
+		}
+	);
+};
 
-  // Put CTA ( Not registered ) ///////////////////////////////////////////.
+// Block Editor 本文の iframe (editor-canvas) ロケータ。
+const editorFrame = ( page: Page ): FrameLocator =>
+	page.frameLocator( '[name="editor-canvas"]' );
 
-  // Got to New Post
-  await page.goto('/wp-admin/post-new.php');
+// 投稿 / CTA 投稿をすべて強制削除して初期化する。
+// テスト用の Test CTA / Post with CTA 等の残骸を取り除く。
+const resetPosts = (): void => {
+	for ( const postType of [ 'post', 'cta' ] ) {
+		try {
+			const ids = runWpCli( [
+				'post',
+				'list',
+				`--post_type=${ postType }`,
+				'--post_status=any',
+				'--format=ids',
+			] ).trim();
+			if ( ids ) {
+				runWpCli( [
+					'post',
+					'delete',
+					'--force',
+					...ids.split( /\s+/ ),
+				] );
+			}
+		} catch ( _e ) {
+			// 取得・削除失敗は無視（テストを止めない）
+		}
+	}
+};
 
-  // 最初の投稿ダイアログを閉じる
-  await page.waitForTimeout( 1000 );
-  // Check if the modal is visible
-  const isModalVisible = await page.isVisible( '.components-modal__frame' );
-  // If the modal is visible, click the close button
-  if ( isModalVisible ) {
-	  await page.click( 'button[aria-label="Close"]' );
-  }
+// 編集画面で Welcome guide modal が表示されたら閉じる。
+const closeWelcomeModalIfPresent = async ( page: Page ): Promise<void> => {
+	const isModalVisible = await page.isVisible( '.components-modal__frame' );
+	if ( isModalVisible ) {
+		await page.click( 'button[aria-label="Close"]' );
+		await page.waitForTimeout( 300 );
+	}
+};
 
-  // ブロック追加
-  await page.getByRole('button', { name: 'Add block' }).click();
-  // CTAブロックを検索
-  await page.getByPlaceholder('Search').fill('cta');
-  // CTAブロックを追加
-  await page.getByRole('option', { name: 'CTA' }).click();
+// Block Editor の編集領域 (iframe) が初期化されるまで待つ。
+const waitForBlockEditorReady = async ( page: Page ): Promise<void> => {
+	await editorFrame( page )
+		.locator( '[contenteditable="true"]' )
+		.first()
+		.waitFor( { timeout: 15000 } );
+};
 
-  // ******* CTAが登録されていないメッセージが表示されることを確認
-  await expect(page.locator('.veu-cta-block-edit-alert .alert-title')).toContainText('No CTA registered.');
+// CTA ブロックを Block Inserter から挿入する。
+// WP 6.x の Block Inserter は docked サイドバー型で、検索結果に
+// "Blocks" listbox と "Block patterns" listbox の両方が現れるため、
+// "Blocks" listbox 内に絞り、完全一致 "CTA" を選択する。
+const insertCtaBlock = async ( page: Page ): Promise<void> => {
+	await page.getByRole( 'button', { name: 'Block Inserter' } ).click();
+	await page.getByRole( 'searchbox', { name: 'Search' } ).fill( 'cta' );
+	await page
+		.getByRole( 'listbox', { name: 'Blocks' } )
+		.getByRole( 'option', { name: 'CTA', exact: true } )
+		.click();
+	// 挿入後、Block Inserter を閉じる（docked のため自動で閉じない）。
+	const closeBtn = page.getByRole( 'button', {
+		name: 'Close Block Inserter',
+	} );
+	if ( ( await closeBtn.count() ) > 0 ) {
+		await closeBtn.click();
+	}
+};
 
-  // Save Check
-  await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
-  await page.getByRole('button', { name: 'Publish' }).nth(1).click();
-  await page.waitForTimeout(1000);
-  await page.getByRole('button', { name: 'Close panel' }).click();
-  await page.getByRole('region', { name: 'Editor settings' }).getByRole('button', { name: 'Post' }).click();
-  await page.getByRole('button', { name: 'Move to trash' }).click();
-  // 完了まで待つ（完了判定の書き方がわかったら書き換え）
-  await page.waitForTimeout(1000);
+// 投稿を公開する。Block Editor の Publish ボタン → 確認パネルの Publish。
+// WP の更新でボタン構成が変わっても極力動作するよう、複数の locator を試す。
+const publishPost = async ( page: Page ): Promise<void> => {
+	// 1) Top bar の Publish ボタン（公開パネルを開く）。
+	await page
+		.getByRole( 'region', { name: 'Editor top bar' } )
+		.getByRole( 'button', { name: 'Publish', exact: true } )
+		.click();
 
-  // Create New CTA ///////////////////////////////////////////.
+	// 2) 公開パネル内の確定 Publish ボタンを探す。
+	//    role=region の名前は WP のバージョンで異なるため、
+	//    まずは "Editor publish" 領域内、見つからなければページ全体から
+	//    最後に現れた Publish ボタンを使う。
+	const publishRegion = page.getByRole( 'region', {
+		name: 'Editor publish',
+	} );
+	let confirmBtn = publishRegion.getByRole( 'button', {
+		name: 'Publish',
+		exact: true,
+	} );
+	if ( ( await confirmBtn.count() ) === 0 ) {
+		// fallback: ページ全体の Publish ボタン (top bar 以外)
+		confirmBtn = page.getByRole( 'button', {
+			name: 'Publish',
+			exact: true,
+		} );
+	}
+	// 公開パネルが表示されるまで少し待つ。
+	await page.waitForTimeout( 500 );
+	await confirmBtn.last().click();
 
-  // Go to New CTA
-  await page.goto('/wp-admin/post-new.php?post_type=cta');
-  // Input CTA title
-  await page.getByRole('textbox', { name: 'Add title' }).click();
-  await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA');
-  await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
-  // Input CTA content
-  await page.getByRole('document', { name: 'Empty block; start writing or type forward slash to choose a block' }).first().fill('This is Test CTA');
-  // Publish CTA
-  await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
-  await page.getByRole('button', { name: 'Publish' }).nth(1).click();
-  // 一応少し待つ。待たないとCTAを配置するテストでプルダウンの中に Test CTA が入っていなくて選択できない事がある。
-  await page.waitForTimeout(1000);
-  // Cheack CTA is created
-  await page.goto('/wp-admin/edit.php?post_type=cta');
+	// 公開完了を確実に反映させる。
+	await page.waitForTimeout( 1500 );
+};
 
+test.describe( 'CTA', () => {
+	test.describe.configure( { mode: 'serial' } );
+	test.setTimeout( 90 * 1000 );
 
-  // Create New Post and Add CTA ///////////////////////////////////////////.
+	test.beforeAll( () => {
+		resetPosts();
+	} );
 
-  await page.goto('/wp-admin/post-new.php');
-  // Input Post with CTA title
-  await page.getByRole('textbox', { name: 'Add title' }).click();
-  await page.getByRole('textbox', { name: 'Add title' }).fill('Post with CTA');
-  // ブロック追加
-  await page.getByRole('button', { name: 'Add block' }).click();
-  // CTAブロックを検索
-  await page.getByPlaceholder('Search').fill('cta');
-  // CTAブロックを追加
-  await page.getByRole('option', { name: 'CTA' }).click();
+	test.afterAll( () => {
+		resetPosts();
+	} );
 
-  // ******* CTAを選択するように促すメッセージが表示されることを確認
-  await expect(page.locator('.veu-cta-block-edit-alert')).toContainText('Please select CTA from Setting sidebar.');
+	test.beforeEach( async ( { page } ) => {
+		// ログイン。
+		await page.goto( '/wp-login.php' );
+		await page.getByLabel( 'Username or Email Address' ).fill( ADMIN_USER );
+		await page
+			.getByLabel( 'Password', { exact: true } )
+			.fill( ADMIN_PASS );
+		await page
+			.getByLabel( 'Password', { exact: true } )
+			.press( 'Enter' );
+		await page.waitForURL( /wp-admin\// );
+	} );
 
-  // 作成済みのCTAを選択
-  await page.locator('#veu-cta-block-select').selectOption({ label: 'Test CTA' });
+	test( 'CTA 未登録 → ブロック追加で No CTA registered メッセージ', async ( {
+		page,
+	} ) => {
+		// --- 通常投稿で CTA ブロックを追加（CTA 未登録の状態） ---
+		await page.goto( '/wp-admin/post-new.php' );
+		await closeWelcomeModalIfPresent( page );
+		await waitForBlockEditorReady( page );
 
-  // ******* 作成したCTAが表示されることを確認
-  await expect(page.locator('.veu-cta-block p')).toContainText('This is Test CTA');
+		await insertCtaBlock( page );
 
-  // 作成したCTAが配置された状態で保存
-  await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
-  await page.getByRole('button', { name: 'Publish' }).nth(1).click();
+		// CTA が登録されていないメッセージ（ブロック本文は iframe 内）。
+		await expect(
+			editorFrame( page ).locator(
+				'.veu-cta-block-edit-alert .alert-title'
+			)
+		).toContainText( 'No CTA registered.' );
+	} );
 
-  // 一応少し待つ。待たないとCTAを配置するテストでプルダウンの中に Test CTA が入っていなくて選択できない事がある。
-  await page.waitForTimeout(1000);
+	test( 'CTA 投稿を作成 → 通常投稿で選択 → 本文プレビュー / 後で削除すると Specified CTA does not exist', async ( {
+		page,
+	} ) => {
+		// --- CTA 投稿 "Test CTA" を作成 ---
+		await page.goto( '/wp-admin/post-new.php?post_type=cta' );
+		await closeWelcomeModalIfPresent( page );
+		await waitForBlockEditorReady( page );
 
-  // Delete CTA ///////////////////////////////////////////.
-  await page.goto('/wp-admin/edit.php?post_type=cta');
-  await page.locator('#cb-select-all-1').check();
-  await page.locator('#bulk-action-selector-top').selectOption('trash');
-  await page.locator('#doaction').click();
-  // Add CTA 2 ///////////////////////////////////////////.
-  // 登録済みのCTAが削除された場合のメッセージの確認用
-  // CTAが存在しない状態の場合、CTAブロックは「CTA自体がない」というメッセージになるため、
-  // ダミーで適当なCTAを登録しておく
-  await page.locator('#wpbody-content').getByRole('link', { name: 'Add New' }).click();
-  await page.getByRole('textbox', { name: 'Add title' }).click();
-  await page.getByRole('textbox', { name: 'Add title' }).fill('Test CTA 2');
-  await page.getByRole('textbox', { name: 'Add title' }).press('Enter');
-  // Input CTA content
-  await page.getByRole('document', { name: 'Empty block; start writing or type forward slash to choose a block' }).first().fill('This is Test CTA 2');
-  // Publish CTA
-  await page.getByRole('region', { name: 'Editor top bar' }).getByRole('button', { name: 'Publish' }).click();
-  await page.getByRole('button', { name: 'Publish' }).nth(1).click();
-  // 一応少し待つ。
-  await page.waitForTimeout(1000);
-  // Cheack CTA is created
-  await page.goto('/wp-admin/edit.php?post_type=cta');
+		// タイトルと本文は iframe 内。
+		const ctaTitle = editorFrame( page ).getByLabel( 'Add title' );
+		await ctaTitle.click();
+		await ctaTitle.fill( 'Test CTA' );
 
+		// 本文プレースホルダー "Type / to choose a block" をクリック → タイプ。
+		// 最新の Block Editor では空の本文は textbox role を持たず、
+		// 「Add default block」ボタンとして表示されるためそれにフォーカスする。
+		await editorFrame( page )
+			.getByRole( 'button', { name: 'Add default block' } )
+			.click();
+		await page.keyboard.type( 'This is Test CTA' );
 
-  // Deleted CTA Test ///////////////////////////////////////////.
+		// 公開（Editor top bar の Publish ボタンクリック → 公開パネルが開く）。
+		await publishPost( page );
 
-  await page.goto('/wp-admin/edit.php');
-  await page.getByRole('link', { name: '“Post with CTA” (Edit)' }).click();
-  // ******* CTAが登録されていないメッセージが表示されることを確認
-  await expect(page.locator('.alert-title')).toContainText('Specified CTA does not exist.');
+		// --- 通常投稿で CTA ブロックを追加し Test CTA を選択 ---
+		await page.goto( '/wp-admin/post-new.php' );
+		await closeWelcomeModalIfPresent( page );
+		await waitForBlockEditorReady( page );
 
-  // Delete "Post with CTA"
-  await page.waitForTimeout(500); // wait the "Move to trash" button
-  await page.getByRole('button', { name: 'Move to trash' }).click();
-  await page.waitForTimeout(500); // これがないと次の goto が反応しない事がある
+		const postTitle = editorFrame( page ).getByLabel( 'Add title' );
+		await postTitle.click();
+		await postTitle.fill( 'Post with CTA' );
 
-  // Delete "Test CTA 2" ///////////////////////////////////////////.
-  await page.goto('/wp-admin/edit.php?post_type=cta');
-  await page.getByRole('link', { name: '“Test CTA 2” (Edit)' }).click();
-  await page.waitForTimeout(500); // wait the "Move to trash" button
-  await page.getByRole('button', { name: 'Move to trash' }).click();
+		await insertCtaBlock( page );
 
-});
+		// CTA を選択するように促すメッセージ確認。
+		await expect(
+			editorFrame( page ).locator( '.veu-cta-block-edit-alert' )
+		).toContainText( 'Please select CTA from Setting sidebar.' );
+
+		// CTA ブロックを選択状態にする（Inspector を Block tab に切替え可能にするため）。
+		await editorFrame( page ).locator( '.veu-cta-block-edit' ).click();
+
+		// 右サイドバーの "Block" tab に切替え。CTA SelectControl は
+		// InspectorControls 内のため、ブロック選択中に "Block" tab を開かないと
+		// レンダリングされない。
+		await page
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'tab', { name: 'Block' } )
+			.click();
+
+		// セレクトボックスから Test CTA を選択（メインフレーム側）。
+		await page
+			.locator( '#veu-cta-block-select' )
+			.selectOption( { label: 'Test CTA' } );
+
+		// 選択後、本文プレビューに本文文字列が現れること（プレビューは iframe 内の ServerSideRender）。
+		await expect(
+			editorFrame( page ).locator( '.veu-cta-block' )
+		).toContainText( 'This is Test CTA' );
+
+		// 投稿を公開。
+		await publishPost( page );
+
+		// --- 既存 CTA をすべてゴミ箱へ ---
+		await page.goto( '/wp-admin/edit.php?post_type=cta' );
+		await page.locator( '#cb-select-all-1' ).check();
+		await page
+			.locator( '#bulk-action-selector-top' )
+			.selectOption( 'trash' );
+		await page.locator( '#doaction' ).click();
+
+		// --- 「CTA がまったく無い状態」を避けるためダミー CTA を 1 件作成 ---
+		// CTA が完全に 0 件だと CTA ブロック側のアラートが
+		// 「No CTA registered.」に切り替わってしまうため、別ケースを再現する。
+		await page.goto( '/wp-admin/post-new.php?post_type=cta' );
+		await closeWelcomeModalIfPresent( page );
+		await waitForBlockEditorReady( page );
+
+		const cta2Title = editorFrame( page ).getByLabel( 'Add title' );
+		await cta2Title.click();
+		await cta2Title.fill( 'Test CTA 2' );
+		await editorFrame( page )
+			.getByRole( 'button', { name: 'Add default block' } )
+			.click();
+		await page.keyboard.type( 'This is Test CTA 2' );
+
+		await publishPost( page );
+
+		// --- 削除済み CTA を参照している投稿を再オープン ---
+		await page.goto( '/wp-admin/edit.php' );
+		await page
+			.getByRole( 'link', { name: '“Post with CTA” (Edit)' } )
+			.click();
+		await waitForBlockEditorReady( page );
+		await closeWelcomeModalIfPresent( page );
+
+		// 指定 CTA が存在しないメッセージ確認。
+		await expect(
+			editorFrame( page ).locator( '.alert-title' )
+		).toContainText( 'Specified CTA does not exist.' );
+	} );
+} );
