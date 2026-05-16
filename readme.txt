@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Spec Change ][ Page Top Button ] Renamed the `--ver_page_top_button_url` CSS custom property to `--veu_page_top_button_url` to align with the `--veu_` (vk Ex Unit) naming convention.
+[ Spec Change ][ Page Top Button ] Renamed the `--ver_page_top_button_url` CSS custom property to `--veu_page_top_button_url` to align with the `--veu_` (vk Ex Unit) naming convention. For backward compatibility, the SCSS `background-image` keeps a `var( --ver_..., var( --veu_... ) )` fallback so existing themes / custom CSS overriding `--ver_page_top_button_url` continue to work without any change.
 
 = 9.115.1 =
 [ Security Fix ][ SNS Share Button ] Strengthened URL validation in the Hatena Bookmark and Facebook share count REST API callbacks. The previous substring-based check could be bypassed by attacker-controlled hosts that embed the site's host name (e.g. example.com.attacker.com), allowing share counts to be fetched for external URLs. The host name is now extracted with wp_parse_url() and compared with the site's host name using a case-insensitive exact match. Subdomains are not allowed.
