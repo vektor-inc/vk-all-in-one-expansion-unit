@@ -143,26 +143,19 @@ function veu_change_enqueue_point_to_footer( $enqueue_point ) {
 /**
  * Inline styles
  *
- * Outputs both `--ver_page_top_button_url` (legacy name, kept for
- * backward compatibility) and `--veu_page_top_button_url` (corrected
- * name that follows the `--veu_` (vk Ex Unit) naming convention).
- *
- * Both custom properties point to the same default page-top button
- * icon. The SCSS uses `var( --ver_..., var( --veu_... ) )` so existing
- * sites overriding `--ver_` continue to work.
+ * Outputs the `--veu_page_top_button_url` CSS custom property on
+ * `:root`. The property follows the `--veu_` (vk Ex Unit) naming
+ * convention and points to the default page-top button icon URL.
  *
  * インラインスタイルを出力する。
  *
- * `--ver_page_top_button_url`（旧名・互換のため残す）と
- * `--veu_page_top_button_url`（`--veu_` (vk Ex Unit) 命名に揃えた新名）の
- * 両方を `:root` に出力する。SCSS 側で `--ver_` を優先し未指定時に
- * `--veu_` にフォールバックするため、既存上書きユーザーの動作も保たれる。
+ * `--veu_` (vk Ex Unit) 命名規則に揃えた `--veu_page_top_button_url`
+ * を `:root` に出力する。値はページトップへ戻るボタンの
+ * デフォルトアイコン URL。
  */
 function veu_inline_styles() {
-	$page_top_button_url = VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg';
-	$dynamic_css         = ':root {
-		--ver_page_top_button_url:url(' . $page_top_button_url . ');
-		--veu_page_top_button_url:url(' . $page_top_button_url . ');
+	$dynamic_css = ':root {
+		--veu_page_top_button_url:url(' . VEU_DIRECTORY_URI . '/assets/images/to-top-btn-icon.svg);
 	}
 	@font-face {
 		font-weight: normal;
