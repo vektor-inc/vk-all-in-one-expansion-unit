@@ -10,6 +10,7 @@
 	border: none;
 	background: rgba(0,0,0,0.8);
 	box-shadow: 0 0 0 1px rgba(255,255,255,0.8), 0 0 0 2px rgba(0, 0, 0, 0.8);
+
 	// Keep the legacy `--ver_` custom property as the primary value so that
 	// users who already override it from their theme / custom CSS continue
 	// to work, and fall back to the corrected `--veu_` name (vk Ex Unit).
