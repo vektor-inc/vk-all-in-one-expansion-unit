@@ -358,29 +358,31 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			// UA を差し替えてからオプションを保存する。
-			$_SERVER['HTTP_USER_AGENT'] = $case['user_agent'];
-			update_option( 'vkExUnit_pagetop', $case['options'] );
+		try {
+			foreach ( $test_cases as $case ) {
+				// UA を差し替えてからオプションを保存する。
+				$_SERVER['HTTP_USER_AGENT'] = $case['user_agent'];
+				update_option( 'vkExUnit_pagetop', $case['options'] );
 
-			$actual = veu_pagetop_partial_render();
+				$actual = veu_pagetop_partial_render();
 
-			if ( $case['expect_empty'] ) {
-				$this->assertSame( '', $actual, $case['test_condition_name'] );
-			} else {
-				// 非モバイル or hide_mobile 無効時は `<a` を含む HTML が返る。
-				$this->assertStringContainsString( '<a ', $actual, $case['test_condition_name'] );
-				$this->assertStringContainsString( 'id="page_top"', $actual, $case['test_condition_name'] );
+				if ( $case['expect_empty'] ) {
+					$this->assertSame( '', $actual, $case['test_condition_name'] );
+				} else {
+					// 非モバイル or hide_mobile 無効時は `<a` を含む HTML が返る。
+					$this->assertStringContainsString( '<a ', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( 'id="page_top"', $actual, $case['test_condition_name'] );
+				}
+
+				delete_option( 'vkExUnit_pagetop' );
 			}
-
-			delete_option( 'vkExUnit_pagetop' );
-		}
-
-		// UA を元に戻す。
-		if ( null === $original_ua ) {
-			unset( $_SERVER['HTTP_USER_AGENT'] );
-		} else {
-			$_SERVER['HTTP_USER_AGENT'] = $original_ua;
+		} finally {
+			// UA を元に戻す（アサーション失敗時も必ず実行）。
+			if ( null === $original_ua ) {
+				unset( $_SERVER['HTTP_USER_AGENT'] );
+			} else {
+				$_SERVER['HTTP_USER_AGENT'] = $original_ua;
+			}
 		}
 	}
 }
