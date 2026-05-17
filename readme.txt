@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+[ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer (`veu_pagetop_sanitize_image_url()`) to close additional CSS injection vectors that bypassed the initial sanitizer added in the previous release. The control-character check now uses the PCRE `u` modifier and an explicit `[\x{0080}-\x{009F}]` range so multi-byte C1 control characters are rejected, and a new case-insensitive check rejects URL-encoded representations of the dangerous characters (`%22` / `%27` / `%28` / `%29` / `%5C`) which browsers may decode inside `url("...")`.
+
+[ Spec Change ][ Page Top Button ] Unified the `hide_mobile` sanitizer in the ExUnit main setting page (`veu_pagetop_sanitize()`) to use the shared `veu_sanitize_boolean()` callback, matching the Customizer setting's `sanitize_callback` so the stored value is consistently a boolean across both entry points. Also added a defensive `is_array()` guard to `veu_pagetop_render()` so that non-array arguments fall back to the default options array instead of triggering warnings.
+
 [ Bug Fix ] Fixed stylelint `font-family-name-quotes` violations. The SCSS source for the Font Awesome 5 family now uses the standard `"Font Awesome 5 Free"` quoted form instead of the escaped `Font Awesome\ 5 Free` notation, and the gulp-clean-css invocation in gulpfile.js is configured with `level: { 1: { removeQuotes: false } }` so that the minifier preserves the surrounding quotes for font-family names that require them (e.g. `"vk_sns"`).
 
 [ Feature ][ Page Top Button ] Added an "image" setting so users can upload their own icon for the page top button from the ExUnit main setting page and the Customizer. The selected image URL is applied via an inline `style` attribute that overrides the `--veu_page_top_button_url` CSS custom property, so themes / custom CSS that already override the legacy `--ver_page_top_button_url` continue to work unchanged. The URL is sanitized with a dedicated sanitizer that rejects values containing quotes, parentheses, whitespace or control characters, and only allows image extensions (svg / png / jpg / jpeg / gif / webp) to mitigate CSS injection.

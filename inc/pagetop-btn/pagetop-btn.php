@@ -42,10 +42,20 @@ function veu_add_pagetop() {
  * `--veu_page_top_button_url` を上書きする。
  * テスト容易性のためマークアップ生成を関数化している。
  *
- * @param array $options vkExUnit_pagetop オプション配列。
+ * @param array $options vkExUnit_pagetop オプション配列。配列以外が渡された場合は空配列として扱う。
  * @return string The page top button HTML.
  */
 function veu_pagetop_render( $options = array() ) {
+	// Defensive guard: callers may pass non-array values (null, string, etc.)
+	// either by mistake or via legacy code paths. Type-hint cannot be added
+	// without breaking backward compatibility, so normalize to an empty array
+	// here and let wp_parse_args() backfill defaults below.
+	// 後方互換のため引数の型宣言は付けず、配列以外が渡された場合は空配列として
+	// 扱うガードを入れる。後段の wp_parse_args() でデフォルト値を補完する。
+	if ( ! is_array( $options ) ) {
+		$options = array();
+	}
+
 	// Backfill defaults so callers can pass partial arrays / option output as-is.
 	// 不足キーをデフォルト値で補完。
 	$options = wp_parse_args( $options, veu_pagetop_default() );
@@ -100,10 +110,29 @@ function veu_pagetop_sanitize_image_url( $value ) {
 
 	// Reject values that contain characters which would let an attacker
 	// break out of the `url("...")` context (quotes, parens, backslash,
-	// control chars, internal whitespace).
+	// control chars including C0 / DEL / C1, internal whitespace).
+	// The `u` modifier enables UTF-8 mode so that multi-byte C1 controls
+	// (U+0080-U+009F) are matched as a single code point rather than
+	// individual bytes.
 	// `url("...")` のコンテキストから脱出可能な文字（クォート・括弧・
 	// バックスラッシュ・制御文字・内部空白）を含む場合は拒否する。
-	if ( preg_match( '/[\s"\'\\\\()]|[\x00-\x1F\x7F]/', $value ) ) {
+	// `u` 修飾子で UTF-8 モードを有効化し、C1 制御文字 (U+0080-U+009F) も
+	// マルチバイト文字として一括りに検出する。
+	if ( preg_match( '/[\s"\'\\\\()]|[\x00-\x1F\x7F]|[\x{0080}-\x{009F}]/u', $value ) ) {
+		return '';
+	}
+
+	// Reject URL-encoded variants of the dangerous characters above. Browsers
+	// may decode `%22` / `%27` / `%28` / `%29` / `%5C` inside `url("...")`,
+	// allowing an attacker to break out even though the raw value passed the
+	// first regex. Detection is case-insensitive so that `%5C` and `%5c`
+	// (both valid encodings of the backslash) are caught equally.
+	// 上記の危険文字を URL エンコードした表現も拒否する。ブラウザは
+	// `url("...")` 内の `%22` などをデコードしうるため、生クォート等を
+	// 弾いただけでは脱出を防げない。URL の percent-encoding は大文字小文字
+	// が等価（例: `%5C` と `%5c` はどちらもバックスラッシュ）なので、
+	// 取りこぼさないよう case-insensitive で判定する。
+	if ( preg_match( '/%(22|27|28|29|5C)/i', $value ) ) {
 		return '';
 	}
 
@@ -470,7 +499,12 @@ function veu_pagetop_sanitize( $input ) {
 		$input = array();
 	}
 	if ( isset( $input['hide_mobile'] ) ) {
-		$output['hide_mobile'] = esc_attr( $input['hide_mobile'] );
+		// Use the shared boolean sanitizer to match the Customizer setting's
+		// sanitize_callback (`veu_sanitize_boolean`) and keep the stored
+		// representation consistent across both entry points.
+		// カスタマイザ側の sanitize_callback と揃えるため共通の
+		// veu_sanitize_boolean() を使用し、保存形式（bool）を統一する。
+		$output['hide_mobile'] = veu_sanitize_boolean( $input['hide_mobile'] );
 	}
 	if ( isset( $input['image_url'] ) ) {
 		$output['image_url'] = veu_pagetop_sanitize_image_url( $input['image_url'] );
