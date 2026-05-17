@@ -75,7 +75,14 @@ gulp.task('sass', function(done) {
 			}
 		))
 		.pipe(autoprefixer())
-		.pipe(cleanCss())
+		.pipe(cleanCss({
+			// font-family などの文字列クォートを保持する（stylelint font-family-name-quotes 対応）
+			level: {
+				1: {
+					removeQuotes: false
+				}
+			}
+		}))
 		.pipe(gulp.dest('./assets/css/'));
 	gulp.src( 
 		'./inc/call-to-action/package/assets/_scss/*.scss',
@@ -90,7 +97,14 @@ gulp.task('sass', function(done) {
 			}
 		))
 		.pipe(autoprefixer())
-		.pipe(cleanCss())
+		.pipe(cleanCss({
+			// font-family などの文字列クォートを保持する（stylelint font-family-name-quotes 対応）
+			level: {
+				1: {
+					removeQuotes: false
+				}
+			}
+		}))
 		.pipe(gulp.dest('./inc/call-to-action/package/assets/css/'));
 	done();
 });
