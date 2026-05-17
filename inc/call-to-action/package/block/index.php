@@ -50,7 +50,9 @@ function veu_register_cta_block() {
 			'editor_script'   => 'veu-block-cta',
 			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_cta_block_callback',
-			'supports'        => array(),
+			'supports'        => array(
+				'contentRole' => true,
+			),
 		)
 	);
 

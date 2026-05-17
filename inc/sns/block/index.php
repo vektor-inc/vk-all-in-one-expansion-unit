@@ -35,7 +35,9 @@ function veu_register_share_button_block() {
 			'editor_script'   => 'veu-block-share-button',
 			'editor_style'    => 'veu-block-share-button-editor',
 			'render_callback' => 'veu_share_button_block_callback',
-			'supports'        => array(),
+			'supports'        => array(
+				'contentRole' => true,
+			),
 		)
 	);
 }

@@ -12,6 +12,7 @@
 		}
 	},
 	"supports": {
+		"contentRole": true,
 		"className": true
 	}
 }

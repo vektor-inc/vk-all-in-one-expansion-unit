@@ -7,6 +7,7 @@
 	"textdomain": "vk-all-in-one-expansion-unit",
 	"attributes": {},
 	"supports": {
+		"contentRole": true,
 		"className": true
 	}
 }

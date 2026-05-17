@@ -29,7 +29,9 @@ function veu_register_sitemap_block() {
 			'editor_script'   => 'veu-block-sitemap',
 			'editor_style'    => 'veu-block-editor',
 			'render_callback' => 'veu_sitemap_block_callback',
-			'supports'        => array(),
+			'supports'        => array(
+				'contentRole' => true,
+			),
 		)
 	);
 }

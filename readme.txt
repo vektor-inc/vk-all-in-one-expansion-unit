@@ -107,6 +107,8 @@ e.g.
 
 [ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
 
+[ Other ][ All Blocks ] Fixed an issue where blocks inserted from patterns could not be edited in WordPress 7.0.
+
 = 9.114.0 =
 [ Spec Change ] Migrate post editor settings UI to block editor sidebar panels
 [ Bug Fix ] Fixed binary files (images, fonts, etc.) being corrupted during dist process
