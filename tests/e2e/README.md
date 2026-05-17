@@ -164,13 +164,15 @@ await page.locator('#user_login').fill('admin');
 
 UI から事前条件を作るとセットアップで落ちて本質が見えなくなります。option / 投稿 / ユーザー等の初期化は wp-cli を `execFileSync` で叩いてください（シェル解釈を経由しないため、JSON にクォートや空白が含まれていても安全に渡せます）。
 
+コンテナは必ず **`tests-cli`** を指定してください。Playwright のテスト対象は wp-env の **tests** サイト（デフォルト 8889）を向いているため、`cli` コンテナ（development サイト）で option を書き換えてもテスト側 DB には反映されません。
+
 ```ts
 import { execFileSync } from 'child_process';
 
 const runWpCli = ( args: string[] ): string =>
     execFileSync(
         'npx',
-        [ 'wp-env', 'run', 'cli', 'wp', ...args ],
+        [ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
         { encoding: 'utf-8', stdio: [ 'ignore', 'pipe', 'pipe' ] }
     );
 
