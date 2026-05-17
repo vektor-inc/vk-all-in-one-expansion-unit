@@ -36,7 +36,13 @@ test('Active Setting first save respects selections', async ({ page }) => {
   await widgetCheckbox.setChecked(true);
 
   await page.locator('#submit').click();
-  await page.waitForLoadState('networkidle');
+  // Settings API ( form action="options.php" ) は保存後に元の管理画面へ
+  // リダイレクトする。下の expect(...).not.toBeChecked() / toBeChecked() の
+  // 自動 retry が、リダイレクト後にチェックボックスが再描画され、
+  // 設定値が反映されるところまでを待ってくれるため、ここで
+  // waitForLoadState('networkidle') を挟む必要はない。
+  // networkidle は heartbeat 等で安定しないため使わない
+  // （tests/e2e/README.md 参照）。
 
   const metaCheckboxAfter = page.locator('#checkbox_active_metaDescription');
   const widgetCheckboxAfter = page.locator('#vew_widget_enable_input_post_list');
