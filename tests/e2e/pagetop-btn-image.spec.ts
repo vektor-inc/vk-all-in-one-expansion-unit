@@ -21,13 +21,17 @@ import { execFileSync } from 'child_process';
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'password';
 
-// wp-env の cli コンテナ経由で wp-cli を実行するためのヘルパー。
+// wp-env の `tests-cli` コンテナ経由で wp-cli を実行するためのヘルパー。
+// `tests-cli` を使うのは、Playwright のテスト対象 ( WP_BASE_URL ) が
+// wp-env の **tests** サイト（デフォルト 8889 / override 後 9109）を
+// 向いているため。`cli` ( development サイト ) で option を書き換えても
+// テスト側 DB には反映されないので、必ず `tests-cli` を使うこと。
 // shell 経由ではなく execFileSync で引数を配列のまま渡すことで、
 // JSON 等にクォートや空白が含まれてもシェル解釈を経由しない。
 const runWpCli = ( args: string[] ): string => {
 	return execFileSync(
 		'npx',
-		[ 'wp-env', 'run', 'cli', 'wp', ...args ],
+		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
 		{
 			encoding: 'utf-8',
 			stdio: [ 'ignore', 'pipe', 'pipe' ],
@@ -84,8 +88,10 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		await page.locator( '#user_pass' ).fill( ADMIN_PASS );
 		await page.locator( '#wp-submit' ).click();
 		// ダッシュボードのロード完了まで待つ。
+		// networkidle は WP の heartbeat 等で安定しないため、
+		// 管理バー（id ベース・i18n 非依存）が描画されたことで判断する。
 		await page.waitForURL( /wp-admin\// );
-		await page.waitForLoadState( 'networkidle' );
+		await page.locator( '#wpadminbar' ).waitFor();
 	} );
 
 	test.afterAll( () => {
@@ -113,7 +119,9 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		await page.goto(
 			'/wp-admin/admin.php?page=vkExUnit_main_setting#vkExUnit_pagetop'
 		);
-		await page.waitForLoadState( 'networkidle' );
+		// ページトップセクションが描画され、操作対象の入力欄が DOM に存在することで
+		// 画面ロード完了を判定する（networkidle は管理画面の常時通信で不安定）。
+		await page.locator( '#pagetop_image_url' ).waitFor();
 
 		// 画像 URL を直接テキストフィールドに入力する
 		// （メディアライブラリ操作は wp-env の挙動が不安定なため URL 直入力で検証）。
@@ -138,7 +146,14 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		// `#submit` は各セクションごとに重複しているので
 		// `#pagetopSetting` セクション内のものを明示的に指定する。
 		await page.locator( '#pagetopSetting #submit' ).click();
-		await page.waitForLoadState( 'networkidle' );
+		// VK ExUnit のメイン設定ページは保存後に `.notice-success` を
+		// 出さず、同じページに POST して再描画されるだけ。そのため
+		// 「フォームが再描画され、URL 入力欄に保存した値が反映されている」
+		// ことを toHaveValue() の retry で待つことで保存完了とみなす。
+		// networkidle は WP の heartbeat 等で安定しないため使わない。
+		await expect( page.locator( '#pagetop_image_url' ) ).toHaveValue(
+			sampleUrl
+		);
 
 		// フロントで出力を確認。
 		await page.goto( '/?p=1' );
@@ -179,7 +194,8 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		await page.goto(
 			'/wp-admin/admin.php?page=vkExUnit_main_setting#vkExUnit_pagetop'
 		);
-		await page.waitForLoadState( 'networkidle' );
+		// 画像 URL 入力欄の描画を待ってから値を検証する。
+		await page.locator( '#pagetop_image_url' ).waitFor();
 		const urlInput = page.locator( '#pagetop_image_url' );
 		await urlInput.scrollIntoViewIfNeeded();
 		await expect( urlInput ).toHaveValue( sampleUrl );
@@ -194,7 +210,9 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 
 		// 保存（pagetop セクション内の submit ボタン）。
 		await page.locator( '#pagetopSetting #submit' ).click();
-		await page.waitForLoadState( 'networkidle' );
+		// 保存完了は「URL 入力欄が空のまま再描画されていること」で判定する。
+		// `.notice-success` は VK ExUnit のメイン設定ページでは表示されない。
+		await expect( page.locator( '#pagetop_image_url' ) ).toHaveValue( '' );
 
 		// フロントで style 属性が消えていることを確認。
 		await page.goto( '/?p=1' );
@@ -212,7 +230,8 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		await page.goto(
 			'/wp-admin/admin.php?page=vkExUnit_main_setting#vkExUnit_pagetop'
 		);
-		await page.waitForLoadState( 'networkidle' );
+		// 画像 URL 入力欄の描画を待ってからペイロード入力に進む。
+		await page.locator( '#pagetop_image_url' ).waitFor();
 
 		// CSS injection を試す payload（クォート・括弧・空白を含む）。
 		const payload =
@@ -224,13 +243,11 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 
 		// 保存（pagetop セクション内の submit ボタン）。
 		await page.locator( '#pagetopSetting #submit' ).click();
-		await page.waitForLoadState( 'networkidle' );
-
-		// 保存後、URL フィールドが空になっていること（サニタイザーが空文字を返したため）。
-		const urlAfter = await page
-			.locator( '#pagetop_image_url' )
-			.inputValue();
-		expect( urlAfter ).toBe( '' );
+		// 保存完了 + サニタイズ結果（空文字）が UI に反映されたことを
+		// toHaveValue() の retry で待つ。サニタイザーが空文字を返す想定なので、
+		// この assertion 自体が「保存後にフォームが再描画され、値が反映された」
+		// 状態の判定を兼ねている。
+		await expect( page.locator( '#pagetop_image_url' ) ).toHaveValue( '' );
 
 		// フロント側にも style 属性が付かないこと。
 		await page.goto( '/?p=1' );

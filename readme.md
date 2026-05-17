@@ -2,6 +2,8 @@
 
 ## E2E Test
 
+e2e テストの実行方法・待機戦略・Mobile UA 検証などの開発者向けガイドラインは [`tests/e2e/README.md`](./tests/e2e/README.md) を参照してください。
+
 ### テストを作成
 
 Playwriteは操作を自動的トラッキングしてコードを出力してくれます。
