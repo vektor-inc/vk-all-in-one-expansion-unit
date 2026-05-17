@@ -129,6 +129,57 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 				'input'               => '"><script>alert(1)</script>',
 				'expected'            => '',
 			),
+			// 追加の境界値テスト（issue #1347 / PR #1345 のレビュー対応）。
+			array(
+				'test_condition_name' => 'data: スキームは esc_url_raw で除去され空文字になる',
+				'input'               => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUg==',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'URL エンコードされたダブルクォート（%22）を含む値は弾く',
+				'input'               => 'https://example.com/a%22.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'URL エンコードされたシングルクォート（%27）を含む値は弾く',
+				'input'               => 'https://example.com/a%27.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'URL エンコードされた閉じ括弧（%29）を含む値は弾く',
+				'input'               => 'https://example.com/a%29.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'URL エンコードされた開き括弧（%28）を含む値は弾く',
+				'input'               => 'https://example.com/a%28.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'URL エンコードされたバックスラッシュ（%5C）を含む値は弾く',
+				'input'               => 'https://example.com/a%5C.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '多重拡張子（evil.png.php）は最後の拡張子で判定され弾く',
+				'input'               => 'https://example.com/evil.png.php',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '大文字スキーム（HTTPS://）は esc_url_raw で小文字化され許可',
+				'input'               => 'HTTPS://example.com/image.png',
+				'expected'            => 'https://example.com/image.png',
+			),
+			array(
+				'test_condition_name' => 'U+0080 (C1 制御文字) を含む値は弾く',
+				'input'               => "https://example.com/a\xC2\x80.png",
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'U+009F (C1 制御文字) を含む値は弾く',
+				'input'               => "https://example.com/a\xC2\x9F.png",
+				'expected'            => '',
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -175,6 +226,20 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
 				'expected_not'        => array( 'evil.php', 'style=', 'has-image' ),
 			),
+			// 防御的プログラミングの検証: 配列以外が渡されても空配列扱いでデフォルト出力に
+			// フォールバックする事を確認する（issue #1347 項目3）。
+			array(
+				'test_condition_name' => '境界値: 配列以外（null）を渡してもデフォルト出力にフォールバックする',
+				'options'             => null,
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_not'        => array( 'style=', 'has-image' ),
+			),
+			array(
+				'test_condition_name' => '境界値: 配列以外（文字列）を渡してもデフォルト出力にフォールバックする',
+				'options'             => 'invalid string',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_not'        => array( 'style=', 'has-image' ),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -207,13 +272,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 
 		$test_cases = array(
 			array(
-				'test_condition_name' => '正常系1: 全部入りで両方サニタイズされる',
+				'test_condition_name' => '正常系1: 全部入りで両方サニタイズされる（hide_mobile は bool に正規化）',
 				'input'               => array(
 					'hide_mobile' => 'true',
 					'image_url'   => 'https://example.com/a.png',
 				),
 				'expected'            => array(
-					'hide_mobile' => 'true',
+					'hide_mobile' => true,
 					'image_url'   => 'https://example.com/a.png',
 				),
 			),
@@ -224,6 +289,17 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 				),
 				'expected'            => array(
 					'image_url' => 'https://example.com/b.svg',
+				),
+			),
+			array(
+				'test_condition_name' => '正常系3: hide_mobile=false 相当の値（空文字）は bool の false に正規化',
+				'input'               => array(
+					'hide_mobile' => '',
+					'image_url'   => 'https://example.com/c.png',
+				),
+				'expected'            => array(
+					'hide_mobile' => false,
+					'image_url'   => 'https://example.com/c.png',
 				),
 			),
 			array(
@@ -246,7 +322,8 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 
 		foreach ( $test_cases as $case ) {
 			$actual = veu_pagetop_sanitize( $case['input'] );
-			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+			// 厳密比較で型まで一致しているかを確認する（bool と 'true' などの取り違えを防ぐ）。
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
 		}
 	}
 

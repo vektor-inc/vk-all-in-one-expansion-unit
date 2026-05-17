@@ -20,6 +20,9 @@
 	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: center;
+	opacity: 0;
+	transition: opacity 0.3s;
+	text-decoration: none;
 
 	// When a user-uploaded image is applied via the inline `--veu_` override,
 	// use `contain` so that the entire image fits the button without being
@@ -38,16 +41,13 @@
 		background-color: transparent;
 		box-shadow: none;
 	}
-	opacity: 0;
-	transition: opacity 0.3s;
-	text-decoration: none;
-	&:hover {  
+	&:hover {
 		transition: opacity 0.3s;
 		color: transparent;
 		text-decoration: none;
 	}
 	.customize-partial-edit-shortcut-button {
-		left:-40px;
+		left: -40px;
 	}
 }
 .scrolled .page_top_btn{
