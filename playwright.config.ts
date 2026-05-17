@@ -36,7 +36,8 @@ const config: PlaywrightTestConfig = {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
+    /* CI 環境とローカル環境でポートが異なるため WP_BASE_URL で上書き可能にする。デフォルトは wp-env の testsPort (8889)。 */
+    baseURL: process.env.WP_BASE_URL || 'http://localhost:8889',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
