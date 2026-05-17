@@ -42,7 +42,7 @@ function veu_add_pagetop() {
  * `--veu_page_top_button_url` を上書きする。
  * テスト容易性のためマークアップ生成を関数化している。
  *
- * @param array $options vkExUnit_pagetop オプション配列。配列以外が渡された場合は空配列として扱う。
+ * @param mixed $options vkExUnit_pagetop オプション配列。配列以外が渡された場合は空配列として扱う。
  * @return string The page top button HTML.
  */
 function veu_pagetop_render( $options = array() ) {
