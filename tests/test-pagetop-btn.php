@@ -151,6 +151,16 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 				'expected'            => '',
 			),
 			array(
+				'test_condition_name' => 'URL エンコードされた開き括弧（%28）を含む値は弾く',
+				'input'               => 'https://example.com/a%28.png',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'URL エンコードされたバックスラッシュ（%5C）を含む値は弾く',
+				'input'               => 'https://example.com/a%5C.png',
+				'expected'            => '',
+			),
+			array(
 				'test_condition_name' => '多重拡張子（evil.png.php）は最後の拡張子で判定され弾く',
 				'input'               => 'https://example.com/evil.png.php',
 				'expected'            => '',
