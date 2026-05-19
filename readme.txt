@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 9.115.1
+Stable tag: 9.116.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.116.0 =
 [ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer (`veu_pagetop_sanitize_image_url()`) to close additional CSS injection vectors that bypassed the initial sanitizer added in the previous release. The control-character check now uses the PCRE `u` modifier and an explicit `[\x{0080}-\x{009F}]` range so multi-byte C1 control characters are rejected, and a new case-insensitive check rejects URL-encoded representations of the dangerous characters (`%22` / `%27` / `%28` / `%29` / `%5C`) which browsers may decode inside `url("...")`.
 
 [ Spec Change ][ Page Top Button ] Unified the `hide_mobile` sanitizer in the ExUnit main setting page (`veu_pagetop_sanitize()`) to use the shared `veu_sanitize_boolean()` callback, matching the Customizer setting's `sanitize_callback` so the stored value is consistently a boolean across both entry points. Also added a defensive `is_array()` guard to `veu_pagetop_render()` so that non-array arguments fall back to the default options array instead of triggering warnings.
