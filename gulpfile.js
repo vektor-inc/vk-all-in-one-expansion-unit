@@ -204,6 +204,7 @@ gulp.task('dist', function() {
 				'./admin/**',
 				'./languages/**',
 				'./build/**',
+				'./vendor/**',
 				"!./compile.bat",
 				"!./config.rb",
 				"!./tests/**",
