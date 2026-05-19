@@ -209,7 +209,17 @@ gulp.task('dist', function() {
 				"!./config.rb",
 				"!./tests/**",
 				"!./dist/**",
-				"!./node_modules/**"
+				"!./node_modules/**",
+				// vendor 配下から dist に含めるべきでないテスト・開発設定ファイル群を除外する。
+				"!./vendor/**/tests/**",
+				"!./vendor/**/phpunit.xml*",
+				"!./vendor/**/composer.json",
+				"!./vendor/**/composer.lock",
+				"!./vendor/**/package.json",
+				"!./vendor/**/package-lock.json",
+				"!./vendor/**/gulpfile.js",
+				"!./vendor/**/README.md",
+				"!./vendor/**/.*"
 			],
 			{
 				base: './',
