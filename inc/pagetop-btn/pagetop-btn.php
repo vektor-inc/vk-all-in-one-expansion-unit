@@ -319,24 +319,16 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	);
 
 	// Image size description shown on the width control only.
-	// 画像サイズ設定の説明文。width / height の両方に同じ長文を載せていたのを
-	// 冗長というレビュー指摘を受け、width control 側に 1 か所だけ集約する形に変更した。
+	// 画像サイズ設定の説明文。width control 側に 1 か所だけ集約する。
 	// メイン設定画面と文面を揃える。翻訳ルールに従い 1 文ずつ翻訳関数で区切る。
 	// `\n\n` を挟むことで意味のまとまりごとに空行を入れ、カスタマイザー UI 上で
 	// グループが視覚的に分かれるようにしている。
-	$image_size_description  = __( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$image_size_description .= __( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$image_size_description .= __( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$image_size_description .= __( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$image_size_description .= __( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	// Notice about the silent clamp at the upper bound. ユーザーが上限を超える値を入力した際に
-	// 無言で 500 にクランプされる仕様の注意書き。
-	$image_size_description .= __( 'The maximum value is 500 px.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$image_size_description .= __( 'Values larger than 500 will be clamped to 500.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	// Notice that clearing the image does not clear the size values. 画像を解除しても
-	// 幅・高さの値が残るため、意図しないサイズが復活する場合がある旨の注意書き。
-	$image_size_description .= __( 'These width and height values remain even after the image is cleared.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$image_size_description .= __( 'If an unintended size appears the next time you upload an image, please clear these values.', 'vk-all-in-one-expansion-unit' );
+	// PR #1363 のレビューで「説明が長すぎる」と指摘を受け、試せば分かる挙動
+	// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮した。
+	$image_size_description  = __( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ) . "\n";
+	$image_size_description .= __( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$image_size_description .= __( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$image_size_description .= __( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' );
 
 	// Image width (in px).
 	// 画像の幅（px）。
@@ -553,27 +545,19 @@ function veu_pagetop_admin() {
 		// description は意味のまとまりごとにグループ化し、グループ間は別の
 		// `<p class="description">` に分けて余白を作る。`<br /><br />` で
 		// 空きを作るのは design-rules.md「余白」セクションで禁止されているため、
-		// 段落分割で対応する。グループ内の文の区切りには `<br />` を使う
-		// （PR #1363 レビュー指摘対応）。
+		// 段落分割で対応する。グループ内の文の区切りには `<br />` を使う。
+		// PR #1363 のレビューで「説明が長すぎる」と指摘を受け、試せば分かる挙動
+		// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮した。
 		?>
 		<p class="description">
-			<?php esc_html_e( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 		<p class="description">
-			<?php esc_html_e( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 		<p class="description">
-			<?php esc_html_e( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
-		</p>
-		<p class="description">
-			<?php esc_html_e( 'The maximum value is 500 px.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'Values larger than 500 will be clamped to 500.', 'vk-all-in-one-expansion-unit' ); ?>
-		</p>
-		<p class="description">
-			<?php esc_html_e( 'These width and height values remain even after the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'If an unintended size appears the next time you upload an image, please clear these values.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 	</div>
 	<p class="description">
