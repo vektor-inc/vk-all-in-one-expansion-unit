@@ -318,9 +318,12 @@ function veu_customize_register_pagetop( $wp_customize ) {
 		)
 	);
 
-	// Image size description (shared between width / height controls).
-	// 画像サイズ設定の説明文（幅・高さ共通、メイン設定画面と文面を揃える）。
-	// 翻訳ルールに従い 1 文ずつ翻訳関数で区切る。
+	// Image size description shown on the width control only.
+	// 画像サイズ設定の説明文。width / height の両方に同じ長文を載せていたのを
+	// 冗長というレビュー指摘を受け、width control 側に 1 か所だけ集約する形に変更した。
+	// メイン設定画面と文面を揃える。翻訳ルールに従い 1 文ずつ翻訳関数で区切る。
+	// `\n\n` を挟むことで意味のまとまりごとに空行を入れ、カスタマイザー UI 上で
+	// グループが視覚的に分かれるようにしている。
 	$image_size_description  = __( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ) . "\n";
 	$image_size_description .= __( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
 	$image_size_description .= __( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ) . "\n";
@@ -350,9 +353,13 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$wp_customize->add_control(
 		'vkExUnit_pagetop_image_width',
 		array(
-			'label'       => __( 'Page top button image width (px)', 'vk-all-in-one-expansion-unit' ),
+			'label'       => __( 'Image width (px)', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
 			'settings'    => 'vkExUnit_pagetop[image_width]',
+			// width / height 共通のサイズ説明は width control にだけ表示する。
+			// 以前は width / height の両方に同じ description を載せていたが、
+			// 同じ長文が 2 か所に並んで冗長というレビュー指摘を受け、
+			// width 側に 1 か所だけ集約する形に変更した。
 			'description' => $image_size_description,
 			'type'        => 'number',
 			'input_attrs' => array(
@@ -379,14 +386,10 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$wp_customize->add_control(
 		'vkExUnit_pagetop_image_height',
 		array(
-			'label'       => __( 'Page top button image height (px)', 'vk-all-in-one-expansion-unit' ),
+			'label'       => __( 'Image height (px)', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
 			'settings'    => 'vkExUnit_pagetop[image_height]',
-			// height 側にも width と同じ description を設定する。
-			// width 側にだけ説明があると、height だけ操作したユーザーが
-			// 注意書きを見られない（max=500 クランプや画像解除時に値が残る等）
-			// ため、UX 上の指摘を受けて両方に出すようにした。
-			'description' => $image_size_description,
+			// description は width control 側に集約済みのため、height 側では設定しない。
 			'type'        => 'number',
 			'input_attrs' => array(
 				'min'       => 1,
@@ -514,22 +517,31 @@ function veu_pagetop_admin() {
 	<div class="veu_pagetop_image_size"<?php echo $size_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
 		<p>
 			<label for="pagetop_image_width" style="margin-right:1em;">
-				<?php esc_html_e( 'Page top button image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
+				<?php esc_html_e( 'Image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
 				<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
 			</label>
 			<label for="pagetop_image_height">
-				<?php esc_html_e( 'Page top button image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
+				<?php esc_html_e( 'Image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
 				<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
 			</label>
 		</p>
+		<?php
+		// description は意味のまとまりごとに `<br />` を打ち、グループ間は空行（`<br /><br />`）で
+		// 区切る。狭い画面でも各文が中途半端な位置で折り返されないよう、
+		// 最初から明示的に改行を入れている（PR #1363 レビュー指摘対応）。
+		?>
 		<p class="description">
 			<?php esc_html_e( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ); ?>
+			<br /><br />
 			<?php esc_html_e( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ); ?>
+			<br /><br />
+			<?php esc_html_e( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
+			<br /><br />
 			<?php esc_html_e( 'The maximum value is 500 px.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'Values larger than 500 will be clamped to 500.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'Values larger than 500 will be clamped to 500.', 'vk-all-in-one-expansion-unit' ); ?>
+			<br /><br />
 			<?php esc_html_e( 'These width and height values remain even after the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?><br />
 			<?php esc_html_e( 'If an unintended size appears the next time you upload an image, please clear these values.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
