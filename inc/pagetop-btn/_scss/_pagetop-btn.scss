@@ -41,6 +41,7 @@
 		background-color: transparent;
 		box-shadow: none;
 	}
+
 	// テーマや他の CSS で `a:hover { text-decoration: underline; color: ...; }` のように
 	// リンクのデフォルトホバースタイルが上書きされている場合、親 `.page_top_btn` の
 	// 指定だけでは `:hover` 状態でテーマ側のスタイルを打ち消すことができない。
