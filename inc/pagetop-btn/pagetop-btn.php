@@ -358,7 +358,7 @@ function veu_pagetop_admin() {
 		<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?><br />
 		<?php esc_html_e( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ); ?><br />
 		<?php esc_html_e( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<a href="<?php echo esc_url( $customizer_url ); ?>"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
+		<a href="<?php echo esc_url( $customizer_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
 	</p>
 </td>
 </tr>
