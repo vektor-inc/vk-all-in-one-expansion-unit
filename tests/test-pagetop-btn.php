@@ -270,6 +270,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 	 */
 	public function test_veu_pagetop_sanitize() {
 
+		// image_width / image_height キーは常に補完されるため、各 expected に 0 を含めて検証する。
 		$test_cases = array(
 			array(
 				'test_condition_name' => '正常系1: 全部入りで両方サニタイズされる（hide_mobile は bool に正規化）',
@@ -278,8 +279,10 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url'   => 'https://example.com/a.png',
 				),
 				'expected'            => array(
-					'hide_mobile' => true,
-					'image_url'   => 'https://example.com/a.png',
+					'hide_mobile'  => true,
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
@@ -288,7 +291,9 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url' => 'https://example.com/b.svg',
 				),
 				'expected'            => array(
-					'image_url' => 'https://example.com/b.svg',
+					'image_url'    => 'https://example.com/b.svg',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
@@ -298,8 +303,10 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url'   => 'https://example.com/c.png',
 				),
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => 'https://example.com/c.png',
+					'hide_mobile'  => false,
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
@@ -308,14 +315,18 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url' => 'https://example.com/a.png");}body{background:red;//',
 				),
 				'expected'            => array(
-					'image_url' => '',
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
 				'test_condition_name' => '境界値: 配列以外（null）は空配列を返す（image_url は空にフォールバック）',
 				'input'               => null,
 				'expected'            => array(
-					'image_url' => '',
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 		);
@@ -345,6 +356,16 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 				'key'                 => 'hide_mobile',
 				'expected'            => false,
 			),
+			array(
+				'test_condition_name' => 'デフォルト配列に image_width キーが含まれ、初期値は 0',
+				'key'                 => 'image_width',
+				'expected'            => 0,
+			),
+			array(
+				'test_condition_name' => 'デフォルト配列に image_height キーが含まれ、初期値は 0',
+				'key'                 => 'image_height',
+				'expected'            => 0,
+			),
 		);
 
 		$defaults = veu_pagetop_default();
@@ -356,35 +377,320 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test veu_pagetop_sanitize_image_size() with various inputs.
+	 *
+	 * 画像サイズ用サニタイザーの境界値・型違いをまとめて検証する。
+	 */
+	public function test_veu_pagetop_sanitize_image_size() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '正常系1: 0 はそのまま 0（未指定）として返る',
+				'input'               => 0,
+				'expected'            => 0,
+			),
+			array(
+				'test_condition_name' => '正常系2: 1 はそのまま 1 として返る（下限）',
+				'input'               => 1,
+				'expected'            => 1,
+			),
+			array(
+				'test_condition_name' => '正常系3: 500 はそのまま 500 として返る（上限）',
+				'input'               => 500,
+				'expected'            => 500,
+			),
+			array(
+				'test_condition_name' => '正常系4: 数値文字列 "60" は int 60 に正規化される',
+				'input'               => '60',
+				'expected'            => 60,
+			),
+			array(
+				'test_condition_name' => '正常系5: float 60.5 は絶対値整数 60 に正規化される',
+				'input'               => 60.5,
+				'expected'            => 60,
+			),
+			array(
+				'test_condition_name' => '境界値: 501 は上限の 500 にクランプされる',
+				'input'               => 501,
+				'expected'            => 500,
+			),
+			array(
+				'test_condition_name' => '境界値: 9999 は上限の 500 にクランプされる',
+				'input'               => 9999,
+				'expected'            => 500,
+			),
+			array(
+				'test_condition_name' => '異常系: 負数 -1 は absint で 1 として扱われる',
+				'input'               => -1,
+				'expected'            => 1,
+			),
+			array(
+				'test_condition_name' => '異常系: 非数値文字列 "abc" は 0 になる',
+				'input'               => 'abc',
+				'expected'            => 0,
+			),
+			array(
+				'test_condition_name' => '異常系: null は 0 になる',
+				'input'               => null,
+				'expected'            => 0,
+			),
+			array(
+				'test_condition_name' => '異常系: 配列は 0 になる（非スカラー）',
+				'input'               => array( 60 ),
+				'expected'            => 0,
+			),
+			array(
+				'test_condition_name' => '異常系: 空配列は 0 になる',
+				'input'               => array(),
+				'expected'            => 0,
+			),
+			array(
+				'test_condition_name' => '異常系: 空文字列は 0 になる',
+				'input'               => '',
+				'expected'            => 0,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_sanitize_image_size( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_render() emits size CSS custom properties.
+	 *
+	 * width / height 指定時の style 属性出力を網羅的に検証する。
+	 */
+	public function test_veu_pagetop_render_with_size() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '両方指定: width と height の両方が style 属性に出力される',
+				'options'             => array(
+					'image_url'    => 'https://example.com/icon.png',
+					'image_width'  => 60,
+					'image_height' => 60,
+				),
+				'expected_contains'   => array(
+					'--veu_page_top_button_url:url(&quot;https://example.com/icon.png&quot;);',
+					'--veu_page_top_button_width:60px;',
+					'--veu_page_top_button_height:60px;',
+					'class="page_top_btn has-image"',
+				),
+				'expected_not'        => array(),
+			),
+			array(
+				'test_condition_name' => 'width のみ指定: width だけが style 属性に出力される',
+				'options'             => array(
+					'image_url'   => 'https://example.com/icon.png',
+					'image_width' => 80,
+				),
+				'expected_contains'   => array(
+					'--veu_page_top_button_width:80px;',
+				),
+				'expected_not'        => array(
+					'--veu_page_top_button_height',
+				),
+			),
+			array(
+				'test_condition_name' => 'height のみ指定: height だけが style 属性に出力される',
+				'options'             => array(
+					'image_url'    => 'https://example.com/icon.png',
+					'image_height' => 100,
+				),
+				'expected_contains'   => array(
+					'--veu_page_top_button_height:100px;',
+				),
+				'expected_not'        => array(
+					'--veu_page_top_button_width',
+				),
+			),
+			array(
+				'test_condition_name' => '画像未指定: width / height があっても style にサイズは出力されない',
+				'options'             => array(
+					'image_url'    => '',
+					'image_width'  => 60,
+					'image_height' => 60,
+				),
+				'expected_contains'   => array(
+					'<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				),
+				'expected_not'        => array(
+					'style=',
+					'--veu_page_top_button_width',
+					'--veu_page_top_button_height',
+					'has-image',
+				),
+			),
+			array(
+				'test_condition_name' => '異常値混入: width に文字列が入っていても出力されない（防御的キャスト）',
+				'options'             => array(
+					'image_url'    => 'https://example.com/icon.png',
+					'image_width'  => 'abc',
+					'image_height' => 0,
+				),
+				'expected_contains'   => array(
+					'--veu_page_top_button_url:url(&quot;https://example.com/icon.png&quot;);',
+				),
+				'expected_not'        => array(
+					'--veu_page_top_button_width',
+					'--veu_page_top_button_height',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_render( $case['options'] );
+
+			foreach ( $case['expected_contains'] as $needle ) {
+				$this->assertStringContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / 含むべき: ' . $needle
+				);
+			}
+			foreach ( $case['expected_not'] as $needle ) {
+				$this->assertStringNotContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / 含まないべき: ' . $needle
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_sanitize() clamps and normalizes image size values.
+	 *
+	 * メイン設定画面の保存サニタイズで width/height が正しくクランプ・整数化されるか検証する。
+	 */
+	public function test_veu_pagetop_sanitize_clamps_image_size() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '正常系1: width=60 / height=60 はそのまま整数で保存',
+				'input'               => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => '60',
+					'image_height' => '60',
+				),
+				'expected'            => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 60,
+					'image_height' => 60,
+				),
+			),
+			array(
+				'test_condition_name' => '正常系2: width/height キーがなければ 0 で補完される',
+				'input'               => array(
+					'image_url' => 'https://example.com/a.png',
+				),
+				'expected'            => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 0,
+					'image_height' => 0,
+				),
+			),
+			array(
+				'test_condition_name' => '境界値: 501 / 9999 は 500 にクランプされる',
+				'input'               => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 501,
+					'image_height' => 9999,
+				),
+				'expected'            => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 500,
+					'image_height' => 500,
+				),
+			),
+			array(
+				'test_condition_name' => '異常系: 非数値文字列・配列は 0 に正規化される',
+				'input'               => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 'abc',
+					'image_height' => array( 100 ),
+				),
+				'expected'            => array(
+					'image_url'    => 'https://example.com/a.png',
+					'image_width'  => 0,
+					'image_height' => 0,
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_sanitize( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
 	 * Test veu_pagetop_options() merges saved option with defaults.
 	 *
 	 * 保存済みオプションがデフォルトとマージされることを確認する。
 	 */
 	public function test_veu_pagetop_options() {
 
+		// image_width / image_height は取得時にも防御的サニタイズが入るため、各 expected に 0 を含めて検証する。
 		$test_cases = array(
 			array(
 				'test_condition_name' => '正常系1: 何も保存していなければデフォルトが返る',
 				'saved'               => null,
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => '',
+					'hide_mobile'  => false,
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
 				'test_condition_name' => '正常系2: image_url のみ保存している場合はマージされる',
 				'saved'               => array( 'image_url' => 'https://example.com/c.png' ),
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => 'https://example.com/c.png',
+					'hide_mobile'  => false,
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 0,
+					'image_height' => 0,
+				),
+			),
+			array(
+				'test_condition_name' => '正常系3: image_width / image_height が保存されている場合は整数のまま返る',
+				'saved'               => array(
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 60,
+					'image_height' => 80,
+				),
+				'expected'            => array(
+					'hide_mobile'  => false,
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 60,
+					'image_height' => 80,
+				),
+			),
+			array(
+				'test_condition_name' => '境界値: 取得時にもサイズが 500 にクランプされる',
+				'saved'               => array(
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 9999,
+					'image_height' => 600,
+				),
+				'expected'            => array(
+					'hide_mobile'  => false,
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 500,
+					'image_height' => 500,
 				),
 			),
 			array(
 				'test_condition_name' => '異常系: option に非配列が保存されていてもデフォルト配列にフォールバックする',
 				'saved'               => 'invalid string',
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => '',
+					'hide_mobile'  => false,
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
@@ -394,8 +700,10 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url'   => array( 'https://example.com/a.png' ),
 				),
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => '',
+					'hide_mobile'  => false,
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
@@ -405,8 +713,10 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url'   => null,
 				),
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => '',
+					'hide_mobile'  => false,
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 			array(
@@ -416,8 +726,24 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_url'   => 'https://example.com/a.png");}body{background:red;//',
 				),
 				'expected'            => array(
-					'hide_mobile' => false,
-					'image_url'   => '',
+					'hide_mobile'  => false,
+					'image_url'    => '',
+					'image_width'  => 0,
+					'image_height' => 0,
+				),
+			),
+			array(
+				'test_condition_name' => '異常系: image_width に配列が保存されていても 0 に正規化される',
+				'saved'               => array(
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => array( 60 ),
+					'image_height' => 'abc',
+				),
+				'expected'            => array(
+					'hide_mobile'  => false,
+					'image_url'    => 'https://example.com/c.png',
+					'image_width'  => 0,
+					'image_height' => 0,
 				),
 			),
 		);

@@ -75,7 +75,23 @@ function veu_pagetop_render( $options = array() ) {
 		// url() 内はダブルクォート固定。サニタイザーで
 		// クォート・括弧・空白を含む値は除外済みのため安全。
 		$style_value = '--veu_page_top_button_url:url("' . $image_url . '");';
-		$style_attr  = ' style="' . esc_attr( $style_value ) . '"';
+
+		// Append width / height CSS custom properties when the user provided
+		// a positive size. Cast to int again as a defence-in-depth measure
+		// even though `veu_pagetop_options()` already sanitizes the values.
+		// `has-image` のときだけサイズ用カスタムプロパティを付与する。
+		// `veu_pagetop_options()` で既にサニタイズ済みだが、出力直前にも
+		// 多重防御として `(int)` キャストで再度防御する。
+		$image_width  = isset( $options['image_width'] ) ? (int) $options['image_width'] : 0;
+		$image_height = isset( $options['image_height'] ) ? (int) $options['image_height'] : 0;
+		if ( $image_width > 0 ) {
+			$style_value .= '--veu_page_top_button_width:' . $image_width . 'px;';
+		}
+		if ( $image_height > 0 ) {
+			$style_value .= '--veu_page_top_button_height:' . $image_height . 'px;';
+		}
+
+		$style_attr = ' style="' . esc_attr( $style_value ) . '"';
 		// `has-image` クラスを付けることで SCSS 側で画像サイズを
 		// `contain` に切り替えるなどの調整が可能。
 		$class .= ' has-image';
@@ -162,6 +178,45 @@ function veu_pagetop_sanitize_image_url( $value ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Sanitize an image size (width / height) value for the page top button.
+ *
+ * Accepts arbitrary input (string, int, float, null, array...) and normalizes
+ * it to a non-negative integer pixel value clamped to a sane maximum.
+ *
+ * - Non-scalar inputs (arrays, null, etc.) are treated as `0`.
+ * - Strings such as `'60'` are coerced via `absint()` so negative and
+ *   non-numeric values become `0`.
+ * - The result is clamped to a maximum of 500px to prevent extremely large
+ *   values from breaking the layout (defence-in-depth).
+ * - `0` means "unspecified" and is the default state.
+ *
+ * 画像サイズ用の共通サニタイザー。
+ * 非数値・null・配列などは 0 に正規化し、`absint()` で整数化したうえで
+ * 上限 500px にクランプする。0 は「未指定」を表し既定状態となる。
+ *
+ * @param mixed $value Raw value from option / customizer / POST.
+ * @return int Sanitized pixel value (0 - 500).
+ */
+function veu_pagetop_sanitize_image_size( $value ) {
+	// Reject arrays / objects / null up-front so `absint()` does not emit
+	// notices on unexpected input types.
+	// 配列・オブジェクト・null は absint() で warning を出さないよう先に弾く。
+	if ( ! is_scalar( $value ) ) {
+		return 0;
+	}
+
+	// `absint()` converts to non-negative integer; non-numeric strings
+	// become 0. Boolean true would become 1, but the upper clamp also
+	// keeps the value within range.
+	// absint() で非負整数化。非数値文字列は 0 になる。
+	$value = absint( $value );
+
+	// Clamp to the documented maximum (defence-in-depth against absurd values).
+	// 極端な値での画面崩れを防ぐため 500px でクランプ。
+	return min( 500, $value );
 }
 
 add_action( 'customize_register', 'veu_customize_register_pagetop' );
@@ -260,6 +315,72 @@ function veu_customize_register_pagetop( $wp_customize ) {
 		)
 	);
 
+	// Image size description (shared between width / height controls).
+	// 画像サイズ設定の説明文（幅・高さ共通、メイン設定画面と文面を揃える）。
+	$image_size_description  = __( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ) . "\n";
+	$image_size_description .= __( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$image_size_description .= __( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ) . "\n";
+	$image_size_description .= __( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
+	$image_size_description .= __( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' );
+
+	// Image width (in px).
+	// 画像の幅（px）。
+	$wp_customize->add_setting(
+		'vkExUnit_pagetop[image_width]',
+		array(
+			'default'           => 0,
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_pagetop_sanitize_image_size',
+			'transport'         => 'refresh',
+		)
+	);
+	$wp_customize->add_control(
+		'vkExUnit_pagetop_image_width',
+		array(
+			'label'       => __( 'Page top button image width (px)', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_pagetop_setting',
+			'settings'    => 'vkExUnit_pagetop[image_width]',
+			'description' => $image_size_description,
+			'type'        => 'number',
+			'input_attrs' => array(
+				'min'       => 1,
+				'max'       => 500,
+				'step'      => 1,
+				'inputmode' => 'numeric',
+			),
+		)
+	);
+
+	// Image height (in px).
+	// 画像の高さ（px）。
+	$wp_customize->add_setting(
+		'vkExUnit_pagetop[image_height]',
+		array(
+			'default'           => 0,
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_pagetop_sanitize_image_size',
+			'transport'         => 'refresh',
+		)
+	);
+	$wp_customize->add_control(
+		'vkExUnit_pagetop_image_height',
+		array(
+			'label'       => __( 'Page top button image height (px)', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_pagetop_setting',
+			'settings'    => 'vkExUnit_pagetop[image_height]',
+			// 説明文は width 側にまとめて記載済み（重複表示を避ける）。
+			'type'        => 'number',
+			'input_attrs' => array(
+				'min'       => 1,
+				'max'       => 500,
+				'step'      => 1,
+				'inputmode' => 'numeric',
+			),
+		)
+	);
+
 	// Selective refresh: re-render the `<a>` element when settings change.
 	// 設定変更時に `<a>` を差し替える selective refresh パーシャル。
 	$wp_customize->selective_refresh->add_partial(
@@ -272,6 +393,23 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	);
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_pagetop[image_url]',
+		array(
+			'selector'            => '.page_top_btn',
+			'container_inclusive' => true,
+			'render_callback'     => 'veu_pagetop_partial_render',
+		)
+	);
+	// width / height も image_url と同じく <a> 要素ごと差し替える。
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_pagetop[image_width]',
+		array(
+			'selector'            => '.page_top_btn',
+			'container_inclusive' => true,
+			'render_callback'     => 'veu_pagetop_partial_render',
+		)
+	);
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_pagetop[image_height]',
 		array(
 			'selector'            => '.page_top_btn',
 			'container_inclusive' => true,
@@ -321,9 +459,15 @@ add_action( 'veu_package_init', 'veu_pagetop_admin_register' );
  * @return void
  */
 function veu_pagetop_admin() {
-	$options        = veu_pagetop_options();
-	$image_url      = $options['image_url'];
-	$preview_style  = '' !== $image_url ? '' : ' style="display:none;"';
+	$options       = veu_pagetop_options();
+	$image_url     = $options['image_url'];
+	$image_width   = isset( $options['image_width'] ) ? (int) $options['image_width'] : 0;
+	$image_height  = isset( $options['image_height'] ) ? (int) $options['image_height'] : 0;
+	$preview_style = '' !== $image_url ? '' : ' style="display:none;"';
+	// 画像未アップロード時はサイズ入力欄も非表示にする。
+	// プレビューと同じトグル機構（thumb.src の MutationObserver / clear ボタン）で
+	// `.veu_pagetop_image_size` の表示状態を同期させる。
+	$size_style     = '' !== $image_url ? '' : ' style="display:none;"';
 	$customizer_url = admin_url( 'customize.php?autofocus[section]=veu_pagetop_setting' );
 	?>
 <div id="pagetopSetting" class="sectionBox">
@@ -351,6 +495,27 @@ function veu_pagetop_admin() {
 		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
 		<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
 	</p>
+	<div class="veu_pagetop_image_size"<?php echo $size_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
+		<p>
+			<label for="pagetop_image_width" style="margin-right:1em;">
+				<?php esc_html_e( 'Width', 'vk-all-in-one-expansion-unit' ); ?>
+				<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
+				px
+			</label>
+			<label for="pagetop_image_height">
+				<?php esc_html_e( 'Height', 'vk-all-in-one-expansion-unit' ); ?>
+				<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
+				px
+			</label>
+		</p>
+		<p class="description">
+			<?php esc_html_e( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ); ?><br />
+			<?php esc_html_e( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+	</div>
 	<p class="description">
 		<?php esc_html_e( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ); ?><br />
 		<?php esc_html_e( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?><br />
@@ -381,6 +546,8 @@ function veu_pagetop_admin() {
 		var thumb    = document.getElementById('thumb_pagetop_image_url');
 		var preview  = thumb ? thumb.parentNode : null;
 		var clearBtn = document.getElementById('veu_pagetop_image_clear');
+		// サイズ入力欄ブロック（幅・高さ）も同じトグル機構に乗せる。
+		var sizeBlock = document.querySelector('.veu_pagetop_image_size');
 
 		// Toggle the preview wrapper visibility based on the current img src.
 		// 現在の thumb.src を見てプレビュー枠の表示/非表示を切り替える。
@@ -390,6 +557,10 @@ function veu_pagetop_admin() {
 			}
 			var src = thumb.getAttribute( 'src' ) || '';
 			preview.style.display = ( '' !== src ) ? '' : 'none';
+			// サイズ入力欄も画像の有無に追従させる。
+			if ( sizeBlock ) {
+				sizeBlock.style.display = ( '' !== src ) ? '' : 'none';
+			}
 		};
 
 		// Sync the preview from the URL text input.
@@ -471,6 +642,15 @@ function veu_pagetop_options() {
 	$image_url            = isset( $options['image_url'] ) ? $options['image_url'] : '';
 	$options['image_url'] = is_string( $image_url ) ? veu_pagetop_sanitize_image_url( $image_url ) : '';
 
+	// Defensive normalization for image size values. Sanitize on read so that
+	// option storage written by other code (legacy plugin versions / direct
+	// `update_option()` calls) cannot poison the output even if the saved
+	// value is non-numeric, negative, or out of range.
+	// 画像サイズ値も取得時に防御的サニタイズ。直書きや過去版で異常値が保存
+	// されていても出力側を汚染しないようにする。
+	$options['image_width']  = veu_pagetop_sanitize_image_size( isset( $options['image_width'] ) ? $options['image_width'] : 0 );
+	$options['image_height'] = veu_pagetop_sanitize_image_size( isset( $options['image_height'] ) ? $options['image_height'] : 0 );
+
 	return $options;
 }
 
@@ -481,8 +661,11 @@ function veu_pagetop_options() {
  */
 function veu_pagetop_default() {
 	$default_options = array(
-		'hide_mobile' => false,
-		'image_url'   => '',
+		'hide_mobile'  => false,
+		'image_url'    => '',
+		// 画像アップロード時のサイズ指定（px）。0 は未指定（既存 SCSS の 40 / 38 が適用）。
+		'image_width'  => 0,
+		'image_height' => 0,
 	);
 	return apply_filters( 'veu_pagetop_default', $default_options );
 }
@@ -511,5 +694,8 @@ function veu_pagetop_sanitize( $input ) {
 	} else {
 		$output['image_url'] = '';
 	}
+	// 画像サイズ（幅・高さ）。未指定 (0) も含めて常にサニタイザーを通す。
+	$output['image_width']  = isset( $input['image_width'] ) ? veu_pagetop_sanitize_image_size( $input['image_width'] ) : 0;
+	$output['image_height'] = isset( $input['image_height'] ) ? veu_pagetop_sanitize_image_size( $input['image_height'] ) : 0;
 	return $output;
 }

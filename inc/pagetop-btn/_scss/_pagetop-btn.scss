@@ -40,6 +40,16 @@
 		background-size: contain;
 		background-color: transparent;
 		box-shadow: none;
+		// When the user provides explicit width/height via the option,
+		// the inline `style` attribute writes `--veu_page_top_button_width`
+		// and `--veu_page_top_button_height`. Fallback values match the
+		// base `.page_top_btn` size (40 / 38 px) so that unspecified
+		// dimensions stay at the default.
+		// ユーザーが画像サイズを指定した場合は inline style 経由で
+		// CSS カスタムプロパティが付与される。未指定時は fallback として
+		// 既定サイズ (40 / 38 px) が効く。
+		width: var(--veu_page_top_button_width, 40px);
+		height: var(--veu_page_top_button_height, 38px);
 	}
 	&:hover {
 		transition: opacity 0.3s;
