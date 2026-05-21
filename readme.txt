@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the ExUnit main setting page to open in a new tab (`target="_blank"` with `rel="noopener noreferrer"`) so that opening the Customizer no longer interrupts editing on the main setting page.
+
 = 9.116.0 =
 [ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer (`veu_pagetop_sanitize_image_url()`) to close additional CSS injection vectors that bypassed the initial sanitizer added in the previous release. The control-character check now uses the PCRE `u` modifier and an explicit `[\x{0080}-\x{009F}]` range so multi-byte C1 control characters are rejected, and a new case-insensitive check rejects URL-encoded representations of the dangerous characters (`%22` / `%27` / `%28` / `%29` / `%5C`) which browsers may decode inside `url("...")`.
 
