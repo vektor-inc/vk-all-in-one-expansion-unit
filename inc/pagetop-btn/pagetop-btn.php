@@ -511,37 +511,67 @@ function veu_pagetop_admin() {
 	</div>
 	<p>
 		<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
-		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
-		<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
+	</p>
+	<?php
+	// Buttons are stacked vertically with a shared `min-width` so that the
+	// "Select an image" and "Clear image selection" buttons keep their
+	// left/right edges aligned even though the label text lengths differ.
+	// Stacking from the start (instead of relying on wrapping at narrow
+	// widths) follows the "横並びボタンの揃え" rule in design-rules.md.
+	// 「画像を選択」「画像の選択を解除」ボタンは文字数が違うため、最初から
+	// 縦に積み、`min-width` を揃えてボタンの端を一致させる
+	// （design-rules.md「横並びボタンの揃え」準拠）。
+	?>
+	<p style="display:flex; flex-direction:column; align-items:flex-start; gap:0.4em;">
+		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default" style="min-width:14em;"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
+		<button type="button" id="veu_pagetop_image_clear" class="button button-default" style="min-width:14em;"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
 	</p>
 	<div class="veu_pagetop_image_size"<?php echo $size_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
+		<?php
+		// Width and height inputs are placed in separate `<p>` blocks so each
+		// "label + input + unit" set occupies its own line. This prevents the
+		// "(px)" suffix from being orphaned on a wrapped line when the panel
+		// becomes narrow, following the "レスポンシブ表示での折り返し対策"
+		// rule in design-rules.md (1 セット 1 行に分ける).
+		// 「ラベル + 入力欄 + 単位」を 1 セット 1 行ずつ縦に積み、狭い幅で
+		// 「(px)」だけが次行に取り残されるのを防ぐ（design-rules.md
+		// 「レスポンシブ表示での折り返し対策」準拠）。
+		?>
 		<p>
-			<label for="pagetop_image_width" style="margin-right:1em;">
+			<label for="pagetop_image_width">
 				<?php esc_html_e( 'Image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
 				<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
 			</label>
+		</p>
+		<p>
 			<label for="pagetop_image_height">
 				<?php esc_html_e( 'Image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
 				<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
 			</label>
 		</p>
 		<?php
-		// description は意味のまとまりごとに `<br />` を打ち、グループ間は空行（`<br /><br />`）で
-		// 区切る。狭い画面でも各文が中途半端な位置で折り返されないよう、
-		// 最初から明示的に改行を入れている（PR #1363 レビュー指摘対応）。
+		// description は意味のまとまりごとにグループ化し、グループ間は別の
+		// `<p class="description">` に分けて余白を作る。`<br /><br />` で
+		// 空きを作るのは design-rules.md「余白」セクションで禁止されているため、
+		// 段落分割で対応する。グループ内の文の区切りには `<br />` を使う
+		// （PR #1363 レビュー指摘対応）。
 		?>
 		<p class="description">
 			<?php esc_html_e( 'You can specify the button size in pixels.', 'vk-all-in-one-expansion-unit' ); ?><br />
 			<?php esc_html_e( 'If left blank, the default size (40 x 38 px) will be used.', 'vk-all-in-one-expansion-unit' ); ?>
-			<br /><br />
+		</p>
+		<p class="description">
 			<?php esc_html_e( 'If you specify only one of width and height, the other will remain at the default size.', 'vk-all-in-one-expansion-unit' ); ?><br />
 			<?php esc_html_e( 'To keep the aspect ratio, please specify both width and height.', 'vk-all-in-one-expansion-unit' ); ?>
-			<br /><br />
+		</p>
+		<p class="description">
 			<?php esc_html_e( 'We recommend 44 px or larger for better usability on touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
-			<br /><br />
+		</p>
+		<p class="description">
 			<?php esc_html_e( 'The maximum value is 500 px.', 'vk-all-in-one-expansion-unit' ); ?><br />
 			<?php esc_html_e( 'Values larger than 500 will be clamped to 500.', 'vk-all-in-one-expansion-unit' ); ?>
-			<br /><br />
+		</p>
+		<p class="description">
 			<?php esc_html_e( 'These width and height values remain even after the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?><br />
 			<?php esc_html_e( 'If an unintended size appears the next time you upload an image, please clear these values.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
