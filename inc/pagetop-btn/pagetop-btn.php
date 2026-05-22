@@ -286,9 +286,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$customizer_description  = __( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ) . "\n";
 	$customizer_description .= __( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
 	$customizer_description .= __( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$customizer_description .= __( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$customizer_description .= __( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$customizer_description .= __( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' );
+	$customizer_description .= __( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' );
 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
@@ -596,12 +594,6 @@ function veu_pagetop_admin() {
 		<p class="description">
 			<?php esc_html_e( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ); ?>
 			<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?>
-		</p>
-		<p class="description">
-			<?php esc_html_e( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ); ?>
-		</p>
-		<p class="description">
-			<?php esc_html_e( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 		<p class="description">
 			<a href="<?php echo esc_url( $customizer_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
