@@ -505,18 +505,21 @@ function veu_pagetop_admin() {
 		<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
 	</p>
 	<?php
-	// Buttons are stacked vertically with a shared `min-width` so that the
-	// "Select an image" and "Clear image selection" buttons keep their
-	// left/right edges aligned even though the label text lengths differ.
-	// Stacking from the start (instead of relying on wrapping at narrow
-	// widths) follows the "横並びボタンの揃え" rule in design-rules.md.
-	// 「画像を選択」「画像の選択を解除」ボタンは文字数が違うため、最初から
-	// 縦に積み、`min-width` を揃えてボタンの端を一致させる
-	// （design-rules.md「横並びボタンの揃え」準拠）。
+	// Buttons line up horizontally when there is room and wrap to a second
+	// row when the container is narrow (e.g. on a sidebar-style layout).
+	// `flex:1 1 14em` lets the buttons stretch to fill the row so both
+	// edges stay aligned, while `min-width:14em` keeps each button from
+	// shrinking below a readable width and lines up their edges after the
+	// wrap as well. This follows the "横並びボタンの揃え" rule in
+	// design-rules.md.
+	// 「画像を選択」「画像の選択を解除」ボタンは、広い時は横並び・狭い時は
+	// 段落ちさせる。`flex:1 1 14em` で広い時はボタンが伸びて端が揃い、
+	// `min-width:14em` で段落ち時もボタン幅が揃う（design-rules.md
+	// 「横並びボタンの揃え」準拠）。
 	?>
-	<p style="display:flex; flex-direction:column; align-items:flex-start; gap:0.4em;">
-		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default" style="min-width:14em;"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
-		<button type="button" id="veu_pagetop_image_clear" class="button button-default" style="min-width:14em;"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
+	<p style="display:flex; flex-wrap:wrap; gap:0.4em;">
+		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default" style="flex:1 1 14em; min-width:14em;"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
+		<button type="button" id="veu_pagetop_image_clear" class="button button-default" style="flex:1 1 14em; min-width:14em;"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
 	</p>
 	<div class="veu_pagetop_image_size"<?php echo $size_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
 		<?php
