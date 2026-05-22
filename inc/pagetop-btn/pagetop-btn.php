@@ -498,29 +498,42 @@ function veu_pagetop_admin() {
 <tr>
 <th><?php esc_html_e( 'Page top button image', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
-	<div class="veu_pagetop_image_preview"<?php echo $preview_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
-		<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;" />
-	</div>
-	<p>
-		<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
-	</p>
 	<?php
-	// Buttons line up horizontally when there is room and wrap to a second
-	// row when the container is narrow (e.g. on a sidebar-style layout).
-	// `flex:1 1 14em` lets the buttons stretch to fill the row so both
-	// edges stay aligned, while `min-width:14em` keeps each button from
-	// shrinking below a readable width and lines up their edges after the
-	// wrap as well. This follows the "横並びボタンの揃え" rule in
-	// design-rules.md.
-	// 「画像を選択」「画像の選択を解除」ボタンは、広い時は横並び・狭い時は
-	// 段落ちさせる。`flex:1 1 14em` で広い時はボタンが伸びて端が揃い、
-	// `min-width:14em` で段落ち時もボタン幅が揃う（design-rules.md
-	// 「横並びボタンの揃え」準拠）。
+	// 設定 UI は 3 つの情報グループで構成する（design-rules.md「余白」セクション
+	// 「情報グループ内の余白 < 情報グループ間の余白」「UIでも情報グループ間の余白
+	// 関係を守る」準拠）。グループ内の小要素間 (`<p>` 同士など) は詰め、
+	// グループ間 (A→B→C) は大きく開ける。具体的なマージン値は SCSS 側
+	// (`assets/_scss/vkExUnit_admin.scss` の `#pagetopSetting`) に集約する。
+	//
+	// A: 画像ソース（プレビュー + URL 入力 + Select / Clear ボタン）
+	// B: サイズ入力（幅・高さ + サイズに関する説明） — 画像が無いときは display:none
+	// C: 画像全体に関する meta（推奨フォーマット / アスペクト比 / Clear 挙動 /
+	// テーマ上書きの注意 / カスタマイザーへのリンク）
 	?>
-	<p style="display:flex; flex-wrap:wrap; gap:0.4em;">
-		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default" style="flex:1 1 14em; min-width:14em;"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
-		<button type="button" id="veu_pagetop_image_clear" class="button button-default" style="flex:1 1 14em; min-width:14em;"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
-	</p>
+	<div class="veu_pagetop_image_source">
+		<div class="veu_pagetop_image_preview"<?php echo $preview_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
+			<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;" />
+		</div>
+		<p class="veu_pagetop_image_source__url">
+			<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
+		</p>
+		<?php
+		// Buttons line up horizontally when there is room and wrap to a second
+		// row when the container is narrow (e.g. on a sidebar-style layout).
+		// Flex layout / wrap behavior is defined on `.veu_pagetop_image_source__buttons`
+		// in the admin SCSS, so the inline `style` attributes that were here
+		// previously have been removed. This follows the "横並びボタンの揃え"
+		// rule in design-rules.md.
+		// 「画像を選択」「画像の選択を解除」ボタンは、広い時は横並び・狭い時は
+		// 段落ちさせる。flex / wrap の指定は SCSS 側
+		// (`.veu_pagetop_image_source__buttons`) に集約済みのため、ここではクラス
+		// のみを付与する（design-rules.md「横並びボタンの揃え」準拠）。
+		?>
+		<p class="veu_pagetop_image_source__buttons">
+			<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
+			<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
+		</p>
+	</div>
 	<div class="veu_pagetop_image_size"<?php echo $size_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
 		<?php
 		// Width and height inputs are placed in separate `<p>` blocks so each
@@ -532,46 +545,68 @@ function veu_pagetop_admin() {
 		// 「(px)」だけが次行に取り残されるのを防ぐ（design-rules.md
 		// 「レスポンシブ表示での折り返し対策」準拠）。
 		?>
-		<p>
-			<label for="pagetop_image_width">
-				<?php esc_html_e( 'Image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
-				<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
-			</label>
-		</p>
-		<p>
-			<label for="pagetop_image_height">
-				<?php esc_html_e( 'Image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
-				<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
-			</label>
-		</p>
+		<div class="veu_pagetop_image_size__inputs">
+			<p>
+				<label for="pagetop_image_width">
+					<?php esc_html_e( 'Image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
+					<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
+				</label>
+			</p>
+			<p>
+				<label for="pagetop_image_height">
+					<?php esc_html_e( 'Image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
+					<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
+				</label>
+			</p>
+		</div>
 		<?php
-		// description は意味のまとまりごとにグループ化し、グループ間は別の
-		// `<p class="description">` に分けて余白を作る。`<br /><br />` で
-		// 空きを作るのは design-rules.md「余白」セクションで禁止されているため、
-		// 段落分割で対応する。グループ内の文の区切りには `<br />` を使う。
+		// description は意味のまとまりごとに別の `<p class="description">` に
+		// 分けて段落化する。`<br /><br />` で空きを作るのは design-rules.md
+		// 「余白」セクションで禁止されているため使わない（グループ内の小さな
+		// 段差は SCSS のマージンで作る）。
 		// PR #1363 のレビューで「説明が長すぎる」と指摘を受け、試せば分かる挙動
 		// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮した。
 		?>
+		<div class="veu_pagetop_image_size__notes">
+			<p class="description">
+				<?php esc_html_e( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ); ?>
+				<?php esc_html_e( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
+			<p class="description">
+				<?php esc_html_e( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
+			<p class="description">
+				<?php esc_html_e( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
+		</div>
+	</div>
+	<?php
+	// C グループ: 画像全体に関する meta 情報。
+	// 以前は `<br />` 連結で 1 段落にまとまっていたが、design-rules.md
+	// 「余白」セクション（`<br />` で余白を作らない）と植草レビューを踏まえ、
+	// 意味の塊ごとに `<p class="description">` に分けて段落化した。
+	?>
+	<div class="veu_pagetop_image_meta">
 		<p class="description">
-			<?php esc_html_e( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ); ?><br />
-			<?php esc_html_e( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 		<p class="description">
-			<?php esc_html_e( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 		<p class="description">
-			<?php esc_html_e( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		<p class="description">
+			<?php esc_html_e( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		<p class="description">
+			<?php esc_html_e( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		<p class="description">
+			<a href="<?php echo esc_url( $customizer_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
 		</p>
 	</div>
-	<p class="description">
-		<?php esc_html_e( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<a href="<?php echo esc_url( $customizer_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
-	</p>
 </td>
 </tr>
 </table>
