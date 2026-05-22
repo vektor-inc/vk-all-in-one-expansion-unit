@@ -232,6 +232,40 @@ add_action( 'customize_register', 'veu_customize_register_pagetop' );
  */
 function veu_customize_register_pagetop( $wp_customize ) {
 
+	// Ensure VK_Custom_Html_Control is defined.
+	//
+	// vk-admin 0.6.0 declares the class inside a
+	// `class_exists( 'WP_Customize_Control' )` guard. Composer's files
+	// autoloader pulls in
+	// `vendor/vektor-inc/vk-admin/src/VK_Custom_Html_Control.php` very early
+	// (during the plugin entry point's `require_once vendor/autoload.php`),
+	// at which point WordPress has **not** loaded `WP_Customize_Control` yet.
+	// The guard therefore evaluates to false and the class block is skipped.
+	// By the time we reach `customize_register`, `WP_Customize_Control` is
+	// available, so we re-evaluate the file with `include` (not `_once` —
+	// PHP's `*_once` family is keyed on absolute file paths and would skip
+	// a file that's already been required by Composer's files autoloader).
+	//
+	// The outer `! class_exists( ... )` guard ensures the body runs at most
+	// once per request: the first `include` re-evaluates the file body and
+	// reaches the declaration, after which the class is registered globally
+	// and subsequent invocations short-circuit.
+	//
+	// vk-admin 0.6.0 のクラス宣言は
+	// `class_exists( 'WP_Customize_Control' )` で囲まれており、
+	// Composer の files オートロードが早期（プラグイン読込時の
+	// `require_once vendor/autoload.php`）にこのファイルを require する
+	// 時点では `WP_Customize_Control` が未定義のためクラス宣言ブロックが
+	// スキップされてしまう。
+	// `customize_register` フックが発火するタイミングでは
+	// `WP_Customize_Control` が既に読まれているので、`include`（_once は
+	// 同一パスをスキップするため使えない）で再評価し、クラス定義ブロックを
+	// 走らせる。外側の `! class_exists` ガードでリクエストあたり 1 度だけに
+	// 限定する。
+	if ( ! class_exists( 'VK_Custom_Html_Control' ) ) {
+		include dirname( __DIR__, 2 ) . '/vendor/vektor-inc/vk-admin/src/VK_Custom_Html_Control.php';
+	}
+
 	/*
 		Page Top setting
 	/*-------------------------------------------*/
@@ -316,17 +350,61 @@ function veu_customize_register_pagetop( $wp_customize ) {
 		)
 	);
 
-	// Image size description shown on the width control only.
-	// 画像サイズ設定の説明文。width control 側に 1 か所だけ集約する。
-	// メイン設定画面と文面を揃える。翻訳ルールに従い 1 文ずつ翻訳関数で区切る。
-	// `\n\n` を挟むことで意味のまとまりごとに空行を入れ、カスタマイザー UI 上で
-	// グループが視覚的に分かれるようにしている。
+	// Shared "Image size" description block, rendered once above the width / height
+	// inputs via VK_Custom_Html_Control (provided by vektor-inc/vk-admin >= 0.6.0).
+	//
+	// Previously the same long description was attached to the width control only,
+	// which still meant the description visually sat under just one of the two
+	// related inputs and was easy to miss. design-rules.md
+	// ("共通の説明文は 1 箇所に集約する") prescribes a single description area at
+	// the head of the group instead — VK_Custom_Html_Control gives us exactly
+	// that: a section-scoped "label-only" control whose custom_html is rendered
+	// once, sanitized via wp_kses_post().
+	//
+	// 設定値そのものではなく説明文を表示するための「説明エリア専用」 control。
+	// width / height 共通のサイズ説明を 1 か所だけ表示する目的で配置する。
+	// 旧実装では width control の description に長文を持たせていたが、
+	// design-rules.md「共通の説明文は 1 箇所に集約する」に従い、
+	// 入力欄群の上に共通説明を 1 度だけ表示する形へ変更した。
+	// 新規 setting は不要（値は保存しない）だが、WP_Customize_Control は
+	// 紐づく setting を要求するため、空文字を返すだけのダミー setting を登録する。
+	// `__return_empty_string` を sanitize_callback に指定して保存値を空に固定する。
+	$wp_customize->add_setting(
+		'vkExUnit_pagetop_image_size_description',
+		array(
+			'default'           => '',
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => '__return_empty_string',
+		)
+	);
+	// Build the shared description HTML. Translation rule (rules/coding-rules.md):
+	// one sentence per translation call. Each sentence becomes its own
+	// `<p class="description">` so the customizer renders them as distinct
+	// paragraphs (and matches the admin page's grouping).
+	// 翻訳ルールに従い 1 文ずつ翻訳関数で区切り、それぞれを個別の
+	// `<p class="description">` として出力する。
 	// PR #1363 のレビューで「説明が長すぎる」と指摘を受け、試せば分かる挙動
-	// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮した。
-	$image_size_description  = __( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$image_size_description .= __( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$image_size_description .= __( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$image_size_description .= __( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' );
+	// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮済み。
+	$image_size_description_html  = '<p class="description">' . esc_html__( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ) . ' ' . esc_html__( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$image_size_description_html .= '<p class="description">' . esc_html__( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$image_size_description_html .= '<p class="description">' . esc_html__( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+
+	$wp_customize->add_control(
+		new VK_Custom_Html_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_size_description',
+			array(
+				'section'     => 'veu_pagetop_setting',
+				// 'Image size' をグループ見出しとして h2 (admin-custom-h2) で表示する。
+				'label'       => __( 'Image size', 'vk-all-in-one-expansion-unit' ),
+				// custom_html は wp_kses_post() で出力時にサニタイズされるため、
+				// ここで esc_html__() を通したテキストを <p class="description"> で
+				// くるんだ HTML を渡して問題ない。
+				'custom_html' => $image_size_description_html,
+			)
+		)
+	);
 
 	// Image width (in px).
 	// 画像の幅（px）。
@@ -346,11 +424,8 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'label'       => __( 'Image width (px)', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
 			'settings'    => 'vkExUnit_pagetop[image_width]',
-			// width / height 共通のサイズ説明は width control にだけ表示する。
-			// 以前は width / height の両方に同じ description を載せていたが、
-			// 同じ長文が 2 か所に並んで冗長というレビュー指摘を受け、
-			// width 側に 1 か所だけ集約する形に変更した。
-			'description' => $image_size_description,
+			// description は共通説明エリア（VK_Custom_Html_Control）に集約済みのため
+			// width 個別には設定しない（design-rules.md「共通の説明文は 1 箇所に集約する」）。
 			'type'        => 'number',
 			'input_attrs' => array(
 				'min'       => 1,
@@ -379,7 +454,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'label'       => __( 'Image height (px)', 'vk-all-in-one-expansion-unit' ),
 			'section'     => 'veu_pagetop_setting',
 			'settings'    => 'vkExUnit_pagetop[image_height]',
-			// description は width control 側に集約済みのため、height 側では設定しない。
+			// description は共通説明エリア（VK_Custom_Html_Control）に集約済み。
 			'type'        => 'number',
 			'input_attrs' => array(
 				'min'       => 1,
