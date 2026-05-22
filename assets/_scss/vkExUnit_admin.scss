@@ -187,59 +187,98 @@
 //   B: サイズ入力 (.veu_pagetop_image_size)   — 幅・高さ入力 + サイズ説明
 //   C: 画像 meta (.veu_pagetop_image_meta)    — フォーマット / Customizer リンク等
 // の階層を「グループ内の余白 < グループ間の余白」となるよう調整している。
-// このルール変更は植草レビュー（PR #1363 余白階層 FAIL）を受けて追加した。
+//
+// specificity の方針（PR #1363 麗美の実機計測フィードバック反映）:
+//   `> div` のような type selector を含むセレクタは specificity が高くなり
+//   `.foo__bar` のような class セレクタに勝ってしまうため、すべて class セレクタで
+//   揃える。shorthand `margin: 0.3em 0` ではなく `margin-top` / `margin-bottom`
+//   を個別プロパティで書いて、後の上書きが効くようにする。`!important` は使わない。
 #pagetopSetting {
-    // グループ内の小要素 (`<p>` / 内部 `<div>`) 間の余白は詰める。
-    // form-table 既定の `<p>` マージン (10px) では A グループ内が広すぎて
-    // A と B の間との段差が出ないため、ここで一段詰める。
-    .veu_pagetop_image_source,
-    .veu_pagetop_image_size {
-        > p,
-        > div {
-            margin: 0.3em 0;
+
+    // ===== A グループ: 画像ソース =====
+    .veu_pagetop_image_source {
+        margin-bottom: 1.6em; // A → B のグループ間余白
+
+        // A グループ内の各要素は specificity を揃えるため class セレクタで指定。
+        // form-table 既定の `<p>` マージン (10px) では A グループ内が広すぎて
+        // A と B の間との段差が出ないため、ここで一段詰める。
+        > .veu_pagetop_image_preview,
+        > .veu_pagetop_image_source__url,
+        > .veu_pagetop_image_source__buttons {
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+        }
+
+        // プレビュー (`<img>` 単独) の下は少し広めに取って次の URL 入力との
+        // 視覚的な切れ目を作る（A グループ内の最大余白）。
+        > .veu_pagetop_image_preview {
+            margin-bottom: 0.5em;
+        }
+
+        // ボタン段落ち端揃え（design-rules.md「横並びボタンの揃え」準拠）。
+        // 旧実装ではインラインの `style="display:flex; ..."` で行っていたが、
+        // CSS 設計ルール（インラインスタイル禁止寄り）と植草レビューを受けて
+        // SCSS に集約した。
+        > .veu_pagetop_image_source__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4em;
+
+            .button {
+                flex: 1 1 14em;
+                min-width: 14em;
+            }
         }
     }
 
-    // B グループ内のサブグループ間（入力ブロック → 説明ブロック）の余白。
-    // 「幅・高さ入力」と「サイズ説明」は同じ B グループだが意味の塊が違うので
-    // 少しだけ間を開けて読みやすくする。
-    .veu_pagetop_image_size__inputs {
-        margin-bottom: 0.9em;
-    }
-    .veu_pagetop_image_size__notes p.description + p.description {
-        margin-top: 0.4em;
-    }
-
-    // 大グループ間（A → B、B → C）の余白は大きく取り、視覚的に段差を作る。
-    // ここが「グループ内の余白 (0.3em) < グループ間の余白 (1.6em)」の核。
-    .veu_pagetop_image_source,
+    // ===== B グループ: サイズ入力 =====
     .veu_pagetop_image_size {
-        margin-bottom: 1.6em;
+        margin-bottom: 1.6em; // B → C のグループ間余白
+
+        // B 内サブグループ間（入力ブロック → 説明ブロック）の余白。
+        // 孫要素 (`> p`) の 0.3em より大きく、グループ間 (1.6em) より小さい
+        // 0.9em を採用してサブグループの段差を表現する。
+        > .veu_pagetop_image_size__inputs {
+            margin-top: 0.3em;
+            margin-bottom: 0.9em;
+
+            // 幅入力 ↔ 高さ入力 の孫要素間。class セレクタ `.veu_pagetop_image_size__inputs`
+            // 配下に絞ることで `> div` よりも specificity を保ちつつ、孫の `<p>` を
+            // ここで明示的に管理する。
+            > p {
+                margin-top: 0.3em;
+                margin-bottom: 0.3em;
+            }
+        }
+
+        > .veu_pagetop_image_size__notes {
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+
+            // 連続する description は近接させる。`+` 隣接セレクタではなく
+            // 全 p.description に top-margin を付けて先頭だけ `:first-child` で
+            // リセットすることで、`<p>` デフォルトの 1em マージンが勝つのを防ぐ。
+            > p.description {
+                margin-top: 0.4em;
+                margin-bottom: 0;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
     }
 
-    // C グループ内の description 同士は近接させ、グループとしてのまとまりを保つ。
-    .veu_pagetop_image_meta p.description + p.description {
-        margin-top: 0.4em;
-    }
+    // ===== C グループ: 画像 meta =====
+    .veu_pagetop_image_meta {
 
-    // プレビュー (`<img>` 単独) と直下の URL 入力 `<p>` の間隔。
-    // `<img>` には margin が無く `<p>` のトップマージン頼りなので、ここで
-    // プレビュー側にも下マージンを持たせて間隔を安定させる。
-    .veu_pagetop_image_preview {
-        margin-bottom: 0.5em;
-    }
+        > p.description {
+            margin-top: 0.4em;
+            margin-bottom: 0;
 
-    // ボタン段落ち端揃え（design-rules.md「横並びボタンの揃え」準拠）。
-    // 旧実装ではインラインの `style="display:flex; ..."` で行っていたが、
-    // CSS 設計ルール（インラインスタイル禁止寄り）と植草レビューを受けて
-    // SCSS に集約した。
-    .veu_pagetop_image_source__buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4em;
-        .button {
-            flex: 1 1 14em;
-            min-width: 14em;
+            &:first-child {
+                margin-top: 0;
+            }
         }
     }
 }
