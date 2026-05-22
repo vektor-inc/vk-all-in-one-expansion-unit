@@ -513,7 +513,7 @@ function veu_pagetop_admin() {
 			<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;" />
 		</div>
 		<p class="veu_pagetop_image_source__url">
-			<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
+			<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" />
 		</p>
 		<?php
 		// Buttons line up horizontally when there is room and wrap to a second
@@ -547,13 +547,13 @@ function veu_pagetop_admin() {
 			<p>
 				<label for="pagetop_image_width">
 					<?php esc_html_e( 'Image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
-					<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
+					<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" />
 				</label>
 			</p>
 			<p>
 				<label for="pagetop_image_height">
 					<?php esc_html_e( 'Image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
-					<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" style="width:6em;" />
+					<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" />
 				</label>
 			</p>
 		</div>

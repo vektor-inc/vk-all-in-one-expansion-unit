@@ -182,47 +182,67 @@
 }
 
 // Page Top Button の管理画面設定（ExUnit メイン設定 → Page Top Button タブ）
-// design-rules.md「余白」セクションに従い、3 つの情報グループ
-//   A: 画像ソース (.veu_pagetop_image_source) — プレビュー / URL 入力 / Select / Clear
-//   B: サイズ入力 (.veu_pagetop_image_size)   — 幅・高さ入力 + サイズ説明
-//   C: 画像 meta (.veu_pagetop_image_meta)    — フォーマット / Customizer リンク等
-// の階層を「グループ内の余白 < グループ間の余白」となるよう調整している。
+// design-rules.md「情報グループの親子関係も踏まえて余白をつける」OK 例に準拠。
 //
-// specificity の方針（PR #1363 麗美の実機計測フィードバック反映）:
-//   `> div` のような type selector を含むセレクタは specificity が高くなり
-//   `.foo__bar` のような class セレクタに勝ってしまうため、すべて class セレクタで
-//   揃える。shorthand `margin: 0.3em 0` ではなく `margin-top` / `margin-bottom`
-//   を個別プロパティで書いて、後の上書きが効くようにする。`!important` は使わない。
+// 情報階層:
+//   画像指定 UI (.veu_pagetop_image_source + .veu_pagetop_image_size + .veu_pagetop_image_meta)
+//   ├ 画像プレビュー         (.veu_pagetop_image_preview)
+//   ├ 画像関連選択フォームグループ
+//   │   ├ URL 入力フォーム    (.veu_pagetop_image_source__url)
+//   │   └ ボタングループ      (.veu_pagetop_image_source__buttons)
+//   ├ 画像サイズフォームグループ (.veu_pagetop_image_size__inputs)
+//   │   ├ 横サイズ
+//   │   └ 縦サイズ
+//   └ 説明文                  (.veu_pagetop_image_size__notes, .veu_pagetop_image_meta)
+//
+// 余白規約: グループ内 < 同列グループ間 < 親グループ間。
+//   - URL ⇔ ボタン群:        密着 (0.2em)  — 同じ画像関連選択フォームグループ内
+//   - 横サイズ ⇔ 縦サイズ:   密着 (0.2em)  — 同じ画像サイズフォームグループ内
+//   - プレビュー ⇔ URL 入力: 中余白 (0.8em) — プレビュー ⇔ 画像関連選択フォームグループ
+//   - ボタン群 ⇔ サイズ:     大余白 (1.6em) — 画像ソース ⇔ サイズフォームグループ
+//   - サイズ ⇔ 説明文:       中余白 (0.9em) — サイズフォームグループ内サブグループ間
+//
+// specificity の方針: すべて class セレクタで揃え、`!important` は使わない。
+// shorthand `margin: 0 0 0.3em` ではなく `margin-top` / `margin-bottom` を個別に書く。
 #pagetopSetting {
 
-    // ===== A グループ: 画像ソース =====
+    // ===== 画像ソース親グループ =====
     .veu_pagetop_image_source {
-        margin-bottom: 1.6em; // A → B のグループ間余白
+        margin-bottom: 1.6em; // 親グループ間余白（画像ソース → サイズ）
 
-        // A グループ内の各要素は specificity を揃えるため class セレクタで指定。
-        // form-table 既定の `<p>` マージン (10px) では A グループ内が広すぎて
-        // A と B の間との段差が出ないため、ここで一段詰める。
-        > .veu_pagetop_image_preview,
-        > .veu_pagetop_image_source__url,
-        > .veu_pagetop_image_source__buttons {
+        // プレビュー単独。次の画像関連選択フォームグループとの境界として中余白を取る。
+        // design-rules.md OK 例の「画像プレビュー [空行] [URL 入力]」の空行に相当。
+        > .veu_pagetop_image_preview {
             margin-top: 0.3em;
-            margin-bottom: 0.3em;
+            margin-bottom: 0.8em;
         }
 
-        // プレビュー (`<img>` 単独) の下は少し広めに取って次の URL 入力との
-        // 視覚的な切れ目を作る（A グループ内の最大余白）。
-        > .veu_pagetop_image_preview {
-            margin-bottom: 0.5em;
+        // URL 入力 ⇔ ボタン群 は同じ「画像関連選択フォームグループ」内の
+        // サブグループ同士なので密着させる（design-rules.md OK 例で空行なし）。
+        > .veu_pagetop_image_source__url {
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
+
+            // URL input は親幅いっぱいに広げ、ボタン群の最大幅と max-width を揃える。
+            // ボタン: flex 1 1 14em × 2 + gap 0.4em = 28.4em 相当。これに合わせ
+            // 28.4em を max-width として右端を揃える（design-rules.md「要素の
+            // グループごとでの改行を考慮する」/ レビュー指摘の右端揃え対応）。
+            > input {
+                width: 100%;
+                max-width: 28.4em;
+                box-sizing: border-box;
+            }
         }
 
         // ボタン段落ち端揃え（design-rules.md「横並びボタンの揃え」準拠）。
-        // 旧実装ではインラインの `style="display:flex; ..."` で行っていたが、
-        // CSS 設計ルール（インラインスタイル禁止寄り）と植草レビューを受けて
-        // SCSS に集約した。
+        // 旧実装のインライン `style="display:flex; ..."` を SCSS に集約。
         > .veu_pagetop_image_source__buttons {
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
             display: flex;
             flex-wrap: wrap;
             gap: 0.4em;
+            max-width: 28.4em; // URL input と右端を揃える
 
             .button {
                 flex: 1 1 14em;
@@ -231,23 +251,40 @@
         }
     }
 
-    // ===== B グループ: サイズ入力 =====
+    // ===== サイズフォームグループ =====
     .veu_pagetop_image_size {
-        margin-bottom: 1.6em; // B → C のグループ間余白
+        margin-bottom: 1.6em; // 親グループ間余白（サイズ → meta）
 
-        // B 内サブグループ間（入力ブロック → 説明ブロック）の余白。
-        // 孫要素 (`> p`) の 0.3em より大きく、グループ間 (1.6em) より小さい
-        // 0.9em を採用してサブグループの段差を表現する。
+        // 画像サイズフォームグループ。横サイズ ⇔ 縦サイズ は密着。
+        // 説明文との境界では中余白を取る（同列サブグループ間）。
         > .veu_pagetop_image_size__inputs {
             margin-top: 0.3em;
             margin-bottom: 0.9em;
 
-            // 幅入力 ↔ 高さ入力 の孫要素間。class セレクタ `.veu_pagetop_image_size__inputs`
-            // 配下に絞ることで `> div` よりも specificity を保ちつつ、孫の `<p>` を
-            // ここで明示的に管理する。
+            // 横サイズ ⇔ 縦サイズ の各行（密着）。
+            // grid-template-columns でラベル列の幅を固定し、ラベルの文字数差
+            // （"width" vs "height"）で入力欄の x 座標がずれるのを防ぐ
+            // （design-rules.md「ラベル付き入力欄の x 座標揃え」準拠）。
             > p {
-                margin-top: 0.3em;
-                margin-bottom: 0.3em;
+                margin-top: 0.2em;
+                margin-bottom: 0.2em;
+
+                > label {
+                    display: grid;
+                    // ラベル列: 「Image height (px)」(13文字 + 余白) が収まる 11em。
+                    // 入力列: 6em 固定で width / height の input 左端を揃える。
+                    grid-template-columns: 11em 6em;
+                    align-items: center;
+                    column-gap: 0.5em;
+
+                    // input 自体は親 grid セルにフィットさせる（既存 inline
+                    // `style="width:6em;"` も SCSS で吸収する形）。
+                    > input[type="number"] {
+                        width: 100%;
+                        box-sizing: border-box;
+                        margin: 0;
+                    }
+                }
             }
         }
 
@@ -255,9 +292,8 @@
             margin-top: 0.3em;
             margin-bottom: 0.3em;
 
-            // 連続する description は近接させる。`+` 隣接セレクタではなく
-            // 全 p.description に top-margin を付けて先頭だけ `:first-child` で
-            // リセットすることで、`<p>` デフォルトの 1em マージンが勝つのを防ぐ。
+            // 連続する description は近接させる。`<p>` デフォルトの 1em マージンを
+            // ここで上書き。
             > p.description {
                 margin-top: 0.4em;
                 margin-bottom: 0;
@@ -269,7 +305,7 @@
         }
     }
 
-    // ===== C グループ: 画像 meta =====
+    // ===== 画像 meta グループ =====
     .veu_pagetop_image_meta {
 
         > p.description {
