@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the page top button image preview (`<img id="thumb_pagetop_image_url">`) on the ExUnit main setting page so that the uploaded icon is no longer rendered with a black box around it.
+
+[ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the ExUnit main setting page to open in a new tab (`target="_blank"` with `rel="noopener noreferrer"`) so that opening the Customizer no longer interrupts editing on the main setting page.
+
 = 9.116.0 =
 [ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the ExUnit main setting page and the Customizer. The values are applied via the inline `style` attribute on the `<a>` element as the `--veu_page_top_button_width` / `--veu_page_top_button_height` CSS custom properties, with SCSS fallbacks that keep the existing default 40 x 38 px size when either value is left blank. Inputs are clamped to a maximum of 500 px and non-numeric values are normalized to 0 (unspecified) by a new shared sanitizer (`veu_pagetop_sanitize_image_size()`), which is applied both on save and on read. The size fields are only shown after an image has been uploaded.
 
