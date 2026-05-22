@@ -344,7 +344,7 @@ function veu_pagetop_admin() {
 <th><?php esc_html_e( 'Page top button image', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
 	<div class="veu_pagetop_image_preview"<?php echo $preview_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
-		<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;background:rgba(0,0,0,0.8);padding:6px;border-radius:4px;" />
+		<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;" />
 	</div>
 	<p>
 		<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />

@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the page top button image preview (`<img id="thumb_pagetop_image_url">`) on the ExUnit main setting page so that the uploaded icon is no longer rendered with a black box around it.
+
 [ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the ExUnit main setting page to open in a new tab (`target="_blank"` with `rel="noopener noreferrer"`) so that opening the Customizer no longer interrupts editing on the main setting page.
 
 = 9.116.0 =
