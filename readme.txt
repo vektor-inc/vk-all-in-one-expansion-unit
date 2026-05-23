@@ -81,11 +81,15 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. The shared `VK_Custom_Html_Control` / `VK_Custom_Text_Control` classes now ship from vk-helpers (autoloaded via composer) instead of vk-admin.
+
 [ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the page top button image preview (`<img id="thumb_pagetop_image_url">`) on the ExUnit main setting page so that the uploaded icon is no longer rendered with a black box around it.
 
 [ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the ExUnit main setting page to open in a new tab (`target="_blank"` with `rel="noopener noreferrer"`) so that opening the Customizer no longer interrupts editing on the main setting page.
 
 = 9.116.0 =
+[ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the ExUnit main setting page and the Customizer. The values are applied via the inline `style` attribute on the `<a>` element as the `--veu_page_top_button_width` / `--veu_page_top_button_height` CSS custom properties, with SCSS fallbacks that keep the existing default 40 x 38 px size when either value is left blank. Inputs are clamped to a maximum of 500 px and non-numeric values are normalized to 0 (unspecified) by a new shared sanitizer (`veu_pagetop_sanitize_image_size()`), which is applied both on save and on read. The size fields are only shown after an image has been uploaded.
+
 [ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer (`veu_pagetop_sanitize_image_url()`) to close additional CSS injection vectors that bypassed the initial sanitizer added in the previous release. The control-character check now uses the PCRE `u` modifier and an explicit `[\x{0080}-\x{009F}]` range so multi-byte C1 control characters are rejected, and a new case-insensitive check rejects URL-encoded representations of the dangerous characters (`%22` / `%27` / `%28` / `%29` / `%5C`) which browsers may decode inside `url("...")`.
 
 [ Spec Change ][ Page Top Button ] Unified the `hide_mobile` sanitizer in the ExUnit main setting page (`veu_pagetop_sanitize()`) to use the shared `veu_sanitize_boolean()` callback, matching the Customizer setting's `sanitize_callback` so the stored value is consistently a boolean across both entry points. Also added a defensive `is_array()` guard to `veu_pagetop_render()` so that non-array arguments fall back to the default options array instead of triggering warnings.

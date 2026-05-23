@@ -180,3 +180,141 @@
         }
     }
 }
+
+// Page Top Button の管理画面設定（ExUnit メイン設定 → Page Top Button タブ）
+// design-rules.md「情報グループの親子関係も踏まえて余白をつける」OK 例に準拠。
+//
+// 情報階層:
+//   画像指定 UI (.veu_pagetop_image_source + .veu_pagetop_image_size + .veu_pagetop_image_meta)
+//   ├ 画像プレビュー         (.veu_pagetop_image_preview)
+//   ├ 画像関連選択フォームグループ
+//   │   ├ URL 入力フォーム    (.veu_pagetop_image_source__url)
+//   │   └ ボタングループ      (.veu_pagetop_image_source__buttons)
+//   ├ 画像サイズフォームグループ (.veu_pagetop_image_size__inputs)
+//   │   ├ 横サイズ
+//   │   └ 縦サイズ
+//   └ 説明文                  (.veu_pagetop_image_size__notes, .veu_pagetop_image_meta)
+//
+// 余白規約: グループ内 < 同列グループ間 < 親グループ間。
+//   - URL ⇔ ボタン群:        密着 (0.2em)  — 同じ画像関連選択フォームグループ内
+//   - 横サイズ ⇔ 縦サイズ:   密着 (0.2em)  — 同じ画像サイズフォームグループ内
+//   - プレビュー ⇔ URL 入力: 中余白 (0.8em) — プレビュー ⇔ 画像関連選択フォームグループ
+//   - ボタン群 ⇔ サイズ:     大余白 (1.6em) — 画像ソース ⇔ サイズフォームグループ
+//   - サイズ ⇔ 説明文:       中余白 (0.9em) — サイズフォームグループ内サブグループ間
+//
+// specificity の方針: すべて class セレクタで揃え、`!important` は使わない。
+// shorthand `margin: 0 0 0.3em` ではなく `margin-top` / `margin-bottom` を個別に書く。
+#pagetopSetting {
+
+    // ===== 画像ソース親グループ =====
+    .veu_pagetop_image_source {
+        margin-bottom: 1.6em; // 親グループ間余白（画像ソース → サイズ）
+
+        // プレビュー単独。次の画像関連選択フォームグループとの境界として中余白を取る。
+        // design-rules.md OK 例の「画像プレビュー [空行] [URL 入力]」の空行に相当。
+        > .veu_pagetop_image_preview {
+            margin-top: 0.3em;
+            margin-bottom: 0.8em;
+        }
+
+        // URL 入力 ⇔ ボタン群 は同じ「画像関連選択フォームグループ」内の
+        // サブグループ同士なので密着させる（design-rules.md OK 例で空行なし）。
+        > .veu_pagetop_image_source__url {
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
+
+            // URL input は親幅いっぱいに広げ、ボタン群の最大幅と max-width を揃える。
+            // ボタン: flex 1 1 14em × 2 + gap 0.4em = 28.4em 相当。これに合わせ
+            // 28.4em を max-width として右端を揃える（design-rules.md「要素の
+            // グループごとでの改行を考慮する」/ レビュー指摘の右端揃え対応）。
+            > input {
+                width: 100%;
+                max-width: 28.4em;
+                box-sizing: border-box;
+            }
+        }
+
+        // ボタン段落ち端揃え（design-rules.md「横並びボタンの揃え」準拠）。
+        // 旧実装のインライン `style="display:flex; ..."` を SCSS に集約。
+        > .veu_pagetop_image_source__buttons {
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4em;
+            max-width: 28.4em; // URL input と右端を揃える
+
+            .button {
+                flex: 1 1 14em;
+                min-width: 14em;
+            }
+        }
+    }
+
+    // ===== サイズフォームグループ =====
+    .veu_pagetop_image_size {
+        margin-bottom: 1.6em; // 親グループ間余白（サイズ → meta）
+
+        // 画像サイズフォームグループ。横サイズ ⇔ 縦サイズ は密着。
+        // 説明文との境界では中余白を取る（同列サブグループ間）。
+        > .veu_pagetop_image_size__inputs {
+            margin-top: 0.3em;
+            margin-bottom: 0.9em;
+
+            // 横サイズ ⇔ 縦サイズ の各行（密着）。
+            // grid-template-columns でラベル列の幅を固定し、ラベルの文字数差
+            // （"width" vs "height"）で入力欄の x 座標がずれるのを防ぐ
+            // （design-rules.md「ラベル付き入力欄の x 座標揃え」準拠）。
+            > p {
+                margin-top: 0.2em;
+                margin-bottom: 0.2em;
+
+                > label {
+                    display: grid;
+                    // ラベル列: 「Image height (px)」(13文字 + 余白) が収まる 11em。
+                    // 入力列: 6em 固定で width / height の input 左端を揃える。
+                    grid-template-columns: 11em 6em;
+                    align-items: center;
+                    column-gap: 0.5em;
+
+                    // input 自体は親 grid セルにフィットさせる（既存 inline
+                    // `style="width:6em;"` も SCSS で吸収する形）。
+                    > input[type="number"] {
+                        width: 100%;
+                        box-sizing: border-box;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        > .veu_pagetop_image_size__notes {
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+
+            // 連続する description は近接させる。`<p>` デフォルトの 1em マージンを
+            // ここで上書き。
+            > p.description {
+                margin-top: 0.4em;
+                margin-bottom: 0;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
+    // ===== 画像 meta グループ =====
+    .veu_pagetop_image_meta {
+
+        > p.description {
+            margin-top: 0.4em;
+            margin-bottom: 0;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+}

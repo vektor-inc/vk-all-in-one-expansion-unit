@@ -75,7 +75,26 @@ function veu_pagetop_render( $options = array() ) {
 		// url() 内はダブルクォート固定。サニタイザーで
 		// クォート・括弧・空白を含む値は除外済みのため安全。
 		$style_value = '--veu_page_top_button_url:url("' . $image_url . '");';
-		$style_attr  = ' style="' . esc_attr( $style_value ) . '"';
+
+		// Append width / height CSS custom properties when the user provided
+		// a positive size. Run through the shared sanitizer again as a
+		// defence-in-depth measure: callers that invoke `veu_pagetop_render()`
+		// directly with arbitrary arrays would otherwise bypass the 500px
+		// clamp applied on save / read via `veu_pagetop_sanitize_image_size()`.
+		// `has-image` のときだけサイズ用カスタムプロパティを付与する。
+		// `veu_pagetop_options()` 経由なら既にサニタイズ済みだが、
+		// `veu_pagetop_render()` を直接呼ぶ経路でも 500px クランプ等の
+		// 同一ルールが効くよう共通サニタイザーを通す（多重防御）。
+		$image_width  = veu_pagetop_sanitize_image_size( isset( $options['image_width'] ) ? $options['image_width'] : 0 );
+		$image_height = veu_pagetop_sanitize_image_size( isset( $options['image_height'] ) ? $options['image_height'] : 0 );
+		if ( $image_width > 0 ) {
+			$style_value .= '--veu_page_top_button_width:' . $image_width . 'px;';
+		}
+		if ( $image_height > 0 ) {
+			$style_value .= '--veu_page_top_button_height:' . $image_height . 'px;';
+		}
+
+		$style_attr = ' style="' . esc_attr( $style_value ) . '"';
 		// `has-image` クラスを付けることで SCSS 側で画像サイズを
 		// `contain` に切り替えるなどの調整が可能。
 		$class .= ' has-image';
@@ -164,6 +183,45 @@ function veu_pagetop_sanitize_image_url( $value ) {
 	return $value;
 }
 
+/**
+ * Sanitize an image size (width / height) value for the page top button.
+ *
+ * Accepts arbitrary input (string, int, float, null, array...) and normalizes
+ * it to a non-negative integer pixel value clamped to a sane maximum.
+ *
+ * - Non-scalar inputs (arrays, null, etc.) are treated as `0`.
+ * - Strings such as `'60'` are coerced via `absint()` so negative and
+ *   non-numeric values become `0`.
+ * - The result is clamped to a maximum of 500px to prevent extremely large
+ *   values from breaking the layout (defence-in-depth).
+ * - `0` means "unspecified" and is the default state.
+ *
+ * 画像サイズ用の共通サニタイザー。
+ * 非数値・null・配列などは 0 に正規化し、`absint()` で整数化したうえで
+ * 上限 500px にクランプする。0 は「未指定」を表し既定状態となる。
+ *
+ * @param mixed $value Raw value from option / customizer / POST.
+ * @return int Sanitized pixel value (0 - 500).
+ */
+function veu_pagetop_sanitize_image_size( $value ) {
+	// Reject arrays / objects / null up-front so `absint()` does not emit
+	// notices on unexpected input types.
+	// 配列・オブジェクト・null は absint() で warning を出さないよう先に弾く。
+	if ( ! is_scalar( $value ) ) {
+		return 0;
+	}
+
+	// `absint()` converts to non-negative integer; non-numeric strings
+	// become 0. Boolean true would become 1, but the upper clamp also
+	// keeps the value within range.
+	// absint() で非負整数化。非数値文字列は 0 になる。
+	$value = absint( $value );
+
+	// Clamp to the documented maximum (defence-in-depth against absurd values).
+	// 極端な値での画面崩れを防ぐため 500px でクランプ。
+	return min( 500, $value );
+}
+
 add_action( 'customize_register', 'veu_customize_register_pagetop' );
 
 /**
@@ -228,9 +286,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	$customizer_description  = __( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ) . "\n";
 	$customizer_description .= __( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
 	$customizer_description .= __( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$customizer_description .= __( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$customizer_description .= __( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$customizer_description .= __( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' );
+	$customizer_description .= __( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' );
 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
@@ -260,6 +316,146 @@ function veu_customize_register_pagetop( $wp_customize ) {
 		)
 	);
 
+	// Shared "Image size" description block, rendered once above the width / height
+	// inputs via VK_Custom_Html_Control (provided by vektor-inc/vk-helpers >= 0.3.0).
+	//
+	// Previously the same long description was attached to the width control only,
+	// which still meant the description visually sat under just one of the two
+	// related inputs and was easy to miss. design-rules.md
+	// ("共通の説明文は 1 箇所に集約する") prescribes a single description area at
+	// the head of the group instead — VK_Custom_Html_Control gives us exactly
+	// that: a section-scoped "label-only" control whose custom_html is rendered
+	// once, sanitized via wp_kses_post().
+	//
+	// 設定値そのものではなく説明文を表示するための「説明エリア専用」 control。
+	// width / height 共通のサイズ説明を 1 か所だけ表示する目的で配置する。
+	// 旧実装では width control の description に長文を持たせていたが、
+	// design-rules.md「共通の説明文は 1 箇所に集約する」に従い、
+	// 入力欄群の上に共通説明を 1 度だけ表示する形へ変更した。
+	//
+	// この control は値を持たないため、`add_setting` は呼ばずに
+	// `'settings' => array()` を明示する（空配列）。
+	// WP_Customize_Control::__construct() は `settings` が array の場合、
+	// 各要素を `WP_Customize_Manager::get_setting()` で解決するだけなので、
+	// 空配列を渡せば「紐づく setting 0 個」の説明専用 control として動作する。
+	// 以前は `__return_empty_string` を sanitize_callback にしたダミー setting を
+	// 登録していたが、それでは `vkExUnit_pagetop_image_size_description` という
+	// option キーが DB に書き込まれる副作用があり、option 名前空間を汚染するため
+	// 廃止した（PR #1363 review）。
+	// Build the shared description HTML. Translation rule (rules/coding-rules.md):
+	// one sentence per translation call. Each sentence becomes its own
+	// `<p class="description">` so the customizer renders them as distinct
+	// paragraphs (and matches the admin page's grouping).
+	// 翻訳ルールに従い 1 文ずつ翻訳関数で区切り、それぞれを個別の
+	// `<p class="description">` として出力する。
+	// PR #1363 のレビューで「説明が長すぎる」と指摘を受け、試せば分かる挙動
+	// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮済み。
+	$image_size_description_html  = '<p class="description">' . esc_html__( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ) . ' ' . esc_html__( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$image_size_description_html .= '<p class="description">' . esc_html__( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$image_size_description_html .= '<p class="description">' . esc_html__( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+
+	$wp_customize->add_control(
+		new VK_Custom_Html_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_size_description',
+			array(
+				'section'     => 'veu_pagetop_setting',
+				// この control は値を持たない（説明文専用）ため `settings` に空配列を渡す。
+				// WP_Customize_Control::__construct() の "Process settings" ブロックは
+				// settings が array の場合、各要素を `manager->get_setting()` で解決するだけなので、
+				// 空配列を渡せば「紐づく setting なし」の状態で安全にインスタンス化できる。
+				// これにより `add_setting` 側でダミー option を登録する必要が無くなり、
+				// option 名前空間 (`vkExUnit_pagetop_image_size_description`) の汚染を回避できる。
+				'settings'    => array(),
+				// 'Image size' をグループ見出しとして h3 (admin-custom-h3) で表示する。
+				// 親セクション内で別途出力される「Page top button image」(h2 相当) の
+				// 子グループに当たるため、design-rules.md「見出しレベルと情報階層」に
+				// 従い 1 段下げて h3 にする（label_tag で切り替え、vk-helpers 0.3.0 以降対応）。
+				'label'       => __( 'Image size', 'vk-all-in-one-expansion-unit' ),
+				'label_tag'   => 'h3',
+				// custom_html は wp_kses_post() で出力時にサニタイズされるため、
+				// ここで esc_html__() を通したテキストを <p class="description"> で
+				// くるんだ HTML を渡して問題ない。
+				'custom_html' => $image_size_description_html,
+			)
+		)
+	);
+
+	// Image width (in px).
+	// 画像の幅（px）。
+	$wp_customize->add_setting(
+		'vkExUnit_pagetop[image_width]',
+		array(
+			'default'           => 0,
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_pagetop_sanitize_image_size',
+			'transport'         => 'refresh',
+		)
+	);
+	// width 入力欄は vk-helpers 0.3.0 の VK_Custom_Text_Control を使い、
+	// 「Image width [入力] px」のように単位ラベル (px) を input_after で表示する。
+	// `(px)` をラベルから外す事で「ラベル列幅 + 入力欄 + 単位」のレイアウトを
+	// design-rules.md「レスポンシブ表示での折り返し対策」「ラベル付き入力欄の x 座標揃え」
+	// に沿った形へ揃える（カスタマイザー上で width / height のラベル文字数が揃うため
+	// 入力欄の左端も揃いやすくなる）。
+	$wp_customize->add_control(
+		new VK_Custom_Text_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_width',
+			array(
+				'label'       => __( 'Image width', 'vk-all-in-one-expansion-unit' ),
+				'section'     => 'veu_pagetop_setting',
+				'settings'    => 'vkExUnit_pagetop[image_width]',
+				// description は共通説明エリア（VK_Custom_Html_Control）に集約済みのため
+				// width 個別には設定しない（design-rules.md「共通の説明文は 1 箇所に集約する」）。
+				'input_type'  => 'number',
+				'input_after' => 'px',
+				'input_attrs' => array(
+					'min'       => 1,
+					'max'       => 500,
+					'step'      => 1,
+					'inputmode' => 'numeric',
+				),
+			)
+		)
+	);
+
+	// Image height (in px).
+	// 画像の高さ（px）。
+	$wp_customize->add_setting(
+		'vkExUnit_pagetop[image_height]',
+		array(
+			'default'           => 0,
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_pagetop_sanitize_image_size',
+			'transport'         => 'refresh',
+		)
+	);
+	// height も width と同様、VK_Custom_Text_Control + input_after='px' で
+	// 「Image height [入力] px」の表示にする。`(px)` はラベルから外す。
+	$wp_customize->add_control(
+		new VK_Custom_Text_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_height',
+			array(
+				'label'       => __( 'Image height', 'vk-all-in-one-expansion-unit' ),
+				'section'     => 'veu_pagetop_setting',
+				'settings'    => 'vkExUnit_pagetop[image_height]',
+				// description は共通説明エリア（VK_Custom_Html_Control）に集約済み。
+				'input_type'  => 'number',
+				'input_after' => 'px',
+				'input_attrs' => array(
+					'min'       => 1,
+					'max'       => 500,
+					'step'      => 1,
+					'inputmode' => 'numeric',
+				),
+			)
+		)
+	);
+
 	// Selective refresh: re-render the `<a>` element when settings change.
 	// 設定変更時に `<a>` を差し替える selective refresh パーシャル。
 	$wp_customize->selective_refresh->add_partial(
@@ -272,6 +468,23 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	);
 	$wp_customize->selective_refresh->add_partial(
 		'vkExUnit_pagetop[image_url]',
+		array(
+			'selector'            => '.page_top_btn',
+			'container_inclusive' => true,
+			'render_callback'     => 'veu_pagetop_partial_render',
+		)
+	);
+	// width / height も image_url と同じく <a> 要素ごと差し替える。
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_pagetop[image_width]',
+		array(
+			'selector'            => '.page_top_btn',
+			'container_inclusive' => true,
+			'render_callback'     => 'veu_pagetop_partial_render',
+		)
+	);
+	$wp_customize->selective_refresh->add_partial(
+		'vkExUnit_pagetop[image_height]',
 		array(
 			'selector'            => '.page_top_btn',
 			'container_inclusive' => true,
@@ -321,9 +534,15 @@ add_action( 'veu_package_init', 'veu_pagetop_admin_register' );
  * @return void
  */
 function veu_pagetop_admin() {
-	$options        = veu_pagetop_options();
-	$image_url      = $options['image_url'];
-	$preview_style  = '' !== $image_url ? '' : ' style="display:none;"';
+	$options       = veu_pagetop_options();
+	$image_url     = $options['image_url'];
+	$image_width   = isset( $options['image_width'] ) ? (int) $options['image_width'] : 0;
+	$image_height  = isset( $options['image_height'] ) ? (int) $options['image_height'] : 0;
+	$preview_style = '' !== $image_url ? '' : ' style="display:none;"';
+	// 画像未アップロード時はサイズ入力欄も非表示にする。
+	// プレビューと同じトグル機構（thumb.src の MutationObserver / clear ボタン）で
+	// `.veu_pagetop_image_size` の表示状態を同期させる。
+	$size_style     = '' !== $image_url ? '' : ' style="display:none;"';
 	$customizer_url = admin_url( 'customize.php?autofocus[section]=veu_pagetop_setting' );
 	?>
 <div id="pagetopSetting" class="sectionBox">
@@ -343,23 +562,109 @@ function veu_pagetop_admin() {
 <tr>
 <th><?php esc_html_e( 'Page top button image', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td>
-	<div class="veu_pagetop_image_preview"<?php echo $preview_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
-		<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;" />
+	<?php
+	// 設定 UI は 3 つの情報グループで構成する（design-rules.md「余白」セクション
+	// 「情報グループ内の余白 < 情報グループ間の余白」「UIでも情報グループ間の余白
+	// 関係を守る」準拠）。グループ内の小要素間 (`<p>` 同士など) は詰め、
+	// グループ間 (A→B→C) は大きく開ける。具体的なマージン値は SCSS 側
+	// (`assets/_scss/vkExUnit_admin.scss` の `#pagetopSetting`) に集約する。
+	//
+	// A: 画像ソース（プレビュー + URL 入力 + Select / Clear ボタン）
+	// B: サイズ入力（幅・高さ + サイズに関する説明） — 画像が無いときは display:none
+	// C: 画像全体に関する meta（推奨フォーマット / アスペクト比 / Clear 挙動 /
+	// テーマ上書きの注意 / カスタマイザーへのリンク）
+	?>
+	<div class="veu_pagetop_image_source">
+		<div class="veu_pagetop_image_preview"<?php echo $preview_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
+			<img id="thumb_pagetop_image_url" src="<?php echo esc_url( $image_url ); ?>" alt="" style="max-width:120px;height:auto;" />
+		</div>
+		<p class="veu_pagetop_image_source__url">
+			<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" />
+		</p>
+		<?php
+		// Buttons line up horizontally when there is room and wrap to a second
+		// row when the container is narrow (e.g. on a sidebar-style layout).
+		// Flex layout / wrap behavior is defined on `.veu_pagetop_image_source__buttons`
+		// in the admin SCSS, so the inline `style` attributes that were here
+		// previously have been removed. This follows the "横並びボタンの揃え"
+		// rule in design-rules.md.
+		// 「画像を選択」「画像の選択を解除」ボタンは、広い時は横並び・狭い時は
+		// 段落ちさせる。flex / wrap の指定は SCSS 側
+		// (`.veu_pagetop_image_source__buttons`) に集約済みのため、ここではクラス
+		// のみを付与する（design-rules.md「横並びボタンの揃え」準拠）。
+		?>
+		<p class="veu_pagetop_image_source__buttons">
+			<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
+			<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
+		</p>
 	</div>
-	<p>
-		<input type="text" name="vkExUnit_pagetop[image_url]" id="pagetop_image_url" value="<?php echo esc_attr( $image_url ); ?>" style="width:60%;" />
-		<button type="button" id="media_src_pagetop_image_url" class="media_btn button button-default"><?php esc_html_e( 'Select an image', 'vk-all-in-one-expansion-unit' ); ?></button>
-		<button type="button" id="veu_pagetop_image_clear" class="button button-default"><?php esc_html_e( 'Clear image selection', 'vk-all-in-one-expansion-unit' ); ?></button>
-	</p>
-	<p class="description">
-		<?php esc_html_e( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'Clearing the selection only removes this setting and does not delete the image from the Media Library.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<?php esc_html_e( 'If your theme or custom CSS overrides --veu_page_top_button_url, the theme value takes precedence and the image may not appear.', 'vk-all-in-one-expansion-unit' ); ?><br />
-		<a href="<?php echo esc_url( $customizer_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
-	</p>
+	<div class="veu_pagetop_image_size"<?php echo $size_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 固定文字列のみ。 ?>>
+		<?php
+		// Width and height inputs are placed in separate `<p>` blocks so each
+		// "label + input + unit" set occupies its own line. This prevents the
+		// "(px)" suffix from being orphaned on a wrapped line when the panel
+		// becomes narrow, following the "レスポンシブ表示での折り返し対策"
+		// rule in design-rules.md (1 セット 1 行に分ける).
+		// 「ラベル + 入力欄 + 単位」を 1 セット 1 行ずつ縦に積み、狭い幅で
+		// 「(px)」だけが次行に取り残されるのを防ぐ（design-rules.md
+		// 「レスポンシブ表示での折り返し対策」準拠）。
+		?>
+		<div class="veu_pagetop_image_size__inputs">
+			<p>
+				<label for="pagetop_image_width">
+					<?php esc_html_e( 'Image width (px)', 'vk-all-in-one-expansion-unit' ); ?>
+					<input type="number" name="vkExUnit_pagetop[image_width]" id="pagetop_image_width" value="<?php echo $image_width > 0 ? esc_attr( $image_width ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" />
+				</label>
+			</p>
+			<p>
+				<label for="pagetop_image_height">
+					<?php esc_html_e( 'Image height (px)', 'vk-all-in-one-expansion-unit' ); ?>
+					<input type="number" name="vkExUnit_pagetop[image_height]" id="pagetop_image_height" value="<?php echo $image_height > 0 ? esc_attr( $image_height ) : ''; ?>" min="1" max="500" step="1" inputmode="numeric" />
+				</label>
+			</p>
+		</div>
+		<?php
+		// description は意味のまとまりごとに別の `<p class="description">` に
+		// 分けて段落化する。`<br /><br />` で空きを作るのは design-rules.md
+		// 「余白」セクションで禁止されているため使わない（グループ内の小さな
+		// 段差は SCSS のマージンで作る）。
+		// PR #1363 のレビューで「説明が長すぎる」と指摘を受け、試せば分かる挙動
+		// （片方だけ指定／縦横比保持）や単位・上限の重複説明を落とし 3 段落に短縮した。
+		?>
+		<div class="veu_pagetop_image_size__notes">
+			<p class="description">
+				<?php esc_html_e( 'Specify the image size in pixels.', 'vk-all-in-one-expansion-unit' ); ?>
+				<?php esc_html_e( 'Default: 40 x 38 px / Max: 500 px.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
+			<p class="description">
+				<?php esc_html_e( '44 px or larger is recommended for touch screen devices.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
+			<p class="description">
+				<?php esc_html_e( 'The width / height values are kept when the image is cleared.', 'vk-all-in-one-expansion-unit' ); ?>
+			</p>
+		</div>
+	</div>
+	<?php
+	// C グループ: 画像全体に関する meta 情報。
+	// 以前は `<br />` 連結で 1 段落にまとまっていたが、design-rules.md
+	// 「余白」セクション（`<br />` で余白を作らない）と植草レビューを踏まえ、
+	// 意味の塊ごとに `<p class="description">` に分けて段落化した。
+	?>
+	<div class="veu_pagetop_image_meta">
+		<p class="description">
+			<?php esc_html_e( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		<p class="description">
+			<?php esc_html_e( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		<p class="description">
+			<?php esc_html_e( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ); ?>
+			<?php esc_html_e( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		<p class="description">
+			<a href="<?php echo esc_url( $customizer_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Configure with live preview in the Customizer', 'vk-all-in-one-expansion-unit' ); ?> &rarr;</a>
+		</p>
+	</div>
 </td>
 </tr>
 </table>
@@ -381,6 +686,8 @@ function veu_pagetop_admin() {
 		var thumb    = document.getElementById('thumb_pagetop_image_url');
 		var preview  = thumb ? thumb.parentNode : null;
 		var clearBtn = document.getElementById('veu_pagetop_image_clear');
+		// サイズ入力欄ブロック（幅・高さ）も同じトグル機構に乗せる。
+		var sizeBlock = document.querySelector('.veu_pagetop_image_size');
 
 		// Toggle the preview wrapper visibility based on the current img src.
 		// 現在の thumb.src を見てプレビュー枠の表示/非表示を切り替える。
@@ -390,6 +697,10 @@ function veu_pagetop_admin() {
 			}
 			var src = thumb.getAttribute( 'src' ) || '';
 			preview.style.display = ( '' !== src ) ? '' : 'none';
+			// サイズ入力欄も画像の有無に追従させる。
+			if ( sizeBlock ) {
+				sizeBlock.style.display = ( '' !== src ) ? '' : 'none';
+			}
 		};
 
 		// Sync the preview from the URL text input.
@@ -471,6 +782,15 @@ function veu_pagetop_options() {
 	$image_url            = isset( $options['image_url'] ) ? $options['image_url'] : '';
 	$options['image_url'] = is_string( $image_url ) ? veu_pagetop_sanitize_image_url( $image_url ) : '';
 
+	// Defensive normalization for image size values. Sanitize on read so that
+	// option storage written by other code (legacy plugin versions / direct
+	// `update_option()` calls) cannot poison the output even if the saved
+	// value is non-numeric, negative, or out of range.
+	// 画像サイズ値も取得時に防御的サニタイズ。直書きや過去版で異常値が保存
+	// されていても出力側を汚染しないようにする。
+	$options['image_width']  = veu_pagetop_sanitize_image_size( isset( $options['image_width'] ) ? $options['image_width'] : 0 );
+	$options['image_height'] = veu_pagetop_sanitize_image_size( isset( $options['image_height'] ) ? $options['image_height'] : 0 );
+
 	return $options;
 }
 
@@ -481,8 +801,11 @@ function veu_pagetop_options() {
  */
 function veu_pagetop_default() {
 	$default_options = array(
-		'hide_mobile' => false,
-		'image_url'   => '',
+		'hide_mobile'  => false,
+		'image_url'    => '',
+		// 画像アップロード時のサイズ指定（px）。0 は未指定（既存 SCSS の 40 / 38 が適用）。
+		'image_width'  => 0,
+		'image_height' => 0,
 	);
 	return apply_filters( 'veu_pagetop_default', $default_options );
 }
@@ -511,5 +834,8 @@ function veu_pagetop_sanitize( $input ) {
 	} else {
 		$output['image_url'] = '';
 	}
+	// 画像サイズ（幅・高さ）。未指定 (0) も含めて常にサニタイザーを通す。
+	$output['image_width']  = isset( $input['image_width'] ) ? veu_pagetop_sanitize_image_size( $input['image_width'] ) : 0;
+	$output['image_height'] = isset( $input['image_height'] ) ? veu_pagetop_sanitize_image_size( $input['image_height'] ) : 0;
 	return $output;
 }
