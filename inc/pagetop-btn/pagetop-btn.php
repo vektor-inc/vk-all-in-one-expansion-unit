@@ -232,40 +232,6 @@ add_action( 'customize_register', 'veu_customize_register_pagetop' );
  */
 function veu_customize_register_pagetop( $wp_customize ) {
 
-	// Ensure VK_Custom_Html_Control is defined.
-	//
-	// vk-admin 0.6.0 declares the class inside a
-	// `class_exists( 'WP_Customize_Control' )` guard. Composer's files
-	// autoloader pulls in
-	// `vendor/vektor-inc/vk-admin/src/VK_Custom_Html_Control.php` very early
-	// (during the plugin entry point's `require_once vendor/autoload.php`),
-	// at which point WordPress has **not** loaded `WP_Customize_Control` yet.
-	// The guard therefore evaluates to false and the class block is skipped.
-	// By the time we reach `customize_register`, `WP_Customize_Control` is
-	// available, so we re-evaluate the file with `include` (not `_once` —
-	// PHP's `*_once` family is keyed on absolute file paths and would skip
-	// a file that's already been required by Composer's files autoloader).
-	//
-	// The outer `! class_exists( ... )` guard ensures the body runs at most
-	// once per request: the first `include` re-evaluates the file body and
-	// reaches the declaration, after which the class is registered globally
-	// and subsequent invocations short-circuit.
-	//
-	// vk-admin 0.6.0 のクラス宣言は
-	// `class_exists( 'WP_Customize_Control' )` で囲まれており、
-	// Composer の files オートロードが早期（プラグイン読込時の
-	// `require_once vendor/autoload.php`）にこのファイルを require する
-	// 時点では `WP_Customize_Control` が未定義のためクラス宣言ブロックが
-	// スキップされてしまう。
-	// `customize_register` フックが発火するタイミングでは
-	// `WP_Customize_Control` が既に読まれているので、`include`（_once は
-	// 同一パスをスキップするため使えない）で再評価し、クラス定義ブロックを
-	// 走らせる。外側の `! class_exists` ガードでリクエストあたり 1 度だけに
-	// 限定する。
-	if ( ! class_exists( 'VK_Custom_Html_Control' ) ) {
-		include dirname( __DIR__, 2 ) . '/vendor/vektor-inc/vk-admin/src/VK_Custom_Html_Control.php';
-	}
-
 	/*
 		Page Top setting
 	/*-------------------------------------------*/
