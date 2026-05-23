@@ -317,7 +317,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	);
 
 	// Shared "Image size" description block, rendered once above the width / height
-	// inputs via VK_Custom_Html_Control (provided by vektor-inc/vk-admin >= 0.6.0).
+	// inputs via VK_Custom_Html_Control (provided by vektor-inc/vk-helpers >= 0.3.0).
 	//
 	// Previously the same long description was attached to the width control only,
 	// which still meant the description visually sat under just one of the two
@@ -362,8 +362,12 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'vkExUnit_pagetop_image_size_description',
 			array(
 				'section'     => 'veu_pagetop_setting',
-				// 'Image size' をグループ見出しとして h2 (admin-custom-h2) で表示する。
+				// 'Image size' をグループ見出しとして h3 (admin-custom-h3) で表示する。
+				// 親セクション内で別途出力される「Page top button image」(h2 相当) の
+				// 子グループに当たるため、design-rules.md「見出しレベルと情報階層」に
+				// 従い 1 段下げて h3 にする（label_tag で切り替え、vk-helpers 0.3.0 以降対応）。
 				'label'       => __( 'Image size', 'vk-all-in-one-expansion-unit' ),
+				'label_tag'   => 'h3',
 				// custom_html は wp_kses_post() で出力時にサニタイズされるため、
 				// ここで esc_html__() を通したテキストを <p class="description"> で
 				// くるんだ HTML を渡して問題ない。
@@ -384,7 +388,7 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'transport'         => 'refresh',
 		)
 	);
-	// width 入力欄は vk-admin 0.7.0 の VK_Custom_Text_Control を使い、
+	// width 入力欄は vk-helpers 0.3.0 の VK_Custom_Text_Control を使い、
 	// 「Image width [入力] px」のように単位ラベル (px) を input_after で表示する。
 	// `(px)` をラベルから外す事で「ラベル列幅 + 入力欄 + 単位」のレイアウトを
 	// design-rules.md「レスポンシブ表示での折り返し対策」「ラベル付き入力欄の x 座標揃え」
