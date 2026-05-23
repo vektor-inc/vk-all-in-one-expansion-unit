@@ -384,21 +384,31 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'transport'         => 'refresh',
 		)
 	);
+	// width 入力欄は vk-admin 0.7.0 の VK_Custom_Text_Control を使い、
+	// 「Image width [入力] px」のように単位ラベル (px) を input_after で表示する。
+	// `(px)` をラベルから外す事で「ラベル列幅 + 入力欄 + 単位」のレイアウトを
+	// design-rules.md「レスポンシブ表示での折り返し対策」「ラベル付き入力欄の x 座標揃え」
+	// に沿った形へ揃える（カスタマイザー上で width / height のラベル文字数が揃うため
+	// 入力欄の左端も揃いやすくなる）。
 	$wp_customize->add_control(
-		'vkExUnit_pagetop_image_width',
-		array(
-			'label'       => __( 'Image width (px)', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_pagetop_setting',
-			'settings'    => 'vkExUnit_pagetop[image_width]',
-			// description は共通説明エリア（VK_Custom_Html_Control）に集約済みのため
-			// width 個別には設定しない（design-rules.md「共通の説明文は 1 箇所に集約する」）。
-			'type'        => 'number',
-			'input_attrs' => array(
-				'min'       => 1,
-				'max'       => 500,
-				'step'      => 1,
-				'inputmode' => 'numeric',
-			),
+		new VK_Custom_Text_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_width',
+			array(
+				'label'       => __( 'Image width', 'vk-all-in-one-expansion-unit' ),
+				'section'     => 'veu_pagetop_setting',
+				'settings'    => 'vkExUnit_pagetop[image_width]',
+				// description は共通説明エリア（VK_Custom_Html_Control）に集約済みのため
+				// width 個別には設定しない（design-rules.md「共通の説明文は 1 箇所に集約する」）。
+				'input_type'  => 'number',
+				'input_after' => 'px',
+				'input_attrs' => array(
+					'min'       => 1,
+					'max'       => 500,
+					'step'      => 1,
+					'inputmode' => 'numeric',
+				),
+			)
 		)
 	);
 
@@ -414,20 +424,26 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'transport'         => 'refresh',
 		)
 	);
+	// height も width と同様、VK_Custom_Text_Control + input_after='px' で
+	// 「Image height [入力] px」の表示にする。`(px)` はラベルから外す。
 	$wp_customize->add_control(
-		'vkExUnit_pagetop_image_height',
-		array(
-			'label'       => __( 'Image height (px)', 'vk-all-in-one-expansion-unit' ),
-			'section'     => 'veu_pagetop_setting',
-			'settings'    => 'vkExUnit_pagetop[image_height]',
-			// description は共通説明エリア（VK_Custom_Html_Control）に集約済み。
-			'type'        => 'number',
-			'input_attrs' => array(
-				'min'       => 1,
-				'max'       => 500,
-				'step'      => 1,
-				'inputmode' => 'numeric',
-			),
+		new VK_Custom_Text_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_height',
+			array(
+				'label'       => __( 'Image height', 'vk-all-in-one-expansion-unit' ),
+				'section'     => 'veu_pagetop_setting',
+				'settings'    => 'vkExUnit_pagetop[image_height]',
+				// description は共通説明エリア（VK_Custom_Html_Control）に集約済み。
+				'input_type'  => 'number',
+				'input_after' => 'px',
+				'input_attrs' => array(
+					'min'       => 1,
+					'max'       => 500,
+					'step'      => 1,
+					'inputmode' => 'numeric',
+				),
+			)
 		)
 	);
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8558e1631bf9b5bd7d98cf1be2c5b386",
+    "content-hash": "6edb79d56e6649dfd0fbdd2084ad56c5",
     "packages": [
         {
             "name": "vektor-inc/font-awesome-versions",
@@ -60,16 +60,16 @@
         },
         {
             "name": "vektor-inc/vk-admin",
-            "version": "0.6.1",
+            "version": "0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vektor-inc/vk-admin.git",
-                "reference": "6292ded2167c4d728a143043c3f83012695a3c2d"
+                "reference": "2e8fa3dc7505c4103282accfa218efb42e8384d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vektor-inc/vk-admin/zipball/6292ded2167c4d728a143043c3f83012695a3c2d",
-                "reference": "6292ded2167c4d728a143043c3f83012695a3c2d",
+                "url": "https://api.github.com/repos/vektor-inc/vk-admin/zipball/2e8fa3dc7505c4103282accfa218efb42e8384d4",
+                "reference": "2e8fa3dc7505c4103282accfa218efb42e8384d4",
                 "shasum": ""
             },
             "require-dev": {
@@ -106,9 +106,9 @@
             "description": "Vektor Admin Component",
             "support": {
                 "issues": "https://github.com/vektor-inc/vk-admin/issues",
-                "source": "https://github.com/vektor-inc/vk-admin/tree/0.6.1"
+                "source": "https://github.com/vektor-inc/vk-admin/tree/0.7.0"
             },
-            "time": "2026-05-23T01:25:58+00:00"
+            "time": "2026-05-23T03:21:55+00:00"
         },
         {
             "name": "vektor-inc/vk-breadcrumb",
