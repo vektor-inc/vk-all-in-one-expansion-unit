@@ -332,18 +332,16 @@ function veu_customize_register_pagetop( $wp_customize ) {
 	// 旧実装では width control の description に長文を持たせていたが、
 	// design-rules.md「共通の説明文は 1 箇所に集約する」に従い、
 	// 入力欄群の上に共通説明を 1 度だけ表示する形へ変更した。
-	// 新規 setting は不要（値は保存しない）だが、WP_Customize_Control は
-	// 紐づく setting を要求するため、空文字を返すだけのダミー setting を登録する。
-	// `__return_empty_string` を sanitize_callback に指定して保存値を空に固定する。
-	$wp_customize->add_setting(
-		'vkExUnit_pagetop_image_size_description',
-		array(
-			'default'           => '',
-			'type'              => 'option',
-			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => '__return_empty_string',
-		)
-	);
+	//
+	// この control は値を持たないため、`add_setting` は呼ばずに
+	// `'settings' => array()` を明示する（空配列）。
+	// WP_Customize_Control::__construct() は `settings` が array の場合、
+	// 各要素を `WP_Customize_Manager::get_setting()` で解決するだけなので、
+	// 空配列を渡せば「紐づく setting 0 個」の説明専用 control として動作する。
+	// 以前は `__return_empty_string` を sanitize_callback にしたダミー setting を
+	// 登録していたが、それでは `vkExUnit_pagetop_image_size_description` という
+	// option キーが DB に書き込まれる副作用があり、option 名前空間を汚染するため
+	// 廃止した（PR #1363 review）。
 	// Build the shared description HTML. Translation rule (rules/coding-rules.md):
 	// one sentence per translation call. Each sentence becomes its own
 	// `<p class="description">` so the customizer renders them as distinct
@@ -362,6 +360,13 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'vkExUnit_pagetop_image_size_description',
 			array(
 				'section'     => 'veu_pagetop_setting',
+				// この control は値を持たない（説明文専用）ため `settings` に空配列を渡す。
+				// WP_Customize_Control::__construct() の "Process settings" ブロックは
+				// settings が array の場合、各要素を `manager->get_setting()` で解決するだけなので、
+				// 空配列を渡せば「紐づく setting なし」の状態で安全にインスタンス化できる。
+				// これにより `add_setting` 側でダミー option を登録する必要が無くなり、
+				// option 名前空間 (`vkExUnit_pagetop_image_size_description`) の汚染を回避できる。
+				'settings'    => array(),
 				// 'Image size' をグループ見出しとして h3 (admin-custom-h3) で表示する。
 				// 親セクション内で別途出力される「Page top button image」(h2 相当) の
 				// 子グループに当たるため、design-rules.md「見出しレベルと情報階層」に
