@@ -304,8 +304,9 @@ function veu_cta_block_callback( $attributes, $content ) {
 					$content .= '</div>';
 
 					// Display Edit Button.
-					$url = esc_url( get_edit_post_link( $cta_post->ID ) );
-					if ( $url ) {
+					$edit_link = get_edit_post_link( $cta_post->ID );
+					if ( $edit_link ) {
+						$url      = esc_url( $edit_link );
 						$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 					}
 				}
