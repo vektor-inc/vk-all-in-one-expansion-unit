@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice (`ltrim(): Passing null to parameter #1 ($string) of type string is deprecated`) emitted on the frontend when the CTA feature is enabled. The block renderer passed the return value of `get_edit_post_link()` directly to `esc_url()`, but `get_edit_post_link()` returns `null` for users without `edit_post` capability (e.g. logged-out visitors). The return value is now checked before being passed to `esc_url()`.
+[ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice ("ltrim(): Passing null to parameter #1 ($string) of type string is deprecated") emitted by the CTA block on the frontend for visitors without the edit_post capability.
 
 [ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. The shared `VK_Custom_Html_Control` / `VK_Custom_Text_Control` classes now ship from vk-helpers (autoloaded via composer) instead of vk-admin.
 
