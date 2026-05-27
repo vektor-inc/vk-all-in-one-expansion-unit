@@ -183,7 +183,7 @@
 
 // Page Top Button の管理画面設定（ExUnit メイン設定 → Page Top Button タブ）
 // design-rules.md「情報グループの親子関係も踏まえて余白をつける」OK 例に準拠。
-//
+
 // 情報階層:
 //   画像指定 UI (.veu_pagetop_image_source + .veu_pagetop_image_size + .veu_pagetop_image_meta)
 //   ├ 画像プレビュー         (.veu_pagetop_image_preview)
@@ -194,16 +194,45 @@
 //   │   ├ 横サイズ
 //   │   └ 縦サイズ
 //   └ 説明文                  (.veu_pagetop_image_size__notes, .veu_pagetop_image_meta)
-//
+
 // 余白規約: グループ内 < 同列グループ間 < 親グループ間。
 //   - URL ⇔ ボタン群:        密着 (0.2em)  — 同じ画像関連選択フォームグループ内
 //   - 横サイズ ⇔ 縦サイズ:   密着 (0.2em)  — 同じ画像サイズフォームグループ内
 //   - プレビュー ⇔ URL 入力: 中余白 (0.8em) — プレビュー ⇔ 画像関連選択フォームグループ
 //   - ボタン群 ⇔ サイズ:     大余白 (1.6em) — 画像ソース ⇔ サイズフォームグループ
 //   - サイズ ⇔ 説明文:       中余白 (0.9em) — サイズフォームグループ内サブグループ間
-//
+
 // specificity の方針: すべて class セレクタで揃え、`!important` は使わない。
 // shorthand `margin: 0 0 0.3em` ではなく `margin-top` / `margin-bottom` を個別に書く。
+// Customizer「ページトップへ戻るボタン」セクション内、
+// 「Page top button image」の説明文（最後の <p class="description">）と
+// 直下の画像サムネイル（vkExUnit_pagetop_image_url コントロール）の間の余白拡大。
+// issue #1368: デフォルトのままだと説明文の終端と画像サムネイルの距離が近く、
+// 「説明文 → 画像サムネイル」が同じ塊に見えてしまう（説明と操作対象の境界が弱い）。
+// design-rules.md「余白」「情報グループ内の余白 < 情報グループ間の余白」を踏まえ、
+// 当該境界の絶対値 px を 1.4 倍に拡大する（指定範囲 1.3〜1.5 の中央）。
+
+// 計測結果（wp-env 上の Customizer・既定状態）:
+//   - heading 控除 li の margin-bottom: 12px
+//   - 最後の <p class="description"> の margin-bottom: 5px（collapse 後 12px）
+//   - 結果として説明文と画像サムネイル間の実描画 gap = 17px (12 + 5)
+// 目標: 17px × 1.4 ≒ 24px。
+// 実装: 最後の description の margin-bottom を 5px → 12px に拡大すると、
+// 12 + 12 = 24px となり狙い通り。説明文側のマージンを足す形を選ぶのは、
+// 「最後の段落と次の control の間」という意味合いが最もセレクタで表現できるため
+// （li 同士の margin を増やすと「li と li の間」全般に作用してしまう）。
+// スコープは `#customize-control-vkExUnit_pagetop_image_heading` 内に限定し、
+// 他コントロールの description は影響を受けない。
+// 詳細度は `:where()` で 0 に保ち、customizer のデフォルトや他プラグインの
+// 素朴な指定と衝突しないようにする（design-rules.md / 過去案件のレビュー方針）。
+// セレクタ補足: heading 控除の id は当該セクション固有なので
+// `#customize-control-vkExUnit_pagetop_image_heading` 単独でも他セクションには
+// 当たらないが、issue #1368 の方針（セクションスコープ限定）を意図として明示するため
+// `#sub-accordion-section-veu_pagetop_setting` を前段に置く。
+#sub-accordion-section-veu_pagetop_setting #customize-control-vkExUnit_pagetop_image_heading :where(.description:last-child) {
+    margin-bottom: 12px;
+}
+
 #pagetopSetting {
 
     // ===== 画像ソース親グループ =====

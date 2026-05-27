@@ -277,26 +277,63 @@ function veu_customize_register_pagetop( $wp_customize ) {
 			'transport'         => 'refresh',
 		)
 	);
-	// Build the description for the customizer image control.
-	// Translation rule: split into one sentence per translation call. Each
-	// sentence is concatenated with a newline; an empty line is used to
-	// visually separate groups.
-	// 翻訳ルールに従い 1 文ずつ翻訳関数で区切り、改行で連結する。
-	// グループ間は空行で視覚的に分ける。。
-	$customizer_description  = __( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$customizer_description .= __( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ) . "\n\n";
-	$customizer_description .= __( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ) . "\n";
-	$customizer_description .= __( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' );
+	// Build the shared "Page top button image" group heading + description block.
+	// Issue #1368: the parent group label "Page top button image" was previously
+	// shown only as the WP_Customize_Image_Control label (normal-weight text),
+	// while the child group "Image size" right below it was rendered as h3
+	// (admin-custom-h3) via VK_Custom_Html_Control. The visual hierarchy was
+	// inverted ("child looks more prominent than parent"). To restore the
+	// hierarchy, render the group heading explicitly as h2 (admin-custom-h2)
+	// via VK_Custom_Html_Control just above the image control, and drop the
+	// label / description from the image control itself to avoid duplication.
+	// (See rules/design-rules.md "見出しレベルと情報階層".)
+	//
+	// issue #1368 対応。以前は「Page top button image」が WP_Customize_Image_Control
+	// の label として通常字で出ているだけで、直下の子グループ「Image size」が
+	// h3 (admin-custom-h3) として表示される情報階層と見た目の逆転が発生していた。
+	// 解消のため、画像コントロールの直前に VK_Custom_Html_Control で h2
+	// (admin-custom-h2) として親見出しを出し、画像コントロール側の label /
+	// description は外して重複を避ける（design-rules.md「見出しレベルと情報階層」）。
+	//
+	// Translation rule (rules/coding-rules.md): one sentence per translation call.
+	// Each sentence becomes its own `<p class="description">` so they render as
+	// distinct paragraphs (matches the admin page grouping). The whole block is
+	// passed to custom_html which is sanitized via wp_kses_post() on output.
+	// 翻訳ルールに従い 1 文ずつ翻訳関数で区切り、それぞれを個別の
+	// `<p class="description">` として出力する（custom_html 側は wp_kses_post() でサニタイズ）。
+	$image_description_html  = '<p class="description">' . esc_html__( 'Upload an image to replace the default page top button icon.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$image_description_html .= '<p class="description">' . esc_html__( 'Recommended formats: SVG, PNG, JPG, GIF, WebP.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+	$image_description_html .= '<p class="description">' . esc_html__( 'A square (1:1) image is recommended.', 'vk-all-in-one-expansion-unit' ) . ' ' . esc_html__( 'Images with a very different aspect ratio may show extra empty space.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+
+	$wp_customize->add_control(
+		new VK_Custom_Html_Control(
+			$wp_customize,
+			'vkExUnit_pagetop_image_heading',
+			array(
+				'section'     => 'veu_pagetop_setting',
+				// 値を持たない説明・見出し専用の control。
+				// `settings` に空配列を渡すことで「紐づく setting なし」として扱われ、
+				// option 名前空間を汚染しない（PR #1363 review と同じ理由）。
+				'settings'    => array(),
+				// 親グループ見出しなので h2 (admin-custom-h2) で出力する。
+				// VK_Custom_Html_Control のデフォルトも h2 だが、意図を明示するため指定する。
+				'label'       => __( 'Page top button image', 'vk-all-in-one-expansion-unit' ),
+				'label_tag'   => 'h2',
+				'custom_html' => $image_description_html,
+			)
+		)
+	);
 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
 			'vkExUnit_pagetop_image_url',
 			array(
-				'label'         => __( 'Page top button image', 'vk-all-in-one-expansion-unit' ),
+				// 親見出しと説明文は直前の VK_Custom_Html_Control に集約済みのため、
+				// この画像コントロール自体には label / description を持たせず、
+				// 親階層との視覚的逆転を解消する（issue #1368）。
 				'section'       => 'veu_pagetop_setting',
 				'settings'      => 'vkExUnit_pagetop[image_url]',
-				'description'   => $customizer_description,
 				// Customize the built-in image control button labels so that
 				// "Remove" is interpreted as "clear this setting", not
 				// "delete from the media library".
@@ -492,6 +529,28 @@ function veu_customize_register_pagetop( $wp_customize ) {
 		)
 	);
 }
+
+/**
+ * Enqueue the ExUnit admin CSS on the Customizer controls frame.
+ *
+ * `admin_enqueue_scripts` (登録は admin/admin.php) はカスタマイザーのコントロール
+ * フレームでは発火しないため、`#customize-control-vkExUnit_pagetop_image_heading`
+ * などコントロール固有のスタイル（issue #1368 の説明文と画像サムネイル間の余白拡大）が
+ * 反映されない。`customize_controls_enqueue_scripts` 経由で同じ
+ * `vkExUnit_admin.css` を読み込むことで、メイン設定ページとカスタマイザーの両方で
+ * 同一スタイルが効くようにする。
+ *
+ * 副作用について:
+ * `vkExUnit_admin.css` には `#pagetopSetting` / `.veu_metabox_*` / `.wp-list-table`
+ * などメイン管理画面の DOM 構造に依存した名前空間付きセレクタしか含まれていないため、
+ * カスタマイザー側にこれらの ID/クラスは存在せず誤発火しない。
+ *
+ * @return void
+ */
+function veu_pagetop_customize_controls_enqueue() {
+	wp_enqueue_style( 'veu_admin_css', VEU_DIRECTORY_URI . '/assets/css/vkExUnit_admin.css', array(), VEU_VERSION, 'all' );
+}
+add_action( 'customize_controls_enqueue_scripts', 'veu_pagetop_customize_controls_enqueue' );
 
 /**
  * Render callback for the selective refresh partial.

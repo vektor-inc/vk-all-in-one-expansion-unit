@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Page Top Button ] Promoted the Customizer "Page top button image" label to an h2 group heading, and widened the gap between the description and the image thumbnail by 1.4x for easier scanning.
+
 [ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
 
 [ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. VK_Custom_Html_Control / VK_Custom_Text_Control classes now ship from vk-helpers instead of vk-admin.
