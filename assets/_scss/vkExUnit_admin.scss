@@ -183,7 +183,7 @@
 
 // Page Top Button の管理画面設定（ExUnit メイン設定 → Page Top Button タブ）
 // design-rules.md「情報グループの親子関係も踏まえて余白をつける」OK 例に準拠。
-//
+
 // 情報階層:
 //   画像指定 UI (.veu_pagetop_image_source + .veu_pagetop_image_size + .veu_pagetop_image_meta)
 //   ├ 画像プレビュー         (.veu_pagetop_image_preview)
@@ -194,14 +194,14 @@
 //   │   ├ 横サイズ
 //   │   └ 縦サイズ
 //   └ 説明文                  (.veu_pagetop_image_size__notes, .veu_pagetop_image_meta)
-//
+
 // 余白規約: グループ内 < 同列グループ間 < 親グループ間。
 //   - URL ⇔ ボタン群:        密着 (0.2em)  — 同じ画像関連選択フォームグループ内
 //   - 横サイズ ⇔ 縦サイズ:   密着 (0.2em)  — 同じ画像サイズフォームグループ内
 //   - プレビュー ⇔ URL 入力: 中余白 (0.8em) — プレビュー ⇔ 画像関連選択フォームグループ
 //   - ボタン群 ⇔ サイズ:     大余白 (1.6em) — 画像ソース ⇔ サイズフォームグループ
 //   - サイズ ⇔ 説明文:       中余白 (0.9em) — サイズフォームグループ内サブグループ間
-//
+
 // specificity の方針: すべて class セレクタで揃え、`!important` は使わない。
 // shorthand `margin: 0 0 0.3em` ではなく `margin-top` / `margin-bottom` を個別に書く。
 // Customizer「ページトップへ戻るボタン」セクション内の見出し余白拡大。
@@ -210,7 +210,7 @@
 // 隣接 control との間が詰まりすぎ、見出しと中身が一塊に見えない（情報グルーピングが弱い）。
 // design-rules.md「余白」「情報グループ内の余白 < 情報グループ間の余白」を踏まえ、
 // 当該セクション内に限り margin を 1.4 倍に拡大する（指定範囲 1.3〜1.5 の中央）。
-//
+
 // セレクタは `#sub-accordion-section-veu_pagetop_setting`（カスタマイザー側で
 // 各セクション本体に付与される ID）にスコープし、他セクションへ影響を与えない。
 // 詳細度はユーザーや他プラグインの素朴な指定と衝突しないよう、`:where()` で
