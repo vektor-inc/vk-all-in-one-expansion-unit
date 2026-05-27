@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Page Top Button ] Promoted the Customizer "Page top button image" label to an h2 heading via VK_Custom_Html_Control and removed the duplicated label/description from the image control so the parent group no longer looks less prominent than the "Image size" h3 below it. The h2 / h3 margins inside the page top button section were also enlarged by 1.4x for clearer grouping.
+
 [ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
 
 [ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. VK_Custom_Html_Control / VK_Custom_Text_Control classes now ship from vk-helpers instead of vk-admin.
