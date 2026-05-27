@@ -217,7 +217,9 @@
 // 0 まで落とす（仕様調査メモ: feedback_generic_theme_specificity と同じ思想で、
 // プラグイン側からの上書きが他カスタマイザー UI の見た目を強く支配しないようにする）。
 #sub-accordion-section-veu_pagetop_setting :where(.admin-custom-h2) {
-    // デフォルトの h2 上下マージン（約 0.83em）を 1.4 倍に拡大。
+    // デフォルトの h2 上下マージン（約 0.83em）を 1.4 倍に拡大 → 0.83em × 1.4 ≒ 1.16em。
+    // em 値だけ見ると下の h3 (1.4em) より小さく見えるが、h2 は font-size が
+    // 大きい分 absolute px では h2 のマージンの方が広く描画される（UA stylesheet 仕様）。
     // 値を直書きしているのは、このセクション内限定の調整であり共通変数化する
     // 必要が無いため（rules/css.md「セレクタ内でしか使わない値は数値直書きで OK」）。
     margin-top: 1.16em;
@@ -225,7 +227,9 @@
 }
 
 #sub-accordion-section-veu_pagetop_setting :where(.admin-custom-h3) {
-    // デフォルトの h3 上下マージン（約 1em）を 1.4 倍に拡大。
+    // デフォルトの h3 上下マージン（約 1em）を 1.4 倍に拡大 → 1em × 1.4 = 1.4em。
+    // 上の h2 (1.16em) との em 値の大小逆転に見えるが、font-size 差で
+    // absolute px では h2 マージン > h3 マージン となる（上のブロック参照）。
     margin-top: 1.4em;
     margin-bottom: 1.4em;
 }
