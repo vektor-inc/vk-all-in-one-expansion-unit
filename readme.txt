@@ -81,42 +81,42 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice ("ltrim(): Passing null to parameter #1 ($string) of type string is deprecated") emitted by the CTA block on the frontend for visitors without the edit_post capability.
+[ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
 
-[ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. The shared `VK_Custom_Html_Control` / `VK_Custom_Text_Control` classes now ship from vk-helpers (autoloaded via composer) instead of vk-admin.
+[ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. VK_Custom_Html_Control / VK_Custom_Text_Control classes now ship from vk-helpers instead of vk-admin.
 
-[ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the page top button image preview (`<img id="thumb_pagetop_image_url">`) on the ExUnit main setting page so that the uploaded icon is no longer rendered with a black box around it.
+[ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the image preview on the ExUnit main setting page so the uploaded icon is no longer rendered with a black box.
 
-[ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the ExUnit main setting page to open in a new tab (`target="_blank"` with `rel="noopener noreferrer"`) so that opening the Customizer no longer interrupts editing on the main setting page.
+[ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the main setting page to open in a new tab so it no longer interrupts editing.
 
 = 9.116.0 =
-[ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the ExUnit main setting page and the Customizer. The values are applied via the inline `style` attribute on the `<a>` element as the `--veu_page_top_button_width` / `--veu_page_top_button_height` CSS custom properties, with SCSS fallbacks that keep the existing default 40 x 38 px size when either value is left blank. Inputs are clamped to a maximum of 500 px and non-numeric values are normalized to 0 (unspecified) by a new shared sanitizer (`veu_pagetop_sanitize_image_size()`), which is applied both on save and on read. The size fields are only shown after an image has been uploaded.
+[ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the main setting page and the Customizer. The default 40 x 38 px size is preserved when either value is left blank.
 
-[ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer (`veu_pagetop_sanitize_image_url()`) to close additional CSS injection vectors that bypassed the initial sanitizer added in the previous release. The control-character check now uses the PCRE `u` modifier and an explicit `[\x{0080}-\x{009F}]` range so multi-byte C1 control characters are rejected, and a new case-insensitive check rejects URL-encoded representations of the dangerous characters (`%22` / `%27` / `%28` / `%29` / `%5C`) which browsers may decode inside `url("...")`.
+[ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer to close additional CSS injection vectors (multi-byte C1 control characters and URL-encoded representations of dangerous characters).
 
-[ Spec Change ][ Page Top Button ] Unified the `hide_mobile` sanitizer in the ExUnit main setting page (`veu_pagetop_sanitize()`) to use the shared `veu_sanitize_boolean()` callback, matching the Customizer setting's `sanitize_callback` so the stored value is consistently a boolean across both entry points. Also added a defensive `is_array()` guard to `veu_pagetop_render()` so that non-array arguments fall back to the default options array instead of triggering warnings.
+[ Spec Change ][ Page Top Button ] Unified the hide_mobile sanitizer to use the shared veu_sanitize_boolean() callback, matching the Customizer setting. Added an is_array() guard to veu_pagetop_render() to prevent warnings on non-array arguments.
 
-[ Bug Fix ] Fixed stylelint `font-family-name-quotes` violations. The SCSS source for the Font Awesome 5 family now uses the standard `"Font Awesome 5 Free"` quoted form instead of the escaped `Font Awesome\ 5 Free` notation, and the gulp-clean-css invocation in gulpfile.js is configured with `level: { 1: { removeQuotes: false } }` so that the minifier preserves the surrounding quotes for font-family names that require them (e.g. `"vk_sns"`).
+[ Bug Fix ] Fixed stylelint font-family-name-quotes violations by using the quoted "Font Awesome 5 Free" form and configuring gulp-clean-css to preserve quotes around font-family names.
 
-[ Feature ][ Page Top Button ] Added an "image" setting so users can upload their own icon for the page top button from the ExUnit main setting page and the Customizer. The selected image URL is applied via an inline `style` attribute that overrides the `--veu_page_top_button_url` CSS custom property, so themes / custom CSS that already override the legacy `--ver_page_top_button_url` continue to work unchanged. The URL is sanitized with a dedicated sanitizer that rejects values containing quotes, parentheses, whitespace or control characters, and only allows image extensions (svg / png / jpg / jpeg / gif / webp) to mitigate CSS injection.
+[ Feature ][ Page Top Button ] Added an "image" setting so users can upload their own icon for the page top button from the main setting page and the Customizer. URL is sanitized to mitigate CSS injection.
 
-[ Spec Change ][ Page Top Button ] Renamed the `--ver_page_top_button_url` CSS custom property to `--veu_page_top_button_url` to align with the `--veu_` (vk Ex Unit) naming convention. For backward compatibility, the SCSS `background-image` keeps a `var( --ver_..., var( --veu_... ) )` fallback so existing themes / custom CSS overriding `--ver_page_top_button_url` continue to work without any change.
+[ Spec Change ][ Page Top Button ] Renamed the --ver_page_top_button_url CSS custom property to --veu_page_top_button_url. SCSS keeps a fallback so existing themes / custom CSS overriding the old name continue to work without any change.
 
-[ Bug Fix ] Fixed an issue where JS files under `vendor/` (such as `vk_admin.js` and the Font Awesome version `*.min.js` files) were not included in the release zip, causing 404 errors in the WordPress admin screen on sites installed from the dist package. The gulp `dist` task's `src` glob list was missing both `./vendor/**` and any JS glob, so only PHP / CSS assets under `vendor/` were copied to `dist/`. Added `./vendor/**` to the glob list so the JS files shipped by composer-managed Vektor packages are included in the release zip. Also added negative globs (`!./vendor/**/tests/**`, `!./vendor/**/phpunit.xml*`, `!./vendor/**/composer.json`, `!./vendor/**/composer.lock`, `!./vendor/**/package.json`, `!./vendor/**/package-lock.json`, `!./vendor/**/gulpfile.js`, `!./vendor/**/README.md`, `!./vendor/**/.*`) so that upstream packages' test code and development-only configuration files are not bundled into the release zip.
+[ Bug Fix ] Fixed an issue where JS files under vendor/ (such as vk_admin.js and Font Awesome *.min.js files) were not included in the release zip, causing 404 errors in the WordPress admin screen on sites installed from the dist package.
 
 = 9.115.1 =
-[ Security Fix ][ SNS Share Button ] Strengthened URL validation in the Hatena Bookmark and Facebook share count REST API callbacks. The previous substring-based check could be bypassed by attacker-controlled hosts that embed the site's host name (e.g. example.com.attacker.com), allowing share counts to be fetched for external URLs. The host name is now extracted with wp_parse_url() and compared with the site's host name using a case-insensitive exact match. Subdomains are not allowed.
+[ Security Fix ][ SNS Share Button ] Strengthened URL validation in the Hatena Bookmark and Facebook share count REST API callbacks. Host names are now compared using a case-insensitive exact match instead of substring matching; subdomains are not allowed.
 
-[ Bug Fix ] Fixed an issue where vk_admin.js and the related CSS returned 404 on sites where WordPress is installed in a custom directory or wp-content has been moved, because the asset URL was resolved from the absolute filesystem path. The asset URL is now resolved via plugins_url() so that it works regardless of the WordPress directory structure.
+[ Bug Fix ] Fixed vk_admin.js and the related CSS returning 404 on sites where WordPress is installed in a custom directory or wp-content has been moved. The asset URL is now resolved via plugins_url().
 
 [ Spec Change ] Update vektor-inc/vk-admin from 0.5.0 to 0.5.1.
 
 = 9.115.0 =
-[ Spec Change ][ Post Type Manager ] Custom post types created via the Post Type Manager now always support 'custom-fields'. The 'custom-fields' checkbox in the Supports list has been replaced with an "Always enabled" indicator and can no longer be unchecked, so ExUnit settings (noindex / CSS / CTA, etc.) are guaranteed to be saved.
+[ Spec Change ][ Post Type Manager ] Custom post types now always support 'custom-fields'. The checkbox has been replaced with an "Always enabled" indicator so ExUnit settings (noindex / CSS / CTA, etc.) are guaranteed to be saved.
 
-[ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support, because the new block editor sidebar panel relies on REST API meta which is not exposed for those post types. The legacy metabox is now kept as a fallback on such post types.
+[ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support. The legacy metabox is now kept as a fallback on such post types.
 
-[ Bug Fix ][ SNS Share Button ] Fixed an issue where the URL validation in the Hatena Bookmark and Facebook share count REST API callbacks was always skipped, allowing share counts to be fetched for URLs other than the current site. The condition used `strpos() < 0`, but `strpos()` returns `false` when the needle is not found and `false < 0` evaluates to `false` in PHP, so the 403 branch was never taken. Changed to `=== false` so external URLs are correctly rejected.
+[ Bug Fix ][ SNS Share Button ] Fixed an issue where URL validation in the Hatena Bookmark and Facebook share count REST API callbacks was always skipped, allowing share counts to be fetched for URLs other than the current site.
 
 [ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
 
