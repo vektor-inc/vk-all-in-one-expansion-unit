@@ -85,6 +85,8 @@ e.g.
 
 [ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
 
+[ Spec Change ] Update vektor-inc/vk-admin from 0.7.0 to 0.8.0 to drop the duplicated VK_Custom_Html_Control / VK_Custom_Text_Control files that have been migrated to vk-helpers.
+
 [ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. VK_Custom_Html_Control / VK_Custom_Text_Control classes now ship from vk-helpers instead of vk-admin.
 
 [ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the image preview on the ExUnit main setting page so the uploaded icon is no longer rendered with a black box.
