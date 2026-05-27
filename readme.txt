@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Spec Change ][ Page Top Button ] Promoted the Customizer "Page top button image" label to an h2 heading via VK_Custom_Html_Control and removed the duplicated label/description from the image control so the parent group no longer looks less prominent than the "Image size" h3 below it. The h2 / h3 margins inside the page top button section were also enlarged by 1.4x for clearer grouping.
+[ Spec Change ][ Page Top Button ] Promoted the Customizer "Page top button image" label to an h2 group heading so the parent group is no longer visually outranked by the "Image size" h3 below it.
 
 [ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
 
