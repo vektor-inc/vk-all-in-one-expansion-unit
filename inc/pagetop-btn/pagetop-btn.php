@@ -531,6 +531,28 @@ function veu_customize_register_pagetop( $wp_customize ) {
 }
 
 /**
+ * Enqueue the ExUnit admin CSS on the Customizer controls frame.
+ *
+ * `admin_enqueue_scripts` (登録は admin/admin.php) はカスタマイザーのコントロール
+ * フレームでは発火しないため、`#customize-control-vkExUnit_pagetop_image_heading`
+ * などコントロール固有のスタイル（issue #1368 の説明文と画像サムネイル間の余白拡大）が
+ * 反映されない。`customize_controls_enqueue_scripts` 経由で同じ
+ * `vkExUnit_admin.css` を読み込むことで、メイン設定ページとカスタマイザーの両方で
+ * 同一スタイルが効くようにする。
+ *
+ * 副作用について:
+ * `vkExUnit_admin.css` には `#pagetopSetting` / `.veu_metabox_*` / `.wp-list-table`
+ * などメイン管理画面の DOM 構造に依存した名前空間付きセレクタしか含まれていないため、
+ * カスタマイザー側にこれらの ID/クラスは存在せず誤発火しない。
+ *
+ * @return void
+ */
+function veu_pagetop_customize_controls_enqueue() {
+	wp_enqueue_style( 'veu_admin_css', VEU_DIRECTORY_URI . '/assets/css/vkExUnit_admin.css', array(), VEU_VERSION, 'all' );
+}
+add_action( 'customize_controls_enqueue_scripts', 'veu_pagetop_customize_controls_enqueue' );
+
+/**
  * Render callback for the selective refresh partial.
  *
  * `veu_add_pagetop()` と同じく、モバイル非表示オプションが有効で

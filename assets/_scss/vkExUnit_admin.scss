@@ -204,34 +204,33 @@
 
 // specificity の方針: すべて class セレクタで揃え、`!important` は使わない。
 // shorthand `margin: 0 0 0.3em` ではなく `margin-top` / `margin-bottom` を個別に書く。
-// Customizer「ページトップへ戻るボタン」セクション内の見出し余白拡大。
-// issue #1368: 親グループ見出し「Page top button image」(h2.admin-custom-h2) と
-// 子グループ見出し「Image size」(h3.admin-custom-h3) の上下余白がデフォルトのままだと
-// 隣接 control との間が詰まりすぎ、見出しと中身が一塊に見えない（情報グルーピングが弱い）。
+// Customizer「ページトップへ戻るボタン」セクション内、
+// 「Page top button image」の説明文（最後の <p class="description">）と
+// 直下の画像サムネイル（vkExUnit_pagetop_image_url コントロール）の間の余白拡大。
+// issue #1368: デフォルトのままだと説明文の終端と画像サムネイルの距離が近く、
+// 「説明文 → 画像サムネイル」が同じ塊に見えてしまう（説明と操作対象の境界が弱い）。
 // design-rules.md「余白」「情報グループ内の余白 < 情報グループ間の余白」を踏まえ、
-// 当該セクション内に限り margin を 1.4 倍に拡大する（指定範囲 1.3〜1.5 の中央）。
+// 当該境界の絶対値 px を 1.4 倍に拡大する（指定範囲 1.3〜1.5 の中央）。
 
-// セレクタは `#sub-accordion-section-veu_pagetop_setting`（カスタマイザー側で
-// 各セクション本体に付与される ID）にスコープし、他セクションへ影響を与えない。
-// 詳細度はユーザーや他プラグインの素朴な指定と衝突しないよう、`:where()` で
-// 0 まで落とす（仕様調査メモ: feedback_generic_theme_specificity と同じ思想で、
-// プラグイン側からの上書きが他カスタマイザー UI の見た目を強く支配しないようにする）。
-#sub-accordion-section-veu_pagetop_setting :where(.admin-custom-h2) {
-    // デフォルトの h2 上下マージン（約 0.83em）を 1.4 倍に拡大 → 0.83em × 1.4 ≒ 1.16em。
-    // em 値だけ見ると下の h3 (1.4em) より小さく見えるが、h2 は font-size が
-    // 大きい分 absolute px では h2 のマージンの方が広く描画される（UA stylesheet 仕様）。
-    // 値を直書きしているのは、このセクション内限定の調整であり共通変数化する
-    // 必要が無いため（rules/css.md「セレクタ内でしか使わない値は数値直書きで OK」）。
-    margin-top: 1.16em;
-    margin-bottom: 1.16em;
-}
-
-#sub-accordion-section-veu_pagetop_setting :where(.admin-custom-h3) {
-    // デフォルトの h3 上下マージン（約 1em）を 1.4 倍に拡大 → 1em × 1.4 = 1.4em。
-    // 上の h2 (1.16em) との em 値の大小逆転に見えるが、font-size 差で
-    // absolute px では h2 マージン > h3 マージン となる（上のブロック参照）。
-    margin-top: 1.4em;
-    margin-bottom: 1.4em;
+// 計測結果（wp-env 上の Customizer・既定状態）:
+//   - heading 控除 li の margin-bottom: 12px
+//   - 最後の <p class="description"> の margin-bottom: 5px（collapse 後 12px）
+//   - 結果として説明文と画像サムネイル間の実描画 gap = 17px (12 + 5)
+// 目標: 17px × 1.4 ≒ 24px。
+// 実装: 最後の description の margin-bottom を 5px → 12px に拡大すると、
+// 12 + 12 = 24px となり狙い通り。説明文側のマージンを足す形を選ぶのは、
+// 「最後の段落と次の control の間」という意味合いが最もセレクタで表現できるため
+// （li 同士の margin を増やすと「li と li の間」全般に作用してしまう）。
+// スコープは `#customize-control-vkExUnit_pagetop_image_heading` 内に限定し、
+// 他コントロールの description は影響を受けない。
+// 詳細度は `:where()` で 0 に保ち、customizer のデフォルトや他プラグインの
+// 素朴な指定と衝突しないようにする（design-rules.md / 過去案件のレビュー方針）。
+// セレクタ補足: heading 控除の id は当該セクション固有なので
+// `#customize-control-vkExUnit_pagetop_image_heading` 単独でも他セクションには
+// 当たらないが、issue #1368 の方針（セクションスコープ限定）を意図として明示するため
+// `#sub-accordion-section-veu_pagetop_setting` を前段に置く。
+#sub-accordion-section-veu_pagetop_setting #customize-control-vkExUnit_pagetop_image_heading :where(.description:last-child) {
+    margin-bottom: 12px;
 }
 
 #pagetopSetting {
