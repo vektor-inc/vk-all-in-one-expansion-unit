@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 9.116.0
+Stable tag: 9.117.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+= 9.117.0 =
+[ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the main setting page and the Customizer. The default 40 x 38 px size is preserved when either value is left blank.
+
 [ Spec Change ][ Page Top Button ] Promoted the Customizer "Page top button image" label to an h2 group heading, and widened the gap between the description and the image thumbnail by 1.4x for easier scanning.
 
 [ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
@@ -94,8 +97,6 @@ e.g.
 [ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the main setting page to open in a new tab so it no longer interrupts editing.
 
 = 9.116.0 =
-[ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the main setting page and the Customizer. The default 40 x 38 px size is preserved when either value is left blank.
-
 [ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer to close additional CSS injection vectors (multi-byte C1 control characters and URL-encoded representations of dangerous characters).
 
 [ Spec Change ][ Page Top Button ] Unified the hide_mobile sanitizer to use the shared veu_sanitize_boolean() callback, matching the Customizer setting. Added an is_array() guard to veu_pagetop_render() to prevent warnings on non-array arguments.
