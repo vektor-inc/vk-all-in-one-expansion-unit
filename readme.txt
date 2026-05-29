@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.117.0
+Stable tag: 9.117.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.117.1 =
 [ Bug Fix ] Removed an unnecessary veu_get_common_options() call in vwu_register_css() that could trigger a "Call to undefined function" fatal error when the enqueue hooks ran before the packages were loaded in some environments.
 
 = 9.117.0 =
