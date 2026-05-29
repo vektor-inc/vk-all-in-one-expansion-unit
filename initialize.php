@@ -63,8 +63,6 @@ add_action( 'after_setup_theme', 'veu_load_css_action' );
  * Regisyter vkExUnit css
  */
 function vwu_register_css() {
-	$options = veu_get_common_options();
-
 	wp_register_style( 'vkExUnit_common_style', plugins_url( '', __FILE__ ) . '/assets/css/vkExUnit_style.css', array(), VEU_VERSION, 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'vwu_register_css', 3 );
