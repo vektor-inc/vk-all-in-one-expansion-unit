@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fixed an issue where the Related Posts Settings section disappeared from the Customizer when both the Contact Section and Social Media Integration features were disabled.
+
 = 9.117.1 =
 [ Bug Fix ] Removed an unnecessary veu_get_common_options() call in vwu_register_css() that could trigger a "Call to undefined function" fatal error when the enqueue hooks ran before the packages were loaded in some environments.
 

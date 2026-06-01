@@ -252,6 +252,17 @@ function veu_get_related_posts_html() {
 /**********************************************
  * Customizer
  */
+// 関連記事機能が有効な場合、カスタマイザーパネルを有効化するフィルターにフックする.
+add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_related' );
+/**
+ * 関連記事のカスタマイザーパネルを有効化する.
+ *
+ * @return bool
+ */
+function veu_customize_panel_activation_related() {
+	return true;
+}
+
 if ( apply_filters( 'veu_customize_panel_activation', false ) ) {
 	add_action( 'customize_register', 'veu_customize_register_related' );
 }
