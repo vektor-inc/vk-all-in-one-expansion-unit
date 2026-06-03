@@ -1103,7 +1103,7 @@ vk blocks 0.17.2 update
 * [ bugfix ] Use with VK Post Author Display bug fix
 
 = 9.6.8.0 =
-* [ Specification change ] ファイル階層一部変更
+* [ Specification change ] Change file structure
 
 = 9.6.7.0 =
 * [ library update ] library update
