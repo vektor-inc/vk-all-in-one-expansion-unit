@@ -1,18 +1,17 @@
 name: Build Check & PHPUnit
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     branches:
       - master
       - develop
-      - ^feature/.+
+      - "feature/**"
 
 jobs:
   php_unit:
     name: php unittest
+    if: contains(github.event.pull_request.labels.*.name, 'run-ci')
     runs-on: ubuntu-latest
     strategy:
       matrix:

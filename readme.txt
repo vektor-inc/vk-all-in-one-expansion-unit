@@ -83,6 +83,8 @@ e.g.
 
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 
+[ Bug Fix ] Fixed an "Array to string conversion" PHP warning and an invalid "post-type-Array" body class that occurred on archives whose main query sets post_type to an array and that have no matching posts.
+
 [ Bug Fix ] Fixed an issue where the Related Posts Settings section disappeared from the Customizer when both the Contact Section and Social Media Integration features were disabled.
 
 = 9.117.1 =
@@ -1103,7 +1105,7 @@ vk blocks 0.17.2 update
 * [ bugfix ] Use with VK Post Author Display bug fix
 
 = 9.6.8.0 =
-* [ Specification change ] ファイル階層一部変更
+* [ Specification change ] Change file structure
 
 = 9.6.7.0 =
 * [ library update ] library update

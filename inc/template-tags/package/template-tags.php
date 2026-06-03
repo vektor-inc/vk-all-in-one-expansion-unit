@@ -88,6 +88,12 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 		if ( ! $postType['slug'] ) {
 			if ( isset( $wp_query->query_vars['post_type'] ) && $wp_query->query_vars['post_type'] ) {
 				$postType['slug'] = $wp_query->query_vars['post_type'];
+				// メインクエリに post_type を配列で指定した場合（例: pre_get_posts で array( 'event', 'page' ) を set）への対策.
+				// slug は文字列前提で利用されるため、配列の場合は先頭要素を採用して文字列に正規化する.
+				// これをしないと後続の 'post-type-' . $slug 等で "Array to string conversion" Warning が発生する.
+				if ( is_array( $postType['slug'] ) ) {
+					$postType['slug'] = ! empty( $postType['slug'] ) ? reset( $postType['slug'] ) : '';
+				}
 			} else {
 				// Case of no post type query
 				if ( ! empty( $wp_query->queried_object->taxonomy ) ) {

@@ -54,7 +54,9 @@ function veu_add_body_class( $class ) {
 	if ( is_archive() || is_singular() || ( is_home() && ! is_front_page() ) ) {
 		if ( function_exists( 'vk_get_post_type' ) ) {
 			$post_type_info = vk_get_post_type();
-			if ( ! empty( $post_type_info['slug'] ) ) {
+			// slug は vk_get_post_type() 側で文字列に正規化されるが、フィルター等で配列が返るケースに備えて文字列のみ連結する.
+			// これにより "Array to string conversion" Warning を確実に防止する.
+			if ( ! empty( $post_type_info['slug'] ) && is_string( $post_type_info['slug'] ) ) {
 				$class[] = 'post-type-' . $post_type_info['slug'];
 			} // if ( ! empty( $post_type_info['slug'] ) ) {
 		} // if ( function_exists( 'vk_get_post_type' ) ) {
