@@ -1,12 +1,12 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [ develop ]
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     branches: [ develop ]
 jobs:
   test:
     timeout-minutes: 60
+    if: contains(github.event.pull_request.labels.*.name, 'run-ci')
     runs-on: ubuntu-latest
     strategy:
       matrix:
