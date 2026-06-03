@@ -125,6 +125,41 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		wp_delete_user( $user_id );
 	}
 
+	/**
+	 * 存在しないユーザーIDが渡された場合に Warning を出さず処理できるかを検証する。
+	 * Verify that no warning is raised when a non-existent user ID is passed.
+	 *
+	 * 不具合: get_userdata() が false を返す際に $author->display_name へアクセスして
+	 * "Attempt to read property display_name on false" の Warning が発生していた。
+	 * Bug: when get_userdata() returns false, accessing $author->display_name raised
+	 * "Attempt to read property display_name on false".
+	 */
+	function test_get_author_array_with_invalid_user() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_get_author_array_with_invalid_user' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		// 存在しないユーザーID（十分に大きな値）を用意する。
+		// Prepare a user ID that does not exist (a sufficiently large value).
+		$invalid_user_id = 999999;
+		// 念のため当該ユーザーが存在しないことを確認する。
+		// Make sure the user really does not exist.
+		$this->assertFalse( get_userdata( $invalid_user_id ) );
+
+		// WP_UnitTestCase は PHP の警告を例外に変換するため、
+		// 修正前はこの呼び出し自体が警告→例外で失敗する（red）。
+		// WP_UnitTestCase converts PHP warnings into exceptions, so before the fix
+		// this call itself fails (red) due to the warning being thrown.
+		$return = VK_Article_Srtuctured_Data::get_author_array( $invalid_user_id );
+
+		// author_name メタも無いので display_name フォールバックは空文字になる。
+		// Since there is no author_name meta either, the display_name fallback is an empty string.
+		$this->assertIsArray( $return );
+		$this->assertSame( '', $return['name'] );
+	}
+
 
 	function test_get_article_structure_array() {
 

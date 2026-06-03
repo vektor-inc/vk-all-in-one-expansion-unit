@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
+
 [ Bug Fix ] Fixed an issue where the Related Posts Settings section disappeared from the Customizer when both the Contact Section and Social Media Integration features were disabled.
 
 = 9.117.1 =

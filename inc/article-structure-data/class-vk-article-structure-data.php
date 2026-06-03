@@ -186,7 +186,13 @@ class VK_Article_Srtuctured_Data {
 
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
+			// Get the user ID from the post object of the page being displayed.
 			global $post;
+			// global $post が null だったり post_author を持たない文脈では Warning を出さずに早期 return する。
+			// Bail out without raising a warning when global $post is null or has no post_author in the current context.
+			if ( ! isset( $post->post_author ) ) {
+				return;
+			}
 			$author_id = $post->post_author;
 		}
 
@@ -195,9 +201,11 @@ class VK_Article_Srtuctured_Data {
 			return;
 		}
 
+		// 存在しないユーザーIDの場合 get_userdata() は false を返すため、display_name 参照前にガードする。
+		// get_userdata() returns false for a non-existent user ID, so guard before referencing display_name.
 		$author      = get_userdata( $author_id );
 		$author_type = get_user_meta( $author_id, 'author_type', true );
-		$author_name = get_user_meta( $author_id, 'author_name', true ) ?: $author->display_name;
+		$author_name = get_user_meta( $author_id, 'author_name', true ) ?: ( $author ? $author->display_name : '' );
 		$author_url  = get_user_meta( $author_id, 'author_url', true ) ?: home_url( '/' );
 		if ( 'person' === $author_type ) {
 			$author_url = get_user_meta( $author_id, 'author_url', true ) ?: get_author_posts_url( $author_id );
