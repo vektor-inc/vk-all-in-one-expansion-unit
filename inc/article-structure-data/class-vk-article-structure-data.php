@@ -189,9 +189,11 @@ class VK_Article_Srtuctured_Data {
 			// Get the user ID from the post object of the page being displayed.
 			global $post;
 			// global $post が null だったり post_author を持たない文脈では Warning を出さずに早期 return する。
+			// docblock の @return array に合わせ、空配列を返して型契約を守る。
 			// Bail out without raising a warning when global $post is null or has no post_author in the current context.
+			// Return an empty array to honor the @return array contract in the docblock.
 			if ( ! isset( $post->post_author ) ) {
-				return;
+				return array();
 			}
 			$author_id = $post->post_author;
 		}
