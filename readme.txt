@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
+
 [ Bug Fix ] Fixed an "Array to string conversion" PHP warning and an invalid "post-type-Array" body class that occurred on archives whose main query sets post_type to an array and that have no matching posts.
 
 [ Bug Fix ] Fixed an issue where the Related Posts Settings section disappeared from the Customizer when both the Contact Section and Social Media Integration features were disabled.

@@ -14,6 +14,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 
 		// テスト用ユーザーを発行
+		// Create a test user.
 		$userdata = array(
 			'user_login'   => 'sutekivektor',
 			'user_url'     => 'https://vektor-inc.co.jp',
@@ -22,106 +23,146 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		);
 		$user_id  = wp_insert_user( $userdata );
 
+		// 存在しないユーザーID（十分に大きな値）。get_userdata() が false を返す異常系の検証に使う。
+		// A non-existent user ID (a sufficiently large value), used for the abnormal case where get_userdata() returns false.
+		$invalid_user_id = 999999;
+		// 前提として当該ユーザーが存在しないことを確認しておく。
+		// Make sure beforehand that the user really does not exist.
+		$this->assertFalse( get_userdata( $invalid_user_id ) );
+
 		$test_data = array(
-			// 独自実装のユーザー情報フィールド : すべて埋められている場合 && person
+			// 正常系 : 独自実装のユーザー情報フィールドがすべて埋められている && person
+			// Normal case: all custom author fields are filled in && person.
 			array(
-				'author'  => array(
+				'test_condition_name' => '著者フィールドが全て入力済み && person の場合 => 入力値がそのまま返る',
+				'user_id'             => $user_id,
+				'author'              => array(
 					'author_type'   => 'person',
 					'author_name'   => 'vekutarou',
 					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
-				'correct' => array(
+				'correct'             => array(
 					'@type'  => 'person',
 					'name'   => 'vekutarou',
 					'url'    => 'https://vektor-inc.co.jp/author/vekutarou',
 					'sameAs' => 'https://twitter.com/vektor_inc',
 				),
 			),
-			// チェック対象 : url
-			// 独自実装のユーザー情報フィールド : organization && url指定あり
+			// 正常系 : organization && url指定あり（チェック対象 : url）
+			// Normal case: organization && url provided (target: url).
 			array(
-				'author'  => array(
+				'test_condition_name' => 'organization && url 指定ありの場合 => 指定した url が返る',
+				'user_id'             => $user_id,
+				'author'              => array(
 					'author_type'   => 'organization',
 					'author_name'   => 'vekutarou',
 					'author_url'    => 'https://vektor-inc.co.jp/',
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
-				'correct' => array(
+				'correct'             => array(
 					'@type'  => 'organization',
 					'name'   => 'vekutarou',
 					'url'    => 'https://vektor-inc.co.jp/',
 					'sameAs' => 'https://twitter.com/vektor_inc',
 				),
 			),
-			// チェック対象 : url
-			// 独自実装のユーザー情報フィールド : organization && url指定なし
+			// 正常系 : organization && url指定なし（チェック対象 : url）
+			// Normal case: organization && url not provided (target: url).
 			array(
-				'author'  => array(
+				'test_condition_name' => 'organization && url 指定なしの場合 => サイトトップ URL が返る',
+				'user_id'             => $user_id,
+				'author'              => array(
 					'author_type'   => 'organization',
 					'author_name'   => 'vekutarou',
 					'author_url'    => '',
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
-				'correct' => array(
+				'correct'             => array(
 					'@type'  => 'organization',
 					'name'   => 'vekutarou',
 					'url'    => home_url( '/' ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
 				),
 			),
-			// チェック対象 : url
-			// 独自実装のユーザー情報フィールド : person && url指定なし → 投稿者アーカイブのURL
+			// 正常系 : person && url指定なし → 投稿者アーカイブのURL（チェック対象 : url）
+			// Normal case: person && url not provided -> author archive URL (target: url).
 			array(
-				'author'  => array(
+				'test_condition_name' => 'person && url 指定なしの場合 => 投稿者アーカイブ URL が返る',
+				'user_id'             => $user_id,
+				'author'              => array(
 					'author_type'   => 'person',
 					'author_name'   => 'vekujirou',
 					'author_url'    => '',
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
-				'correct' => array(
+				'correct'             => array(
 					'@type'  => 'person',
 					'name'   => 'vekujirou',
 					'url'    => get_author_posts_url( $user_id ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
 				),
 			),
-			// チェック対象 : name
-			// 独自実装のユーザー情報フィールド : author_name 指定なし  → デフォルトのユーザーの表示名が適用されるか
+			// 正常系 : author_name 指定なし → デフォルトのユーザー表示名が適用されるか（チェック対象 : name）
+			// Normal case: author_name not provided -> the user's display name is applied (target: name).
 			array(
-				'author'  => array(
+				'test_condition_name' => 'author_name 指定なしの場合 => ユーザーの表示名が返る',
+				'user_id'             => $user_id,
+				'author'              => array(
 					'author_type'   => 'organization',
 					'author_name'   => '',
 					'author_url'    => '',
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
-				'correct' => array(
+				'correct'             => array(
 					'@type'  => 'organization',
 					'name'   => 'vekujirou',
 					'url'    => home_url( '/' ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
 				),
 			),
+			// 異常系 : 存在しないユーザーID → get_userdata() が false を返しても Warning を出さず name が空文字になるか
+			// 不具合: 修正前は false に対し $author->display_name へアクセスし Warning が発生していた。
+			// Abnormal case: a non-existent user ID -> even though get_userdata() returns false, no warning is raised and name becomes an empty string.
+			// Bug: before the fix, accessing $author->display_name on false raised a warning.
+			array(
+				'test_condition_name' => '存在しないユーザーIDの場合 => Warning を出さず name が空文字で返る',
+				'user_id'             => $invalid_user_id,
+				// 存在しないユーザーには user_meta を設定しないため空配列。
+				// No user_meta is set for a non-existent user, so this is empty.
+				'author'              => array(),
+				'correct'             => array(
+					'@type'  => '',
+					'name'   => '',
+					'url'    => home_url( '/' ),
+					'sameAs' => '',
+				),
+			),
 		);
 
 		foreach ( $test_data as $test_value ) {
+			// 各ケースで使用するユーザーIDを取得する。
+			// Get the user ID used by each case.
+			$target_user_id = $test_value['user_id'];
+
+			// ケースに応じてユーザーメタを設定する（存在しないユーザーの場合は author が空配列なので何もしない）。
+			// Set the user meta according to the case (for a non-existent user, author is empty so nothing happens).
 			foreach ( $test_value['author'] as $key => $value ) {
-				update_user_meta( $user_id, $key, $value );
+				update_user_meta( $target_user_id, $key, $value );
 			}
 
-			$return  = VK_Article_Srtuctured_Data::get_author_array( $user_id );
+			// WP_UnitTestCase は PHP の警告を例外に変換するため、
+			// 修正前は存在しないユーザーIDのケースでこの呼び出し自体が警告→例外で失敗する（red）。
+			// WP_UnitTestCase converts PHP warnings into exceptions, so before the fix
+			// the non-existent user case fails (red) here due to the warning being thrown.
+			$return  = VK_Article_Srtuctured_Data::get_author_array( $target_user_id );
 			$correct = $test_value['correct'];
 
-			// print PHP_EOL;
-
-			// print 'correct ::::' . PHP_EOL;
-			// var_dump( $correct );
-			// print 'return  ::::' . PHP_EOL;
-			// var_dump( $return );
-			$this->assertEquals( $correct, $return );
+			$this->assertEquals( $correct, $return, $test_value['test_condition_name'] );
 		}
 
 		// テストで発行したユーザーを削除
+		// Delete the user created for the test.
 		wp_delete_user( $user_id );
 	}
 
