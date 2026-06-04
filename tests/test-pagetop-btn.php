@@ -199,7 +199,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '画像未設定（デフォルト）は style 属性を出力しない',
 				'options'             => array(),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', '--veu_page_top_button_url', 'has-image' ),
 			),
 			array(
@@ -217,13 +217,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => 'XSS ペイロード入り URL は sanitize されて style 属性も has-image も出ない',
 				'options'             => array( 'image_url' => 'https://example.com/a.png");}body{background:red;//' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', 'background:red', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => 'PHP 拡張子の URL は sanitize されて style 属性が出ない（境界値）',
 				'options'             => array( 'image_url' => 'https://example.com/evil.php' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'evil.php', 'style=', 'has-image' ),
 			),
 			// 防御的プログラミングの検証: 配列以外が渡されても空配列扱いでデフォルト出力に
@@ -231,13 +231,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '境界値: 配列以外（null）を渡してもデフォルト出力にフォールバックする',
 				'options'             => null,
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => '境界値: 配列以外（文字列）を渡してもデフォルト出力にフォールバックする',
 				'options'             => 'invalid string',
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 		);
@@ -273,28 +273,42 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 	 * `<a>` 直下に露出しないことを確認する。
 	 */
 	public function test_veu_pagetop_render_accessible_name() {
-		$actual = veu_pagetop_render( array() );
+		// 期待ラベルは固定文字列ではなく翻訳関数で組み立て、ロケールに依存しない
+		// 比較にする（en_US 以外でテストが壊れないように）。
+		$expected_label = esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' );
 
-		// screen-reader-text クラスを持つ span が出力されること。
-		$this->assertStringContainsString(
-			'<span class="screen-reader-text">',
-			$actual,
-			'screen-reader-text span が出力される'
+		// 既存テストと同じく、テスト条件・期待結果を配列で記載しループで実行する。
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'screen-reader-text でアクセシブルネームが提供され、旧来の素の PAGE TOP は出力されない',
+				'options'             => array(),
+				'expected_contains'   => array(
+					'<span class="screen-reader-text">',
+					'<span class="screen-reader-text">' . $expected_label . '</span>',
+				),
+				'expected_not'        => array(
+					'>PAGE TOP</a>',
+				),
+			),
 		);
 
-		// span 内に翻訳テキスト（英語ロケールでは 'Back to top'）が入ること。
-		$this->assertStringContainsString(
-			'<span class="screen-reader-text">Back to top</span>',
-			$actual,
-			'screen-reader-text span 内に読み上げ用テキストが入る'
-		);
-
-		// 旧出力の素の 'PAGE TOP' テキストが `<a>` 直下に残っていないこと。
-		$this->assertStringNotContainsString(
-			'>PAGE TOP</a>',
-			$actual,
-			'旧来の素の PAGE TOP テキストは出力されない'
-		);
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_render( $case['options'] );
+			foreach ( $case['expected_contains'] as $needle ) {
+				$this->assertStringContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name']
+				);
+			}
+			foreach ( $case['expected_not'] as $needle ) {
+				$this->assertStringNotContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / NG文字列: ' . $needle
+				);
+			}
+		}
 	}
 
 	/**
@@ -548,7 +562,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_height' => 60,
 				),
 				'expected_contains'   => array(
-					'<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
+					'<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				),
 				'expected_not'        => array(
 					'style=',

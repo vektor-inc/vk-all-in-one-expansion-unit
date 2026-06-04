@@ -113,44 +113,20 @@
 	}
 }
 
-// Focus indicator for keyboard navigation (WCAG 2.4.7). `outline` is the
-// primary indicator so that it survives forced-colors / Windows high contrast
-// mode (where box-shadow is dropped); the box-shadow is a richer supplementary
-// indicator for normal rendering. `:focus-visible` keeps the ring from showing
-// on mouse clicks.
-// キーボード操作時のフォーカスインジケータ（WCAG 2.4.7）。forced-colors /
-// Windows ハイコントラストで box-shadow が消えても残るよう `outline` を主役にし、
-// box-shadow は通常表示での補助インジケータとする。`:focus-visible` により
-// マウスクリック時には枠が出ない。
+// Focus indicator for keyboard navigation (WCAG 2.4.7). A single blue outline
+// stays clearly visible on light backgrounds and survives forced-colors /
+// Windows high contrast mode (outline is preserved even where box-shadow is
+// dropped). `:focus-visible` keeps the ring from showing on mouse clicks. The
+// same outline applies to `.has-image` because it never touches `outline`, so
+// no extra `.has-image` override is needed.
+// キーボード操作時のフォーカスインジケータ（WCAG 2.4.7）。青いアウトライン 1 本に
+// することで明るい背景でもはっきり見え、forced-colors / Windows ハイコントラスト
+// でも残る（outline は維持され box-shadow が消える環境でも視認できる）。
+// `:focus-visible` によりマウスクリック時には枠が出ない。`.has-image` でも
+// outline は打ち消さないため追加の上書きは不要。
 .page_top_btn:focus-visible {
-	outline: 2px solid #fff;
+	outline: 2px solid #4f94d4;
 	outline-offset: 2px;
-	box-shadow:
-		0 0 0 1px rgba(255, 255, 255, 0.8),
-		0 0 0 2px rgba(0, 0, 0, 0.8),
-		0 0 0 4px #4f94d4;
-}
-
-// `.has-image` clears the default decorative `box-shadow` (`box-shadow: none;`)
-// so the user image is not framed. That rule has the same specificity (0,2,0)
-// as `.page_top_btn:focus-visible`, so the focus ring currently wins only by
-// source order. To make the focus indicator robust against future reordering /
-// additional `.has-image` rules, restate the focus box-shadow with an explicit
-// `.has-image:focus-visible` selector (specificity 0,3,0) so the supplementary
-// ring is always shown on keyboard focus even when an image is set. The
-// `outline` is never cancelled by `.has-image`, so minimal focus visibility is
-// already guaranteed; this only restores the richer box-shadow ring.
-// `.has-image` は装飾用の `box-shadow` を `none` で打ち消すが、その詳細度
-// (0,2,0) は `.page_top_btn:focus-visible` と同点のため、現状はソース順だけで
-// フォーカスリングが勝っている。順序変更や `.has-image` ルール追加で逆転しても
-// フォーカス枠が確実に出るよう、`.has-image:focus-visible`（詳細度 0,3,0）で
-// box-shadow を明示する。`outline` は `.has-image` で打ち消していないので
-// 最低限のフォーカス可視化は担保済みで、ここは補助リングの復元のみ。
-.page_top_btn.has-image:focus-visible {
-	box-shadow:
-		0 0 0 1px rgba(255, 255, 255, 0.8),
-		0 0 0 2px rgba(0, 0, 0, 0.8),
-		0 0 0 4px #4f94d4;
 }
 
 .scrolled .page_top_btn{
