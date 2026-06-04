@@ -137,7 +137,7 @@ test.describe( 'Page Top Button accessibility (#1381)', () => {
 		// （hidden 要素も role セレクタの対象になるよう includeHidden を付ける。
 		//  未スクロール時は visibility:hidden で aria 的にも hidden 扱いになりうるため）
 		const linkByName = page.getByRole( 'link', {
-			name: 'Back to top',
+			name: label,
 			includeHidden: true,
 		} );
 		await expect( linkByName ).toHaveCount( 1 );

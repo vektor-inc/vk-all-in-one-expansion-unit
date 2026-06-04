@@ -84,7 +84,8 @@
 		padding: 0;
 		margin: -1px;
 		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
+		clip: rect(0, 0, 0, 0); // 旧ブラウザ互換のため残す
+		clip-path: inset(50%); // clip の後継（WordPress コア .screen-reader-text と同じ併用）
 		white-space: nowrap;
 		border: 0;
 	}
