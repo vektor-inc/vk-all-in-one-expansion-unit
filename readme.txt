@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Page Top Button ] Improved screen reader and keyboard accessibility with an accessible label, a keyboard focus indicator, and removal from keyboard focus while the button is hidden.
+
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 

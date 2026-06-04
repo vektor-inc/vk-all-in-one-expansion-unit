@@ -100,7 +100,18 @@ function veu_pagetop_render( $options = array() ) {
 		$class .= ' has-image';
 	}
 
-	return '<a href="#top" id="page_top" class="' . esc_attr( $class ) . '"' . $style_attr . '>PAGE TOP</a>';
+	// 可視部分は背景画像アイコン。リンクの読み上げ名は内側の
+	// `<span class="screen-reader-text">` で視覚的に隠して提供し、翻訳関数で
+	// ラップする。テキストを `<a>` 直下ではなく内側 span に入れているのは、
+	// `<a>` 自体に screen-reader-text を当てると `<a>` が 1px に潰れて
+	// 背景画像アイコンごと消えてしまうため。
+	// The visible button is an icon (background image). The accessible name is
+	// provided by a visually-hidden `<span class="screen-reader-text">` inside
+	// the `<a>`, wrapped in a translation function so screen readers announce
+	// it. The text is placed in the inner span (not directly on the `<a>`)
+	// on purpose: applying screen-reader-text to the `<a>` itself collapses
+	// the anchor to 1px and hides the background-image icon along with it.
+	return '<a href="#top" id="page_top" class="' . esc_attr( $class ) . '"' . $style_attr . '><span class="screen-reader-text">' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>';
 }
 
 /**

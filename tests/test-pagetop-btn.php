@@ -199,7 +199,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '画像未設定（デフォルト）は style 属性を出力しない',
 				'options'             => array(),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
 				'expected_not'        => array( 'style=', '--veu_page_top_button_url', 'has-image' ),
 			),
 			array(
@@ -217,13 +217,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => 'XSS ペイロード入り URL は sanitize されて style 属性も has-image も出ない',
 				'options'             => array( 'image_url' => 'https://example.com/a.png");}body{background:red;//' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
 				'expected_not'        => array( 'style=', 'background:red', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => 'PHP 拡張子の URL は sanitize されて style 属性が出ない（境界値）',
 				'options'             => array( 'image_url' => 'https://example.com/evil.php' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
 				'expected_not'        => array( 'evil.php', 'style=', 'has-image' ),
 			),
 			// 防御的プログラミングの検証: 配列以外が渡されても空配列扱いでデフォルト出力に
@@ -231,13 +231,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '境界値: 配列以外（null）を渡してもデフォルト出力にフォールバックする',
 				'options'             => null,
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => '境界値: 配列以外（文字列）を渡してもデフォルト出力にフォールバックする',
 				'options'             => 'invalid string',
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 		);
@@ -261,6 +261,40 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Test veu_pagetop_render() exposes an accessible name via screen-reader-text.
+	 *
+	 * a11y 改善（issue #1381）の検証。可視部分は背景画像アイコンで、
+	 * リンクの読み上げ名は内側の `<span class="screen-reader-text">` で
+	 * 提供される。翻訳関数でラップしたテキスト（英語ロケールでは
+	 * 'Back to top'）が span 内に入ること、旧来の素の 'PAGE TOP' テキストが
+	 * `<a>` 直下に露出しないことを確認する。
+	 */
+	public function test_veu_pagetop_render_accessible_name() {
+		$actual = veu_pagetop_render( array() );
+
+		// screen-reader-text クラスを持つ span が出力されること。
+		$this->assertStringContainsString(
+			'<span class="screen-reader-text">',
+			$actual,
+			'screen-reader-text span が出力される'
+		);
+
+		// span 内に翻訳テキスト（英語ロケールでは 'Back to top'）が入ること。
+		$this->assertStringContainsString(
+			'<span class="screen-reader-text">Back to top</span>',
+			$actual,
+			'screen-reader-text span 内に読み上げ用テキストが入る'
+		);
+
+		// 旧出力の素の 'PAGE TOP' テキストが `<a>` 直下に残っていないこと。
+		$this->assertStringNotContainsString(
+			'>PAGE TOP</a>',
+			$actual,
+			'旧来の素の PAGE TOP テキストは出力されない'
+		);
 	}
 
 	/**
@@ -514,7 +548,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_height' => 60,
 				),
 				'expected_contains'   => array(
-					'<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+					'<a href="#top" id="page_top" class="page_top_btn"><span class="screen-reader-text">Back to top</span></a>',
 				),
 				'expected_not'        => array(
 					'style=',
