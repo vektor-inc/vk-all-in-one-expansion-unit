@@ -93,8 +93,25 @@ const scrollDown = async ( page ): Promise< void > => {
 	await expect( page.locator( 'body.scrolled' ) ).toHaveCount( 1 );
 };
 
+// このファイル内のテストは全て同じ `vkExUnit_pagetop` オプション（tests サイトの
+// 共有 DB）を読む / 書き換えるため、ファイル単位でシリアル実行する。
+// 特に「未スクロール時にボタンが隠れている / has-image が付いていない」ことを見る
+// テストと、has-image describe（option に画像 URL を書き込む）が並列に走ると、
+// 前者がフロントを読むタイミングで後者の書き込みが反映されてレースで落ちる。
+// fullyParallel: true（playwright.config.ts）なので describe 単位の serial だけでは
+// 別 describe 間の並列を抑えられないため、ファイル先頭で serial を宣言する。
+// （pagetop-btn-image.spec.ts も同じ理由で serial 運用）。
+test.describe.configure( { mode: 'serial' } );
+
 test.describe( 'Page Top Button accessibility (#1381)', () => {
 	const btnSelector = 'a#page_top.page_top_btn';
+
+	// 画像なしを前提にするテスト群なので、各テスト前に option を初期化する。
+	// has-image describe が（serial 実行で）先に走って option に画像 URL を
+	// 残していても、ここで未設定状態へ確実に戻してからフロントを検証する。
+	test.beforeEach( () => {
+		resetPagetopOption();
+	} );
 
 	// 観点1: 未スクロール時はタブ順・クリック対象から除外される
 	test( '未スクロール時はボタンが visibility:hidden + pointer-events:none で隠れており、Tab フォーカスが当たらない', async ( {
@@ -118,14 +135,32 @@ test.describe( 'Page Top Button accessibility (#1381)', () => {
 		expect( computed.pointerEvents ).toBe( 'none' );
 
 		// visibility:hidden の要素は Playwright 的にも「不可視」と判定される。
+		// = タブ順・クリック対象から除外されている、という要件1の中核。
 		await expect( btn ).toBeHidden();
 
-		// Tab を何度か押してもフォーカスが #page_top に到達しないことを確認する。
+		// Tab を押してもフォーカスが #page_top に到達しないことを確認する。
 		// visibility:hidden の要素はタブ順から除外されるため。
+		//
+		// 注意: Tab でフォーカスが画面外のフォーカス可能要素へ移ると、ブラウザが
+		// その要素を画面内に入れようと自動スクロールし、scroll イベントで
+		// `body.scrolled` が付いてボタンが可視化されてしまう。そうなると
+		// 「未スクロール時」の検証ではなくなるため、各 Tab の後に body.scrolled が
+		// 付いていないか（=まだ未スクロール状態か）を確認し、付いたらそこで
+		// ループを打ち切る。未スクロールを維持できている範囲で #page_top に
+		// 到達しないことを確認すれば、要件1（未スクロール時はタブ順から除外）の
+		// 検証として十分。
 		await page.locator( 'body' ).click( { position: { x: 5, y: 5 } } );
 		let reachedPageTop = false;
 		for ( let i = 0; i < 30; i++ ) {
 			await page.keyboard.press( 'Tab' );
+			// 自動スクロールで body.scrolled が付いた = もう未スクロール状態では
+			// ないので、ここで検証を打ち切る。
+			const scrolled = await page.evaluate( () =>
+				document.body.classList.contains( 'scrolled' )
+			);
+			if ( scrolled ) {
+				break;
+			}
 			const activeId = await page.evaluate(
 				() => document.activeElement?.id ?? ''
 			);
@@ -134,6 +169,7 @@ test.describe( 'Page Top Button accessibility (#1381)', () => {
 				break;
 			}
 		}
+		// 未スクロール状態を維持できている間、#page_top には一度も到達しないこと。
 		expect( reachedPageTop ).toBe( false );
 	} );
 
