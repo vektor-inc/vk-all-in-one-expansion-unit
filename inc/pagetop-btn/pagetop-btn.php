@@ -100,7 +100,17 @@ function veu_pagetop_render( $options = array() ) {
 		$class .= ' has-image';
 	}
 
-	return '<a href="#top" id="page_top" class="' . esc_attr( $class ) . '"' . $style_attr . '>PAGE TOP</a>';
+	// i18n + accessibility (issue #1381): wrap the label in a `<span>` so the
+	// SCSS can visually hide just the text (`#page_top > span`) while keeping it
+	// available to assistive technology. The previous `color: transparent` trick
+	// removed the text visually but left it announced inconsistently and did not
+	// give screen-reader users a meaningful label. No new class is added per the
+	// confirmed spec; styling targets the child `<span>` via a class-less selector.
+	// i18n とアクセシビリティ対応（issue #1381）。ラベルを `<span>` で包むことで
+	// SCSS 側でテキストだけを visually-hidden にしつつ、支援技術には読み上げ可能な
+	// ラベルとして残す。仕様確定どおり新規クラスは付けず、子要素 `<span>` を
+	// クラスレスのセレクタ（`#page_top > span`）で対象にする。
+	return '<a href="#top" id="page_top" class="' . esc_attr( $class ) . '"' . $style_attr . '><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>';
 }
 
 /**

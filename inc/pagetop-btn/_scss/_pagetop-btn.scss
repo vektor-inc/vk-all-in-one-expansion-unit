@@ -6,7 +6,6 @@
 	z-index: 99999;
 	width: 40px;
 	height: 38px;
-	color: transparent; //PAGE TOPの文字を消すために追加 （overflow:hiddenで消すとカスタマイズショートカットアコンが消えるため）
 	border: none;
 	background: rgba(0,0,0,0.8);
 	box-shadow: 0 0 0 1px rgba(255,255,255,0.8), 0 0 0 2px rgba(0, 0, 0, 0.8);
@@ -21,8 +20,22 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	opacity: 0;
-	transition: opacity 0.3s;
 	text-decoration: none;
+
+	// Hide the button from tab order / pointer interaction while it is not yet
+	// scrolled into view (issue #1381). Previously the `<a>` was always present
+	// in the tab order and clickable even when invisible (opacity:0), letting
+	// keyboard users focus an off-screen control. Toggling visibility +
+	// pointer-events removes it from the accessibility tree until `.scrolled`
+	// reveals it. `visibility` is transitioned so the fade-out is preserved.
+	// 未スクロール時はタブ順・ポインタ操作から除外する（issue #1381）。
+	// 以前は opacity:0 でも `<a>` がタブ順に残り押下可能で、画面外のコントロールに
+	// キーボードフォーカスできてしまっていた。visibility + pointer-events を
+	// 切り替えることで `.scrolled` が付くまでアクセシビリティツリーから外す。
+	// フェードアウトを保つため visibility も transition 対象にする。
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.3s, visibility 0.3s;
 
 	// When a user-uploaded image is applied via the inline `--veu_` override,
 	// use `contain` so that the entire image fits the button without being
@@ -59,16 +72,87 @@
 	// 親と同値だが、テーマ側の `a:hover` 上書きを確実に打ち消すために `:hover` で
 	// 明示的に再宣言している（defensive declaration）。一見冗長に見えるが削除不可。
 	&:hover {
-		transition: opacity 0.3s;
-		color: transparent;
 		text-decoration: none;
 	}
+
+	// Visually hide the label text while keeping it available to assistive
+	// technology (issue #1381). This replaces the old `color: transparent`
+	// trick, which left the text in the layout and announced it inconsistently.
+	// The modern visually-hidden recipe clips the text to a 1px box so screen
+	// readers announce "Back to top" while the icon button stays clean.
+	// Targeted via a class-less child selector per the spec (no new class added
+	// to the markup).
+	// ラベルテキストを支援技術には残しつつ視覚的にのみ隠す（issue #1381）。
+	// 旧来の `color: transparent` を置き換える。現代的な visually-hidden レシピで
+	// 1px の領域にクリップし、スクリーンリーダーには「Back to top」と読み上げさせる。
+	// 仕様確定どおり新規クラスは付けず、子要素 `<span>` をクラスレスのセレクタで対象にする。
+	> span {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	// Focus visibility (issue #1381). Default (no image = rectangular button):
+	// draw a high-contrast focus ring. The dark outline + 3px offset + a 1px
+	// white inset shadow keeps a 3:1 contrast on both light and dark backgrounds.
+	// Note: `.has-image` declares `box-shadow: none` above, so re-declaring
+	// box-shadow inside :focus-visible is intentional here.
+	// フォーカス視認性（issue #1381）。デフォルト（画像なし＝矩形ボタン）は
+	// 濃色 outline + 3px offset + 1px 白の box-shadow で明暗どちらの背景でも
+	// 3:1 を確保する。`.has-image` は上で box-shadow:none を宣言しているため、
+	// :focus-visible 内での box-shadow 再宣言は意図的。
+	&:focus-visible {
+		outline: 2px solid #1e1e1e;
+		outline-offset: 3px;
+		box-shadow: 0 0 0 1px #fff;
+	}
+
+	// Focus visibility for the user-uploaded image state. The image fills the
+	// button with `background-size: contain`, so a rectangular outline would not
+	// follow the silhouette. Instead, suppress the outline and stack
+	// `drop-shadow()` filters: an inner white halo plus an outer dark halo so the
+	// focus ring follows the image silhouette and keeps contrast on both light
+	// and dark backgrounds. Blur is kept minimal. The indicator itself is not
+	// animated.
+	// 画像アップロード時のフォーカス視認性。画像は `contain` でボタンを埋めるため
+	// 矩形 outline ではシルエットに追従しない。outline を消し、`drop-shadow()` を
+	// 重ねてシルエットに沿った縁取りを出す。内側に白・外側に濃色を二重がけして
+	// 明暗どちらの背景でもコントラストを稼ぐ。ぼかしは最小限。フォーカス指標自体は
+	// アニメーションさせない。
+	&.has-image:focus-visible {
+		outline: none;
+		box-shadow: none;
+		filter:
+			drop-shadow(0 0 0 #fff) drop-shadow(0 0 0 #fff)
+			drop-shadow(0 0 1px #000) drop-shadow(0 0 1px #000);
+	}
+
 	.customize-partial-edit-shortcut-button {
 		left: -40px;
 	}
 }
-.scrolled .page_top_btn{
-	display: block;
+
+// Reveal the button once the page has scrolled. Restore tab order / pointer
+// interaction here so the control becomes operable only when it is visible.
+// スクロール後にボタンを表示する。表示されたときだけ操作可能になるよう
+// タブ順・ポインタ操作もここで復帰させる。
+.scrolled .page_top_btn {
 	opacity: 1;
-	color: transparent;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+// Respect reduced motion preferences: drop the fade transition entirely so the
+// button appears / disappears without animation for users who opt out.
+// モーション低減設定を尊重し、フェードのトランジションを無効化する。
+@media (prefers-reduced-motion: reduce) {
+	.page_top_btn {
+		transition: none;
+	}
 }

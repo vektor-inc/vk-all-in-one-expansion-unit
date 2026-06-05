@@ -199,8 +199,8 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '画像未設定（デフォルト）は style 属性を出力しない',
 				'options'             => array(),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
-				'expected_not'        => array( 'style=', '--veu_page_top_button_url', 'has-image' ),
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>Back to top</span></a>',
+				'expected_not'        => array( 'style=', '--veu_page_top_button_url', 'has-image', 'PAGE TOP' ),
 			),
 			array(
 				'test_condition_name' => '画像 URL（正常系1: png）が指定されたら style 属性に CSS 変数が入る',
@@ -217,13 +217,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => 'XSS ペイロード入り URL は sanitize されて style 属性も has-image も出ない',
 				'options'             => array( 'image_url' => 'https://example.com/a.png");}body{background:red;//' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>Back to top</span></a>',
 				'expected_not'        => array( 'style=', 'background:red', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => 'PHP 拡張子の URL は sanitize されて style 属性が出ない（境界値）',
 				'options'             => array( 'image_url' => 'https://example.com/evil.php' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>Back to top</span></a>',
 				'expected_not'        => array( 'evil.php', 'style=', 'has-image' ),
 			),
 			// 防御的プログラミングの検証: 配列以外が渡されても空配列扱いでデフォルト出力に
@@ -231,13 +231,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '境界値: 配列以外（null）を渡してもデフォルト出力にフォールバックする',
 				'options'             => null,
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>Back to top</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => '境界値: 配列以外（文字列）を渡してもデフォルト出力にフォールバックする',
 				'options'             => 'invalid string',
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>Back to top</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 		);
@@ -258,6 +258,62 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					$needle,
 					$actual,
 					$case['test_condition_name'] . ' / NG文字列: ' . $needle
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_render() emits an accessible, i18n-ready label (issue #1381).
+	 *
+	 * アクセシビリティ対応（issue #1381）の検証。
+	 * - ラベルが `<span>` で包まれて出力される（CSS で visually-hidden にし、
+	 *   支援技術には読み上げ可能なラベルとして残すため）。
+	 * - 旧来のハードコード文字列 `PAGE TOP` は出力されない（翻訳関数で
+	 *   `Back to top` に置き換えられたため）。
+	 * - `<a href="#top">` の意味論（ページ内アンカー）は維持される。
+	 * 画像あり / なしの両状態で同じラベル構造になることを確認する。
+	 */
+	public function test_veu_pagetop_render_accessible_label() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '正常系1: 画像なしでもラベルが <span> で包まれて出力される',
+				'options'             => array(),
+				'expected_contains'   => array( '<span>Back to top</span>', 'href="#top"' ),
+				'expected_not'        => array( 'PAGE TOP', '>PAGE TOP<' ),
+			),
+			array(
+				'test_condition_name' => '正常系2: 画像ありでも同じラベル構造（<span>Back to top</span>）になる',
+				'options'             => array( 'image_url' => 'https://example.com/icon.png' ),
+				'expected_contains'   => array( '<span>Back to top</span>', 'class="page_top_btn has-image"' ),
+				'expected_not'        => array( 'PAGE TOP' ),
+			),
+			array(
+				'test_condition_name' => '境界値: 配列以外（null）でもラベルは <span> で包まれ PAGE TOP は出ない',
+				'options'             => null,
+				'expected_contains'   => array( '<span>Back to top</span>' ),
+				'expected_not'        => array( 'PAGE TOP' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_render( $case['options'] );
+
+			// ラベルが <span> で包まれている事 / アンカー意味論が維持されている事を確認する。
+			foreach ( $case['expected_contains'] as $needle ) {
+				$this->assertStringContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / 含むべき: ' . $needle
+				);
+			}
+			// 旧来のハードコード文字列 PAGE TOP が残っていない事を確認する。
+			foreach ( $case['expected_not'] as $needle ) {
+				$this->assertStringNotContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / 含まないべき: ' . $needle
 				);
 			}
 		}
@@ -514,7 +570,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_height' => 60,
 				),
 				'expected_contains'   => array(
-					'<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+					'<a href="#top" id="page_top" class="page_top_btn"><span>Back to top</span></a>',
 				),
 				'expected_not'        => array(
 					'style=',

@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Page Top Button ] Improved accessibility: the button label is now translatable ("Back to top"), kept available to screen readers while visually hidden, and shows a visible focus indicator for keyboard users.
+
+[ Spec Change ][ Page Top Button ] The button is now excluded from the tab order and is not clickable until it appears on scroll, and its fade animation respects the reduced motion preference.
+
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 
