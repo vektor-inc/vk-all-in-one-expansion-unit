@@ -15,7 +15,7 @@
  *
  * テスト前後で wp-cli を使い `vkExUnit_pagetop` オプションを直接初期化する。
  */
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import { execFileSync } from 'child_process';
 
 // このファイル内の 2 つの describe ブロックは同じ `vkExUnit_pagetop`
@@ -77,6 +77,25 @@ const resetPagetopOption = (): void => {
 	}
 };
 
+// body に `.scrolled` を付与させるため、実際にスクロールイベントを発火させる。
+// issue #1381 以降、ページトップボタンは未スクロール時 `visibility:hidden` +
+// `pointer-events:none` でタブ順・表示から除外されるため、`toBeVisible()` で
+// 検証する前に一度スクロールして `body.scrolled` を付ける必要がある。
+// JS（pagetop-btn.js）は window の scroll イベントで pageYOffset > 0 を見て
+// body.scrolled を付け外しする。ページ高が足りないと scrollTo しても
+// pageYOffset が 0 のままになるため、十分な高さを保証してからスクロールする。
+const scrollDown = async ( page: Page ): Promise< void > => {
+	await page.evaluate( () => {
+		// スクロールできるよう、最低でもビューポート 3 画面分の高さを確保する。
+		document.body.style.minHeight = '3000px';
+		window.scrollTo( 0, 1000 );
+		// scroll イベントを明示発火（scrollTo だけでは発火しない環境対策）。
+		window.dispatchEvent( new Event( 'scroll' ) );
+	} );
+	// body に .scrolled が付くまで待つ。
+	await expect( page.locator( 'body.scrolled' ) ).toHaveCount( 1 );
+};
+
 test.describe( 'Page Top Button image upload (#1342)', () => {
 	// 全テストで同じ vkExUnit_pagetop オプションを書き換えるため、
 	// テスト間の競合を避けてシリアル実行する。
@@ -112,6 +131,9 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		// 共通で出力されるため）。
 		await page.goto( '/' );
 		const btn = page.locator( 'a#page_top.page_top_btn' );
+		// issue #1381: 未スクロール時は visibility:hidden のため、
+		// 表示を検証する前にスクロールして body.scrolled を付ける。
+		await scrollDown( page );
 		await expect( btn ).toBeVisible();
 		// has-image クラスが付いていないこと。
 		await expect( btn ).not.toHaveClass( /has-image/ );
@@ -167,6 +189,9 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		// フロントで出力を確認（トップページで page_top_btn を検証）。
 		await page.goto( '/' );
 		const btn = page.locator( 'a#page_top.page_top_btn' );
+		// issue #1381: 未スクロール時は visibility:hidden のため、
+		// 表示を検証する前にスクロールして body.scrolled を付ける。
+		await scrollDown( page );
 		await expect( btn ).toBeVisible();
 		await expect( btn ).toHaveClass( /has-image/ );
 		const style = await btn.getAttribute( 'style' );
@@ -226,6 +251,9 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 		// フロントで style 属性が消えていることを確認。
 		await page.goto( '/' );
 		const btn = page.locator( 'a#page_top.page_top_btn' );
+		// issue #1381: 未スクロール時は visibility:hidden のため、
+		// 表示を検証する前にスクロールして body.scrolled を付ける。
+		await scrollDown( page );
 		await expect( btn ).toBeVisible();
 		await expect( btn ).not.toHaveClass( /has-image/ );
 		const style = await btn.getAttribute( 'style' );
@@ -388,6 +416,9 @@ test.describe( 'Page Top Button image size (#1361)', () => {
 		// フロントで確認。
 		await page.goto( '/' );
 		const btn = page.locator( 'a#page_top.page_top_btn' );
+		// issue #1381: 未スクロール時は visibility:hidden のため、
+		// 表示を検証する前にスクロールして body.scrolled を付ける。
+		await scrollDown( page );
 		await expect( btn ).toBeVisible();
 		await expect( btn ).toHaveClass( /has-image/ );
 		const style = await btn.getAttribute( 'style' );
@@ -648,6 +679,9 @@ test.describe( 'Page Top Button image size (#1361)', () => {
 
 		await _page.goto( '/' );
 		const btn = _page.locator( 'a#page_top.page_top_btn' );
+		// issue #1381: 未スクロール時は visibility:hidden のため、
+		// 表示を検証する前にスクロールして body.scrolled を付ける。
+		await scrollDown( _page );
 		await expect( btn ).toBeVisible();
 		await expect( btn ).not.toHaveClass( /has-image/ );
 		const style = await btn.getAttribute( 'style' );

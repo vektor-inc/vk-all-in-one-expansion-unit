@@ -100,7 +100,21 @@ function veu_pagetop_render( $options = array() ) {
 		$class .= ' has-image';
 	}
 
-	return '<a href="#top" id="page_top" class="' . esc_attr( $class ) . '"' . $style_attr . '>PAGE TOP</a>';
+	// 可視部分は背景画像アイコン。リンクの読み上げ名は内側の `<span>` で
+	// 視覚的に隠して提供し、翻訳関数でラップする。テキストを `<a>` 直下ではなく
+	// 内側 span に入れているのは、`<a>` 自体に visually-hidden を当てると
+	// `<a>` が 1px に潰れて背景画像アイコンごと消えてしまうため。
+	// span にはクラスを付けず、SCSS 側は子セレクタ `#page_top > span` で
+	// visually-hidden を当てる（`<a>` の子は span 1 つだけなので一意）。
+	// The visible button is an icon (background image). The accessible name is
+	// provided by a visually-hidden inner `<span>`, wrapped in a translation
+	// function so screen readers announce it. The text is placed in the inner
+	// span (not directly on the `<a>`) on purpose: applying visually-hidden to
+	// the `<a>` itself collapses the anchor to 1px and hides the background-image
+	// icon along with it. No class is added to the span; the SCSS targets it via
+	// the class-less child selector `#page_top > span` (the `<a>` has exactly one
+	// child span, so the selector is unambiguous).
+	return '<a href="#top" id="page_top" class="' . esc_attr( $class ) . '"' . $style_attr . '><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>';
 }
 
 /**

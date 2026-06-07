@@ -6,7 +6,6 @@
 	z-index: 99999;
 	width: 40px;
 	height: 38px;
-	color: transparent; //PAGE TOPの文字を消すために追加 （overflow:hiddenで消すとカスタマイズショートカットアコンが消えるため）
 	border: none;
 	background: rgba(0,0,0,0.8);
 	box-shadow: 0 0 0 1px rgba(255,255,255,0.8), 0 0 0 2px rgba(0, 0, 0, 0.8);
@@ -20,9 +19,23 @@
 	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: center;
-	opacity: 0;
-	transition: opacity 0.3s;
 	text-decoration: none;
+
+	// Hide the button until the page is scrolled. Toggling `visibility`
+	// (and `pointer-events`) in addition to `opacity` keeps the button out of
+	// the tab order while it is invisible, so keyboard users cannot focus an
+	// off-screen control (WCAG 2.4.3 / 2.4.7). The visible state is restored
+	// under `.scrolled` below. JS (pagetop-btn.js) only toggles `.scrolled`,
+	// so the visibility state is managed entirely in CSS.
+	// 未スクロール時はボタンを隠す。`opacity` だけでなく `visibility`
+	// （と `pointer-events`）も切り替えることで、不可視の間はタブ順から外れ、
+	// 見えないボタンにキーボードフォーカスが当たらないようにする
+	// （WCAG 2.4.3 / 2.4.7）。表示状態は下の `.scrolled` で戻す。
+	// JS 側は `.scrolled` の付け外しのみを行い、表示状態は CSS で一元管理する。
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.3s, visibility 0.3s;
 
 	// When a user-uploaded image is applied via the inline `--veu_` override,
 	// use `contain` so that the entire image fits the button without being
@@ -53,22 +66,130 @@
 		height: var(--veu_page_top_button_height, 38px);
 	}
 
-	// テーマや他の CSS で `a:hover { text-decoration: underline; color: ...; }` のように
-	// リンクのデフォルトホバースタイルが上書きされている場合、親 `.page_top_btn` の
-	// 指定だけでは `:hover` 状態でテーマ側のスタイルを打ち消すことができない。
-	// 親と同値だが、テーマ側の `a:hover` 上書きを確実に打ち消すために `:hover` で
-	// 明示的に再宣言している（defensive declaration）。一見冗長に見えるが削除不可。
-	&:hover {
-		transition: opacity 0.3s;
-		color: transparent;
-		text-decoration: none;
+	// Visually hide the accessible label text while keeping it available to
+	// assistive technology. Targeted via the class-less child selector
+	// `#page_top > span` (the `<a>` has exactly one child `<span>`) so the
+	// markup does not need to carry a `.screen-reader-text` class. This plugin's
+	// front-end CSS does not ship a global `.screen-reader-text` definition and
+	// must not rely on the active theme providing one (some themes don't, which
+	// would expose the text), so the recipe is defined here scoped under
+	// `.page_top_btn`. No `:focus` reveal variant: the focus indicator is the
+	// icon + outline, and the text stays hidden.
+	// アクセシブルなラベルテキストを視覚的に隠しつつ支援技術には残す。
+	// マークアップにクラスを足さず、子セレクタ `#page_top > span`（`<a>` の子は
+	// `<span>` 1 つだけ）で対象にする。このプラグインのフロント CSS には
+	// `.screen-reader-text` のグローバル定義が無く、テーマ依存にもできない
+	// （当たらないとテキストが露出する）ため、レシピを `.page_top_btn` 配下に
+	// スコープして定義する。フォーカス時の露出は付けず（視覚はアイコン＋
+	// アウトラインが担う）、テキストは常に隠す。
+	> span {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0); // 旧ブラウザ互換のため残す
+		clip-path: inset(50%); // clip の後継（WordPress コア .screen-reader-text と同じ併用）
+		white-space: nowrap;
+		border: 0;
 	}
+
 	.customize-partial-edit-shortcut-button {
 		left: -40px;
+
+		// The button is non-interactive (`pointer-events: none`) while hidden
+		// before scroll, but the Customizer edit shortcut nested inside still
+		// needs to stay clickable in the preview. Restore pointer events on it.
+		// In addition, `visibility` is an inherited property, so the parent's
+		// `visibility: hidden` (set on `.page_top_btn` before scroll) cascades
+		// down to this nested shortcut button and would keep it invisible /
+		// unclickable even after restoring `pointer-events`. Explicitly reset
+		// `visibility: visible` here so the edit shortcut is reliably operable
+		// in the Customizer preview regardless of the parent's scroll state.
+		// スクロール前は親が `pointer-events: none` で操作不可になるが、配下に
+		// ネストするカスタマイザーの編集ショートカットはプレビューで操作できる
+		// 必要があるため、ここだけ pointer-events を戻す。
+		// さらに `visibility` は継承プロパティのため、親 `.page_top_btn` の
+		// `visibility: hidden`（スクロール前）が配下のこのショートカットボタンへ
+		// 継承され、`pointer-events` だけ戻しても表示・クリックできない。
+		// 確実に操作可能にするため `visibility: visible` も明示的に戻す。
+		pointer-events: auto;
+		visibility: visible;
 	}
 }
+
+// Focus indicator for keyboard navigation (WCAG 2.4.7). A single blue outline
+// stays clearly visible on light backgrounds and survives forced-colors /
+// Windows high contrast mode (outline is preserved even where box-shadow is
+// dropped). `:focus-visible` keeps the ring from showing on mouse clicks. The
+// same outline applies to `.has-image` because it never touches `outline`, so
+// no extra `.has-image` override is needed.
+// キーボード操作時のフォーカスインジケータ（WCAG 2.4.7）。青いアウトライン 1 本に
+// することで明るい背景でもはっきり見え、forced-colors / Windows ハイコントラスト
+// でも残る（outline は維持され box-shadow が消える環境でも視認できる）。
+// `:focus-visible` によりマウスクリック時には枠が出ない。`.has-image` でも
+// outline は打ち消さないため追加の上書きは不要。
+.page_top_btn:focus-visible {
+	outline: 2px solid #4f94d4;
+	outline-offset: 2px;
+}
+
+// Focus indicator for the user-uploaded image state. With `background-size:
+// contain` the image (often a transparent PNG / SVG) fills the button, so a
+// rectangular outline would not follow its silhouette and looks detached. For
+// this state we suppress the rectangular outline and stack `drop-shadow()`
+// filters instead: `drop-shadow` traces the non-transparent pixels of the
+// background image (its alpha silhouette), giving a focus ring that hugs the
+// icon shape. Two white + two dark passes keep the ring visible on both light
+// and dark page backgrounds. Blur is kept minimal; the indicator is not
+// animated.
+// 画像アップロード時のフォーカスインジケータ。`background-size: contain` で
+// 画像（多くは透過 PNG / SVG）がボタンを埋めるため、矩形 outline ではシルエットに
+// 追従せず浮いて見える。この状態では矩形 outline を消し、代わりに `drop-shadow()`
+// を重ねる。`drop-shadow` は背景画像の不透明ピクセル（アルファのシルエット）を
+// なぞるため、アイコン形状に沿ったフォーカスリングになる。白 2 枚＋濃色 2 枚で
+// 明暗どちらの背景でも視認できるようにする。ぼかしは最小限・非アニメーション。
+.page_top_btn.has-image:focus-visible {
+	outline: none;
+	box-shadow: none;
+	filter:
+		drop-shadow(0 0 0 #fff) drop-shadow(0 0 0 #fff)
+		drop-shadow(0 0 1px #000) drop-shadow(0 0 1px #000);
+}
+
+// Forced-colors / Windows high contrast fallback. In forced-colors mode the
+// `filter: drop-shadow` focus ring above can be dropped by the OS / browser,
+// which would leave the `.has-image` button with no visible focus indicator.
+// Restore a rectangular outline for that mode so keyboard focus stays visible
+// (WCAG 2.4.7). The non-`has-image` state already uses outline, so it survives
+// forced-colors without any extra handling.
+// forced-colors / Windows ハイコントラスト用フォールバック。forced-colors では
+// 上の `filter: drop-shadow` によるフォーカスリングが OS / ブラウザ側で剥がされ
+// うるため、`.has-image` のフォーカス指標が消えてしまう。その環境では矩形
+// outline を復帰させ、キーボードフォーカスが視認できるようにする（WCAG 2.4.7）。
+// 画像なし状態は元々 outline なので追加対応なしで forced-colors でも残る。
+@media (forced-colors: active) {
+	.page_top_btn.has-image:focus-visible {
+		outline: 2px solid #4f94d4;
+		outline-offset: 2px;
+	}
+}
+
+// Respect the user's reduced-motion preference: drop the fade transition so the
+// button appears / disappears without animation for users who opt out
+// (prefers-reduced-motion: reduce).
+// モーション低減設定を尊重し、フェードのトランジションを無効化する
+// （prefers-reduced-motion: reduce）。
+@media (prefers-reduced-motion: reduce) {
+	.page_top_btn {
+		transition: none;
+	}
+}
+
 .scrolled .page_top_btn{
 	display: block;
 	opacity: 1;
-	color: transparent;
+	visibility: visible;
+	pointer-events: auto;
 }

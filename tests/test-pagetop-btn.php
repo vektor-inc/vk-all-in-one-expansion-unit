@@ -199,7 +199,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '画像未設定（デフォルト）は style 属性を出力しない',
 				'options'             => array(),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', '--veu_page_top_button_url', 'has-image' ),
 			),
 			array(
@@ -217,13 +217,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => 'XSS ペイロード入り URL は sanitize されて style 属性も has-image も出ない',
 				'options'             => array( 'image_url' => 'https://example.com/a.png");}body{background:red;//' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', 'background:red', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => 'PHP 拡張子の URL は sanitize されて style 属性が出ない（境界値）',
 				'options'             => array( 'image_url' => 'https://example.com/evil.php' ),
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'evil.php', 'style=', 'has-image' ),
 			),
 			// 防御的プログラミングの検証: 配列以外が渡されても空配列扱いでデフォルト出力に
@@ -231,13 +231,13 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			array(
 				'test_condition_name' => '境界値: 配列以外（null）を渡してもデフォルト出力にフォールバックする',
 				'options'             => null,
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 			array(
 				'test_condition_name' => '境界値: 配列以外（文字列）を渡してもデフォルト出力にフォールバックする',
 				'options'             => 'invalid string',
-				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+				'expected_contains'   => '<a href="#top" id="page_top" class="page_top_btn"><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				'expected_not'        => array( 'style=', 'has-image' ),
 			),
 		);
@@ -253,6 +253,58 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 			);
 
 			// 含まれてはいけない文字列のチェック。
+			foreach ( $case['expected_not'] as $needle ) {
+				$this->assertStringNotContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name'] . ' / NG文字列: ' . $needle
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test veu_pagetop_render() exposes an accessible name via an inner span.
+	 *
+	 * a11y 改善（issue #1381）の検証。可視部分は背景画像アイコンで、
+	 * リンクの読み上げ名は内側の `<span>`（クラスレス）で提供され、SCSS 側は
+	 * 子セレクタ `#page_top > span` で visually-hidden を当てる。翻訳関数で
+	 * ラップしたテキスト（英語ロケールでは 'Back to top'）が span 内に入ること、
+	 * span にクラスが付かないこと、旧来の素の 'PAGE TOP' テキストが
+	 * `<a>` 直下に露出しないことを確認する。
+	 */
+	public function test_veu_pagetop_render_accessible_name() {
+		// 期待ラベルは固定文字列ではなく翻訳関数で組み立て、ロケールに依存しない
+		// 比較にする（en_US 以外でテストが壊れないように）。
+		$expected_label = esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' );
+
+		// 既存テストと同じく、テスト条件・期待結果を配列で記載しループで実行する。
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'クラスレスの内側 span でアクセシブルネームが提供され、旧来の素の PAGE TOP は出力されない',
+				'options'             => array(),
+				'expected_contains'   => array(
+					// ラベルがクラスレスの `<span>` で包まれていること。
+					'<span>' . $expected_label . '</span>',
+				),
+				'expected_not'        => array(
+					'>PAGE TOP</a>',
+					// span にクラスを付けない方針なので、screen-reader-text クラスは出ない。
+					'<span class="screen-reader-text">',
+					'class="screen-reader-text"',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_pagetop_render( $case['options'] );
+			foreach ( $case['expected_contains'] as $needle ) {
+				$this->assertStringContainsString(
+					$needle,
+					$actual,
+					$case['test_condition_name']
+				);
+			}
 			foreach ( $case['expected_not'] as $needle ) {
 				$this->assertStringNotContainsString(
 					$needle,
@@ -514,7 +566,7 @@ class Test_Pagetop_Btn extends WP_UnitTestCase {
 					'image_height' => 60,
 				),
 				'expected_contains'   => array(
-					'<a href="#top" id="page_top" class="page_top_btn">PAGE TOP</a>',
+					'<a href="#top" id="page_top" class="page_top_btn"><span>' . esc_html__( 'Back to top', 'vk-all-in-one-expansion-unit' ) . '</span></a>',
 				),
 				'expected_not'        => array(
 					'style=',

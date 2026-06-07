@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Page Top Button ] Improved screen reader and keyboard accessibility with an accessible label, a keyboard focus indicator, and removal from keyboard focus while the button is hidden.
+
+[ Spec Change ][ Page Top Button ] The focus indicator now follows the silhouette of an uploaded image, and the show / hide animation respects the reduced motion preference.
+
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 
