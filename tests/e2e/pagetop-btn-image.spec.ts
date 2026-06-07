@@ -15,7 +15,7 @@
  *
  * テスト前後で wp-cli を使い `vkExUnit_pagetop` オプションを直接初期化する。
  */
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import { execFileSync } from 'child_process';
 
 // このファイル内の 2 つの describe ブロックは同じ `vkExUnit_pagetop`
@@ -84,7 +84,7 @@ const resetPagetopOption = (): void => {
 // JS（pagetop-btn.js）は window の scroll イベントで pageYOffset > 0 を見て
 // body.scrolled を付け外しする。ページ高が足りないと scrollTo しても
 // pageYOffset が 0 のままになるため、十分な高さを保証してからスクロールする。
-const scrollDown = async ( page ): Promise< void > => {
+const scrollDown = async ( page: Page ): Promise< void > => {
 	await page.evaluate( () => {
 		// スクロールできるよう、最低でもビューポート 3 画面分の高さを確保する。
 		document.body.style.minHeight = '3000px';

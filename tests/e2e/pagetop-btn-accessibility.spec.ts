@@ -42,7 +42,7 @@
  *    tests サイトの共有 DB（vkExUnit_pagetop オプション）を競合しないよう、
  *    ファイル単位でシリアル実行し、各テスト前に option を既知の状態へ戻す。
  */
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import { execFileSync } from 'child_process';
 
 // このファイル内のテストは全て同じ `vkExUnit_pagetop` オプション（tests サイトの
@@ -113,7 +113,7 @@ const resetPagetopOption = (): void => {
 // JS（pagetop-btn.js）は window の scroll イベントで pageYOffset > 0 を見て
 // body.scrolled を付け外しする。ページ高が足りないと scrollTo しても
 // pageYOffset が 0 のままになるため、十分な高さを保証してからスクロールする。
-const scrollDown = async ( page ): Promise< void > => {
+const scrollDown = async ( page: Page ): Promise< void > => {
 	await page.evaluate( () => {
 		// スクロールできるよう、最低でもビューポート 3 画面分の高さを確保する。
 		document.body.style.minHeight = '3000px';
