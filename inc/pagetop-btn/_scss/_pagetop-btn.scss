@@ -67,17 +67,22 @@
 	}
 
 	// Visually hide the accessible label text while keeping it available to
-	// assistive technology. Scoped under `.page_top_btn` because this plugin's
+	// assistive technology. Targeted via the class-less child selector
+	// `#page_top > span` (the `<a>` has exactly one child `<span>`) so the
+	// markup does not need to carry a `.screen-reader-text` class. This plugin's
 	// front-end CSS does not ship a global `.screen-reader-text` definition and
 	// must not rely on the active theme providing one (some themes don't, which
-	// would expose the text). No `:focus` reveal variant: the focus indicator
-	// is the icon + outline, and the text stays hidden.
+	// would expose the text), so the recipe is defined here scoped under
+	// `.page_top_btn`. No `:focus` reveal variant: the focus indicator is the
+	// icon + outline, and the text stays hidden.
 	// アクセシブルなラベルテキストを視覚的に隠しつつ支援技術には残す。
-	// このプラグインのフロント CSS には `.screen-reader-text` のグローバル定義が
-	// 無く、テーマ依存にもできない（当たらないとテキストが露出する）ため、
-	// `.page_top_btn` 配下にスコープして定義する。フォーカス時の露出は付けず
-	// （視覚はアイコン＋アウトラインが担う）、テキストは常に隠す。
-	.screen-reader-text {
+	// マークアップにクラスを足さず、子セレクタ `#page_top > span`（`<a>` の子は
+	// `<span>` 1 つだけ）で対象にする。このプラグインのフロント CSS には
+	// `.screen-reader-text` のグローバル定義が無く、テーマ依存にもできない
+	// （当たらないとテキストが露出する）ため、レシピを `.page_top_btn` 配下に
+	// スコープして定義する。フォーカス時の露出は付けず（視覚はアイコン＋
+	// アウトラインが担う）、テキストは常に隠す。
+	> span {
 		position: absolute;
 		width: 1px;
 		height: 1px;
@@ -128,6 +133,58 @@
 .page_top_btn:focus-visible {
 	outline: 2px solid #4f94d4;
 	outline-offset: 2px;
+}
+
+// Focus indicator for the user-uploaded image state. With `background-size:
+// contain` the image (often a transparent PNG / SVG) fills the button, so a
+// rectangular outline would not follow its silhouette and looks detached. For
+// this state we suppress the rectangular outline and stack `drop-shadow()`
+// filters instead: `drop-shadow` traces the non-transparent pixels of the
+// background image (its alpha silhouette), giving a focus ring that hugs the
+// icon shape. Two white + two dark passes keep the ring visible on both light
+// and dark page backgrounds. Blur is kept minimal; the indicator is not
+// animated.
+// 画像アップロード時のフォーカスインジケータ。`background-size: contain` で
+// 画像（多くは透過 PNG / SVG）がボタンを埋めるため、矩形 outline ではシルエットに
+// 追従せず浮いて見える。この状態では矩形 outline を消し、代わりに `drop-shadow()`
+// を重ねる。`drop-shadow` は背景画像の不透明ピクセル（アルファのシルエット）を
+// なぞるため、アイコン形状に沿ったフォーカスリングになる。白 2 枚＋濃色 2 枚で
+// 明暗どちらの背景でも視認できるようにする。ぼかしは最小限・非アニメーション。
+.page_top_btn.has-image:focus-visible {
+	outline: none;
+	box-shadow: none;
+	filter:
+		drop-shadow(0 0 0 #fff) drop-shadow(0 0 0 #fff)
+		drop-shadow(0 0 1px #000) drop-shadow(0 0 1px #000);
+}
+
+// Forced-colors / Windows high contrast fallback. In forced-colors mode the
+// `filter: drop-shadow` focus ring above can be dropped by the OS / browser,
+// which would leave the `.has-image` button with no visible focus indicator.
+// Restore a rectangular outline for that mode so keyboard focus stays visible
+// (WCAG 2.4.7). The non-`has-image` state already uses outline, so it survives
+// forced-colors without any extra handling.
+// forced-colors / Windows ハイコントラスト用フォールバック。forced-colors では
+// 上の `filter: drop-shadow` によるフォーカスリングが OS / ブラウザ側で剥がされ
+// うるため、`.has-image` のフォーカス指標が消えてしまう。その環境では矩形
+// outline を復帰させ、キーボードフォーカスが視認できるようにする（WCAG 2.4.7）。
+// 画像なし状態は元々 outline なので追加対応なしで forced-colors でも残る。
+@media (forced-colors: active) {
+	.page_top_btn.has-image:focus-visible {
+		outline: 2px solid #4f94d4;
+		outline-offset: 2px;
+	}
+}
+
+// Respect the user's reduced-motion preference: drop the fade transition so the
+// button appears / disappears without animation for users who opt out
+// (prefers-reduced-motion: reduce).
+// モーション低減設定を尊重し、フェードのトランジションを無効化する
+// （prefers-reduced-motion: reduce）。
+@media (prefers-reduced-motion: reduce) {
+	.page_top_btn {
+		transition: none;
+	}
 }
 
 .scrolled .page_top_btn{
