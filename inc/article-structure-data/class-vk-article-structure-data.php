@@ -143,12 +143,11 @@ class VK_Article_Srtuctured_Data {
 
 		// $author_type = get_user_meta( $author_id, 'author_type', true );
 
+		// アイキャッチ画像を ImageObject 形式の配列で取得する（未設定や URL 取得失敗時は空配列）。
+		// Get the featured image as an ImageObject-formatted array (empty array when unset or when the URL cannot be retrieved).
+		$image = array();
 		if ( is_singular() ) {
-			if ( has_post_thumbnail() ) {
-				$image_url = get_the_post_thumbnail_url();
-			} else {
-				$image_url = '';
-			}
+			$image      = self::get_article_image_object();
 			$post_title = get_the_title();
 		}
 
@@ -156,7 +155,7 @@ class VK_Article_Srtuctured_Data {
 			'@context'      => 'https://schema.org/',
 			'@type'         => 'Article',
 			'headline'      => $post_title,
-			'image'         => $image_url,
+			'image'         => $image,
 			'datePublished' => get_the_time( 'c' ),
 			'dateModified'  => get_the_modified_time( 'c' ),
 			'author'        => self::get_author_array( $author_id ),
@@ -173,15 +172,70 @@ class VK_Article_Srtuctured_Data {
 		// ),
 		);
 
-		// アイキャッチ未設定なら image キーを除去する。
-		// 空文字の image は構造化データとして無意味なため、未設定時はキー自体を含めない。
-		// Remove the image key when no featured image is set.
-		// An empty image string is meaningless for structured data, so omit the key entirely when it is unset.
-		if ( empty( $image_url ) ) {
+		// アイキャッチ未設定や URL 取得失敗時は image が空配列になるため、image キーを除去する。
+		// 空の image は構造化データとして無意味なため、未設定時はキー自体を含めない。
+		// Remove the image key when the featured image is unset or its URL could not be retrieved (image is an empty array).
+		// An empty image is meaningless for structured data, so omit the key entirely when it is unset.
+		if ( empty( $article_array['image'] ) ) {
 			unset( $article_array['image'] );
 		}
 
 		return $article_array;
+	}
+
+	/**
+	 * アイキャッチ画像を ImageObject 形式の配列で返す
+	 *
+	 * 元画像（フル解像度）の URL と実寸を取得し、@type / url / width / height を持つ配列を返す。
+	 * url が取得できない場合は空配列を返し、呼び出し元で image キーを省略させる。
+	 * width / height が取得できない場合は、実寸と異なる値を出さないために該当キーを含めない。
+	 *
+	 * Return the featured image as an ImageObject-formatted array.
+	 * It retrieves the URL and the actual dimensions of the original (full-resolution) image
+	 * and returns an array with @type / url / width / height.
+	 * When the URL cannot be retrieved, an empty array is returned so the caller omits the image key.
+	 * When width / height cannot be retrieved, those keys are omitted so as not to output dimensions that differ from the actual size.
+	 *
+	 * @return array ImageObject 形式の配列、または取得できない場合は空配列。
+	 */
+	private static function get_article_image_object() {
+
+		// アイキャッチが未設定なら空配列を返す。
+		// Return an empty array when no featured image is set.
+		if ( ! has_post_thumbnail() ) {
+			return array();
+		}
+
+		// アイキャッチの添付ファイル ID を取得する。
+		// Get the attachment ID of the featured image.
+		$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+		if ( ! $thumbnail_id ) {
+			return array();
+		}
+
+		// 元画像（フル解像度）の URL・実寸を取得する。戻り値は [0]=url, [1]=width, [2]=height。
+		// Retrieve the URL and the actual dimensions of the original (full-resolution) image. The return value is [0]=url, [1]=width, [2]=height.
+		$image_src = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+
+		// 取得失敗（false）や URL が空の場合は image を出さないために空配列を返す。
+		// Return an empty array so the image is not output when retrieval fails (false) or the URL is empty.
+		if ( ! is_array( $image_src ) || empty( $image_src[0] ) ) {
+			return array();
+		}
+
+		$image = array(
+			'@type' => 'ImageObject',
+			'url'   => $image_src[0],
+		);
+
+		// width / height が取得できた場合のみ追加する。実寸と異なる値は出さない。
+		// Add width / height only when they are available. Never output dimensions that differ from the actual size.
+		if ( ! empty( $image_src[1] ) && ! empty( $image_src[2] ) ) {
+			$image['width']  = $image_src[1];
+			$image['height'] = $image_src[2];
+		}
+
+		return $image;
 	}
 
 	/**
