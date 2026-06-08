@@ -333,6 +333,36 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					),
 				),
 			),
+			// 異常系 : アイキャッチ設定済みだが wp_get_attachment_image_src() が false（URL 取得失敗）を返す => image キー自体が出力されない
+			// Abnormal case: featured image is set but wp_get_attachment_image_src() returns false (URL retrieval fails) -> the image key itself is not output.
+			array(
+				'test_condition_name' => 'アイキャッチ設定済みだが画像 URL が取得できない場合 => image キーが出力されない',
+				'post_data'           => array(
+					'post_title'   => 'Post Org No Url',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Org No Url',
+					'post_author'  => $test_users['org_02']['user_id'],
+				),
+				// アイキャッチは設定するが、フィルターで wp_get_attachment_image_src() を false に上書きした状態を再現する。
+				// Set a featured image, but reproduce a state where wp_get_attachment_image_src() is forced to false via a filter.
+				'set_thumbnail'       => true,
+				'false_image_src'     => true,
+				// image キーが出力されないことを検証するため、correct には image を含めない。
+				// To verify the image key is not output, correct does not contain image.
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => 'Post Org No Url',
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => $test_users['org_02']['user_meta']['author_type'],
+						'name'   => $test_users['org_02']['user_meta']['author_name'],
+						'url'    => $test_users['org_02']['user_meta']['author_url'],
+						'sameAs' => $test_users['org_02']['user_meta']['author_sameAs'],
+					),
+				),
+			),
 			// 個別の投稿ページじゃないページで空で返ってきてるか？
 			/**
 			 * get_author_structure_array()はとにかくそのページの著者の配列データ$author_arrayを作る
@@ -366,7 +396,19 @@ class Article_Structure_Test extends WP_UnitTestCase {
 				// 実寸が取得できない状況を再現する（width/height キーが出ないことを検証するため）。
 				// For the strip_image_size case, force the width/height of wp_get_attachment_image_src to 0
 				// to reproduce a situation where the dimensions cannot be retrieved (to verify the width/height keys are omitted).
-				if ( ! empty( $test_value['strip_image_size'] ) ) {
+				if ( ! empty( $test_value['false_image_src'] ) ) {
+					// false_image_src が true のケースでは、wp_get_attachment_image_src を false に潰し、
+					// URL（および実寸）が一切取得できない状況を再現する（image キー自体が出ないことを検証するため）。
+					// For the false_image_src case, force wp_get_attachment_image_src to false
+					// to reproduce a situation where the URL (and dimensions) cannot be retrieved at all (to verify the image key itself is omitted).
+					$filter_callback = function () {
+						return false;
+					};
+					add_filter( 'wp_get_attachment_image_src', $filter_callback );
+
+					// このケースでは correct に image を含めないため、上書きは行わない。
+					// In this case correct does not contain image, so no overwrite is performed.
+				} elseif ( ! empty( $test_value['strip_image_size'] ) ) {
 					$filter_callback = function ( $image ) {
 						if ( is_array( $image ) ) {
 							$image[1] = 0;
@@ -378,7 +420,11 @@ class Article_Structure_Test extends WP_UnitTestCase {
 
 					// 実寸を消したケースの期待値は url のみの ImageObject。
 					// The expected value for the stripped-size case is an ImageObject with url only.
-					$image_full                     = wp_get_attachment_image_src( $attachment_id, 'full' );
+					// この期待値算出には実寸が必要なため、いったんフィルターを外して取得し、再度付け直す。
+					// The expected value needs the real dimensions, so temporarily remove the filter to retrieve them, then add it back.
+					remove_filter( 'wp_get_attachment_image_src', $filter_callback );
+					$image_full = wp_get_attachment_image_src( $attachment_id, 'full' );
+					add_filter( 'wp_get_attachment_image_src', $filter_callback );
 					$test_value['correct']['image'] = array(
 						'@type' => 'ImageObject',
 						'url'   => $image_full[0],
