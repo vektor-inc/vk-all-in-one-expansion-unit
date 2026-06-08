@@ -85,6 +85,8 @@ e.g.
 
 [ Spec Change ][ Page Top Button ] The focus indicator now follows the silhouette of an uploaded image, and the show / hide animation respects the reduced motion preference.
 
+[ Bug Fix ][ Article Structured Data ] Stopped outputting an empty "image" value in the JSON-LD when a post has no featured image, omitting the image field entirely instead.
+
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 

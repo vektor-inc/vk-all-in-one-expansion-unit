@@ -221,20 +221,24 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		// apply_filters( 'post_thumbnail_url', $thumbnail_url, $post, $size );
 
 		$test_data = array(
+			// 正常系 : アイキャッチ未設定 => image キー自体が出力されない
+			// Normal case: no featured image -> the image key itself is not output.
 			array(
+				'test_condition_name' => 'アイキャッチ未設定の場合 => image キーが出力されない',
 				// 'target_url' => get_permalink( $data['post_id_person'] ),
-				'post_data'     => array(
+				'post_data'           => array(
 					'post_title'   => 'Post Person',
 					'post_status'  => 'publish',
 					'post_content' => 'Post Test',
 					'post_author'  => $test_users['person_01']['user_id'],
 				),
-				'thumbnail_url' => 'https://image_person.com',
-				'correct'       => array(
+				// アイキャッチを設定しないケース。
+				// Case where no featured image is set.
+				'set_thumbnail'       => false,
+				'correct'             => array(
 					'@context'      => 'https://schema.org/',
 					'@type'         => 'Article',
 					'headline'      => 'Post Person',
-					'image'         => '',
 					'datePublished' => 'ここは投稿作成してから上書きする',
 					'dateModified'  => 'ここは投稿作成してから上書きする',
 					'author'        => array(
@@ -256,21 +260,25 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					// ),
 				),
 			),
-			// 組織投稿の場合
+			// 正常系 : アイキャッチ設定済み => image が出力される（組織投稿の場合）
+			// Normal case: featured image is set -> image is output (organization post).
 			array(
+				'test_condition_name' => 'アイキャッチ設定済みの場合 => image が出力される',
 				// 'target_url' => get_permalink( $data['post_id_org'] ),
-				'post_data'     => array(
+				'post_data'           => array(
 					'post_title'   => 'Post Org',
 					'post_status'  => 'publish',
 					'post_content' => 'Post Test Org',
 					'post_author'  => $test_users['org_02']['user_id'],
 				),
-				'thumbnail_url' => 'https://image_org.com',
-				'correct'       => array(
+				// アイキャッチを設定するケース。実際の URL はループ内で correct に上書きする。
+				// Case where a featured image is set. The actual URL is overwritten into correct inside the loop.
+				'set_thumbnail'       => true,
+				'correct'             => array(
 					'@context'      => 'https://schema.org/',
 					'@type'         => 'Article',
 					'headline'      => 'Post Org',
-					'image'         => '',
+					'image'         => 'ここはアイキャッチ設定してから上書きする',
 					'datePublished' => 'ここは投稿作成してから上書きする',
 					'dateModified'  => 'ここは投稿作成してから上書きする',
 					'author'        => array(
@@ -301,19 +309,29 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			 */
 		);
 
+		// 後始末用に発行した添付ファイルIDを保持する。
+		// Keep created attachment IDs so they can be cleaned up afterward.
+		$attachment_ids = array();
+
 		foreach ( $test_data as $test_value ) {
 			$target_post_id = wp_insert_post( $test_value['post_data'] );
 
 			$test_value['correct']['datePublished'] = get_the_time( 'c', $target_post_id );
 			$test_value['correct']['dateModified']  = get_the_modified_time( 'c', $target_post_id );
 
+			// set_thumbnail が true のケースではダミー添付ファイルを作成しアイキャッチに設定する。
+			// 実際に出力される image URL を取得し、期待値（correct['image']）へ反映する。
+			// For cases with set_thumbnail true, create a dummy attachment and set it as the featured image.
+			// Retrieve the actual image URL output and reflect it into the expected value (correct['image']).
+			if ( ! empty( $test_value['set_thumbnail'] ) ) {
+				$attachment_id = $this->factory->attachment->create_upload_object( DIR_TESTDATA . '/images/canola.jpg', $target_post_id );
+				set_post_thumbnail( $target_post_id, $attachment_id );
+				$attachment_ids[]               = $attachment_id;
+				$test_value['correct']['image'] = wp_get_attachment_url( $attachment_id );
+			}
+
 			// Move to test page
 			$this->go_to( get_permalink( $target_post_id ) );
-
-			// add_filter( 'post_thumbnail_url', function( $thumbnail_url ) use ( $test_value) {
-			// $thumbnail_url = $test_value['thumbnail_url'];
-			// return $thumbnail_url;
-			// } );
 
 			$return  = VK_Article_Srtuctured_Data::get_article_structure_array();
 			$correct = $test_value['correct'];
@@ -322,12 +340,18 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			// print 'correct ::::' . $test_value['correct'] . PHP_EOL;
 			// print 'return  ::::' . $return['author'] . PHP_EOL;
 
-			$this->assertEquals( $correct, $return );
+			$this->assertEquals( $correct, $return, $test_value['test_condition_name'] );
 
 			// テスト投稿削除
 			wp_delete_post( $target_post_id );
 			// とりあえずトップに戻る
 			$this->go_to( home_url() );
+		}
+
+		// テストで発行した添付ファイルを削除する。
+		// Delete the attachments created during the test.
+		foreach ( $attachment_ids as $attachment_id ) {
+			wp_delete_attachment( $attachment_id, true );
 		}
 
 		// テストで発行したユーザーを削除 ///////////////////////////
