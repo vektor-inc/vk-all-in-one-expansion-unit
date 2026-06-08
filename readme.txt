@@ -87,6 +87,8 @@ e.g.
 
 [ Bug Fix ][ Article Structured Data ] Stopped outputting an empty "image" value in the JSON-LD when a post has no featured image, omitting the image field entirely instead.
 
+[ Spec Change ][ Article Structured Data ] Changed the JSON-LD "image" to the ImageObject format (url/width/height) and switched the source to the original full-resolution image.
+
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 
