@@ -173,6 +173,14 @@ class VK_Article_Srtuctured_Data {
 		// ),
 		);
 
+		// アイキャッチ未設定なら image キーを除去する。
+		// 空文字の image は構造化データとして無意味なため、未設定時はキー自体を含めない。
+		// Remove the image key when no featured image is set.
+		// An empty image string is meaningless for structured data, so omit the key entirely when it is unset.
+		if ( empty( $image_url ) ) {
+			unset( $article_array['image'] );
+		}
+
 		return $article_array;
 	}
 
