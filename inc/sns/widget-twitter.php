@@ -153,8 +153,9 @@ class VK_Twitter_Widget extends WP_Widget {
 		$instance['title']   = wp_kses_post( $new_instance['title'] );
 		$instance['account'] = wp_kses_post( $new_instance['account'] );
 		$instance['height']  = wp_kses_post( mb_convert_kana( $new_instance['height'], 'a' ) );
-		// static::$button_default was never declared as a class property; fall back to 'light' (the first key of time_line_color()) to avoid a potential fatal error.
-		$instance['bg_color']   = in_array( $new_instance['bg_color'], array_keys( self::time_line_color() ) ) ? $new_instance['bg_color'] : 'light';
+		// Guard against missing key and fall back to 'light' to avoid PHP 8.x "Undefined array key" warning.
+		$bg_color               = isset( $new_instance['bg_color'] ) ? $new_instance['bg_color'] : '';
+		$instance['bg_color']   = in_array( $bg_color, array_keys( self::time_line_color() ) ) ? $bg_color : 'light';
 		$instance['link_color'] = ( isset( $new_instance['link_color'] ) ) ? sanitize_hex_color( $new_instance['link_color'] ) : false;
 		return $instance;
 	}
