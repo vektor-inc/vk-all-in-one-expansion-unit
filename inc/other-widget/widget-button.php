@@ -200,7 +200,8 @@ class WP_Widget_Button extends WP_Widget {
 		<select id="<?php echo $this->get_field_id( 'color' ); ?>" name="<?php echo $this->get_field_name( 'color' ); ?>">
 		<?php
 		if ( ! isset( $instance['color'] ) || ! $instance['color'] ) {
-			$instance['color'] = $default['color'];
+			// Use the value defined in defaults() to avoid referencing the undefined variable $default.
+			$instance['color'] = self::defaults()['color'];
 		}
 		foreach ( static::button_otherlabels() as $key => $label ) :
 			?>
@@ -228,7 +229,8 @@ class WP_Widget_Button extends WP_Widget {
 		$opt['linkurl']     = esc_url( $new_instance['linkurl'] );
 		$opt['blank']       = ( isset( $new_instance['blank'] ) && $new_instance['blank'] == 'true' );
 		$opt['size']        = in_array( $new_instance['size'], array( 'sm', 'lg' ) ) ? $new_instance['size'] : 'md';
-		$opt['color']       = in_array( $new_instance['color'], array_keys( self::button_otherlabels() ) ) ? $new_instance['color'] : static::$button_default;
+		// static::$button_default was never declared as a class property; fall back to the value defined in defaults() to avoid a potential fatal error.
+		$opt['color'] = in_array( $new_instance['color'], array_keys( self::button_otherlabels() ) ) ? $new_instance['color'] : self::defaults()['color'];
 		return $opt;
 	}
 

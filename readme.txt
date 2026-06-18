@@ -91,6 +91,8 @@ e.g.
 
 [ Spec Change ][ Article Structured Data ] Changed the JSON-LD "image" to the ImageObject format (url/width/height) and switched the source to the original full-resolution image.
 
+[ Bug Fix ][ Widget ] Fixed PHP 8.x undefined array key and undefined variable warnings that were written to the error log when saving widgets with unchecked checkboxes (Contact Section, Page, FB Page Plugin) or an invalid colour selection (Button, Twitter).
+
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
 
