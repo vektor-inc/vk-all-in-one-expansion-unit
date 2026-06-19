@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.117.2
+Stable tag: 9.117.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.117.3 =
 [ Bug Fix ][ Setting Page ] Updated the shared admin component so that the setting screen styles and scripts are reloaded reliably after an update instead of being served from the cache, and so that the left side navigation is no longer cut off while a notice is displayed.
 
 [ Spec Change ][ Page Top Button ] Improved screen reader and keyboard accessibility with an accessible label, a keyboard focus indicator, and removal from keyboard focus while the button is hidden.
