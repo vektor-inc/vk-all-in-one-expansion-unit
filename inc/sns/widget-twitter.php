@@ -109,7 +109,8 @@ class VK_Twitter_Widget extends WP_Widget {
 	<select id="<?php echo $this->get_field_id( 'bg_color' ); ?>" name="<?php echo $this->get_field_name( 'bg_color' ); ?>" class="admin-custom-input">
 		<?php
 		if ( ! isset( $instance['bg_color'] ) || ! $instance['bg_color'] ) {
-			$instance['bg_color'] = $default['bg_color'];
+			// $default is undefined here; use the hard-coded default to avoid PHP 8.x undefined variable warning.
+			$instance['bg_color'] = 'light';
 		}
 		foreach ( static::time_line_color() as $key => $label ) :
 			?>
@@ -148,11 +149,13 @@ class VK_Twitter_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		// ウィジェットオプションの保存処理
-		$instance               = $old_instance;
-		$instance['title']      = wp_kses_post( $new_instance['title'] );
-		$instance['account']    = wp_kses_post( $new_instance['account'] );
-		$instance['height']     = wp_kses_post( mb_convert_kana( $new_instance['height'], 'a' ) );
-		$instance['bg_color']   = in_array( $new_instance['bg_color'], array_keys( self::time_line_color() ) ) ? $new_instance['bg_color'] : static::$button_default;
+		$instance            = $old_instance;
+		$instance['title']   = wp_kses_post( $new_instance['title'] );
+		$instance['account'] = wp_kses_post( $new_instance['account'] );
+		$instance['height']  = wp_kses_post( mb_convert_kana( $new_instance['height'], 'a' ) );
+		// Guard against missing key and fall back to 'light' to avoid PHP 8.x "Undefined array key" warning.
+		$bg_color               = isset( $new_instance['bg_color'] ) ? $new_instance['bg_color'] : '';
+		$instance['bg_color']   = in_array( $bg_color, array_keys( self::time_line_color() ) ) ? $bg_color : 'light';
 		$instance['link_color'] = ( isset( $new_instance['link_color'] ) ) ? sanitize_hex_color( $new_instance['link_color'] ) : false;
 		return $instance;
 	}

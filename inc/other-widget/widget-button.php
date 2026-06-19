@@ -200,7 +200,8 @@ class WP_Widget_Button extends WP_Widget {
 		<select id="<?php echo $this->get_field_id( 'color' ); ?>" name="<?php echo $this->get_field_name( 'color' ); ?>">
 		<?php
 		if ( ! isset( $instance['color'] ) || ! $instance['color'] ) {
-			$instance['color'] = $default['color'];
+			// Use the value defined in defaults() to avoid referencing the undefined variable $default.
+			$instance['color'] = self::defaults()['color'];
 		}
 		foreach ( static::button_otherlabels() as $key => $label ) :
 			?>
@@ -227,8 +228,12 @@ class WP_Widget_Button extends WP_Widget {
 		$opt['subtext']     = wp_kses_post( stripslashes( $new_instance['subtext'] ) );
 		$opt['linkurl']     = esc_url( $new_instance['linkurl'] );
 		$opt['blank']       = ( isset( $new_instance['blank'] ) && $new_instance['blank'] == 'true' );
-		$opt['size']        = in_array( $new_instance['size'], array( 'sm', 'lg' ) ) ? $new_instance['size'] : 'md';
-		$opt['color']       = in_array( $new_instance['color'], array_keys( self::button_otherlabels() ) ) ? $new_instance['color'] : static::$button_default;
+		// Guard against missing key: select elements are absent from $_POST when the widget block is saved without interacting with the field.
+		$size        = isset( $new_instance['size'] ) ? $new_instance['size'] : '';
+		$opt['size'] = in_array( $size, array( 'sm', 'lg' ) ) ? $size : 'md';
+		// Guard against missing key and fall back via defaults() to avoid PHP 8.x "Undefined array key" warning.
+		$color        = isset( $new_instance['color'] ) ? $new_instance['color'] : '';
+		$opt['color'] = in_array( $color, array_keys( self::button_otherlabels() ) ) ? $color : self::defaults()['color'];
 		return $opt;
 	}
 

@@ -50,13 +50,18 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 
 	function update( $new_instance, $old_instance ) {
-		$instance              = $old_instance;
-		$instance['label']     = wp_kses_post( stripslashes( $new_instance['label'] ) );
-		$instance['page_url']  = esc_url( $new_instance['page_url'] );
-		$instance['height']    = esc_html( $new_instance['height'] );
-		$instance['showFaces'] = $new_instance['showFaces'];
-		$instance['hideCover'] = $new_instance['hideCover'];
-		$instance['showPosts'] = $new_instance['showPosts'];
+		$instance             = $old_instance;
+		$instance['label']    = wp_kses_post( stripslashes( $new_instance['label'] ) );
+		$instance['page_url'] = esc_url( $new_instance['page_url'] );
+		$instance['height']   = esc_html( $new_instance['height'] );
+		// Checkboxes are omitted from POST data when unchecked, so guard with isset() to avoid the
+		// PHP 8.x undefined array key warning. Fall back to '' (an empty, falsy value) so that widget()
+		// reproduces the previous behavior: it treats this the same as the old unguarded null value and
+		// applies its own default (showPosts => 'true'). Using 'false' here would be truthy and would
+		// silently change the saved value for existing users.
+		$instance['showFaces'] = isset( $new_instance['showFaces'] ) ? $new_instance['showFaces'] : '';
+		$instance['hideCover'] = isset( $new_instance['hideCover'] ) ? $new_instance['hideCover'] : '';
+		$instance['showPosts'] = isset( $new_instance['showPosts'] ) ? $new_instance['showPosts'] : '';
 
 		return $instance;
 	}

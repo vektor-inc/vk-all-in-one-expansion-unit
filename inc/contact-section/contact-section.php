@@ -535,7 +535,8 @@ class WP_Widget_VkExUnit_Contact_Section extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
-		$instance['vertical'] = $new_instance['vertical'];
+		// Checkboxes are omitted from POST data when unchecked, so guard with isset() to avoid PHP 8.x undefined array key warning.
+		$instance['vertical'] = isset( $new_instance['vertical'] ) ? $new_instance['vertical'] : '';
 		return $instance;
 	}
 
