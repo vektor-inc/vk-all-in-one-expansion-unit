@@ -24,7 +24,6 @@ var cleanCss = require('gulp-clean-css');
 // 同期的に処理してくれる（ distで使用している ）
 var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
-const ps = require('child_process').exec
 
 
 let error_stop = true
@@ -170,12 +169,6 @@ gulp.task('watch', function() {
 
 gulp.task('default', gulp.series('text-domain','watch'))
 gulp.task('compile', gulp.series('scripts', 'sass'))
-gulp.task('dist', (done)=>{
-  ps('bin/dist', (err, stdout, stderr)=>{
-    console.log(stdout)
-    done()
-  })
-})
 
 gulp.task('build', gulp.series('scripts', 'sass', 'scripts_smooth'))
 
