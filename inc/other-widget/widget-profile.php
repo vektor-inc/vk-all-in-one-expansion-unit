@@ -184,16 +184,21 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 		update
 	/*-------------------------------------------*/
 	function update( $new_instance, $old_instance ) {
+		// Notes on $new_instance keys that may be missing on PHP 8.x (avoids undefined array key warnings):
+		// - mediaAlign_left: deprecated key with no form field, so it is never present and is intentionally not read here; its value is carried over from $old_instance.
+		// - mediaRound / mediaFloat: checkbox fields that are not sent when unchecked, so they are guarded and fall back to an empty string (stays falsy, behavior unchanged).
+		// $new_instance のキーに関する補足（PHP 8.x の未定義キー警告対策）:
+		// - mediaAlign_left: 対応するフォーム項目が無い廃止済みキーのため常に存在せず、ここでは意図的に読み込まない。値は $old_instance から引き継がれる。
+		// - mediaRound / mediaFloat: 未チェック時に送信されないチェックボックスのため、未定義キーをガードして空文字へフォールバックさせる（falsy のままで挙動は不変）。
 		$instance                    = $old_instance;
 		$instance['label']           = wp_kses_post( stripslashes( $new_instance['label'] ) );
 		$instance['mediaFile']       = esc_url( $new_instance['mediaFile'] );
 		$instance['mediaAlt']        = esc_html( stripslashes( $new_instance['mediaAlt'] ) );
 		$instance['profile']         = wp_kses_post( stripslashes( $new_instance['profile'] ) );
-		$instance['mediaAlign_left'] = $new_instance['mediaAlign_left'];
 		$instance['mediaAlign']      = $new_instance['mediaAlign'];
-		$instance['mediaRound']      = $new_instance['mediaRound'];
+		$instance['mediaRound']      = isset( $new_instance['mediaRound'] ) ? $new_instance['mediaRound'] : '';
 		$instance['mediaSize']       = esc_html( $new_instance['mediaSize'] );
-		$instance['mediaFloat']      = $new_instance['mediaFloat'];
+		$instance['mediaFloat']      = isset( $new_instance['mediaFloat'] ) ? $new_instance['mediaFloat'] : '';
 		$instance['facebook']        = esc_url( $new_instance['facebook'] );
 		$instance['twitter']         = esc_url( $new_instance['twitter'] );
 		$instance['mail']            = esc_url( $new_instance['mail'] );

@@ -177,4 +177,94 @@ class WidgetProfileTest extends WP_UnitTestCase {
 
 		} // foreach ( $test_array as $key => $test_value) {
 	} // function test_icon_color() {
+
+	/**
+	 * update() がチェックボックス未送信のキーをガードすることのテスト。
+	 *
+	 * チェックボックス（mediaRound / mediaFloat）は未チェックだと送信されず
+	 * $new_instance にキーが存在しない。その状態でも PHP 8.x の警告が出ず、
+	 * 値が空文字（falsy）へフォールバックすることを検証する。
+	 *
+	 * @return void
+	 */
+	function test_update_guards_missing_checkbox_keys() {
+		$widget = new WP_Widget_vkExUnit_profile();
+
+		// チェックボックス系（mediaRound / mediaFloat）と廃止済みの mediaAlign_left を
+		// あえて含めない $new_instance を用意する（未チェック保存を再現）。
+		$new_instance = array(
+			'label'           => 'My Profile',
+			'mediaFile'       => '',
+			'mediaAlt'        => '',
+			'profile'         => 'profile text',
+			'mediaAlign'      => 'left',
+			'mediaSize'       => '',
+			'facebook'        => '',
+			'twitter'         => '',
+			'mail'            => '',
+			'youtube'         => '',
+			'rss'             => '',
+			'instagram'       => '',
+			'linkedin'        => '',
+			'iconFont_bgType' => '',
+			'icon_color'      => '',
+		);
+
+		$result = $widget->update( $new_instance, array() );
+
+		// 未送信のチェックボックスは空文字（falsy）になっていること。
+		$this->assertSame( '', $result['mediaRound'] );
+		$this->assertSame( '', $result['mediaFloat'] );
+
+		// 廃止済みの mediaAlign_left は保存対象から外れ、キー自体が存在しないこと。
+		$this->assertArrayNotHasKey( 'mediaAlign_left', $result );
+
+		// 送信された他の値はそのまま保持されること（挙動が変わっていないことの確認）。
+		$this->assertSame( 'left', $result['mediaAlign'] );
+		$this->assertSame( 'My Profile', $result['label'] );
+	}
+
+	/**
+	 * 既存ユーザーの mediaAlign_left 保存値が update() 後も保持されることのテスト。
+	 *
+	 * update() で mediaAlign_left を保存対象から外したが、$old_instance に保存済みの
+	 * レガシー値はそのまま引き継がれ、image_align() の移行フォールバックが
+	 * これまでどおり機能することを検証する。
+	 *
+	 * @return void
+	 */
+	function test_update_keeps_legacy_media_align_left() {
+		$widget = new WP_Widget_vkExUnit_profile();
+
+		// 旧フィールドのみ保存されている既存ユーザーを再現する。
+		$old_instance = array(
+			'mediaAlign_left' => true,
+		);
+
+		// mediaAlign は既定でチェック済みのラジオボタンのため常に送信される。
+		// ここでは mediaAlign_left の引き継ぎ確認が目的なので、現実に即して mediaAlign は含める。
+		$new_instance = array(
+			'label'           => '',
+			'mediaFile'       => '',
+			'mediaAlt'        => '',
+			'profile'         => '',
+			'mediaAlign'      => 'left',
+			'mediaSize'       => '',
+			'facebook'        => '',
+			'twitter'         => '',
+			'mail'            => '',
+			'youtube'         => '',
+			'rss'             => '',
+			'instagram'       => '',
+			'linkedin'        => '',
+			'iconFont_bgType' => '',
+			'icon_color'      => '',
+		);
+
+		$result = $widget->update( $new_instance, $old_instance );
+
+		// $old_instance のレガシー値が維持されていること。
+		$this->assertArrayHasKey( 'mediaAlign_left', $result );
+		$this->assertTrue( $result['mediaAlign_left'] );
+	}
 }
