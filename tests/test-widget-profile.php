@@ -190,38 +190,51 @@ class WidgetProfileTest extends WP_UnitTestCase {
 	function test_update_guards_missing_checkbox_keys() {
 		$widget = new WP_Widget_vkExUnit_profile();
 
-		// チェックボックス系（mediaRound / mediaFloat）と廃止済みの mediaAlign_left を
-		// あえて含めない $new_instance を用意する（未チェック保存を再現）。
-		$new_instance = array(
-			'label'           => 'My Profile',
-			'mediaFile'       => '',
-			'mediaAlt'        => '',
-			'profile'         => 'profile text',
-			'mediaAlign'      => 'left',
-			'mediaSize'       => '',
-			'facebook'        => '',
-			'twitter'         => '',
-			'mail'            => '',
-			'youtube'         => '',
-			'rss'             => '',
-			'instagram'       => '',
-			'linkedin'        => '',
-			'iconFont_bgType' => '',
-			'icon_color'      => '',
+		// テスト条件（送信内容）と期待する結果を配列で持ち、ループで検証する。
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'チェックボックス（mediaRound / mediaFloat）と廃止済み mediaAlign_left を未送信',
+				// チェックボックス系（mediaRound / mediaFloat）と廃止済みの mediaAlign_left を
+				// あえて含めない $new_instance（未チェック保存を再現）。
+				'new_instance'        => array(
+					'label'           => 'My Profile',
+					'mediaFile'       => '',
+					'mediaAlt'        => '',
+					'profile'         => 'profile text',
+					'mediaAlign'      => 'left',
+					'mediaSize'       => '',
+					'facebook'        => '',
+					'twitter'         => '',
+					'mail'            => '',
+					'youtube'         => '',
+					'rss'             => '',
+					'instagram'       => '',
+					'linkedin'        => '',
+					'iconFont_bgType' => '',
+					'icon_color'      => '',
+				),
+				// 未送信のチェックボックスは空文字（falsy）へ、送信値はそのまま保持されること。
+				'expected_same'       => array(
+					'mediaRound' => '',
+					'mediaFloat' => '',
+					'mediaAlign' => 'left',
+					'label'      => 'My Profile',
+				),
+				// 廃止済みの mediaAlign_left は保存対象から外れ、キー自体が存在しないこと。
+				'expected_absent'     => array( 'mediaAlign_left' ),
+			),
 		);
 
-		$result = $widget->update( $new_instance, array() );
+		foreach ( $test_cases as $case ) {
+			$result = $widget->update( $case['new_instance'], array() );
 
-		// 未送信のチェックボックスは空文字（falsy）になっていること。
-		$this->assertSame( '', $result['mediaRound'] );
-		$this->assertSame( '', $result['mediaFloat'] );
-
-		// 廃止済みの mediaAlign_left は保存対象から外れ、キー自体が存在しないこと。
-		$this->assertArrayNotHasKey( 'mediaAlign_left', $result );
-
-		// 送信された他の値はそのまま保持されること（挙動が変わっていないことの確認）。
-		$this->assertSame( 'left', $result['mediaAlign'] );
-		$this->assertSame( 'My Profile', $result['label'] );
+			foreach ( $case['expected_same'] as $key => $value ) {
+				$this->assertSame( $value, $result[ $key ], $case['test_condition_name'] . ' / ' . $key );
+			}
+			foreach ( $case['expected_absent'] as $key ) {
+				$this->assertArrayNotHasKey( $key, $result, $case['test_condition_name'] . ' / ' . $key );
+			}
+		}
 	}
 
 	/**
@@ -235,11 +248,6 @@ class WidgetProfileTest extends WP_UnitTestCase {
 	 */
 	function test_update_keeps_legacy_media_align_left() {
 		$widget = new WP_Widget_vkExUnit_profile();
-
-		// 旧フィールドのみ保存されている既存ユーザーを再現する。
-		$old_instance = array(
-			'mediaAlign_left' => true,
-		);
 
 		// mediaAlign は既定でチェック済みのラジオボタンのため常に送信される。
 		// ここでは mediaAlign_left の引き継ぎ確認が目的なので、現実に即して mediaAlign は含める。
@@ -261,10 +269,27 @@ class WidgetProfileTest extends WP_UnitTestCase {
 			'icon_color'      => '',
 		);
 
-		$result = $widget->update( $new_instance, $old_instance );
+		// 旧フィールド（mediaAlign_left）のみ保存されている既存ユーザーの保存値ごとに、
+		// update() 後もその値が引き継がれることを検証する。
+		$test_cases = array(
+			array(
+				'test_condition_name'       => 'mediaAlign_left=true が引き継がれる',
+				'old_instance'              => array( 'mediaAlign_left' => true ),
+				'expected_media_align_left' => true,
+			),
+			array(
+				'test_condition_name'       => 'mediaAlign_left=false が引き継がれる',
+				'old_instance'              => array( 'mediaAlign_left' => false ),
+				'expected_media_align_left' => false,
+			),
+		);
 
-		// $old_instance のレガシー値が維持されていること。
-		$this->assertArrayHasKey( 'mediaAlign_left', $result );
-		$this->assertTrue( $result['mediaAlign_left'] );
+		foreach ( $test_cases as $case ) {
+			$result = $widget->update( $new_instance, $case['old_instance'] );
+
+			// $old_instance のレガシー値が維持されていること。
+			$this->assertArrayHasKey( 'mediaAlign_left', $result, $case['test_condition_name'] );
+			$this->assertSame( $case['expected_media_align_left'], $result['mediaAlign_left'], $case['test_condition_name'] );
+		}
 	}
 }

@@ -23,38 +23,57 @@ class WidgetPrBlocksTest extends WP_UnitTestCase {
 	function test_update_guards_missing_block_keys() {
 		$widget = new WP_Widget_vkExUnit_PR_Blocks();
 
-		// block_count = 3 で、ブロック1〜3のキーのみを送信する（ブロック4は未送信）。
-		$new_instance = array(
-			'block_count' => '3',
+		// ブロックごとの文字列フィールド（未送信時に空文字へフォールバックすべきキー）。
+		$string_fields = array(
+			'label_',
+			'media_image_',
+			'media_alt_',
+			'iconFont_class_',
+			'iconFont_bgColor_',
+			'iconFont_bgType_',
+			'summary_',
+			'linkurl_',
 		);
-		for ( $i = 1; $i <= 3; $i++ ) {
-			$new_instance[ 'label_' . $i ]            = 'Label ' . $i;
-			$new_instance[ 'media_image_' . $i ]      = '';
-			$new_instance[ 'media_alt_' . $i ]        = '';
-			$new_instance[ 'iconFont_class_' . $i ]   = 'far fa-file-alt';
-			$new_instance[ 'iconFont_bgColor_' . $i ] = '#337ab7';
-			$new_instance[ 'iconFont_bgType_' . $i ]  = '';
-			$new_instance[ 'summary_' . $i ]          = '';
-			$new_instance[ 'linkurl_' . $i ]          = '';
-			// blank_$i（チェックボックス）は未チェック想定で未送信。
+
+		// テスト条件と期待する結果の組み合わせ。block_count を変えた検証を追加しやすいよう配列で持つ。
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'block_count=3 のとき未送信のブロック4がガードされる',
+				'block_count'         => 3, // フォームに入力欄がある（＝送信される）ブロック数。
+				'missing_block'       => 4, // 入力欄が無く $new_instance にキーが存在しないブロック番号。
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 送信されるブロック（1〜block_count）のキーのみを詰める（それ以外は未送信）。
+			$new_instance = array(
+				'block_count' => (string) $case['block_count'],
+			);
+			for ( $i = 1; $i <= $case['block_count']; $i++ ) {
+				$new_instance[ 'label_' . $i ]            = 'Label ' . $i;
+				$new_instance[ 'media_image_' . $i ]      = '';
+				$new_instance[ 'media_alt_' . $i ]        = '';
+				$new_instance[ 'iconFont_class_' . $i ]   = 'far fa-file-alt';
+				$new_instance[ 'iconFont_bgColor_' . $i ] = '#337ab7';
+				$new_instance[ 'iconFont_bgType_' . $i ]  = '';
+				$new_instance[ 'summary_' . $i ]          = '';
+				$new_instance[ 'linkurl_' . $i ]          = '';
+				// blank_$i（チェックボックス）は未チェック想定で未送信。
+			}
+
+			$result = $widget->update( $new_instance, array() );
+
+			// 送信されたブロック1の値はそのまま保持されること（挙動が変わっていないことの確認）。
+			$this->assertSame( 'Label 1', $result['label_1'], $case['test_condition_name'] );
+
+			// 未送信ブロックの文字列フィールドは null ではなく空文字へフォールバックしていること。
+			$missing = $case['missing_block'];
+			foreach ( $string_fields as $field ) {
+				$this->assertSame( '', $result[ $field . $missing ], $case['test_condition_name'] . ' / ' . $field . $missing );
+			}
+
+			// 未送信のチェックボックスは空文字ではなく false へフォールバックすること。
+			$this->assertFalse( $result[ 'blank_' . $missing ], $case['test_condition_name'] . ' / blank_' . $missing );
 		}
-
-		$result = $widget->update( $new_instance, array() );
-
-		// 送信されたブロック1の値はそのまま保持されること（挙動が変わっていないことの確認）。
-		$this->assertSame( 'Label 1', $result['label_1'] );
-
-		// 未送信のブロック4は null ではなく空文字へフォールバックしていること。
-		$this->assertSame( '', $result['label_4'] );
-		$this->assertSame( '', $result['media_image_4'] );
-		$this->assertSame( '', $result['media_alt_4'] );
-		$this->assertSame( '', $result['iconFont_class_4'] );
-		$this->assertSame( '', $result['iconFont_bgColor_4'] );
-		$this->assertSame( '', $result['iconFont_bgType_4'] );
-		$this->assertSame( '', $result['summary_4'] );
-		$this->assertSame( '', $result['linkurl_4'] );
-
-		// 未送信のチェックボックスは false になっていること。
-		$this->assertFalse( $result['blank_4'] );
 	}
 }
