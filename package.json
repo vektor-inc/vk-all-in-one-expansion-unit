@@ -45,7 +45,7 @@
 		"lint:sitemap-page": "wp-scripts format inc/sitemap-page/block/ && wp-scripts lint-js inc/sitemap-page/block/ --fix",
 		"lint:sns": "wp-scripts format inc/sns/block/ && wp-scripts lint-js inc/sns/block/ --fix",
 		"lint:panel": "wp-scripts format src/editor-panel/ && wp-scripts lint-js src/editor-panel/ --fix",
-		"dist": "rm -rf dist/vk-all-in-one-expansion-unit && composer install --optimize-autoloader --prefer-dist --no-dev && npm run build && npx gulp dist",
+		"dist": "rm -rf dist/vk-all-in-one-expansion-unit dist/vk-all-in-one-expansion-unit.zip && composer install --optimize-autoloader --prefer-dist --no-dev && npm run build && npx gulp dist && cd dist && zip -rq vk-all-in-one-expansion-unit.zip vk-all-in-one-expansion-unit/",
 		"dist:github": "composer install --optimize-autoloader --prefer-dist --no-dev && npx gulp dist",
 		"dist:org": "composer install --optimize-autoloader --prefer-dist --no-dev",
 		"gulp": "gulp",
