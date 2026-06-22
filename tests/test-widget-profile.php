@@ -177,4 +177,119 @@ class WidgetProfileTest extends WP_UnitTestCase {
 
 		} // foreach ( $test_array as $key => $test_value) {
 	} // function test_icon_color() {
+
+	/**
+	 * update() がチェックボックス未送信のキーをガードすることのテスト。
+	 *
+	 * チェックボックス（mediaRound / mediaFloat）は未チェックだと送信されず
+	 * $new_instance にキーが存在しない。その状態でも PHP 8.x の警告が出ず、
+	 * 値が空文字（falsy）へフォールバックすることを検証する。
+	 *
+	 * @return void
+	 */
+	function test_update_guards_missing_checkbox_keys() {
+		$widget = new WP_Widget_vkExUnit_profile();
+
+		// テスト条件（送信内容）と期待する結果を配列で持ち、ループで検証する。
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'チェックボックス（mediaRound / mediaFloat）と廃止済み mediaAlign_left を未送信',
+				// チェックボックス系（mediaRound / mediaFloat）と廃止済みの mediaAlign_left を
+				// あえて含めない $new_instance（未チェック保存を再現）。
+				'new_instance'        => array(
+					'label'           => 'My Profile',
+					'mediaFile'       => '',
+					'mediaAlt'        => '',
+					'profile'         => 'profile text',
+					'mediaAlign'      => 'left',
+					'mediaSize'       => '',
+					'facebook'        => '',
+					'twitter'         => '',
+					'mail'            => '',
+					'youtube'         => '',
+					'rss'             => '',
+					'instagram'       => '',
+					'linkedin'        => '',
+					'iconFont_bgType' => '',
+					'icon_color'      => '',
+				),
+				// 未送信のチェックボックスは空文字（falsy）へ、送信値はそのまま保持されること。
+				'expected_same'       => array(
+					'mediaRound' => '',
+					'mediaFloat' => '',
+					'mediaAlign' => 'left',
+					'label'      => 'My Profile',
+				),
+				// 廃止済みの mediaAlign_left は保存対象から外れ、キー自体が存在しないこと。
+				'expected_absent'     => array( 'mediaAlign_left' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$result = $widget->update( $case['new_instance'], array() );
+
+			foreach ( $case['expected_same'] as $key => $value ) {
+				$this->assertSame( $value, $result[ $key ], $case['test_condition_name'] . ' / ' . $key );
+			}
+			foreach ( $case['expected_absent'] as $key ) {
+				$this->assertArrayNotHasKey( $key, $result, $case['test_condition_name'] . ' / ' . $key );
+			}
+		}
+	}
+
+	/**
+	 * 既存ユーザーの mediaAlign_left 保存値が update() 後も保持されることのテスト。
+	 *
+	 * update() で mediaAlign_left を保存対象から外したが、$old_instance に保存済みの
+	 * レガシー値はそのまま引き継がれ、image_align() の移行フォールバックが
+	 * これまでどおり機能することを検証する。
+	 *
+	 * @return void
+	 */
+	function test_update_keeps_legacy_media_align_left() {
+		$widget = new WP_Widget_vkExUnit_profile();
+
+		// mediaAlign は既定でチェック済みのラジオボタンのため常に送信される。
+		// ここでは mediaAlign_left の引き継ぎ確認が目的なので、現実に即して mediaAlign は含める。
+		$new_instance = array(
+			'label'           => '',
+			'mediaFile'       => '',
+			'mediaAlt'        => '',
+			'profile'         => '',
+			'mediaAlign'      => 'left',
+			'mediaSize'       => '',
+			'facebook'        => '',
+			'twitter'         => '',
+			'mail'            => '',
+			'youtube'         => '',
+			'rss'             => '',
+			'instagram'       => '',
+			'linkedin'        => '',
+			'iconFont_bgType' => '',
+			'icon_color'      => '',
+		);
+
+		// 旧フィールド（mediaAlign_left）のみ保存されている既存ユーザーの保存値ごとに、
+		// update() 後もその値が引き継がれることを検証する。
+		$test_cases = array(
+			array(
+				'test_condition_name'       => 'mediaAlign_left=true が引き継がれる',
+				'old_instance'              => array( 'mediaAlign_left' => true ),
+				'expected_media_align_left' => true,
+			),
+			array(
+				'test_condition_name'       => 'mediaAlign_left=false が引き継がれる',
+				'old_instance'              => array( 'mediaAlign_left' => false ),
+				'expected_media_align_left' => false,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$result = $widget->update( $new_instance, $case['old_instance'] );
+
+			// $old_instance のレガシー値が維持されていること。
+			$this->assertArrayHasKey( 'mediaAlign_left', $result, $case['test_condition_name'] );
+			$this->assertSame( $case['expected_media_align_left'], $result['mediaAlign_left'], $case['test_condition_name'] );
+		}
+	}
 }

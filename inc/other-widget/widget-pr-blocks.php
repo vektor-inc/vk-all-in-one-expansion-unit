@@ -209,15 +209,23 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 			$instance['block_count'] = $new_instance['block_count'];
 		}
 
+		// The loop always covers blocks 1-4, but when block_count is less than 4 the keys for the extra
+		// blocks are not present in $new_instance. Guard with `?? ''` so a missing key falls back to an
+		// empty string instead of passing null to string functions (PHP 8.x warnings). The output is bound
+		// to block_count, so the upper bound stays at 4 to keep the existing data-retention behavior.
+		// ループは常にブロック1〜4を処理するが、block_count が4未満のとき余分なブロックのキーは
+		// $new_instance に存在しない。`?? ''` でガードし、欠落キーは null ではなく空文字へフォールバックさせる
+		// （null を文字列関数へ渡すことによる PHP 8.x の警告を防ぐ）。出力は block_count に束縛されるため、
+		// 既存のデータ保持挙動を維持する目的で上限は4のままにしている。
 		for ( $i = 1; $i <= 4; ) {
-			$instance[ 'label_' . $i ]            = wp_kses_post( stripslashes( $new_instance[ 'label_' . $i ] ) );
-			$instance[ 'media_image_' . $i ]      = esc_url( $new_instance[ 'media_image_' . $i ] );
-			$instance[ 'media_alt_' . $i ]        = esc_html( stripslashes( $new_instance[ 'media_alt_' . $i ] ) );
-			$instance[ 'iconFont_class_' . $i ]   = wp_kses_post( stripslashes( $new_instance[ 'iconFont_class_' . $i ] ) );
-			$instance[ 'iconFont_bgColor_' . $i ] = esc_html( $new_instance[ 'iconFont_bgColor_' . $i ] );
-			$instance[ 'iconFont_bgType_' . $i ]  = $new_instance[ 'iconFont_bgType_' . $i ];
-			$instance[ 'summary_' . $i ]          = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ) );
-			$instance[ 'linkurl_' . $i ]          = esc_url( $new_instance[ 'linkurl_' . $i ] );
+			$instance[ 'label_' . $i ]            = wp_kses_post( stripslashes( $new_instance[ 'label_' . $i ] ?? '' ) );
+			$instance[ 'media_image_' . $i ]      = esc_url( $new_instance[ 'media_image_' . $i ] ?? '' );
+			$instance[ 'media_alt_' . $i ]        = esc_html( stripslashes( $new_instance[ 'media_alt_' . $i ] ?? '' ) );
+			$instance[ 'iconFont_class_' . $i ]   = wp_kses_post( stripslashes( $new_instance[ 'iconFont_class_' . $i ] ?? '' ) );
+			$instance[ 'iconFont_bgColor_' . $i ] = esc_html( $new_instance[ 'iconFont_bgColor_' . $i ] ?? '' );
+			$instance[ 'iconFont_bgType_' . $i ]  = $new_instance[ 'iconFont_bgType_' . $i ] ?? '';
+			$instance[ 'summary_' . $i ]          = wp_kses_post( stripslashes( $new_instance[ 'summary_' . $i ] ?? '' ) );
+			$instance[ 'linkurl_' . $i ]          = esc_url( $new_instance[ 'linkurl_' . $i ] ?? '' );
 			$instance[ 'blank_' . $i ]            = ( isset( $new_instance[ 'blank_' . $i ] ) && $new_instance[ 'blank_' . $i ] == 'true' );
 			++$i;
 		}

@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Widget ] Fixed PHP 8.x warnings that were written to the error log when saving the Profile widget or the PR Blocks widget with certain settings.
+
 = 9.117.3 =
 [ Bug Fix ][ Setting Page ] Updated the shared admin component so that the setting screen styles and scripts are reloaded reliably after an update instead of being served from the cache, and so that the left side navigation is no longer cut off while a notice is displayed.
 
