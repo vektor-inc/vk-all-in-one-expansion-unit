@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Specification Change ][ Facebook Page Plugin ] Removed the border and background frame around the widget so that it matches Facebook's current embed appearance.
+
 [ Bug Fix ][ Facebook Page Plugin ] Fixed an issue where the Facebook Page timeline could stop displaying due to a change in Facebook's embed specification.
 
 = 9.117.4 =
