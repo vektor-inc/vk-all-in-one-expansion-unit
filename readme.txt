@@ -81,7 +81,6 @@ e.g.
 
 == Changelog ==
 
-= 9.117.5 =
 [ Bug Fix ][ Facebook Page Plugin ] Updated the widget embed markup and Facebook JavaScript SDK loader to improve compatibility with current browsers, including iOS Safari.
 
 = 9.117.4 =
