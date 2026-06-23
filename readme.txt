@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Bug Fix ][ Facebook Page Plugin ] Updated the widget embed markup and Facebook JavaScript SDK loader to improve compatibility with current browsers, including iOS Safari.
+[ Spec Change ][ Facebook Page Plugin ] Updated the Facebook Page Plugin timeline embed to the current Facebook specification, including the JavaScript SDK, widget markup, and wrapper styles.
 
 = 9.117.4 =
 [ Bug Fix ][ Widget ] Fixed PHP 8.x warnings that were written to the error log when saving the Profile widget or the PR Blocks widget with certain settings.
