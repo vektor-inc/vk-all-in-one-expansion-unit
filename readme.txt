@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Spec Change ][ Facebook Page Plugin ] Updated the Facebook Page Plugin timeline embed to the current Facebook specification, including the JavaScript SDK, widget markup, and wrapper styles.
+[ Bug Fix ][ Facebook Page Plugin ] Fixed an issue where the Facebook Page timeline could stop displaying due to a change in Facebook's embed specification.
 
 = 9.117.4 =
 [ Bug Fix ][ Widget ] Fixed PHP 8.x warnings that were written to the error log when saving the Profile widget or the PR Blocks widget with certain settings.
