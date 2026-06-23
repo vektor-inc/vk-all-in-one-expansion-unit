@@ -278,6 +278,11 @@ function veu_set_facebook_script() {
 	add_action( 'wp_footer', 'exUnit_print_fbId_script', 100 );
 }
 
+/**
+ * Prints the Facebook root element and JavaScript SDK loader.
+ *
+ * @return void
+ */
 function exUnit_print_fbId_script() {
 	?>
 <div id="fb-root"></div>

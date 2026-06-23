@@ -36,56 +36,57 @@ class WidgetFbPagePluginTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests that enabled posts use the current Page Plugin tabs attribute.
+	 * Tests widget data-tabs output for multiple instance configurations.
 	 */
-	public function test_widget_uses_data_tabs_for_timeline() {
-		$output = $this->get_widget_output(
+	public function test_widget_data_tabs_cases() {
+		$test_cases = array(
 			array(
-				'page_url'  => 'https://www.facebook.com/facebook',
-				'height'    => '600',
-				'showFaces' => 'false',
-				'hideCover' => 'false',
-				'showPosts' => 'true',
-			)
+				'test_condition_name' => 'showPosts=true outputs timeline tab',
+				'instance'            => array(
+					'page_url'  => 'https://www.facebook.com/facebook',
+					'height'    => '600',
+					'showFaces' => 'false',
+					'hideCover' => 'false',
+					'showPosts' => 'true',
+				),
+				'contains'            => array( 'data-tabs="timeline"' ),
+				'not_contains'        => array( 'data-show-posts' ),
+			),
+			array(
+				'test_condition_name' => 'legacy instance without showPosts outputs timeline tab',
+				'instance'            => array(
+					'page_url'  => 'https://www.facebook.com/facebook',
+					'height'    => '600',
+					'showFaces' => 'false',
+					'hideCover' => 'false',
+				),
+				'contains'            => array( 'data-tabs="timeline"' ),
+				'not_contains'        => array( 'data-show-posts' ),
+			),
+			array(
+				'test_condition_name' => 'disabled posts omit data-tabs attribute',
+				'instance'            => array(
+					'page_url'  => 'https://www.facebook.com/facebook',
+					'height'    => '600',
+					'showFaces' => 'false',
+					'hideCover' => 'false',
+					'showPosts' => '',
+				),
+				'contains'            => array(),
+				'not_contains'        => array( 'data-tabs=', 'data-show-posts' ),
+			),
 		);
 
-		$this->assertStringContainsString( 'data-tabs="timeline"', $output );
-		$this->assertStringNotContainsString( 'data-show-posts', $output );
-	}
+		foreach ( $test_cases as $case ) {
+			$output = $this->get_widget_output( $case['instance'] );
 
-	/**
-	 * Tests that legacy instances without showPosts keep showing timeline posts.
-	 */
-	public function test_widget_keeps_timeline_for_legacy_instances() {
-		$output = $this->get_widget_output(
-			array(
-				'page_url'  => 'https://www.facebook.com/facebook',
-				'height'    => '600',
-				'showFaces' => 'false',
-				'hideCover' => 'false',
-			)
-		);
-
-		$this->assertStringContainsString( 'data-tabs="timeline"', $output );
-		$this->assertStringNotContainsString( 'data-show-posts', $output );
-	}
-
-	/**
-	 * Tests that disabled posts omit the tabs attribute.
-	 */
-	public function test_widget_omits_data_tabs_when_page_posts_are_disabled() {
-		$output = $this->get_widget_output(
-			array(
-				'page_url'  => 'https://www.facebook.com/facebook',
-				'height'    => '600',
-				'showFaces' => 'false',
-				'hideCover' => 'false',
-				'showPosts' => '',
-			)
-		);
-
-		$this->assertStringNotContainsString( 'data-tabs=', $output );
-		$this->assertStringNotContainsString( 'data-show-posts', $output );
+			foreach ( $case['contains'] as $needle ) {
+				$this->assertStringContainsString( $needle, $output, $case['test_condition_name'] );
+			}
+			foreach ( $case['not_contains'] as $needle ) {
+				$this->assertStringNotContainsString( $needle, $output, $case['test_condition_name'] );
+			}
+		}
 	}
 
 	/**
