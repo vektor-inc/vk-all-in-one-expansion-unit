@@ -282,33 +282,33 @@ function exUnit_print_fbId_script() {
 	?>
 <div id="fb-root"></div>
 	<?php
-	$options = veu_get_sns_options();
-	$fbAppId = ( isset( $options['fbAppId'] ) ) ? $options['fbAppId'] : '';
+	$options        = veu_get_sns_options();
+	$fbAppId        = ( isset( $options['fbAppId'] ) ) ? sanitize_text_field( $options['fbAppId'] ) : '';
+	$facebookLocale = preg_replace( '/[^a-zA-Z_]/', '', _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) );
+	$facebookLocale = ( $facebookLocale ) ? $facebookLocale : 'en_US';
+	$fbSdkVersion   = sanitize_text_field( apply_filters( 'vkExUnit_facebook_sdk_version', 'v25.0' ) );
+	$fbSdkVersion   = ( $fbSdkVersion ) ? $fbSdkVersion : 'v25.0';
+	$fbSdkParams    = array(
+		'xfbml'   => '1',
+		'version' => $fbSdkVersion,
+	);
+	if ( $fbAppId ) {
+		$fbSdkParams['appId'] = $fbAppId;
+	}
+	$fbSdkUrl = 'https://connect.facebook.net/' . $facebookLocale . '/sdk.js#' . build_query( $fbSdkParams );
 	?>
 <script>
-;(function(w,d){
-	var load_contents=function(){
-		(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/<?php echo esc_attr( _x( 'en_US', 'facebook language code', 'vk-all-in-one-expansion-unit' ) ); ?>/sdk.js#xfbml=1&version=v2.9&appId=<?php echo esc_html( $fbAppId ); ?>";
-		fjs.parentNode.insertBefore(js, fjs);
-		}(d, 'script', 'facebook-jssdk'));
-	};
-	var f=function(){
-		load_contents();
-		w.removeEventListener('scroll',f,true);
-	};
-	var widget = d.getElementsByClassName("fb-page")[0];
-	var view_bottom = d.documentElement.scrollTop + d.documentElement.clientHeight;
-	var widget_top = widget.getBoundingClientRect().top + w.scrollY;
-	if ( widget_top < view_bottom) {
-		load_contents();
-	} else {
-		w.addEventListener('scroll',f,true);
-	}
-})(window,document);
+;(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s);
+	js.id = id;
+	js.async = true;
+	js.defer = true;
+	js.crossOrigin = "anonymous";
+	js.src = <?php echo wp_json_encode( $fbSdkUrl ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
 	<?php
 }
