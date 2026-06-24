@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.117.4
+Stable tag: 9.117.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.117.5 =
 [ Bug Fix ][ Widget ] Added show_instance_in_rest to the ExUnit classic widgets so their settings are kept inline in the block-based widgets editor, preventing them from being hidden when reference widget resolution fails.
 
 = 9.117.4 =
