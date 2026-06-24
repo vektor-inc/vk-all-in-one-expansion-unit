@@ -18,7 +18,7 @@ class WidgetShowInstanceInRestTest extends WP_UnitTestCase {
 	/**
 	 * 検証対象となる ExUnit ウィジェットクラス名の一覧。
 	 *
-	 * @return string[] ウィジェットクラス名の配列。
+	 * @return array<int, string[]> 各要素が「ウィジェットクラス名1件を持つ配列」となるデータセット。
 	 */
 	public function widget_class_provider() {
 		return array(
