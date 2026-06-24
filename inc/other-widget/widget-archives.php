@@ -11,7 +11,12 @@ class WP_Widget_VK_archive_list extends WP_Widget {
 		parent::__construct(
 			'WP_Widget_VK_archive_list',
 			self::veu_widget_name(),
-			array( 'description' => self::veu_widget_description() )
+			array(
+				'description'           => self::veu_widget_description(),
+				// インスタンス設定を REST API に出力し、ブロックウィジェット編集画面でブロック内に自己完結で保持・編集できるようにする（参照ウィジェット扱いによる非表示を防ぐ）。
+				// Expose the instance settings to the REST API so the block-based widgets editor can keep and edit them inline (prevents the widget from being hidden as a reference widget).
+				'show_instance_in_rest' => true,
+			)
 		);
 	}
 

@@ -9,7 +9,12 @@ class VK_Twitter_Widget extends WP_Widget {
 		parent::__construct(
 			'vk_twitter_widget', // Base ID
 			self::widget_name(), // Name
-			array( 'description' => self::widget_description() ) // Args
+			array(
+				'description'           => self::widget_description(), // Args
+				// インスタンス設定を REST API に出力し、ブロックウィジェット編集画面でブロック内に自己完結で保持・編集できるようにする（参照ウィジェット扱いによる非表示を防ぐ）。
+				// Expose the instance settings to the REST API so the block-based widgets editor can keep and edit them inline (prevents the widget from being hidden as a reference widget).
+				'show_instance_in_rest' => true,
+			)
 		);
 		// widget actual processes
 	}

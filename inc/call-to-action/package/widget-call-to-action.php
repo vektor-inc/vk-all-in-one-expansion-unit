@@ -1,11 +1,5 @@
 <?php
 
-/*
-このファイルの元ファイルは
-https://github.com/vektor-inc/vektor-wp-libraries
-にあります。修正の際は上記リポジトリのデータを修正してください。
-*/
-
 // namespace Vektor\ExUnit\Package\Cta;
 
 
@@ -23,7 +17,10 @@ class Widget_CTA extends \WP_Widget {
 			'vkExUnit_cta',
 			$widget_name,
 			array(
-				'description' => __( 'Select CTA and display it.', $vk_call_to_action_textdomain ),
+				'description'           => __( 'Select CTA and display it.', $vk_call_to_action_textdomain ),
+				// インスタンス設定を REST API に出力し、ブロックウィジェット編集画面でブロック内に自己完結で保持・編集できるようにする（参照ウィジェット扱いによる非表示を防ぐ）。
+				// Expose the instance settings to the REST API so the block-based widgets editor can keep and edit them inline (prevents the widget from being hidden as a reference widget).
+				'show_instance_in_rest' => true,
 			)
 		);
 	}
