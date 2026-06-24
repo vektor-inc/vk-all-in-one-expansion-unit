@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Widget ] Added show_instance_in_rest to the ExUnit classic widgets so their settings are kept inline in the block-based widgets editor, preventing them from being hidden when reference widget resolution fails.
+
 = 9.117.4 =
 [ Bug Fix ][ Widget ] Fixed PHP 8.x warnings that were written to the error log when saving the Profile widget or the PR Blocks widget with certain settings.
 

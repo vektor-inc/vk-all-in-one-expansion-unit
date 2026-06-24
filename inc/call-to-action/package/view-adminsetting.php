@@ -1,12 +1,6 @@
 <?php
 
 /*
-このファイルの元ファイルは
-https://github.com/vektor-inc/vektor-wp-libraries
-にあります。修正の際は上記リポジトリのデータを修正してください。
-*/
-
-/*
 Main setting Page
 */
 global $vk_call_to_action_textdomain;
