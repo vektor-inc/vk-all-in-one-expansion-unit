@@ -33,13 +33,14 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		$height    = ( isset( $instance['height'] ) && $instance['height'] ) ? $instance['height'] : 200;
 		$showFaces = ( isset( $instance['showFaces'] ) && $instance['showFaces'] ) ? $instance['showFaces'] : 'false';
 		$hideCover = ( isset( $instance['hideCover'] ) && $instance['hideCover'] ) ? $instance['hideCover'] : 'false';
-		$showPosts = ( isset( $instance['showPosts'] ) && $instance['showPosts'] ) ? $instance['showPosts'] : 'true';
+		$showPosts = ( ! array_key_exists( 'showPosts', $instance ) || 'true' === $instance['showPosts'] ) ? 'true' : 'false';
+		$tabs      = ( 'true' === $showPosts ) ? 'timeline' : '';
 		?>
 
 		<div class="fbPagePlugin_body">
-			<div class="fb-page" data-href="<?php echo esc_url( $page_url ); ?>" data-width="500"  data-height="<?php echo esc_attr( $height ); ?>" data-hide-cover="<?php echo esc_attr( $hideCover ); ?>" data-show-facepile="<?php echo esc_attr( $showFaces ); ?>" data-show-posts="<?php echo esc_attr( $showPosts ); ?>">
+			<div class="fb-page" data-href="<?php echo esc_url( $page_url ); ?>" data-width="500"  data-height="<?php echo esc_attr( $height ); ?>" data-hide-cover="<?php echo esc_attr( $hideCover ); ?>" data-show-facepile="<?php echo esc_attr( $showFaces ); ?>"<?php echo ( $tabs ) ? ' data-tabs="' . esc_attr( $tabs ) . '"' : ''; ?>>
 				<div class="fb-xfbml-parse-ignore">
-					<blockquote cite="<?php echo $page_url; ?>">
+					<blockquote cite="<?php echo esc_url( $page_url ); ?>">
 					<a href="<?php echo esc_url( $page_url ); ?>">Facebook page</a>
 					</blockquote>
 				</div>
@@ -60,10 +61,8 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		$instance['page_url'] = esc_url( $new_instance['page_url'] );
 		$instance['height']   = esc_html( $new_instance['height'] );
 		// Checkboxes are omitted from POST data when unchecked, so guard with isset() to avoid the
-		// PHP 8.x undefined array key warning. Fall back to '' (an empty, falsy value) so that widget()
-		// reproduces the previous behavior: it treats this the same as the old unguarded null value and
-		// applies its own default (showPosts => 'true'). Using 'false' here would be truthy and would
-		// silently change the saved value for existing users.
+		// PHP 8.x undefined array key warning. Fall back to '' (an empty, falsy value) so widget()
+		// can distinguish explicitly unchecked values from legacy instances without the key.
 		$instance['showFaces'] = isset( $new_instance['showFaces'] ) ? $new_instance['showFaces'] : '';
 		$instance['hideCover'] = isset( $new_instance['hideCover'] ) ? $new_instance['hideCover'] : '';
 		$instance['showPosts'] = isset( $new_instance['showPosts'] ) ? $new_instance['showPosts'] : '';
