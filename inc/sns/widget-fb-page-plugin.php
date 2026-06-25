@@ -10,7 +10,12 @@ class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 		parent::__construct(
 			'vkExUnit_fbPagePlugin',
 			$widget_name,
-			array( 'description' => __( 'Displays a Facebook Page Plugin', 'vk-all-in-one-expansion-unit' ) )
+			array(
+				'description'           => __( 'Displays a Facebook Page Plugin', 'vk-all-in-one-expansion-unit' ),
+				// インスタンス設定を REST API に出力し、ブロックウィジェット編集画面でブロック内に自己完結で保持・編集できるようにする（参照ウィジェット扱いによる非表示を防ぐ）。
+				// Expose the instance settings to the REST API so the block-based widgets editor can keep and edit them inline (prevents the widget from being hidden as a reference widget).
+				'show_instance_in_rest' => true,
+			)
 		);
 	}
 
