@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.3
+
 = 9.117.5 =
 [ Bug Fix ][ Widget ] Added show_instance_in_rest to the ExUnit classic widgets so their settings are kept inline in the block-based widgets editor, preventing them from being hidden when reference widget resolution fails.
 
