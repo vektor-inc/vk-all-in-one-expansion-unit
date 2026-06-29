@@ -204,8 +204,9 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 		$instance['form_design'] = $new_instance['form_design'];
 
 		$allowed_sort          = array( 'asc', 'desc' );
-		$instance['form_sort'] = in_array( $new_instance['form_sort'], $allowed_sort, true )
-			? $new_instance['form_sort']
+		$form_sort             = $new_instance['form_sort'] ?? '';
+		$instance['form_sort'] = in_array( $form_sort, $allowed_sort, true )
+			? $form_sort
 			: 'asc';
 		return $instance;
 	}
