@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
+
 [ Bug Fix ][ Facebook Page Plugin ] Fixed an issue where the Facebook Page timeline could stop displaying due to a change in Facebook's embed specification.
 
 = 9.117.5 =
