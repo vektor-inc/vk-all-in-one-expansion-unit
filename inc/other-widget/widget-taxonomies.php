@@ -203,7 +203,10 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 		$instance['form_design'] = $new_instance['form_design'];
 
-		$instance['form_sort'] = $new_instance['form_sort'];
+		$allowed_sort          = array( 'asc', 'desc' );
+		$instance['form_sort'] = in_array( $new_instance['form_sort'], $allowed_sort, true )
+			? $new_instance['form_sort']
+			: 'asc';
 		return $instance;
 	}
 }
