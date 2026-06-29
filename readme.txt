@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
+
 = 9.117.5 =
 [ Bug Fix ][ Widget ] Added show_instance_in_rest to the ExUnit classic widgets so their settings are kept inline in the block-based widgets editor, preventing them from being hidden when reference widget resolution fails.
 
