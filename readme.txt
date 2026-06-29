@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Widget ] Fixed a PHP 8 undefined array key warning for `form_sort` in the categories/taxonomies list widget by adding the key to `get_defaults()`.
+
 [ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
 
 = 9.117.5 =

@@ -105,6 +105,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			'form_design' => 'list',
 			'hide_empty'  => false,
 			'_builtin'    => false,
+			'form_sort'   => 'asc',
 		);
 		return wp_parse_args( (array) $instance, $defaults );
 	}
