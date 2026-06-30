@@ -81,7 +81,6 @@ e.g.
 
 == Changelog ==
 
-[ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
 [ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
 
 = 9.117.5 =
