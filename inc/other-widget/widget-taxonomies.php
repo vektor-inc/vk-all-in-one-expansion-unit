@@ -105,6 +105,7 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 			'form_design' => 'list',
 			'hide_empty'  => false,
 			'_builtin'    => false,
+			'form_sort'   => 'asc',
 		);
 		return wp_parse_args( (array) $instance, $defaults );
 	}
@@ -202,7 +203,11 @@ class WP_Widget_VK_taxonomy_list extends WP_Widget {
 
 		$instance['form_design'] = $new_instance['form_design'];
 
-		$instance['form_sort'] = $new_instance['form_sort'];
+		$allowed_sort          = array( 'asc', 'desc' );
+		$form_sort             = $new_instance['form_sort'] ?? '';
+		$instance['form_sort'] = in_array( $form_sort, $allowed_sort, true )
+			? $form_sort
+			: 'asc';
 		return $instance;
 	}
 }

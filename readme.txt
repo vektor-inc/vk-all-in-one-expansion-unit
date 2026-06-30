@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Widget ] Fixed undefined array key `form_sort` warning in PHP 8 on the categories/taxonomies list widget form
+[ Security Fix ][ Widget ] Added allowlist validation for `form_sort` value in the widget save process
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
 [ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
 
