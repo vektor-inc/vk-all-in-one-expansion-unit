@@ -295,12 +295,16 @@ function exUnit_print_fbId_script() {
 	$facebookLocale = ( $facebookLocale ) ? $facebookLocale : 'en_US';
 	$fbSdkVersion   = sanitize_text_field( apply_filters( 'vkExUnit_facebook_sdk_version', 'v25.0' ) );
 	$fbSdkVersion   = ( $fbSdkVersion ) ? $fbSdkVersion : 'v25.0';
-	$fbSdkParams    = array(
+	// build_query() は値をURLエンコードしないため、& や # を含む値でクエリ文字列が壊れないよう
+	// 各値を rawurlencode() してから渡す（キーは固定の安全な文字列なのでそのまま）。
+	// build_query() does not URL-encode values, so rawurlencode() each value beforehand to keep the
+	// query string intact even if a value contains & or # (keys are fixed safe strings, left as is).
+	$fbSdkParams = array(
 		'xfbml'   => '1',
-		'version' => $fbSdkVersion,
+		'version' => rawurlencode( $fbSdkVersion ),
 	);
 	if ( $fbAppId ) {
-		$fbSdkParams['appId'] = $fbAppId;
+		$fbSdkParams['appId'] = rawurlencode( $fbAppId );
 	}
 	$fbSdkUrl = 'https://connect.facebook.net/' . $facebookLocale . '/sdk.js#' . build_query( $fbSdkParams );
 	?>
