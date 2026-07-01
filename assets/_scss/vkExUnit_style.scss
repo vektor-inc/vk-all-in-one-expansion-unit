@@ -240,9 +240,15 @@
 .veu_fbPagePlugin {
 	.fbPagePlugin_body {
 		margin: 0 auto;
-		border: 4px solid #efefef;
-		background-color: #f9f9f9;
+		max-width: 500px;
 		text-align: center;
+		overflow: hidden;
+	}
+
+	.fb-page,
+	.fb-page span,
+	.fb-page iframe {
+		max-width: 100%;
 	}
 }
 

@@ -86,6 +86,7 @@ e.g.
 [ Security Fix ][ Widget ] Added allowlist validation for `form_sort` value in the widget save process
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
 [ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
+[ Bug Fix ][ Facebook Page Plugin ] Fixed an issue where the Facebook Page timeline could stop displaying due to a change in Facebook's embed specification.
 
 = 9.117.5 =
 [ Bug Fix ][ Widget ] Added show_instance_in_rest to the ExUnit classic widgets so their settings are kept inline in the block-based widgets editor, preventing them from being hidden when reference widget resolution fails.
@@ -95,22 +96,15 @@ e.g.
 
 = 9.117.3 =
 [ Bug Fix ][ Setting Page ] Updated the shared admin component so that the setting screen styles and scripts are reloaded reliably after an update instead of being served from the cache, and so that the left side navigation is no longer cut off while a notice is displayed.
-
 [ Spec Change ][ Page Top Button ] Improved screen reader and keyboard accessibility with an accessible label, a keyboard focus indicator, and removal from keyboard focus while the button is hidden.
-
 [ Spec Change ][ Page Top Button ] The focus indicator now follows the silhouette of an uploaded image, and the show / hide animation respects the reduced motion preference.
-
 [ Bug Fix ][ Article Structured Data ] Stopped outputting an empty "image" value in the JSON-LD when a post has no featured image, omitting the image field entirely instead.
-
 [ Spec Change ][ Article Structured Data ] Changed the JSON-LD "image" to the ImageObject format (url/width/height) and switched the source to the original full-resolution image.
-
 [ Bug Fix ][ Widget ] Fixed PHP 8.x undefined array key and undefined variable warnings that were written to the error log when saving widgets with unchecked checkboxes (Contact Section, Page, FB Page Plugin) or an invalid colour selection (Button, Twitter).
 
 = 9.117.2 =
 [ Bug Fix ] Fixed a warning in the article structured data output when the author user could not be retrieved.
-
 [ Bug Fix ] Fixed an "Array to string conversion" PHP warning and an invalid "post-type-Array" body class that occurred on archives whose main query sets post_type to an array and that have no matching posts.
-
 [ Bug Fix ] Fixed an issue where the Related Posts Settings section disappeared from the Customizer when both the Contact Section and Social Media Integration features were disabled.
 
 = 9.117.1 =
@@ -118,46 +112,30 @@ e.g.
 
 = 9.117.0 =
 [ Feature ][ Page Top Button ] Added "Width" and "Height" settings (in pixels) so users can resize the page top button image from the main setting page and the Customizer. The default 40 x 38 px size is preserved when either value is left blank.
-
 [ Spec Change ][ Page Top Button ] Promoted the Customizer "Page top button image" label to an h2 group heading, and widened the gap between the description and the image thumbnail by 1.4x for easier scanning.
-
 [ Bug Fix ][ CTA ] Fixed a PHP 8.1+ deprecation notice from ltrim() emitted by the CTA block on the frontend for visitors without the edit_post capability.
-
 [ Spec Change ] Update vektor-inc/vk-admin from 0.7.0 to 0.8.0 to drop the duplicated VK_Custom_Html_Control / VK_Custom_Text_Control files that have been migrated to vk-helpers.
-
 [ Spec Change ] Update vektor-inc/vk-breadcrumb from 0.2.8 to 0.2.9 and vektor-inc/vk-helpers from 0.2.1 to 0.3.0. VK_Custom_Html_Control / VK_Custom_Text_Control classes now ship from vk-helpers instead of vk-admin.
-
 [ Bug Fix ][ Page Top Button ] Removed the unintended dark background, padding and border-radius inline style from the image preview on the ExUnit main setting page so the uploaded icon is no longer rendered with a black box.
-
 [ Spec Change ][ Page Top Button ] Changed the "Configure with live preview in the Customizer" link on the main setting page to open in a new tab so it no longer interrupts editing.
 
 = 9.116.0 =
 [ Security Fix ][ Page Top Button ] Hardened the page top button image URL sanitizer to close additional CSS injection vectors (multi-byte C1 control characters and URL-encoded representations of dangerous characters).
-
 [ Spec Change ][ Page Top Button ] Unified the hide_mobile sanitizer to use the shared veu_sanitize_boolean() callback, matching the Customizer setting. Added an is_array() guard to veu_pagetop_render() to prevent warnings on non-array arguments.
-
 [ Bug Fix ] Fixed stylelint font-family-name-quotes violations by using the quoted "Font Awesome 5 Free" form and configuring gulp-clean-css to preserve quotes around font-family names.
-
 [ Feature ][ Page Top Button ] Added an "image" setting so users can upload their own icon for the page top button from the main setting page and the Customizer. URL is sanitized to mitigate CSS injection.
-
 [ Spec Change ][ Page Top Button ] Renamed the --ver_page_top_button_url CSS custom property to --veu_page_top_button_url. SCSS keeps a fallback so existing themes / custom CSS overriding the old name continue to work without any change.
-
 [ Bug Fix ] Fixed an issue where JS files under vendor/ (such as vk_admin.js and Font Awesome *.min.js files) were not included in the release zip, causing 404 errors in the WordPress admin screen on sites installed from the dist package.
 
 = 9.115.1 =
 [ Security Fix ][ SNS Share Button ] Strengthened URL validation in the Hatena Bookmark and Facebook share count REST API callbacks. Host names are now compared using a case-insensitive exact match instead of substring matching; subdomains are not allowed.
-
 [ Bug Fix ] Fixed vk_admin.js and the related CSS returning 404 on sites where WordPress is installed in a custom directory or wp-content has been moved. The asset URL is now resolved via plugins_url().
-
 [ Spec Change ] Update vektor-inc/vk-admin from 0.5.0 to 0.5.1.
 
 = 9.115.0 =
 [ Spec Change ][ Post Type Manager ] Custom post types now always support 'custom-fields'. The checkbox has been replaced with an "Always enabled" indicator so ExUnit settings (noindex / CSS / CTA, etc.) are guaranteed to be saved.
-
 [ Bug Fix ] Fixed an issue where settings such as noindex were silently lost on save for custom post types that do not declare 'custom-fields' support. The legacy metabox is now kept as a fallback on such post types.
-
 [ Bug Fix ][ SNS Share Button ] Fixed an issue where URL validation in the Hatena Bookmark and Facebook share count REST API callbacks was always skipped, allowing share counts to be fetched for URLs other than the current site.
-
 [ Bug Fix ][ Post Type Manager ] Fixed a PHP 8 warning triggered by add_post_type() when the 'veu_taxonomy' meta is stored as an empty string instead of an array. Non-array values are now safely treated as an empty list before iteration.
 
 = 9.114.0 =
