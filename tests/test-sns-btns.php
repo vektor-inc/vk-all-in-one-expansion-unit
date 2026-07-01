@@ -280,4 +280,65 @@ class SnsBtnsTest extends WP_UnitTestCase {
 
 		}
 	}
+
+	/**
+	 * シェアボタンの HTML 出力（各 SNS の表示 ON/OFF）のテスト
+	 * ここでは Threads ボタンがオプションに応じて出力される事を確認する
+	 */
+	public function test_veu_get_sns_btns() {
+
+		// テスト用の投稿を作成し、その投稿ページに遷移する（veu_is_sns_btns_display() を true にするため）
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Threads Button Test',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Threads Button Test',
+			)
+		);
+		$this->go_to( get_permalink( $post_id ) );
+
+		// Threads の intent URL の先頭部分（この文字列が出力に含まれれば Threads ボタンが出ている）
+		$threads_intent = 'https://www.threads.net/intent/post?text=';
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'useThreads が true の場合 => Threads ボタン（sb_threads と intent URL）が出力に含まれる',
+				'options'             => array( 'useThreads' => true ),
+				'expected_contains'   => true,
+			),
+			array(
+				'test_condition_name' => 'useThreads が false の場合 => Threads ボタンは出力に含まれない',
+				'options'             => array( 'useThreads' => false ),
+				'expected_contains'   => false,
+			),
+			array(
+				'test_condition_name' => 'useThreads キーが未設定の場合 => デフォルト値（ON）が適用され Threads ボタンが出力に含まれる',
+				'options'             => array(),
+				'expected_contains'   => true,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// オプション値を設定
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// シェアボタンの HTML を取得
+			$actual = veu_get_sns_btns();
+
+			if ( $case['expected_contains'] ) {
+				// Threads ボタンの li クラスと intent URL の両方が含まれる事を確認
+				$this->assertStringContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
+				$this->assertStringContainsString( $threads_intent, $actual, $case['test_condition_name'] );
+				$this->assertStringContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
+			} else {
+				// Threads ボタンが含まれない事を確認
+				$this->assertStringNotContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
+				$this->assertStringNotContainsString( $threads_intent, $actual, $case['test_condition_name'] );
+			}
+
+			// オプション値をクリーンアップ
+			delete_option( 'vkExUnit_sns_options' );
+		}
+	}
 }

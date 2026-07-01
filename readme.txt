@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
 [ Bug Fix ][ Widget ] Fixed undefined array key `form_sort` warning in PHP 8 on the categories/taxonomies list widget form
 [ Security Fix ][ Widget ] Added allowlist validation for `form_sort` value in the widget save process
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4

@@ -133,6 +133,12 @@ if ( $options['useBluesky'] ) {
 	echo 'checked';}
 ?>
 /> <?php _e( 'Bluesky', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+<li><label><input type="checkbox" name="vkExUnit_sns_options[useThreads]" value="true"
+<?php
+if ( $options['useThreads'] ) {
+	echo 'checked';}
+?>
+/> <?php _e( 'Threads', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php
 if ( $options['useHatena'] ) {

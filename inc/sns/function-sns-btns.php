@@ -258,6 +258,20 @@ function veu_get_sns_btns( $attr = array() ) {
 			$social_btns .= '</li>';
 		}
 
+		// threads.
+		// Threads の共有ボタン。投稿画面を開く intent URL に「タイトル + 改行(%0A) + URL」を渡す。
+		// Threads share button. Pass "title + line break (%0A) + URL" to the intent URL that opens the compose screen.
+		// アイコンは自前フォント vk_sns に字形がないため Font Awesome のブランドアイコン fa-threads を使用する。
+		// Use the Font Awesome brand icon fa-threads because the in-house vk_sns font has no glyph for it.
+		if ( ! empty( $options['useThreads'] ) ) {
+			$social_btns .= '<li class="sb_threads sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner" href="https://www.threads.net/intent/post?text=' . $page_title . '%0A' . $link_url . '" target="_blank" ' . $outer_css . '>';
+			$social_btns .= '<span class="icon_sns"' . $icon_css . '><i class="fa-brands fa-threads"></i></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Threads</span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+
 		// hatena.
 		if ( ! empty( $options['useHatena'] ) ) {
 			$social_btns .= '<li class="sb_hatena sb_icon">';
