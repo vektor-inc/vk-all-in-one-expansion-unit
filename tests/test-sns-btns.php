@@ -332,9 +332,10 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				$this->assertStringContainsString( $threads_intent, $actual, $case['test_condition_name'] );
 				$this->assertStringContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
 			} else {
-				// Threads ボタンが含まれない事を確認
+				// Threads ボタンが含まれない事を確認（li クラス・intent URL・アイコンの全てが出力されない）
 				$this->assertStringNotContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringNotContainsString( $threads_intent, $actual, $case['test_condition_name'] );
+				$this->assertStringNotContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
 			}
 
 			// オプション値をクリーンアップ

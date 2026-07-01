@@ -83,8 +83,12 @@
         box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
     }
     .sb_threads a {
+        // Threads のブランドカラーは黒。背景が純黒のため影を同色にすると立体感が出ないので、
+        // 他ボタンと同様に押下時の立体効果が見えるよう影にコントラストを付ける
+        // Threads' brand color is black. A same-color shadow on a pure-black background shows no
+        // depth, so give the shadow contrast to keep the raised effect visible like the other buttons
         background: #000;
-        box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
+        box-shadow: 0 2px 0 rgba(64, 64, 64, 1);
     }
     // Threads は Font Awesome のブランドアイコンを使うため、他アイコンと視覚的な大きさを揃える
     // Threads uses a Font Awesome brand icon, so match its visual size to the other icons
