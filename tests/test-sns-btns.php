@@ -283,11 +283,14 @@ class SnsBtnsTest extends WP_UnitTestCase {
 
 	/**
 	 * シェアボタンの HTML 出力（各 SNS の表示 ON/OFF）のテスト
+	 * Test for the share button HTML output ( display ON/OFF for each SNS ).
 	 * ここでは Threads ボタンがオプションに応じて出力される事を確認する
+	 * Here we check that the Threads button is output according to the option.
 	 */
 	public function test_veu_get_sns_btns() {
 
 		// テスト用の投稿を作成し、その投稿ページに遷移する（veu_is_sns_btns_display() を true にするため）
+		// Create a test post and go to its page ( to make veu_is_sns_btns_display() return true ).
 		$post_id = wp_insert_post(
 			array(
 				'post_title'   => 'Threads Button Test',
@@ -299,6 +302,7 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		$this->go_to( get_permalink( $post_id ) );
 
 		// Threads の intent URL の先頭部分（この文字列が出力に含まれれば Threads ボタンが出ている）
+		// The beginning part of the Threads intent URL ( if the output contains this string, the Threads button is rendered ).
 		$threads_intent = 'https://www.threads.net/intent/post?text=';
 
 		$test_cases = array(
@@ -320,25 +324,27 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		);
 
 		foreach ( $test_cases as $case ) {
-			// オプション値を設定
+			// オプション値を設定 / Set option value.
 			update_option( 'vkExUnit_sns_options', $case['options'] );
 
-			// シェアボタンの HTML を取得
+			// シェアボタンの HTML を取得 / Get the share button HTML.
 			$actual = veu_get_sns_btns();
 
 			if ( $case['expected_contains'] ) {
 				// Threads ボタンの li クラスと intent URL の両方が含まれる事を確認
+				// Check that both the li class of the Threads button and the intent URL are included.
 				$this->assertStringContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringContainsString( $threads_intent, $actual, $case['test_condition_name'] );
 				$this->assertStringContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
 			} else {
 				// Threads ボタンが含まれない事を確認（li クラス・intent URL・アイコンの全てが出力されない）
+				// Check that the Threads button is not included ( none of the li class, intent URL, or icon are output ).
 				$this->assertStringNotContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringNotContainsString( $threads_intent, $actual, $case['test_condition_name'] );
 				$this->assertStringNotContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
 			}
 
-			// オプション値をクリーンアップ
+			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
 	}
