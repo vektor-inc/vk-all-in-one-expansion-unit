@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.117.5
+Stable tag: 9.118.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
 [ Bug Fix ][ Widget ] Fixed undefined array key `form_sort` warning in PHP 8 on the categories/taxonomies list widget form
