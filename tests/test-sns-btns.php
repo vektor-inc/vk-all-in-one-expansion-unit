@@ -284,8 +284,10 @@ class SnsBtnsTest extends WP_UnitTestCase {
 	/**
 	 * シェアボタンの HTML 出力（各 SNS の表示 ON/OFF）のテスト
 	 * Test for the share button HTML output ( display ON/OFF for each SNS ).
-	 * ここでは Threads ボタンがオプションに応じて出力される事を確認する
-	 * Here we check that the Threads button is output according to the option.
+	 * ここでは Threads ボタンがオプションに応じて出力される事と、
+	 * 各シェア URL のエスケープ（esc_url / esc_attr）を確認する
+	 * Here we check that the Threads button is output according to the option,
+	 * and that each share URL is escaped ( esc_url / esc_attr ).
 	 */
 	public function test_veu_get_sns_btns() {
 
@@ -342,6 +344,52 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				$this->assertStringNotContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringNotContainsString( $threads_intent, $actual, $case['test_condition_name'] );
 				$this->assertStringNotContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
+			}
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
+
+		// href の URL エスケープ（esc_url / esc_attr）が適用されている事のテスト
+		// Test that URL escaping ( esc_url / esc_attr ) is applied to the href attributes.
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'useFacebook が true の場合 => href が esc_url でエスケープされ & が &#038; になる',
+				'options'             => array( 'useFacebook' => true ),
+				'expected_contains'   => array( '//www.facebook.com/sharer.php?src=bm&#038;u=', '&#038;t=' ),
+			),
+			array(
+				'test_condition_name' => 'useTwitter が true の場合 => href が esc_url でエスケープされ & が &#038; になる',
+				'options'             => array( 'useTwitter' => true ),
+				'expected_contains'   => array( '//twitter.com/intent/tweet?url=', '&#038;text=' ),
+			),
+			array(
+				'test_condition_name' => 'useHatena が true の場合 => href が esc_url でエスケープされ & が &#038; になる',
+				'options'             => array( 'useHatena' => true ),
+				'expected_contains'   => array( '//b.hatena.ne.jp/add?mode=confirm&#038;url=', '&#038;title=' ),
+			),
+			array(
+				'test_condition_name' => 'useThreads が true の場合 => エスケープ後もタイトルと URL の間の改行 %0A が保持される（esc_url だと除去される境界値）',
+				'options'             => array( 'useThreads' => true ),
+				'expected_contains'   => array( 'https://www.threads.net/intent/post?text=', '%0A' ),
+			),
+			array(
+				'test_condition_name' => 'useBluesky が true の場合 => エスケープ後もタイトルと URL の間の改行 %0A が保持される（esc_url だと除去される境界値）',
+				'options'             => array( 'useBluesky' => true ),
+				'expected_contains'   => array( 'https://bsky.app/intent/compose?text=', '%0A' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// シェアボタンの HTML を取得 / Get the share button HTML.
+			$actual = veu_get_sns_btns();
+
+			// 期待する文字列が全て含まれる事を確認 / Check that all expected strings are included.
+			foreach ( $case['expected_contains'] as $expected ) {
+				$this->assertStringContainsString( $expected, $actual, $case['test_condition_name'] );
 			}
 
 			// オプション値をクリーンアップ / Clean up the option value.
