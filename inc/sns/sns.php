@@ -82,6 +82,7 @@ function veu_get_sns_options_default() {
 		'useFacebook'                 => true,
 		'useTwitter'                  => true,
 		'useBluesky'                  => true,
+		'useThreads'                  => true,
 		'useHatena'                   => true,
 		'useLine'                     => true,
 		'useCopy'                     => true,
@@ -244,6 +245,7 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['useFacebook']                 = ( isset( $input['useFacebook'] ) && $input['useFacebook'] == 'true' );
 	$output['useTwitter']                  = ( isset( $input['useTwitter'] ) && $input['useTwitter'] == 'true' );
 	$output['useBluesky']                  = ( isset( $input['useBluesky'] ) && $input['useBluesky'] == 'true' );
+	$output['useThreads']                  = ( isset( $input['useThreads'] ) && $input['useThreads'] == 'true' );
 	$output['useHatena']                   = ( isset( $input['useHatena'] ) && $input['useHatena'] == 'true' );
 	$output['useCopy']                     = ( isset( $input['useCopy'] ) && $input['useCopy'] == 'true' );
 	$output['useLine']                     = ( isset( $input['useLine'] ) && $input['useLine'] == 'true' );
@@ -293,12 +295,16 @@ function exUnit_print_fbId_script() {
 	$facebookLocale = ( $facebookLocale ) ? $facebookLocale : 'en_US';
 	$fbSdkVersion   = sanitize_text_field( apply_filters( 'vkExUnit_facebook_sdk_version', 'v25.0' ) );
 	$fbSdkVersion   = ( $fbSdkVersion ) ? $fbSdkVersion : 'v25.0';
-	$fbSdkParams    = array(
+	// build_query() は値をURLエンコードしないため、& や # を含む値でクエリ文字列が壊れないよう
+	// 各値を rawurlencode() してから渡す（キーは固定の安全な文字列なのでそのまま）。
+	// build_query() does not URL-encode values, so rawurlencode() each value beforehand to keep the
+	// query string intact even if a value contains & or # (keys are fixed safe strings, left as is).
+	$fbSdkParams = array(
 		'xfbml'   => '1',
-		'version' => $fbSdkVersion,
+		'version' => rawurlencode( $fbSdkVersion ),
 	);
 	if ( $fbAppId ) {
-		$fbSdkParams['appId'] = $fbAppId;
+		$fbSdkParams['appId'] = rawurlencode( $fbAppId );
 	}
 	$fbSdkUrl = 'https://connect.facebook.net/' . $facebookLocale . '/sdk.js#' . build_query( $fbSdkParams );
 	?>

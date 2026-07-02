@@ -78,9 +78,24 @@
         background: #00abec;
         box-shadow: 0 2px 0 rgba(0, 126, 170, 1);
     }
+    // X・Threads は背景が黒系のため、暗い影では立体表現がほぼ見えなくなる。
+    // WCAG 1.4.11 の非テキストコントラスト 3:1 を満たす明るいグレー #666 を影に使う
+    // （#666 vs #0f1419 = 3.22:1 / #666 vs #000 = 3.66:1）
+    // X and Threads have near-black backgrounds, so a dark shadow makes the raised effect
+    // almost invisible. Use the lighter gray #666 for the shadow to meet the 3:1 non-text
+    // contrast of WCAG 1.4.11 ( #666 vs #0f1419 = 3.22:1 / #666 vs #000 = 3.66:1 ).
     .sb_x_twitter a {
         background: #0f1419;
-        box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
+        box-shadow: 0 2px 0 rgba(102, 102, 102, 1);
+    }
+    .sb_threads a {
+        background: #000;
+        box-shadow: 0 2px 0 rgba(102, 102, 102, 1);
+    }
+    // Threads は Font Awesome のブランドアイコンを使うため、他アイコンと視覚的な大きさを揃える
+    // Threads uses a Font Awesome brand icon, so match its visual size to the other icons
+    .sb_threads .sb_icon_inner i {
+        font-size: 16px;
     }
     .sb_google a {
         background: #dd4b39;

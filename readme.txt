@@ -81,10 +81,13 @@ e.g.
 
 == Changelog ==
 
+[ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
 [ Bug Fix ][ Widget ] Fixed undefined array key `form_sort` warning in PHP 8 on the categories/taxonomies list widget form
 [ Security Fix ][ Widget ] Added allowlist validation for `form_sort` value in the widget save process
+[ Security Fix ][ SNS Share Button ] Escaped the share button link URLs with esc_url() / esc_attr().
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
 [ Design Bug Fix ][ Sitemap ] Changed the sitemap link color from a hardcoded value to `color: inherit` so it inherits the theme's color scheme correctly.
+[ Design Bug Fix ][ SNS Share Button ] Changed the box-shadow color of the X and Threads share buttons to a lighter gray so the pressed-button effect meets the 3:1 non-text contrast ratio ( WCAG 1.4.11 ).
 [ Bug Fix ][ Facebook Page Plugin ] Fixed an issue where the Facebook Page timeline could stop displaying due to a change in Facebook's embed specification.
 
 = 9.117.5 =

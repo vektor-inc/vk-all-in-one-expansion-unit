@@ -230,7 +230,7 @@ function veu_get_sns_btns( $attr = array() ) {
 		// facebook.
 		if ( ! empty( $options['useFacebook'] ) ) {
 			$social_btns .= '<li class="sb_facebook sb_icon">';
-			$social_btns .= '<a class="sb_icon_inner" href="//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&amp;t=' . $page_title . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&t=' . $page_title ) . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
 			$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
 			$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
@@ -241,7 +241,7 @@ function veu_get_sns_btns( $attr = array() ) {
 		// X.
 		if ( ! empty( $options['useTwitter'] ) ) {
 			$social_btns .= '<li class="sb_x_twitter sb_icon">';
-			$social_btns .= '<a class="sb_icon_inner" href="//twitter.com/intent/tweet?url=' . $link_url . '&amp;text=' . $page_title . '" target="_blank" ' . $outer_css . '>';
+			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//twitter.com/intent/tweet?url=' . $link_url . '&text=' . $page_title ) . '" target="_blank" ' . $outer_css . '>';
 			$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>X</span>';
 			$social_btns .= '</a>';
@@ -249,11 +249,29 @@ function veu_get_sns_btns( $attr = array() ) {
 		}
 
 		// bluesky.
+		// 「タイトル + 改行(%0A) + URL」の %0A は esc_url() だと除去されてしまうため、
+		// rawurlencode() 済みの構成要素を esc_attr() で属性エスケープする（Threads も同様）
+		// esc_url() strips the %0A of "title + line break (%0A) + URL", so escape the
+		// rawurlencode()-ed parts with esc_attr() for the attribute instead ( same for Threads ).
 		if ( ! empty( $options['useBluesky'] ) ) {
 			$social_btns .= '<li class="sb_bluesky sb_icon">';
-			$social_btns .= '<a class="sb_icon_inner" href="https://bsky.app/intent/compose?text=' . $page_title . '%0A' . $link_url . '" target="_blank" ' . $outer_css . '>';
+			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://bsky.app/intent/compose?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
 			$social_btns .= '<span class="vk_icon_w_r_sns_bluesky icon_sns"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Bluesky</span>';
+			$social_btns .= '</a>';
+			$social_btns .= '</li>';
+		}
+
+		// threads.
+		// Threads の共有ボタン。投稿画面を開く intent URL に「タイトル + 改行(%0A) + URL」を渡す。
+		// Threads share button. Pass "title + line break (%0A) + URL" to the intent URL that opens the compose screen.
+		// アイコンは自前フォント vk_sns に字形がないため Font Awesome のブランドアイコン fa-threads を使用する。
+		// Use the Font Awesome brand icon fa-threads because the in-house vk_sns font has no glyph for it.
+		if ( ! empty( $options['useThreads'] ) ) {
+			$social_btns .= '<li class="sb_threads sb_icon">';
+			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://www.threads.net/intent/post?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
+			$social_btns .= '<span class="icon_sns"' . $icon_css . '><i class="fa-brands fa-threads"></i></span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Threads</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
 		}
@@ -261,7 +279,7 @@ function veu_get_sns_btns( $attr = array() ) {
 		// hatena.
 		if ( ! empty( $options['useHatena'] ) ) {
 			$social_btns .= '<li class="sb_hatena sb_icon">';
-			$social_btns .= '<a class="sb_icon_inner" href="//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&amp;title=' . $page_title . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
+			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&title=' . $page_title ) . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
 			$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
 			$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
@@ -270,9 +288,12 @@ function veu_get_sns_btns( $attr = array() ) {
 		}
 
 		// line.
+		// line: は esc_url() のデフォルト許可プロトコル外で空文字になるため、許可プロトコルを明示する
+		// The line: scheme is not in esc_url()'s default allowed protocols ( the URL would become
+		// an empty string ), so pass the allowed protocol explicitly.
 		if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
 			$social_btns .= '<li class="sb_line sb_icon">';
-			$social_btns .= '<a class="sb_icon_inner"  href="line://msg/text/' . $page_title . ' ' . $link_url . '" ' . $outer_css . '>';
+			$social_btns .= '<a class="sb_icon_inner"  href="' . esc_url( 'line://msg/text/' . $page_title . ' ' . $link_url, array( 'line' ) ) . '" ' . $outer_css . '>';
 			$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
 			$social_btns .= '</a>';

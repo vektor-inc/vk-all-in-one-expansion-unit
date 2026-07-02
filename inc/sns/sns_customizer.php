@@ -540,6 +540,27 @@ function veu_customize_register_sns( $wp_customize ) {
 		)
 	);
 
+	// SNS Btn (Threads)
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[useThreads]',
+		array(
+			'default'           => $default_options['useThreads'],
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'useThreads',
+		array(
+			'label'    => __( 'Threads', 'vk-all-in-one-expansion-unit' ),
+			'section'  => 'veu_sns_setting',
+			'settings' => 'vkExUnit_sns_options[useThreads]',
+			'type'     => 'checkbox',
+		)
+	);
+
 	// SNS Btn (Hatena)
 	$wp_customize->add_setting(
 		'vkExUnit_sns_options[useHatena]',
