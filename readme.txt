@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Recent Posts Widget ] Fixed PHP 8.x undefined array key "label" warning in the widget admin form when the title is left blank
+
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4

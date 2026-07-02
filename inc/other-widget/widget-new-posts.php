@@ -317,11 +317,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		</h3>
 		<?php
-		if ( isset( $instance['title'] ) && $instance['title'] ) {
-			$title = $instance['title'];
-		} else {
-			$title = $instance['label'];
-		}
+		$title = self::get_widget_title( $instance );
 		?>
 		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" class="admin_widget_input" />
 
