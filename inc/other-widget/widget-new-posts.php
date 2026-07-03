@@ -317,11 +317,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		</h3>
 		<?php
-		if ( isset( $instance['title'] ) && $instance['title'] ) {
-			$title = $instance['title'];
-		} else {
-			$title = $instance['label'];
-		}
+		// Use the shared guarded method (same as the front-end) to avoid an Undefined array key warning when title / label are unset.
+		// title / label 未設定時の Undefined array key 警告を避けるため、フロント表示と共通のガード済みメソッドを使用する。
+		$title = $this->get_widget_title( $instance );
 		?>
 		<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>-title" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" class="admin_widget_input" />
 
