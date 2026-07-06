@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ][ Widget ] Fixed a PHP warning that occurred on the admin widget form of the Recent Posts widget when its title was empty.
+
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
