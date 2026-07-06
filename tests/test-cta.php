@@ -161,6 +161,19 @@ class CTATest extends WP_UnitTestCase {
 		$raw_url         = 'https://example.com/?q=<script>';
 		$raw_img_id      = '123<script>';
 
+		// アイコン系フィールドは wp_kses_post のみ（stripslashes なし）で保存される。
+		// ただし WordPress コアは post meta 保存時（add_post_meta / update_post_meta）に wp_unslash を1回かけるため、
+		// 単一バックスラッシュでは stripslashes 有無を区別できない。二重バックスラッシュ（ \\ ）を用いると、
+		// アイコン系（コアの unslash 1回のみ）は \ が1つ残るのに対し、テキスト系（プラグインの stripslashes ＋ コアの unslash ＝ 2回）は \ が消える。
+		// これによりアイコン系に stripslashes が適用されていない事を検証できる。
+		// Icon fields are stored via wp_kses_post only ( no stripslashes ). WordPress core, however, runs wp_unslash once
+		// when saving post meta, so a single backslash cannot distinguish the icon path from the text path.
+		// A doubled backslash ( \\ ) can: the icon path ( only core's single unslash ) keeps one backslash,
+		// whereas the text path ( plugin stripslashes + core unslash = two levels ) would drop it.
+		$raw_button_icon        = "<i class=\"fa fa-star\"></i>a\\\\b<script>alert(3)</script>";
+		$raw_button_icon_before = "<span class=\"dashicons dashicons-arrow-left\"></span>a\\\\b<script>alert(4)</script>";
+		$raw_button_icon_after  = "<em>after a\\\\b</em><script>alert(5)</script>";
+
 		// 各フィールドの入力値と save_custom_field() 適用後に期待されるサニタイズ結果を1つの配列で表現し、
 		// $_POST の組み立てと保存結果の検証を同じ配列でループして行う。
 		// Express each field's input and its expected sanitized output in a single array, and drive both the $_POST setup and the assertions from it in a loop.
@@ -204,24 +217,26 @@ class CTATest extends WP_UnitTestCase {
 				'expected' => wp_kses_post( stripslashes( $raw_cta_text ) ),
 			),
 			array(
-				// アイコン系は限定HTML（許可タグ）を保持しつつ <script> 等が除去される（stripslashes なし）。
-				// Icon fields keep allowed HTML while stripping disallowed tags such as <script> ( no stripslashes ).
-				'name'     => 'button_icon は wp_kses_post のみでサニタイズされる（許可タグ保持）',
+				// アイコン系は限定HTML（許可タグ）を保持しつつ <script> 等が除去される。plugin では stripslashes を通さないため、
+				// コアの unslash 1回のみが効き、二重バックスラッシュが1つ残る（期待値は wp_unslash( wp_kses_post( 入力 ) )）。
+				// Icon fields keep allowed HTML while stripping <script>. The plugin does not apply stripslashes,
+				// so only core's single unslash applies and one backslash survives ( expected = wp_unslash( wp_kses_post( input ) ) ).
+				'name'     => 'button_icon は wp_kses_post のみで保存され stripslashes されない（許可タグ保持・二重\\は1つ残存）',
 				'field'    => 'vkExUnit_cta_button_icon',
-				'input'    => '<i class="fa fa-star"></i><script>alert(3)</script>',
-				'expected' => wp_kses_post( '<i class="fa fa-star"></i><script>alert(3)</script>' ),
+				'input'    => $raw_button_icon,
+				'expected' => wp_unslash( wp_kses_post( $raw_button_icon ) ),
 			),
 			array(
-				'name'     => 'button_icon_before は wp_kses_post のみでサニタイズされる（許可タグ保持）',
+				'name'     => 'button_icon_before は wp_kses_post のみで保存され stripslashes されない（許可タグ保持・二重\\は1つ残存）',
 				'field'    => 'vkExUnit_cta_button_icon_before',
-				'input'    => '<span class="dashicons dashicons-arrow-left"></span><script>alert(4)</script>',
-				'expected' => wp_kses_post( '<span class="dashicons dashicons-arrow-left"></span><script>alert(4)</script>' ),
+				'input'    => $raw_button_icon_before,
+				'expected' => wp_unslash( wp_kses_post( $raw_button_icon_before ) ),
 			),
 			array(
-				'name'     => 'button_icon_after は wp_kses_post のみでサニタイズされる（<script> 除去・異常系）',
+				'name'     => 'button_icon_after は wp_kses_post のみで保存され stripslashes されない（<script> 除去・二重\\は1つ残存）',
 				'field'    => 'vkExUnit_cta_button_icon_after',
-				'input'    => '<em>after</em><script>alert(5)</script>',
-				'expected' => wp_kses_post( '<em>after</em><script>alert(5)</script>' ),
+				'input'    => $raw_button_icon_after,
+				'expected' => wp_unslash( wp_kses_post( $raw_button_icon_after ) ),
 			),
 		);
 
