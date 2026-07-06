@@ -865,11 +865,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						// Initialize as an associative array (not a list) because array_keys() maps keys to supports; array( 'title' ) would yield key 0 and drop title support.
 						$post_type_items = array( 'title' => 'true' );
 					}
-					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.
-					$supports = array();
-					foreach ( array_keys( $post_type_items ) as $key ) {
-						$supports[] = $key;
-					}
+					// $post_type_items は上のガードで必ず配列になっているため、そのキー一覧をそのまま supports に用いる。
+					// $post_type_items is guaranteed to be an array by the guard above, so use its keys directly as supports.
+					$supports = array_keys( $post_type_items );
 
 					// 強制サポートする項目（issue #1322）。配列にしておくことで将来の追加要件にも対応しやすくする.
 					// Forced supports (issue #1322). Kept as an array for future extensibility.
