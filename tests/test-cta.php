@@ -159,36 +159,108 @@ class CTATest extends WP_UnitTestCase {
 		$raw_button_text = "Click <script>alert(1)</script> O\\'Clock";
 		$raw_cta_text    = "Line 1\\nLine 2<script>alert(2)</script>";
 		$raw_url         = 'https://example.com/?q=<script>';
-		// vkExUnit_cta_img はアタッチメントIDを保持するフィールドなので、
-		// 数値以外が混入しても absint で整数（IDのみ）に正規化される事を検証する。
-		// vkExUnit_cta_img stores an attachment ID, so verify that non-numeric junk is normalized to the integer ID via absint.
-		$raw_img_id = '123<script>';
+		$raw_img_id      = '123<script>';
 
+		// アイコン系フィールドは wp_kses_post のみ（stripslashes なし）で保存される。
+		// ただし WordPress コアは post meta 保存時（add_post_meta / update_post_meta）に wp_unslash を1回かけるため、
+		// 単一バックスラッシュでは stripslashes 有無を区別できない。二重バックスラッシュ（ \\ ）を用いると、
+		// アイコン系（コアの unslash 1回のみ）は \ が1つ残るのに対し、テキスト系（プラグインの stripslashes ＋ コアの unslash ＝ 2回）は \ が消える。
+		// これによりアイコン系に stripslashes が適用されていない事を検証できる。
+		// Icon fields are stored via wp_kses_post only ( no stripslashes ). WordPress core, however, runs wp_unslash once
+		// when saving post meta, so a single backslash cannot distinguish the icon path from the text path.
+		// A doubled backslash ( \\ ) can: the icon path ( only core's single unslash ) keeps one backslash,
+		// whereas the text path ( plugin stripslashes + core unslash = two levels ) would drop it.
+		$raw_button_icon        = "<i class=\"fa fa-star\"></i>a\\\\b<script>alert(3)</script>";
+		$raw_button_icon_before = "<span class=\"dashicons dashicons-arrow-left\"></span>a\\\\b<script>alert(4)</script>";
+		$raw_button_icon_after  = "<em>after a\\\\b</em><script>alert(5)</script>";
+
+		// 各フィールドの入力値と save_custom_field() 適用後に期待されるサニタイズ結果を1つの配列で表現し、
+		// $_POST の組み立てと保存結果の検証を同じ配列でループして行う。
+		// Express each field's input and its expected sanitized output in a single array, and drive both the $_POST setup and the assertions from it in a loop.
+		$field_cases = array(
+			array(
+				'name'     => 'use_type はそのまま保持される（正常系）',
+				'field'    => 'vkExUnit_cta_use_type',
+				'input'    => 'veu_cta_normal',
+				'expected' => 'veu_cta_normal',
+			),
+			array(
+				// vkExUnit_cta_img はアタッチメントIDを保持するため、数値以外が混入しても absint で整数（IDのみ）に正規化される。
+				// vkExUnit_cta_img stores an attachment ID, so non-numeric junk is normalized to the integer ID via absint.
+				'name'     => 'img はアタッチメントID（整数文字列）へ正規化される（境界値）',
+				'field'    => 'vkExUnit_cta_img',
+				'input'    => $raw_img_id,
+				'expected' => (string) absint( $raw_img_id ),
+			),
+			array(
+				'name'     => 'button_text は stripslashes + wp_kses_post でサニタイズされる（正常系）',
+				'field'    => 'vkExUnit_cta_button_text',
+				'input'    => $raw_button_text,
+				'expected' => wp_kses_post( stripslashes( $raw_button_text ) ),
+			),
+			array(
+				'name'     => 'url は esc_url でサニタイズされる（正常系）',
+				'field'    => 'vkExUnit_cta_url',
+				'input'    => $raw_url,
+				'expected' => esc_url( $raw_url ),
+			),
+			array(
+				'name'     => 'url_blank はそのまま保持される（正常系）',
+				'field'    => 'vkExUnit_cta_url_blank',
+				'input'    => 'window_self',
+				'expected' => 'window_self',
+			),
+			array(
+				'name'     => 'text は stripslashes + wp_kses_post でサニタイズされる（正常系）',
+				'field'    => 'vkExUnit_cta_text',
+				'input'    => $raw_cta_text,
+				'expected' => wp_kses_post( stripslashes( $raw_cta_text ) ),
+			),
+			array(
+				// アイコン系は限定HTML（許可タグ）を保持しつつ <script> 等が除去される。plugin では stripslashes を通さないため、
+				// コアの unslash 1回のみが効き、二重バックスラッシュが1つ残る（期待値は wp_unslash( wp_kses_post( 入力 ) )）。
+				// Icon fields keep allowed HTML while stripping <script>. The plugin does not apply stripslashes,
+				// so only core's single unslash applies and one backslash survives ( expected = wp_unslash( wp_kses_post( input ) ) ).
+				'name'     => 'button_icon は wp_kses_post のみで保存され stripslashes されない（許可タグ保持・二重\\は1つ残存）',
+				'field'    => 'vkExUnit_cta_button_icon',
+				'input'    => $raw_button_icon,
+				'expected' => wp_unslash( wp_kses_post( $raw_button_icon ) ),
+			),
+			array(
+				'name'     => 'button_icon_before は wp_kses_post のみで保存され stripslashes されない（許可タグ保持・二重\\は1つ残存）',
+				'field'    => 'vkExUnit_cta_button_icon_before',
+				'input'    => $raw_button_icon_before,
+				'expected' => wp_unslash( wp_kses_post( $raw_button_icon_before ) ),
+			),
+			array(
+				'name'     => 'button_icon_after は wp_kses_post のみで保存され stripslashes されない（<script> 除去・二重\\は1つ残存）',
+				'field'    => 'vkExUnit_cta_button_icon_after',
+				'input'    => $raw_button_icon_after,
+				'expected' => wp_unslash( wp_kses_post( $raw_button_icon_after ) ),
+			),
+		);
+
+		// テストケースから $_POST を組み立てる。
+		// Build $_POST from the test cases.
 		$_POST = array(
 			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
 			'_vkExUnit_cta_switch'       => 'cta_content',
-			'vkExUnit_cta_use_type'      => 'veu_cta_normal',
-			'vkExUnit_cta_img'           => $raw_img_id,
-			'vkExUnit_cta_button_text'   => $raw_button_text,
-			'vkExUnit_cta_url'           => $raw_url,
-			'vkExUnit_cta_url_blank'     => 'window_self',
-			'vkExUnit_cta_text'          => $raw_cta_text,
 		);
+		foreach ( $field_cases as $case ) {
+			$_POST[ $case['field'] ] = $case['input'];
+		}
 
 		Vk_Call_To_Action::save_custom_field( $post_id );
 
-		$this->assertSame( 'veu_cta_normal', get_post_meta( $post_id, 'vkExUnit_cta_use_type', true ) );
-		$this->assertSame( (string) absint( $raw_img_id ), get_post_meta( $post_id, 'vkExUnit_cta_img', true ) );
-		$this->assertSame(
-			wp_kses_post( stripslashes( $raw_button_text ) ),
-			get_post_meta( $post_id, 'vkExUnit_cta_button_text', true )
-		);
-		$this->assertSame( esc_url( $raw_url ), get_post_meta( $post_id, 'vkExUnit_cta_url', true ) );
-		$this->assertSame( 'window_self', get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) );
-		$this->assertSame(
-			wp_kses_post( stripslashes( $raw_cta_text ) ),
-			get_post_meta( $post_id, 'vkExUnit_cta_text', true )
-		);
+		// 各フィールドが期待どおりサニタイズされて保存されている事を検証する。
+		// Assert each field is saved with the expected sanitized value.
+		foreach ( $field_cases as $case ) {
+			$this->assertSame(
+				$case['expected'],
+				get_post_meta( $post_id, $case['field'], true ),
+				$case['name']
+			);
+		}
 	}
 
 	/**
