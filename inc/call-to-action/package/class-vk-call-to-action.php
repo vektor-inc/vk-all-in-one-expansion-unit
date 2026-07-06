@@ -147,9 +147,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			if ( 'cta_number' === $_POST['_vkExUnit_cta_switch'] ) {
-				// この値は連想配列で送信されるため、未送信時の Undefined array key 警告を防ぎつつ、
-				// map_deep() で配列構造を保持したまま各要素をサニタイズする。
-				// This value is submitted as an associative array, so guard against an "Undefined array key" warning when it is missing and sanitize each element with map_deep() while preserving the array structure.
+				// この値は単一 select から送信されるスカラー文字列。未送信時の Undefined array key 警告を防ぐため isset で判定し、
+				// map_deep() で wp_unslash 後の値をサニタイズする（map_deep はスカラーにもコールバックを適用する）。
+				// This value is a scalar string submitted from a single <select>. Guard with isset to avoid an "Undefined array key" warning when it is missing, and sanitize the unslashed value with map_deep() ( map_deep applies the callback to scalars as well ).
 				$data = isset( $_POST['vkexunit_cta_each_option'] ) ? map_deep( wp_unslash( $_POST['vkexunit_cta_each_option'] ), 'sanitize_text_field' ) : '';
 
 				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
@@ -170,9 +170,14 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 					'vkExUnit_cta_img'                => array(
 						// 画像フィールドはアタッチメントIDを保持するため、整数化した上で文字列にキャストして保存する。
 						// これによりブロックエディタ側のメタ登録（(string) absint()）と保存値の型を一致させる。
+						// 画像未選択・削除時は absint('') = 0 となるが、旧データ（esc_url('') = ''）と挙動を揃えるため空文字を保存する。
 						// The image field stores an attachment ID, so cast the sanitized integer to a string on save
 						// to match the block editor meta registration ( (string) absint() ).
-						'escape_type' => array( 'absint', 'strval' ),
+						// When no image is selected / it is removed, absint('') is 0, but store an empty string to keep the behavior consistent with the legacy data ( esc_url('') = '' ).
+						'escape_type' => function ( $value ) {
+							$veu_cta_img_id = absint( $value );
+							return $veu_cta_img_id ? (string) $veu_cta_img_id : '';
+						},
 					),
 					'vkExUnit_cta_img_position'       => array(
 						'escape_type' => '',

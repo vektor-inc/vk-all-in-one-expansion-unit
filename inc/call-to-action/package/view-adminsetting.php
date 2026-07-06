@@ -35,12 +35,12 @@ global $vk_call_to_action_textdomain;
 	}
 	?>
 <tr><th><label ><?php echo esc_html( $veu_cta_post_type_object->label ); ?></label></th>
-<td><select name="vkExUnit_cta_settings[<?php echo $type; ?>]" id="vkExUnit_cta_settings">
+<td><select name="vkExUnit_cta_settings[<?php echo esc_attr( $type ); ?>]" id="vkExUnit_cta_settings">
 	<?php foreach ( $ctas as $cta ) : ?>
-	<option value="<?php echo $cta['key']; ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo $cta['label']; ?></option>
+	<option value="<?php echo esc_attr( $cta['key'] ); ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo esc_html( $cta['label'] ); ?></option>
 <?php endforeach; ?>
 </select>
-　<a href="<?php echo admin_url( 'edit.php?post_type=' . $type ); ?>" class="button button-default" target="_blank"><?php _e( 'Show index page', $vk_call_to_action_textdomain ); ?></a>
+　<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $type ) ); ?>" class="button button-default" target="_blank"><?php _e( 'Show index page', $vk_call_to_action_textdomain ); ?></a>
 </td></tr>
 <?php endforeach; ?>
 </table>
