@@ -84,9 +84,8 @@ function vkExUnit_rewrite_archives_link( $link_html ) {
 			return $link_html;
 		}
 
-		if ( ! isset( $olink['query'] ) ) {
-			$olink['query'] = '';
-		}
+		// query キーは上の array_merge で既定値 '' が保証されているため、そのまま利用する。
+		// The query key is guaranteed to exist (defaulted to '') by the array_merge above, so use it directly.
 		parse_str( $olink['query'], $query );
 		if ( isset( $query['post_type'] ) && $query['post_type'] ) {
 			return $link_html;

@@ -958,12 +958,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						}
 
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
-							// 個々の行が配列でない、または slug / label キーを欠く旧データに対する Undefined array key / offset 警告を防ぐ。
-							// Guard against "Undefined array key"/offset warnings for legacy rows that are not arrays or lack the slug / label keys.
-							if ( is_array( $taxonomy ) && ! empty( $taxonomy['slug'] ) && ! empty( $taxonomy['label'] ) ) {
+							// 行が配列でない、または slug キーを欠く旧データに対する Undefined array key / offset 警告を防ぐ。
+							// label は新規登録時のみ必須のため、ここでは要求しない（既存タクソノミーの再アタッチは slug のみで行えるようにする）。
+							// Guard against "Undefined array key"/offset warnings for legacy rows that are not arrays or lack the slug key.
+							// label is required only for new registration, so it is not required here (existing taxonomies can be reattached with slug alone).
+							if ( is_array( $taxonomy ) && ! empty( $taxonomy['slug'] ) ) {
 
 								// 既存のタクソノミーをチェック.
 								if ( ! taxonomy_exists( $taxonomy['slug'] ) ) {
+									// register_taxonomy() には label が必須のため、label を欠く旧データはスキップする。
+									// register_taxonomy() requires a label, so skip legacy rows that lack one.
+									if ( empty( $taxonomy['label'] ) ) {
+										continue;
+									}
 									// カスタム分類を階層化するかどうか.
 									$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 									// REST API を使用するかどうか.
@@ -1021,10 +1028,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 										$args
 									);
 								} else {
-									// 既存のタクソノミーを再利用.
+									// 既存のタクソノミーを再利用（slug のみで再アタッチ可能・label 不要）.
 									register_taxonomy_for_object_type( $taxonomy['slug'], $post_type_id );
 								}
-							} // if ( $taxonomy['slug'] && $taxonomy['label']){
+							} // if ( is_array( $taxonomy ) && ! empty( $taxonomy['slug'] ) ){
 						} // foreach ($veu_taxonomies as $key => $taxonomy) {
 					} // if ( $post_type_id ) {
 				} // foreach ($custom_post_types as $key => $post) {
