@@ -119,7 +119,16 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 			};
 		};
 
-		add_filter( 'wp_die_handler', $die_filter );
+		// wp_send_json_*() は AJAX コンテキストで wp_die() を呼び、その際は wp_die_handler ではなく
+		// wp_die_ajax_handler フィルタが使われる。AJAX 判定を true にした上で AJAX 用ハンドラを例外に
+		// 差し替えることで、プレーンな die によるプロセス終了（phpunit のサマリ・末尾改行の欠落や
+		// JSON の出力リーク）を防ぎ、出力を確実に捕捉する。
+		// wp_send_json_*() calls wp_die() in an AJAX context, where the wp_die_ajax_handler filter (not
+		// wp_die_handler) is used. Force the AJAX flag and replace the AJAX handler with a thrower so the
+		// output is captured instead of terminating the process via a plain die (which would drop the
+		// PHPUnit summary / trailing newline and leak the JSON to stdout).
+		add_filter( 'wp_doing_ajax', '__return_true' );
+		add_filter( 'wp_die_ajax_handler', $die_filter );
 
 		ob_start();
 		try {
@@ -127,10 +136,11 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 		} catch ( Exception $e ) {
 			// Expected: wp_send_json_* ends with wp_die().
 			$this->assertSame( 'wp_die', $e->getMessage() );
+		} finally {
+			$output = ob_get_clean();
+			remove_filter( 'wp_die_ajax_handler', $die_filter );
+			remove_filter( 'wp_doing_ajax', '__return_true' );
 		}
-		$output = ob_get_clean();
-
-		remove_filter( 'wp_die_handler', $die_filter );
 
 		$json = json_decode( $output, true );
 		$this->assertIsArray( $json, 'AJAX response should be valid JSON.' );
