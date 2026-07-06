@@ -453,7 +453,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 					'alert-content' => '<a href="javascript:alert(\'XSS\')">Click me!</a>',
 					'alert-display' => array( 'post' => 'display' ),
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><a href="alert(\'XSS\')">Click me!</a></div></div>',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--custom"><a href="alert(&apos;XSS&apos;)">Click me!</a></div></div>',
 			),
 			array(
 				'name'    => 'XSS content iframe',

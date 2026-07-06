@@ -240,6 +240,9 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			// $icon_color = '#fff';
 		}
 
+		// いずれの分岐にも該当しない値（旧データ等）が来た場合に未定義変数とならないよう初期化する。
+		// Initialize so the variable is not undefined when $iconFont_bgType matches none of the branches (e.g. legacy data).
+		$outer_css = '';
 		// 背景塗り && 色指定がない場合 → ブランドカラー背景
 		if ( ! $iconFont_bgType ) {
 			if ( ! $icon_color ) {

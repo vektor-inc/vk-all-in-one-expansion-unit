@@ -6,7 +6,9 @@
  */
 
 $vkExUnit_options = veu_get_common_options();
-if ( ! $vkExUnit_options['delete_options_at_deactivate'] ) {
+// キーが未保存でも Undefined array key 警告を出さないよう empty() で判定する。
+// Use empty() so an unsaved key does not emit an "Undefined array key" warning.
+if ( empty( $vkExUnit_options['delete_options_at_deactivate'] ) ) {
 	return; }
 
 $delete_options = array(

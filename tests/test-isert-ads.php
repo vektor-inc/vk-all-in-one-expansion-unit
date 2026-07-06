@@ -13,6 +13,59 @@ bash bin/install-wp-tests.sh wordpress_test root 'WordPress' localhost latest
  */
 class InsertAdsTest extends WP_UnitTestCase {
 
+	/**
+	 * vExUnit_Ads::sanitize_config() は before/more/after が未送信でも
+	 * Undefined array key / stripslashes(null) を出さず、既定値で保存する。
+	 */
+	function test_sanitize_config() {
+		$ads = vExUnit_Ads::instance();
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'before/more/after が全て指定されている場合 => stripslashes 済みで保持される（正常系）',
+				'input'               => array(
+					'before' => array( 'before0', 'before1' ),
+					'more'   => array( 'more0', 'more1' ),
+					'after'  => array( 'after0', 'after1' ),
+				),
+				'expected'            => array(
+					'before' => array( 'before0', 'before1' ),
+					'more'   => array( 'more0', 'more1' ),
+					'after'  => array( 'after0', 'after1' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'エスケープされたクォートを含む場合 => stripslashes される（正常系）',
+				'input'               => array(
+					'before' => array( "O\\'clock", '' ),
+					'more'   => array( '', '' ),
+					'after'  => array( '', '' ),
+				),
+				'expected'            => array(
+					'before' => array( "O'clock" ),
+					'more'   => array( '' ),
+					'after'  => array( '' ),
+				),
+			),
+			array(
+				'test_condition_name' => '入力が空配列（フィールド未送信）=> Undefined array key / stripslashes(null) を出さず既定値を返す（境界値）',
+				'input'               => array(),
+				'expected'            => array(
+					'before' => array( '' ),
+					'more'   => array( '' ),
+					'after'  => array( '' ),
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = $ads->sanitize_config( $case['input'] );
+			$this->assertSame( $case['expected']['before'], $actual['before'], $case['test_condition_name'] . ' / before' );
+			$this->assertSame( $case['expected']['more'], $actual['more'], $case['test_condition_name'] . ' / more' );
+			$this->assertSame( $case['expected']['after'], $actual['after'], $case['test_condition_name'] . ' / after' );
+		}
+	}
+
 	function test_vExUnit_Ads_get_option() {
 
 		$tests = array(

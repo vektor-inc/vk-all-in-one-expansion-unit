@@ -191,6 +191,14 @@ function veu_register_active_feature_meta() {
 			$sanitize = function ( $value ) {
 				return (string) absint( $value );
 			};
+		} elseif ( in_array( $cta_key, array( 'vkExUnit_cta_button_text', 'vkExUnit_cta_button_icon', 'vkExUnit_cta_button_icon_before', 'vkExUnit_cta_button_icon_after', 'vkExUnit_cta_text' ), true ) ) {
+			// ボタンテキスト・本文・アイコンは限定HTMLを許可するため wp_kses_post でサニタイズする。
+			// sanitize_text_field はタグと中身を除去してしまい、クラシックメタボックスの保存処理およびフロント表示（いずれも wp_kses_post）と矛盾するため。
+			// Sanitize button text / body / icon fields with wp_kses_post since they allow limited HTML.
+			// sanitize_text_field would strip tags and their contents, contradicting the classic metabox save and the front-end rendering (both use wp_kses_post).
+			$sanitize = function ( $value ) {
+				return wp_kses_post( (string) $value );
+			};
 		}
 		register_post_meta(
 			'cta',

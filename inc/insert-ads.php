@@ -143,16 +143,18 @@ class vExUnit_Ads {
 	}
 
 	public function sanitize_config( $input ) {
+		// before / more / after の各フィールドが未送信の場合に Undefined array key 警告と stripslashes(null) の非推奨警告を防ぐため isset で判定する。
+		// Guard the before / more / after fields with isset to avoid an "Undefined array key" warning and the deprecated stripslashes(null) call when a field is not submitted.
 		$option                               = $input;
 		$option['google-ads-active']          = ( isset( $input['google-ads-active'] ) ) ? esc_attr( $input['google-ads-active'] ) : '';
 		$option['google-ads-overlays-bottom'] = ( isset( $input['google-ads-overlays-bottom'] ) ) ? esc_attr( $input['google-ads-overlays-bottom'] ) : '';
 		$option['google-pub-id']              = ( isset( $input['google-pub-id'] ) ) ? stripslashes( esc_attr( $input['google-pub-id'] ) ) : '';
-		$option['before'][0]                  = stripslashes( $input['before'][0] );
-		$option['before'][1]                  = stripslashes( $input['before'][1] );
-		$option['more'][0]                    = stripslashes( $input['more'][0] );
-		$option['more'][1]                    = stripslashes( $input['more'][1] );
-		$option['after'][0]                   = stripslashes( $input['after'][0] );
-		$option['after'][1]                   = stripslashes( $input['after'][1] );
+		$option['before'][0]                  = isset( $input['before'][0] ) ? stripslashes( (string) $input['before'][0] ) : '';
+		$option['before'][1]                  = isset( $input['before'][1] ) ? stripslashes( (string) $input['before'][1] ) : '';
+		$option['more'][0]                    = isset( $input['more'][0] ) ? stripslashes( (string) $input['more'][0] ) : '';
+		$option['more'][1]                    = isset( $input['more'][1] ) ? stripslashes( (string) $input['more'][1] ) : '';
+		$option['after'][0]                   = isset( $input['after'][0] ) ? stripslashes( (string) $input['after'][0] ) : '';
+		$option['after'][1]                   = isset( $input['after'][1] ) ? stripslashes( (string) $input['after'][1] ) : '';
 
 		if ( isset( $input['post_types'] ) && is_array( $input['post_types'] ) ) {
 			foreach ( $input['post_types'] as $key => $value ) {

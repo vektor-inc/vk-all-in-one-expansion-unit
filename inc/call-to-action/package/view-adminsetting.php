@@ -26,13 +26,21 @@ global $vk_call_to_action_textdomain;
 
 <table class="form-table">
 <?php foreach ( $options as $type => $value ) : ?>
-<tr><th><label ><?php echo get_post_type_object( $type )->label; ?></label></th>
-<td><select name="vkExUnit_cta_settings[<?php echo $type; ?>]" id="vkExUnit_cta_settings">
+	<?php
+	// 登録解除済みの投稿タイプでは get_post_type_object() が null を返すため、null 参照（プロパティアクセス）警告を避けてスキップする。
+	// get_post_type_object() returns null for an unregistered post type, so skip it to avoid a "read property on null" warning.
+	$veu_cta_post_type_object = get_post_type_object( $type );
+	if ( ! $veu_cta_post_type_object ) {
+		continue;
+	}
+	?>
+<tr><th><label ><?php echo esc_html( $veu_cta_post_type_object->label ); ?></label></th>
+<td><select name="vkExUnit_cta_settings[<?php echo esc_attr( $type ); ?>]" id="vkExUnit_cta_settings">
 	<?php foreach ( $ctas as $cta ) : ?>
-	<option value="<?php echo $cta['key']; ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo $cta['label']; ?></option>
+	<option value="<?php echo esc_attr( $cta['key'] ); ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo esc_html( $cta['label'] ); ?></option>
 <?php endforeach; ?>
 </select>
-　<a href="<?php echo admin_url( 'edit.php?post_type=' . $type ); ?>" class="button button-default" target="_blank"><?php _e( 'Show index page', $vk_call_to_action_textdomain ); ?></a>
+　<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $type ) ); ?>" class="button button-default" target="_blank"><?php _e( 'Show index page', $vk_call_to_action_textdomain ); ?></a>
 </td></tr>
 <?php endforeach; ?>
 </table>

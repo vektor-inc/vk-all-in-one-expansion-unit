@@ -32,7 +32,9 @@ function veu_get_follow_html() {
 
 	$options = veu_get_sns_options();
 	if ( ! $options['enableFollowMe'] ) {
-		return $content; }
+		// この関数は引数を取らないため、未定義変数 $content ではなく空文字列を返す。
+		// This function takes no argument, so return an empty string instead of the undefined variable $content.
+		return ''; }
 
 	if ( ! empty( $options['followMe_title'] ) ) {
 		$title = $options['followMe_title'];

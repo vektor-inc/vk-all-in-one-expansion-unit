@@ -108,6 +108,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function add_cap_post_type_manage() {
 			$role           = get_role( 'administrator' );
 			$post_type_name = 'post_type_manage';
+			// administrator ロールが存在しない環境では get_role() が null を返すため、null に対するメソッド呼び出し（致命的エラー）を防ぐ。
+			// get_role() returns null when the administrator role is absent, so guard against a fatal "call to a member function on null".
+			if ( ! $role instanceof WP_Role ) {
+				return;
+			}
 			$role->add_cap( 'add_' . $post_type_name );
 			$role->add_cap( 'add_' . $post_type_name . 's' );
 			$role->add_cap( 'edit_' . $post_type_name );
@@ -852,7 +857,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 					$post_type_items = get_post_meta( $post->ID, 'veu_post_type_items', true );
 					if ( ! $post_type_items ) {
-						$post_type_items = array( 'title' );
+						// メタ未保存（旧データ）時は title サポートを既定にする。
+						// 直後の array_keys() でキーを supports に用いるため、リストではなく連想配列で初期化する（array( 'title' ) だとキーが 0 になり title が付与されない）。
+						// Default to title support when the meta is unsaved (legacy data).
+						// Initialize as an associative array (not a list) because the following array_keys() maps keys to supports; array( 'title' ) would yield key 0 and drop title support.
+						$post_type_items = array( 'title' => 'true' );
 					}
 					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.
 					$supports = array();
@@ -949,10 +958,19 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						}
 
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
-							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
+							// 行が配列でない、または slug キーを欠く旧データに対する Undefined array key / offset 警告を防ぐ。
+							// label は新規登録時のみ必須のため、ここでは要求しない（既存タクソノミーの再アタッチは slug のみで行えるようにする）。
+							// Guard against "Undefined array key"/offset warnings for legacy rows that are not arrays or lack the slug key.
+							// label is required only for new registration, so it is not required here (existing taxonomies can be reattached with slug alone).
+							if ( is_array( $taxonomy ) && ! empty( $taxonomy['slug'] ) ) {
 
 								// 既存のタクソノミーをチェック.
 								if ( ! taxonomy_exists( $taxonomy['slug'] ) ) {
+									// register_taxonomy() には label が必須のため、label を欠く旧データはスキップする。
+									// register_taxonomy() requires a label, so skip legacy rows that lack one.
+									if ( empty( $taxonomy['label'] ) ) {
+										continue;
+									}
 									// カスタム分類を階層化するかどうか.
 									$hierarchical_true = ( empty( $taxonomy['tag'] ) ) ? true : false;
 									// REST API を使用するかどうか.
@@ -1010,10 +1028,10 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 										$args
 									);
 								} else {
-									// 既存のタクソノミーを再利用.
+									// 既存のタクソノミーを再利用（slug のみで再アタッチ可能・label 不要）.
 									register_taxonomy_for_object_type( $taxonomy['slug'], $post_type_id );
 								}
-							} // if ( $taxonomy['slug'] && $taxonomy['label']){
+							} // if ( is_array( $taxonomy ) && ! empty( $taxonomy['slug'] ) ){
 						} // foreach ($veu_taxonomies as $key => $taxonomy) {
 					} // if ( $post_type_id ) {
 				} // foreach ($custom_post_types as $key => $post) {

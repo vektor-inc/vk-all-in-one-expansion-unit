@@ -65,13 +65,27 @@ function vkExUnit_rewrite_archives_link( $link_html ) {
 		}
 
 		$olink = parse_url( $link_url_before );
+		// parse_url() は不正な URL で false を返し、存在しない要素はキー自体が無いため、
+		// offset-on-false / Undefined array key 警告を防ぐよう既定値で正規化する。
+		// parse_url() returns false for a malformed URL and omits missing components, so normalize with defaults to avoid offset-on-false / "Undefined array key" warnings.
+		if ( ! is_array( $olink ) ) {
+			return $link_html;
+		}
+		$olink = array_merge(
+			array(
+				'scheme' => '',
+				'host'   => '',
+				'path'   => '',
+				'query'  => '',
+			),
+			$olink
+		);
 		if ( preg_match( '/\/' . $my_archives_post_type . '\/?/', $olink['path'] ) ) {
 			return $link_html;
 		}
 
-		if ( ! isset( $olink['query'] ) ) {
-			$olink['query'] = '';
-		}
+		// query キーは上の array_merge で既定値 '' が保証されているため、そのまま利用する。
+		// The query key is guaranteed to exist (defaulted to '') by the array_merge above, so use it directly.
 		parse_str( $olink['query'], $query );
 		if ( isset( $query['post_type'] ) && $query['post_type'] ) {
 			return $link_html;

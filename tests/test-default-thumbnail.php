@@ -17,6 +17,35 @@ class DefaultThumbnailTest extends WP_UnitTestCase {
 	protected $post_id_with_thumbnail;
 
 	/**
+	 * veu_default_thumbnail_options_validate() は添付ID(数値)をサニタイズし、
+	 * フィールド未送信でも Undefined array key の Notice を出さず 0 を返す。
+	 */
+	public function test_veu_default_thumbnail_options_validate() {
+		$test_cases = array(
+			array(
+				'test_condition_name' => '数値の添付IDが指定されている場合 => 数値文字列を返す（正常系）',
+				'input'               => array( 'default_thumbnail_image' => '123' ),
+				'expected'            => array( 'default_thumbnail_image' => '123' ),
+			),
+			array(
+				'test_condition_name' => '全角数字が指定されている場合 => 半角数値に正規化される（正常系）',
+				'input'               => array( 'default_thumbnail_image' => '４５６' ),
+				'expected'            => array( 'default_thumbnail_image' => '456' ),
+			),
+			array(
+				'test_condition_name' => 'キーを持たない配列 => 0 を返す（Undefined array key を出さない・境界値）',
+				'input'               => array(),
+				'expected'            => array( 'default_thumbnail_image' => '0' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_default_thumbnail_options_validate( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
 	 * Set up the test environment.
 	 */
 	function setUp(): void {

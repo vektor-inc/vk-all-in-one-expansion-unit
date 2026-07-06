@@ -88,7 +88,9 @@ class VEU_Taxonomy_Head_Title {
 		// データの取得と検証
 		if ( isset( $_POST[ $meta_key ] ) ) {
 			$title_data = array(
-				'title'          => sanitize_text_field( $_POST[ $meta_key ]['title'] ),
+				// title サブキー未送信時の Undefined array key 警告と sanitize_text_field(null) の非推奨警告を防ぐ。
+				// Guard the title subkey to avoid an "Undefined array key" warning and the deprecated sanitize_text_field(null) call when it is not submitted.
+				'title'          => isset( $_POST[ $meta_key ]['title'] ) ? sanitize_text_field( wp_unslash( $_POST[ $meta_key ]['title'] ) ) : '',
 				'add_site_title' => isset( $_POST[ $meta_key ]['add_site_title'] ) ? 1 : 0,
 			);
 

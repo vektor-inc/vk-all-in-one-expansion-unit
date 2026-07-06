@@ -11,7 +11,11 @@ function veu_gtm_options_init() {
 add_action( 'veu_package_init', 'veu_gtm_options_init' );
 
 function veu_gtm_options_validate( $input ) {
-	$output['gtm_id'] = sanitize_text_field( $input['gtm_id'] );
+	$output = array();
+	// メイン設定の一括保存時、当該オプション群が $_POST に無いと $input は null で渡るため、
+	// offset-on-null 警告と sanitize_text_field(null) の非推奨警告を防ぐ。
+	// $input arrives as null when this option group is absent from $_POST during the bulk save, so guard against offset-on-null and the deprecated sanitize_text_field(null) call.
+	$output['gtm_id'] = ! empty( $input['gtm_id'] ) ? sanitize_text_field( $input['gtm_id'] ) : '';
 	return $output;
 }
 

@@ -11,6 +11,40 @@
 class WpTitleTest extends WP_UnitTestCase {
 
 	/**
+	 * vkExUnit_wp_title_validate() は extend_frontTitle をエスケープし、
+	 * 入力欠落や null（メイン設定の一括保存で当該グループが未送信）でも Notice/Deprecation を出さず空文字を返す。
+	 */
+	public function test_vkExUnit_wp_title_validate() {
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'extend_frontTitle が指定されている場合 => 値を返す（正常系）',
+				'input'               => array( 'extend_frontTitle' => 'My Front Title' ),
+				'expected'            => array( 'extend_frontTitle' => 'My Front Title' ),
+			),
+			array(
+				'test_condition_name' => 'HTML特殊文字を含む場合 => htmlspecialchars でエスケープされる（正常系）',
+				'input'               => array( 'extend_frontTitle' => 'Site<Title>' ),
+				'expected'            => array( 'extend_frontTitle' => 'Site&lt;Title&gt;' ),
+			),
+			array(
+				'test_condition_name' => 'キーを持たない配列 => 空文字を返す（Undefined array key を出さない・境界値）',
+				'input'               => array(),
+				'expected'            => array( 'extend_frontTitle' => '' ),
+			),
+			array(
+				'test_condition_name' => 'null => 空文字を返す（offset-on-null / htmlspecialchars(null) を出さない・異常系）',
+				'input'               => null,
+				'expected'            => array( 'extend_frontTitle' => '' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = vkExUnit_wp_title_validate( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
 	 * PHP Unit テストにあたって、各種投稿やカスタム投稿タイプ、カテゴリーを登録します。
 	 *
 	 * @return array $test_posts : 作成した投稿の記事idなどを配列で返します。

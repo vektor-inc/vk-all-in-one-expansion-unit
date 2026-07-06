@@ -361,7 +361,9 @@ class VEU_Promotion_Alert {
 		}
 
 		// Check the user's permissions.
-		if ( 'page' == $_POST['post_type'] ) {
+		// post_type が送信されないフローでの Undefined array key 警告を防ぐ。
+		// Guard against an "Undefined array key" warning in flows where post_type is not submitted.
+		if ( isset( $_POST['post_type'] ) && 'page' === sanitize_key( wp_unslash( $_POST['post_type'] ) ) ) {
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return $post_id;
 			}
