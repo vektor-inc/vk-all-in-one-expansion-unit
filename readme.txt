@@ -81,6 +81,10 @@ e.g.
 
 == Changelog ==
 
+[ Bug Fix ] Fixed PHP warnings, notices and deprecations ( and a potential fatal error ) logged in debug mode on recent PHP versions, while keeping PHP 7.4 support.
+[ Bug Fix ][ CTA ] Fixed the CTA image not being saved and the button text / message losing their allowed HTML when saved from the classic edit screen.
+[ Bug Fix ][ Custom Post Type Manager ] Fixed custom post types saved by older versions losing "title" support when re-registered.
+
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.2 to 0.7.4
