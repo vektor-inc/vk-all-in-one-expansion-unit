@@ -87,25 +87,28 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			if ( $case['unset_request_uri'] ) {
-				unset( $_SERVER['REQUEST_URI'] );
-			} else {
-				$_SERVER['REQUEST_URI'] = $case['request_uri'];
+		try {
+			foreach ( $test_cases as $case ) {
+				if ( $case['unset_request_uri'] ) {
+					unset( $_SERVER['REQUEST_URI'] );
+				} else {
+					$_SERVER['REQUEST_URI'] = $case['request_uri'];
+				}
+
+				$actual = vk_get_post_type();
+
+				$this->assertIsArray( $actual, $case['test_condition_name'] );
+				$this->assertArrayHasKey( 'slug', $actual, $case['test_condition_name'] );
+				$this->assertIsString( $actual['slug'], $case['test_condition_name'] );
 			}
-
-			$actual = vk_get_post_type();
-
-			$this->assertIsArray( $actual, $case['test_condition_name'] );
-			$this->assertArrayHasKey( 'slug', $actual, $case['test_condition_name'] );
-			$this->assertIsString( $actual['slug'], $case['test_condition_name'] );
-		}
-
-		// REQUEST_URI を復元する。
-		if ( null !== $original_request_uri ) {
-			$_SERVER['REQUEST_URI'] = $original_request_uri;
-		} else {
-			unset( $_SERVER['REQUEST_URI'] );
+		} finally {
+			// アサーション失敗（例外）時も含め、REQUEST_URI を必ず復元して後続テストへの影響を防ぐ。
+			// Always restore REQUEST_URI (even when an assertion throws) so later tests stay isolated.
+			if ( null !== $original_request_uri ) {
+				$_SERVER['REQUEST_URI'] = $original_request_uri;
+			} else {
+				unset( $_SERVER['REQUEST_URI'] );
+			}
 		}
 	}
 
