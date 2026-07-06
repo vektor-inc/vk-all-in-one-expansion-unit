@@ -133,6 +133,11 @@ class VK_Article_Srtuctured_Data {
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
 			global $post;
+			// $post が取得できない（非特異ページ・外部呼び出し）場合は空配列を返す。
+			// Return an empty array when $post is unavailable (non-singular pages or external calls).
+			if ( ! $post instanceof WP_Post ) {
+				return array();
+			}
 			$author_id = $post->post_author;
 		}
 
@@ -146,6 +151,9 @@ class VK_Article_Srtuctured_Data {
 		// アイキャッチ画像を ImageObject 形式の配列で取得する（未設定や URL 取得失敗時は空配列）。
 		// Get the featured image as an ImageObject-formatted array (empty array when unset or when the URL cannot be retrieved).
 		$image = array();
+		// 非特異ページでは is_singular() ブロックが実行されず $post_title が未定義になるため初期化しておく。
+		// Initialize $post_title because the is_singular() block does not run on non-singular pages, which would leave it undefined.
+		$post_title = '';
 		if ( is_singular() ) {
 			$image      = self::get_article_image_object();
 			$post_title = get_the_title();

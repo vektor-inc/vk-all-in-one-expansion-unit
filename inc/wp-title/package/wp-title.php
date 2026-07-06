@@ -199,8 +199,11 @@ function vkExUnit_get_wp_title_default() {
 }
 
 function vkExUnit_wp_title_validate( $input ) {
-	$output                      = array();
-	$output['extend_frontTitle'] = stripslashes( htmlspecialchars( $input['extend_frontTitle'] ) );
+	$output = array();
+	// メイン設定の一括保存時、当該オプション群が $_POST に無いと $input は null で渡るため、
+	// offset-on-null 警告と htmlspecialchars(null) の非推奨警告を防ぐ。
+	// $input arrives as null when this option group is absent from $_POST during the bulk save, so guard against offset-on-null and the deprecated htmlspecialchars(null) call.
+	$output['extend_frontTitle'] = ! empty( $input['extend_frontTitle'] ) ? stripslashes( htmlspecialchars( $input['extend_frontTitle'] ) ) : '';
 	return $output;
 }
 

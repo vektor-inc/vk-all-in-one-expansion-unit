@@ -108,6 +108,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 		public static function add_cap_post_type_manage() {
 			$role           = get_role( 'administrator' );
 			$post_type_name = 'post_type_manage';
+			// administrator ロールが存在しない環境では get_role() が null を返すため、null に対するメソッド呼び出し（致命的エラー）を防ぐ。
+			// get_role() returns null when the administrator role is absent, so guard against a fatal "call to a member function on null".
+			if ( ! $role instanceof WP_Role ) {
+				return;
+			}
 			$role->add_cap( 'add_' . $post_type_name );
 			$role->add_cap( 'add_' . $post_type_name . 's' );
 			$role->add_cap( 'edit_' . $post_type_name );
@@ -852,7 +857,11 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 					$post_type_items = get_post_meta( $post->ID, 'veu_post_type_items', true );
 					if ( ! $post_type_items ) {
-						$post_type_items = array( 'title' );
+						// メタ未保存（旧データ）時は title サポートを既定にする。
+						// 直後の array_keys() でキーを supports に用いるため、リストではなく連想配列で初期化する（array( 'title' ) だとキーが 0 になり title が付与されない）。
+						// Default to title support when the meta is unsaved (legacy data).
+						// Initialize as an associative array (not a list) because the following array_keys() maps keys to supports; array( 'title' ) would yield key 0 and drop title support.
+						$post_type_items = array( 'title' => 'true' );
 					}
 					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.
 					$supports = array();
@@ -949,7 +958,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 						}
 
 						foreach ( $veu_taxonomies as $key => $taxonomy ) {
-							if ( $taxonomy['slug'] && $taxonomy['label'] ) {
+							// 個々の行が配列でない、または slug / label キーを欠く旧データに対する Undefined array key / offset 警告を防ぐ。
+							// Guard against "Undefined array key"/offset warnings for legacy rows that are not arrays or lack the slug / label keys.
+							if ( is_array( $taxonomy ) && ! empty( $taxonomy['slug'] ) && ! empty( $taxonomy['label'] ) ) {
 
 								// 既存のタクソノミーをチェック.
 								if ( ! taxonomy_exists( $taxonomy['slug'] ) ) {

@@ -377,7 +377,9 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 			),
 			array(
 				'test_condition_name' => 'メタに既に custom-fields が含まれる場合は重複追加されない（境界値）',
-				'post_type_id'        => 'force_cf_cpt_explicit',
+				// 投稿タイプ名は WP の20文字制限に合わせて add_post_type() 側で切り詰められるため、20文字以内の値にする。
+				// Keep within WordPress' 20-char post type name limit, since add_post_type() truncates longer names.
+				'post_type_id'        => 'force_cf_explicit',
 				'set_post_type_items' => true,
 				'post_type_items'     => array(
 					'title'         => 'true',

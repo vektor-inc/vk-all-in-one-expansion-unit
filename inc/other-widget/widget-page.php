@@ -71,24 +71,28 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 	*/
 	public static function widget_title( $instance ) {
 
-		$pageid = $instance['page_id'];
-		$page   = get_page( $pageid );
+		// 旧バージョンで保存されたインスタンスは page_id / set_title を持たない場合があるため、
+		// Undefined array key 警告を防ぐよう先に正規化しておく。
+		// Normalize first to avoid an "Undefined array key" warning, since instances saved by older versions may lack page_id / set_title.
+		$pageid    = isset( $instance['page_id'] ) ? $instance['page_id'] : 0;
+		$page      = get_page( $pageid );
+		$set_title = isset( $instance['set_title'] ) ? $instance['set_title'] : null;
 
 		// Set display
 		/*
 		-------------------------------------------*/
 		// 5.3以前のユーザーで、タイトル表示にチェックしていなかった場合
-		if ( $instance['set_title'] == null ) {
+		if ( $set_title == null ) {
 			$widget_title['display'] = false;
 
 			// 5.3以前のユーザーで、タイトル表示にチェックがはいっていた場合
-		} elseif ( $instance['set_title'] === true ) {
+		} elseif ( $set_title === true ) {
 			$widget_title['display'] = true;
-		} elseif ( $instance['set_title'] == 'title-hidden' ) {
+		} elseif ( $set_title == 'title-hidden' ) {
 			$widget_title['display'] = false;
 
 			// ウィジェットのタイトルが選択されている場合は
-		} elseif ( $instance['set_title'] == 'title-widget' ) {
+		} elseif ( $set_title == 'title-widget' ) {
 
 			// ウィジェットタイトルが未入力の場合
 			if ( empty( $instance['title'] ) ) {
@@ -98,7 +102,7 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			}
 
 			// 固定ページのタイトルが選択されている場合は
-		} elseif ( $instance['set_title'] == 'title-page' ) {
+		} elseif ( $set_title == 'title-page' ) {
 			$widget_title['display'] = true;
 		} else {
 			$widget_title['display'] = false;
@@ -108,12 +112,14 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		/*
 		-------------------------------------------*/
 		// ウィジェットタイトルを選択していて、タイトル入力欄に入力がある場合
-		if ( $instance['set_title'] == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
+		if ( $set_title == 'title-widget' && isset( $instance['title'] ) && $instance['title'] ) {
 			$widget_title['title'] = $instance['title'];
 			// 旧バージョンで　タイトルを表示になっていた場合に
 			// タイトル表示形式フラグに 固定ページのタイトルを表示するvalueにしておく
-		} elseif ( ( $instance['set_title'] === true ) || ( $instance['set_title'] == 'title-page' ) ) {
-			$widget_title['title'] = $page->post_title;
+		} elseif ( ( $set_title === true ) || ( $set_title == 'title-page' ) ) {
+			// 指定ページが削除済みの場合 get_page() は null を返すため、null 参照警告を防ぐ。
+			// get_page() returns null when the target page was deleted, so guard against a "read property on null" warning.
+			$widget_title['title'] = ( $page instanceof WP_Post ) ? $page->post_title : '';
 		} else {
 			$widget_title['title'] = null;
 		}

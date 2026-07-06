@@ -53,7 +53,9 @@ function veu_display_archive_loop_before_widget_area( $query ) {
 
 	global $wp_query;
 
-	if ( ! empty( $wp_query->query_vars['post_type'] ) ) {
+	// query_vars['post_type'] は複数投稿タイプのアーカイブで配列になり得るため、文字列の場合のみ採用して "Array to string conversion" を防ぐ。
+	// query_vars['post_type'] can be an array on multi-post-type archives, so only accept it when it is a string to prevent an "Array to string conversion" warning.
+	if ( ! empty( $wp_query->query_vars['post_type'] ) && is_string( $wp_query->query_vars['post_type'] ) ) {
 		$post_type = $wp_query->query_vars['post_type'];
 	}
 

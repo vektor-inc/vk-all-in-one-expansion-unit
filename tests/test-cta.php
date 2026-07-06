@@ -159,13 +159,16 @@ class CTATest extends WP_UnitTestCase {
 		$raw_button_text = "Click <script>alert(1)</script> O\\'Clock";
 		$raw_cta_text    = "Line 1\\nLine 2<script>alert(2)</script>";
 		$raw_url         = 'https://example.com/?q=<script>';
-		$raw_img_url     = 'https://example.com/image.php?param=<script>';
+		// vkExUnit_cta_img はアタッチメントIDを保持するフィールドなので、
+		// 数値以外が混入しても absint で整数（IDのみ）に正規化される事を検証する。
+		// vkExUnit_cta_img stores an attachment ID, so verify that non-numeric junk is normalized to the integer ID via absint.
+		$raw_img_id = '123<script>';
 
 		$_POST = array(
 			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
 			'_vkExUnit_cta_switch'       => 'cta_content',
 			'vkExUnit_cta_use_type'      => 'veu_cta_normal',
-			'vkExUnit_cta_img'           => $raw_img_url,
+			'vkExUnit_cta_img'           => $raw_img_id,
 			'vkExUnit_cta_button_text'   => $raw_button_text,
 			'vkExUnit_cta_url'           => $raw_url,
 			'vkExUnit_cta_url_blank'     => 'window_self',
@@ -175,7 +178,7 @@ class CTATest extends WP_UnitTestCase {
 		Vk_Call_To_Action::save_custom_field( $post_id );
 
 		$this->assertSame( 'veu_cta_normal', get_post_meta( $post_id, 'vkExUnit_cta_use_type', true ) );
-		$this->assertSame( esc_url( $raw_img_url ), get_post_meta( $post_id, 'vkExUnit_cta_img', true ) );
+		$this->assertSame( (string) absint( $raw_img_id ), get_post_meta( $post_id, 'vkExUnit_cta_img', true ) );
 		$this->assertSame(
 			wp_kses_post( stripslashes( $raw_button_text ) ),
 			get_post_meta( $post_id, 'vkExUnit_cta_button_text', true )

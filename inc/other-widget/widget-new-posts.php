@@ -235,6 +235,9 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			'objects'
 		);
 		// 階層のあるものだけ $taxonomies に格納
+		// 該当タクソノミーが1件もない場合に未定義変数とならないよう初期化する。
+		// Initialize so the variable is not undefined when no matching taxonomy exists.
+		$taxonomies = array();
 		foreach ( $taxonomies_object as $key => $value ) {
 			if ( $value->hierarchical ) {
 				$taxonomies[] = $key;

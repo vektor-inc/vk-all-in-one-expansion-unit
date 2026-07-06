@@ -124,9 +124,12 @@ function veu_main_sanitaize_and_update( $_post ) {
 
 				// サニタイズコールバックを実行
 				$option = call_user_func_array( $veu_option['callback'], array( $before ) );
-			} // if ( ! empty( $veu_option['callback'] ) ) {
 
-			update_option( $veu_option['option_name'], $option );
+				// コールバックが無い項目は保存しない仕様のため、update_option は callback がある場合のみ実行する。
+				// これによりコールバック未登録時の「Undefined variable $option」警告と null 上書きを防ぐ。
+				// Only call update_option when a callback exists (options without a callback are intentionally not saved), preventing an "Undefined variable $option" warning and a null overwrite.
+				update_option( $veu_option['option_name'], $option );
+			} // if ( ! empty( $veu_option['callback'] ) ) {
 		}
 	}
 }

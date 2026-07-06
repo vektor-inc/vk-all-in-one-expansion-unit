@@ -61,7 +61,9 @@ if ( ! function_exists( 'vk_get_post_type' ) ) {
 
 		$postType = array();
 
-		$url = $_SERVER['REQUEST_URI'];
+		// WP-CLI / cron 等では REQUEST_URI が未設定になり得るため、strpos() に null が渡らないよう既定値を与える。
+		// REQUEST_URI can be unset under WP-CLI / cron, so default it to avoid passing null to strpos().
+		$url = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 		// 管理画面の投稿タイプ
 		// ※ phpunitで is_admin()判定が効かない場合のため strpos( $url, 'wp-admin' ) を使用
@@ -353,8 +355,10 @@ if ( ! function_exists( 'vk_sanitize_number' ) ) {
 }
 if ( ! function_exists( 'vk_sanitize_array' ) ) {
 	function vk_sanitize_array( $input ) {
+		// $input が配列でない場合に「Undefined variable $return」警告とならないよう先に初期化する。
+		// Initialize first so a non-array $input does not trigger an "Undefined variable $return" warning.
+		$return = array();
 		if ( is_array( $input ) ) {
-			$return = array();
 			foreach ( $input as $key => $value ) {
 				$return[ $key ] = wp_kses_post( $value );
 			}

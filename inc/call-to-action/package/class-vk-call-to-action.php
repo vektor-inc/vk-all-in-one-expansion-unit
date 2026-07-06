@@ -147,7 +147,10 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 
 			if ( 'cta_number' === $_POST['_vkExUnit_cta_switch'] ) {
-				$data = $_POST['vkexunit_cta_each_option'];
+				// この値は連想配列で送信されるため、未送信時の Undefined array key 警告を防ぎつつ、
+				// map_deep() で配列構造を保持したまま各要素をサニタイズする。
+				// This value is submitted as an associative array, so guard against an "Undefined array key" warning when it is missing and sanitize each element with map_deep() while preserving the array structure.
+				$data = isset( $_POST['vkexunit_cta_each_option'] ) ? map_deep( wp_unslash( $_POST['vkexunit_cta_each_option'] ), 'sanitize_text_field' ) : '';
 
 				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
 					add_post_meta( $post_id, 'vkexunit_cta_each_option', $data, true );
@@ -165,7 +168,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
-						'escape_type' => 'esc_url',
+						// 画像フィールドはアタッチメントIDを保持するため整数として保存する（ブロックエディタ側のメタ登録と揃える）。
+						// The image field stores an attachment ID, so save it as an integer to match the block editor meta registration.
+						'escape_type' => 'absint',
 					),
 					'vkExUnit_cta_img_position'       => array(
 						'escape_type' => '',

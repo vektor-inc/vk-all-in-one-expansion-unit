@@ -107,8 +107,12 @@ function veu_change_vk_components_image_default_url( $options ) {
 		$image_option     = get_option( 'veu_defualt_thumbnail' );
 		$image_default_id = ! empty( $image_option['default_thumbnail_image'] ) ? $image_option['default_thumbnail_image'] : '';
 		if ( $image_default_id ) {
-			$image                        = wp_get_attachment_image_src( $image_default_id, 'large', true );
-			$options['image_default_url'] = $image[0];
+			$image = wp_get_attachment_image_src( $image_default_id, 'large', true );
+			// 添付ファイルが削除済みの場合 wp_get_attachment_image_src() は false を返すため、配列であることを確認してから参照する。
+			// wp_get_attachment_image_src() returns false when the attachment was deleted, so confirm it is an array before accessing the offset.
+			if ( is_array( $image ) && ! empty( $image[0] ) ) {
+				$options['image_default_url'] = $image[0];
+			}
 		}
 	}
 	return $options;
@@ -126,7 +130,10 @@ function veu_default_thumbnail_options_init() {
 add_action( 'veu_package_init', 'veu_default_thumbnail_options_init' );
 
 function veu_default_thumbnail_options_validate( $input ) {
-	$output['default_thumbnail_image'] = vk_sanitize_number( $input['default_thumbnail_image'] );
+	$output = array();
+	// フィールド未送信時の Undefined array key 警告を防ぐため isset で判定する。
+	// Guard with isset to avoid an "Undefined array key" warning when the field is not submitted.
+	$output['default_thumbnail_image'] = vk_sanitize_number( isset( $input['default_thumbnail_image'] ) ? $input['default_thumbnail_image'] : '' );
 	return $output;
 }
 
