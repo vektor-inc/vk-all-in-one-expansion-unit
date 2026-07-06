@@ -75,7 +75,6 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 		// Undefined array key 警告を防ぐよう先に正規化しておく。
 		// Normalize first to avoid an "Undefined array key" warning, since instances saved by older versions may lack page_id / set_title.
 		$pageid    = isset( $instance['page_id'] ) ? $instance['page_id'] : 0;
-		$page      = get_page( $pageid );
 		$set_title = isset( $instance['set_title'] ) ? $instance['set_title'] : null;
 
 		// Set display
@@ -117,8 +116,9 @@ class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 			// 旧バージョンで　タイトルを表示になっていた場合に
 			// タイトル表示形式フラグに 固定ページのタイトルを表示するvalueにしておく
 		} elseif ( ( $set_title === true ) || ( $set_title == 'title-page' ) ) {
-			// 指定ページが削除済みの場合 get_page() は null を返すため、null 参照警告を防ぐ。
-			// get_page() returns null when the target page was deleted, so guard against a "read property on null" warning.
+			// 固定ページのタイトルが必要な場合のみ取得する。削除済み等で get_page() が null の場合は null 参照警告を防ぐ。
+			// Fetch the page only when its title is needed; guard against a "read property on null" warning when get_page() returns null (e.g. a deleted page).
+			$page                  = get_page( $pageid );
 			$widget_title['title'] = ( $page instanceof WP_Post ) ? $page->post_title : '';
 		} else {
 			$widget_title['title'] = null;

@@ -168,9 +168,11 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_img'                => array(
-						// 画像フィールドはアタッチメントIDを保持するため整数として保存する（ブロックエディタ側のメタ登録と揃える）。
-						// The image field stores an attachment ID, so save it as an integer to match the block editor meta registration.
-						'escape_type' => 'absint',
+						// 画像フィールドはアタッチメントIDを保持するため、整数化した上で文字列にキャストして保存する。
+						// これによりブロックエディタ側のメタ登録（(string) absint()）と保存値の型を一致させる。
+						// The image field stores an attachment ID, so cast the sanitized integer to a string on save
+						// to match the block editor meta registration ( (string) absint() ).
+						'escape_type' => array( 'absint', 'strval' ),
 					),
 					'vkExUnit_cta_img_position'       => array(
 						'escape_type' => '',

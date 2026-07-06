@@ -59,6 +59,56 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * vk_get_post_type() は $_SERVER['REQUEST_URI'] が未設定（WP-CLI / cron 相当）でも
+	 * Undefined array key / strpos(null) を出さず、slug を含む配列を返す。
+	 */
+	public function test_vk_get_post_type() {
+		// フロントページに移動して $wp_query を用意する。
+		$this->go_to( home_url( '/' ) );
+
+		$original_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : null;
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'REQUEST_URI が通常どおり設定されている場合 => slug を含む配列を返す（正常系）',
+				'request_uri'         => '/',
+				'unset_request_uri'   => false,
+			),
+			array(
+				'test_condition_name' => '任意のパスが REQUEST_URI に設定されている場合 => slug を含む配列を返す（正常系）',
+				'request_uri'         => '/sample-page/',
+				'unset_request_uri'   => false,
+			),
+			array(
+				'test_condition_name' => 'REQUEST_URI が未設定（WP-CLI / cron 相当）=> Undefined array key / strpos(null) を出さず slug を含む配列を返す（境界値）',
+				'request_uri'         => null,
+				'unset_request_uri'   => true,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			if ( $case['unset_request_uri'] ) {
+				unset( $_SERVER['REQUEST_URI'] );
+			} else {
+				$_SERVER['REQUEST_URI'] = $case['request_uri'];
+			}
+
+			$actual = vk_get_post_type();
+
+			$this->assertIsArray( $actual, $case['test_condition_name'] );
+			$this->assertArrayHasKey( 'slug', $actual, $case['test_condition_name'] );
+			$this->assertIsString( $actual['slug'], $case['test_condition_name'] );
+		}
+
+		// REQUEST_URI を復元する。
+		if ( null !== $original_request_uri ) {
+			$_SERVER['REQUEST_URI'] = $original_request_uri;
+		} else {
+			unset( $_SERVER['REQUEST_URI'] );
+		}
+	}
+
 	public static function setup_data() {
 
 		/**
