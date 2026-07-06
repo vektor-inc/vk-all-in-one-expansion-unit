@@ -15,6 +15,50 @@ phpunit
 
 class TemplateTagsTest extends WP_UnitTestCase {
 
+	/**
+	 * vk_sanitize_array() は配列を wp_kses_post でサニタイズし、配列以外は空配列を返す。
+	 * （配列以外を渡した際に未定義変数 $return の Notice を出さない事を含めて検証）
+	 */
+	public function test_vk_sanitize_array() {
+		$test_cases = array(
+			array(
+				'test_condition_name' => '文字列要素の連想配列 => キー構造を保ったまま返す（正常系）',
+				'input'               => array(
+					'k1' => 'plain text',
+					'k2' => 'safe value',
+				),
+				'expected'            => array(
+					'k1' => 'plain text',
+					'k2' => 'safe value',
+				),
+			),
+			array(
+				'test_condition_name' => '許可タグを含む配列 => 許可タグは保持される（正常系）',
+				'input'               => array(
+					'html' => '<strong>bold</strong>',
+				),
+				'expected'            => array(
+					'html' => '<strong>bold</strong>',
+				),
+			),
+			array(
+				'test_condition_name' => '配列でない文字列 => 空配列を返す（未定義変数 Notice を出さない・境界値）',
+				'input'               => 'not an array',
+				'expected'            => array(),
+			),
+			array(
+				'test_condition_name' => 'null => 空配列を返す（未定義変数 Notice を出さない・異常系）',
+				'input'               => null,
+				'expected'            => array(),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = vk_sanitize_array( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
 	public static function setup_data() {
 
 		/**

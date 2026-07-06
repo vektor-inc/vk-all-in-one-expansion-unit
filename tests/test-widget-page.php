@@ -11,6 +11,63 @@
 class WidgetPage extends WP_UnitTestCase {
 
 	/**
+	 * WP_Widget_vkExUnit_widget_page::widget_title() は set_title / page_id 欠落や
+	 * 存在しないページIDでも Undefined array key / read property on null を出さない。
+	 */
+	function test_widget_title() {
+		$page_id = wp_insert_post(
+			array(
+				'post_title'  => 'ウィジェット用固定ページ',
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+			)
+		);
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'set_title=title-widget かつ title 入力あり => 入力タイトルを表示（正常系）',
+				'instance'            => array(
+					'set_title' => 'title-widget',
+					'title'     => 'ウィジェットタイトル',
+					'page_id'   => $page_id,
+				),
+				'expected_title'      => 'ウィジェットタイトル',
+				'expected_display'    => true,
+			),
+			array(
+				'test_condition_name' => 'set_title=title-page かつ title キーなし => 固定ページのタイトルを表示（正常系）',
+				'instance'            => array(
+					'set_title' => 'title-page',
+					'page_id'   => $page_id,
+				),
+				'expected_title'      => 'ウィジェット用固定ページ',
+				'expected_display'    => true,
+			),
+			array(
+				'test_condition_name' => '空のインスタンス（set_title / page_id / title 全て未設定）=> Undefined array key を出さず非表示（異常系）',
+				'instance'            => array(),
+				'expected_title'      => null,
+				'expected_display'    => false,
+			),
+			array(
+				'test_condition_name' => 'set_title=title-page かつ存在しないページID => read property on null を出さず空タイトル（境界値）',
+				'instance'            => array(
+					'set_title' => 'title-page',
+					'page_id'   => 99999999,
+				),
+				'expected_title'      => '',
+				'expected_display'    => true,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = WP_Widget_vkExUnit_widget_page::widget_title( $case['instance'] );
+			$this->assertSame( $case['expected_title'], $actual['title'], $case['test_condition_name'] . ' / title' );
+			$this->assertSame( $case['expected_display'], $actual['display'], $case['test_condition_name'] . ' / display' );
+		}
+	}
+
+	/**
 	 * A single example test.
 	 */
 
