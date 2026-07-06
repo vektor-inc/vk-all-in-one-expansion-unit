@@ -159,54 +159,91 @@ class CTATest extends WP_UnitTestCase {
 		$raw_button_text = "Click <script>alert(1)</script> O\\'Clock";
 		$raw_cta_text    = "Line 1\\nLine 2<script>alert(2)</script>";
 		$raw_url         = 'https://example.com/?q=<script>';
-		// vkExUnit_cta_img はアタッチメントIDを保持するフィールドなので、
-		// 数値以外が混入しても absint で整数（IDのみ）に正規化される事を検証する。
-		// vkExUnit_cta_img stores an attachment ID, so verify that non-numeric junk is normalized to the integer ID via absint.
-		$raw_img_id = '123<script>';
+		$raw_img_id      = '123<script>';
 
-		// アイコン系フィールドは限定HTML（許可タグ）を保持しつつ <script> 等が除去される事を検証する。
-		// Icon fields keep allowed HTML while stripping disallowed tags such as <script>.
-		$raw_icon_fields = array(
-			'vkExUnit_cta_button_icon'        => '<i class="fa fa-star"></i><script>alert(3)</script>',
-			'vkExUnit_cta_button_icon_before' => '<span class="dashicons dashicons-arrow-left"></span><script>alert(4)</script>',
-			'vkExUnit_cta_button_icon_after'  => '<em>after</em><script>alert(5)</script>',
+		// 各フィールドの入力値と save_custom_field() 適用後に期待されるサニタイズ結果を1つの配列で表現し、
+		// $_POST の組み立てと保存結果の検証を同じ配列でループして行う。
+		// Express each field's input and its expected sanitized output in a single array, and drive both the $_POST setup and the assertions from it in a loop.
+		$field_cases = array(
+			array(
+				'name'     => 'use_type はそのまま保持される（正常系）',
+				'field'    => 'vkExUnit_cta_use_type',
+				'input'    => 'veu_cta_normal',
+				'expected' => 'veu_cta_normal',
+			),
+			array(
+				// vkExUnit_cta_img はアタッチメントIDを保持するため、数値以外が混入しても absint で整数（IDのみ）に正規化される。
+				// vkExUnit_cta_img stores an attachment ID, so non-numeric junk is normalized to the integer ID via absint.
+				'name'     => 'img はアタッチメントID（整数文字列）へ正規化される（境界値）',
+				'field'    => 'vkExUnit_cta_img',
+				'input'    => $raw_img_id,
+				'expected' => (string) absint( $raw_img_id ),
+			),
+			array(
+				'name'     => 'button_text は stripslashes + wp_kses_post でサニタイズされる（正常系）',
+				'field'    => 'vkExUnit_cta_button_text',
+				'input'    => $raw_button_text,
+				'expected' => wp_kses_post( stripslashes( $raw_button_text ) ),
+			),
+			array(
+				'name'     => 'url は esc_url でサニタイズされる（正常系）',
+				'field'    => 'vkExUnit_cta_url',
+				'input'    => $raw_url,
+				'expected' => esc_url( $raw_url ),
+			),
+			array(
+				'name'     => 'url_blank はそのまま保持される（正常系）',
+				'field'    => 'vkExUnit_cta_url_blank',
+				'input'    => 'window_self',
+				'expected' => 'window_self',
+			),
+			array(
+				'name'     => 'text は stripslashes + wp_kses_post でサニタイズされる（正常系）',
+				'field'    => 'vkExUnit_cta_text',
+				'input'    => $raw_cta_text,
+				'expected' => wp_kses_post( stripslashes( $raw_cta_text ) ),
+			),
+			array(
+				// アイコン系は限定HTML（許可タグ）を保持しつつ <script> 等が除去される（stripslashes なし）。
+				// Icon fields keep allowed HTML while stripping disallowed tags such as <script> ( no stripslashes ).
+				'name'     => 'button_icon は wp_kses_post のみでサニタイズされる（許可タグ保持）',
+				'field'    => 'vkExUnit_cta_button_icon',
+				'input'    => '<i class="fa fa-star"></i><script>alert(3)</script>',
+				'expected' => wp_kses_post( '<i class="fa fa-star"></i><script>alert(3)</script>' ),
+			),
+			array(
+				'name'     => 'button_icon_before は wp_kses_post のみでサニタイズされる（許可タグ保持）',
+				'field'    => 'vkExUnit_cta_button_icon_before',
+				'input'    => '<span class="dashicons dashicons-arrow-left"></span><script>alert(4)</script>',
+				'expected' => wp_kses_post( '<span class="dashicons dashicons-arrow-left"></span><script>alert(4)</script>' ),
+			),
+			array(
+				'name'     => 'button_icon_after は wp_kses_post のみでサニタイズされる（<script> 除去・異常系）',
+				'field'    => 'vkExUnit_cta_button_icon_after',
+				'input'    => '<em>after</em><script>alert(5)</script>',
+				'expected' => wp_kses_post( '<em>after</em><script>alert(5)</script>' ),
+			),
 		);
 
+		// テストケースから $_POST を組み立てる。
+		// Build $_POST from the test cases.
 		$_POST = array(
 			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
 			'_vkExUnit_cta_switch'       => 'cta_content',
-			'vkExUnit_cta_use_type'      => 'veu_cta_normal',
-			'vkExUnit_cta_img'           => $raw_img_id,
-			'vkExUnit_cta_button_text'   => $raw_button_text,
-			'vkExUnit_cta_url'           => $raw_url,
-			'vkExUnit_cta_url_blank'     => 'window_self',
-			'vkExUnit_cta_text'          => $raw_cta_text,
 		);
-		// アイコン系フィールドを $_POST に合流する。
-		// Merge the icon fields into $_POST.
-		$_POST = array_merge( $_POST, $raw_icon_fields );
+		foreach ( $field_cases as $case ) {
+			$_POST[ $case['field'] ] = $case['input'];
+		}
 
 		Vk_Call_To_Action::save_custom_field( $post_id );
 
-		$this->assertSame( 'veu_cta_normal', get_post_meta( $post_id, 'vkExUnit_cta_use_type', true ) );
-		$this->assertSame( (string) absint( $raw_img_id ), get_post_meta( $post_id, 'vkExUnit_cta_img', true ) );
-		$this->assertSame(
-			wp_kses_post( stripslashes( $raw_button_text ) ),
-			get_post_meta( $post_id, 'vkExUnit_cta_button_text', true )
-		);
-		$this->assertSame( esc_url( $raw_url ), get_post_meta( $post_id, 'vkExUnit_cta_url', true ) );
-		$this->assertSame( 'window_self', get_post_meta( $post_id, 'vkExUnit_cta_url_blank', true ) );
-		$this->assertSame(
-			wp_kses_post( stripslashes( $raw_cta_text ) ),
-			get_post_meta( $post_id, 'vkExUnit_cta_text', true )
-		);
-		// アイコン系フィールドは wp_kses_post のみ（stripslashes なし）でサニタイズされる事を検証する。
-		// Verify the icon fields are sanitized with wp_kses_post only ( no stripslashes ).
-		foreach ( $raw_icon_fields as $icon_field => $icon_raw ) {
+		// 各フィールドが期待どおりサニタイズされて保存されている事を検証する。
+		// Assert each field is saved with the expected sanitized value.
+		foreach ( $field_cases as $case ) {
 			$this->assertSame(
-				wp_kses_post( $icon_raw ),
-				get_post_meta( $post_id, $icon_field, true ),
-				$icon_field
+				$case['expected'],
+				get_post_meta( $post_id, $case['field'], true ),
+				$case['name']
 			);
 		}
 	}
