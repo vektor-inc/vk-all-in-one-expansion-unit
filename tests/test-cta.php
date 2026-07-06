@@ -164,6 +164,14 @@ class CTATest extends WP_UnitTestCase {
 		// vkExUnit_cta_img stores an attachment ID, so verify that non-numeric junk is normalized to the integer ID via absint.
 		$raw_img_id = '123<script>';
 
+		// アイコン系フィールドは限定HTML（許可タグ）を保持しつつ <script> 等が除去される事を検証する。
+		// Icon fields keep allowed HTML while stripping disallowed tags such as <script>.
+		$raw_icon_fields = array(
+			'vkExUnit_cta_button_icon'        => '<i class="fa fa-star"></i><script>alert(3)</script>',
+			'vkExUnit_cta_button_icon_before' => '<span class="dashicons dashicons-arrow-left"></span><script>alert(4)</script>',
+			'vkExUnit_cta_button_icon_after'  => '<em>after</em><script>alert(5)</script>',
+		);
+
 		$_POST = array(
 			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
 			'_vkExUnit_cta_switch'       => 'cta_content',
@@ -174,6 +182,9 @@ class CTATest extends WP_UnitTestCase {
 			'vkExUnit_cta_url_blank'     => 'window_self',
 			'vkExUnit_cta_text'          => $raw_cta_text,
 		);
+		// アイコン系フィールドを $_POST に合流する。
+		// Merge the icon fields into $_POST.
+		$_POST = array_merge( $_POST, $raw_icon_fields );
 
 		Vk_Call_To_Action::save_custom_field( $post_id );
 
@@ -189,6 +200,15 @@ class CTATest extends WP_UnitTestCase {
 			wp_kses_post( stripslashes( $raw_cta_text ) ),
 			get_post_meta( $post_id, 'vkExUnit_cta_text', true )
 		);
+		// アイコン系フィールドは wp_kses_post のみ（stripslashes なし）でサニタイズされる事を検証する。
+		// Verify the icon fields are sanitized with wp_kses_post only ( no stripslashes ).
+		foreach ( $raw_icon_fields as $icon_field => $icon_raw ) {
+			$this->assertSame(
+				wp_kses_post( $icon_raw ),
+				get_post_meta( $post_id, $icon_field, true ),
+				$icon_field
+			);
+		}
 	}
 
 	/**

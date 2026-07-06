@@ -856,11 +856,13 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 					);
 
 					$post_type_items = get_post_meta( $post->ID, 'veu_post_type_items', true );
-					if ( ! $post_type_items ) {
-						// メタ未保存（旧データ）時は title サポートを既定にする。
-						// 直後の array_keys() でキーを supports に用いるため、リストではなく連想配列で初期化する（array( 'title' ) だとキーが 0 になり title が付与されない）。
-						// Default to title support when the meta is unsaved (legacy data).
-						// Initialize as an associative array (not a list) because the following array_keys() maps keys to supports; array( 'title' ) would yield key 0 and drop title support.
+					if ( ! is_array( $post_type_items ) || empty( $post_type_items ) ) {
+						// メタ未保存（旧データ）や、配列以外の値が保存されていた場合は title サポートを既定にする。
+						// 直後の array_keys() に配列以外を渡すと PHP 8 系で TypeError になるため、ここで正規化しておく。
+						// キーを supports に用いるため、リストではなく連想配列で初期化する（array( 'title' ) だとキーが 0 になり title が付与されない）。
+						// Default to title support when the meta is unsaved (legacy data) or is not an array.
+						// Normalize here because passing a non-array to the following array_keys() throws a TypeError on PHP 8.
+						// Initialize as an associative array (not a list) because array_keys() maps keys to supports; array( 'title' ) would yield key 0 and drop title support.
 						$post_type_items = array( 'title' => 'true' );
 					}
 					// $supports を明示初期化（PHP 8 系の Warning 対策） / Initialize $supports explicitly to avoid PHP 8 warnings.

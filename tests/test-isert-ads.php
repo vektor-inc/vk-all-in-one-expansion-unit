@@ -56,6 +56,15 @@ class InsertAdsTest extends WP_UnitTestCase {
 					'after'  => array( '' ),
 				),
 			),
+			array(
+				'test_condition_name' => 'input が null（当該オプション群が $_POST に無い一括保存時）=> offset-on-null / stripslashes(null) を出さず既定値を返す（異常系）',
+				'input'               => null,
+				'expected'            => array(
+					'before' => array( '' ),
+					'more'   => array( '' ),
+					'after'  => array( '' ),
+				),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
