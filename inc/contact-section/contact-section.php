@@ -369,8 +369,11 @@ class VkExUnit_Contact {
 				// ここで組み立て直す出力に必ず aria-hidden="true" を付けて読み上げから除外する。
 				// Decorative icon next to the phone number text. Whether the saved value is a class string or a
 				// full <i> tag, the output rebuilt here always gets aria-hidden="true" to hide it from screen readers.
-				// $options['tel_icon'] の中が <i class="fas fa-mobile-alt"></i> など i タグの場合
-				if ( preg_match( '/<i class="(.+?)"><\/i>/', $options['tel_icon'], $matches ) ) {
+				// $options['tel_icon'] の中が <i class="fas fa-mobile-alt"></i> など i タグの場合、
+				// 属性の順序や他の属性の有無に依らず class 属性の値だけを取り出す。
+				// When $options['tel_icon'] holds an <i> tag ( e.g. <i class="fas fa-mobile-alt"></i> ),
+				// extract only the class attribute value regardless of attribute order or extra attributes.
+				if ( preg_match( '/<i[^>]*\bclass=["\']([^"\']*)["\']/', $options['tel_icon'], $matches ) ) {
 					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $matches[1] ) . '" aria-hidden="true"></i>';
 				} else {
 					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '" aria-hidden="true"></i>';

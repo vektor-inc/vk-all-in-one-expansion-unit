@@ -346,6 +346,27 @@ class WidgetProfileTest extends WP_UnitTestCase {
 				'icon_class'          => 'fa-solid fa-rss',
 				'aria_label'          => 'Subscribe via RSS',
 			),
+			array(
+				'test_condition_name' => 'YouTube => aria-label="Follow us on YouTube" と <i> の aria-hidden',
+				'instance_key'        => 'youtube',
+				'url'                 => 'https://www.youtube.com/@vektor',
+				'icon_class'          => 'fa-brands fa-youtube',
+				'aria_label'          => 'Follow us on YouTube',
+			),
+			array(
+				'test_condition_name' => 'Instagram => aria-label="Follow us on Instagram" と <i> の aria-hidden',
+				'instance_key'        => 'instagram',
+				'url'                 => 'https://www.instagram.com/vektor/',
+				'icon_class'          => 'fa-brands fa-instagram',
+				'aria_label'          => 'Follow us on Instagram',
+			),
+			array(
+				'test_condition_name' => 'LinkedIn => aria-label="Follow us on LinkedIn" と <i> の aria-hidden',
+				'instance_key'        => 'linkedin',
+				'url'                 => 'https://www.linkedin.com/company/vektor/',
+				'icon_class'          => 'fa-brands fa-linkedin',
+				'aria_label'          => 'Follow us on LinkedIn',
+			),
 		);
 
 		foreach ( $test_cases as $case ) {

@@ -23,20 +23,49 @@ class RelatedPostsTest extends WP_UnitTestCase {
 		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
 		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
 
-		// テスト用の投稿を作成 / Create a test post.
-		$post_id = wp_insert_post(
+		// テスト条件（投稿データ）と期待する結果の組み合わせ。
+		// カレンダーアイコンは投稿内容に依らず不変なので、投稿データを変えつつ全ケースで検証する。
+		// Combinations of the post data and expected result.
+		// The calendar icon is invariant regardless of post content, so we verify it across cases with varying post data.
+		$test_cases = array(
 			array(
-				'post_title'  => 'Related Post Test',
-				'post_type'   => 'post',
-				'post_status' => 'publish',
-			)
+				'test_condition_name' => '通常の投稿 => 日付前のカレンダーアイコンに aria-hidden が付く',
+				'post'                => array(
+					'post_title'  => 'Related Post Test A',
+					'post_type'   => 'post',
+					'post_status' => 'publish',
+				),
+				'expected_title'      => 'Related Post Test A',
+			),
+			array(
+				'test_condition_name' => '別タイトル・別日付の投稿 => 日付前のカレンダーアイコンに aria-hidden が付く',
+				'post'                => array(
+					'post_title'  => 'Related Post Test B',
+					'post_type'   => 'post',
+					'post_status' => 'publish',
+					'post_date'   => '2020-01-02 10:00:00',
+				),
+				'expected_title'      => 'Related Post Test B',
+			),
 		);
 
-		// 関連記事1件分の HTML を取得 / Get the single related-post item HTML.
-		$html = veu_add_related_posts_item_html( get_post( $post_id ) );
+		foreach ( $test_cases as $case ) {
+			// テスト用の投稿を作成 / Create a test post.
+			$post_id = wp_insert_post( $case['post'] );
 
-		// 日付前のカレンダーアイコンに aria-hidden="true" が付いている事を確認。
-		// Check the calendar icon before the date has aria-hidden="true".
-		$this->assertStringContainsString( '<i class="fa fa-calendar" aria-hidden="true"></i>', $html );
+			// 関連記事1件分の HTML を取得 / Get the single related-post item HTML.
+			$html = veu_add_related_posts_item_html( get_post( $post_id ) );
+
+			// 日付前のカレンダーアイコンに aria-hidden="true" が付いている事を確認。
+			// Check the calendar icon before the date has aria-hidden="true".
+			$this->assertStringContainsString( '<i class="fa fa-calendar" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
+
+			// 投稿タイトルが出力に含まれる事を確認（ケースごとの差分）。
+			// Check the post title is present in the output ( the per-case difference ).
+			$this->assertStringContainsString( $case['expected_title'], $html, $case['test_condition_name'] );
+
+			// 後片付け / Clean up.
+			wp_delete_post( $post_id, true );
+		}
 	}
 }

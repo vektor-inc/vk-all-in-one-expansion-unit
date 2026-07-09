@@ -75,21 +75,67 @@ class WidgetBtnTest extends WP_UnitTestCase {
 			'after_title'   => '',
 		);
 
-		// 前後アイコンとラベル・リンクをセットしたインスタンス / Instance with before / after icons, a label and a link.
-		$instance = array(
-			'title'       => 'Read more',
-			'linkurl'     => 'https://example.com',
-			'icon_before' => 'fa-solid fa-star',
-			'icon_after'  => 'fa-solid fa-arrow-right',
+		// テスト条件（インスタンス）と、出力に含まれる／含まれない事を期待する文字列の組み合わせ。
+		// アイコン指定のパターンを後から増やしやすいよう配列で持つ。
+		// Combinations of the test instance and the strings expected to be present / absent in the output.
+		// Kept as an array so icon patterns can be added later.
+		$test_cases = array(
+			array(
+				'test_condition_name' => '前後両方のアイコン指定 => 前後どちらの <i> にも aria-hidden が付く',
+				'instance'            => array(
+					'title'       => 'Read more',
+					'linkurl'     => 'https://example.com',
+					'icon_before' => 'fa-solid fa-star',
+					'icon_after'  => 'fa-solid fa-arrow-right',
+				),
+				'contains'            => array(
+					'<i class="fa-solid fa-star font_icon" aria-hidden="true"></i>',
+					'<i class="fa-solid fa-arrow-right font_icon" aria-hidden="true"></i>',
+				),
+				'not_contains'        => array(),
+			),
+			array(
+				'test_condition_name' => '前アイコンのみ指定 => 前の <i> に aria-hidden が付き、後アイコンは出力されない',
+				'instance'            => array(
+					'title'       => 'Read more',
+					'linkurl'     => 'https://example.com',
+					'icon_before' => 'fa-solid fa-star',
+				),
+				'contains'            => array(
+					'<i class="fa-solid fa-star font_icon" aria-hidden="true"></i>',
+				),
+				'not_contains'        => array(
+					'fa-arrow-right',
+				),
+			),
+			array(
+				'test_condition_name' => 'アイコン未指定 => 装飾アイコンの <i>（font_icon）が出力されない',
+				'instance'            => array(
+					'title'   => 'Read more',
+					'linkurl' => 'https://example.com',
+				),
+				'contains'            => array(),
+				'not_contains'        => array(
+					'font_icon',
+				),
+			),
 		);
 
-		ob_start();
-		$widget->widget( $args, $instance );
-		$output = ob_get_clean();
+		foreach ( $test_cases as $case ) {
+			ob_start();
+			$widget->widget( $args, $case['instance'] );
+			$output = ob_get_clean();
 
-		// 前後どちらの装飾アイコンにも aria-hidden="true" が付いている事を確認。
-		// Check both the before and after decorative icons have aria-hidden="true".
-		$this->assertStringContainsString( '<i class="fa-solid fa-star font_icon" aria-hidden="true"></i>', $output, 'ボタン前アイコンに aria-hidden が付く' );
-		$this->assertStringContainsString( '<i class="fa-solid fa-arrow-right font_icon" aria-hidden="true"></i>', $output, 'ボタン後アイコンに aria-hidden が付く' );
+			// 出力に含まれるべき装飾アイコンの <i>（aria-hidden 付き）を確認。
+			// Check the decorative icon <i> ( with aria-hidden ) that must be present in the output.
+			foreach ( $case['contains'] as $needle ) {
+				$this->assertStringContainsString( $needle, $output, $case['test_condition_name'] );
+			}
+			// 出力に含まれてはいけない文字列（未指定アイコン等）を確認。
+			// Check strings that must be absent ( e.g. an icon that was not specified ).
+			foreach ( $case['not_contains'] as $needle ) {
+				$this->assertStringNotContainsString( $needle, $output, $case['test_condition_name'] );
+			}
+		}
 	}
 }
