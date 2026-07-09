@@ -76,4 +76,52 @@ class WidgetPrBlocksTest extends WP_UnitTestCase {
 			$this->assertFalse( $result[ 'blank_' . $missing ], $case['test_condition_name'] . ' / blank_' . $missing );
 		}
 	}
+
+	/**
+	 * PR ブロックの装飾アイコンの <i> に aria-hidden="true" が付く事のテスト。
+	 * Test that the PR block's decorative icon gets aria-hidden="true" on its <i>.
+	 *
+	 * @return void
+	 */
+	function test_widget() {
+		// アイコンアクセシビリティのフィルター有無に依存しない事を確かめるため、フィルターを外した状態で検証する。
+		// Verify with the filter removed to confirm the attribute does not depend on the icon accessibility filter.
+		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
+
+		$widget = new WP_Widget_vkExUnit_PR_Blocks();
+
+		// ウィジェット出力に必要な最小限の $args / Minimal $args required to render the widget.
+		$args = array(
+			'before_widget' => '',
+			'after_widget'  => '',
+			'before_title'  => '',
+			'after_title'   => '',
+		);
+
+		// アイコン（画像未登録・FA クラスあり）を持つブロック1件のインスタンス。
+		// Instance with a single block that has an icon ( no image, FA class present ).
+		$instance = array(
+			'block_count'        => 1,
+			'label_1'            => 'PR Block 1',
+			'media_image_1'      => '',
+			'iconFont_class_1'   => 'fa-solid fa-star',
+			'iconFont_bgColor_1' => '#337ab7',
+			'iconFont_bgType_1'  => '',
+			'summary_1'          => '',
+			'linkurl_1'          => '',
+		);
+
+		ob_start();
+		$widget->widget( $args, $instance );
+		$output = ob_get_clean();
+
+		// アイコンの <i>（prBlock_icon）に aria-hidden="true" が付いている事を確認。
+		// Check the icon's <i> ( prBlock_icon ) has aria-hidden="true".
+		$this->assertMatchesRegularExpression(
+			'/<i class="fa-solid fa-star font_icon prBlock_icon"[^>]*aria-hidden="true"[^>]*><\/i>/',
+			$output,
+			'PR ブロックのアイコンに aria-hidden が付く'
+		);
+	}
 }

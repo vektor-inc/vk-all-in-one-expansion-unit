@@ -270,7 +270,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useThreads'] ) ) {
 			$social_btns .= '<li class="sb_threads sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://www.threads.net/intent/post?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
-			$social_btns .= '<span class="icon_sns"' . $icon_css . '><i class="fa-brands fa-threads"></i></span>';
+			// 隣に可視ラベル（.sns_txt "Threads"）があるためアイコンは装飾。読み上げから除外する。
+			// The visible label ( .sns_txt "Threads" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			$social_btns .= '<span class="icon_sns"' . $icon_css . '><i class="fa-brands fa-threads" aria-hidden="true"></i></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Threads</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -303,7 +305,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useCopy'] ) ) {
 			$social_btns .= '<li class="sb_copy sb_icon">';
 			$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . esc_attr( urldecode( $page_title ) ) . ' ' . esc_attr( urldecode( $link_url ) ) . '">';
-			$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
+			// 隣に可視ラベル（.sns_txt "Copy"）があるためアイコンは装飾。読み上げから除外する。
+			// The visible label ( .sns_txt "Copy" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy" aria-hidden="true"></i></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 			$social_btns .= '</button>';
 			$social_btns .= '</li>';

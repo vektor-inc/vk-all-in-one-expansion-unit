@@ -395,5 +395,39 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
+
+		// 装飾アイコン（Threads / Copy）の <i> に aria-hidden="true" が付き読み上げから除外される事のテスト
+		// Test that the decorative icons ( Threads / Copy ) get aria-hidden="true" on their <i> and are hidden from screen readers.
+		// アイコンアクセシビリティのフィルター有無に依存しない事を確かめるため、フィルターを外した状態で検証する。
+		// Verify with the filter removed to confirm the attribute does not depend on the icon accessibility filter.
+		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
+
+		$aria_cases = array(
+			array(
+				'test_condition_name' => 'useThreads が true の場合 => Threads の <i> に aria-hidden="true" が付く',
+				'options'             => array( 'useThreads' => true ),
+				'expected'            => '<i class="fa-brands fa-threads" aria-hidden="true"></i>',
+			),
+			array(
+				'test_condition_name' => 'useCopy が true の場合 => Copy の <i> に aria-hidden="true" が付く',
+				'options'             => array( 'useCopy' => true ),
+				'expected'            => '<i class="fas fa-copy" aria-hidden="true"></i>',
+			),
+		);
+
+		foreach ( $aria_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// シェアボタンの HTML を取得 / Get the share button HTML.
+			$actual = veu_get_sns_btns();
+
+			// 装飾アイコンに aria-hidden が付いている事を確認 / Check the decorative icon has aria-hidden.
+			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
 	}
 }

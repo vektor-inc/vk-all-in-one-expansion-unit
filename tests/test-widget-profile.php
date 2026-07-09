@@ -292,4 +292,82 @@ class WidgetProfileTest extends WP_UnitTestCase {
 			$this->assertSame( $case['expected_media_align_left'], $result['mediaAlign_left'], $case['test_condition_name'] );
 		}
 	}
+
+	/**
+	 * SNS フォローリンク（アイコンのみリンク）に aria-label と、中の <i> の aria-hidden="true" が付く事のテスト。
+	 * Test that the SNS follow links ( icon-only links ) get an aria-label and aria-hidden="true" on the inner <i>.
+	 *
+	 * @return void
+	 */
+	function test_widget() {
+		// アイコンアクセシビリティのフィルター有無に依存しない事を確かめるため、フィルターを外した状態で検証する。
+		// Verify with the filter removed to confirm the attributes do not depend on the icon accessibility filter.
+		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
+
+		$widget = new WP_Widget_vkExUnit_profile();
+
+		// ウィジェット出力に必要な最小限の $args / Minimal $args required to render the widget.
+		$args = array(
+			'before_widget' => '',
+			'after_widget'  => '',
+			'before_title'  => '',
+			'after_title'   => '',
+		);
+
+		// 各 SNS リンクに期待する aria-label と、その <i> のアイコンクラスの組み合わせ。
+		// The expected aria-label for each SNS link and the icon class of its <i>.
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'Facebook => aria-label="Follow us on Facebook" と <i> の aria-hidden',
+				'instance_key'        => 'facebook',
+				'url'                 => 'https://www.facebook.com/vektor/',
+				'icon_class'          => 'fa-brands fa-facebook-f',
+				'aria_label'          => 'Follow us on Facebook',
+			),
+			array(
+				'test_condition_name' => 'X (Twitter) => aria-label="Follow us on X (Twitter)" と <i> の aria-hidden',
+				'instance_key'        => 'twitter',
+				'url'                 => 'https://twitter.com/vektor/',
+				'icon_class'          => 'fa-brands fa-x-twitter',
+				'aria_label'          => 'Follow us on X (Twitter)',
+			),
+			array(
+				'test_condition_name' => 'メール => aria-label="Email" と <i> の aria-hidden',
+				'instance_key'        => 'mail',
+				'url'                 => 'mailto:info@example.com',
+				'icon_class'          => 'fa-solid fa-envelope',
+				'aria_label'          => 'Email',
+			),
+			array(
+				'test_condition_name' => 'RSS => aria-label="Subscribe via RSS" と <i> の aria-hidden',
+				'instance_key'        => 'rss',
+				'url'                 => 'https://example.com/feed/',
+				'icon_class'          => 'fa-solid fa-rss',
+				'aria_label'          => 'Subscribe via RSS',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 対象の SNS のみ URL をセットしたインスタンスでウィジェットを描画する。
+			// Render the widget with an instance that only sets the URL for the target SNS.
+			$instance = array( $case['instance_key'] => $case['url'] );
+
+			ob_start();
+			$widget->widget( $args, $instance );
+			$output = ob_get_clean();
+
+			// リンク（<a>）に aria-label（読み上げ名）が付いている事を確認。
+			// Check the link ( <a> ) has an aria-label ( accessible name ).
+			$this->assertStringContainsString( 'aria-label="' . $case['aria_label'] . '"', $output, $case['test_condition_name'] );
+
+			// 中の <i>（該当アイコンクラス）に aria-hidden="true" が付いている事を確認。
+			// Check the inner <i> ( with the matching icon class ) has aria-hidden="true".
+			$this->assertMatchesRegularExpression(
+				'/<i class="' . preg_quote( $case['icon_class'], '/' ) . ' icon"[^>]*aria-hidden="true"[^>]*><\/i>/',
+				$output,
+				$case['test_condition_name']
+			);
+		}
+	}
 }

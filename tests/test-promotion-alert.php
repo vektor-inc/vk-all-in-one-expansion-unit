@@ -398,7 +398,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 						'post' => 'display',
 					),
 				),
-				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--text"><span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span><span class="veu_promotion-alert__text">aaaa</span></div></div>',
+				'correct' => '<div class="veu_promotion-alert" data-nosnippet><div class="veu_promotion-alert__content--text"><span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span><span class="veu_promotion-alert__text">aaaa</span></div></div>',
 			),
 			array(
 				'name'    => 'No alert text',
