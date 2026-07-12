@@ -12,6 +12,18 @@
 class ContactSectionTest extends WP_UnitTestCase {
 
 	/**
+	 * 各テスト後に、アイコンアクセシビリティのフィルターを元の登録内容で復元する。
+	 * Restore the icon accessibility filters ( with the original arguments / priority ) after each test.
+	 *
+	 * @return void
+	 */
+	public function tearDown(): void {
+		add_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		add_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10, 2 );
+		parent::tearDown();
+	}
+
+	/**
 	 * render_contact_section_html の装飾アイコン（電話 / 封筒 / 矢印）に aria-hidden="true" が付く事のテスト。
 	 * Test that the decorative icons ( phone / envelope / arrow ) in render_contact_section_html get aria-hidden="true".
 	 *
@@ -79,25 +91,49 @@ class ContactSectionTest extends WP_UnitTestCase {
 		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
 		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
 
-		// お問い合わせボタンウィジェットの描画に必要なオプションを設定。
-		// Set the option required to render the contact button widget.
-		update_option(
-			'vkExUnit_contact',
+		// 保存オプションの組み合わせごとに、封筒・矢印の装飾アイコンへ aria-hidden が付く事を検証する。
+		// For each combination of saved options, verify the decorative envelope / arrow icons get aria-hidden.
+		$test_cases = array(
 			array(
-				'contact_link' => 'https://example.com',
-				'short_text'   => 'Contact us',
-			)
+				'test_condition_name' => 'リンクと短いテキストのみ設定した場合 => 封筒・矢印アイコンに aria-hidden が付く',
+				'options'             => array(
+					'contact_link' => 'https://example.com',
+					'short_text'   => 'Contact us',
+				),
+				'expected'            => array(
+					'<i class="fa-regular fa-envelope" aria-hidden="true"></i>',
+					'<i class="fa-regular fa-circle-right" aria-hidden="true"></i>',
+				),
+			),
+			array(
+				'test_condition_name' => 'ボタン補足テキストも設定した場合 => 封筒・矢印アイコンに aria-hidden が付く',
+				'options'             => array(
+					'contact_link'      => 'https://example.com',
+					'short_text'        => 'Contact us',
+					'button_text_small' => 'お気軽にどうぞ',
+				),
+				'expected'            => array(
+					'<i class="fa-regular fa-envelope" aria-hidden="true"></i>',
+					'<i class="fa-regular fa-circle-right" aria-hidden="true"></i>',
+				),
+			),
 		);
 
-		// お問い合わせボタンウィジェットの HTML を取得 / Get the contact button widget HTML.
-		$html = VkExUnit_Contact::render_widget_contact_btn_html();
+		foreach ( $test_cases as $case ) {
+			// お問い合わせボタンウィジェットの描画に必要なオプションを設定。
+			// Set the option required to render the contact button widget.
+			update_option( 'vkExUnit_contact', $case['options'] );
 
-		// 封筒アイコンに aria-hidden が付く事を確認 / Check the envelope icon has aria-hidden.
-		$this->assertStringContainsString( '<i class="fa-regular fa-envelope" aria-hidden="true"></i>', $html );
-		// 矢印アイコンに aria-hidden が付く事を確認 / Check the arrow icon has aria-hidden.
-		$this->assertStringContainsString( '<i class="fa-regular fa-circle-right" aria-hidden="true"></i>', $html );
+			// お問い合わせボタンウィジェットの HTML を取得 / Get the contact button widget HTML.
+			$html = VkExUnit_Contact::render_widget_contact_btn_html();
 
-		// オプションをクリーンアップ / Clean up the option.
-		delete_option( 'vkExUnit_contact' );
+			// 封筒・矢印の装飾アイコンに aria-hidden が付く事を確認 / Check the decorative envelope / arrow icons have aria-hidden.
+			foreach ( $case['expected'] as $expected ) {
+				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
+			}
+
+			// オプションをクリーンアップ / Clean up the option.
+			delete_option( 'vkExUnit_contact' );
+		}
 	}
 }
