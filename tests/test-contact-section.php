@@ -48,6 +48,13 @@ class ContactSectionTest extends WP_UnitTestCase {
 				'tel_icon'            => 'fa-solid fa-phone',
 				'expected'            => '<i class="contact_txt_tel_icon fa-solid fa-phone" aria-hidden="true"></i>',
 			),
+			array(
+				// class より前に別属性（aria-hidden）を持つ <i>。属性順・追加属性に依存せず class を抽出できる事の回帰テスト。
+				// An <i> tag with another attribute ( aria-hidden ) before class. Regression test that class is extracted regardless of attribute order / extra attributes.
+				'test_condition_name' => 'tel_icon が aria-hidden を class より前に持つ <i> の場合 => class を正しく抽出し電話アイコンに aria-hidden が付く',
+				'tel_icon'            => '<i aria-hidden="true" class="fa-solid fa-phone"></i>',
+				'expected'            => '<i class="contact_txt_tel_icon fa-solid fa-phone" aria-hidden="true"></i>',
+			),
 		);
 
 		// アサーション失敗時も元の設定値を確実に戻すため、ループ実行前に元の値を保持し try/finally で復元する。
