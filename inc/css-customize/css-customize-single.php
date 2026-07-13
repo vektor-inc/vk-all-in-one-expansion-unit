@@ -59,10 +59,7 @@ function veu_css_customize_single_editor_styles( $editor_settings, $editor_conte
 
 	// Get and sanitize the per-post Custom CSS.
 	// 投稿ごとのカスタムCSSを取得してサニタイズする。
-	$css = veu_get_the_custom_css_single( $editor_context->post );
-	if ( $css ) {
-		$css = veu_sanitize_custom_css_input( $css );
-	}
+	$css = veu_get_sanitized_custom_css_single( $editor_context->post );
 	if ( ! $css ) {
 		return $editor_settings;
 	}
@@ -94,12 +91,9 @@ function veu_insert_custom_css() {
 	if ( is_singular() ) {
 		global $post;
 		if ( $post ) {
-			$css = veu_get_the_custom_css_single( $post );
+			$css = veu_get_sanitized_custom_css_single( $post );
 			if ( $css ) {
-				$css = veu_sanitize_custom_css_input( $css );
-				if ( $css ) {
-					echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
-				}
+				echo '<style type="text/css">/* ' . esc_html( veu_get_short_name() ) . ' CSS Customize Single */' . $css . '</style>';
 			}
 		}
 	}
@@ -125,4 +119,24 @@ function veu_get_the_custom_css_single( $post ) {
 		$css_customize = trim( $css_customize );
 	}
 	return $css_customize;
+}
+
+/**
+ * Get the sanitized per-post Custom CSS for a post.
+ * 投稿ごとのカスタムCSSを取得・サニタイズして返す。
+ *
+ * Wraps veu_get_the_custom_css_single() and runs the shared sanitizer so that
+ * the front-end output and the editor-style injection share a single code path.
+ * veu_get_the_custom_css_single() をラップし、共通サニタイザを通すことで、
+ * フロント出力とエディタスタイル注入で処理を1本化する。
+ *
+ * @param WP_Post $post The post object.
+ * @return string The sanitized CSS, or an empty string when there is none.
+ */
+function veu_get_sanitized_custom_css_single( $post ) {
+	$css = veu_get_the_custom_css_single( $post );
+	if ( $css ) {
+		$css = veu_sanitize_custom_css_input( $css );
+	}
+	return $css ? $css : '';
 }
