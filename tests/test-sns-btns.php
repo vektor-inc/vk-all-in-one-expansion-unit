@@ -441,5 +441,46 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
+
+		// 自前 web フォント（vk_sns）の空 span アイコン（fb / x / bluesky / hatena / line）にも aria-hidden="true" が付き読み上げから除外される事のテスト
+		// Test that the empty in-house web font ( vk_sns ) span icons ( fb / x / bluesky / hatena / line ) also get aria-hidden="true" and are hidden from screen readers.
+		// class 直後・$icon_css の前に aria-hidden が入る実出力に合わせてリテラルで検証する。
+		// Verify against the literal output where aria-hidden comes right after class and before $icon_css.
+		$webfont_cases = array(
+			array(
+				'test_condition_name' => 'useFacebook が true の場合 => Facebook の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useFacebook' => true ),
+				'expected'            => '<span class="vk_icon_w_r_sns_fb icon_sns" aria-hidden="true"',
+			),
+			array(
+				'test_condition_name' => 'useTwitter が true の場合 => X の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useTwitter' => true ),
+				'expected'            => '<span class="vk_icon_w_r_sns_x_twitter icon_sns" aria-hidden="true"',
+			),
+			array(
+				'test_condition_name' => 'useBluesky が true の場合 => Bluesky の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useBluesky' => true ),
+				'expected'            => '<span class="vk_icon_w_r_sns_bluesky icon_sns" aria-hidden="true"',
+			),
+			array(
+				'test_condition_name' => 'useHatena が true の場合 => Hatena の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useHatena' => true ),
+				'expected'            => '<span class="vk_icon_w_r_sns_hatena icon_sns" aria-hidden="true"',
+			),
+		);
+
+		foreach ( $webfont_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// シェアボタンの HTML を取得 / Get the share button HTML.
+			$actual = veu_get_sns_btns();
+
+			// 装飾アイコン（web フォント）の span に aria-hidden が付いている事を確認 / Check the decorative web font span icon has aria-hidden.
+			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
 	}
 }
