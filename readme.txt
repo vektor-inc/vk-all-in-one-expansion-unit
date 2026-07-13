@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+[ Spec Change ][ Widget ] Changed the heading tag of the Related Posts and 3PR Area widgets from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
 [ Bug Fix ][ Widget ] Fixed a PHP warning that occurred on the admin widget form of the Recent Posts widget when its title was empty.
 [ Bug Fix ] Fixed PHP warnings, notices and deprecations ( and a potential fatal error ) logged in debug mode on recent PHP versions, while keeping PHP 7.4 support.
 [ Bug Fix ][ CTA ] Fixed the CTA image not being saved and the button text / message losing their allowed HTML when saved from the classic edit screen.
