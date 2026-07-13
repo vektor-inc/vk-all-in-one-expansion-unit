@@ -106,8 +106,10 @@ class VEU_Metabox {
 			// Section title
 			if ( ! empty( $this->args['title'] ) ) {
 				echo '<h3 class="veu_metabox_section_title">' . wp_kses_post( $this->args['title'] ) . '';
-				echo '<span class="veu_metabox_section_title_status_btn close"><i class="fas fa-caret-down"></i></span>';
-				echo '<span class="veu_metabox_section_title_status_btn open"><i class="fas fa-caret-up"></i></span>';
+				// セクションの開閉状態を示す装飾キャレット。見出し（h3）にタイトル文字が見えているため読み上げから除外する。
+				// Decorative carets indicating the section's open/close state. The title text is visible in the heading (h3), so hide them from screen readers.
+				echo '<span class="veu_metabox_section_title_status_btn close"><i class="fas fa-caret-down" aria-hidden="true"></i></span>';
+				echo '<span class="veu_metabox_section_title_status_btn open"><i class="fas fa-caret-up" aria-hidden="true"></i></span>';
 				echo '</h3>';
 			}
 			echo '<div class="veu_metabox_section_body">';

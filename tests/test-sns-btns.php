@@ -395,5 +395,122 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
+
+		// 装飾アイコン（Threads / Copy）の <i> に aria-hidden="true" が付き読み上げから除外される事のテスト
+		// Test that the decorative icons ( Threads / Copy ) get aria-hidden="true" on their <i> and are hidden from screen readers.
+		// アイコンアクセシビリティのフィルター有無に依存しない事を確かめるため、フィルターを外した状態で検証する。
+		// Verify with the filter removed to confirm the attribute does not depend on the icon accessibility filter.
+		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
+
+		$aria_cases = array(
+			array(
+				'test_condition_name' => 'useThreads が true の場合 => Threads の <i> に aria-hidden="true" が付く',
+				'options'             => array( 'useThreads' => true ),
+				'expected'            => '<i class="fa-brands fa-threads" aria-hidden="true"></i>',
+			),
+			array(
+				'test_condition_name' => 'useCopy が true の場合 => Copy の <i> に aria-hidden="true" が付く',
+				'options'             => array( 'useCopy' => true ),
+				'expected'            => '<i class="fas fa-copy" aria-hidden="true"></i>',
+			),
+		);
+
+		foreach ( $aria_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// シェアボタンの HTML を取得 / Get the share button HTML.
+			$actual = veu_get_sns_btns();
+
+			// 装飾アイコンに aria-hidden が付いている事を確認 / Check the decorative icon has aria-hidden.
+			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
+
+		// 自前 web フォント（vk_sns）の空 span アイコン（fb / x / bluesky / hatena / line）にも aria-hidden="true" が付き読み上げから除外される事のテスト
+		// Test that the empty in-house web font ( vk_sns ) span icons ( fb / x / bluesky / hatena / line ) also get aria-hidden="true" and are hidden from screen readers.
+		// class 直後・$icon_css の前に aria-hidden が入る実出力に合わせてリテラルで検証する。
+		// Verify against the literal output where aria-hidden comes right after class and before $icon_css.
+		// LINE はモバイル環境（wp_is_mobile() が true）かつ useLine が有効な時のみ出力されるため、ケースごとに user_agent を設定して分岐を通す。
+		// LINE is only output on mobile ( wp_is_mobile() returns true ) with useLine enabled, so set user_agent per case to go through the branch.
+		// iPhone の UA。文字列に "Mobile" を含むため wp_is_mobile() が true を返す。
+		// iPhone UA. It contains "Mobile", so wp_is_mobile() returns true.
+		$mobile_ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+
+		$webfont_cases = array(
+			array(
+				'test_condition_name' => 'useFacebook が true の場合 => Facebook の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useFacebook' => true ),
+				'user_agent'          => null,
+				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_fb icon_sns" aria-hidden="true"' ),
+			),
+			array(
+				'test_condition_name' => 'useTwitter が true の場合 => X の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useTwitter' => true ),
+				'user_agent'          => null,
+				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_x_twitter icon_sns" aria-hidden="true"' ),
+			),
+			array(
+				'test_condition_name' => 'useBluesky が true の場合 => Bluesky の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useBluesky' => true ),
+				'user_agent'          => null,
+				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_bluesky icon_sns" aria-hidden="true"' ),
+			),
+			array(
+				'test_condition_name' => 'useHatena が true の場合 => Hatena の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useHatena' => true ),
+				'user_agent'          => null,
+				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_hatena icon_sns" aria-hidden="true"' ),
+			),
+			array(
+				// LINE はモバイル UA で wp_is_mobile() を true にした時のみ出力される。sb_line が含まれる事＝モバイル分岐を実際に通った裏取り（他に出力経路が無い）。
+				// LINE is only output when wp_is_mobile() is true via the mobile UA. Containing sb_line proves the mobile branch was actually taken ( no other output path ).
+				'test_condition_name' => 'useLine が true かつモバイルの場合 => LINE ボタンが出力され LINE の web フォント span に aria-hidden="true" が付く',
+				'options'             => array( 'useLine' => true ),
+				'user_agent'          => $mobile_ua,
+				'expected_contains'   => array( 'sb_line', '<span class="vk_icon_w_r_sns_line icon_sns" aria-hidden="true"' ),
+			),
+		);
+
+		// アサーション失敗時も元の UA を確実に戻すため、ループ実行前に元の値を保持し try/finally で復元する。
+		// Preserve the original UA before the loop and restore it in finally so it is restored even if an assertion fails.
+		$original_ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : null;
+
+		try {
+			foreach ( $webfont_cases as $case ) {
+				// ケースごとに UA を設定（null なら未設定にする）。LINE はモバイル UA で分岐を通す。
+				// Set the UA per case ( unset if null ). LINE goes through the branch with the mobile UA.
+				if ( null === $case['user_agent'] ) {
+					unset( $_SERVER['HTTP_USER_AGENT'] );
+				} else {
+					$_SERVER['HTTP_USER_AGENT'] = $case['user_agent'];
+				}
+
+				// オプション値を設定 / Set option value.
+				update_option( 'vkExUnit_sns_options', $case['options'] );
+
+				// シェアボタンの HTML を取得 / Get the share button HTML.
+				$actual = veu_get_sns_btns();
+
+				// 期待する文字列が全て含まれる事を確認（装飾アイコン span の aria-hidden 等）/ Check that all expected strings are included ( aria-hidden on the decorative span icon, etc. ).
+				foreach ( $case['expected_contains'] as $expected ) {
+					$this->assertStringContainsString( $expected, $actual, $case['test_condition_name'] );
+				}
+
+				// オプション値をクリーンアップ / Clean up the option value.
+				delete_option( 'vkExUnit_sns_options' );
+			}
+		} finally {
+			// テスト後は $_SERVER['HTTP_USER_AGENT'] を必ず元に戻す（未設定だったら unset）。
+			// Always restore $_SERVER['HTTP_USER_AGENT'] after the test ( unset if it was not set ).
+			if ( null === $original_ua ) {
+				unset( $_SERVER['HTTP_USER_AGENT'] );
+			} else {
+				$_SERVER['HTTP_USER_AGENT'] = $original_ua;
+			}
+		}
 	}
 }
