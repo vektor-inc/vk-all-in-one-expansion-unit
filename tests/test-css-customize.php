@@ -147,4 +147,59 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			wp_delete_post( $post_id, true );
 		} // foreach ( $test_array as $key => $value ) {
 	} // function test_veu_get_the_custom_css_single() {
+
+	/**
+	 * Editor styles injection for the block editor.
+	 * ブロックエディタへのエディタスタイル注入のテスト。
+	 */
+	public function test_veu_css_customize_single_editor_styles() {
+
+		// Create a post that has per-post Custom CSS.
+		// 投稿ごとのカスタムCSSを持つ投稿を作成する。
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'タイトル',
+				'post_content' => 'content',
+				'post_status'  => 'publish',
+				'post_type'    => 'post',
+			)
+		);
+		add_post_meta( $post_id, '_veu_custom_css', 'div > h1 { color:red;   }' );
+		$context = new WP_Block_Editor_Context( array( 'post' => get_post( $post_id ) ) );
+
+		// Case 1: with a post context, the minified CSS is appended to the editor styles.
+		// ケース1: post コンテキストありのとき、圧縮済み CSS がエディタスタイルに追加される。
+		$settings = veu_css_customize_single_editor_styles( array(), $context );
+		$this->assertNotEmpty( $settings['styles'] );
+		$this->assertSame( 'div > h1{color:red;}', $settings['styles'][0]['css'] );
+
+		// Case 2: existing styles are preserved and the new CSS is appended after them.
+		// ケース2: 既存の styles を保持し、新しい CSS はその後ろに追加される。
+		$settings = veu_css_customize_single_editor_styles( array( 'styles' => array( array( 'css' => 'body{}' ) ) ), $context );
+		$this->assertCount( 2, $settings['styles'] );
+		$this->assertSame( 'div > h1{color:red;}', $settings['styles'][1]['css'] );
+
+		// Case 3: without a post in context (site / widget editor), the settings are unchanged.
+		// ケース3: post コンテキストなし（サイト/ウィジェットエディタ）のとき、設定は変更されない。
+		$settings = veu_css_customize_single_editor_styles( array(), new WP_Block_Editor_Context() );
+		$this->assertArrayNotHasKey( 'styles', $settings );
+
+		// Case 4: a post without Custom CSS leaves the settings unchanged.
+		// ケース4: カスタムCSS未設定の投稿では設定は変更されない。
+		$post_id_no_css = wp_insert_post(
+			array(
+				'post_title'  => 'no css',
+				'post_status' => 'publish',
+				'post_type'   => 'post',
+			)
+		);
+		$context_no_css = new WP_Block_Editor_Context( array( 'post' => get_post( $post_id_no_css ) ) );
+		$settings       = veu_css_customize_single_editor_styles( array(), $context_no_css );
+		$this->assertArrayNotHasKey( 'styles', $settings );
+
+		// Cleanup test posts.
+		// テスト用の投稿を削除する。
+		wp_delete_post( $post_id, true );
+		wp_delete_post( $post_id_no_css, true );
+	} // function test_veu_css_customize_single_editor_styles() {
 }
