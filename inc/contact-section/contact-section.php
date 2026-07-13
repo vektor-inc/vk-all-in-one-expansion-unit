@@ -365,11 +365,18 @@ class VkExUnit_Contact {
 
 			$tel_icon = '';
 			if ( ! empty( $options['tel_icon'] ) ) {
-				// $options['tel_icon'] の中が <i class="fas fa-mobile-alt"></i> など i タグの場合
-				if ( preg_match( '/<i class="(.+?)"><\/i>/', $options['tel_icon'], $matches ) ) {
-					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $matches[1] ) . '"></i>';
+				// 電話番号テキストの隣に置く装飾アイコン。保存値がクラス文字列でも <i> 丸ごとでも、
+				// ここで組み立て直す出力に必ず aria-hidden="true" を付けて読み上げから除外する。
+				// Decorative icon next to the phone number text. Whether the saved value is a class string or a
+				// full <i> tag, the output rebuilt here always gets aria-hidden="true" to hide it from screen readers.
+				// $options['tel_icon'] の中が <i class="fas fa-mobile-alt"></i> など i タグの場合、
+				// 属性の順序や他の属性の有無に依らず class 属性の値だけを取り出す。
+				// When $options['tel_icon'] holds an <i> tag ( e.g. <i class="fas fa-mobile-alt"></i> ),
+				// extract only the class attribute value regardless of attribute order or extra attributes.
+				if ( preg_match( '/<i[^>]*\bclass=["\']([^"\']*)["\']/', $options['tel_icon'], $matches ) ) {
+					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $matches[1] ) . '" aria-hidden="true"></i>';
 				} else {
-					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '"></i>';
+					$tel_icon = '<i class="contact_txt_tel_icon ' . esc_attr( $options['tel_icon'] ) . '" aria-hidden="true"></i>';
 				}
 			}
 
@@ -386,12 +393,14 @@ class VkExUnit_Contact {
 			if ( $options['contact_link'] && $options['button_text'] ) {
 				$cont .= '<a href="' . $options['contact_link'] . '"' . $link_target . ' class="btn btn-primary btn-lg contact_bt">';
 				$cont .= '<span class="contact_bt_txt">';
-				$cont .= '<i class="fa-regular fa-envelope"></i> ';
+				// ボタンラベルの前後に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+				// Decorative icons before / after the button label. The label text is in the same button, so hide them from screen readers.
+				$cont .= '<i class="fa-regular fa-envelope" aria-hidden="true"></i> ';
 
 				$cont .= wp_kses_post( $options['button_text'] );
 
 				// Arrow Icon
-				$cont .= ' <i class="fa-regular fa-circle-right"></i>';
+				$cont .= ' <i class="fa-regular fa-circle-right" aria-hidden="true"></i>';
 
 				$cont .= '</span>';
 
@@ -432,12 +441,14 @@ class VkExUnit_Contact {
 		) {
 			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . ' class="btn btn-primary btn-lg btn-block contact_bt"><span class="contact_bt_txt">';
 
-			$cont .= '<i class="fa-regular fa-envelope"></i> ';
+			// ボタンラベルの前後に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+			// Decorative icons before / after the button label. The label text is in the same button, so hide them from screen readers.
+			$cont .= '<i class="fa-regular fa-envelope" aria-hidden="true"></i> ';
 
 			$cont .= wp_kses_post( $options['short_text'] );
 
 			// Arrow Icon
-			$cont .= ' <i class="fa-regular fa-circle-right"></i>';
+			$cont .= ' <i class="fa-regular fa-circle-right" aria-hidden="true"></i>';
 
 			$cont .= '</span>';
 			if ( isset( $options['button_text_small'] ) && $options['button_text_small'] ) {

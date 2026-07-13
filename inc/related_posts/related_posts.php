@@ -150,7 +150,9 @@ function veu_add_related_posts_item_html( $post ) {
 	endif;
 	$post_item_html .= '<div class="media-body">';
 	$post_item_html .= '<div class="media-heading"><a href="' . get_the_permalink( $post->ID ) . '">' . $post->post_title . '</a></div>';
-	$post_item_html .= '<div class="media-date published"><i class="fa fa-calendar"></i>&nbsp;' . get_the_date( '', $post->ID ) . '</div>';
+	// 日付の前の装飾アイコン。同じ要素内に日付テキストが見えているため読み上げから除外する。
+	// Decorative icon before the date. The date text is visible in the same element, so hide it from screen readers.
+	$post_item_html .= '<div class="media-date published"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;' . get_the_date( '', $post->ID ) . '</div>';
 	$post_item_html .= '</div>';
 	$post_item_html .= '</div>';
 	$post_item_html .= '</div>' . "\n";

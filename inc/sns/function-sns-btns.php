@@ -231,7 +231,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useFacebook'] ) ) {
 			$social_btns .= '<li class="sb_facebook sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&t=' . $page_title ) . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-			$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns"' . $icon_css . '></span>';
+			// 字形を CSS 疑似要素で描く自前 web フォント（vk_sns）アイコン。隣に可視ラベル（.sns_txt "Facebook"）があるため装飾扱いで読み上げから除外する。
+			// In-house web font ( vk_sns ) icon whose glyph is drawn via a CSS pseudo-element. The visible label ( .sns_txt "Facebook" ) sits next to it, so it is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns" aria-hidden="true"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
 			$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
 			$social_btns .= '</a>';
@@ -242,7 +244,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useTwitter'] ) ) {
 			$social_btns .= '<li class="sb_x_twitter sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//twitter.com/intent/tweet?url=' . $link_url . '&text=' . $page_title ) . '" target="_blank" ' . $outer_css . '>';
-			$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns"' . $icon_css . '></span>';
+			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "X"）があるため装飾扱いで読み上げから除外する。
+			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "X" ) sits next to it, so it is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns" aria-hidden="true"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>X</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -256,7 +260,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useBluesky'] ) ) {
 			$social_btns .= '<li class="sb_bluesky sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://bsky.app/intent/compose?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
-			$social_btns .= '<span class="vk_icon_w_r_sns_bluesky icon_sns"' . $icon_css . '></span>';
+			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "Bluesky"）があるため装飾扱いで読み上げから除外する。
+			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "Bluesky" ) sits next to it, so it is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_bluesky icon_sns" aria-hidden="true"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Bluesky</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -270,7 +276,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useThreads'] ) ) {
 			$social_btns .= '<li class="sb_threads sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://www.threads.net/intent/post?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
-			$social_btns .= '<span class="icon_sns"' . $icon_css . '><i class="fa-brands fa-threads"></i></span>';
+			// 隣に可視ラベル（.sns_txt "Threads"）があるためアイコンは装飾。読み上げから除外する。
+			// The visible label ( .sns_txt "Threads" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			$social_btns .= '<span class="icon_sns"' . $icon_css . '><i class="fa-brands fa-threads" aria-hidden="true"></i></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Threads</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -280,7 +288,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useHatena'] ) ) {
 			$social_btns .= '<li class="sb_hatena sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&title=' . $page_title ) . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-			$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns"' . $icon_css . '></span>';
+			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "Hatena"）があるため装飾扱いで読み上げから除外する。
+			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "Hatena" ) sits next to it, so it is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns" aria-hidden="true"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
 			$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
 			$social_btns .= '</a>';
@@ -294,7 +304,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
 			$social_btns .= '<li class="sb_line sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner"  href="' . esc_url( 'line://msg/text/' . $page_title . ' ' . $link_url, array( 'line' ) ) . '" ' . $outer_css . '>';
-			$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns"' . $icon_css . '></span>';
+			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "LINE"）があるため装飾扱いで読み上げから除外する。
+			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "LINE" ) sits next to it, so it is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns" aria-hidden="true"' . $icon_css . '></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -303,7 +315,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useCopy'] ) ) {
 			$social_btns .= '<li class="sb_copy sb_icon">';
 			$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . esc_attr( urldecode( $page_title ) ) . ' ' . esc_attr( urldecode( $link_url ) ) . '">';
-			$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy"></i></span>';
+			// 隣に可視ラベル（.sns_txt "Copy"）があるためアイコンは装飾。読み上げから除外する。
+			// The visible label ( .sns_txt "Copy" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			$social_btns .= '<span class="vk_icon_w_r_sns_copy icon_sns"' . $icon_css . '><i class="fas fa-copy" aria-hidden="true"></i></span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 			$social_btns .= '</button>';
 			$social_btns .= '</li>';

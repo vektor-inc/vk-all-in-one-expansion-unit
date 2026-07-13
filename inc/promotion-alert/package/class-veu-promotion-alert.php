@@ -437,8 +437,10 @@ class VEU_Promotion_Alert {
 			$alert_content .= wp_kses( $options['alert-content'], $allowed_html );
 			$alert_content .= '</div>';
 		} elseif ( ! empty( $options['alert-text'] ) ) {
-			$alert_content  = '<div class="veu_promotion-alert__content--text">';
-			$alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info"></i></span>';
+			$alert_content = '<div class="veu_promotion-alert__content--text">';
+			// 隣に注意文のテキストがあるためアイコンは装飾。読み上げから除外する（kses 許可リストに aria-hidden 登録済み）。
+			// The alert text sits next to it, so the icon is decorative and hidden from screen readers ( aria-hidden is in the kses allowlist ).
+			$alert_content .= '<span class="veu_promotion-alert__icon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span>';
 			$alert_content .= '<span class="veu_promotion-alert__text">' . esc_html( $options['alert-text'] ) . '</span>';
 			$alert_content .= '</div>';
 		}
