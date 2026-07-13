@@ -76,4 +76,100 @@ class WidgetPrBlocksTest extends WP_UnitTestCase {
 			$this->assertFalse( $result[ 'blank_' . $missing ], $case['test_condition_name'] . ' / blank_' . $missing );
 		}
 	}
+
+	/**
+	 * PR ブロックの装飾アイコンの <i> に aria-hidden="true" が付く事のテスト。
+	 * Test that the PR block's decorative icon gets aria-hidden="true" on its <i>.
+	 *
+	 * @return void
+	 */
+	function test_widget() {
+		// アイコンアクセシビリティのフィルター有無に依存しない事を確かめるため、フィルターを外した状態で検証する。
+		// Verify with the filter removed to confirm the attribute does not depend on the icon accessibility filter.
+		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
+
+		$widget = new WP_Widget_vkExUnit_PR_Blocks();
+
+		// ウィジェット出力に必要な最小限の $args / Minimal $args required to render the widget.
+		$args = array(
+			'before_widget' => '',
+			'after_widget'  => '',
+			'before_title'  => '',
+			'after_title'   => '',
+		);
+
+		// テスト条件（インスタンス）と期待する結果の組み合わせ。
+		// アイコン／画像のパターンを後から増やしやすいよう配列で持つ。
+		// Combinations of the test instance and expected result.
+		// Kept as an array so icon / image patterns can be added later.
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'FA アイコンクラス（星）指定 => prBlock_icon の <i> に aria-hidden が付く',
+				'instance'            => array(
+					'block_count'        => 1,
+					'label_1'            => 'PR Block 1',
+					'media_image_1'      => '',
+					'iconFont_class_1'   => 'fa-solid fa-star',
+					'iconFont_bgColor_1' => '#337ab7',
+					'iconFont_bgType_1'  => '',
+					'summary_1'          => '',
+					'linkurl_1'          => '',
+				),
+				'expected_has_icon'   => true,
+				'expected_icon_class' => 'fa-solid fa-star',
+			),
+			array(
+				'test_condition_name' => 'FA アイコンクラス（ハート）指定 => prBlock_icon の <i> に aria-hidden が付く',
+				'instance'            => array(
+					'block_count'        => 1,
+					'label_1'            => 'PR Block 1',
+					'media_image_1'      => '',
+					'iconFont_class_1'   => 'fa-solid fa-heart',
+					'iconFont_bgColor_1' => '#337ab7',
+					'iconFont_bgType_1'  => '',
+					'summary_1'          => '',
+					'linkurl_1'          => '',
+				),
+				'expected_has_icon'   => true,
+				'expected_icon_class' => 'fa-solid fa-heart',
+			),
+			array(
+				'test_condition_name' => '画像指定（アイコン未使用）=> prBlock_icon の <i> が出力されない',
+				'instance'            => array(
+					'block_count'        => 1,
+					'label_1'            => 'PR Block 1',
+					'media_image_1'      => 'https://example.com/image.jpg',
+					'media_alt_1'        => 'sample',
+					'iconFont_class_1'   => 'fa-solid fa-star',
+					'iconFont_bgColor_1' => '#337ab7',
+					'iconFont_bgType_1'  => '',
+					'summary_1'          => '',
+					'linkurl_1'          => '',
+				),
+				'expected_has_icon'   => false,
+				'expected_icon_class' => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			ob_start();
+			$widget->widget( $args, $case['instance'] );
+			$output = ob_get_clean();
+
+			if ( $case['expected_has_icon'] ) {
+				// アイコンの <i>（prBlock_icon）に aria-hidden="true" が付いている事を確認。
+				// Check the icon's <i> ( prBlock_icon ) has aria-hidden="true".
+				$this->assertMatchesRegularExpression(
+					'/<i class="' . preg_quote( $case['expected_icon_class'], '/' ) . ' font_icon prBlock_icon"[^>]*aria-hidden="true"[^>]*><\/i>/',
+					$output,
+					$case['test_condition_name']
+				);
+			} else {
+				// 画像指定時はアイコンの <i>（prBlock_icon）が出力されない事を確認。
+				// When an image is set, the icon's <i> ( prBlock_icon ) must not be output.
+				$this->assertStringNotContainsString( 'prBlock_icon', $output, $case['test_condition_name'] );
+			}
+		}
+	}
 }

@@ -71,8 +71,10 @@ function veu_parent_metabox_body() {
 	echo '<div class="veu_metabox_nav">';
 	// ▼ Toggle Button
 	echo '<p class="veu_metabox_all_section_toggle close">';
-	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_open">' . __( 'Open all', 'vk-all-in-one-expansion-unit' ) . ' <i class="fas fa-caret-down"></i></button> ';
-	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_close">' . __( 'Close all', 'vk-all-in-one-expansion-unit' ) . ' <i class="fas fa-caret-up"></i></button>';
+	// ボタン内の開閉状態を示す装飾キャレット。ボタンに可視テキスト（Open all / Close all）があるため読み上げから除外する。
+	// Decorative carets indicating the open/close state inside the buttons. The buttons have visible text (Open all / Close all), so hide them from screen readers.
+	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_open">' . __( 'Open all', 'vk-all-in-one-expansion-unit' ) . ' <i class="fas fa-caret-down" aria-hidden="true"></i></button> ';
+	echo '<button class="button button-default veu_metabox_all_section_toggle_btn_close">' . __( 'Close all', 'vk-all-in-one-expansion-unit' ) . ' <i class="fas fa-caret-up" aria-hidden="true"></i></button>';
 	echo '</p>';
 	// ▲ Toggle Button
 	echo '</div>';

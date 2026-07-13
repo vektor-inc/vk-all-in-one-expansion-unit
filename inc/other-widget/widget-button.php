@@ -93,7 +93,9 @@ class WP_Widget_Button extends WP_Widget {
 					// クラス名のみが入っているケース
 					$icon_class = $instance['icon_before'];
 				}
-				echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i>';
+				// ボタンラベルの前に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+				// Decorative icon before the button label. The label text is in the same button, so hide it from screen readers.
+				echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon" aria-hidden="true"></i>';
 			}
 
 			echo wp_kses_post( $options['title'] );
@@ -107,7 +109,9 @@ class WP_Widget_Button extends WP_Widget {
 					// クラス名のみが入っているケース
 					$icon_class = $instance['icon_after'];
 				}
-				echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i>';
+				// ボタンラベルの後に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+				// Decorative icon after the button label. The label text is in the same button, so hide it from screen readers.
+				echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon" aria-hidden="true"></i>';
 			}
 			?>
 

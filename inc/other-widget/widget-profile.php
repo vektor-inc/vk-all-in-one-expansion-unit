@@ -438,34 +438,50 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 			?>
 <ul class="sns_btns">
 			<?php
+			// 各 SNS リンクはアイコンのみで可視テキストが無いため、リンク自体に読み上げ名（aria-label）を付ける。
+			// ブランド名は %s プレースホルダにして文型のみ翻訳する（Follow us on %s など）。
+			// Each SNS link is icon-only with no visible text, so give the link an accessible name ( aria-label ).
+			// Keep the brand name as a %s placeholder and translate only the sentence pattern ( e.g. "Follow us on %s" ).
 			$sns_names = array(
 				array(
-					'name' => 'facebook',
-					'icon' => 'fa-brands fa-facebook-f',
+					'name'       => 'facebook',
+					'icon'       => 'fa-brands fa-facebook-f',
+					/* translators: %s: social media service name */
+					'aria_label' => sprintf( __( 'Follow us on %s', 'vk-all-in-one-expansion-unit' ), 'Facebook' ),
 				),
 				array(
-					'name' => 'twitter',
-					'icon' => 'fa-brands fa-x-twitter',
+					'name'       => 'twitter',
+					'icon'       => 'fa-brands fa-x-twitter',
+					/* translators: %s: social media service name */
+					'aria_label' => sprintf( __( 'Follow us on %s', 'vk-all-in-one-expansion-unit' ), 'X (Twitter)' ),
 				),
 				array(
-					'name' => 'mail',
-					'icon' => 'fa-solid fa-envelope',
+					'name'       => 'mail',
+					'icon'       => 'fa-solid fa-envelope',
+					'aria_label' => __( 'Email', 'vk-all-in-one-expansion-unit' ),
 				),
 				array(
-					'name' => 'youtube',
-					'icon' => 'fa-brands fa-youtube',
+					'name'       => 'youtube',
+					'icon'       => 'fa-brands fa-youtube',
+					/* translators: %s: social media service name */
+					'aria_label' => sprintf( __( 'Follow us on %s', 'vk-all-in-one-expansion-unit' ), 'YouTube' ),
 				),
 				array(
-					'name' => 'rss',
-					'icon' => 'fa-solid fa-rss',
+					'name'       => 'rss',
+					'icon'       => 'fa-solid fa-rss',
+					'aria_label' => __( 'Subscribe via RSS', 'vk-all-in-one-expansion-unit' ),
 				),
 				array(
-					'name' => 'instagram',
-					'icon' => 'fa-brands fa-instagram',
+					'name'       => 'instagram',
+					'icon'       => 'fa-brands fa-instagram',
+					/* translators: %s: social media service name */
+					'aria_label' => sprintf( __( 'Follow us on %s', 'vk-all-in-one-expansion-unit' ), 'Instagram' ),
 				),
 				array(
-					'name' => 'linkedin',
-					'icon' => 'fa-brands fa-linkedin',
+					'name'       => 'linkedin',
+					'icon'       => 'fa-brands fa-linkedin',
+					/* translators: %s: social media service name */
+					'aria_label' => sprintf( __( 'Follow us on %s', 'vk-all-in-one-expansion-unit' ), 'LinkedIn' ),
 				),
 
 			);
@@ -480,7 +496,9 @@ class WP_Widget_vkExUnit_profile extends WP_Widget {
 
 					$sns_name_class = $sns_name['icon'];
 
-					echo '<li class="' . $sns_name['name'] . '_btn"><a href="' . esc_url( $instance[ $sns_name['name'] ] ) . '" target="_blank"' . $outer_css . '><i class="' . $sns_name_class . ' icon"' . $icon_css . '></i></a></li>';
+					// アイコンのみリンク：リンクに aria-label（読み上げ名）を付け、中の <i> は装飾として読み上げから除外する。
+					// Icon-only link: give the link an aria-label ( accessible name ) and hide the inner <i> from screen readers as decoration.
+					echo '<li class="' . $sns_name['name'] . '_btn"><a href="' . esc_url( $instance[ $sns_name['name'] ] ) . '" target="_blank" aria-label="' . esc_attr( $sns_name['aria_label'] ) . '"' . $outer_css . '><i class="' . $sns_name_class . ' icon"' . $icon_css . ' aria-hidden="true"></i></a></li>';
 				} // if ( ! empty( $instance[$sns_name] ) ) :
 			} // foreach ( $sns_names as $key => $sns_name ) {
 			?>
