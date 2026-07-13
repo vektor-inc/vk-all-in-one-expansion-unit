@@ -12,18 +12,6 @@
 class ContactSectionTest extends WP_UnitTestCase {
 
 	/**
-	 * 各テスト後に、アイコンアクセシビリティのフィルターを元の登録内容で復元する。
-	 * Restore the icon accessibility filters ( with the original arguments / priority ) after each test.
-	 *
-	 * @return void
-	 */
-	public function tearDown(): void {
-		add_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
-		add_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10, 2 );
-		parent::tearDown();
-	}
-
-	/**
 	 * render_contact_section_html の装飾アイコン（電話 / 封筒 / 矢印）に aria-hidden="true" が付く事のテスト。
 	 * Test that the decorative icons ( phone / envelope / arrow ) in render_contact_section_html get aria-hidden="true".
 	 *

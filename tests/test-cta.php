@@ -14,10 +14,6 @@ class CTATest extends WP_UnitTestCase {
 	 * Reset globals after each test.
 	 */
 	protected function tearDown(): void {
-		// アイコンアクセシビリティのフィルターを元の登録内容で復元する。
-		// Restore the icon accessibility filters ( with the original arguments / priority ).
-		add_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
-		add_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10, 2 );
 		parent::tearDown();
 		$_POST = array();
 	}

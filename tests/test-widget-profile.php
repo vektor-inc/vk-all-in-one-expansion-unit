@@ -10,18 +10,6 @@
  */
 class WidgetProfileTest extends WP_UnitTestCase {
 
-	/**
-	 * 各テスト後に、アイコンアクセシビリティのフィルターを元の登録内容で復元する。
-	 * Restore the icon accessibility filters ( with the original arguments / priority ) after each test.
-	 *
-	 * @return void
-	 */
-	public function tearDown(): void {
-		add_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
-		add_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10, 2 );
-		parent::tearDown();
-	}
-
 	function test_image_align() {
 
 		$test_media_align = array(
