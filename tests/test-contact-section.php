@@ -50,32 +50,45 @@ class ContactSectionTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $tel_icon_cases as $case ) {
-			// お問い合わせ情報のオプションを設定 / Set the contact information option.
-			update_option(
-				'vkExUnit_contact',
-				array(
-					'tel_icon'     => $case['tel_icon'],
-					'tel_number'   => '000-000-0000',
-					'contact_link' => 'https://example.com',
-					'button_text'  => 'Contact us',
-					'short_text'   => 'Contact us',
-				)
-			);
+		// アサーション失敗時も元の設定値を確実に戻すため、ループ実行前に元の値を保持し try/finally で復元する。
+		// Preserve the original option before the loop and restore it in finally so the value is restored even if an assertion fails.
+		$original_option = get_option( 'vkExUnit_contact', false );
 
-			// お問い合わせセクションの HTML を取得 / Get the contact section HTML.
-			$html = VkExUnit_Contact::render_contact_section_html();
+		try {
+			foreach ( $tel_icon_cases as $case ) {
+				// お問い合わせ情報のオプションを設定 / Set the contact information option.
+				update_option(
+					'vkExUnit_contact',
+					array(
+						'tel_icon'     => $case['tel_icon'],
+						'tel_number'   => '000-000-0000',
+						'contact_link' => 'https://example.com',
+						'button_text'  => 'Contact us',
+						'short_text'   => 'Contact us',
+					)
+				);
 
-			// 電話アイコン（保存値によらず組み立て直した <i>）に aria-hidden が付く事を確認。
-			// Check the phone icon ( the <i> rebuilt regardless of the saved value ) has aria-hidden.
-			$this->assertStringContainsString( $case['expected'], $html, $case['test_condition_name'] );
-			// ボタン前の封筒アイコンに aria-hidden が付く事を確認 / Check the envelope icon before the button has aria-hidden.
-			$this->assertStringContainsString( '<i class="fa-regular fa-envelope" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
-			// ボタン後の矢印アイコンに aria-hidden が付く事を確認 / Check the arrow icon after the button has aria-hidden.
-			$this->assertStringContainsString( '<i class="fa-regular fa-circle-right" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
+				// お問い合わせセクションの HTML を取得 / Get the contact section HTML.
+				$html = VkExUnit_Contact::render_contact_section_html();
 
-			// オプションをクリーンアップ / Clean up the option.
-			delete_option( 'vkExUnit_contact' );
+				// 電話アイコン（保存値によらず組み立て直した <i>）に aria-hidden が付く事を確認。
+				// Check the phone icon ( the <i> rebuilt regardless of the saved value ) has aria-hidden.
+				$this->assertStringContainsString( $case['expected'], $html, $case['test_condition_name'] );
+				// ボタン前の封筒アイコンに aria-hidden が付く事を確認 / Check the envelope icon before the button has aria-hidden.
+				$this->assertStringContainsString( '<i class="fa-regular fa-envelope" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
+				// ボタン後の矢印アイコンに aria-hidden が付く事を確認 / Check the arrow icon after the button has aria-hidden.
+				$this->assertStringContainsString( '<i class="fa-regular fa-circle-right" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
+
+				// オプションをクリーンアップ / Clean up the option.
+				delete_option( 'vkExUnit_contact' );
+			}
+		} finally {
+			// 元の設定値を復元（元々未設定だったら削除）/ Restore the original option value ( delete if it was originally unset ).
+			if ( false === $original_option ) {
+				delete_option( 'vkExUnit_contact' );
+			} else {
+				update_option( 'vkExUnit_contact', $original_option );
+			}
 		}
 	}
 
@@ -119,21 +132,34 @@ class ContactSectionTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			// お問い合わせボタンウィジェットの描画に必要なオプションを設定。
-			// Set the option required to render the contact button widget.
-			update_option( 'vkExUnit_contact', $case['options'] );
+		// アサーション失敗時も元の設定値を確実に戻すため、ループ実行前に元の値を保持し try/finally で復元する。
+		// Preserve the original option before the loop and restore it in finally so the value is restored even if an assertion fails.
+		$original_option = get_option( 'vkExUnit_contact', false );
 
-			// お問い合わせボタンウィジェットの HTML を取得 / Get the contact button widget HTML.
-			$html = VkExUnit_Contact::render_widget_contact_btn_html();
+		try {
+			foreach ( $test_cases as $case ) {
+				// お問い合わせボタンウィジェットの描画に必要なオプションを設定。
+				// Set the option required to render the contact button widget.
+				update_option( 'vkExUnit_contact', $case['options'] );
 
-			// 封筒・矢印の装飾アイコンに aria-hidden が付く事を確認 / Check the decorative envelope / arrow icons have aria-hidden.
-			foreach ( $case['expected'] as $expected ) {
-				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
+				// お問い合わせボタンウィジェットの HTML を取得 / Get the contact button widget HTML.
+				$html = VkExUnit_Contact::render_widget_contact_btn_html();
+
+				// 封筒・矢印の装飾アイコンに aria-hidden が付く事を確認 / Check the decorative envelope / arrow icons have aria-hidden.
+				foreach ( $case['expected'] as $expected ) {
+					$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
+				}
+
+				// オプションをクリーンアップ / Clean up the option.
+				delete_option( 'vkExUnit_contact' );
 			}
-
-			// オプションをクリーンアップ / Clean up the option.
-			delete_option( 'vkExUnit_contact' );
+		} finally {
+			// 元の設定値を復元（元々未設定だったら削除）/ Restore the original option value ( delete if it was originally unset ).
+			if ( false === $original_option ) {
+				delete_option( 'vkExUnit_contact' );
+			} else {
+				update_option( 'vkExUnit_contact', $original_option );
+			}
 		}
 	}
 }

@@ -482,5 +482,43 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
+
+		// LINE の web フォント span アイコンにも aria-hidden="true" が付く事のテスト。
+		// LINE はモバイル環境（wp_is_mobile() が true）かつ useLine が有効な時のみ出力されるため、
+		// 一時的にモバイル UA をセットして分岐を有効化して検証する。
+		// Test that the LINE web font span icon also gets aria-hidden="true".
+		// LINE is only output on mobile ( wp_is_mobile() returns true ) with useLine enabled,
+		// so temporarily set a mobile UA to enable the branch for verification.
+		$line_expected = '<span class="vk_icon_w_r_sns_line icon_sns" aria-hidden="true"';
+		$original_ua   = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : null;
+		// iPhone の UA。文字列に "Mobile" を含むため wp_is_mobile() が true を返す。
+		// iPhone UA. It contains "Mobile", so wp_is_mobile() returns true.
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+
+		try {
+			// モバイル UA が効いて wp_is_mobile() が true になっている事を前提として確認（false なら UA 設定が効いていないサイン）。
+			// Confirm the mobile UA is in effect and wp_is_mobile() returns true ( false means the UA is not applied ).
+			$this->assertTrue( wp_is_mobile(), 'モバイル UA をセットしたので wp_is_mobile() は true になる' );
+
+			// useLine を有効化してシェアボタンの HTML を取得 / Enable useLine and get the share button HTML.
+			update_option( 'vkExUnit_sns_options', array( 'useLine' => true ) );
+			$actual = veu_get_sns_btns();
+
+			// LINE 分岐が実際に出力されている事（li.sb_line）を確認 / Confirm the LINE branch is actually output.
+			$this->assertStringContainsString( 'sb_line', $actual, 'useLine が true かつモバイルの場合 => LINE ボタンが出力される' );
+			// LINE の web フォント span に aria-hidden が付いている事を確認 / Check the LINE web font span icon has aria-hidden.
+			$this->assertStringContainsString( $line_expected, $actual, 'useLine が true かつモバイルの場合 => LINE の web フォント span に aria-hidden="true" が付く' );
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		} finally {
+			// テスト後は $_SERVER['HTTP_USER_AGENT'] を必ず元に戻す（未設定だったら unset）。
+			// Always restore $_SERVER['HTTP_USER_AGENT'] after the test ( unset if it was not set ).
+			if ( null === $original_ua ) {
+				unset( $_SERVER['HTTP_USER_AGENT'] );
+			} else {
+				$_SERVER['HTTP_USER_AGENT'] = $original_ua;
+			}
+		}
 	}
 }
