@@ -147,4 +147,93 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			wp_delete_post( $post_id, true );
 		} // foreach ( $test_array as $key => $value ) {
 	} // function test_veu_get_the_custom_css_single() {
+
+	/**
+	 * Editor styles injection for the block editor.
+	 * ブロックエディタへのエディタスタイル注入のテスト。
+	 */
+	public function test_veu_css_customize_single_editor_styles() {
+
+		// テスト条件と期待する結果
+		// with_post       : エディタコンテキストに投稿を含めるか（false = サイト/ウィジェットエディタ相当）
+		// custom_css      : 投稿に設定するカスタムCSS（null = カスタムCSS未設定）
+		// input           : block_editor_settings_all に渡す既存の editor settings
+		// expected_styles : 期待する $settings['styles']（null = 'styles' が付与されず設定は未変更）
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'ケース1: post コンテキストありのとき、圧縮済み CSS がエディタスタイルに追加される',
+				'with_post'           => true,
+				'custom_css'          => 'div > h1 { color:red;   }',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => 'div > h1{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース2: 既存の styles を保持し、新しい CSS はその後ろに追加される',
+				'with_post'           => true,
+				'custom_css'          => 'div > h1 { color:red;   }',
+				'input'               => array( 'styles' => array( array( 'css' => 'body{}' ) ) ),
+				'expected_styles'     => array(
+					array( 'css' => 'body{}' ),
+					array( 'css' => 'div > h1{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース3: post コンテキストなし（サイト/ウィジェットエディタ）のとき、設定は未変更',
+				'with_post'           => false,
+				'custom_css'          => null,
+				'input'               => array(),
+				'expected_styles'     => null,
+			),
+			array(
+				'test_condition_name' => 'ケース4: カスタムCSS未設定の投稿では設定は未変更',
+				'with_post'           => true,
+				'custom_css'          => null,
+				'input'               => array(),
+				'expected_styles'     => null,
+			),
+		);
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_veu_css_customize_single_editor_styles' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		foreach ( $test_cases as $case ) {
+
+			// テスト用の投稿とエディタコンテキストを準備する。
+			$post_id = 0;
+			if ( $case['with_post'] ) {
+				$post_id = wp_insert_post(
+					array(
+						'post_title'   => 'タイトル',
+						'post_content' => 'content',
+						'post_status'  => 'publish',
+						'post_type'    => 'post',
+					)
+				);
+				if ( null !== $case['custom_css'] ) {
+					add_post_meta( $post_id, '_veu_custom_css', $case['custom_css'] );
+				}
+				$context = new WP_Block_Editor_Context( array( 'post' => get_post( $post_id ) ) );
+			} else {
+				$context = new WP_Block_Editor_Context();
+			}
+
+			$settings = veu_css_customize_single_editor_styles( $case['input'], $context );
+
+			if ( null === $case['expected_styles'] ) {
+				// 設定は未変更のまま返る。
+				$this->assertSame( $case['input'], $settings, $case['test_condition_name'] );
+			} else {
+				$this->assertSame( $case['expected_styles'], $settings['styles'], $case['test_condition_name'] );
+			}
+
+			// テスト用データを削除する。
+			if ( $post_id ) {
+				wp_delete_post( $post_id, true );
+			}
+		} // foreach ( $test_cases as $case ) {
+	} // function test_veu_css_customize_single_editor_styles() {
 }

@@ -88,6 +88,7 @@ e.g.
 [ Bug Fix ][ CTA ] Fixed the CTA image not being saved and the button text / message losing their allowed HTML when saved from the classic edit screen.
 [ Bug Fix ][ Custom Post Type Manager ] Fixed custom post types saved by older versions losing "title" support when re-registered.
 [ Bug Fix ][ Custom Post Type Manager ] Fixed a fatal TypeError on PHP 8 when re-registering a custom post type whose legacy support data was not stored as an array.
+[ Bug Fix ][ Custom CSS ] Fixed the per-post Custom CSS leaking into the whole admin screen and breaking admin elements such as headings; it is now applied only to the block editor content and the front end.
 
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
