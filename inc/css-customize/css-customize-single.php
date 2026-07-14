@@ -138,5 +138,5 @@ function veu_get_sanitized_custom_css_single( $post ) {
 	if ( $css ) {
 		$css = veu_sanitize_custom_css_input( $css );
 	}
-	return $css ? $css : '';
+	return $css;
 }
