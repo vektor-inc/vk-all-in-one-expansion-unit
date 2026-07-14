@@ -217,17 +217,32 @@ test.describe( 'Smooth scroll「CSS only」ラベル分離 (#1421 / PR #1422)', 
 			.evaluate( ( el ) => window.getComputedStyle( el ).scrollBehavior );
 		expect( scrollBehavior ).toBe( 'smooth' );
 
-		// ページ内リンク（アンカー）遷移でエラーが起きず、スクロール自体が
-		// 実行されることを確認する（scrollTo 相当のふるまいが壊れていないか）。
+		// 実際のページ内リンク（アンカー）クリックでスクロールが発生することを
+		// 検証する。window.scrollTo を直接呼ぶと scroll-behavior の設定に
+		// 関わらず必ず成功してしまい検証にならないため、実在するアンカー要素
+		// と <a href="#..."> リンクを DOM に追加し、リンクを実際にクリックする
+		// ことでブラウザのページ内遷移（＝ CSS only モードなら
+		// scroll-behavior:smooth が効くスクロール）が機能することを確認する。
 		await page.evaluate( () => {
 			document.body.style.minHeight = '3000px';
+
+			const target = document.createElement( 'div' );
+			target.id = 'veu-e2e-scroll-target';
+			target.style.marginTop = '2000px';
+			target.textContent = 'veu e2e scroll target';
+			document.body.appendChild( target );
+
+			const link = document.createElement( 'a' );
+			link.id = 'veu-e2e-scroll-link';
+			link.href = '#veu-e2e-scroll-target';
+			link.textContent = 'veu e2e scroll link';
+			document.body.insertBefore( link, document.body.firstChild );
 		} );
-		await page.evaluate( () => {
-			window.location.hash = '#wpadminbar-does-not-exist-fallback';
-		} );
-		// scroll-behavior:smooth が適用された状態でも window.scrollTo が
-		// 例外なく動作し、pageYOffset が変化すること。
-		await page.evaluate( () => window.scrollTo( 0, 500 ) );
+
+		await page.locator( '#veu-e2e-scroll-link' ).click();
+
+		// リンククリックによるページ内遷移で実際にスクロール位置が変化する
+		// こと（=ページ内リンクのスムーズスクロールが機能している）。
 		await expect
 			.poll( () => page.evaluate( () => window.pageYOffset ) )
 			.toBeGreaterThan( 0 );
