@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Spec Change ][ Widget ] Changed the heading tag of the Related Posts and 3PR Area widgets from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
+[ Spec Change ] Changed the heading tag of the Related Posts, 3PR Area and PR Blocks widgets, and the Call To Action block / shortcode, from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
 [ Spec Change ] Hid decorative icons from screen readers so they are no longer read aloud together with the visible label.
 [ Spec Change ] Added accessible names to the Profile widget's icon-only social media links.
 [ Bug Fix ][ Widget ] Fixed a PHP warning that occurred on the admin widget form of the Recent Posts widget when its title was empty.

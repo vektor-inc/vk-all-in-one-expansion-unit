@@ -308,13 +308,13 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 					echo '</div><!--//.prBlock_image -->';
 				}
 				// title text
-				echo '<h1 class="prBlock_title">';
+				echo '<h2 class="prBlock_title">';
 				if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
 					echo wp_kses_post( $instance[ 'label_' . $i ] );
 				} else {
 					_e( 'PR Block', 'vk-all-in-one-expansion-unit' );
 				}
-				echo '</h1>' . PHP_EOL;
+				echo '</h2>' . PHP_EOL;
 
 				// summary text
 				if ( ! empty( $instance[ 'summary_' . $i ] ) ) {
