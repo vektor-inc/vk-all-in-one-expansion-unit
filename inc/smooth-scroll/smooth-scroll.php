@@ -68,7 +68,9 @@ function veu_smooth_admin() {
 <li>
 <label><input type="radio" name="vkExUnit_smooth[mode]" value="js" <?php checked( $options['mode'], 'js', true ); ?> /> <?php esc_html_e( 'JavaScript', 'vk-all-in-one-expansion-unit' ); ?> </label></li>
 <li>
-<label><input type="radio" name="vkExUnit_smooth[mode]" value="css" <?php checked( $options['mode'], 'css', true ); ?> /> <?php esc_html_e( 'CSS only (recommended).', 'vk-all-in-one-expansion-unit' ); ?> <?php esc_html_e( 'Loading is slightly lighter.', 'vk-all-in-one-expansion-unit' ); ?> <?php esc_html_e( 'Not supported on Safari 15.3 or earlier.', 'vk-all-in-one-expansion-unit' ); ?> </label></li>
+<label><input type="radio" name="vkExUnit_smooth[mode]" value="css" aria-describedby="vkExUnit_smooth_mode_css_description" <?php checked( $options['mode'], 'css', true ); ?> /> <?php esc_html_e( 'CSS only (recommended).', 'vk-all-in-one-expansion-unit' ); ?> </label>
+<p class="description" id="vkExUnit_smooth_mode_css_description"><?php esc_html_e( 'Loading is slightly lighter than the JavaScript mode.', 'vk-all-in-one-expansion-unit' ); ?> <?php esc_html_e( 'Not supported on Safari 15.3 or earlier.', 'vk-all-in-one-expansion-unit' ); ?></p>
+</li>
 </ul>
 </td>
 </tr>
