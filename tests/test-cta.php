@@ -698,7 +698,7 @@ class CTATest extends WP_UnitTestCase {
 					'vkExUnit_cta_button_text' => 'Read more',
 					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h2 class="cta_title">Classic Title</h2><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 			'classic CTA XSS test'     => array(
 				'cta_title'   => 'Classic Title',
@@ -708,7 +708,7 @@ class CTATest extends WP_UnitTestCase {
 					'vkExUnit_cta_button_text' => '"><script>alert(0)</script>',
 					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h2 class="cta_title">Classic Title</h2><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 			// 前後アイコン付きの古典CTA：装飾アイコンの <i> に aria-hidden="true" が付く事を検証する。
 			// Classic CTA with before / after icons: verify the decorative icons' <i> get aria-hidden="true".
@@ -722,7 +722,7 @@ class CTATest extends WP_UnitTestCase {
 					'vkExUnit_cta_button_icon_before' => 'fa-solid fa-star',
 					'vkExUnit_cta_button_icon_after'  => 'fa-solid fa-arrow-right',
 				),
-				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank"><i class="fa-solid fa-star font_icon" aria-hidden="true"></i> Read more<i class="fa-solid fa-arrow-right font_icon" aria-hidden="true"></i> </a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h2 class="cta_title">Classic Title</h2><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank"><i class="fa-solid fa-star font_icon" aria-hidden="true"></i> Read more<i class="fa-solid fa-arrow-right font_icon" aria-hidden="true"></i> </a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 		);
 

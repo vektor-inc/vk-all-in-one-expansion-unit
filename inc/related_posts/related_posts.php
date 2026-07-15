@@ -233,7 +233,7 @@ function veu_get_related_posts_html() {
 		}
 		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）.
 		$related_post_title  = apply_filters( 'veu_related_post_title', $related_post_title );
-		$related_posts_html .= '<h1 class="mainSection-title relatedPosts_title">' . $related_post_title . '</h1>';
+		$related_posts_html .= '<h2 class="mainSection-title relatedPosts_title">' . $related_post_title . '</h2>';
 
 		$i                   = 1;
 		$related_posts_html .= '<div class="row">';

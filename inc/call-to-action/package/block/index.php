@@ -271,7 +271,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 						}
 
 						$content .= '<section class="veu_cta" id="veu_cta-' . $cta_id . '">';
-						$content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
+						$content .= '<h2 class="cta_title">' . $cta_post->post_title . '</h2>';
 						$content .= '<div class="cta_body">';
 
 						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
