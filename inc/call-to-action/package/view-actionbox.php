@@ -25,8 +25,10 @@ if ( $btn_before ) {
 		$icon_class = $raw;
 	}
 
+	// ボタンラベルの前に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+	// Decorative icon before the button label. The label text is in the same button, so hide it from screen readers.
 	$btn_before = $icon_class
-		? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i> '
+		? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon" aria-hidden="true"></i> '
 		: '';
 }
 $btn_after = get_post_meta( $id, 'vkExUnit_cta_button_icon_after', true );
@@ -41,8 +43,10 @@ if ( $btn_after ) {
 		$icon_class = $raw;
 	}
 
+	// ボタンラベルの後に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+	// Decorative icon after the button label. The label text is in the same button, so hide it from screen readers.
 	$btn_after = $icon_class
-		? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i> '
+		? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon" aria-hidden="true"></i> '
 		: '';
 }
 $url   = get_post_meta( $id, 'vkExUnit_cta_url', true );
@@ -57,7 +61,7 @@ if ( ! $image_position ) {
 
 $content  = '';
 $content .= '<section class="veu_cta" id="veu_cta-' . $id . '">';
-$content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
+$content .= '<h2 class="cta_title">' . $cta_post->post_title . '</h2>';
 $content .= '<div class="cta_body">';
 
 

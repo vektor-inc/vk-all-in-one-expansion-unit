@@ -298,7 +298,9 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 						// クラス名のみが入っているケース
 						$icon_class = $instance[ 'iconFont_class_' . $i ];
 					}
-					echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon prBlock_icon"' . $icon_styles . '></i></div>' . PHP_EOL;
+					// PR ブロックのタイトル・本文が同じブロック内にあるため、アイコンは装飾として読み上げから除外する。
+					// The PR block's title and body are in the same block, so the icon is decorative and hidden from screen readers.
+					echo '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon prBlock_icon"' . $icon_styles . ' aria-hidden="true"></i></div>' . PHP_EOL;
 					// image display
 				} elseif ( ! empty( $instance[ 'media_image_' . $i ] ) ) {
 					echo '<div class="prBlock_image" style="background:url(' . esc_url( $instance[ 'media_image_' . $i ] ) . ') no-repeat 50% center;background-size: cover;">';
@@ -306,13 +308,13 @@ class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 					echo '</div><!--//.prBlock_image -->';
 				}
 				// title text
-				echo '<h1 class="prBlock_title">';
+				echo '<h2 class="prBlock_title">';
 				if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
 					echo wp_kses_post( $instance[ 'label_' . $i ] );
 				} else {
 					_e( 'PR Block', 'vk-all-in-one-expansion-unit' );
 				}
-				echo '</h1>' . PHP_EOL;
+				echo '</h2>' . PHP_EOL;
 
 				// summary text
 				if ( ! empty( $instance[ 'summary_' . $i ] ) ) {

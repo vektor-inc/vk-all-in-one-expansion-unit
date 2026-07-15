@@ -231,8 +231,12 @@ function veu_cta_block_callback( $attributes, $content ) {
 								$icon_class = $raw;
 							}
 
+							// ボタンラベルの前に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する。
+							// トグル非依存で属性を揃えるためインラインで付与する（render_block フィルタは付与済み aria-hidden をスキップするので二重付与にならない）。
+							// Decorative icon before the button label; the label text is in the same button, so hide it from screen readers.
+							// Added inline so the attribute is present regardless of the toggle ( the render_block filter skips <i> that already has aria-hidden, so it is not applied twice ).
 							$btn_before = $icon_class
-								? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i> '
+								? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon" aria-hidden="true"></i> '
 								: '';
 						}
 
@@ -248,8 +252,10 @@ function veu_cta_block_callback( $attributes, $content ) {
 								// クラス名のみが入っているケース
 								$icon_class = $raw;
 							}
+							// ボタンラベルの後に置く装飾アイコン。同じボタン内にラベルテキストがあるため読み上げから除外する（トグル非依存でインライン付与）。
+							// Decorative icon after the button label; the label text is in the same button, so hide it from screen readers ( added inline, toggle-independent ).
 							$btn_after = $icon_class
-								? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon"></i> '
+								? '<i class="' . $fa . esc_attr( $icon_class ) . ' font_icon" aria-hidden="true"></i> '
 								: '';
 						}
 
@@ -265,7 +271,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 						}
 
 						$content .= '<section class="veu_cta" id="veu_cta-' . $cta_id . '">';
-						$content .= '<h1 class="cta_title">' . $cta_post->post_title . '</h1>';
+						$content .= '<h2 class="cta_title">' . $cta_post->post_title . '</h2>';
 						$content .= '<div class="cta_body">';
 
 						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.

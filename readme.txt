@@ -82,11 +82,16 @@ e.g.
 == Changelog ==
 
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.4 to 0.7.5
+[ Spec Change ] Changed the heading tag of the Related Posts, 3PR Area and PR Blocks widgets, and the Call To Action block / shortcode, from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
+[ Spec Change ] Hid decorative icons from screen readers so they are no longer read aloud together with the visible label.
+[ Spec Change ] Added accessible names to the Profile widget's icon-only social media links.
 [ Bug Fix ][ Widget ] Fixed a PHP warning that occurred on the admin widget form of the Recent Posts widget when its title was empty.
 [ Bug Fix ] Fixed PHP warnings, notices and deprecations ( and a potential fatal error ) logged in debug mode on recent PHP versions, while keeping PHP 7.4 support.
 [ Bug Fix ][ CTA ] Fixed the CTA image not being saved and the button text / message losing their allowed HTML when saved from the classic edit screen.
 [ Bug Fix ][ Custom Post Type Manager ] Fixed custom post types saved by older versions losing "title" support when re-registered.
 [ Bug Fix ][ Custom Post Type Manager ] Fixed a fatal TypeError on PHP 8 when re-registering a custom post type whose legacy support data was not stored as an array.
+[ Bug Fix ][ Custom CSS ] Fixed the per-post Custom CSS leaking into the whole admin screen and breaking admin elements such as headings; it is now applied only to the block editor content and the front end.
+[ Bug Fix ][ Smooth Scroll ] Fixed the "CSS only" option label showing outdated information that it does not work on Safari; modern Safari versions support it.
 
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.

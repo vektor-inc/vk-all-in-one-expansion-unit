@@ -164,13 +164,13 @@ value="true" />
 			if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
 				echo '<div class="prArea col-sm-4">';
 
-				echo '<h1 class="subSection-title">';
+				echo '<h2 class="subSection-title">';
 				if ( isset( $instance[ 'label_' . $i ] ) && $instance[ 'label_' . $i ] ) {
 					echo wp_kses_post( $instance[ 'label_' . $i ] );
 				} else {
 					_e( '3PR area', 'vk-all-in-one-expansion-unit' );
 				}
-				echo '</h1>';
+				echo '</h2>';
 
 				$blank = ( isset( $instance[ 'blank_' . $i ] ) && $instance[ 'blank_' . $i ] ) ? ' target="_blank" ' : '';
 

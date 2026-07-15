@@ -340,6 +340,25 @@ class CTATest extends WP_UnitTestCase {
 				),
 				'expected'   => '<div class="veu-cta-block &quot; onmouseover=&quot;alert(/XSS/)&quot; style=&quot;background:red;&quot;">CTA content</div>',
 			),
+			// 本文を空にして古典スタイルのボタン（メタのアイコン）を描画させ、装飾アイコンに aria-hidden="true" が付く事を検証する。
+			// Empty the content so the classic-style button ( icons from meta ) is rendered, and verify the decorative icons get aria-hidden="true".
+			'classic button icons'        => array(
+				'target_url'        => get_permalink( $test_posts['page'] ),
+				'attributes'        => array(
+					'postId' => $test_posts['cta_post_id'],
+				),
+				'cta_content'       => '',
+				'post_meta'         => array(
+					'vkExUnit_cta_button_text'        => 'Read more',
+					'vkExUnit_cta_url'                => 'https://example.com',
+					'vkExUnit_cta_button_icon_before' => 'fa-solid fa-star',
+					'vkExUnit_cta_button_icon_after'  => 'fa-solid fa-arrow-right',
+				),
+				'expected_contains' => array(
+					'<i class="fa-solid fa-star font_icon" aria-hidden="true"></i>',
+					'<i class="fa-solid fa-arrow-right font_icon" aria-hidden="true"></i>',
+				),
+			),
 			'No CTA specified'            => array(
 				'attributes' => array(
 					'postId' => null,
@@ -390,11 +409,36 @@ class CTATest extends WP_UnitTestCase {
 					}
 				}
 			}
+			// 対象 CTA の本文・メタをケースごとに設定（古典スタイルのボタン描画を再現するため）。
+			// Set the target CTA's content / meta per case ( to reproduce the classic-style button rendering ).
+			if ( array_key_exists( 'cta_content', $test_value ) ) {
+				wp_update_post(
+					array(
+						'ID'           => $test_posts['cta_post_id'],
+						'post_content' => $test_value['cta_content'],
+					)
+				);
+			}
+			if ( ! empty( $test_value['post_meta'] ) ) {
+				foreach ( $test_value['post_meta'] as $meta_key => $meta_value ) {
+					update_post_meta( $test_posts['cta_post_id'], $meta_key, $meta_value );
+				}
+			}
+
 			$actual = '';
 			$actual = veu_cta_block_callback( $test_value['attributes'], $content );
 			// print 'expected ::' . $test_value['expected'] . PHP_EOL;
 			// print 'actual ::::' . $actual . PHP_EOL;
-			$this->assertEquals( $test_value['expected'], $actual );
+
+			// expected_contains があれば部分一致で、無ければ完全一致で検証する。
+			// If expected_contains is set, assert substrings; otherwise assert full equality.
+			if ( isset( $test_value['expected_contains'] ) ) {
+				foreach ( (array) $test_value['expected_contains'] as $needle ) {
+					$this->assertStringContainsString( $needle, $actual, $key );
+				}
+			} else {
+				$this->assertEquals( $test_value['expected'], $actual );
+			}
 		}
 	}
 
@@ -612,6 +656,13 @@ class CTATest extends WP_UnitTestCase {
 	function test_render_cta_content() {
 		$test_posts = array();
 
+		// 装飾アイコンの aria-hidden がインライン付与（トグル非依存）である事を確かめるため、
+		// アイコンアクセシビリティのフィルターを外した状態で検証する。
+		// Verify with the icon accessibility filter removed to confirm the decorative icon's
+		// aria-hidden is added inline ( toggle-independent ).
+		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
+		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
+
 		// テスト用のCTAを作成
 		$cta_post                  = array(
 			'post_title'   => 'cta_published',
@@ -647,7 +698,7 @@ class CTATest extends WP_UnitTestCase {
 					'vkExUnit_cta_button_text' => 'Read more',
 					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h2 class="cta_title">Classic Title</h2><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">Read more</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 			'classic CTA XSS test'     => array(
 				'cta_title'   => 'Classic Title',
@@ -657,7 +708,21 @@ class CTATest extends WP_UnitTestCase {
 					'vkExUnit_cta_button_text' => '"><script>alert(0)</script>',
 					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h2 class="cta_title">Classic Title</h2><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+			),
+			// 前後アイコン付きの古典CTA：装飾アイコンの <i> に aria-hidden="true" が付く事を検証する。
+			// Classic CTA with before / after icons: verify the decorative icons' <i> get aria-hidden="true".
+			'classic CTA icon test'    => array(
+				'cta_title'   => 'Classic Title',
+				'cta_content' => '',
+				'post_meta'   => array(
+					'vkExUnit_cta_text'               => 'cta',
+					'vkExUnit_cta_button_text'        => 'Read more',
+					'vkExUnit_cta_url'                => 'https://example.com',
+					'vkExUnit_cta_button_icon_before' => 'fa-solid fa-star',
+					'vkExUnit_cta_button_icon_after'  => 'fa-solid fa-arrow-right',
+				),
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h2 class="cta_title">Classic Title</h2><div class="cta_body"><div class="cta_body_txt image_no">cta</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank"><i class="fa-solid fa-star font_icon" aria-hidden="true"></i> Read more<i class="fa-solid fa-arrow-right font_icon" aria-hidden="true"></i> </a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 		);
 
