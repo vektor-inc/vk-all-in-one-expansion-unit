@@ -9,6 +9,51 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		const CONTENT_NUMBER = 100;
 
+		/**
+		 * 画像位置 ( vkExUnit_cta_img_position ) として許可する値.
+		 * この値はフロント側で class 属性に連結されるため、許可値以外は保存しない.
+		 * Allowed values for the image position ( vkExUnit_cta_img_position ).
+		 * The value is concatenated into a class attribute on the front end, so anything else must not be stored.
+		 */
+		const IMAGE_POSITIONS = array( 'right', 'center', 'left' );
+
+		/**
+		 * 画像位置の既定値.
+		 * Default value of the image position.
+		 */
+		const IMAGE_POSITION_DEFAULT = 'right';
+
+		/**
+		 * 画像位置の値をホワイトリストで検証する.
+		 * Validate the image position value against the allowlist.
+		 *
+		 * 保存経路が クラシック編集画面 ( メタボックス ) と ブロックエディタ ( REST API ) の2つあるため、
+		 * 許可値の定義が重複しないよう共通のメソッドとして切り出している.
+		 * There are two save paths ( the classic metabox and the block editor REST API ),
+		 * so the allowlist is centralized here to avoid duplicating the definition.
+		 *
+		 * @param mixed $value 検証する値. Value to validate.
+		 * @return string 許可値または空文字. それ以外は既定値 right を返す. An allowed value or an empty string; the default ( right ) otherwise.
+		 */
+		public static function sanitize_image_position( $value ) {
+			// 配列などスカラー以外は異常な入力のため既定値へ丸める.
+			// Non-scalar input ( arrays etc. ) is invalid, so fall back to the default.
+			if ( ! is_scalar( $value ) ) {
+				return self::IMAGE_POSITION_DEFAULT;
+			}
+			$value = (string) $value;
+			// 空文字はブロックエディタの「Normal」( 位置を指定しない ) を表す正当な値のため、そのまま保持する.
+			// 空文字を既定値へ丸めると、Normal を選んで保存した後に Right が選択された状態で表示されてしまう.
+			// 表示側に既定値へのフォールバック ( if ( ! $image_position ) ) があるため、そこに委ねてよい.
+			// An empty string is a valid value that means "Normal" ( no position specified ) in the block editor, so keep it as is.
+			// Normalizing it to the default would show "Right" as selected after saving "Normal".
+			// The display side falls back to the default ( if ( ! $image_position ) ), so it can be left to that.
+			if ( '' === $value ) {
+				return '';
+			}
+			return in_array( $value, self::IMAGE_POSITIONS, true ) ? $value : self::IMAGE_POSITION_DEFAULT;
+		}
+
 		public static function init() {
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 			add_action( 'veu_package_init', array( __CLASS__, 'option_init' ) );
@@ -180,7 +225,14 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						},
 					),
 					'vkExUnit_cta_img_position'       => array(
-						'escape_type' => '',
+						// 画像位置は class 属性へ連結されるため、許可値 ( right / center / left ) 以外は既定値に丸めて保存する。
+						// escape_type に配列を渡すと「複数のエスケープ処理の配列」として扱われるため、クロージャで渡している。
+						// The image position is concatenated into a class attribute, so any value outside the allowlist
+						// ( right / center / left ) is normalized to the default before saving.
+						// A closure is used because an array in escape_type is treated as a list of escape callbacks.
+						'escape_type' => function ( $value ) {
+							return self::sanitize_image_position( $value );
+						},
 					),
 					'vkExUnit_cta_button_text'        => array(
 						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
@@ -487,7 +539,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// Display Edit Button.
 			$url = get_edit_post_link( $cta_post->ID );
 			if ( $url ) {
-				$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+				$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . esc_url( $url ) . '" class="btn btn-default" target="_blank">' . esc_html__( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 			}
 
 			// リセットしないと$postが改変されたままでコメント欄が表示されなくなるなどの弊害が発生する.

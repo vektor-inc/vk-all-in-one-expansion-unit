@@ -267,11 +267,15 @@ function veu_cta_block_callback( $attributes, $content ) {
 						$image_position = get_post_meta( $cta_id, 'vkExUnit_cta_img_position', true );
 
 						if ( ! $image_position ) {
-							$image_position = 'right';
+							$image_position = Vk_Call_To_Action::IMAGE_POSITION_DEFAULT;
 						}
 
-						$content .= '<section class="veu_cta" id="veu_cta-' . $cta_id . '">';
-						$content .= '<h2 class="cta_title">' . $cta_post->post_title . '</h2>';
+						$content .= '<section class="veu_cta" id="veu_cta-' . esc_attr( $cta_id ) . '">';
+						// タイトルはこれまでフィルタされておらず、改行調整などに <br> を入れている運用があるため esc_html() は使えない。
+						// wp_kses_post() なら <script> や on* 属性は除去され、同テンプレート内の本文・ボタンラベルとも処理が揃う。
+						// The title has never been filtered and is sometimes given a <br> for line breaks, so esc_html() cannot be used.
+						// wp_kses_post() strips <script> and on* attributes and matches how the body and button label are handled in this template.
+						$content .= '<h2 class="cta_title">' . wp_kses_post( $cta_post->post_title ) . '</h2>';
 						$content .= '<div class="cta_body">';
 
 						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
@@ -284,7 +288,9 @@ function veu_cta_block_callback( $attributes, $content ) {
 						}
 
 						if ( $imgid ) {
-							$content .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
+							// $image_position はカスタムフィールドの値をそのまま class 属性へ連結するため必ずエスケープする。
+							// Always escape $image_position because the custom field value is concatenated into a class attribute.
+							$content .= '<div class="cta_body_image cta_body_image_' . esc_attr( $image_position ) . '">';
 							$content .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
 							$content .= wp_get_attachment_image( $imgid, 'large' );
 							$content .= ( $url ) ? '</a>' : '';
@@ -298,7 +304,9 @@ function veu_cta_block_callback( $attributes, $content ) {
 						if ( $url && $btn_text ) {
 							$content .= '<div class="cta_body_link">';
 							$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
-							$content .= $btn_before . $btn_text . $btn_after;
+							// ボタンラベルはカスタムフィールドの値のため、クラシック表示 ( view-actionbox.php ) と同様に許可タグのみへ制限する。
+							// The button label comes from a custom field, so restrict it to allowed tags as the classic view ( view-actionbox.php ) does.
+							$content .= wp_kses_post( $btn_before . $btn_text . $btn_after );
 							$content .= '</a>';
 							$content .= '</div>';
 						}
@@ -313,7 +321,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 					$edit_link = get_edit_post_link( $cta_post->ID );
 					if ( $edit_link ) {
 						$url      = esc_url( $edit_link );
-						$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+						$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . esc_html__( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 					}
 				}
 			}

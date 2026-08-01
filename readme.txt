@@ -93,6 +93,9 @@ e.g.
 [ Bug Fix ][ Custom CSS ] Fixed the per-post Custom CSS leaking into the whole admin screen and breaking admin elements such as headings; it is now applied only to the block editor content and the front end.
 [ Bug Fix ][ Smooth Scroll ] Fixed the "CSS only" option label showing outdated information that it does not work on Safari; modern Safari versions support it.
 [ Bug Fix ][ Custom CSS ] Fixed the success and error notices shown after saving the CSS customizer always appearing in English because they referenced an old text domain.
+[ Security Fix ][ CTA ] Added allowlist validation on save and escaping on output for the CTA image position custom field, which allowed stored XSS.
+[ Security Fix ][ CTA ] Fixed the CTA title being output without any filtering. Decorative HTML such as line breaks and inline tags keeps working, while script tags and event attributes are now removed.
+[ Security Fix ][ CTA ] Fixed the link URLs output by the CTA display not being escaped.
 
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
