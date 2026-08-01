@@ -1,5 +1,5 @@
 === VK All in One Expansion Unit ===
-Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei,mt8biz
+Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei,mt8biz,thisismyurl
 Donate link:
 Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
@@ -92,6 +92,7 @@ e.g.
 [ Bug Fix ][ Custom Post Type Manager ] Fixed a fatal TypeError on PHP 8 when re-registering a custom post type whose legacy support data was not stored as an array.
 [ Bug Fix ][ Custom CSS ] Fixed the per-post Custom CSS leaking into the whole admin screen and breaking admin elements such as headings; it is now applied only to the block editor content and the front end.
 [ Bug Fix ][ Smooth Scroll ] Fixed the "CSS only" option label showing outdated information that it does not work on Safari; modern Safari versions support it.
+[ Bug Fix ][ Custom CSS ] Fixed the success and error notices shown after saving the CSS customizer always appearing in English because they referenced an old text domain.
 
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.
