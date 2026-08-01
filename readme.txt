@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.118.0
+Stable tag: 9.119.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.119.0 =
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.4 to 0.7.5
 [ Spec Change ] Changed the heading tag of the Related Posts, 3PR Area and PR Blocks widgets, and the Call To Action block / shortcode, from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
 [ Spec Change ] Hid decorative icons from screen readers so they are no longer read aloud together with the visible label.
