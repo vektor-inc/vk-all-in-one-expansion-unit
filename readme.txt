@@ -94,6 +94,7 @@ e.g.
 [ Bug Fix ][ Smooth Scroll ] Fixed the "CSS only" option label showing outdated information that it does not work on Safari; modern Safari versions support it.
 [ Bug Fix ][ Custom CSS ] Fixed the success and error notices shown after saving the CSS customizer always appearing in English because they referenced an old text domain.
 [ Security Fix ][ CTA ] Added allowlist validation on save and escaping on output for the CTA image position custom field, which allowed stored XSS.
+[ Security Fix ][ CTA ] Filtered the CTA title and escaped the link URLs on the CTA rendering paths ( the title keeps allowed HTML such as <br>, while script and event attributes are removed ).
 
 = 9.118.0 =
 [ New Feature ][ SNS Share Button ] Added a Threads share button, with a show / hide toggle under ExUnit > Main Setting.

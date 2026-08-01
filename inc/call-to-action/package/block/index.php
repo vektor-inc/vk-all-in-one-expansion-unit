@@ -271,7 +271,11 @@ function veu_cta_block_callback( $attributes, $content ) {
 						}
 
 						$content .= '<section class="veu_cta" id="veu_cta-' . esc_attr( $cta_id ) . '">';
-						$content .= '<h2 class="cta_title">' . esc_html( $cta_post->post_title ) . '</h2>';
+						// タイトルはこれまでフィルタされておらず、改行調整などに <br> を入れている運用があるため esc_html() は使えない。
+						// wp_kses_post() なら <script> や on* 属性は除去され、同テンプレート内の本文・ボタンラベルとも処理が揃う。
+						// The title has never been filtered and is sometimes given a <br> for line breaks, so esc_html() cannot be used.
+						// wp_kses_post() strips <script> and on* attributes and matches how the body and button label are handled in this template.
+						$content .= '<h2 class="cta_title">' . wp_kses_post( $cta_post->post_title ) . '</h2>';
 						$content .= '<div class="cta_body">';
 
 						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
@@ -317,7 +321,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 					$edit_link = get_edit_post_link( $cta_post->ID );
 					if ( $edit_link ) {
 						$url      = esc_url( $edit_link );
-						$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . __( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
+						$content .= '<div class="veu_adminEdit veu_adminEdit_cta"><a href="' . $url . '" class="btn btn-default" target="_blank">' . esc_html__( 'Edit CTA', 'vk-all-in-one-expansion-unit' ) . '</a></div>';
 					}
 				}
 			}

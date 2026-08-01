@@ -33,12 +33,24 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		 * so the allowlist is centralized here to avoid duplicating the definition.
 		 *
 		 * @param mixed $value 検証する値. Value to validate.
-		 * @return string 許可値のいずれか. 許可値以外は既定値 right を返す. One of the allowed values; the default ( right ) otherwise.
+		 * @return string 許可値または空文字. それ以外は既定値 right を返す. An allowed value or an empty string; the default ( right ) otherwise.
 		 */
 		public static function sanitize_image_position( $value ) {
-			// 配列などスカラー以外が渡された場合は許可値に一致しない空文字として扱う.
-			// Treat non-scalar input ( arrays etc. ) as an empty string so it never matches an allowed value.
-			$value = is_scalar( $value ) ? (string) $value : '';
+			// 配列などスカラー以外は異常な入力のため既定値へ丸める.
+			// Non-scalar input ( arrays etc. ) is invalid, so fall back to the default.
+			if ( ! is_scalar( $value ) ) {
+				return self::IMAGE_POSITION_DEFAULT;
+			}
+			$value = (string) $value;
+			// 空文字はブロックエディタの「Normal」( 位置を指定しない ) を表す正当な値のため、そのまま保持する.
+			// 空文字を既定値へ丸めると、Normal を選んで保存した後に Right が選択された状態で表示されてしまう.
+			// 表示側に既定値へのフォールバック ( if ( ! $image_position ) ) があるため、そこに委ねてよい.
+			// An empty string is a valid value that means "Normal" ( no position specified ) in the block editor, so keep it as is.
+			// Normalizing it to the default would show "Right" as selected after saving "Normal".
+			// The display side falls back to the default ( if ( ! $image_position ) ), so it can be left to that.
+			if ( '' === $value ) {
+				return '';
+			}
 			return in_array( $value, self::IMAGE_POSITIONS, true ) ? $value : self::IMAGE_POSITION_DEFAULT;
 		}
 

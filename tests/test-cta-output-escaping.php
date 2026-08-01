@@ -1,20 +1,22 @@
 <?php
 /**
- * CTA image position ( vkExUnit_cta_img_position ) test
+ * CTA display path escaping test
  *
  * @package Vk_All_In_One_Expansion_Unit
  */
 
 /**
- * CTA image position test case.
+ * CTA display path escaping test case.
  *
- * The vkExUnit_cta_img_position value is concatenated into a class attribute on the front end.
- * This test covers both the save side ( allowlist validation ) and the output side ( escaping ).
+ * The classic CTA layout concatenates custom field values straight into the markup.
+ * This test covers the image position ( save side allowlist and output side escaping )
+ * and the CTA title ( output side filtering ).
  *
- * vkExUnit_cta_img_position はフロント側で class 属性に連結されるため、
- * 保存時のホワイトリスト検証と出力時のエスケープの両方を検証する。
+ * クラシックレイアウトの CTA はカスタムフィールドの値をそのままマークアップへ連結する。
+ * ここでは画像位置 ( 保存時のホワイトリストと出力時のエスケープ ) と
+ * CTA タイトル ( 出力時のフィルタ ) を検証する。
  */
-class CTAImagePositionTest extends WP_UnitTestCase {
+class CTAOutputEscapingTest extends WP_UnitTestCase {
 
 	/**
 	 * Stored XSS PoC value reported in issue #1434.
@@ -31,6 +33,7 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 	protected function tearDown(): void {
 		parent::tearDown();
 		$_POST = array();
+		wp_set_current_user( 0 );
 	}
 
 	/**
@@ -46,7 +49,7 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 			array(
 				'post_type'    => Vk_Call_To_Action::POST_TYPE,
 				'post_status'  => 'publish',
-				'post_title'   => 'CTA Image Position',
+				'post_title'   => 'CTA Output Escaping',
 				'post_content' => '',
 			)
 		);
@@ -94,33 +97,41 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Set up the CTA meta used by the classic layout image block.
-	 * クラシックレイアウトの画像ブロック描画に必要な CTA メタを設定する。
+	 * Save a post title keeping its HTML tags.
+	 * HTML タグを保持したまま投稿タイトルを保存する。
 	 *
-	 * @param int    $cta_id         CTA の投稿ID / CTA post ID.
-	 * @param string $image_position 生の画像位置の値 / Raw image position value.
+	 * WordPress は unfiltered_html 権限を持たないユーザーの保存時にタイトルへ kses を適用し、
+	 * <br> などのタグを除去してしまう。管理者が保存した実運用の状態を再現するため、
+	 * 一時的に管理者ユーザーへ切り替えて保存し、描画前に未ログイン状態へ戻す。
+	 * WordPress applies kses to the title when the saving user lacks the unfiltered_html capability,
+	 * stripping tags such as <br>. To reproduce the real-world state saved by an administrator,
+	 * switch to an administrator to save and switch back to a logged-out state before rendering.
+	 *
+	 * @param int    $post_id 投稿ID / Post ID.
+	 * @param string $title   保存するタイトル / Title to save.
 	 * @return void
 	 */
-	private function set_image_meta( $cta_id, $image_position ) {
-		// $imgid が真値のときだけ画像ブロックが出力されるため、存在しないアタッチメントIDを入れておく。
-		// 存在しないIDなので wp_get_attachment_image() は空文字を返し、比較対象のHTMLが安定する。
-		// The image block is rendered only when $imgid is truthy, so store a non-existent attachment ID.
-		// Since the ID does not exist, wp_get_attachment_image() returns an empty string and keeps the HTML stable.
-		update_post_meta( $cta_id, 'vkExUnit_cta_img', '999999' );
-		update_post_meta( $cta_id, 'vkExUnit_cta_text', 'cta' );
-		// ボタンを出力させないため URL は空にする。
-		// Empty the URL so the button is not rendered.
-		update_post_meta( $cta_id, 'vkExUnit_cta_url', '' );
-		$this->set_raw_post_meta( $cta_id, 'vkExUnit_cta_img_position', $image_position );
+	private function set_unfiltered_post_title( $post_id, $title ) {
+		$admin_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $admin_id );
+		wp_update_post(
+			array(
+				'ID'         => $post_id,
+				'post_title' => $title,
+			)
+		);
+		// 未ログイン状態に戻す。管理者のままだと描画結果に編集ボタンが混ざるため。
+		// Switch back to a logged-out state, otherwise the edit button would be mixed into the rendered output.
+		wp_set_current_user( 0 );
 	}
 
 	/**
 	 * Test cases shared by the classic output path and the block output path.
 	 * クラシック出力経路とブロック出力経路で共有するテストケース。
 	 *
-	 * @return array Test cases. テストケース。
+	 * @return array テストケース / Test cases.
 	 */
-	private function get_image_position_output_cases() {
+	private function get_output_cases() {
 		return array(
 			array(
 				'test_condition_name' => '画像位置が right の場合 => cta_body_image_right',
@@ -133,7 +144,7 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 				'expected'            => '<div class="cta_body_image cta_body_image_left">',
 			),
 			array(
-				'test_condition_name' => '画像位置が未設定の場合 => 既定値の cta_body_image_right',
+				'test_condition_name' => '画像位置が未設定 ( Normal ) の場合 => 既定値の cta_body_image_right',
 				'image_position'      => '',
 				'expected'            => '<div class="cta_body_image cta_body_image_right">',
 			),
@@ -147,7 +158,50 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 				'expected'            => '<div class="cta_body_image cta_body_image_right&quot; onmouseover=alert(1)//">',
 				'not_expected'        => 'cta_body_image_right" onmouseover=alert(1)//',
 			),
+			array(
+				// タイトルは wp_kses_post で出力するため、<br> は残しつつ <script> は除去される。
+				// esc_html だと <br> が文字として表示されてしまうため、その退行がない事も併せて検証する。
+				// The title is output through wp_kses_post, so <br> is kept while <script> is stripped.
+				// esc_html would render <br> as text, so this also guards against that regression.
+				'test_condition_name' => 'タイトルに <br> と <script> が含まれる場合 => <br> は残り <script> は除去される',
+				'image_position'      => 'right',
+				'post_title'          => 'CTA Title<br><script>alert(1)</script>',
+				'expected'            => '<h2 class="cta_title">CTA Title<br>alert(1)</h2>',
+				'not_expected'        => '<script>',
+			),
+			array(
+				'test_condition_name' => 'タイトルに on* 属性付きのタグが含まれる場合 => 属性が除去される',
+				'image_position'      => 'right',
+				'post_title'          => 'CTA <span onmouseover="alert(1)">Title</span>',
+				'expected'            => '<h2 class="cta_title">CTA <span>Title</span></h2>',
+				'not_expected'        => 'onmouseover',
+			),
 		);
+	}
+
+	/**
+	 * Apply the conditions of one output test case to the CTA post.
+	 * 出力テストケースの条件を CTA 投稿へ適用する。
+	 *
+	 * @param int   $cta_id    CTA の投稿ID / CTA post ID.
+	 * @param array $test_case テストケース / Test case.
+	 * @return void
+	 */
+	private function apply_output_case( $cta_id, $test_case ) {
+		// $imgid が真値のときだけ画像ブロックが出力されるため、存在しないアタッチメントIDを入れておく。
+		// 存在しないIDなので wp_get_attachment_image() は空文字を返し、比較対象のHTMLが安定する。
+		// The image block is rendered only when $imgid is truthy, so store a non-existent attachment ID.
+		// Since the ID does not exist, wp_get_attachment_image() returns an empty string and keeps the HTML stable.
+		update_post_meta( $cta_id, 'vkExUnit_cta_img', '999999' );
+		update_post_meta( $cta_id, 'vkExUnit_cta_text', 'cta' );
+		// ボタンを出力させないため URL は空にする。
+		// Empty the URL so the button is not rendered.
+		update_post_meta( $cta_id, 'vkExUnit_cta_url', '' );
+		$this->set_raw_post_meta( $cta_id, 'vkExUnit_cta_img_position', $test_case['image_position'] );
+
+		if ( isset( $test_case['post_title'] ) ) {
+			$this->set_unfiltered_post_title( $cta_id, $test_case['post_title'] );
+		}
 	}
 
 	/**
@@ -173,9 +227,13 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 				'expected'            => 'left',
 			),
 			array(
-				'test_condition_name' => '空文字の場合 => 既定値の right',
+				// 空文字はブロックエディタの「Normal」( 位置指定なし ) を表す正当な値のため丸めない。
+				// 丸めてしまうと Normal を選んで保存した後に Right が選択された状態で表示される退行になる。
+				// An empty string is the valid "Normal" ( no position ) value in the block editor, so it must not be normalized.
+				// Normalizing it would regress into showing "Right" as selected after saving "Normal".
+				'test_condition_name' => '空文字 ( Normal ) の場合 => 空文字のまま',
 				'value'               => '',
-				'expected'            => 'right',
+				'expected'            => '',
 			),
 			array(
 				'test_condition_name' => '許可値以外の文字列の場合 => 既定値の right',
@@ -193,7 +251,7 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 				'expected'            => 'right',
 			),
 			array(
-				'test_condition_name' => 'null の場合 => 既定値の right',
+				'test_condition_name' => 'null の場合はスカラーではないため => 既定値の right',
 				'value'               => null,
 				'expected'            => 'right',
 			),
@@ -213,16 +271,16 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 	/**
 	 * Test Vk_Call_To_Action::render_cta_content()
 	 *
-	 * クラシック表示経路 ( view-actionbox.php ) の class 属性出力を検証する。
-	 * Verify the class attribute output of the classic display path ( view-actionbox.php ).
+	 * クラシック表示経路 ( view-actionbox.php ) の出力を検証する。
+	 * Verify the output of the classic display path ( view-actionbox.php ).
 	 *
 	 * @return void
 	 */
 	public function test_render_cta_content() {
 		$cta_id = $this->create_classic_cta();
 
-		foreach ( $this->get_image_position_output_cases() as $case ) {
-			$this->set_image_meta( $cta_id, $case['image_position'] );
+		foreach ( $this->get_output_cases() as $case ) {
+			$this->apply_output_case( $cta_id, $case );
 
 			$actual = Vk_Call_To_Action::render_cta_content( $cta_id );
 
@@ -236,8 +294,8 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 	/**
 	 * Test veu_cta_block_callback()
 	 *
-	 * ブロック表示経路 ( block/index.php ) の class 属性出力を検証する。
-	 * Verify the class attribute output of the block display path ( block/index.php ).
+	 * ブロック表示経路 ( block/index.php ) の出力を検証する。
+	 * Verify the output of the block display path ( block/index.php ).
 	 *
 	 * @return void
 	 */
@@ -250,14 +308,14 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 			array(
 				'post_type'    => 'page',
 				'post_status'  => 'publish',
-				'post_title'   => 'CTA Image Position Page',
+				'post_title'   => 'CTA Output Escaping Page',
 				'post_content' => 'page content',
 			)
 		);
 		$this->go_to( get_permalink( $page_id ) );
 
-		foreach ( $this->get_image_position_output_cases() as $case ) {
-			$this->set_image_meta( $cta_id, $case['image_position'] );
+		foreach ( $this->get_output_cases() as $case ) {
+			$this->apply_output_case( $cta_id, $case );
 
 			$actual = veu_cta_block_callback( array( 'postId' => $cta_id ), '' );
 
@@ -299,6 +357,11 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 				'test_condition_name' => 'left が送信された場合 => left',
 				'post_value'          => 'left',
 				'expected'            => 'left',
+			),
+			array(
+				'test_condition_name' => '空文字が送信された場合 => 空文字のまま',
+				'post_value'          => '',
+				'expected'            => '',
 			),
 			array(
 				'test_condition_name' => '許可値以外が送信された場合 => 既定値の right',
@@ -352,6 +415,15 @@ class CTAImagePositionTest extends WP_UnitTestCase {
 				'test_condition_name' => 'center を保存した場合 => center',
 				'value'               => 'center',
 				'expected'            => 'center',
+			),
+			array(
+				// ブロックエディタのセレクトで「Normal」を選んだ場合。空文字のまま保存されないと
+				// リロード時に Right が選択された状態で表示されてしまう。
+				// Selecting "Normal" in the block editor's select. If it is not stored as an empty string,
+				// "Right" would appear selected after reloading.
+				'test_condition_name' => '空文字 ( Normal ) を保存した場合 => 空文字のまま',
+				'value'               => '',
+				'expected'            => '',
 			),
 			array(
 				'test_condition_name' => '許可値以外を保存した場合 => 既定値の right',
