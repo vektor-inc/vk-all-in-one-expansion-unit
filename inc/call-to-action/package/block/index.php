@@ -267,11 +267,11 @@ function veu_cta_block_callback( $attributes, $content ) {
 						$image_position = get_post_meta( $cta_id, 'vkExUnit_cta_img_position', true );
 
 						if ( ! $image_position ) {
-							$image_position = 'right';
+							$image_position = Vk_Call_To_Action::IMAGE_POSITION_DEFAULT;
 						}
 
-						$content .= '<section class="veu_cta" id="veu_cta-' . $cta_id . '">';
-						$content .= '<h2 class="cta_title">' . $cta_post->post_title . '</h2>';
+						$content .= '<section class="veu_cta" id="veu_cta-' . esc_attr( $cta_id ) . '">';
+						$content .= '<h2 class="cta_title">' . esc_html( $cta_post->post_title ) . '</h2>';
 						$content .= '<div class="cta_body">';
 
 						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.
@@ -284,7 +284,9 @@ function veu_cta_block_callback( $attributes, $content ) {
 						}
 
 						if ( $imgid ) {
-							$content .= '<div class="cta_body_image cta_body_image_' . $image_position . '">';
+							// $image_position はカスタムフィールドの値をそのまま class 属性へ連結するため必ずエスケープする。
+							// Always escape $image_position because the custom field value is concatenated into a class attribute.
+							$content .= '<div class="cta_body_image cta_body_image_' . esc_attr( $image_position ) . '">';
 							$content .= ( $url ) ? '<a href="' . $url . '"' . $target . '>' : '';
 							$content .= wp_get_attachment_image( $imgid, 'large' );
 							$content .= ( $url ) ? '</a>' : '';
@@ -298,7 +300,9 @@ function veu_cta_block_callback( $attributes, $content ) {
 						if ( $url && $btn_text ) {
 							$content .= '<div class="cta_body_link">';
 							$content .= '<a href="' . $url . '" class="btn btn-primary btn-block btn-lg"' . $target . '>';
-							$content .= $btn_before . $btn_text . $btn_after;
+							// ボタンラベルはカスタムフィールドの値のため、クラシック表示 ( view-actionbox.php ) と同様に許可タグのみへ制限する。
+							// The button label comes from a custom field, so restrict it to allowed tags as the classic view ( view-actionbox.php ) does.
+							$content .= wp_kses_post( $btn_before . $btn_text . $btn_after );
 							$content .= '</a>';
 							$content .= '</div>';
 						}

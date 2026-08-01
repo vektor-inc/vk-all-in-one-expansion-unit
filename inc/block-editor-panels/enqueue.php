@@ -191,6 +191,23 @@ function veu_register_active_feature_meta() {
 			$sanitize = function ( $value ) {
 				return (string) absint( $value );
 			};
+		} elseif ( 'vkExUnit_cta_img_position' === $cta_key ) {
+			// 画像位置はフロント側で class 属性へ連結されるため、許可値 ( right / center / left ) のみを保存する。
+			// sanitize_text_field はダブルクォートを除去しないため、class 属性を抜け出す値を通してしまう。
+			// 許可値の定義が重複しないよう Vk_Call_To_Action の共通メソッドを使う。
+			// CTA パッケージが無効な場合は当該クラスが読み込まれないため、class_exists で確認してから呼び出す
+			// ( その場合は cta 投稿タイプ自体が存在せず保存されないので、空文字を返して表示側の既定値に委ねる )。
+			// The image position is concatenated into a class attribute on the front end, so store allowed values only ( right / center / left ).
+			// sanitize_text_field does not strip double quotes and would let a value break out of the class attribute.
+			// The shared method on Vk_Call_To_Action is used so the allowlist is not duplicated.
+			// The class is not loaded when the CTA package is disabled, so guard with class_exists
+			// ( in that case the cta post type does not exist either, so return an empty string and let the display side fall back to its default ).
+			$sanitize = function ( $value ) {
+				if ( class_exists( 'Vk_Call_To_Action' ) ) {
+					return Vk_Call_To_Action::sanitize_image_position( $value );
+				}
+				return '';
+			};
 		} elseif ( in_array( $cta_key, array( 'vkExUnit_cta_button_text', 'vkExUnit_cta_button_icon', 'vkExUnit_cta_button_icon_before', 'vkExUnit_cta_button_icon_after', 'vkExUnit_cta_text' ), true ) ) {
 			// ボタンテキスト・本文・アイコンは限定HTMLを許可するため wp_kses_post でサニタイズする。
 			// sanitize_text_field はタグと中身を除去してしまい、クラシックメタボックスの保存処理およびフロント表示（いずれも wp_kses_post）と矛盾するため。
