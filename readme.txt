@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-[ Design Bug Fix ][ Widget / CTA ] Reverted the heading tag of the Related Posts, 3PR Area and PR Blocks widget titles and the Call To Action title back to `<h1>`, because the change in 9.119.0 made themes such as Lightning and X-T9 apply their own heading decoration and altered their appearance.
+[ Design Bug Fix ][ Widget / CTA ] Fixed the Related Posts, 3PR Area, PR Blocks and Call To Action titles getting unintended backgrounds, borders and spacing on themes such as Lightning and X-T9. The `<h1>` to `<h2>` change made in 9.119.0 has been reverted, so a page can again contain more than one `<h1>`.
 
 = 9.119.0 =
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.4 to 0.7.5
