@@ -301,6 +301,41 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
+	// Alternative text of the inquiry banner image
+	// 管理画面（options_page）側にも同じ項目があり、片方だけに実装すると
+	// もう片方の保存でフォームに無いキーが失われるため、両方に用意する。
+	// The same field exists on the admin screen ( options_page ). Implementing only one of them would lose
+	// the key on the other save path, which replaces the whole option, so both screens provide it.
+	$wp_customize->add_setting(
+		'vkExUnit_contact[contact_image_alt]',
+		array(
+			'default'           => '',
+			'type'              => 'option', // 保存先 option or theme_mod
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$decription  = __( 'The banner image is a link, so the text you enter here is read aloud as the name of the link.', 'vk-all-in-one-expansion-unit' );
+	$decription .= '<br>';
+	$decription .= __( 'Enter a text that tells where the link goes, not a text that describes how the image looks.', 'vk-all-in-one-expansion-unit' );
+	$decription .= '<br>';
+	$decription .= __( 'ex) ', 'vk-all-in-one-expansion-unit' ) . __( 'Contact us', 'vk-all-in-one-expansion-unit' );
+	$decription .= '<br>';
+	$decription .= __( 'If you leave it blank, and the image is in the media library and has an alternative text set on it, that text is filled in automatically when you save.', 'vk-all-in-one-expansion-unit' );
+
+	$wp_customize->add_control(
+		'contact_image_alt',
+		array(
+			'label'       => __( 'Alternative text of the inquiry banner image', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_contact_setting',
+			'settings'    => 'vkExUnit_contact[contact_image_alt]',
+			'type'        => 'text',
+			'priority'    => 1,
+			'description' => $decription,
+		)
+	);
+
 	// Display HTML message instead of the standard
 	$wp_customize->add_setting(
 		'vkExUnit_contact[contact_html]',
