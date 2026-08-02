@@ -72,6 +72,14 @@ class VkExUnit_Contact {
 	protected function run_init() {
 		add_action( 'veu_package_init', array( $this, 'options_init' ) );
 		add_action( 'save_post', array( $this, 'save_custom_field_postdata' ) );
+
+		// 保存時に一度だけバナー画像の代替テキストをメディアライブラリから補完する。
+		// 管理画面の独自 POST ハンドラもカスタマイザーも最終的に update_option( 'vkExUnit_contact', ... ) を通るため、
+		// このフックひとつで両方の保存経路をカバーできる。フロント表示時に逆引きしないための措置。
+		// Fill the banner image alternative text from the media library once, at save time.
+		// Both the admin screen's own POST handler and the customizer end up calling update_option( 'vkExUnit_contact', ... ),
+		// so this single hook covers both save paths. This avoids reverse lookups on every front-end render.
+		add_filter( 'pre_update_option_vkExUnit_contact', array( __CLASS__, 'fill_contact_image_alt' ), 10, 1 );
 		add_shortcode( 'vkExUnit_contact_section', array( $this, 'shortcode' ) );
 		require_once __DIR__ . '/block/index.php';
 
@@ -119,6 +127,7 @@ class VkExUnit_Contact {
 			'button_text_small'    => '',
 			'short_text'           => __( 'Contact us', 'vk-all-in-one-expansion-unit' ),
 			'contact_image'        => '',
+			'contact_image_alt'    => '',
 			'contact_html'         => '',
 		);
 		$option  = get_option( 'vkExUnit_contact' );
@@ -224,6 +233,13 @@ class VkExUnit_Contact {
 <p><?php _e( 'Display the image instead of the above inquiry information', 'vk-all-in-one-expansion-unit' ); ?><p>
 </td>
 </tr>
+<!-- Alternative text of the inquiry banner image -->
+<tr>
+<th><label for="contact_image_alt"><?php esc_html_e( 'Alternative text of the inquiry banner image', 'vk-all-in-one-expansion-unit' ); ?></label></th>
+<td><input type="text" name="vkExUnit_contact[contact_image_alt]" id="contact_image_alt" value="<?php echo esc_attr( $options['contact_image_alt'] ); ?>" style="width:60%;" />
+<p><?php esc_html_e( 'Describe the banner image for people who can not see it.', 'vk-all-in-one-expansion-unit' ); ?><br /><?php esc_html_e( 'If you leave it blank, the alternative text set on the media library is filled in automatically when you save.', 'vk-all-in-one-expansion-unit' ); ?></p>
+</td>
+</tr>
 <tr>
 <th><?php _e( 'Display HTML message instead of the standard', 'vk-all-in-one-expansion-unit' ); ?></th>
 <td><textarea cols="20" rows="5" name="vkExUnit_contact[contact_html]" id="contact_html" value="" style="width:100%;"><?php echo $options['contact_html']; ?></textarea>
@@ -254,10 +270,53 @@ class VkExUnit_Contact {
 		$option['button_text_small'] = wp_kses_post( stripslashes( $option['button_text_small'] ) );
 		$option['short_text']        = wp_kses_post( stripslashes( $option['short_text'] ) );
 		$option['contact_image']     = esc_url( $option['contact_image'] );
+		// 代替テキストは img の alt 属性にそのまま入るため、タグを許さないテキストとして保存する。
+		// The alternative text goes straight into the img alt attribute, so save it as text that allows no tags.
+		$option['contact_image_alt'] = isset( $option['contact_image_alt'] ) ? sanitize_text_field( stripslashes( $option['contact_image_alt'] ) ) : '';
 		$option['contact_html']      = wp_kses_post( stripslashes( $option['contact_html'] ) );
 		return $option;
 	}
 
+	/**
+	 * バナー画像の代替テキストが空の時に、メディアライブラリ側の代替テキストで補完する。
+	 * update_option( 'vkExUnit_contact', ... ) の直前に呼ばれるため、管理画面・カスタマイザーの
+	 * どちらの保存経路でも動作し、かつ添付ファイルの逆引きは保存時の1回だけで済む。
+	 *
+	 * Fill the banner image alternative text from the media library when it is empty.
+	 * It runs just before update_option( 'vkExUnit_contact', ... ), so it works for both the admin screen
+	 * and the customizer save path, and the attachment lookup happens only once, at save time.
+	 *
+	 * @param  mixed $value 保存されようとしている vkExUnit_contact のオプション値 / The vkExUnit_contact option value about to be saved.
+	 * @return mixed        代替テキストを補完したオプション値 / The option value with the alternative text filled in.
+	 */
+	public static function fill_contact_image_alt( $value ) {
+		// 想定外の型（配列以外）はそのまま返す / Return values of unexpected types ( non array ) untouched.
+		if ( ! is_array( $value ) ) {
+			return $value;
+		}
+
+		// バナー画像が未設定、または代替テキストが既に入力済みの場合は何もしない。
+		// Do nothing when the banner image is unset, or the alternative text is already filled in.
+		if ( empty( $value['contact_image'] ) || ! empty( $value['contact_image_alt'] ) ) {
+			return $value;
+		}
+
+		// URL からメディアライブラリの添付ファイルを逆引きする。外部 URL などで見つからない場合は 0 が返る。
+		// Resolve the media library attachment from the URL. It returns 0 when not found ( external URLs etc. ).
+		$attachment_id = attachment_url_to_postid( $value['contact_image'] );
+		if ( ! $attachment_id ) {
+			return $value;
+		}
+
+		// メディアライブラリ側に設定された代替テキストを取得する / Get the alternative text set on the media library.
+		$attachment_alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+		if ( ! is_string( $attachment_alt ) || '' === $attachment_alt ) {
+			return $value;
+		}
+
+		$value['contact_image_alt'] = sanitize_text_field( $attachment_alt );
+		return $value;
+	}
 
 	public function render_meta_box() {
 		$enable = get_post_meta( get_the_id(), 'vkExUnit_contact_enable', true );
@@ -352,9 +411,28 @@ class VkExUnit_Contact {
 			$cont .= $options['contact_html'];
 			$cont .= '</section>';
 		} elseif ( $options['contact_image'] ) {
+			// バナー画像の代替テキスト。alt 属性へそのまま入るためタグを除去する。
+			// The banner image alternative text. Strip tags because it goes straight into the alt attribute.
+			$image_alt = isset( $options['contact_image_alt'] ) ? trim( wp_strip_all_tags( $options['contact_image_alt'] ) ) : '';
+
+			// リンクの中身が画像1枚だけのため、代替テキストと aria-label は排他にする。
+			// aria-label を併記すると alt が無視されて上書きされ、設定した説明文が読み上げられなくなる。
+			// 代替テキストが空の時だけ、リンク名が消えないよう aria-label でお問い合わせボタンの文言を補う。
+			// The link contains nothing but the image, so the alternative text and aria-label are mutually exclusive.
+			// Adding aria-label alongside alt overrides it, and the description set by the user would never be read aloud.
+			// Only when the alternative text is empty, aria-label falls back to the contact button text so the link keeps its name.
+			$aria_label_attr = '';
+			if ( '' === $image_alt ) {
+				$aria_label = isset( $options['button_text'] ) ? trim( wp_strip_all_tags( $options['button_text'] ) ) : '';
+				if ( '' === $aria_label ) {
+					$aria_label = __( 'Contact us', 'vk-all-in-one-expansion-unit' );
+				}
+				$aria_label_attr = ' aria-label="' . esc_attr( $aria_label ) . '"';
+			}
+
 			$cont .= '<section class="veu_contentAddSection' . $additional_classes . '">';
-			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . '>';
-			$cont .= '<img src="' . esc_attr( $options['contact_image'] ) . '" alt="contact_txt">';
+			$cont .= '<a href="' . esc_url( $options['contact_link'] ) . '"' . $link_target . $aria_label_attr . '>';
+			$cont .= '<img src="' . esc_url( $options['contact_image'] ) . '" alt="' . esc_attr( $image_alt ) . '">';
 			$cont .= '</a>';
 			$cont .= '</section>';
 		} else {
