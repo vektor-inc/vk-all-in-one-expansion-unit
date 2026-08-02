@@ -81,6 +81,9 @@ e.g.
 
 == Changelog ==
 
+[ New Feature ] Added an alternative text setting for the inquiry banner image. When it is left blank, the alternative text set on the media library is filled in automatically on save.
+[ Spec Change ] Fixed the inquiry banner image being read aloud as "contact_txt" by screen readers; it now uses the alternative text you set, or the contact button text as the link name when it is blank.
+
 = 9.119.0 =
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.4 to 0.7.5
 [ Spec Change ] Changed the heading tag of the Related Posts, 3PR Area and PR Blocks widgets, and the Call To Action block / shortcode, from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
