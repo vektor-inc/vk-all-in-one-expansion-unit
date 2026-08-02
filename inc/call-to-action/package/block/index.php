@@ -275,7 +275,7 @@ function veu_cta_block_callback( $attributes, $content ) {
 						// wp_kses_post() なら <script> や on* 属性は除去され、同テンプレート内の本文・ボタンラベルとも処理が揃う。
 						// The title has never been filtered and is sometimes given a <br> for line breaks, so esc_html() cannot be used.
 						// wp_kses_post() strips <script> and on* attributes and matches how the body and button label are handled in this template.
-						$content .= '<h2 class="cta_title">' . wp_kses_post( $cta_post->post_title ) . '</h2>';
+						$content .= '<h1 class="cta_title">' . wp_kses_post( $cta_post->post_title ) . '</h1>';
 						$content .= '<div class="cta_body">';
 
 						// 別ウィンドウで開くかどうかのカスタムフィールドの値を取得 //////.

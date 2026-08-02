@@ -166,14 +166,14 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 				'test_condition_name' => 'タイトルに <br> と <script> が含まれる場合 => <br> は残り <script> は除去される',
 				'image_position'      => 'right',
 				'post_title'          => 'CTA Title<br><script>alert(1)</script>',
-				'expected'            => '<h2 class="cta_title">CTA Title<br>alert(1)</h2>',
+				'expected'            => '<h1 class="cta_title">CTA Title<br>alert(1)</h1>',
 				'not_expected'        => '<script>',
 			),
 			array(
 				'test_condition_name' => 'タイトルに on* 属性付きのタグが含まれる場合 => 属性が除去される',
 				'image_position'      => 'right',
 				'post_title'          => 'CTA <span onmouseover="alert(1)">Title</span>',
-				'expected'            => '<h2 class="cta_title">CTA <span>Title</span></h2>',
+				'expected'            => '<h1 class="cta_title">CTA <span>Title</span></h1>',
 				'not_expected'        => 'onmouseover',
 			),
 		);

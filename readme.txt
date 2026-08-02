@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ Design Bug Fix ][ Widget / CTA ] Reverted the heading tag of the Related Posts, 3PR Area and PR Blocks widgets and the Call To Action block / shortcode back to `<h1>`, because changing it to `<h2>` in 9.119.0 made themes such as Lightning and X-T9 apply their own `<h2>` heading decoration ( background color, borders and spacing ) and changed how these titles looked.
+
 = 9.119.0 =
 [ Spec Change ] Update vektor-inc/font-awesome-versions from 0.7.4 to 0.7.5
 [ Spec Change ] Changed the heading tag of the Related Posts, 3PR Area and PR Blocks widgets, and the Call To Action block / shortcode, from `<h1>` to `<h2>` to avoid multiple `<h1>` elements on a page ( the CSS class names are unchanged, so class-based styling is unaffected ).
