@@ -227,7 +227,7 @@ class VkExUnit_Contact {
 		?>
 	<table class="form-table" id="vkEx_contact_info"<?php echo $display; ?>>
 	<tr>
-	<th><?php _e( 'Inquiry Banner image', 'vk-all-in-one-expansion-unit' ); ?></th>
+	<th><label for="contact_image"><?php _e( 'Inquiry Banner image', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><input type="text" name="vkExUnit_contact[contact_image]" id="contact_image" value="<?php echo $options['contact_image']; ?>" style="width:60%;" />
 <button id="media_src_contact_image" class="media_btn button button-default"><?php _e( 'Select Image' ); ?></button>
 <p><?php _e( 'Display the image instead of the above inquiry information', 'vk-all-in-one-expansion-unit' ); ?><p>
@@ -237,7 +237,10 @@ class VkExUnit_Contact {
 <tr>
 <th><label for="contact_image_alt"><?php esc_html_e( 'Alternative text of the inquiry banner image', 'vk-all-in-one-expansion-unit' ); ?></label></th>
 <td><input type="text" name="vkExUnit_contact[contact_image_alt]" id="contact_image_alt" value="<?php echo esc_attr( $options['contact_image_alt'] ); ?>" style="width:60%;" />
-<p><?php esc_html_e( 'Describe the banner image for people who can not see it.', 'vk-all-in-one-expansion-unit' ); ?><br /><?php esc_html_e( 'If you leave it blank, the alternative text set on the media library is filled in automatically when you save.', 'vk-all-in-one-expansion-unit' ); ?></p>
+<p><?php esc_html_e( 'The banner image is a link, so the text you enter here is read aloud as the name of the link.', 'vk-all-in-one-expansion-unit' ); ?>
+<br /><?php esc_html_e( 'Enter a text that tells where the link goes, not a text that describes how the image looks.', 'vk-all-in-one-expansion-unit' ); ?>
+<br /><?php esc_html_e( 'ex) ', 'vk-all-in-one-expansion-unit' ); ?><?php esc_html_e( 'Contact us', 'vk-all-in-one-expansion-unit' ); ?>
+<br /><?php esc_html_e( 'If you leave it blank, and the image is in the media library and has an alternative text set on it, that text is filled in automatically when you save.', 'vk-all-in-one-expansion-unit' ); ?></p>
 </td>
 </tr>
 <tr>
@@ -271,8 +274,12 @@ class VkExUnit_Contact {
 		$option['short_text']        = wp_kses_post( stripslashes( $option['short_text'] ) );
 		$option['contact_image']     = esc_url( $option['contact_image'] );
 		// 代替テキストは img の alt 属性にそのまま入るため、タグを許さないテキストとして保存する。
+		// stripslashes() は配列を渡されると PHP 8 で TypeError になるため、配列安全な wp_unslash() を使い、
+		// 併せて文字列以外が POST された場合は空文字として扱う。
 		// The alternative text goes straight into the img alt attribute, so save it as text that allows no tags.
-		$option['contact_image_alt'] = isset( $option['contact_image_alt'] ) ? sanitize_text_field( stripslashes( $option['contact_image_alt'] ) ) : '';
+		// stripslashes() throws a TypeError on PHP 8 when given an array, so use the array safe wp_unslash(),
+		// and treat any non string POST value as an empty string.
+		$option['contact_image_alt'] = isset( $option['contact_image_alt'] ) && is_string( $option['contact_image_alt'] ) ? sanitize_text_field( wp_unslash( $option['contact_image_alt'] ) ) : '';
 		$option['contact_html']      = wp_kses_post( stripslashes( $option['contact_html'] ) );
 		return $option;
 	}
@@ -295,9 +302,21 @@ class VkExUnit_Contact {
 			return $value;
 		}
 
+		// 代替テキストの現在値。キーが無い場合は空文字として扱う。
+		// The current alternative text. Treat a missing key as an empty string.
+		$current_alt = isset( $value['contact_image_alt'] ) && is_string( $value['contact_image_alt'] ) ? $value['contact_image_alt'] : '';
+
 		// バナー画像が未設定、または代替テキストが既に入力済みの場合は何もしない。
+		// この関数は update_option() を呼ぶあらゆる箇所から値が飛んでくるため、要素の型まで確認する。
+		// contact_image が配列だと attachment_url_to_postid() 内の parse_url() が PHP 8 で TypeError になる。
+		// 空判定は厳密比較にする。! empty() だと代替テキストが文字列 "0" の時に空と見なされ、
+		// 次の保存でメディアライブラリ側の値へ黙って上書きされてしまう。
 		// Do nothing when the banner image is unset, or the alternative text is already filled in.
-		if ( empty( $value['contact_image'] ) || ! empty( $value['contact_image_alt'] ) ) {
+		// Values reach this function from every caller of update_option(), so check the element types too.
+		// An array in contact_image would make parse_url() inside attachment_url_to_postid() throw a TypeError on PHP 8.
+		// The emptiness check is strict: with ! empty() an alternative text of the string "0" would count as empty
+		// and get silently overwritten by the media library value on the next save.
+		if ( empty( $value['contact_image'] ) || ! is_string( $value['contact_image'] ) || '' !== $current_alt ) {
 			return $value;
 		}
 
@@ -316,6 +335,46 @@ class VkExUnit_Contact {
 
 		$value['contact_image_alt'] = sanitize_text_field( $attachment_alt );
 		return $value;
+	}
+
+	/**
+	 * 属性値（alt / aria-label）へ入れる文字列を正規化する。
+	 * タグを除去したうえで、連続する空白・改行・タブを半角スペース1つにまとめて前後を削る。
+	 * 保存値が textarea 由来（button_text など）で改行を含む場合に、属性値へ改行が残るのを防ぐ。
+	 *
+	 * Normalize a string that goes into an attribute value ( alt / aria-label ).
+	 * It strips tags, collapses runs of whitespace, line breaks and tabs into a single space, and trims both ends.
+	 * This prevents line breaks from remaining in the attribute value when the saved value comes from a textarea ( such as button_text ).
+	 *
+	 * @param  mixed $text 正規化する文字列 / The string to normalize.
+	 * @return string      正規化した文字列 / The normalized string.
+	 */
+	public static function normalize_attribute_text( $text ) {
+		// 文字列以外が渡された場合は空文字を返す / Return an empty string when a non string is passed.
+		if ( ! is_string( $text ) ) {
+			return '';
+		}
+
+		// <br> はテキスト上の区切りなので、タグ除去の前に半角スペースへ置き換える。
+		// そのまま strip_tags すると前後の語がくっついてしまい（例: Contact us<br>by email → Contact usby email）、
+		// 読み上げ時に別の語として聞こえてしまうため。
+		// A <br> is a textual separator, so replace it with a space before stripping tags.
+		// Stripping it directly would glue the surrounding words together ( e.g. Contact us<br>by email -> Contact usby email ),
+		// which would be read aloud as a different word.
+		$text = preg_replace( '/<br\s*\/?>/i', ' ', $text );
+		$text = wp_strip_all_tags( (string) $text );
+
+		// 連続する空白類（改行・タブ含む）を半角スペース1つにまとめる。マルチバイト対応のため u 修飾子を付ける。
+		// Collapse runs of whitespace ( including line breaks and tabs ) into a single space. The u modifier keeps it multibyte safe.
+		$normalized = preg_replace( '/\s+/u', ' ', $text );
+
+		// preg_replace は失敗時に null を返すため、その場合は元の文字列にフォールバックする。
+		// preg_replace returns null on failure, so fall back to the original string in that case.
+		if ( null === $normalized ) {
+			$normalized = $text;
+		}
+
+		return trim( $normalized );
 	}
 
 	public function render_meta_box() {
@@ -411,9 +470,9 @@ class VkExUnit_Contact {
 			$cont .= $options['contact_html'];
 			$cont .= '</section>';
 		} elseif ( $options['contact_image'] ) {
-			// バナー画像の代替テキスト。alt 属性へそのまま入るためタグを除去する。
-			// The banner image alternative text. Strip tags because it goes straight into the alt attribute.
-			$image_alt = isset( $options['contact_image_alt'] ) ? trim( wp_strip_all_tags( $options['contact_image_alt'] ) ) : '';
+			// バナー画像の代替テキスト。alt 属性へそのまま入るためタグを除去し、空白を正規化する。
+			// The banner image alternative text. Strip tags and normalize whitespace because it goes straight into the alt attribute.
+			$image_alt = isset( $options['contact_image_alt'] ) ? self::normalize_attribute_text( $options['contact_image_alt'] ) : '';
 
 			// リンクの中身が画像1枚だけのため、代替テキストと aria-label は排他にする。
 			// aria-label を併記すると alt が無視されて上書きされ、設定した説明文が読み上げられなくなる。
@@ -423,7 +482,9 @@ class VkExUnit_Contact {
 			// Only when the alternative text is empty, aria-label falls back to the contact button text so the link keeps its name.
 			$aria_label_attr = '';
 			if ( '' === $image_alt ) {
-				$aria_label = isset( $options['button_text'] ) ? trim( wp_strip_all_tags( $options['button_text'] ) ) : '';
+				// button_text は管理画面が textarea のため改行を含みうる。属性値に改行を残さないよう正規化する。
+				// button_text can contain line breaks because the admin screen uses a textarea. Normalize it so no line break remains in the attribute value.
+				$aria_label = isset( $options['button_text'] ) ? self::normalize_attribute_text( $options['button_text'] ) : '';
 				if ( '' === $aria_label ) {
 					$aria_label = __( 'Contact us', 'vk-all-in-one-expansion-unit' );
 				}

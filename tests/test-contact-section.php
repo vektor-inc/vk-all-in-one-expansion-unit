@@ -129,6 +129,24 @@ class ContactSectionTest extends WP_UnitTestCase {
 				'expected_not'        => array(),
 			),
 			array(
+				// button_text は管理画面が textarea のため改行を含みうる。属性値に改行が残らない事の確認。
+				// button_text can contain line breaks because the admin screen uses a textarea. Confirms no line break remains in the attribute value.
+				'test_condition_name' => 'お問い合わせボタンの文言が改行を含む場合 => aria-label の改行が半角スペース1つに正規化される',
+				'options'             => array(
+					'contact_link'      => 'https://example.com/contact/',
+					'contact_image'     => $image_url_without_alt,
+					'contact_image_alt' => '',
+					'button_text'       => "  メールで\nお問い合わせ  ",
+				),
+				'expected_contains'   => array(
+					'alt=""',
+					'aria-label="メールで お問い合わせ"',
+				),
+				'expected_not'        => array(
+					"aria-label=\"メールで\nお問い合わせ\"",
+				),
+			),
+			array(
 				// メディアライブラリに存在しない外部 URL。逆引きに失敗しても致命的エラーにならない事の確認。
 				// An external URL that does not exist in the media library. Confirms the failed lookup causes no fatal error.
 				'test_condition_name' => 'バナー画像が外部 URL の場合 => 逆引きできず alt="" かつ aria-label にお問い合わせボタンの文言が出る',
@@ -323,6 +341,42 @@ class ContactSectionTest extends WP_UnitTestCase {
 				),
 			),
 			array(
+				// 空判定が ! empty() だと "0" が空扱いになり、メディアライブラリの値へ黙って上書きされてしまう。
+				// With a ! empty() check, "0" would count as empty and get silently overwritten by the media library value.
+				'test_condition_name' => '代替テキストが文字列 "0" の場合 => 空扱いせず上書きしない',
+				'input'               => array(
+					'contact_image'     => $image_url_with_alt,
+					'contact_image_alt' => '0',
+				),
+				'expected'            => array(
+					'contact_image'     => $image_url_with_alt,
+					'contact_image_alt' => '0',
+				),
+			),
+			array(
+				'test_condition_name' => '代替テキストのキー自体が無い場合 => 空扱いして補完される',
+				'input'               => array(
+					'contact_image' => $image_url_with_alt,
+				),
+				'expected'            => array(
+					'contact_image'     => $image_url_with_alt,
+					'contact_image_alt' => 'メディアライブラリの代替テキスト',
+				),
+			),
+			array(
+				// 配列のまま attachment_url_to_postid() に渡すと、内部の parse_url() が PHP 8 で TypeError になる。
+				// Passing an array to attachment_url_to_postid() would make its internal parse_url() throw a TypeError on PHP 8.
+				'test_condition_name' => 'バナー画像が文字列以外（配列）の場合 => 致命的エラーにならずそのまま返す',
+				'input'               => array(
+					'contact_image'     => array( 'x' ),
+					'contact_image_alt' => '',
+				),
+				'expected'            => array(
+					'contact_image'     => array( 'x' ),
+					'contact_image_alt' => '',
+				),
+			),
+			array(
 				'test_condition_name' => 'メディアライブラリ側にも代替テキストが無い場合 => 空のまま',
 				'input'               => array(
 					'contact_image'     => $image_url_without_alt,
@@ -369,6 +423,121 @@ class ContactSectionTest extends WP_UnitTestCase {
 		foreach ( $test_cases as $case ) {
 			$actual = VkExUnit_Contact::fill_contact_image_alt( $case['input'] );
 			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * option_sanitaize が、バナー画像の代替テキストを安全なテキストとして保存する事のテスト。
+	 * Test that option_sanitaize saves the banner image alternative text as safe text.
+	 *
+	 * @return void
+	 */
+	function test_option_sanitaize() {
+		// サニタイズ対象の他項目は文字列前提のため、代替テキスト以外は固定値で埋めておく。
+		// The other options are expected to be strings, so fill everything but the alternative text with fixed values.
+		$base_option = array(
+			'contact_txt'       => 'お気軽にお問い合わせください',
+			'tel_number'        => '000-000-0000',
+			'tel_icon'          => '<i class="fa-solid fa-phone"></i>',
+			'contact_time'      => '9:00 - 18:00',
+			'contact_link'      => 'https://example.com/contact/',
+			'button_text'       => 'Contact us',
+			'button_text_small' => '',
+			'short_text'        => 'Contact us',
+			'contact_image'     => 'https://example.com/foo.jpg',
+			'contact_html'      => '',
+		);
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '代替テキストが通常の文字列の場合 => そのまま保存される',
+				'contact_image_alt'   => 'お問い合わせはこちら',
+				'expected'            => 'お問い合わせはこちら',
+			),
+			array(
+				'test_condition_name' => '代替テキストに HTML タグが含まれる場合 => タグが除去される',
+				'contact_image_alt'   => '<script>alert(1)</script>お問い合わせはこちら',
+				'expected'            => 'お問い合わせはこちら',
+			),
+			array(
+				// stripslashes() のままだと配列を渡された時点で PHP 8 の TypeError になり保存処理全体が落ちる。
+				// With stripslashes() an array would throw a PHP 8 TypeError and take the whole save down.
+				'test_condition_name' => '代替テキストが文字列以外（配列）で送信された場合 => 致命的エラーにならず空文字になる',
+				'contact_image_alt'   => array( 'x' ),
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '代替テキストのキー自体が無い場合 => 空文字になる',
+				'contact_image_alt'   => null,
+				'expected'            => '',
+			),
+		);
+
+		$contact = VkExUnit_Contact::instance();
+
+		foreach ( $test_cases as $case ) {
+			$option = $base_option;
+			// null のケースはキー自体が送信されなかった状況を再現する / The null case reproduces a key that was never posted.
+			if ( null !== $case['contact_image_alt'] ) {
+				$option['contact_image_alt'] = $case['contact_image_alt'];
+			}
+
+			$actual = $contact->option_sanitaize( $option );
+
+			$this->assertSame( $case['expected'], $actual['contact_image_alt'], $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * normalize_attribute_text が、属性値へ入れる文字列の空白とタグを正規化する事のテスト。
+	 * Test that normalize_attribute_text normalizes the whitespace and tags of a string that goes into an attribute value.
+	 *
+	 * @return void
+	 */
+	function test_normalize_attribute_text() {
+		$test_cases = array(
+			array(
+				'test_condition_name' => '文字列の途中に改行がある場合 => 半角スペース1つにまとまる',
+				'input'               => "メールで\nお問い合わせ",
+				'expected'            => 'メールで お問い合わせ',
+			),
+			array(
+				'test_condition_name' => '改行・タブ・連続空白が混在する場合 => それぞれ半角スペース1つにまとまる',
+				'input'               => "メールで\r\n\tお問い合わせ   ください",
+				'expected'            => 'メールで お問い合わせ ください',
+			),
+			array(
+				'test_condition_name' => '前後に空白と改行がある場合 => 前後が削られる',
+				'input'               => "  \n お問い合わせ \n  ",
+				'expected'            => 'お問い合わせ',
+			),
+			array(
+				'test_condition_name' => 'HTML タグを含む場合 => タグが除去され中身だけ残る',
+				'input'               => '<strong>メールで</strong><br />お問い合わせ',
+				'expected'            => 'メールで お問い合わせ',
+			),
+			array(
+				'test_condition_name' => '空文字の場合 => 空文字のまま',
+				'input'               => '',
+				'expected'            => '',
+			),
+			array(
+				// 想定外の型が渡された異常系。属性値に使えるよう必ず文字列を返す事の確認。
+				// Abnormal case where an unexpected type is passed. Confirms a string is always returned so it can be used as an attribute value.
+				'test_condition_name' => '文字列以外（null）が渡された場合 => 空文字を返す',
+				'input'               => null,
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => '文字列以外（配列）が渡された場合 => 空文字を返す',
+				'input'               => array( 'お問い合わせ' ),
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = VkExUnit_Contact::normalize_attribute_text( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
 		}
 	}
 }

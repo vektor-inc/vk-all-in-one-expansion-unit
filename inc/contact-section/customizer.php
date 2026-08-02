@@ -316,9 +316,13 @@ function veu_customize_register_contact( $wp_customize ) {
 		)
 	);
 
-	$decription  = __( 'Describe the banner image for people who can not see it.', 'vk-all-in-one-expansion-unit' );
+	$decription  = __( 'The banner image is a link, so the text you enter here is read aloud as the name of the link.', 'vk-all-in-one-expansion-unit' );
 	$decription .= '<br>';
-	$decription .= __( 'If you leave it blank, the alternative text set on the media library is filled in automatically when you save.', 'vk-all-in-one-expansion-unit' );
+	$decription .= __( 'Enter a text that tells where the link goes, not a text that describes how the image looks.', 'vk-all-in-one-expansion-unit' );
+	$decription .= '<br>';
+	$decription .= __( 'ex) ', 'vk-all-in-one-expansion-unit' ) . __( 'Contact us', 'vk-all-in-one-expansion-unit' );
+	$decription .= '<br>';
+	$decription .= __( 'If you leave it blank, and the image is in the media library and has an alternative text set on it, that text is filled in automatically when you save.', 'vk-all-in-one-expansion-unit' );
 
 	$wp_customize->add_control(
 		'contact_image_alt',
