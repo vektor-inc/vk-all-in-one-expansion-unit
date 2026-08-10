@@ -13,6 +13,8 @@ vk-agents 共通ルール（`rules/testing/e2e.md`）と合わせて参照して
 - wp-env で WordPress 環境が起動していること
 - Node.js / npm 依存パッケージがインストール済みであること
 
+テーマ・本プラグインの有効化は `playwright.config.ts` に登録した `globalSetup`（`tests/e2e/global-setup.ts`）が全 spec 実行前に一度だけ自動で保証します。tests サイトでテーマ・プラグインが未有効なまま Content-Length: 0（真っ白）になる、といった手動対応は不要です。
+
 ### 環境の準備
 
 ```bash
@@ -56,6 +58,8 @@ npx playwright test -g 'デフォルト（画像未設定）'
 # 直近の HTML レポートを開く
 npx playwright show-report
 ```
+
+`workers` は `playwright.config.ts` で CI・ローカル問わず `1` に固定しています。一部の spec（`cta.spec.ts` の1本目など）が「サイト全体に CTA が1件も無い」といった DB 全体のグローバルな状態を前提にアサートしているため、複数ワーカーで並列実行すると他 spec が並行して作る投稿の存在そのものでその前提が崩れ、どちらが落ちるかは実行順・タイミング依存の race になります（#1439 で実機確認済み）。ローカル実行は直列化により遅くなりますが、「ローカルだけ不定期に落ちる回帰テスト」を作らないことを優先しています。
 
 ---
 
@@ -162,25 +166,48 @@ await page.locator('#user_login').fill('admin');
 
 ### state 初期化は wp-cli 経由で
 
-UI から事前条件を作るとセットアップで落ちて本質が見えなくなります。option / 投稿 / ユーザー等の初期化は wp-cli を `execFileSync` で叩いてください（シェル解釈を経由しないため、JSON にクォートや空白が含まれていても安全に渡せます）。
-
-コンテナは必ず **`tests-cli`** を指定してください。Playwright のテスト対象は wp-env の **tests** サイト（デフォルト 8889）を向いているため、`cli` コンテナ（development サイト）で option を書き換えてもテスト側 DB には反映されません。
+UI から事前条件を作るとセットアップで落ちて本質が見えなくなります。option / 投稿 / ユーザー等の初期化は `tests/e2e/utils/wp-cli.ts` の共通ヘルパー `runWpCli()` を使ってください。新しい spec を書く場合、自前で wp-cli 実行処理を実装せず、この共通ヘルパーを import してください。
 
 ```ts
-import { execFileSync } from 'child_process';
-
-const runWpCli = ( args: string[] ): string =>
-    execFileSync(
-        'npx',
-        [ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
-        { encoding: 'utf-8', stdio: [ 'ignore', 'pipe', 'pipe' ] }
-    );
+import { runWpCli } from './utils/wp-cli';
 
 // 例: vkExUnit_pagetop オプションを削除
 runWpCli( [ 'option', 'delete', 'vkExUnit_pagetop' ] );
 ```
 
-`execSync` で文字列連結すると、引数のクォート崩しや空白で壊れます。必ず `execFileSync` + 引数配列で渡してください。
+`runWpCli()` は内部で `docker exec` に引数を配列のまま渡します（`execFileSync` を使い、ホスト側のシェルを経由しません）。**`npx wp-env run tests-cli wp ...` を直接叩かないでください。** `wp-env run` は内部で引数をシェル経由で連結し直すため、引用符・スペース・HTML タグ（`<span style="color:red">` 等）を含む値を安全に渡せません。この問題は #1439 で実際に踏んでおり、`docker exec` + 配列引数（シェル非経由）へ置き換えて解消しています。コンテナの特定も、他プロジェクトの wp-env が同時に起動していても正しい1台だけを掴むよう実装済みです（詳細は `wp-cli.ts` の docblock を参照）。
+
+コンテナは常に **`tests-cli`**（tests サイト）が対象です。Playwright のテスト対象は wp-env の **tests** サイト（デフォルト 8889）を向いているため、`cli` コンテナ（development サイト）で option を書き換えてもテスト側 DB には反映されません。
+
+`wp-cli.ts` は `runWpCli()` 以外に、CTA の e2e 整備（#1439）で踏んだ落とし穴に対応する以下のヘルパーも提供しています。値の読み書きで似た問題に当たったら自作せずまずここを確認してください。
+
+| ヘルパー | 使いどころ |
+|---|---|
+| `getPostMetaRaw(postId, key)` | 投稿メタの値を `[]`（行が無い）と `[""]`（空文字で存在する）を区別して読みたい時。`wp post meta get` は両者を区別せず非ゼロ終了するため使えない場面がある |
+| `updatePostMetaTolerateNoop(postId, key, value)` | `wp post meta update` で書き込みたい時。サニタイズ後の値が現在値と一致すると「Failed to update custom field」で非ゼロ終了する wp-cli の仕様を、書き込み不要なだけの正常系として許容する |
+| `deletePostsTolerateMissing(ids)` | 投稿をテスト後片付けで強制削除したい時。対象が既に存在しない場合の失敗（「Failed deleting post」）だけを許容し、それ以外のエラーは伝播させる |
+| `runWpCliBypassingCtaSanitize(args)` | CTA 画像位置のサニタイズ迂回 mu-plugin（下記参照）を発動させた状態で wp-cli を実行したい時。「不正値が既に DB に保存されている状態」を意図的に作るための限定用途 |
+
+`execSync` で文字列連結すると、引数のクォート崩しや空白で壊れます。共通ヘルパーを介さず自前で wp-cli を叩く場合も、必ず `execFileSync` + 引数配列で渡してください。
+
+### テスト専用 mu-plugin（`.wp-env.json` の `env.tests.mappings`）
+
+通常操作では作れない前提条件（例: CTA のクラシックエディタ到達、不正値が既に DB にある状態）を再現するための mu-plugin は、`tests/e2e/mu-plugins/` に置き、`.wp-env.json` の `env.tests.mappings` で **tests サイトにだけ**マウントします。
+
+```jsonc
+// .wp-env.json（抜粋）
+"env": {
+    "tests": {
+        "mappings": {
+            "wp-content/mu-plugins": "./tests/e2e/mu-plugins"
+        }
+    }
+}
+```
+
+トップレベルの `mappings` ではなく `env.tests.mappings` を使うのがポイントです。トップレベルに置くと dev サイト（`cli` コンテナ）にも同じ mu-plugin が入ってしまい、本番配布物の健全性を確認するはずの CI のスモークテスト等が意図せずテスト専用の迂回ロジック込みの環境で走ってしまいます（#1439 で実際に指摘・修正）。
+
+CTA のサニタイズ迂回 mu-plugin（`tests/e2e/mu-plugins/veu-e2e-bypass-cta-sanitize.php`）のように、Web リクエストへ絶対に影響させたくないロジックは、`defined('WP_CLI') && WP_CLI` に加えて専用の環境変数を発動条件にしてください。詳細な実装パターンはそのファイルと `runWpCliBypassingCtaSanitize()` を参照してください。
 
 ### URL アサートは正規表現で寛容に
 
@@ -210,3 +237,4 @@ await page.waitForURL(/wp-admin\//);
 - vk-agents 共通ルール（e2e）: `rules/testing/e2e.md`
 - 関連 issue: [#1349](https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1349)
 - 関連 PR: [#1345](https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/1345)
+- 関連 issue（wp-cli 共通ヘルパー・テスト専用 mu-plugin・workers 固定の経緯）: [#1439](https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1439)
