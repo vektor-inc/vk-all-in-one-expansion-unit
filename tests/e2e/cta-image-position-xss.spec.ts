@@ -41,6 +41,7 @@ import {
 	runWpCli,
 	runWpCliBypassingCtaSanitize,
 	updatePostMetaTolerateNoop,
+	deletePostsTolerateMissing,
 	getPostMetaRaw,
 } from './utils/wp-cli';
 import { login } from './utils/auth';
@@ -103,13 +104,15 @@ const createHostPost = ( title: string, ctaId: number ): number => {
 /**
  * 投稿を強制削除する（テスト後片付け）。
  *
+ * ローカルの並列実行では、`cta.spec.ts` の `resetPosts()` 等、他 spec ファイルの
+ * 一括削除処理と同じ post_type ( post/cta ) を同時に触ることがあるため、
+ * 「対象が既に無かった」場合の失敗は許容する ( 詳細は wp-cli.ts の
+ * deletePostsTolerateMissing 参照 )。
+ *
  * @param ids 削除する投稿 ID の配列.
  */
 const deletePosts = ( ids: number[] ): void => {
-	if ( ! ids.length ) {
-		return;
-	}
-	runWpCli( [ 'post', 'delete', '--force', ...ids.map( String ) ] );
+	deletePostsTolerateMissing( ids );
 };
 
 /**

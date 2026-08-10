@@ -256,6 +256,37 @@ export const updatePostMetaTolerateNoop = (
 };
 
 /**
+ * 投稿を強制削除する。対象がすでに存在しない場合の失敗は無視する。
+ *
+ * 【なぜ許容するか】このリポジトリの e2e はローカル実行時 ( `workers` 未指定 ) だと
+ * 複数ワーカーで別 spec ファイルが並行実行され得る。`cta.spec.ts` の `resetPosts()` は
+ * `post_type=post,cta` の投稿を種別ごと一括削除するため、他ファイルが作業中に使っている
+ * 投稿を同じ post_type というだけで巻き込んで削除してしまう可能性がある
+ * ( CI は `playwright.config.ts` で `workers: 1` のため直列実行になりこの競合は起きないが、
+ * ローカルの並列実行では起こり得る ) 。
+ * このテスト自身の後片付け ( 各テストの finally ) が「対象は既に無かった」という
+ * 良性の理由で失敗し、実際のアサーション結果を覆い隠して FAIL 扱いにしてしまわないよう、
+ * `wp post delete` の「対象が見つからない」旨の警告 ( 非ゼロ終了 ) に限り握りつぶす。
+ * それ以外のエラー（コンテナ不在・接続不可等）はそのまま呼び出し元へ伝播させる。
+ *
+ * @param ids 削除する投稿 ID の配列.
+ */
+export const deletePostsTolerateMissing = ( ids: number[] ): void => {
+	if ( ! ids.length ) {
+		return;
+	}
+	try {
+		runWpCli( [ 'post', 'delete', '--force', ...ids.map( String ) ] );
+	} catch ( error ) {
+		const message = error instanceof Error ? error.message : String( error );
+		if ( ! /Failed deleting post/.test( message ) ) {
+			throw error;
+		}
+		// 対象が既に存在しなかっただけなので無視する。
+	}
+};
+
+/**
  * `get_post_meta( $id, $key, false )` の結果を JSON で取得し、
  * 「メタ行が無い」( [] ) と「空文字で1行存在する」( [""] ) を区別できる形で返す。
  *
