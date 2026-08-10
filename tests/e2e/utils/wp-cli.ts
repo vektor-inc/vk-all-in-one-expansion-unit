@@ -98,14 +98,18 @@ const resolveTestsCliContainerId = (): string => {
 	const candidateIds = idsRaw.split( '\n' ).filter( Boolean );
 
 	for ( const id of candidateIds ) {
-		let mounts: Array<{ Source?: string }>;
+		let mounts: Array<{ Source?: string }> = [];
 		try {
 			const mountsRaw = execFileSync(
 				'docker',
 				[ 'inspect', id, '--format', '{{json .Mounts}}' ],
 				{ encoding: 'utf-8' }
 			);
-			mounts = JSON.parse( mountsRaw );
+			const parsed = JSON.parse( mountsRaw );
+			// マウントが一つも無いコンテナでは `.Mounts` が JSON の null になるため、
+			// その場合は空配列に確定させる（null のまま .some() を呼ぶと例外で
+			// このコンテナだけでなく探索全体が落ちてしまう）。
+			mounts = Array.isArray( parsed ) ? parsed : [];
 		} catch {
 			// このコンテナの検査に失敗しても他候補の探索は続ける（destroy 直後の一時的な不整合等を許容）。
 			continue;
@@ -115,11 +119,21 @@ const resolveTestsCliContainerId = (): string => {
 			if ( ! mount.Source ) {
 				return false;
 			}
+			// Docker Desktop (macOS) は再起動のタイミング等によって、同じ bind mount でも
+			// `docker inspect` が返す Source を `/Users/...` のままの時と、内部 VM 上のパスを
+			// 示す `/host_mnt/Users/...` ( 先頭に /host_mnt が付く ) の時とで揺れることがある
+			// ( 本 PR のレビュー対応で `.wp-env.json` を変更し `npx wp-env start` を再実行した際に
+			// 実機で再現した ) 。ホスト側では `/host_mnt` は存在しないパスなので、比較前に
+			// この接頭辞だけを取り除いて正規化する。
+			const normalizedSource = mount.Source.replace(
+				/^\/host_mnt(?=\/)/,
+				''
+			);
 			try {
-				return realpathSync( mount.Source ) === pluginDir;
+				return realpathSync( normalizedSource ) === pluginDir;
 			} catch {
 				// マウント元がホスト上に無い場合（volume 等）は文字列一致のみで判定する。
-				return mount.Source === pluginDir;
+				return normalizedSource === pluginDir;
 			}
 		} );
 
@@ -158,7 +172,10 @@ export const runWpCli = (
 ): string => {
 	const containerId = resolveTestsCliContainerId();
 
-	const dockerArgs: string[] = [ 'exec', '-i' ];
+	// 値の受け渡しは常に argv 経由（stdio[0] は 'ignore'）で行うため、標準入力を
+	// 使わない。`-i` ( STDIN を開いたままにする ) は不要なので付けない
+	// ( 標準入力を使うコマンドは getPostMetaRaw 側で個別に `-i` を付けている )。
+	const dockerArgs: string[] = [ 'exec' ];
 	if ( options.env ) {
 		for ( const [ key, value ] of Object.entries( options.env ) ) {
 			dockerArgs.push( '-e', `${ key }=${ value }` );
@@ -205,6 +222,13 @@ export const runWpCliBypassingCtaSanitize = ( args: string[] ): string => {
  * 値と現在値を比較しているため、サニタイズで値が丸められて現在値と同じになった場合も失敗扱いになる）。
  * これは「書き込み不要なだけ」で異常ではないため、このメッセージに限り例外を握りつぶす。
  * それ以外のエラー（コンテナ不在・接続不可等）はそのまま呼び出し元へ伝播させる。
+ *
+ * 【既知の脆さ】この判定は wp-cli が実際に出す英語のエラー文言 ( 'Failed to update
+ * custom field' ) への部分一致に依存している。将来 wp-cli のバージョンアップ等で
+ * この文言が変わると握りつぶし判定が効かなくなり、無害なはずの「値不変」ケースが
+ * エラーとして呼び出し元に伝播するようになる ( = テストが壊れる ) 。その場合は
+ * 実行環境の `wp --version` / `wp post meta update` の実際の出力文言を確認し、
+ * この文字列を更新すること。
  *
  * @param postId 投稿 ID.
  * @param key メタキー.

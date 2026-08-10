@@ -43,9 +43,7 @@ import {
 	updatePostMetaTolerateNoop,
 	getPostMetaRaw,
 } from './utils/wp-cli';
-
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'password';
+import { login } from './utils/auth';
 
 // class-vk-call-to-action.php の許可値・既定値と一致させる。
 const IMAGE_POSITIONS = [ 'right', 'center', 'left' ] as const;
@@ -53,20 +51,6 @@ const IMAGE_POSITION_DEFAULT = 'right';
 
 // 画像位置の class 属性から抜け出そうとする攻撃用の値 ( #1434 で実際に悪用可能だった形 )。
 const MALICIOUS_IMAGE_POSITION = 'right" onmouseover=alert(1)//';
-
-/**
- * ID 属性ベースでログインする ( ラベル文言は WordPress のロケール・バージョンで
- * 変わるため使わない。#wp-submit 等の id は core で安定して付与される )。
- *
- * @param page Playwright の Page.
- */
-const login = async ( page: Page ): Promise<void> => {
-	await page.goto( '/wp-login.php' );
-	await page.locator( '#user_login' ).fill( ADMIN_USER );
-	await page.locator( '#user_pass' ).fill( ADMIN_PASS );
-	await page.locator( '#wp-submit' ).click();
-	await page.waitForURL( /wp-admin\// );
-};
 
 /**
  * CTA 投稿を1件作成する ( 公開状態 )。

@@ -8,7 +8,11 @@
 		"SCRIPT_DEBUG": true,
 		"FS_METHOD": "direct"
 	},
-	"mappings": {
-		"wp-content/mu-plugins": "./tests/e2e/mu-plugins"
+	"env": {
+		"tests": {
+			"mappings": {
+				"wp-content/mu-plugins": "./tests/e2e/mu-plugins"
+			}
+		}
 	}
 }

@@ -52,6 +52,20 @@ if ( defined( 'WP_CLI' ) && WP_CLI && getenv( 'VEU_E2E_BYPASS_CTA_SANITIZE' ) ) 
 			// veu_register_active_feature_meta() ( inc/block-editor-panels/enqueue.php ) runs on
 			// 'init' at the default priority (10) and adds the filter via register_post_meta(),
 			// so remove it at a later priority (20) to run after that registration.
+			//
+			// この除去は「先に登録されている」という優先度の前後関係に暗黙に依存している。
+			// 登録側の優先度が将来 20 以降へ変わると、除去が登録より先に走って不発になり、
+			// 迂回できていないのに気づかず「原因の分からないテスト失敗」になる。
+			// そのため、除去対象のフィルタが実在することを確認し、無ければここで明示的に
+			// 失敗させる ( サイレントな不発を許さない ) 。
+			// This removal implicitly assumes the registration runs first (lower priority).
+			// If the registration priority ever moves to 20 or later, this removal would run
+			// before it and silently do nothing, turning into a hard-to-diagnose test failure.
+			// Guard against that by asserting the filter actually exists before removing it,
+			// and fail loudly instead of silently no-op'ing.
+			if ( ! has_filter( 'sanitize_post_meta_vkExUnit_cta_img_position_for_cta' ) ) {
+				WP_CLI::error( 'veu-e2e-bypass-cta-sanitize: サニタイズフィルタが未登録です。register_post_meta() のフック優先度を確認してください。' );
+			}
 			remove_all_filters( 'sanitize_post_meta_vkExUnit_cta_img_position_for_cta' );
 		},
 		20

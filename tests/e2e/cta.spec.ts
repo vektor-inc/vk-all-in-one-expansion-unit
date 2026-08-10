@@ -20,9 +20,7 @@
  */
 import { test, expect, type Page, type FrameLocator } from '@playwright/test';
 import { runWpCli } from './utils/wp-cli';
-
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'password';
+import { login } from './utils/auth';
 
 // Block Editor 本文の iframe (editor-canvas) ロケータ。
 const editorFrame = ( page: Page ): FrameLocator =>
@@ -169,16 +167,8 @@ test.describe( 'CTA', () => {
 	} );
 
 	test.beforeEach( async ( { page } ) => {
-		// ログイン。
-		await page.goto( '/wp-login.php' );
-		await page.getByLabel( 'Username or Email Address' ).fill( ADMIN_USER );
-		await page
-			.getByLabel( 'Password', { exact: true } )
-			.fill( ADMIN_PASS );
-		await page
-			.getByLabel( 'Password', { exact: true } )
-			.press( 'Enter' );
-		await page.waitForURL( /wp-admin\// );
+		// ログイン ( id ベースのロケータを使う共通ヘルパー。utils/auth.ts 参照 )。
+		await login( page );
 	} );
 
 	test( 'CTA 未登録 → ブロック追加で No CTA registered メッセージ', async ( {
