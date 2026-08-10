@@ -102,20 +102,6 @@ const createHostPost = ( title: string, ctaId: number ): number => {
 };
 
 /**
- * 投稿を強制削除する（テスト後片付け）。
- *
- * ローカルの並列実行では、`cta.spec.ts` の `resetPosts()` 等、他 spec ファイルの
- * 一括削除処理と同じ post_type ( post/cta ) を同時に触ることがあるため、
- * 「対象が既に無かった」場合の失敗は許容する ( 詳細は wp-cli.ts の
- * deletePostsTolerateMissing 参照 )。
- *
- * @param ids 削除する投稿 ID の配列.
- */
-const deletePosts = ( ids: number[] ): void => {
-	deletePostsTolerateMissing( ids );
-};
-
-/**
  * CTA のクラシック編集画面 ( `veu_e2e_classic=1` 付き ) を開く。
  *
  * @param page  Playwright の Page.
@@ -209,7 +195,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 				IMAGE_POSITION_DEFAULT,
 			] );
 		} finally {
-			deletePosts( [ ctaId ] );
+			deletePostsTolerateMissing( [ ctaId ] );
 		}
 	} );
 
@@ -255,7 +241,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 				`cta_body_image cta_body_image_${ MALICIOUS_IMAGE_POSITION }`
 			);
 		} finally {
-			deletePosts( [ ctaId, hostId ].filter( Boolean ) );
+			deletePostsTolerateMissing( [ ctaId, hostId ].filter( Boolean ) );
 		}
 	} );
 
@@ -301,7 +287,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 					page.locator( `.cta_body_image_${ position }` )
 				).toHaveCount( 1 );
 			} finally {
-				deletePosts( [ ctaId, hostId ].filter( Boolean ) );
+				deletePostsTolerateMissing( [ ctaId, hostId ].filter( Boolean ) );
 			}
 		} );
 	}
@@ -355,7 +341,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 				'',
 			] );
 		} finally {
-			deletePosts( [ ctaId ] );
+			deletePostsTolerateMissing( [ ctaId ] );
 		}
 	} );
 
@@ -387,7 +373,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			);
 			expect( scriptFired ).toBeUndefined();
 		} finally {
-			deletePosts( [ ctaId, hostId ].filter( Boolean ) );
+			deletePostsTolerateMissing( [ ctaId, hostId ].filter( Boolean ) );
 		}
 	} );
 
@@ -429,7 +415,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 				page.locator( '.veu_cta [onclick]' )
 			).toHaveCount( 0 );
 		} finally {
-			deletePosts( [ ctaId, hostId ].filter( Boolean ) );
+			deletePostsTolerateMissing( [ ctaId, hostId ].filter( Boolean ) );
 		}
 	} );
 } );

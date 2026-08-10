@@ -64,7 +64,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI && getenv( 'VEU_E2E_BYPASS_CTA_SANITIZE' ) ) 
 			// Guard against that by asserting the filter actually exists before removing it,
 			// and fail loudly instead of silently no-op'ing.
 			if ( ! has_filter( 'sanitize_post_meta_vkExUnit_cta_img_position_for_cta' ) ) {
-				WP_CLI::error( 'veu-e2e-bypass-cta-sanitize: サニタイズフィルタが未登録です。register_post_meta() のフック優先度を確認してください。' );
+				WP_CLI::error( 'veu-e2e-bypass-cta-sanitize: サニタイズフィルタが未登録です。register_post_meta() のフック優先度、および本体プラグイン ( vk-all-in-one-expansion-unit ) が有効化されているかを確認してください。' );
 			}
 			remove_all_filters( 'sanitize_post_meta_vkExUnit_cta_img_position_for_cta' );
 		},

@@ -26,25 +26,40 @@ import { login } from './utils/auth';
 const editorFrame = ( page: Page ): FrameLocator =>
 	page.frameLocator( '[name="editor-canvas"]' );
 
-// 投稿 / CTA 投稿をすべて強制削除して初期化する。
-// テスト用の Test CTA / Post with CTA 等の残骸を取り除く。
+// このスペックが作成するテスト用投稿の post_type / タイトル一覧。
+// resetPosts() はここに挙げた「自分が作った投稿」だけを対象にする
+// ( post_type=post,cta を種別ごと一括削除すると、同じ post_type を使う
+//   他 spec ファイル ( cta-image-position-xss.spec.ts 等 ) がローカルの
+//   並列実行で同時に作っている投稿まで巻き込んで削除してしまい、
+//   その spec 側が「対象が既に無い」で不定期に FAIL する原因になっていた )。
+// `wp post list --title=` は WP_Query の title パラメータによる完全一致のため、
+// 他 spec が動的に付ける別タイトル ( 例: "B1 Position left CTA" ) を誤って
+// 巻き込むことはない。
+const KNOWN_TEST_POSTS: ReadonlyArray<{ postType: string; title: string }> = [
+	{ postType: 'cta', title: 'Test CTA' },
+	{ postType: 'cta', title: 'Test CTA 2' },
+	{ postType: 'post', title: 'Post with CTA' },
+];
+
+// このスペックが作ったテスト用投稿だけを強制削除して初期化する。
 // セットアップ失敗が flake の原因にならないよう、wp-cli の失敗は throw で表面化する。
 // （wp-env が立っていない・コンテナ取得不能などの致命的な状況は早期に検出したい）
 const resetPosts = (): void => {
-	for ( const postType of [ 'post', 'cta' ] ) {
+	for ( const { postType, title } of KNOWN_TEST_POSTS ) {
 		let ids: string;
 		try {
 			ids = runWpCli( [
 				'post',
 				'list',
 				`--post_type=${ postType }`,
+				`--title=${ title }`,
 				'--post_status=any',
 				'--format=ids',
 			] ).trim();
 		} catch ( e ) {
 			const message = e instanceof Error ? e.message : String( e );
 			throw new Error(
-				`resetPosts: failed to list ${ postType } via tests-cli: ${ message }`
+				`resetPosts: failed to list "${ title }" ( ${ postType } ) via tests-cli: ${ message }`
 			);
 		}
 		if ( ! ids ) {
@@ -60,7 +75,7 @@ const resetPosts = (): void => {
 		} catch ( e ) {
 			const message = e instanceof Error ? e.message : String( e );
 			throw new Error(
-				`resetPosts: failed to delete ${ postType } posts via tests-cli: ${ message }`
+				`resetPosts: failed to delete "${ title }" ( ${ postType } ) posts via tests-cli: ${ message }`
 			);
 		}
 	}
