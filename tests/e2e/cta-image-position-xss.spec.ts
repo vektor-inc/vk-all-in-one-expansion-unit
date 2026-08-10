@@ -139,20 +139,41 @@ const VEU_SIDEBAR_NAME = 'VK All in One Expansion Unit';
 /**
  * VK ExUnit のプラグインサイドバーを開く。
  *
- * 通常はヘッダーのトグルアイコン ( アクセシブルネーム = VEU_SIDEBAR_NAME ) から
- * 開けるが、#1439 のレビューで「同じスペックなのに麗美さんの環境だけヘッダーに
- * アイコンが出ず、サイドバー自体は開いているのに B-2 がタイムアウトする」事象が
- * 実機で確認された。原因はエディタの使用履歴やユーザー設定（ピン留め状態等）に
- * 依存する可能性があり、環境差の再現条件を完全には切り分けられなかったため、
- * どちらの状態でも同じサイドバーへ到達できるよう Options (⋮) メニュー経由の
- * 経路もフォールバックとして用意する。ヘッダーのボタンが短時間で現れない場合は
- * Options メニューを開き、Plugins セクションのチェックボックス項目
- * ( 同じ VEU_SIDEBAR_NAME ) をクリックする。こちらもヘッダーのボタンと同じ
- * action ( サイドバーを開く ) を実行することを実機で確認済み。
+ * 【ヘッダーにアイコンが出ないことがある理由（確定）】
+ * Gutenberg の `<PluginSidebar>` は、ヘッダーのピン留めボタンと Options (⋮)
+ * メニューの「Plugins」項目を、同一の登録から生成する。ヘッダーアイコンは
+ * `isPinned`（ユーザーごとに永続化される設定）に依存する条件付き表示だが、
+ * Options メニュー側の項目は登録さえ済んでいれば常に存在する。#1439 のレビューで
+ * 「同じスペックなのに麗美さんの環境だけヘッダーにアイコンが出ず、サイドバー自体は
+ * 開いているのに B-2 がタイムアウトする」事象が実機で確認されたのは、負荷による
+ * 読み込み遅延ではなく、その環境のユーザー設定でこのサイドバーがピン留めされて
+ * いなかったため（安藤さんのレビューで機構的にほぼ確定）。ヘッダーのボタンが
+ * 短時間で現れない場合は Options メニューを開き、Plugins セクションの
+ * チェックボックス項目（同じ VEU_SIDEBAR_NAME）をクリックする。
+ *
+ * 【冪等にしている理由】ヘッダーボタン・メニュー項目とも開閉の「トグル」であり、
+ * 現在の開閉状態を見ずに押すと、既に開いている状態では逆に閉じてしまう。
+ * Gutenberg はアクティブな complementary area（開いているサイドバー）もユーザー
+ * メタへ永続化するため、一度 B-2 が成功して開いた状態のまま終了すると、次回
+ * 実行時は最初から開いた状態でエディタが立ち上がり得る。「前回実行の状態が
+ * 次回の実行を壊す」という、本 PR で解消してきたものと同じ種類の環境依存を
+ * 生まないよう、既に開いている（"Image position" が見えている）場合は何もしない。
+ *
+ * 【フォールバックが不具合を隠さないか】ヘッダーボタン・Options メニュー項目の
+ * どちらも `registerPlugin` + `PluginSidebar` の登録が前提のため、パネル
+ * スクリプトの読み込み・登録自体が失敗した場合は両方とも消える。その場合は
+ * フォールバックしても最終的に `getByLabel( 'Image position' )` の
+ * `waitFor()` がタイムアウトして loud に失敗するため、本当の不具合を
+ * 静かに握りつぶす経路にはならない。
  *
  * @param page Playwright の Page.
  */
 const openVeuSidebar = async ( page: Page ): Promise<void> => {
+	// 既に開いていれば何もしない（トグルボタンを押すと閉じてしまうため）。
+	if ( await page.getByLabel( 'Image position' ).isVisible() ) {
+		return;
+	}
+
 	const headerButton = page.getByRole( 'button', { name: VEU_SIDEBAR_NAME } );
 
 	const headerButtonAppeared = await headerButton
@@ -167,9 +188,10 @@ const openVeuSidebar = async ( page: Page ): Promise<void> => {
 	}
 
 	// ヘッダーに出ない環境向けのフォールバック: Options (⋮) メニューから開く。
-	await page.getByRole( 'button', { name: 'Options' } ).click();
+	await page.getByRole( 'button', { name: 'Options' } ).first().click();
 	await page
 		.getByRole( 'menuitemcheckbox', { name: VEU_SIDEBAR_NAME } )
+		.first()
 		.click();
 };
 
