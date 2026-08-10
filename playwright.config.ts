@@ -12,6 +12,8 @@ import { devices } from '@playwright/test';
  */
 const config: PlaywrightTestConfig = {
   testDir: './tests/e2e',
+  /* 全 spec 実行前に一度だけ、tests サイトの前提（テーマ・本プラグインの有効化）を担保する。 */
+  globalSetup: require.resolve('./tests/e2e/global-setup.ts'),
   /* Maximum time one test can run for. */
   timeout: 45 * 1000,
   expect: {

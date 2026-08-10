@@ -19,24 +19,10 @@
  * "Add block" → "Block Inserter" に変わっている。
  */
 import { test, expect, type Page, type FrameLocator } from '@playwright/test';
-import { execFileSync } from 'child_process';
+import { runWpCli } from './utils/wp-cli';
 
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'password';
-
-// wp-env の tests-cli コンテナ経由で wp-cli を実行するヘルパー。
-// e2e は testsPort (デフォルト 8889) のテスト用 WordPress を使うため、
-// データ初期化も tests-cli コンテナで行う必要がある。
-const runWpCli = ( args: string[] ): string => {
-	return execFileSync(
-		'npx',
-		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
-		{
-			encoding: 'utf-8',
-			stdio: [ 'ignore', 'pipe', 'pipe' ],
-		}
-	);
-};
 
 // Block Editor 本文の iframe (editor-canvas) ロケータ。
 const editorFrame = ( page: Page ): FrameLocator =>
