@@ -156,14 +156,20 @@ function vkExUnit_sitemap( $attr ) {
 
 	$page_for_posts = vk_get_page_for_posts();
 
+	// Fetch the filterable public post types once and share it with both helpers below, so the
+	// veu_sitemap_exclude_post_types filter only fires once per sitemap render instead of twice.
+	// フィルター適用済みの公開投稿タイプを1回だけ取得し、下記2つのヘルパーで共有する（サイトマップ描画1回
+	// につき veu_sitemap_exclude_post_types フィルターが2回発火しないようにするため）.
+	$public_post_types = veu_get_sitemap_public_post_types();
+
 	// Get post types from the shared helper so the condition matches the taxonomy list on the settings screen.
 	// サイトマップ設定画面のタクソノミー一覧と条件を揃えるため、共通ヘルパーから取得.
-	$all_post_types = veu_get_sitemap_post_types();
+	$all_post_types = veu_get_sitemap_post_types( $public_post_types );
 
 	// Get the taxonomies eligible for the sitemap from the same helper the settings screen uses,
 	// so the show_in_menu condition lives in one place only.
 	// 設定画面と同じヘルパーから対象タクソノミーを取得し、show_in_menu の判定を1箇所にまとめる.
-	$available_taxonomies = veu_get_sitemap_available_taxonomies();
+	$available_taxonomies = veu_get_sitemap_available_taxonomies( $public_post_types );
 
 	$p = get_posts(
 		array(

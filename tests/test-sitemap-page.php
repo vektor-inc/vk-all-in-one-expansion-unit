@@ -255,12 +255,15 @@ class SitemapPageTest extends WP_UnitTestCase {
 	/**
 	 * vkExUnit_sitemap() のテスト。
 	 * excludeTaxonomies で指定したタクソノミーは、見出し（h5）ごとサイトマップから消える事、
-	 * 無関係なキーが保存されていても他のタクソノミーの表示に影響しない事を検証する。
+	 * 無関係なキーが保存されていても他のタクソノミーの表示に影響しない事、
+	 * show_in_menu => false のタクソノミーはそもそも出力されない事（安藤さんレビュー LOW 指摘の回帰テスト。
+	 * フロント側の唯一の条件式差し替え箇所であるため）を検証する。
 	 *
 	 * Test for vkExUnit_sitemap().
 	 * Verifies that a taxonomy specified in excludeTaxonomies disappears together with its
-	 * heading ( h5 ), and that an unrelated stale key in the option does not affect the
-	 * display of other taxonomies.
+	 * heading ( h5 ), that an unrelated stale key in the option does not affect the display of
+	 * other taxonomies, and that a taxonomy with show_in_menu => false is never output at all
+	 * ( regression test for the front-end's only replaced condition, per code review ).
 	 */
 	function test_vkExUnit_sitemap() {
 
@@ -271,6 +274,9 @@ class SitemapPageTest extends WP_UnitTestCase {
 
 		$this->register_test_post_type( 'veu_test_cpt_a', array( 'public' => true ) );
 		$this->register_test_taxonomy( 'veu_test_tax_shown', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => true ) );
+		// show_in_menu => false のタクソノミー（回帰テスト用）。
+		// A taxonomy with show_in_menu => false ( for the regression test ).
+		$this->register_test_taxonomy( 'veu_test_tax_hidden', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => false ) );
 
 		// タームを持つ公開投稿を1件作成し、サイトマップの投稿タイプループから除外されないようにする。
 		// Create one published post with a term so it is not skipped by the sitemap's post type loop.
@@ -283,6 +289,14 @@ class SitemapPageTest extends WP_UnitTestCase {
 		$term    = wp_insert_term( 'VEU Test Term', 'veu_test_tax_shown' );
 		$this->assertNotWPError( $term, 'テスト用タームの作成に失敗した場合、後続のアサーションが無意味になるため先に検証する。' );
 		wp_set_object_terms( $post_id, array( $term['term_id'] ), 'veu_test_tax_shown' );
+
+		// veu_test_tax_hidden にもタームを1件作成しておく（ターム0件だからではなく、show_in_menu が
+		// false だから出力されない事を検証するため）。
+		// Also create one term on veu_test_tax_hidden ( so its absence proves the show_in_menu
+		// condition, not merely that it has zero terms ).
+		$hidden_term = wp_insert_term( 'VEU Test Hidden Term', 'veu_test_tax_hidden' );
+		$this->assertNotWPError( $hidden_term, 'テスト用タームの作成に失敗した場合、後続のアサーションが無意味になるため先に検証する。' );
+		wp_set_object_terms( $post_id, array( $hidden_term['term_id'] ), 'veu_test_tax_hidden' );
 
 		$test_cases = array(
 			array(
@@ -315,6 +329,12 @@ class SitemapPageTest extends WP_UnitTestCase {
 			} else {
 				$this->assertStringNotContainsString( 'sitemap-taxonomy-veu_test_tax_shown', $html, $case['test_condition_name'] );
 			}
+
+			// 回帰テスト: excludeTaxonomies の設定に関わらず、show_in_menu => false のタクソノミーは
+			// タームがあってもそもそも出力されない。
+			// Regression check: regardless of the excludeTaxonomies setting, a taxonomy with
+			// show_in_menu => false is never output even when it has a term.
+			$this->assertStringNotContainsString( 'sitemap-taxonomy-veu_test_tax_hidden', $html, $case['test_condition_name'] . '（show_in_menu => false の回帰確認）' );
 
 			delete_option( 'vkExUnit_sitemap_options' );
 		}
@@ -410,7 +430,7 @@ class SitemapPageTest extends WP_UnitTestCase {
 				),
 				'expected_contains'     => array(
 					'name="vkExUnit_sitemap_options[excludeTaxonomies][veu_test_tax_shown]"',
-					'checked',
+					' checked />',
 				),
 				'expected_not_contains' => array(),
 			),
@@ -424,7 +444,9 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'expected_contains'     => array(
 					'name="vkExUnit_sitemap_options[excludeTaxonomies][veu_test_tax_shown]"',
 				),
-				'expected_not_contains' => array( 'checked' ),
+				// 属性境界を含む文字列にする事で、将来 checked 系のクラス名等が増えても誤検知しないようにする。
+				// Include the attribute boundary so a future class name containing "checked" cannot cause a false negative.
+				'expected_not_contains' => array( ' checked />' ),
 			),
 			array(
 				'test_condition_name'   => '境界値: 対象タクソノミーが0件の場合、空の一覧ではなくフォールバック文言が出力される',

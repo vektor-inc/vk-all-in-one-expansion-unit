@@ -65,6 +65,7 @@ function veu_add_sitemap_options_page() {
 			?>
 			</td>
 		</tr>
+	<?php $available_taxonomies = veu_get_sitemap_available_taxonomies(); ?>
 	<tr>
 	<th><?php _e( 'Exclude taxonomy from the sitemap', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
@@ -72,11 +73,13 @@ function veu_add_sitemap_options_page() {
 			$args = array(
 				'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
 				'checked'    => $options['excludeTaxonomies'],
-				'taxonomies' => veu_get_sitemap_available_taxonomies(),
+				'taxonomies' => $available_taxonomies,
 			);
 			vk_the_taxonomy_check_list( $args );
 			?>
+			<?php if ( ! empty( $available_taxonomies ) ) : ?>
 			<p class="description"><?php _e( 'The term list of a checked taxonomy will not be displayed on the sitemap, regardless of the post type exclusion setting above.', 'vk-all-in-one-expansion-unit' ); ?></p>
+			<?php endif; ?>
 			</td>
 		</tr>
 	</table>

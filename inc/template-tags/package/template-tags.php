@@ -446,12 +446,19 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
  *                                              タクソノミー名ごとの id 属性を指定する場合の配列。
  *     @type string[]      $exclude_taxonomies Taxonomy names to leave out of the list.
  *                                              一覧から除外するタクソノミー名の配列。
+ *     @type string        $empty_message      Message shown instead of the list when 'taxonomies' is empty.
+ *                                              Kept as an argument (rather than hard-coded) so callers
+ *                                              outside the sitemap "exclude taxonomy" use case can supply
+ *                                              their own wording.
+ *                                              'taxonomies' が空の場合に一覧の代わりに表示する文言。
+ *                                              サイトマップの「除外タクソノミー」以外の用途で再利用しても
+ *                                              文言が破綻しないよう、決め打ちにせず引数化している。
  * }
  * @return void Outputs markup directly via echo; nothing is returned. When 'taxonomies' is
- *              empty, outputs a fallback message instead of an empty list so the admin can
- *              tell "nothing to exclude" apart from a broken display.
- *              直接 echo で出力するため返り値はなし。'taxonomies' が空の場合は、空の一覧では
- *              なくフォールバック文言を出す（「対象が無い」と「表示が壊れている」を区別できるように）。
+ *              empty, outputs 'empty_message' instead of an empty list so the admin can tell
+ *              "nothing to exclude" apart from a broken display.
+ *              直接 echo で出力するため返り値はなし。'taxonomies' が空の場合は、空の一覧ではなく
+ *              'empty_message' を出す（「対象が無い」と「表示が壊れている」を区別できるように）。
  */
 if ( ! function_exists( 'vk_the_taxonomy_check_list' ) ) {
 	function vk_the_taxonomy_check_list( $args ) {
@@ -461,11 +468,12 @@ if ( ! function_exists( 'vk_the_taxonomy_check_list' ) ) {
 			'checked'            => array(),
 			'id'                 => array(),
 			'exclude_taxonomies' => array(),
+			'empty_message'      => __( 'No taxonomies are available to exclude.', 'vk-all-in-one-expansion-unit' ),
 		);
 		$args    = wp_parse_args( $args, $default );
 
 		if ( empty( $args['taxonomies'] ) ) {
-			echo '<p>' . esc_html__( 'No taxonomies are available to exclude.', 'vk-all-in-one-expansion-unit' ) . '</p>';
+			echo '<p class="description">' . esc_html( $args['empty_message'] ) . '</p>';
 			return;
 		}
 

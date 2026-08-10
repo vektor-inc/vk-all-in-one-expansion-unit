@@ -59,13 +59,24 @@ function veu_get_sitemap_public_post_types() {
  * （`excludePostTypes`）による除外を反映したものを返す。フロント出力（vkExUnit_sitemap()）が
  * どの投稿タイプをループ対象にするかを決めるために使う。
  *
+ * @param  array|null $public_post_types Optional. Pre-fetched result of veu_get_sitemap_public_post_types(),
+ *                                       to avoid calling it (and firing the veu_sitemap_exclude_post_types
+ *                                       filter) a second time when the caller already has it (see
+ *                                       vkExUnit_sitemap(), which shares one fetch with
+ *                                       veu_get_sitemap_available_taxonomies()). Pass null (default) to
+ *                                       fetch it internally.
+ *                                       任意。veu_get_sitemap_public_post_types() の結果を事前に渡す事で、
+ *                                       呼び出し元が既に取得済みの場合に再取得（veu_sitemap_exclude_post_types
+ *                                       フィルターの再発火を含む）を避けられる（vkExUnit_sitemap() が
+ *                                       veu_get_sitemap_available_taxonomies() と1回の取得を共有するために使う）。
+ *                                       省略時（null）は内部で取得する.
  * @return array Array of post type names, in the same shape returned by get_post_types().
  *               投稿タイプ名を値に持つ配列（get_post_types() の戻り値形式のまま）。
  */
-function veu_get_sitemap_post_types() {
+function veu_get_sitemap_post_types( $public_post_types = null ) {
 	$options = veu_get_sitemap_options();
 
-	$all_post_types = veu_get_sitemap_public_post_types();
+	$all_post_types = ( null === $public_post_types ) ? veu_get_sitemap_public_post_types() : $public_post_types;
 
 	// Exclude post types via the ExUnit sitemap option (excludePostTypes).
 	// ExUnit のサイトマップ設定（excludePostTypes）による除外投稿タイプ処理.
@@ -106,11 +117,22 @@ function veu_get_sitemap_post_types() {
  * 副次的に、投稿フォーマット（post_format）など管理画面 UI に表示されない内部タクソノミーは
  * `show_in_menu` が false のため、この一覧には含まれない。
  *
+ * @param  array|null $post_types Optional. Pre-fetched result of veu_get_sitemap_public_post_types(),
+ *                                to avoid calling it (and firing the veu_sitemap_exclude_post_types
+ *                                filter) a second time when the caller already has it. Pass null
+ *                                (default) to fetch it internally; the settings screen relies on
+ *                                this default so it keeps working unchanged.
+ *                                任意。veu_get_sitemap_public_post_types() の結果を事前に渡す事で、
+ *                                呼び出し元が既に取得済みの場合に再取得（veu_sitemap_exclude_post_types
+ *                                フィルターの再発火を含む）を避けられる。省略時（null、既定）は
+ *                                内部で取得する。設定画面はこの既定動作のまま変更不要で動く.
  * @return array Array of WP_Taxonomy objects keyed by taxonomy name.
  *               タクソノミー名をキーにした WP_Taxonomy オブジェクトの配列。
  */
-function veu_get_sitemap_available_taxonomies() {
-	$post_types           = veu_get_sitemap_public_post_types();
+function veu_get_sitemap_available_taxonomies( $post_types = null ) {
+	if ( null === $post_types ) {
+		$post_types = veu_get_sitemap_public_post_types();
+	}
 	$available_taxonomies = array();
 
 	foreach ( $post_types as $post_type ) {
