@@ -19,7 +19,7 @@ add_action( 'veu_package_init', 'veu_sitemap_set_main_setting' );
 function veu_sitemap_options_validate( $input ) {
 	$output = $defaults = veu_get_sitemap_options_default();
 
-	$paras = array( 'excludeId', 'excludePostTypes' );
+	$paras = array( 'excludeId', 'excludePostTypes', 'excludeTaxonomies' );
 
 	foreach ( $paras as $key => $value ) {
 		if ( isset( $input[ $value ] ) ) {
@@ -60,7 +60,20 @@ function veu_add_sitemap_options_page() {
 			?>
 			</td>
 		</tr>
-	</tr>
+	<tr>
+	<th><?php _e( 'Exclude taxonomy from the sitemap', 'vk-all-in-one-expansion-unit' ); ?></th>
+	<td>
+			<?php
+			$args = array(
+				'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+				'checked'    => $options['excludeTaxonomies'],
+				'taxonomies' => veu_get_sitemap_available_taxonomies(),
+			);
+			vk_the_taxonomy_check_list( $args );
+			?>
+			<p class="description"><?php _e( 'The term list of a checked taxonomy will not be displayed on the sitemap, regardless of the post type exclusion setting above.', 'vk-all-in-one-expansion-unit' ); ?></p>
+			</td>
+		</tr>
 	</table>
 	<p><?php _e( 'If you want to do not display specific page that, you can set on that page edit screen.', 'vk-all-in-one-expansion-unit' ); ?></p>
 

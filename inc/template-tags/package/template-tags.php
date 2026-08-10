@@ -412,6 +412,71 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
 	}
 }
 
+/*
+	Taxonomy Check Box
+/*-------------------------------------------*/
+/**
+ * Display a checkbox list of taxonomies.
+ * タクソノミーのチェックボックスを表示する関数。
+ *
+ * Newly added as a taxonomy version of vk_the_post_type_check_list(), following the same
+ * conventions (markup structure, escaping, function_exists guard). The caller passes the
+ * target taxonomies via the 'taxonomies' argument; which taxonomies to list is decided by
+ * the caller's own domain logic, not by this generic display helper.
+ * vk_the_post_type_check_list() と同じ作法（構造・エスケープ・function_exists ガード）で、
+ * タクソノミー版として新設。対象となるタクソノミーは呼び出し元が 'taxonomies' 引数で渡す
+ * （どのタクソノミーを一覧に載せるかの絞り込み条件は呼び出し元のドメインロジックに委ねる）。
+ *
+ * @param  array $args {
+ *     Settings for the checkbox display. チェックボックス表示用の設定。
+ *
+ *     @type WP_Taxonomy[] $taxonomies         Taxonomy objects to display, keyed by taxonomy name.
+ *                                              表示対象のタクソノミーオブジェクトの配列（キーはタクソノミー名）。
+ *     @type string        $name               Base for the checkbox name attribute (e.g. 'vkExUnit_sitemap_options[excludeTaxonomies]').
+ *                                              チェックボックスの name 属性のベース（例: 'vkExUnit_sitemap_options[excludeTaxonomies]'）。
+ *     @type array         $checked            Saved values holding the checked state (taxonomy name => 'true' etc.).
+ *                                              チェック状態を持つ保存済みの値（タクソノミー名 => 'true' 等）。
+ *     @type array         $id                 Optional per-taxonomy id attribute values.
+ *                                              タクソノミー名ごとの id 属性を指定する場合の配列。
+ *     @type string[]      $exclude_taxonomies Taxonomy names to leave out of the list.
+ *                                              一覧から除外するタクソノミー名の配列。
+ * }
+ * @return void Outputs markup directly via echo; nothing is returned.
+ *              直接 echo で出力するため返り値はなし。
+ */
+if ( ! function_exists( 'vk_the_taxonomy_check_list' ) ) {
+	function vk_the_taxonomy_check_list( $args ) {
+		$default = array(
+			'taxonomies'         => array(),
+			'name'               => '',
+			'checked'            => array(),
+			'id'                 => '',
+			'exclude_taxonomies' => array(),
+		);
+		$args    = wp_parse_args( $args, $default );
+
+		echo '<ul class="no-style">';
+		foreach ( $args['taxonomies'] as $key => $value ) {
+			if ( ! in_array( $key, $args['exclude_taxonomies'] ) ) {
+				$checked = ( isset( $args['checked'][ $key ] ) && ( $args['checked'][ $key ] ) ) ? ' checked' : '';
+
+				if ( ! empty( $args['id'][ $key ] ) ) {
+					$id = ' id="' . esc_attr( $args['id'][ $key ] ) . '"';
+				} elseif ( ! empty( $args['name'][ $key ] ) ) {
+					$id = ' id="' . esc_attr( $args['name'][ $key ] ) . '"';
+				} else {
+					$id = '';
+				}
+
+				echo '<li><label>';
+				echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+				echo '</label></li>';
+			}
+		}
+		echo '</ul>';
+	}
+}
+
 /**
  * vk_the_post_type_check_list で保存される配列が、キーに投稿タイプ名が入る微妙な仕様のため、投稿タイプだけを配列で返すように変換
  *

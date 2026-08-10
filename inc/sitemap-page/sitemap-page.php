@@ -155,7 +155,10 @@ function vkExUnit_sitemap( $attr ) {
 	$sitemap_html .= '<div class="col-md-6 sitemap-col">' . PHP_EOL;
 
 	$page_for_posts = vk_get_page_for_posts();
-	$all_post_types = get_post_types( array( 'public' => true ) );
+
+	// Get post types from the shared helper so the condition matches the taxonomy list on the settings screen.
+	// サイトマップ設定画面のタクソノミー一覧と条件を揃えるため、共通ヘルパーから取得
+	$all_post_types = veu_get_sitemap_post_types();
 
 	$p = get_posts(
 		array(
@@ -165,21 +168,6 @@ function vkExUnit_sitemap( $attr ) {
 	);
 	if ( empty( $p ) ) {
 		unset( $all_post_types['post'] );
-	}
-
-	// 除外投稿タイプ処理
-	$exclude_post_types = apply_filters( 'veu_sitemap_exclude_post_types', array( 'page', 'attachment', 'vk-managing-patterns' ) );
-	foreach ( $exclude_post_types as $exclude_post_type ) {
-		unset( $all_post_types[ $exclude_post_type ] );
-	}
-
-	// 除外投稿タイプ処理
-	if ( isset( $options['excludePostTypes'] ) && is_array( $options['excludePostTypes'] ) ) {
-		foreach ( $options['excludePostTypes'] as $key => $value ) {
-			if ( $value ) {
-				unset( $all_post_types[ $key ] );
-			}
-		}
 	}
 
 	foreach ( $all_post_types as $postType ) {
@@ -207,6 +195,12 @@ function vkExUnit_sitemap( $attr ) {
 			$taxonomies = get_object_taxonomies( $postType );
 
 			foreach ( $taxonomies as $taxonomy ) {
+				// Skip the whole heading (and its term list) when the taxonomy is excluded by the sitemap setting.
+				// 除外タクソノミー設定で指定されている場合は、見出しごとスキップする
+				if ( isset( $options['excludeTaxonomies'][ $taxonomy ] ) && $options['excludeTaxonomies'][ $taxonomy ] ) {
+					continue;
+				}
+
 				// taxonomyの詳細情報を取得
 				$taxonomy_object = get_taxonomy( $taxonomy );
 

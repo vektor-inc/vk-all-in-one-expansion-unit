@@ -81,6 +81,8 @@ e.g.
 
 == Changelog ==
 
+[ New Feature ][ HTML Sitemap ] Added an option to exclude specific taxonomies from the HTML sitemap, in addition to the existing post type exclusion.
+
 = 9.120.0 =
 [ New Feature ] Added an alternative text setting for the inquiry banner image. When it is left blank, the alternative text set on the media library is filled in automatically on save.
 [ Spec Change ] Fixed the inquiry banner image being read aloud as "contact_txt" by screen readers; it now uses the alternative text you set, or the contact button text as the link name when it is blank.
