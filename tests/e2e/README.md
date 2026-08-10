@@ -8,37 +8,43 @@ vk-agents 共通ルール（`rules/testing/e2e.md`）と合わせて参照して
 
 ## 1. e2e テストの実行方法
 
-### 前提
+### セットアップ（clone 直後からの手順）
 
-- wp-env で WordPress 環境が起動していること
-- Node.js / npm 依存パッケージがインストール済みであること
-
-テーマ・本プラグインの有効化は `playwright.config.ts` に登録した `globalSetup`（`tests/e2e/global-setup.ts`）が全 spec 実行前に一度だけ自動で保証します。tests サイトでテーマ・プラグインが未有効なまま Content-Length: 0（真っ白）になる、といった手動対応は不要です。
-
-### 環境の準備
+上から順に実行してください。
 
 ```bash
-# 依存パッケージのインストール（初回 or package.json 更新時）
+# 1. npm 依存パッケージのインストール
 npm install
 
-# wp-env を起動
+# 2. composer 依存パッケージのインストール
+composer install
+
+# 3. ブロックエディタ用アセットのビルド
+npm run build
+
+# 4. wp-env を起動
 npx wp-env start
+
+# 5. e2e 実行
+npx playwright test
 ```
 
-並列で別タスクが wp-env を動かしている場合は、ポート衝突を避けるため worktree ルートに `.wp-env.override.json` を置いて `port` / `testsPort` をずらしてください（直接 `.wp-env.json` を書き換えないこと）。
-
-```json
-{
-    "port": 9108,
-    "testsPort": 9109
-}
-```
-
-ベース URL は `playwright.config.ts` の `baseURL` か `WP_BASE_URL` 環境変数で切り替えられます。ポートを変えた場合は実行時に `WP_BASE_URL` を渡すと安全です。
+ポートを変える場合（並列で別タスクが wp-env を動かしている場合など）は、worktree ルートに `.wp-env.override.json` を置いて `port` / `testsPort` をずらし、`npx playwright test` の実行コマンドにも `WP_BASE_URL` を明示してください（直接 `.wp-env.json` を書き換えないこと）。
 
 ```bash
+# .wp-env.override.json
+# { "port": 9108, "testsPort": 9109 }
+
+npx wp-env start
 WP_BASE_URL=http://localhost:9109 npx playwright test
 ```
+
+### 補足（なぜ各手順が必要か）
+
+- **`composer install`**: `vendor/autoload.php` が無いとプラグイン本体が Fatal error になり、開発用サイトへのプラグイン有効化そのものが失敗する。
+- **`npm run build`**: `build/` が無いと、ブロックエディタの独自サイドバーパネル（画像位置の設定を含む）や CTA ブロック自体が読み込まれない。`cta-image-position-xss.spec.ts` の B-2（ブロックエディタ経由の検証）や `cta.spec.ts`（CTA ブロックの挿入）はこれが無いと動作しない。
+- **`npx wp-env start`**: テーマ・本プラグインの有効化は `playwright.config.ts` に登録した `globalSetup`（`tests/e2e/global-setup.ts`）が全 spec 実行前に一度だけ自動で保証する。tests サイトでテーマ・プラグインが未有効なまま Content-Length: 0（真っ白）になる、といった手動対応は不要。
+- **`WP_BASE_URL`**: `playwright.config.ts` の `baseURL` は既定で `http://localhost:8889` を向く。`.wp-env.override.json` でポートを変えたのに `WP_BASE_URL` を渡さずに実行すると、既定ポートのまま `ERR_CONNECTION_REFUSED` になる（コマンド例に含めずポート変更の説明だけを読むと見落としやすいので、必ず実行コマンドと合わせて渡すこと）。
 
 ### 基本コマンド
 
@@ -57,6 +63,12 @@ npx playwright test -g 'デフォルト（画像未設定）'
 
 # 直近の HTML レポートを開く
 npx playwright show-report
+```
+
+ポートを変えている場合は、上記のどのコマンドにも `WP_BASE_URL=http://localhost:<testsPort>` を先頭に付けてください。
+
+```bash
+WP_BASE_URL=http://localhost:9109 npx playwright test tests/e2e/cta-image-position-xss.spec.ts
 ```
 
 `workers` は `playwright.config.ts` で CI・ローカル問わず `1` に固定しています。一部の spec（`cta.spec.ts` の1本目など）が「サイト全体に CTA が1件も無い」といった DB 全体のグローバルな状態を前提にアサートしているため、複数ワーカーで並列実行すると他 spec が並行して作る投稿の存在そのものでその前提が崩れ、どちらが落ちるかは実行順・タイミング依存の race になります（#1439 で実機確認済み）。ローカル実行は直列化により遅くなりますが、「ローカルだけ不定期に落ちる回帰テスト」を作らないことを優先しています。
