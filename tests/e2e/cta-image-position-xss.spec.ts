@@ -130,6 +130,49 @@ const submitClassicForm = async ( page: Page, ctaId: number ): Promise<void> => 
 	await page.waitForURL( new RegExp( `post\\.php\\?post=${ ctaId }&action=edit` ) );
 };
 
+// VK ExUnit のプラグインサイドバー ( PluginSidebar name="veu-settings" ) の
+// アクセシブルネーム。ヘッダーのトグルボタンと Options (⋮) メニュー内の
+// チェックボックス項目の両方でこの名前が使われる ( src/editor-panel/index.js の
+// title={ data.panelTitle || 'VK ExUnit' } / veu_get_name() の既定値 )。
+const VEU_SIDEBAR_NAME = 'VK All in One Expansion Unit';
+
+/**
+ * VK ExUnit のプラグインサイドバーを開く。
+ *
+ * 通常はヘッダーのトグルアイコン ( アクセシブルネーム = VEU_SIDEBAR_NAME ) から
+ * 開けるが、#1439 のレビューで「同じスペックなのに麗美さんの環境だけヘッダーに
+ * アイコンが出ず、サイドバー自体は開いているのに B-2 がタイムアウトする」事象が
+ * 実機で確認された。原因はエディタの使用履歴やユーザー設定（ピン留め状態等）に
+ * 依存する可能性があり、環境差の再現条件を完全には切り分けられなかったため、
+ * どちらの状態でも同じサイドバーへ到達できるよう Options (⋮) メニュー経由の
+ * 経路もフォールバックとして用意する。ヘッダーのボタンが短時間で現れない場合は
+ * Options メニューを開き、Plugins セクションのチェックボックス項目
+ * ( 同じ VEU_SIDEBAR_NAME ) をクリックする。こちらもヘッダーのボタンと同じ
+ * action ( サイドバーを開く ) を実行することを実機で確認済み。
+ *
+ * @param page Playwright の Page.
+ */
+const openVeuSidebar = async ( page: Page ): Promise<void> => {
+	const headerButton = page.getByRole( 'button', { name: VEU_SIDEBAR_NAME } );
+
+	const headerButtonAppeared = await headerButton
+		.first()
+		.waitFor( { state: 'visible', timeout: 5000 } )
+		.then( () => true )
+		.catch( () => false );
+
+	if ( headerButtonAppeared ) {
+		await headerButton.first().click();
+		return;
+	}
+
+	// ヘッダーに出ない環境向けのフォールバック: Options (⋮) メニューから開く。
+	await page.getByRole( 'button', { name: 'Options' } ).click();
+	await page
+		.getByRole( 'menuitemcheckbox', { name: VEU_SIDEBAR_NAME } )
+		.click();
+};
+
 /**
  * `<select>` に許可値外のオプションを DOM 操作で追加して選択状態にする。
  *
@@ -312,11 +355,10 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			//   ブロックエディタに描画されないだけで、投稿タイプ自体の既定エディタはブロックエディタ )。
 			await page.goto( `/wp-admin/post.php?post=${ ctaId }&action=edit` );
 
-			// 独自パネル ( PluginSidebar name="veu-settings" ) のトグルボタンを開く。
-			// アクセシブルネームはプラグイン名 ( veu_get_name() ) と一致する。
-			await page
-				.getByRole( 'button', { name: 'VK All in One Expansion Unit' } )
-				.click();
+			// 独自パネル ( PluginSidebar name="veu-settings" ) を開く。
+			// ヘッダーのトグルボタンに出ない環境でも Options メニュー経由で開けるよう
+			// openVeuSidebar() でフォールバックする ( 詳細はその docblock を参照 )。
+			await openVeuSidebar( page );
 
 			const positionSelect = page.getByLabel( 'Image position' );
 			await positionSelect.waitFor();
