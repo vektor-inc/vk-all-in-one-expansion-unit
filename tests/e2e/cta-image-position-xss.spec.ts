@@ -157,7 +157,20 @@ const VEU_SIDEBAR_NAME = 'VK All in One Expansion Unit';
  * メタへ永続化するため、一度 B-2 が成功して開いた状態のまま終了すると、次回
  * 実行時は最初から開いた状態でエディタが立ち上がり得る。「前回実行の状態が
  * 次回の実行を壊す」という、本 PR で解消してきたものと同じ種類の環境依存を
- * 生まないよう、既に開いている（"Image position" が見えている）場合は何もしない。
+ * 生まないよう、既に開いている場合は何もしない。
+ *
+ * この「既に開いているか」の判定は、`getByLabel('Image position', { exact: true })`
+ * を短い待機付きで確認する（ヘッダーボタンの出現判定と同じ形）。呼び出し側は
+ * `page.goto()` 直後、エディタの hydration を待たずにこの関数を呼ぶため、
+ * 即時判定（`isVisible()` を待機無しで評価）だと「開いているがまだ描画されて
+ * いない」状態を「閉じている」と誤判定し、直後の click で逆に閉じてしまう。
+ * `exact: true` を付けているのは、`getByLabel` が既定で大文字小文字を無視した
+ * 部分一致になり、クラシックメタボックス側のラベル `CTA image position`
+ * （`class-vk-call-to-action.php`）まで拾ってしまうため（実際には
+ * `__back_compat_meta_box` と `veu_remove_legacy_metabox_on_block_editor` の
+ * 二重の仕組みでブロックエディタには出ないが、この判定は「開いているか」という
+ * 状態判定に使われるため、誤マッチした場合の結果が「見つからず loud に落ちる」
+ * ではなく「開いていると誤認して何もせず先へ進む」に変わる。厳密化しておく）。
  *
  * 【フォールバックが不具合を隠さないか】ヘッダーボタン・Options メニュー項目の
  * どちらも `registerPlugin` + `PluginSidebar` の登録が前提のため、パネル
@@ -169,8 +182,18 @@ const VEU_SIDEBAR_NAME = 'VK All in One Expansion Unit';
  * @param page Playwright の Page.
  */
 const openVeuSidebar = async ( page: Page ): Promise<void> => {
-	// 既に開いていれば何もしない（トグルボタンを押すと閉じてしまうため）。
-	if ( await page.getByLabel( 'Image position' ).isVisible() ) {
+	// 既に開いていれば何もしない（トグルを押すと閉じてしまうため）。
+	// ページ読み込み直後はまだ描画されていないことがあるため、即時判定 ( isVisible )
+	// では「開いているのにまだ描画されていない」状態を閉じていると誤判定し、
+	// 直後の click で逆に閉じてしまう。ヘッダーボタンと同じく短い待機で確定させる。
+	const alreadyOpen = await page
+		.getByLabel( 'Image position', { exact: true } )
+		.first()
+		.waitFor( { state: 'visible', timeout: 5000 } )
+		.then( () => true )
+		.catch( () => false );
+
+	if ( alreadyOpen ) {
 		return;
 	}
 
@@ -382,7 +405,12 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			// openVeuSidebar() でフォールバックする ( 詳細はその docblock を参照 )。
 			await openVeuSidebar( page );
 
-			const positionSelect = page.getByLabel( 'Image position' );
+			// getByLabel は既定で大文字小文字を無視した部分一致になり、クラシック
+			// メタボックス側のラベル "CTA image position" まで拾ってしまうため
+			// exact: true で厳密化する ( openVeuSidebar() の判定と同じ理由 )。
+			const positionSelect = page.getByLabel( 'Image position', {
+				exact: true,
+			} );
 			await positionSelect.waitFor();
 			await positionSelect.selectOption( '' ); // "Normal" は空文字.
 
