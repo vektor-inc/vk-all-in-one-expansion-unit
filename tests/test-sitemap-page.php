@@ -87,14 +87,91 @@ class SitemapPageTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * veu_get_sitemap_public_post_types() のテスト。
+	 * veu_sitemap_exclude_post_types フィルターによる除外は反映される事、
+	 * ユーザー設定（excludePostTypes オプション）は反映されない事を検証する。
+	 *
+	 * Test for veu_get_sitemap_public_post_types().
+	 * Verifies that exclusion via the veu_sitemap_exclude_post_types filter is reflected,
+	 * while the user-configurable excludePostTypes option is intentionally NOT applied here.
+	 */
+	function test_veu_get_sitemap_public_post_types() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_veu_get_sitemap_public_post_types' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		$this->register_test_post_type( 'veu_test_cpt_a', array( 'public' => true ) );
+		$this->register_test_post_type( 'veu_test_cpt_b', array( 'public' => false ) );
+		$this->register_test_post_type( 'veu_test_cpt_c', array( 'public' => true ) );
+
+		$exclude_via_filter = static function ( $exclude_post_types ) {
+			$exclude_post_types[] = 'veu_test_cpt_c';
+			return $exclude_post_types;
+		};
+
+		$test_cases = array(
+			array(
+				'test_condition_name'       => '除外設定なしの場合 => 公開の投稿タイプのみが含まれる',
+				'apply_filter'              => false,
+				'option_exclude_post_types' => array( 'veu_test_cpt_a' => 'true' ),
+				'expected_included'         => array( 'veu_test_cpt_a', 'veu_test_cpt_c' ),
+				'expected_excluded'         => array( 'veu_test_cpt_b' ),
+			),
+			array(
+				'test_condition_name'       => 'veu_sitemap_exclude_post_types フィルターで指定した投稿タイプは除外される',
+				'apply_filter'              => true,
+				'option_exclude_post_types' => array(),
+				'expected_included'         => array( 'veu_test_cpt_a' ),
+				'expected_excluded'         => array( 'veu_test_cpt_b', 'veu_test_cpt_c' ),
+			),
+			array(
+				'test_condition_name'       => '境界値: excludePostTypes オプションで除外しても、ここでは除外されない（フィルター専用の集合のため）',
+				'apply_filter'              => false,
+				'option_exclude_post_types' => array( 'veu_test_cpt_c' => 'true' ),
+				'expected_included'         => array( 'veu_test_cpt_a', 'veu_test_cpt_c' ),
+				'expected_excluded'         => array( 'veu_test_cpt_b' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			update_option(
+				'vkExUnit_sitemap_options',
+				array( 'excludePostTypes' => $case['option_exclude_post_types'] )
+			);
+			if ( $case['apply_filter'] ) {
+				add_filter( 'veu_sitemap_exclude_post_types', $exclude_via_filter );
+			}
+
+			$actual = veu_get_sitemap_public_post_types();
+
+			foreach ( $case['expected_included'] as $post_type ) {
+				$this->assertArrayHasKey( $post_type, $actual, $case['test_condition_name'] );
+			}
+			foreach ( $case['expected_excluded'] as $post_type ) {
+				$this->assertArrayNotHasKey( $post_type, $actual, $case['test_condition_name'] );
+			}
+
+			if ( $case['apply_filter'] ) {
+				remove_filter( 'veu_sitemap_exclude_post_types', $exclude_via_filter );
+			}
+			delete_option( 'vkExUnit_sitemap_options' );
+		}
+	}
+
+	/**
 	 * veu_get_sitemap_available_taxonomies() のテスト。
-	 * show_in_menu が有効で、サイトマップに出力される投稿タイプに紐づくタクソノミーだけが
-	 * 一覧に含まれる事、投稿フォーマット等の内部タクソノミーが自動的に除外される事を検証する。
+	 * show_in_menu が有効なタクソノミーだけが一覧に含まれる事、投稿フォーマット等の内部タクソノミーが
+	 * 自動的に除外される事、そして excludePostTypes オプションでは絞り込まれない事
+	 * （安藤さんレビュー MEDIUM 指摘の回帰テスト）を検証する。
 	 *
 	 * Test for veu_get_sitemap_available_taxonomies().
-	 * Verifies that only taxonomies with show_in_menu enabled and attached to a post type
-	 * output on the sitemap are included, and that internal taxonomies such as post_format
-	 * are automatically excluded.
+	 * Verifies that only taxonomies with show_in_menu enabled are included, that internal
+	 * taxonomies such as post_format are automatically excluded, and that the list is NOT
+	 * narrowed by the excludePostTypes option ( regression test for the reviewer-reported bug
+	 * where a taxonomy checkbox silently disappeared, and its saved exclusion was then lost on
+	 * the next save, merely because an admin also excluded its post type ).
 	 */
 	function test_veu_get_sitemap_available_taxonomies() {
 
@@ -110,25 +187,40 @@ class SitemapPageTest extends WP_UnitTestCase {
 		// Attach a show_in_menu-enabled taxonomy and a disabled one to cpt_a.
 		$this->register_test_taxonomy( 'veu_test_tax_shown', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => true ) );
 		$this->register_test_taxonomy( 'veu_test_tax_hidden', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => false ) );
-		// cpt_c にだけ紐付いたタクソノミー（cpt_c を除外設定した場合に一覧から消える事を確認するため）。
-		// A taxonomy attached only to cpt_c ( to verify it disappears when cpt_c itself is excluded ).
+		// cpt_c にだけ紐付いたタクソノミー（event / event_cat の再現用）。
+		// A taxonomy attached only to cpt_c ( reproduces the reviewer's event / event_cat scenario ).
 		$this->register_test_taxonomy( 'veu_test_tax_on_c', array( 'veu_test_cpt_c' ), array( 'show_in_menu' => true ) );
+
+		$exclude_via_filter = static function ( $exclude_post_types ) {
+			$exclude_post_types[] = 'veu_test_cpt_c';
+			return $exclude_post_types;
+		};
 
 		$test_cases = array(
 			array(
 				'test_condition_name'       => '除外設定なしの場合 => show_in_menu が有効なタクソノミーだけが一覧に含まれる',
+				'apply_filter'              => false,
 				'option_exclude_post_types' => array(),
 				'expected_included'         => array( 'veu_test_tax_shown', 'veu_test_tax_on_c' ),
 				'expected_excluded'         => array( 'veu_test_tax_hidden' ),
 			),
 			array(
-				'test_condition_name'       => '投稿タイプ自体が excludePostTypes で除外されると、紐づくタクソノミーも一覧から外れる',
+				'test_condition_name'       => '回帰テスト: 投稿タイプを excludePostTypes オプションで除外しても、紐づくタクソノミーは一覧から消えない（保存済み設定を次回保存時に失わないため）',
+				'apply_filter'              => false,
 				'option_exclude_post_types' => array( 'veu_test_cpt_c' => 'true' ),
+				'expected_included'         => array( 'veu_test_tax_shown', 'veu_test_tax_on_c' ),
+				'expected_excluded'         => array( 'veu_test_tax_hidden' ),
+			),
+			array(
+				'test_condition_name'       => '投稿タイプが veu_sitemap_exclude_post_types フィルターで除外される場合は、紐づくタクソノミーも一覧から外れる',
+				'apply_filter'              => true,
+				'option_exclude_post_types' => array(),
 				'expected_included'         => array( 'veu_test_tax_shown' ),
 				'expected_excluded'         => array( 'veu_test_tax_hidden', 'veu_test_tax_on_c' ),
 			),
 			array(
 				'test_condition_name'       => '境界値: 投稿フォーマット（post_format）のような内部タクソノミーは自動的に一覧から除外される',
+				'apply_filter'              => false,
 				'option_exclude_post_types' => array(),
 				'expected_included'         => array(),
 				'expected_excluded'         => array( 'post_format' ),
@@ -140,6 +232,9 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'vkExUnit_sitemap_options',
 				array( 'excludePostTypes' => $case['option_exclude_post_types'] )
 			);
+			if ( $case['apply_filter'] ) {
+				add_filter( 'veu_sitemap_exclude_post_types', $exclude_via_filter );
+			}
 
 			$actual = veu_get_sitemap_available_taxonomies();
 
@@ -150,6 +245,9 @@ class SitemapPageTest extends WP_UnitTestCase {
 				$this->assertArrayNotHasKey( $taxonomy, $actual, $case['test_condition_name'] );
 			}
 
+			if ( $case['apply_filter'] ) {
+				remove_filter( 'veu_sitemap_exclude_post_types', $exclude_via_filter );
+			}
 			delete_option( 'vkExUnit_sitemap_options' );
 		}
 	}
@@ -183,6 +281,7 @@ class SitemapPageTest extends WP_UnitTestCase {
 			)
 		);
 		$term    = wp_insert_term( 'VEU Test Term', 'veu_test_tax_shown' );
+		$this->assertNotWPError( $term, 'テスト用タームの作成に失敗した場合、後続のアサーションが無意味になるため先に検証する。' );
 		wp_set_object_terms( $post_id, array( $term['term_id'] ), 'veu_test_tax_shown' );
 
 		$test_cases = array(
@@ -218,6 +317,138 @@ class SitemapPageTest extends WP_UnitTestCase {
 			}
 
 			delete_option( 'vkExUnit_sitemap_options' );
+		}
+	}
+
+	/**
+	 * veu_sitemap_options_validate() のテスト。
+	 * 登録済みのタクソノミー名は保存され、未登録のタクソノミー名は保存されない事
+	 * （安藤さんレビュー LOW 指摘の入力検証）を検証する。
+	 *
+	 * Test for veu_sitemap_options_validate().
+	 * Verifies that a registered taxonomy name is saved, and that an unregistered
+	 * taxonomy name is dropped ( input validation gap pointed out in the code review ).
+	 */
+	function test_veu_sitemap_options_validate() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_veu_sitemap_options_validate' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		$test_cases = array(
+			array(
+				'test_condition_name'         => '登録済みのタクソノミー名（category）は excludeTaxonomies にそのまま保存される',
+				'input'                       => array(
+					'excludePostTypes'  => array( 'post' => 'true' ),
+					'excludeTaxonomies' => array( 'category' => 'true' ),
+				),
+				'expected_exclude_post_types' => array( 'post' => 'true' ),
+				'expected_exclude_taxonomies' => array( 'category' => 'true' ),
+			),
+			array(
+				'test_condition_name'         => '未登録のタクソノミー名は excludeTaxonomies から除かれる（登録済みの分は保存される）',
+				'input'                       => array(
+					'excludeTaxonomies' => array(
+						'category'                => 'true',
+						'veu_test_not_a_taxonomy' => 'true',
+					),
+				),
+				'expected_exclude_post_types' => array(),
+				'expected_exclude_taxonomies' => array( 'category' => 'true' ),
+			),
+			array(
+				'test_condition_name'         => '境界値: excludeTaxonomies が送信されない場合は何も保存されない',
+				'input'                       => array(
+					'excludePostTypes' => array( 'post' => 'true' ),
+				),
+				'expected_exclude_post_types' => array( 'post' => 'true' ),
+				'expected_exclude_taxonomies' => array(),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_sitemap_options_validate( $case['input'] );
+
+			// 未送信のキーは $output に存在しない場合があるため、空配列として正規化してから比較する。
+			// A key that was never submitted may be entirely absent from $output, so normalize to an empty array before comparing.
+			$actual_exclude_post_types = isset( $actual['excludePostTypes'] ) ? $actual['excludePostTypes'] : array();
+			$actual_exclude_taxonomies = isset( $actual['excludeTaxonomies'] ) ? $actual['excludeTaxonomies'] : array();
+
+			$this->assertEquals( $case['expected_exclude_post_types'], $actual_exclude_post_types, $case['test_condition_name'] );
+			$this->assertEquals( $case['expected_exclude_taxonomies'], $actual_exclude_taxonomies, $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * vk_the_taxonomy_check_list() のテスト。
+	 * name 属性・checked の有無が正しく出力される事、対象タクソノミーが0件の場合に
+	 * 空の一覧ではなくフォールバック文言が出力される事（植草さんレビュー UX-2 指摘）を検証する。
+	 *
+	 * Test for vk_the_taxonomy_check_list().
+	 * Verifies the name attribute and the checked state are output correctly, and that a
+	 * fallback message is shown instead of an empty list when there are no taxonomies to
+	 * display ( UX review finding ).
+	 */
+	function test_vk_the_taxonomy_check_list() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_vk_the_taxonomy_check_list' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		$this->register_test_taxonomy( 'veu_test_tax_shown', array(), array( 'label' => 'VEU Test Tax Shown' ) );
+		$taxonomy_object = get_taxonomy( 'veu_test_tax_shown' );
+
+		$test_cases = array(
+			array(
+				'test_condition_name'   => 'チェック済みの場合 => name 属性と checked が両方出力される',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array( 'veu_test_tax_shown' => 'true' ),
+					'taxonomies' => array( 'veu_test_tax_shown' => $taxonomy_object ),
+				),
+				'expected_contains'     => array(
+					'name="vkExUnit_sitemap_options[excludeTaxonomies][veu_test_tax_shown]"',
+					'checked',
+				),
+				'expected_not_contains' => array(),
+			),
+			array(
+				'test_condition_name'   => '未チェックの場合 => name 属性は出力されるが checked は出力されない',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array(),
+					'taxonomies' => array( 'veu_test_tax_shown' => $taxonomy_object ),
+				),
+				'expected_contains'     => array(
+					'name="vkExUnit_sitemap_options[excludeTaxonomies][veu_test_tax_shown]"',
+				),
+				'expected_not_contains' => array( 'checked' ),
+			),
+			array(
+				'test_condition_name'   => '境界値: 対象タクソノミーが0件の場合、空の一覧ではなくフォールバック文言が出力される',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array(),
+					'taxonomies' => array(),
+				),
+				'expected_contains'     => array( 'No taxonomies are available to exclude.' ),
+				'expected_not_contains' => array( '<ul class="no-style">' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			ob_start();
+			vk_the_taxonomy_check_list( $case['args'] );
+			$html = ob_get_clean();
+
+			foreach ( $case['expected_contains'] as $expected ) {
+				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
+			}
+			foreach ( $case['expected_not_contains'] as $unexpected ) {
+				$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
+			}
 		}
 	}
 

@@ -25,6 +25,11 @@ function veu_sitemap_options_validate( $input ) {
 		if ( isset( $input[ $value ] ) ) {
 			if ( is_array( $input[ $value ] ) ) {
 				foreach ( $input[ $value ] as $post_typ => $post_type_boolean ) {
+					// Do not save a taxonomy key that is not registered, to keep out invalid keys and option bloat.
+					// 登録されていないタクソノミー名は保存しない（option の肥大化と不正キーの混入を防ぐ）
+					if ( 'excludeTaxonomies' === $value && ! taxonomy_exists( $post_typ ) ) {
+						continue;
+					}
 					$output[ $value ][ $post_typ ] = esc_html( $post_type_boolean );
 				}
 			} else {
