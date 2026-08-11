@@ -12,6 +12,8 @@ import { devices } from '@playwright/test';
  */
 const config: PlaywrightTestConfig = {
   testDir: './tests/e2e',
+  /* 全 spec 実行前に一度だけ、tests サイトの前提（テーマ・本プラグインの有効化）を担保する。 */
+  globalSetup: require.resolve('./tests/e2e/global-setup.ts'),
   /* Maximum time one test can run for. */
   timeout: 45 * 1000,
   expect: {
@@ -27,8 +29,17 @@ const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /*
+   * 常に 1 に固定する（CI 条件で分岐させない）。
+   * 一部の spec は「サイト全体に CTA が1件も無い」等、DB 全体のグローバルな状態を
+   * 前提にアサートしている（例: cta.spec.ts の1本目）。fullyParallel: true と
+   * 組み合わせて複数ワーカーで並列実行すると、別 spec が並行して作った投稿の
+   * 存在そのものでこの前提が崩れ、どちらの spec が落ちるかは実行順・タイミング
+   * 依存の race になる（#1439 のレビューで実機確認）。
+   * ローカルと CI で挙動を揃え、「ローカルだけ不定期に落ちる回帰テスト」を
+   * 作らないため、ローカル実行が直列で遅くなる不利益より安定を優先する。
+   */
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

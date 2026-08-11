@@ -7,5 +7,12 @@
 		"WP_DEBUG": true,
 		"SCRIPT_DEBUG": true,
 		"FS_METHOD": "direct"
+	},
+	"env": {
+		"tests": {
+			"mappings": {
+				"wp-content/mu-plugins": "./tests/e2e/mu-plugins"
+			}
+		}
 	}
 }
