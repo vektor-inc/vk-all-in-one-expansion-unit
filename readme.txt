@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.120.0
+Stable tag: 9.121.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ e.g.
 
 == Changelog ==
 
+= 9.121.0 =
 [ New Feature ][ HTML Sitemap ] Added an option to exclude specific taxonomies from the HTML sitemap, in addition to the existing post type exclusion.
 
 = 9.120.0 =
