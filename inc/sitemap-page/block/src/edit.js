@@ -7,11 +7,29 @@ export default function SiteMapEdit( props ) {
 	const { className } = attributes;
 
 	useEffect( () => {
-		const iframe = document.querySelector(
-			'.block-editor__container iframe'
-		);
-		const iframeDoc = iframe?.contentWindow?.document;
-		const targetDoc = iframeDoc || document;
+		// エディターキャンバス（記事プレビュー領域）の iframe だけを対象にする。
+		// 本文中の外部埋め込み（YouTube 等）の iframe を誤って掴まないよう、
+		// WordPress がエディターキャンバスに付与する name="editor-canvas" で絞り込む。
+		// contentWindow.document は cross-origin の iframe に対して SecurityError を
+		// 投げるため、例外を投げず null を返す contentDocument を使う。念のため
+		// try/catch でも保護し、失敗時は document にフォールバックする。
+		//
+		// Only target the editor canvas iframe (the post preview area) by
+		// scoping the selector to name="editor-canvas" (the name WordPress
+		// assigns to it), so we never grab an embedded external iframe (e.g.
+		// YouTube) in the post content. contentWindow.document throws
+		// SecurityError for cross-origin iframes, so use contentDocument,
+		// which returns null instead. Wrapped in try/catch as a safety net,
+		// falling back to document on failure.
+		let targetDoc = document;
+		try {
+			const canvas = document.querySelector(
+				'iframe[name="editor-canvas"]'
+			);
+			targetDoc = canvas?.contentDocument || document;
+		} catch ( e ) {
+			targetDoc = document;
+		}
 
 		// eslint-disable-next-line no-undef
 		const observer = new MutationObserver( () => {
