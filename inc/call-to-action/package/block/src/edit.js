@@ -9,28 +9,21 @@ export default function CTAEdit( props ) {
 	const { postId } = attributes;
 
 	useEffect( () => {
-		// エディターキャンバス（記事プレビュー領域）の iframe だけを対象にする。
-		// 本文中の外部埋め込み（YouTube 等）の iframe を誤って掴まないよう、
-		// WordPress がエディターキャンバスに付与する name="editor-canvas" で絞り込む。
-		// contentWindow.document は cross-origin の iframe に対して SecurityError を
-		// 投げるため、例外を投げず null を返す contentDocument を使う。念のため
-		// try/catch でも保護し、失敗時は document にフォールバックする。
+		// エディターキャンバスの iframe だけを対象にする。本文中の外部埋め込み
+		// （YouTube 等）を掴まないよう name="editor-canvas" で絞り、cross-origin で
+		// 例外を投げず null を返す contentDocument を使う。
 		//
-		// Only target the editor canvas iframe (the post preview area) by
-		// scoping the selector to name="editor-canvas" (the name WordPress
-		// assigns to it), so we never grab an embedded external iframe (e.g.
-		// YouTube) in the post content. contentWindow.document throws
-		// SecurityError for cross-origin iframes, so use contentDocument,
-		// which returns null instead. Wrapped in try/catch as a safety net,
-		// falling back to document on failure.
+		// Target only the editor canvas iframe. Scope the selector to
+		// name="editor-canvas" so we never grab an embedded external iframe, and use
+		// contentDocument, which returns null instead of throwing for cross-origin.
 		let targetDoc = document;
 		try {
 			const canvas = document.querySelector(
 				'iframe[name="editor-canvas"]'
 			);
 			targetDoc = canvas?.contentDocument || document;
-		} catch ( e ) {
-			targetDoc = document;
+		} catch {
+			// 想定外の例外でも画面を落とさないためのフォールバック。
 		}
 
 		// eslint-disable-next-line no-undef

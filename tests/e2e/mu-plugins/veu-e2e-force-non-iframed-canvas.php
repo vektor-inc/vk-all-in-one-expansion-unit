@@ -1,0 +1,75 @@
+<?php
+/**
+ * e2e テスト専用 mu-plugin: 投稿編集画面のエディターキャンバスを非 iframe 化する ( #1452 ).
+ *
+ * Gutenberg のブロックエディタは、編集中の投稿に存在する「すべてのブロックが
+ * apiVersion 3 以上」の場合にのみキャンバスを iframe 化する
+ * ( wp-includes/js/dist/edit-post.js の useShouldIframe を参照。ブロックが
+ * 1 つも無い新規投稿では Array.prototype.every() が空配列に対して true を返すため、
+ * 既定のまま何も挿入しなければ常に iframe 化される )。
+ *
+ * #1452 で問題になった「キャンバスが iframe 化されていない環境」を e2e で
+ * 再現するため、apiVersion 2 のダミーブロックをクライアント側にのみ登録する。
+ * このブロックを本文に 1 つ挿入するだけで上記の判定が false になり、キャンバスが
+ * 非 iframe 化される（サーバー側の register_block_type は不要。この判定は
+ * クライアント側のブロックタイプレジストリのみを見るため）。
+ *
+ * このスクリプトは e2e テストの `veu_e2e_force_non_iframed_canvas` クエリ
+ * パラメータが付いている投稿編集画面でのみ読み込まれる（パラメータが無い通常の
+ * アクセス・他の e2e スペックには一切影響しない）。
+ *
+ * e2e-only mu-plugin: registers a client-side-only dummy block ( apiVersion 2 )
+ * so that inserting it forces the editor canvas out of iframe mode ( see
+ * useShouldIframe in wp-includes/js/dist/edit-post.js — the canvas is iframed
+ * only when every block present has apiVersion >= 3 ). Only loaded when the
+ * `veu_e2e_force_non_iframed_canvas` query parameter is present.
+ *
+ * @package vk-all-in-one-expansion-unit
+ */
+
+add_action(
+	'enqueue_block_editor_assets',
+	function () {
+		// クエリパラメータが無ければ何もしない（通常の投稿編集・他の e2e スペックには影響させない）。
+		// Do nothing unless the e2e-only query parameter is present.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- e2e テスト専用の画面切替パラメータで、値自体を保存・実行に使わないため nonce 検証は不要。
+		if ( ! isset( $_GET['veu_e2e_force_non_iframed_canvas'] ) ) {
+			return;
+		}
+
+		$handle = 'veu-e2e-legacy-canvas-block';
+
+		// src を false にして「インラインスクリプトのみを乗せるハンドル」として登録する
+		// （webpack ビルド不要。wp-blocks / wp-element / wp-block-editor のグローバルのみで完結する）。
+		wp_register_script(
+			$handle,
+			false,
+			array( 'wp-blocks', 'wp-element', 'wp-block-editor' ),
+			'1.0.0',
+			true
+		);
+		wp_add_inline_script(
+			$handle,
+			"wp.blocks.registerBlockType( 'veu-e2e/legacy-canvas-block', {
+				apiVersion: 2,
+				title: 'VEU E2E Legacy Canvas Marker',
+				category: 'text',
+				edit: function () {
+					return wp.element.createElement(
+						'p',
+						wp.blockEditor.useBlockProps(),
+						'VEU E2E legacy canvas marker block'
+					);
+				},
+				save: function () {
+					return wp.element.createElement(
+						'p',
+						wp.blockEditor.useBlockProps.save(),
+						'VEU E2E legacy canvas marker block'
+					);
+				},
+			} );"
+		);
+		wp_enqueue_script( $handle );
+	}
+);

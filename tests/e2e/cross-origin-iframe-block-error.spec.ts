@@ -25,42 +25,49 @@
  *   iframe に対して例外を投げず null を返す）
  * - 念のため try/catch でも保護し、失敗時は document にフォールバックする
  *
+ * 【再現条件を作る: エディターキャンバスの非 iframe 化】
+ * Gutenberg のブロックエディタは、編集中の投稿にあるすべてのブロックが
+ * apiVersion 3 以上の場合にのみキャンバスを iframe 化する（新規投稿は既定の
+ * 空段落ブロック 1 つだけのため、何もしなければ常に iframe 化された状態になる）。
+ * このため、素の wp-env 環境では原因の欄で説明した「本文中の埋め込みを先に掴む」
+ * 状況を再現できず、テストが常に green のまま何も検出できなくなってしまう。
+ *
+ * この e2e 専用の mu-plugin ( tests/e2e/mu-plugins/veu-e2e-force-non-iframed-canvas.php )
+ * が、apiVersion 2 のダミーブロック（VEU E2E Legacy Canvas Marker）をクライアント側に
+ * 登録する。テスト冒頭でこのダミーブロックを 1 つ挿入すると上記の判定が false になり、
+ * キャンバスが非 iframe 化される。以降、本文（タイトル・ブロック一覧）は iframe の
+ * 外側、メインドキュメントへ直接描画されるため、本テストの操作はすべて通常の `page`
+ * ロケータで行う（editorFrame のような frameLocator は使わない）。
+ *
  * 【このテストの内容】
- * 本文にクロスオリジンを指す <iframe>（外部通信を避けるため実際の YouTube 等では
- * なく、Custom HTML ブロックで任意の外部オリジンを指す iframe を使う）がある状態で、
+ * 上記の方法で非 iframe 化したキャンバスの本文に、クロスオリジンを指す <iframe>
+ * （127.0.0.1 のポート 9 = discard サービス宛て。実サイトへの外部通信を避けつつ、
+ * src が自オリジンと異なる時点でブラウザは cross-origin frame として扱うため、
+ * 接続が成立しなくても再現条件は満たす）を含む Custom HTML ブロックを挿入したうえで、
  * 影響対象の 6 ブロックすべてを挿入し、
  * 1. 「このブロックでエラーが発生したためプレビューできません」相当の
  *    エラー境界表示が出ないこと
  * 2. ブラウザのコンソールに SecurityError が出ないこと
  * を確認する。
- *
- * 【再現条件についての注意】
- * このテストが検証する再現条件（プレビュー領域が iframe 化されない環境で、かつ
- * `.block-editor__container iframe` が本文中の埋め込みを先に掴む）は、
- * WordPress のバージョンやテーマ・実行環境によって成立しない場合がある
- * （wp-env の標準構成ではエディターキャンバスが常に iframe 化されており、
- * その場合ドキュメントレベルの querySelector は本文中の埋め込み iframe に
- * 到達できないため、修正前でも red にならない可能性がある）。
- * 修正前後の実際の green / red 確認は、実行環境で麗美（vk-ui-tester）が行う。
- *
- * WordPress 6.x のブロックエディタは編集領域が `editor-canvas` iframe 内に
- * 描画されるため、本文の操作はすべて `editorFrame(page)` 経由で行う。
  */
-import { test, expect, type Page, type FrameLocator } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import { login } from './utils/auth';
 import { runWpCli } from './utils/wp-cli';
-
-// Block Editor 本文の iframe (editor-canvas) ロケータ。
-const editorFrame = ( page: Page ): FrameLocator =>
-	page.frameLocator( '[name="editor-canvas"]' );
 
 // このスペックが作成するテスト用投稿のタイトル。
 const TEST_POST_TITLE = 'Cross-origin iframe block error test (#1452)';
 
+// エディターキャンバスの非 iframe 化を強制する e2e 専用クエリパラメータ
+// （tests/e2e/mu-plugins/veu-e2e-force-non-iframed-canvas.php 参照）。
+const FORCE_NON_IFRAMED_CANVAS_PARAM = 'veu_e2e_force_non_iframed_canvas';
+
+// 上記 mu-plugin が登録するダミーブロック（apiVersion 2）のタイトル。
+const LEGACY_CANVAS_MARKER_BLOCK_TITLE = 'VEU E2E Legacy Canvas Marker';
+
 // issue #1452 で影響を受けた 6 ブロック。
 // title は各ブロックの block.json の "title"（Block Inserter の検索・選択に使う）、
 // blockClass はブロックの edit.js が useBlockProps に渡しているクラス名
-// （挿入後、エディターキャンバス内にブロックが描画されたことを確認するために使う）。
+// （挿入後、キャンバス内にブロックが描画されたことを確認するために使う）。
 const TARGET_BLOCKS: ReadonlyArray< { title: string; blockClass: string } > = [
 	{ title: 'Share button', blockClass: '.veu_share_button_block' },
 	{ title: 'HTML Sitemap', blockClass: '.veu_sitemap_block' },
@@ -115,15 +122,18 @@ const closeWelcomeModalIfPresent = async ( page: Page ): Promise< void > => {
 	}
 };
 
-// Block Editor の編集領域 (iframe) が初期化されるまで待つ。
+// Block Editor が操作可能になるまで待つ。ロード直後はキャンバスが iframe 化されて
+// いる場合とそうでない場合の両方があり得るため、キャンバスの外側（メインドキュメント）
+// に常に存在する Block Inserter ボタンの表示を待機の基準にする。
 const waitForBlockEditorReady = async ( page: Page ): Promise< void > => {
-	await editorFrame( page )
-		.locator( '[contenteditable="true"]' )
-		.first()
+	await page
+		.getByRole( 'button', { name: 'Block Inserter' } )
 		.waitFor( { timeout: 15000 } );
 };
 
 // Block Inserter からタイトル完全一致でブロックを挿入する。
+// Block Inserter パネルはキャンバスの外側（メインドキュメント）に表示されるため、
+// キャンバスが iframe 化されているかどうかに関わらずこのヘルパーは共通で使える。
 // WP 6.x の Block Inserter は docked サイドバー型で、検索結果に
 // "Blocks" listbox と "Block patterns" listbox の両方が現れるため、
 // "Blocks" listbox 内に絞り、完全一致でタイトルを選択する。
@@ -146,23 +156,33 @@ const insertBlockByTitle = async (
 	}
 };
 
+// ダミーブロックを挿入してキャンバスの非 iframe 化を待つ（#1452 の再現条件）。
+const forceNonIframedCanvas = async ( page: Page ): Promise< void > => {
+	await insertBlockByTitle( page, LEGACY_CANVAS_MARKER_BLOCK_TITLE );
+
+	// 挿入直後は React の再描画が完了するまで一瞬 iframe が残るため、
+	// editor-canvas iframe が実際に無くなるまで待ってから先へ進む。
+	await expect( page.locator( 'iframe[name="editor-canvas"]' ) ).toHaveCount(
+		0
+	);
+};
+
 // 本文に「クロスオリジン（別ドメイン）を指す iframe」を含む Custom HTML ブロックを
-// 挿入する。実サイトの埋め込み（YouTube 等）への外部通信を避けるため、実在の外部
-// オリジンを指すだけの <iframe> を使う（ブラウザは埋め込み先への到達可否に関わらず、
-// iframe の src が自オリジンと異なる時点で cross-origin frame として扱うため、
-// 実際に読み込めなくても本不具合の再現条件は満たす）。
+// 挿入する。実サイトの埋め込み（YouTube 等）への外部通信を避けるため、到達不可能な
+// ローカルの discard ポート（127.0.0.1:9）を指すだけの <iframe> を使う（ブラウザは
+// 接続の成否に関わらず、src が自オリジンと異なる時点で cross-origin frame として
+// 扱うため、実際に読み込めなくても本不具合の再現条件は満たす。127.0.0.1 宛てのため
+// DNS 解決も外部への実通信も発生しない）。
 const insertCrossOriginIframeHtmlBlock = async (
 	page: Page
 ): Promise< void > => {
 	await insertBlockByTitle( page, 'Custom HTML' );
 
 	// Custom HTML ブロックの入力欄（PlainText。aria-label="HTML"）にタグを書き込む。
-	const htmlTextbox = editorFrame( page ).getByRole( 'textbox', {
-		name: 'HTML',
-	} );
+	const htmlTextbox = page.getByRole( 'textbox', { name: 'HTML' } );
 	await htmlTextbox.click();
 	await htmlTextbox.fill(
-		'<iframe src="https://example.com/embed" width="300" height="150" title="cross-origin embed"></iframe>'
+		'<iframe src="http://127.0.0.1:9/" width="300" height="150" title="cross-origin embed"></iframe>'
 	);
 };
 
@@ -200,12 +220,20 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 			consoleErrors.push( err.message );
 		} );
 
-		// --- 新規投稿を作成し、本文にクロスオリジン iframe を追加 ---
-		await page.goto( '/wp-admin/post-new.php' );
+		// --- 新規投稿を作成（キャンバス非 iframe 化用のクエリパラメータ付き） ---
+		await page.goto(
+			`/wp-admin/post-new.php?${ FORCE_NON_IFRAMED_CANVAS_PARAM }=1`
+		);
 		await closeWelcomeModalIfPresent( page );
 		await waitForBlockEditorReady( page );
 
-		const postTitle = editorFrame( page ).getByLabel( 'Add title' );
+		// --- ダミーブロックでキャンバスを非 iframe 化（#1452 の再現条件） ---
+		await forceNonIframedCanvas( page );
+
+		// --- タイトル入力・本文にクロスオリジン iframe を追加 ---
+		// キャンバスは既に非 iframe 化されているため、以降はメインドキュメントへ
+		// 直接描画された要素を通常の page ロケータで操作する。
+		const postTitle = page.getByLabel( 'Add title' );
 		await postTitle.click();
 		await postTitle.fill( TEST_POST_TITLE );
 
@@ -215,8 +243,8 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 		for ( const { title, blockClass } of TARGET_BLOCKS ) {
 			await insertBlockByTitle( page, title );
 
-			// エディターキャンバス内に挿入したブロックが描画されるまで待つ。
-			await editorFrame( page )
+			// キャンバス内に挿入したブロックが描画されるまで待つ。
+			await page
 				.locator( blockClass )
 				.first()
 				.waitFor( { timeout: 15000 } );
@@ -224,7 +252,7 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 			// 「このブロックでエラーが発生したためプレビューできません」相当の
 			// エラー境界表示が出ていないこと。
 			await expect(
-				editorFrame( page ).getByText(
+				page.getByText(
 					'This block has encountered an error and cannot be previewed.'
 				)
 			).toHaveCount( 0 );
