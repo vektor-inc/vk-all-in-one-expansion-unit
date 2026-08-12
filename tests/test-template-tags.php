@@ -804,4 +804,94 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		$this->assertTrue( $taxonomy->hierarchical );
 		$this->assertTrue( $taxonomy->show_in_rest );
 	}
+
+	/**
+	 * Regression test for the include guard in inc/template-tags/template-tags-config.php.
+	 * template-tags-config.php の読み込みガードに関する回帰テスト。
+	 *
+	 * 背景・経緯の詳細は読み込み元である template-tags-config.php 側の docblock を正とする。
+	 * The background and rationale are documented in the docblock of
+	 * template-tags-config.php, which is the source of truth.
+	 *
+	 * @see inc/template-tags/template-tags-config.php
+	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1450
+	 */
+	public function test_template_tags_config_include_guard() {
+
+		// exec() が disable_functions 等で無効な実行環境（phpdbg 経由の実行を含む）では
+		// このテストの前提が成立しないため、失敗ではなくスキップとして扱う。
+		// On environments where exec() is disabled (e.g. via disable_functions, or when
+		// running under phpdbg), the premise of this test cannot hold, so skip rather than fail.
+		if ( ! function_exists( 'exec' ) ) {
+			$this->markTestSkipped( 'exec() が無効なためスキップ' );
+		}
+
+		$config_path = VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '何も事前定義されていない通常の読み込み => vk_the_taxonomy_check_list() が定義される（正常系）',
+				'prelude'             => '',
+			),
+			array(
+				'test_condition_name' => 'ExUnit 自身の関数が既に全て定義済みの二重読み込み => 再宣言エラーにならず vk_the_taxonomy_check_list() が定義されたまま（正常系）',
+				// var_export() はデバッグ出力ではなく、生成する一時 PHP スクリプト内に埋め込むための
+				// リテラルなファイルパス文字列を組み立てるために使用している。
+				// var_export() here is not debug output; it builds a literal file path string to
+				// embed inside the generated temporary PHP script.
+				'prelude'             => 'require ' . var_export( VEU_DIRECTORY_PATH . '/inc/template-tags/package/template-tags.php', true ) . ';', // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+			),
+			array(
+				'test_condition_name' => '他プラグイン同梱の共有パッケージの古いコピー相当（vk_get_post_type() のみ先に定義）が読み込まれた場合 => vk_the_taxonomy_check_list() が定義される（Issue #1450 の境界値）',
+				'prelude'             => 'function vk_get_post_type() { return array( "slug" => "stub" ); }',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 各ケースを独立した PHP プロセスで実行し、テストプロセス側で既に定義済みの
+			// 関数群の影響を受けずに「まだ何も読み込まれていない状態」を再現する。
+			// Run each case in an isolated PHP process so it is unaffected by functions
+			// already defined in the test process, reproducing a "nothing loaded yet" state.
+			//
+			// このブロックはテスト実行用の一時 PHP スクリプトをローカルファイルシステムに
+			// 書き出して CLI 実行するためのもので、WordPress のリクエスト処理経路では
+			// 使われないため、WP_Filesystem や wp_delete_file() 等の代替を必須にする
+			// WordPress 標準の直接ファイル操作／システムコール制限を意図的に無視する。
+			// This block writes a temporary PHP script to the local filesystem and runs it
+			// via CLI purely for test isolation; it is never reached through a WordPress
+			// request, so the WordPress-standard restriction against direct file operations
+			// and system calls (which exists to protect production request handling) is
+			// intentionally bypassed here.
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents, WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec, WordPress.WP.AlternativeFunctions.unlink_unlink
+
+			// 子プロセス側は "[RESULT:YES]" / "[RESULT:NO]" のマーカー付きで結果を出力する。
+			// 警告・Deprecated 等が標準エラーに1行でも混ざると完全一致比較は容易に壊れるため、
+			// 親側は完全一致ではなくこのマーカーの包含判定で結果を見る。
+			// The child process emits its result wrapped in a "[RESULT:YES]" / "[RESULT:NO]"
+			// marker. Since even a single warning/deprecated notice on stderr would break an
+			// exact-match comparison, the parent checks for this marker's presence instead.
+			$script  = '<?php' . PHP_EOL;
+			$script .= $case['prelude'] . PHP_EOL;
+			$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
+			$script .= 'echo "[RESULT:" . ( function_exists( "vk_the_taxonomy_check_list" ) ? "YES" : "NO" ) . "]";' . PHP_EOL;
+
+			$script_path = tempnam( sys_get_temp_dir(), 'veu-template-tags-config-' );
+			$this->assertNotFalse( $script_path, $case['test_condition_name'] . ' / tempnam() が一時ファイルパスの発行に失敗しました' );
+
+			$write_result = file_put_contents( $script_path, $script );
+			$this->assertNotFalse( $write_result, $case['test_condition_name'] . ' / file_put_contents() が一時スクリプトの書き込みに失敗しました' );
+
+			try {
+				$output    = array();
+				$exit_code = 0;
+				exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+
+				$this->assertSame( 0, $exit_code, $case['test_condition_name'] . ' / stderr: ' . implode( PHP_EOL, $output ) );
+				$this->assertStringContainsString( '[RESULT:YES]', implode( PHP_EOL, $output ), $case['test_condition_name'] );
+			} finally {
+				unlink( $script_path );
+			}
+			// phpcs:enable
+		}
+	}
 }
