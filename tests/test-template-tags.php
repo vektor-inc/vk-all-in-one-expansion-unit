@@ -804,4 +804,92 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		$this->assertTrue( $taxonomy->hierarchical );
 		$this->assertTrue( $taxonomy->show_in_rest );
 	}
+
+	/**
+	 * Regression test for the include guard in inc/template-tags/template-tags-config.php.
+	 * template-tags-config.php の読み込みガードに関する回帰テスト。
+	 *
+	 * VK Post Author Display 等、同じ共有パッケージ（package/template-tags.php）の
+	 * 古いコピーを同梱する他プラグインが ExUnit より先に読み込まれると、
+	 * vk_get_post_type() が既に定義済みになる。かつてはそれをファイル単位のガード
+	 * （`if ( ! function_exists( 'vk_get_post_type' ) )`）に使っていたため、
+	 * package/template-tags.php 自体が丸ごと読み込まれず、他プラグインの古いコピーに
+	 * 存在しない新しい関数（vk_the_taxonomy_check_list() 等）が未定義のまま
+	 * 致命的エラーになっていた（Issue #1450）。
+	 *
+	 * このテストは、テストプロセス内では ExUnit の全関数が既に定義済みで
+	 * 「まだ何も読み込まれていない状態」を作れないため、事前に関数定義を注入した
+	 * 独立した PHP プロセスで template-tags-config.php を読み込ませて検証する。
+	 *
+	 * When another plugin (e.g. VK Post Author Display) bundling an older copy of the same
+	 * shared package (package/template-tags.php) loads before ExUnit, vk_get_post_type()
+	 * becomes already defined. The old file-level guard
+	 * (`if ( ! function_exists( 'vk_get_post_type' ) )`) then skipped loading ExUnit's own
+	 * package/template-tags.php entirely, leaving newer functions absent from the other
+	 * plugin's older copy (e.g. vk_the_taxonomy_check_list()) undefined and causing a fatal
+	 * error (Issue #1450).
+	 *
+	 * Because every function in ExUnit is already defined inside the test process, there is
+	 * no way to reproduce a "nothing loaded yet" state there. This test instead loads
+	 * template-tags-config.php in an isolated PHP process with pre-defined stub functions,
+	 * to reproduce the third-party load order.
+	 */
+	public function test_template_tags_config_include_guard() {
+
+		$config_path = VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '何も事前定義されていない通常の読み込み => vk_the_taxonomy_check_list() が定義される（正常系）',
+				'prelude'             => '',
+			),
+			array(
+				'test_condition_name' => 'ExUnit 自身の関数が既に全て定義済みの二重読み込み => 再宣言エラーにならず vk_the_taxonomy_check_list() が定義されたまま（正常系）',
+				// var_export() はデバッグ出力ではなく、生成する一時 PHP スクリプト内に埋め込むための
+				// リテラルなファイルパス文字列を組み立てるために使用している。
+				// var_export() here is not debug output; it builds a literal file path string to
+				// embed inside the generated temporary PHP script.
+				'prelude'             => 'require ' . var_export( VEU_DIRECTORY_PATH . '/inc/template-tags/package/template-tags.php', true ) . ';', // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+			),
+			array(
+				'test_condition_name' => '他プラグイン同梱の共有パッケージの古いコピー相当（vk_get_post_type() のみ先に定義）が読み込まれた場合 => vk_the_taxonomy_check_list() が定義される（Issue #1450 の境界値）',
+				'prelude'             => 'function vk_get_post_type() { return array( "slug" => "stub" ); }',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 各ケースを独立した PHP プロセスで実行し、テストプロセス側で既に定義済みの
+			// 関数群の影響を受けずに「まだ何も読み込まれていない状態」を再現する。
+			// Run each case in an isolated PHP process so it is unaffected by functions
+			// already defined in the test process, reproducing a "nothing loaded yet" state.
+			//
+			// このブロックはテスト実行用の一時 PHP スクリプトをローカルファイルシステムに
+			// 書き出して CLI 実行するためのもので、WordPress のリクエスト処理経路では
+			// 使われないため、WP_Filesystem や wp_delete_file() 等の代替を必須にする
+			// WordPress 標準の直接ファイル操作／システムコール制限を意図的に無視する。
+			// This block writes a temporary PHP script to the local filesystem and runs it
+			// via CLI purely for test isolation; it is never reached through a WordPress
+			// request, so the WordPress-standard restriction against direct file operations
+			// and system calls (which exists to protect production request handling) is
+			// intentionally bypassed here.
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents, WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec, WordPress.WP.AlternativeFunctions.unlink_unlink
+			$script  = '<?php' . PHP_EOL;
+			$script .= $case['prelude'] . PHP_EOL;
+			$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
+			$script .= 'echo function_exists( "vk_the_taxonomy_check_list" ) ? "YES" : "NO";' . PHP_EOL;
+
+			$script_path = tempnam( sys_get_temp_dir(), 'veu-template-tags-config-' );
+			file_put_contents( $script_path, $script );
+
+			$output    = array();
+			$exit_code = 0;
+			exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+
+			unlink( $script_path );
+			// phpcs:enable
+
+			$this->assertSame( 0, $exit_code, $case['test_condition_name'] . ' / stderr: ' . implode( PHP_EOL, $output ) );
+			$this->assertSame( 'YES', implode( '', $output ), $case['test_condition_name'] );
+		}
+	}
 }
