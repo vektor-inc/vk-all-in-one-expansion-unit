@@ -234,7 +234,7 @@ e.g.
 [ Specification Change ][ CTA ] Fix edit button color.
 [ Specification Change ][ body class ] The body tag of the post page now has classes that include the category, tag, and taxonomy slugs.
 
-The changelog history prior to version 9.110.0 has been moved to the bundled changelog.txt file to keep this readme within WordPress.org's changelog length limit. You can also view it on GitHub: https://github.com/vektor-inc/vk-all-in-one-expansion-unit/blob/master/changelog.txt
+Note: The changelog history prior to version 9.110.0 has been moved to the bundled changelog.txt file to keep this readme within WordPress.org's changelog length limit. You can also view it on GitHub: https://github.com/vektor-inc/vk-all-in-one-expansion-unit/blob/master/changelog.txt
 
 == Upgrade Notice ==
 

@@ -1,9 +1,9 @@
 Changelog Archive - VK All in One Expansion Unit
-=================================================
+================================================
 
-This file is an archive of the changelog entries prior to version 9.109.0
-(inclusive). It was split out of readme.txt to keep the "Changelog" section
-there within WordPress.org's 5,000-word limit.
+This file is an archive of the changelog entries prior to version 9.110.0.
+It was split out of readme.txt to keep the "Changelog" section there within
+WordPress.org's 5,000-word limit.
 
 For the changelog of recent versions, see the "Changelog" section in
 readme.txt (or the plugin page on WordPress.org).
