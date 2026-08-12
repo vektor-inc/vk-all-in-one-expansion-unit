@@ -81,7 +81,7 @@ e.g.
 
 == Changelog ==
 
-* [ Bug Fix ][ HTML Sitemap ] Fixed a fatal error on the HTML Sitemap settings screen when used together with plugins that bundle an older copy of the shared template tag package (e.g. VK Post Author Display).
+[ Bug Fix ][ HTML Sitemap ] Fixed a fatal error on the HTML Sitemap settings screen when used together with plugins that bundle an older copy of the shared template tag package (e.g. VK Post Author Display).
 
 = 9.121.0 =
 [ New Feature ][ HTML Sitemap ] Added an option to exclude specific taxonomies from the HTML sitemap, in addition to the existing post type exclusion.

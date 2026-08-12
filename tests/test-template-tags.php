@@ -809,32 +809,22 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	 * Regression test for the include guard in inc/template-tags/template-tags-config.php.
 	 * template-tags-config.php の読み込みガードに関する回帰テスト。
 	 *
-	 * VK Post Author Display 等、同じ共有パッケージ（package/template-tags.php）の
-	 * 古いコピーを同梱する他プラグインが ExUnit より先に読み込まれると、
-	 * vk_get_post_type() が既に定義済みになる。かつてはそれをファイル単位のガード
-	 * （`if ( ! function_exists( 'vk_get_post_type' ) )`）に使っていたため、
-	 * package/template-tags.php 自体が丸ごと読み込まれず、他プラグインの古いコピーに
-	 * 存在しない新しい関数（vk_the_taxonomy_check_list() 等）が未定義のまま
-	 * 致命的エラーになっていた（Issue #1450）。
+	 * 背景・経緯の詳細は読み込み元である template-tags-config.php 側の docblock を正とする。
+	 * The background and rationale are documented in the docblock of
+	 * template-tags-config.php, which is the source of truth.
 	 *
-	 * このテストは、テストプロセス内では ExUnit の全関数が既に定義済みで
-	 * 「まだ何も読み込まれていない状態」を作れないため、事前に関数定義を注入した
-	 * 独立した PHP プロセスで template-tags-config.php を読み込ませて検証する。
-	 *
-	 * When another plugin (e.g. VK Post Author Display) bundling an older copy of the same
-	 * shared package (package/template-tags.php) loads before ExUnit, vk_get_post_type()
-	 * becomes already defined. The old file-level guard
-	 * (`if ( ! function_exists( 'vk_get_post_type' ) )`) then skipped loading ExUnit's own
-	 * package/template-tags.php entirely, leaving newer functions absent from the other
-	 * plugin's older copy (e.g. vk_the_taxonomy_check_list()) undefined and causing a fatal
-	 * error (Issue #1450).
-	 *
-	 * Because every function in ExUnit is already defined inside the test process, there is
-	 * no way to reproduce a "nothing loaded yet" state there. This test instead loads
-	 * template-tags-config.php in an isolated PHP process with pre-defined stub functions,
-	 * to reproduce the third-party load order.
+	 * @see inc/template-tags/template-tags-config.php
+	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1450
 	 */
 	public function test_template_tags_config_include_guard() {
+
+		// exec() が disable_functions 等で無効な実行環境（phpdbg 経由の実行を含む）では
+		// このテストの前提が成立しないため、失敗ではなくスキップとして扱う。
+		// On environments where exec() is disabled (e.g. via disable_functions, or when
+		// running under phpdbg), the premise of this test cannot hold, so skip rather than fail.
+		if ( ! function_exists( 'exec' ) ) {
+			$this->markTestSkipped( 'exec() が無効なためスキップ' );
+		}
 
 		$config_path = VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 
@@ -873,23 +863,35 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			// and system calls (which exists to protect production request handling) is
 			// intentionally bypassed here.
 			// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents, WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec, WordPress.WP.AlternativeFunctions.unlink_unlink
+
+			// 子プロセス側は "[RESULT:YES]" / "[RESULT:NO]" のマーカー付きで結果を出力する。
+			// 警告・Deprecated 等が標準エラーに1行でも混ざると完全一致比較は容易に壊れるため、
+			// 親側は完全一致ではなくこのマーカーの包含判定で結果を見る。
+			// The child process emits its result wrapped in a "[RESULT:YES]" / "[RESULT:NO]"
+			// marker. Since even a single warning/deprecated notice on stderr would break an
+			// exact-match comparison, the parent checks for this marker's presence instead.
 			$script  = '<?php' . PHP_EOL;
 			$script .= $case['prelude'] . PHP_EOL;
 			$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
-			$script .= 'echo function_exists( "vk_the_taxonomy_check_list" ) ? "YES" : "NO";' . PHP_EOL;
+			$script .= 'echo "[RESULT:" . ( function_exists( "vk_the_taxonomy_check_list" ) ? "YES" : "NO" ) . "]";' . PHP_EOL;
 
 			$script_path = tempnam( sys_get_temp_dir(), 'veu-template-tags-config-' );
-			file_put_contents( $script_path, $script );
+			$this->assertNotFalse( $script_path, $case['test_condition_name'] . ' / tempnam() が一時ファイルパスの発行に失敗しました' );
 
-			$output    = array();
-			$exit_code = 0;
-			exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+			$write_result = file_put_contents( $script_path, $script );
+			$this->assertNotFalse( $write_result, $case['test_condition_name'] . ' / file_put_contents() が一時スクリプトの書き込みに失敗しました' );
 
-			unlink( $script_path );
+			try {
+				$output    = array();
+				$exit_code = 0;
+				exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+
+				$this->assertSame( 0, $exit_code, $case['test_condition_name'] . ' / stderr: ' . implode( PHP_EOL, $output ) );
+				$this->assertStringContainsString( '[RESULT:YES]', implode( PHP_EOL, $output ), $case['test_condition_name'] );
+			} finally {
+				unlink( $script_path );
+			}
 			// phpcs:enable
-
-			$this->assertSame( 0, $exit_code, $case['test_condition_name'] . ' / stderr: ' . implode( PHP_EOL, $output ) );
-			$this->assertSame( 'YES', implode( '', $output ), $case['test_condition_name'] );
 		}
 	}
 }

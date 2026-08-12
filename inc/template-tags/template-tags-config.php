@@ -18,10 +18,10 @@
  * package/template-tags.php 内の全関数は個別に function_exists() ガードされているため、常に
  * require_once しても関数の再宣言エラーは起きない。よってファイル単位のガードは外し、常に読み込む。
  *
- * @package Vk_All_In_One_Expansion_Unit
+ * @package VK All in One Expansion Unit
  * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1450
  */
 
-require_once 'package/template-tags.php';
-require_once 'package/template-tags-veu.php';
-require_once 'package/template-tags-veu-old.php';
+require_once __DIR__ . '/package/template-tags.php';
+require_once __DIR__ . '/package/template-tags-veu.php';
+require_once __DIR__ . '/package/template-tags-veu-old.php';
