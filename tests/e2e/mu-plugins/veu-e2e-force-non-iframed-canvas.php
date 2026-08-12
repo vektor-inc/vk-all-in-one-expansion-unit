@@ -10,9 +10,12 @@
  *
  * #1452 で問題になった「キャンバスが iframe 化されていない環境」を e2e で
  * 再現するため、apiVersion 2 のダミーブロックをクライアント側にのみ登録する。
- * このブロックを本文に 1 つ挿入するだけで上記の判定が false になり、キャンバスが
+ * このブロックが本文に 1 つあるだけで上記の判定が false になり、キャンバスが
  * 非 iframe 化される（サーバー側の register_block_type は不要。この判定は
- * クライアント側のブロックタイプレジストリのみを見るため）。
+ * クライアント側のブロックタイプレジストリのみを見るため）。save() は null
+ * （動的ブロック扱い。他の対象ブロックと同じ ServerSideRender 系のパターン）
+ * にしているため、投稿本文に自己終了タグ `<!-- wp:veu-e2e/legacy-canvas-block /-->`
+ * を直接書き込むだけで済み、ブロックの内容検証（invalid block）の対象にもならない。
  *
  * このスクリプトは e2e テストの `veu_e2e_force_non_iframed_canvas` クエリ
  * パラメータが付いている投稿編集画面でのみ読み込まれる（パラメータが無い通常の
@@ -61,12 +64,10 @@ add_action(
 						'VEU E2E legacy canvas marker block'
 					);
 				},
+				// 動的ブロック扱い（save 無し）。本文には自己終了タグ
+				// `<!-- wp:veu-e2e/legacy-canvas-block /-->` を直接書き込む。
 				save: function () {
-					return wp.element.createElement(
-						'p',
-						wp.blockEditor.useBlockProps.save(),
-						'VEU E2E legacy canvas marker block'
-					);
+					return null;
 				},
 			} );"
 		);
