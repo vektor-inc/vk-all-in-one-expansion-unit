@@ -182,27 +182,26 @@ function veu_is_sns_btns_display( $context = 'auto' ) {
  *    は投稿を編集する一般的な権限。WP_REST_Block_Renderer_Controller が edit コンテキストの
  *    ブロック描画を許可する考え方に合わせている）
  *
- * @param bool|null $is_rest_request Optional. Overrides the REST_REQUEST check for testability.
- *                   Leave null in production code — it is auto-detected from the REST_REQUEST
- *                   constant. PHP constants cannot be undefined once set, so a test that needs to
- *                   simulate a REST request passes true/false here instead of calling
- *                   `define( 'REST_REQUEST', true )`, which would otherwise leak into every test
- *                   that runs afterward in the same PHPUnit process.
- *                   テスト容易性のための REST_REQUEST チェックの上書き（省略可）。本番コードでは
- *                   null のままにし、REST_REQUEST 定数から自動判定させる。PHP の定数は一度
- *                   定義すると undefine できないため、REST リクエストを再現したいテストは
- *                   `define( 'REST_REQUEST', true )` を呼ぶ代わりにこの引数を使う
- *                   （さもないと、同じ PHPUnit プロセス内で後に実行される全テストへ影響してしまう）.
+ * Uses wp_is_rest_endpoint() ( WP 6.5+, matching this plugin's minimum supported version ) rather
+ * than checking the REST_REQUEST constant directly. This is both more correct and more testable:
+ * REST_REQUEST is only defined for a request dispatched directly as a REST request, while
+ * wp_is_rest_endpoint() also covers internal dispatches such as rest_preload_api_request() ( it
+ * checks $wp_rest_server->is_dispatching() too ), and — since it runs its result through the
+ * `wp_is_rest_endpoint` filter — tests can toggle it with a filter instead of defining a PHP
+ * constant that can never be undefined again for the rest of the process.
+ * REST_REQUEST 定数を直接見るのではなく wp_is_rest_endpoint()（WP 6.5+。このプラグインの
+ * 対応最低バージョンと一致）を使う。より正確かつテストしやすい。REST_REQUEST は単独の REST
+ * リクエストとしてディスパッチされた場合にしか定義されないが、wp_is_rest_endpoint() は
+ * rest_preload_api_request() のような内部ディスパッチも拾う（$wp_rest_server->is_dispatching()
+ * も見ているため）。加えて、結果を `wp_is_rest_endpoint` フィルターに通すため、テストは
+ * 二度と undefine できない PHP 定数を定義する代わりに、フィルターで切り替えられる。
+ *
  * @return bool
  */
-function veu_is_block_editor_preview( $is_rest_request = null ) {
-	if ( null === $is_rest_request ) {
-		$is_rest_request = defined( 'REST_REQUEST' ) && REST_REQUEST;
-	}
-
+function veu_is_block_editor_preview() {
 	// ServerSideRender は REST API 経由でしか来ないため、REST リクエストでなければ即座に false.
 	// ServerSideRender only ever arrives via the REST API, so bail out immediately for non-REST requests.
-	if ( ! $is_rest_request ) {
+	if ( ! wp_is_rest_endpoint() ) {
 		return false;
 	}
 
@@ -249,18 +248,20 @@ function veu_sns_btns_editor_notice( $reason ) {
 	// The subject is "the share button block", not this post type as a whole.
 	if ( 'post_type' === $reason ) {
 		$settings_url = esc_url( admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' ) );
-		$link_label   = esc_html__( 'Open the SNS settings', 'vk-all-in-one-expansion-unit' );
-		// 新規タブで開く事を aria-label で伝える（.screen-reader-text 等の CSS には依存しない。
-		// このプラグインの編集画面 CSS はテーマ／WP コアの CSS を前提にできないため）.
-		// Convey that the link opens in a new tab via aria-label ( not via CSS such as
-		// .screen-reader-text, since this plugin's editor-canvas CSS cannot assume the theme or
-		// WP core stylesheet is loaded there ).
-		$new_tab_note = esc_html__( 'Opens in a new tab.', 'vk-all-in-one-expansion-unit' );
-		$aria_label   = esc_attr( $link_label . ' ' . $new_tab_note );
+
+		// 未エスケープの原文を保持し、用途（aria-label は esc_attr、リンクテキストは esc_html）ごとに
+		// 1回だけエスケープする。esc_html__() の戻り値を esc_attr() へ二重に通すと、アポストロフィや
+		// & を含む翻訳文字列で実体参照が二重化しうるため.
+		// Keep the raw, unescaped strings and escape once per usage ( esc_attr for the aria-label,
+		// esc_html for the link text ). Passing esc_html__()'s already-escaped return value through
+		// esc_attr() again could double-escape entities in a translation containing an apostrophe or &.
+		$link_label   = __( 'Open the SNS settings', 'vk-all-in-one-expansion-unit' );
+		$new_tab_note = __( 'Opens in a new tab.', 'vk-all-in-one-expansion-unit' );
+
 		return '<div class="veu_share_button_block-notice"><p>'
 			. esc_html__( 'The share button block will not appear on the front end for this post type because of the "Exclude Post Types" setting.', 'vk-all-in-one-expansion-unit' )
-			. '</p><p><a href="' . $settings_url . '" target="_blank" rel="noopener noreferrer" aria-label="' . $aria_label . '">'
-			. $link_label
+			. '</p><p><a href="' . $settings_url . '" target="_blank" rel="noopener noreferrer" aria-label="' . esc_attr( $link_label . ' ' . $new_tab_note ) . '">'
+			. esc_html( $link_label )
 			. '</a></p></div>';
 	}
 

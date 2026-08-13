@@ -617,32 +617,32 @@ class SnsBtnsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Issue #1453: シェアボタンブロックが非表示と判定された場合の、公開画面（editor preview で
-	 * ない、または REST リクエストでない）では通知ではなく空文字が返る事をテストする。
+	 * Issue #1453: シェアボタンブロックが非表示と判定された場合の、公開画面（editor preview でない、
+	 * または REST リクエストでない）では通知ではなく空文字が返り、編集画面プレビュー（REST リクエスト
+	 * ＋ context=edit ＋ 編集権限あり）では実際に通知が返る事をテストする。
 	 * 修正前は "context=edit" バイパスにより編集画面で実際のボタンが描画されてしまい、
 	 * 公開画面との食い違いが編集者に伝わらなかった ( この不具合の再現テスト = red ).
-	 * ここでは REST_REQUEST 定数を実際に define() しない（PHP の定数は undefine できず、
-	 * 同じ PHPUnit プロセス内で後に実行される無関係なテスト — 実際に本テスト作成時、
-	 * front page 関連のテストで発覚 — に影響が漏れてしまうため）。PHPUnit プロセスの中では
-	 * REST_REQUEST は定義されていないので、$_GET['context'] = 'edit' を立てて編集権限のある
-	 * ユーザーでアクセスしても、REST リクエストでない限り通知は出ない事を確認できる。
-	 * veu_is_block_editor_preview() 自体の判定ロジック（REST + context + 権限）は
-	 * test_veu_is_block_editor_preview() で、通知の中身は test_veu_sns_btns_editor_notice() で
-	 * それぞれ REST_REQUEST を define() せずに個別にテストする。
+	 * ここでは REST_REQUEST 定数を define() しない。PHP の定数は undefine できず、同じ PHPUnit
+	 * プロセス内で後に実行される無関係なテスト — 実際に本テスト作成時、front page 関連のテストで
+	 * 発覚 — に影響が漏れてしまうため。代わりに veu_is_block_editor_preview() が使う
+	 * wp_is_rest_endpoint() を `wp_is_rest_endpoint` フィルターで切り替える
+	 * （フィルターは各ケースの直後・finally で必ず外す）。
+	 * veu_is_block_editor_preview() 自体の判定ロジック（REST + context + 権限）の網羅的なケースは
+	 * test_veu_is_block_editor_preview() で、通知の中身の文言テストは
+	 * test_veu_sns_btns_editor_notice() でそれぞれ個別にテストする。
 	 *
 	 * Issue #1453: Test that the front end ( not an editor preview, or not a REST request ) gets an
-	 * empty string instead of the notice when the share button is judged hidden. Before the fix, the
-	 * "context=edit" bypass rendered live buttons in the editor, hiding the front-end/editor mismatch
-	 * from editors ( this is the regression test for that bug = red ). This test intentionally never
-	 * calls `define( 'REST_REQUEST', true )` — PHP constants cannot be undefined, and doing so was
-	 * found ( while writing this test ) to leak into unrelated front-page tests that run later in the
-	 * same PHPUnit process. Since REST_REQUEST is never defined in the PHPUnit process, setting
-	 * $_GET['context'] = 'edit' and logging in as a user with edit permission still must not produce
-	 * the notice unless the request is an actual REST request — proving the REST gate itself is
-	 * required, not just the context/permission checks. veu_is_block_editor_preview()'s own logic
-	 * ( REST + context + permission ) is covered separately by test_veu_is_block_editor_preview() via
-	 * its injectable $is_rest_request parameter, and the notice content is covered separately by
-	 * test_veu_sns_btns_editor_notice() — neither of those needs to define REST_REQUEST either.
+	 * empty string instead of the notice, and that the editor preview ( REST request + context=edit +
+	 * edit permission ) actually gets the notice, when the share button is judged hidden. Before the
+	 * fix, the "context=edit" bypass rendered live buttons in the editor, hiding the front-end/editor
+	 * mismatch from editors ( this is the regression test for that bug = red ). This test intentionally
+	 * never calls `define( 'REST_REQUEST', true )` — PHP constants cannot be undefined, and doing so
+	 * was found ( while writing this test ) to leak into unrelated front-page tests that run later in
+	 * the same PHPUnit process. Instead, the `wp_is_rest_endpoint` filter — which
+	 * veu_is_block_editor_preview() reads via wp_is_rest_endpoint() — is toggled per case and always
+	 * removed right after ( and in finally ). The exhaustive gating cases for
+	 * veu_is_block_editor_preview() itself live in test_veu_is_block_editor_preview(), and the notice
+	 * wording is covered separately by test_veu_sns_btns_editor_notice().
 	 */
 	public function test_veu_get_sns_btns_block_context_notice() {
 
@@ -655,22 +655,31 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			)
 		);
 
-		// 編集権限を持つユーザー ( 投稿の編集者 ) を用意する。
-		// このユーザーでも REST リクエストでなければ通知が出ない事を確認するため。
-		// Prepare a user with edit permission ( post author / editor ), to verify that even this user
-		// does not get the notice unless the request is an actual REST request.
+		// 編集権限を持つユーザー ( 投稿の編集者 ).
+		// A user with edit permission ( post author / editor ).
 		$editor_user_id = self::factory()->user->create( array( 'role' => 'editor' ) );
 
 		$test_cases = array(
 			array(
-				'test_condition_name' => '投稿タイプ除外で非表示、公開画面（$_GET[context] なし） => 何も出力されない',
+				'test_condition_name' => '投稿タイプ除外で非表示、公開画面（$_GET[context] なし、REST でもない） => 何も出力されない',
 				'is_editor_preview'   => false,
+				'is_rest_endpoint'    => false,
 				'current_user_id'     => 0,
+				'expect_notice'       => false,
 			),
 			array(
 				'test_condition_name' => '投稿タイプ除外で非表示、$_GET[context]=edit かつ編集権限があるユーザーでも、REST リクエストでなければ何も出力されない',
 				'is_editor_preview'   => true,
+				'is_rest_endpoint'    => false,
 				'current_user_id'     => $editor_user_id,
+				'expect_notice'       => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外で非表示、REST リクエスト＋$_GET[context]=edit＋編集権限あり => 投稿タイプ除外の通知（設定画面への実リンク付き）が実際に出力される',
+				'is_editor_preview'   => true,
+				'is_rest_endpoint'    => true,
+				'current_user_id'     => $editor_user_id,
+				'expect_notice'       => true,
 			),
 		);
 
@@ -698,16 +707,37 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					unset( $_GET['context'] );
 				}
 
-				// シェアボタンブロックからの呼び出し ( 'context' => 'block' ) を再現する.
-				// Simulate the call from the share button block ( 'context' => 'block' ).
-				$actual = veu_get_sns_btns( array( 'context' => 'block' ) );
+				// REST リクエストかどうかを wp_is_rest_endpoint フィルターで再現する.
+				// Simulate whether this is a REST request via the wp_is_rest_endpoint filter.
+				if ( $case['is_rest_endpoint'] ) {
+					add_filter( 'wp_is_rest_endpoint', '__return_true' );
+				}
 
-				$this->assertSame( '', $actual, $case['test_condition_name'] );
+				try {
+					// シェアボタンブロックからの呼び出し ( 'context' => 'block' ) を再現する.
+					// Simulate the call from the share button block ( 'context' => 'block' ).
+					$actual = veu_get_sns_btns( array( 'context' => 'block' ) );
+				} finally {
+					// フィルターは追加した直後のケース内で必ず外す ( 次のケースへ漏らさない ).
+					// Always remove the filter right within the case that added it ( never leak it into the next case ).
+					if ( $case['is_rest_endpoint'] ) {
+						remove_filter( 'wp_is_rest_endpoint', '__return_true' );
+					}
+				}
+
+				if ( $case['expect_notice'] ) {
+					$this->assertStringContainsString( 'veu_share_button_block-notice', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( 'Exclude Post Types', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( admin_url( 'admin.php?page=vkExUnit_main_setting' ), $actual, $case['test_condition_name'] );
+				} else {
+					$this->assertSame( '', $actual, $case['test_condition_name'] );
+				}
 			}
 		} finally {
-			// 後片付け： $_GET['context'] と現在のユーザーを必ず元へ戻す.
-			// Clean up: always restore $_GET['context'] and the current user.
+			// 後片付け： $_GET['context']・フィルター・現在のユーザーを必ず元へ戻す.
+			// Clean up: always restore $_GET['context'], the filter, and the current user.
 			unset( $_GET['context'] );
+			remove_filter( 'wp_is_rest_endpoint', '__return_true' );
 			wp_set_current_user( $original_user_id );
 			delete_option( 'vkExUnit_sns_options' );
 		}
@@ -716,12 +746,12 @@ class SnsBtnsTest extends WP_UnitTestCase {
 	/**
 	 * Issue #1453 code review ( 安藤 ): veu_is_block_editor_preview() の判定ロジック
 	 * ( REST リクエストである事 / context=edit である事 / 編集権限を持つ事 ) をテストする。
-	 * REST_REQUEST 定数を define() せずに済むよう、テスト用の $is_rest_request 引数を使う
+	 * REST_REQUEST 定数を define() せずに済むよう、`wp_is_rest_endpoint` フィルターで切り替える
 	 * （理由は test_veu_get_sns_btns_block_context_notice() のコメントを参照）。
 	 *
 	 * Issue #1453 code review ( security ): Test veu_is_block_editor_preview()'s gating logic
-	 * ( must be a REST request / context=edit / user has edit permission ). Uses the test-only
-	 * $is_rest_request argument instead of defining the REST_REQUEST constant ( see the comment on
+	 * ( must be a REST request / context=edit / user has edit permission ). Uses the
+	 * `wp_is_rest_endpoint` filter instead of defining the REST_REQUEST constant ( see the comment on
 	 * test_veu_get_sns_btns_block_context_notice() for why ).
 	 */
 	public function test_veu_is_block_editor_preview() {
@@ -741,35 +771,42 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		$test_cases = array(
 			array(
 				'test_condition_name' => 'REST リクエストかつ context=edit かつ編集権限あり => true',
-				'is_rest_request'     => true,
+				'is_rest_endpoint'    => true,
 				'context'             => 'edit',
 				'current_user_id'     => $editor_user_id,
 				'expected'            => true,
 			),
 			array(
 				'test_condition_name' => 'REST リクエストかつ context=edit でも、編集権限が無いユーザー ( 購読者 ) => false',
-				'is_rest_request'     => true,
+				'is_rest_endpoint'    => true,
 				'context'             => 'edit',
 				'current_user_id'     => $subscriber_user_id,
 				'expected'            => false,
 			),
 			array(
 				'test_condition_name' => 'REST リクエストかつ context=edit でも、未ログイン ( 匿名 ) ユーザー => false',
-				'is_rest_request'     => true,
+				'is_rest_endpoint'    => true,
 				'context'             => 'edit',
 				'current_user_id'     => 0,
 				'expected'            => false,
 			),
 			array(
 				'test_condition_name' => 'REST リクエストで編集権限があっても、context が edit でなければ => false',
-				'is_rest_request'     => true,
+				'is_rest_endpoint'    => true,
 				'context'             => 'view',
 				'current_user_id'     => $editor_user_id,
 				'expected'            => false,
 			),
 			array(
+				'test_condition_name' => 'REST リクエストで編集権限があっても、context クエリ自体が無ければ => false',
+				'is_rest_endpoint'    => true,
+				'context'             => null,
+				'current_user_id'     => $editor_user_id,
+				'expected'            => false,
+			),
+			array(
 				'test_condition_name' => 'context=edit かつ編集権限があっても、REST リクエストでなければ => false',
-				'is_rest_request'     => false,
+				'is_rest_endpoint'    => false,
 				'context'             => 'edit',
 				'current_user_id'     => $editor_user_id,
 				'expected'            => false,
@@ -789,12 +826,25 @@ class SnsBtnsTest extends WP_UnitTestCase {
 					$_GET['context'] = $case['context'];
 				}
 
-				$actual = veu_is_block_editor_preview( $case['is_rest_request'] );
+				if ( $case['is_rest_endpoint'] ) {
+					add_filter( 'wp_is_rest_endpoint', '__return_true' );
+				}
+
+				try {
+					$actual = veu_is_block_editor_preview();
+				} finally {
+					// フィルターは追加した直後のケース内で必ず外す ( 次のケースへ漏らさない ).
+					// Always remove the filter right within the case that added it ( never leak it into the next case ).
+					if ( $case['is_rest_endpoint'] ) {
+						remove_filter( 'wp_is_rest_endpoint', '__return_true' );
+					}
+				}
 
 				$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
 			}
 		} finally {
 			unset( $_GET['context'] );
+			remove_filter( 'wp_is_rest_endpoint', '__return_true' );
 			wp_set_current_user( $original_user_id );
 		}
 	}
