@@ -16,6 +16,9 @@ class CTATest extends WP_UnitTestCase {
 	protected function tearDown(): void {
 		parent::tearDown();
 		$_POST = array();
+		// テストごとにログインユーザー状態をリセットする（未ログイン状態に戻す）.
+		// Reset the logged-in user state after each test ( back to logged out ).
+		wp_set_current_user( 0 );
 	}
 
 	/**
@@ -81,6 +84,21 @@ class CTATest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Create an administrator user and switch the current user to it.
+	 * save_custom_field() が要求する edit_post 権限を満たすため、管理者ユーザーを作成しログイン状態にする.
+	 *
+	 * Creates an administrator and makes them the current user, so save_custom_field()'s
+	 * current_user_can( 'edit_post', $post_id ) check passes.
+	 *
+	 * @return int 作成した管理者ユーザーのID / Created administrator user ID.
+	 */
+	private function login_as_editor() {
+		$admin_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $admin_id );
+		return $admin_id;
+	}
+
+	/**
 	 * save_custom_field() should bail when CTA switch isn't provided.
 	 */
 	public function test_save_custom_field_requires_switch() {
@@ -115,6 +133,9 @@ class CTATest extends WP_UnitTestCase {
 				'post_content' => 'content',
 			)
 		);
+		// save_custom_field() は edit_post 権限を要求するため、管理者としてログインする.
+		// save_custom_field() requires edit_post capability, so log in as an administrator.
+		$this->login_as_editor();
 
 		$_POST = array(
 			'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
@@ -155,6 +176,9 @@ class CTATest extends WP_UnitTestCase {
 				'post_content' => 'content',
 			)
 		);
+		// save_custom_field() は edit_post 権限を要求するため、管理者としてログインする.
+		// save_custom_field() requires edit_post capability, so log in as an administrator.
+		$this->login_as_editor();
 
 		$raw_button_text = "Click <script>alert(1)</script> O\\'Clock";
 		$raw_cta_text    = "Line 1\\nLine 2<script>alert(2)</script>";
@@ -260,6 +284,131 @@ class CTATest extends WP_UnitTestCase {
 				get_post_meta( $post_id, $case['field'], true ),
 				$case['name']
 			);
+		}
+	}
+
+	/**
+	 * Save_custom_field の edit_post 権限チェックを検証する.
+	 * 権限が無いユーザーからの保存は拒否され、権限があるユーザーからの保存のみ許可される事を確認する ( issue #1437 項目1 ).
+	 *
+	 * Verify the edit_post capability check in save_custom_field().
+	 * Saving must be rejected without the capability and allowed with it ( issue #1437 item 1 ).
+	 */
+	public function test_save_custom_field_requires_edit_post_capability() {
+		$test_cases = array(
+			array(
+				'test_condition_name' => '権限の無いユーザー（購読者）の場合 => 保存されず post_id が返る',
+				'role'                => 'subscriber',
+				'expected_saved'      => false,
+			),
+			array(
+				'test_condition_name' => '権限のあるユーザー（管理者）の場合 => 保存され post_id が返る',
+				'role'                => 'administrator',
+				'expected_saved'      => true,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$post_id = self::factory()->post->create(
+				array(
+					'post_type'    => Vk_Call_To_Action::POST_TYPE,
+					'post_status'  => 'publish',
+					'post_title'   => 'CTA Capability Test',
+					'post_content' => 'content',
+				)
+			);
+			$user_id = self::factory()->user->create( array( 'role' => $case['role'] ) );
+			wp_set_current_user( $user_id );
+
+			$_POST = array(
+				'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
+				'_vkExUnit_cta_switch'       => 'cta_content',
+				'vkExUnit_cta_button_text'   => 'Save attempt',
+			);
+
+			$return = Vk_Call_To_Action::save_custom_field( $post_id );
+
+			// 権限の有無にかかわらず post_id は返り値として返る仕様のため、まず共通で検証する.
+			// The return value is always $post_id regardless of permission, so assert that first.
+			$this->assertSame( $post_id, $return, $case['test_condition_name'] );
+
+			if ( $case['expected_saved'] ) {
+				$this->assertSame(
+					wp_kses_post( 'Save attempt' ),
+					get_post_meta( $post_id, 'vkExUnit_cta_button_text', true ),
+					$case['test_condition_name']
+				);
+			} else {
+				$this->assertEmpty(
+					get_post_meta( $post_id, 'vkExUnit_cta_button_text' ),
+					$case['test_condition_name']
+				);
+			}
+		}
+	}
+
+	/**
+	 * Save_custom_field が $_POST の値を二重にスラッシュ除去しない事を検証する ( issue #1437 項目2 ).
+	 * バックスラッシュを含む値が「escape 無し」「単一 escape」のどちらの分岐でも1回だけ除去され、
+	 * 期待どおりのバックスラッシュ数で保存される事を確認する.
+	 *
+	 * Verify that save_custom_field() does not strip slashes from a $_POST value twice
+	 * ( issue #1437 item 2 ). A value containing backslashes must be unslashed exactly once
+	 * — for both the "no escape" branch and the "single escape" branch — ending up with the
+	 * expected number of backslashes after saving.
+	 */
+	public function test_save_custom_field_does_not_double_unslash_backslash_values() {
+		$post_id = self::factory()->post->create(
+			array(
+				'post_type'    => Vk_Call_To_Action::POST_TYPE,
+				'post_status'  => 'publish',
+				'post_title'   => 'CTA Backslash Test',
+				'post_content' => 'content',
+			)
+		);
+		$this->login_as_editor();
+
+		// WordPress の magic quotes 互換仕様では、実際の HTTP リクエストで $_POST の値に
+		// スラッシュが1段だけ付加されて渡ってくる。ここではその状態を、実際の1本のバックスラッシュを
+		// 意図した値として二重バックスラッシュ ( \\\\ は実体として2文字 ) で再現する。
+		// 1回だけ unslash されればバックスラッシュは1本残り、二重に unslash されると消えてしまう.
+		// WordPress's magic-quotes-compatible behavior slashes $_POST values by one level in a real
+		// HTTP request. Reproduce that here with a doubled backslash ( \\\\ is 2 real characters )
+		// representing one intended real backslash: it survives as one backslash if unslashed exactly
+		// once, and disappears entirely if unslashed twice.
+		$raw_value = 'Windows path C:\\\\Users\\\\test';
+
+		$field_cases = array(
+			array(
+				'test_condition_name' => 'no-escape フィールド ( vkExUnit_cta_url_blank ) はバックスラッシュが1回だけ除去される',
+				'field'               => 'vkExUnit_cta_url_blank',
+				'expected'            => stripslashes( $raw_value ),
+			),
+			array(
+				'test_condition_name' => 'single-escape フィールド ( vkExUnit_cta_button_text ) はバックスラッシュが1回だけ除去される（二重除去されない）',
+				'field'               => 'vkExUnit_cta_button_text',
+				'expected'            => wp_kses_post( stripslashes( $raw_value ) ),
+			),
+		);
+
+		foreach ( $field_cases as $case ) {
+			$_POST = array(
+				'_nonce_vkExUnit_custom_cta' => $this->create_cta_nonce(),
+				'_vkExUnit_cta_switch'       => 'cta_content',
+				$case['field']               => $raw_value,
+			);
+
+			Vk_Call_To_Action::save_custom_field( $post_id );
+
+			$this->assertSame(
+				$case['expected'],
+				get_post_meta( $post_id, $case['field'], true ),
+				$case['test_condition_name']
+			);
+
+			// 次のケースに影響しないようメタを削除する.
+			// Delete the meta so it does not affect the next case.
+			delete_post_meta( $post_id, $case['field'] );
 		}
 	}
 

@@ -191,6 +191,14 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				return $post_id;
 			}
 
+			// nonce 検証だけでは CSRF は防げても権限の無いユーザーによる保存は防げないため、
+			// 投稿の編集権限があるかどうかを確認する（多層防御）。
+			// nonce verification alone does not prevent a user without edit permission from saving,
+			// so also confirm the current user can edit this post ( defense in depth ).
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return $post_id;
+			}
+
 			if ( 'cta_number' === $_POST['_vkExUnit_cta_switch'] ) {
 				// この値は単一 select から送信されるスカラー文字列。未送信時の Undefined array key 警告を防ぐため isset で判定し、
 				// map_deep() で wp_unslash 後の値をサニタイズする（map_deep はスカラーにもコールバックを適用する）。
@@ -235,7 +243,12 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						},
 					),
 					'vkExUnit_cta_button_text'        => array(
-						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
+						// stripslashes は wp_unslash() と役割が重複するため付けない
+						// ( 保存ループ側で $_POST の値に wp_unslash() を適用済み。二重にスラッシュ除去すると
+						// 意図したバックスラッシュまで消えてしまう ).
+						// Do not add stripslashes here; it duplicates wp_unslash() ( already applied to the
+						// $_POST value in the save loop ). Running both would strip backslashes twice.
+						'escape_type' => 'wp_kses_post',
 					),
 					'vkExUnit_cta_button_icon'        => array(
 						'escape_type' => 'wp_kses_post',
@@ -253,7 +266,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => '',
 					),
 					'vkExUnit_cta_text'               => array(
-						'escape_type' => array( 'stripslashes', 'wp_kses_post' ),
+						// stripslashes は wp_unslash() と役割が重複するため付けない ( 上の vkExUnit_cta_button_text と同じ理由 ).
+						// Do not add stripslashes here; it duplicates wp_unslash() ( same reason as vkExUnit_cta_button_text above ).
+						'escape_type' => 'wp_kses_post',
 					),
 				);
 
@@ -264,26 +279,44 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						if ( ! empty( $custom_field_options['escape_type'] ) ) {
 							if ( is_array( $custom_field_options['escape_type'] ) ) {
 								// エスケープ処理が複数ある場合
-								$data = $_POST[ $custom_field_name ];
+								// WordPress は magic quotes 互換のため $_POST の値にスラッシュを付加して渡してくるので、
+								// エスケープ処理へ渡す前に wp_unslash() で除去する.
+								// WordPress adds slashes to $_POST values for magic-quotes compatibility,
+								// so strip them with wp_unslash() before passing the value to the escape callbacks.
+								$data = wp_unslash( $_POST[ $custom_field_name ] );
 								foreach ( $custom_field_options['escape_type'] as $escape ) {
 									$data = call_user_func( $escape, $data );
 								}
 							} else {
 								// エスケープ処理が一つの場合
-								$data = call_user_func( $custom_field_options['escape_type'], $_POST[ $custom_field_name ] );
+								// 同上の理由で wp_unslash() を通してからエスケープする.
+								// Same reason as above: unslash before escaping.
+								$data = call_user_func( $custom_field_options['escape_type'], wp_unslash( $_POST[ $custom_field_name ] ) );
 							}
 						} else {
 							// エスケープ処理が無い場合
-							$data = $_POST[ $custom_field_name ];
+							// エスケープ関数を通さないフィールドも、保存前に wp_unslash() で余分なスラッシュを除去する.
+							// Fields without an escape callback also need wp_unslash() to remove the extra slashes before saving.
+							$data = wp_unslash( $_POST[ $custom_field_name ] );
 						}
 					}
 
 					if ( get_post_meta( $post_id, $custom_field_name ) == '' ) {
 						// データが今までなかったらカスタムフィールドに新規保存
-						add_post_meta( $post_id, $custom_field_name, $data, true );
+						// add_post_meta()/update_post_meta() は「スラッシュ付きの値を受け取り、内部で wp_unslash() する」仕様
+						// ( expected_slashed ) のため、上で既にサニタイズ済みの $data をそのまま渡すと
+						// ここでもう一度スラッシュが除去され、値に含まれる本物のバックスラッシュが消えてしまう。
+						// そのため保存直前に wp_slash() で相殺し、$data の中身がそのまま保存されるようにする。
+						// add_post_meta()/update_post_meta() expect a slashed value and call wp_unslash() on it
+						// internally ( expected_slashed ). Passing the already-sanitized $data as is would strip
+						// slashes a second time and corrupt genuine backslashes in the value, so wp_slash() it
+						// right before saving to cancel that out and store $data unchanged.
+						add_post_meta( $post_id, $custom_field_name, wp_slash( $data ), true );
 					} elseif ( $data != get_post_meta( $post_id, $custom_field_name, true ) ) {
 						// 保存されてたデータと送信されてきたデータが違ったら更新
-						update_post_meta( $post_id, $custom_field_name, $data );
+						// 上記と同じ理由で wp_slash() を通してから渡す.
+						// Same reason as above: wp_slash() before passing it in.
+						update_post_meta( $post_id, $custom_field_name, wp_slash( $data ) );
 					} elseif ( ! $data ) {
 						// データが送信されてこなかった（空のデータが送られてきた）らフィールドの値を削除
 						delete_post_meta( $post_id, $custom_field_name, get_post_meta( $post_id, $custom_field_name, true ) );
@@ -320,7 +353,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		public static function render_meta_box_cta() {
 
-			echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />';
+			echo '<input type="hidden" name="_nonce_vkExUnit_custom_cta" id="_nonce_vkExUnit__custom_field_metaKeyword" value="' . esc_attr( wp_create_nonce( plugin_basename( __FILE__ ) ) ) . '" />';
 			$imgid          = get_post_meta( get_the_id(), 'vkExUnit_cta_img', true );
 			$cta_image      = wp_get_attachment_image_src( $imgid, 'large' );
 			$image_position = get_post_meta( get_the_id(), 'vkExUnit_cta_img_position', true );
@@ -404,7 +437,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<th><?php esc_html_e( 'CTA image', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
 		<div id="cta-thumbnail_box" >
-		<img id="cta-thumbnail_image" src="<?php echo ( $cta_image ) ? $cta_image[0] : ''; ?>" class="<?php echo ( $cta_image ) ? '' : 'noimage'; ?>" />
+		<img id="cta-thumbnail_image" src="<?php echo esc_url( ( $cta_image ) ? $cta_image[0] : '' ); ?>" class="<?php echo ( $cta_image ) ? '' : 'noimage'; ?>" />
 		</div>
 		<div id="cta-thumbnail_control" class="<?php echo ( $cta_image ) ? 'change' : 'add'; ?>">
 		<button id="media_thumb_url_add" class="cta-media_btn button button-default"><?php _e( 'Add image', 'vk-all-in-one-expansion-unit' ); ?></button>
@@ -443,7 +476,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 			<?php
 			if ( class_exists( 'Vk_Font_Awesome_Versions' ) ) {
-				echo Vk_Font_Awesome_Versions::ex_and_link();
+				echo wp_kses_post( Vk_Font_Awesome_Versions::ex_and_link() );
 			}
 			?>
 
@@ -464,7 +497,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			}
 			?>
 	<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
-<input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php echo $checked; ?> />
+<input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php echo esc_attr( $checked ); ?> />
 <label for="vkExUnit_cta_url_blank"><?php _e( 'Open in a self window', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td></tr>
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
@@ -473,7 +506,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 <textarea name="vkExUnit_cta_text" id="vkExUnit_cta_text" rows="10em" cols="50em"><?php echo wp_kses_post( get_post_meta( get_the_id(), 'vkExUnit_cta_text', true ) ); ?></textarea>
 </td></tr>
 </table>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
+<a href="<?php echo esc_url( admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ) ); ?>" class="button button-default" target="_blank"><?php _e( 'CTA setting', 'vk-all-in-one-expansion-unit' ); ?></a>
 			<?php
 		}
 
@@ -847,24 +880,6 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			// 文字のハイライトによる mark タグへの style 属性やグループブロックの背景画像指定の style 属性が削除されるため wp_kses は通していない
 			// https://github.com/vektor-inc/vk-all-in-one-expansion-unit/pull/1172
 			return $content;
-		}
-
-		public static function allow_custom_iframes( $tags, $context ) {
-			if ( $context ) {
-				$tags['iframe'] = array(
-					'src'             => true,
-					'width'           => true,
-					'height'          => true,
-					'style'           => true,
-					'allowfullscreen' => true,
-					'loading'         => true,
-					'sandbox'         => true,
-				);
-				$tags['style']  = array(
-					'type' => true,
-				);
-			}
-			return $tags;
 		}
 	}
 
