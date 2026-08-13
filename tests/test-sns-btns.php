@@ -513,4 +513,218 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			}
 		}
 	}
+
+	/**
+	 * Issue #1453: 「シェアボタンブロックを常に表示する」設定（snsBtn_block_ignore_exclude）と、
+	 * 呼び出し文脈（'auto' = 自動挿入 / 'block' = シェアボタンブロック）による表示判定の違いをテストする。
+	 * この関数の修正前は、投稿タイプ除外 ON かつ新設定 ON でもブロック文脈が常に false になり、
+	 * 3番目のケース（ブロック文脈で表示される事）が失敗する ( red ).
+	 *
+	 * Issue #1453: Test the display judgement differences caused by the "Always display the share
+	 * button block" option ( snsBtn_block_ignore_exclude ) and the calling context ( 'auto' for
+	 * automatic insertion / 'block' for the share button block ). Before the fix, the 'block'
+	 * context always returned false regardless of the new option, so the second case below
+	 * ( expecting true ) fails ( red ).
+	 */
+	public function test_veu_is_sns_btns_display_block_context() {
+
+		// 投稿タイプ post が除外対象になるケース用の投稿
+		// A "post" type post used for the post type exclusion cases.
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Context Test 01',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Context Test 01',
+			)
+		);
+
+		// 記事単位の非表示指定（post meta）が付いた投稿。新設定より常に優先される事を確認するため。
+		// A post with the per-post hide meta set, to verify it always takes priority over the new option.
+		$hidden_post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Context Test 02',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Context Test 02',
+			)
+		);
+		add_post_meta( $hidden_post_id, 'sns_share_botton_hide', true );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 OFF の場合 => ブロック文脈でも非表示 ( false )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => false,
+				),
+				'target_post_id'      => $post_id,
+				'context'             => 'block',
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 ON の場合 => ブロック文脈では表示される ( true )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $post_id,
+				'context'             => 'block',
+				'expected'            => true,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 ON でも、自動挿入文脈（引数なし呼び出し）は従来どおり非表示のまま ( false )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $post_id,
+				'context'             => null, // 引数なし呼び出し ( 'auto' 相当 ) を表す / represents a no-argument call ( equivalent to 'auto' ).
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 ON でも、post meta の非表示指定がある記事はブロック文脈でも非表示 ( false )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $hidden_post_id,
+				'context'             => 'block',
+				'expected'            => false,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// 対象の投稿ページへ移動 / Go to the target post.
+			$this->go_to( get_permalink( $case['target_post_id'] ) );
+
+			// $case['context'] が null なら引数なしで呼び、既定値 'auto' の挙動を確認する。
+			// If $case['context'] is null, call with no argument to verify the 'auto' default behavior.
+			if ( null === $case['context'] ) {
+				$actual = veu_is_sns_btns_display();
+			} else {
+				$actual = veu_is_sns_btns_display( $case['context'] );
+			}
+
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
+	}
+
+	/**
+	 * Issue #1453: シェアボタンブロックが非表示と判定された場合の、公開画面と編集画面
+	 * （ブロックエディタのキャンバス／ServerSideRender プレビュー）の出力の違いをテストする。
+	 * 修正前は "context=edit" バイパスにより編集画面で実際のボタンが描画されてしまい、
+	 * 公開画面との食い違いが編集者に伝わらなかった ( この不具合の再現テスト = red ).
+	 *
+	 * Issue #1453: Test the front-end vs. block editor canvas ( ServerSideRender preview ) output
+	 * difference when the share button block is judged hidden. Before the fix, the "context=edit"
+	 * bypass rendered live buttons in the editor, hiding the front-end/editor mismatch from
+	 * editors ( this is the regression test for that bug = red ).
+	 */
+	public function test_veu_get_sns_btns_block_context_notice() {
+
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Notice Test 01',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Notice Test 01',
+			)
+		);
+
+		$hidden_post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Notice Test 02',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Notice Test 02',
+			)
+		);
+		add_post_meta( $hidden_post_id, 'sns_share_botton_hide', true );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '投稿タイプ除外で非表示、公開画面（$_GET[context] なし） => 何も出力されない',
+				'options'             => array( 'snsBtn_exclude_post_types' => array( 'post' => true ) ),
+				'target_post_id'      => $post_id,
+				'is_editor_preview'   => false,
+				'assert'              => 'empty',
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外で非表示、編集画面プレビュー => 投稿タイプ除外の通知（設定画面への実リンク付き）が出力される',
+				'options'             => array( 'snsBtn_exclude_post_types' => array( 'post' => true ) ),
+				'target_post_id'      => $post_id,
+				'is_editor_preview'   => true,
+				'assert'              => 'post_type_notice',
+			),
+			array(
+				'test_condition_name' => 'post meta の非表示指定で非表示、編集画面プレビュー => 記事単位の非表示通知が出力される',
+				'options'             => array(),
+				'target_post_id'      => $hidden_post_id,
+				'is_editor_preview'   => true,
+				'assert'              => 'post_meta_notice',
+			),
+			array(
+				'test_condition_name' => '新設定 ON で表示される場合 => 通知ではなく実際のシェアボタンが出力される',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $post_id,
+				'is_editor_preview'   => true,
+				'assert'              => 'buttons',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// 対象の投稿ページへ移動 / Go to the target post.
+			$this->go_to( get_permalink( $case['target_post_id'] ) );
+
+			// ブロックエディタのキャンバスからのリクエストを $_GET['context'] = 'edit' で再現する.
+			// Simulate a request from the block editor canvas via $_GET['context'] = 'edit'.
+			if ( $case['is_editor_preview'] ) {
+				$_GET['context'] = 'edit';
+			} else {
+				unset( $_GET['context'] );
+			}
+
+			// シェアボタンブロックからの呼び出し ( 'context' => 'block' ) を再現する.
+			// Simulate the call from the share button block ( 'context' => 'block' ).
+			$actual = veu_get_sns_btns( array( 'context' => 'block' ) );
+
+			switch ( $case['assert'] ) {
+				case 'empty':
+					$this->assertSame( '', $actual, $case['test_condition_name'] );
+					break;
+				case 'post_type_notice':
+					$this->assertStringContainsString( 'veu_share_button_block-notice', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( 'Exclude Post Types', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( admin_url( 'admin.php?page=vkExUnit_main_setting' ), $actual, $case['test_condition_name'] );
+					break;
+				case 'post_meta_notice':
+					$this->assertStringContainsString( 'veu_share_button_block-notice', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( 'Hide setting of share button', $actual, $case['test_condition_name'] );
+					break;
+				case 'buttons':
+					$this->assertStringContainsString( 'veu_socialSet', $actual, $case['test_condition_name'] );
+					$this->assertStringNotContainsString( 'veu_share_button_block-notice', $actual, $case['test_condition_name'] );
+					break;
+			}
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
+
+		// 後片付け： $_GET['context'] を必ず削除する / Clean up: always remove $_GET['context'].
+		unset( $_GET['context'] );
+	}
 }

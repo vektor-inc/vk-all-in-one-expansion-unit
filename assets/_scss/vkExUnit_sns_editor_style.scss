@@ -1,3 +1,36 @@
 @charset "utf-8";
 @import "_iconset";
 @import "../../inc/sns/assets/_scss/_sns";
+
+/* ==========================================================================
+   Share Button Block – Editor Notice
+   ========================================================================== */
+
+/* ブロックエディタのキャンバス（iframe）はテーマの CSS を読み込まないため、通知の見た目を
+   このクラスだけで完結させる。色は VK デザイントークンをフォールバック付きで使う
+   （トークン自体もテーマ由来のため、編集画面では未定義になり得るため）。
+   The block editor canvas ( iframe ) does not load the active theme's CSS, so this notice's
+   look must be self-contained via this class alone. Colors use VK design tokens with
+   fallbacks, since the tokens themselves are theme-provided and may be undefined in the
+   editor canvas. */
+.veu_share_button_block-notice {
+	padding: .75em 1em;
+	border: 1px solid var(--vk-color-border-hr, #e2d8b8);
+	border-radius: var(--vk-size-radius, 4px);
+	background-color: var(--vk-color-bg-accent, #fdf3d9);
+	color: var(--vk-color-text-body, #555);
+	font-size: .9em;
+	line-height: 1.6;
+
+	p {
+		margin: 0;
+
+		& + p {
+			margin-top: .5em;
+		}
+	}
+
+	a {
+		color: var(--vk-color-text-link, #1e73be);
+	}
+}

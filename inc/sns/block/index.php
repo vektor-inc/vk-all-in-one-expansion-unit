@@ -51,6 +51,14 @@ function veu_share_button_block_translation() {
 }
 add_action( 'init', 'veu_share_button_block_translation', 15 );
 
+/**
+ * Render callback for the share button block ( manually placed by the editor ).
+ * シェアボタンブロック（編集者が手動配置するブロック）の描画コールバック。
+ *
+ * @param array  $attributes Block attributes ( position, className, common attributes, etc. ).
+ * @param string $content    Block inner content ( unused; this block has no InnerBlocks ).
+ * @return string Rendered share button HTML, an editor-only notice, or an empty string.
+ */
 function veu_share_button_block_callback( $attributes, $content ) {
 
 	$attributes = wp_parse_args(
@@ -60,6 +68,12 @@ function veu_share_button_block_callback( $attributes, $content ) {
 			'className' => '',
 		)
 	);
+
+	// この呼び出しがシェアボタンブロック（手動配置）からのものであることを veu_get_sns_btns() に伝える.
+	// これにより「シェアボタンブロックを常に表示する」設定の例外と、編集画面専用の通知が適用できる.
+	// Tell veu_get_sns_btns() this call comes from the share button block ( manual placement ), so
+	// the "always display" block-only exception and the editor-only notice can be applied.
+	$attributes['context'] = 'block';
 
 	$r = veu_get_sns_btns( $attributes );
 

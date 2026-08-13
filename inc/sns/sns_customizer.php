@@ -461,6 +461,31 @@ function veu_customize_register_sns( $wp_customize ) {
 		}
 	}
 
+	// Always display the share button block regardless of excluded post types ///////////////////////////
+	// issue #1453: シェアボタンブロック（手動配置）限定で、投稿タイプ除外設定を無視して常に表示する設定.
+	// issue #1453: block-only setting to always display the manually placed share button block,
+	// ignoring the post type exclusion setting above.
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_block_ignore_exclude]',
+		array(
+			'default'           => $default_options['snsBtn_block_ignore_exclude'],
+			'type'              => 'option', // 保存先 option or theme_mod.
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'snsBtn_block_ignore_exclude',
+		array(
+			'label'       => __( 'Always display the share button block regardless of excluded post types', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_sns_setting',
+			'settings'    => 'vkExUnit_sns_options[snsBtn_block_ignore_exclude]',
+			'type'        => 'checkbox',
+			'description' => __( 'The per-post "Hide setting of share button" always takes priority over this option.', 'vk-all-in-one-expansion-unit' ),
+		)
+	);
+
 	// Share button for display  ///////////////////////////
 	$wp_customize->add_setting( 'Follow_me_box_use_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(

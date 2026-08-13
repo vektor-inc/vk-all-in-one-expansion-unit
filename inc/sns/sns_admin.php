@@ -90,6 +90,12 @@ $args = array(
 );
 vk_the_post_type_check_list( $args );
 ?>
+<label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_block_ignore_exclude]" id="snsBtn_block_ignore_exclude" value="true" <?php echo ( $options['snsBtn_block_ignore_exclude'] ) ? 'checked' : ''; ?> /><?php esc_html_e( 'Always display the share button block regardless of this setting', 'vk-all-in-one-expansion-unit' ); ?></label>
+<p class="description">
+<?php esc_html_e( 'The share button block placed manually in the block editor follows the "Exclude Post Types" setting above by default, and will not appear on the front end for those post types.', 'vk-all-in-one-expansion-unit' ); ?>
+<?php esc_html_e( 'Check this box to always display the block regardless of it.', 'vk-all-in-one-expansion-unit' ); ?>
+<?php esc_html_e( 'The per-post "Hide setting of share button" always takes priority over this option.', 'vk-all-in-one-expansion-unit' ); ?>
+</p>
 </dd>
 </dl>
 <dl>
