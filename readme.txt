@@ -83,7 +83,7 @@ e.g.
 
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
 [ Bug Fix ][ Block ] Fixed the Share Button, HTML Sitemap and other blocks showing "This block has encountered an error and cannot be previewed" in the editor when the post contains a cross-origin iframe embed.
-[ Bug Fix ][ Share Button ] Fixed the share button block placed on a page not appearing on the front end while it was still visible in the editor, which happened even with the default settings.
+[ Bug Fix ][ Share Button ] Fixed the share button block always showing in the editor even when excluded from the front end, hiding the mismatch while editing. The editor now explains why it will not display.
 
 = 9.121.1 =
 [ Bug Fix ][ HTML Sitemap ] Fixed a fatal error on the HTML Sitemap settings screen when used together with plugins that bundle an older copy of the shared template tag package (e.g. VK Post Author Display).
