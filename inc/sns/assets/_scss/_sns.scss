@@ -32,10 +32,12 @@
     .sb_icon {
         .sb_icon_inner {
             // アイコン（自前フォント合字 / インライン SVG）とテキストの縦位置合わせを、フォントの行ボックス
-            // （strut）基準ではなく flex の cross-axis 整列で行う。アイコンの実装方式に関わらずボタンの高さが揃う。
+            // （strut）基準ではなく flex の cross-axis 整列で行う。strut 基準だとフォント合字と SVG とで
+            // 実際の高さがわずかに変わってしまうため、.icon_sns（下記）も同じ理由で inline-flex にする。
             // Vertically align the icon ( in-house web font ligature / inline SVG ) and text via flex
-            // cross-axis alignment instead of the font's line-box ( strut ), so the button height stays
-            // consistent regardless of how the icon is implemented.
+            // cross-axis alignment instead of the font's line-box ( strut ), which would otherwise render
+            // a slightly different height for the web-font ligature vs. the SVG. .icon_sns below is
+            // inline-flex for the same reason.
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -59,14 +61,9 @@
             }
             .sns_txt {
                 position: relative;
-                top: -1px;
             }
-            // display:inline-block だと中身（自前フォント合字の ::before / インライン SVG）がフォントの行ボックス
-            // （strut）基準で中央寄せされ、フォント合字と SVG とで実際の高さがわずかに変わってしまう。
-            // inline-flex に変え、strut に左右されない flex の cross-axis 整列で高さを揃える。
-            // display:inline-block centers its content ( the ::before web-font ligature / inline SVG ) via
-            // the font's line-box ( strut ), which renders a slightly different height for the web-font
-            // ligature vs. the SVG. Use inline-flex so the height is unaffected by the strut.
+            // 親と同じ理由。strut を挟まないよう inline-flex にする。
+            // Same reason as the parent. inline-flex avoids the strut.
             .icon_sns {
                 font-size: 100%;
                 padding: 5px 8px 5px 0;
@@ -124,7 +121,6 @@
     .sb_copy .sb_icon_inner {
         background: #555;
         box-shadow: 0 2px 0 #333;
-        padding-bottom:4px;
     }
 } //.veu_socialSet ul
 

@@ -429,16 +429,22 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// or gets renamed, the .sb_svg_icon CSS no longer applies and the default replaced-element
 			// sizing rules would render an oversized icon.
 			$this->assertStringContainsString( 'class="sb_svg_icon"', $case['expected'], $case['test_condition_name'] );
-			// 将来アイコンを追加する人への回帰ガードとして、危険なトークンが含まれない事を確認
+			// 将来アイコンを追加する人への回帰ガードとして、危険なトークンが含まれない事を確認。
+			// HTML パーサは大文字小文字を区別しない（例: <foreignObject> は <foreignobject> とも書ける）ため、
+			// 単純な文字列一致ではなく大小無視の正規表現で判定する。
 			// Regression guard for future icon additions: check no dangerous tokens are included.
-			foreach ( array( '<script', '<foreignObject', '<use', '<image', 'xlink', 'href=' ) as $forbidden_token ) {
-				$this->assertStringNotContainsString( $forbidden_token, $case['expected'], $case['test_condition_name'] );
-			}
+			// HTML parsing is case-insensitive ( e.g. <foreignObject> can also be written <foreignobject> ),
+			// so use a case-insensitive regular expression instead of a plain string match.
+			$this->assertDoesNotMatchRegularExpression(
+				'/<(script|foreignobject|use|image)\b|xlink|href=/i',
+				$case['expected'],
+				$case['test_condition_name']
+			);
 			// アイコン色が snsBtn_color オプションで切り替えられるよう fill="currentColor" が明示されている事を確認
 			// Check fill="currentColor" is declared so the icon color follows the snsBtn_color option.
 			$this->assertStringContainsString( 'fill="currentColor"', $case['expected'], $case['test_condition_name'] );
-			// 767px 以下のブレークポイントで縦横比が崩れないよう viewBox が正方形（1:1）である事を確認
-			// Check the viewBox is square ( 1:1 ) so the aspect ratio does not break at the 767px breakpoint.
+			// width:1em; height:1em; という 1:1 前提と矛盾しないよう viewBox も正方形（1:1）である事を確認
+			// Check the viewBox is also square ( 1:1 ), consistent with the width:1em; height:1em; 1:1 premise.
 			preg_match( '/viewBox="0 0 (\d+) (\d+)"/', $case['expected'], $viewbox_matches );
 			$this->assertNotEmpty( $viewbox_matches, $case['test_condition_name'] );
 			$this->assertSame( $viewbox_matches[1], $viewbox_matches[2], $case['test_condition_name'] );
