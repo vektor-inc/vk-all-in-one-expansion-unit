@@ -222,30 +222,36 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 	} );
 
 	test.afterAll( () => {
-		// マーカーを消し、他の e2e スペック・通常アクセスへの影響を残さない。
-		// `wp option delete` は対象が存在しないと非ゼロ終了するため
-		// （beforeAll が option update に到達できず失敗した場合に起こり得る）、
-		// ここで throw させると本来の失敗理由の上に後片付けのエラーが重なって
-		// 読みにくくなるだけでなく、後続の resetPosts() までスキップされ、
-		// マーカーが立ったまま残ってしまう（サイト全体への影響が復活する）。
-		// そのため削除の失敗は握りつぶし、resetPosts() は必ず実行する。
 		try {
-			runWpCli( [
-				'option',
-				'delete',
-				FORCE_CONTACT_SECTION_ACTIVE_OPTION,
-			] );
-		} catch ( e ) {
-			const message = e instanceof Error ? e.message : String( e );
-			// 後片付け失敗を握りつぶしたことに気づけるよう、テストランナーの
-			// ログへ必ず出力する（utils/wp-cli.ts の
-			// deletePostsTolerateMissing() と同じ方針）。
-			// eslint-disable-next-line no-console
-			console.warn(
-				`afterAll: マーカーの削除に失敗しました ( 無視 ): ${ message }`
-			);
+			try {
+				runWpCli( [
+					'option',
+					'delete',
+					FORCE_CONTACT_SECTION_ACTIVE_OPTION,
+				] );
+			} catch ( e ) {
+				// wp-cli は存在しない option を delete しようとすると
+				// "Could not delete '<option>' option. Does it exist?" 形式の
+				// メッセージで終了コード非0を返す。beforeAll が option update
+				// に到達できずマーカー未作成のまま afterAll に来た場合に
+				// 起こり得るこのケースだけは想定内なので握りつぶし、それ以外
+				// （tests-cli コンテナが落ちている等）は再 throw する
+				// （tests/e2e/pagetop-btn-image.spec.ts の
+				// resetPagetopOption() と同じ方針）。
+				const message = e instanceof Error ? e.message : String( e );
+				const isMissingMarkerOption = new RegExp(
+					`Could not delete\\s+'${ FORCE_CONTACT_SECTION_ACTIVE_OPTION }'\\s+option\\.\\s*Does it exist\\?`,
+					'i'
+				).test( message );
+				if ( ! isMissingMarkerOption ) {
+					throw e;
+				}
+			}
+		} finally {
+			// マーカー削除が想定外の理由で再 throw されても、投稿の後片付け
+			// （resetPosts）は必ず実行する。
+			resetPosts();
 		}
-		resetPosts();
 	} );
 
 	test.beforeEach( async ( { page } ) => {
