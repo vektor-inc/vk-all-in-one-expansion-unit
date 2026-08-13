@@ -223,7 +223,28 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 
 	test.afterAll( () => {
 		// マーカーを消し、他の e2e スペック・通常アクセスへの影響を残さない。
-		runWpCli( [ 'option', 'delete', FORCE_CONTACT_SECTION_ACTIVE_OPTION ] );
+		// `wp option delete` は対象が存在しないと非ゼロ終了するため
+		// （beforeAll が option update に到達できず失敗した場合に起こり得る）、
+		// ここで throw させると本来の失敗理由の上に後片付けのエラーが重なって
+		// 読みにくくなるだけでなく、後続の resetPosts() までスキップされ、
+		// マーカーが立ったまま残ってしまう（サイト全体への影響が復活する）。
+		// そのため削除の失敗は握りつぶし、resetPosts() は必ず実行する。
+		try {
+			runWpCli( [
+				'option',
+				'delete',
+				FORCE_CONTACT_SECTION_ACTIVE_OPTION,
+			] );
+		} catch ( e ) {
+			const message = e instanceof Error ? e.message : String( e );
+			// 後片付け失敗を握りつぶしたことに気づけるよう、テストランナーの
+			// ログへ必ず出力する（utils/wp-cli.ts の
+			// deletePostsTolerateMissing() と同じ方針）。
+			// eslint-disable-next-line no-console
+			console.warn(
+				`afterAll: マーカーの削除に失敗しました ( 無視 ): ${ message }`
+			);
+		}
 		resetPosts();
 	} );
 
