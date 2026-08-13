@@ -30,7 +30,13 @@
 		}
 	}
 
+	/* --vk-color-text-link のフォールバック #1e73be は、この通知の背景フォールバック #fdf3d9 の上で
+	   コントラスト比が約 4.47:1 となり WCAG AA（通常文字 4.5:1）にわずかに届かないため、
+	   ここだけ独自のフォールバック #1a63a3（同背景で約 5.66:1）を使う。
+	   The --vk-color-text-link fallback #1e73be yields a contrast ratio of about 4.47:1 against this
+	   notice's background fallback #fdf3d9, just under WCAG AA ( 4.5:1 for normal text ), so this
+	   fallback alone uses a darker value #1a63a3 ( about 5.66:1 against the same background ). */
 	a {
-		color: var(--vk-color-text-link, #1e73be);
+		color: var(--vk-color-text-link, #1a63a3);
 	}
 }

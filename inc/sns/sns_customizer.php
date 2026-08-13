@@ -482,7 +482,10 @@ function veu_customize_register_sns( $wp_customize ) {
 			'section'     => 'veu_sns_setting',
 			'settings'    => 'vkExUnit_sns_options[snsBtn_block_ignore_exclude]',
 			'type'        => 'checkbox',
-			'description' => __( 'The per-post "Hide setting of share button" always takes priority over this option.', 'vk-all-in-one-expansion-unit' ),
+			// 「チェックしない場合の挙動」と「post meta の優先順位」を1文ずつ翻訳関数に入れ、スペースで連結する.
+			// Put "behavior when unchecked" and "post meta priority" into separate translation calls,
+			// one sentence each, joined with a space.
+			'description' => __( 'When unchecked, the block follows the "Exclude Post Types" setting above.', 'vk-all-in-one-expansion-unit' ) . ' ' . __( 'The per-post "Hide setting of share button" always takes priority over this option.', 'vk-all-in-one-expansion-unit' ),
 		)
 	);
 

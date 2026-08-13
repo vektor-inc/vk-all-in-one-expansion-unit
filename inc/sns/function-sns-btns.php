@@ -165,16 +165,57 @@ function veu_is_sns_btns_display( $context = 'auto' ) {
  *
  * The block editor canvas ( ServerSideRender ) requests dynamic block markup via the REST API with
  * a `context=edit` query parameter, so a PHP render callback can tell an editor preview apart from
- * an actual front-end request.
+ * an actual front-end request. This check requires all of the following, so the editor-only notice
+ * ( which links to the settings screen ) is never returned to an unauthenticated front-end visitor:
+ * 1. the request is an actual REST API request,
+ * 2. the `context` query var is exactly 'edit', and
+ * 3. the current user has permission to edit the post ( or, when there is no post — e.g. the site
+ *    editor — permission to edit posts in general, matching how WP_REST_Block_Renderer_Controller
+ *    authorizes edit-context block renders ).
  * ブロックエディタのキャンバス（ServerSideRender）は、PHP の描画コールバックが実際の公開画面
  * リクエストと編集画面プレビューを区別できるよう、`context=edit` クエリパラメータ付きで
- * REST API 経由で動的ブロックのマークアップを要求する。
+ * REST API 経由で動的ブロックのマークアップを要求する。設定画面へのリンクを含む編集画面専用の
+ * 通知が、権限のない公開画面の閲覧者に返らないよう、以下をすべて満たす場合のみ true を返す。
+ * 1. 実際に REST API リクエストであること
+ * 2. `context` クエリ変数が厳密に 'edit' であること
+ * 3. 現在のユーザーがその投稿を編集する権限を持つこと（投稿が無い場合 — サイトエディター等 —
+ *    は投稿を編集する一般的な権限。WP_REST_Block_Renderer_Controller が edit コンテキストの
+ *    ブロック描画を許可する考え方に合わせている）
  *
+ * @param bool|null $is_rest_request Optional. Overrides the REST_REQUEST check for testability.
+ *                   Leave null in production code — it is auto-detected from the REST_REQUEST
+ *                   constant. PHP constants cannot be undefined once set, so a test that needs to
+ *                   simulate a REST request passes true/false here instead of calling
+ *                   `define( 'REST_REQUEST', true )`, which would otherwise leak into every test
+ *                   that runs afterward in the same PHPUnit process.
+ *                   テスト容易性のための REST_REQUEST チェックの上書き（省略可）。本番コードでは
+ *                   null のままにし、REST_REQUEST 定数から自動判定させる。PHP の定数は一度
+ *                   定義すると undefine できないため、REST リクエストを再現したいテストは
+ *                   `define( 'REST_REQUEST', true )` を呼ぶ代わりにこの引数を使う
+ *                   （さもないと、同じ PHPUnit プロセス内で後に実行される全テストへ影響してしまう）.
  * @return bool
  */
-function veu_is_block_editor_preview() {
+function veu_is_block_editor_preview( $is_rest_request = null ) {
+	if ( null === $is_rest_request ) {
+		$is_rest_request = defined( 'REST_REQUEST' ) && REST_REQUEST;
+	}
+
+	// ServerSideRender は REST API 経由でしか来ないため、REST リクエストでなければ即座に false.
+	// ServerSideRender only ever arrives via the REST API, so bail out immediately for non-REST requests.
+	if ( ! $is_rest_request ) {
+		return false;
+	}
+
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the render context ( no state is read from or written to ).
-	return isset( $_GET['context'] ) && 'edit' === $_GET['context'];
+	if ( ! isset( $_GET['context'] ) || 'edit' !== sanitize_key( wp_unslash( $_GET['context'] ) ) ) {
+		return false;
+	}
+
+	// 編集画面向けの通知（設定画面への実リンクを含む）なので、編集権限を持つユーザーにのみ返す.
+	// This is an editor-only notice ( it includes a real link to the settings screen ), so only return
+	// true for a user who has permission to edit.
+	$post_id = get_the_ID();
+	return $post_id ? current_user_can( 'edit_post', $post_id ) : current_user_can( 'edit_posts' );
 }
 
 /**
@@ -193,21 +234,33 @@ function veu_is_block_editor_preview() {
 function veu_sns_btns_editor_notice( $reason ) {
 
 	// 記事単位の非表示設定による場合 ( post meta ).
-	// Hidden by the per-post hide setting ( post meta ).
+	// 主語は「シェアボタン」であり、記事自体が公開画面に出ないわけではない事を明確にする.
+	// Hidden by the per-post hide setting ( post meta ). The subject is "the share button", not the
+	// post itself — the post body still displays normally, only the share button is hidden.
 	if ( 'post_meta' === $reason ) {
 		return '<div class="veu_share_button_block-notice"><p>'
-			. esc_html__( 'This post will not appear on the front end because of this post\'s "Hide setting of share button".', 'vk-all-in-one-expansion-unit' )
+			. esc_html__( 'The share button will not appear on the front end because of this post\'s "Hide setting of share button".', 'vk-all-in-one-expansion-unit' )
 			. '</p></div>';
 	}
 
 	// 投稿タイプ除外設定による場合。設定画面への実リンクを添える.
+	// 主語は「シェアボタンブロック」であり、この投稿タイプ全体が公開画面に出ないわけではない事を明確にする.
 	// Hidden by the "Exclude Post Types" option. Include a real link to the settings screen.
+	// The subject is "the share button block", not this post type as a whole.
 	if ( 'post_type' === $reason ) {
 		$settings_url = esc_url( admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' ) );
+		$link_label   = esc_html__( 'Open the SNS settings', 'vk-all-in-one-expansion-unit' );
+		// 新規タブで開く事を aria-label で伝える（.screen-reader-text 等の CSS には依存しない。
+		// このプラグインの編集画面 CSS はテーマ／WP コアの CSS を前提にできないため）.
+		// Convey that the link opens in a new tab via aria-label ( not via CSS such as
+		// .screen-reader-text, since this plugin's editor-canvas CSS cannot assume the theme or
+		// WP core stylesheet is loaded there ).
+		$new_tab_note = esc_html__( 'Opens in a new tab.', 'vk-all-in-one-expansion-unit' );
+		$aria_label   = esc_attr( $link_label . ' ' . $new_tab_note );
 		return '<div class="veu_share_button_block-notice"><p>'
-			. esc_html__( 'This post type will not appear on the front end because of the "Exclude Post Types" setting.', 'vk-all-in-one-expansion-unit' )
-			. '</p><p><a href="' . $settings_url . '" target="_blank" rel="noopener noreferrer">'
-			. esc_html__( 'Open the SNS settings', 'vk-all-in-one-expansion-unit' )
+			. esc_html__( 'The share button block will not appear on the front end for this post type because of the "Exclude Post Types" setting.', 'vk-all-in-one-expansion-unit' )
+			. '</p><p><a href="' . $settings_url . '" target="_blank" rel="noopener noreferrer" aria-label="' . $aria_label . '">'
+			. $link_label
 			. '</a></p></div>';
 	}
 

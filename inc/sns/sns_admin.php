@@ -90,7 +90,16 @@ $args = array(
 );
 vk_the_post_type_check_list( $args );
 ?>
-<label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_block_ignore_exclude]" id="snsBtn_block_ignore_exclude" value="true" <?php echo ( $options['snsBtn_block_ignore_exclude'] ) ? 'checked' : ''; ?> /><?php esc_html_e( 'Always display the share button block regardless of this setting', 'vk-all-in-one-expansion-unit' ); ?></label>
+<?php
+/**
+ * ラベル文言はカスタマイザー側（snsBtn_block_ignore_exclude コントロール）と同一の翻訳文字列を使う。
+ * 「投稿タイプ除外の直後」という配置文脈でも意味が通るため、あえて分けずに1本化している。
+ * Reuse the exact same translated label as the Customizer control for this option, so translators
+ * only need to translate one string. It reads fine here too ( right after the post type exclusion
+ * list ), so it is intentionally not split into a context-specific variant.
+ */
+?>
+<label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_block_ignore_exclude]" id="snsBtn_block_ignore_exclude" value="true" <?php checked( ! empty( $options['snsBtn_block_ignore_exclude'] ) ); ?> /><?php esc_html_e( 'Always display the share button block regardless of excluded post types', 'vk-all-in-one-expansion-unit' ); ?></label>
 <p class="description">
 <?php esc_html_e( 'The share button block placed manually in the block editor follows the "Exclude Post Types" setting above by default, and will not appear on the front end for those post types.', 'vk-all-in-one-expansion-unit' ); ?>
 <?php esc_html_e( 'Check this box to always display the block regardless of it.', 'vk-all-in-one-expansion-unit' ); ?>
