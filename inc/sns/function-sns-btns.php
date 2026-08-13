@@ -198,17 +198,26 @@ function veu_sns_icon_css( $options ) {
  * Font Awesome に依存しないよう、インライン SVG に置き換える。
  * 素材の出典: Simple Icons（ https://simpleicons.org/ ）の threads.svg。
  * ライセンス: CC0 1.0 Universal（ https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ）。
+ * このライセンスは SVG（トレース成果物）の著作権表示に関するもので、Threads ロゴ自体の商標権は
+ * Meta に帰属したまま。単色・形状非改変・シェア導線としての用途に限定して使用している。
  * The in-house web font ( vk_sns ) has no glyph for Threads, so the Font Awesome brand icon
  * fa-brands fa-threads was used. This plugin does not load Font Awesome itself and relied on
  * the theme loading it, so the icon did not render on themes that do not load Font Awesome
  * ( e.g. Twenty Twenty-Five ). Replace it with an inline SVG so it no longer depends on Font Awesome.
  * Source: Simple Icons ( https://simpleicons.org/ ) threads.svg.
  * License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+ * This license covers the SVG ( the traced artwork ) copyright notice only; the Threads logo
+ * itself remains a trademark of Meta. Used single-color, unmodified in shape, and only as a
+ * share link icon.
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
  *
  * @return string SVG markup.
  */
 function veu_sns_icon_svg_threads() {
-	return '<svg class="sb_svg_icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg>';
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg>';
 }
 
 /**
@@ -223,11 +232,15 @@ function veu_sns_icon_svg_threads() {
  * that do not load Font Awesome. Replace it with an inline SVG so it no longer depends on Font Awesome.
  * Source: Heroicons ( https://heroicons.com/ ) square-2-stack ( solid ).
  * License: MIT License ( https://github.com/tailwindlabs/heroicons/blob/master/LICENSE ).
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
  *
  * @return string SVG markup.
  */
 function veu_sns_icon_svg_copy() {
-	return '<svg class="sb_svg_icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 6a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v7.5a3 3 0 0 0 3 3v-6A4.5 4.5 0 0 1 10.5 6h6Z"/><path d="M18 7.5a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3H18Z"/></svg>';
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 6a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v7.5a3 3 0 0 0 3 3v-6A4.5 4.5 0 0 1 10.5 6h6Z"/><path d="M18 7.5a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3H18Z"/></svg>';
 }
 
 /**

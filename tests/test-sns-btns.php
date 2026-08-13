@@ -423,6 +423,17 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// Some assistive technologies read out <title> / <desc> even with aria-hidden, so check they are not included.
 			$this->assertStringNotContainsString( '<title', $case['expected'], $case['test_condition_name'] );
 			$this->assertStringNotContainsString( '<desc', $case['expected'], $case['test_condition_name'] );
+			// サイズを決めている class="sb_svg_icon" が付いている事を確認（消えたり改名されると
+			// .sb_svg_icon の CSS が当たらなくなり、置換要素の既定サイズ規則で肥大表示される）。
+			// Check class="sb_svg_icon" is present ( the class that drives sizing ). If it disappears
+			// or gets renamed, the .sb_svg_icon CSS no longer applies and the default replaced-element
+			// sizing rules would render an oversized icon.
+			$this->assertStringContainsString( 'class="sb_svg_icon"', $case['expected'], $case['test_condition_name'] );
+			// 将来アイコンを追加する人への回帰ガードとして、危険なトークンが含まれない事を確認
+			// Regression guard for future icon additions: check no dangerous tokens are included.
+			foreach ( array( '<script', '<foreignObject', '<use', '<image', 'xlink', 'href=' ) as $forbidden_token ) {
+				$this->assertStringNotContainsString( $forbidden_token, $case['expected'], $case['test_condition_name'] );
+			}
 			// アイコン色が snsBtn_color オプションで切り替えられるよう fill="currentColor" が明示されている事を確認
 			// Check fill="currentColor" is declared so the icon color follows the snsBtn_color option.
 			$this->assertStringContainsString( 'fill="currentColor"', $case['expected'], $case['test_condition_name'] );
@@ -444,6 +455,29 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
+
+		// アイコンへの配色経路が「フォント色（vk_sns glyph）→ color」から「fill="currentColor"」に変わった事の
+		// 回帰テスト。veu_sns_icon_css() 自体は無変更だが、その戻り値である style="color:...;" が
+		// インライン SVG の fill にも正しく効くルート（外側 span の color を fill="currentColor" が継承する）
+		// を固定する。
+		// Regression test for the icon coloring path having changed from "font color ( vk_sns glyph ) via
+		// color" to "fill=\"currentColor\"". veu_sns_icon_css() itself is unchanged, but this pins the route
+		// where its style="color:...;" return value also correctly reaches the inline SVG's fill ( inherited
+		// via fill="currentColor" from the outer span's color ).
+		update_option(
+			'vkExUnit_sns_options',
+			array(
+				'useThreads'         => true,
+				'snsBtn_bg_fill_not' => true,
+				'snsBtn_color'       => '#ff0000',
+			)
+		);
+		$this->assertStringContainsString(
+			'<span class="icon_sns" aria-hidden="true" style="color:#ff0000;"><svg class="sb_svg_icon"',
+			veu_get_sns_btns(),
+			'snsBtn_bg_fill_not が true かつ snsBtn_color が指定されている場合 => Threads の外側 span の style="color:..." に反映され、SVG の fill="currentColor" 経由で色が届く'
+		);
+		delete_option( 'vkExUnit_sns_options' );
 
 		// 各 SNS アイコンの外側 span（icon_sns）に aria-hidden="true" が付き読み上げから除外される事のテスト
 		// （ fb / x / bluesky / hatena / line は自前 web フォント（vk_sns）の空 span、Threads / Copy はインライン SVG を包む span ）。

@@ -31,7 +31,13 @@
     }
     .sb_icon {
         .sb_icon_inner {
-            display: block;
+            // アイコン（自前フォント合字 / インライン SVG）とテキストの縦位置合わせを、フォントの行ボックス
+            // （strut）基準ではなく flex の cross-axis 整列で行う。アイコンの実装方式に関わらずボタンの高さが揃う。
+            // Vertically align the icon ( in-house web font ligature / inline SVG ) and text via flex
+            // cross-axis alignment instead of the font's line-box ( strut ), so the button height stays
+            // consistent regardless of how the icon is implemented.
+            display: flex;
+            align-items: center;
             overflow: hidden;
             width:100%;
 			box-sizing: border-box;
@@ -55,30 +61,25 @@
                 position: relative;
                 top: -1px;
             }
+            // display:inline-block だと中身（自前フォント合字の ::before / インライン SVG）がフォントの行ボックス
+            // （strut）基準で中央寄せされ、フォント合字と SVG とで実際の高さがわずかに変わってしまう。
+            // inline-flex に変え、strut に左右されない flex の cross-axis 整列で高さを揃える。
+            // display:inline-block centers its content ( the ::before web-font ligature / inline SVG ) via
+            // the font's line-box ( strut ), which renders a slightly different height for the web-font
+            // ligature vs. the SVG. Use inline-flex so the height is unaffected by the strut.
             .icon_sns {
                 font-size: 100%;
                 padding: 5px 8px 5px 0;
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
             }
-            // Threads・Copy はインライン SVG アイコン。自前フォント（vk_sns）の他アイコンと視覚的な大きさを揃えるため、
-            // 実際のグリフが em ボックスいっぱいに描画される Facebook・LINE のアイコンに合わせて 1em 四方で描画する
-            // （ vk_sns.ttf の fb / line グリフの ink bounding box は共に (0,-64)-(1024,960) で units-per-em と一致し、
-            //   em ボックス全体を占めるため、SVG 側も 1em 四方に合わせれば実描画サイズが一致する ）。
-            // インライン SVG は既定で inline 要素としてベースライン基準に配置され下側にファントム余白が出るため、
-            // vertical-align で中央寄せする（ブラウザの実描画で Facebook・LINE と並べて確認済み。1px 未満の
-            // サブピクセル差はベースライン整列要素にありがちな挙動で視覚的には無視できるレベル）。
-            // Threads / Copy use inline SVG icons. They are sized to match the visual size of the other
-            // in-house web font ( vk_sns ) icons. The Facebook / LINE glyphs' ink bounding box in vk_sns.ttf
-            // is (0,-64)-(1024,960), which matches the font's units-per-em and fills the whole em box, so
-            // sizing the SVG to 1em square makes its rendered size match theirs exactly.
-            // Inline SVG defaults to being placed on the text baseline like an inline element, which leaves
-            // phantom space below it, so vertical-align centers it instead ( verified side by side with
-            // Facebook / LINE in an actual browser render; a sub-1px difference remains, which is a normal,
-            // visually negligible side effect of baseline-aligned replaced elements ).
+            // Threads・Copy のインライン SVG は他の自前フォント（vk_sns）アイコンと視覚サイズを揃えるため 1em 四方にする。
+            // 中央寄せは親の .icon_sns（inline-flex）側で行う（詳細な検証根拠は PR 本文を参照）。
+            // Size the inline SVG ( Threads / Copy ) to 1em square to match the other in-house web font
+            // ( vk_sns ) icons. Centering is handled by the parent .icon_sns ( inline-flex; see the PR body for details ).
             .sb_svg_icon {
                 width: 1em;
                 height: 1em;
-                vertical-align: middle;
             }
         }
     }
