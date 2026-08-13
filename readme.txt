@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Bug Fix ][ Block ] Fixed the Share Button, HTML Sitemap and other blocks showing "This block has encountered an error and cannot be previewed" in the editor when the post contains a cross-origin iframe embed.
+[ Bug Fix ][ SNS Share Button ] Fixed the Threads and Copy icons not being displayed on themes that do not load Font Awesome (e.g. Twenty Twenty-Five), since the icons depended on Font Awesome even though the plugin itself does not load it. They are now drawn with inline SVG instead.
 
 = 9.121.1 =
 [ Bug Fix ][ HTML Sitemap ] Fixed a fatal error on the HTML Sitemap settings screen when used together with plugins that bundle an older copy of the shared template tag package (e.g. VK Post Author Display).

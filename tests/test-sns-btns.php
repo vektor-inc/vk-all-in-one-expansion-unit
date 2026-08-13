@@ -333,17 +333,17 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			$actual = veu_get_sns_btns();
 
 			if ( $case['expected_contains'] ) {
-				// Threads ボタンの li クラスと intent URL の両方が含まれる事を確認
-				// Check that both the li class of the Threads button and the intent URL are included.
+				// Threads ボタンの li クラス・intent URL・インライン SVG アイコンの全てが含まれる事を確認
+				// Check that the li class, intent URL, and inline SVG icon of the Threads button are all included.
 				$this->assertStringContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringContainsString( $threads_intent, $actual, $case['test_condition_name'] );
-				$this->assertStringContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
+				$this->assertStringContainsString( veu_sns_icon_svg_threads(), $actual, $case['test_condition_name'] );
 			} else {
 				// Threads ボタンが含まれない事を確認（li クラス・intent URL・アイコンの全てが出力されない）
 				// Check that the Threads button is not included ( none of the li class, intent URL, or icon are output ).
 				$this->assertStringNotContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringNotContainsString( $threads_intent, $actual, $case['test_condition_name'] );
-				$this->assertStringNotContainsString( 'fa-threads', $actual, $case['test_condition_name'] );
+				$this->assertStringNotContainsString( veu_sns_icon_svg_threads(), $actual, $case['test_condition_name'] );
 			}
 
 			// オプション値をクリーンアップ / Clean up the option value.
@@ -396,42 +396,62 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			delete_option( 'vkExUnit_sns_options' );
 		}
 
-		// 装飾アイコン（Threads / Copy）の <i> に aria-hidden="true" が付き読み上げから除外される事のテスト
-		// Test that the decorative icons ( Threads / Copy ) get aria-hidden="true" on their <i> and are hidden from screen readers.
-		// アイコンアクセシビリティのフィルター有無に依存しない事を確かめるため、フィルターを外した状態で検証する。
-		// Verify with the filter removed to confirm the attribute does not depend on the icon accessibility filter.
-		remove_filter( 'the_content', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ) );
-		remove_filter( 'render_block', array( 'VEU_Icon_Accessibility', 'add_aria_hidden_to_fontawesome' ), 10 );
-
-		$aria_cases = array(
+		// 装飾アイコン（Threads / Copy）の SVG 自体にも aria-hidden="true" と focusable="false" が付き、
+		// 読み上げやタブフォーカスの対象から除外される事のテスト（外側の span への統一は下の $webfont_cases 側で確認する）。
+		// Test that the SVG itself ( for the decorative icons Threads / Copy ) also gets aria-hidden="true"
+		// and focusable="false", so it is excluded from screen readers and tab focus. The outer span
+		// aria-hidden is unified with the other icons and checked in $webfont_cases below.
+		$svg_aria_cases = array(
 			array(
-				'test_condition_name' => 'useThreads が true の場合 => Threads の <i> に aria-hidden="true" が付く',
+				'test_condition_name' => 'useThreads が true の場合 => Threads の svg に aria-hidden="true" focusable="false" が付く',
 				'options'             => array( 'useThreads' => true ),
-				'expected'            => '<i class="fa-brands fa-threads" aria-hidden="true"></i>',
+				'expected'            => veu_sns_icon_svg_threads(),
 			),
 			array(
-				'test_condition_name' => 'useCopy が true の場合 => Copy の <i> に aria-hidden="true" が付く',
+				'test_condition_name' => 'useCopy が true の場合 => Copy の svg に aria-hidden="true" focusable="false" が付く',
 				'options'             => array( 'useCopy' => true ),
-				'expected'            => '<i class="fas fa-copy" aria-hidden="true"></i>',
+				'expected'            => veu_sns_icon_svg_copy(),
 			),
 		);
 
-		foreach ( $aria_cases as $case ) {
+		foreach ( $svg_aria_cases as $case ) {
+			// SVG 自体が aria-hidden="true" と focusable="false" を明示している事を確認
+			// Check the SVG markup itself declares aria-hidden="true" and focusable="false".
+			$this->assertStringContainsString( 'aria-hidden="true"', $case['expected'], $case['test_condition_name'] );
+			$this->assertStringContainsString( 'focusable="false"', $case['expected'], $case['test_condition_name'] );
+			// 一部の支援技術は aria-hidden があっても読み上げてしまうため、title / desc は含めない事を確認
+			// Some assistive technologies read out <title> / <desc> even with aria-hidden, so check they are not included.
+			$this->assertStringNotContainsString( '<title', $case['expected'], $case['test_condition_name'] );
+			$this->assertStringNotContainsString( '<desc', $case['expected'], $case['test_condition_name'] );
+			// アイコン色が snsBtn_color オプションで切り替えられるよう fill="currentColor" が明示されている事を確認
+			// Check fill="currentColor" is declared so the icon color follows the snsBtn_color option.
+			$this->assertStringContainsString( 'fill="currentColor"', $case['expected'], $case['test_condition_name'] );
+			// 767px 以下のブレークポイントで縦横比が崩れないよう viewBox が正方形（1:1）である事を確認
+			// Check the viewBox is square ( 1:1 ) so the aspect ratio does not break at the 767px breakpoint.
+			preg_match( '/viewBox="0 0 (\d+) (\d+)"/', $case['expected'], $viewbox_matches );
+			$this->assertNotEmpty( $viewbox_matches, $case['test_condition_name'] );
+			$this->assertSame( $viewbox_matches[1], $viewbox_matches[2], $case['test_condition_name'] );
+
 			// オプション値を設定 / Set option value.
 			update_option( 'vkExUnit_sns_options', $case['options'] );
 
 			// シェアボタンの HTML を取得 / Get the share button HTML.
 			$actual = veu_get_sns_btns();
 
-			// 装飾アイコンに aria-hidden が付いている事を確認 / Check the decorative icon has aria-hidden.
+			// 装飾アイコンの SVG が出力に含まれる事を確認 / Check the decorative icon's SVG is included in the output.
 			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
 
 			// オプション値をクリーンアップ / Clean up the option value.
 			delete_option( 'vkExUnit_sns_options' );
 		}
 
-		// 自前 web フォント（vk_sns）の空 span アイコン（fb / x / bluesky / hatena / line）にも aria-hidden="true" が付き読み上げから除外される事のテスト
-		// Test that the empty in-house web font ( vk_sns ) span icons ( fb / x / bluesky / hatena / line ) also get aria-hidden="true" and are hidden from screen readers.
+		// 各 SNS アイコンの外側 span（icon_sns）に aria-hidden="true" が付き読み上げから除外される事のテスト
+		// （ fb / x / bluesky / hatena / line は自前 web フォント（vk_sns）の空 span、Threads / Copy はインライン SVG を包む span ）。
+		// SVG 化を機に、Threads / Copy も他の5つと同じく外側の span に aria-hidden を統一した事を確認する。
+		// Test that the outer span ( icon_sns ) of each SNS icon gets aria-hidden="true" and is hidden from screen
+		// readers ( fb / x / bluesky / hatena / line are empty in-house web font ( vk_sns ) spans, Threads / Copy
+		// are spans wrapping an inline SVG ). Confirm that, following the move to SVG, Threads / Copy now also
+		// place aria-hidden on the outer span like the other 5 icons.
 		// class 直後・$icon_css の前に aria-hidden が入る実出力に合わせてリテラルで検証する。
 		// Verify against the literal output where aria-hidden comes right after class and before $icon_css.
 		// LINE はモバイル環境（wp_is_mobile() が true）かつ useLine が有効な時のみ出力されるため、ケースごとに user_agent を設定して分岐を通す。
@@ -472,6 +492,18 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				'options'             => array( 'useLine' => true ),
 				'user_agent'          => $mobile_ua,
 				'expected_contains'   => array( 'sb_line', '<span class="vk_icon_w_r_sns_line icon_sns" aria-hidden="true"' ),
+			),
+			array(
+				'test_condition_name' => 'useThreads が true の場合 => Threads の SVG を包む span に aria-hidden="true" が付く（他5つの icon_sns と統一）',
+				'options'             => array( 'useThreads' => true ),
+				'user_agent'          => null,
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true"' ),
+			),
+			array(
+				'test_condition_name' => 'useCopy が true の場合 => Copy の SVG を包む span に aria-hidden="true" が付く（他5つの icon_sns と統一）',
+				'options'             => array( 'useCopy' => true ),
+				'user_agent'          => null,
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true"' ),
 			),
 		);
 

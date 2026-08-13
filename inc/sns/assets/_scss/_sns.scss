@@ -60,6 +60,26 @@
                 padding: 5px 8px 5px 0;
                 display: inline-block;
             }
+            // Threads・Copy はインライン SVG アイコン。自前フォント（vk_sns）の他アイコンと視覚的な大きさを揃えるため、
+            // 実際のグリフが em ボックスいっぱいに描画される Facebook・LINE のアイコンに合わせて 1em 四方で描画する
+            // （ vk_sns.ttf の fb / line グリフの ink bounding box は共に (0,-64)-(1024,960) で units-per-em と一致し、
+            //   em ボックス全体を占めるため、SVG 側も 1em 四方に合わせれば実描画サイズが一致する ）。
+            // インライン SVG は既定で inline 要素としてベースライン基準に配置され下側にファントム余白が出るため、
+            // vertical-align で中央寄せする（ブラウザの実描画で Facebook・LINE と並べて確認済み。1px 未満の
+            // サブピクセル差はベースライン整列要素にありがちな挙動で視覚的には無視できるレベル）。
+            // Threads / Copy use inline SVG icons. They are sized to match the visual size of the other
+            // in-house web font ( vk_sns ) icons. The Facebook / LINE glyphs' ink bounding box in vk_sns.ttf
+            // is (0,-64)-(1024,960), which matches the font's units-per-em and fills the whole em box, so
+            // sizing the SVG to 1em square makes its rendered size match theirs exactly.
+            // Inline SVG defaults to being placed on the text baseline like an inline element, which leaves
+            // phantom space below it, so vertical-align centers it instead ( verified side by side with
+            // Facebook / LINE in an actual browser render; a sub-1px difference remains, which is a normal,
+            // visually negligible side effect of baseline-aligned replaced elements ).
+            .sb_svg_icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: middle;
+            }
         }
     }
     .sb_facebook a {
@@ -92,11 +112,6 @@
         background: #000;
         box-shadow: 0 2px 0 rgba(102, 102, 102, 1);
     }
-    // Threads は Font Awesome のブランドアイコンを使うため、他アイコンと視覚的な大きさを揃える
-    // Threads uses a Font Awesome brand icon, so match its visual size to the other icons
-    .sb_threads .sb_icon_inner i {
-        font-size: 16px;
-    }
     .sb_google a {
         background: #dd4b39;
         box-shadow: 0 2px 0 rgba(160, 53, 36, 1);
@@ -109,9 +124,6 @@
         background: #555;
         box-shadow: 0 2px 0 #333;
         padding-bottom:4px;
-        i {
-            font-size:14px;
-        }
     }
 } //.veu_socialSet ul
 
