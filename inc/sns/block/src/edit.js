@@ -9,11 +9,22 @@ export default function ShareButtonEdit( props ) {
 	const { className } = attributes;
 
 	useEffect( () => {
-		const iframe = document.querySelector(
-			'.block-editor__container iframe'
-		);
-		const iframeDoc = iframe?.contentWindow?.document;
-		const targetDoc = iframeDoc || document;
+		// エディターキャンバスの iframe だけを対象にする。本文中の外部埋め込み
+		// （YouTube 等）を掴まないよう name="editor-canvas" で絞り、cross-origin で
+		// 例外を投げず null を返す contentDocument を使う。
+		//
+		// Target only the editor canvas iframe. Scope the selector to
+		// name="editor-canvas" so we never grab an embedded external iframe, and use
+		// contentDocument, which returns null instead of throwing for cross-origin.
+		let targetDoc = document;
+		try {
+			const canvas = document.querySelector(
+				'iframe[name="editor-canvas"]'
+			);
+			targetDoc = canvas?.contentDocument || document;
+		} catch {
+			// 想定外の例外でも画面を落とさないためのフォールバック。
+		}
 
 		// eslint-disable-next-line no-undef
 		const observer = new MutationObserver( () => {
