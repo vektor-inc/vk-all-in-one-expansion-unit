@@ -337,6 +337,17 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 	public function test_save_custom_field() {
 		$cta_id = $this->create_classic_cta();
 
+		// save_custom_field() は edit_post 権限を要求するため、管理者としてログインする
+		// ( issue #1437 で追加された多層防御チェック ).
+		// wp_create_nonce() はログイン中のユーザーIDに紐づくため、必ず nonce を発行する前に
+		// ログインを済ませておく（順序を逆にすると nonce が別ユーザー扱いになり検証に失敗する）.
+		// save_custom_field() requires edit_post capability, so log in as an administrator
+		// ( the defense-in-depth check added in issue #1437 ). wp_create_nonce() ties the nonce
+		// to the currently logged-in user, so the login must happen before the nonce is created
+		// ( doing it in the other order makes the nonce belong to a different user and fail verification ).
+		$admin_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $admin_id );
+
 		// save_custom_field() が要求する nonce を作成する。
 		// Create the nonce required by save_custom_field().
 		$reflection = new ReflectionClass( 'Vk_Call_To_Action' );
