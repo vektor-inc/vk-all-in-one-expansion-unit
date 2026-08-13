@@ -6,13 +6,15 @@
    Share Button Block – Editor Notice
    ========================================================================== */
 
-/* ブロックエディタのキャンバス（iframe）はテーマの CSS を読み込まないため、通知の見た目を
-   このクラスだけで完結させる。色は VK デザイントークンをフォールバック付きで使う
-   （トークン自体もテーマ由来のため、編集画面では未定義になり得るため）。
-   The block editor canvas ( iframe ) does not load the active theme's CSS, so this notice's
-   look must be self-contained via this class alone. Colors use VK design tokens with
-   fallbacks, since the tokens themselves are theme-provided and may be undefined in the
-   editor canvas. */
+/* ブロックエディタのキャンバス（iframe）にも、このプラグイン自身が assets/css/vkExUnit_editor_style.css
+   （_variable.scss 由来の --vk-color-* カスタムプロパティ定義）を enqueue_block_assets 経由で読み込んで
+   いるため、通常はそのトークンの値がそのまま効く（テーマの CSS の有無には依存しない）。ここでのフォール
+   バック値は、そのスタイルシートが何らかの理由で読み込めずトークンが未定義になった場合の保険。
+   The block editor canvas ( iframe ) also loads this plugin's own assets/css/vkExUnit_editor_style.css
+   ( the --vk-color-* custom properties defined from _variable.scss ) via enqueue_block_assets, so those
+   token values normally apply as-is ( this does not depend on whether the active theme provides CSS ).
+   The fallback values here are a safety net for cases where that stylesheet fails to load for some
+   reason and the tokens end up undefined. */
 .veu_share_button_block-notice {
 	padding: .75em 1em;
 	border: 1px solid var(--vk-color-border-hr, #e2d8b8);
