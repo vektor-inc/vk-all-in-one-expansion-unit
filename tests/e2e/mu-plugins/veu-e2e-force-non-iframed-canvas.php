@@ -17,6 +17,10 @@
  * にしているため、投稿本文に自己終了タグ `<!-- wp:veu-e2e/legacy-canvas-block /-->`
  * を直接書き込むだけで済み、ブロックの内容検証（invalid block）の対象にもならない。
  *
+ * ただし Gutenberg プラグインが有効な環境では常に iframe 化されるため
+ * （`useShouldIframe` の `isGutenbergPlugin` 判定）、この手法は使えない。その場合
+ * spec の `iframe[name="editor-canvas"]` の count 0 アサーションで検知される。
+ *
  * このスクリプトは e2e テストの `veu_e2e_force_non_iframed_canvas` クエリ
  * パラメータが付いている投稿編集画面でのみ読み込まれる（パラメータが無い通常の
  * アクセス・他の e2e スペックには一切影響しない）。

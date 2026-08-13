@@ -80,6 +80,14 @@ const TEST_POST_TITLE = 'Cross-origin iframe block error test (#1452)';
 // （tests/e2e/mu-plugins/veu-e2e-force-non-iframed-canvas.php 参照）。
 const FORCE_NON_IFRAMED_CANVAS_PARAM = 'veu_e2e_force_non_iframed_canvas';
 
+// お問い合わせセクション機能を強制的に有効化するオプション名
+// （tests/e2e/mu-plugins/veu-e2e-force-contact-section-active.php 参照）。
+// このフィルターは設定画面の表示・REST の block-renderer 双方に効くため
+// クエリパラメータではなくオプションでゲートしている。beforeAll で立て、
+// afterAll で必ず消す（他の e2e スペック・通常アクセスに影響させないため）。
+const FORCE_CONTACT_SECTION_ACTIVE_OPTION =
+	'veu_e2e_force_contact_section_active';
+
 // issue #1452 で影響を受けた 6 ブロック。
 // blockName は各ブロックの block.json の "name"（post_content に直接書く際の
 // ブロック識別子）、blockClass はブロックの edit.js が useBlockProps に渡している
@@ -203,9 +211,19 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 
 	test.beforeAll( () => {
 		resetPosts();
+		// お問い合わせセクションブロックを登録させるためのマーカーを立てる
+		// （mu-plugin veu-e2e-force-contact-section-active.php 参照）。
+		runWpCli( [
+			'option',
+			'update',
+			FORCE_CONTACT_SECTION_ACTIVE_OPTION,
+			'1',
+		] );
 	} );
 
 	test.afterAll( () => {
+		// マーカーを消し、他の e2e スペック・通常アクセスへの影響を残さない。
+		runWpCli( [ 'option', 'delete', FORCE_CONTACT_SECTION_ACTIVE_OPTION ] );
 		resetPosts();
 	} );
 
@@ -251,15 +269,18 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 		// --- 6 ブロックのいずれかが描画されるか、エラー境界表示が現れるまで待つ ---
 		// ServerSideRender の REST 取得は並行して走るため、いずれか一つが
 		// 決着すれば「読み込みが進んだ」と判断してよい。
-		await Promise.race( [
-			errorBoundaryText.first().waitFor( { timeout: 30000 } ),
-			...TARGET_BLOCKS.map( ( { blockName } ) =>
-				page
-					.locator( blockSelector( blockName ) )
-					.first()
-					.waitFor( { timeout: 30000 } )
-			),
-		] );
+		// Promise.race だと、先に決着しなかった残りの waitFor が待ち続け、
+		// テスト終了でページが閉じられた際に誰も catch しない reject
+		// （unhandled rejection）を起こすため、ロケータの OR で 1 本の
+		// await にまとめる。
+		const anyTargetBlock = page.locator(
+			TARGET_BLOCKS.map( ( { blockName } ) =>
+				blockSelector( blockName )
+			).join( ',' )
+		);
+		await expect(
+			anyTargetBlock.or( errorBoundaryText ).first()
+		).toBeVisible( { timeout: 30000 } );
 
 		// --- エラー境界表示の有無を先に確認する ---
 		// 出ていれば「エラー表示になっている」と一目で分かるメッセージで失敗させる
