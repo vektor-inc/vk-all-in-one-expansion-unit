@@ -59,10 +59,10 @@
                 -webkit-transition: all 0.3s ease-in-out;
                 -moz-transition: all 0.3s ease-in-out;
             }
-            // Lightning スキン（pale / jpnstyle）が .sns_txt へ bottom だけを注入して位置調整しているため、
-            // top を外した後も position:relative は残す（消すとスキン側の指定が無言で効かなくなる）。
-            // The Lightning skins ( pale / jpnstyle ) inject only `bottom` on .sns_txt to nudge it, so keep
-            // position:relative even after removing `top` ( removing it would silently break their offset ).
+            // Lightning スキン（pale / jpnstyle）が IE 判定の分岐の中で .sns_txt へ bottom だけを注入しているため、
+            // top を外した後も position:relative は残す（消すと IE でスキン側の指定が無言で効かなくなる）。
+            // The Lightning skins ( pale / jpnstyle ) inject only `bottom` on .sns_txt inside an IE-only branch, so
+            // keep position:relative even after removing `top` ( removing it would silently break their offset on IE ).
             .sns_txt {
                 position: relative;
             }
