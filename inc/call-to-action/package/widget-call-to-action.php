@@ -84,18 +84,18 @@ class Widget_CTA extends \WP_Widget {
 		);
 		?>
 <input type="hidden" name="_vkExUnit_cta_switch" value="cta_number" />
-<select name="<?php echo $this->get_field_name( 'id' ); ?>" style="width: 100%" >
+<select name="<?php echo esc_attr( $this->get_field_name( 'id' ) ); ?>" style="width: 100%" >
 <option value="">[ <?php _e( 'Please select', $vk_call_to_action_textdomain ); ?> ]</option>
 		<?php foreach ( $ctas as $cta ) : ?>
-	<option value="<?php echo $cta['key']; ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo $cta['label']; ?></option>
+	<option value="<?php echo esc_attr( $cta['key'] ); ?>" <?php echo( $value == $cta['key'] ) ? 'selected' : ''; ?> ><?php echo esc_html( $cta['label'] ); ?></option>
 <?php endforeach; ?>
 </select>
 </div>
 <div style="padding-bottom: 1em;">
-<a href="<?php echo admin_url( 'edit.php?post_type=cta' ); ?>" class="button button-default" target="_blank">
+<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=cta' ) ); ?>" class="button button-default" target="_blank">
 		<?php _e( 'Show CTA index page', $vk_call_to_action_textdomain ); ?>
 </a>
-<a href="<?php echo admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ); ?>" class="button button-default" target="_blank">
+<a href="<?php echo esc_url( admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_cta_settings' ) ); ?>" class="button button-default" target="_blank">
 		<?php _e( 'CTA setting', $vk_call_to_action_textdomain ); ?>
 </a>
 </div>

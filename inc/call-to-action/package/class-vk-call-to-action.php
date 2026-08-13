@@ -205,10 +205,18 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				// This value is a scalar string submitted from a single <select>. Guard with isset to avoid an "Undefined array key" warning when it is missing, and sanitize the unslashed value with map_deep() ( map_deep applies the callback to scalars as well ).
 				$data = isset( $_POST['vkexunit_cta_each_option'] ) ? map_deep( wp_unslash( $_POST['vkexunit_cta_each_option'] ), 'sanitize_text_field' ) : '';
 
+				// add_post_meta()/update_post_meta() は内部で必ず wp_unslash() するため（expected_slashed）、
+				// 上ですでに wp_unslash() 済みの $data をそのまま渡すと二重に unslash される。
+				// 実データ（投稿ID / 'random' / 'disable'）にバックスラッシュは含まれないため実害は無いが、
+				// 下の cta_content 分岐と揃えるため wp_slash() で相殺しておく。
+				// add_post_meta()/update_post_meta() always run wp_unslash() internally ( expected_slashed ),
+				// so passing the already wp_unslash()'d $data as is would unslash it twice. Real values
+				// ( a post ID / 'random' / 'disable' ) never contain backslashes so there is no real-world
+				// impact, but wp_slash() it here to keep this consistent with the cta_content branch below.
 				if ( get_post_meta( $post_id, 'vkexunit_cta_each_option' ) == '' ) {
-					add_post_meta( $post_id, 'vkexunit_cta_each_option', $data, true );
+					add_post_meta( $post_id, 'vkexunit_cta_each_option', wp_slash( $data ), true );
 				} elseif ( get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) !== $data ) {
-					update_post_meta( $post_id, 'vkexunit_cta_each_option', $data );
+					update_post_meta( $post_id, 'vkexunit_cta_each_option', wp_slash( $data ) );
 				} elseif ( ! $data ) {
 					delete_post_meta( $post_id, 'vkexunit_cta_each_option', get_post_meta( $post_id, 'vkexunit_cta_each_option', true ) );
 				}
@@ -218,7 +226,13 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				// カスタムフィールドの設定.
 				$custom_fields = array(
 					'vkExUnit_cta_use_type'           => array(
-						'escape_type' => '',
+						// REST 経路 ( inc/block-editor-panels/enqueue.php ) は同じメタキーに sanitize_text_field を
+						// 掛けているため、クラシック保存経路でも揃えて防御レベルを一致させる。
+						// 値は 'veu_cta_normal' か空のみのため挙動は変わらない。
+						// The REST path ( inc/block-editor-panels/enqueue.php ) runs sanitize_text_field on the
+						// same meta key, so apply it here too to keep the defense level consistent across paths.
+						// The value is only 'veu_cta_normal' or empty, so behavior is unchanged.
+						'escape_type' => 'sanitize_text_field',
 					),
 					'vkExUnit_cta_img'                => array(
 						// 画像フィールドはアタッチメントIDを保持するため、整数化した上で文字列にキャストして保存する。
@@ -263,7 +277,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 						'escape_type' => 'esc_url',
 					),
 					'vkExUnit_cta_url_blank'          => array(
-						'escape_type' => '',
+						// 上の vkExUnit_cta_use_type と同じ理由で sanitize_text_field を掛ける.
+						// Same reason as vkExUnit_cta_use_type above: run sanitize_text_field.
+						'escape_type' => 'sanitize_text_field',
 					),
 					'vkExUnit_cta_text'               => array(
 						// stripslashes は wp_unslash() と役割が重複するため付けない ( 上の vkExUnit_cta_button_text と同じ理由 ).
@@ -276,6 +292,15 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				foreach ( $custom_fields as $custom_field_name => $custom_field_options ) {
 					$data = '';
 					if ( isset( $_POST[ $custom_field_name ] ) ) {
+						// 配列などスカラー以外が送信された場合、esc_url() 等のエスケープ関数へ渡すと
+						// TypeError で致命的エラーになる ( sanitize_image_position() と同じ発想のガード )。
+						// このフィールドの保存だけをスキップし、他のフィールドの保存は継続する。
+						// If a non-scalar value ( e.g. an array ) is submitted, passing it to escaping
+						// functions like esc_url() would throw a fatal TypeError ( same guard idea as
+						// sanitize_image_position() ). Skip saving only this field; other fields still save.
+						if ( ! is_scalar( $_POST[ $custom_field_name ] ) ) {
+							continue;
+						}
 						if ( ! empty( $custom_field_options['escape_type'] ) ) {
 							if ( is_array( $custom_field_options['escape_type'] ) ) {
 								// エスケープ処理が複数ある場合
@@ -422,13 +447,8 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	<td>
 			<?php
 			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_use_type', true );
-			if ( 'veu_cta_normal' === $target_blank ) {
-				$checked = ' checked';
-			} else {
-				$checked = '';
-			}
 			?>
-	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php echo esc_attr( $checked ); ?> />
+	<input type="checkbox" id="vkExUnit_cta_use_type" name="vkExUnit_cta_use_type" value="veu_cta_normal"<?php checked( $target_blank, 'veu_cta_normal' ); ?> />
 	<label for="vkExUnit_cta_use_type"><?php _e( 'Use following data (Do not use content data)', 'vk-all-in-one-expansion-unit' ); ?></label>
 	</td>
 	</tr>
@@ -457,7 +477,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	</td></tr>
 	<tr><th>
 	<label for="vkExUnit_cta_button_text"><?php _e( 'Button text', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
-	<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo esc_html( get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ) ); ?>" />
+	<input type="text" name="vkExUnit_cta_button_text" id="vkExUnit_cta_button_text" value="<?php echo esc_attr( get_post_meta( get_the_id(), 'vkExUnit_cta_button_text', true ) ); ?>" />
 	</td></tr>
 	<tr><th>
 	<label for="vkExUnit_cta_button_icon"><?php _e( 'Button icon', 'vk-all-in-one-expansion-unit' ); ?></label></th>
@@ -490,14 +510,9 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 			<?php
 			$target_blank = get_post_meta( get_the_id(), 'vkExUnit_cta_url_blank', true );
-			if ( $target_blank == 'window_self' ) {
-				$checked = ' checked';
-			} else {
-				$checked = '';
-			}
 			?>
 	<label for="vkExUnit_cta_url_blank"><?php _e( 'Target window', 'vk-all-in-one-expansion-unit' ); ?></label></th><td>
-<input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php echo esc_attr( $checked ); ?> />
+<input type="checkbox" id="vkExUnit_cta_url_blank" name="vkExUnit_cta_url_blank" value="window_self"<?php checked( $target_blank, 'window_self' ); ?> />
 <label for="vkExUnit_cta_url_blank"><?php _e( 'Open in a self window', 'vk-all-in-one-expansion-unit' ); ?></label>
 </td></tr>
 <tr><th><label for="vkExUnit_cta_text"><?php _e( 'Text message', 'vk-all-in-one-expansion-unit' ); ?>
