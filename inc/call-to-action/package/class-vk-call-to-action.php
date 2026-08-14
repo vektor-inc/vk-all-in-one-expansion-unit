@@ -735,7 +735,16 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
 			if ( ! $option ) {
-				$current_option = self::get_default_option();
+				// 未保存時（get_option() が false を返す場合）は、初期値で $option を上書きする.
+				// この代入先が $current_option という未使用変数になっていたため、$option は false のまま
+				// 後続のループで配列アクセスされ、PHP 8.1 以降で「false から array への暗黙変換」の
+				// deprecated 警告が出て、保存に失敗したように見えていた ( issue #1461 ).
+				// When unsaved ( get_option() returns false ), overwrite $option with the default value.
+				// The assignment target used to be the unused variable $current_option, leaving $option
+				// as false and causing an array-access on false in the loop below. On PHP 8.1+ this
+				// triggered an "Automatic conversion of false to array is deprecated" warning, which
+				// looked like the save had failed ( issue #1461 ).
+				$option = self::get_default_option();
 			}
 			if ( is_array( $input ) ) {
 				foreach ( $input as $key => $value ) {
