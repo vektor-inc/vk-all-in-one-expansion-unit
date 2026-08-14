@@ -600,7 +600,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'useThreads',
 		array(
-			'label'    => __( 'Threads', 'vk-all-in-one-expansion-unit' ),
+			'label'    => __( 'threads', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useThreads]',
 			'type'     => 'checkbox',

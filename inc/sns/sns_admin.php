@@ -170,7 +170,7 @@ if ( $options['useBluesky'] ) {
 if ( $options['useThreads'] ) {
 	echo 'checked';}
 ?>
-/> <?php _e( 'Threads', 'vk-all-in-one-expansion-unit' ); ?></label></li>
+/> <?php _e( 'threads', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php
 if ( $options['useHatena'] ) {

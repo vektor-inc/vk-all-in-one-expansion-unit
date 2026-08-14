@@ -498,7 +498,7 @@ function veu_get_sns_btns( $attr = array() ) {
 			// The visible label ( .sns_txt "Threads" ) sits next to it, so the icon is decorative and hidden from screen readers.
 			// aria-hidden is placed on the outer span to match the other 5 SNS icons.
 			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_threads() . '</span>';
-			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Threads</span>';
+			$social_btns .= '<span class="sns_txt"' . $icon_css . '>threads</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
 		}
