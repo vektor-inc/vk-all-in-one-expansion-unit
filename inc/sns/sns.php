@@ -55,6 +55,12 @@ function veu_get_sns_options() {
 	return apply_filters( 'vkExUnit_sns_options', $options );
 }
 
+/**
+ * Default values for the 'vkExUnit_sns_options' option.
+ * 'vkExUnit_sns_options' オプションの初期値。
+ *
+ * @return array Default option values, filterable via 'vkExUnit_sns_options_default'.
+ */
 function veu_get_sns_options_default() {
 	$default_options = array(
 		'fbAppId'                     => '',
@@ -70,6 +76,10 @@ function veu_get_sns_options_default() {
 			'post' => false,
 			'page' => true,
 		),
+		// シェアボタンブロック（手動配置）限定で、上記の投稿タイプ除外設定を無視して常に表示するかどうか（初期値はオフ）.
+		// issue #1453: whether the manually placed share button block ignores the post type
+		// exclusion setting above and always displays ( default: off ).
+		'snsBtn_block_ignore_exclude' => false,
 		'snsBtn_position'             => array(
 			'before' => false,
 			'after'  => true,
@@ -225,6 +235,13 @@ function veu_get_the_sns_title( $post_id = '' ) {
 	validate
 /*-------------------------------------------*/
 
+/**
+ * Sanitize and validate the 'vkExUnit_sns_options' option before saving.
+ * 保存前に 'vkExUnit_sns_options' オプションのサニタイズ・バリデーションを行う。
+ *
+ * @param array $input Raw values submitted from the settings form.
+ * @return array Sanitized option values, filterable via 'vkExUnit_sns_options_validate'.
+ */
 function vkExUnit_sns_options_validate( $input ) {
 	$output = $defaults = veu_get_sns_options_default();
 
@@ -238,6 +255,9 @@ function vkExUnit_sns_options_validate( $input ) {
 	$output['enableOGTags']                = ( isset( $input['enableOGTags'] ) && $input['enableOGTags'] ) ? true : false;
 	$output['enableTwitterCardTags']       = ( isset( $input['enableTwitterCardTags'] ) && $input['enableTwitterCardTags'] ) ? true : false;
 	$output['enableSnsBtns']               = ( isset( $input['enableSnsBtns'] ) && $input['enableSnsBtns'] ) ? true : false;
+	// issue #1453: シェアボタンブロックが投稿タイプ除外設定を無視して常に表示するかどうか.
+	// issue #1453: whether the share button block ignores the post type exclusion setting and always displays.
+	$output['snsBtn_block_ignore_exclude'] = ( isset( $input['snsBtn_block_ignore_exclude'] ) && $input['snsBtn_block_ignore_exclude'] ) ? true : false;
 	$output['snsBtn_exclude_post_types']   = ( isset( $input['snsBtn_exclude_post_types'] ) ) ? $input['snsBtn_exclude_post_types'] : '';
 	$output['snsBtn_position']             = ( isset( $input['snsBtn_position'] ) ) ? $input['snsBtn_position'] : '';
 	$output['enableFollowMe']              = ( isset( $input['enableFollowMe'] ) && $input['enableFollowMe'] ) ? true : false;

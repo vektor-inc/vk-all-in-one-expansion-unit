@@ -1,3 +1,54 @@
 @charset "utf-8";
 @import "_iconset";
 @import "../../inc/sns/assets/_scss/_sns";
+
+/* ==========================================================================
+   Share Button Block – Editor Notice
+   ========================================================================== */
+
+/* ブロックエディタのキャンバス（iframe）にも、このプラグイン自身が assets/css/vkExUnit_editor_style.css
+   （_variable.scss 由来の --vk-color-* カスタムプロパティ定義）を enqueue_block_assets 経由で読み込んで
+   いるため、通常はそのトークンの値がそのまま効く（テーマの CSS の有無には依存しない）。ここでのフォール
+   バック値は、そのスタイルシートが何らかの理由で読み込めずトークンが未定義になった場合の保険。
+   The block editor canvas ( iframe ) also loads this plugin's own assets/css/vkExUnit_editor_style.css
+   ( the --vk-color-* custom properties defined from _variable.scss ) via enqueue_block_assets, so those
+   token values normally apply as-is ( this does not depend on whether the active theme provides CSS ).
+   The fallback values here are a safety net for cases where that stylesheet fails to load for some
+   reason and the tokens end up undefined. */
+.veu_share_button_block-notice {
+	padding: .75em 1em;
+	border: 1px solid var(--vk-color-border-hr, #e2d8b8);
+	// 通知ブロックは、SNS アイコン（Facebook 青・X 黒・LINE 緑など彩度の高い配色）が並ぶ画面の中で
+	// 最も彩度・コントラストの低い要素になってしまい、流し見で見落とされやすい（植草さんレビュー）。
+	// 左ボーダーで視認性のアクセントを付ける。新しい色は増やさず、日付などのメタ情報に使っている
+	// 既存の --vk-color-text-meta（注意を引きたい情報向けの赤系トークン）をフォールバック付きで流用する。
+	// The notice ends up the lowest-saturation, lowest-contrast element on a screen otherwise full of
+	// saturated SNS icon colors ( Facebook blue, X black, LINE green, etc. ), making it easy to skim
+	// past ( UX review ). Add a left border accent for visibility. Reuse the existing
+	// --vk-color-text-meta token ( the reddish token already used for meta info that should draw
+	// attention, e.g. dates ) with a fallback, instead of introducing a new color.
+	border-left: 3px solid var(--vk-color-text-meta, #d44950);
+	border-radius: var(--vk-size-radius, 4px);
+	background-color: var(--vk-color-bg-accent, #fdf3d9);
+	color: var(--vk-color-text-body, #555);
+	font-size: .9em;
+	line-height: 1.6;
+
+	p {
+		margin: 0;
+
+		& + p {
+			margin-top: .5em;
+		}
+	}
+
+	/* --vk-color-text-link のフォールバック #1e73be は、この通知の背景フォールバック #fdf3d9 の上で
+	   コントラスト比が約 4.47:1 となり WCAG AA（通常文字 4.5:1）にわずかに届かないため、
+	   ここだけ独自のフォールバック #1a63a3（同背景で約 5.66:1）を使う。
+	   The --vk-color-text-link fallback #1e73be yields a contrast ratio of about 4.47:1 against this
+	   notice's background fallback #fdf3d9, just under WCAG AA ( 4.5:1 for normal text ), so this
+	   fallback alone uses a darker value #1a63a3 ( about 5.66:1 against the same background ). */
+	a {
+		color: var(--vk-color-text-link, #1a63a3);
+	}
+}

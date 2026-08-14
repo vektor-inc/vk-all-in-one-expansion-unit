@@ -85,33 +85,189 @@ function veu_is_sns_btns_auto_insert() {
 }
 
 /**
- * Check sns btn display
+ * Resolve the reason the share button is hidden for the current post.
+ * 現在の投稿でシェアボタンが非表示と判定される理由を特定する。
  *
- * @return bool
+ * This centralizes the hide logic so veu_is_sns_btns_display() (boolean) and the share button
+ * block's editor-only notice (which needs to explain *why* it is hidden) share one source of truth.
+ * 判定ロジックを一箇所に集約し、veu_is_sns_btns_display()（真偽値）とシェアボタンブロックの
+ * 編集画面専用通知（非表示の理由を説明する必要がある）が同じ判定基準を共有できるようにする。
+ *
+ * Checked in this order, first match wins:
+ * この順にチェックし、最初に一致したものが理由になる：
+ * 1. Per-post "Hide setting of share button" ( post meta ) — always applies, regardless of $context ( issue #1213 ).
+ *    記事ごとの「シェアボタンの非表示設定」（post meta） — $context に関わらず常に適用（issue #1213 の決定）。
+ * 2. 404 page — always applies, regardless of $context.
+ *    404 ページ — $context に関わらず常に適用。
+ * 3. "Exclude Post Types" option — applies unless $context is 'block' and the "Always display the
+ *    share button block" option ( snsBtn_block_ignore_exclude ) is enabled.
+ *    「シェアボタンを表示しない投稿タイプ」設定 — $context が 'block' かつ
+ *    「シェアボタンブロックを常に表示する」設定（snsBtn_block_ignore_exclude）が有効な場合を除き適用される。
+ *
+ * @param string $context Calling context. 'auto' ( default ) for automatic insertion ( content filter /
+ *                         hook points ), 'block' for the manually placed share button block.
+ *                         呼び出し元の文脈。'auto'（既定）は本文下などへの自動挿入、
+ *                         'block' はシェアボタンブロック（手動配置）.
+ * @return string 'post_meta' | '404' | 'post_type' | '' ( not hidden ).
  */
-function veu_is_sns_btns_display() {
-	$options               = veu_get_sns_options();
-	$post_type             = vk_get_post_type();
-	$post_type             = $post_type['slug'];
+function veu_get_sns_btns_hidden_reason( $context = 'auto' ) {
 	$sns_share_button_hide = get_post_meta( get_the_ID(), 'sns_share_botton_hide', true );
 
-	// カスタムフィールドで非表示の場合は表示しない
+	// カスタムフィールドで非表示の場合は表示しない（文脈に関わらず常に最優先）
+	// Hidden by the per-post custom field ( always takes priority, regardless of context ).
 	if ( ! empty( $sns_share_button_hide ) ) {
-		return false;
+		return 'post_meta';
 	}
 
-	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように
+	// 404ページの内容を G3 ProUnit で指定の記事本文に書き換えた場合に表示されないように（文脈に関わらず常に適用）
+	// So it stays hidden even when a 404 page's content is replaced with another post's body via
+	// G3 ProUnit ( always applies, regardless of context ).
 	if ( is_404() ) {
-		return false;
+		return '404';
 	}
+
+	$options   = veu_get_sns_options();
+	$post_type = vk_get_post_type();
+	$post_type = $post_type['slug'];
+
+	// シェアボタンブロック限定で「常に表示する」設定が有効な場合、投稿タイプ除外設定を無視する.
+	// For the share button block only, ignore the post type exclusion setting when "always display" is enabled.
+	$ignore_post_type_exclude = ( 'block' === $context && ! empty( $options['snsBtn_block_ignore_exclude'] ) );
 
 	// シェアボタンを表示しない投稿タイプが配列で指定されている場合（チェックが入ってたら）.
-	if ( ! empty( $options['snsBtn_exclude_post_types'][ $post_type ] ) ) {
-		return false;
+	if ( ! $ignore_post_type_exclude && ! empty( $options['snsBtn_exclude_post_types'][ $post_type ] ) ) {
+		return 'post_type';
 	}
 
 	// 上記に該当しない場合は表示.
-	return true;
+	return '';
+}
+
+/**
+ * Check sns btn display
+ * シェアボタンを表示するかどうかを判定する
+ *
+ * @param string $context Calling context passed through to veu_get_sns_btns_hidden_reason().
+ *                         'auto' ( default ) or 'block'. Existing no-argument calls keep the previous
+ *                         behavior unchanged. See veu_get_sns_btns_hidden_reason() for details.
+ *                         veu_get_sns_btns_hidden_reason() へそのまま渡す呼び出し元の文脈。
+ *                         'auto'（既定）または 'block'。既存の引数なし呼び出しは従来どおり動作する。
+ *                         詳細は veu_get_sns_btns_hidden_reason() を参照.
+ * @return bool
+ */
+function veu_is_sns_btns_display( $context = 'auto' ) {
+	return '' === veu_get_sns_btns_hidden_reason( $context );
+}
+
+/**
+ * Whether the current request is the block editor canvas' server-side render preview.
+ * 現在のリクエストがブロックエディタのキャンバスによる ServerSideRender プレビューかどうかを判定する。
+ *
+ * The block editor canvas ( ServerSideRender ) requests dynamic block markup via the REST API with
+ * a `context=edit` query parameter, so a PHP render callback can tell an editor preview apart from
+ * an actual front-end request. This check requires all of the following, so the editor-only notice
+ * ( which links to the settings screen ) is never returned to an unauthenticated front-end visitor:
+ * 1. the request is an actual REST API request,
+ * 2. the `context` query var is exactly 'edit', and
+ * 3. the current user has permission to edit the post ( or, when there is no post — e.g. the site
+ *    editor — permission to edit posts in general, matching how WP_REST_Block_Renderer_Controller
+ *    authorizes edit-context block renders ).
+ * ブロックエディタのキャンバス（ServerSideRender）は、PHP の描画コールバックが実際の公開画面
+ * リクエストと編集画面プレビューを区別できるよう、`context=edit` クエリパラメータ付きで
+ * REST API 経由で動的ブロックのマークアップを要求する。設定画面へのリンクを含む編集画面専用の
+ * 通知が、権限のない公開画面の閲覧者に返らないよう、以下をすべて満たす場合のみ true を返す。
+ * 1. 実際に REST API リクエストであること
+ * 2. `context` クエリ変数が厳密に 'edit' であること
+ * 3. 現在のユーザーがその投稿を編集する権限を持つこと（投稿が無い場合 — サイトエディター等 —
+ *    は投稿を編集する一般的な権限。WP_REST_Block_Renderer_Controller が edit コンテキストの
+ *    ブロック描画を許可する考え方に合わせている）
+ *
+ * Uses wp_is_rest_endpoint() ( WP 6.5+, matching this plugin's minimum supported version ) rather
+ * than checking the REST_REQUEST constant directly. This is both more correct and more testable:
+ * REST_REQUEST is only defined for a request dispatched directly as a REST request, while
+ * wp_is_rest_endpoint() also covers internal dispatches such as rest_preload_api_request() ( it
+ * checks $wp_rest_server->is_dispatching() too ), and — since it runs its result through the
+ * `wp_is_rest_endpoint` filter — tests can toggle it with a filter instead of defining a PHP
+ * constant that can never be undefined again for the rest of the process.
+ * REST_REQUEST 定数を直接見るのではなく wp_is_rest_endpoint()（WP 6.5+。このプラグインの
+ * 対応最低バージョンと一致）を使う。より正確かつテストしやすい。REST_REQUEST は単独の REST
+ * リクエストとしてディスパッチされた場合にしか定義されないが、wp_is_rest_endpoint() は
+ * rest_preload_api_request() のような内部ディスパッチも拾う（$wp_rest_server->is_dispatching()
+ * も見ているため）。加えて、結果を `wp_is_rest_endpoint` フィルターに通すため、テストは
+ * 二度と undefine できない PHP 定数を定義する代わりに、フィルターで切り替えられる。
+ *
+ * @return bool
+ */
+function veu_is_block_editor_preview() {
+	// ServerSideRender は REST API 経由でしか来ないため、REST リクエストでなければ即座に false.
+	// ServerSideRender only ever arrives via the REST API, so bail out immediately for non-REST requests.
+	if ( ! wp_is_rest_endpoint() ) {
+		return false;
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the render context ( no state is read from or written to ).
+	if ( ! isset( $_GET['context'] ) || 'edit' !== sanitize_key( wp_unslash( $_GET['context'] ) ) ) {
+		return false;
+	}
+
+	// 編集画面向けの通知（設定画面への実リンクを含む）なので、編集権限を持つユーザーにのみ返す.
+	// This is an editor-only notice ( it includes a real link to the settings screen ), so only return
+	// true for a user who has permission to edit.
+	$post_id = get_the_ID();
+	return $post_id ? current_user_can( 'edit_post', $post_id ) : current_user_can( 'edit_posts' );
+}
+
+/**
+ * Build the block editor canvas notice shown when the share button block will not appear on the front end.
+ * シェアボタンブロックが公開画面に表示されない場合に、ブロックエディタのキャンバスへ表示する通知を組み立てる。
+ *
+ * Replaces the previous "context=edit bypass", which rendered live share buttons in the editor even
+ * when the front end would show nothing — hiding the editor/front-end mismatch from editors.
+ * 従来の「context=edit なら判定を素通りする」実装（編集画面だけ実際のボタンが見えてしまい、
+ * 公開画面では何も出ない食い違いが編集者に伝わっていなかった）を置き換える。
+ *
+ * @param string $reason Value returned by veu_get_sns_btns_hidden_reason(): 'post_meta' | '404' | 'post_type' | ''.
+ *                        veu_get_sns_btns_hidden_reason() の返り値.
+ * @return string Escaped notice HTML, or '' when there is no dedicated message for the reason ( e.g. '404' or '' ).
+ */
+function veu_sns_btns_editor_notice( $reason ) {
+
+	// 記事単位の非表示設定による場合 ( post meta ).
+	// 主語は「シェアボタン」であり、記事自体が公開画面に出ないわけではない事を明確にする.
+	// Hidden by the per-post hide setting ( post meta ). The subject is "the share button", not the
+	// post itself — the post body still displays normally, only the share button is hidden.
+	if ( 'post_meta' === $reason ) {
+		return '<div class="veu_share_button_block-notice"><p>'
+			. esc_html__( 'The share button will not appear on the front end because of this post\'s "Hide setting of share button".', 'vk-all-in-one-expansion-unit' )
+			. '</p></div>';
+	}
+
+	// 投稿タイプ除外設定による場合。設定画面への実リンクを添える.
+	// 主語は「シェアボタンブロック」であり、この投稿タイプ全体が公開画面に出ないわけではない事を明確にする.
+	// Hidden by the "Exclude Post Types" option. Include a real link to the settings screen.
+	// The subject is "the share button block", not this post type as a whole.
+	if ( 'post_type' === $reason ) {
+		$settings_url = esc_url( admin_url( 'admin.php?page=vkExUnit_main_setting#vkExUnit_sns_options' ) );
+
+		// 未エスケープの原文を保持し、用途（aria-label は esc_attr、リンクテキストは esc_html）ごとに
+		// 1回だけエスケープする。esc_html__() の戻り値を esc_attr() へ二重に通すと、アポストロフィや
+		// & を含む翻訳文字列で実体参照が二重化しうるため.
+		// Keep the raw, unescaped strings and escape once per usage ( esc_attr for the aria-label,
+		// esc_html for the link text ). Passing esc_html__()'s already-escaped return value through
+		// esc_attr() again could double-escape entities in a translation containing an apostrophe or &.
+		$link_label   = __( 'Open the SNS settings', 'vk-all-in-one-expansion-unit' );
+		$new_tab_note = __( 'Opens in a new tab.', 'vk-all-in-one-expansion-unit' );
+
+		return '<div class="veu_share_button_block-notice"><p>'
+			. esc_html__( 'The share button block will not appear on the front end for this post type because of the "Exclude Post Types" setting.', 'vk-all-in-one-expansion-unit' )
+			. '</p><p><a href="' . $settings_url . '" target="_blank" rel="noopener noreferrer" aria-label="' . esc_attr( $link_label . ' ' . $new_tab_note ) . '">'
+			. esc_html( $link_label )
+			. '</a></p></div>';
+	}
+
+	// 404 など、専用メッセージを用意していない理由の場合は何も表示しない.
+	// For reasons without a dedicated message ( e.g. '404' ), show nothing.
+	return '';
 }
 
 /**
@@ -245,9 +401,14 @@ function veu_sns_icon_svg_copy() {
 
 /**
  * Share button html
+ * シェアボタンの HTML を組み立てる
  *
- * @param array $attr : class / position and so on.
- * @return string Button DOM
+ * @param array $attr : class / position and so on. Pass 'context' => 'block' when called from the
+ *                       share button block's render callback so the block-only exception and the
+ *                       editor notice can be applied. 位置・クラスなどの属性。シェアボタンブロックの
+ *                       描画コールバックから呼ぶ場合はブロック限定の例外・編集画面通知を適用できるよう
+ *                       'context' => 'block' を渡す.
+ * @return string Button DOM, an editor-only notice, or an empty string.
  */
 function veu_get_sns_btns( $attr = array() ) {
 
@@ -255,17 +416,20 @@ function veu_get_sns_btns( $attr = array() ) {
 	$outer_css = veu_sns_outer_css( $options );
 	$icon_css  = veu_sns_icon_css( $options );
 
-	// 現在のURL.
-	$current_url = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-
 	$link_url   = rawurlencode( get_permalink() );
 	$page_title = rawurlencode( veu_get_the_sns_title() );
 
 	$classes     = '';
 	$social_btns = '';
 
-	// 個別の記事で ボタンを表示する指定にしてある場合 or サイトエディターの場合.
-	if ( veu_is_sns_btns_display() || false !== strpos( $current_url, 'context=edit' ) ) {
+	// 呼び出し元の文脈（既定は 'auto'。シェアボタンブロックからは 'block' が渡される）.
+	// Calling context ( defaults to 'auto'. The share button block passes 'block' ).
+	$context = isset( $attr['context'] ) ? $attr['context'] : 'auto';
+
+	$hidden_reason = veu_get_sns_btns_hidden_reason( $context );
+
+	// 個別の記事で ボタンを表示する指定にしてある場合.
+	if ( '' === $hidden_reason ) {
 		if ( function_exists( 'veu_add_common_attributes_class' ) ) {
 			$classes .= veu_add_common_attributes_class( $classes, $attr );
 		}
@@ -383,6 +547,13 @@ function veu_get_sns_btns( $attr = array() ) {
 		}
 
 		$social_btns .= '</ul></div><!-- [ /.socialSet ] -->';
+	} elseif ( 'block' === $context && veu_is_block_editor_preview() ) {
+		// ブロックエディタのキャンバスでは、公開画面と一致しない実際のボタンを描画する代わりに、
+		// 非表示の理由と対処方法を伝える通知を表示する（旧 "context=edit バイパス" の置き換え）。
+		// In the block editor canvas, show a notice explaining why ( and how to fix ) it is hidden,
+		// instead of rendering live buttons that would not match the front end ( replaces the old
+		// "context=edit bypass" ).
+		$social_btns = veu_sns_btns_editor_notice( $hidden_reason );
 	}
 
 	return $social_btns;

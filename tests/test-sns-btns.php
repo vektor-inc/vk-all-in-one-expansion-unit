@@ -585,4 +585,395 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			}
 		}
 	}
+
+	/**
+	 * Issue #1453: 「シェアボタンブロックを常に表示する」設定（snsBtn_block_ignore_exclude）と、
+	 * 呼び出し文脈（'auto' = 自動挿入 / 'block' = シェアボタンブロック）による表示判定の違いをテストする。
+	 * この関数の修正前は、投稿タイプ除外 ON かつ新設定 ON でもブロック文脈が常に false になり、
+	 * 3番目のケース（ブロック文脈で表示される事）が失敗する ( red ).
+	 *
+	 * Issue #1453: Test the display judgement differences caused by the "Always display the share
+	 * button block" option ( snsBtn_block_ignore_exclude ) and the calling context ( 'auto' for
+	 * automatic insertion / 'block' for the share button block ). Before the fix, the 'block'
+	 * context always returned false regardless of the new option, so the second case below
+	 * ( expecting true ) fails ( red ).
+	 */
+	public function test_veu_is_sns_btns_display_block_context() {
+
+		// 投稿タイプ post が除外対象になるケース用の投稿
+		// A "post" type post used for the post type exclusion cases.
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Context Test 01',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Context Test 01',
+			)
+		);
+
+		// 記事単位の非表示指定（post meta）が付いた投稿。新設定より常に優先される事を確認するため。
+		// A post with the per-post hide meta set, to verify it always takes priority over the new option.
+		$hidden_post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Context Test 02',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Context Test 02',
+			)
+		);
+		add_post_meta( $hidden_post_id, 'sns_share_botton_hide', true );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 OFF の場合 => ブロック文脈でも非表示 ( false )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => false,
+				),
+				'target_post_id'      => $post_id,
+				'context'             => 'block',
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 ON の場合 => ブロック文脈では表示される ( true )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $post_id,
+				'context'             => 'block',
+				'expected'            => true,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 ON でも、自動挿入文脈（引数なし呼び出し）は従来どおり非表示のまま ( false )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $post_id,
+				'context'             => null, // 引数なし呼び出し ( 'auto' 相当 ) を表す / represents a no-argument call ( equivalent to 'auto' ).
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外 ON かつ新設定 ON でも、post meta の非表示指定がある記事はブロック文脈でも非表示 ( false )',
+				'options'             => array(
+					'snsBtn_exclude_post_types'   => array( 'post' => true ),
+					'snsBtn_block_ignore_exclude' => true,
+				),
+				'target_post_id'      => $hidden_post_id,
+				'context'             => 'block',
+				'expected'            => false,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// オプション値を設定 / Set option value.
+			update_option( 'vkExUnit_sns_options', $case['options'] );
+
+			// 対象の投稿ページへ移動 / Go to the target post.
+			$this->go_to( get_permalink( $case['target_post_id'] ) );
+
+			// $case['context'] が null なら引数なしで呼び、既定値 'auto' の挙動を確認する。
+			// If $case['context'] is null, call with no argument to verify the 'auto' default behavior.
+			if ( null === $case['context'] ) {
+				$actual = veu_is_sns_btns_display();
+			} else {
+				$actual = veu_is_sns_btns_display( $case['context'] );
+			}
+
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// オプション値をクリーンアップ / Clean up the option value.
+			delete_option( 'vkExUnit_sns_options' );
+		}
+	}
+
+	/**
+	 * Issue #1453: シェアボタンブロックが非表示と判定された場合の、公開画面（editor preview でない、
+	 * または REST リクエストでない）では通知ではなく空文字が返り、編集画面プレビュー（REST リクエスト
+	 * ＋ context=edit ＋ 編集権限あり）では実際に通知が返る事をテストする。
+	 * 修正前は "context=edit" バイパスにより編集画面で実際のボタンが描画されてしまい、
+	 * 公開画面との食い違いが編集者に伝わらなかった ( この不具合の再現テスト = red ).
+	 * ここでは REST_REQUEST 定数を define() しない。PHP の定数は undefine できず、同じ PHPUnit
+	 * プロセス内で後に実行される無関係なテスト — 実際に本テスト作成時、front page 関連のテストで
+	 * 発覚 — に影響が漏れてしまうため。代わりに veu_is_block_editor_preview() が使う
+	 * wp_is_rest_endpoint() を `wp_is_rest_endpoint` フィルターで切り替える
+	 * （フィルターは各ケースの直後・finally で必ず外す）。
+	 * veu_is_block_editor_preview() 自体の判定ロジック（REST + context + 権限）の網羅的なケースは
+	 * test_veu_is_block_editor_preview() で、通知の中身の文言テストは
+	 * test_veu_sns_btns_editor_notice() でそれぞれ個別にテストする。
+	 *
+	 * Issue #1453: Test that the front end ( not an editor preview, or not a REST request ) gets an
+	 * empty string instead of the notice, and that the editor preview ( REST request + context=edit +
+	 * edit permission ) actually gets the notice, when the share button is judged hidden. Before the
+	 * fix, the "context=edit" bypass rendered live buttons in the editor, hiding the front-end/editor
+	 * mismatch from editors ( this is the regression test for that bug = red ). This test intentionally
+	 * never calls `define( 'REST_REQUEST', true )` — PHP constants cannot be undefined, and doing so
+	 * was found ( while writing this test ) to leak into unrelated front-page tests that run later in
+	 * the same PHPUnit process. Instead, the `wp_is_rest_endpoint` filter — which
+	 * veu_is_block_editor_preview() reads via wp_is_rest_endpoint() — is toggled per case and always
+	 * removed right after ( and in finally ). The exhaustive gating cases for
+	 * veu_is_block_editor_preview() itself live in test_veu_is_block_editor_preview(), and the notice
+	 * wording is covered separately by test_veu_sns_btns_editor_notice().
+	 */
+	public function test_veu_get_sns_btns_block_context_notice() {
+
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Block Notice Test 01',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Block Notice Test 01',
+			)
+		);
+
+		// 編集権限を持つユーザー ( 投稿の編集者 ).
+		// A user with edit permission ( post author / editor ).
+		$editor_user_id = self::factory()->user->create( array( 'role' => 'editor' ) );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '投稿タイプ除外で非表示、公開画面（$_GET[context] なし、REST でもない） => 何も出力されない',
+				'is_editor_preview'   => false,
+				'is_rest_endpoint'    => false,
+				'current_user_id'     => 0,
+				'expect_notice'       => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外で非表示、$_GET[context]=edit かつ編集権限があるユーザーでも、REST リクエストでなければ何も出力されない',
+				'is_editor_preview'   => true,
+				'is_rest_endpoint'    => false,
+				'current_user_id'     => $editor_user_id,
+				'expect_notice'       => false,
+			),
+			array(
+				'test_condition_name' => '投稿タイプ除外で非表示、REST リクエスト＋$_GET[context]=edit＋編集権限あり => 投稿タイプ除外の通知（設定画面への実リンク付き）が実際に出力される',
+				'is_editor_preview'   => true,
+				'is_rest_endpoint'    => true,
+				'current_user_id'     => $editor_user_id,
+				'expect_notice'       => true,
+			),
+		);
+
+		// アサーション失敗時も元のユーザーへ確実に戻すため、ループ実行前に元の値を保持し try/finally で復元する.
+		// Preserve the original current user before the loop and restore it in finally so it is
+		// restored even if an assertion fails.
+		$original_user_id = get_current_user_id();
+
+		update_option( 'vkExUnit_sns_options', array( 'snsBtn_exclude_post_types' => array( 'post' => true ) ) );
+
+		try {
+			foreach ( $test_cases as $case ) {
+				// 対象の投稿ページへ移動 / Go to the target post.
+				$this->go_to( get_permalink( $post_id ) );
+
+				// ケースごとに現在のユーザーを設定する ( 編集権限の有無を再現する ).
+				// Set the current user per case ( to reproduce the presence/absence of edit permission ).
+				wp_set_current_user( $case['current_user_id'] );
+
+				// ブロックエディタのキャンバスからのリクエストを $_GET['context'] = 'edit' で再現する.
+				// Simulate a request from the block editor canvas via $_GET['context'] = 'edit'.
+				if ( $case['is_editor_preview'] ) {
+					$_GET['context'] = 'edit';
+				} else {
+					unset( $_GET['context'] );
+				}
+
+				// REST リクエストかどうかを wp_is_rest_endpoint フィルターで再現する.
+				// Simulate whether this is a REST request via the wp_is_rest_endpoint filter.
+				if ( $case['is_rest_endpoint'] ) {
+					add_filter( 'wp_is_rest_endpoint', '__return_true' );
+				}
+
+				try {
+					// シェアボタンブロックからの呼び出し ( 'context' => 'block' ) を再現する.
+					// Simulate the call from the share button block ( 'context' => 'block' ).
+					$actual = veu_get_sns_btns( array( 'context' => 'block' ) );
+				} finally {
+					// フィルターは追加した直後のケース内で必ず外す ( 次のケースへ漏らさない ).
+					// Always remove the filter right within the case that added it ( never leak it into the next case ).
+					if ( $case['is_rest_endpoint'] ) {
+						remove_filter( 'wp_is_rest_endpoint', '__return_true' );
+					}
+				}
+
+				if ( $case['expect_notice'] ) {
+					$this->assertStringContainsString( 'veu_share_button_block-notice', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( 'Exclude Post Types', $actual, $case['test_condition_name'] );
+					$this->assertStringContainsString( admin_url( 'admin.php?page=vkExUnit_main_setting' ), $actual, $case['test_condition_name'] );
+				} else {
+					$this->assertSame( '', $actual, $case['test_condition_name'] );
+				}
+			}
+		} finally {
+			// 後片付け： $_GET['context']・フィルター・現在のユーザーを必ず元へ戻す.
+			// Clean up: always restore $_GET['context'], the filter, and the current user.
+			unset( $_GET['context'] );
+			remove_filter( 'wp_is_rest_endpoint', '__return_true' );
+			wp_set_current_user( $original_user_id );
+			delete_option( 'vkExUnit_sns_options' );
+		}
+	}
+
+	/**
+	 * Issue #1453 code review ( 安藤 ): veu_is_block_editor_preview() の判定ロジック
+	 * ( REST リクエストである事 / context=edit である事 / 編集権限を持つ事 ) をテストする。
+	 * REST_REQUEST 定数を define() せずに済むよう、`wp_is_rest_endpoint` フィルターで切り替える
+	 * （理由は test_veu_get_sns_btns_block_context_notice() のコメントを参照）。
+	 *
+	 * Issue #1453 code review ( security ): Test veu_is_block_editor_preview()'s gating logic
+	 * ( must be a REST request / context=edit / user has edit permission ). Uses the
+	 * `wp_is_rest_endpoint` filter instead of defining the REST_REQUEST constant ( see the comment on
+	 * test_veu_get_sns_btns_block_context_notice() for why ).
+	 */
+	public function test_veu_is_block_editor_preview() {
+
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => 'Editor Preview Test 01',
+				'post_type'    => 'post',
+				'post_status'  => 'publish',
+				'post_content' => 'Editor Preview Test 01',
+			)
+		);
+
+		$editor_user_id     = self::factory()->user->create( array( 'role' => 'editor' ) );
+		$subscriber_user_id = self::factory()->user->create( array( 'role' => 'subscriber' ) );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'REST リクエストかつ context=edit かつ編集権限あり => true',
+				'is_rest_endpoint'    => true,
+				'context'             => 'edit',
+				'current_user_id'     => $editor_user_id,
+				'expected'            => true,
+			),
+			array(
+				'test_condition_name' => 'REST リクエストかつ context=edit でも、編集権限が無いユーザー ( 購読者 ) => false',
+				'is_rest_endpoint'    => true,
+				'context'             => 'edit',
+				'current_user_id'     => $subscriber_user_id,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => 'REST リクエストかつ context=edit でも、未ログイン ( 匿名 ) ユーザー => false',
+				'is_rest_endpoint'    => true,
+				'context'             => 'edit',
+				'current_user_id'     => 0,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => 'REST リクエストで編集権限があっても、context が edit でなければ => false',
+				'is_rest_endpoint'    => true,
+				'context'             => 'view',
+				'current_user_id'     => $editor_user_id,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => 'REST リクエストで編集権限があっても、context クエリ自体が無ければ => false',
+				'is_rest_endpoint'    => true,
+				'context'             => null,
+				'current_user_id'     => $editor_user_id,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => 'context=edit かつ編集権限があっても、REST リクエストでなければ => false',
+				'is_rest_endpoint'    => false,
+				'context'             => 'edit',
+				'current_user_id'     => $editor_user_id,
+				'expected'            => false,
+			),
+		);
+
+		$original_user_id = get_current_user_id();
+
+		try {
+			foreach ( $test_cases as $case ) {
+				$this->go_to( get_permalink( $post_id ) );
+				wp_set_current_user( $case['current_user_id'] );
+
+				if ( null === $case['context'] ) {
+					unset( $_GET['context'] );
+				} else {
+					$_GET['context'] = $case['context'];
+				}
+
+				if ( $case['is_rest_endpoint'] ) {
+					add_filter( 'wp_is_rest_endpoint', '__return_true' );
+				}
+
+				try {
+					$actual = veu_is_block_editor_preview();
+				} finally {
+					// フィルターは追加した直後のケース内で必ず外す ( 次のケースへ漏らさない ).
+					// Always remove the filter right within the case that added it ( never leak it into the next case ).
+					if ( $case['is_rest_endpoint'] ) {
+						remove_filter( 'wp_is_rest_endpoint', '__return_true' );
+					}
+				}
+
+				$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+			}
+		} finally {
+			unset( $_GET['context'] );
+			remove_filter( 'wp_is_rest_endpoint', '__return_true' );
+			wp_set_current_user( $original_user_id );
+		}
+	}
+
+	/**
+	 * Issue #1453 code review ( 植草 ): 編集画面通知の文言・内容をテストする。
+	 * 主語が「記事」ではなく「シェアボタン（ブロック）」になっている事、投稿タイプ除外の場合は
+	 * 設定画面への実リンクが含まれる事、post meta の場合はリンクが無い事を確認する。
+	 *
+	 * Issue #1453 code review ( UX ): Test the editor notice's wording and content. Verifies the
+	 * subject is "the share button" / "the share button block", not "this post", and that the post
+	 * type exclusion reason includes a real link to the settings screen while the per-post reason
+	 * does not.
+	 */
+	public function test_veu_sns_btns_editor_notice() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name'   => "reason = 'post_meta' の場合 => 主語が share button の通知が返り、設定画面へのリンクは含まれない",
+				'reason'                => 'post_meta',
+				'expected_contains'     => array( 'veu_share_button_block-notice', 'The share button will not appear on the front end' ),
+				'expected_not_contains' => array( 'This post will not appear', 'This post type will not appear', admin_url( 'admin.php?page=vkExUnit_main_setting' ) ),
+			),
+			array(
+				'test_condition_name'   => "reason = 'post_type' の場合 => 主語が share button block の通知と、設定画面への実リンクが返る",
+				'reason'                => 'post_type',
+				'expected_contains'     => array( 'veu_share_button_block-notice', 'The share button block will not appear on the front end', admin_url( 'admin.php?page=vkExUnit_main_setting' ), 'target="_blank"' ),
+				'expected_not_contains' => array( 'This post type will not appear', 'This post will not appear' ),
+			),
+			array(
+				'test_condition_name'   => "reason = '404' の場合 => 専用メッセージが無いため空文字",
+				'reason'                => '404',
+				'expected_contains'     => array(),
+				'expected_not_contains' => array( 'veu_share_button_block-notice' ),
+			),
+			array(
+				'test_condition_name'   => "reason = '' ( 非表示でない ) の場合 => 空文字",
+				'reason'                => '',
+				'expected_contains'     => array(),
+				'expected_not_contains' => array( 'veu_share_button_block-notice' ),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_sns_btns_editor_notice( $case['reason'] );
+
+			foreach ( $case['expected_contains'] as $expected ) {
+				$this->assertStringContainsString( $expected, $actual, $case['test_condition_name'] );
+			}
+			foreach ( $case['expected_not_contains'] as $not_expected ) {
+				$this->assertStringNotContainsString( $not_expected, $actual, $case['test_condition_name'] );
+			}
+		}
+
+		// reason が '404' / '' の場合は通知が無い ( 空文字 ) 事も明示的に確認する.
+		// Also explicitly confirm reason '404' / '' return an empty string ( no notice ).
+		$this->assertSame( '', veu_sns_btns_editor_notice( '404' ), "reason = '404' => 空文字" );
+		$this->assertSame( '', veu_sns_btns_editor_notice( '' ), "reason = '' => 空文字" );
+	}
 }

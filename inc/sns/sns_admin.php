@@ -93,6 +93,38 @@ vk_the_post_type_check_list( $args );
 </dd>
 </dl>
 <dl>
+<?php
+/**
+ * Issue #1453 のユーザー本人からの指示により、投稿タイプ除外設定の <dd> 内に埋め込む構成から、
+ * 独立した見出し付きの <dl> に変更した（PR #1459 のコメント参照）。
+ * Per the issue #1453 reporter's own instruction, changed from embedding this checkbox inside the
+ * post type exclusion <dd> to its own <dl> with a heading ( see PR #1459 comments ).
+ */
+?>
+<dt><?php esc_html_e( 'Share button block display setting', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd>
+<label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_block_ignore_exclude]" id="snsBtn_block_ignore_exclude" value="true" <?php checked( ! empty( $options['snsBtn_block_ignore_exclude'] ) ); ?> /><?php esc_html_e( 'Always display the share button block regardless of excluded post types', 'vk-all-in-one-expansion-unit' ); ?></label>
+<p class="description">
+<?php
+/**
+ * ?> の直後の改行は PHP に食われるため、esc_html_e() を改行区切りで並べるだけだと
+ * 出力される HTML で文と文の間にスペースが入らない（"post types.Check" のように連結してしまう）。
+ * 1つの翻訳関数に複数の文を入れないルールは維持しつつ、明示的に半角スペースで区切って出力する。
+ * PHP eats the newline immediately after `?>`, so simply stacking esc_html_e() calls on separate
+ * lines outputs no space between sentences (they run together, e.g. "post types.Check"). Keep each
+ * sentence in its own translation call ( one sentence per call ), but join the output with an
+ * explicit space.
+ */
+esc_html_e( 'The share button block placed manually in the block editor follows the "Exclude Post Types" setting above by default, and will not appear on the front end for those post types.', 'vk-all-in-one-expansion-unit' );
+echo ' ';
+esc_html_e( 'Check this box to always display the block regardless of it.', 'vk-all-in-one-expansion-unit' );
+echo ' ';
+esc_html_e( 'The per-post "Hide setting of share button" always takes priority over this option.', 'vk-all-in-one-expansion-unit' );
+?>
+</p>
+</dd>
+</dl>
+<dl>
 <dt><?php _e( 'Social button style setting', 'vk-all-in-one-expansion-unit' ); ?></dt>
 <dd>
 	<label style="margin-bottom: .375rem">

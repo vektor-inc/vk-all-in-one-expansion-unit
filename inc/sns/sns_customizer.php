@@ -461,6 +461,52 @@ function veu_customize_register_sns( $wp_customize ) {
 		}
 	}
 
+	// Share button block display setting ///////////////////////////
+	// issue #1453 のユーザー本人からの指示により見出しを追加（PR #1459 のコメント参照）。
+	// Heading added per the issue #1453 reporter's own instruction ( see PR #1459 comments ).
+	$wp_customize->add_setting( 'share_button_block_display_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize,
+			'share_button_block_display_title',
+			array(
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => __( 'Share button block display setting', 'vk-all-in-one-expansion-unit' ),
+				'custom_html'      => '',
+			)
+		)
+	);
+
+	// Always display the share button block regardless of excluded post types ///////////////////////////
+	// issue #1453: シェアボタンブロック（手動配置）限定で、投稿タイプ除外設定を無視して常に表示する設定.
+	// issue #1453: block-only setting to always display the manually placed share button block,
+	// ignoring the post type exclusion setting above.
+	$wp_customize->add_setting(
+		'vkExUnit_sns_options[snsBtn_block_ignore_exclude]',
+		array(
+			'default'           => $default_options['snsBtn_block_ignore_exclude'],
+			'type'              => 'option', // 保存先 option or theme_mod.
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'veu_sanitize_boolean',
+		)
+	);
+
+	$wp_customize->add_control(
+		'snsBtn_block_ignore_exclude',
+		array(
+			'label'       => __( 'Always display the share button block regardless of excluded post types', 'vk-all-in-one-expansion-unit' ),
+			'section'     => 'veu_sns_setting',
+			'settings'    => 'vkExUnit_sns_options[snsBtn_block_ignore_exclude]',
+			'type'        => 'checkbox',
+			// 「チェックしない場合の挙動」と「post meta の優先順位」を1文ずつ翻訳関数に入れ、スペースで連結する.
+			// Put "behavior when unchecked" and "post meta priority" into separate translation calls,
+			// one sentence each, joined with a space.
+			'description' => __( 'When unchecked, the block follows the "Exclude Post Types" setting above.', 'vk-all-in-one-expansion-unit' ) . ' ' . __( 'The per-post "Hide setting of share button" always takes priority over this option.', 'vk-all-in-one-expansion-unit' ),
+		)
+	);
+
 	// Share button for display  ///////////////////////////
 	$wp_customize->add_setting( 'Follow_me_box_use_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control(
