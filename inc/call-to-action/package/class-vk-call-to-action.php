@@ -719,6 +719,22 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 
+		/**
+		 * CTA のメイン設定（投稿タイプごとの表示 CTA ID 等）をサニタイズして返す.
+		 * `admin.php?page=vkExUnit_main_setting` 内の CTA セクションの保存処理
+		 * ( `admin/admin-main-setting-page.php` の `veu_main_sanitaize_and_update()` ) から、
+		 * `option_init()` で `vkExUnit_register_setting()` に登録したサニタイズコールバック
+		 * として呼ばれる.
+		 *
+		 * Sanitize and return the CTA main settings ( the display CTA ID per post type, etc. ).
+		 * Called as the sanitize callback registered via `vkExUnit_register_setting()` in
+		 * `option_init()`, from the save handler of the CTA section on
+		 * `admin.php?page=vkExUnit_main_setting`
+		 * ( `veu_main_sanitaize_and_update()` in `admin/admin-main-setting-page.php` ).
+		 *
+		 * @param mixed $input 保存対象の入力値（$_POST 由来の連想配列を想定）. / The submitted input ( expected to be an associative array from $_POST ).
+		 * @return array サニタイズ済みの設定配列（投稿タイプ => CTA ID または '0' / 'random'）. / The sanitized settings array ( post type => CTA ID, or '0' / 'random' ).
+		 */
 		public static function sanitize_config( $input ) {
 			$posttypes = array_merge(
 				array(
@@ -734,8 +750,16 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				)
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
-			if ( ! $option ) {
-				$current_option = self::get_default_option();
+			if ( ! $option || ! is_array( $option ) ) {
+				// ! $option … 未保存（false）と空配列（array()）を初期値へ倒す。
+				// ! is_array( $option ) … 配列以外の truthy な値（壊れた文字列など）を初期値へ倒す。
+				// どちらか一方だけでは片方のケースを取りこぼすため || で組み合わせている
+				// （get_option() の判定と同じ形。詳細は issue #1461 / 本 PR 参照）。
+				// ! $option … falls back false ( unsaved ) and an empty array ( array() ) to the default.
+				// ! is_array( $option ) … falls back a non-array truthy value ( e.g. a corrupted string )
+				// to the default. Either check alone would miss the other case, so they are combined
+				// with || ( same shape as the check in get_option(); see issue #1461 / this PR for details ).
+				$option = self::get_default_option();
 			}
 			if ( is_array( $input ) ) {
 				foreach ( $input as $key => $value ) {

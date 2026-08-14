@@ -487,6 +487,173 @@ class CTATest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Sanitize_config() が未保存状態でも初期値をベースに動作し、保存済み設定がある場合は
+	 * 送信されたキーだけを上書きする事を検証する ( issue #1461 ).
+	 * 修正前は get_option() が false を返す未保存時に、初期値の代入先が未使用変数
+	 * $current_option になっており、$option が false のまま配列アクセスされていた.
+	 *
+	 * Verify sanitize_config() falls back to default values when unsaved, and only
+	 * overwrites the submitted keys when a saved option already exists ( issue #1461 ).
+	 * Before the fix, the default value was assigned to an unused variable
+	 * ( $current_option ) instead of $option when get_option() returned false ( unsaved ),
+	 * leaving $option as false and array-accessed as-is.
+	 */
+	public function test_sanitize_config() {
+		// 元のオプション値を退避し、テスト後に復元する.
+		// Back up the original option value to restore it after the test.
+		$original_option = get_option( 'vkExUnit_cta_settings' );
+
+		$default_option = Vk_Call_To_Action::get_default_option();
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '未保存 ( get_option が false ) の場合、初期値をベースに送信値が反映される ( false が返らない )',
+				'existing_option'     => false,
+				'input'               => array( 'post' => '5' ),
+				'expected'            => array_merge( $default_option, array( 'post' => '5' ) ),
+			),
+			array(
+				'test_condition_name' => '未保存で random 指定を送信した場合、初期値をベースに random が反映される',
+				'existing_option'     => false,
+				'input'               => array( 'post' => 'random' ),
+				'expected'            => array_merge( $default_option, array( 'post' => 'random' ) ),
+			),
+			array(
+				'test_condition_name' => '保存済み設定がある場合、送信されたキーだけが上書きされ、それ以外の既存値は維持される',
+				'existing_option'     => array(
+					'post' => '3',
+					'page' => '4',
+				),
+				'input'               => array( 'post' => '9' ),
+				'expected'            => array(
+					'post' => '9',
+					'page' => '4',
+				),
+			),
+			array(
+				// 他プラグインの option_vkExUnit_cta_settings フィルタや DB の破損等で、
+				// get_option() が false ではない配列以外の truthy な値（文字列）を返すケースを再現する。
+				// ! $option だけの判定では素通りし、$option[ $key ] = ... が文字列オフセットへの
+				// 書き込みとなって PHP 8 では致命的エラーになるため、初期値へ倒れる事を検証する.
+				// Reproduce get_option() returning a non-array, non-false truthy value ( a string ) —
+				// e.g. via another plugin's option_vkExUnit_cta_settings filter, or a corrupted DB
+				// value. A ! $option -only check would let this through, and $option[ $key ] = ...
+				// would become a write to a string offset, fatal on PHP 8. Verify it falls back to
+				// the default value instead.
+				'test_condition_name' => '保存値が配列以外の truthy な値（壊れた文字列）の場合、初期値をベースに送信値が反映される ( 文字列オフセット書き込みで致命的エラーにならない )',
+				'existing_option'     => 'broken-string',
+				'input'               => array( 'post' => '7' ),
+				'expected'            => array_merge( $default_option, array( 'post' => '7' ) ),
+			),
+			array(
+				// admin/admin-main-setting-page.php の veu_main_sanitaize_and_update() は、
+				// その設定グループが $_POST に含まれていない場合 $before = null; としてサニタイズ
+				// コールバックへ渡す ( 実際に起こる呼び出し経路 )。未保存状態でこれが起きても、
+				// null や false ではなく初期値の配列が返る事を検証する.
+				// admin/admin-main-setting-page.php's veu_main_sanitaize_and_update() passes
+				// $before = null when the setting group is absent from $_POST ( a real call path ).
+				// Verify that even when unsaved, this returns the default array, not null or false.
+				'test_condition_name' => '入力が null（該当設定が POST に含まれない）かつ未保存の場合、初期値の配列が返る ( null / false が返らない )',
+				'existing_option'     => false,
+				'input'               => null,
+				'expected'            => $default_option,
+			),
+			array(
+				// 上記と同じ呼び出し経路を、保存済み設定がある状態で再現する。null を渡しただけで
+				// 既存の設定が消えたり上書きされたりしない事を検証する.
+				// Reproduce the same call path with a saved option already present. Verify that
+				// passing null alone does not clear or overwrite the existing settings.
+				'test_condition_name' => '入力が null（該当設定が POST に含まれない）かつ保存済み設定がある場合、既存の設定がそのまま返る',
+				'existing_option'     => array(
+					'post' => '3',
+					'page' => '4',
+				),
+				'input'               => null,
+				'expected'            => array(
+					'post' => '3',
+					'page' => '4',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 保存済みオプションの有無を再現する.
+			// Reproduce the presence/absence of a saved option.
+			if ( false === $case['existing_option'] ) {
+				delete_option( 'vkExUnit_cta_settings' );
+			} else {
+				update_option( 'vkExUnit_cta_settings', $case['existing_option'] );
+			}
+
+			$actual = Vk_Call_To_Action::sanitize_config( $case['input'] );
+
+			// false のまま返らず、必ず配列で返る事を検証する ( 修正前は未保存時に false が返っていた ).
+			// Verify it always returns an array, never false ( before the fix, false was returned when unsaved ).
+			$this->assertIsArray( $actual, $case['test_condition_name'] );
+
+			foreach ( $case['expected'] as $key => $value ) {
+				$this->assertSame( $value, $actual[ $key ], $case['test_condition_name'] . ' : ' . $key );
+			}
+		}
+
+		$this->restore_cta_option( $original_option );
+	}
+
+	/**
+	 * Sanitize_config() を未保存状態から呼び出しても PHP の deprecated 警告
+	 * ( Automatic conversion of false to array is deprecated, PHP 8.1+ ) が
+	 * 発生しない事を検証する ( issue #1461 ).
+	 *
+	 * Verify calling sanitize_config() from an unsaved state does not trigger the PHP
+	 * deprecated warning ( "Automatic conversion of false to array is deprecated",
+	 * PHP 8.1+ ) ( issue #1461 ).
+	 */
+	public function test_sanitize_config_no_deprecated_warning_when_unset() {
+		$original_option = get_option( 'vkExUnit_cta_settings' );
+		delete_option( 'vkExUnit_cta_settings' );
+
+		$deprecated_triggered = false;
+
+		// E_DEPRECATED だけを捕捉する一時的なエラーハンドラを設定する。
+		// PHPUnit 側の変換設定に左右されず、確実に deprecated の発生有無を判定するため.
+		// Install a temporary error handler that catches only E_DEPRECATED, so the
+		// assertion does not depend on PHPUnit's own error-to-exception conversion settings.
+		set_error_handler(
+			function ( $errno ) use ( &$deprecated_triggered ) {
+				if ( E_DEPRECATED === $errno ) {
+					$deprecated_triggered = true;
+				}
+				// false を返すと、この呼び出し（sanitize_config() 内で発生したエラー）については
+				// PHP 標準のエラー処理（error_reporting / display_errors 等に基づく通常処理）に
+				// 委ねられる。ここで false を返しても、直前に登録されていた PHPUnit 側のハンドラに
+				// 戻るわけではない.
+				// Returning false hands this particular error back to PHP's standard error
+				// handling ( governed by error_reporting / display_errors etc. ), not back to
+				// whatever handler ( e.g. PHPUnit's ) was registered before this one.
+				return false;
+			},
+			E_DEPRECATED
+		);
+
+		try {
+			Vk_Call_To_Action::sanitize_config( array( 'post' => '1' ) );
+		} finally {
+			// sanitize_config() が例外を投げた場合でも、このテスト専用のハンドラが
+			// 後続のテストへ漏れないよう、必ず元のハンドラへ戻す.
+			// Always restore the previous handler, even if sanitize_config() throws,
+			// so this test-local handler never leaks into subsequent tests.
+			restore_error_handler();
+		}
+
+		$this->assertFalse(
+			$deprecated_triggered,
+			'未保存状態から sanitize_config() を呼んでも deprecated 警告が発生しない事 / Calling sanitize_config() from an unsaved state must not trigger a deprecated warning.'
+		);
+
+		$this->restore_cta_option( $original_option );
+	}
+
+	/**
 	 * Test get_cta_post()
 	 *
 	 * @return void
