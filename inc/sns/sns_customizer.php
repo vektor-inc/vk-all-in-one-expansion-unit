@@ -461,6 +461,24 @@ function veu_customize_register_sns( $wp_customize ) {
 		}
 	}
 
+	// Share button block display setting ///////////////////////////
+	// issue #1453 のユーザー本人からの指示により見出しを追加（PR #1459 のコメント参照）。
+	// Heading added per the issue #1453 reporter's own instruction ( see PR #1459 comments ).
+	$wp_customize->add_setting( 'share_button_block_display_title', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control(
+		new ExUnit_Custom_Html(
+			$wp_customize,
+			'share_button_block_display_title',
+			array(
+				'label'            => '',
+				'section'          => 'veu_sns_setting',
+				'type'             => 'text',
+				'custom_title_sub' => __( 'Share button block display setting', 'vk-all-in-one-expansion-unit' ),
+				'custom_html'      => '',
+			)
+		)
+	);
+
 	// Always display the share button block regardless of excluded post types ///////////////////////////
 	// issue #1453: シェアボタンブロック（手動配置）限定で、投稿タイプ除外設定を無視して常に表示する設定.
 	// issue #1453: block-only setting to always display the manually placed share button block,

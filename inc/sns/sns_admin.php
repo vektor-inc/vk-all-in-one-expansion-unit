@@ -90,15 +90,19 @@ $args = array(
 );
 vk_the_post_type_check_list( $args );
 ?>
+</dd>
+</dl>
+<dl>
 <?php
 /**
- * ラベル文言はカスタマイザー側（snsBtn_block_ignore_exclude コントロール）と同一の翻訳文字列を使う。
- * 「投稿タイプ除外の直後」という配置文脈でも意味が通るため、あえて分けずに1本化している。
- * Reuse the exact same translated label as the Customizer control for this option, so translators
- * only need to translate one string. It reads fine here too ( right after the post type exclusion
- * list ), so it is intentionally not split into a context-specific variant.
+ * Issue #1453 のユーザー本人からの指示により、投稿タイプ除外設定の <dd> 内に埋め込む構成から、
+ * 独立した見出し付きの <dl> に変更した（PR #1459 のコメント参照）。
+ * Per the issue #1453 reporter's own instruction, changed from embedding this checkbox inside the
+ * post type exclusion <dd> to its own <dl> with a heading ( see PR #1459 comments ).
  */
 ?>
+<dt><?php esc_html_e( 'Share button block display setting', 'vk-all-in-one-expansion-unit' ); ?></dt>
+<dd>
 <label><input type="checkbox" name="vkExUnit_sns_options[snsBtn_block_ignore_exclude]" id="snsBtn_block_ignore_exclude" value="true" <?php checked( ! empty( $options['snsBtn_block_ignore_exclude'] ) ); ?> /><?php esc_html_e( 'Always display the share button block regardless of excluded post types', 'vk-all-in-one-expansion-unit' ); ?></label>
 <p class="description">
 <?php
