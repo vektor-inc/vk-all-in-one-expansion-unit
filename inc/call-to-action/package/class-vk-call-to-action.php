@@ -719,6 +719,16 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 		}
 
 
+		/**
+		 * CTA のメイン設定（投稿タイプごとの表示 CTA ID 等）をサニタイズして返す.
+		 * `admin.php?page=vkexunit_cta_option` の保存処理から呼ばれる.
+		 *
+		 * Sanitize and return the CTA main settings ( the display CTA ID per post type, etc. ).
+		 * Called from the save handler of `admin.php?page=vkexunit_cta_option`.
+		 *
+		 * @param mixed $input 保存対象の入力値（$_POST 由来の連想配列を想定）. / The submitted input ( expected to be an associative array from $_POST ).
+		 * @return array サニタイズ済みの設定配列（投稿タイプ => CTA ID または '0' / 'random'）. / The sanitized settings array ( post type => CTA ID, or '0' / 'random' ).
+		 */
 		public static function sanitize_config( $input ) {
 			$posttypes = array_merge(
 				array(
@@ -734,12 +744,20 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 				)
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
-			if ( ! $option ) {
-				// 未保存時（get_option() が false を返す場合）は、初期値で $option を上書きする.
+			if ( ! $option || ! is_array( $option ) ) {
+				// 未保存時（get_option() が false を返す場合）に加え、他プラグインの
+				// option_vkExUnit_cta_settings フィルタや壊れた DB 値により配列以外の
+				// truthy な値が返るケースも初期値へ倒す。ここを is_array() だけの判定に
+				// すると、正当な空配列（array()）まで弾いてしまうため ! $option との
+				// 組み合わせを維持する（get_option() の判定と同じ形に揃えている）。
 				// この代入先が $current_option という未使用変数になっていたため、$option は false のまま
 				// 後続のループで配列アクセスされ、PHP 8.1 以降で「false から array への暗黙変換」の
 				// deprecated 警告が出て、保存に失敗したように見えていた ( issue #1461 ).
-				// When unsaved ( get_option() returns false ), overwrite $option with the default value.
+				// Unsaved ( get_option() returns false ), and also cases where a non-array truthy
+				// value is returned ( e.g. via another plugin's option_vkExUnit_cta_settings filter,
+				// or a corrupted DB value ) both fall back to the default value here. Checking
+				// ! is_array() alone would incorrectly reject a legitimate empty array ( array() ),
+				// so it is combined with ! $option ( matching the same check used in get_option() ).
 				// The assignment target used to be the unused variable $current_option, leaving $option
 				// as false and causing an array-access on false in the loop below. On PHP 8.1+ this
 				// triggered an "Automatic conversion of false to array is deprecated" warning, which

@@ -530,6 +530,21 @@ class CTATest extends WP_UnitTestCase {
 					'page' => '4',
 				),
 			),
+			array(
+				// 他プラグインの option_vkExUnit_cta_settings フィルタや DB の破損等で、
+				// get_option() が false ではない配列以外の truthy な値（文字列）を返すケースを再現する。
+				// ! $option だけの判定では素通りし、$option[ $key ] = ... が文字列オフセットへの
+				// 書き込みとなって PHP 8 では致命的エラーになるため、初期値へ倒れる事を検証する.
+				// Reproduce get_option() returning a non-array, non-false truthy value ( a string ) —
+				// e.g. via another plugin's option_vkExUnit_cta_settings filter, or a corrupted DB
+				// value. A ! $option -only check would let this through, and $option[ $key ] = ...
+				// would become a write to a string offset, fatal on PHP 8. Verify it falls back to
+				// the default value instead.
+				'test_condition_name' => '保存値が配列以外の truthy な値（壊れた文字列）の場合、初期値をベースに送信値が反映される ( 文字列オフセット書き込みで致命的エラーにならない )',
+				'existing_option'     => 'broken-string',
+				'input'               => array( 'post' => '7' ),
+				'expected'            => array_merge( $default_option, array( 'post' => '7' ) ),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -579,16 +594,27 @@ class CTATest extends WP_UnitTestCase {
 				if ( E_DEPRECATED === $errno ) {
 					$deprecated_triggered = true;
 				}
-				// false を返し、ハンドラチェーンの後続処理にも委ねる.
-				// Return false so the error still propagates to any outer handler.
+				// false を返すと、この呼び出し（sanitize_config() 内で発生したエラー）については
+				// PHP 標準のエラー処理（error_reporting / display_errors 等に基づく通常処理）に
+				// 委ねられる。ここで false を返しても、直前に登録されていた PHPUnit 側のハンドラに
+				// 戻るわけではない.
+				// Returning false hands this particular error back to PHP's standard error
+				// handling ( governed by error_reporting / display_errors etc. ), not back to
+				// whatever handler ( e.g. PHPUnit's ) was registered before this one.
 				return false;
 			},
 			E_DEPRECATED
 		);
 
-		Vk_Call_To_Action::sanitize_config( array( 'post' => '1' ) );
-
-		restore_error_handler();
+		try {
+			Vk_Call_To_Action::sanitize_config( array( 'post' => '1' ) );
+		} finally {
+			// sanitize_config() が例外を投げた場合でも、このテスト専用のハンドラが
+			// 後続のテストへ漏れないよう、必ず元のハンドラへ戻す.
+			// Always restore the previous handler, even if sanitize_config() throws,
+			// so this test-local handler never leaks into subsequent tests.
+			restore_error_handler();
+		}
 
 		$this->assertFalse(
 			$deprecated_triggered,
