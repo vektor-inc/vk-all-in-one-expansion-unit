@@ -545,6 +545,35 @@ class CTATest extends WP_UnitTestCase {
 				'input'               => array( 'post' => '7' ),
 				'expected'            => array_merge( $default_option, array( 'post' => '7' ) ),
 			),
+			array(
+				// admin/admin-main-setting-page.php の veu_main_sanitaize_and_update() は、
+				// その設定グループが $_POST に含まれていない場合 $before = null; としてサニタイズ
+				// コールバックへ渡す ( 実際に起こる呼び出し経路 )。未保存状態でこれが起きても、
+				// null や false ではなく初期値の配列が返る事を検証する.
+				// admin/admin-main-setting-page.php's veu_main_sanitaize_and_update() passes
+				// $before = null when the setting group is absent from $_POST ( a real call path ).
+				// Verify that even when unsaved, this returns the default array, not null or false.
+				'test_condition_name' => '入力が null（該当設定が POST に含まれない）かつ未保存の場合、初期値の配列が返る ( null / false が返らない )',
+				'existing_option'     => false,
+				'input'               => null,
+				'expected'            => $default_option,
+			),
+			array(
+				// 上記と同じ呼び出し経路を、保存済み設定がある状態で再現する。null を渡しただけで
+				// 既存の設定が消えたり上書きされたりしない事を検証する.
+				// Reproduce the same call path with a saved option already present. Verify that
+				// passing null alone does not clear or overwrite the existing settings.
+				'test_condition_name' => '入力が null（該当設定が POST に含まれない）かつ保存済み設定がある場合、既存の設定がそのまま返る',
+				'existing_option'     => array(
+					'post' => '3',
+					'page' => '4',
+				),
+				'input'               => null,
+				'expected'            => array(
+					'post' => '3',
+					'page' => '4',
+				),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
