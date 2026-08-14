@@ -399,70 +399,65 @@ class SnsBtnsTest extends WP_UnitTestCase {
 			delete_option( 'vkExUnit_sns_options' );
 		}
 
-		// 装飾アイコン（Threads / Copy）の SVG 自体にも aria-hidden="true" と focusable="false" が付き、
-		// 読み上げやタブフォーカスの対象から除外される事のテスト（外側の span への統一は下の $webfont_cases 側で確認する）。
-		// Test that the SVG itself ( for the decorative icons Threads / Copy ) also gets aria-hidden="true"
-		// and focusable="false", so it is excluded from screen readers and tab focus. The outer span
-		// aria-hidden is unified with the other icons and checked in $webfont_cases below.
-		$svg_aria_cases = array(
-			array(
-				'test_condition_name' => 'useThreads が true の場合 => Threads の svg に aria-hidden="true" focusable="false" が付く',
-				'options'             => array( 'useThreads' => true ),
-				'expected'            => veu_sns_icon_svg_threads(),
-			),
-			array(
-				'test_condition_name' => 'useCopy が true の場合 => Copy の svg に aria-hidden="true" focusable="false" が付く',
-				'options'             => array( 'useCopy' => true ),
-				'expected'            => veu_sns_icon_svg_copy(),
-			),
+		// 装飾アイコン（7つ全て）の SVG 自体が、想定した構造以外の何物でもない事を確認するテスト
+		// （外側の span への統一・実際の出力への混入確認は下の $icon_wrap_cases 側で行う）。
+		// issue #1462 で Facebook / X / Bluesky / Hatena / LINE も Threads / Copy と同じインライン SVG に
+		// 統一されたため、7つ全てを同じ回帰ガードで検証する。
+		// このループは7つの関数の戻り値だけを検査する純粋なテストで、WP の option 設定や
+		// veu_get_sns_btns() の呼び出し、UA の差し替えは行わない（実際の出力への混入は
+		// $icon_wrap_cases 側の完全一致検証で確認済みのため、ここで重複させない）。
+		// Test that the SVG itself ( for all 7 decorative icons ) is nothing other than the expected
+		// shape ( the outer span's aria-hidden and its presence in the actual output are checked in
+		// $icon_wrap_cases below ). Facebook / X / Bluesky / Hatena / LINE were unified to the same
+		// inline SVG approach as Threads / Copy in issue #1462, so all 7 are verified with the same
+		// regression guard here. This loop only inspects each function's return value — no WP option
+		// setup, no veu_get_sns_btns() call, and no UA switching ( that integration is already covered
+		// by the exact-match assertions in $icon_wrap_cases, so it is not duplicated here ).
+		$svg_cases = array(
+			'Facebook' => veu_sns_icon_svg_facebook(),
+			'X'        => veu_sns_icon_svg_x(),
+			'Bluesky'  => veu_sns_icon_svg_bluesky(),
+			'Threads'  => veu_sns_icon_svg_threads(),
+			'Hatena'   => veu_sns_icon_svg_hatena(),
+			'LINE'     => veu_sns_icon_svg_line(),
+			'Copy'     => veu_sns_icon_svg_copy(),
 		);
 
-		foreach ( $svg_aria_cases as $case ) {
-			// SVG 自体が aria-hidden="true" と focusable="false" を明示している事を確認
-			// Check the SVG markup itself declares aria-hidden="true" and focusable="false".
-			$this->assertStringContainsString( 'aria-hidden="true"', $case['expected'], $case['test_condition_name'] );
-			$this->assertStringContainsString( 'focusable="false"', $case['expected'], $case['test_condition_name'] );
-			// 一部の支援技術は aria-hidden があっても読み上げてしまうため、title / desc は含めない事を確認
-			// Some assistive technologies read out <title> / <desc> even with aria-hidden, so check they are not included.
-			$this->assertStringNotContainsString( '<title', $case['expected'], $case['test_condition_name'] );
-			$this->assertStringNotContainsString( '<desc', $case['expected'], $case['test_condition_name'] );
-			// サイズを決めている class="sb_svg_icon" が付いている事を確認（消えたり改名されると
-			// .sb_svg_icon の CSS が当たらなくなり、置換要素の既定サイズ規則で肥大表示される）。
-			// Check class="sb_svg_icon" is present ( the class that drives sizing ). If it disappears
-			// or gets renamed, the .sb_svg_icon CSS no longer applies and the default replaced-element
-			// sizing rules would render an oversized icon.
-			$this->assertStringContainsString( 'class="sb_svg_icon"', $case['expected'], $case['test_condition_name'] );
-			// 将来アイコンを追加する人への回帰ガードとして、危険なトークンが含まれない事を確認。
-			// HTML パーサは大文字小文字を区別しない（例: <foreignObject> は <foreignobject> とも書ける）ため、
-			// 単純な文字列一致ではなく大小無視の正規表現で判定する。
-			// Regression guard for future icon additions: check no dangerous tokens are included.
-			// HTML parsing is case-insensitive ( e.g. <foreignObject> can also be written <foreignobject> ),
-			// so use a case-insensitive regular expression instead of a plain string match.
-			$this->assertDoesNotMatchRegularExpression(
-				'/<(script|foreignobject|use|image)\b|xlink|href=/i',
-				$case['expected'],
-				$case['test_condition_name']
-			);
-			// アイコン色が snsBtn_color オプションで切り替えられるよう fill="currentColor" が明示されている事を確認
-			// Check fill="currentColor" is declared so the icon color follows the snsBtn_color option.
-			$this->assertStringContainsString( 'fill="currentColor"', $case['expected'], $case['test_condition_name'] );
+		// 「危険なトークンを列挙して弾く」denylist 方式（旧 assertDoesNotMatchRegularExpression）は、
+		// <svg onload=...> のようなイベントハンドラ属性や javascript: スキーム、<style>、SMIL アニメーション
+		// （<animate>/<set> の attributeName="href" + to="javascript:..."。属性値が href" であって
+		// href= ではないため denylist の /href=/ に掛からない）を素通りさせてしまう。
+		// 許可する構造そのものを固定する allowlist 方式に変更し、想定した svg 要素の8属性と
+		// path 要素の d 属性（パスデータの文字だけ）以外を一切許さない事で、未知の危険要素も
+		// 自動的に弾けるようにする。
+		// The denylist approach ( enumerating "dangerous tokens" to reject; the old
+		// assertDoesNotMatchRegularExpression ) lets through inline event handler attributes like
+		// <svg onload=...>, the javascript: scheme, <style>, and SMIL animation ( <animate>/<set> with
+		// attributeName="href" + to="javascript:..." — the attribute value is href" rather than href=,
+		// so it does not match the denylist's /href=/ ). Switch to an allowlist that pins down exactly
+		// which structure is permitted — the expected 8 <svg> attributes and <path> elements whose "d"
+		// attribute contains only path-data characters — so unknown dangerous elements are rejected
+		// automatically too.
+		$allowed_svg_pattern = '#^<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 \d+ \d+" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www\.w3\.org/2000/svg">(?:<path d="[MmLlHhVvCcSsQqTtAaZz0-9eE.,\-\s]+"/>)+</svg>$#';
+
+		foreach ( $svg_cases as $icon_name => $svg ) {
+			$test_condition_name = $icon_name . ' の svg が、想定した構造（8属性の svg 要素 + path 要素のみ）から外れない事';
+
+			// allowlist で全体を厳密一致させる。aria-hidden="true" / focusable="false" / class="sb_svg_icon" /
+			// fill="currentColor" の存在、<title>/<desc>/<script>/<style> 等が無い事を1本でまとめて担保する。
+			// Match the whole string against the allowlist. This single assertion covers the presence of
+			// aria-hidden="true" / focusable="false" / class="sb_svg_icon" / fill="currentColor", and the
+			// absence of <title>/<desc>/<script>/<style> and any other unexpected element, all at once.
+			$this->assertMatchesRegularExpression( $allowed_svg_pattern, $svg, $test_condition_name );
+
 			// width:1em; height:1em; という 1:1 前提と矛盾しないよう viewBox も正方形（1:1）である事を確認
-			// Check the viewBox is also square ( 1:1 ), consistent with the width:1em; height:1em; 1:1 premise.
-			preg_match( '/viewBox="0 0 (\d+) (\d+)"/', $case['expected'], $viewbox_matches );
-			$this->assertNotEmpty( $viewbox_matches, $case['test_condition_name'] );
-			$this->assertSame( $viewbox_matches[1], $viewbox_matches[2], $case['test_condition_name'] );
-
-			// オプション値を設定 / Set option value.
-			update_option( 'vkExUnit_sns_options', $case['options'] );
-
-			// シェアボタンの HTML を取得 / Get the share button HTML.
-			$actual = veu_get_sns_btns();
-
-			// 装飾アイコンの SVG が出力に含まれる事を確認 / Check the decorative icon's SVG is included in the output.
-			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
-
-			// オプション値をクリーンアップ / Clean up the option value.
-			delete_option( 'vkExUnit_sns_options' );
+			// （allowlist の \d+ \d+ は2つの数値が別々でも通るため、等しいかはここで別途確認する）。
+			// Check the viewBox is also square ( 1:1 ), consistent with the width:1em; height:1em; 1:1
+			// premise ( the allowlist's \d+ \d+ matches even if the two numbers differ, so equality is
+			// verified separately here ).
+			preg_match( '/viewBox="0 0 (\d+) (\d+)"/', $svg, $viewbox_matches );
+			$this->assertNotEmpty( $viewbox_matches, $test_condition_name );
+			$this->assertSame( $viewbox_matches[1], $viewbox_matches[2], $test_condition_name );
 		}
 
 		// アイコンへの配色経路が「フォント色（vk_sns glyph）→ color」から「fill="currentColor"」に変わった事の
@@ -488,13 +483,19 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		);
 		delete_option( 'vkExUnit_sns_options' );
 
-		// 各 SNS アイコンの外側 span（icon_sns）に aria-hidden="true" が付き読み上げから除外される事のテスト
-		// （ fb / x / bluesky / hatena / line は自前 web フォント（vk_sns）の空 span、Threads / Copy はインライン SVG を包む span ）。
-		// SVG 化を機に、Threads / Copy も他の5つと同じく外側の span に aria-hidden を統一した事を確認する。
-		// Test that the outer span ( icon_sns ) of each SNS icon gets aria-hidden="true" and is hidden from screen
-		// readers ( fb / x / bluesky / hatena / line are empty in-house web font ( vk_sns ) spans, Threads / Copy
-		// are spans wrapping an inline SVG ). Confirm that, following the move to SVG, Threads / Copy now also
-		// place aria-hidden on the outer span like the other 5 icons.
+		// 各 SNS アイコンの外側 span（icon_sns）に aria-hidden="true" が付き読み上げから除外される事のテスト。
+		// issue #1462 で fb / x / bluesky / hatena / line も、従来の自前 web フォント（vk_sns）の空 span
+		// （`.vk_icon_w_r_sns_*` クラス）から Threads / Copy と同じインライン SVG を包む span に統一された
+		// ため、7つとも同じマークアップ（`<span class="icon_sns" aria-hidden="true">` + SVG）で検証する。
+		// 自前フォント本体・`.vk_icon_w_r_sns_*` の CSS 自体は後方互換のため削除していないが、この出力
+		// （マークアップ）ではもう使われない事を、クラスが含まれない事の確認で担保する。
+		// Test that the outer span ( icon_sns ) of each SNS icon gets aria-hidden="true" and is hidden from
+		// screen readers. In issue #1462, fb / x / bluesky / hatena / line were unified from the old
+		// in-house web font ( vk_sns ) empty spans ( `.vk_icon_w_r_sns_*` classes ) to the same inline-SVG
+		// wrapping span as Threads / Copy, so all 7 are now verified with the same markup
+		// ( `<span class="icon_sns" aria-hidden="true">` + SVG ). The web font itself and the
+		// `.vk_icon_w_r_sns_*` CSS are kept for backward compatibility ( not removed ), but checking the
+		// class is absent from this output confirms the markup no longer uses it.
 		// class 直後・$icon_css の前に aria-hidden が入る実出力に合わせてリテラルで検証する。
 		// Verify against the literal output where aria-hidden comes right after class and before $icon_css.
 		// LINE はモバイル環境（wp_is_mobile() が true）かつ useLine が有効な時のみ出力されるため、ケースごとに user_agent を設定して分岐を通す。
@@ -503,50 +504,60 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		// iPhone UA. It contains "Mobile", so wp_is_mobile() returns true.
 		$mobile_ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
 
-		$webfont_cases = array(
+		// not_expected は7ケース全て 'vk_icon_w_r_sns' というプレフィックス一致にしている（各アイコン専用の
+		// 完全名にすると、例えば `_x_twitter` が `_twitter` に退行しても検出できない上、Threads / Copy は
+		// 元々 web フォントクラス自体を持たないため対象外になっていた。プレフィックスに揃える事で、7ケース
+		// 全てを同じ強さで「vk_icon_w_r_sns から始まる旧クラスが一切出力されない」形で守れる）。
+		// not_expected uses the single prefix 'vk_icon_w_r_sns' for all 7 cases ( a full per-icon class
+		// name would miss a regression such as `_x_twitter` degrading to `_twitter`, and Threads / Copy
+		// never had a web font class to begin with, so they were excluded. Unifying on the prefix lets
+		// all 7 cases be guarded equally strongly: no class starting with vk_icon_w_r_sns is output at all ).
+		$legacy_class_prefix = 'vk_icon_w_r_sns';
+
+		$icon_wrap_cases = array(
 			array(
-				'test_condition_name' => 'useFacebook が true の場合 => Facebook の web フォント span に aria-hidden="true" が付く',
+				'test_condition_name' => 'useFacebook が true の場合 => Facebook の SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない',
 				'options'             => array( 'useFacebook' => true ),
 				'user_agent'          => null,
-				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_fb icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_facebook() . '</span>' ),
 			),
 			array(
-				'test_condition_name' => 'useTwitter が true の場合 => X の web フォント span に aria-hidden="true" が付く',
+				'test_condition_name' => 'useTwitter が true の場合 => X の SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない',
 				'options'             => array( 'useTwitter' => true ),
 				'user_agent'          => null,
-				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_x_twitter icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_x() . '</span>' ),
 			),
 			array(
-				'test_condition_name' => 'useBluesky が true の場合 => Bluesky の web フォント span に aria-hidden="true" が付く',
+				'test_condition_name' => 'useBluesky が true の場合 => Bluesky の SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない',
 				'options'             => array( 'useBluesky' => true ),
 				'user_agent'          => null,
-				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_bluesky icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_bluesky() . '</span>' ),
 			),
 			array(
-				'test_condition_name' => 'useHatena が true の場合 => Hatena の web フォント span に aria-hidden="true" が付く',
+				'test_condition_name' => 'useHatena が true の場合 => Hatena の SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない',
 				'options'             => array( 'useHatena' => true ),
 				'user_agent'          => null,
-				'expected_contains'   => array( '<span class="vk_icon_w_r_sns_hatena icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_hatena() . '</span>' ),
 			),
 			array(
 				// LINE はモバイル UA で wp_is_mobile() を true にした時のみ出力される。sb_line が含まれる事＝モバイル分岐を実際に通った裏取り（他に出力経路が無い）。
 				// LINE is only output when wp_is_mobile() is true via the mobile UA. Containing sb_line proves the mobile branch was actually taken ( no other output path ).
-				'test_condition_name' => 'useLine が true かつモバイルの場合 => LINE ボタンが出力され LINE の web フォント span に aria-hidden="true" が付く',
+				'test_condition_name' => 'useLine が true かつモバイルの場合 => LINE ボタンが出力され SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない',
 				'options'             => array( 'useLine' => true ),
 				'user_agent'          => $mobile_ua,
-				'expected_contains'   => array( 'sb_line', '<span class="vk_icon_w_r_sns_line icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( 'sb_line', '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_line() . '</span>' ),
 			),
 			array(
-				'test_condition_name' => 'useThreads が true の場合 => Threads の SVG を包む span に aria-hidden="true" が付く（他5つの icon_sns と統一）',
+				'test_condition_name' => 'useThreads が true の場合 => Threads の SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない（他の icon_sns と統一）',
 				'options'             => array( 'useThreads' => true ),
 				'user_agent'          => null,
-				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_threads() . '</span>' ),
 			),
 			array(
-				'test_condition_name' => 'useCopy が true の場合 => Copy の SVG を包む span に aria-hidden="true" が付く（他5つの icon_sns と統一）',
+				'test_condition_name' => 'useCopy が true の場合 => Copy の SVG を包む span に aria-hidden="true" が付き、旧 web フォントクラスは出力されない（他の icon_sns と統一）',
 				'options'             => array( 'useCopy' => true ),
 				'user_agent'          => null,
-				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true"' ),
+				'expected_contains'   => array( '<span class="icon_sns" aria-hidden="true">' . veu_sns_icon_svg_copy() . '</span>' ),
 			),
 		);
 
@@ -555,7 +566,7 @@ class SnsBtnsTest extends WP_UnitTestCase {
 		$original_ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : null;
 
 		try {
-			foreach ( $webfont_cases as $case ) {
+			foreach ( $icon_wrap_cases as $case ) {
 				// ケースごとに UA を設定（null なら未設定にする）。LINE はモバイル UA で分岐を通す。
 				// Set the UA per case ( unset if null ). LINE goes through the branch with the mobile UA.
 				if ( null === $case['user_agent'] ) {
@@ -574,6 +585,13 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				foreach ( $case['expected_contains'] as $expected ) {
 					$this->assertStringContainsString( $expected, $actual, $case['test_condition_name'] );
 				}
+
+				// 旧・自前 web フォントのクラス（vk_icon_w_r_sns で始まるもの全て）がマークアップに
+				// 残っていない事を確認（issue #1462 での移行確認。7ケース共通のプレフィックスで検証）。
+				// Check no old in-house web font class ( anything starting with vk_icon_w_r_sns ) remains
+				// in the markup ( confirms the migration in issue #1462. Verified with the shared prefix
+				// across all 7 cases ).
+				$this->assertStringNotContainsString( $legacy_class_prefix, $actual, $case['test_condition_name'] );
 
 				// オプション値をクリーンアップ / Clean up the option value.
 				delete_option( 'vkExUnit_sns_options' );

@@ -79,9 +79,39 @@ e.g.
 1. Feature can be stopped individually.
 2. This is an example of SNS cooperation setting screen.
 
+== Credits ==
+
+This plugin's share button icons (Facebook, X, Bluesky, Threads, Hatena Bookmark, LINE, Copy) are inline SVG traced from the following third-party icon sets. The SVG license below covers the traced artwork only; each service's logo remains a trademark of its respective owner and is used here single-color, unmodified in shape, and only as a share link icon.
+
+* Facebook, X, Bluesky, Threads, Hatena Bookmark and LINE icons: Simple Icons ( https://simpleicons.org/ ), licensed under CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+* Copy icon: Heroicons ( https://heroicons.com/ ), square-2-stack (solid), licensed under the MIT License ( https://github.com/tailwindlabs/heroicons/blob/master/LICENSE ). Full text below, as required by the MIT License:
+
+MIT License
+
+Copyright (c) Tailwind Labs, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 == Changelog ==
 
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
+[ Spec Change ][ SNS Share Button ] Unified the Facebook, X, Bluesky, Hatena Bookmark and LINE icons to inline SVG to match Threads and Copy. The markup no longer uses the ".vk_icon_w_r_sns_*" web font classes; the classes and the font itself are kept for backward compatibility.
 [ Bug Fix ][ Block ] Fixed the Share Button, HTML Sitemap and other blocks showing "This block has encountered an error and cannot be previewed" in the editor when the post contains a cross-origin iframe embed.
 [ Bug Fix ][ Share Button ] Fixed the share button block always showing in the editor even when excluded from the front end, hiding the mismatch while editing. The editor now explains why it will not display.
 [ Bug Fix ][ SNS Share Button ] Fixed the Threads and Copy icons not being displayed on themes that do not load Font Awesome (e.g. Twenty Twenty-Five), by replacing them with inline SVG.
