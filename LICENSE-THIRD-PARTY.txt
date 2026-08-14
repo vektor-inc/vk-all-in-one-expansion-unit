@@ -1,0 +1,43 @@
+Third-Party Licenses
+=====================
+
+This plugin's share button icons (Facebook, X, Bluesky, Threads, Hatena Bookmark, LINE, Copy) are inline SVG traced from the following third-party icon sets. The SVG license below covers the traced artwork only; each service's logo remains a trademark of its respective owner and is used here single-color, unmodified in shape, and only as a share link icon.
+
+Heroicons (Copy icon)
+----------------------
+
+Source: https://heroicons.com/
+Icon: square-2-stack (solid)
+License: MIT License ( https://github.com/tailwindlabs/heroicons/blob/master/LICENSE )
+
+Full text below, as required by the MIT License:
+
+MIT License
+
+Copyright (c) Tailwind Labs, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Simple Icons (Facebook, X, Bluesky, Threads, Hatena Bookmark, LINE icons)
+---------------------------------------------------------------------------
+
+Source: https://simpleicons.org/
+License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md )
+
+CC0 1.0 Universal is a public domain dedication and carries no attribution requirement, so no license text is reproduced here. See the license URL above for the full terms.
