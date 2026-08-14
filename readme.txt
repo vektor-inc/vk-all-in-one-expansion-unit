@@ -82,7 +82,7 @@ e.g.
 == Changelog ==
 
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
-[ Spec Change ][ SNS Share Button ] Unified the Facebook, X, Bluesky, Hatena Bookmark and LINE icons to inline SVG to match Threads and Copy. The markup no longer uses the ".vk_icon_w_r_sns_*" web font classes; the classes and the font itself are kept for backward compatibility (e.g. custom CSS, Lightning skins).
+[ Spec Change ][ SNS Share Button ] Unified the Facebook, X, Bluesky, Hatena Bookmark and LINE icons to inline SVG to match Threads and Copy. The markup no longer uses the ".vk_icon_w_r_sns_*" web font classes; the classes and the font itself are kept for backward compatibility.
 [ Bug Fix ][ Block ] Fixed the Share Button, HTML Sitemap and other blocks showing "This block has encountered an error and cannot be previewed" in the editor when the post contains a cross-origin iframe embed.
 [ Bug Fix ][ Share Button ] Fixed the share button block always showing in the editor even when excluded from the front end, hiding the mismatch while editing. The editor now explains why it will not display.
 [ Bug Fix ][ SNS Share Button ] Fixed the Threads and Copy icons not being displayed on themes that do not load Font Awesome (e.g. Twenty Twenty-Five), by replacing them with inline SVG.
