@@ -86,6 +86,7 @@ e.g.
 [ Bug Fix ][ Share Button ] Fixed the share button block always showing in the editor even when excluded from the front end, hiding the mismatch while editing. The editor now explains why it will not display.
 [ Bug Fix ][ SNS Share Button ] Fixed the Threads and Copy icons not being displayed on themes that do not load Font Awesome (e.g. Twenty Twenty-Five), by replacing them with inline SVG.
 [ Bug Fix ][ CTA ] Fixed a PHP deprecated warning shown on the first save of the CTA settings (which looked like the save had failed) and CTA default values not being applied.
+[ Bug Fix ][ SNS Share Button ] Fixed the Threads share button's label, admin checkbox and Customizer control showing "Threads" with a capital T instead of the official lowercase "threads".
 [ Security Fix ][ CTA ] Added a permission check on save and strengthened output escaping on the classic edit screen as defense-in-depth hardening.
 
 = 9.121.1 =

@@ -338,6 +338,9 @@ class SnsBtnsTest extends WP_UnitTestCase {
 				$this->assertStringContainsString( 'sb_threads', $actual, $case['test_condition_name'] );
 				$this->assertStringContainsString( $threads_intent, $actual, $case['test_condition_name'] );
 				$this->assertStringContainsString( veu_sns_icon_svg_threads(), $actual, $case['test_condition_name'] );
+				// 可視ラベルが正式表記の小文字「threads」で出力される事を確認（assertStringContainsString は大文字小文字を区別するため「Threads」への退行を検知できる）
+				// Confirm the visible label is output in the official lowercase "threads" ( assertStringContainsString is case-sensitive, so a regression back to "Threads" would be caught ).
+				$this->assertStringContainsString( '>threads</span>', $actual, $case['test_condition_name'] );
 			} else {
 				// Threads ボタンが含まれない事を確認（li クラス・intent URL・アイコンの全てが出力されない）
 				// Check that the Threads button is not included ( none of the li class, intent URL, or icon are output ).
