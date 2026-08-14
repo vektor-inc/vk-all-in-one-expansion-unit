@@ -170,6 +170,7 @@ if ( $options['useBluesky'] ) {
 if ( $options['useThreads'] ) {
 	echo 'checked';}
 ?>
+<?php /* translators: "threads" is the brand name of Meta's social network. Keep it lowercase and do not translate. */ ?>
 /> <?php _e( 'threads', 'vk-all-in-one-expansion-unit' ); ?></label></li>
 <li><label><input type="checkbox" name="vkExUnit_sns_options[useHatena]" value="true"
 <?php

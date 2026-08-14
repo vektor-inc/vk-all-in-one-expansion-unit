@@ -600,6 +600,7 @@ function veu_customize_register_sns( $wp_customize ) {
 	$wp_customize->add_control(
 		'useThreads',
 		array(
+			/* translators: "threads" is the brand name of Meta's social network. Keep it lowercase and do not translate. */
 			'label'    => __( 'threads', 'vk-all-in-one-expansion-unit' ),
 			'section'  => 'veu_sns_setting',
 			'settings' => 'vkExUnit_sns_options[useThreads]',

@@ -493,9 +493,9 @@ function veu_get_sns_btns( $attr = array() ) {
 		if ( ! empty( $options['useThreads'] ) ) {
 			$social_btns .= '<li class="sb_threads sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://www.threads.net/intent/post?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
-			// 隣に可視ラベル（.sns_txt "Threads"）があるためアイコンは装飾。読み上げから除外する。
+			// 隣に可視ラベル（.sns_txt "threads"）があるためアイコンは装飾。読み上げから除外する。
 			// 他5つの SNS アイコンに揃え、aria-hidden は外側の span に統一する。
-			// The visible label ( .sns_txt "Threads" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			// The visible label ( .sns_txt "threads" ) sits next to it, so the icon is decorative and hidden from screen readers.
 			// aria-hidden is placed on the outer span to match the other 5 SNS icons.
 			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_threads() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>threads</span>';
