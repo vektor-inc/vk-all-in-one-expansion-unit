@@ -347,6 +347,95 @@ function veu_sns_icon_css( $options ) {
 }
 
 /**
+ * Facebook シェアボタンのアイコン SVG
+ * 従来は自前 web フォント（vk_sns）の合字 `.vk_icon_w_r_sns_fb` で字形を出力していたが、
+ * Threads・Copy と出力方式が割れており（issue #1462）、7つのシェアボタンでアイコンの出力方式を
+ * インライン SVG に統一する。
+ * 自前フォント本体・`.vk_icon_w_r_sns_*` の CSS は、Lightning のスキンプラグイン（hover 時の
+ * アイコン色上書きに `.vk_icon_w_r_sns_*` セレクタを使用）やユーザーのカスタム CSS からの参照が
+ * ありうるため削除せず残す。このマークアップだけがインライン SVG の出力に切り替わる。
+ * 素材の出典: Simple Icons（ https://simpleicons.org/ ）の facebook.svg。
+ * ライセンス: CC0 1.0 Universal（ https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ）。
+ * このライセンスは SVG（トレース成果物）の著作権表示に関するもので、Facebook ロゴ自体の商標権は
+ * Meta Platforms, Inc. に帰属したまま。単色・形状非改変・シェア導線としての用途に限定して使用している。
+ * Previously rendered via the in-house web font ( vk_sns ) ligature `.vk_icon_w_r_sns_fb`. Since
+ * this diverged from how Threads / Copy render their icons ( issue #1462 ), all 7 share buttons now
+ * use inline SVG for a consistent icon output method.
+ * The web font itself and the `.vk_icon_w_r_sns_*` CSS are kept ( not removed ), since the Lightning
+ * skin plugins override the hover icon color via `.vk_icon_w_r_sns_*` selectors, and user custom CSS
+ * may reference them too. Only this markup switches to inline SVG.
+ * Source: Simple Icons ( https://simpleicons.org/ ) facebook.svg.
+ * License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+ * This license covers the SVG ( the traced artwork ) copyright notice only; the Facebook logo itself
+ * remains a trademark of Meta Platforms, Inc. Used single-color, unmodified in shape, and only as a
+ * share link icon.
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
+ *
+ * @return string SVG markup.
+ */
+function veu_sns_icon_svg_facebook() {
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>';
+}
+
+/**
+ * X（旧 Twitter）シェアボタンのアイコン SVG
+ * 従来は自前 web フォント（vk_sns）の合字 `.vk_icon_w_r_sns_x_twitter` で字形を出力していたが、
+ * Facebook 同様の理由（issue #1462）でインライン SVG に統一する。
+ * 自前フォント本体・`.vk_icon_w_r_sns_*` の CSS は削除せず残す（理由は veu_sns_icon_svg_facebook() を参照）。
+ * 素材の出典: Simple Icons（ https://simpleicons.org/ ）の x.svg。
+ * ライセンス: CC0 1.0 Universal（ https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ）。
+ * このライセンスは SVG（トレース成果物）の著作権表示に関するもので、X ロゴ自体の商標権は
+ * X Corp. に帰属したまま。単色・形状非改変・シェア導線としての用途に限定して使用している。
+ * Previously rendered via the in-house web font ( vk_sns ) ligature `.vk_icon_w_r_sns_x_twitter`.
+ * Unified to inline SVG for the same reason as Facebook ( issue #1462 ).
+ * The web font itself and the `.vk_icon_w_r_sns_*` CSS are kept ( see veu_sns_icon_svg_facebook() for why ).
+ * Source: Simple Icons ( https://simpleicons.org/ ) x.svg.
+ * License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+ * This license covers the SVG ( the traced artwork ) copyright notice only; the X logo itself
+ * remains a trademark of X Corp. Used single-color, unmodified in shape, and only as a share link icon.
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
+ *
+ * @return string SVG markup.
+ */
+function veu_sns_icon_svg_x() {
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg>';
+}
+
+/**
+ * Bluesky シェアボタンのアイコン SVG
+ * 従来は自前 web フォント（vk_sns）の合字 `.vk_icon_w_r_sns_bluesky` で字形を出力していたが、
+ * Facebook 同様の理由（issue #1462）でインライン SVG に統一する。
+ * 自前フォント本体・`.vk_icon_w_r_sns_*` の CSS は削除せず残す（理由は veu_sns_icon_svg_facebook() を参照）。
+ * 素材の出典: Simple Icons（ https://simpleicons.org/ ）の bluesky.svg。
+ * ライセンス: CC0 1.0 Universal（ https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ）。
+ * このライセンスは SVG（トレース成果物）の著作権表示に関するもので、Bluesky ロゴ自体の商標権は
+ * Bluesky Social PBC に帰属したまま。単色・形状非改変・シェア導線としての用途に限定して使用している。
+ * Previously rendered via the in-house web font ( vk_sns ) ligature `.vk_icon_w_r_sns_bluesky`.
+ * Unified to inline SVG for the same reason as Facebook ( issue #1462 ).
+ * The web font itself and the `.vk_icon_w_r_sns_*` CSS are kept ( see veu_sns_icon_svg_facebook() for why ).
+ * Source: Simple Icons ( https://simpleicons.org/ ) bluesky.svg.
+ * License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+ * This license covers the SVG ( the traced artwork ) copyright notice only; the Bluesky logo itself
+ * remains a trademark of Bluesky Social PBC. Used single-color, unmodified in shape, and only as a
+ * share link icon.
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
+ *
+ * @return string SVG markup.
+ */
+function veu_sns_icon_svg_bluesky() {
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></svg>';
+}
+
+/**
  * Threads シェアボタンのアイコン SVG
  * 自前フォント vk_sns に字形がないため Font Awesome の fa-brands fa-threads を使っていたが、
  * 本プラグインは Font Awesome を読み込んでおらず、テーマ側の読み込みに依存していたため、
@@ -374,6 +463,63 @@ function veu_sns_icon_css( $options ) {
  */
 function veu_sns_icon_svg_threads() {
 	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg>';
+}
+
+/**
+ * はてなブックマーク シェアボタンのアイコン SVG
+ * 従来は自前 web フォント（vk_sns）の合字 `.vk_icon_w_r_sns_hatena` で字形を出力していたが、
+ * Facebook 同様の理由（issue #1462）でインライン SVG に統一する。
+ * 自前フォント本体・`.vk_icon_w_r_sns_*` の CSS は削除せず残す（理由は veu_sns_icon_svg_facebook() を参照）。
+ * 素材の出典: Simple Icons（ https://simpleicons.org/ ）の hatenabookmark.svg。
+ * ライセンス: CC0 1.0 Universal（ https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ）。
+ * このライセンスは SVG（トレース成果物）の著作権表示に関するもので、はてなブックマークのロゴ自体の
+ * 商標権は株式会社はてなに帰属したまま。単色・形状非改変・シェア導線としての用途に限定して使用している。
+ * Previously rendered via the in-house web font ( vk_sns ) ligature `.vk_icon_w_r_sns_hatena`.
+ * Unified to inline SVG for the same reason as Facebook ( issue #1462 ).
+ * The web font itself and the `.vk_icon_w_r_sns_*` CSS are kept ( see veu_sns_icon_svg_facebook() for why ).
+ * Source: Simple Icons ( https://simpleicons.org/ ) hatenabookmark.svg.
+ * License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+ * This license covers the SVG ( the traced artwork ) copyright notice only; the Hatena Bookmark logo
+ * itself remains a trademark of Hatena Co., Ltd. Used single-color, unmodified in shape, and only as
+ * a share link icon.
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
+ *
+ * @return string SVG markup.
+ */
+function veu_sns_icon_svg_hatena() {
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.47 0C22.42 0 24 1.58 24 3.53v16.94c0 1.95-1.58 3.53-3.53 3.53H3.53C1.58 24 0 22.42 0 20.47V3.53C0 1.58 1.58 0 3.53 0h16.94zm-3.705 14.47c-.78 0-1.41.63-1.41 1.41s.63 1.414 1.41 1.414 1.41-.645 1.41-1.425-.63-1.41-1.41-1.41zM8.61 17.247c1.2 0 2.056-.042 2.58-.12.526-.084.976-.222 1.32-.412.45-.232.78-.564 1.02-.99s.36-.915.36-1.48c0-.78-.21-1.403-.63-1.87-.42-.48-.99-.734-1.74-.794.66-.18 1.156-.45 1.456-.81.315-.344.465-.824.465-1.424 0-.48-.103-.885-.3-1.26-.21-.36-.493-.645-.883-.87-.345-.195-.735-.315-1.215-.405-.464-.074-1.29-.12-2.474-.12H5.654v10.486H8.61zm.736-4.185c.705 0 1.185.088 1.44.262.27.18.39.495.39.93 0 .405-.135.69-.42.855-.27.18-.765.254-1.44.254H8.31v-2.297h1.05zm8.656.706v-7.06h-2.46v7.06H18zM8.925 9.08c.71 0 1.185.08 1.432.24.245.16.367.435.367.83 0 .38-.13.646-.39.804-.265.154-.747.232-1.452.232h-.57V9.08h.615z"/></svg>';
+}
+
+/**
+ * LINE シェアボタンのアイコン SVG
+ * 従来は自前 web フォント（vk_sns）の合字 `.vk_icon_w_r_sns_line` で字形を出力していたが、
+ * Facebook 同様の理由（issue #1462）でインライン SVG に統一する。
+ * 自前フォント本体・`.vk_icon_w_r_sns_*` の CSS は削除せず残す（理由は veu_sns_icon_svg_facebook() を参照）。
+ * 素材の出典: Simple Icons（ https://simpleicons.org/ ）の line.svg。
+ * ライセンス: CC0 1.0 Universal（ https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ）。
+ * このライセンスは SVG（トレース成果物）の著作権表示に関するもので、LINE ロゴ自体の商標権は
+ * LINEヤフー株式会社（LY Corporation）に帰属したまま。単色・形状非改変・シェア導線としての用途に
+ * 限定して使用している。
+ * Previously rendered via the in-house web font ( vk_sns ) ligature `.vk_icon_w_r_sns_line`.
+ * Unified to inline SVG for the same reason as Facebook ( issue #1462 ).
+ * The web font itself and the `.vk_icon_w_r_sns_*` CSS are kept ( see veu_sns_icon_svg_facebook() for why ).
+ * Source: Simple Icons ( https://simpleicons.org/ ) line.svg.
+ * License: CC0 1.0 Universal ( https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md ).
+ * This license covers the SVG ( the traced artwork ) copyright notice only; the LINE logo itself
+ * remains a trademark of LY Corporation. Used single-color, unmodified in shape, and only as a share
+ * link icon.
+ * width / height を明示するのは、CSS が当たらない経路（RSS フィード・CSS ツリーシェイキング等）で
+ * 置換要素の既定サイズ規則により正方形が大きく肥大表示されるのを防ぐため。
+ * Explicit width / height prevent the default replaced-element sizing rules from rendering an
+ * oversized square when CSS does not apply ( e.g. RSS feeds, CSS tree-shaking ).
+ *
+ * @return string SVG markup.
+ */
+function veu_sns_icon_svg_line() {
+	return '<svg class="sb_svg_icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>';
 }
 
 /**
@@ -445,12 +591,16 @@ function veu_get_sns_btns( $attr = array() ) {
 
 		$social_btns = '<div class="veu_socialSet' . $auto_class . esc_attr( $classes ) . ' veu_contentAddSection"><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script><ul>';
 		// facebook.
+		// アイコンは Font Awesome 非依存のインライン SVG（ veu_sns_icon_svg_facebook() ）を使用する。
+		// Use a Font Awesome independent inline SVG ( veu_sns_icon_svg_facebook() ) for the icon.
 		if ( ! empty( $options['useFacebook'] ) ) {
 			$social_btns .= '<li class="sb_facebook sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//www.facebook.com/sharer.php?src=bm&u=' . $link_url . '&t=' . $page_title ) . '" target="_blank" ' . $outer_css . 'onclick="window.open(this.href,\'FBwindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-			// 字形を CSS 疑似要素で描く自前 web フォント（vk_sns）アイコン。隣に可視ラベル（.sns_txt "Facebook"）があるため装飾扱いで読み上げから除外する。
-			// In-house web font ( vk_sns ) icon whose glyph is drawn via a CSS pseudo-element. The visible label ( .sns_txt "Facebook" ) sits next to it, so it is decorative and hidden from screen readers.
-			$social_btns .= '<span class="vk_icon_w_r_sns_fb icon_sns" aria-hidden="true"' . $icon_css . '></span>';
+			// 隣に可視ラベル（.sns_txt "Facebook"）があるためアイコンは装飾。読み上げから除外する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// The visible label ( .sns_txt "Facebook" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
+			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_facebook() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Facebook</span>';
 			$social_btns .= '<span class="veu_count_sns_fb"' . $icon_css . '></span>';
 			$social_btns .= '</a>';
@@ -458,12 +608,16 @@ function veu_get_sns_btns( $attr = array() ) {
 		}
 
 		// X.
+		// アイコンは Font Awesome 非依存のインライン SVG（ veu_sns_icon_svg_x() ）を使用する。
+		// Use a Font Awesome independent inline SVG ( veu_sns_icon_svg_x() ) for the icon.
 		if ( ! empty( $options['useTwitter'] ) ) {
 			$social_btns .= '<li class="sb_x_twitter sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//twitter.com/intent/tweet?url=' . $link_url . '&text=' . $page_title ) . '" target="_blank" ' . $outer_css . '>';
-			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "X"）があるため装飾扱いで読み上げから除外する。
-			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "X" ) sits next to it, so it is decorative and hidden from screen readers.
-			$social_btns .= '<span class="vk_icon_w_r_sns_x_twitter icon_sns" aria-hidden="true"' . $icon_css . '></span>';
+			// 隣に可視ラベル（.sns_txt "X"）があるためアイコンは装飾。読み上げから除外する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// The visible label ( .sns_txt "X" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
+			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_x() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>X</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -474,12 +628,16 @@ function veu_get_sns_btns( $attr = array() ) {
 		// rawurlencode() 済みの構成要素を esc_attr() で属性エスケープする（Threads も同様）
 		// esc_url() strips the %0A of "title + line break (%0A) + URL", so escape the
 		// rawurlencode()-ed parts with esc_attr() for the attribute instead ( same for Threads ).
+		// アイコンは Font Awesome 非依存のインライン SVG（ veu_sns_icon_svg_bluesky() ）を使用する。
+		// Use a Font Awesome independent inline SVG ( veu_sns_icon_svg_bluesky() ) for the icon.
 		if ( ! empty( $options['useBluesky'] ) ) {
 			$social_btns .= '<li class="sb_bluesky sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://bsky.app/intent/compose?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
-			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "Bluesky"）があるため装飾扱いで読み上げから除外する。
-			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "Bluesky" ) sits next to it, so it is decorative and hidden from screen readers.
-			$social_btns .= '<span class="vk_icon_w_r_sns_bluesky icon_sns" aria-hidden="true"' . $icon_css . '></span>';
+			// 隣に可視ラベル（.sns_txt "Bluesky"）があるためアイコンは装飾。読み上げから除外する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// The visible label ( .sns_txt "Bluesky" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
+			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_bluesky() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Bluesky</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -494,9 +652,9 @@ function veu_get_sns_btns( $attr = array() ) {
 			$social_btns .= '<li class="sb_threads sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_attr( 'https://www.threads.net/intent/post?text=' . $page_title . '%0A' . $link_url ) . '" target="_blank" ' . $outer_css . '>';
 			// 隣に可視ラベル（.sns_txt "threads"）があるためアイコンは装飾。読み上げから除外する。
-			// 他5つの SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
 			// The visible label ( .sns_txt "threads" ) sits next to it, so the icon is decorative and hidden from screen readers.
-			// aria-hidden is placed on the outer span to match the other 5 SNS icons.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
 			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_threads() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>threads</span>';
 			$social_btns .= '</a>';
@@ -504,12 +662,16 @@ function veu_get_sns_btns( $attr = array() ) {
 		}
 
 		// hatena.
+		// アイコンは Font Awesome 非依存のインライン SVG（ veu_sns_icon_svg_hatena() ）を使用する。
+		// Use a Font Awesome independent inline SVG ( veu_sns_icon_svg_hatena() ) for the icon.
 		if ( ! empty( $options['useHatena'] ) ) {
 			$social_btns .= '<li class="sb_hatena sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner" href="' . esc_url( '//b.hatena.ne.jp/add?mode=confirm&url=' . $link_url . '&title=' . $page_title ) . '" target="_blank" ' . $outer_css . ' onclick="window.open(this.href,\'Hatenawindow\',\'width=650,height=450,menubar=no,toolbar=no,scrollbars=yes\');return false;">';
-			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "Hatena"）があるため装飾扱いで読み上げから除外する。
-			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "Hatena" ) sits next to it, so it is decorative and hidden from screen readers.
-			$social_btns .= '<span class="vk_icon_w_r_sns_hatena icon_sns" aria-hidden="true"' . $icon_css . '></span>';
+			// 隣に可視ラベル（.sns_txt "Hatena"）があるためアイコンは装飾。読み上げから除外する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// The visible label ( .sns_txt "Hatena" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
+			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_hatena() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Hatena</span>';
 			$social_btns .= '<span class="veu_count_sns_hb"' . $icon_css . '></span>';
 			$social_btns .= '</a>';
@@ -520,12 +682,16 @@ function veu_get_sns_btns( $attr = array() ) {
 		// line: は esc_url() のデフォルト許可プロトコル外で空文字になるため、許可プロトコルを明示する
 		// The line: scheme is not in esc_url()'s default allowed protocols ( the URL would become
 		// an empty string ), so pass the allowed protocol explicitly.
+		// アイコンは Font Awesome 非依存のインライン SVG（ veu_sns_icon_svg_line() ）を使用する。
+		// Use a Font Awesome independent inline SVG ( veu_sns_icon_svg_line() ) for the icon.
 		if ( wp_is_mobile() && ! empty( $options['useLine'] ) ) :
 			$social_btns .= '<li class="sb_line sb_icon">';
 			$social_btns .= '<a class="sb_icon_inner"  href="' . esc_url( 'line://msg/text/' . $page_title . ' ' . $link_url, array( 'line' ) ) . '" ' . $outer_css . '>';
-			// 自前 web フォント（vk_sns）のアイコン。隣に可視ラベル（.sns_txt "LINE"）があるため装飾扱いで読み上げから除外する。
-			// In-house web font ( vk_sns ) icon. The visible label ( .sns_txt "LINE" ) sits next to it, so it is decorative and hidden from screen readers.
-			$social_btns .= '<span class="vk_icon_w_r_sns_line icon_sns" aria-hidden="true"' . $icon_css . '></span>';
+			// 隣に可視ラベル（.sns_txt "LINE"）があるためアイコンは装飾。読み上げから除外する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// The visible label ( .sns_txt "LINE" ) sits next to it, so the icon is decorative and hidden from screen readers.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
+			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_line() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>LINE</span>';
 			$social_btns .= '</a>';
 			$social_btns .= '</li>';
@@ -537,9 +703,9 @@ function veu_get_sns_btns( $attr = array() ) {
 			$social_btns .= '<li class="sb_copy sb_icon">';
 			$social_btns .= '<button class="copy-button sb_icon_inner"' . $outer_css . 'data-clipboard-text="' . esc_attr( urldecode( $page_title ) ) . ' ' . esc_attr( urldecode( $link_url ) ) . '">';
 			// 隣に可視ラベル（.sns_txt "Copy"）があるためアイコンは装飾。読み上げから除外する。
-			// 他5つの SNS アイコンに揃え、aria-hidden は外側の span に統一する。
+			// 他の SNS アイコンに揃え、aria-hidden は外側の span に統一する。
 			// The visible label ( .sns_txt "Copy" ) sits next to it, so the icon is decorative and hidden from screen readers.
-			// aria-hidden is placed on the outer span to match the other 5 SNS icons.
+			// aria-hidden is placed on the outer span to match the other SNS icons.
 			$social_btns .= '<span class="icon_sns" aria-hidden="true"' . $icon_css . '>' . veu_sns_icon_svg_copy() . '</span>';
 			$social_btns .= '<span class="sns_txt"' . $icon_css . '>Copy</span>';
 			$social_btns .= '</button>';

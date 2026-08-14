@@ -31,13 +31,12 @@
     }
     .sb_icon {
         .sb_icon_inner {
-            // アイコン（自前フォント合字 / インライン SVG）とテキストの縦位置合わせを、フォントの行ボックス
-            // （strut）基準ではなく flex の cross-axis 整列で行う。strut 基準だとフォント合字と SVG とで
-            // 実際の高さがわずかに変わってしまうため、.icon_sns（下記）も同じ理由で inline-flex にする。
-            // Vertically align the icon ( in-house web font ligature / inline SVG ) and text via flex
-            // cross-axis alignment instead of the font's line-box ( strut ), which would otherwise render
-            // a slightly different height for the web-font ligature vs. the SVG. .icon_sns below is
-            // inline-flex for the same reason.
+            // アイコン（インライン SVG。7つとも issue #1462 で SVG に統一済み）とテキストの縦位置合わせを、
+            // フォントの行ボックス（strut）基準ではなく flex の cross-axis 整列で行う。.icon_sns（下記）も
+            // 同じ理由で inline-flex にする。
+            // Vertically align the icon ( inline SVG — all 7 icons were unified to SVG in issue #1462 )
+            // and text via flex cross-axis alignment instead of the font's line-box ( strut ). .icon_sns
+            // below is inline-flex for the same reason.
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -74,10 +73,10 @@
                 display: inline-flex;
                 align-items: center;
             }
-            // Threads・Copy のインライン SVG は他の自前フォント（vk_sns）アイコンと視覚サイズを揃えるため 1em 四方にする。
+            // 7つのシェアボタンアイコン（インライン SVG）はすべて 1em 四方で視覚サイズを揃える。
             // 中央寄せは親の .icon_sns（inline-flex）側で行う（詳細な検証根拠は PR 本文を参照）。
-            // Size the inline SVG ( Threads / Copy ) to 1em square to match the other in-house web font
-            // ( vk_sns ) icons. Centering is handled by the parent .icon_sns ( inline-flex; see the PR body for details ).
+            // Size all 7 share button icons ( inline SVG ) to 1em square for a consistent visual size.
+            // Centering is handled by the parent .icon_sns ( inline-flex; see the PR body for details ).
             .sb_svg_icon {
                 width: 1em;
                 height: 1em;
