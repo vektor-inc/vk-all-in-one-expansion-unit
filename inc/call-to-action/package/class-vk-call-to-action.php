@@ -751,23 +751,14 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			);
 			$option    = get_option( 'vkExUnit_cta_settings' );
 			if ( ! $option || ! is_array( $option ) ) {
-				// 未保存時（get_option() が false を返す場合）に加え、他プラグインの
-				// option_vkExUnit_cta_settings フィルタや壊れた DB 値により配列以外の
-				// truthy な値が返るケースも初期値へ倒す。ここを is_array() だけの判定に
-				// すると、正当な空配列（array()）まで弾いてしまうため ! $option との
-				// 組み合わせを維持する（get_option() の判定と同じ形に揃えている）。
-				// この代入先が $current_option という未使用変数になっていたため、$option は false のまま
-				// 後続のループで配列アクセスされ、PHP 8.1 以降で「false から array への暗黙変換」の
-				// deprecated 警告が出て、保存に失敗したように見えていた ( issue #1461 ).
-				// Unsaved ( get_option() returns false ), and also cases where a non-array truthy
-				// value is returned ( e.g. via another plugin's option_vkExUnit_cta_settings filter,
-				// or a corrupted DB value ) both fall back to the default value here. Checking
-				// ! is_array() alone would incorrectly reject a legitimate empty array ( array() ),
-				// so it is combined with ! $option ( matching the same check used in get_option() ).
-				// The assignment target used to be the unused variable $current_option, leaving $option
-				// as false and causing an array-access on false in the loop below. On PHP 8.1+ this
-				// triggered an "Automatic conversion of false to array is deprecated" warning, which
-				// looked like the save had failed ( issue #1461 ).
+				// ! $option … 未保存（false）と空配列（array()）を初期値へ倒す。
+				// ! is_array( $option ) … 配列以外の truthy な値（壊れた文字列など）を初期値へ倒す。
+				// どちらか一方だけでは片方のケースを取りこぼすため || で組み合わせている
+				// （get_option() の判定と同じ形。詳細は issue #1461 / 本 PR 参照）。
+				// ! $option … falls back false ( unsaved ) and an empty array ( array() ) to the default.
+				// ! is_array( $option ) … falls back a non-array truthy value ( e.g. a corrupted string )
+				// to the default. Either check alone would miss the other case, so they are combined
+				// with || ( same shape as the check in get_option(); see issue #1461 / this PR for details ).
 				$option = self::get_default_option();
 			}
 			if ( is_array( $input ) ) {
