@@ -31,7 +31,15 @@
     }
     .sb_icon {
         .sb_icon_inner {
-            display: block;
+            // アイコン（自前フォント合字 / インライン SVG）とテキストの縦位置合わせを、フォントの行ボックス
+            // （strut）基準ではなく flex の cross-axis 整列で行う。strut 基準だとフォント合字と SVG とで
+            // 実際の高さがわずかに変わってしまうため、.icon_sns（下記）も同じ理由で inline-flex にする。
+            // Vertically align the icon ( in-house web font ligature / inline SVG ) and text via flex
+            // cross-axis alignment instead of the font's line-box ( strut ), which would otherwise render
+            // a slightly different height for the web-font ligature vs. the SVG. .icon_sns below is
+            // inline-flex for the same reason.
+            display: flex;
+            align-items: center;
             overflow: hidden;
             width:100%;
 			box-sizing: border-box;
@@ -51,14 +59,28 @@
                 -webkit-transition: all 0.3s ease-in-out;
                 -moz-transition: all 0.3s ease-in-out;
             }
+            // Lightning スキン（pale / jpnstyle）が IE 判定の分岐の中で .sns_txt へ bottom だけを注入しているため、
+            // top を外した後も position:relative は残す（消すと IE でスキン側の指定が無言で効かなくなる）。
+            // The Lightning skins ( pale / jpnstyle ) inject only `bottom` on .sns_txt inside an IE-only branch, so
+            // keep position:relative even after removing `top` ( removing it would silently break their offset on IE ).
             .sns_txt {
                 position: relative;
-                top: -1px;
             }
+            // 親と同じ理由。strut を挟まないよう inline-flex にする。
+            // Same reason as the parent. inline-flex avoids the strut.
             .icon_sns {
                 font-size: 100%;
                 padding: 5px 8px 5px 0;
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
+            }
+            // Threads・Copy のインライン SVG は他の自前フォント（vk_sns）アイコンと視覚サイズを揃えるため 1em 四方にする。
+            // 中央寄せは親の .icon_sns（inline-flex）側で行う（詳細な検証根拠は PR 本文を参照）。
+            // Size the inline SVG ( Threads / Copy ) to 1em square to match the other in-house web font
+            // ( vk_sns ) icons. Centering is handled by the parent .icon_sns ( inline-flex; see the PR body for details ).
+            .sb_svg_icon {
+                width: 1em;
+                height: 1em;
             }
         }
     }
@@ -92,11 +114,6 @@
         background: #000;
         box-shadow: 0 2px 0 rgba(102, 102, 102, 1);
     }
-    // Threads は Font Awesome のブランドアイコンを使うため、他アイコンと視覚的な大きさを揃える
-    // Threads uses a Font Awesome brand icon, so match its visual size to the other icons
-    .sb_threads .sb_icon_inner i {
-        font-size: 16px;
-    }
     .sb_google a {
         background: #dd4b39;
         box-shadow: 0 2px 0 rgba(160, 53, 36, 1);
@@ -108,10 +125,6 @@
     .sb_copy .sb_icon_inner {
         background: #555;
         box-shadow: 0 2px 0 #333;
-        padding-bottom:4px;
-        i {
-            font-size:14px;
-        }
     }
 } //.veu_socialSet ul
 

@@ -82,6 +82,7 @@ e.g.
 == Changelog ==
 
 [ Bug Fix ][ Block ] Fixed the Share Button, HTML Sitemap and other blocks showing "This block has encountered an error and cannot be previewed" in the editor when the post contains a cross-origin iframe embed.
+[ Bug Fix ][ SNS Share Button ] Fixed the Threads and Copy icons not being displayed on themes that do not load Font Awesome (e.g. Twenty Twenty-Five), by replacing them with inline SVG.
 [ Security Fix ][ CTA ] Added a permission check on save and strengthened output escaping on the classic edit screen as defense-in-depth hardening.
 
 = 9.121.1 =
