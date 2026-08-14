@@ -721,10 +721,16 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 		/**
 		 * CTA のメイン設定（投稿タイプごとの表示 CTA ID 等）をサニタイズして返す.
-		 * `admin.php?page=vkexunit_cta_option` の保存処理から呼ばれる.
+		 * `admin.php?page=vkExUnit_main_setting` 内の CTA セクションの保存処理
+		 * ( `admin/admin-main-setting-page.php` の `veu_main_sanitaize_and_update()` ) から、
+		 * `option_init()` で `vkExUnit_register_setting()` に登録したサニタイズコールバック
+		 * として呼ばれる.
 		 *
 		 * Sanitize and return the CTA main settings ( the display CTA ID per post type, etc. ).
-		 * Called from the save handler of `admin.php?page=vkexunit_cta_option`.
+		 * Called as the sanitize callback registered via `vkExUnit_register_setting()` in
+		 * `option_init()`, from the save handler of the CTA section on
+		 * `admin.php?page=vkExUnit_main_setting`
+		 * ( `veu_main_sanitaize_and_update()` in `admin/admin-main-setting-page.php` ).
 		 *
 		 * @param mixed $input 保存対象の入力値（$_POST 由来の連想配列を想定）. / The submitted input ( expected to be an associative array from $_POST ).
 		 * @return array サニタイズ済みの設定配列（投稿タイプ => CTA ID または '0' / 'random'）. / The sanitized settings array ( post type => CTA ID, or '0' / 'random' ).
