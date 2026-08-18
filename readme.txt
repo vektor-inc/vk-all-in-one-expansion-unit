@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 9.121.1
+Stable tag: 9.122.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+= 9.122.0 =
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
 [ Spec Change ][ SNS Share Button ] Unified the Facebook, X, Bluesky, Hatena Bookmark and LINE icons to inline SVG to match Threads and Copy. The markup no longer uses the ".vk_icon_w_r_sns_*" web font classes; the classes and the font itself are kept for backward compatibility.
 [ Bug Fix ][ Block ] Fixed the Share Button, HTML Sitemap and other blocks showing "This block has encountered an error and cannot be previewed" in the editor when the post contains a cross-origin iframe embed.
