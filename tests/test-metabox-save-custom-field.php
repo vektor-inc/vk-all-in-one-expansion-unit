@@ -14,6 +14,9 @@
  * - XSS 文字列がサニタイズされて保存されること
  * - nonce が不正な場合は保存されないこと
  * - edit_post 権限が無い場合は保存されないこと（issue #1471 で追加した多層防御チェック）
+ *
+ * Also verifies that saving is rejected without the edit_post capability
+ * ( the defense-in-depth check added in issue #1471 ).
  */
 class VEUMetaboxSaveCustomFieldTest extends WP_UnitTestCase {
 
@@ -203,6 +206,10 @@ class VEUMetaboxSaveCustomFieldTest extends WP_UnitTestCase {
 	 * save_custom_field() の edit_post 権限チェックを検証する。
 	 * 権限が無いユーザーからの保存は拒否され、権限があるユーザーからの保存のみ許可される事を確認する
 	 * ( issue #1471 で追加した多層防御チェック ).
+	 *
+	 * Verify the edit_post capability check in save_custom_field(). Saving must be
+	 * rejected without the capability and allowed with it
+	 * ( the defense-in-depth check added in issue #1471 ).
 	 */
 	public function test_save_custom_field_requires_edit_post_capability() {
 

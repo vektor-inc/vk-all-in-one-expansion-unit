@@ -13,6 +13,16 @@
  * - edit_post 権限があるユーザーからの保存は許可され、CSS がサニタイズされて保存されること
  * - $_POST の値が二重に unslash されず、本物のバックスラッシュが 1 本だけ残ること
  * - nonce が不正な場合は保存されないこと
+ *
+ * Tests for VEU_Metabox_CSS_Customize::save_custom_field().
+ *
+ * Mainly verifies the following behavior ( the permission check / unslash handling
+ * added in issue #1471 ):
+ * - Saving is rejected for a user without the edit_post capability.
+ * - Saving is allowed for a user with the edit_post capability, and the CSS is
+ *   sanitized before being saved.
+ * - The $_POST value is not double-unslashed; a genuine backslash survives as one.
+ * - Saving is rejected when the nonce is invalid.
  */
 
 // VEU_Metabox_CSS_Customize は本体側で admin_menu フック内でのみ require されるため
@@ -40,8 +50,9 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 
 	/**
 	 * テスト用投稿を作成する
+	 * Create a test post.
 	 *
-	 * @return int 作成した投稿 ID
+	 * @return int 作成した投稿 ID / Created post ID.
 	 */
 	protected function create_test_post() {
 		return wp_insert_post(
@@ -57,7 +68,10 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	 * 管理者ユーザーを作成しログイン状態にする。
 	 * save_custom_field() は edit_post 権限を要求するため、多くのテストで必要になる。
 	 *
-	 * @return int 作成した管理者ユーザーの ID
+	 * Create an administrator and switch the current user to it.
+	 * save_custom_field() requires edit_post capability, so most tests need this.
+	 *
+	 * @return int 作成した管理者ユーザーの ID / Created administrator user ID.
 	 */
 	protected function login_as_administrator() {
 		$admin_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
@@ -67,9 +81,10 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 
 	/**
 	 * $_POST に正規の nonce と CSS 値をセットするヘルパー
+	 * Helper that sets a valid nonce and CSS value in $_POST.
 	 *
-	 * @param VEU_Metabox_CSS_Customize $metabox テスト対象のメタボックスインスタンス
-	 * @param string                    $value   保存する CSS 値
+	 * @param VEU_Metabox_CSS_Customize $metabox テスト対象のメタボックスインスタンス / Metabox instance under test.
+	 * @param string                    $value   保存する CSS 値 / CSS value to save.
 	 */
 	protected function set_post_data( $metabox, $value ) {
 		$cf_name = $metabox->args['cf_name'];
@@ -88,6 +103,7 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	 * test_save_custom_field_requires_edit_post_capability
 	 *
 	 * edit_post 権限の有無で保存の可否が変わることを検証する。
+	 * Verify that whether saving is allowed depends on the edit_post capability.
 	 */
 	public function test_save_custom_field_requires_edit_post_capability() {
 
@@ -195,6 +211,7 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	 * test_save_custom_field_with_invalid_nonce
 	 *
 	 * nonce が不正な場合はカスタム CSS が保存されないことを検証する。
+	 * Verify that custom CSS is not saved when the nonce is invalid.
 	 */
 	public function test_save_custom_field_with_invalid_nonce() {
 
@@ -224,6 +241,14 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	 * スラッシュが 1 段だけ付加されて渡ってくる。ここではその状態を、実際の 1 本の
 	 * バックスラッシュを意図した値として二重バックスラッシュ ( PHP 文字列リテラルの
 	 * \\\\ は実体として 2 文字 ) で再現する。
+	 *
+	 * Verify that a genuine backslash in a $_POST value is not double-unslashed
+	 * ( issue #1471 item 2 ) and survives as a single backslash after saving.
+	 *
+	 * Under WordPress's magic-quotes-compatible behavior, a real HTTP request delivers
+	 * $_POST values with one extra level of slashes added. This test reproduces that
+	 * state with a doubled backslash ( standing in for one intended real backslash,
+	 * as explained above ).
 	 */
 	public function test_save_custom_field_does_not_double_unslash_backslash_values() {
 
@@ -234,12 +259,16 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 
 		// 実際の HTTP リクエストで $_POST に渡ってくる、スラッシュが 1 段付加された状態を再現する。
 		// 実体としては 2 文字のバックスラッシュ ( \\ ) で、意図する実際の値は 1 本のバックスラッシュ。
+		// Reproduce the one-level-slashed state that arrives in $_POST on a real HTTP
+		// request. This is 2 real backslash characters, standing in for the one
+		// intended real backslash.
 		$raw_value = 'div::before { content: "\\\\f101"; }';
 
 		$this->set_post_data( $metabox, $raw_value );
 		$metabox->save_custom_field( $post_id );
 
 		// 1 回だけ unslash された状態でサニタイズされた値が期待値。
+		// The expected value is sanitized after being unslashed exactly once.
 		$expected = veu_sanitize_custom_css_input( stripslashes( $raw_value ) );
 
 		$this->assertSame( $expected, get_post_meta( $post_id, '_veu_custom_css', true ) );
