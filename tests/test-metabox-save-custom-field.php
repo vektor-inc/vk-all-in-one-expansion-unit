@@ -13,8 +13,21 @@
  * - 文字列形式のカスタムフィールドが正しく保存されること
  * - XSS 文字列がサニタイズされて保存されること
  * - nonce が不正な場合は保存されないこと
+ * - edit_post 権限が無い場合は保存されないこと（issue #1471 で追加した多層防御チェック）
+ *
+ * Also verifies that saving is rejected without the edit_post capability
+ * ( the defense-in-depth check added in issue #1471 ).
  */
 class VEUMetaboxSaveCustomFieldTest extends WP_UnitTestCase {
+
+	/**
+	 * テストごとにログインユーザー状態をリセットする（未ログイン状態に戻す）。
+	 * Reset the logged-in user state after each test ( back to logged out ).
+	 */
+	protected function tearDown(): void {
+		parent::tearDown();
+		wp_set_current_user( 0 );
+	}
 
 	/**
 	 * テスト用投稿を作成する
@@ -29,6 +42,21 @@ class VEUMetaboxSaveCustomFieldTest extends WP_UnitTestCase {
 				'post_type'   => 'post',
 			)
 		);
+	}
+
+	/**
+	 * 管理者ユーザーを作成しログイン状態にする。
+	 * save_custom_field() は edit_post 権限を要求するため、多くのテストで必要になる。
+	 *
+	 * Create an administrator and switch the current user to it.
+	 * save_custom_field() requires edit_post capability, so most tests need this.
+	 *
+	 * @return int 作成した管理者ユーザーの ID
+	 */
+	protected function login_as_administrator() {
+		$admin_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $admin_id );
+		return $admin_id;
 	}
 
 	/**
@@ -61,6 +89,12 @@ class VEUMetaboxSaveCustomFieldTest extends WP_UnitTestCase {
 	public function test_save_custom_field() {
 
 		$post_id = $this->create_test_post();
+
+		// save_custom_field() は edit_post 権限を要求するため、管理者としてログインする
+		// ( issue #1471 で追加された多層防御チェック ).
+		// save_custom_field() requires edit_post capability, so log in as an administrator
+		// ( the defense-in-depth check added in issue #1471 ).
+		$this->login_as_administrator();
 
 		$test_cases = array(
 			// 配列形式の値が正しく保存される（#1284 の修正対象）
@@ -164,5 +198,61 @@ class VEUMetaboxSaveCustomFieldTest extends WP_UnitTestCase {
 		$this->assertEmpty( $actual, 'nonce が不正な場合は保存されない' );
 
 		delete_post_meta( $post_id, $cf_name );
+	}
+
+	/**
+	 * test_save_custom_field_requires_edit_post_capability
+	 *
+	 * save_custom_field() の edit_post 権限チェックを検証する。
+	 * 権限が無いユーザーからの保存は拒否され、権限があるユーザーからの保存のみ許可される事を確認する
+	 * ( issue #1471 で追加した多層防御チェック ).
+	 *
+	 * Verify the edit_post capability check in save_custom_field(). Saving must be
+	 * rejected without the capability and allowed with it
+	 * ( the defense-in-depth check added in issue #1471 ).
+	 */
+	public function test_save_custom_field_requires_edit_post_capability() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '権限の無いユーザー（購読者）の場合 => 保存されない',
+				'role'                => 'subscriber',
+				'expected_saved'      => false,
+			),
+			array(
+				'test_condition_name' => '権限のあるユーザー（管理者）の場合 => 保存される',
+				'role'                => 'administrator',
+				'expected_saved'      => true,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$post_id = $this->create_test_post();
+			$cf_name = 'test_capability_field';
+
+			$metabox = new VEU_Metabox(
+				array(
+					'slug'       => 'test_capability_' . $case['role'],
+					'cf_name'    => $cf_name,
+					'individual' => true,
+				)
+			);
+
+			$user_id = self::factory()->user->create( array( 'role' => $case['role'] ) );
+			wp_set_current_user( $user_id );
+
+			$this->do_save( $metabox, $post_id, 'Save attempt' );
+
+			$actual = get_post_meta( $post_id, $cf_name, true );
+
+			if ( $case['expected_saved'] ) {
+				$this->assertSame( 'Save attempt', $actual, $case['test_condition_name'] );
+			} else {
+				$this->assertEmpty( $actual, $case['test_condition_name'] );
+			}
+
+			delete_post_meta( $post_id, $cf_name );
+			wp_delete_post( $post_id, true );
+		}
 	}
 }
