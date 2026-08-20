@@ -17,6 +17,10 @@
  * @package VK All in One Expansion Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 Copyright 2015-2025 Vektor,Inc. ( email : vk-develop@vektor-inc.co.jp )
 

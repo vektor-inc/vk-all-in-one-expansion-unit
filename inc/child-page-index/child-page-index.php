@@ -4,6 +4,10 @@
 	Child page index
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function veu_child_page_excerpt( $post ) {
 
 	// そもそも post_excerpt が存在しなかったらreturn（ $post自体が正しく受け取れてない ）

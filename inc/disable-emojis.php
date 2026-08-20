@@ -3,6 +3,10 @@
  * Disable Emojis
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Disable the emojis
  */

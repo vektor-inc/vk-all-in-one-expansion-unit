@@ -3,6 +3,9 @@
  * CTA ブロックを追加
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * CTA ブロックを追加

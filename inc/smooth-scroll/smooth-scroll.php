@@ -5,6 +5,10 @@
  * @package vk-all-in-one-expanaion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Smooth scroll js の読み込み
  */

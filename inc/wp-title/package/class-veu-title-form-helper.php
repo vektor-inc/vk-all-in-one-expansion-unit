@@ -5,6 +5,10 @@
  * @package VK All in One Expansion Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Title_Form_Helper {
 
 	/**

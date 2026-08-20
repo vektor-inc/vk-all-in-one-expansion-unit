@@ -8,6 +8,10 @@
  * @since    30/Jul/2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class vExUnit_Ads {
 	// singleton instance
 	private static $instance;

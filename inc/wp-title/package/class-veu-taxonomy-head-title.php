@@ -5,6 +5,10 @@
  * @package VK All in One Expansion Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Taxonomy_Head_Title {
 
 	public function __construct() {

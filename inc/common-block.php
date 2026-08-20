@@ -5,6 +5,10 @@
  * @package VK All in One Expansion Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * VK Block Deprecated Alart
  */

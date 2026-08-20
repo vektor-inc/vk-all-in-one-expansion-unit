@@ -8,6 +8,10 @@
  * @since    28/Aug/2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_action( 'admin_bar_menu', 'vkExUnit_adminbar_disable', 999 );
 function vkExUnit_adminbar_disable( $wp_admin_bar ) {
 	if ( is_user_logged_in() && ! is_admin() && current_user_can( 'administrator' ) || current_user_can( 'editor' ) ) {

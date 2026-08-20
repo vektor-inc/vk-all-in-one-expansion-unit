@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Metabox_Eyecatch extends VEU_Metabox {
 
 	public function __construct( $args = array() ) {

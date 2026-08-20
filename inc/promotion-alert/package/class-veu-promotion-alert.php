@@ -3,6 +3,10 @@
  * VEU Promotion Disclosure
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Promotion_Alert {
 
 	/**

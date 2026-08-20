@@ -5,6 +5,10 @@
  * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 
 	class VkNavMenuClassCustom {

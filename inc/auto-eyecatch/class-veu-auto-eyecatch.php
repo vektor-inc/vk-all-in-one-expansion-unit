@@ -8,6 +8,10 @@
  * @since    8/Jul/2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Auto_Eyecatch {
 	private static $instance;
 

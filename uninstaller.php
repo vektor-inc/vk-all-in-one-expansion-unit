@@ -5,6 +5,10 @@
  * @package VK All in One Expansion Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $vkExUnit_options = veu_get_common_options();
 // キーが未保存でも Undefined array key 警告を出さないよう empty() で判定する。
 // Use empty() so an unsaved key does not emit an "Undefined array key" warning.

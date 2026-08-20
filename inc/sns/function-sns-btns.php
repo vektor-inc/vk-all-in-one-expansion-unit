@@ -5,6 +5,10 @@
  * @package vk-all-in-one-expantion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // global なので $options にすると ExUnit 全体の $options の値を汚染するので $sns_options を使用
 $sns_options = veu_get_sns_options();
 if ( veu_is_sns_btns_auto_insert() ) {

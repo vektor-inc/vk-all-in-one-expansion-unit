@@ -4,6 +4,11 @@
  *
  * @package WP Title
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require __DIR__ . '/package/wp-title.php';
 require_once __DIR__ . '/package/class-veu-title-form-helper.php';
 

@@ -6,6 +6,10 @@
  * @package vk-all-in-one-expansion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Get list of active panel features.
  * 有効なパネル機能のリストを返す。

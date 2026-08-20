@@ -3,6 +3,10 @@
 	Add setting page
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function vkExUnit_add_ga_options_page() {
 	// require dirname( __FILE__ ) . '/ga_admin.php';
 	require_once __DIR__ . '/ga_admin.php';

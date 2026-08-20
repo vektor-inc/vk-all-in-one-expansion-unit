@@ -3,6 +3,10 @@
  * VEU Metabox Promotion Disclosure
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'VEU_Metabox' ) ) {
 	return;
 }

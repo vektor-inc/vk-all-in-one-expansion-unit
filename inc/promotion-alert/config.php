@@ -3,6 +3,10 @@
  * VEU Promotion Disclosure Setting
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require __DIR__ . '/package/class-veu-promotion-alert.php';
 VEU_Promotion_Alert::init();
 

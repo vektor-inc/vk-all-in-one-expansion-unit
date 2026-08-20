@@ -3,6 +3,11 @@
 /*
 	Taxonomy list widget
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_VK_taxonomy_list extends WP_Widget {
 	function __construct() {
 		parent::__construct(

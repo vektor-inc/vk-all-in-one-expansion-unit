@@ -5,6 +5,10 @@
  * @package vektor-inc/vk-all-in-pne-expansion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 非推奨タグ / Deprecated Tag
 出力先

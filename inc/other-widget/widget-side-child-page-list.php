@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 	function __construct() {
 		parent::__construct(

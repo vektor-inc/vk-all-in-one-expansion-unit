@@ -8,6 +8,10 @@
  * @since    26/Jun/2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Public post type auto support
 $postTypes = get_post_types( array( 'public' => true ) );
 

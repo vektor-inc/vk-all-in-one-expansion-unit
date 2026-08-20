@@ -3,6 +3,10 @@
 	Main setting
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function veu_sitemap_set_main_setting() {
 	vkExUnit_register_setting(
 		__( 'HTML Sitemap', 'vk-all-in-one-expansion-unit' ),

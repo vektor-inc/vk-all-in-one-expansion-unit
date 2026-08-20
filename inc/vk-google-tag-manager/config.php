@@ -2,6 +2,11 @@
 /*
 	Load modules
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 	require_once __DIR__ . '/package/class-vk-google-tag-manager.php';
 	require_once __DIR__ . '/admin.php';

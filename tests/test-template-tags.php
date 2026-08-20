@@ -870,7 +870,21 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			// The child process emits its result wrapped in a "[RESULT:YES]" / "[RESULT:NO]"
 			// marker. Since even a single warning/deprecated notice on stderr would break an
 			// exact-match comparison, the parent checks for this marker's presence instead.
+			// template-tags-config.php は Issue #1469 対応でファイル直接アクセス防止ガード
+			// （if ( ! defined( 'ABSPATH' ) ) exit;）を追加した。本番ではこのファイルは
+			// initialize.php 経由（WordPress 読み込み後）でしか require されないため ABSPATH は
+			// 必ず定義済みであり、このガードが実際の読み込みを妨げることはない。このテストは
+			// あくまで「テストプロセス側で定義済みの関数の影響を受けない、まっさらな状態」を
+			// 再現するためだけに別プロセスに分離しているので、ABSPATH は本番同様に定義しておく。
+			// template-tags-config.php gained a direct-file-access guard
+			// (if ( ! defined( 'ABSPATH' ) ) exit;) as part of the Issue #1469 fix. In production
+			// this file is only ever required via initialize.php, i.e. after WordPress has
+			// loaded, so ABSPATH is always defined by then and the guard never blocks the real
+			// load path. This test isolates a separate process purely to avoid interference from
+			// functions already defined in the test runner's own process, so define ABSPATH here
+			// too to match the guaranteed real-world condition.
 			$script  = '<?php' . PHP_EOL;
+			$script .= 'define( "ABSPATH", ' . var_export( ABSPATH, true ) . ' );' . PHP_EOL;
 			$script .= $case['prelude'] . PHP_EOL;
 			$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
 			$script .= 'echo "[RESULT:" . ( function_exists( "vk_the_taxonomy_check_list" ) ? "YES" : "NO" ) . "]";' . PHP_EOL;

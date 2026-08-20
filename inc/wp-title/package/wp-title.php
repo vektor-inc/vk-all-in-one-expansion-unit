@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // WordPress -> 4.3
 add_filter( 'wp_title', 'vkExUnit_get_wp_head_title', 11 );
 // WordPress 4.4 ->

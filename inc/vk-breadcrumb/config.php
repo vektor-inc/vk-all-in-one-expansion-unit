@@ -6,6 +6,10 @@
  * @since 9.71.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use VektorInc\VK_Breadcrumb\VkBreadcrumb;
 
 function veu_print_breadcrumb_scheme() {

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 	$_enable_ids = VEU_Widget_Control::enable_widget_ids();
 ?>
 

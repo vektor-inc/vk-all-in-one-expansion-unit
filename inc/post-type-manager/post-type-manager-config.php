@@ -3,6 +3,11 @@
 /*
 	Load modules
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Vk_post_type_manager' ) ) {
 	global $vk_post_type_manager_textdomain;
 	$vk_post_type_manager_textdomain = 'vk-all-in-one-expansion-unit';
