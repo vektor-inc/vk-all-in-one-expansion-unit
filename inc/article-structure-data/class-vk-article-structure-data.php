@@ -92,6 +92,7 @@ class VK_Article_Srtuctured_Data {
 	 *
 	 * @param int     $user_id       更新されたユーザーの ID。 The ID of the updated user.
 	 * @param WP_User $old_user_data 更新前のユーザーデータオブジェクト。 The user data object before the update.
+	 * @return void
 	 */
 	public static function update_author_structure_data( $user_id, $old_user_data ) {
 

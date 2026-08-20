@@ -168,7 +168,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 
 
 	/**
-	 * update_author_structure_data() のサニタイズ挙動を検証する。
+	 * update_author_structure_data() のサニタイズ挙動と capability チェックを検証する。
 	 * - author_type はホワイトリスト（organization / person）以外の値では保存されず既存値が維持される。
 	 * - author_name は sanitize_text_field() でタグ等が除去される。
 	 * - author_url / author_sameAs は、送信値が空でないのに esc_url_raw() が空文字を返す（許可されない
@@ -179,8 +179,12 @@ class Article_Structure_Test extends WP_UnitTestCase {
 	 * - 既存の保存済みユーザーメタが、サニタイズ追加によって壊れたり消えたりしない（後方互換）。
 	 * - メタが一度も保存されていない新規ユーザーに対しても、正常に保存できる（update_user_meta() の
 	 *   第4引数 $prev_value が空文字になる、本番での主経路）。
+	 * - capability チェック（current_user_can( 'edit_user', $user_id )）: 本人が自分のプロフィールを保存
+	 *   できる／管理者が他人のプロフィールを保存できる（正常系）。権限を持たない購読者が他人のプロフィールを
+	 *   書き換えようとしても保存されず既存値が維持される（異常系）。各ケースの 'acting_user' キーで
+	 *   実行者を切り替える（省略時は対象ユーザー本人＝自己編集）。
 	 *
-	 * Verify the sanitization behavior of update_author_structure_data().
+	 * Verify the sanitization behavior and the capability check of update_author_structure_data().
 	 * - author_type is not saved (the existing value is kept) unless it is one of the whitelisted values (organization / person).
 	 * - author_name has tags etc. stripped via sanitize_text_field().
 	 * - For author_url / author_sameAs, when esc_url_raw() returns an empty string even though the submitted
@@ -192,6 +196,11 @@ class Article_Structure_Test extends WP_UnitTestCase {
 	 * - Existing saved user meta is not broken or lost by adding this sanitization (backward compatibility).
 	 * - Saving also works normally for a fresh user whose meta has never been saved before (the $prev_value
 	 *   argument to update_user_meta() being an empty string is the main path in production).
+	 * - The capability check (current_user_can( 'edit_user', $user_id )): the user themself can save their own
+	 *   profile, and an administrator can save another user's profile (normal cases). A subscriber who lacks
+	 *   permission cannot save another user's profile; nothing is saved and the existing value is kept
+	 *   (abnormal case). The 'acting_user' key on each case switches who executes it (defaults to the target
+	 *   user themself, i.e. a self-edit, when omitted).
 	 */
 	function test_update_author_structure_data() {
 
@@ -200,8 +209,8 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		print 'test_update_author_structure_data' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
-		// テスト用ユーザーを発行。
-		// Create a test user.
+		// テスト用ユーザーを発行（対象ユーザー＝profile を保存される側）。
+		// Create a test user (the target user whose profile gets saved).
 		$user_id = wp_insert_user(
 			array(
 				'user_login'   => 'sanitize_test_user',
@@ -211,12 +220,41 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		);
 
 		// update_author_structure_data() には current_user_can( 'edit_user', $user_id ) のチェックがあるため、
-		// 自分自身のプロフィールを編集する体で current user をこのテストユーザーにしておく（自己編集は
-		// 権限昇格なしに許可されるメタ capability のため、role を付与しなくても edit_user は true になる）。
-		// update_author_structure_data() has a current_user_can( 'edit_user', $user_id ) check, so set the
-		// current user to this test user as if they were editing their own profile (self-editing is allowed
-		// by the edit_user meta capability without granting a role, so no privilege escalation is involved).
-		wp_set_current_user( $user_id );
+		// capability の挙動を検証するための実行者ユーザーを追加で発行する。
+		// - administrator : 他人（$user_id）のプロフィールを保存できることを確認する正常系用。
+		// - subscriber    : 他人（$user_id）のプロフィールを保存する権限を持たないことを確認する異常系用。
+		// update_author_structure_data() has a current_user_can( 'edit_user', $user_id ) check, so create
+		// additional "acting" users to verify its behavior.
+		// - administrator: used for the normal case verifying they can save another user's ($user_id's) profile.
+		// - subscriber: used for the abnormal case verifying they lack permission to save another user's ($user_id's) profile.
+		$admin_user_id      = wp_insert_user(
+			array(
+				'user_login'   => 'capability_administrator_user',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Capability Administrator User',
+				'role'         => 'administrator',
+			)
+		);
+		$subscriber_user_id = wp_insert_user(
+			array(
+				'user_login'   => 'capability_subscriber_user',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Capability Subscriber User',
+				'role'         => 'subscriber',
+			)
+		);
+
+		// 各ケースの 'acting_user' キーで実行者を切り替えるためのマップ。省略時は 'owner'（対象ユーザー本人＝
+		// 自己編集）として実行する。自己編集は権限昇格なしに許可されるメタ capability のため、role を
+		// 付与しなくても edit_user は true になる。
+		// A map used to switch the acting user via each case's 'acting_user' key. When omitted, it runs as
+		// 'owner' (the target user themself, i.e. a self-edit). Self-editing is allowed by the edit_user meta
+		// capability without granting a role, so no privilege escalation is involved.
+		$acting_user_ids = array(
+			'owner'         => $user_id,
+			'administrator' => $admin_user_id,
+			'subscriber'    => $subscriber_user_id,
+		);
 
 		// 各ケースの前提となる「既存の保存済みユーザーメタ」。サニタイズ追加後も、保存対象外・無効値のケースで
 		// このデータが壊れず維持されることを確認する（後方互換の検証）。
@@ -510,6 +548,67 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://example.com/existing-sns',
 				),
 			),
+			// 正常系（capability） : 本人が自分のプロフィールを保存する場合 => 送信値がそのまま保存される。
+			// Normal case (capability): the user themself saves their own profile -> the submitted values are saved as-is.
+			array(
+				'test_condition_name' => '正常系 : 本人が自分のプロフィールを保存する場合 => 送信値がそのまま保存される',
+				'acting_user'         => 'owner',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Self Edited Name',
+					'author_url'    => 'https://example.com/self-edited',
+					'author_sameAs' => 'https://example.com/self-edited-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Self Edited Name',
+					'author_url'    => 'https://example.com/self-edited',
+					'author_sameAs' => 'https://example.com/self-edited-sns',
+				),
+			),
+			// 正常系（capability） : 管理者が他人（対象ユーザー）のプロフィールを保存する場合 => 送信値がそのまま保存される。
+			// Normal case (capability): an administrator saves another user's (the target user's) profile -> the submitted values are saved as-is.
+			array(
+				'test_condition_name' => '正常系 : 管理者が他人のプロフィールを保存する場合 => 送信値がそのまま保存される',
+				'acting_user'         => 'administrator',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Edited By Admin',
+					'author_url'    => 'https://example.com/edited-by-admin',
+					'author_sameAs' => 'https://example.com/edited-by-admin-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Edited By Admin',
+					'author_url'    => 'https://example.com/edited-by-admin',
+					'author_sameAs' => 'https://example.com/edited-by-admin-sns',
+				),
+			),
+			// 異常系（capability） : 対象ユーザーを編集する権限を持たない購読者が他人のプロフィールを書き換えようとする場合
+			// => update_author_structure_data() 先頭の current_user_can( 'edit_user', $user_id ) チェックで弾かれ、
+			// 保存されず既存値が維持される。
+			// Abnormal case (capability): a subscriber who lacks permission to edit the target user attempts to
+			// overwrite another user's profile -> rejected by the current_user_can( 'edit_user', $user_id )
+			// check at the top of update_author_structure_data(); nothing is saved and the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : 権限を持たない購読者が他人のプロフィールを書き換えようとする場合 => 保存されず既存値が維持される',
+				'acting_user'         => 'subscriber',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Hijacked Name',
+					'author_url'    => 'https://evil.example.com/',
+					'author_sameAs' => 'https://evil.example.com/sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -518,6 +617,11 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			foreach ( $case['existing_meta'] as $key => $value ) {
 				update_user_meta( $user_id, $key, $value );
 			}
+
+			// 実行者を切り替える（省略時は 'owner' ＝対象ユーザー本人として実行する）。
+			// Switch the acting user (defaults to 'owner', i.e. the target user themself, when omitted).
+			$acting_user_key = isset( $case['acting_user'] ) ? $case['acting_user'] : 'owner';
+			wp_set_current_user( $acting_user_ids[ $acting_user_key ] );
 
 			// フォーム送信を再現するため $_POST を差し替える。
 			// Replace $_POST to reproduce a form submission.
@@ -552,88 +656,12 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		}
 
 		// current user とテストで発行したユーザーを後始末する。
-		// Clean up the current user and the user created for the test.
+		// Clean up the current user and the users created for the test.
 		wp_set_current_user( 0 );
 		wp_delete_user( $user_id );
-	}
-
-	/**
-	 * update_author_structure_data() に追加した capability チェック（current_user_can( 'edit_user', $user_id )）を検証する。
-	 * 対象ユーザーを編集する権限を持たないユーザーが呼び出した場合、保存は行われず既存値が維持されることを確認する。
-	 *
-	 * Verify the capability check (current_user_can( 'edit_user', $user_id )) added to update_author_structure_data().
-	 * When called by a user who lacks permission to edit the target user, verify that nothing is saved and the existing value is kept.
-	 */
-	function test_update_author_structure_data_requires_capability() {
-
-		print PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-		print 'test_update_author_structure_data_requires_capability' . PHP_EOL;
-		print '------------------------------------' . PHP_EOL;
-
-		// 更新対象のユーザー。
-		// The target user to be updated.
-		$target_user_id = wp_insert_user(
-			array(
-				'user_login'   => 'capability_target_user',
-				'user_pass'    => 'user_pass',
-				'display_name' => 'Capability Target User',
-			)
-		);
-
-		// 対象ユーザーを編集する権限を持たない、購読者ロールのユーザー。
-		// A subscriber-role user who has no permission to edit the target user.
-		$subscriber_user_id = wp_insert_user(
-			array(
-				'user_login'   => 'capability_subscriber_user',
-				'user_pass'    => 'user_pass',
-				'display_name' => 'Capability Subscriber User',
-				'role'         => 'subscriber',
-			)
-		);
-
-		$existing_meta = array(
-			'author_type'   => 'organization',
-			'author_name'   => 'Existing Name',
-			'author_url'    => 'https://example.com/existing',
-			'author_sameAs' => 'https://example.com/existing-sns',
-		);
-		foreach ( $existing_meta as $key => $value ) {
-			update_user_meta( $target_user_id, $key, $value );
-		}
-
-		// 購読者ユーザーとしてログインし、対象ユーザーの構造化データを書き換えようとする。
-		// Log in as the subscriber user and attempt to overwrite the target user's structured data.
-		wp_set_current_user( $subscriber_user_id );
-
-		$_POST = array(
-			'author_type'   => 'person',
-			'author_name'   => 'Hijacked Name',
-			'author_url'    => 'https://evil.example.com/',
-			'author_sameAs' => 'https://evil.example.com/sns',
-		);
-
-		$old_user_data = get_userdata( $target_user_id );
-
-		VK_Article_Srtuctured_Data::update_author_structure_data( $target_user_id, $old_user_data );
-
-		$actual = array(
-			'author_type'   => get_user_meta( $target_user_id, 'author_type', true ),
-			'author_name'   => get_user_meta( $target_user_id, 'author_name', true ),
-			'author_url'    => get_user_meta( $target_user_id, 'author_url', true ),
-			'author_sameAs' => get_user_meta( $target_user_id, 'author_sameAs', true ),
-		);
-
-		$this->assertEquals( $existing_meta, $actual, '権限を持たないユーザーからの呼び出しでは、既存値が維持され上書きされない' );
-
-		// 後始末。
-		// Clean up.
-		$_POST = array();
-		wp_set_current_user( 0 );
-		wp_delete_user( $target_user_id );
+		wp_delete_user( $admin_user_id );
 		wp_delete_user( $subscriber_user_id );
 	}
-
 
 	function test_get_article_structure_array() {
 
