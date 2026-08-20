@@ -167,6 +167,502 @@ class Article_Structure_Test extends WP_UnitTestCase {
 	}
 
 
+	/**
+	 * update_author_structure_data() のサニタイズ挙動と capability チェックを検証する。
+	 * - author_type はホワイトリスト（organization / person）以外の値では保存されず既存値が維持される。
+	 * - author_name は sanitize_text_field() でタグ等が除去される。
+	 * - author_url / author_sameAs は、送信値が空でないのに esc_url_raw() が空文字を返す（許可されない
+	 *   スキーム等で弾かれた）場合は保存されず既存値が維持される。送信値自体が空（意図的な空欄クリア）の
+	 *   場合はサニタイズ後の値（空文字）で保存される。
+	 * - 項目が送信されない（isset() が false）場合は、その項目の既存値が維持される。
+	 * - 配列が送信されても Fatal error にならず、文字列でない値はサニタイズ対象外として無視される。
+	 * - 既存の保存済みユーザーメタが、サニタイズ追加によって壊れたり消えたりしない（後方互換）。
+	 * - メタが一度も保存されていない新規ユーザーに対しても、正常に保存できる（update_user_meta() の
+	 *   第4引数 $prev_value が空文字になる、本番での主経路）。
+	 * - capability チェック（current_user_can( 'edit_user', $user_id )）: 本人が自分のプロフィールを保存
+	 *   できる／管理者が他人のプロフィールを保存できる（正常系）。権限を持たない購読者が他人のプロフィールを
+	 *   書き換えようとしても保存されず既存値が維持される（異常系）。各ケースの 'acting_user' キーで
+	 *   実行者を切り替える（省略時は対象ユーザー本人＝自己編集）。
+	 *
+	 * Verify the sanitization behavior and the capability check of update_author_structure_data().
+	 * - author_type is not saved (the existing value is kept) unless it is one of the whitelisted values (organization / person).
+	 * - author_name has tags etc. stripped via sanitize_text_field().
+	 * - For author_url / author_sameAs, when esc_url_raw() returns an empty string even though the submitted
+	 *   value was not empty (rejected, e.g. a disallowed scheme), the value is not saved and the existing
+	 *   value is kept. When the submitted value itself is empty (an intentional clear), it is saved as the
+	 *   sanitized (empty) value.
+	 * - When a field is not submitted (isset() is false), that field's existing value is kept.
+	 * - Submitting an array does not cause a Fatal error; non-string values are ignored and not sanitized.
+	 * - Existing saved user meta is not broken or lost by adding this sanitization (backward compatibility).
+	 * - Saving also works normally for a fresh user whose meta has never been saved before (the $prev_value
+	 *   argument to update_user_meta() being an empty string is the main path in production).
+	 * - The capability check (current_user_can( 'edit_user', $user_id )): the user themself can save their own
+	 *   profile, and an administrator can save another user's profile (normal cases). A subscriber who lacks
+	 *   permission cannot save another user's profile; nothing is saved and the existing value is kept
+	 *   (abnormal case). The 'acting_user' key on each case switches who executes it (defaults to the target
+	 *   user themself, i.e. a self-edit, when omitted).
+	 */
+	function test_update_author_structure_data() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_update_author_structure_data' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		// テスト用ユーザーを発行（対象ユーザー＝profile を保存される側）。
+		// Create a test user (the target user whose profile gets saved).
+		$user_id = wp_insert_user(
+			array(
+				'user_login'   => 'sanitize_test_user',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Sanitize Test User',
+			)
+		);
+
+		// update_author_structure_data() には current_user_can( 'edit_user', $user_id ) のチェックがあるため、
+		// capability の挙動を検証するための実行者ユーザーを追加で発行する。
+		// - administrator : 他人（$user_id）のプロフィールを保存できることを確認する正常系用。
+		// - subscriber    : 他人（$user_id）のプロフィールを保存する権限を持たないことを確認する異常系用。
+		// update_author_structure_data() has a current_user_can( 'edit_user', $user_id ) check, so create
+		// additional "acting" users to verify its behavior.
+		// - administrator: used for the normal case verifying they can save another user's ($user_id's) profile.
+		// - subscriber: used for the abnormal case verifying they lack permission to save another user's ($user_id's) profile.
+		$admin_user_id      = wp_insert_user(
+			array(
+				'user_login'   => 'capability_administrator_user',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Capability Administrator User',
+				'role'         => 'administrator',
+			)
+		);
+		$subscriber_user_id = wp_insert_user(
+			array(
+				'user_login'   => 'capability_subscriber_user',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Capability Subscriber User',
+				'role'         => 'subscriber',
+			)
+		);
+
+		// 各ケースの 'acting_user' キーで実行者を切り替えるためのマップ。省略時は 'owner'（対象ユーザー本人＝
+		// 自己編集）として実行する。自己編集は権限昇格なしに許可されるメタ capability のため、role を
+		// 付与しなくても edit_user は true になる。
+		// A map used to switch the acting user via each case's 'acting_user' key. When omitted, it runs as
+		// 'owner' (the target user themself, i.e. a self-edit). Self-editing is allowed by the edit_user meta
+		// capability without granting a role, so no privilege escalation is involved.
+		$acting_user_ids = array(
+			'owner'         => $user_id,
+			'administrator' => $admin_user_id,
+			'subscriber'    => $subscriber_user_id,
+		);
+
+		// 各ケースの前提となる「既存の保存済みユーザーメタ」。サニタイズ追加後も、保存対象外・無効値のケースで
+		// このデータが壊れず維持されることを確認する（後方互換の検証）。
+		// 空配列を指定したケースは、メタを一切事前設定せず「未保存」の状態から始める。
+		// The "existing saved user meta" that each case starts from. Used to verify that, even after adding this
+		// sanitization, this data is kept intact when a field is not submitted or an invalid value is submitted
+		// (backward compatibility check).
+		// A case that specifies an empty array pre-sets no meta at all, starting from an "unsaved" state.
+		$default_existing_meta = array(
+			'author_type'   => 'organization',
+			'author_name'   => 'Existing Name',
+			'author_url'    => 'https://example.com/existing',
+			'author_sameAs' => 'https://example.com/existing-sns',
+		);
+
+		$test_cases = array(
+			// 正常系 : すべて正しい値（organization）を送信した場合。
+			// Normal case: submitting all valid values (organization).
+			array(
+				'test_condition_name' => '正常系 : author_type が organization で全項目が正しい値の場合 => そのまま保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Vektor Inc.',
+					'author_url'    => 'https://vektor-inc.co.jp/',
+					'author_sameAs' => 'https://twitter.com/vektor_inc',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Vektor Inc.',
+					'author_url'    => 'https://vektor-inc.co.jp/',
+					'author_sameAs' => 'https://twitter.com/vektor_inc',
+				),
+			),
+			// 正常系 : author_type が person の場合。
+			// Normal case: author_type is person.
+			array(
+				'test_condition_name' => '正常系 : author_type が person で全項目が正しい値の場合 => そのまま保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => 'https://twitter.com/vekutarou',
+				),
+				'expected'            => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => 'https://twitter.com/vekutarou',
+				),
+			),
+			// 正常系（境界値） : メタが一度も保存されていない新規ユーザーが初めて保存する場合
+			// （update_user_meta() の $prev_value が空文字になる、本番での主経路）=> 送信値がそのまま保存される。
+			// Normal case (boundary): a fresh user whose meta has never been saved saves it for the first time
+			// (the $prev_value argument to update_user_meta() being an empty string is the main path in production) -> the submitted values are saved as-is.
+			array(
+				'test_condition_name' => '正常系 : メタ未設定の新規ユーザーが初めて保存する場合 => 送信値がそのまま保存される',
+				'existing_meta'       => array(),
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'New User',
+					'author_url'    => 'https://example.com/new',
+					'author_sameAs' => 'https://example.com/new-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'New User',
+					'author_url'    => 'https://example.com/new',
+					'author_sameAs' => 'https://example.com/new-sns',
+				),
+			),
+			// 異常系（境界値） : author_type が空文字（ホワイトリスト外）の場合 => 保存されず既存値が維持される。
+			// Abnormal case (boundary): author_type is an empty string (outside the whitelist) -> not saved, the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : author_type が空文字の場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => '',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_type にタグ入りの不正な値が届いた場合 => 保存されず既存値が維持される。
+			// Abnormal case: author_type receives an invalid value containing a tag -> not saved, the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : author_type にホワイトリスト外の値（タグ入り）が届いた場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => '<script>alert(1)</script>',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_name にタグ入り文字列（属性に仕込んだ XSS）が届いた場合
+			// => sanitize_text_field() でタグごと除去され、リテラル 'Vektor' として保存される。
+			// Abnormal case: author_name receives a string containing a tag (XSS embedded in an attribute)
+			// -> the tag itself is stripped via sanitize_text_field() and saved as the literal 'Vektor'.
+			array(
+				'test_condition_name' => '異常系 : author_name にタグ入り文字列が届いた場合 => タグが除去され Vektor が保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => '<img src=x onerror=alert(1)>Vektor',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Vektor',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（メタ未設定から） : author_url に許可されないスキーム（javascript:）の URL が届いた場合
+			// => 保存されず、メタは未設定のまま（get_user_meta() の既定値である空文字が返る）。
+			// esc_url_raw() を直接呼んでリテラルを算出せず、'' を直書きすることで
+			// 「不正なスキームが確実に弾かれる」ことそのものを検証する。
+			// Abnormal case (starting with no saved meta): author_url receives a URL with a disallowed scheme
+			// (javascript:) -> it is not saved, and the meta remains unset (get_user_meta() returns its
+			// default, an empty string). The literal '' is hardcoded instead of calling esc_url_raw() here,
+			// to actually assert that the disallowed scheme is rejected.
+			array(
+				'test_condition_name' => '異常系 : メタ未設定の状態で author_url に不正なスキームの URL が届いた場合 => 保存されずメタ未設定のまま',
+				'existing_meta'       => array(),
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'New User',
+					'author_url'    => 'javascript:alert(1)',
+					'author_sameAs' => 'https://example.com/new-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'New User',
+					'author_url'    => '',
+					'author_sameAs' => 'https://example.com/new-sns',
+				),
+			),
+			// 異常系 : author_sameAs に許可されないスキーム（javascript:）の URL が届いた場合
+			// => 保存されず既存値が維持される（author_url と揃えた挙動）。
+			// Abnormal case: author_sameAs receives a URL with a disallowed scheme (javascript:)
+			// -> it is not saved and the existing value is kept (behavior aligned with author_url).
+			array(
+				'test_condition_name' => '異常系 : author_sameAs に不正なスキームの URL が届いた場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'javascript:alert(document.cookie)',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 正常系（意図的な空欄クリア） : author_url に空文字が届いた場合 => サニタイズ後の値（空文字）で保存される。
+			// docblock の「送信値自体が空（意図的な空欄クリア）の場合はサニタイズ後の値（空文字）で保存される」を検証する。
+			// Normal case (intentional clear): author_url receives an empty string -> saved as the sanitized (empty) value.
+			// Verifies the docblock's statement that an intentional clear (the submitted value itself is empty) is saved as the sanitized (empty) value.
+			array(
+				'test_condition_name' => '正常系 : author_url が空文字（意図的な空欄クリア）で送信された場合 => 空文字で保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（回帰テスト） : author_url に <script>...</script> が届いた場合 => 保存されず既存値が維持される。
+			// sanitize_text_field() は script タグを中身ごと除去するため、以前の実装ではこの非空の不正値が
+			// 「意図的な空欄クリア」と誤判定され、既存値が消えてしまう不具合があった（trim() のみで判定するよう修正済み）。
+			// Abnormal case (regression test): author_url receives <script>...</script> -> not saved, the existing value is kept.
+			// sanitize_text_field() strips a script tag together with its content, so the previous implementation
+			// misdetected this non-empty invalid value as an intentional clear and lost the existing value
+			// (fixed by detecting emptiness via trim() alone instead).
+			array(
+				'test_condition_name' => '異常系 : author_url に <script>...</script> が届いた場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '<script>javascript:alert(1)</script>',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（回帰テスト） : author_url に <> が届いた場合 => 保存されず既存値が維持される。
+			// sanitize_text_field() と esc_url_raw() の双方でこの文字列が空文字になり誤判定に至っていた境界ケース。
+			// Abnormal case (regression test): author_url receives <> -> not saved, the existing value is kept.
+			// A boundary case where both sanitize_text_field() and esc_url_raw() used to reduce this string to
+			// an empty string, causing the misdetection.
+			array(
+				'test_condition_name' => '異常系 : author_url に <> が届いた場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '<>',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（回帰テスト） : author_url の前後に空白が付いた正しい URL が届いた場合
+			// => 前後の空白が trim() で除去されてから esc_url_raw() に渡され、%20 を含まずに保存される。
+			// 修正前は末尾の空白が esc_url_raw() によって %20 に変換され、URL の一部として保存されてしまっていた。
+			// Abnormal case (regression test): a valid URL with leading/trailing whitespace is submitted
+			// -> the whitespace is trim()'d before being passed to esc_url_raw(), and it is saved without %20.
+			// Before the fix, the trailing space was converted into %20 by esc_url_raw() and saved as part of the URL.
+			array(
+				'test_condition_name' => '異常系 : author_url の前後に空白が付いた URL が届いた場合 => %20 を含まずに保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '  https://ok.example/  ',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://ok.example/',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_url に配列が送信された場合 => Fatal error にならず、is_string() チェックにより
+			// サニタイズ対象外として無視され、既存値が維持される。
+			// Abnormal case: author_url receives an array -> no Fatal error occurs; the is_string() guard
+			// excludes it from sanitization and the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : author_url に配列が送信された場合 => Fatal error にならず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => array( 'x' ),
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : 4項目とも一切送信されない場合（$_POST が空）=> isset() が false になり、
+			// 4項目すべての既存値がそのまま維持される。
+			// Abnormal case: none of the 4 fields are submitted at all (empty $_POST) -> isset() is false for
+			// all of them, so the existing value of all 4 fields is kept as-is.
+			array(
+				'test_condition_name' => '異常系 : 4項目とも送信されない場合 => 4項目とも既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 正常系（capability） : 本人が自分のプロフィールを保存する場合 => 送信値がそのまま保存される。
+			// Normal case (capability): the user themself saves their own profile -> the submitted values are saved as-is.
+			array(
+				'test_condition_name' => '正常系 : 本人が自分のプロフィールを保存する場合 => 送信値がそのまま保存される',
+				'acting_user'         => 'owner',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Self Edited Name',
+					'author_url'    => 'https://example.com/self-edited',
+					'author_sameAs' => 'https://example.com/self-edited-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Self Edited Name',
+					'author_url'    => 'https://example.com/self-edited',
+					'author_sameAs' => 'https://example.com/self-edited-sns',
+				),
+			),
+			// 正常系（capability） : 管理者が他人（対象ユーザー）のプロフィールを保存する場合 => 送信値がそのまま保存される。
+			// Normal case (capability): an administrator saves another user's (the target user's) profile -> the submitted values are saved as-is.
+			array(
+				'test_condition_name' => '正常系 : 管理者が他人のプロフィールを保存する場合 => 送信値がそのまま保存される',
+				'acting_user'         => 'administrator',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Edited By Admin',
+					'author_url'    => 'https://example.com/edited-by-admin',
+					'author_sameAs' => 'https://example.com/edited-by-admin-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Edited By Admin',
+					'author_url'    => 'https://example.com/edited-by-admin',
+					'author_sameAs' => 'https://example.com/edited-by-admin-sns',
+				),
+			),
+			// 異常系（capability） : 対象ユーザーを編集する権限を持たない購読者が他人のプロフィールを書き換えようとする場合
+			// => update_author_structure_data() 先頭の current_user_can( 'edit_user', $user_id ) チェックで弾かれ、
+			// 保存されず既存値が維持される。
+			// Abnormal case (capability): a subscriber who lacks permission to edit the target user attempts to
+			// overwrite another user's profile -> rejected by the current_user_can( 'edit_user', $user_id )
+			// check at the top of update_author_structure_data(); nothing is saved and the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : 権限を持たない購読者が他人のプロフィールを書き換えようとする場合 => 保存されず既存値が維持される',
+				'acting_user'         => 'subscriber',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Hijacked Name',
+					'author_url'    => 'https://evil.example.com/',
+					'author_sameAs' => 'https://evil.example.com/sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 各ケースの前提として、既存の保存済みユーザーメタを設定する（空配列の場合は何も設定せず未保存状態から始める）。
+			// Set up the existing saved user meta as the premise for each case (an empty array sets nothing, starting from an unsaved state).
+			foreach ( $case['existing_meta'] as $key => $value ) {
+				update_user_meta( $user_id, $key, $value );
+			}
+
+			// 実行者を切り替える（省略時は 'owner' ＝対象ユーザー本人として実行する）。
+			// Switch the acting user (defaults to 'owner', i.e. the target user themself, when omitted).
+			$acting_user_key = isset( $case['acting_user'] ) ? $case['acting_user'] : 'owner';
+			wp_set_current_user( $acting_user_ids[ $acting_user_key ] );
+
+			// フォーム送信を再現するため $_POST を差し替える。
+			// Replace $_POST to reproduce a form submission.
+			$_POST = $case['post'];
+
+			// profile_update フックが渡す「更新前のユーザーデータ」を再現する。
+			// WP_User の未定義プロパティは、コア（WP_User::__get()）が get_user_meta() へフォールバックするため、
+			// 現在保存されているユーザーメタが $old_user_data->author_type 等として参照できる。
+			// Reproduce the "pre-update user data" passed by the profile_update hook.
+			// WP_User's undefined properties fall back to get_user_meta() via core (WP_User::__get()),
+			// so the currently saved user meta can be referenced as $old_user_data->author_type, etc.
+			$old_user_data = get_userdata( $user_id );
+
+			VK_Article_Srtuctured_Data::update_author_structure_data( $user_id, $old_user_data );
+
+			$actual = array(
+				'author_type'   => get_user_meta( $user_id, 'author_type', true ),
+				'author_name'   => get_user_meta( $user_id, 'author_name', true ),
+				'author_url'    => get_user_meta( $user_id, 'author_url', true ),
+				'author_sameAs' => get_user_meta( $user_id, 'author_sameAs', true ),
+			);
+
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// 後始末（$_POST とユーザーメタを次のケースのために初期化する）。
+			// Clean up ($_POST and the user meta, to prepare for the next case).
+			$_POST = array();
+			delete_user_meta( $user_id, 'author_type' );
+			delete_user_meta( $user_id, 'author_name' );
+			delete_user_meta( $user_id, 'author_url' );
+			delete_user_meta( $user_id, 'author_sameAs' );
+		}
+
+		// current user とテストで発行したユーザーを後始末する。
+		// Clean up the current user and the users created for the test.
+		wp_set_current_user( 0 );
+		wp_delete_user( $user_id );
+		wp_delete_user( $admin_user_id );
+		wp_delete_user( $subscriber_user_id );
+	}
+
 	function test_get_article_structure_array() {
 
 		print PHP_EOL;
