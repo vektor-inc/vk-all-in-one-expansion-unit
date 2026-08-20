@@ -105,6 +105,19 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 		);
 
 		foreach ( $test_cases as $case ) {
+			// 前周に set_post_data() でセットした nonce / CSS 値が $_POST に残ったままだと、
+			// 次の create_test_post()（wp_insert_post() -> save_post 発火）の時点で古い nonce が
+			// 有効なまま複数の VEU_Metabox_CSS_Customize インスタンス（ファイル末尾のグローバル
+			// インスタンス含む）の save_custom_field() が新しい投稿に対して発火してしまい、
+			// テストがケースの実行順序に依存してしまう。ループの先頭で必ずクリアする。
+			// If the nonce / CSS value set by set_post_data() in the previous iteration is still
+			// in $_POST, the next create_test_post() ( wp_insert_post() -> save_post ) fires with
+			// that stale nonce still valid, so save_custom_field() on multiple
+			// VEU_Metabox_CSS_Customize instances ( including the file's global instance ) runs
+			// against the new post. That makes the test order-dependent, so clear $_POST at the
+			// top of every iteration.
+			$_POST = array();
+
 			$post_id = $this->create_test_post();
 			$metabox = new VEU_Metabox_CSS_Customize();
 
@@ -128,7 +141,49 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 
 			delete_post_meta( $post_id, '_veu_custom_css' );
 			wp_delete_post( $post_id, true );
+			// 使用後は必ず片付ける（親テストの do_save() と同じ考え方）。
+			// Always clean up after use ( same idea as do_save() in the parent test ).
+			$_POST = array();
 		}
+	}
+
+	/**
+	 * test_save_custom_field_allows_author_of_own_post
+	 *
+	 * edit_others_posts を持たない author ロールでも、自分自身の投稿であれば
+	 * 保存できることを検証する。edit_post capability チェックを採用したことで、
+	 * 自分の投稿を編集できる author / contributor 等にリグレッションが無いことの確認
+	 * ( issue #1471 のレビュー指摘 )。
+	 *
+	 * Verify that an author role ( which lacks edit_others_posts ) can still save
+	 * custom CSS on their own post. Confirms adopting the edit_post capability check
+	 * does not regress authors / contributors editing their own posts
+	 * ( issue #1471 review feedback ).
+	 */
+	public function test_save_custom_field_allows_author_of_own_post() {
+
+		$author_id = self::factory()->user->create( array( 'role' => 'author' ) );
+		wp_set_current_user( $author_id );
+
+		$post_id = wp_insert_post(
+			array(
+				'post_title'  => 'Own Post',
+				'post_status' => 'publish',
+				'post_type'   => 'post',
+				'post_author' => $author_id,
+			)
+		);
+		$_POST   = array();
+
+		$metabox = new VEU_Metabox_CSS_Customize();
+		$this->set_post_data( $metabox, 'div { color: red; }' );
+		$metabox->save_custom_field( $post_id );
+
+		$this->assertSame( 'div { color: red; }', get_post_meta( $post_id, '_veu_custom_css', true ), '自分の投稿であれば author ロールでも保存できる' );
+
+		delete_post_meta( $post_id, '_veu_custom_css' );
+		wp_delete_post( $post_id, true );
+		$_POST = array();
 	}
 
 	/**
