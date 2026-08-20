@@ -908,4 +908,76 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			// phpcs:enable
 		}
 	}
+
+	/**
+	 * ABSPATH が未定義（＝ URL 直叩き等の直接アクセス相当）の場合、
+	 * Issue #1469 で追加したファイル直接アクセス防止ガード
+	 * （if ( ! defined( 'ABSPATH' ) ) exit;）により、
+	 * template-tags-config.php が require_once package/template-tags.php の行に
+	 * 一切到達しないことを検証する。
+	 * When ABSPATH is undefined (equivalent to a direct URL request), the
+	 * direct-file-access guard (if ( ! defined( 'ABSPATH' ) ) exit;) added in
+	 * Issue #1469 must stop template-tags-config.php before it ever reaches its
+	 * "require_once package/template-tags.php" line.
+	 *
+	 * @see inc/template-tags/template-tags-config.php
+	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1469
+	 */
+	public function test_template_tags_config_guard_blocks_direct_access_without_abspath() {
+
+		// exec() が disable_functions 等で無効な実行環境（phpdbg 経由の実行を含む）では
+		// このテストの前提が成立しないため、失敗ではなくスキップとして扱う。
+		// On environments where exec() is disabled (e.g. via disable_functions, or when
+		// running under phpdbg), the premise of this test cannot hold, so skip rather than fail.
+		if ( ! function_exists( 'exec' ) ) {
+			$this->markTestSkipped( 'exec() が無効なためスキップ' );
+		}
+
+		$config_path  = VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+		$package_path = VEU_DIRECTORY_PATH . '/inc/template-tags/package/template-tags.php';
+
+		// package/template-tags.php 自体にも別途 ABSPATH ガードがある。そのため単に
+		// 「vk_the_taxonomy_check_list() 等の関数が定義されないこと」だけを見ると、
+		// config.php 自身のガードを消しても package 側のガードで結果的に関数未定義のままになり、
+		// どちらのガードが効いたのか区別できず、config.php 自身のガード退行を検出できない。
+		// そこで get_included_files() と register_shutdown_function() を使い、
+		// 「require_once package/template-tags.php の行に実際に到達したか」を厳密に判定する。
+		// config.php 自身のガードが機能していれば、この require_once 行そのものに到達しないため
+		// package/template-tags.php は get_included_files() に一切現れない
+		// （exit() 後も shutdown 関数は実行されるため、この判定は exit 後でも行える）。
+		// package/template-tags.php itself also carries its own ABSPATH guard. Merely observing
+		// "no functions got defined" therefore cannot distinguish whether config.php's own guard
+		// fired, or whether it was removed and the downstream package guard caught it instead —
+		// meaning a regression in config.php's own guard would go undetected. This test instead
+		// uses get_included_files() together with register_shutdown_function() to check precisely
+		// whether execution ever reached the "require_once package/template-tags.php" line. If
+		// config.php's own guard works, that line is never reached, so package/template-tags.php
+		// never appears in get_included_files() at all (shutdown functions still run after exit(),
+		// so this check works even though the guard calls exit).
+		$script  = '<?php' . PHP_EOL;
+		$script .= '$package_path = ' . var_export( $package_path, true ) . ';' . PHP_EOL;
+		$script .= 'register_shutdown_function( function () use ( $package_path ) {' . PHP_EOL;
+		$script .= '	echo in_array( $package_path, get_included_files(), true ) ? "[REACHED_PACKAGE:YES]" : "[REACHED_PACKAGE:NO]";' . PHP_EOL;
+		$script .= '} );' . PHP_EOL;
+		$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
+
+		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents, WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec, WordPress.WP.AlternativeFunctions.unlink_unlink
+		$script_path = tempnam( sys_get_temp_dir(), 'veu-template-tags-config-direct-access-' );
+		$this->assertNotFalse( $script_path, 'tempnam() が一時ファイルパスの発行に失敗しました' );
+
+		$write_result = file_put_contents( $script_path, $script );
+		$this->assertNotFalse( $write_result, 'file_put_contents() が一時スクリプトの書き込みに失敗しました' );
+
+		try {
+			$output    = array();
+			$exit_code = 0;
+			exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+
+			$combined_output = implode( PHP_EOL, $output );
+			$this->assertStringContainsString( '[REACHED_PACKAGE:NO]', $combined_output, 'ガードが機能していれば package/template-tags.php の require には到達しないはずです / stdout: ' . $combined_output );
+		} finally {
+			unlink( $script_path );
+		}
+		// phpcs:enable
+	}
 }

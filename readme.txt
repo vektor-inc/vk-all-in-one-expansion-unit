@@ -90,7 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
-[ Security Fix ] Added direct file access protection to PHP files that were missing it, as defense-in-depth hardening.
+[ Security Fix ] Added direct file access protection to PHP files.
 
 = 9.122.0 =
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
