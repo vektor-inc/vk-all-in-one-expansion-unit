@@ -3,6 +3,11 @@
 /*
 	Load modules
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 	require_once 'package/class-vk-call-to-action.php';
 

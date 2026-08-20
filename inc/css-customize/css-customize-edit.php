@@ -1,3 +1,9 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
+
 <div class="wrap">
 	<h2><?php echo vkExUnit_get_name(); ?> <?php _e( 'CSS Customize', 'vk-all-in-one-expansion-unit' ); ?></h2>
 	<div class="fileedit-sub"></div>

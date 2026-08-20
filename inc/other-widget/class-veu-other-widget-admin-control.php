@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Other_Widget_Admin_Control {
 	function __construct() {
 		add_action( 'admin_init', array( $this, 'add_hooks' ) );

@@ -5,6 +5,10 @@
  * @package vektor-inc/all-in-one-expansion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Page_Exclude_From_List_Pages {
 	private static $instance = null;
 

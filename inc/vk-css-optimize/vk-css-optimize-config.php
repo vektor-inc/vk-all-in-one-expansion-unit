@@ -5,6 +5,10 @@
  * @package ExUnit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use VektorInc\VK_CSS_Optimize\VkCssOptimize;
 new VkCssOptimize();
 

@@ -22,6 +22,10 @@
  * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1450
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once __DIR__ . '/package/template-tags.php';
 require_once __DIR__ . '/package/template-tags-veu.php';
 require_once __DIR__ . '/package/template-tags-veu-old.php';

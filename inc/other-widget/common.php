@@ -4,6 +4,10 @@
  * Color picker
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // color picker js
 add_action( 'admin_enqueue_scripts', 'vkExUnit_admin_scripts_color_picker' );
 function vkExUnit_admin_scripts_color_picker() {

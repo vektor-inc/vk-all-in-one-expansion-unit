@@ -5,6 +5,10 @@
  * @package vektor-inc/vk-all-in-one-expanaion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VK_WebSite_Srtuctured_Data {
 
 	public function __construct() {

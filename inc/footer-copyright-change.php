@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_filter( 'lightning_footerPoweredCustom', 'vkExUnit_lightning_footerPoweredCustom' );
 function vkExUnit_lightning_footerPoweredCustom( $lightning_footerPowered ) {
 	// Powered

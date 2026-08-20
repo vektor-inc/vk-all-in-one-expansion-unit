@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 	$options       = get_option( 'vk_google_tag_manager_related_options' );
 	$options_value = ! empty( $options['gtm_id'] ) ? $options['gtm_id'] : '';
 /*

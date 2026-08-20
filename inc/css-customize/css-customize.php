@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $wp_theme  = wp_get_theme();
 $customize = new veu_css_customize();
 

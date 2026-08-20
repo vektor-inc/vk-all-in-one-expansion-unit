@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function veu_get_sitemap_options() {
 	$default_options = array(
 		'excludePostTypes'  => array(),

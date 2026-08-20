@@ -9,6 +9,10 @@
 	Add Customize Panel
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once __DIR__ . '/sns_customizer.php';
 require_once __DIR__ . '/block/index.php';
 

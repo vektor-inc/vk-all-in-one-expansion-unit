@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'ExUnit_Custom_Text_Control' ) ) {
 	class ExUnit_Custom_Text_Control extends WP_Customize_Control {
 		public $type         = 'customtext';

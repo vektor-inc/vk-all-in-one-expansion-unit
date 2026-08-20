@@ -3,6 +3,10 @@
  * Class VEU_Page_Exclude_From_List_Pages
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // 本来この VEU_Page_Exclude_From_List_Pages クラスだけで完結するが、ExUnit固有の統合 metabox に表示するためのその他の処理を行っている
 require_once __DIR__ . '/class-page-exclude-from-list-pages.php';
 

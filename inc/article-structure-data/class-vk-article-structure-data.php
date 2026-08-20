@@ -5,6 +5,10 @@
  * @package vektor-inc/vk-all-in-one-expanaion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * ユーザー設定に　@typeとsameAsの項目を追加
  */

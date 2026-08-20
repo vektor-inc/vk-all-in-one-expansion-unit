@@ -5,6 +5,11 @@
 	Load master setting page
 	Print admin js
 */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use VektorInc\VK_Admin\VkAdmin;
 VkAdmin::init();
 

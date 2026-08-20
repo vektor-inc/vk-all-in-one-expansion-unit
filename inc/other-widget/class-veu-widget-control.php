@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Widget_Control {
 	public static function update_options( $options ) {
 		update_option( 'vkExUnit_enable_widgets', $options, true );

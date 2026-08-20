@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WidgetBanner extends WP_Widget {
 	function __construct() {
 		parent::__construct(
