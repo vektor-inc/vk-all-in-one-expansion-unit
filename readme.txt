@@ -90,7 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
-[ Security Fix ] Added sanitization when saving the author structured data settings (author_type / author_name / author_url / author_sameAs) on the user profile screen, as defense-in-depth hardening.
+[ Security Fix ] Added a capability check and sanitization when saving the author structured data settings (author_type / author_name / author_url / author_sameAs) on the user profile screen, as defense-in-depth hardening.
 
 = 9.122.0 =
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.

@@ -87,12 +87,6 @@ class VK_Article_Srtuctured_Data {
 		<?php
 	}
 
-	// profile_update フックは、WordPress 本体（wp-admin/user-edit.php）が
-	// ユーザー編集画面の nonce 検証（check_admin_referer( 'update-user_' . $user_id )）を
-	// 済ませた後にのみ発火するため、ここで改めて nonce を検証する必要はない。
-	// This hook (profile_update) fires only after WordPress core
-	// (wp-admin/user-edit.php) has already verified the nonce for the user-edit screen
-	// (check_admin_referer( 'update-user_' . $user_id )), so no additional nonce check is required here.
 	/**
 	 * Update Author Structure Date
 	 *
@@ -100,8 +94,27 @@ class VK_Article_Srtuctured_Data {
 	 * @param WP_User $old_user_data 更新前のユーザーデータオブジェクト。 The user data object before the update.
 	 */
 	public static function update_author_structure_data( $user_id, $old_user_data ) {
-		if ( isset( $_POST['author_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
-			$author_type = sanitize_text_field( wp_unslash( $_POST['author_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+
+		// profile_update は管理画面のユーザー編集画面（本体 wp-admin/user-edit.php が
+		// check_admin_referer() で nonce 検証済み）だけでなく、nonce を伴わない経路からも発火する
+		// （REST API の PUT/POST /wp/v2/users/<id>（Application Password 認証時は nonce なし。かつ
+		// application/x-www-form-urlencoded で送信すれば $_POST も実際に埋まる）、XML-RPC の
+		// wp.editProfile、WP-CLI の wp user update、reset_password() 等）。
+		// そのためここでの防御層は nonce 検証ではなく capability チェックとする。
+		// This hook (profile_update) fires not only from the admin user-edit screen (where core,
+		// wp-admin/user-edit.php, has already verified the nonce via check_admin_referer()) but also
+		// from routes that carry no nonce at all (the REST API's PUT/POST /wp/v2/users/<id> — no nonce
+		// when authenticated via an Application Password, and $_POST is actually populated when the
+		// request uses application/x-www-form-urlencoded —, XML-RPC's wp.editProfile, WP-CLI's
+		// wp user update, reset_password(), etc.).
+		// So the defense-in-depth layer used here is a capability check, not a nonce check.
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			return;
+		}
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- 上記の理由により、この関数では nonce ではなく current_user_can( 'edit_user', $user_id ) で担保する。
+		if ( isset( $_POST['author_type'] ) && is_string( $_POST['author_type'] ) ) {
+			$author_type = sanitize_text_field( wp_unslash( $_POST['author_type'] ) );
 			// 保存できるのは select の選択肢（organization / person）のみ。
 			// 想定外の値が届いた場合は保存せず、既存の保存値をそのまま維持する（表示中の select・出力側 get_author_array() の @type 判定を壊さないため）。
 			// Only the select's choices (organization / person) may be saved.
@@ -111,18 +124,64 @@ class VK_Article_Srtuctured_Data {
 				update_user_meta( $user_id, 'author_type', $author_type, $old_user_data->author_type );
 			}
 		}
-		if ( isset( $_POST['author_name'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
-			update_user_meta( $user_id, 'author_name', sanitize_text_field( wp_unslash( $_POST['author_name'] ) ), $old_user_data->author_name ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+		if ( isset( $_POST['author_name'] ) && is_string( $_POST['author_name'] ) ) {
+			update_user_meta( $user_id, 'author_name', sanitize_text_field( wp_unslash( $_POST['author_name'] ) ), $old_user_data->author_name );
 		}
-		if ( isset( $_POST['author_url'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
-			update_user_meta( $user_id, 'author_url', esc_url_raw( wp_unslash( $_POST['author_url'] ) ), $old_user_data->author_url ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+		if ( isset( $_POST['author_url'] ) && is_string( $_POST['author_url'] ) ) {
+			self::update_author_url_meta(
+				$user_id,
+				'author_url',
+				esc_url_raw( wp_unslash( $_POST['author_url'] ) ),
+				sanitize_text_field( wp_unslash( $_POST['author_url'] ) ),
+				$old_user_data->author_url
+			);
 		}
-		if ( isset( $_POST['author_sameAs'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+		if ( isset( $_POST['author_sameAs'] ) && is_string( $_POST['author_sameAs'] ) ) {
 			// UI（add_user_meta_structure_data_ui()）は type='url' の単一入力欄で、出力側 get_author_array() も
-			// 単一の URL 文字列として sameAs にそのまま出力するため、esc_url_raw() で URL としてサニタイズする。
+			// 単一の URL 文字列として sameAs にそのまま出力するため、esc_url_raw() で URL としてサニタイズする（author_url と同じ扱い）。
 			// The UI (add_user_meta_structure_data_ui()) is a single type='url' input field, and get_author_array()
-			// also outputs it as a single URL string in sameAs, so sanitize it as a URL with esc_url_raw().
-			update_user_meta( $user_id, 'author_sameAs', esc_url_raw( wp_unslash( $_POST['author_sameAs'] ) ), $old_user_data->author_sameAs ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+			// also outputs it as a single URL string in sameAs, so sanitize it as a URL with esc_url_raw() (same handling as author_url).
+			self::update_author_url_meta(
+				$user_id,
+				'author_sameAs',
+				esc_url_raw( wp_unslash( $_POST['author_sameAs'] ) ),
+				sanitize_text_field( wp_unslash( $_POST['author_sameAs'] ) ),
+				$old_user_data->author_sameAs
+			);
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+	}
+
+	/**
+	 * URL 系のユーザーメタ（author_url / author_sameAs）を、サニタイズ済みの値で保存する。
+	 *
+	 * 送信値が空でないのに esc_url_raw() が空文字を返すのは、許可されないスキーム（javascript: 等）で
+	 * 弾かれたケース。これを「意図的な空欄クリア」（送信値自体が空文字）と区別するため、タグ除去・trim のみ
+	 * 行う sanitize_text_field() の結果が空文字かどうかで判定する（$trimmed_value）。
+	 * 不正値（$sanitized_value が空文字 かつ 意図的な空欄クリアではない）のときは保存せず既存の保存値を
+	 * 維持する（author_type で「正当な理由なく既存値を上書きしない」とした判断と揃えている）。
+	 *
+	 * Save a URL-type user meta (author_url / author_sameAs) with its already-sanitized value.
+	 *
+	 * When esc_url_raw() returns an empty string even though the submitted value was not empty, it means
+	 * the value was rejected (e.g. a disallowed scheme such as javascript:). To distinguish this from an
+	 * intentional clear (the submitted value itself is empty), this checks whether the result of
+	 * sanitize_text_field() — which only strips tags and trims, without validating the URL scheme — is
+	 * empty ($trimmed_value). When the value is rejected ($sanitized_value is empty and this is not an
+	 * intentional clear), it is not saved and the existing value is kept (consistent with the same policy
+	 * applied to author_type: never overwrite an existing value without good reason).
+	 *
+	 * @param int    $user_id         更新対象のユーザー ID。 The ID of the user being updated.
+	 * @param string $meta_key        更新するメタキー（author_url または author_sameAs）。 The meta key to update (author_url or author_sameAs).
+	 * @param string $sanitized_value esc_url_raw() 済みの値。 The value already sanitized via esc_url_raw().
+	 * @param string $trimmed_value   sanitize_text_field() 済みの値（空欄クリアの判定用）。 The value already sanitized via sanitize_text_field() (used to detect an intentional clear).
+	 * @param mixed  $prev_value      update_user_meta() に渡す更新前の値。 The previous value passed to update_user_meta().
+	 * @return void
+	 */
+	private static function update_author_url_meta( $user_id, $meta_key, $sanitized_value, $trimmed_value, $prev_value ) {
+		$is_intentional_clear = ( '' === $trimmed_value );
+		if ( '' !== $sanitized_value || $is_intentional_clear ) {
+			update_user_meta( $user_id, $meta_key, $sanitized_value, $prev_value );
 		}
 	}
 
