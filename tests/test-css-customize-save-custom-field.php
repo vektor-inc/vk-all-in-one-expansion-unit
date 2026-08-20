@@ -165,6 +165,12 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 		$author_id = self::factory()->user->create( array( 'role' => 'author' ) );
 		wp_set_current_user( $author_id );
 
+		// 前のテストの tearDown() が $_POST を空にしてくれていることに依存しないよう、
+		// wp_insert_post()（save_post 発火）より前に明示的にクリアする。
+		// Do not rely on the previous test's tearDown() having emptied $_POST; clear it
+		// explicitly before wp_insert_post() ( which fires save_post ).
+		$_POST = array();
+
 		$post_id = wp_insert_post(
 			array(
 				'post_title'  => 'Own Post',
@@ -173,7 +179,6 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 				'post_author' => $author_id,
 			)
 		);
-		$_POST   = array();
 
 		$metabox = new VEU_Metabox_CSS_Customize();
 		$this->set_post_data( $metabox, 'div { color: red; }' );
