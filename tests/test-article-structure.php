@@ -389,6 +389,92 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://example.com/existing-sns',
 				),
 			),
+			// 正常系（意図的な空欄クリア） : author_url に空文字が届いた場合 => サニタイズ後の値（空文字）で保存される。
+			// docblock の「送信値自体が空（意図的な空欄クリア）の場合はサニタイズ後の値（空文字）で保存される」を検証する。
+			// Normal case (intentional clear): author_url receives an empty string -> saved as the sanitized (empty) value.
+			// Verifies the docblock's statement that an intentional clear (the submitted value itself is empty) is saved as the sanitized (empty) value.
+			array(
+				'test_condition_name' => '正常系 : author_url が空文字（意図的な空欄クリア）で送信された場合 => 空文字で保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（回帰テスト） : author_url に <script>...</script> が届いた場合 => 保存されず既存値が維持される。
+			// sanitize_text_field() は script タグを中身ごと除去するため、以前の実装ではこの非空の不正値が
+			// 「意図的な空欄クリア」と誤判定され、既存値が消えてしまう不具合があった（trim() のみで判定するよう修正済み）。
+			// Abnormal case (regression test): author_url receives <script>...</script> -> not saved, the existing value is kept.
+			// sanitize_text_field() strips a script tag together with its content, so the previous implementation
+			// misdetected this non-empty invalid value as an intentional clear and lost the existing value
+			// (fixed by detecting emptiness via trim() alone instead).
+			array(
+				'test_condition_name' => '異常系 : author_url に <script>...</script> が届いた場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '<script>javascript:alert(1)</script>',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（回帰テスト） : author_url に <> が届いた場合 => 保存されず既存値が維持される。
+			// sanitize_text_field() と esc_url_raw() の双方でこの文字列が空文字になり誤判定に至っていた境界ケース。
+			// Abnormal case (regression test): author_url receives <> -> not saved, the existing value is kept.
+			// A boundary case where both sanitize_text_field() and esc_url_raw() used to reduce this string to
+			// an empty string, causing the misdetection.
+			array(
+				'test_condition_name' => '異常系 : author_url に <> が届いた場合 => 保存されず既存値が維持される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '<>',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系（回帰テスト） : author_url の前後に空白が付いた正しい URL が届いた場合
+			// => 前後の空白が trim() で除去されてから esc_url_raw() に渡され、%20 を含まずに保存される。
+			// 修正前は末尾の空白が esc_url_raw() によって %20 に変換され、URL の一部として保存されてしまっていた。
+			// Abnormal case (regression test): a valid URL with leading/trailing whitespace is submitted
+			// -> the whitespace is trim()'d before being passed to esc_url_raw(), and it is saved without %20.
+			// Before the fix, the trailing space was converted into %20 by esc_url_raw() and saved as part of the URL.
+			array(
+				'test_condition_name' => '異常系 : author_url の前後に空白が付いた URL が届いた場合 => %20 を含まずに保存される',
+				'existing_meta'       => $default_existing_meta,
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => '  https://ok.example/  ',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://ok.example/',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
 			// 異常系 : author_url に配列が送信された場合 => Fatal error にならず、is_string() チェックにより
 			// サニタイズ対象外として無視され、既存値が維持される。
 			// Abnormal case: author_url receives an array -> no Fatal error occurs; the is_string() guard
