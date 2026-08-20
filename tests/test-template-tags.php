@@ -910,15 +910,30 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * ABSPATH が未定義（＝ URL 直叩き等の直接アクセス相当）の場合、
-	 * Issue #1469 で追加したファイル直接アクセス防止ガード
-	 * （if ( ! defined( 'ABSPATH' ) ) exit;）により、
-	 * template-tags-config.php が require_once package/template-tags.php の行に
-	 * 一切到達しないことを検証する。
-	 * When ABSPATH is undefined (equivalent to a direct URL request), the
-	 * direct-file-access guard (if ( ! defined( 'ABSPATH' ) ) exit;) added in
-	 * Issue #1469 must stop template-tags-config.php before it ever reaches its
-	 * "require_once package/template-tags.php" line.
+	 * Verifies that template-tags-config.php's own ABSPATH guard (added in Issue #1469)
+	 * correctly controls whether execution reaches the
+	 * "require_once package/template-tags.php" line. package/template-tags.php itself also
+	 * carries its own ABSPATH guard, so merely observing "no functions got defined" cannot
+	 * distinguish whether config.php's own guard fired, or whether it was removed and the
+	 * downstream package guard caught it instead — meaning a regression in config.php's own
+	 * guard would go undetected. This test instead uses get_included_files() together with
+	 * register_shutdown_function() to check precisely whether execution ever reached the
+	 * "require_once package/template-tags.php" line (shutdown functions still run after
+	 * exit(), so this check works even when the guard calls exit). Covering the normal case
+	 * (ABSPATH defined) in addition to the abnormal one (ABSPATH undefined) also catches other
+	 * regressions, such as the require_once line itself being removed or the load path
+	 * otherwise breaking.
+	 * template-tags-config.php 自身の ABSPATH ガード（Issue #1469 で追加）が、
+	 * require_once package/template-tags.php の行への到達を正しく制御することを検証する。
+	 * package/template-tags.php 自体にも別途 ABSPATH ガードがあるため、単に
+	 * 「vk_the_taxonomy_check_list() 等の関数が定義されないこと」だけを見ると、
+	 * config.php 自身のガードを消しても package 側のガードで結果的に関数未定義のままになり、
+	 * どちらのガードが効いたのか区別できず、config.php 自身のガード退行を検出できない。
+	 * そこで get_included_files() と register_shutdown_function() を使い、
+	 * 「require_once package/template-tags.php の行に実際に到達したか」を厳密に判定する
+	 * （exit() 後も shutdown 関数は実行されるため、ガードで exit した場合もこの判定は行える）。
+	 * 異常系（ABSPATH 未定義）だけでなく正常系（ABSPATH 定義済み）も含めることで、
+	 * require_once の行自体を消す・読み込み経路を壊す等の別の退行も検出できるようにしている。
 	 *
 	 * @see inc/template-tags/template-tags-config.php
 	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1469
@@ -936,48 +951,77 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		$config_path  = VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
 		$package_path = VEU_DIRECTORY_PATH . '/inc/template-tags/package/template-tags.php';
 
-		// package/template-tags.php 自体にも別途 ABSPATH ガードがある。そのため単に
-		// 「vk_the_taxonomy_check_list() 等の関数が定義されないこと」だけを見ると、
-		// config.php 自身のガードを消しても package 側のガードで結果的に関数未定義のままになり、
-		// どちらのガードが効いたのか区別できず、config.php 自身のガード退行を検出できない。
-		// そこで get_included_files() と register_shutdown_function() を使い、
-		// 「require_once package/template-tags.php の行に実際に到達したか」を厳密に判定する。
-		// config.php 自身のガードが機能していれば、この require_once 行そのものに到達しないため
-		// package/template-tags.php は get_included_files() に一切現れない
-		// （exit() 後も shutdown 関数は実行されるため、この判定は exit 後でも行える）。
-		// package/template-tags.php itself also carries its own ABSPATH guard. Merely observing
-		// "no functions got defined" therefore cannot distinguish whether config.php's own guard
-		// fired, or whether it was removed and the downstream package guard caught it instead —
-		// meaning a regression in config.php's own guard would go undetected. This test instead
-		// uses get_included_files() together with register_shutdown_function() to check precisely
-		// whether execution ever reached the "require_once package/template-tags.php" line. If
-		// config.php's own guard works, that line is never reached, so package/template-tags.php
-		// never appears in get_included_files() at all (shutdown functions still run after exit(),
-		// so this check works even though the guard calls exit).
-		$script  = '<?php' . PHP_EOL;
-		$script .= '$package_path = ' . var_export( $package_path, true ) . ';' . PHP_EOL;
-		$script .= 'register_shutdown_function( function () use ( $package_path ) {' . PHP_EOL;
-		$script .= '	echo in_array( $package_path, get_included_files(), true ) ? "[REACHED_PACKAGE:YES]" : "[REACHED_PACKAGE:NO]";' . PHP_EOL;
-		$script .= '} );' . PHP_EOL;
-		$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'ABSPATH が未定義（直接アクセス相当） => config.php 自身のガードで exit し、package/template-tags.php の require には到達しない（異常系・境界値）',
+				'define_abspath'      => false,
+				'prelude'             => '',
+				'expect_reached'      => false,
+			),
+			array(
+				'test_condition_name' => 'ABSPATH が定義済み（WordPress 読み込み後相当）、他に何も事前定義なし => ガードを通過して package/template-tags.php の require に到達する（正常系）',
+				'define_abspath'      => true,
+				'prelude'             => '',
+				'expect_reached'      => true,
+			),
+			array(
+				'test_condition_name' => 'ABSPATH が定義済みで、他プラグイン同梱の共有パッケージの古いコピー相当（vk_get_post_type() のみ先に定義）が読み込まれた場合 => ガードを通過して package/template-tags.php の require に到達する（正常系・Issue #1450 と同じ prelude）',
+				'define_abspath'      => true,
+				// var_export() はデバッグ出力ではなく、生成する一時 PHP スクリプト内に埋め込むための
+				// リテラルなファイルパス文字列を組み立てるために使用している。
+				// var_export() here is not debug output; it builds a literal file path string to
+				// embed inside the generated temporary PHP script.
+				'prelude'             => 'function vk_get_post_type() { return array( "slug" => "stub" ); }',
+				'expect_reached'      => true,
+			),
+		);
 
-		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents, WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec, WordPress.WP.AlternativeFunctions.unlink_unlink
-		$script_path = tempnam( sys_get_temp_dir(), 'veu-template-tags-config-direct-access-' );
-		$this->assertNotFalse( $script_path, 'tempnam() が一時ファイルパスの発行に失敗しました' );
+		foreach ( $test_cases as $case ) {
+			// 各ケースを独立した PHP プロセスで実行し、テストプロセス側で既に定義済みの
+			// 関数群の影響を受けずに「まだ何も読み込まれていない状態」を再現する。
+			// Run each case in an isolated PHP process so it is unaffected by functions
+			// already defined in the test process, reproducing a "nothing loaded yet" state.
+			//
+			// このブロックはテスト実行用の一時 PHP スクリプトをローカルファイルシステムに
+			// 書き出して CLI 実行するためのもので、WordPress のリクエスト処理経路では
+			// 使われないため、WP_Filesystem や wp_delete_file() 等の代替を必須にする
+			// WordPress 標準の直接ファイル操作／システムコール制限を意図的に無視する。
+			// This block writes a temporary PHP script to the local filesystem and runs it
+			// via CLI purely for test isolation; it is never reached through a WordPress
+			// request, so the WordPress-standard restriction against direct file operations
+			// and system calls (which exists to protect production request handling) is
+			// intentionally bypassed here.
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents, WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec, WordPress.WP.AlternativeFunctions.unlink_unlink
 
-		$write_result = file_put_contents( $script_path, $script );
-		$this->assertNotFalse( $write_result, 'file_put_contents() が一時スクリプトの書き込みに失敗しました' );
+			$script = '<?php' . PHP_EOL;
+			if ( $case['define_abspath'] ) {
+				$script .= 'define( "ABSPATH", ' . var_export( ABSPATH, true ) . ' );' . PHP_EOL;
+			}
+			$script .= $case['prelude'] . PHP_EOL;
+			$script .= '$package_path = ' . var_export( $package_path, true ) . ';' . PHP_EOL;
+			$script .= 'register_shutdown_function( function () use ( $package_path ) {' . PHP_EOL;
+			$script .= '	echo in_array( $package_path, get_included_files(), true ) ? "[REACHED_PACKAGE:YES]" : "[REACHED_PACKAGE:NO]";' . PHP_EOL;
+			$script .= '} );' . PHP_EOL;
+			$script .= 'require ' . var_export( $config_path, true ) . ';' . PHP_EOL;
 
-		try {
-			$output    = array();
-			$exit_code = 0;
-			exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+			$script_path = tempnam( sys_get_temp_dir(), 'veu-template-tags-config-direct-access-' );
+			$this->assertNotFalse( $script_path, $case['test_condition_name'] . ' / tempnam() が一時ファイルパスの発行に失敗しました' );
 
-			$combined_output = implode( PHP_EOL, $output );
-			$this->assertStringContainsString( '[REACHED_PACKAGE:NO]', $combined_output, 'ガードが機能していれば package/template-tags.php の require には到達しないはずです / stdout: ' . $combined_output );
-		} finally {
-			unlink( $script_path );
+			$write_result = file_put_contents( $script_path, $script );
+			$this->assertNotFalse( $write_result, $case['test_condition_name'] . ' / file_put_contents() が一時スクリプトの書き込みに失敗しました' );
+
+			try {
+				$output    = array();
+				$exit_code = 0;
+				exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $script_path ) . ' 2>&1', $output, $exit_code );
+
+				$combined_output = implode( PHP_EOL, $output );
+				$expected_marker = $case['expect_reached'] ? '[REACHED_PACKAGE:YES]' : '[REACHED_PACKAGE:NO]';
+				$this->assertStringContainsString( $expected_marker, $combined_output, $case['test_condition_name'] . ' / stdout: ' . $combined_output );
+			} finally {
+				unlink( $script_path );
+			}
+			// phpcs:enable
 		}
-		// phpcs:enable
 	}
 }
