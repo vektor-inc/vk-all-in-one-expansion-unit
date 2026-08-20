@@ -87,21 +87,42 @@ class VK_Article_Srtuctured_Data {
 		<?php
 	}
 
+	// profile_update フックは、WordPress 本体（wp-admin/user-edit.php）が
+	// ユーザー編集画面の nonce 検証（check_admin_referer( 'update-user_' . $user_id )）を
+	// 済ませた後にのみ発火するため、ここで改めて nonce を検証する必要はない。
+	// This hook (profile_update) fires only after WordPress core
+	// (wp-admin/user-edit.php) has already verified the nonce for the user-edit screen
+	// (check_admin_referer( 'update-user_' . $user_id )), so no additional nonce check is required here.
 	/**
 	 * Update Author Structure Date
+	 *
+	 * @param int     $user_id       更新されたユーザーの ID。 The ID of the updated user.
+	 * @param WP_User $old_user_data 更新前のユーザーデータオブジェクト。 The user data object before the update.
 	 */
 	public static function update_author_structure_data( $user_id, $old_user_data ) {
-		if ( isset( $_POST['author_type'] ) ) {
-			update_user_meta( $user_id, 'author_type', $_POST['author_type'], $old_user_data->author_type );
+		if ( isset( $_POST['author_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+			$author_type = sanitize_text_field( wp_unslash( $_POST['author_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+			// 保存できるのは select の選択肢（organization / person）のみ。
+			// 想定外の値が届いた場合は保存せず、既存の保存値をそのまま維持する（表示中の select・出力側 get_author_array() の @type 判定を壊さないため）。
+			// Only the select's choices (organization / person) may be saved.
+			// If an unexpected value arrives, skip saving it and keep the existing stored value
+			// (so the select UI currently displayed and the @type check in get_author_array() are not broken).
+			if ( in_array( $author_type, array( 'organization', 'person' ), true ) ) {
+				update_user_meta( $user_id, 'author_type', $author_type, $old_user_data->author_type );
+			}
 		}
-		if ( isset( $_POST['author_name'] ) ) {
-			update_user_meta( $user_id, 'author_name', $_POST['author_name'], $old_user_data->author_name );
+		if ( isset( $_POST['author_name'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+			update_user_meta( $user_id, 'author_name', sanitize_text_field( wp_unslash( $_POST['author_name'] ) ), $old_user_data->author_name ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
 		}
-		if ( isset( $_POST['author_url'] ) ) {
-			update_user_meta( $user_id, 'author_url', $_POST['author_url'], $old_user_data->author_url );
+		if ( isset( $_POST['author_url'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+			update_user_meta( $user_id, 'author_url', esc_url_raw( wp_unslash( $_POST['author_url'] ) ), $old_user_data->author_url ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
 		}
-		if ( isset( $_POST['author_sameAs'] ) ) {
-			update_user_meta( $user_id, 'author_sameAs', $_POST['author_sameAs'], $old_user_data->author_sameAs );
+		if ( isset( $_POST['author_sameAs'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
+			// UI（add_user_meta_structure_data_ui()）は type='url' の単一入力欄で、出力側 get_author_array() も
+			// 単一の URL 文字列として sameAs にそのまま出力するため、esc_url_raw() で URL としてサニタイズする。
+			// The UI (add_user_meta_structure_data_ui()) is a single type='url' input field, and get_author_array()
+			// also outputs it as a single URL string in sameAs, so sanitize it as a URL with esc_url_raw().
+			update_user_meta( $user_id, 'author_sameAs', esc_url_raw( wp_unslash( $_POST['author_sameAs'] ) ), $old_user_data->author_sameAs ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- profile_update は wp-admin 側で nonce 検証済みの後にのみ発火する。
 		}
 	}
 

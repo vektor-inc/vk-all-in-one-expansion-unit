@@ -167,6 +167,215 @@ class Article_Structure_Test extends WP_UnitTestCase {
 	}
 
 
+	/**
+	 * update_author_structure_data() のサニタイズ挙動を検証する。
+	 * - author_type はホワイトリスト（organization / person）以外の値では保存されず既存値が維持される。
+	 * - author_name は sanitize_text_field() でタグ等が除去される。
+	 * - author_url / author_sameAs は esc_url_raw() で不正なスキームの URL が無害化される。
+	 * - 既存の保存済みユーザーメタが、サニタイズ追加によって壊れたり消えたりしない（後方互換）。
+	 *
+	 * Verify the sanitization behavior of update_author_structure_data().
+	 * - author_type is not saved (the existing value is kept) unless it is one of the whitelisted values (organization / person).
+	 * - author_name has tags etc. stripped via sanitize_text_field().
+	 * - author_url / author_sameAs have URLs with a disallowed scheme neutralized via esc_url_raw().
+	 * - Existing saved user meta is not broken or lost by adding this sanitization (backward compatibility).
+	 */
+	function test_update_author_structure_data() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_update_author_structure_data' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		// テスト用ユーザーを発行。
+		// Create a test user.
+		$user_id = wp_insert_user(
+			array(
+				'user_login'   => 'sanitize_test_user',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Sanitize Test User',
+			)
+		);
+
+		// 各ケースの前提となる「既存の保存済みユーザーメタ」。サニタイズ追加後も、保存対象外・無効値のケースで
+		// このデータが壊れず維持されることを確認する（後方互換の検証）。
+		// The "existing saved user meta" that each case starts from. Used to verify that, even after adding this
+		// sanitization, this data is kept intact when a field is not submitted or an invalid value is submitted
+		// (backward compatibility check).
+		$existing_meta = array(
+			'author_type'   => 'organization',
+			'author_name'   => 'Existing Name',
+			'author_url'    => 'https://example.com/existing',
+			'author_sameAs' => 'https://example.com/existing-sns',
+		);
+
+		$test_cases = array(
+			// 正常系 : すべて正しい値（organization）を送信した場合。
+			// Normal case: submitting all valid values (organization).
+			array(
+				'test_condition_name' => '正常系 : author_type が organization で全項目が正しい値の場合 => そのまま保存される',
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Vektor Inc.',
+					'author_url'    => 'https://vektor-inc.co.jp/',
+					'author_sameAs' => 'https://twitter.com/vektor_inc',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Vektor Inc.',
+					'author_url'    => 'https://vektor-inc.co.jp/',
+					'author_sameAs' => 'https://twitter.com/vektor_inc',
+				),
+			),
+			// 正常系 : author_type が person の場合。
+			// Normal case: author_type is person.
+			array(
+				'test_condition_name' => '正常系 : author_type が person で全項目が正しい値の場合 => そのまま保存される',
+				'post'                => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => 'https://twitter.com/vekutarou',
+				),
+				'expected'            => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => 'https://twitter.com/vekutarou',
+				),
+			),
+			// 異常系（境界値） : author_type が空文字（ホワイトリスト外）の場合 => 保存されず既存値が維持される。
+			// Abnormal case (boundary): author_type is an empty string (outside the whitelist) -> not saved, the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : author_type が空文字の場合 => 保存されず既存値が維持される',
+				'post'                => array(
+					'author_type'   => '',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_type にタグ入りの不正な値が届いた場合 => 保存されず既存値が維持される。
+			// Abnormal case: author_type receives an invalid value containing a tag -> not saved, the existing value is kept.
+			array(
+				'test_condition_name' => '異常系 : author_type にホワイトリスト外の値（タグ入り）が届いた場合 => 保存されず既存値が維持される',
+				'post'                => array(
+					'author_type'   => '<script>alert(1)</script>',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_name にタグ入り文字列が届いた場合 => sanitize_text_field() でタグが除去されて保存される。
+			// Abnormal case: author_name receives a string containing a tag -> saved with the tag stripped via sanitize_text_field().
+			array(
+				'test_condition_name' => '異常系 : author_name にタグ入り文字列が届いた場合 => タグが除去されて保存される',
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => '<script>alert(1)</script>Vektor',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => sanitize_text_field( '<script>alert(1)</script>Vektor' ),
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_url に許可されないスキーム（javascript:）の URL が届いた場合 => esc_url_raw() で無害化されて保存される。
+			// Abnormal case: author_url receives a URL with a disallowed scheme (javascript:) -> saved after being neutralized via esc_url_raw().
+			array(
+				'test_condition_name' => '異常系 : author_url に不正なスキームの URL が届いた場合 => esc_url_raw() でサニタイズされて保存される',
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'javascript:alert(1)',
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => esc_url_raw( 'javascript:alert(1)' ),
+					'author_sameAs' => 'https://example.com/existing-sns',
+				),
+			),
+			// 異常系 : author_sameAs にタグ入りの不正な値が届いた場合 => esc_url_raw() でサニタイズされて保存される。
+			// Abnormal case: author_sameAs receives an invalid value containing a tag -> saved after being sanitized via esc_url_raw().
+			array(
+				'test_condition_name' => '異常系 : author_sameAs にタグ入りの不正な値が届いた場合 => esc_url_raw() でサニタイズされて保存される',
+				'post'                => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => '"><script>alert(1)</script>',
+				),
+				'expected'            => array(
+					'author_type'   => 'organization',
+					'author_name'   => 'Existing Name',
+					'author_url'    => 'https://example.com/existing',
+					'author_sameAs' => esc_url_raw( '"><script>alert(1)</script>' ),
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// 各ケースの前提として、既存の保存済みユーザーメタを設定する（後方互換の検証用）。
+			// Set up the existing saved user meta as the premise for each case (used for the backward-compatibility check).
+			foreach ( $existing_meta as $key => $value ) {
+				update_user_meta( $user_id, $key, $value );
+			}
+
+			// フォーム送信を再現するため $_POST を差し替える。
+			// Replace $_POST to reproduce a form submission.
+			$_POST = $case['post'];
+
+			// profile_update フックが渡す「更新前のユーザーデータ」を再現する。
+			// WP_User の未定義プロパティは、コア（WP_User::__get()）が get_user_meta() へフォールバックするため、
+			// 現在保存されているユーザーメタが $old_user_data->author_type 等として参照できる。
+			// Reproduce the "pre-update user data" passed by the profile_update hook.
+			// WP_User's undefined properties fall back to get_user_meta() via core (WP_User::__get()),
+			// so the currently saved user meta can be referenced as $old_user_data->author_type, etc.
+			$old_user_data = get_userdata( $user_id );
+
+			VK_Article_Srtuctured_Data::update_author_structure_data( $user_id, $old_user_data );
+
+			$actual = array(
+				'author_type'   => get_user_meta( $user_id, 'author_type', true ),
+				'author_name'   => get_user_meta( $user_id, 'author_name', true ),
+				'author_url'    => get_user_meta( $user_id, 'author_url', true ),
+				'author_sameAs' => get_user_meta( $user_id, 'author_sameAs', true ),
+			);
+
+			$this->assertEquals( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// 後始末（$_POST とユーザーメタを次のケースのために初期化する）。
+			// Clean up ($_POST and the user meta, to prepare for the next case).
+			$_POST = array();
+			delete_user_meta( $user_id, 'author_type' );
+			delete_user_meta( $user_id, 'author_name' );
+			delete_user_meta( $user_id, 'author_url' );
+			delete_user_meta( $user_id, 'author_sameAs' );
+		}
+
+		// テストで発行したユーザーを削除。
+		// Delete the user created for the test.
+		wp_delete_user( $user_id );
+	}
+
+
 	function test_get_article_structure_array() {
 
 		print PHP_EOL;
