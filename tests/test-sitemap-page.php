@@ -641,6 +641,22 @@ class SitemapPageTest extends WP_UnitTestCase {
 				),
 				'expected_not_contains' => array(),
 			),
+			array(
+				// 境界値: exclude_post_types で指定した投稿タイプは一覧から除外され、出力に含まれない事を検証する。
+				// Boundary case: a post type listed in exclude_post_types is left out of the checklist entirely.
+				'test_condition_name'   => '境界値: exclude_post_types で指定した投稿タイプは出力に含まれない',
+				'args'                  => array(
+					'name'               => 'vkExUnit_sitemap_options[excludePostTypes]',
+					'checked'            => array(),
+					'exclude_post_types' => array( 'attachment', 'veu_test_cpt_dup_b' ),
+				),
+				'expected_contains'     => array(
+					'<code>veu_test_cpt_dup_a</code>',
+				),
+				'expected_not_contains' => array(
+					'<code>veu_test_cpt_dup_b</code>',
+				),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
