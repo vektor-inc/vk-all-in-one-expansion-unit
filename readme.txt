@@ -3,9 +3,9 @@ Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catheri
 Donate link:
 Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 9.122.0
+Stable tag: 9.122.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,7 +90,13 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ Bug Fix ] Fixed the post type and taxonomy checklists in the settings screens showing only labels, making identically labeled items indistinguishable and easy to check by mistake. The slug is now shown next to the label.
 [ Bug Fix ][ Template Tags ] Fixed already-fixed bugs (such as PHP warnings) silently reappearing when used together with another Vektor plugin that bundles an older copy of the shared template tag functions and happens to load first.
+
+= 9.122.1 =
+[ Security Fix ][ Article Structured Data ] Added a capability check and sanitization when saving the author structured data settings (author_type / author_name / author_url / author_sameAs) on the user profile screen, as defense-in-depth hardening.
+[ Security Fix ][ Custom CSS ] Added a permission check on save and hardened input handling on the classic edit screen as defense in depth.
+[ Security Fix ] Added direct file access protection to PHP files.
 
 = 9.122.0 =
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.

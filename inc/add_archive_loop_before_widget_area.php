@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function veu_set_archive_loop_before_widget_area() {
 
 	// 公開されている投稿タイプを呼び出し

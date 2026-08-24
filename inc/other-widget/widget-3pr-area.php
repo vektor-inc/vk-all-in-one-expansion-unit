@@ -3,6 +3,11 @@
 /*
 	PR area widget
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_vkExUnit_3PR_area extends WP_Widget {
 	function __construct() {
 		parent::__construct(

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_filter( 'body_class', 'veu_add_body_class' );
 function veu_add_body_class( $class ) {
 	if ( is_singular() ) {

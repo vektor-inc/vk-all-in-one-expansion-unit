@@ -1,5 +1,9 @@
 <?php // phpcs:ignore
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 
 	/**

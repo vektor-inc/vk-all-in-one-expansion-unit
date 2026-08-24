@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Icon_Accessibility {
 	/**
 	 * Font Awesome アイコンに aria-hidden="true" を付与する

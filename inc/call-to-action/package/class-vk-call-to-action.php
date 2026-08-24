@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // namespace Vektor\ExUnit\Package\Cta;
 if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 

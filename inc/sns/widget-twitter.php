@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VK_Twitter_Widget extends WP_Widget {
 
 	/**

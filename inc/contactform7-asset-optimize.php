@@ -6,6 +6,9 @@
  * @since    19/March/2020
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 add_action(
 	'wp_print_styles',

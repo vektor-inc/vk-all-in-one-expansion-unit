@@ -2,6 +2,11 @@
 /*
 	fbPagePlugin widget
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_vkExUnit_fbPagePlugin extends WP_Widget {
 
 	function __construct() {

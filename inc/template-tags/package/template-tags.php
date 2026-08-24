@@ -6,6 +6,10 @@ https://github.com/vektor-inc/vektor-wp-libraries
 にあります。修正の際は上記リポジトリのデータを修正してください。
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 	Chack use post top page
 	Chack post type info
@@ -404,7 +408,11 @@ if ( ! function_exists( 'vk_the_post_type_check_list' ) ) {
 				}
 
 				echo '<li><label>';
-				echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . $key . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+				echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />';
+				echo ' ' . esc_html( $value->label );
+				// スラッグは分類の手がかりとして表示するため、翻訳関数には通さない（自然言語ではないため i18n 対象外）。
+				// The slug is shown as a disambiguation cue and is intentionally not passed through a translation function (not natural language).
+				echo ' <span class="description">(<code>' . esc_html( $key ) . '</code>)</span>';
 				echo '</label></li>';
 			}
 		}
@@ -484,7 +492,11 @@ if ( ! function_exists( 'vk_the_taxonomy_check_list' ) ) {
 				$id      = ! empty( $args['id'][ $key ] ) ? ' id="' . esc_attr( $args['id'][ $key ] ) . '"' : '';
 
 				echo '<li><label>';
-				echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+				echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />';
+				echo ' ' . esc_html( $value->label );
+				// スラッグは分類の手がかりとして表示するため、翻訳関数には通さない（自然言語ではないため i18n 対象外）。
+				// The slug is shown as a disambiguation cue and is intentionally not passed through a translation function (not natural language).
+				echo ' <span class="description">(<code>' . esc_html( $key ) . '</code>)</span>';
 				echo '</label></li>';
 			}
 		}

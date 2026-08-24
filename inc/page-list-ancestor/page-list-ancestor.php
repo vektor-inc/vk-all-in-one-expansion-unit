@@ -3,6 +3,10 @@
 	pageList_ancestor
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_shortcode( 'pageList_ancestor', 'vkExUnit_pageList_ancestor_shortcode' );
 
 if ( veu_content_filter_state() == 'content' ) {

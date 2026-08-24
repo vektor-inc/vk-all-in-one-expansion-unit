@@ -3,6 +3,10 @@
 	Side Post list widget
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // vendor/vektor-inc/vk-term-color/src
 use VektorInc\VK_Term_Color\VkTermColor;
 

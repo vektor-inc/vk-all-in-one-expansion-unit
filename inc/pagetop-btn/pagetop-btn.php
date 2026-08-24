@@ -10,6 +10,10 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 	footer add pagetop btn
 /*-------------------------------------------*/

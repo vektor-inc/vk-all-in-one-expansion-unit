@@ -8,6 +8,9 @@
  * @since    28/Aug/2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 add_action( 'admin_bar_menu', 'vkExUnit_adminbar_link', 40 );
 function vkExUnit_adminbar_link( $wp_admin_bar ) {

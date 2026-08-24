@@ -3,6 +3,11 @@
 /*
 	VK PR Blocks
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_vkExUnit_PR_Blocks extends WP_Widget {
 
 	/*

@@ -2,6 +2,11 @@
 /*
 	Default Thumbnail
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $options = get_option( 'veu_defualt_thumbnail' );
 ?>
 <h3><?php echo __( 'Default Thumbnail', 'vk-all-in-one-expansion-unit' ); ?></h3>

@@ -9,6 +9,11 @@ Main Setting Page  _ メインエリアの中身
 /*
 Main Setting Page  _ ExUnit > メイン設定 メニューを追加
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use VektorInc\VK_Admin\VkAdmin;
 
 function veu_add_main_setting() {

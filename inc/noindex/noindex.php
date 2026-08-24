@@ -8,6 +8,10 @@
  * @since    13/May/2019
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 VEU_Metabox 内の get_post_type が実行タイミングによっては
 カスタム投稿タイプマネージャーで作成した投稿タイプが取得できないために

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class VEU_Metabox {
 
 	/**
@@ -171,11 +175,22 @@ class VEU_Metabox {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id; }
 
-		// 設定したnonce を取得（CSRF対策）
-		$noncename__value = isset( $_POST[ 'noncename__' . $this->args['cf_name'] ] ) ? $_POST[ 'noncename__' . $this->args['cf_name'] ] : null;
+		// 設定したnonce を取得（CSRF対策）。nonce 自体の値なので wp_verify_nonce() に渡す前に
+		// wp_unslash() + sanitize_text_field() を通す。
+		// Retrieve the configured nonce ( CSRF protection ). This is the nonce value itself, so
+		// unslash and sanitize it with sanitize_text_field() before passing it to wp_verify_nonce().
+		$noncename__value = isset( $_POST[ 'noncename__' . $this->args['cf_name'] ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'noncename__' . $this->args['cf_name'] ] ) ) : null;
 
 		// nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）
 		if ( ! wp_verify_nonce( $noncename__value, $this->nonce_action ) ) {
+			return $post_id;
+		}
+
+		// nonce 検証だけでは CSRF は防げても権限の無いユーザーによる保存は防げないため、
+		// 投稿の編集権限があるかどうかを確認する（多層防御）。
+		// nonce verification alone does not prevent a user without edit permission from saving,
+		// so also confirm the current user can edit this post ( defense in depth ).
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return $post_id;
 		}
 

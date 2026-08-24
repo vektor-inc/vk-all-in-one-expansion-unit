@@ -6,6 +6,10 @@ https://github.com/vektor-inc/vektor-wp-libraries
 → まだない。Lightning Pro がマスター
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // add_action( 'after_setup_theme', 'vkmn_nav_add_customize_panel' );
 //
 // // カスタマイズパネルを出力するかどうかの判別

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use VektorInc\VK_Admin\VkAdmin;
 ?>
 <div class="wrap vk_admin_page">

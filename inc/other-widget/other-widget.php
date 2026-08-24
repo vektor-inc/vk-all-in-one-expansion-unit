@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once VEU_DIRECTORY_PATH . '/inc/other-widget/class-veu-widget-control.php';
 require_once VEU_DIRECTORY_PATH . '/inc/other-widget/common.php';
 

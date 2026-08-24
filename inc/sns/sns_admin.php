@@ -1,3 +1,9 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
+
 <h3><?php echo __( 'SNS Settings' ); ?></h3>
 <?php
 	$options = veu_get_sns_options();

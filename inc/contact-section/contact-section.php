@@ -8,6 +8,9 @@
  * @since   26/Jun/2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /*
 	load files

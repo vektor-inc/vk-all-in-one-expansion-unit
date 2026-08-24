@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_action( 'admin_bar_menu', 'veu_plugin_link_to_adminbar', 100 );
 function veu_plugin_link_to_adminbar( $wp_admin_bar ) {
 

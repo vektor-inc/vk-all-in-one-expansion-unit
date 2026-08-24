@@ -5,6 +5,10 @@
  * @package ExUnit Call To Action
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 global $vk_call_to_action_textdomain;
 
 $fa = '';

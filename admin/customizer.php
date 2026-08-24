@@ -7,6 +7,10 @@
  * @since    28/Sep/2017
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Add Customize Panel
  */

@@ -5,6 +5,10 @@
  * @package  VK All in One Expansion Unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // パッケージリストの取得.
 require VEU_DIRECTORY_PATH . '/veu-packages.php';
 

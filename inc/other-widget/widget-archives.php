@@ -3,6 +3,11 @@
 /*
 	Archive list widget
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_VK_archive_list extends WP_Widget {
 	/**
 	 * Constructor

@@ -3,6 +3,10 @@
 	add page custom field
 /*-------------------------------------------*/
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once __DIR__ . '/class-veu-metabox.php';
 
 function veu_add_parent_metabox() {

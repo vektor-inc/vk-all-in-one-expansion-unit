@@ -2,6 +2,11 @@
 /*
 	Button Widget
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_Button extends WP_Widget {
 
 	static function button_otherlabels() {

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function veu_gtm_options_init() {
 	vkExUnit_register_setting(
 		__( 'Google Tag Manager Setting', 'vk-all-in-one-expansion-unit' ),    // tab label.

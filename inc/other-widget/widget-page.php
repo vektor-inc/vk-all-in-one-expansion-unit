@@ -3,6 +3,11 @@
 /*
 	page widget
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WP_Widget_vkExUnit_widget_page extends WP_Widget {
 
 	function __construct() {

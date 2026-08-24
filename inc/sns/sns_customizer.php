@@ -2,6 +2,11 @@
 /*
 	Add Customize Panel
 /*-------------------------------------------*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_filter( 'veu_customize_panel_activation', 'veu_customize_panel_activation_sns' );
 function veu_customize_panel_activation_sns() {
 	return true;

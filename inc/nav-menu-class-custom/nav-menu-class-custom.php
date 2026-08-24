@@ -26,6 +26,10 @@
  * @package vektor-inc/vk-all-in-one-expansion-unit
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once __DIR__ . '/class-nav-menu-class-custom.php';
 if ( class_exists( 'VkNavMenuClassCustom' ) ) {
 	VkNavMenuClassCustom::init();

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 	$options = vkExUnit_get_ga_options();
 	// $options_default = veu_get_sns_options_default();
 /*
