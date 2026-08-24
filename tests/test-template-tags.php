@@ -112,6 +112,155 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * vk_get_post_type() の管理画面での分岐 — 投稿の情報がまだ無い新規作成画面
+	 * （例: post-new.php?post_type=xxx）では、URL のクエリ（$_GET['post_type']）から
+	 * 投稿タイプを拾う。
+	 * On the admin "new post" screen (e.g. post-new.php?post_type=xxx), where no post data
+	 * exists yet, vk_get_post_type() falls back to reading the post type from the
+	 * $_GET['post_type'] query var.
+	 */
+	public function test_vk_get_post_type_admin_new_post_screen() {
+		global $post;
+
+		$original_post        = $post;
+		$original_get         = $_GET;
+		$original_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : null;
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '新規固定ページ作成画面（post-new.php?post_type=page）=> slug は page（正常系）',
+				'query_post_type'     => 'page',
+				'expected_slug'       => 'page',
+			),
+			array(
+				'test_condition_name' => '新規投稿作成画面（post-new.php?post_type=post）=> slug は post（正常系）',
+				'query_post_type'     => 'post',
+				'expected_slug'       => 'post',
+			),
+			array(
+				'test_condition_name' => '管理画面だが投稿情報も post_type も post の GET パラメータも無い場合 => slug は false のまま（境界値）',
+				'query_post_type'     => null,
+				'expected_slug'       => false,
+			),
+		);
+
+		try {
+			foreach ( $test_cases as $case ) {
+				// 投稿データがまだ無い新規作成画面を再現するため $post と $_GET をクリアする.
+				// Reproduce the "no post data yet" new-post screen by clearing $post and $_GET.
+				$post = null;
+				$_GET = array();
+				if ( null !== $case['query_post_type'] ) {
+					$_GET['post_type'] = $case['query_post_type'];
+				}
+				// is_admin() は PHPUnit 環境下では効かないことがあるため、
+				// package/template-tags.php 同様 REQUEST_URI に 'wp-admin' を含めて分岐させる.
+				// is_admin() is not reliable under PHPUnit, so include 'wp-admin' in
+				// REQUEST_URI to enter the admin branch, matching package/template-tags.php.
+				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php';
+
+				$actual = vk_get_post_type();
+
+				$this->assertIsArray( $actual, $case['test_condition_name'] );
+				$this->assertArrayHasKey( 'slug', $actual, $case['test_condition_name'] );
+				$this->assertSame( $case['expected_slug'], $actual['slug'], $case['test_condition_name'] );
+			}
+		} finally {
+			// アサーション失敗（例外）時も含め、グローバル状態を必ず復元して後続テストへの影響を防ぐ。
+			// Always restore global state (even when an assertion throws) so later tests stay isolated.
+			$post = $original_post;
+			$_GET = $original_get;
+			if ( null !== $original_request_uri ) {
+				$_SERVER['REQUEST_URI'] = $original_request_uri;
+			} else {
+				unset( $_SERVER['REQUEST_URI'] );
+			}
+		}
+	}
+
+	/**
+	 * メインクエリの投稿タイプが配列で渡された場合の正規化（#1375）。
+	 * pre_get_posts 等でメインクエリに post_type を配列で set した場合でも、
+	 * vk_get_post_type() は "Array to string conversion" Warning を出さず、
+	 * 配列の先頭要素を文字列 slug として返す。
+	 * Normalization when the main query's post type is passed as an array (#1375). Even when
+	 * post_type is set to an array on the main query (e.g. via pre_get_posts), vk_get_post_type()
+	 * must not trigger an "Array to string conversion" warning and must return the array's first
+	 * element as a string slug.
+	 */
+	public function test_vk_get_post_type_main_query_post_type_array_normalization() {
+
+		// メインクエリが投稿を1件もヒットさせない投稿タイプ（未使用のカスタム投稿タイプ）を用意する。
+		// get_post_type() は $GLOBALS['post']（=クエリが実際にヒットした先頭の投稿）を見るため、
+		// 何かヒットしてしまうと $wp_query->query_vars['post_type'] を見る分岐まで到達できない。
+		// Register post types with zero posts so the main query matches nothing. get_post_type()
+		// (no args) reads $GLOBALS['post'] (the first post the query actually matched); if
+		// anything matches, execution never reaches the branch that reads
+		// $wp_query->query_vars['post_type'], which is the branch under test here.
+		register_post_type(
+			'veu_1375_type_a',
+			array(
+				'public' => true,
+				'label'  => 'VEU 1375 Type A',
+			)
+		);
+		register_post_type(
+			'veu_1375_type_b',
+			array(
+				'public' => true,
+				'label'  => 'VEU 1375 Type B',
+			)
+		);
+		register_post_type(
+			'veu_1375_type_c',
+			array(
+				'public' => true,
+				'label'  => 'VEU 1375 Type C',
+			)
+		);
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'post_type が array( "veu_1375_type_a", "veu_1375_type_b" ) の場合 => 先頭要素に正規化される（#1375, 正常系）',
+				'post_type'           => array( 'veu_1375_type_a', 'veu_1375_type_b' ),
+				'expected_slug'       => 'veu_1375_type_a',
+			),
+			array(
+				'test_condition_name' => 'post_type が array( "veu_1375_type_b", "veu_1375_type_a" ) の場合 => 先頭要素に正規化される（#1375, 正常系）',
+				'post_type'           => array( 'veu_1375_type_b', 'veu_1375_type_a' ),
+				'expected_slug'       => 'veu_1375_type_b',
+			),
+			array(
+				'test_condition_name' => 'post_type が要素1件の配列 array( "veu_1375_type_c" ) の場合 => その要素に正規化される（#1375, 境界値）',
+				'post_type'           => array( 'veu_1375_type_c' ),
+				'expected_slug'       => 'veu_1375_type_c',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// pre_get_posts でメインクエリの post_type を配列で set し、
+			// #1375 が対象としていた「pre_get_posts で配列を set するケース」を再現する.
+			// Use pre_get_posts to set the main query's post_type to an array, reproducing the
+			// "post_type set as an array via pre_get_posts" scenario that #1375 targets.
+			$post_type_override = $case['post_type'];
+			$set_post_type      = function ( $query ) use ( $post_type_override ) {
+				if ( $query->is_main_query() ) {
+					$query->set( 'post_type', $post_type_override );
+				}
+			};
+			add_filter( 'pre_get_posts', $set_post_type );
+			$this->go_to( home_url( '/' ) );
+			remove_filter( 'pre_get_posts', $set_post_type );
+
+			$actual = vk_get_post_type();
+
+			$this->assertIsArray( $actual, $case['test_condition_name'] );
+			$this->assertIsString( $actual['slug'], $case['test_condition_name'] . ' / slug は配列ではなく文字列に正規化されていること' );
+			$this->assertSame( $case['expected_slug'], $actual['slug'], $case['test_condition_name'] );
+		}
+	}
+
 	public static function setup_data() {
 
 		/**
