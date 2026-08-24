@@ -61,7 +61,7 @@ function veu_add_sitemap_options_page() {
 				'checked'            => $options['excludePostTypes'],
 				'exclude_post_types' => array( 'page', 'attachment' ),
 			);
-			vk_the_post_type_check_list( $args );
+			veu_the_post_type_check_list( $args );
 			?>
 			</td>
 		</tr>
@@ -75,7 +75,7 @@ function veu_add_sitemap_options_page() {
 				'checked'    => $options['excludeTaxonomies'],
 				'taxonomies' => $available_taxonomies,
 			);
-			vk_the_taxonomy_check_list( $args );
+			veu_the_taxonomy_check_list( $args );
 			?>
 			<?php if ( ! empty( $available_taxonomies ) ) : ?>
 			<p class="description"><?php _e( 'The term list of a checked taxonomy will not be displayed on the sitemap, regardless of the post type exclusion setting above.', 'vk-all-in-one-expansion-unit' ); ?></p>

@@ -154,7 +154,7 @@ function vkExUnit_sitemap( $attr ) {
 	/*-------------------------------------------*/
 	$sitemap_html .= '<div class="col-md-6 sitemap-col">' . PHP_EOL;
 
-	$page_for_posts = vk_get_page_for_posts();
+	$page_for_posts = veu_get_page_for_posts();
 
 	// Fetch the filterable public post types once and share it with both helpers below, so the
 	// veu_sitemap_exclude_post_types filter only fires once per sitemap render instead of twice.

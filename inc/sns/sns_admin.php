@@ -88,7 +88,7 @@ $args = array(
 	'name'    => 'vkExUnit_sns_options[snsBtn_exclude_post_types]',
 	'checked' => $options['snsBtn_exclude_post_types'],
 );
-vk_the_post_type_check_list( $args );
+veu_the_post_type_check_list( $args );
 ?>
 </dd>
 </dl>

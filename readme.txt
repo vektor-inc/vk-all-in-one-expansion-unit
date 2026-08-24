@@ -90,6 +90,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ Bug Fix ] Fixed ExUnit's internal code silently running another Vektor plugin's older bundled copy of shared template tag functions (e.g. vk_get_post_type()) whenever that plugin loaded first, causing already-fixed bugs such as PHP warnings to reappear.
+
 = 9.122.0 =
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
 [ Spec Change ][ SNS Share Button ] Unified the Facebook, X, Bluesky, Hatena Bookmark and LINE icons to inline SVG to match Threads and Copy. The markup no longer uses the ".vk_icon_w_r_sns_*" web font classes; the classes and the font itself are kept for backward compatibility.

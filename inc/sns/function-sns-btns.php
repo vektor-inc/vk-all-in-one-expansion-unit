@@ -127,7 +127,7 @@ function veu_get_sns_btns_hidden_reason( $context = 'auto' ) {
 	}
 
 	$options   = veu_get_sns_options();
-	$post_type = vk_get_post_type();
+	$post_type = veu_get_post_type();
 	$post_type = $post_type['slug'];
 
 	// シェアボタンブロック限定で「常に表示する」設定が有効な場合、投稿タイプ除外設定を無視する.
@@ -749,8 +749,8 @@ function veu_add_sns_btns( $content ) {
 	}
 
 	// 抜粋でも表示しない.
-	if ( function_exists( 'vk_is_excerpt' ) ) {
-		if ( vk_is_excerpt() ) {
+	if ( function_exists( 'veu_is_excerpt' ) ) {
+		if ( veu_is_excerpt() ) {
 			return $content;
 		}
 	}

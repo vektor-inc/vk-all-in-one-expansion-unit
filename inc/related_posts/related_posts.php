@@ -198,7 +198,7 @@ function veu_get_related_posts_html() {
 	$output = get_option( 'vkExUnit_related_options' );
 
 	if ( ! empty( $output['related_display_count'] ) ) {
-		$count = vk_sanitize_number( $output['related_display_count'] );
+		$count = veu_sanitize_number( $output['related_display_count'] );
 	} else {
 		$count = 10;
 	}

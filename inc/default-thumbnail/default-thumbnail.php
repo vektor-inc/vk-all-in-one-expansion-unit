@@ -133,7 +133,7 @@ function veu_default_thumbnail_options_validate( $input ) {
 	$output = array();
 	// フィールド未送信時の Undefined array key 警告を防ぐため isset で判定する。
 	// Guard with isset to avoid an "Undefined array key" warning when the field is not submitted.
-	$output['default_thumbnail_image'] = vk_sanitize_number( isset( $input['default_thumbnail_image'] ) ? $input['default_thumbnail_image'] : '' );
+	$output['default_thumbnail_image'] = veu_sanitize_number( isset( $input['default_thumbnail_image'] ) ? $input['default_thumbnail_image'] : '' );
 	return $output;
 }
 

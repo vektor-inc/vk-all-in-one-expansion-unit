@@ -65,7 +65,7 @@ class vExUnit_Ads {
 		以前は
 		$post_types[0][post]
 		という配列の持ち方だったが、
-		後から作った関数 vk_the_post_type_check_list() の帰り値は
+		後から作った関数 veu_the_post_type_check_list()（旧 vk_the_post_type_check_list()）の帰り値は
 		$post_types[post][true]
 		という形式に変更になったので、
 		旧形式の配列でフックされた時用
@@ -236,7 +236,7 @@ class vExUnit_Ads {
 	<td>
 		<?php _e( 'If you would like to set to Google Auto ads,Please fill in Publisher ID.', 'vk-all-in-one-expansion-unit' ); ?>
 		<p><label>
-			<input type="checkbox" name="vkExUnit_Ads[google-ads-active]" id="google-ads-active" value="true"<?php vk_is_checked( 'true', $option['google-ads-active'] ); ?>> <?php _e( 'Enable Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?></label></p>
+			<input type="checkbox" name="vkExUnit_Ads[google-ads-active]" id="google-ads-active" value="true"<?php veu_is_checked( 'true', $option['google-ads-active'] ); ?>> <?php _e( 'Enable Google Auto ads', 'vk-all-in-one-expansion-unit' ); ?></label></p>
 		<p>
 		<label><?php _e( 'Publisher ID', 'vk-all-in-one-expansion-unit' ); ?></label><br>
 		pub-<input type="text" name="vkExUnit_Ads[google-pub-id]" id="gaId" value="<?php echo esc_attr( $option['google-pub-id'] ); ?>" style="width:90%;">
@@ -247,7 +247,7 @@ class vExUnit_Ads {
 	<p>* <?php printf( __( 'Publisher ID is you can investigate from the %s > Account information page.', 'vk-all-in-one-expansion-unit' ), $link ); ?>
 	</p>
 	<p><label>
-		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php vk_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vk-all-in-one-expansion-unit' ); ?></label></p>
+		<input type="checkbox" name="vkExUnit_Ads[google-ads-overlays-bottom]" id="google-ads-overlays-bottom" value="true"<?php veu_is_checked( 'true', $option['google-ads-overlays-bottom'] ); ?>> <?php _e( 'Designate anchor ads at the bottom.', 'vk-all-in-one-expansion-unit' ); ?></label></p>
 
 	<p>* <?php _e( 'The layout may collapse by inserting Google Auto ads, but the correspondence varies depending on the kind, specification, theme etc. of advertisement, so please write CSS according to your needs about the display collapse and correct it.', 'vk-all-in-one-expansion-unit' ); ?></p>
 	</td>
@@ -293,7 +293,7 @@ class vExUnit_Ads {
 			'name'    => 'vkExUnit_Ads[post_types]',
 			'checked' => $option['post_types'],
 		);
-		vk_the_post_type_check_list( $args );
+		veu_the_post_type_check_list( $args );
 		?>
 		</td>
 	</tr>
