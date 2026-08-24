@@ -250,6 +250,14 @@ function veu_template_tags_status_relative_path( $file_path ) {
  * （Name / Version）を使って特定する。apply_filters() でサイト側から書き換え可能な
  * veu_get_name() のような値は使わない。
  *
+ * Each candidate plugin directory is matched against $file_path both as configured
+ * (WP_PLUGIN_DIR-based) and via its realpath()-resolved target -- see the inline comment below
+ * for why the realpath() comparison is necessary and cannot simply replace the original one.
+ *
+ * 各候補プラグインディレクトリは、$file_path に対して設定上のパス（WP_PLUGIN_DIR 由来）と
+ * realpath() で解決した実体のパスの両方で照合する。なぜ realpath() での照合が必要で、かつ
+ * 元の照合を置き換えるのではなく併用するのかは、下のインラインコメントを参照。
+ *
  * @param string $file_path Absolute path of the file that defines the function in question.
  * @return array{name:string,version:string,basename:string}|null Plugin info, or null when no
  *                                                                  installed plugin's directory
@@ -278,11 +286,52 @@ function veu_template_tags_status_find_plugin( $file_path ) {
 
 		$plugin_dir_abs = $plugins_dir . $plugin_dir_relative . '/';
 
-		// Prefer the most specific (longest) matching plugin directory, in case one plugin's
-		// folder name happens to be a prefix of another's.
-		if ( 0 === strpos( $normalized_file, $plugin_dir_abs ) && strlen( $plugin_dir_abs ) > $matched_dir_length ) {
-			$matched_dir_length = strlen( $plugin_dir_abs );
-			$matched_basename   = $plugin_basename;
+		// Candidate directories to compare $normalized_file against: the plugin directory as
+		// configured, and (when it resolves) its realpath()-resolved target.
+		//
+		// ReflectionFunction::getFileName() -- the caller of this function -- returns the
+		// defining file's actual (symlink-resolved) location. On setups where
+		// wp-content/plugins/<x> is itself a symlink (common in some local dev environments),
+		// that resolved path never falls under the WP_PLUGIN_DIR-based $plugin_dir_abs, so
+		// comparing against $plugin_dir_abs alone would always miss and this plugin would
+		// silently become "could not identify" -- defeating this feature's whole point (knowing
+		// which copy is running) on exactly the kind of setup where that matters most. The
+		// original WP_PLUGIN_DIR-based comparison is kept alongside the realpath() one (not
+		// replaced by it) because $file_path is not guaranteed to always be realpath-resolved
+		// either -- that depends on how the defining file was originally required, which this
+		// function has no control over -- so either form of $file_path must be able to match.
+		// realpath() returns false for a path that does not exist (e.g. a plugin directory
+		// entry with no real symlink target), so that candidate is simply skipped in that case.
+		//
+		// 照合対象の候補ディレクトリ: 設定上のプラグインディレクトリと、（解決できれば）その
+		// realpath() 解決後の実体のパス。
+		//
+		// この関数の呼び出し元である ReflectionFunction::getFileName() は、定義元ファイルの
+		// 実体（シンボリックリンク解決後）のパスを返す。wp-content/plugins/<x> 自体が
+		// シンボリックリンクになっている環境（ローカル開発環境などでよくある）では、解決後の
+		// パスが WP_PLUGIN_DIR 由来の $plugin_dir_abs 配下にならないため、$plugin_dir_abs
+		// だけで照合すると常に一致せず、そのプラグインは静かに「特定できませんでした」に
+		// なってしまう。これは「どのコピーが動いているか確認する」というこの機能の目的そのものを、
+		// まさにそれが重要になる環境で果たせなくしてしまう。元の WP_PLUGIN_DIR 由来の照合を
+		// 置き換えるのではなく併用しているのは、$file_path が常に realpath 解決済みとは
+		// 限らないため（定義元ファイルが元々どう require されたかに依存し、この関数からは
+		// 制御できない）で、$file_path がどちらの形であっても一致できるようにするため。
+		// realpath() は存在しないパス（実体を持たないプラグインディレクトリのエントリ等）に
+		// 対して false を返すため、その場合はこの候補を単に無視する.
+		$candidate_dirs = array( $plugin_dir_abs );
+
+		$plugin_dir_real = realpath( $plugin_dir_abs );
+		if ( false !== $plugin_dir_real ) {
+			$candidate_dirs[] = trailingslashit( wp_normalize_path( $plugin_dir_real ) );
+		}
+
+		foreach ( $candidate_dirs as $candidate_dir ) {
+			// Prefer the most specific (longest) matching plugin directory, in case one plugin's
+			// folder name happens to be a prefix of another's.
+			if ( 0 === strpos( $normalized_file, $candidate_dir ) && strlen( $candidate_dir ) > $matched_dir_length ) {
+				$matched_dir_length = strlen( $candidate_dir );
+				$matched_basename   = $plugin_basename;
+			}
 		}
 	}
 

@@ -502,62 +502,112 @@ class TemplateTagsStatusTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * veu_get_shared_template_tags_files() must return exactly the files that
+	 * Shared regex-based extraction helper for template-tags-config.php-style source, used by
+	 * both test_veu_get_shared_template_tags_files_matches_template_tags_config() (against the
+	 * real file) and
+	 * test_veu_get_shared_template_tags_files_matches_template_tags_config_ignores_non_package_requires()
+	 * (against synthetic source), so both tests exercise the exact same regexes and can never
+	 * drift apart from each other.
+	 *
+	 * template-tags-config.php スタイルのソースから読み込み対象を抽出する、正規表現ベースの
+	 * 共有ヘルパー。実ファイルに対して検証する
+	 * test_veu_get_shared_template_tags_files_matches_template_tags_config() と、合成ソースに
+	 * 対して検証する
+	 * test_veu_get_shared_template_tags_files_matches_template_tags_config_ignores_non_package_requires()
+	 * の両方がこれを使うことで、2つのテストが使う正規表現が食い違うことのないようにしている。
+	 *
+	 * Both regexes are deliberately scoped to lines that load a file under a `package/`
+	 * directory. inc/template-tags/template-tags-config.php is not guaranteed to only ever
+	 * require_once the three shared package files it does today -- ExUnit-specific (non-shared)
+	 * files could be added there too (see Issue #1478, in progress on a sibling branch, which is
+	 * expected to add exactly such a line). This guard exists to catch drift in the shared
+	 * *package* file list specifically; a load of some other, non-shared file appearing in the
+	 * same config file is not a "shared file list went out of sync" bug and must not fail this
+	 * test. Do not remove the `package/` restriction to make the match "more thorough" -- doing
+	 * so would make this test count files that veu_get_shared_template_tags_files() was never
+	 * meant to list, turning legitimate, unrelated config.php edits into false failures here.
+	 *
+	 * どちらの正規表現も、`package/` ディレクトリ配下のファイルを読み込んでいる行だけに
+	 * 意図的に絞り込んでいる。inc/template-tags/template-tags-config.php が今後も現状の3つの
+	 * 共有パッケージファイルしか require_once しない保証はなく、ExUnit 固有の（共有ではない）
+	 * ファイルの読み込みが追加されることもありうる（Issue #1478 で、兄弟ブランチにて進行中。
+	 * まさにそのような行の追加が見込まれている）。このガードが検知したいのは共有*パッケージ*
+	 * ファイルの一覧のずれであって、同じ config ファイル内に共有ではない別のファイルの読み込みが
+	 * 増えたこと自体は「共有ファイル一覧がずれた」バグではなく、このテストを失敗させてはいけない。
+	 * 「より厳密にする」つもりで `package/` の絞り込みを外さないこと。外すと、
+	 * veu_get_shared_template_tags_files() が本来対象にしていないファイルまで数えてしまい、
+	 * 無関係な config.php の変更が誤ってこのテストを落とすようになる。
+	 *
+	 * @param string $config_source template-tags-config.php's source, or a synthetic equivalent.
+	 * @return array{
+	 *     broad_matched_count: int|false,
+	 *     narrow_matched_count: int|false,
+	 *     narrow_paths: string[],
+	 * }
+	 */
+	private function extract_template_tags_config_style_requires( $config_source ) {
+		// The broad regex: require/include, with or without _once, either quote style, loading
+		// any ".php" file under a "package/" directory. Used only to COUNT how many package files
+		// the source loads, regardless of exactly how each line is written.
+		// 緩い方の正規表現: require / include（_once の有無を問わない）で、シングル・ダブル
+		// どちらの引用符でも "package/" 配下の ".php" ファイルを読み込んでいる行に広く一致させ、
+		// 件数だけを数える.
+		$broad_matched_count = preg_match_all(
+			'/\b(?:require|include)(?:_once)?\b[^;]*?([\'"])([^\'"]*package\/[^\'"]+\.php)\1[^;]*;/',
+			$config_source,
+			$broad_matches
+		);
+
+		// The narrow regex: anchored to the `__DIR__ . 'path'` shape the three current lines
+		// actually use (also tolerant of require/include, _once, and quote style), restricted the
+		// same way to "package/" paths. Used to reconstruct the exact ordered file list.
+		// 厳密な方の正規表現: 現状の3行が実際に使っている `__DIR__ . 'パス'` の形に絞り込み
+		// （こちらも require/include・_once の有無・引用符の種類は許容する）、同様に "package/"
+		// 配下のパスに限定する。絶対パスの一覧を出現順に再構築するために使う.
+		$narrow_matched_count = preg_match_all(
+			'/\b(?:require|include)(?:_once)?\s*\(?\s*__DIR__\s*\.\s*([\'"])([^\'"]*package\/[^\'"]+)\1\s*\)?\s*;/',
+			$config_source,
+			$narrow_matches
+		);
+
+		return array(
+			'broad_matched_count'  => $broad_matched_count,
+			'narrow_matched_count' => $narrow_matched_count,
+			'narrow_paths'         => isset( $narrow_matches[2] ) ? $narrow_matches[2] : array(),
+		);
+	}
+
+	/**
+	 * veu_get_shared_template_tags_files() must return exactly the package files that
 	 * inc/template-tags/template-tags-config.php loads, in the same order.
 	 *
 	 * veu_get_shared_template_tags_files() は、inc/template-tags/template-tags-config.php が
-	 * 読み込んでいる対象と、順序も含めて完全に一致しなければならないことを検証する。
+	 * 読み込んでいる package ファイルと、順序も含めて完全に一致しなければならないことを検証する。
 	 *
 	 * inc/template-tags/template-tags-config.php is the source of truth here -- it is the file
 	 * that actually loads ExUnit's shared package copies. veu_get_shared_template_tags_files() is
 	 * a separately hand-written list (see its docblock in collector.php) that must be kept in
-	 * sync with it by hand. This test reads template-tags-config.php's own source with two
-	 * regexes (not a hardcoded expected-files list):
-	 *
-	 * - A broad one that matches any `require`/`include`, with or without `_once`, using either
-	 *   quote style, that loads a ".php" file -- used only to COUNT how many files the config
-	 *   actually loads, regardless of exactly how each line is written.
-	 * - A narrower one, anchored to the `__DIR__ . 'path'` shape all three current lines actually
-	 *   use (also tolerant of `require`/`include`, `_once` or not, and either quote style), used
-	 *   to reconstruct the exact list of absolute paths and compare it against
-	 *   veu_get_shared_template_tags_files()'s output for content and order.
-	 *
-	 * Both must agree with veu_get_shared_template_tags_files(): the narrow regex's reconstructed
-	 * list must match it exactly (content and order), AND the broad regex's count must match its
-	 * count. The second, seemingly redundant check exists specifically so that a shared file added
-	 * in a format the narrow regex cannot fully reconstruct a path for (e.g. a different base
-	 * constant than __DIR__) still fails this test on a plain count mismatch, rather than passing
-	 * silently because the narrow regex quietly ignored the line it could not parse. This closes
-	 * the gap an earlier, single-quote-only version of this regex had: that version matched only
-	 * the exact style the three current lines happen to use, so a fourth line added in any other
-	 * style (double quotes, `require` instead of `require_once`, etc.) would not be picked up by
-	 * it at all, and the test would keep passing at 3-vs-3 even though a real file had silently
-	 * gone unlisted.
+	 * sync with it by hand. This test reads template-tags-config.php's own source through
+	 * extract_template_tags_config_style_requires() (not a hardcoded expected-files list; see
+	 * that helper's docblock for why matching is scoped to `package/` paths and for the broad vs.
+	 * narrow regex split) and compares the result against
+	 * veu_get_shared_template_tags_files()'s output, so that if a shared package file is ever
+	 * added to or removed from template-tags-config.php without updating
+	 * veu_get_shared_template_tags_files() to match, this test fails immediately -- catching the
+	 * exact "silently drops from the report" problem raised in the review that motivated this
+	 * test (Issue #1479), rather than only noticing it later via a missing/wrong report.
 	 *
 	 * ここでは inc/template-tags/template-tags-config.php を正とする。実際に ExUnit の共有
 	 * パッケージのコピーを読み込んでいるのはこのファイルであり、veu_get_shared_template_tags_files()
 	 * はそれとは別に手書きされた一覧（collector.php 内の docblock も参照）で、手動で追随させ
 	 * 続ける必要がある。このテストは template-tags-config.php 自身のソースを
-	 * （ハードコードした期待値一覧ではなく）2つの正規表現で読み取る。
-	 *
-	 * - 緩い方: `require` / `include`（`_once` の有無を問わない）で ".php" ファイルを、
-	 *   シングル・ダブルどちらの引用符でも読み込んでいる行に広く一致する。各行が具体的に
-	 *   どう書かれているかに関わらず、config が実際に読み込んでいるファイルの「件数」だけを
-	 *   数えるために使う。
-	 * - 厳密な方: 現状の3行が実際に使っている `__DIR__ . 'パス'` という形に絞り込む（こちらも
-	 *   `require` / `include`、`_once` の有無、引用符の種類は許容する）。絶対パスの一覧を正確に
-	 *   再構築し、veu_get_shared_template_tags_files() の出力と対象・順序を突き合わせるために使う。
-	 *
-	 * どちらも veu_get_shared_template_tags_files() と一致していなければならない。厳密な方で
-	 * 再構築した一覧は対象・順序とも完全一致、かつ緩い方で数えた件数も一致すること。一見冗長な
-	 * 後者の件数チェックをあえて入れているのは、厳密な方の正規表現ではパスを再構築しきれない書式
-	 * （__DIR__ ではない別の定数を使う等）で共有ファイルが追加された場合でも、それを静かに
-	 * 無視して通過するのではなく、単純な件数不一致として確実にこのテストを落とすため。これは
-	 * 以前バージョン（シングルクォートの `require_once __DIR__ . '...'` 形にしか一致しなかった
-	 * 正規表現）が抱えていた抜け穴を塞ぐものである。以前の版では現状の3行がたまたま使っている
-	 * 書式にしか一致せず、4本目が別の書式（ダブルクォート、`require_once` ではなく `require` 等）
-	 * で追加されても抽出されず、実際にはファイルが一覧から漏れているのに 3件 対 3件 のまま
-	 * テストが通り続けてしまっていた。
+	 * extract_template_tags_config_style_requires()（ハードコードした期待値一覧ではない。
+	 * `package/` パスに絞り込んでいる理由、緩い方／厳密な方の正規表現を分けている理由は
+	 * 同ヘルパーの docblock を参照）で読み取り、veu_get_shared_template_tags_files() の出力と
+	 * 突き合わせる。これにより、共有パッケージファイルが template-tags-config.php に
+	 * 追加・削除されたのに veu_get_shared_template_tags_files() 側の更新が漏れると、このテストが
+	 * 即座に失敗する。「レポートから静かに抜ける」問題（この issue の指摘の趣旨）を、レポートの
+	 * 欠落として事後的に気づくのではなく、その場で検知できるようにするため。
 	 *
 	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1479#issuecomment-5394857113
 	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1479#issuecomment-5395101355
@@ -568,28 +618,14 @@ class TemplateTagsStatusTest extends WP_UnitTestCase {
 		$config_source = file_get_contents( $config_path );
 		$this->assertNotFalse( $config_source, '前提: template-tags-config.php を読み込めること' );
 
-		// 緩い方の正規表現: require / include（_once の有無を問わない）で、シングル・ダブル
-		// どちらの引用符でも ".php" ファイルを読み込んでいる行に広く一致させ、件数だけを数える.
-		$broad_matched_count = preg_match_all(
-			'/\b(?:require|include)(?:_once)?\b[^;]*?([\'"])([^\'"]+\.php)\1[^;]*;/',
-			$config_source,
-			$broad_matches
-		);
-		$this->assertNotFalse( $broad_matched_count, '前提: require/include の行を抽出できること' );
-		$this->assertGreaterThan( 0, $broad_matched_count, '前提: template-tags-config.php から require/include の行を1件以上抽出できること（0件ならこのテスト自体が壊れている）' );
+		$extracted = $this->extract_template_tags_config_style_requires( $config_source );
 
-		// 厳密な方の正規表現: 現状の3行が実際に使っている `__DIR__ . 'パス'` の形に絞り込み、
-		// 出現順に絶対パスの一覧を再構築する。期待値をハードコードするのではなく、config
-		// ファイル自体を正として読み取る.
-		$narrow_matched_count = preg_match_all(
-			'/\b(?:require|include)(?:_once)?\s*\(?\s*__DIR__\s*\.\s*([\'"])([^\'"]+)\1\s*\)?\s*;/',
-			$config_source,
-			$narrow_matches
-		);
-		$this->assertNotFalse( $narrow_matched_count, '前提: __DIR__ 形式の require/include の行を抽出できること' );
+		$this->assertNotFalse( $extracted['broad_matched_count'], '前提: package/ 配下への require/include の行を抽出できること' );
+		$this->assertGreaterThan( 0, $extracted['broad_matched_count'], '前提: template-tags-config.php から package/ 配下への require/include の行を1件以上抽出できること（0件ならこのテスト自体が壊れている）' );
+		$this->assertNotFalse( $extracted['narrow_matched_count'], '前提: __DIR__ 形式で package/ 配下へ require/include している行を抽出できること' );
 
 		$expected_files = array();
-		foreach ( $narrow_matches[2] as $relative_require ) {
+		foreach ( $extracted['narrow_paths'] as $relative_require ) {
 			$expected_files[] = VEU_DIRECTORY_PATH . '/inc/template-tags' . $relative_require;
 		}
 
@@ -598,16 +634,62 @@ class TemplateTagsStatusTest extends WP_UnitTestCase {
 		$this->assertSame(
 			$expected_files,
 			$actual_files,
-			'veu_get_shared_template_tags_files() は template-tags-config.php の __DIR__ 形式の require/include と対象・順序ともに完全一致するはず（config 側が正）'
+			'veu_get_shared_template_tags_files() は template-tags-config.php の __DIR__ 形式の package/ 配下への require/include と対象・順序ともに完全一致するはず（config 側が正）'
 		);
 
-		// 緩い方の正規表現で数えた「config が実際に読み込んでいるファイルの総数」と、一覧の件数が
-		// 一致することも確認する。厳密な方の正規表現がパスを再構築しきれない書式で共有ファイルが
-		// 追加された場合でも、この件数チェックだけは検知できるようにするため（docblock 参照）.
+		// 緩い方の正規表現で数えた「config が実際に読み込んでいる package/ 配下ファイルの総数」と、
+		// 一覧の件数が一致することも確認する。厳密な方の正規表現がパスを再構築しきれない書式で
+		// 共有ファイルが追加された場合でも、この件数チェックだけは検知できるようにするため
+		// （extract_template_tags_config_style_requires() の docblock 参照）.
 		$this->assertSame(
 			count( $actual_files ),
-			$broad_matched_count,
-			'veu_get_shared_template_tags_files() の件数は、config 側で実際に require/include されているファイルの総数と一致するはず（書式に関わらず件数だけは必ず検知する保険）'
+			$extracted['broad_matched_count'],
+			'veu_get_shared_template_tags_files() の件数は、config 側で実際に require/include されている package/ 配下ファイルの総数と一致するはず（書式に関わらず件数だけは必ず検知する保険）'
+		);
+	}
+
+	/**
+	 * A non-`package/` require/include line added to template-tags-config.php (e.g. an
+	 * ExUnit-specific, non-shared file, as Issue #1478 is expected to add) must NOT be counted by
+	 * extract_template_tags_config_style_requires(), and therefore must not cause
+	 * test_veu_get_shared_template_tags_files_matches_template_tags_config() to fail.
+	 *
+	 * template-tags-config.php に `package/` 配下ではない require/include の行が追加されても
+	 * （例: Issue #1478 で追加見込みの ExUnit 固有の非共有ファイル）、
+	 * extract_template_tags_config_style_requires() がそれを数えてはいけないこと、したがって
+	 * test_veu_get_shared_template_tags_files_matches_template_tags_config() を失敗させては
+	 * いけないことを検証する。
+	 *
+	 * Uses synthetic source (not the real template-tags-config.php file) so this test does not
+	 * depend on Issue #1478's branch having landed, and keeps passing regardless of when it does.
+	 *
+	 * 実ファイルではなく合成したソースを使うため、このテストは Issue #1478 のブランチが
+	 * 取り込まれているかどうかに依存せず、いつ取り込まれても通り続ける。
+	 *
+	 * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1479
+	 */
+	public function test_veu_get_shared_template_tags_files_matches_template_tags_config_ignores_non_package_requires() {
+		$synthetic_config_source = <<<'PHP'
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+require_once __DIR__ . '/package/template-tags.php';
+require_once __DIR__ . '/package/template-tags-veu.php';
+require_once __DIR__ . '/package/template-tags-veu-old.php';
+// Issue #1478 相当: 共有パッケージではない ExUnit 固有のファイルの読み込み.
+require_once __DIR__ . '/exunit-only-helper.php';
+PHP;
+
+		$extracted = $this->extract_template_tags_config_style_requires( $synthetic_config_source );
+
+		$this->assertSame( 3, $extracted['broad_matched_count'], 'package/ 配下ではない読み込み行（Issue #1478 相当）は、緩い方の件数に含めてはいけない' );
+		$this->assertSame( 3, $extracted['narrow_matched_count'], 'package/ 配下ではない読み込み行は、厳密な方の件数にも含めてはいけない' );
+		$this->assertSame(
+			array( '/package/template-tags.php', '/package/template-tags-veu.php', '/package/template-tags-veu-old.php' ),
+			$extracted['narrow_paths'],
+			'抽出されるパスは package/ 配下の3件のみで、非共有ファイルの行は含まれないはず'
 		);
 	}
 
