@@ -38,7 +38,7 @@ class VEU_Auto_Eyecatch {
 
 	public static function is_my_turn() {
 
-		if ( vkExUnit_is_excerpt() ) {
+		if ( veu_is_excerpt() ) {
 			return false; }
 
 		global $is_pagewidget;

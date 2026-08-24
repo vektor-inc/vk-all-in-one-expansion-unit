@@ -45,7 +45,7 @@ class vExUnit_Ads {
 
 	public function set_content( $content ) {
 
-		if ( vkExUnit_is_excerpt() ) {
+		if ( veu_is_excerpt() ) {
 			return $content; }
 
 		global $is_pagewidget;

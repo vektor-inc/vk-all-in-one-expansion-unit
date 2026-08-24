@@ -115,7 +115,7 @@ function vkExUnit_chidPageIndex_loopend( $query ) {
 function vkExUnit_childPageIndex_contentHook( $content ) {
 
 	// 抜粋だったらそのまま返す
-	if ( vkExUnit_is_excerpt() ) {
+	if ( veu_is_excerpt() ) {
 		return $content; }
 
 	// ウィジェットだったらそのまま返す

@@ -693,7 +693,7 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 			if ( self::is_contentsarea_posts_widget() ) {
 				return $content; }
 			// 抜粋の場合
-			if ( vkExUnit_is_excerpt() ) {
+			if ( veu_is_excerpt() ) {
 				return $content;
 			}
 
