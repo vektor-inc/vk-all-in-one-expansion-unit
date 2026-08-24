@@ -342,12 +342,15 @@ class SitemapPageTest extends WP_UnitTestCase {
 
 	/**
 	 * veu_sitemap_options_validate() のテスト。
-	 * 登録済みのタクソノミー名は保存され、未登録のタクソノミー名は保存されない事
-	 * （安藤さんレビュー LOW 指摘の入力検証）を検証する。
+	 * 登録済みのタクソノミー名・投稿タイプ名は保存され、未登録の名前は保存されない事
+	 * （安藤さんレビュー LOW 指摘の入力検証。excludePostTypes 側のガードは Issue #1475
+	 * 対応時に excludeTaxonomies 側と対称になるよう追加した）を検証する。
 	 *
 	 * Test for veu_sitemap_options_validate().
-	 * Verifies that a registered taxonomy name is saved, and that an unregistered
-	 * taxonomy name is dropped ( input validation gap pointed out in the code review ).
+	 * Verifies that a registered taxonomy or post type name is saved, and that an
+	 * unregistered name is dropped ( input validation gap pointed out in the code review;
+	 * the excludePostTypes guard was added during the Issue #1475 work to make it symmetric
+	 * with the existing excludeTaxonomies guard ).
 	 */
 	function test_veu_sitemap_options_validate() {
 
@@ -381,6 +384,25 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'test_condition_name'         => '境界値: excludeTaxonomies が送信されない場合は何も保存されない',
 				'input'                       => array(
 					'excludePostTypes' => array( 'post' => 'true' ),
+				),
+				'expected_exclude_post_types' => array( 'post' => 'true' ),
+				'expected_exclude_taxonomies' => array(),
+			),
+			array(
+				'test_condition_name'         => '登録済みの投稿タイプ名（page）は excludePostTypes にそのまま保存される',
+				'input'                       => array(
+					'excludePostTypes' => array( 'page' => 'true' ),
+				),
+				'expected_exclude_post_types' => array( 'page' => 'true' ),
+				'expected_exclude_taxonomies' => array(),
+			),
+			array(
+				'test_condition_name'         => '未登録の投稿タイプ名は excludePostTypes から除かれる（登録済みの分は保存される）',
+				'input'                       => array(
+					'excludePostTypes' => array(
+						'post'                     => 'true',
+						'veu_test_not_a_post_type' => 'true',
+					),
 				),
 				'expected_exclude_post_types' => array( 'post' => 'true' ),
 				'expected_exclude_taxonomies' => array(),
@@ -499,6 +521,23 @@ class SitemapPageTest extends WP_UnitTestCase {
 				),
 				'expected_not_contains' => array(),
 			),
+			array(
+				// 境界値: スラッグに HTML 特殊文字が含まれる場合、name 属性・スラッグ表示の両方がエスケープされる事を検証する。
+				// esc_attr() / esc_html() を外すと落ちるケースにする事で、エスケープ処理の退行を検出できるようにしている。
+				// Boundary case: a slug containing HTML special characters must be escaped in both the name
+				// attribute and the slug display. Removing esc_attr()/esc_html() makes this case fail.
+				'test_condition_name'   => '境界値: スラッグに HTML 特殊文字が含まれる場合、name 属性とスラッグ表示の両方がエスケープされる',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array(),
+					'taxonomies' => array( 'veu"tax<x' => $taxonomy_object ),
+				),
+				'expected_contains'     => array(
+					'name="vkExUnit_sitemap_options[excludeTaxonomies][veu&quot;tax&lt;x]"',
+					'<code>veu&quot;tax&lt;x</code>',
+				),
+				'expected_not_contains' => array( '[veu"tax<x]' ),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -518,13 +557,19 @@ class SitemapPageTest extends WP_UnitTestCase {
 	/**
 	 * vk_the_post_type_check_list() のテスト。
 	 * Issue #1475 対応として、見出しに「ラベル (スラッグ)」の形式でスラッグが併記される事、
-	 * name 属性のスラッグが esc_attr() される事、同じラベルで異なるスラッグの投稿タイプが
+	 * name 属性にスラッグが出力される事、同じラベルで異なるスラッグの投稿タイプが
 	 * 並んでも出力から判別できる事を検証する。
+	 * register_post_type() はスラッグを英数字・アンダースコア・ハイフンに制限するため、
+	 * HTML 特殊文字を含むスラッグのエスケープ挙動そのものは注入できない。その検証は
+	 * taxonomies を任意キーで受け取れる vk_the_taxonomy_check_list() 側で行っている。
 	 *
 	 * Test for vk_the_post_type_check_list().
 	 * Covers Issue #1475: the checkbox label is followed by its slug in "Label (slug)" form,
-	 * the slug in the name attribute is escaped via esc_attr(), and two post types that share
-	 * the same label but have different slugs remain distinguishable in the output.
+	 * the slug appears in the name attribute, and two post types that share the same label
+	 * but have different slugs remain distinguishable in the output.
+	 * register_post_type() restricts slugs to alphanumeric/underscore/hyphen, so a slug
+	 * containing HTML special characters cannot be injected here; that escaping behavior is
+	 * covered by vk_the_taxonomy_check_list(), which accepts arbitrary keys.
 	 */
 	function test_vk_the_post_type_check_list() {
 
@@ -562,7 +607,7 @@ class SitemapPageTest extends WP_UnitTestCase {
 
 		$test_cases = array(
 			array(
-				'test_condition_name'   => 'チェック済みの場合 => name 属性が esc_attr() されたスラッグで出力され、checked も出力される',
+				'test_condition_name'   => 'チェック済みの場合 => name 属性がスラッグ付きで出力され、checked も出力される',
 				'args'                  => array(
 					'name'    => 'vkExUnit_sitemap_options[excludePostTypes]',
 					'checked' => array( 'veu_test_cpt_shown' => true ),

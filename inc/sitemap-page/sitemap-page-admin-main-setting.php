@@ -34,6 +34,11 @@ function veu_sitemap_options_validate( $input ) {
 					if ( 'excludeTaxonomies' === $value && ! taxonomy_exists( $post_typ ) ) {
 						continue;
 					}
+					// Do not save a post type key that is not registered, to keep out invalid keys and option bloat.
+					// 登録されていない投稿タイプ名は保存しない（option の肥大化と不正キーの混入を防ぐ）
+					if ( 'excludePostTypes' === $value && ! post_type_exists( $post_typ ) ) {
+						continue;
+					}
 					$output[ $value ][ $post_typ ] = esc_html( $post_type_boolean );
 				}
 			} else {
