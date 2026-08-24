@@ -30,6 +30,26 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 共有テンプレートタグパッケージファイルの一覧を、inc/template-tags/template-tags-config.php
  * が require_once している順序と同じ順序で返す。
  *
+ * inc/template-tags/template-tags-config.php is the source of truth: it is the file that
+ * actually loads ExUnit's shared package copies. This list is a separate, hand-written copy of
+ * that -- there is no code-level link between them -- so if a shared file is ever added to or
+ * removed from template-tags-config.php, THIS function must be updated to match by hand. That
+ * match (same files, same order) is enforced by
+ * tests/test-template-tags-status.php::test_veu_get_shared_template_tags_files_matches_template_tags_config(),
+ * which reads template-tags-config.php's own require_once lines and fails the suite if this list
+ * ever drifts from them, so an update here left out is caught immediately rather than silently
+ * dropping a file from the Site Health / WP-CLI report.
+ *
+ * 正（source of truth）は inc/template-tags/template-tags-config.php 側であり、実際に ExUnit の
+ * 共有パッケージのコピーを読み込んでいるのはそちらである。この一覧はそれとは別に手書きされた
+ * コピーで、コード上の連動は無いため、template-tags-config.php に共有ファイルが追加・削除された
+ * 場合はこの関数側も手動で追随させる必要がある。両者が一致していること（対象・順序とも）は
+ * tests/test-template-tags-status.php の
+ * test_veu_get_shared_template_tags_files_matches_template_tags_config() が保証している。同テストは
+ * template-tags-config.php 自身の require_once 行を読み取り、この一覧とずれた瞬間に失敗するため、
+ * ここでの更新漏れは、サイトヘルス／WP-CLI のレポートから静かにファイルが抜け落ちるのではなく、
+ * その場でテストの失敗として検知できる。
+ *
  * @return string[] Absolute file paths.
  */
 function veu_get_shared_template_tags_files() {
@@ -482,19 +502,21 @@ function veu_get_shared_template_tags_status_rows( $status = null ) {
 
 	foreach ( $status as $file_status ) {
 		if ( empty( $file_status['sources'] ) ) {
-			// Keep this fallback text in sync with the "Not loaded" fallback in
-			// veu_format_shared_template_tags_status_value() (site-health.php). They are kept as
-			// two separate literals on purpose -- this one is a fixed English string so
+			// This handles the same "not loaded" case as veu_format_shared_template_tags_status_value()
+			// (site-health.php); update that one too when this one changes. They are two
+			// separate literals on purpose -- this one is a fixed English string so
 			// --format=json/csv output stays stable regardless of site locale, while the Site
 			// Health one goes through __() so the admin screen can be translated. Sharing one
 			// literal would either break that translation or leak translated text into scripted
-			// CLI output, so update both by hand instead.
-			// このフォールバック文言は veu_format_shared_template_tags_status_value()
-			// （site-health.php）の "Not loaded" と表示を揃えること。あえて別々のリテラルに
-			// している。こちらはサイトのロケールに関係なく --format=json/csv の出力を安定させる
-			// ための固定の英語文字列で、サイトヘルス側は管理画面を翻訳できるよう __() を通す。
-			// 1つに共通化すると翻訳が効かなくなるか、翻訳済み文言が CLI 出力に混ざるかのどちらかに
-			// なるため、直すときは両方を手で直すこと.
+			// CLI output. The text happens to read identically ("Not loaded") today, but that is
+			// not the point being guarded here -- only the case is, not the wording.
+			// これは veu_format_shared_template_tags_status_value()（site-health.php）と同じ
+			// 「読み込まれていない」ケースを扱っている。片方を変えたらもう片方も直すこと。あえて
+			// 別々のリテラルにしている。こちらはサイトのロケールに関係なく --format=json/csv の
+			// 出力を安定させるための固定の英語文字列で、サイトヘルス側は管理画面を翻訳できるよう
+			// __() を通す。1つに共通化すると翻訳が効かなくなるか、翻訳済み文言が CLI 出力に
+			// 混ざるかのどちらかになる。現状は文言もたまたま同じ（"Not loaded"）だが、ここで
+			// 揃えたいのはケースであって文言そのものではない.
 			$rows[] = array(
 				'file'    => $file_status['file'],
 				'product' => 'Not loaded',
@@ -518,14 +540,28 @@ function veu_get_shared_template_tags_status_rows( $status = null ) {
 					break;
 
 				case 'unidentified_file':
-					// Keep this fallback text in sync with the "Could not identify the plugin
-					// (defined in ...)" fallback in veu_format_template_tags_source_label()
-					// (site-health.php). See the note in the "Not loaded" branch above for why
-					// they are not shared code -- update both.
-					// このフォールバック文言は veu_format_template_tags_source_label()
-					// （site-health.php）の "Could not identify the plugin (defined in ...)" と
-					// 表示を揃えること。なぜ共通化しないかは上の "Not loaded" 分岐のコメントを
-					// 参照。直すときは両方を直すこと.
+					// This handles the same "defining file known, plugin not identified" case as
+					// the 'unidentified_file' branch of veu_format_template_tags_source_label()
+					// (site-health.php) -- update that one too when this one changes. See the
+					// note in the "Not loaded" branch above for why they are not shared code.
+					// UNLIKE that "Not loaded" pair, the text here is INTENTIONALLY NOT the same:
+					// this row keeps 'product' as the fixed "Could not identify the plugin" and
+					// puts the path in its own 'path' column (see this function's docblock),
+					// while the Site Health string embeds the path inline as "...(defined in
+					// %s)". Do not "fix" this by folding the path back into 'product' to make the
+					// wording match -- that would undo the column split requested in the Issue
+					// #1479 UX review specifically so scripts don't have to parse it back out.
+					// これは site-health.php の veu_format_template_tags_source_label() の
+					// 'unidentified_file' 分岐と同じ「定義元ファイルは分かるがプラグインは特定
+					// できない」ケースを扱っている。片方を変えたらもう片方も直すこと。共通化しない
+					// 理由は上の "Not loaded" 分岐のコメントを参照。ただしその "Not loaded" の
+					// ペアとは違い、ここは文言をあえて揃えていない。この行は 'product' を固定文言
+					// "Could not identify the plugin" のままにし、パスは独立した 'path' 列に
+					// 入れる（この関数の docblock 参照）。一方サイトヘルス側は "...(defined in
+					// %s)" のようにパスを文中に埋め込む。文言を合わせようとして 'product' へ
+					// パスを埋め戻してはいけない。それは Issue #1479 の UX レビューで
+					// スクリプト側が文字列を分解し直さずに済むよう指示されて分離した列構成を
+					// 巻き戻す変更になる.
 					$rows[] = array(
 						'file'    => $file_status['file'],
 						'product' => 'Could not identify the plugin',
@@ -536,14 +572,19 @@ function veu_get_shared_template_tags_status_rows( $status = null ) {
 					break;
 
 				default:
-					// Keep this fallback text in sync with the "Could not identify the plugin"
-					// fallback in veu_format_template_tags_source_label() (site-health.php). See
-					// the note in the "Not loaded" branch above for why they are not shared code
-					// -- update both.
-					// このフォールバック文言は veu_format_template_tags_source_label()
-					// （site-health.php）の "Could not identify the plugin" と表示を揃えること。
-					// なぜ共通化しないかは上の "Not loaded" 分岐のコメントを参照。直すときは
-					// 両方を直すこと.
+					// This handles the same "nothing identifiable at all" case as the
+					// 'unidentified' branch of veu_format_template_tags_source_label()
+					// (site-health.php) -- update that one too when this one changes. See the
+					// note in the "Not loaded" branch above for why they are not shared code.
+					// The text happens to read identically ("Could not identify the plugin")
+					// today, same as the "Not loaded" case -- but, as with that case, what must
+					// stay in sync is the case being handled, not necessarily the wording.
+					// これは site-health.php の veu_format_template_tags_source_label() の
+					// 'unidentified' 分岐と同じ「何も手がかりがない」ケースを扱っている。片方を
+					// 変えたらもう片方も直すこと。共通化しない理由は上の "Not loaded" 分岐の
+					// コメントを参照。現状は文言もたまたま同じ（"Could not identify the
+					// plugin"）だが、"Not loaded" のケースと同様、揃えるべきなのは扱うケースで
+					// あって、必ずしも文言そのものではない.
 					$rows[] = array(
 						'file'    => $file_status['file'],
 						'product' => 'Could not identify the plugin',

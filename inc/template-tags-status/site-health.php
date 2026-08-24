@@ -88,12 +88,15 @@ function veu_add_shared_template_tags_site_health_section( $info ) {
  */
 function veu_format_shared_template_tags_status_value( array $sources ) {
 	if ( empty( $sources ) ) {
-		// Keep this fallback text in sync with the "Not loaded" fallback in
-		// veu_get_shared_template_tags_status_rows() (collector.php). They are kept as two
-		// separate literals on purpose (see the note there), not shared code -- update both.
-		// このフォールバック文言は veu_get_shared_template_tags_status_rows()（collector.php）の
-		// "Not loaded" と表示を揃えること。あえて共通化せず別々のリテラルにしている（理由は
-		// collector.php 側のコメントを参照）ため、直すときは両方を直すこと.
+		// This handles the same "not loaded" case as veu_get_shared_template_tags_status_rows()
+		// (collector.php); update that one too when this one changes. They are two separate
+		// literals on purpose (see the note there), not shared code. The text happens to read
+		// identically ("Not loaded") today, but that is not the point being guarded here -- only
+		// the case is, not the wording.
+		// これは veu_get_shared_template_tags_status_rows()（collector.php）と同じ「読み込まれて
+		// いない」ケースを扱っている。片方を変えたらもう片方も直すこと。あえて共通化せず別々の
+		// リテラルにしている（理由は collector.php 側のコメントを参照）。現状は文言もたまたま
+		// 同じ（"Not loaded"）だが、ここで揃えたいのはケースであって文言そのものではない.
 		return __( 'Not loaded', 'vk-all-in-one-expansion-unit' );
 	}
 
@@ -151,12 +154,29 @@ function veu_format_template_tags_source_label( array $source ) {
 			);
 
 		case 'unidentified_file':
-			// Keep this fallback text in sync with the "Could not identify the plugin (defined
-			// in ...)" fallback in veu_get_shared_template_tags_status_rows() (collector.php).
-			// See the note there for why they are not shared code -- update both.
-			// このフォールバック文言は veu_get_shared_template_tags_status_rows()（collector.php）
-			// の "Could not identify the plugin (defined in ...)" と表示を揃えること。
-			// なぜ共通化しないかは collector.php 側のコメントを参照。直すときは両方を直すこと.
+			// This handles the same "defining file known, plugin not identified" case as the
+			// 'unidentified_file' branch of veu_get_shared_template_tags_status_rows()
+			// (collector.php) -- update that one too when this one changes. See the note there
+			// for why they are not shared code. UNLIKE the "Not loaded" pair above, the text
+			// here is INTENTIONALLY NOT the same: this string embeds the path inline as
+			// "...(defined in %s)", while the CLI row keeps 'product' as the fixed "Could not
+			// identify the plugin" and puts the path in its own 'path' column instead (see
+			// collector.php's docblock on that function). Do not "fix" this by embedding the
+			// path here differently to match some other wording, and do not ask for the CLI
+			// side to fold its 'path' column back into 'product' to match this string -- that
+			// column split was requested in the Issue #1479 UX review specifically so scripts
+			// don't have to parse the path back out of a sentence.
+			// これは collector.php の veu_get_shared_template_tags_status_rows() の
+			// 'unidentified_file' 分岐と同じ「定義元ファイルは分かるがプラグインは特定できない」
+			// ケースを扱っている。片方を変えたらもう片方も直すこと。共通化しない理由は
+			// collector.php 側のコメントを参照。ただし上の "Not loaded" のペアとは違い、ここは
+			// 文言をあえて揃えていない。この文字列は "...(defined in %s)" のようにパスを文中に
+			// 埋め込むが、CLI 側の行は 'product' を固定文言 "Could not identify the plugin" の
+			// ままにし、パスは独立した 'path' 列に入れる（collector.php 側の同関数の docblock
+			// 参照）。ここでの埋め込み方を変えて別の文言に合わせようとしたり、逆に CLI 側の
+			// 'path' 列をこの文言に合わせて 'product' へ戻すよう求めたりしないこと。その列構成は
+			// Issue #1479 の UX レビューで、スクリプト側が文中からパスを分解し直さずに済むよう
+			// 指示されて分離したものである.
 			return sprintf(
 				/* translators: %s: file path where the function was found, relative to the WordPress root (never a server absolute path). */
 				__( 'Could not identify the plugin (defined in %s)', 'vk-all-in-one-expansion-unit' ),
@@ -165,12 +185,17 @@ function veu_format_template_tags_source_label( array $source ) {
 
 		case 'unidentified':
 		default:
-			// Keep this fallback text in sync with the "Could not identify the plugin" fallback
-			// in veu_get_shared_template_tags_status_rows() (collector.php). See the note there
-			// for why they are not shared code -- update both.
-			// このフォールバック文言は veu_get_shared_template_tags_status_rows()（collector.php）
-			// の "Could not identify the plugin" と表示を揃えること。なぜ共通化しないかは
-			// collector.php 側のコメントを参照。直すときは両方を直すこと.
+			// This handles the same "nothing identifiable at all" case as the default branch of
+			// veu_get_shared_template_tags_status_rows() (collector.php) -- update that one too
+			// when this one changes. See the note there for why they are not shared code. The
+			// text happens to read identically ("Could not identify the plugin") today, same as
+			// the "Not loaded" case above -- but, as with that case, what must stay in sync is
+			// the case being handled, not necessarily the wording.
+			// これは collector.php の veu_get_shared_template_tags_status_rows() の default
+			// 分岐と同じ「何も手がかりがない」ケースを扱っている。片方を変えたらもう片方も
+			// 直すこと。共通化しない理由は collector.php 側のコメントを参照。現状は文言も
+			// たまたま同じ（"Could not identify the plugin"）だが、上の "Not loaded" のケースと
+			// 同様、揃えるべきなのは扱うケースであって、必ずしも文言そのものではない.
 			return __( 'Could not identify the plugin', 'vk-all-in-one-expansion-unit' );
 	}
 }
