@@ -90,6 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ New Feature ] Added a "Shared Template-Tag Files (ExUnit)" section to Site Health > Info and a `wp exunit template-tags status` WP-CLI command, showing which plugin's bundled copy of ExUnit's shared template-tag files is currently in effect.
 [ Bug Fix ] Fixed the post type and taxonomy checklists in the settings screens showing only labels, making identically labeled items indistinguishable and easy to check by mistake. The slug is now shown next to the label.
 
 = 9.122.1 =

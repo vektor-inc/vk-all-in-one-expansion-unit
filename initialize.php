@@ -47,6 +47,13 @@ function veu_load_packages() {
 	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる.
 	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+	// Reports which plugin's copy of the shared template-tag files above is currently in effect
+	// (Site Health "Info" tab + WP-CLI). Must load after template-tags-config.php so its
+	// function_exists() lookups can see ExUnit's own copy once loaded.
+	// 上記の共有テンプレートタグファイルについて、現在どのプラグインのコピーが採用されているかを
+	// 報告する（サイトヘルス「情報」タブ + WP-CLI）。function_exists() での判定が ExUnit 自身の
+	// コピー読み込み後の状態を見られるよう、template-tags-config.php の後に読み込む必要がある.
+	require_once VEU_DIRECTORY_PATH . '/inc/template-tags-status/template-tags-status-config.php';
 	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php.
