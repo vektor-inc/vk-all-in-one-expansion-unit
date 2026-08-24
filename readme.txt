@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 9.122.1
+Stable tag: 9.123.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+= 9.123.0 =
 [ New Feature ] Added a "Shared Template-Tag Files (ExUnit)" section to Site Health > Info and a `wp exunit template-tags status` WP-CLI command, showing which plugin's bundled copy of ExUnit's shared template-tag files is currently in effect.
 [ Bug Fix ] Update vektor-inc/font-awesome-versions from 0.7.5 to 0.7.6, fixing Font Awesome icons not displaying in some server environments (e.g. AWS Bitnami)
 [ Bug Fix ] Fixed the post type and taxonomy checklists in the settings screens showing only labels, making identically labeled items indistinguishable and easy to check by mistake. The slug is now shown next to the label.
