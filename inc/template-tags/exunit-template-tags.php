@@ -28,7 +28,8 @@
  * ExUnit より先に読み込まれた場合、ExUnit 側で行った修正が効かず、古い実装のまま動作してしまう。
  *
  * How this file solves it:
- * ExUnit's own code (everything under inc/) calls the "veu_" prefixed functions defined in this
+ * ExUnit's own code (everything under inc/ except inc/template-tags/package/, which is a synced
+ * copy left untouched — see above) calls the "veu_" prefixed functions defined in this
  * file instead of the "vk_" names. These are full duplicates of the corresponding "vk_"
  * implementation, not thin wrappers that call the "vk_" version — delegating to "vk_" would
  * still route through whichever plugin's copy happened to load first, which defeats the purpose
@@ -36,10 +37,11 @@
  * another shared helper (for example veu_get_post_type() using the "page for posts" helper),
  * that internal call also targets the "veu_" version here, never the "vk_" one.
  * このファイルでの解決方法:
- * ExUnit 自身のコード（inc/ 配下全体）は、"vk_" ではなくこのファイルで定義する "veu_" 接頭辞の関数を
- * 呼び出す。これらは "vk_" 版のラッパー（内部で "vk_" を呼ぶだけの委譲）ではなく、対応する実装を丸ごと
- * 複製したものである。委譲にしてしまうと、結局どのプラグインのコピーが先に読み込まれたかに処理が流れて
- * しまい、このファイルを用意した意味がなくなるためである。同じ理由で、ある関数が内部で別の共通処理を
+ * ExUnit 自身のコード（inc/ 配下のうち、同期コピーである inc/template-tags/package/ を除く全体。
+ * 上記参照）は、"vk_" ではなくこのファイルで定義する "veu_" 接頭辞の関数を呼び出す。これらは
+ * "vk_" 版のラッパー（内部で "vk_" を呼ぶだけの委譲）ではなく、対応する実装を丸ごと複製したもの
+ * である。委譲にしてしまうと、結局どのプラグインのコピーが先に読み込まれたかに処理が流れてしまい、
+ * このファイルを用意した意味がなくなるためである。同じ理由で、ある関数が内部で別の共通処理を
  * 呼んでいる場合（例: veu_get_post_type() が「投稿トップページ判定」のヘルパーを使う場合）も、その
  * 内部呼び出しは "vk_" 側ではなく必ずこのファイルの "veu_" 版を向ける。
  *
@@ -61,6 +63,29 @@
  * 読み込み順序問題をそのまま再現してしまうためである。ExUnit 自身の二重読み込みに対する安全性は、この
  * ファイルの唯一の読み込み元である inc/template-tags/template-tags-config.php が require_once
  * （単純な require / include ではなく）で読み込むことで担保している。
+ *
+ * NOTICE FOR vektor-wp-libraries MAINTAINERS — do not add these 9 function names there:
+ * veu_get_page_for_posts(), veu_get_post_type(), veu_get_page_description(),
+ * veu_the_post_type_check_list(), veu_the_taxonomy_check_list(),
+ * veu_the_post_type_check_list_saved_array_convert(), veu_is_checked(),
+ * veu_sanitize_number(), veu_is_excerpt(). This file defines them WITHOUT a function_exists()
+ * guard (see above for why). If vektor-wp-libraries (or any other Vektor plugin bundling a copy
+ * of it) ever defines one of these same names without a guard too, and that copy happens to load
+ * before ExUnit, PHP raises a fatal "Cannot redeclare" error and takes the whole site down. The
+ * "veu_" prefix is not reserved for ExUnit: the shared library itself already defines
+ * veu_sanitize_boolean() / veu_sanitize_radio() in package/template-tags.php, and VK Post Author
+ * Display bundles that same file — so this collision is a real, not theoretical, risk.
+ * vektor-wp-libraries の同期担当者へ — 以下の9関数名を vektor-wp-libraries 側で定義しないこと:
+ * veu_get_page_for_posts(), veu_get_post_type(), veu_get_page_description(),
+ * veu_the_post_type_check_list(), veu_the_taxonomy_check_list(),
+ * veu_the_post_type_check_list_saved_array_convert(), veu_is_checked(),
+ * veu_sanitize_number(), veu_is_excerpt()。このファイルはこれらを function_exists() ガード無しで
+ * 定義している（理由は上記参照）。もし vektor-wp-libraries（またはそれを同梱する他の Vektor 製
+ * プラグイン）が将来これらと同名の関数をガード無しで定義し、そのコピーが ExUnit より先に読み込まれると、
+ * PHP が "Cannot redeclare" 致命的エラーを起こしサイト全体が落ちる。"veu_" 接頭辞は ExUnit 専用では
+ * ない。共有ライブラリ自身が package/template-tags.php で veu_sanitize_boolean() /
+ * veu_sanitize_radio() を既に定義しており、VK Post Author Display も同じファイルを同梱しているため、
+ * この衝突は理論上の懸念ではなく現実的なリスクである。
  *
  * @package VK All in One Expansion Unit
  * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1478
@@ -359,7 +384,7 @@ function veu_the_post_type_check_list( $args ) {
 			}
 
 			echo '<li><label>';
-			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . $key . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
 			echo '</label></li>';
 		}
 	}
