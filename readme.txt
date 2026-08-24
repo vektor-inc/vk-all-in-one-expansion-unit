@@ -90,7 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
-[ Bug Fix ] Fixed ExUnit's internal code silently running another Vektor plugin's older bundled copy of shared template tag functions (e.g. vk_get_post_type()) whenever that plugin loaded first, causing already-fixed bugs such as PHP warnings to reappear.
+[ Bug Fix ][ Template Tags ] Fixed already-fixed bugs (such as PHP warnings) silently reappearing when used together with another Vektor plugin that bundles an older copy of the shared template tag functions and happens to load first.
 
 = 9.122.0 =
 [ New Feature ][ Share Button ] Added an option to always display the share button block regardless of the "Exclude Post Types" setting.
