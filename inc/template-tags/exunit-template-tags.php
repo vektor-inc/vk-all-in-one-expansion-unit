@@ -108,6 +108,10 @@
  * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1476
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Get info about whether a static page is used as the "posts" page, and if so its title.
  * 投稿一覧として固定ページ（投稿トップページ）が使われているかどうかと、使われている場合はその
