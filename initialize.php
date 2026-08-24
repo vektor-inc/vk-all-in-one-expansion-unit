@@ -47,6 +47,20 @@ function veu_load_packages() {
 	require_once VEU_DIRECTORY_PATH . '/veu-package-manager.php';
 	// template-tags-veuでpackageの関数を使うので package-managerを先に読み込んでいる.
 	require_once VEU_DIRECTORY_PATH . '/inc/template-tags/template-tags-config.php';
+	// Reports which plugin's copy of the shared template-tag files above is currently in effect
+	// (Site Health "Info" tab + WP-CLI). This only registers a debug_information filter and a
+	// WP-CLI command; the function_exists()/ReflectionFunction lookups themselves run lazily when
+	// the Site Health "Info" screen renders or the CLI command executes, not here, so load order
+	// relative to template-tags-config.php has no effect on correctness. It is placed right after
+	// it purely for readability (it reports on the file loaded immediately above).
+	// 上記の共有テンプレートタグファイルについて、現在どのプラグインのコピーが採用されているかを
+	// 報告する（サイトヘルス「情報」タブ + WP-CLI）。ここで行っているのは debug_information
+	// フィルターと WP-CLI コマンドの登録だけで、function_exists() / ReflectionFunction による
+	// 判定自体はサイトヘルス「情報」画面の描画時または CLI コマンド実行時に遅延して走る
+	// （この require の時点では走らない）ため、template-tags-config.php との読み込み順は
+	// 動作に影響しない。直後に置いているのは、直前で読み込んだファイルについて報告する
+	// という関係が分かりやすいという可読性上の理由のみ.
+	require_once VEU_DIRECTORY_PATH . '/inc/template-tags-status/template-tags-status-config.php';
 	require_once VEU_DIRECTORY_PATH . '/inc/common-block.php';
 	require VEU_DIRECTORY_PATH . '/inc/footer-copyright-change.php';
 	veu_package_include(); // package_manager.php.
