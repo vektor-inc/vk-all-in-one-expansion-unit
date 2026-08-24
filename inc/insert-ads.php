@@ -73,6 +73,11 @@ class vExUnit_Ads {
 		$post_types[post][true]
 		という形式に変更になったので、
 		旧形式の配列でフックされた時用
+
+		This used to be shaped as $post_types[0][post], but the return value of the
+		later-added veu_the_post_type_check_list() (formerly vk_the_post_type_check_list())
+		uses the $post_types[post][true] shape instead, so this block handles callers still
+		hooking the old-format array.
 		*/
 		foreach ( $post_types as $key => $value ) {
 			if ( is_numeric( $key ) ) {
