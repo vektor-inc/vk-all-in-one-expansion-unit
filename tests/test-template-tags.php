@@ -863,6 +863,20 @@ class TemplateTagsTest extends WP_UnitTestCase {
 				'expected_not_contains' => array( ' checked' ),
 			),
 			array(
+				'test_condition_name'   => '呼び出し元が独自の exclude_post_types を渡した場合 => 既定の attachment 除外を上書きし、指定した投稿タイプのみ除外される（正常系）',
+				'args'                  => array(
+					'name'               => 'tpc_test',
+					'checked'            => array(),
+					'exclude_post_types' => array( 'page' ),
+				),
+				'expected_contains'     => array(
+					'name="tpc_test[post]"',
+				),
+				'expected_not_contains' => array(
+					'tpc_test[page]',
+				),
+			),
+			array(
 				// post_types_args で絶対に一致しない投稿タイプ名を指定し、対象0件の状態を作る.
 				// この plugin の PHPUnit 実行では他テストで register_post_type() した
 				// カスタム投稿タイプが自動リセットされない（WP_RUN_CORE_TESTS 時のみ有効な
