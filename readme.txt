@@ -90,6 +90,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ Bug Fix ] Fixed the post type and taxonomy checklists in the settings screens showing only labels, making identically labeled items indistinguishable and easy to check by mistake. The slug is now shown next to the label.
+
 = 9.122.1 =
 [ Security Fix ][ Article Structured Data ] Added a capability check and sanitization when saving the author structured data settings (author_type / author_name / author_url / author_sameAs) on the user profile screen, as defense-in-depth hardening.
 [ Security Fix ][ Custom CSS ] Added a permission check on save and hardened input handling on the classic edit screen as defense in depth.

@@ -342,12 +342,15 @@ class SitemapPageTest extends WP_UnitTestCase {
 
 	/**
 	 * veu_sitemap_options_validate() のテスト。
-	 * 登録済みのタクソノミー名は保存され、未登録のタクソノミー名は保存されない事
-	 * （安藤さんレビュー LOW 指摘の入力検証）を検証する。
+	 * 登録済みのタクソノミー名・投稿タイプ名は保存され、未登録の名前は保存されない事
+	 * （安藤さんレビュー LOW 指摘の入力検証。excludePostTypes 側のガードは Issue #1475
+	 * 対応時に excludeTaxonomies 側と対称になるよう追加した）を検証する。
 	 *
 	 * Test for veu_sitemap_options_validate().
-	 * Verifies that a registered taxonomy name is saved, and that an unregistered
-	 * taxonomy name is dropped ( input validation gap pointed out in the code review ).
+	 * Verifies that a registered taxonomy or post type name is saved, and that an
+	 * unregistered name is dropped ( input validation gap pointed out in the code review;
+	 * the excludePostTypes guard was added during the Issue #1475 work to make it symmetric
+	 * with the existing excludeTaxonomies guard ).
 	 */
 	function test_veu_sitemap_options_validate() {
 
@@ -385,6 +388,25 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'expected_exclude_post_types' => array( 'post' => 'true' ),
 				'expected_exclude_taxonomies' => array(),
 			),
+			array(
+				'test_condition_name'         => '登録済みの投稿タイプ名（page）は excludePostTypes にそのまま保存される',
+				'input'                       => array(
+					'excludePostTypes' => array( 'page' => 'true' ),
+				),
+				'expected_exclude_post_types' => array( 'page' => 'true' ),
+				'expected_exclude_taxonomies' => array(),
+			),
+			array(
+				'test_condition_name'         => '未登録の投稿タイプ名は excludePostTypes から除かれる（登録済みの分は保存される）',
+				'input'                       => array(
+					'excludePostTypes' => array(
+						'post'                     => 'true',
+						'veu_test_not_a_post_type' => 'true',
+					),
+				),
+				'expected_exclude_post_types' => array( 'post' => 'true' ),
+				'expected_exclude_taxonomies' => array(),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -404,11 +426,15 @@ class SitemapPageTest extends WP_UnitTestCase {
 	 * vk_the_taxonomy_check_list() のテスト。
 	 * name 属性・checked の有無が正しく出力される事、対象タクソノミーが0件の場合に
 	 * 空の一覧ではなくフォールバック文言が出力される事（植草さんレビュー UX-2 指摘）を検証する。
+	 * また Issue #1475 対応として、見出しに「ラベル (スラッグ)」の形式でスラッグが併記される事、
+	 * 同じラベルで異なるスラッグのタクソノミーが並んでも出力から判別できる事を検証する。
 	 *
 	 * Test for vk_the_taxonomy_check_list().
 	 * Verifies the name attribute and the checked state are output correctly, and that a
 	 * fallback message is shown instead of an empty list when there are no taxonomies to
-	 * display ( UX review finding ).
+	 * display ( UX review finding ). Also covers Issue #1475: the checkbox label is followed
+	 * by its slug in "Label (slug)" form, and two taxonomies that share the same label but
+	 * have different slugs remain distinguishable in the output.
 	 */
 	function test_vk_the_taxonomy_check_list() {
 
@@ -419,6 +445,15 @@ class SitemapPageTest extends WP_UnitTestCase {
 
 		$this->register_test_taxonomy( 'veu_test_tax_shown', array(), array( 'label' => 'VEU Test Tax Shown' ) );
 		$taxonomy_object = get_taxonomy( 'veu_test_tax_shown' );
+
+		// Issue #1475: ラベルが同じで slug（スラッグ）だけが異なるタクソノミーを2つ用意し、
+		// 出力からそれぞれを判別できる事を検証するためのテスト用データ。
+		// Two taxonomies sharing the same label but with different slugs, used to verify
+		// that the rendered output still lets the admin tell them apart.
+		$this->register_test_taxonomy( 'veu_test_tax_dup_a', array(), array( 'label' => 'Duplicate Label Tax' ) );
+		$this->register_test_taxonomy( 'veu_test_tax_dup_b', array(), array( 'label' => 'Duplicate Label Tax' ) );
+		$taxonomy_object_dup_a = get_taxonomy( 'veu_test_tax_dup_a' );
+		$taxonomy_object_dup_b = get_taxonomy( 'veu_test_tax_dup_b' );
 
 		$test_cases = array(
 			array(
@@ -458,11 +493,175 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'expected_contains'     => array( 'No taxonomies are available to exclude.' ),
 				'expected_not_contains' => array( '<ul class="no-style">' ),
 			),
+			array(
+				'test_condition_name'   => 'Issue #1475: 見出しがラベルとスラッグの併記（ラベル (スラッグ)）になる',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array(),
+					'taxonomies' => array( 'veu_test_tax_shown' => $taxonomy_object ),
+				),
+				'expected_contains'     => array(
+					'VEU Test Tax Shown <span class="description">(<code>veu_test_tax_shown</code>)</span>',
+				),
+				'expected_not_contains' => array(),
+			),
+			array(
+				'test_condition_name'   => 'Issue #1475: ラベルが同じでスラッグが異なる2つのタクソノミーが、出力上のスラッグ表示で判別できる',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array(),
+					'taxonomies' => array(
+						'veu_test_tax_dup_a' => $taxonomy_object_dup_a,
+						'veu_test_tax_dup_b' => $taxonomy_object_dup_b,
+					),
+				),
+				'expected_contains'     => array(
+					'Duplicate Label Tax <span class="description">(<code>veu_test_tax_dup_a</code>)</span>',
+					'Duplicate Label Tax <span class="description">(<code>veu_test_tax_dup_b</code>)</span>',
+				),
+				'expected_not_contains' => array(),
+			),
+			array(
+				// 境界値: スラッグに HTML 特殊文字が含まれる場合、name 属性・スラッグ表示の両方がエスケープされる事を検証する。
+				// esc_attr() / esc_html() を外すと落ちるケースにする事で、エスケープ処理の退行を検出できるようにしている。
+				// Boundary case: a slug containing HTML special characters must be escaped in both the name
+				// attribute and the slug display. Removing esc_attr()/esc_html() makes this case fail.
+				'test_condition_name'   => '境界値: スラッグに HTML 特殊文字が含まれる場合、name 属性とスラッグ表示の両方がエスケープされる',
+				'args'                  => array(
+					'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
+					'checked'    => array(),
+					'taxonomies' => array( 'veu"tax<x' => $taxonomy_object ),
+				),
+				'expected_contains'     => array(
+					'name="vkExUnit_sitemap_options[excludeTaxonomies][veu&quot;tax&lt;x]"',
+					'<code>veu&quot;tax&lt;x</code>',
+				),
+				'expected_not_contains' => array( '[veu"tax<x]' ),
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
 			ob_start();
 			vk_the_taxonomy_check_list( $case['args'] );
+			$html = ob_get_clean();
+
+			foreach ( $case['expected_contains'] as $expected ) {
+				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
+			}
+			foreach ( $case['expected_not_contains'] as $unexpected ) {
+				$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
+			}
+		}
+	}
+
+	/**
+	 * vk_the_post_type_check_list() のテスト。
+	 * Issue #1475 対応として、見出しに「ラベル (スラッグ)」の形式でスラッグが併記される事、
+	 * name 属性にスラッグが出力される事、同じラベルで異なるスラッグの投稿タイプが
+	 * 並んでも出力から判別できる事を検証する。
+	 * register_post_type() はスラッグを英数字・アンダースコア・ハイフンに制限するため、
+	 * HTML 特殊文字を含むスラッグのエスケープ挙動そのものは注入できない。その検証は
+	 * taxonomies を任意キーで受け取れる vk_the_taxonomy_check_list() 側で行っている。
+	 *
+	 * Test for vk_the_post_type_check_list().
+	 * Covers Issue #1475: the checkbox label is followed by its slug in "Label (slug)" form,
+	 * the slug appears in the name attribute, and two post types that share the same label
+	 * but have different slugs remain distinguishable in the output.
+	 * register_post_type() restricts slugs to alphanumeric/underscore/hyphen, so a slug
+	 * containing HTML special characters cannot be injected here; that escaping behavior is
+	 * covered by vk_the_taxonomy_check_list(), which accepts arbitrary keys.
+	 */
+	function test_vk_the_post_type_check_list() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_vk_the_post_type_check_list' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		$this->register_test_post_type(
+			'veu_test_cpt_shown',
+			array(
+				'public' => true,
+				'label'  => 'VEU Test CPT Shown',
+			)
+		);
+
+		// Issue #1475: ラベルが同じで slug（スラッグ）だけが異なる投稿タイプを2つ用意し、
+		// 出力からそれぞれを判別できる事を検証するためのテスト用データ。
+		// Two post types sharing the same label but with different slugs, used to verify
+		// that the rendered output still lets the admin tell them apart.
+		$this->register_test_post_type(
+			'veu_test_cpt_dup_a',
+			array(
+				'public' => true,
+				'label'  => 'Duplicate Label CPT',
+			)
+		);
+		$this->register_test_post_type(
+			'veu_test_cpt_dup_b',
+			array(
+				'public' => true,
+				'label'  => 'Duplicate Label CPT',
+			)
+		);
+
+		$test_cases = array(
+			array(
+				'test_condition_name'   => 'チェック済みの場合 => name 属性がスラッグ付きで出力され、checked も出力される',
+				'args'                  => array(
+					'name'    => 'vkExUnit_sitemap_options[excludePostTypes]',
+					'checked' => array( 'veu_test_cpt_shown' => true ),
+				),
+				'expected_contains'     => array(
+					'name="vkExUnit_sitemap_options[excludePostTypes][veu_test_cpt_shown]"',
+					' checked />',
+				),
+				'expected_not_contains' => array(),
+			),
+			array(
+				'test_condition_name'   => '見出しがラベルとスラッグの併記（ラベル (スラッグ)）になる',
+				'args'                  => array(
+					'name'    => 'vkExUnit_sitemap_options[excludePostTypes]',
+					'checked' => array(),
+				),
+				'expected_contains'     => array(
+					'VEU Test CPT Shown <span class="description">(<code>veu_test_cpt_shown</code>)</span>',
+				),
+				'expected_not_contains' => array(),
+			),
+			array(
+				'test_condition_name'   => 'ラベルが同じでスラッグが異なる2つの投稿タイプが、出力上のスラッグ表示で判別できる',
+				'args'                  => array(
+					'name'    => 'vkExUnit_sitemap_options[excludePostTypes]',
+					'checked' => array(),
+				),
+				'expected_contains'     => array(
+					'Duplicate Label CPT <span class="description">(<code>veu_test_cpt_dup_a</code>)</span>',
+					'Duplicate Label CPT <span class="description">(<code>veu_test_cpt_dup_b</code>)</span>',
+				),
+				'expected_not_contains' => array(),
+			),
+			array(
+				// 境界値: exclude_post_types で指定した投稿タイプは一覧から除外され、出力に含まれない事を検証する。
+				// Boundary case: a post type listed in exclude_post_types is left out of the checklist entirely.
+				'test_condition_name'   => '境界値: exclude_post_types で指定した投稿タイプは出力に含まれない',
+				'args'                  => array(
+					'name'               => 'vkExUnit_sitemap_options[excludePostTypes]',
+					'checked'            => array(),
+					'exclude_post_types' => array( 'attachment', 'veu_test_cpt_dup_b' ),
+				),
+				'expected_contains'     => array(
+					'<code>veu_test_cpt_dup_a</code>',
+				),
+				'expected_not_contains' => array(
+					'<code>veu_test_cpt_dup_b</code>',
+				),
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			ob_start();
+			vk_the_post_type_check_list( $case['args'] );
 			$html = ob_get_clean();
 
 			foreach ( $case['expected_contains'] as $expected ) {
