@@ -42,9 +42,9 @@ function veu_get_shared_template_tags_files() {
 
 /**
  * Extract the names of the functions a PHP file declares at file scope (i.e. not methods on a
- * class/interface/trait, and not anonymous functions/closures).
+ * class/interface/trait/enum, and not anonymous functions/closures).
  *
- * PHP ファイルがファイルスコープで宣言している関数名（クラス／インターフェース／トレイトの
+ * PHP ファイルがファイルスコープで宣言している関数名（クラス／インターフェース／トレイト／enum の
  * メソッドではなく、無名関数／クロージャでもないもの）を抽出する。
  *
  * The file is read with token_get_all() rather than any hardcoded function list, so newly added
@@ -56,10 +56,33 @@ function veu_get_shared_template_tags_files() {
  * 手動更新が必要な一覧にすると、更新漏れがまさにこの機能が可視化しようとしている
  * 「気づかないうちにどちらが採用されているか分からなくなる」問題を再現してしまうため。
  *
+ * Brace-depth tracking has three deliberate edge cases handled below (see
+ * tests/fixtures/template-tags-status-bracket-tracking-fixture.php for a regression fixture):
+ * - String interpolation ("{$var}") opens with the special T_CURLY_OPEN token instead of a plain
+ *   '{' string token, but always closes with a plain '}' string token. Left uncounted, this would
+ *   desync $brace_depth from the real nesting level and could make a later class method look like
+ *   a file-scope function.
+ * - T_ENUM (PHP 8.1+) is treated the same as class/interface/trait, so an enum's methods are not
+ *   mistaken for file-scope functions. On PHP < 8.1 (where T_ENUM does not exist as a token/
+ *   constant), the token simply cannot appear, so this is a no-op there rather than a fatal error.
+ * - `Foo::class` also tokenizes its `class` keyword as T_CLASS. Only tokens NOT immediately
+ *   preceded by `::` are treated as an actual class/interface/trait/enum declaration.
+ *
+ * 波括弧の深さの追跡には、意図的に対応している3つの境界ケースがある
+ * （回帰用フィクスチャは tests/fixtures/template-tags-status-bracket-tracking-fixture.php を参照）。
+ * - 文字列内変数展開（"{$var}"）は通常の '{' 文字列トークンではなく専用の T_CURLY_OPEN トークンで
+ *   開始するが、閉じは通常の '}' 文字列トークンで来る。数えないと $brace_depth が実際のネストと
+ *   ずれ、後続のクラスのメソッドをファイルスコープの関数と誤認しうる。
+ * - T_ENUM（PHP 8.1以降）もクラス／インターフェース／トレイトと同様に扱い、enum のメソッドを
+ *   ファイルスコープの関数と誤認しないようにする。PHP 8.1未満では T_ENUM はトークン／定数として
+ *   存在せずこのトークン自体が出現しえないため、単に無効化されるだけで Fatal Error にはならない。
+ * - `Foo::class` の `class` も T_CLASS としてトークン化される。直前が `::` でないものだけを
+ *   実際のクラス／インターフェース／トレイト／enum 宣言として扱う。
+ *
  * @param string $file_path Absolute path to the PHP file to inspect.
  * @return string[] Function names, in declaration order, without duplicates.
  */
-function veu_extract_top_level_function_names( $file_path ) {
+function veu_template_tags_status_extract_function_names( $file_path ) {
 	if ( ! is_readable( $file_path ) ) {
 		return array();
 	}
@@ -75,14 +98,28 @@ function veu_extract_top_level_function_names( $file_path ) {
 		return array();
 	}
 
+	// T_ENUM only exists from PHP 8.1 onward; referencing the bare constant on an older runtime
+	// would itself fatal, so it is added defensively.
+	// T_ENUM は PHP 8.1 以降にのみ存在する。古いランタイムで裸の定数を参照するとそれ自体が
+	// Fatal Error になるため、防御的に追加する.
+	$class_like_token_ids = array( T_CLASS, T_INTERFACE, T_TRAIT );
+	if ( defined( 'T_ENUM' ) ) {
+		$class_like_token_ids[] = T_ENUM;
+	}
+
 	$function_names = array();
 	$brace_depth    = 0;
-	// Stack of brace depths at which a class/interface/trait body began, so methods (declared
-	// while this stack is non-empty) are not mistaken for file-scope functions.
-	// クラス／インターフェース／トレイトの本体が始まった時点の波括弧の深さを積むスタック。
+	// Stack of brace depths at which a class/interface/trait/enum body began, so methods
+	// (declared while this stack is non-empty) are not mistaken for file-scope functions.
+	// クラス／インターフェース／トレイト／enum の本体が始まった時点の波括弧の深さを積むスタック。
 	// これが空でない間に宣言された関数はメソッドなので、ファイルスコープの関数として扱わない.
 	$class_body_start   = array();
 	$expect_class_brace = false;
+	// The last non-whitespace/non-comment token seen so far, used only to tell an actual class
+	// declaration's `class` keyword apart from the `class` in `Foo::class`.
+	// これまでに見た最後の空白／コメント以外のトークン。実際のクラス宣言の `class` キーワードと
+	// `Foo::class` の `class` を区別する用途にのみ使う.
+	$previous_token_id = null;
 
 	$token_count = count( $tokens );
 	for ( $i = 0; $i < $token_count; $i++ ) {
@@ -91,8 +128,27 @@ function veu_extract_top_level_function_names( $file_path ) {
 		if ( is_array( $token ) ) {
 			$token_id = $token[0];
 
-			if ( in_array( $token_id, array( T_CLASS, T_INTERFACE, T_TRAIT ), true ) ) {
-				$expect_class_brace = true;
+			if ( in_array( $token_id, array( T_WHITESPACE, T_COMMENT, T_DOC_COMMENT ), true ) ) {
+				// Does not count as "the previous token" for the ::class lookbehind below.
+				continue;
+			}
+
+			if ( in_array( $token_id, array( T_CURLY_OPEN, T_DOLLAR_OPEN_CURLY_BRACES ), true ) ) {
+				// String interpolation ("{$var}" / "${var}") opens with one of these special
+				// tokens but always closes with a plain '}' string token below, so it must be
+				// counted here to keep $brace_depth in sync with those closing braces.
+				++$brace_depth;
+				$previous_token_id = $token_id;
+				continue;
+			}
+
+			if ( in_array( $token_id, $class_like_token_ids, true ) ) {
+				// `Foo::class` also tokenizes its `class` as T_CLASS, so only treat this as an
+				// actual class/interface/trait/enum declaration when it is not preceded by `::`.
+				if ( T_DOUBLE_COLON !== $previous_token_id ) {
+					$expect_class_brace = true;
+				}
+				$previous_token_id = $token_id;
 				continue;
 			}
 
@@ -117,8 +173,11 @@ function veu_extract_top_level_function_names( $file_path ) {
 						break;
 					}
 				}
+				$previous_token_id = $token_id;
 				continue;
 			}
+
+			$previous_token_id = $token_id;
 			// Single-character tokens (braces etc.) are returned as plain strings (not arrays) by
 			// token_get_all(), which is why they are handled in the elseif branches below rather
 			// than here.
@@ -128,11 +187,15 @@ function veu_extract_top_level_function_names( $file_path ) {
 				$expect_class_brace = false;
 			}
 			++$brace_depth;
+			$previous_token_id = $token;
 		} elseif ( '}' === $token ) {
 			--$brace_depth;
 			if ( ! empty( $class_body_start ) && end( $class_body_start ) === $brace_depth ) {
 				array_pop( $class_body_start );
 			}
+			$previous_token_id = $token;
+		} else {
+			$previous_token_id = $token;
 		}
 	}
 
@@ -148,7 +211,7 @@ function veu_extract_top_level_function_names( $file_path ) {
  * @return string|null Relative path (no leading slash), or null when $file_path is not located
  *                      under ABSPATH and therefore cannot be safely relativized.
  */
-function veu_get_relative_path_from_abspath( $file_path ) {
+function veu_template_tags_status_relative_path( $file_path ) {
 	$normalized_file    = wp_normalize_path( $file_path );
 	$normalized_abspath = wp_normalize_path( ABSPATH );
 
@@ -172,7 +235,7 @@ function veu_get_relative_path_from_abspath( $file_path ) {
  *                                                                  installed plugin's directory
  *                                                                  contains this file.
  */
-function veu_find_plugin_by_file( $file_path ) {
+function veu_template_tags_status_find_plugin( $file_path ) {
 	if ( ! function_exists( 'get_plugins' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
@@ -241,7 +304,7 @@ function veu_identify_template_tags_source_from_file( $defined_file ) {
 		return array( 'type' => 'unidentified' );
 	}
 
-	$plugin = veu_find_plugin_by_file( $defined_file );
+	$plugin = veu_template_tags_status_find_plugin( $defined_file );
 	if ( null !== $plugin ) {
 		return array(
 			'type'     => 'plugin',
@@ -251,7 +314,7 @@ function veu_identify_template_tags_source_from_file( $defined_file ) {
 		);
 	}
 
-	$relative_path = veu_get_relative_path_from_abspath( $defined_file );
+	$relative_path = veu_template_tags_status_relative_path( $defined_file );
 	if ( null === $relative_path ) {
 		// Cannot safely express this path relative to ABSPATH (e.g. it points outside the
 		// WordPress install entirely) -- never fall back to leaking the absolute path.
@@ -322,6 +385,19 @@ function veu_get_template_tags_source_dedupe_key( array $source ) {
  * これがサイトヘルス「情報」タブと `wp exunit template-tags status` WP-CLI コマンドの両方が
  * 共有する唯一の事実収集の入口であり、両者はこのデータを異なる形式に整形するだけである。
  *
+ * Note: a source is identified purely by which file currently defines a given function name --
+ * there is no check that the defining file is actually a copy of ExUnit's shared package. If
+ * another plugin happens to declare an unrelated function that shares one of these names in a
+ * completely unrelated file, that plugin would be listed as a source here too. This is accepted
+ * as within scope: the goal is "which currently-defined copy of this function name is running",
+ * not "which file is a verified copy of the shared package".
+ *
+ * 注意: 採用元は「この関数名を現在どのファイルが定義しているか」だけで特定しており、その定義元が
+ * 実際に ExUnit の共有パッケージのコピーであるかどうかまでは確認していない。他プラグインが
+ * たまたま無関係なファイルでこれらと同名の関数を宣言していた場合、そのプラグインもここに採用元
+ * として並ぶ。これは許容範囲としている。目的は「この関数名を現在定義しているのはどれか」であって
+ * 「共有パッケージの正当なコピーであることの検証」ではないため.
+ *
  * @return array<int, array{file:string, sources:array}> One entry per shared file, in
  *               require_once order, each with:
  *               - 'file'    Bare file name (e.g. "template-tags.php").
@@ -333,7 +409,7 @@ function veu_get_shared_template_tags_status() {
 	$status = array();
 
 	foreach ( veu_get_shared_template_tags_files() as $file_path ) {
-		$function_names = veu_extract_top_level_function_names( $file_path );
+		$function_names = veu_template_tags_status_extract_function_names( $file_path );
 
 		$sources   = array();
 		$seen_keys = array();
@@ -371,17 +447,31 @@ function veu_get_shared_template_tags_status() {
  *
  * Unlike the Site Health "Info" tab (which joins multiple sources for the same file into one
  * "A / B" display string), each source gets its own row here so scripts consuming --format=json
- * / --format=csv don't need to parse a joined string back apart.
+ * / --format=csv don't need to parse a joined string back apart. For the same reason, 'product'
+ * never has a file path folded into it (e.g. never "Could not identify the plugin (defined in
+ * ...)") -- the path lives in its own 'path' column, so a script never has to pull it back out of
+ * a sentence.
  *
  * サイトヘルス「情報」タブ（同一ファイルの複数採用元を "A / B" のように1つの文字列へ結合して
  * 表示する）とは異なり、ここでは採用元ごとに行を分ける。--format=json / --format=csv を使う
- * スクリプト側が結合済み文字列を再度分解しなくて済むようにするため。
+ * スクリプト側が結合済み文字列を再度分解しなくて済むようにするため。同じ理由で、'product' には
+ * ファイルパスを文中に埋め込まない（"Could not identify the plugin (defined in ...)" のような形に
+ * しない）。パスは独立した 'path' 列に持たせ、スクリプト側が文中からパスを取り出し直す必要が
+ * ないようにしている。
  *
  * @param array|null $status Pre-computed status from veu_get_shared_template_tags_status(), or
  *                            null to compute it. Accepting an explicit $status keeps this
  *                            function testable with synthetic data (e.g. fallback branches that
  *                            are hard to reproduce with real plugins installed).
- * @return array<int, array{file:string, product:string, version:string, plugin:string}>
+ * @return array<int, array{file:string, product:string, version:string, plugin:string, path:string}>
+ *               Columns, in order: file, product, version, plugin, path.
+ *               - Identified: product/version/plugin filled in, path empty.
+ *               - Defining file known but plugin not identified: product is the fixed
+ *                 "Could not identify the plugin" text, version/plugin empty, path holds the
+ *                 file's path relative to the WordPress root.
+ *               - Defining file also unknown, or the shared file is not loaded at all: product is
+ *                 "Could not identify the plugin" or "Not loaded" respectively, version/plugin/
+ *                 path all empty.
  */
 function veu_get_shared_template_tags_status_rows( $status = null ) {
 	if ( null === $status ) {
@@ -392,11 +482,25 @@ function veu_get_shared_template_tags_status_rows( $status = null ) {
 
 	foreach ( $status as $file_status ) {
 		if ( empty( $file_status['sources'] ) ) {
+			// Keep this fallback text in sync with the "Not loaded" fallback in
+			// veu_format_shared_template_tags_status_value() (site-health.php). They are kept as
+			// two separate literals on purpose -- this one is a fixed English string so
+			// --format=json/csv output stays stable regardless of site locale, while the Site
+			// Health one goes through __() so the admin screen can be translated. Sharing one
+			// literal would either break that translation or leak translated text into scripted
+			// CLI output, so update both by hand instead.
+			// このフォールバック文言は veu_format_shared_template_tags_status_value()
+			// （site-health.php）の "Not loaded" と表示を揃えること。あえて別々のリテラルに
+			// している。こちらはサイトのロケールに関係なく --format=json/csv の出力を安定させる
+			// ための固定の英語文字列で、サイトヘルス側は管理画面を翻訳できるよう __() を通す。
+			// 1つに共通化すると翻訳が効かなくなるか、翻訳済み文言が CLI 出力に混ざるかのどちらかに
+			// なるため、直すときは両方を手で直すこと.
 			$rows[] = array(
 				'file'    => $file_status['file'],
 				'product' => 'Not loaded',
 				'version' => '',
 				'plugin'  => '',
+				'path'    => '',
 			);
 			continue;
 		}
@@ -409,24 +513,43 @@ function veu_get_shared_template_tags_status_rows( $status = null ) {
 						'product' => $source['name'],
 						'version' => $source['version'],
 						'plugin'  => $source['basename'],
+						'path'    => '',
 					);
 					break;
 
 				case 'unidentified_file':
-					$rows[] = array(
-						'file'    => $file_status['file'],
-						'product' => 'Could not identify the plugin (defined in ' . $source['relative_path'] . ')',
-						'version' => '',
-						'plugin'  => '',
-					);
-					break;
-
-				default:
+					// Keep this fallback text in sync with the "Could not identify the plugin
+					// (defined in ...)" fallback in veu_format_template_tags_source_label()
+					// (site-health.php). See the note in the "Not loaded" branch above for why
+					// they are not shared code -- update both.
+					// このフォールバック文言は veu_format_template_tags_source_label()
+					// （site-health.php）の "Could not identify the plugin (defined in ...)" と
+					// 表示を揃えること。なぜ共通化しないかは上の "Not loaded" 分岐のコメントを
+					// 参照。直すときは両方を直すこと.
 					$rows[] = array(
 						'file'    => $file_status['file'],
 						'product' => 'Could not identify the plugin',
 						'version' => '',
 						'plugin'  => '',
+						'path'    => $source['relative_path'],
+					);
+					break;
+
+				default:
+					// Keep this fallback text in sync with the "Could not identify the plugin"
+					// fallback in veu_format_template_tags_source_label() (site-health.php). See
+					// the note in the "Not loaded" branch above for why they are not shared code
+					// -- update both.
+					// このフォールバック文言は veu_format_template_tags_source_label()
+					// （site-health.php）の "Could not identify the plugin" と表示を揃えること。
+					// なぜ共通化しないかは上の "Not loaded" 分岐のコメントを参照。直すときは
+					// 両方を直すこと.
+					$rows[] = array(
+						'file'    => $file_status['file'],
+						'product' => 'Could not identify the plugin',
+						'version' => '',
+						'plugin'  => '',
+						'path'    => '',
 					);
 					break;
 			}

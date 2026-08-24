@@ -37,11 +37,19 @@ class VEU_CLI_Template_Tags_Command {
 	 * When a single file's functions come from more than one plugin's copy, that file is
 	 * expanded into one row per source (the `file` column repeats) so the output stays a flat
 	 * table that's easy to consume from a script, rather than a single cell with multiple
-	 * values joined together.
+	 * values joined together. Columns, in order: `file`, `product`, `version`, `plugin`, `path`.
+	 * `path` (the defining file's path relative to the WordPress root) is only ever filled in
+	 * when the plugin could not be identified but its defining file could -- it is a separate
+	 * column rather than folded into `product` so scripts never need to parse it back out of a
+	 * sentence.
 	 *
 	 * 1つのファイルの関数が複数のプラグインのコピーに分かれて由来している場合、そのファイルは
 	 * 採用元ごとに1行へ展開される（`file` 列は同じ値を繰り返す）。スクリプトから扱いやすい
-	 * フラットな表のままにするため、1セルに複数の値を結合した形にはしない。
+	 * フラットな表のままにするため、1セルに複数の値を結合した形にはしない。列の並びは
+	 * `file`, `product`, `version`, `plugin`, `path` の順。`path`（定義元ファイルの WordPress
+	 * ルートからの相対パス）は、プラグインは特定できなかったが定義元ファイルは分かった場合にのみ
+	 * 入る。`product` に埋め込まず独立した列にしているのは、スクリプト側が文中からパスを
+	 * 取り出し直す必要をなくすため。
 	 *
 	 * ## OPTIONS
 	 *
@@ -70,6 +78,6 @@ class VEU_CLI_Template_Tags_Command {
 
 		$format_args = wp_parse_args( $assoc_args, array( 'format' => 'table' ) );
 
-		WP_CLI\Utils\format_items( $format_args['format'], $rows, array( 'file', 'product', 'version', 'plugin' ) );
+		WP_CLI\Utils\format_items( $format_args['format'], $rows, array( 'file', 'product', 'version', 'plugin', 'path' ) );
 	}
 }
