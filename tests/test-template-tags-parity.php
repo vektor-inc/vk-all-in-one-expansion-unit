@@ -23,12 +23,16 @@
  *    （例: vk_get_page_for_posts() -> veu_get_page_for_posts()）。
  * 上記以外の差分は原本からの乖離としてテスト失敗にする。
  *
- * レビュー済みの意図的な差分（例: veu_the_post_type_check_list() の esc_attr( $key )
- * 追加）は、比較ロジックそのものを手直しするのではなく、FUNCTION_PAIRS 側に宣言的に
- * 記述する（詳細は FUNCTION_PAIRS の docblock を参照）。関数ごとに使い捨てのトークン
- * 書き換え関数を積み増していく方式は、次に手を入れた人が「なぜ落ちるのか」を追跡でき
- * なくなり、最悪 FUNCTION_PAIRS から関数を削って黙らせる壊れ方をする（安藤さんの
+ * レビュー済みの意図的な差分が将来生じた場合は、比較ロジックそのものを手直しするのではなく、
+ * FUNCTION_PAIRS 側に宣言的に記述する（詳細は FUNCTION_PAIRS の docblock を参照）。関数ごとに
+ * 使い捨てのトークン書き換え関数を積み増していく方式は、次に手を入れた人が「なぜ落ちるのか」を
+ * 追跡できなくなり、最悪 FUNCTION_PAIRS から関数を削って黙らせる壊れ方をする（安藤さんの
  * コードレビュー指摘）ため、この設計は避けている。
+ *
+ * 現在9関数すべてが vk_ 側とトークン単位で完全一致しており、レビュー済みの差分は0件である
+ * （かつて veu_the_post_type_check_list() に持っていた esc_attr( $key ) の追加差分は、
+ * package/template-tags.php 側の Issue #1477 対応で正本にも同じ esc_attr( $key ) が入り、
+ * 差分そのものが解消された）。
  *
  * このテストが落ちたら: package/template-tags.php 側の対応する vk_ 関数を確認する。
  * 同じ修正が必要なら exunit-template-tags.php 側にも反映する。ExUnit だけの意図的な
@@ -55,13 +59,17 @@
  *    veu_get_page_for_posts()).
  * Any other difference is treated as an unreviewed drift and fails the test.
  *
- * Reviewed, deliberate differences (e.g. the esc_attr( $key ) added in
- * veu_the_post_type_check_list()) are declared data-first in FUNCTION_PAIRS instead of
- * patching the comparison logic itself (see FUNCTION_PAIRS's own docblock for the available
- * options). Growing a pile of one-off, per-function token-rewrite helpers was rejected: the
- * next person to touch a function would have no way to tell why the test failed, and the
- * likely failure mode is deleting the function's entry from FUNCTION_PAIRS to silence it
- * (a finding from Ando's code review).
+ * Should a reviewed, deliberate difference ever arise, declare it data-first in
+ * FUNCTION_PAIRS instead of patching the comparison logic itself (see FUNCTION_PAIRS's own
+ * docblock for the available options). Growing a pile of one-off, per-function
+ * token-rewrite helpers was rejected: the next person to touch a function would have no way
+ * to tell why the test failed, and the likely failure mode is deleting the function's entry
+ * from FUNCTION_PAIRS to silence it (a finding from Ando's code review).
+ *
+ * All 9 functions currently match their vk_ counterpart token-for-token; there are no
+ * reviewed differences in effect right now (veu_the_post_type_check_list() previously had
+ * one — an added esc_attr( $key ) — but package/template-tags.php gained the exact same
+ * esc_attr( $key ) via the Issue #1477 fix, so the difference no longer exists).
  *
  * If this test fails: check the corresponding vk_ function in package/template-tags.php. If
  * the same fix is needed, apply it to exunit-template-tags.php too. If it is a deliberate
@@ -81,18 +89,7 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 	 *   **必ず空でない理由を書くこと**（無言でのスキップを防ぐため、理由が空だとテスト自体が
 	 *   失敗する）。この関数は "vk_" 側とロジックレベルで大きく異なることが分かっていて、
 	 *   トークン比較そのものが意味を持たない場合にのみ使う。現時点でこのフラグを使っている
-	 *   関数は無い（唯一の既知差分である veu_the_post_type_check_list() の esc_attr( $key )
-	 *   は、丸ごとスキップすると差分そのものの検知力を失う ["esc_attr( $key ) の欠落を
-	 *   検知できない"という安藤さんの指摘] ため、代わりに下記 'vk_normalizer' +
-	 *   'required_veu_token_sequence' の組み合わせで扱っている）。
-	 * - 'vk_normalizer' (任意) vk_ 側のトークン列にのみ適用する正規化メソッド名（$this の
-	 *   private メソッド名の文字列）。veu_ 側で意図的に追加した差分の分だけ vk_ 側を
-	 *   「あるべき姿」へ寄せてから比較するために使う。片方向の正規化のため、veu_ 側から
-	 *   その差分（＝追加した処理）が消えると、両者は再び食い違い MISMATCH になる。
-	 * - 'required_veu_token_sequence' (任意) veu_ 側のトークン列に、この配列で指定した
-	 *   トークン列が部分列として存在することを追加でアサートする。'vk_normalizer' と
-	 *   組み合わせて使うことで、正規化の方向性だけに頼らず、追加した差分そのものの存在も
-	 *   直接確認できる（二重の安全網）。
+	 *   関数は無い（9関数とも vk_ 側とトークン単位で完全一致している）。
 	 *
 	 * Map of "veu_" function name => its corresponding "vk_" function name, plus per-pair
 	 * options. Available keys per entry:
@@ -102,20 +99,8 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 	 *   whole function entirely. **The reason must not be empty** (the test fails if it is,
 	 *   so a divergence can never be silently skipped). Use this only when the function is
 	 *   known to differ substantially in logic from its "vk_" counterpart, such that a token
-	 *   comparison would not be meaningful at all. No function currently uses this flag (the
-	 *   one known difference, veu_the_post_type_check_list()'s esc_attr( $key ), would lose
-	 *   its own regression protection if skipped wholesale — Ando's finding that "a missing
-	 *   esc_attr( $key ) could not be detected" — so it is handled instead via the
-	 *   'vk_normalizer' + 'required_veu_token_sequence' combination below).
-	 * - 'vk_normalizer' (optional) Name of a private method (string) applied only to the vk_
-	 *   token stream before comparison. Used to bring the vk_ side up to "what it should look
-	 *   like" for the one reviewed addition on the veu_ side. Because the normalization is
-	 *   one-directional, if the veu_ side ever loses that addition, the two streams diverge
-	 *   again and the test fails with MISMATCH.
-	 * - 'required_veu_token_sequence' (optional) Additionally asserts that this token
-	 *   sequence exists as a contiguous subsequence in the veu_ token stream. Combined with
-	 *   'vk_normalizer' so the added difference is verified directly, not only inferred from
-	 *   the normalization direction (defense in depth).
+	 *   comparison would not be meaningful at all. No function currently uses this flag (all
+	 *   9 match their vk_ counterpart token-for-token).
 	 *
 	 * @var array
 	 */
@@ -123,16 +108,7 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 		'veu_get_page_for_posts'                           => array( 'vk_name' => 'vk_get_page_for_posts' ),
 		'veu_get_post_type'                                => array( 'vk_name' => 'vk_get_post_type' ),
 		'veu_get_page_description'                         => array( 'vk_name' => 'vk_get_page_description' ),
-		'veu_the_post_type_check_list'                     => array(
-			'vk_name'                     => 'vk_the_post_type_check_list',
-			// レビュー済みの意図的な差分（安藤さんのコードレビュー指摘）。$key のみ esc_attr()
-			// でラップしている。片方向正規化＋存在アサートの両方で守る（クラス docblock 参照）.
-			// Deliberate, reviewed difference (Ando's code review finding). $key alone is
-			// wrapped in esc_attr(). Guarded by both the one-directional normalizer and an
-			// existence assertion (see the class docblock).
-			'vk_normalizer'               => 'wrap_bare_key_with_esc_attr',
-			'required_veu_token_sequence' => array( 'esc_attr', '(', '$key', ')' ),
-		),
+		'veu_the_post_type_check_list'                     => array( 'vk_name' => 'vk_the_post_type_check_list' ),
 		'veu_the_taxonomy_check_list'                      => array( 'vk_name' => 'vk_the_taxonomy_check_list' ),
 		'veu_the_post_type_check_list_saved_array_convert' => array( 'vk_name' => 'vk_the_post_type_check_list_saved_array_convert' ),
 		'veu_is_checked'                                   => array( 'vk_name' => 'vk_is_checked' ),
@@ -156,12 +132,12 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 	/**
 	 * veu_ 関数の実装が、対応する vk_ 関数からトークン単位で乖離していないことを検証する。
 	 * コメント・空白の違いは無視する。FUNCTION_PAIRS で宣言した差分（内部呼び出しの
-	 * リネーム・個別の正規化・意図的スキップ）だけを許容する。
+	 * リネーム・意図的スキップ）だけを許容する。
 	 *
 	 * Verifies each veu_ function's implementation has not drifted from its corresponding
 	 * vk_ function at the token level. Comment and whitespace differences are ignored; only
-	 * the differences declared in FUNCTION_PAIRS (internal-call renames, per-pair
-	 * normalization, intentional skips) are tolerated.
+	 * the differences declared in FUNCTION_PAIRS (internal-call renames, intentional skips)
+	 * are tolerated.
 	 */
 	public function test_veu_functions_match_vk_source_of_truth() {
 		$vk_file  = VEU_DIRECTORY_PATH . '/inc/template-tags/package/template-tags.php';
@@ -204,10 +180,6 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 
 			$vk_normalized = $this->rename_tokens( $vk_tokens, $rename_map );
 
-			if ( ! empty( $spec['vk_normalizer'] ) ) {
-				$vk_normalized = $this->{$spec['vk_normalizer']}( $vk_normalized );
-			}
-
 			$this->assertSame(
 				implode( ' ', $vk_normalized ),
 				implode( ' ', $veu_tokens ),
@@ -218,16 +190,6 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 				'If package/template-tags.php was updated by a vektor-wp-libraries sync, apply the ' .
 				'same fix to exunit-template-tags.php.)'
 			);
-
-			if ( ! empty( $spec['required_veu_token_sequence'] ) ) {
-				$this->assertTrue(
-					$this->contains_token_sequence( $veu_tokens, $spec['required_veu_token_sequence'] ),
-					"veu_{$veu_name}() から必須のトークン列「" . implode( ' ', $spec['required_veu_token_sequence'] ) . '」' .
-					'が失われています（レビュー済みの追加差分のはずが消えています）。' .
-					" (veu_{$veu_name}() is missing the required token sequence \"" . implode( ' ', $spec['required_veu_token_sequence'] ) . '" ' .
-					'— the reviewed, intentional addition appears to have been removed.)'
-				);
-			}
 		}
 	}
 
@@ -338,77 +300,5 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 		unset( $token ); // 参照ループの後始末. Clean up the by-reference loop variable.
 
 		return $tokens;
-	}
-
-	/**
-	 * トークン値の配列から `. $key .` という並び（文字列連結の中で $key が素のまま
-	 * 使われている箇所）を探し、`. esc_attr( $key ) .` へ書き換える。片方向の正規化
-	 * のため、veu_ 側で既に esc_attr( $key ) になっていればトークン列は一致するが、
-	 * veu_ 側から esc_attr() が失われれば再び食い違い、比較は MISMATCH になる。
-	 *
-	 * `$key` が現れる他の全ての箇所（foreach の変数宣言・配列添字としての利用等）は、
-	 * 前後のトークンが '.' と '.' の組にならないため、意図せず書き換わることはない。
-	 *
-	 * Find the `. $key .` sequence (bare $key used inside a string concatenation) in a
-	 * token-value array and rewrite it to `. esc_attr( $key ) .`. Because the normalization
-	 * is one-directional, the token streams still match when the veu_ side already has
-	 * esc_attr( $key ), but diverge into a MISMATCH again if esc_attr() is ever removed from
-	 * the veu_ side.
-	 *
-	 * Every other place `$key` appears (the foreach variable declaration, array-index usage,
-	 * etc.) is never rewritten, because none of those are surrounded by a '.' before and a
-	 * '.' after.
-	 *
-	 * @param array $tokens 対象のトークン値配列. Token values to process.
-	 * @return array 書き換え後のトークン値配列. Token values after rewriting.
-	 */
-	private function wrap_bare_key_with_esc_attr( array $tokens ) {
-		$result = array();
-		$count  = count( $tokens );
-
-		for ( $i = 0; $i < $count; $i++ ) {
-			$token = $tokens[ $i ];
-
-			if ( '$key' === $token
-				&& ! empty( $result ) && '.' === end( $result )
-				&& isset( $tokens[ $i + 1 ] ) && '.' === $tokens[ $i + 1 ]
-			) {
-				$result[] = 'esc_attr';
-				$result[] = '(';
-				$result[] = '$key';
-				$result[] = ')';
-				continue;
-			}
-
-			$result[] = $token;
-		}
-
-		return $result;
-	}
-
-	/**
-	 * トークン値の配列 $haystack の中に、トークン列 $needle が部分列として
-	 * 連続して現れるかどうかを判定する。
-	 * Whether the token sequence $needle appears as a contiguous subsequence of $haystack.
-	 *
-	 * @param array $haystack 探索対象のトークン値配列. Token values to search within.
-	 * @param array $needle   探す側のトークン列. Token sequence to look for.
-	 * @return bool 部分列として存在すれば true. True if found as a contiguous subsequence.
-	 */
-	private function contains_token_sequence( array $haystack, array $needle ) {
-		$haystack_count = count( $haystack );
-		$needle_count   = count( $needle );
-
-		if ( 0 === $needle_count || $needle_count > $haystack_count ) {
-			return false;
-		}
-
-		for ( $i = 0; $i <= $haystack_count - $needle_count; $i++ ) {
-			if ( array_slice( $haystack, $i, $needle_count ) === $needle ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 }

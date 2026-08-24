@@ -358,14 +358,9 @@ function veu_get_page_description() {
  * 投稿タイプのチェックボックス一覧を出力する（ExUnit 自身の設定画面用）。
  *
  * Full duplicate of package/template-tags.php's vk_the_post_type_check_list() (see the file
- * docblock above for why this is a duplicate, not a wrapper around the "vk_" version), with one
- * reviewed addition: $key is wrapped in esc_attr() where the "vk_" version echoes it bare. See
- * the "NOTICE FOR vektor-wp-libraries MAINTAINERS" block above and
- * tests/test-template-tags-parity.php for how this one known difference is tracked.
+ * docblock above for why this is a duplicate, not a wrapper around the "vk_" version).
  * package/template-tags.php の vk_the_post_type_check_list() の完全な複製（委譲ではなく複製に
- * している理由はファイル冒頭の docblock を参照）だが、1点だけレビュー済みの追加がある: "vk_" 版が
- * $key を素のまま echo している箇所を esc_attr( $key ) でラップしている。この既知の差分の扱いは、
- * 上記の「vektor-wp-libraries の同期担当者へ」の注記と tests/test-template-tags-parity.php を参照。
+ * している理由はファイル冒頭の docblock を参照）。
  *
  * @param array $args {
  *     Settings for the checkbox display. チェックボックス表示用の設定。
@@ -405,7 +400,11 @@ function veu_the_post_type_check_list( $args ) {
 			}
 
 			echo '<li><label>';
-			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />';
+			echo ' ' . esc_html( $value->label );
+			// スラッグは分類の手がかりとして表示するため、翻訳関数には通さない（自然言語ではないため i18n 対象外）。
+			// The slug is shown as a disambiguation cue and is intentionally not passed through a translation function (not natural language).
+			echo ' <span class="description">(<code>' . esc_html( $key ) . '</code>)</span>';
 			echo '</label></li>';
 		}
 	}
@@ -456,7 +455,11 @@ function veu_the_taxonomy_check_list( $args ) {
 			$id      = ! empty( $args['id'][ $key ] ) ? ' id="' . esc_attr( $args['id'][ $key ] ) . '"' : '';
 
 			echo '<li><label>';
-			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />' . esc_html( $value->label );
+			echo '<input type="checkbox" name="' . esc_attr( $args['name'] ) . '[' . esc_attr( $key ) . ']"' . $id . ' value="true"' . $checked . ' />';
+			echo ' ' . esc_html( $value->label );
+			// スラッグは分類の手がかりとして表示するため、翻訳関数には通さない（自然言語ではないため i18n 対象外）。
+			// The slug is shown as a disambiguation cue and is intentionally not passed through a translation function (not natural language).
+			echo ' <span class="description">(<code>' . esc_html( $key ) . '</code>)</span>';
 			echo '</label></li>';
 		}
 	}
