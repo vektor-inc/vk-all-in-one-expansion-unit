@@ -81,7 +81,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 
 		$post_type = ( isset( $instance['post_type'] ) && $instance['post_type'] ) ? $instance['post_type'] : 'post';
 		if ( is_array( $post_type ) ) {
-			$post_type = vk_the_post_type_check_list_saved_array_convert( $post_type );
+			$post_type = veu_the_post_type_check_list_saved_array_convert( $post_type );
 		}
 		$is_modified = ( isset( $instance['orderby'] ) && $instance['orderby'] == 'modified' );
 		$orderby     = ( isset( $instance['orderby'] ) ) ? $instance['orderby'] : 'date';
@@ -420,7 +420,7 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 			'name'    => $this->get_field_name( 'post_type' ),
 			'checked' => $instance['post_type'],
 		);
-		vk_the_post_type_check_list( $args );
+		veu_the_post_type_check_list( $args );
 		?>
 
 		<?php // Terms ?>

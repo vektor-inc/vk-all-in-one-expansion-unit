@@ -248,8 +248,8 @@ if ( ! class_exists( 'VkNavMenuClassCustom' ) ) {
 			$menu_url_post_type = self::get_post_type_from_url( $item_src );
 
 			// 今表示しているページが属する投稿タイプを取得
-			if ( function_exists( 'vk_get_post_type' ) ) {
-				$displaying_page_post_type_info = vk_get_post_type();
+			if ( function_exists( 'veu_get_post_type' ) ) {
+				$displaying_page_post_type_info = veu_get_post_type();
 				$displaying_page_post_type_slug = $displaying_page_post_type_info['slug'];
 			} else {
 				$displaying_page_post_type_slug = get_post_type();

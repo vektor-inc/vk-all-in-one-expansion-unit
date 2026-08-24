@@ -17,7 +17,7 @@ function veu_add_follow( $content ) {
 	if ( $is_pagewidget ) {
 		return $content; }
 
-	$postType = vk_get_post_type();
+	$postType = veu_get_post_type();
 
 	if ( is_single() && $postType['slug'] == 'post' ) :
 		$content .= veu_get_follow_html();

@@ -48,7 +48,7 @@ function vkExUnit_add_twitterCard() {
 	?>
 <!-- [ <?php echo veu_get_name(); ?> twitter card ] -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="<?php echo esc_attr( vk_get_page_description() ); ?>">
+<meta name="twitter:description" content="<?php echo esc_attr( veu_get_page_description() ); ?>">
 <meta name="twitter:title" content="<?php echo esc_attr( veu_get_the_sns_title() ); ?>">
 <meta name="twitter:url" content="<?php echo esc_url( $linkUrl ); ?>">
 	<?php if ( isset( $card_image_url ) && $card_image_url ) { ?>

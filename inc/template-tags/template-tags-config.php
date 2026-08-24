@@ -18,8 +18,21 @@
  * package/template-tags.php 内の全関数は個別に function_exists() ガードされているため、常に
  * require_once しても関数の再宣言エラーは起きない。よってファイル単位のガードは外し、常に読み込む。
  *
+ * This same function_exists() load-order dependency means ExUnit's own bug fixes inside
+ * package/template-tags.php can silently stop taking effect whenever another plugin's older
+ * bundled copy loads first (see issue #1478). To make ExUnit's own code independent of that
+ * load order, exunit-template-tags.php below defines "veu_" prefixed duplicates that ExUnit's
+ * inc/ code calls instead of the "vk_" names; the "vk_" functions here are kept solely as the
+ * external-facing compatibility layer.
+ * この function_exists() による読み込み順依存があるため、他プラグインが同梱する古いコピーが先に
+ * 読み込まれると、ExUnit 自身の修正が効かなくなる場合がある（issue #1478 参照）。ExUnit 自身の
+ * コードをこの読み込み順から独立させるため、下記の exunit-template-tags.php で "veu_" 接頭辞の
+ * 複製を定義し、ExUnit の inc/ 配下のコードは "vk_" ではなくそちらを呼ぶ。ここでの "vk_" 関数は、
+ * 外部向けの互換レイヤーとしてのみ維持している。
+ *
  * @package VK All in One Expansion Unit
  * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1450
+ * @see https://github.com/vektor-inc/vk-all-in-one-expansion-unit/issues/1478
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,3 +42,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once __DIR__ . '/package/template-tags.php';
 require_once __DIR__ . '/package/template-tags-veu.php';
 require_once __DIR__ . '/package/template-tags-veu-old.php';
+
+// ExUnit-owned "veu_" duplicates — not synced from vektor-wp-libraries, see the file's own
+// docblock for the full rationale.
+// ExUnit 所有の "veu_" 複製 — vektor-wp-libraries から同期されるファイルではない。詳細な経緯は
+// ファイル自身の docblock を参照。
+require_once __DIR__ . '/exunit-template-tags.php';

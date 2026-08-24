@@ -202,7 +202,7 @@ function veu_get_related_posts_html() {
 	$output = get_option( 'vkExUnit_related_options' );
 
 	if ( ! empty( $output['related_display_count'] ) ) {
-		$count = vk_sanitize_number( $output['related_display_count'] );
+		$count = veu_sanitize_number( $output['related_display_count'] );
 	} else {
 		$count = 10;
 	}
@@ -312,7 +312,7 @@ function veu_customize_register_related( $wp_customize ) {
 			'default'           => '',
 			'type'              => 'option', // 保存先 option or theme_mod.
 			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'vk_sanitize_number',
+			'sanitize_callback' => 'veu_sanitize_number',
 		)
 	);
 	// コントロール _ 表示件数.

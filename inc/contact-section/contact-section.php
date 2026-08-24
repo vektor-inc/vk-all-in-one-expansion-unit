@@ -431,7 +431,7 @@ class VkExUnit_Contact {
 		}
 
 		// 抜粋では表示しない
-		if ( vkExUnit_is_excerpt() ) {
+		if ( veu_is_excerpt() ) {
 			return false;
 		}
 

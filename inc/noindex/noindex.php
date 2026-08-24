@@ -54,7 +54,7 @@ function veu_is_noindex_print_head() {
 		$options             = veu_noindex_options();
 		$veu_noindex_targets = veu_noindex_targets();
 
-		$post_type_info = vk_get_post_type();
+		$post_type_info = veu_get_post_type();
 
 		foreach ( $veu_noindex_targets as $key => $value ) {
 

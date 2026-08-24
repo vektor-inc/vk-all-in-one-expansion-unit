@@ -423,18 +423,20 @@ class SitemapPageTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * vk_the_taxonomy_check_list() のテスト。
+	 * vk_the_taxonomy_check_list() / veu_the_taxonomy_check_list() のテスト。
 	 * name 属性・checked の有無が正しく出力される事、対象タクソノミーが0件の場合に
 	 * 空の一覧ではなくフォールバック文言が出力される事（植草さんレビュー UX-2 指摘）を検証する。
+	 * 互換レイヤーの vk_ と、ExUnit 本番が実際に呼ぶ veu_ の両方をループする。
 	 * また Issue #1475 対応として、見出しに「ラベル (スラッグ)」の形式でスラッグが併記される事、
 	 * 同じラベルで異なるスラッグのタクソノミーが並んでも出力から判別できる事を検証する。
 	 *
-	 * Test for vk_the_taxonomy_check_list().
+	 * Test for vk_the_taxonomy_check_list() and veu_the_taxonomy_check_list().
 	 * Verifies the name attribute and the checked state are output correctly, and that a
 	 * fallback message is shown instead of an empty list when there are no taxonomies to
-	 * display ( UX review finding ). Also covers Issue #1475: the checkbox label is followed
-	 * by its slug in "Label (slug)" form, and two taxonomies that share the same label but
-	 * have different slugs remain distinguishable in the output.
+	 * display ( UX review finding ). Loops both the compatibility layer (vk_) and the name
+	 * ExUnit's production code actually calls (veu_). Also covers Issue #1475: the checkbox
+	 * label is followed by its slug in "Label (slug)" form, and two taxonomies that share the
+	 * same label but have different slugs remain distinguishable in the output.
 	 */
 	function test_vk_the_taxonomy_check_list() {
 
@@ -540,33 +542,45 @@ class SitemapPageTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			ob_start();
-			vk_the_taxonomy_check_list( $case['args'] );
-			$html = ob_get_clean();
+		foreach ( array( 'vk_the_taxonomy_check_list', 'veu_the_taxonomy_check_list' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
 
-			foreach ( $case['expected_contains'] as $expected ) {
-				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
-			}
-			foreach ( $case['expected_not_contains'] as $unexpected ) {
-				$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
+				ob_start();
+				call_user_func( $function_name, $case['args'] );
+				$html = ob_get_clean();
+
+				foreach ( $case['expected_contains'] as $expected ) {
+					$this->assertStringContainsString( $expected, $html, $condition_name );
+				}
+				foreach ( $case['expected_not_contains'] as $unexpected ) {
+					$this->assertStringNotContainsString( $unexpected, $html, $condition_name );
+				}
 			}
 		}
 	}
 
 	/**
-	 * vk_the_post_type_check_list() のテスト。
+	 * vk_the_post_type_check_list() / veu_the_post_type_check_list() のテスト。両者を
+	 * ループして検証する（理由は tests/test-template-tags.php の
+	 * test_vk_get_post_type() の docblock を参照）。
 	 * Issue #1475 対応として、見出しに「ラベル (スラッグ)」の形式でスラッグが併記される事、
 	 * name 属性にスラッグが出力される事、同じラベルで異なるスラッグの投稿タイプが
-	 * 並んでも出力から判別できる事を検証する。
+	 * 並んでも出力から判別できる事を検証する。この Issue #1475 のケースは、まさに今回
+	 * ExUnit の設定画面を veu_ へ付け替える際に見落としかけたリグレッション（スラッグ併記の
+	 * 欠落）そのものであり、vk_ 側だけでなく veu_ 側でも同じ回帰を検知できる必要がある。
 	 * register_post_type() はスラッグを英数字・アンダースコア・ハイフンに制限するため、
 	 * HTML 特殊文字を含むスラッグのエスケープ挙動そのものは注入できない。その検証は
 	 * taxonomies を任意キーで受け取れる vk_the_taxonomy_check_list() 側で行っている。
 	 *
-	 * Test for vk_the_post_type_check_list().
-	 * Covers Issue #1475: the checkbox label is followed by its slug in "Label (slug)" form,
-	 * the slug appears in the name attribute, and two post types that share the same label
-	 * but have different slugs remain distinguishable in the output.
+	 * Test for vk_the_post_type_check_list() and veu_the_post_type_check_list(), looping
+	 * both names (see test_vk_get_post_type()'s docblock in tests/test-template-tags.php for
+	 * why). Covers Issue #1475: the checkbox label is followed by its slug in "Label (slug)"
+	 * form, the slug appears in the name attribute, and two post types that share the same
+	 * label but have different slugs remain distinguishable in the output. This Issue #1475
+	 * coverage is exactly the regression (the missing slug disambiguation) that this project
+	 * nearly reintroduced while switching ExUnit's settings screens to veu_, so both the vk_
+	 * and veu_ names need the same protection here, not only vk_.
 	 * register_post_type() restricts slugs to alphanumeric/underscore/hyphen, so a slug
 	 * containing HTML special characters cannot be injected here; that escaping behavior is
 	 * covered by vk_the_taxonomy_check_list(), which accepts arbitrary keys.
@@ -659,16 +673,20 @@ class SitemapPageTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			ob_start();
-			vk_the_post_type_check_list( $case['args'] );
-			$html = ob_get_clean();
+		foreach ( array( 'vk_the_post_type_check_list', 'veu_the_post_type_check_list' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
 
-			foreach ( $case['expected_contains'] as $expected ) {
-				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
-			}
-			foreach ( $case['expected_not_contains'] as $unexpected ) {
-				$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
+				ob_start();
+				call_user_func( $function_name, $case['args'] );
+				$html = ob_get_clean();
+
+				foreach ( $case['expected_contains'] as $expected ) {
+					$this->assertStringContainsString( $expected, $html, $condition_name );
+				}
+				foreach ( $case['expected_not_contains'] as $unexpected ) {
+					$this->assertStringNotContainsString( $unexpected, $html, $condition_name );
+				}
 			}
 		}
 	}

@@ -36,7 +36,7 @@ function veu_customize_register_default_thumbnail( $wp_customize ) {
 			'default'           => '',
 			'type'              => 'option',
 			'capability'        => 'edit_theme_options',
-			'sanitize_callback' => 'vk_sanitize_number',
+			'sanitize_callback' => 'veu_sanitize_number',
 		)
 	);
 
