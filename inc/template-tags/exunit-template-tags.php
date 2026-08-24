@@ -64,6 +64,22 @@
  * ファイルの唯一の読み込み元である inc/template-tags/template-tags-config.php が require_once
  * （単純な require / include ではなく）で読み込むことで担保している。
  *
+ * IF tests/test-template-tags-parity.php FAILS after you edit a function in this file: that
+ * test pins each "veu_" function here against its "vk_" source of truth in
+ * package/template-tags.php at the PHP token level. A failure means you either (a) need to
+ * port the same fix into package/template-tags.php (the vektor-wp-libraries source repo) so
+ * the next sync carries it too, or (b) made a deliberate ExUnit-only change that should stay
+ * different from "vk_" — in that case add it to that test's FUNCTION_PAIRS as a documented,
+ * reviewed difference (see that file's own docblock for the available options) rather than
+ * editing the comparison logic ad hoc.
+ * tests/test-template-tags-parity.php がこのファイルの関数を編集した後に失敗した場合: このテストは
+ * ここの各 "veu_" 関数を、正本である package/template-tags.php の対応する "vk_" 関数と PHP トークン
+ * 単位で突き合わせて固定している。失敗した場合は、(a) 同じ修正を package/template-tags.php（正本の
+ * vektor-wp-libraries リポジトリ）側にも移植し、次回同期でも反映されるようにするか、(b) ExUnit だけの
+ * 意図的な変更で "vk_" 側とは違えたままにしたい場合は、その場しのぎで比較ロジックを書き換えるのではなく、
+ * 同テストの FUNCTION_PAIRS へレビュー済みの差分として明記して追加する（選択肢の詳細は同ファイル自身の
+ * docblock を参照）。
+ *
  * NOTICE FOR vektor-wp-libraries MAINTAINERS — do not add these 9 function names there:
  * veu_get_page_for_posts(), veu_get_post_type(), veu_get_page_description(),
  * veu_the_post_type_check_list(), veu_the_taxonomy_check_list(),
@@ -342,9 +358,14 @@ function veu_get_page_description() {
  * 投稿タイプのチェックボックス一覧を出力する（ExUnit 自身の設定画面用）。
  *
  * Full duplicate of package/template-tags.php's vk_the_post_type_check_list() (see the file
- * docblock above for why this is a duplicate, not a wrapper around the "vk_" version).
+ * docblock above for why this is a duplicate, not a wrapper around the "vk_" version), with one
+ * reviewed addition: $key is wrapped in esc_attr() where the "vk_" version echoes it bare. See
+ * the "NOTICE FOR vektor-wp-libraries MAINTAINERS" block above and
+ * tests/test-template-tags-parity.php for how this one known difference is tracked.
  * package/template-tags.php の vk_the_post_type_check_list() の完全な複製（委譲ではなく複製に
- * している理由はファイル冒頭の docblock を参照）。
+ * している理由はファイル冒頭の docblock を参照）だが、1点だけレビュー済みの追加がある: "vk_" 版が
+ * $key を素のまま echo している箇所を esc_attr( $key ) でラップしている。この既知の差分の扱いは、
+ * 上記の「vektor-wp-libraries の同期担当者へ」の注記と tests/test-template-tags-parity.php を参照。
  *
  * @param array $args {
  *     Settings for the checkbox display. チェックボックス表示用の設定。
