@@ -401,14 +401,16 @@ class SitemapPageTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * vk_the_taxonomy_check_list() のテスト。
+	 * vk_the_taxonomy_check_list() / veu_the_taxonomy_check_list() のテスト。
 	 * name 属性・checked の有無が正しく出力される事、対象タクソノミーが0件の場合に
 	 * 空の一覧ではなくフォールバック文言が出力される事（植草さんレビュー UX-2 指摘）を検証する。
+	 * 互換レイヤーの vk_ と、ExUnit 本番が実際に呼ぶ veu_ の両方をループする。
 	 *
-	 * Test for vk_the_taxonomy_check_list().
+	 * Test for vk_the_taxonomy_check_list() and veu_the_taxonomy_check_list().
 	 * Verifies the name attribute and the checked state are output correctly, and that a
 	 * fallback message is shown instead of an empty list when there are no taxonomies to
-	 * display ( UX review finding ).
+	 * display ( UX review finding ). Loops both the compatibility layer (vk_) and the name
+	 * ExUnit's production code actually calls (veu_).
 	 */
 	function test_vk_the_taxonomy_check_list() {
 
@@ -460,16 +462,20 @@ class SitemapPageTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			ob_start();
-			vk_the_taxonomy_check_list( $case['args'] );
-			$html = ob_get_clean();
+		foreach ( array( 'vk_the_taxonomy_check_list', 'veu_the_taxonomy_check_list' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
 
-			foreach ( $case['expected_contains'] as $expected ) {
-				$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
-			}
-			foreach ( $case['expected_not_contains'] as $unexpected ) {
-				$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
+				ob_start();
+				call_user_func( $function_name, $case['args'] );
+				$html = ob_get_clean();
+
+				foreach ( $case['expected_contains'] as $expected ) {
+					$this->assertStringContainsString( $expected, $html, $condition_name );
+				}
+				foreach ( $case['expected_not_contains'] as $unexpected ) {
+					$this->assertStringNotContainsString( $unexpected, $html, $condition_name );
+				}
 			}
 		}
 	}

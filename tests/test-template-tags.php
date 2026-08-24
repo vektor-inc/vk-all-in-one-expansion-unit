@@ -60,8 +60,19 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * vk_get_post_type() は $_SERVER['REQUEST_URI'] が未設定（WP-CLI / cron 相当）でも
-	 * Undefined array key / strpos(null) を出さず、slug を含む配列を返す。
+	 * vk_get_post_type() / veu_get_post_type() は $_SERVER['REQUEST_URI'] が未設定
+	 * （WP-CLI / cron 相当）でも Undefined array key / strpos(null) を出さず、slug を含む
+	 * 配列を返す。
+	 *
+	 * 外部互換レイヤーの vk_get_post_type() と、ExUnit 本番が実際に呼ぶ veu_get_post_type()
+	 * の両方を同一条件でループして検証する。PHPUnit 実行時は vk_get_post_type() も ExUnit
+	 * 自身のコピー（package/template-tags.php）に解決されるため、vk_ 側だけを検証しても
+	 * veu_get_post_type() の壊れを検知できない。
+	 * Loops both the external compatibility layer vk_get_post_type() and
+	 * veu_get_post_type(), which is what ExUnit's production code actually calls, under the
+	 * same conditions. Under PHPUnit, vk_get_post_type() also resolves to ExUnit's own copy
+	 * (package/template-tags.php), so testing only the vk_ name cannot catch a broken
+	 * veu_get_post_type().
 	 */
 	public function test_vk_get_post_type() {
 		// フロントページに移動して $wp_query を用意する。
@@ -88,18 +99,25 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		);
 
 		try {
-			foreach ( $test_cases as $case ) {
-				if ( $case['unset_request_uri'] ) {
-					unset( $_SERVER['REQUEST_URI'] );
-				} else {
-					$_SERVER['REQUEST_URI'] = $case['request_uri'];
+			// 互換レイヤー（vk_）と ExUnit 本番実装（veu_）の両方を同一条件で検証する.
+			// Verify both the compatibility layer (vk_) and ExUnit's production
+			// implementation (veu_) under the same conditions.
+			foreach ( array( 'vk_get_post_type', 'veu_get_post_type' ) as $function_name ) {
+				foreach ( $test_cases as $case ) {
+					$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+					if ( $case['unset_request_uri'] ) {
+						unset( $_SERVER['REQUEST_URI'] );
+					} else {
+						$_SERVER['REQUEST_URI'] = $case['request_uri'];
+					}
+
+					$actual = call_user_func( $function_name );
+
+					$this->assertIsArray( $actual, $condition_name );
+					$this->assertArrayHasKey( 'slug', $actual, $condition_name );
+					$this->assertIsString( $actual['slug'], $condition_name );
 				}
-
-				$actual = vk_get_post_type();
-
-				$this->assertIsArray( $actual, $case['test_condition_name'] );
-				$this->assertArrayHasKey( 'slug', $actual, $case['test_condition_name'] );
-				$this->assertIsString( $actual['slug'], $case['test_condition_name'] );
 			}
 		} finally {
 			// アサーション失敗（例外）時も含め、REQUEST_URI を必ず復元して後続テストへの影響を防ぐ。
@@ -113,12 +131,14 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * vk_get_post_type() の管理画面での分岐 — 投稿の情報がまだ無い新規作成画面
-	 * （例: post-new.php?post_type=xxx）では、URL のクエリ（$_GET['post_type']）から
-	 * 投稿タイプを拾う。
+	 * vk_get_post_type() / veu_get_post_type() の管理画面での分岐 — 投稿の情報がまだ無い
+	 * 新規作成画面（例: post-new.php?post_type=xxx）では、URL のクエリ（$_GET['post_type']）
+	 * から投稿タイプを拾う。vk_ / veu_ 両方をループして検証する（理由は test_vk_get_post_type()
+	 * の docblock を参照）。
 	 * On the admin "new post" screen (e.g. post-new.php?post_type=xxx), where no post data
-	 * exists yet, vk_get_post_type() falls back to reading the post type from the
-	 * $_GET['post_type'] query var.
+	 * exists yet, both vk_get_post_type() and veu_get_post_type() fall back to reading the
+	 * post type from the $_GET['post_type'] query var. Loops both names (see
+	 * test_vk_get_post_type()'s docblock for why).
 	 */
 	public function test_vk_get_post_type_admin_new_post_screen() {
 		global $post;
@@ -146,25 +166,29 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		);
 
 		try {
-			foreach ( $test_cases as $case ) {
-				// 投稿データがまだ無い新規作成画面を再現するため $post と $_GET をクリアする.
-				// Reproduce the "no post data yet" new-post screen by clearing $post and $_GET.
-				$post = null;
-				$_GET = array();
-				if ( null !== $case['query_post_type'] ) {
-					$_GET['post_type'] = $case['query_post_type'];
+			foreach ( array( 'vk_get_post_type', 'veu_get_post_type' ) as $function_name ) {
+				foreach ( $test_cases as $case ) {
+					$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+					// 投稿データがまだ無い新規作成画面を再現するため $post と $_GET をクリアする.
+					// Reproduce the "no post data yet" new-post screen by clearing $post and $_GET.
+					$post = null;
+					$_GET = array();
+					if ( null !== $case['query_post_type'] ) {
+						$_GET['post_type'] = $case['query_post_type'];
+					}
+					// is_admin() は PHPUnit 環境下では効かないことがあるため、
+					// package/template-tags.php 同様 REQUEST_URI に 'wp-admin' を含めて分岐させる.
+					// is_admin() is not reliable under PHPUnit, so include 'wp-admin' in
+					// REQUEST_URI to enter the admin branch, matching package/template-tags.php.
+					$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php';
+
+					$actual = call_user_func( $function_name );
+
+					$this->assertIsArray( $actual, $condition_name );
+					$this->assertArrayHasKey( 'slug', $actual, $condition_name );
+					$this->assertSame( $case['expected_slug'], $actual['slug'], $condition_name );
 				}
-				// is_admin() は PHPUnit 環境下では効かないことがあるため、
-				// package/template-tags.php 同様 REQUEST_URI に 'wp-admin' を含めて分岐させる.
-				// is_admin() is not reliable under PHPUnit, so include 'wp-admin' in
-				// REQUEST_URI to enter the admin branch, matching package/template-tags.php.
-				$_SERVER['REQUEST_URI'] = '/wp-admin/post-new.php';
-
-				$actual = vk_get_post_type();
-
-				$this->assertIsArray( $actual, $case['test_condition_name'] );
-				$this->assertArrayHasKey( 'slug', $actual, $case['test_condition_name'] );
-				$this->assertSame( $case['expected_slug'], $actual['slug'], $case['test_condition_name'] );
 			}
 		} finally {
 			// アサーション失敗（例外）時も含め、グローバル状態を必ず復元して後続テストへの影響を防ぐ。
@@ -182,12 +206,14 @@ class TemplateTagsTest extends WP_UnitTestCase {
 	/**
 	 * メインクエリの投稿タイプが配列で渡された場合の正規化（#1375）。
 	 * pre_get_posts 等でメインクエリに post_type を配列で set した場合でも、
-	 * vk_get_post_type() は "Array to string conversion" Warning を出さず、
-	 * 配列の先頭要素を文字列 slug として返す。
+	 * vk_get_post_type() / veu_get_post_type() は "Array to string conversion" Warning を
+	 * 出さず、配列の先頭要素を文字列 slug として返す。vk_ / veu_ 両方をループして検証する
+	 * （理由は test_vk_get_post_type() の docblock を参照）。
 	 * Normalization when the main query's post type is passed as an array (#1375). Even when
-	 * post_type is set to an array on the main query (e.g. via pre_get_posts), vk_get_post_type()
-	 * must not trigger an "Array to string conversion" warning and must return the array's first
-	 * element as a string slug.
+	 * post_type is set to an array on the main query (e.g. via pre_get_posts), both
+	 * vk_get_post_type() and veu_get_post_type() must not trigger an "Array to string
+	 * conversion" warning and must return the array's first element as a string slug. Loops
+	 * both names (see test_vk_get_post_type()'s docblock for why).
 	 */
 	public function test_vk_get_post_type_main_query_post_type_array_normalization() {
 
@@ -238,26 +264,30 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_cases as $case ) {
-			// pre_get_posts でメインクエリの post_type を配列で set し、
-			// #1375 が対象としていた「pre_get_posts で配列を set するケース」を再現する.
-			// Use pre_get_posts to set the main query's post_type to an array, reproducing the
-			// "post_type set as an array via pre_get_posts" scenario that #1375 targets.
-			$post_type_override = $case['post_type'];
-			$set_post_type      = function ( $query ) use ( $post_type_override ) {
-				if ( $query->is_main_query() ) {
-					$query->set( 'post_type', $post_type_override );
-				}
-			};
-			add_filter( 'pre_get_posts', $set_post_type );
-			$this->go_to( home_url( '/' ) );
-			remove_filter( 'pre_get_posts', $set_post_type );
+		foreach ( array( 'vk_get_post_type', 'veu_get_post_type' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
 
-			$actual = vk_get_post_type();
+				// pre_get_posts でメインクエリの post_type を配列で set し、
+				// #1375 が対象としていた「pre_get_posts で配列を set するケース」を再現する.
+				// Use pre_get_posts to set the main query's post_type to an array, reproducing the
+				// "post_type set as an array via pre_get_posts" scenario that #1375 targets.
+				$post_type_override = $case['post_type'];
+				$set_post_type      = function ( $query ) use ( $post_type_override ) {
+					if ( $query->is_main_query() ) {
+						$query->set( 'post_type', $post_type_override );
+					}
+				};
+				add_filter( 'pre_get_posts', $set_post_type );
+				$this->go_to( home_url( '/' ) );
+				remove_filter( 'pre_get_posts', $set_post_type );
 
-			$this->assertIsArray( $actual, $case['test_condition_name'] );
-			$this->assertIsString( $actual['slug'], $case['test_condition_name'] . ' / slug は配列ではなく文字列に正規化されていること' );
-			$this->assertSame( $case['expected_slug'], $actual['slug'], $case['test_condition_name'] );
+				$actual = call_user_func( $function_name );
+
+				$this->assertIsArray( $actual, $condition_name );
+				$this->assertIsString( $actual['slug'], $condition_name . ' / slug は配列ではなく文字列に正規化されていること' );
+				$this->assertSame( $case['expected_slug'], $actual['slug'], $condition_name );
+			}
 		}
 	}
 
@@ -547,6 +577,14 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		return $data;
 	}
 
+	/**
+	 * vk_the_post_type_check_list_saved_array_convert() /
+	 * veu_the_post_type_check_list_saved_array_convert() の両方をループして検証する
+	 * （理由は test_vk_get_post_type() の docblock を参照）。
+	 * Loops both vk_the_post_type_check_list_saved_array_convert() and
+	 * veu_the_post_type_check_list_saved_array_convert() (see test_vk_get_post_type()'s
+	 * docblock for why).
+	 */
 	public function test_vk_the_post_type_check_list_saved_array_convert() {
 
 		$tests = array(
@@ -577,22 +615,310 @@ class TemplateTagsTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		print 'test_vk_the_post_type_check_list_saved_array_convert' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		foreach ( $tests as $key => $test_value ) {
-			update_option( 'vkExUnit_Ads', $test_value['option'] );
+		foreach ( array( 'vk_the_post_type_check_list_saved_array_convert', 'veu_the_post_type_check_list_saved_array_convert' ) as $function_name ) {
+			foreach ( $tests as $key => $test_value ) {
+				update_option( 'vkExUnit_Ads', $test_value['option'] );
 
-			$return = vk_the_post_type_check_list_saved_array_convert( $test_value['option'] );
+				$return = call_user_func( $function_name, $test_value['option'] );
 
-			// PHPunit
-			$this->assertEquals( $test_value['correct'], $return );
-			print PHP_EOL;
-			// 帰り値が配列だから print してもエラーになるだけなのでコメントアウト
-			// print 'return    :' . $return. PHP_EOL;
-			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
+				// PHPunit
+				$this->assertEquals( $test_value['correct'], $return, $function_name . '() / case ' . $key );
+				print PHP_EOL;
+				// 帰り値が配列だから print してもエラーになるだけなのでコメントアウト
+				// print 'return    :' . $return. PHP_EOL;
+				// print 'correct   :' . $test_value['correct'] . PHP_EOL;
+			}
 		}
 	}
 
 	/**
-	 * 抜粋のテスト
+	 * vk_is_checked() / veu_is_checked() のテスト。両者をループして検証する（理由は
+	 * test_vk_get_post_type() の docblock を参照）。
+	 * $checked_value と $value が一致する場合に ' checked' を echo し、一致しない場合は
+	 * 何も出力しないことを検証する。
+	 *
+	 * Test for vk_is_checked() / veu_is_checked(), looping both names (see
+	 * test_vk_get_post_type()'s docblock for why). Verifies ' checked' is echoed when
+	 * $checked_value equals $value, and nothing is echoed otherwise.
+	 */
+	public function test_vk_is_checked() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'checked_value と value が一致する場合 => 半角スペース区切りで checked が出力される（正常系）',
+				'checked_value'       => 'true',
+				'value'               => 'true',
+				'expected'            => ' checked',
+			),
+			array(
+				'test_condition_name' => 'checked_value と value が一致しない場合 => 何も出力されない（正常系）',
+				'checked_value'       => 'true',
+				'value'               => 'false',
+				'expected'            => '',
+			),
+			array(
+				'test_condition_name' => 'checked_value・value とも既定値の空文字列同士の場合 => 一致するため checked が出力される（境界値）',
+				'checked_value'       => '',
+				'value'               => '',
+				'expected'            => ' checked',
+			),
+		);
+
+		foreach ( array( 'vk_is_checked', 'veu_is_checked' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+				ob_start();
+				call_user_func( $function_name, $case['checked_value'], $case['value'] );
+				$actual = ob_get_clean();
+
+				$this->assertSame( $case['expected'], $actual, $condition_name );
+			}
+		}
+	}
+
+	/**
+	 * vk_sanitize_number() / veu_sanitize_number() のテスト。両者をループして検証する
+	 * （理由は test_vk_get_post_type() の docblock を参照）。
+	 * 全角数字の半角変換を含め、数値以外の文字を含む入力でも整数化されることを検証する。
+	 *
+	 * Test for vk_sanitize_number() / veu_sanitize_number(), looping both names (see
+	 * test_vk_get_post_type()'s docblock for why). Verifies full-width digits are converted
+	 * to half-width, and non-numeric input is coerced to an integer.
+	 */
+	public function test_vk_sanitize_number() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '半角数字の文字列 "123" => "123"（正常系）',
+				'input'               => '123',
+				'expected'            => '123',
+			),
+			array(
+				'test_condition_name' => '全角数字の文字列 "１２３" => 半角変換されて "123"（正常系）',
+				'input'               => '１２３',
+				'expected'            => '123',
+			),
+			array(
+				'test_condition_name' => '数値を含まない文字列 "abc" => 0 として扱われ "0"（境界値）',
+				'input'               => 'abc',
+				'expected'            => '0',
+			),
+		);
+
+		foreach ( array( 'vk_sanitize_number', 'veu_sanitize_number' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+				$actual = call_user_func( $function_name, $case['input'] );
+
+				$this->assertSame( $case['expected'], $actual, $condition_name );
+			}
+		}
+	}
+
+	/**
+	 * vk_get_page_for_posts() / veu_get_page_for_posts() のテスト。両者をループして検証する
+	 * （理由は test_vk_get_post_type() の docblock を参照）。
+	 * 「page_for_posts」オプションの値から、投稿トップページの使用有無とタイトルを
+	 * 正しく判定・取得できることを検証する。
+	 *
+	 * Test for vk_get_page_for_posts() / veu_get_page_for_posts(), looping both names (see
+	 * test_vk_get_post_type()'s docblock for why). Verifies whether a posts page is in use,
+	 * and its title, is derived correctly from the "page_for_posts" option.
+	 */
+	public function test_vk_get_page_for_posts() {
+
+		$blog_page_id = wp_insert_post(
+			array(
+				'post_title'   => 'VEU Test Blog Page',
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_content' => 'veu-test-blog-page-content',
+			)
+		);
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '投稿トップページとして実在するページが設定されている場合 => post_top_use は true、post_top_name はそのページタイトル（正常系）',
+				'page_for_posts'      => $blog_page_id,
+				'expected_use'        => true,
+				'expected_name'       => 'VEU Test Blog Page',
+			),
+			array(
+				'test_condition_name' => '投稿トップページが未設定（0）の場合 => post_top_use は false、post_top_name は空文字列（正常系）',
+				'page_for_posts'      => 0,
+				'expected_use'        => false,
+				'expected_name'       => '',
+			),
+			array(
+				'test_condition_name' => '投稿トップページとして存在しない投稿IDが設定されている場合 => post_top_use は true だが post_top_name は空文字列（境界値）',
+				'page_for_posts'      => 999999999,
+				'expected_use'        => true,
+				'expected_name'       => '',
+			),
+		);
+
+		foreach ( array( 'vk_get_page_for_posts', 'veu_get_page_for_posts' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+				update_option( 'page_for_posts', $case['page_for_posts'] );
+
+				$actual = call_user_func( $function_name );
+
+				$this->assertSame( $case['expected_use'], $actual['post_top_use'], $condition_name );
+				$this->assertSame( $case['expected_name'], $actual['post_top_name'], $condition_name );
+			}
+		}
+
+		delete_option( 'page_for_posts' );
+	}
+
+	/**
+	 * vk_is_excerpt() / veu_is_excerpt() のテスト。両者をループして検証する（理由は
+	 * test_vk_get_post_type() の docblock を参照）。
+	 * $wp_current_filter に 'get_the_excerpt' が含まれる場合のみ true を返すことを検証する。
+	 *
+	 * Test for vk_is_excerpt() / veu_is_excerpt(), looping both names (see
+	 * test_vk_get_post_type()'s docblock for why). Verifies it returns true only when
+	 * $wp_current_filter contains 'get_the_excerpt'.
+	 */
+	public function test_vk_is_excerpt() {
+		global $wp_current_filter;
+
+		$original_filter = $wp_current_filter;
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '現在のフィルタースタックに get_the_excerpt が含まれる場合 => true（正常系）',
+				'current_filter'      => array( 'get_the_excerpt' ),
+				'expected'            => true,
+			),
+			array(
+				'test_condition_name' => '現在のフィルタースタックが get_the_excerpt 以外の場合 => false（正常系）',
+				'current_filter'      => array( 'the_content' ),
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => 'フィルタースタックが空の場合 => false（境界値）',
+				'current_filter'      => array(),
+				'expected'            => false,
+			),
+		);
+
+		try {
+			foreach ( array( 'vk_is_excerpt', 'veu_is_excerpt' ) as $function_name ) {
+				foreach ( $test_cases as $case ) {
+					$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+					$wp_current_filter = $case['current_filter'];
+
+					$actual = call_user_func( $function_name );
+
+					$this->assertSame( $case['expected'], $actual, $condition_name );
+				}
+			}
+		} finally {
+			$wp_current_filter = $original_filter;
+		}
+	}
+
+	/**
+	 * vk_the_post_type_check_list() / veu_the_post_type_check_list() のテスト。両者を
+	 * ループして検証する（理由は test_vk_get_post_type() の docblock を参照）。
+	 * checked の有無・除外指定（既定で attachment を除外）・全件除外時に空の <ul> のみが
+	 * 出力されることを検証する。
+	 *
+	 * Test for vk_the_post_type_check_list() / veu_the_post_type_check_list(), looping both
+	 * names (see test_vk_get_post_type()'s docblock for why). Verifies the checked state,
+	 * the default "attachment" exclusion, and that excluding every matched post type leaves
+	 * only an empty <ul> (no fallback message, unlike the taxonomy version).
+	 */
+	public function test_vk_the_post_type_check_list() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name'   => '既定の args のみで post が checked 指定されている場合 => post は checked、page は非 checked、attachment は既定で除外される（正常系）',
+				'args'                  => array(
+					'name'    => 'tpc_test',
+					'checked' => array( 'post' => true ),
+				),
+				'expected_contains'     => array(
+					'name="tpc_test[post]"',
+					'name="tpc_test[page]"',
+				),
+				'expected_not_contains' => array( 'tpc_test[attachment]' ),
+			),
+			array(
+				'test_condition_name'   => 'checked を空配列にした場合 => post・page とも checked は出力されない（正常系）',
+				'args'                  => array(
+					'name'    => 'tpc_test',
+					'checked' => array(),
+				),
+				'expected_contains'     => array(
+					'name="tpc_test[post]"',
+					'name="tpc_test[page]"',
+				),
+				'expected_not_contains' => array( ' checked' ),
+			),
+			array(
+				// post_types_args で絶対に一致しない投稿タイプ名を指定し、対象0件の状態を作る.
+				// この plugin の PHPUnit 実行では他テストで register_post_type() した
+				// カスタム投稿タイプが自動リセットされない（WP_RUN_CORE_TESTS 時のみ有効な
+				// 挙動のため）ので、exclude_post_types で既知の型を列挙する方式だと他テストが
+				// 追加した型の残留に弱い。post_types_args 側で「一致しない名前」を指定すれば
+				// 実行順に関係なく対象0件を再現できる.
+				// Use post_types_args to match no post type name at all, producing zero
+				// results. Under this plugin's PHPUnit run, custom post types registered by
+				// other tests are not auto-reset between tests (that reset only runs when
+				// WP_RUN_CORE_TESTS is set), so enumerating known types via
+				// exclude_post_types would be fragile against leftovers from other tests.
+				// Filtering by a name nothing can match reproduces "zero results" regardless
+				// of test execution order.
+				'test_condition_name' => '境界値: post_types_args で一致する投稿タイプが1件も無い場合 => 空の <ul> のみが出力される（フォールバック文言なし）',
+				'args'                => array(
+					'name'            => 'tpc_test',
+					'checked'         => array(),
+					'post_types_args' => array( 'name' => 'veu_no_such_post_type_zzz' ),
+				),
+				'expected_html'       => '<ul class="no-style"></ul>',
+			),
+		);
+
+		foreach ( array( 'vk_the_post_type_check_list', 'veu_the_post_type_check_list' ) as $function_name ) {
+			foreach ( $test_cases as $case ) {
+				$condition_name = $function_name . '() / ' . $case['test_condition_name'];
+
+				ob_start();
+				call_user_func( $function_name, $case['args'] );
+				$html = ob_get_clean();
+
+				if ( isset( $case['expected_html'] ) ) {
+					$this->assertSame( $case['expected_html'], $html, $condition_name );
+					continue;
+				}
+
+				foreach ( $case['expected_contains'] as $expected ) {
+					$this->assertStringContainsString( $expected, $html, $condition_name );
+				}
+				foreach ( $case['expected_not_contains'] as $unexpected ) {
+					$this->assertStringNotContainsString( $unexpected, $html, $condition_name );
+				}
+			}
+		}
+	}
+
+	/**
+	 * 抜粋のテスト。
+	 *
+	 * vk_get_page_description()（互換レイヤー）と veu_get_page_description()（meta
+	 * description・OGP・Twitter card の実際の出力元）の両方をループして検証する（理由は
+	 * test_vk_get_post_type() の docblock を参照）。
+	 * Excerpt test. Loops both vk_get_page_description() (the compatibility layer) and
+	 * veu_get_page_description() (the function that actually produces the meta description,
+	 * OGP and Twitter card output). See test_vk_get_post_type()'s docblock for why both are
+	 * tested.
 	 */
 	public function test_vk_get_page_description() {
 		$data = self::setup_data();
@@ -840,22 +1166,24 @@ class TemplateTagsTest extends WP_UnitTestCase {
 			),
 		);
 
-		foreach ( $test_array as $test ) {
-			foreach ( $test['options'] as $key => $value ) {
-				update_option( $key, $value );
+		foreach ( array( 'vk_get_page_description', 'veu_get_page_description' ) as $function_name ) {
+			foreach ( $test_array as $test ) {
+				foreach ( $test['options'] as $key => $value ) {
+					update_option( $key, $value );
+				}
+
+				// Move to test page
+				$this->go_to( $test['target_url'] );
+				$return  = call_user_func( $function_name );
+				$correct = $test['correct'];
+				// print PHP_EOL;
+				// print 'Name    : ' . $test['test_name'] . PHP_EOL;
+				// print 'url     : ' . $test['target_url'] . PHP_EOL;
+				// print 'return  : ' . $return . PHP_EOL;
+				// print 'correct : ' . $correct . PHP_EOL;
+
+				$this->assertEquals( $correct, $return, $function_name . '() / ' . $test['test_name'] );
 			}
-
-			// Move to test page
-			$this->go_to( $test['target_url'] );
-			$return  = vk_get_page_description();
-			$correct = $test['correct'];
-			// print PHP_EOL;
-			// print 'Name    : ' . $test['test_name'] . PHP_EOL;
-			// print 'url     : ' . $test['target_url'] . PHP_EOL;
-			// print 'return  : ' . $return . PHP_EOL;
-			// print 'correct : ' . $correct . PHP_EOL;
-
-			$this->assertEquals( $correct, $return );
 		}
 	}
 
