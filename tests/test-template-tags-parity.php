@@ -90,6 +90,11 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 	 *   失敗する）。この関数は "vk_" 側とロジックレベルで大きく異なることが分かっていて、
 	 *   トークン比較そのものが意味を持たない場合にのみ使う。現時点でこのフラグを使っている
 	 *   関数は無い（9関数とも vk_ 側とトークン単位で完全一致している）。
+	 *   **副作用に注意**: このフラグを立てた関数は、上流（package/template-tags.php の
+	 *   vektor-wp-libraries 同期）でのドリフト自動検知から丸ごと外れる。今回まさにこれらの
+	 *   関数が現実に上流で変更される（Issue #1477）ことが分かったばかりであり、このフラグを
+	 *   立てた関数については、以降の同期のたびに手動で package/template-tags.php 側の変更点を
+	 *   確認すること。安易に使わないこと。
 	 *
 	 * Map of "veu_" function name => its corresponding "vk_" function name, plus per-pair
 	 * options. Available keys per entry:
@@ -101,6 +106,12 @@ class TemplateTagsParityTest extends WP_UnitTestCase {
 	 *   known to differ substantially in logic from its "vk_" counterpart, such that a token
 	 *   comparison would not be meaningful at all. No function currently uses this flag (all
 	 *   9 match their vk_ counterpart token-for-token).
+	 *   **Side effect**: a function flagged this way is entirely excluded from automatic
+	 *   upstream-drift detection (a vektor-wp-libraries sync updating
+	 *   package/template-tags.php). This PR just learned these functions really do get
+	 *   changed upstream in practice (Issue #1477) — for any function flagged this way, check
+	 *   package/template-tags.php's changes by hand on every subsequent sync. Do not reach for
+	 *   this flag lightly.
 	 *
 	 * @var array
 	 */
