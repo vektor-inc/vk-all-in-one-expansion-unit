@@ -83,9 +83,19 @@ class TemplateTagsStatusTest extends WP_UnitTestCase {
 				'must_contain'        => array( 'vk_is_template_tags_exist', 'vk_the_taxonomy_check_list' ),
 			),
 			array(
-				'test_condition_name' => 'template-tags-veu.php => vk_get_post_type() を含む（正常系）',
+				// veu_get_common_options() は function_exists() ガードの外（ファイル直下）で宣言、
+				// veu_get_name() はガードの内側（if ( ! function_exists( ... ) ) { function ... } ）で
+				// 宣言されている。両方を含めることで、抽出処理がガードの有無に関係なく
+				// ファイルスコープの宣言を拾えていることを検証する.
+				'test_condition_name' => 'template-tags-veu.php => veu_get_common_options()（ガード外）と veu_get_name()（ガード内）を含む（正常系）',
 				'file_path'           => $package_dir . '/template-tags-veu.php',
-				'must_contain'        => array( 'vk_get_post_type' ),
+				'must_contain'        => array( 'veu_get_common_options', 'veu_get_name' ),
+			),
+			array(
+				// このファイルの関数は全て function_exists() ガードの内側で宣言されている.
+				'test_condition_name' => 'template-tags-veu-old.php => vkExUnit_get_common_options() と vkExUnit_get_name() を含む（正常系）',
+				'file_path'           => $package_dir . '/template-tags-veu-old.php',
+				'must_contain'        => array( 'vkExUnit_get_common_options', 'vkExUnit_get_name' ),
 			),
 		);
 
