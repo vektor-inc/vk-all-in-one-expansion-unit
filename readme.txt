@@ -90,7 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
-[ Other ] Changed the child page list widget to call `wp_list_pages()` with array arguments instead of a query string, with no change in output, avoiding a future WordPress core compatibility warning.
+[ Other ] Changed the child page list widget to pass array arguments to `wp_list_pages()` for compatibility with future WordPress versions.
 
 = 9.123.0 =
 [ New Feature ] Added a "Shared Template-Tag Files (ExUnit)" section to Site Health > Info and a `wp exunit template-tags status` WP-CLI command, showing which plugin's bundled copy of ExUnit's shared template-tag files is currently in effect.
