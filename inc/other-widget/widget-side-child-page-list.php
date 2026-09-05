@@ -38,12 +38,18 @@ class WP_Widget_vkExUnit_ChildPageList extends WP_Widget {
 				$post_id = $post->ID;
 			}
 			if ( $post_id ) {
-				$children = wp_list_pages( 'title_li=&child_of=' . $post_id . '&echo=0' );
+				$children = wp_list_pages(
+					array(
+						'title_li' => '',
+						'child_of' => $post_id,
+						'echo'     => false,
+					)
+				);
 				if ( $children ) {
 					echo $args['before_widget'];
 					echo '<div class="veu_childPages widget_link_list">';
 					echo $args['before_title'];
-					echo '<a href="' . get_the_permalink( $post_id ) . '">';
+					echo '<a href="' . esc_url( get_the_permalink( $post_id ) ) . '">';
 					echo get_the_title( $post_id );
 					echo '</a>';
 					echo $args['after_title'];

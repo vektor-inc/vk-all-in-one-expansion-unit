@@ -90,6 +90,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ Other ] Changed the child page list widget to pass array arguments to `wp_list_pages()` for compatibility with future WordPress versions.
+
 = 9.123.0 =
 [ New Feature ] Added a "Shared Template-Tag Files (ExUnit)" section to Site Health > Info and a `wp exunit template-tags status` WP-CLI command, showing which plugin's bundled copy of ExUnit's shared template-tag files is currently in effect.
 [ Bug Fix ] Update vektor-inc/font-awesome-versions from 0.7.5 to 0.7.6, fixing Font Awesome icons not displaying in some server environments (e.g. AWS Bitnami)
