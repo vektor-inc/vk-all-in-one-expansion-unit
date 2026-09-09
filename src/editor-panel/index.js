@@ -270,7 +270,6 @@ const VeuSidebarInner = ( { postType } ) => {
 				>
 					<TextControl
 						__nextHasNoMarginBottom
-						__next40pxDefaultSize
 						label={ i18n.snsTitle || 'SNS Title' }
 						value={ meta?.vkExUnit_sns_title || '' }
 						onChange={ ( v ) => update( 'vkExUnit_sns_title', v ) }
@@ -329,7 +328,6 @@ const VeuSidebarInner = ( { postType } ) => {
 					initialOpen={ false }
 				>
 					<TextControl
-						__next40pxDefaultSize
 						label={ i18n.headTitle || 'Head Title' }
 						value={ headTitleObject?.title || '' }
 						onChange={ ( v ) => updateHeadTitle( 'title', v ) }
@@ -389,7 +387,6 @@ const VeuSidebarInner = ( { postType } ) => {
 				>
 					<SelectControl
 						__nextHasNoMarginBottom
-						__next40pxDefaultSize
 						label={ i18n.ctaSection || 'Call to Action setting' }
 						value={ meta?.vkexunit_cta_each_option ?? '0' }
 						options={ ctaOptions }
@@ -546,7 +543,6 @@ const VeuSidebarInner = ( { postType } ) => {
 
 						<SelectControl
 							__nextHasNoMarginBottom
-							__next40pxDefaultSize
 							label={ ctaI18n.imgPosition || 'Image position' }
 							value={ meta?.vkExUnit_cta_img_position || '' }
 							options={ [
@@ -571,7 +567,6 @@ const VeuSidebarInner = ( { postType } ) => {
 					>
 						<TextControl
 							__nextHasNoMarginBottom
-							__next40pxDefaultSize
 							label={ ctaI18n.buttonText || 'Button text' }
 							value={ meta?.vkExUnit_cta_button_text || '' }
 							onChange={ ( v ) =>
@@ -580,7 +575,6 @@ const VeuSidebarInner = ( { postType } ) => {
 						/>
 						<TextControl
 							__nextHasNoMarginBottom
-							__next40pxDefaultSize
 							label={ ctaI18n.ctaUrl || 'URL' }
 							value={ meta?.vkExUnit_cta_url || '' }
 							onChange={ ( v ) =>
