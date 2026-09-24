@@ -156,11 +156,17 @@ function veu_get_sitemap_available_taxonomies( $post_types = null ) {
 	foreach ( $post_types as $post_type ) {
 		$taxonomy_objects = get_object_taxonomies( $post_type, 'objects' );
 		foreach ( $taxonomy_objects as $taxonomy_name => $taxonomy_object ) {
-			// Skip taxonomies already collected, not shown in the admin UI, or not viewable by visitors.
-			// 既に一覧に含まれている、管理画面 UI に表示しない、または訪問者に公開されていないタクソノミーは対象外.
+			// Deduplication only: a taxonomy shared by several post types ( category etc. ) shows up
+			// again on each turn of the outer loop, so skip the ones already collected.
+			// 重複排除のみ。複数の投稿タイプに紐づくタクソノミー（カテゴリー等）は外側のループで何度も
+			// 現れるため、既に収集済みのものは飛ばす.
 			if ( isset( $available_taxonomies[ $taxonomy_name ] ) ) {
 				continue;
 			}
+			// The actual eligibility condition: exclude taxonomies that are not shown in the admin UI,
+			// or that are not viewable by visitors.
+			// 対象可否の判定本体。管理画面 UI に表示しない、または訪問者に公開されていないタクソノミーを
+			// 対象外にする.
 			if ( ! $taxonomy_object->show_in_menu || ! is_taxonomy_viewable( $taxonomy_object ) ) {
 				continue;
 			}
