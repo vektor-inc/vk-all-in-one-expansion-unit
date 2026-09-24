@@ -193,7 +193,7 @@ function vkExUnit_sitemap( $attr ) {
 			// contain no information at all (no archive link on the heading and no term list).
 			// セクションを一旦バッファに組み立てる。アーカイブリンクもターム一覧も無く情報がゼロになる場合に、
 			// セクションごと出力しないようにするため.
-			$section_html = '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
+			$section_html  = '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
 			$section_html .= '<div class="sectionBox">' . PHP_EOL;
 
 			// Whether at least one term list was output in this section.
