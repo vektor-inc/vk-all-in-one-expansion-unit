@@ -163,12 +163,15 @@ class SitemapPageTest extends WP_UnitTestCase {
 	/**
 	 * veu_get_sitemap_available_taxonomies() のテスト。
 	 * show_in_menu が有効なタクソノミーだけが一覧に含まれる事、投稿フォーマット等の内部タクソノミーが
-	 * 自動的に除外される事、そして excludePostTypes オプションでは絞り込まれない事
+	 * 自動的に除外される事、public => false（訪問者に公開されていない）タクソノミーが show_ui => true
+	 * でも除外される事、そして excludePostTypes オプションでは絞り込まれない事
 	 * （安藤さんレビュー MEDIUM 指摘の回帰テスト）を検証する。
 	 *
 	 * Test for veu_get_sitemap_available_taxonomies().
 	 * Verifies that only taxonomies with show_in_menu enabled are included, that internal
-	 * taxonomies such as post_format are automatically excluded, and that the list is NOT
+	 * taxonomies such as post_format are automatically excluded, that a taxonomy registered with
+	 * public => false is excluded even when show_ui => true makes show_in_menu inherit true,
+	 * and that the list is NOT
 	 * narrowed by the excludePostTypes option ( regression test for the reviewer-reported bug
 	 * where a taxonomy checkbox silently disappeared, and its saved exclusion was then lost on
 	 * the next save, merely because an admin also excluded its post type ).
@@ -187,6 +190,20 @@ class SitemapPageTest extends WP_UnitTestCase {
 		// Attach a show_in_menu-enabled taxonomy and a disabled one to cpt_a.
 		$this->register_test_taxonomy( 'veu_test_tax_shown', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => true ) );
 		$this->register_test_taxonomy( 'veu_test_tax_hidden', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => false ) );
+		// public => false ／ show_ui => true のタクソノミー（VK Booking Manager の
+		// vkbm_service_menu_group の再現用）。show_in_menu を省略すると show_ui の値（true）を
+		// 引き継ぐため、show_in_menu だけの判定では「公開分類」として一覧に入ってしまう。
+		// A taxonomy with public => false and show_ui => true ( reproduces VK Booking Manager's
+		// vkbm_service_menu_group ). Omitting show_in_menu makes it inherit show_ui ( true ), so a
+		// show_in_menu-only condition would wrongly treat it as a public taxonomy.
+		$this->register_test_taxonomy(
+			'veu_test_tax_nonpublic',
+			array( 'veu_test_cpt_a' ),
+			array(
+				'public'  => false,
+				'show_ui' => true,
+			)
+		);
 		// cpt_c にだけ紐付いたタクソノミー（event / event_cat の再現用）。
 		// A taxonomy attached only to cpt_c ( reproduces the reviewer's event / event_cat scenario ).
 		$this->register_test_taxonomy( 'veu_test_tax_on_c', array( 'veu_test_cpt_c' ), array( 'show_in_menu' => true ) );
@@ -202,21 +219,21 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'apply_filter'              => false,
 				'option_exclude_post_types' => array(),
 				'expected_included'         => array( 'veu_test_tax_shown', 'veu_test_tax_on_c' ),
-				'expected_excluded'         => array( 'veu_test_tax_hidden' ),
+				'expected_excluded'         => array( 'veu_test_tax_hidden', 'veu_test_tax_nonpublic' ),
 			),
 			array(
 				'test_condition_name'       => '回帰テスト: 投稿タイプを excludePostTypes オプションで除外しても、紐づくタクソノミーは一覧から消えない（保存済み設定を次回保存時に失わないため）',
 				'apply_filter'              => false,
 				'option_exclude_post_types' => array( 'veu_test_cpt_c' => 'true' ),
 				'expected_included'         => array( 'veu_test_tax_shown', 'veu_test_tax_on_c' ),
-				'expected_excluded'         => array( 'veu_test_tax_hidden' ),
+				'expected_excluded'         => array( 'veu_test_tax_hidden', 'veu_test_tax_nonpublic' ),
 			),
 			array(
 				'test_condition_name'       => '投稿タイプが veu_sitemap_exclude_post_types フィルターで除外される場合は、紐づくタクソノミーも一覧から外れる',
 				'apply_filter'              => true,
 				'option_exclude_post_types' => array(),
 				'expected_included'         => array( 'veu_test_tax_shown' ),
-				'expected_excluded'         => array( 'veu_test_tax_hidden', 'veu_test_tax_on_c' ),
+				'expected_excluded'         => array( 'veu_test_tax_hidden', 'veu_test_tax_on_c', 'veu_test_tax_nonpublic' ),
 			),
 			array(
 				'test_condition_name'       => '境界値: 投稿フォーマット（post_format）のような内部タクソノミーは自動的に一覧から除外される',
@@ -224,6 +241,13 @@ class SitemapPageTest extends WP_UnitTestCase {
 				'option_exclude_post_types' => array(),
 				'expected_included'         => array(),
 				'expected_excluded'         => array( 'post_format' ),
+			),
+			array(
+				'test_condition_name'       => '回帰テスト: public => false ／ show_ui => true のタクソノミー（show_in_menu は true を引き継ぐ）は、訪問者に公開されていないため一覧から除外される',
+				'apply_filter'              => false,
+				'option_exclude_post_types' => array(),
+				'expected_included'         => array( 'veu_test_tax_shown' ),
+				'expected_excluded'         => array( 'veu_test_tax_nonpublic' ),
 			),
 		);
 
@@ -257,13 +281,16 @@ class SitemapPageTest extends WP_UnitTestCase {
 	 * excludeTaxonomies で指定したタクソノミーは、見出し（h5）ごとサイトマップから消える事、
 	 * 無関係なキーが保存されていても他のタクソノミーの表示に影響しない事、
 	 * show_in_menu => false のタクソノミーはそもそも出力されない事（安藤さんレビュー LOW 指摘の回帰テスト。
-	 * フロント側の唯一の条件式差し替え箇所であるため）を検証する。
+	 * フロント側の唯一の条件式差し替え箇所であるため）、public => false のタクソノミーが出力されない事、
+	 * そしてアーカイブを持たない投稿タイプの見出しが空リンク（href=""）にならない事を検証する。
 	 *
 	 * Test for vkExUnit_sitemap().
 	 * Verifies that a taxonomy specified in excludeTaxonomies disappears together with its
 	 * heading ( h5 ), that an unrelated stale key in the option does not affect the display of
-	 * other taxonomies, and that a taxonomy with show_in_menu => false is never output at all
-	 * ( regression test for the front-end's only replaced condition, per code review ).
+	 * other taxonomies, that a taxonomy with show_in_menu => false is never output at all
+	 * ( regression test for the front-end's only replaced condition, per code review ), that a
+	 * taxonomy registered with public => false is never output, and that the heading of a post
+	 * type without an archive is plain text instead of an empty link ( href="" ).
 	 */
 	function test_vkExUnit_sitemap() {
 
@@ -272,11 +299,34 @@ class SitemapPageTest extends WP_UnitTestCase {
 		print 'test_vkExUnit_sitemap' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 
+		// veu_test_cpt_a はアーカイブを持たない投稿タイプ（has_archive の既定値は false）。
+		// 見出しが空リンクにならない事の検証対象でもある。
+		// veu_test_cpt_a has no archive ( has_archive defaults to false ); it also serves as the
+		// subject of the empty-link regression check below.
 		$this->register_test_post_type( 'veu_test_cpt_a', array( 'public' => true ) );
+		// アーカイブを持つ投稿タイプ。こちらの見出しは従来どおりリンクになる事を確認する。
+		// A post type WITH an archive; its heading must still be rendered as a link.
+		$this->register_test_post_type(
+			'veu_test_cpt_arc',
+			array(
+				'public'      => true,
+				'has_archive' => true,
+			)
+		);
 		$this->register_test_taxonomy( 'veu_test_tax_shown', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => true ) );
 		// show_in_menu => false のタクソノミー（回帰テスト用）。
 		// A taxonomy with show_in_menu => false ( for the regression test ).
 		$this->register_test_taxonomy( 'veu_test_tax_hidden', array( 'veu_test_cpt_a' ), array( 'show_in_menu' => false ) );
+		// public => false ／ show_ui => true のタクソノミー（回帰テスト用）。
+		// A taxonomy with public => false and show_ui => true ( for the regression test ).
+		$this->register_test_taxonomy(
+			'veu_test_tax_nonpublic',
+			array( 'veu_test_cpt_a' ),
+			array(
+				'public'  => false,
+				'show_ui' => true,
+			)
+		);
 
 		// タームを持つ公開投稿を1件作成し、サイトマップの投稿タイプループから除外されないようにする。
 		// Create one published post with a term so it is not skipped by the sitemap's post type loop.
@@ -297,6 +347,23 @@ class SitemapPageTest extends WP_UnitTestCase {
 		$hidden_term = wp_insert_term( 'VEU Test Hidden Term', 'veu_test_tax_hidden' );
 		$this->assertNotWPError( $hidden_term, 'テスト用タームの作成に失敗した場合、後続のアサーションが無意味になるため先に検証する。' );
 		wp_set_object_terms( $post_id, array( $hidden_term['term_id'] ), 'veu_test_tax_hidden' );
+
+		// veu_test_tax_nonpublic にもタームを1件作成しておく（ターム0件だからではなく、
+		// 訪問者に公開されていないから出力されない事を検証するため）。
+		// Also create one term on veu_test_tax_nonpublic ( so its absence proves the viewable
+		// condition, not merely that it has zero terms ).
+		$nonpublic_term = wp_insert_term( 'VEU Test Nonpublic Term', 'veu_test_tax_nonpublic' );
+		$this->assertNotWPError( $nonpublic_term, 'テスト用タームの作成に失敗した場合、後続のアサーションが無意味になるため先に検証する。' );
+		wp_set_object_terms( $post_id, array( $nonpublic_term['term_id'] ), 'veu_test_tax_nonpublic' );
+
+		// アーカイブを持つ投稿タイプ側にも公開投稿を1件作成する。
+		// Create one published post for the post type that has an archive, too.
+		self::factory()->post->create(
+			array(
+				'post_type'   => 'veu_test_cpt_arc',
+				'post_status' => 'publish',
+			)
+		);
 
 		$test_cases = array(
 			array(
@@ -335,6 +402,23 @@ class SitemapPageTest extends WP_UnitTestCase {
 			// Regression check: regardless of the excludeTaxonomies setting, a taxonomy with
 			// show_in_menu => false is never output even when it has a term.
 			$this->assertStringNotContainsString( 'sitemap-taxonomy-veu_test_tax_hidden', $html, $case['test_condition_name'] . '（show_in_menu => false の回帰確認）' );
+
+			// 回帰テスト: public => false のタクソノミーは、show_ui => true で管理画面に出ていても、
+			// タームがあってもフロントには出力されない（リンク先が 404 になるため）。
+			// Regression check: a taxonomy with public => false is never output on the front end,
+			// even with show_ui => true and terms present, because its term links would 404.
+			$this->assertStringNotContainsString( 'sitemap-taxonomy-veu_test_tax_nonpublic', $html, $case['test_condition_name'] . '（public => false の回帰確認）' );
+
+			// 回帰テスト: アーカイブを持たない投稿タイプの見出しは、空リンク（href=""）ではなく
+			// テキストのまま出力される。class 属性は従来どおり維持される。
+			// Regression check: the heading of a post type without an archive is plain text, not an
+			// empty link ( href="" ). The class attribute stays unchanged.
+			$this->assertStringNotContainsString( 'href=""', $html, $case['test_condition_name'] . '（アーカイブ無し投稿タイプの空リンク回帰確認）' );
+			$this->assertStringContainsString( '<h4 class="sitemap-post-type-title sitemap-post-type-veu_test_cpt_a">veu_test_cpt_a</h4>', $html, $case['test_condition_name'] . '（アーカイブ無し投稿タイプはテキスト見出し）' );
+
+			// アーカイブを持つ投稿タイプの見出しは従来どおりリンクのまま。
+			// The heading of a post type with an archive is still a link.
+			$this->assertStringContainsString( '<h4 class="sitemap-post-type-title sitemap-post-type-veu_test_cpt_arc"><a href="', $html, $case['test_condition_name'] . '（アーカイブ有り投稿タイプはリンクのまま）' );
 
 			delete_option( 'vkExUnit_sitemap_options' );
 		}
