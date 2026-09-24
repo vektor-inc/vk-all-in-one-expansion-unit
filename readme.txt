@@ -90,6 +90,9 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ Bug Fix ][ HTML Sitemap ] Fixed taxonomies that are not open to visitors being listed on the HTML sitemap and in the "Exclude taxonomies" setting, even though their links led to a "Page not found".
+[ Bug Fix ][ HTML Sitemap ] Fixed the heading of a post type without an archive page being a link that just reloaded the same page. It is now plain text.
+
 = 9.123.1 =
 [ Other ] Changed the child page list widget to pass array arguments to `wp_list_pages()` for compatibility with future WordPress versions.
 
@@ -113,8 +116,6 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 [ Bug Fix ][ CTA ] Fixed a PHP deprecated warning shown on the first save of the CTA settings (which looked like the save had failed) and CTA default values not being applied.
 [ Bug Fix ][ SNS Share Button ] Fixed the Threads share button's label, admin checkbox and Customizer control showing "Threads" with a capital T instead of the official lowercase "threads".
 [ Security Fix ][ CTA ] Added a permission check on save and strengthened output escaping on the classic edit screen as defense-in-depth hardening.
-[ Bug Fix ][ HTML Sitemap ] Fixed taxonomies that are not open to visitors being listed on the HTML sitemap and in the "Exclude taxonomies" setting, even though their links led to a "Page not found".
-[ Bug Fix ][ HTML Sitemap ] Fixed the heading of a post type without an archive page being a link that just reloaded the same page. It is now plain text.
 
 = 9.121.1 =
 [ Bug Fix ][ HTML Sitemap ] Fixed a fatal error on the HTML Sitemap settings screen when used together with plugins that bundle an older copy of the shared template tag package (e.g. VK Post Author Display).
