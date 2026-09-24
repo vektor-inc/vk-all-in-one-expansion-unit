@@ -92,6 +92,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 [ Bug Fix ][ HTML Sitemap ] Fixed taxonomies that are not open to visitors being listed on the HTML sitemap and in the "Exclude taxonomies" setting, even though their links led to a "Page not found".
 [ Bug Fix ][ HTML Sitemap ] Fixed the heading of a post type without an archive page being a link that just reloaded the same page. It is now plain text.
+[ Bug Fix ][ HTML Sitemap ] Fixed an empty section being displayed for a post type that has neither an archive page nor any taxonomy to list. Such a section is no longer output.
 
 = 9.123.1 =
 [ Other ] Changed the child page list widget to pass array arguments to `wp_list_pages()` for compatibility with future WordPress versions.

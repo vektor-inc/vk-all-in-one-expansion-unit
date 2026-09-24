@@ -291,6 +291,10 @@ class SitemapPageTest extends WP_UnitTestCase {
 	 * ( regression test for the front-end's only replaced condition, per code review ), that a
 	 * taxonomy registered with public => false is never output, and that the heading of a post
 	 * type without an archive is plain text instead of an empty link ( href="" ).
+	 * 加えて、アーカイブも出せる分類も無く情報がゼロになる投稿タイプのセクションは出力されない事、
+	 * アーカイブがあればターム一覧が無くてもセクションが残る事を検証する。
+	 * It also verifies that a post type section with neither an archive link nor any term list is
+	 * dropped entirely, while a section whose heading links to an archive is kept even with no terms.
 	 */
 	function test_vkExUnit_sitemap() {
 
@@ -414,10 +418,28 @@ class SitemapPageTest extends WP_UnitTestCase {
 			// Regression check: the heading of a post type without an archive is plain text, not an
 			// empty link ( href="" ). The class attribute stays unchanged.
 			$this->assertStringNotContainsString( 'href=""', $html, $case['test_condition_name'] . '（アーカイブ無し投稿タイプの空リンク回帰確認）' );
-			$this->assertStringContainsString( '<h4 class="sitemap-post-type-title sitemap-post-type-veu_test_cpt_a">veu_test_cpt_a</h4>', $html, $case['test_condition_name'] . '（アーカイブ無し投稿タイプはテキスト見出し）' );
 
-			// アーカイブを持つ投稿タイプの見出しは従来どおりリンクのまま。
-			// The heading of a post type with an archive is still a link.
+			if ( $case['expect_visible'] ) {
+				// アーカイブ無し × 出せる分類にタームあり => セクションは残り、見出しはテキストで出る。
+				// No archive x a listable taxonomy with terms => the section stays and the heading
+				// is rendered as plain text.
+				$this->assertStringContainsString( '<div class="sitemap-veu_test_cpt_a">', $html, $case['test_condition_name'] . '（アーカイブ無しでもターム一覧があればセクションは残る）' );
+				$this->assertStringContainsString( '<h4 class="sitemap-post-type-title sitemap-post-type-veu_test_cpt_a">veu_test_cpt_a</h4>', $html, $case['test_condition_name'] . '（アーカイブ無し投稿タイプはテキスト見出し）' );
+			} else {
+				// アーカイブ無し × 出せる分類なし => 押せない見出しが1行残るだけなのでセクションごと出力しない。
+				// No archive x no listable taxonomy => the section would only be an unclickable
+				// heading, so it is not output at all.
+				$this->assertStringNotContainsString( '<div class="sitemap-veu_test_cpt_a">', $html, $case['test_condition_name'] . '（情報ゼロのセクションは出力しない）' );
+				// veu_test_cpt_arc が前方一致で誤検出されないよう、属性の終端クォートまで含めて判定する。
+				// Include the closing quote so veu_test_cpt_arc cannot match as a prefix.
+				$this->assertStringNotContainsString( 'sitemap-post-type-veu_test_cpt_a"', $html, $case['test_condition_name'] . '（情報ゼロのセクションは見出しも出力しない）' );
+			}
+
+			// アーカイブあり × 出せる分類なし => 見出しがアーカイブへのリンクとして機能するため、
+			// セクションは残す。
+			// Archive present x no listable taxonomy => the section stays, because the heading works
+			// as a link to the archive page.
+			$this->assertStringContainsString( '<div class="sitemap-veu_test_cpt_arc">', $html, $case['test_condition_name'] . '（アーカイブ有りならターム一覧が無くてもセクションは残る）' );
 			$this->assertStringContainsString( '<h4 class="sitemap-post-type-title sitemap-post-type-veu_test_cpt_arc"><a href="', $html, $case['test_condition_name'] . '（アーカイブ有り投稿タイプはリンクのまま）' );
 
 			delete_option( 'vkExUnit_sitemap_options' );
