@@ -172,8 +172,8 @@ function vkExUnit_sitemap( $attr ) {
 	$all_post_types = veu_get_sitemap_post_types( $public_post_types );
 
 	// Get the taxonomies eligible for the sitemap from the same helper the settings screen uses,
-	// so the show_in_menu condition lives in one place only.
-	// 設定画面と同じヘルパーから対象タクソノミーを取得し、show_in_menu の判定を1箇所にまとめる.
+	// so the show_in_menu / viewable conditions live in one place only.
+	// 設定画面と同じヘルパーから対象タクソノミーを取得し、show_in_menu・公開判定を1箇所にまとめる.
 	$available_taxonomies = veu_get_sitemap_available_taxonomies( $public_post_types );
 
 	$p = get_posts(
@@ -189,8 +189,16 @@ function vkExUnit_sitemap( $attr ) {
 	foreach ( $all_post_types as $postType ) {
 		$post_type_object = get_post_type_object( $postType );
 		if ( $post_type_object ) {
-			$sitemap_html .= '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
-			$sitemap_html .= '<div class="sectionBox">' . PHP_EOL;
+			// Build the section into a buffer first, so it can be dropped entirely when it would
+			// contain no information at all (no archive link on the heading and no term list).
+			// セクションを一旦バッファに組み立てる。アーカイブリンクもターム一覧も無く情報がゼロになる場合に、
+			// セクションごと出力しないようにするため.
+			$section_html  = '<div class="sitemap-' . esc_attr( $postType ) . '">' . PHP_EOL;
+			$section_html .= '<div class="sectionBox">' . PHP_EOL;
+
+			// Whether at least one term list was output in this section.
+			// このセクションでターム一覧を1つ以上出力したかどうか.
+			$has_term_list = false;
 
 			/*
 			Post type name
@@ -202,7 +210,19 @@ function vkExUnit_sitemap( $attr ) {
 				$postTypeName   = $post_type_object->labels->name;
 				$postTypeTopUrl = get_post_type_archive_link( $postType );
 			}
-			$sitemap_html .= '<h4 class="sitemap-post-type-title sitemap-post-type-' . $postType . '"><a href="' . $postTypeTopUrl . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
+
+			// get_post_type_archive_link() / get_the_permalink() return false when the post type has
+			// no archive (has_archive => false) or the page is missing. Output the heading as plain
+			// text in that case, instead of an <a href=""> that just reloads the same page.
+			// アーカイブを持たない投稿タイプ（has_archive => false）やページが存在しない場合、
+			// get_post_type_archive_link() / get_the_permalink() は false を返す。その場合は
+			// 同じページに戻るだけの <a href=""> にせず、見出しをテキストのまま出力する.
+			$post_type_title_class = esc_attr( 'sitemap-post-type-title sitemap-post-type-' . $postType );
+			if ( $postTypeTopUrl ) {
+				$section_html .= '<h4 class="' . $post_type_title_class . '"><a href="' . esc_url( $postTypeTopUrl ) . '">' . esc_html( $postTypeName ) . '</a></h4>' . PHP_EOL;
+			} else {
+				$section_html .= '<h4 class="' . $post_type_title_class . '">' . esc_html( $postTypeName ) . '</h4>' . PHP_EOL;
+			}
 
 			/*
 			Taxonomy name
@@ -217,11 +237,12 @@ function vkExUnit_sitemap( $attr ) {
 					continue;
 				}
 
-				// Limit to taxonomies eligible for the sitemap (show_in_menu enabled), using the
-				// same veu_get_sitemap_available_taxonomies() result as the settings screen, instead
-				// of re-checking show_in_menu here, so the two never fall out of sync.
-				// 設定画面と同じ veu_get_sitemap_available_taxonomies() の結果で絞り込む（show_in_menu の
-				// 判定をここで再実装しないことで、設定画面とフロントの条件が食い違わないようにする）.
+				// Limit to taxonomies eligible for the sitemap (shown in the admin UI and viewable by
+				// visitors), using the same veu_get_sitemap_available_taxonomies() result as the
+				// settings screen, instead of re-checking those conditions here, so the two never
+				// fall out of sync.
+				// 設定画面と同じ veu_get_sitemap_available_taxonomies() の結果で絞り込む（管理画面表示・
+				// 公開の判定をここで再実装しないことで、設定画面とフロントの条件が食い違わないようにする）.
 				if ( ! isset( $available_taxonomies[ $taxonomy ] ) ) {
 					continue;
 				}
@@ -236,13 +257,13 @@ function vkExUnit_sitemap( $attr ) {
 				);
 
 				if ( ! empty( $terms ) ) {
-					$sitemap_html .= '<h5 class="sitemap-taxonomy-title sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
+					$section_html .= '<h5 class="sitemap-taxonomy-title sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . '">' . wp_kses_post( $taxonomy_object->label ) . '</h5>' . PHP_EOL;
 
 					/*
 					Term
 					/*-------------------------------------------*/
 
-					$sitemap_html                     .= '<ul class="sitemap-term-list sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . ' link-list">' . PHP_EOL;
+					$section_html                     .= '<ul class="sitemap-term-list sitemap-taxonomy-' . esc_attr( $taxonomy_object->name ) . ' link-list">' . PHP_EOL;
 										$args          = array(
 											'taxonomy' => $taxonomy_object->name,
 											'title_li' => '',
@@ -250,13 +271,27 @@ function vkExUnit_sitemap( $attr ) {
 											'echo'     => 0,
 											'show_option_none' => '',
 										);
-										$sitemap_html .= wp_list_categories( $args );
-										$sitemap_html .= '</ul>' . PHP_EOL;
+										$section_html .= wp_list_categories( $args );
+										$section_html .= '</ul>' . PHP_EOL;
+
+										// Mark this section as having content, so it is not dropped below.
+										// 中身ありとして記録し、下でセクションを破棄しないようにする.
+										$has_term_list = true;
 				} // if ( ! empty( $terms ) ) {
 			} // foreach ( $taxonomies as $taxonomy ) {
 
-			$sitemap_html .= '</div><!-- [ /.sectionBox ] -->' . PHP_EOL;
-			$sitemap_html .= '</div>' . PHP_EOL;
+			$section_html .= '</div><!-- [ /.sectionBox ] -->' . PHP_EOL;
+			$section_html .= '</div>' . PHP_EOL;
+
+			// Drop the whole section when the heading has no archive link and no term list was
+			// output: it would only render an unclickable heading with nothing under it.
+			// アーカイブリンクが無く、ターム一覧も1つも出力していない場合はセクションごと破棄する
+			// （押せない見出しが1行あるだけで情報がゼロのため）.
+			if ( ! $postTypeTopUrl && ! $has_term_list ) {
+				continue;
+			}
+
+			$sitemap_html .= $section_html;
 		} // if ( $post_type_object ) {
 	} // foreach ( $all_post_types as $postType ) {
 

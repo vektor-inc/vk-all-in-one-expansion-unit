@@ -100,27 +100,40 @@ function veu_get_sitemap_post_types( $public_post_types = null ) {
  * Get the taxonomies used both by the sitemap's "exclude taxonomy" checkbox list and by the front-end output.
  * サイトマップの「除外タクソノミー」設定画面・フロント出力の両方で使う、対象タクソノミー一覧を取得する。
  *
- * Returns only the taxonomies that have `show_in_menu` enabled and are attached to a
+ * Returns only the taxonomies that have `show_in_menu` enabled, are viewable by visitors
+ * (`is_taxonomy_viewable()`, i.e. `publicly_queryable`), and are attached to a
  * post type in veu_get_sitemap_public_post_types() (public, minus the filter-based
  * exclusion only — NOT the `excludePostTypes` option; see that function's doc for why).
  * A taxonomy attached only to a post type the admin separately excluded via
  * `excludePostTypes` is harmless to keep listed here: the front-end post type loop
  * already skips that post type, so its taxonomies are never rendered anyway.
- * `show_in_menu` が有効で、かつ veu_get_sitemap_public_post_types()（`excludePostTypes`
+ * `show_in_menu` が有効で、かつ訪問者に公開されている（is_taxonomy_viewable()＝publicly_queryable が有効な）、
+ * さらに veu_get_sitemap_public_post_types()（`excludePostTypes`
  * オプションではなく、フィルター除外分までを反映した公開投稿タイプ集合。理由は同関数の
  * ドキュメントを参照）に紐づいているタクソノミーだけを返す。`excludePostTypes` で個別に除外した
  * 投稿タイプだけに紐づくタクソノミーをここに残しても実害はない。フロント側の投稿タイプループが
  * その投稿タイプ自体をそもそも回さないため、紐づくタクソノミーもどのみち描画されない。
- * Keeping this single condition (show_in_menu) here, and having the front-end output
- * check membership in this function's return value instead of re-implementing the
- * same condition, keeps the settings checkbox list and the front-end exclusion
- * condition from falling out of sync.
- * この条件（show_in_menu）をここ1箇所にまとめ、フロント側もこの関数の戻り値への所属で判定する
- * ことで、設定画面のチェックボックス一覧とフロント側の除外判定の条件が食い違わないようにしている。
- * As a side effect, internal taxonomies not shown in the admin UI (e.g. `post_format`)
- * are automatically excluded because their `show_in_menu` is false.
- * 副次的に、投稿フォーマット（post_format）など管理画面 UI に表示されない内部タクソノミーは
- * `show_in_menu` が false のため、この一覧には含まれない。
+ * Keeping these conditions (show_in_menu + is_taxonomy_viewable) here, and having the
+ * front-end output check membership in this function's return value instead of
+ * re-implementing the same conditions, keeps the settings checkbox list and the front-end
+ * exclusion condition from falling out of sync.
+ * この条件（show_in_menu ＋ is_taxonomy_viewable）をここ1箇所にまとめ、フロント側もこの関数の
+ * 戻り値への所属で判定することで、設定画面のチェックボックス一覧とフロント側の除外判定の条件が
+ * 食い違わないようにしている。
+ * The two conditions cover different cases and both are required.
+ * Internal taxonomies not shown in the admin UI (e.g. `post_format`) are excluded because
+ * their `show_in_menu` is false — note that `post_format` IS publicly queryable, so the
+ * viewable check alone would not exclude it. Conversely a taxonomy registered with
+ * `public => false` and `show_ui => true` (its `show_in_menu` then inherits `show_ui`, i.e.
+ * true) is excluded by the viewable check: it has no rewrite rules, so its term links
+ * would all 404. WordPress core's own XML sitemap uses the same `is_taxonomy_viewable()` basis.
+ * この2つの条件は守備範囲が違うため、どちらも必要。
+ * 投稿フォーマット（post_format）など管理画面 UI に表示されない内部タクソノミーは `show_in_menu` が
+ * false のため除外される（post_format は publicly_queryable が true なので、公開判定だけでは除外できない）。
+ * 逆に `public => false` かつ `show_ui => true` で登録されたタクソノミー（この場合 `show_in_menu` は
+ * `show_ui` を引き継いで true になる）は公開判定側で除外される。リライトルールを持たないため、
+ * ターム一覧へのリンクが全て 404 になるため。WordPress コアの XML サイトマップも
+ * 同じ `is_taxonomy_viewable()` の基準で対象を決めている。
  *
  * @param  array|null $post_types Optional. Pre-fetched result of veu_get_sitemap_public_post_types(),
  *                                to avoid calling it (and firing the veu_sitemap_exclude_post_types
@@ -143,9 +156,18 @@ function veu_get_sitemap_available_taxonomies( $post_types = null ) {
 	foreach ( $post_types as $post_type ) {
 		$taxonomy_objects = get_object_taxonomies( $post_type, 'objects' );
 		foreach ( $taxonomy_objects as $taxonomy_name => $taxonomy_object ) {
-			// Skip taxonomies already collected, or not shown in the admin UI.
-			// 既に一覧に含まれている、または管理画面 UI に表示しないタクソノミーは対象外.
-			if ( isset( $available_taxonomies[ $taxonomy_name ] ) || ! $taxonomy_object->show_in_menu ) {
+			// Deduplication only: a taxonomy shared by several post types ( category etc. ) shows up
+			// again on each turn of the outer loop, so skip the ones already collected.
+			// 重複排除のみ。複数の投稿タイプに紐づくタクソノミー（カテゴリー等）は外側のループで何度も
+			// 現れるため、既に収集済みのものは飛ばす.
+			if ( isset( $available_taxonomies[ $taxonomy_name ] ) ) {
+				continue;
+			}
+			// The actual eligibility condition: exclude taxonomies that are not shown in the admin UI,
+			// or that are not viewable by visitors.
+			// 対象可否の判定本体。管理画面 UI に表示しない、または訪問者に公開されていないタクソノミーを
+			// 対象外にする.
+			if ( ! $taxonomy_object->show_in_menu || ! is_taxonomy_viewable( $taxonomy_object ) ) {
 				continue;
 			}
 			$available_taxonomies[ $taxonomy_name ] = $taxonomy_object;
