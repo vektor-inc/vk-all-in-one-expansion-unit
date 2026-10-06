@@ -28,7 +28,7 @@ class RelatedPostsTest extends WP_UnitTestCase {
 		// Include posts both with and without a featured image.
 		$test_cases = array(
 			array(
-				'test_condition_name' => 'アイキャッチ画像がない投稿 => サムネイル側のリンクを出力しない',
+				'test_condition_name' => 'アイキャッチ画像がない投稿 => サムネイル側のリンクが出力されずリンクはタイトルの1本だけ',
 				'post'                => array(
 					'post_title'  => 'Related Post Test A',
 					'post_type'   => 'post',
@@ -39,7 +39,7 @@ class RelatedPostsTest extends WP_UnitTestCase {
 				'expected_link_count' => 1,
 			),
 			array(
-				'test_condition_name' => '別タイトル・別日付の投稿 => 日付前のカレンダーアイコンに aria-hidden が付く',
+				'test_condition_name' => '別タイトル・別日付でアイキャッチ画像がない投稿 => サムネイル側のリンクが出力されずリンクはタイトルの1本だけ',
 				'post'                => array(
 					'post_title'  => 'Related Post Test B',
 					'post_type'   => 'post',
@@ -51,7 +51,7 @@ class RelatedPostsTest extends WP_UnitTestCase {
 				'expected_link_count' => 1,
 			),
 			array(
-				'test_condition_name' => 'アイキャッチ画像がある投稿 => サムネイル側のリンクを読み上げとキーボード操作から外す',
+				'test_condition_name' => 'アイキャッチ画像がある投稿 => サムネイル側のリンクに aria-hidden="true" と tabindex="-1" が付く',
 				'post'                => array(
 					'post_title'  => 'Related Post Test With Thumbnail',
 					'post_type'   => 'post',
@@ -65,7 +65,7 @@ class RelatedPostsTest extends WP_UnitTestCase {
 
 		foreach ( $test_cases as $case ) {
 			// テスト用の投稿を作成 / Create a test post.
-			$post_id = wp_insert_post( $case['post'] );
+			$post_id       = wp_insert_post( $case['post'] );
 			$attachment_id = 0;
 
 			// 指定されたケースだけアイキャッチ画像を設定 / Set a featured image only for the specified case.
@@ -89,6 +89,10 @@ class RelatedPostsTest extends WP_UnitTestCase {
 			// Check the number of links to the post so no thumbnail link is output without a featured image.
 			$link_prefix = '<a href="' . get_the_permalink( $post_id ) . '"';
 			$this->assertSame( $case['expected_link_count'], substr_count( $html, $link_prefix ), $case['test_condition_name'] );
+
+			// タイトル側のリンクには属性を足していない（＝読み上げ・キーボード操作の対象として残っている）事を確認。
+			// Check the title link keeps no extra attributes ( it remains available to screen readers and keyboard users ).
+			$this->assertSame( 1, substr_count( $html, $link_prefix . '>' ), $case['test_condition_name'] );
 
 			if ( $case['set_thumbnail'] ) {
 				// サムネイル側のリンクを支援技術とキーボード操作から外している事を確認。
