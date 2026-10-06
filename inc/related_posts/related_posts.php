@@ -147,7 +147,9 @@ function veu_add_related_posts_item_html( $post ) {
 	$post_item_html .= '<div class="media">';
 	if ( has_post_thumbnail( $post->ID ) ) :
 		$post_item_html .= '<div class="media-left postList_thumbnail">';
-		$post_item_html .= '<a href="' . get_the_permalink( $post->ID ) . '">';
+		// 同じ行き先のタイトルリンクが隣にあるため、サムネイル側のリンクは支援技術とキーボード操作から外す。
+		// Because an adjacent title link has the same destination, exclude the thumbnail link from assistive technologies and keyboard navigation.
+		$post_item_html .= '<a href="' . get_the_permalink( $post->ID ) . '" aria-hidden="true" tabindex="-1">';
 		$post_item_html .= get_the_post_thumbnail( $post->ID, 'thumbnail' );
 		$post_item_html .= '</a>';
 		$post_item_html .= '</div>';
