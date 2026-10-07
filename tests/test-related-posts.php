@@ -224,19 +224,22 @@ class RelatedPostsTest extends WP_UnitTestCase {
 				'test_condition_name' => '見出しに許可タグとscriptタグが混在 => scriptタグは落ちるが許可タグとタグ内テキストは残る',
 				'filtered_title'      => '<span>OK</span><script>x</script>',
 				'expected_heading'    => '<h1 class="mainSection-title relatedPosts_title"><span>OK</span>x</h1>',
-				'unexpected'          => '<script>',
+				'unexpected'          => array( '<script>' ),
 			),
 			array(
 				'test_condition_name' => '見出しが装飾タグのないプレーンテキスト => そのまま出力される',
 				'filtered_title'      => 'Plain Related Title',
 				'expected_heading'    => '<h1 class="mainSection-title relatedPosts_title">Plain Related Title</h1>',
-				'unexpected'          => '<script>',
+				'unexpected'          => array( '<script>' ),
 			),
 			array(
 				'test_condition_name' => '見出しにイベント属性付きタグと許可されないタグが混在 => イベント属性とタグは落ち、テキストだけ残る（境界値）',
 				'filtered_title'      => '<img src="x" onerror="alert(1)">Broken<iframe src="javascript:alert(1)"></iframe>',
 				'expected_heading'    => 'Broken',
-				'unexpected'          => 'onerror',
+				// onerror 属性だけが落ちて <iframe> タグ自体が残る回帰を検出できるよう、タグ名も確認する。
+				// Also check the tag name itself so a regression that strips only the onerror attribute
+				// but leaves the <iframe> tag in place is still caught.
+				'unexpected'          => array( 'onerror', '<iframe' ),
 			),
 		);
 
@@ -257,7 +260,9 @@ class RelatedPostsTest extends WP_UnitTestCase {
 					$html = veu_add_related_posts_html( '' );
 
 					$this->assertStringContainsString( $case['expected_heading'], $html, $case['test_condition_name'] );
-					$this->assertStringNotContainsString( $case['unexpected'], $html, $case['test_condition_name'] );
+					foreach ( $case['unexpected'] as $unexpected ) {
+						$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
+					}
 				} finally {
 					// アサーション失敗時もフィルターを確実に外し、後続のテストケース・他テストへ見出しの書き換えが波及しないようにする。
 					// Ensure the filter is removed even when an assertion fails, so the rewritten heading never leaks into later test cases or other tests.
