@@ -147,15 +147,19 @@ function veu_add_related_posts_item_html( $post ) {
 	$post_item_html .= '<div class="media">';
 	if ( has_post_thumbnail( $post->ID ) ) :
 		$post_item_html .= '<div class="media-left postList_thumbnail">';
+		// URL は HTML 属性へ出力する直前にエスケープする。
+		// Escape the URL immediately before outputting it in an HTML attribute.
 		// 同じ行き先のタイトルリンクが隣にあるため、サムネイル側のリンクは支援技術とキーボード操作から外す。
 		// Because an adjacent title link has the same destination, exclude the thumbnail link from assistive technologies and keyboard navigation.
-		$post_item_html .= '<a href="' . get_the_permalink( $post->ID ) . '" aria-hidden="true" tabindex="-1">';
+		$post_item_html .= '<a href="' . esc_url( get_the_permalink( $post->ID ) ) . '" aria-hidden="true" tabindex="-1">';
 		$post_item_html .= get_the_post_thumbnail( $post->ID, 'thumbnail' );
 		$post_item_html .= '</a>';
 		$post_item_html .= '</div>';
 	endif;
 	$post_item_html .= '<div class="media-body">';
-	$post_item_html .= '<div class="media-heading"><a href="' . get_the_permalink( $post->ID ) . '">' . $post->post_title . '</a></div>';
+	// URL と記事タイトルを、それぞれの HTML 出力コンテキストに合わせてエスケープする。
+	// Escape the URL and post title for their respective HTML output contexts.
+	$post_item_html .= '<div class="media-heading"><a href="' . esc_url( get_the_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a></div>';
 	// 日付の前の装飾アイコン。同じ要素内に日付テキストが見えているため読み上げから除外する。
 	// Decorative icon before the date. The date text is visible in the same element, so hide it from screen readers.
 	$post_item_html .= '<div class="media-date published"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;' . get_the_date( '', $post->ID ) . '</div>';
