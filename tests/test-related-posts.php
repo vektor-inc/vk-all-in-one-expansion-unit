@@ -247,18 +247,22 @@ class RelatedPostsTest extends WP_UnitTestCase {
 				};
 				add_filter( 'veu_related_post_title', $filter_heading );
 
-				// 現在の投稿の単一ページへ移動し、is_single() 判定とグローバル $post を実際の表示と同じ状態にする。
-				// Go to the current post's single page so is_single() and the global $post match a real front-end view.
-				$this->go_to( get_permalink( $current_post_id ) );
-				global $wp_query;
-				$wp_query->the_post();
+				try {
+					// 現在の投稿の単一ページへ移動し、is_single() 判定とグローバル $post を実際の表示と同じ状態にする。
+					// Go to the current post's single page so is_single() and the global $post match a real front-end view.
+					$this->go_to( get_permalink( $current_post_id ) );
+					global $wp_query;
+					$wp_query->the_post();
 
-				$html = veu_add_related_posts_html( '' );
+					$html = veu_add_related_posts_html( '' );
 
-				$this->assertStringContainsString( $case['expected_heading'], $html, $case['test_condition_name'] );
-				$this->assertStringNotContainsString( $case['unexpected'], $html, $case['test_condition_name'] );
-
-				remove_filter( 'veu_related_post_title', $filter_heading );
+					$this->assertStringContainsString( $case['expected_heading'], $html, $case['test_condition_name'] );
+					$this->assertStringNotContainsString( $case['unexpected'], $html, $case['test_condition_name'] );
+				} finally {
+					// アサーション失敗時もフィルターを確実に外し、後続のテストケース・他テストへ見出しの書き換えが波及しないようにする。
+					// Ensure the filter is removed even when an assertion fails, so the rewritten heading never leaks into later test cases or other tests.
+					remove_filter( 'veu_related_post_title', $filter_heading );
+				}
 			}
 		} finally {
 			wp_delete_post( $current_post_id, true );
