@@ -147,8 +147,6 @@ function veu_add_related_posts_item_html( $post ) {
 	$post_item_html .= '<div class="media">';
 	if ( has_post_thumbnail( $post->ID ) ) :
 		$post_item_html .= '<div class="media-left postList_thumbnail">';
-		// URL は HTML 属性へ出力する直前にエスケープする。
-		// Escape the URL immediately before outputting it in an HTML attribute.
 		// 同じ行き先のタイトルリンクが隣にあるため、サムネイル側のリンクは支援技術とキーボード操作から外す。
 		// Because an adjacent title link has the same destination, exclude the thumbnail link from assistive technologies and keyboard navigation.
 		$post_item_html .= '<a href="' . esc_url( get_the_permalink( $post->ID ) ) . '" aria-hidden="true" tabindex="-1">';
@@ -157,8 +155,6 @@ function veu_add_related_posts_item_html( $post ) {
 		$post_item_html .= '</div>';
 	endif;
 	$post_item_html .= '<div class="media-body">';
-	// URL と記事タイトルを、それぞれの HTML 出力コンテキストに合わせてエスケープする。
-	// Escape the URL and post title for their respective HTML output contexts.
 	$post_item_html .= '<div class="media-heading"><a href="' . esc_url( get_the_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a></div>';
 	// 日付の前の装飾アイコン。同じ要素内に日付テキストが見えているため読み上げから除外する。
 	// Decorative icon before the date. The date text is visible in the same element, so hide it from screen readers.
@@ -242,8 +238,10 @@ function veu_get_related_posts_html() {
 			$related_post_title = __( 'Related posts', 'vk-all-in-one-expansion-unit' );
 		}
 		// 書き換え用フィルターフック（カスタマイザーで変更出来るが、既存ユーザーで使用しているかもしれないため削除不可）.
-		$related_post_title  = apply_filters( 'veu_related_post_title', $related_post_title );
-		$related_posts_html .= '<h1 class="mainSection-title relatedPosts_title">' . $related_post_title . '</h1>';
+		$related_post_title = apply_filters( 'veu_related_post_title', $related_post_title );
+		// フィルターが信頼できない値を返す可能性があるため、投稿本文と同じ許可タグだけを残して出力時に無害化する。
+		// The filter may return an untrusted value, so sanitize it on output, keeping only the tags allowed in post content.
+		$related_posts_html .= '<h1 class="mainSection-title relatedPosts_title">' . wp_kses_post( $related_post_title ) . '</h1>';
 
 		$i                   = 1;
 		$related_posts_html .= '<div class="row">';

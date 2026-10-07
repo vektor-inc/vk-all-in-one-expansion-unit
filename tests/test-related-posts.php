@@ -97,7 +97,9 @@ class RelatedPostsTest extends WP_UnitTestCase {
 				),
 				'output_post_title'   => $special_character_title,
 				'set_thumbnail'       => false,
-				'expected_title'      => esc_html( $special_character_title ),
+				// 実装と同じ esc_html() に頼らず、期待値をリテラルで直書きする。
+				// Write the expected value as a literal instead of depending on the same esc_html() used by the implementation.
+				'expected_title'      => 'Related &lt;Post&gt; &amp; &quot;Test&quot;',
 				'expected_link_count' => 1,
 			),
 		);
@@ -177,6 +179,91 @@ class RelatedPostsTest extends WP_UnitTestCase {
 			update_option( 'permalink_structure', $original_permalink_structure );
 			$GLOBALS['wp_rewrite']->init();
 			unregister_post_type( 'veu_related_test' );
+		}
+	}
+
+	/**
+	 * 関連記事セクションの見出し（veu_add_related_posts_html）が出力時に無害化される事のテスト。
+	 * Test that the related-posts section heading output by veu_add_related_posts_html() is sanitized on output.
+	 *
+	 * @return void
+	 */
+	public function test_veu_add_related_posts_html() {
+		// ウィジェット経由の出力ではない事を明示し、未定義変数の警告を避ける（test-page-list-ancestor.php と同じ対処）。
+		// Explicitly mark this as not a widget-triggered output to avoid an undefined-variable warning ( same workaround as test-page-list-ancestor.php ).
+		global $is_pagewidget;
+		$is_pagewidget = false;
+
+		// 関連記事が見つかるよう、同じタグを共有する投稿を2件用意する。
+		// Create two posts sharing the same tag so a related post can always be found.
+		$current_post_id = wp_insert_post(
+			array(
+				'post_title'  => 'Related Html Test Current',
+				'post_type'   => 'post',
+				'post_status' => 'publish',
+			)
+		);
+		$related_post_id = wp_insert_post(
+			array(
+				'post_title'  => 'Related Html Test Related',
+				'post_type'   => 'post',
+				'post_status' => 'publish',
+			)
+		);
+		wp_set_post_tags( $current_post_id, array( 'veu-related-html-test' ) );
+		wp_set_post_tags( $related_post_id, array( 'veu-related-html-test' ) );
+
+		// テスト条件（見出しフィルターが返す値）と期待する結果の組み合わせ。
+		// Combinations of the value returned by the heading filter and the expected result.
+		$test_cases = array(
+			array(
+				// wp_kses_post() は許可されないタグ（script）そのものは除去するが、タグ内のテキストノードは残す
+				// （スクリプト本文の実行可否はブラウザの話であり、HTMLサニタイズの責務ではないため）。
+				// wp_kses_post() strips a disallowed tag ( script ) itself, but keeps the text node inside it
+				// ( whether the script body executes is a browser concern, not something HTML sanitization is responsible for ).
+				'test_condition_name' => '見出しに許可タグとscriptタグが混在 => scriptタグは落ちるが許可タグとタグ内テキストは残る',
+				'filtered_title'      => '<span>OK</span><script>x</script>',
+				'expected_heading'    => '<h1 class="mainSection-title relatedPosts_title"><span>OK</span>x</h1>',
+				'unexpected'          => '<script>',
+			),
+			array(
+				'test_condition_name' => '見出しが装飾タグのないプレーンテキスト => そのまま出力される',
+				'filtered_title'      => 'Plain Related Title',
+				'expected_heading'    => '<h1 class="mainSection-title relatedPosts_title">Plain Related Title</h1>',
+				'unexpected'          => '<script>',
+			),
+			array(
+				'test_condition_name' => '見出しにイベント属性付きタグと許可されないタグが混在 => イベント属性とタグは落ち、テキストだけ残る（境界値）',
+				'filtered_title'      => '<img src="x" onerror="alert(1)">Broken<iframe src="javascript:alert(1)"></iframe>',
+				'expected_heading'    => 'Broken',
+				'unexpected'          => 'onerror',
+			),
+		);
+
+		try {
+			foreach ( $test_cases as $case ) {
+				$filter_heading = function () use ( $case ) {
+					return $case['filtered_title'];
+				};
+				add_filter( 'veu_related_post_title', $filter_heading );
+
+				// 現在の投稿の単一ページへ移動し、is_single() 判定とグローバル $post を実際の表示と同じ状態にする。
+				// Go to the current post's single page so is_single() and the global $post match a real front-end view.
+				$this->go_to( get_permalink( $current_post_id ) );
+				global $wp_query;
+				$wp_query->the_post();
+
+				$html = veu_add_related_posts_html( '' );
+
+				$this->assertStringContainsString( $case['expected_heading'], $html, $case['test_condition_name'] );
+				$this->assertStringNotContainsString( $case['unexpected'], $html, $case['test_condition_name'] );
+
+				remove_filter( 'veu_related_post_title', $filter_heading );
+			}
+		} finally {
+			wp_delete_post( $current_post_id, true );
+			wp_delete_post( $related_post_id, true );
+			wp_reset_query();
 		}
 	}
 }
