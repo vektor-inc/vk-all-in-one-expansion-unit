@@ -256,12 +256,15 @@ class WP_Widget_vkExUnit_post_list extends WP_Widget {
 				foreach ( $terms as $term ) {
 					$term_color = '';
 					$link       = get_term_link( $term->term_id );
+					if ( is_wp_error( $link ) ) {
+						continue;
+					}
 					if ( class_exists( 'VektorInc\VK_Term_Color\VKTermColor' ) ) {
 						$term_color = VkTermColor::get_term_color( $term->term_id );
-						$term_color = ( $term_color ) ? ' style="background-color:' . $term_color . ';border:none;color:white;"' : '';
+						$term_color = ( $term_color ) ? ' style="background-color:' . esc_attr( $term_color ) . ';border:none;color:white;"' : '';
 					}
 					$li_items_output .= '<span class="postList_terms postList_meta_items">';
-					$li_items_output .= '<a href="' . $link . '"' . $term_color . '>' . $term->name . '</a>';
+					$li_items_output .= '<a href="' . esc_url( $link ) . '"' . $term_color . '>' . esc_html( $term->name ) . '</a>';
 					$li_items_output .= '</span>';
 				}
 			}
