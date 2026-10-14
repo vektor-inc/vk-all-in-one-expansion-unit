@@ -240,16 +240,16 @@
         },
         {
             "name": "vektor-inc/vk-term-color",
-            "version": "0.7.2",
+            "version": "0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vektor-inc/vk-term-color.git",
-                "reference": "04dd049f79f8a426c0ad9aea7b47e5335ee4ba9b"
+                "reference": "25fe21c6c698997623086c1276cc5bf0d55e9345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vektor-inc/vk-term-color/zipball/04dd049f79f8a426c0ad9aea7b47e5335ee4ba9b",
-                "reference": "04dd049f79f8a426c0ad9aea7b47e5335ee4ba9b",
+                "url": "https://api.github.com/repos/vektor-inc/vk-term-color/zipball/25fe21c6c698997623086c1276cc5bf0d55e9345",
+                "reference": "25fe21c6c698997623086c1276cc5bf0d55e9345",
                 "shasum": ""
             },
             "require-dev": {
@@ -275,9 +275,9 @@
             "description": "VK Term Color",
             "support": {
                 "issues": "https://github.com/vektor-inc/vk-term-color/issues",
-                "source": "https://github.com/vektor-inc/vk-term-color/tree/0.7.2"
+                "source": "https://github.com/vektor-inc/vk-term-color/tree/0.7.4"
             },
-            "time": "2026-10-08T06:57:28+00:00"
+            "time": "2026-10-14T05:23:27+00:00"
         }
     ],
     "packages-dev": [
