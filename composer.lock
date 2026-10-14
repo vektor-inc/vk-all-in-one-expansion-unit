@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef5798a4c1d3e5765734975233b92885",
+    "content-hash": "37bff8eec41fcf1a90c2efdb8584d419",
     "packages": [
         {
             "name": "vektor-inc/font-awesome-versions",
