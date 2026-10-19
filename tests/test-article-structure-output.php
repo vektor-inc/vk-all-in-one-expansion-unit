@@ -276,6 +276,98 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that the_article_structure_data() builds every value from the queried post, not from the global $post.
+	 * the_article_structure_data() がグローバル $post ではなくクエリ対象の投稿からすべての値を作ることのテスト。
+	 *
+	 * @return void
+	 */
+	public function test_the_article_structure_data_uses_queried_post() {
+
+		// クエリ対象の投稿と、グローバル $post に入れる別の投稿を、著者・タイトル・日付をずらして作る。
+		// Create the queried post and another post for the global $post, with different authors, titles and dates.
+		$queried_author_id = self::factory()->user->create( array( 'display_name' => 'Queried Author' ) );
+		$other_author_id   = self::factory()->user->create( array( 'display_name' => 'Other Author' ) );
+		$queried_post_id   = self::factory()->post->create(
+			array(
+				'post_title'  => 'Queried title',
+				'post_date'   => '2020-01-02 03:04:05',
+				'post_author' => $queried_author_id,
+			)
+		);
+		$other_post_id     = self::factory()->post->create(
+			array(
+				'post_title'  => 'Other title',
+				'post_date'   => '2021-06-07 08:09:10',
+				'post_author' => $other_author_id,
+			)
+		);
+
+		// フィルターの第3引数に渡された投稿を記録する。
+		// Record the post passed as the third argument of the filter.
+		$received_post_id = null;
+		$callback         = function ( $article_array, $author_id, $post ) use ( &$received_post_id ) {
+			$received_post_id = $post instanceof WP_Post ? $post->ID : null;
+			return $article_array;
+		};
+		add_filter( 'veu_article_structure_data', $callback, 10, 3 );
+
+		$expected = array(
+			'headline'      => 'Queried title',
+			'datePublished' => '2020-01-02T03:04:05+00:00',
+			'dateModified'  => '2020-01-02T03:04:05+00:00',
+			'author_name'   => 'Queried Author',
+			'filter_post'   => $queried_post_id,
+		);
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'グローバル $post がクエリ対象と別の投稿 => すべてクエリ対象の投稿の値になる',
+				'global_post'         => $other_post_id,
+				'expected'            => $expected,
+			),
+			array(
+				'test_condition_name' => 'グローバル $post がクエリ対象と同じ投稿 => すべてクエリ対象の投稿の値になる',
+				'global_post'         => $queried_post_id,
+				'expected'            => $expected,
+			),
+			array(
+				'test_condition_name' => 'グローバル $post が null => すべてクエリ対象の投稿の値になる',
+				'global_post'         => null,
+				'expected'            => $expected,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$received_post_id = null;
+
+			// クエリ対象の投稿のページへ移動してから、グローバル $post だけを差し替える。
+			// Move to the queried post's page, then replace only the global $post.
+			$this->go_to( get_permalink( $queried_post_id ) );
+			$GLOBALS['post'] = null === $case['global_post'] ? null : get_post( $case['global_post'] );
+
+			// 出力された JSON-LD を取り出して配列に戻す。
+			// Extract the printed JSON-LD and decode it into an array.
+			ob_start();
+			VK_Article_Srtuctured_Data::the_article_structure_data();
+			$output = ob_get_clean();
+			preg_match( '#<script type="application/ld\+json">(.*?)</script>#s', $output, $matches );
+			$json = isset( $matches[1] ) ? json_decode( $matches[1], true ) : array();
+
+			$actual = array(
+				'headline'      => isset( $json['headline'] ) ? $json['headline'] : null,
+				'datePublished' => isset( $json['datePublished'] ) ? $json['datePublished'] : null,
+				'dateModified'  => isset( $json['dateModified'] ) ? $json['dateModified'] : null,
+				'author_name'   => isset( $json['author']['name'] ) ? $json['author']['name'] : null,
+				'filter_post'   => $received_post_id,
+			);
+
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
+
+		remove_filter( 'veu_article_structure_data', $callback, 10 );
+	}
+
+	/**
 	 * Test is_output().
 	 *
 	 * @return void
@@ -377,6 +469,7 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 				'test_condition_name' => '投稿の個別ページ => 書き換えた headline が返り、著者 ID と WP_Post がフィルターに渡る',
 				'target'              => 'post',
 				'author_id'           => '',
+				'post'                => null,
 				'expected'            => array(
 					'headline' => 'Filtered headline',
 					'received' => array(
@@ -389,11 +482,25 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 				'test_condition_name' => '著者 ID を指定して投稿の個別ページ => 指定した著者 ID がフィルターに渡る',
 				'target'              => 'post',
 				'author_id'           => (string) $post_author,
+				'post'                => null,
 				'expected'            => array(
 					'headline' => 'Filtered headline',
 					'received' => array(
 						'author_id' => $post_author,
 						'post_id'   => $this->post_ids['post'],
+					),
+				),
+			),
+			array(
+				'test_condition_name' => '投稿の個別ページで別の投稿（event）を渡す => グローバル $post ではなく渡した投稿がフィルターに渡る',
+				'target'              => 'post',
+				'author_id'           => '',
+				'post'                => 'event',
+				'expected'            => array(
+					'headline' => 'Filtered headline',
+					'received' => array(
+						'author_id' => $post_author,
+						'post_id'   => $this->post_ids['event'],
 					),
 				),
 			),
@@ -403,7 +510,13 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 			$received = array();
 			$this->go_to( $this->get_target_url( $case['target'] ) );
 
-			$actual = VK_Article_Srtuctured_Data::get_article_structure_array( $case['author_id'] );
+			// 投稿を渡すケースは第2引数に WP_Post を渡し、それ以外は従来どおり省略する。
+			// Pass a WP_Post as the second argument when the case specifies a post, otherwise omit it as before.
+			if ( null === $case['post'] ) {
+				$actual = VK_Article_Srtuctured_Data::get_article_structure_array( $case['author_id'] );
+			} else {
+				$actual = VK_Article_Srtuctured_Data::get_article_structure_array( $case['author_id'], get_post( $this->post_ids[ $case['post'] ] ) );
+			}
 
 			$this->assertSame( $case['expected']['headline'], $actual['headline'], $case['test_condition_name'] );
 			$this->assertSame( $case['expected']['received'], $received, $case['test_condition_name'] );

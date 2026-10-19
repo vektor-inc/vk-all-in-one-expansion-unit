@@ -469,7 +469,7 @@ class VK_Article_Srtuctured_Data {
 
 		// フィルター後の値が空・配列以外なら出力しない。
 		// Do not output when the filtered value is empty or not an array.
-		$article_array = self::get_article_structure_array( $post->post_author );
+		$article_array = self::get_article_structure_array( $post->post_author, $post );
 		if ( empty( $article_array ) || ! is_array( $article_array ) ) {
 			return;
 		}
@@ -487,16 +487,20 @@ class VK_Article_Srtuctured_Data {
 	 * 返す前に veu_article_structure_data フィルターを通す。
 	 * 投稿や著者が無く配列を作れない場合は、フィルターを通さずに空配列を返す。
 	 *
-	 * @param int|string $author_id 著者のユーザー ID。空の場合は表示中の投稿の著者を使う。 Author user ID. Uses the author of the current post when empty.
+	 * @param int|string   $author_id 著者のユーザー ID。空の場合は対象の投稿の著者を使う。 Author user ID. Uses the author of the target post when empty.
+	 * @param WP_Post|null $post      対象の投稿。省略時はグローバル $post を使う。 Target post. Uses the global $post when omitted.
 	 * @return array $article_array Article structured data, or an empty array. Article の構造化データ、または空配列。
 	 */
-	public static function get_article_structure_array( $author_id = '' ) {
-		global $post;
+	public static function get_article_structure_array( $author_id = '', $post = null ) {
+		// 投稿が渡されなければグローバル $post を使う。グローバル変数を書き換えないよう global 宣言はしない。
+		// Fall back to the global $post when no post is passed. Do not declare it global, so the global variable is never overwritten.
+		if ( ! $post instanceof WP_Post ) {
+			$post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
+		}
 
 		if ( ! $author_id ) {
-			// 表示中のページの投稿オブジェクトからユーザーIDを取得
-			// $post が取得できない（非特異ページ・外部呼び出し）場合は空配列を返す。
-			// Return an empty array when $post is unavailable (non-singular pages or external calls).
+			// 対象の投稿からユーザーIDを取得し、投稿が無い（非特異ページ・外部呼び出し）場合は空配列を返す。
+			// Get the user ID from the target post, and return an empty array when there is no post (non-singular pages or external calls).
 			if ( ! $post instanceof WP_Post ) {
 				return array();
 			}
@@ -517,8 +521,8 @@ class VK_Article_Srtuctured_Data {
 		// Initialize $post_title because the is_singular() block does not run on non-singular pages, which would leave it undefined.
 		$post_title = '';
 		if ( is_singular() ) {
-			$image      = self::get_article_image_object();
-			$post_title = get_the_title();
+			$image      = self::get_article_image_object( $post );
+			$post_title = get_the_title( $post );
 		}
 
 		$article_array = array(
@@ -526,8 +530,8 @@ class VK_Article_Srtuctured_Data {
 			'@type'         => 'Article',
 			'headline'      => $post_title,
 			'image'         => $image,
-			'datePublished' => get_the_time( 'c' ),
-			'dateModified'  => get_the_modified_time( 'c' ),
+			'datePublished' => get_the_time( 'c', $post ),
+			'dateModified'  => get_the_modified_time( 'c', $post ),
 			'author'        => self::get_author_array( $author_id ),
 		// Google側で必須事項ではなく要件が不明確なのでコメントアウト。
 		// "publisher"        => array(
@@ -559,7 +563,7 @@ class VK_Article_Srtuctured_Data {
 		 *
 		 * @param array        $article_array Article の構造化データ。 Article structured data.
 		 * @param int          $author_id     著者のユーザー ID。 Author user ID.
-		 * @param WP_Post|null $post          表示中の投稿、または null。 Post being displayed, or null.
+		 * @param WP_Post|null $post          対象の投稿、または null。 Target post, or null.
 		 */
 		$article_array = apply_filters( 'veu_article_structure_data', $article_array, (int) $author_id, $post instanceof WP_Post ? $post : null );
 
@@ -585,19 +589,20 @@ class VK_Article_Srtuctured_Data {
 	 * When the URL cannot be retrieved, an empty array is returned so the caller omits the image key.
 	 * When width / height cannot be retrieved, those keys are omitted so as not to output dimensions that differ from the actual size.
 	 *
+	 * @param WP_Post|null $post 対象の投稿。 Target post.
 	 * @return array ImageObject 形式の配列、または取得できない場合は空配列。
 	 */
-	private static function get_article_image_object() {
+	private static function get_article_image_object( $post ) {
 
 		// アイキャッチが未設定なら空配列を返す。
 		// Return an empty array when no featured image is set.
-		if ( ! has_post_thumbnail() ) {
+		if ( ! has_post_thumbnail( $post ) ) {
 			return array();
 		}
 
 		// アイキャッチの添付ファイル ID を取得する。
 		// Get the attachment ID of the featured image.
-		$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+		$thumbnail_id = get_post_thumbnail_id( $post );
 		if ( ! $thumbnail_id ) {
 			return array();
 		}
