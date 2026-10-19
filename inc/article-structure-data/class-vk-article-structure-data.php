@@ -194,6 +194,7 @@ class VK_Article_Srtuctured_Data {
 		<tr>
 		<th><?php esc_html_e( 'Post types to exclude', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td>
+		<div class="veu_post_type_check_list">
 		<?php
 		veu_the_post_type_check_list(
 			array(
@@ -204,6 +205,7 @@ class VK_Article_Srtuctured_Data {
 			)
 		);
 		?>
+		</div>
 		<p class="description">
 		<?php esc_html_e( 'Article structured data will not be output on single pages of the checked post types.', 'vk-all-in-one-expansion-unit' ); ?><br>
 		<?php esc_html_e( 'Check post types for which another plugin already outputs different structured data (such as Product).', 'vk-all-in-one-expansion-unit' ); ?><br>

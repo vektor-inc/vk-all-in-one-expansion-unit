@@ -64,6 +64,7 @@ function veu_add_sitemap_options_page() {
 	<tr>
 	<th><?php _e( 'Exclude post type from the sitemap', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
+			<div class="veu_post_type_check_list">
 			<?php
 			$args = array(
 				'name'               => 'vkExUnit_sitemap_options[excludePostTypes]',
@@ -72,6 +73,7 @@ function veu_add_sitemap_options_page() {
 			);
 			veu_the_post_type_check_list( $args );
 			?>
+			</div>
 			</td>
 		</tr>
 	<?php $available_taxonomies = veu_get_sitemap_available_taxonomies(); ?>

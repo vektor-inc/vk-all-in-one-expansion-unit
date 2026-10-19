@@ -347,3 +347,18 @@
         }
     }
 }
+
+// =============================================================================
+// 投稿タイプのチェックリスト（メイン設定「Structured data - Article」「HTML Sitemap Settings」）
+// =============================================================================
+
+// 782px 以下では WP コアがチェックボックスを 25px に大きくするため、
+// 選択肢どうしの間（li の margin-bottom 6px）がチェックボックスとラベルの間より狭くなる。
+// 「コントロール＋ラベル間 < 選択肢間」を保つよう、選択肢の間を広げる。
+// At 782px or less WP core enlarges the checkboxes to 25px, which makes the gap between options
+// (li margin-bottom 6px) narrower than the gap between a checkbox and its label, so widen it.
+@media screen and (max-width: 782px) {
+    .veu_post_type_check_list li {
+        margin-bottom: 12px;
+    }
+}
