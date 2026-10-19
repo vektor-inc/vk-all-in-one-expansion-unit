@@ -43,7 +43,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
 				'correct'             => array(
-					'@type'  => 'person',
+					'@type'  => 'Person',
 					'name'   => 'vekutarou',
 					'url'    => 'https://vektor-inc.co.jp/author/vekutarou',
 					'sameAs' => 'https://twitter.com/vektor_inc',
@@ -61,7 +61,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
 				'correct'             => array(
-					'@type'  => 'organization',
+					'@type'  => 'Organization',
 					'name'   => 'vekutarou',
 					'url'    => 'https://vektor-inc.co.jp/',
 					'sameAs' => 'https://twitter.com/vektor_inc',
@@ -79,7 +79,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
 				'correct'             => array(
-					'@type'  => 'organization',
+					'@type'  => 'Organization',
 					'name'   => 'vekutarou',
 					'url'    => home_url( '/' ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
@@ -97,7 +97,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
 				'correct'             => array(
-					'@type'  => 'person',
+					'@type'  => 'Person',
 					'name'   => 'vekujirou',
 					'url'    => get_author_posts_url( $user_id ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
@@ -115,7 +115,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'author_sameAs' => 'https://twitter.com/vektor_inc',
 				),
 				'correct'             => array(
-					'@type'  => 'organization',
+					'@type'  => 'Organization',
 					'name'   => 'vekujirou',
 					'url'    => home_url( '/' ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
@@ -126,16 +126,86 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			// Abnormal case: a non-existent user ID -> even though get_userdata() returns false, no warning is raised and name becomes an empty string.
 			// Bug: before the fix, accessing $author->display_name on false raised a warning.
 			array(
-				'test_condition_name' => '存在しないユーザーIDの場合 => Warning を出さず name が空文字で返る',
+				'test_condition_name' => '存在しないユーザーIDの場合 => Warning を出さず、@type は Organization、name・sameAs のキーは出力されない',
 				'user_id'             => $invalid_user_id,
 				// 存在しないユーザーには user_meta を設定しないため空配列。
 				// No user_meta is set for a non-existent user, so this is empty.
 				'author'              => array(),
 				'correct'             => array(
-					'@type'  => '',
-					'name'   => '',
+					'@type' => 'Organization',
+					'url'   => home_url( '/' ),
+				),
+			),
+			// 境界値 : author_type 未設定 → Organization 扱いで、url はサイトトップ URL で補完される
+			// Boundary case: author_type not set -> treated as Organization, and url falls back to the site top URL.
+			array(
+				'test_condition_name' => 'author_type 未設定の場合 => @type は Organization、url はサイトトップ URL',
+				'user_id'             => $user_id,
+				'author'              => array(
+					// null はユーザーメタを削除して未設定状態にする指定。
+					// null means the user meta is deleted so that it is not set.
+					'author_type'   => null,
+					'author_name'   => 'vekutarou',
+					'author_url'    => '',
+					'author_sameAs' => 'https://twitter.com/vektor_inc',
+				),
+				'correct'             => array(
+					'@type'  => 'Organization',
+					'name'   => 'vekutarou',
 					'url'    => home_url( '/' ),
-					'sameAs' => '',
+					'sameAs' => 'https://twitter.com/vektor_inc',
+				),
+			),
+			// 異常系 : author_type が想定外の値 → Organization 扱い
+			// Abnormal case: author_type has an unexpected value -> treated as Organization.
+			array(
+				'test_condition_name' => 'author_type が想定外の値の場合 => @type は Organization',
+				'user_id'             => $user_id,
+				'author'              => array(
+					'author_type'   => 'Person',
+					'author_name'   => 'vekutarou',
+					'author_url'    => '',
+					'author_sameAs' => 'https://twitter.com/vektor_inc',
+				),
+				'correct'             => array(
+					'@type'  => 'Organization',
+					'name'   => 'vekutarou',
+					'url'    => home_url( '/' ),
+					'sameAs' => 'https://twitter.com/vektor_inc',
+				),
+			),
+			// 境界値 : sameAs が空 → sameAs のキー自体を出力しない
+			// Boundary case: sameAs is empty -> the sameAs key itself is not output.
+			array(
+				'test_condition_name' => 'person && sameAs が空の場合 => sameAs のキーは出力されない',
+				'user_id'             => $user_id,
+				'author'              => array(
+					'author_type'   => 'person',
+					'author_name'   => 'vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => '',
+				),
+				'correct'             => array(
+					'@type' => 'Person',
+					'name'  => 'vekutarou',
+					'url'   => 'https://vektor-inc.co.jp/author/vekutarou',
+				),
+			),
+			// 異常系 : sameAs に配列が保存されている → 文字列変換の警告を出さず、sameAs のキーを出力しない
+			// Abnormal case: an array is saved in sameAs -> no string conversion warning, and the sameAs key is not output.
+			array(
+				'test_condition_name' => 'sameAs に配列が保存されている場合 => 警告を出さず sameAs のキーは出力されない',
+				'user_id'             => $user_id,
+				'author'              => array(
+					'author_type'   => 'person',
+					'author_name'   => 'vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => array( 'https://twitter.com/vektor_inc' ),
+				),
+				'correct'             => array(
+					'@type' => 'Person',
+					'name'  => 'vekutarou',
+					'url'   => 'https://vektor-inc.co.jp/author/vekutarou',
 				),
 			),
 		);
@@ -147,8 +217,14 @@ class Article_Structure_Test extends WP_UnitTestCase {
 
 			// ケースに応じてユーザーメタを設定する（存在しないユーザーの場合は author が空配列なので何もしない）。
 			// Set the user meta according to the case (for a non-existent user, author is empty so nothing happens).
+			// null の項目はユーザーメタを削除して未設定状態にする。
+			// For null items, delete the user meta so that it is not set.
 			foreach ( $test_value['author'] as $key => $value ) {
-				update_user_meta( $target_user_id, $key, $value );
+				if ( null === $value ) {
+					delete_user_meta( $target_user_id, $key );
+				} else {
+					update_user_meta( $target_user_id, $key, $value );
+				}
 			}
 
 			// WP_UnitTestCase は PHP の警告を例外に変換するため、
@@ -158,12 +234,62 @@ class Article_Structure_Test extends WP_UnitTestCase {
 			$return  = VK_Article_Srtuctured_Data::get_author_array( $target_user_id );
 			$correct = $test_value['correct'];
 
-			$this->assertEquals( $correct, $return, $test_value['test_condition_name'] );
+			// キーの有無まで含めて一致を確認するため、assertSame で比較する。
+			// Compare with assertSame so that the presence or absence of keys is checked as well.
+			$this->assertSame( $correct, $return, $test_value['test_condition_name'] );
 		}
 
 		// テストで発行したユーザーを削除
 		// Delete the user created for the test.
 		wp_delete_user( $user_id );
+	}
+
+	/**
+	 * 保存値を schema.org の型名に変換する get_author_schema_type() の挙動を検証する。
+	 *
+	 * Verify that get_author_schema_type() converts the saved value into a schema.org type name.
+	 */
+	public function test_get_author_schema_type() {
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'test_get_author_schema_type' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => 'organization の場合 => Organization',
+				'author_type'         => 'organization',
+				'expected'            => 'Organization',
+			),
+			array(
+				'test_condition_name' => 'person の場合 => Person',
+				'author_type'         => 'person',
+				'expected'            => 'Person',
+			),
+			array(
+				'test_condition_name' => '未設定（空文字）の場合 => Organization',
+				'author_type'         => '',
+				'expected'            => 'Organization',
+			),
+			array(
+				'test_condition_name' => '想定外の値（大文字の Person）の場合 => Organization',
+				'author_type'         => 'Person',
+				'expected'            => 'Organization',
+			),
+			array(
+				'test_condition_name' => '想定外の型（false）の場合 => Organization',
+				'author_type'         => false,
+				'expected'            => 'Organization',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// テスト対象を実行して期待値と比較する。
+			// Run the target and compare with the expected value.
+			$actual = VK_Article_Srtuctured_Data::get_author_schema_type( $case['author_type'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+		}
 	}
 
 
@@ -738,7 +864,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'datePublished' => 'ここは投稿作成してから上書きする',
 					'dateModified'  => 'ここは投稿作成してから上書きする',
 					'author'        => array(
-						'@type'  => $test_users['person_01']['user_meta']['author_type'],
+						'@type'  => 'Person',
 						'name'   => $test_users['person_01']['user_meta']['author_name'],
 						'url'    => $test_users['person_01']['user_meta']['author_url'],
 						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
@@ -780,7 +906,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'datePublished' => 'ここは投稿作成してから上書きする',
 					'dateModified'  => 'ここは投稿作成してから上書きする',
 					'author'        => array(
-						'@type'  => $test_users['org_02']['user_meta']['author_type'],
+						'@type'  => 'Organization',
 						'name'   => $test_users['org_02']['user_meta']['author_name'],
 						'url'    => $test_users['org_02']['user_meta']['author_url'],
 						'sameAs' => $test_users['org_02']['user_meta']['author_sameAs'],
@@ -822,7 +948,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'datePublished' => 'ここは投稿作成してから上書きする',
 					'dateModified'  => 'ここは投稿作成してから上書きする',
 					'author'        => array(
-						'@type'  => $test_users['org_02']['user_meta']['author_type'],
+						'@type'  => 'Organization',
 						'name'   => $test_users['org_02']['user_meta']['author_name'],
 						'url'    => $test_users['org_02']['user_meta']['author_url'],
 						'sameAs' => $test_users['org_02']['user_meta']['author_sameAs'],
@@ -852,7 +978,7 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'datePublished' => 'ここは投稿作成してから上書きする',
 					'dateModified'  => 'ここは投稿作成してから上書きする',
 					'author'        => array(
-						'@type'  => $test_users['org_02']['user_meta']['author_type'],
+						'@type'  => 'Organization',
 						'name'   => $test_users['org_02']['user_meta']['author_name'],
 						'url'    => $test_users['org_02']['user_meta']['author_url'],
 						'sameAs' => $test_users['org_02']['user_meta']['author_sameAs'],
