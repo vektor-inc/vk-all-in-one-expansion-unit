@@ -15,11 +15,193 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class VK_Article_Srtuctured_Data {
 
+	/**
+	 * Option name that stores the settings of this feature.
+	 * この機能の設定を保存する option 名。
+	 *
+	 * @var string
+	 */
+	const OPTION_NAME = 'vkExUnit_article_structure_data';
+
 	public function __construct() {
 		add_action( 'show_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'edit_user_profile', array( __CLASS__, 'add_user_meta_structure_data_ui' ) );
 		add_action( 'profile_update', array( __CLASS__, 'update_author_structure_data' ), 10, 2 );
 		add_action( 'wp_head', array( __CLASS__, 'the_article_structure_data' ), 9999 );
+		add_action( 'veu_package_init', array( __CLASS__, 'register_setting' ) );
+	}
+
+	/**
+	 * Register the settings section on the ExUnit main setting page.
+	 * ExUnit のメイン設定画面に設定セクションを登録する。
+	 *
+	 * @return void
+	 */
+	public static function register_setting() {
+		vkExUnit_register_setting(
+			__( 'Structured data - Article', 'vk-all-in-one-expansion-unit' ),
+			self::OPTION_NAME,
+			array( __CLASS__, 'sanitize_options' ),
+			array( __CLASS__, 'render_setting_page' )
+		);
+	}
+
+	/**
+	 * Return the default options.
+	 * 設定の既定値を返す。
+	 *
+	 * @return array {
+	 *     @type array $exclude_post_types Post type name => true for each excluded post type. 除外する投稿タイプ名 => true の配列。
+	 * }
+	 */
+	public static function get_default_options() {
+		return array(
+			'exclude_post_types' => array(
+				'product' => true,
+			),
+		);
+	}
+
+	/**
+	 * Return the saved options merged with the defaults.
+	 * 保存済みの設定を既定値とマージして返す。
+	 *
+	 * The defaults are used only when the option has never been saved.
+	 * An empty exclude_post_types saved by unchecking everything is kept as is.
+	 * 既定値を使うのは一度も保存されていない場合のみ。
+	 * 全部のチェックを外して保存した空の exclude_post_types はそのまま使う。
+	 *
+	 * @return array Options. 設定値。
+	 */
+	public static function get_options() {
+		$options = get_option( self::OPTION_NAME );
+		if ( ! is_array( $options ) ) {
+			return self::get_default_options();
+		}
+		$options = wp_parse_args( $options, self::get_default_options() );
+		if ( ! is_array( $options['exclude_post_types'] ) ) {
+			$options['exclude_post_types'] = array();
+		}
+		return $options;
+	}
+
+	/**
+	 * Return the post type names on which the Article structured data is not output.
+	 * Article の構造化データを出力しない投稿タイプ名の配列を返す。
+	 *
+	 * Attachment is always included regardless of the settings.
+	 * 添付ファイル（attachment）は設定に関係なく常に含める。
+	 *
+	 * @return string[] Post type names. 投稿タイプ名の配列。
+	 */
+	public static function get_exclude_post_types() {
+		$options            = self::get_options();
+		$exclude_post_types = array( 'attachment' );
+		foreach ( $options['exclude_post_types'] as $post_type => $is_excluded ) {
+			if ( $is_excluded ) {
+				$exclude_post_types[] = (string) $post_type;
+			}
+		}
+		return array_values( array_unique( $exclude_post_types ) );
+	}
+
+	/**
+	 * Sanitize the options submitted from the main setting page.
+	 * メイン設定画面から送信された設定値をサニタイズする。
+	 *
+	 * The main setting page passes null when no checkbox is checked.
+	 * In that case an empty exclude_post_types is returned so that the defaults are not restored.
+	 * チェックが1つも無いとメイン設定画面からは null が渡る。
+	 * その場合も既定値に戻らないよう、空の exclude_post_types を返す。
+	 *
+	 * @param mixed $input 送信された値。 Submitted value.
+	 * @return array Sanitized options. サニタイズ後の設定値。
+	 */
+	public static function sanitize_options( $input ) {
+		$output = array(
+			'exclude_post_types' => array(),
+		);
+		if ( ! is_array( $input ) || empty( $input['exclude_post_types'] ) || ! is_array( $input['exclude_post_types'] ) ) {
+			return $output;
+		}
+
+		// 存在する投稿タイプ（固定ページ・添付ファイルを除く）だけを受け付ける。
+		// Accept only existing post types (excluding page and attachment).
+		foreach ( $input['exclude_post_types'] as $post_type => $value ) {
+			$post_type = (string) $post_type;
+			if ( in_array( $post_type, array( 'page', 'attachment' ), true ) || ! post_type_exists( $post_type ) ) {
+				continue;
+			}
+			if ( $value ) {
+				$output['exclude_post_types'][ $post_type ] = true;
+			}
+		}
+		return $output;
+	}
+
+	/**
+	 * Render the settings section on the ExUnit main setting page.
+	 * ExUnit のメイン設定画面に設定セクションを出力する。
+	 *
+	 * @return void
+	 */
+	public static function render_setting_page() {
+		$options = self::get_options();
+		?>
+		<div class="sectionBox">
+		<h3><?php esc_html_e( 'Structured data - Article', 'vk-all-in-one-expansion-unit' ); ?></h3>
+		<table class="form-table">
+		<tr>
+		<th><?php esc_html_e( 'Post types to exclude', 'vk-all-in-one-expansion-unit' ); ?></th>
+		<td>
+		<?php
+		veu_the_post_type_check_list(
+			array(
+				'name'               => self::OPTION_NAME . '[exclude_post_types]',
+				'checked'            => $options['exclude_post_types'],
+				'exclude_post_types' => array( 'page', 'attachment' ),
+			)
+		);
+		?>
+		<p class="description">
+		<?php esc_html_e( 'Article structured data will not be output on single pages of the checked post types.', 'vk-all-in-one-expansion-unit' ); ?><br>
+		<?php esc_html_e( 'Check post types for which another plugin already outputs different structured data (such as Product).', 'vk-all-in-one-expansion-unit' ); ?><br>
+		<?php esc_html_e( 'It is not output on pages.', 'vk-all-in-one-expansion-unit' ); ?>
+		</p>
+		</td>
+		</tr>
+		</table>
+		<?php submit_button(); ?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Determine whether to output the Article structured data on the current page.
+	 * 表示中のページに Article の構造化データを出力するかどうかを判定する。
+	 *
+	 * @param WP_Post|null $post 表示中の投稿。 Post being displayed.
+	 * @return bool True to output. 出力する場合は true。
+	 */
+	public static function is_output( $post ) {
+		// 判定の対象になる投稿が無い場合は出力しない。
+		// Do not output when there is no post to judge.
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		// 個別投稿ページで、除外対象の投稿タイプでなければ出力する。
+		// Output on single post pages whose post type is not excluded.
+		$is_output = is_single() && ! in_array( $post->post_type, self::get_exclude_post_types(), true );
+
+		/**
+		 * Filters whether to output the Article structured data.
+		 * Article の構造化データを出力するかどうかを絞り込む。
+		 *
+		 * @param bool    $is_output 出力するかどうか。 Whether to output.
+		 * @param WP_Post $post      表示中の投稿。 Post being displayed.
+		 */
+		return (bool) apply_filters( 'veu_article_structure_data_is_output', $is_output, $post );
 	}
 
 	/**
@@ -221,27 +403,41 @@ class VK_Article_Srtuctured_Data {
 	 */
 	public static function the_article_structure_data() {
 		global $post;
-		if ( is_single() ) {
-			$author_id     = $post->post_author;
-			$article_array = self::get_article_structure_array( $author_id );
-			if ( $article_array && is_array( $article_array ) ) {
-				echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
-				echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
-				echo '<!-- [ / VK All in One Expansion Unit Article Structure Data ] -->';
-			}
+
+		// 出力対象のページでなければ配列を作らずに終える。
+		// Stop without building the array when the page is not an output target.
+		if ( ! self::is_output( $post ) ) {
+			return;
 		}
+
+		// フィルター後の値が空・配列以外なら出力しない。
+		// Do not output when the filtered value is empty or not an array.
+		$article_array = self::get_article_structure_array( $post->post_author );
+		if ( empty( $article_array ) || ! is_array( $article_array ) ) {
+			return;
+		}
+
+		echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
+		echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
+		echo '<!-- [ / VK All in One Expansion Unit Article Structure Data ] -->';
 	}
 
 	/**
 	 * 記事の構造化データの情報を配列で返す
 	 *
-	 * @return array $article_array
+	 * The array is passed through the veu_article_structure_data filter before being returned.
+	 * When the array cannot be built (no post or no author), an empty array is returned without applying the filter.
+	 * 返す前に veu_article_structure_data フィルターを通す。
+	 * 投稿や著者が無く配列を作れない場合は、フィルターを通さずに空配列を返す。
+	 *
+	 * @param int|string $author_id 著者のユーザー ID。空の場合は表示中の投稿の著者を使う。 Author user ID. Uses the author of the current post when empty.
+	 * @return array $article_array Article structured data, or an empty array. Article の構造化データ、または空配列。
 	 */
 	public static function get_article_structure_array( $author_id = '' ) {
+		global $post;
 
 		if ( ! $author_id ) {
 			// 表示中のページの投稿オブジェクトからユーザーIDを取得
-			global $post;
 			// $post が取得できない（非特異ページ・外部呼び出し）場合は空配列を返す。
 			// Return an empty array when $post is unavailable (non-singular pages or external calls).
 			if ( ! $post instanceof WP_Post ) {
@@ -252,7 +448,7 @@ class VK_Article_Srtuctured_Data {
 
 		// $author_id = get_the_author_meta('ID');
 		if ( ! isset( $author_id ) ) {
-			return;
+			return array();
 		}
 
 		// $author_type = get_user_meta( $author_id, 'author_type', true );
@@ -295,6 +491,25 @@ class VK_Article_Srtuctured_Data {
 		// An empty image is meaningless for structured data, so omit the key entirely when it is unset.
 		if ( empty( $article_array['image'] ) ) {
 			unset( $article_array['image'] );
+		}
+
+		/**
+		 * Filters the Article structured data array.
+		 * Article の構造化データの配列を絞り込む。
+		 *
+		 * Return an empty array to stop the output.
+		 * 空配列を返すと出力されない。
+		 *
+		 * @param array        $article_array Article の構造化データ。 Article structured data.
+		 * @param int          $author_id     著者のユーザー ID。 Author user ID.
+		 * @param WP_Post|null $post          表示中の投稿、または null。 Post being displayed, or null.
+		 */
+		$article_array = apply_filters( 'veu_article_structure_data', $article_array, (int) $author_id, $post instanceof WP_Post ? $post : null );
+
+		// フィルターが配列以外を返した場合も、戻り値の型をそろえるため空配列にする。
+		// Normalize to an empty array when the filter returns a non-array, to keep the return type.
+		if ( ! is_array( $article_array ) ) {
+			return array();
 		}
 
 		return $article_array;
