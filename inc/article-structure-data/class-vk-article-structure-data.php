@@ -393,14 +393,41 @@ class VK_Article_Srtuctured_Data {
 		}
 		$author_sameAs = get_user_meta( $author_id, 'author_sameAs', true );
 
+		// 出力する配列を組み立てる（url は上で必ず補完されるため常に出力する）。
+		// Build the output array (url is always filled in above, so it is always output).
 		$author_array = array(
-			'@type'  => $author_type,
-			'name'   => $author_name,
-			'url'    => $author_url,
-			'sameAs' => $author_sameAs,
+			'@type' => self::get_author_schema_type( $author_type ),
 		);
+		// name・sameAs は空なら schema.org として無意味なキーになるため出力しない。
+		// Omit name / sameAs when empty, since empty keys are meaningless for schema.org.
+		if ( '' !== (string) $author_name ) {
+			$author_array['name'] = $author_name;
+		}
+		$author_array['url'] = $author_url;
+		if ( '' !== (string) $author_sameAs ) {
+			$author_array['sameAs'] = $author_sameAs;
+		}
 
 		return $author_array;
+	}
+
+	/**
+	 * 保存されている author_type（小文字）を、構造化データの @type として出力する schema.org の型名に変換する。
+	 * 未設定・想定外の値は Organization とする（プロフィール画面の既定表示、および get_author_array() の
+	 * url 補完が person 以外をサイトトップ URL で補完していることと揃えるため）。
+	 *
+	 * Convert the saved author_type (lowercase) into the schema.org type name output as @type in structured data.
+	 * An empty or unexpected value falls back to Organization (to match the default shown on the profile screen
+	 * and the url fallback in get_author_array(), which uses the site top URL for anything other than person).
+	 *
+	 * @param mixed $author_type ユーザーメタ author_type の保存値。 The saved value of the author_type user meta.
+	 * @return string 'Person' または 'Organization'。 'Person' or 'Organization'.
+	 */
+	public static function get_author_schema_type( $author_type ) {
+		if ( 'person' === $author_type ) {
+			return 'Person';
+		}
+		return 'Organization';
 	}
 }
 
