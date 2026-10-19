@@ -120,7 +120,7 @@ function veu_get_packages( $is_block_theme = null ) {
 	$required_packages[] = array(
 		'name'        => 'article_structure_data',
 		'title'       => __( 'Structured data - Article', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Output the Structured data of the Article to the html header.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'You can choose post types to exclude on the settings page.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Output the Structured data of the Article to the html header.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'Product pages (product) are excluded by default.', 'vk-all-in-one-expansion-unit' ) . ' ' . __( 'You can choose post types to exclude on the settings page.', 'vk-all-in-one-expansion-unit' ),
 		'attr'        => array(
 			array(
 				'name'        => __( 'Setting', 'vk-all-in-one-expansion-unit' ),

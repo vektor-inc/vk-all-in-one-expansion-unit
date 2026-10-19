@@ -106,13 +106,34 @@ class VK_Article_Srtuctured_Data {
 	}
 
 	/**
+	 * Return the post type names listed as checkboxes on the settings page.
+	 * 設定画面にチェックボックスとして表示する投稿タイプ名の配列を返す。
+	 *
+	 * Public post types excluding page and attachment.
+	 * The settings page and sanitize_options() both use this list so that they never disagree.
+	 * 公開の投稿タイプから固定ページと添付ファイルを除いたもの。
+	 * 画面と保存がずれないよう、設定画面と sanitize_options() の両方でこの一覧を使う。
+	 *
+	 * @return string[] Post type names. 投稿タイプ名の配列。
+	 */
+	public static function get_selectable_post_types() {
+		$post_types = get_post_types( array( 'public' => true ), 'names' );
+		return array_values( array_diff( $post_types, array( 'page', 'attachment' ) ) );
+	}
+
+	/**
 	 * Sanitize the options submitted from the main setting page.
 	 * メイン設定画面から送信された設定値をサニタイズする。
 	 *
-	 * The main setting page passes null when no checkbox is checked.
-	 * In that case an empty exclude_post_types is returned so that the defaults are not restored.
-	 * チェックが1つも無いとメイン設定画面からは null が渡る。
-	 * その場合も既定値に戻らないよう、空の exclude_post_types を返す。
+	 * The main setting page saves all sections at once and passes null when no checkbox of this section is checked.
+	 * So only the post types listed on the screen (get_selectable_post_types()) are updated from the input,
+	 * and the exclusions of the other post types (e.g. product while WooCommerce is inactive) are kept from the previous options.
+	 * The key of a deleted post type stays in the option, but it does not affect the output,
+	 * and the exclusion comes back when a post type of the same name is registered again.
+	 * メイン設定画面は全セクションを一度に保存し、このセクションのチェックが1つも無いと null が渡る。
+	 * そのため入力から更新するのは画面に出している投稿タイプ（get_selectable_post_types()）だけにし、
+	 * それ以外の投稿タイプ（WooCommerce 停止中の product など）の除外は以前の設定値から引き継ぐ。
+	 * 削除済みの投稿タイプのキーは残るが、出力には影響せず、同名の投稿タイプが復活すれば除外も戻る。
 	 *
 	 * @param mixed $input 送信された値。 Submitted value.
 	 * @return array Sanitized options. サニタイズ後の設定値。
@@ -121,15 +142,29 @@ class VK_Article_Srtuctured_Data {
 		$output = array(
 			'exclude_post_types' => array(),
 		);
+
+		$selectable_post_types = self::get_selectable_post_types();
+
+		// 画面に出していない投稿タイプの除外は、以前の設定値（既定値とマージ済み）から引き継ぐ。
+		// Keep the exclusions of post types not shown on the screen from the previous options (merged with the defaults).
+		$previous = self::get_options();
+		foreach ( $previous['exclude_post_types'] as $post_type => $is_excluded ) {
+			$post_type = sanitize_key( (string) $post_type );
+			if ( '' === $post_type || ! $is_excluded || in_array( $post_type, $selectable_post_types, true ) ) {
+				continue;
+			}
+			$output['exclude_post_types'][ $post_type ] = true;
+		}
+
 		if ( ! is_array( $input ) || empty( $input['exclude_post_types'] ) || ! is_array( $input['exclude_post_types'] ) ) {
 			return $output;
 		}
 
-		// 存在する投稿タイプ（固定ページ・添付ファイルを除く）だけを受け付ける。
-		// Accept only existing post types (excluding page and attachment).
+		// 画面に出している投稿タイプだけを入力から反映する（固定ページ・添付ファイル・非公開・存在しない投稿タイプは捨てる）。
+		// Apply the input only for the post types shown on the screen (page, attachment, non-public and unknown post types are discarded).
 		foreach ( $input['exclude_post_types'] as $post_type => $value ) {
 			$post_type = (string) $post_type;
-			if ( in_array( $post_type, array( 'page', 'attachment' ), true ) || ! post_type_exists( $post_type ) ) {
+			if ( ! in_array( $post_type, $selectable_post_types, true ) ) {
 				continue;
 			}
 			if ( $value ) {
@@ -147,6 +182,11 @@ class VK_Article_Srtuctured_Data {
 	 */
 	public static function render_setting_page() {
 		$options = self::get_options();
+
+		// チェックリストに出す投稿タイプを sanitize_options() と同じ一覧にそろえる。
+		// Align the post types in the check list with the list used by sanitize_options().
+		$post_types_args = array( 'public' => true );
+		$hidden_types    = array_values( array_diff( get_post_types( $post_types_args, 'names' ), self::get_selectable_post_types() ) );
 		?>
 		<div class="sectionBox">
 		<h3><?php esc_html_e( 'Structured data - Article', 'vk-all-in-one-expansion-unit' ); ?></h3>
@@ -157,16 +197,17 @@ class VK_Article_Srtuctured_Data {
 		<?php
 		veu_the_post_type_check_list(
 			array(
+				'post_types_args'    => $post_types_args,
 				'name'               => self::OPTION_NAME . '[exclude_post_types]',
 				'checked'            => $options['exclude_post_types'],
-				'exclude_post_types' => array( 'page', 'attachment' ),
+				'exclude_post_types' => $hidden_types,
 			)
 		);
 		?>
 		<p class="description">
 		<?php esc_html_e( 'Article structured data will not be output on single pages of the checked post types.', 'vk-all-in-one-expansion-unit' ); ?><br>
 		<?php esc_html_e( 'Check post types for which another plugin already outputs different structured data (such as Product).', 'vk-all-in-one-expansion-unit' ); ?><br>
-		<?php esc_html_e( 'It is not output on pages.', 'vk-all-in-one-expansion-unit' ); ?>
+		<?php esc_html_e( 'Article structured data is not output on Pages (page), so they are not listed.', 'vk-all-in-one-expansion-unit' ); ?>
 		</p>
 		</td>
 		</tr>
@@ -180,12 +221,24 @@ class VK_Article_Srtuctured_Data {
 	 * Determine whether to output the Article structured data on the current page.
 	 * 表示中のページに Article の構造化データを出力するかどうかを判定する。
 	 *
-	 * @param WP_Post|null $post 表示中の投稿。 Post being displayed.
+	 * Only singular pages are judged, using the queried object as the post.
+	 * Top pages and archives always return false without applying the filter,
+	 * so that the first post of the loop is never judged in place of the page.
+	 * 判定するのは個別ページだけで、投稿はクエリ対象（get_queried_object()）から取る。
+	 * トップページ・アーカイブではループ先頭の投稿で判定しないよう、フィルターを通さずに false を返す。
+	 *
 	 * @return bool True to output. 出力する場合は true。
 	 */
-	public static function is_output( $post ) {
+	public static function is_output() {
+		// 個別ページ以外では出力しない。
+		// Do not output on pages other than singular pages.
+		if ( ! is_singular() ) {
+			return false;
+		}
+
 		// 判定の対象になる投稿が無い場合は出力しない。
 		// Do not output when there is no post to judge.
+		$post = get_queried_object();
 		if ( ! $post instanceof WP_Post ) {
 			return false;
 		}
@@ -402,13 +455,15 @@ class VK_Article_Srtuctured_Data {
 	 * @return void
 	 */
 	public static function the_article_structure_data() {
-		global $post;
-
 		// 出力対象のページでなければ配列を作らずに終える。
 		// Stop without building the array when the page is not an output target.
-		if ( ! self::is_output( $post ) ) {
+		if ( ! self::is_output() ) {
 			return;
 		}
+
+		// is_output() と同じく、投稿はクエリ対象から取る。
+		// Take the post from the queried object, as is_output() does.
+		$post = get_queried_object();
 
 		// フィルター後の値が空・配列以外なら出力しない。
 		// Do not output when the filtered value is empty or not an array.

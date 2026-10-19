@@ -91,12 +91,17 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 	 * Return the URL of a test target.
 	 * テスト対象の URL を返す。
 	 *
-	 * @param string $target 対象名（'home' または $this->post_ids のキー）。 Target name ('home' or a key of $this->post_ids).
+	 * @param string $target 対象名（'home'・'archive' または $this->post_ids のキー）。 Target name ('home', 'archive' or a key of $this->post_ids).
 	 * @return string URL.
 	 */
 	private function get_target_url( $target ) {
 		if ( 'home' === $target ) {
 			return home_url( '/' );
+		}
+		if ( 'archive' === $target ) {
+			// テスト用の投稿が入っている既定カテゴリーのアーカイブ。
+			// The archive of the default category, which contains the test posts.
+			return get_category_link( (int) get_option( 'default_category' ) );
 		}
 		return get_permalink( $this->post_ids[ $target ] );
 	}
@@ -201,6 +206,22 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 				'target'              => 'page',
 				'expected'            => true,
 			),
+			array(
+				'test_condition_name' => '出力可否フィルターで true を返してもトップページ => 出力されない',
+				'conditions'          => array(
+					'filters' => array( 'veu_article_structure_data_is_output' => '__return_true' ),
+				),
+				'target'              => 'home',
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '出力可否フィルターで true を返してもアーカイブ => 出力されない',
+				'conditions'          => array(
+					'filters' => array( 'veu_article_structure_data_is_output' => '__return_true' ),
+				),
+				'target'              => 'archive',
+				'expected'            => false,
+			),
 			// 配列フィルター。
 			// Array filter.
 			array(
@@ -297,8 +318,16 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 				),
 			),
 			array(
-				'test_condition_name' => '投稿が無い（null）場合 => false でフィルターは呼ばれない',
-				'target'              => null,
+				'test_condition_name' => 'トップページ => false でフィルターは呼ばれない',
+				'target'              => 'home',
+				'expected'            => array(
+					'return'   => false,
+					'received' => array(),
+				),
+			),
+			array(
+				'test_condition_name' => 'アーカイブ => false でフィルターは呼ばれない',
+				'target'              => 'archive',
 				'expected'            => array(
 					'return'   => false,
 					'received' => array(),
@@ -311,12 +340,8 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 
 			// 対象ページへ移動して判定する。
 			// Move to the target page and judge.
-			if ( null === $case['target'] ) {
-				$actual = VK_Article_Srtuctured_Data::is_output( null );
-			} else {
-				$this->go_to( $this->get_target_url( $case['target'] ) );
-				$actual = VK_Article_Srtuctured_Data::is_output( get_post( $this->post_ids[ $case['target'] ] ) );
-			}
+			$this->go_to( $this->get_target_url( $case['target'] ) );
+			$actual = VK_Article_Srtuctured_Data::is_output();
 
 			$this->assertSame( $case['expected']['return'], $actual, $case['test_condition_name'] );
 			$this->assertSame( $case['expected']['received'], $received, $case['test_condition_name'] );
@@ -463,6 +488,152 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 			$actual = VK_Article_Srtuctured_Data::sanitize_options( $case['input'] );
 			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
 		}
+	}
+
+	/**
+	 * Test that sanitize_options() keeps the exclusions of post types not shown on the screen.
+	 * sanitize_options() が画面に出ていない投稿タイプの除外を引き継ぐことのテスト。
+	 *
+	 * @return void
+	 */
+	public function test_sanitize_options_keeps_hidden_post_types() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '未保存で product を登録解除し、null を入力 => 既定値の product が残る',
+				'conditions'          => array(
+					'option'             => null,
+					'unregistered_types' => array( 'product' ),
+				),
+				'input'               => null,
+				'expected'            => array(
+					'exclude_post_types' => array( 'product' => true ),
+				),
+			),
+			array(
+				'test_condition_name' => '{product, event} を保存済みで product を登録解除し、{event} を入力 => 両方残る',
+				'conditions'          => array(
+					'option'             => array(
+						'exclude_post_types' => array(
+							'product' => true,
+							'event'   => true,
+						),
+					),
+					'unregistered_types' => array( 'product' ),
+				),
+				'input'               => array(
+					'exclude_post_types' => array( 'event' => 'true' ),
+				),
+				'expected'            => array(
+					'exclude_post_types' => array(
+						'product' => true,
+						'event'   => true,
+					),
+				),
+			),
+			array(
+				'test_condition_name' => 'product が登録済みで、チェックを外して保存（null） => product は消える',
+				'conditions'          => array(
+					'option'             => array(
+						'exclude_post_types' => array( 'product' => true ),
+					),
+					'unregistered_types' => array(),
+				),
+				'input'               => null,
+				'expected'            => array(
+					'exclude_post_types' => array(),
+				),
+			),
+			array(
+				'test_condition_name' => '非公開の投稿タイプを入力 => 保存されない',
+				'conditions'          => array(
+					'option'             => array( 'exclude_post_types' => array() ),
+					'unregistered_types' => array(),
+				),
+				'input'               => array(
+					'exclude_post_types' => array(
+						'private_type' => 'true',
+						'event'        => 'true',
+					),
+				),
+				'expected'            => array(
+					'exclude_post_types' => array( 'event' => true ),
+				),
+			),
+			array(
+				'test_condition_name' => '保存値に空のキー・false の値がある => 引き継がない',
+				'conditions'          => array(
+					'option'             => array(
+						'exclude_post_types' => array(
+							''        => true,
+							'removed' => false,
+							'old_cpt' => true,
+						),
+					),
+					'unregistered_types' => array(),
+				),
+				'input'               => null,
+				'expected'            => array(
+					'exclude_post_types' => array( 'old_cpt' => true ),
+				),
+			),
+		);
+
+		// 非公開の投稿タイプを登録する。
+		// Register a non-public post type.
+		register_post_type( 'private_type', array( 'public' => false ) );
+
+		foreach ( $test_cases as $case ) {
+			if ( null === $case['conditions']['option'] ) {
+				delete_option( VK_Article_Srtuctured_Data::OPTION_NAME );
+			} else {
+				update_option( VK_Article_Srtuctured_Data::OPTION_NAME, $case['conditions']['option'] );
+			}
+			foreach ( $case['conditions']['unregistered_types'] as $post_type ) {
+				unregister_post_type( $post_type );
+			}
+
+			$actual = VK_Article_Srtuctured_Data::sanitize_options( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+
+			// 後続のケースへ影響させないよう、登録解除した投稿タイプを戻す。
+			// Register the unregistered post types again so that later cases are not affected.
+			foreach ( $case['conditions']['unregistered_types'] as $post_type ) {
+				register_post_type( $post_type, array( 'public' => true ) );
+			}
+			delete_option( VK_Article_Srtuctured_Data::OPTION_NAME );
+		}
+
+		unregister_post_type( 'private_type' );
+	}
+
+	/**
+	 * Test that saving another section on the main setting page keeps the exclusion of an unregistered post type.
+	 * メイン設定画面で別のセクションを保存しただけでも、登録されていない投稿タイプの除外が残ることのテスト。
+	 *
+	 * @return void
+	 */
+	public function test_main_setting_save_keeps_hidden_post_types() {
+		global $vkExUnit_options;
+
+		// このセクションが保存対象に登録されていなければ登録する。
+		// Register this section as a save target when it is not registered yet.
+		$option_names = is_array( $vkExUnit_options ) ? wp_list_pluck( $vkExUnit_options, 'option_name' ) : array();
+		if ( ! in_array( VK_Article_Srtuctured_Data::OPTION_NAME, $option_names, true ) ) {
+			VK_Article_Srtuctured_Data::register_setting();
+		}
+
+		// WooCommerce 停止中に見立てて product を登録解除し、このセクションのキーが無い入力で保存する。
+		// Unregister product as if WooCommerce were inactive, then save an input without this section's key.
+		delete_option( VK_Article_Srtuctured_Data::OPTION_NAME );
+		unregister_post_type( 'product' );
+		veu_main_sanitaize_and_update( array( 'vkExUnit_common_options' => array() ) );
+
+		$this->assertSame(
+			array( 'exclude_post_types' => array( 'product' => true ) ),
+			get_option( VK_Article_Srtuctured_Data::OPTION_NAME ),
+			'別のセクションを保存しただけ => product の除外が残る'
+		);
 	}
 
 	/**
