@@ -194,7 +194,7 @@ class VK_Article_Srtuctured_Data {
 		<tr>
 		<th><?php esc_html_e( 'Post types to exclude', 'vk-all-in-one-expansion-unit' ); ?></th>
 		<td>
-		<div class="veu_post_type_check_list">
+		<div class="veu_check_list">
 		<?php
 		veu_the_post_type_check_list(
 			array(

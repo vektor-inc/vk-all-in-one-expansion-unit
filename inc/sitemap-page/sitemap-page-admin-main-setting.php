@@ -64,7 +64,7 @@ function veu_add_sitemap_options_page() {
 	<tr>
 	<th><?php _e( 'Exclude post type from the sitemap', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
-			<div class="veu_post_type_check_list">
+			<div class="veu_check_list">
 			<?php
 			$args = array(
 				'name'               => 'vkExUnit_sitemap_options[excludePostTypes]',
@@ -80,6 +80,7 @@ function veu_add_sitemap_options_page() {
 	<tr>
 	<th><?php _e( 'Exclude taxonomy from the sitemap', 'vk-all-in-one-expansion-unit' ); ?></th>
 	<td>
+			<div class="veu_check_list">
 			<?php
 			$args = array(
 				'name'       => 'vkExUnit_sitemap_options[excludeTaxonomies]',
@@ -88,6 +89,7 @@ function veu_add_sitemap_options_page() {
 			);
 			veu_the_taxonomy_check_list( $args );
 			?>
+			</div>
 			<?php if ( ! empty( $available_taxonomies ) ) : ?>
 			<p class="description"><?php _e( 'The term list of a checked taxonomy will not be displayed on the sitemap, regardless of the post type exclusion setting above.', 'vk-all-in-one-expansion-unit' ); ?></p>
 			<?php endif; ?>
