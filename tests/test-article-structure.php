@@ -191,6 +191,23 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'url'   => 'https://vektor-inc.co.jp/author/vekutarou',
 				),
 			),
+			// 異常系 : sameAs に配列が保存されている → 文字列変換の警告を出さず、sameAs のキーを出力しない
+			// Abnormal case: an array is saved in sameAs -> no string conversion warning, and the sameAs key is not output.
+			array(
+				'test_condition_name' => 'sameAs に配列が保存されている場合 => 警告を出さず sameAs のキーは出力されない',
+				'user_id'             => $user_id,
+				'author'              => array(
+					'author_type'   => 'person',
+					'author_name'   => 'vekutarou',
+					'author_url'    => 'https://vektor-inc.co.jp/author/vekutarou',
+					'author_sameAs' => array( 'https://twitter.com/vektor_inc' ),
+				),
+				'correct'             => array(
+					'@type' => 'Person',
+					'name'  => 'vekutarou',
+					'url'   => 'https://vektor-inc.co.jp/author/vekutarou',
+				),
+			),
 		);
 
 		foreach ( $test_data as $test_value ) {

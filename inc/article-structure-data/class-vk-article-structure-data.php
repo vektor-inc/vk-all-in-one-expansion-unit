@@ -400,11 +400,13 @@ class VK_Article_Srtuctured_Data {
 		);
 		// name・sameAs は空なら schema.org として無意味なキーになるため出力しない。
 		// Omit name / sameAs when empty, since empty keys are meaningless for schema.org.
-		if ( '' !== (string) $author_name ) {
+		// 配列など文字列以外が保存されていた場合に文字列変換の警告を出さないよう、is_string() で先に判定する。
+		// Check is_string() first so that a non-string value (e.g. an array) does not raise an "Array to string conversion" warning.
+		if ( is_string( $author_name ) && '' !== $author_name ) {
 			$author_array['name'] = $author_name;
 		}
 		$author_array['url'] = $author_url;
-		if ( '' !== (string) $author_sameAs ) {
+		if ( is_string( $author_sameAs ) && '' !== $author_sameAs ) {
 			$author_array['sameAs'] = $author_sameAs;
 		}
 
