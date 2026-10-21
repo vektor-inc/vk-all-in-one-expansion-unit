@@ -32,10 +32,10 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-    - name: Setup Node 20.x
-      uses: actions/setup-node@v1
+    - name: Setup Node
+      uses: actions/setup-node@v4
       with:
-        node-version: 24.x
+        node-version-file: .node-version
     - name: install npm scripts
       run: npm install
     - name: install Composer Package

@@ -14,7 +14,7 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: 24.x
+                  node-version-file: .node-version
                   cache: npm
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -56,7 +56,7 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: 24.x
+                  node-version-file: .node-version
                   cache: npm
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
