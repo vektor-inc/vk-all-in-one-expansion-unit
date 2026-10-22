@@ -90,7 +90,9 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ New Feature ][ Article Structured Data ] Added the veu_article_structure_data_is_output and veu_article_structure_data filters to control the output and change the output data.
 [ Spec Change ] Update vektor-inc/vk-term-color from 0.7.1 to 0.7.4, adding a permission check to term color saving and fixing PHP warnings/fatal errors in a few edge cases
+[ Spec Change ][ Article Structured Data ] No longer output on product pages (post type: product) and attachment pages; post types to exclude can be chosen in ExUnit > Main Setting > Structured data - Article (uncheck product there to keep its output). If you had disabled this feature to avoid duplicate structured data, enable it again to resume the output on blog posts.
 [ Bug Fix ][ HTML Sitemap ] Fixed taxonomies that are not open to visitors being listed on the HTML sitemap and in the "Exclude taxonomies" setting, even though their links led to a "Page not found".
 [ Bug Fix ][ HTML Sitemap ] Fixed the heading of a post type without an archive page being a link that just reloaded the same page. It is now plain text.
 [ Bug Fix ][ HTML Sitemap ] Fixed an empty section being displayed for a post type that has neither an archive page nor any taxonomy to list. Such a section is no longer output.

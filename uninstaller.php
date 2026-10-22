@@ -32,6 +32,7 @@ $delete_options = array(
 	'vkExUnit_pagetop',
 	'vkExUnit_smooth',
 	'vkExUnit_pagespeeding',
+	'vkExUnit_article_structure_data',
 );
 
 $delete_customfields = array(
