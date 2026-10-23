@@ -25,7 +25,6 @@ import { login } from './utils/auth';
 // `mode: 'serial'` 指定だけでは別 describe 間の並列を抑制できない）
 test.describe.configure( { mode: 'serial' } );
 
-
 // wp-env の `tests-cli` コンテナ経由で wp-cli を実行するためのヘルパー。
 // `tests-cli` を使うのは、Playwright のテスト対象 ( WP_BASE_URL ) が
 // wp-env の **tests** サイト（デフォルト 8889 / override 後 9109）を

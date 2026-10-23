@@ -319,7 +319,7 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 		test.info().annotations.push( {
 			type: 'editor-canvas',
 			description: isCanvasIframed
-				? 'iframe 化されたキャンバス（WordPress 7.0 以降）で検証'
+				? 'iframe 化されたキャンバス（WordPress 7.0 以降）で検証。これは #1452 の再現条件（非 iframe キャンバス）ではなく、#1452 の再発は検証していない。ブロックが本文中のクロスオリジン iframe があってもエラー表示にならないことの確認のみ'
 				: '非 iframe 化キャンバス（#1452 の再現条件）で検証',
 		} );
 

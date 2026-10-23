@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { execSync } from 'child_process';
+import { login } from './utils/auth';
 
 test('Active Setting first save respects selections', async ({ page }) => {
   const wpPath = process.env.WP_PATH || '/var/www/html';
@@ -18,11 +19,7 @@ test('Active Setting first save respects selections', async ({ page }) => {
   }
 
   // login
-  await page.goto('/wp-login.php');
-  await page.getByLabel('Username or Email Address').fill('admin');
-  await page.getByLabel('Username or Email Address').press('Tab');
-  await page.getByLabel('Password', { exact: true }).fill('password');
-  await page.getByLabel('Password', { exact: true }).press('Enter');
+  await login(page);
 
   // Go to Active Setting page
   await page.goto('/wp-admin/admin.php?page=vkExUnit_setting_page');

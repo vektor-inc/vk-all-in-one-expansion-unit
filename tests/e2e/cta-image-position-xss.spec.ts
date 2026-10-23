@@ -318,14 +318,16 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 
 			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
-			// class 属性を抜け出して新しい属性 ( onmouseover ) が生成されていないこと。
-			await expect( page.locator( '[onmouseover]' ) ).toHaveCount( 0 );
-
 			// 画像位置クラスを持つ要素自体は1つだけ描画され、そのクラス値が
 			// エスケープされた攻撃用文字列を含む1つの属性値として保持されていること
 			// ( ブラウザが返す class 属性値は HTML エンティティ復元後の文字列 )。
+			// 先にこの要素の描画を確認する。ページが描画される前に「0 件」を判定すると、
+			// 何も描画されていなくても通ってしまうため。
 			const imageWrapper = page.locator( '.cta_body_image' );
 			await expect( imageWrapper ).toHaveCount( 1 );
+
+			// class 属性を抜け出して新しい属性 ( onmouseover ) が生成されていないこと。
+			await expect( page.locator( '[onmouseover]' ) ).toHaveCount( 0 );
 			const classAttr = await imageWrapper.getAttribute( 'class' );
 			expect( classAttr ).toBe(
 				`cta_body_image cta_body_image_${ MALICIOUS_IMAGE_POSITION }`
