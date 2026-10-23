@@ -70,8 +70,5 @@
 		"husky": "^9.1.4",
 		"lint": "^1.1.2",
 		"smoothscroll-polyfill": "^0.4.4"
-	},
-	"volta": {
-		"node": "24.22.1"
 	}
 }
