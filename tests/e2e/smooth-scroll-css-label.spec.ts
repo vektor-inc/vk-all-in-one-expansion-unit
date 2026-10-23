@@ -24,6 +24,7 @@
  */
 import { test, expect } from '@playwright/test';
 import { execFileSync } from 'child_process';
+import { login } from './utils/auth';
 
 // wp-env の tests-cli コンテナ経由で wp-cli を実行するヘルパー。
 // Playwright の対象は wp-env の tests サイトを向いているため tests-cli を使う。
@@ -76,12 +77,8 @@ test.describe( 'Smooth scroll「CSS only」ラベル分離 (#1421 / PR #1422)', 
 
 	test.beforeEach( async ( { page } ) => {
 		// 管理画面へログイン。
-		await page.goto( '/wp-login.php' );
-		await page.locator( '#user_login' ).fill( 'admin' );
-		await page.locator( '#user_pass' ).fill( 'password' );
-		await page.locator( '#wp-submit' ).click();
-		await page.waitForURL( /wp-admin\// );
-		await page.locator( '#wpadminbar' ).waitFor();
+		// 共通ヘルパー login() で、URL 遷移（DOMContentLoaded）＋管理バーの描画を待つ。
+		await login( page );
 
 		// ExUnit > Main Setting 画面へ。
 		await page.goto( '/wp-admin/admin.php?page=vkExUnit_main_setting' );

@@ -16,9 +16,7 @@
  */
 import { test, expect } from '@playwright/test';
 import { execFileSync } from 'child_process';
-
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'password';
+import { login } from './utils/auth';
 
 // wp-env の tests-cli コンテナ経由で wp-cli を実行するヘルパー。
 // e2e は testsPort (デフォルト 8889) のテスト用 WordPress を使うため、
@@ -106,15 +104,7 @@ test.describe( 'Promotion Disclosure', () => {
 		resetPromotionAlertState();
 
 		// ログイン。
-		await page.goto( '/wp-login.php' );
-		await page.getByLabel( 'Username or Email Address' ).fill( ADMIN_USER );
-		await page
-			.getByLabel( 'Password', { exact: true } )
-			.fill( ADMIN_PASS );
-		await page
-			.getByLabel( 'Password', { exact: true } )
-			.press( 'Enter' );
-		await page.waitForURL( /wp-admin\// );
+		await login( page );
 	} );
 
 	test.afterAll( () => {

@@ -25,5 +25,11 @@ export const login = async ( page: Page ): Promise<void> => {
 	await page.locator( '#user_login' ).fill( ADMIN_USER );
 	await page.locator( '#user_pass' ).fill( ADMIN_PASS );
 	await page.locator( '#wp-submit' ).click();
-	await page.waitForURL( /wp-admin\// );
+	// waitForURL の既定は "load" イベントまで待つ。管理画面は外部リソースや重い
+	// 初期処理で load が遅れることがあり（一式実行で 45〜60 秒のテスト時間切れに
+	// なった原因 / #1536）、ログイン完了の判定としては過剰。URL が /wp-admin/ に
+	// 遷移した時点（DOMContentLoaded）で十分なので、その後は管理バー
+	// （id ベース・i18n 非依存）の描画で「ログイン済みの管理画面が出た」ことを確認する。
+	await page.waitForURL( /wp-admin\//, { waitUntil: 'domcontentloaded' } );
+	await page.locator( '#wpadminbar' ).waitFor( { timeout: 30000 } );
 };

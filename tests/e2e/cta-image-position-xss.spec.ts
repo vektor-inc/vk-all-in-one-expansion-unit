@@ -250,7 +250,9 @@ const injectAndSelectRawOption = async (
 };
 
 test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
-	test.setTimeout( 60 * 1000 );
+	// 一式実行では wp-cli 呼び出しとログインが積み重なって 60 秒を超えることがあったため、
+	// 他の CTA 系 spec（cta.spec.ts / cross-origin-iframe-block-error.spec.ts）より長い 120 秒にする (#1536)。測定では wp-cli（docker exec）1 回が負荷時に 3 秒超かかり、1 テストで 10 回超呼ぶため。
+	test.setTimeout( 120 * 1000 );
 
 	test.beforeEach( async ( { page } ) => {
 		await login( page );
@@ -314,7 +316,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 
 			hostId = createHostPost( 'A2 Output Escaping Host Post', ctaId );
 
-			await page.goto( `/?p=${ hostId }` );
+			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
 			// class 属性を抜け出して新しい属性 ( onmouseover ) が生成されていないこと。
 			await expect( page.locator( '[onmouseover]' ) ).toHaveCount( 0 );
@@ -370,7 +372,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 					`B1 Position ${ position } Host Post`,
 					ctaId
 				);
-				await page.goto( `/?p=${ hostId }` );
+				await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 				await expect(
 					page.locator( `.cta_body_image_${ position }` )
 				).toHaveCount( 1 );
@@ -452,7 +454,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			await submitClassicForm( page, ctaId );
 
 			hostId = createHostPost( 'B3 Title Host Post', ctaId );
-			await page.goto( `/?p=${ hostId }` );
+			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
 			const titleLocator = page.locator( '.cta_title' );
 			// <br> は保持されるため2行に分かれて描画される。
@@ -492,7 +494,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			await submitClassicForm( page, ctaId );
 
 			hostId = createHostPost( 'B4 Button Icon Host Post', ctaId );
-			await page.goto( `/?p=${ hostId }` );
+			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
 			// アイコン用に新規生成される <i class="... font_icon" aria-hidden="true"> にのみ
 			// class 属性を含み、onclick 等の属性は出力に残っていないこと。

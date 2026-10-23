@@ -17,6 +17,7 @@
  */
 import { test, expect, type Page } from '@playwright/test';
 import { execFileSync } from 'child_process';
+import { login } from './utils/auth';
 
 // このファイル内の 2 つの describe ブロックは同じ `vkExUnit_pagetop`
 // オプションを書き換えるため、ファイル単位でシリアル実行する。
@@ -24,8 +25,6 @@ import { execFileSync } from 'child_process';
 // `mode: 'serial'` 指定だけでは別 describe 間の並列を抑制できない）
 test.describe.configure( { mode: 'serial' } );
 
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'password';
 
 // wp-env の `tests-cli` コンテナ経由で wp-cli を実行するためのヘルパー。
 // `tests-cli` を使うのは、Playwright のテスト対象 ( WP_BASE_URL ) が
@@ -100,23 +99,18 @@ test.describe( 'Page Top Button image upload (#1342)', () => {
 	// 全テストで同じ vkExUnit_pagetop オプションを書き換えるため、
 	// テスト間の競合を避けてシリアル実行する。
 	test.describe.configure( { mode: 'serial' } );
+	// 一式実行では他 spec の負荷や毎回のログインで 1 件が重くなるため、
+	// 既定の 45 秒ではなく余裕を持たせる（待ち対象の見直しとセット / #1536）。
+	test.setTimeout( 90 * 1000 );
 
 	// 各テスト前に option をリセット。
 	test.beforeEach( async ( { page } ) => {
 		resetPagetopOption();
 
-		// 管理画面にログインしておく。
-		// wp-admin の言語設定（日本語等）でラベルテキストが変わってもテストが
-		// 落ちないよう、Core が安定的に提供している input id をセレクタに使う。
-		await page.goto( '/wp-login.php' );
-		await page.locator( '#user_login' ).fill( ADMIN_USER );
-		await page.locator( '#user_pass' ).fill( ADMIN_PASS );
-		await page.locator( '#wp-submit' ).click();
-		// ダッシュボードのロード完了まで待つ。
-		// networkidle は WP の heartbeat 等で安定しないため、
-		// 管理バー（id ベース・i18n 非依存）が描画されたことで判断する。
-		await page.waitForURL( /wp-admin\// );
-		await page.locator( '#wpadminbar' ).waitFor();
+		// 管理画面にログインしておく。共通ヘルパー login() は、wp-admin の言語設定に
+		// 依存しない id ベースのセレクタで入力し、ログイン完了を「URL 遷移
+		// （DOMContentLoaded）＋管理バーの描画」で判定する（load イベントは待たない）。
+		await login( page );
 	} );
 
 	test.afterAll( () => {
@@ -317,17 +311,15 @@ test.describe( 'Page Top Button image size (#1361)', () => {
 	// 全テストで同じ vkExUnit_pagetop オプションを書き換えるため、
 	// テスト間の競合を避けてシリアル実行する。
 	test.describe.configure( { mode: 'serial' } );
+	// 一式実行では他 spec の負荷や毎回のログインで 1 件が重くなるため、
+	// 既定の 45 秒ではなく余裕を持たせる（待ち対象の見直しとセット / #1536）。
+	test.setTimeout( 90 * 1000 );
 
 	// 各テスト前に option をリセットし、admin にログインしておく。
 	test.beforeEach( async ( { page } ) => {
 		resetPagetopOption();
 
-		await page.goto( '/wp-login.php' );
-		await page.locator( '#user_login' ).fill( ADMIN_USER );
-		await page.locator( '#user_pass' ).fill( ADMIN_PASS );
-		await page.locator( '#wp-submit' ).click();
-		await page.waitForURL( /wp-admin\// );
-		await page.locator( '#wpadminbar' ).waitFor();
+		await login( page );
 	} );
 
 	test.afterAll( () => {
