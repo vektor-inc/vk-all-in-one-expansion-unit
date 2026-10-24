@@ -120,15 +120,27 @@ const gotoClassicCtaEditor = async (
 
 /**
  * クラシック編集画面の Publish/Update ボタン ( id="publish" は WP core で安定 ) を押し、
- * 保存後の再描画 ( 同じ post.php?...&action=edit への遷移 ) を待つ。
+ * 保存 POST の応答と、保存後だけ付く message パラメータへの遷移を待つ。
  *
  * @param page  Playwright の Page.
  * @param ctaId 保存対象の CTA の投稿 ID.
  */
 const submitClassicForm = async ( page: Page, ctaId: number ): Promise<void> => {
-	await page.locator( '#publish' ).click();
+	// 保存前と保存後の URL がほぼ同じため、先に POST 応答の監視を開始する。
+	const saveResponse = page.waitForResponse(
+		( response ) =>
+			response.request().method() === 'POST' &&
+			new URL( response.url() ).pathname.endsWith( '/wp-admin/post.php' )
+	);
+	await Promise.all( [ page.locator( '#publish' ).click(), saveResponse ] );
+
+	// message は保存後のリダイレクト先だけに付くため、再描画前の URL には一致しない。
 	await page.waitForURL(
-		new RegExp( `post\\.php\\?post=${ ctaId }&action=edit` ),
+		( url ) =>
+			url.pathname.endsWith( '/wp-admin/post.php' ) &&
+			url.searchParams.get( 'post' ) === String( ctaId ) &&
+			url.searchParams.get( 'action' ) === 'edit' &&
+			/^\d+$/.test( url.searchParams.get( 'message' ) ?? '' ),
 		{ waitUntil: 'domcontentloaded' }
 	);
 };

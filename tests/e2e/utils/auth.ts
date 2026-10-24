@@ -11,6 +11,10 @@ import { type Page } from '@playwright/test';
 export const ADMIN_USER = 'admin';
 export const ADMIN_PASS = 'password';
 
+// 2 回とも各 3 段階を待っても 36 秒以内に収め、標準の 45 秒に余裕を残す。
+const LOGIN_STEP_TIMEOUT_MS = 6000;
+const LOGIN_ERROR_TIMEOUT_MS = 1000;
+
 /**
  * 管理者としてログインする。
  *
@@ -38,11 +42,16 @@ export const login = async ( page: Page ): Promise<void> => {
 
 	for ( let attempt = 1; attempt <= maxAttempts; attempt++ ) {
 		// フォームは HTML だけで完結するため load ( 画像・外部リソース ) までは待たない。
-		await page.goto( '/wp-login.php', { waitUntil: 'domcontentloaded' } );
+		await page.goto( '/wp-login.php', {
+			waitUntil: 'domcontentloaded',
+			timeout: LOGIN_STEP_TIMEOUT_MS,
+		} );
 
 		// 既にログイン済みなら wp-login.php は管理画面へリダイレクトされる。
 		if ( /\/wp-admin\//.test( new URL( page.url() ).pathname ) ) {
-			await page.locator( '#wpadminbar' ).waitFor( { timeout: 60000 } );
+			await page
+				.locator( '#wpadminbar' )
+				.waitFor( { timeout: LOGIN_STEP_TIMEOUT_MS } );
 			return;
 		}
 
@@ -54,21 +63,36 @@ export const login = async ( page: Page ): Promise<void> => {
 			( response ) =>
 				response.request().method() === 'POST' &&
 				new URL( response.url() ).pathname.endsWith( '/wp-login.php' ),
-			{ timeout: 30000 }
+			{ timeout: LOGIN_STEP_TIMEOUT_MS }
 		);
-		await page.locator( '#wp-submit' ).click();
 
 		try {
-			await loginResponse;
+			const [ , response ] = await Promise.all( [
+				page.locator( '#wp-submit' ).click(),
+				loginResponse,
+			] );
+
+			// 認証失敗は 200 でログイン画面を返すため、管理画面への遷移を待たない。
+			if ( response.status() < 300 || response.status() >= 400 ) {
+				const errorText = await page
+					.locator( '#login_error' )
+					.innerText( { timeout: LOGIN_ERROR_TIMEOUT_MS } )
+					.catch( () => '' );
+				lastReason = `HTTP ${ response.status() } ( url: ${ page.url() }${
+					errorText ? `, #login_error: ${ errorText.trim() }` : ''
+				} )`;
+				continue;
+			}
+
 			// POST が通ったら、URL が管理画面へコミットされるまで待つ ( 描画完了は待たない )。
 			await page.waitForURL(
 				( url ) => /\/wp-admin\//.test( url.pathname ),
-				{ waitUntil: 'commit', timeout: 30000 }
+				{ waitUntil: 'commit', timeout: LOGIN_STEP_TIMEOUT_MS }
 			);
 		} catch ( error ) {
 			const errorText = await page
 				.locator( '#login_error' )
-				.innerText( { timeout: 1000 } )
+				.innerText( { timeout: LOGIN_ERROR_TIMEOUT_MS } )
 				.catch( () => '' );
 			lastReason = `${
 				error instanceof Error ? error.message.split( '\n' )[ 0 ] : String( error )
@@ -79,7 +103,9 @@ export const login = async ( page: Page ): Promise<void> => {
 		}
 
 		// 管理バー ( id ベース・i18n 非依存 ) の描画で「ログイン済みの管理画面が出た」ことを確認する。
-		await page.locator( '#wpadminbar' ).waitFor( { timeout: 60000 } );
+		await page
+			.locator( '#wpadminbar' )
+			.waitFor( { timeout: LOGIN_STEP_TIMEOUT_MS } );
 		return;
 	}
 
