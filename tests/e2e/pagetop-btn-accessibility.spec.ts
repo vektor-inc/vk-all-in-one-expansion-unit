@@ -43,7 +43,7 @@
  *    ファイル単位でシリアル実行し、各テスト前に option を既知の状態へ戻す。
  */
 import { test, expect, type Page } from '@playwright/test';
-import { execFileSync } from 'child_process';
+import { runWpCli } from './utils/wp-cli';
 
 // このファイル内のテストは全て同じ `vkExUnit_pagetop` オプション（tests サイトの
 // 共有 DB）を読む / 書き換えるため、ファイル単位でシリアル実行する。
@@ -54,22 +54,6 @@ import { execFileSync } from 'child_process';
 // 別 describe 間の並列を抑えられないため、ファイル先頭で serial を宣言する。
 // （pagetop-btn-image.spec.ts も同じ理由で serial 運用）。
 test.describe.configure( { mode: 'serial' } );
-
-// wp-env の `tests-cli` コンテナ経由で wp-cli を実行するヘルパー。
-// Playwright のテスト対象 ( WP_BASE_URL ) は wp-env の **tests** サイトを
-// 向いているため、必ず `tests-cli`（development の `cli` ではない）を使う。
-// shell ではなく execFileSync で引数を配列のまま渡し、シェル解釈を経由しない。
-// （pagetop-btn-image.spec.ts の流儀を踏襲）
-const runWpCli = ( args: string[] ): string => {
-	return execFileSync(
-		'npx',
-		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
-		{
-			encoding: 'utf-8',
-			stdio: [ 'ignore', 'pipe', 'pipe' ],
-		}
-	);
-};
 
 // vkExUnit_pagetop オプションを削除して既知の初期状態（画像未設定）に戻す。
 // wp-cli が「option がそもそも存在しない」と返すケースのみ握りつぶし、

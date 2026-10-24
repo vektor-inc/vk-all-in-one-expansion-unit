@@ -21,9 +21,7 @@
  *   このスタイル enqueue が無いと PR の余白拡大が効かない（PR #1369 の 4 番目の変更点）。
  */
 import { test, expect } from '@playwright/test';
-
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'password';
+import { login } from './utils/auth';
 
 test.describe( 'Page Top Button customizer heading (#1368)', () => {
 	// テスト間で同じセクションの DOM を参照するだけなので
@@ -34,18 +32,7 @@ test.describe( 'Page Top Button customizer heading (#1368)', () => {
 	test.beforeEach( async ( { page } ) => {
 		// 管理画面にログイン。Core が安定して提供する id ベースのセレクタを使う
 		// （言語設定が日本語等になっても落ちないようにするため）。
-		await page.goto( '/wp-login.php' );
-		// ログイン入力欄が描画された直後に fill するため、明示的に
-		// フォーカスをセットしてから値を入れる。
-		// （既存 spec と同様、describe 間でフラッキー回避のため。）
-		await page.locator( '#user_login' ).click();
-		await page.locator( '#user_login' ).fill( ADMIN_USER );
-		await page.locator( '#user_pass' ).click();
-		await page.locator( '#user_pass' ).fill( ADMIN_PASS );
-		await page.locator( '#wp-submit' ).click();
-		await page.waitForURL( /wp-admin\// );
-		// admin bar が描画されればダッシュボードロード完了とみなす。
-		await page.locator( '#wpadminbar' ).waitFor();
+		await login( page );
 
 		// Customizer の Page Top Button セクションを autofocus で直接開く。
 		// `autofocus[section]=veu_pagetop_setting` でセクションが open 状態で

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { execSync } from 'child_process';
+import { runWpCli } from './utils/wp-cli';
 
 /**
  * PR #1325 / issue #1324 の e2e テスト.
@@ -12,48 +12,15 @@ import { execSync } from 'child_process';
  *  - B) wp-login.php: headers already sent エラーが発生せず、admin でログインできる
  *  - C) 配列で正しく保存されている CPT のカスタム分類は従来通り登録される（デグレなし）
  *
- * 既存 e2e テスト（post-type-manager-force-custom-fields.spec.ts）と同じく
- * 該当ポートを公開している wp-env コンテナを動的に検出する.
+ * wp-cli は共通ヘルパー utils/wp-cli.ts の runWpCli を使う。このヘルパーは
+ * 「このリポジトリ（worktree）を bind mount している tests-cli コンテナ」を
+ * 特定するため、ポート番号（開発用 / テスト用）に依存せず、e2e の接続先である
+ * tests サイト（testsPort）の DB に対して正しく書き込める。
+ * HTTP のアクセス先は playwright.config.ts の baseURL（WP_BASE_URL）に任せ、
+ * URL は相対パスで指定する。
  */
 
-// .wp-env.override.json で指定された開発用ポート.
-const BASE_URL = process.env.WP_BASE_URL || 'http://localhost:3465';
-
-// 該当ポートに対応する wp-env の cli コンテナを動的に解決するヘルパ.
-let cachedCliContainer: string | null = null;
-function getCliContainer(): string {
-  if (cachedCliContainer) return cachedCliContainer;
-  const portMatch = BASE_URL.match(/:(\d+)/);
-  const port = portMatch ? portMatch[1] : '3465';
-  const wpOut = execSync(`docker ps --filter "publish=${port}" --format '{{.Names}}'`, {
-    encoding: 'utf-8',
-  });
-  const wpName = wpOut
-    .split('\n')
-    .map((l) => l.trim())
-    .filter(Boolean)
-    .find((n) => /-wordpress-1$/.test(n) && !/-tests-/.test(n));
-  if (!wpName) {
-    throw new Error(`port ${port} の wp-env wordpress コンテナが見つかりません。`);
-  }
-  const hash = wpName.replace(/-wordpress-1$/, '');
-  cachedCliContainer = `${hash}-cli-1`;
-  return cachedCliContainer;
-}
-
-function wpCli(args: string[]): string {
-  const container = getCliContainer();
-  const { spawnSync } = require('child_process');
-  const result = spawnSync('docker', ['exec', container, 'wp', ...args], {
-    encoding: 'utf-8',
-  });
-  if (result.status !== 0) {
-    throw new Error(
-      `wp-cli failed: wp ${args.join(' ')}\nstdout: ${result.stdout}\nstderr: ${result.stderr}`
-    );
-  }
-  return result.stdout;
-}
+const wpCli = ( args: string[] ): string => runWpCli( args );
 
 // post_type_manage を全削除して綺麗にする.
 function cleanupPostTypeManageAll(): void {
@@ -89,7 +56,7 @@ test.describe('Post Type Manager - veu_taxonomy 空文字列でも foreach Warni
     ]);
 
     // -- フロントトップページを取得 --.
-    const res = await request.get(`${BASE_URL}/`);
+    const res = await request.get('/');
     expect(res.status()).toBe(200);
     const body = await res.text();
 
@@ -112,7 +79,7 @@ test.describe('Post Type Manager - veu_taxonomy 空文字列でも foreach Warni
     ]);
 
     // -- wp-login.php → admin でログイン --.
-    await page.goto(`${BASE_URL}/wp-login.php`);
+    await page.goto('/wp-login.php');
     // ログイン画面 HTML 自体に Warning が混入していない事を確認.
     const loginHtml = await page.content();
     expect(loginHtml).not.toMatch(/foreach\(\) argument must be of type array\|object, string given/);
@@ -123,8 +90,13 @@ test.describe('Post Type Manager - veu_taxonomy 空文字列でも foreach Warni
     await page.locator('#user_pass').press('Enter');
 
     // -- wp-admin に着地できる事（着地できなければ Cookie が保存できていない=ログイン詰み） --.
-    await page.waitForURL(/wp-admin/, { timeout: 15000 });
-    expect(page.url()).toMatch(/wp-admin/);
+    // waitForURL の既定は "load" まで待つため、管理画面の描画が遅い環境（一式実行の高負荷時）では
+    // 着地済みでも 15 秒で時間切れになる（#1536）。ここで確認したいのは「Cookie が保存されて
+    // wp-admin へ遷移できたこと」なので、URL のコミット（遷移の成立）で判定し、
+    // 描画完了は管理バー（id ベース・i18n 非依存）の出現で別に待つ。
+    await page.waitForURL((url) => /\/wp-admin\//.test(url.pathname), { waitUntil: 'commit', timeout: 30000 });
+    expect(new URL(page.url()).pathname).toMatch(/\/wp-admin\//);
+    await expect(page.locator('#wpadminbar')).toBeAttached({ timeout: 60000 });
   });
 
   /**
@@ -154,6 +126,7 @@ test.describe('Post Type Manager - veu_taxonomy 空文字列でも foreach Warni
       'eval',
       `$obj = get_taxonomy('${taxSlug}'); echo $obj && in_array('${slug}', (array) $obj->object_type, true) ? 'BOUND' : 'UNBOUND';`,
     ]);
-    expect(taxoboundOut).toContain('BOUND');
+    // 'UNBOUND' にも 'BOUND' が部分一致してしまうため、行全体で判定する.
+    expect(taxoboundOut.trim()).toBe('BOUND');
   });
 });

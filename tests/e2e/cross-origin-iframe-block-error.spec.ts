@@ -57,6 +57,22 @@
  * 属性を省略した自己終了タグ・生の HTML でそのまま書け、内容検証
  * （invalid block 警告）の対象にもならない。
  *
+ * 【WordPress 7.0 以降ではキャンバスが常に iframe 化される (#1536)】
+ * WordPress 7.0 以降は、ブロックの apiVersion に関わらずエディターキャンバスが
+ * 常に iframe 化される（edit-post / editor の BlockCanvas が shouldIframe: true で
+ * 固定されている）。そのため上記のダミーブロックでも非 iframe 化できず、
+ * 「キャンバスが非 iframe 化されていること」を前提にした以前のアサーション
+ * （iframe[name="editor-canvas"] が 0 件）は、プラグインの不具合とは無関係に
+ * 失敗するようになった。#1452 の不具合自体は「非 iframe 化キャンバス」でしか
+ * 起きないため、7.0 以降では再現条件を作れない。
+ * そこで本テストはキャンバスの実際の状態に合わせて検証する。
+ * - 非 iframe 化キャンバス（WordPress 6.x）: 従来どおり #1452 の再現条件として検証する
+ * - iframe 化キャンバス（WordPress 7.0 以降）: ブロックはキャンバスの iframe 内に
+ *   描画されるため、frameLocator 経由で「6 ブロックが描画されエラー表示にならない」
+ *   「SecurityError が出ない」ことを検証する（本文中のクロスオリジン iframe があっても
+ *   ブロックが壊れない、という利用者向けの結果は同じ）
+ * どちらの状態で検証したかはテスト注釈 (annotations) に残す。
+ *
  * 【このテストの内容】
  * 上記の方法で、クロスオリジンを指す <iframe>（127.0.0.1 のポート 9 = discard
  * サービス宛て。実サイトへの外部通信を避けつつ、src が自オリジンと異なる時点で
@@ -202,7 +218,7 @@ const closeWelcomeModalIfPresent = async ( page: Page ): Promise< void > => {
 const waitForBlockEditorReady = async ( page: Page ): Promise< void > => {
 	await page
 		.getByRole( 'button', { name: 'Block Inserter', exact: true } )
-		.waitFor( { timeout: 15000 } );
+		.waitFor( { timeout: 30000 } );
 };
 
 test.describe( '編集画面：クロスオリジン iframe があるとブロックがエラー表示になる不具合 (#1452)', () => {
@@ -284,12 +300,37 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 		await closeWelcomeModalIfPresent( page );
 		await waitForBlockEditorReady( page );
 
-		// --- キャンバスが非 iframe 化されていること（#1452 の再現条件）を確認 ---
+		// --- エディターキャンバスの状態（iframe 化されているか）を判定する ---
+		// WordPress 6.x では mu-plugin により非 iframe 化され（#1452 の再現条件）、
+		// 7.0 以降は常に iframe 化される（ファイル冒頭の注記参照）。
+		// どちらの状態でも「キャンバスの iframe」か「本文中の対象ブロック」の
+		// どちらかが現れるので、それを待ってから iframe の有無を判定する
+		// （iframe の生成前に count() を読んで誤判定しないため）。
+		const canvasIframe = page.locator( 'iframe[name="editor-canvas"]' );
+		const anyTargetBlockInPage = page.locator(
+			TARGET_BLOCKS.map( ( { blockName } ) =>
+				blockSelector( blockName )
+			).join( ',' )
+		);
 		await expect(
-			page.locator( 'iframe[name="editor-canvas"]' )
-		).toHaveCount( 0 );
+			canvasIframe.or( anyTargetBlockInPage ).first()
+		).toBeVisible( { timeout: 30000 } );
+		const isCanvasIframed = ( await canvasIframe.count() ) > 0;
+		test.info().annotations.push( {
+			type: 'editor-canvas',
+			description: isCanvasIframed
+				? 'iframe 化されたキャンバス（WordPress 7.0 以降）で検証。これは #1452 の再現条件（非 iframe キャンバス）ではなく、#1452 の再発は検証していない。ブロックが本文中のクロスオリジン iframe があってもエラー表示にならないことの確認のみ'
+				: '非 iframe 化キャンバス（#1452 の再現条件）で検証',
+		} );
 
-		const errorBoundaryText = page.getByText(
+		// ブロックの描画先。iframe 化されていればキャンバスの iframe 内、
+		// そうでなければページ本体。frameLocator と page は locator / getByText の
+		// 呼び方が同じなので、以降は同じコードで確認できる。
+		const canvas = isCanvasIframed
+			? page.frameLocator( 'iframe[name="editor-canvas"]' )
+			: page;
+
+		const errorBoundaryText = canvas.getByText(
 			'This block has encountered an error and cannot be previewed.'
 		);
 
@@ -300,7 +341,7 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 		// テスト終了でページが閉じられた際に誰も catch しない reject
 		// （unhandled rejection）を起こすため、ロケータの OR で 1 本の
 		// await にまとめる。
-		const anyTargetBlock = page.locator(
+		const anyTargetBlock = canvas.locator(
 			TARGET_BLOCKS.map( ( { blockName } ) =>
 				blockSelector( blockName )
 			).join( ',' )
@@ -321,7 +362,7 @@ test.describe( '編集画面：クロスオリジン iframe があるとブロ�
 		// --- エラーでなければ 6 ブロックすべてがエディター上に存在すること ---
 		for ( const { title, blockName } of TARGET_BLOCKS ) {
 			await expect(
-				page.locator( blockSelector( blockName ) ).first(),
+				canvas.locator( blockSelector( blockName ) ).first(),
 				`"${ title }" ブロックがエディター上に見つからない`
 			).toBeVisible( { timeout: 30000 } );
 		}

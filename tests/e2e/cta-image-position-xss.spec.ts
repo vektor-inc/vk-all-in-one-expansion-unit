@@ -127,7 +127,10 @@ const gotoClassicCtaEditor = async (
  */
 const submitClassicForm = async ( page: Page, ctaId: number ): Promise<void> => {
 	await page.locator( '#publish' ).click();
-	await page.waitForURL( new RegExp( `post\\.php\\?post=${ ctaId }&action=edit` ) );
+	await page.waitForURL(
+		new RegExp( `post\\.php\\?post=${ ctaId }&action=edit` ),
+		{ waitUntil: 'domcontentloaded' }
+	);
 };
 
 // VK ExUnit のプラグインサイドバー ( PluginSidebar name="veu-settings" ) の
@@ -182,6 +185,26 @@ const VEU_SIDEBAR_NAME = 'VK All in One Expansion Unit';
  * @param page Playwright の Page.
  */
 const openVeuSidebar = async ( page: Page ): Promise<void> => {
+	// エディタのヘッダー ( Options ボタン等 ) が操作できる状態になるまで待つ。
+	// 初回表示の Welcome guide モーダルが出ていると、背後のアプリ全体が aria-hidden に
+	// なり、getByRole の「Options」「サイドバーのトグル」が見えなくなって何も見つからない
+	// まま待ち続ける ( 一式実行で 120 秒の時間切れになった原因 / #1536 )。
+	// Options ボタンとモーダルのどちらが先に現れても進めるようにし、モーダルが出ていれば
+	// Esc で閉じる ( 固定スリープではなく、実際に閉じるまで待つ ) 。
+	const welcomeModal = page.locator( '.components-modal__frame' );
+	const optionsButton = page.getByRole( 'button', { name: 'Options' } ).first();
+	const closeWelcomeModalIfPresent = async (): Promise<void> => {
+		if ( await welcomeModal.isVisible() ) {
+			await page.keyboard.press( 'Escape' );
+			await welcomeModal.waitFor( { state: 'hidden', timeout: 10000 } );
+		}
+	};
+	await welcomeModal
+		.or( optionsButton )
+		.first()
+		.waitFor( { state: 'visible', timeout: 60000 } );
+	await closeWelcomeModalIfPresent();
+
 	// 既に開いていれば何もしない（トグルを押すと閉じてしまうため）。
 	// ページ読み込み直後はまだ描画されていないことがあるため、即時判定 ( isVisible )
 	// では「開いているのにまだ描画されていない」状態を閉じていると誤判定し、
@@ -211,7 +234,9 @@ const openVeuSidebar = async ( page: Page ): Promise<void> => {
 	}
 
 	// ヘッダーに出ない環境向けのフォールバック: Options (⋮) メニューから開く。
-	await page.getByRole( 'button', { name: 'Options' } ).first().click();
+	// Options が先に出てモーダルが少し遅れて現れた場合に備え、押す直前にもう一度確認する。
+	await closeWelcomeModalIfPresent();
+	await optionsButton.click( { timeout: 30000 } );
 	await page
 		.getByRole( 'menuitemcheckbox', { name: VEU_SIDEBAR_NAME } )
 		.first()
@@ -250,7 +275,9 @@ const injectAndSelectRawOption = async (
 };
 
 test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
-	test.setTimeout( 60 * 1000 );
+	// 一式実行では wp-cli 呼び出しとログインが積み重なって 60 秒を超えることがあったため、
+	// 他の CTA 系 spec（cta.spec.ts / cross-origin-iframe-block-error.spec.ts）より長い 120 秒にする (#1536)。測定では wp-cli（docker exec）1 回が負荷時に 3 秒超かかり、1 テストで 10 回超呼ぶため。
+	test.setTimeout( 120 * 1000 );
 
 	test.beforeEach( async ( { page } ) => {
 		await login( page );
@@ -314,16 +341,18 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 
 			hostId = createHostPost( 'A2 Output Escaping Host Post', ctaId );
 
-			await page.goto( `/?p=${ hostId }` );
-
-			// class 属性を抜け出して新しい属性 ( onmouseover ) が生成されていないこと。
-			await expect( page.locator( '[onmouseover]' ) ).toHaveCount( 0 );
+			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
 			// 画像位置クラスを持つ要素自体は1つだけ描画され、そのクラス値が
 			// エスケープされた攻撃用文字列を含む1つの属性値として保持されていること
 			// ( ブラウザが返す class 属性値は HTML エンティティ復元後の文字列 )。
+			// 先にこの要素の描画を確認する。ページが描画される前に「0 件」を判定すると、
+			// 何も描画されていなくても通ってしまうため。
 			const imageWrapper = page.locator( '.cta_body_image' );
 			await expect( imageWrapper ).toHaveCount( 1 );
+
+			// class 属性を抜け出して新しい属性 ( onmouseover ) が生成されていないこと。
+			await expect( page.locator( '[onmouseover]' ) ).toHaveCount( 0 );
 			const classAttr = await imageWrapper.getAttribute( 'class' );
 			expect( classAttr ).toBe(
 				`cta_body_image cta_body_image_${ MALICIOUS_IMAGE_POSITION }`
@@ -370,7 +399,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 					`B1 Position ${ position } Host Post`,
 					ctaId
 				);
-				await page.goto( `/?p=${ hostId }` );
+				await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 				await expect(
 					page.locator( `.cta_body_image_${ position }` )
 				).toHaveCount( 1 );
@@ -452,7 +481,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			await submitClassicForm( page, ctaId );
 
 			hostId = createHostPost( 'B3 Title Host Post', ctaId );
-			await page.goto( `/?p=${ hostId }` );
+			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
 			const titleLocator = page.locator( '.cta_title' );
 			// <br> は保持されるため2行に分かれて描画される。
@@ -492,7 +521,7 @@ test.describe( 'CTA image position / Stored XSS 回帰 (#1434, #1439)', () => {
 			await submitClassicForm( page, ctaId );
 
 			hostId = createHostPost( 'B4 Button Icon Host Post', ctaId );
-			await page.goto( `/?p=${ hostId }` );
+			await page.goto( `/?p=${ hostId }`, { waitUntil: 'domcontentloaded' } );
 
 			// アイコン用に新規生成される <i class="... font_icon" aria-hidden="true"> にのみ
 			// class 属性を含み、onclick 等の属性は出力に残っていないこと。
