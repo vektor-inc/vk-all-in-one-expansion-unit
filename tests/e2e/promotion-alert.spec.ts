@@ -15,6 +15,7 @@
  * `vkExUnit_PA` オプションを直接初期化する。
  */
 import { test, expect } from '@playwright/test';
+import { saveAdminSettings } from './utils/admin-settings';
 import { login } from './utils/auth';
 import { runWpCli } from './utils/wp-cli';
 
@@ -132,18 +133,12 @@ test.describe( 'Promotion Disclosure', () => {
 		// また保存後も同じ設定画面 ( admin.php?page=vkExUnit_main_setting ) に戻るため、
 		// URL だけでは遷移の前後を区別できない。そのため保存 POST の応答を待ち、
 		// その後に設定画面を開き直して、チェックが実際に保存されていることを確認する。
-		const saveResponse = page.waitForResponse(
-			( response ) =>
-				response.request().method() === 'POST' &&
-				/\/wp-admin\/(options|admin)\.php$/.test(
-					new URL( response.url() ).pathname
-				)
+		await saveAdminSettings(
+			page,
+			page
+				.locator( '#on_setting' )
+				.getByRole( 'button', { name: 'Save Changes' } )
 		);
-		await page
-			.locator( '#on_setting' )
-			.getByRole( 'button', { name: 'Save Changes' } )
-			.click();
-		await saveResponse;
 
 		// 開き直して、保存されたチェック状態を確認。
 		await page.goto( '/wp-admin/admin.php?page=vkExUnit_main_setting' );

@@ -11,9 +11,39 @@ import { type Page } from '@playwright/test';
 export const ADMIN_USER = 'admin';
 export const ADMIN_PASS = 'password';
 
-// 2 回とも各 3 段階を待っても 36 秒以内に収め、標準の 45 秒に余裕を残す。
-const LOGIN_STEP_TIMEOUT_MS = 6000;
-const LOGIN_ERROR_TIMEOUT_MS = 1000;
+// 45 秒のテスト上限に後処理の余裕を 7 秒残し、全段階で一つの締め切りを共有する。
+const LOGIN_TOTAL_TIMEOUT_MS = 38000;
+const LOGIN_GOTO_TIMEOUT_MS = 10000;
+const LOGIN_RESPONSE_TIMEOUT_MS = 12000;
+const LOGIN_ERROR_TIMEOUT_MS = 5000;
+
+/**
+ * ログイン全体の締め切りまでに使える待ち時間を返す。
+ *
+ * @param deadline ログイン処理の締め切り時刻.
+ * @param upperLimit 段階ごとの待ち時間の上限.
+ * @return この段階で利用できる待ち時間.
+ */
+const remainingTimeout = ( deadline: number, upperLimit = Infinity ): number =>
+	Math.max( 1, Math.min( upperLimit, deadline - Date.now() ) );
+
+/**
+ * ログイン画面のエラー文を、全体の締め切りの範囲内で取得する。
+ *
+ * @param page Playwright の Page.
+ * @param deadline ログイン処理の締め切り時刻.
+ * @return 表示されたエラー文。取得できない場合は空文字列.
+ */
+const getLoginErrorText = async (
+	page: Page,
+	deadline: number
+): Promise<string> =>
+	page
+		.locator( '#login_error' )
+		.innerText( {
+			timeout: remainingTimeout( deadline, LOGIN_ERROR_TIMEOUT_MS ),
+		} )
+		.catch( () => '' );
 
 /**
  * 管理者としてログインする。
@@ -38,46 +68,54 @@ const LOGIN_ERROR_TIMEOUT_MS = 1000;
  */
 export const login = async ( page: Page ): Promise<void> => {
 	const maxAttempts = 2;
+	const deadline = Date.now() + LOGIN_TOTAL_TIMEOUT_MS;
 	let lastReason = '';
+	let loginSucceeded = false;
 
 	for ( let attempt = 1; attempt <= maxAttempts; attempt++ ) {
-		// フォームは HTML だけで完結するため load ( 画像・外部リソース ) までは待たない。
-		await page.goto( '/wp-login.php', {
-			waitUntil: 'domcontentloaded',
-			timeout: LOGIN_STEP_TIMEOUT_MS,
-		} );
-
-		// 既にログイン済みなら wp-login.php は管理画面へリダイレクトされる。
-		if ( /\/wp-admin\//.test( new URL( page.url() ).pathname ) ) {
-			await page
-				.locator( '#wpadminbar' )
-				.waitFor( { timeout: LOGIN_STEP_TIMEOUT_MS } );
-			return;
-		}
-
-		await page.locator( '#user_login' ).fill( ADMIN_USER );
-		await page.locator( '#user_pass' ).fill( ADMIN_PASS );
-
-		// ログイン POST の応答 ( 成功なら 302 ) を捕まえてから送信する。
-		const loginResponse = page.waitForResponse(
-			( response ) =>
-				response.request().method() === 'POST' &&
-				new URL( response.url() ).pathname.endsWith( '/wp-login.php' ),
-			{ timeout: LOGIN_STEP_TIMEOUT_MS }
-		);
-
 		try {
+			// フォームは HTML だけで完結するため load ( 画像・外部リソース ) までは待たない。
+			await page.goto( '/wp-login.php', {
+				waitUntil: 'domcontentloaded',
+				timeout: remainingTimeout( deadline, LOGIN_GOTO_TIMEOUT_MS ),
+			} );
+
+			// 既にログイン済みなら、再送信せず管理画面の描画待ちへ進む。
+			if ( /\/wp-admin\//.test( new URL( page.url() ).pathname ) ) {
+				loginSucceeded = true;
+				break;
+			}
+
+			await page.locator( '#user_login' ).fill( ADMIN_USER, {
+				timeout: remainingTimeout( deadline ),
+			} );
+			await page.locator( '#user_pass' ).fill( ADMIN_PASS, {
+				timeout: remainingTimeout( deadline ),
+			} );
+
+			// ログイン POST の応答 ( 成功なら 302 ) を捕まえてから送信する。
+			const responseTimeout = remainingTimeout(
+				deadline,
+				LOGIN_RESPONSE_TIMEOUT_MS
+			);
+			const loginResponse = page.waitForResponse(
+				( response ) =>
+					response.request().method() === 'POST' &&
+					new URL( response.url() ).pathname.endsWith(
+						'/wp-login.php'
+					),
+				{ timeout: responseTimeout }
+			);
 			const [ , response ] = await Promise.all( [
-				page.locator( '#wp-submit' ).click(),
+				page
+					.locator( '#wp-submit' )
+					.click( { timeout: responseTimeout } ),
 				loginResponse,
 			] );
 
 			// 認証失敗は 200 でログイン画面を返すため、管理画面への遷移を待たない。
 			if ( response.status() < 300 || response.status() >= 400 ) {
-				const errorText = await page
-					.locator( '#login_error' )
-					.innerText( { timeout: LOGIN_ERROR_TIMEOUT_MS } )
-					.catch( () => '' );
+				const errorText = await getLoginErrorText( page, deadline );
 				lastReason = `HTTP ${ response.status() } ( url: ${ page.url() }${
 					errorText ? `, #login_error: ${ errorText.trim() }` : ''
 				} )`;
@@ -87,29 +125,44 @@ export const login = async ( page: Page ): Promise<void> => {
 			// POST が通ったら、URL が管理画面へコミットされるまで待つ ( 描画完了は待たない )。
 			await page.waitForURL(
 				( url ) => /\/wp-admin\//.test( url.pathname ),
-				{ waitUntil: 'commit', timeout: LOGIN_STEP_TIMEOUT_MS }
+				{
+					waitUntil: 'commit',
+					timeout: remainingTimeout( deadline ),
+				}
 			);
+			loginSucceeded = true;
+			break;
 		} catch ( error ) {
-			const errorText = await page
-				.locator( '#login_error' )
-				.innerText( { timeout: LOGIN_ERROR_TIMEOUT_MS } )
-				.catch( () => '' );
+			const errorText = await getLoginErrorText( page, deadline );
 			lastReason = `${
-				error instanceof Error ? error.message.split( '\n' )[ 0 ] : String( error )
+				error instanceof Error
+					? error.message.split( '\n' )[ 0 ]
+					: String( error )
 			} ( url: ${ page.url() }${
 				errorText ? `, #login_error: ${ errorText.trim() }` : ''
 			} )`;
 			continue;
 		}
-
-		// 管理バー ( id ベース・i18n 非依存 ) の描画で「ログイン済みの管理画面が出た」ことを確認する。
-		await page
-			.locator( '#wpadminbar' )
-			.waitFor( { timeout: LOGIN_STEP_TIMEOUT_MS } );
-		return;
 	}
 
-	throw new Error(
-		`login(): ${ maxAttempts } 回試してもログインできませんでした: ${ lastReason }`
-	);
+	if ( ! loginSucceeded ) {
+		throw new Error(
+			`login(): ${ maxAttempts } 回試してもログインできませんでした: ${ lastReason }`
+		);
+	}
+
+	// 送信のやり直しでは描画は速くならないため、残り時間を全て管理バーの出現に使う。
+	try {
+		await page
+			.locator( '#wpadminbar' )
+			.waitFor( { timeout: remainingTimeout( deadline ) } );
+	} catch ( error ) {
+		const reason =
+			error instanceof Error
+				? error.message.split( '\n' )[ 0 ]
+				: String( error );
+		throw new Error(
+			`login(): ログイン後に管理バーが表示されませんでした: ${ reason } ( url: ${ page.url() } )`
+		);
+	}
 };
