@@ -28,5 +28,12 @@ export const saveAdminSettings = async (
 		submitButton.click(),
 		saveResponsePromise,
 	] );
-	await saveResponse.finished();
+	const loadError = await saveResponse.finished();
+	if ( loadError || saveResponse.status() >= 400 ) {
+		throw new Error(
+			`saveAdminSettings(): 保存に失敗しました ( HTTP ${ saveResponse.status() }${
+				loadError ? `, ${ loadError.message }` : ''
+			} )`
+		);
+	}
 };
