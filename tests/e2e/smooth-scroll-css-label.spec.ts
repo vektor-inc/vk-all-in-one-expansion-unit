@@ -23,6 +23,7 @@
  *     ページ内リンクのスムーズスクロールが機能すること。
  */
 import { test, expect } from '@playwright/test';
+import { saveAdminSettings } from './utils/admin-settings';
 import { login } from './utils/auth';
 import { runWpCli } from './utils/wp-cli';
 
@@ -161,13 +162,18 @@ test.describe( 'Smooth scroll「CSS only」ラベル分離 (#1421 / PR #1422)', 
 		// 並び、セクションごとに `submit_button()` が出力されるため `#submit`
 		// が複数存在する（1 form 全体を送信する仕様）。Smooth scroll セクション
 		// （#vkExUnit_smooth）内のボタンを明示的に指定してクリックする。
-		await page.locator( '#vkExUnit_smooth #submit' ).click();
-		await page.waitForURL(
-			/wp-admin\/admin\.php\?page=vkExUnit_main_setting/,
-			{ waitUntil: 'domcontentloaded' }
+		// 保存前後で URL が同じため、クリック前から設定保存の POST 応答を監視する。
+		await saveAdminSettings(
+			page,
+			page.locator( '#vkExUnit_smooth #submit' )
 		);
 
-		// リダイレクト後の再描画で CSS only が選択された状態になっていること。
+		// 保存応答後に設定画面を読み直し、再描画と保存結果を同時に確認する。
+		await page.goto( '/wp-admin/admin.php?page=vkExUnit_main_setting', {
+			waitUntil: 'domcontentloaded',
+		} );
+
+		// 開き直した設定画面で CSS only が選択された状態になっていること。
 		const cssRadioAfter = page.locator(
 			'input[name="vkExUnit_smooth[mode]"][value="css"]'
 		);
