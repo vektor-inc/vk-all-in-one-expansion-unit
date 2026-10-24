@@ -15,22 +15,8 @@
  * `vkExUnit_PA` オプションを直接初期化する。
  */
 import { test, expect } from '@playwright/test';
-import { execFileSync } from 'child_process';
 import { login } from './utils/auth';
-
-// wp-env の tests-cli コンテナ経由で wp-cli を実行するヘルパー。
-// e2e は testsPort (デフォルト 8889) のテスト用 WordPress を使うため、
-// データ初期化も tests-cli コンテナで行う必要がある。
-const runWpCli = ( args: string[] ): string => {
-	return execFileSync(
-		'npx',
-		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
-		{
-			encoding: 'utf-8',
-			stdio: [ 'ignore', 'pipe', 'pipe' ],
-		}
-	);
-};
+import { runWpCli } from './utils/wp-cli';
 
 // テスト用 CPT 設定投稿（post_type_manage）と Promotion 設定をリセット。
 // option / 投稿が未存在の場合だけ握りつぶし、それ以外の wp-cli 失敗は
@@ -98,6 +84,12 @@ const resetPromotionAlertState = (): void => {
 test.describe( 'Promotion Disclosure', () => {
 	// 全テストで同じ option / CPT を書き換えるため、シリアル実行。
 	test.describe.configure( { mode: 'serial' } );
+	// 既定の 45 秒では足りない。1 テストの中で CPT の作成 → 設定保存 → ブロックエディタの
+	// 起動と管理画面を 3 回以上読み込み、SCRIPT_DEBUG 有効 ( 非圧縮スクリプト ) の環境では
+	// 一式実行の高負荷時に最初の CPT 作成だけで 40 秒前後かかった ( #1536 )。
+	// 待ち方自体は直した上で、他の重い spec ( cta-image-position-xss.spec.ts 等 ) と同様に
+	// 長めの上限を明示する。
+	test.setTimeout( 120 * 1000 );
 
 	test.beforeEach( async ( { page } ) => {
 		// 既存の Promotion 設定をクリーンアップ。
@@ -127,7 +119,7 @@ test.describe( 'Promotion Disclosure', () => {
 			.getByRole( 'button', { name: 'Publish', exact: true } )
 			.click();
 		// 公開後に編集画面 ( ?post=xxx ) へ遷移するのを待つ。
-		await page.waitForURL( /post=\d+/ );
+		await page.waitForURL( /post=\d+/, { waitUntil: 'domcontentloaded' } );
 
 		// --- メイン設定で Promotion Disclosure 対象に CPT を追加 ---
 		await page.goto( '/wp-admin/admin.php?page=vkExUnit_main_setting' );
@@ -135,13 +127,26 @@ test.describe( 'Promotion Disclosure', () => {
 			.locator( '#vkExUnit_PA' )
 			.getByLabel( ' Test Post Type' )
 			.check();
+		// 送信直後の waitForLoadState( 'domcontentloaded' ) は、遷移が始まる前の（送信元の）
+		// ページで既に満たされていて即座に返るため、保存完了の待ちにならない。
+		// また保存後も同じ設定画面 ( admin.php?page=vkExUnit_main_setting ) に戻るため、
+		// URL だけでは遷移の前後を区別できない。そのため保存 POST の応答を待ち、
+		// その後に設定画面を開き直して、チェックが実際に保存されていることを確認する。
+		const saveResponse = page.waitForResponse(
+			( response ) =>
+				response.request().method() === 'POST' &&
+				/\/wp-admin\/(options|admin)\.php$/.test(
+					new URL( response.url() ).pathname
+				)
+		);
 		await page
 			.locator( '#on_setting' )
 			.getByRole( 'button', { name: 'Save Changes' } )
 			.click();
-		await page.waitForLoadState( 'domcontentloaded' );
+		await saveResponse;
 
-		// チェック保存後、もう一度開いて check 状態を確認。
+		// 開き直して、保存されたチェック状態を確認。
+		await page.goto( '/wp-admin/admin.php?page=vkExUnit_main_setting' );
 		const cpTypeCheckbox = page
 			.locator( '#vkExUnit_PA' )
 			.getByLabel( ' Test Post Type' );
@@ -155,7 +160,7 @@ test.describe( 'Promotion Disclosure', () => {
 			.frameLocator( '[name="editor-canvas"]' )
 			.locator( '[contenteditable="true"]' )
 			.first()
-			.waitFor( { timeout: 15000 } );
+			.waitFor( { timeout: 60000 } );
 
 		// Welcome guide modal が出る場合は閉じる。
 		const modal = page.locator( '.components-modal__frame' );

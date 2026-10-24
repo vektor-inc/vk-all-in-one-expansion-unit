@@ -90,8 +90,13 @@ test.describe('Post Type Manager - veu_taxonomy 空文字列でも foreach Warni
     await page.locator('#user_pass').press('Enter');
 
     // -- wp-admin に着地できる事（着地できなければ Cookie が保存できていない=ログイン詰み） --.
-    await page.waitForURL(/wp-admin/, { timeout: 15000 });
-    expect(page.url()).toMatch(/wp-admin/);
+    // waitForURL の既定は "load" まで待つため、管理画面の描画が遅い環境（一式実行の高負荷時）では
+    // 着地済みでも 15 秒で時間切れになる（#1536）。ここで確認したいのは「Cookie が保存されて
+    // wp-admin へ遷移できたこと」なので、URL のコミット（遷移の成立）で判定し、
+    // 描画完了は管理バー（id ベース・i18n 非依存）の出現で別に待つ。
+    await page.waitForURL((url) => /\/wp-admin\//.test(url.pathname), { waitUntil: 'commit', timeout: 30000 });
+    expect(new URL(page.url()).pathname).toMatch(/\/wp-admin\//);
+    await expect(page.locator('#wpadminbar')).toBeAttached({ timeout: 60000 });
   });
 
   /**

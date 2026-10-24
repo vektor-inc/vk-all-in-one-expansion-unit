@@ -23,21 +23,8 @@
  *     ページ内リンクのスムーズスクロールが機能すること。
  */
 import { test, expect } from '@playwright/test';
-import { execFileSync } from 'child_process';
 import { login } from './utils/auth';
-
-// wp-env の tests-cli コンテナ経由で wp-cli を実行するヘルパー。
-// Playwright の対象は wp-env の tests サイトを向いているため tests-cli を使う。
-const runWpCli = ( args: string[] ): string => {
-	return execFileSync(
-		'npx',
-		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
-		{
-			encoding: 'utf-8',
-			stdio: [ 'ignore', 'pipe', 'pipe' ],
-		}
-	);
-};
+import { runWpCli } from './utils/wp-cli';
 
 // vkExUnit_smooth オプションを削除し、デフォルト（mode: js）に戻す。
 // option が存在しない場合のエラーは想定内として握りつぶす。
@@ -175,7 +162,10 @@ test.describe( 'Smooth scroll「CSS only」ラベル分離 (#1421 / PR #1422)', 
 		// が複数存在する（1 form 全体を送信する仕様）。Smooth scroll セクション
 		// （#vkExUnit_smooth）内のボタンを明示的に指定してクリックする。
 		await page.locator( '#vkExUnit_smooth #submit' ).click();
-		await page.waitForURL( /wp-admin\/admin\.php\?page=vkExUnit_main_setting/ );
+		await page.waitForURL(
+			/wp-admin\/admin\.php\?page=vkExUnit_main_setting/,
+			{ waitUntil: 'domcontentloaded' }
+		);
 
 		// リダイレクト後の再描画で CSS only が選択された状態になっていること。
 		const cssRadioAfter = page.locator(

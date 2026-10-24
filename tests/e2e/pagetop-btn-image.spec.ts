@@ -16,32 +16,14 @@
  * テスト前後で wp-cli を使い `vkExUnit_pagetop` オプションを直接初期化する。
  */
 import { test, expect, type Page } from '@playwright/test';
-import { execFileSync } from 'child_process';
 import { login } from './utils/auth';
+import { runWpCli } from './utils/wp-cli';
 
 // このファイル内の 2 つの describe ブロックは同じ `vkExUnit_pagetop`
 // オプションを書き換えるため、ファイル単位でシリアル実行する。
 // （playwright.config.js は fullyParallel: true なので、describe 単位の
 // `mode: 'serial'` 指定だけでは別 describe 間の並列を抑制できない）
 test.describe.configure( { mode: 'serial' } );
-
-// wp-env の `tests-cli` コンテナ経由で wp-cli を実行するためのヘルパー。
-// `tests-cli` を使うのは、Playwright のテスト対象 ( WP_BASE_URL ) が
-// wp-env の **tests** サイト（デフォルト 8889 / override 後 9109）を
-// 向いているため。`cli` ( development サイト ) で option を書き換えても
-// テスト側 DB には反映されないので、必ず `tests-cli` を使うこと。
-// shell 経由ではなく execFileSync で引数を配列のまま渡すことで、
-// JSON 等にクォートや空白が含まれてもシェル解釈を経由しない。
-const runWpCli = ( args: string[] ): string => {
-	return execFileSync(
-		'npx',
-		[ 'wp-env', 'run', 'tests-cli', 'wp', ...args ],
-		{
-			encoding: 'utf-8',
-			stdio: [ 'ignore', 'pipe', 'pipe' ],
-		}
-	);
-};
 
 // vkExUnit_pagetop オプションを削除して既知の初期状態に戻す。
 // wp-cli が「option がそもそも存在しない」と返すケースのみ握りつぶし、

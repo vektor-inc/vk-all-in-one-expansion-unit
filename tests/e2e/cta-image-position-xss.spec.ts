@@ -127,7 +127,10 @@ const gotoClassicCtaEditor = async (
  */
 const submitClassicForm = async ( page: Page, ctaId: number ): Promise<void> => {
 	await page.locator( '#publish' ).click();
-	await page.waitForURL( new RegExp( `post\\.php\\?post=${ ctaId }&action=edit` ) );
+	await page.waitForURL(
+		new RegExp( `post\\.php\\?post=${ ctaId }&action=edit` ),
+		{ waitUntil: 'domcontentloaded' }
+	);
 };
 
 // VK ExUnit のプラグインサイドバー ( PluginSidebar name="veu-settings" ) の
@@ -182,6 +185,26 @@ const VEU_SIDEBAR_NAME = 'VK All in One Expansion Unit';
  * @param page Playwright の Page.
  */
 const openVeuSidebar = async ( page: Page ): Promise<void> => {
+	// エディタのヘッダー ( Options ボタン等 ) が操作できる状態になるまで待つ。
+	// 初回表示の Welcome guide モーダルが出ていると、背後のアプリ全体が aria-hidden に
+	// なり、getByRole の「Options」「サイドバーのトグル」が見えなくなって何も見つからない
+	// まま待ち続ける ( 一式実行で 120 秒の時間切れになった原因 / #1536 )。
+	// Options ボタンとモーダルのどちらが先に現れても進めるようにし、モーダルが出ていれば
+	// Esc で閉じる ( 固定スリープではなく、実際に閉じるまで待つ ) 。
+	const welcomeModal = page.locator( '.components-modal__frame' );
+	const optionsButton = page.getByRole( 'button', { name: 'Options' } ).first();
+	const closeWelcomeModalIfPresent = async (): Promise<void> => {
+		if ( await welcomeModal.isVisible() ) {
+			await page.keyboard.press( 'Escape' );
+			await welcomeModal.waitFor( { state: 'hidden', timeout: 10000 } );
+		}
+	};
+	await welcomeModal
+		.or( optionsButton )
+		.first()
+		.waitFor( { state: 'visible', timeout: 60000 } );
+	await closeWelcomeModalIfPresent();
+
 	// 既に開いていれば何もしない（トグルを押すと閉じてしまうため）。
 	// ページ読み込み直後はまだ描画されていないことがあるため、即時判定 ( isVisible )
 	// では「開いているのにまだ描画されていない」状態を閉じていると誤判定し、
@@ -211,7 +234,9 @@ const openVeuSidebar = async ( page: Page ): Promise<void> => {
 	}
 
 	// ヘッダーに出ない環境向けのフォールバック: Options (⋮) メニューから開く。
-	await page.getByRole( 'button', { name: 'Options' } ).first().click();
+	// Options が先に出てモーダルが少し遅れて現れた場合に備え、押す直前にもう一度確認する。
+	await closeWelcomeModalIfPresent();
+	await optionsButton.click( { timeout: 30000 } );
 	await page
 		.getByRole( 'menuitemcheckbox', { name: VEU_SIDEBAR_NAME } )
 		.first()
