@@ -90,6 +90,19 @@ class WidgetChildPageIndexTest extends WP_UnitTestCase {
 			print 'return  :' . $return . PHP_EOL;
 			print 'correct :' . $value['correct'] . PHP_EOL;
 		}
+
+		// パスワード保護されたページは抜粋も本文の冒頭も出力されない
+		foreach ( array( '抜粋あり' => '抜粋', '抜粋なし' => '' ) as $condition => $excerpt ) {
+			$post_id = wp_insert_post(
+				array(
+					'post_content'  => '保護された本文',
+					'post_excerpt'  => $excerpt,
+					'post_status'   => 'publish',
+					'post_password' => 'password',
+				)
+			);
+			$this->assertSame( '', veu_child_page_excerpt( get_post( $post_id ) ), 'password protected / ' . $condition );
+		}
 	} // function test_chlild_page_excerpt() {
 
 	function test_childPageIndex_shortcode() {

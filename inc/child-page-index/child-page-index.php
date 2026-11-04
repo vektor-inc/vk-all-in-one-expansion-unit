@@ -14,6 +14,11 @@ function veu_child_page_excerpt( $post ) {
 	if ( ! isset( $post->post_excerpt ) ) {
 		return; }
 
+	// パスワード保護されたページは抜粋・本文の冒頭を出さない
+	if ( post_password_required( $post ) ) {
+		return '';
+	}
+
 	// 抜粋を取得
 	$page_excerpt = nl2br( esc_textarea( strip_tags( $post->post_excerpt ) ) );
 
