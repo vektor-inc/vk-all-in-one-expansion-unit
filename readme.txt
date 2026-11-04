@@ -90,6 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
 [ New Feature ][ Article Structured Data ] Added the veu_article_structure_data_is_output and veu_article_structure_data filters to control the output and change the output data.
 [ Spec Change ] Update vektor-inc/vk-term-color from 0.7.1 to 0.7.4, adding a permission check to term color saving and fixing PHP warnings/fatal errors in a few edge cases
 [ Spec Change ][ Article Structured Data ] No longer output on product pages (post type: product) and attachment pages; post types to exclude can be chosen in ExUnit > Main Setting > Structured data - Article (uncheck product there to keep its output). If you had disabled this feature to avoid duplicate structured data, enable it again to resume the output on blog posts.
