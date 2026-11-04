@@ -324,6 +324,30 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 				$this->assertStringNotContainsString( $case['not_expected'], $actual, $case['test_condition_name'] );
 			}
 		}
+
+		// CTA 以外の投稿・公開されていない CTA の本文は出力されない。
+		// The content of a non-CTA post or an unpublished CTA is not output.
+		$secret         = 'secret-body-should-not-appear';
+		$not_cta_ids    = array(
+			'other post type' => self::factory()->post->create(
+				array(
+					'post_type'    => 'post',
+					'post_status'  => 'publish',
+					'post_content' => $secret,
+				)
+			),
+			'draft cta'       => self::factory()->post->create(
+				array(
+					'post_type'    => 'cta',
+					'post_status'  => 'draft',
+					'post_content' => $secret,
+				)
+			),
+		);
+		foreach ( $not_cta_ids as $condition => $not_cta_id ) {
+			$actual = veu_cta_block_callback( array( 'postId' => $not_cta_id ), '' );
+			$this->assertStringNotContainsString( $secret, $actual, $condition );
+		}
 	}
 
 	/**
