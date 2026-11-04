@@ -548,6 +548,12 @@ if ( ! class_exists( 'Vk_Call_To_Action' ) ) {
 
 			$target = $query->posts[0];
 			wp_reset_postdata();
+
+			// パスワード保護された CTA は表示しない.
+			if ( post_password_required( $target ) ) {
+				return null;
+			}
+
 			return $target;
 		}
 

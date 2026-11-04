@@ -660,11 +660,25 @@ class CTATest extends WP_UnitTestCase {
 	 */
 	function test_get_cta_post() {
 		$test_posts = self::create_cta();
+		$password_post_id = wp_insert_post(
+			array(
+				'post_title'    => 'cta_password',
+				'post_type'     => 'cta',
+				'post_status'   => 'publish',
+				'post_content'  => 'CTA content',
+				'post_password' => 'password',
+			)
+		);
 		$test_array = array(
 			// 公開.
 			array(
 				'post_id' => $test_posts['post_id'],
 				'correct' => 'cta_published',
+			),
+			// パスワード保護は表示しない.
+			array(
+				'post_id' => $password_post_id,
+				'correct' => null,
 			),
 			// 非公開.
 			array(
