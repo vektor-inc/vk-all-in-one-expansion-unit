@@ -100,6 +100,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 [ Bug Fix ][ Related Posts ] Fixed post titles, links and the section heading in the related posts list not being escaped on output. Titles that contain HTML tags are now shown as plain text.
 [ Bug Fix ][ Article Structured Data ] Fixed the author type being output in lowercase (organization / person), which is not a valid schema.org type, so search engines did not recognize the author. It is now output as Organization / Person, and an empty sameAs is no longer output.
 [ Security Fix ][ New Posts Widget ] Properly escape the category/tag color, link, and name output for each term shown in the "New Posts" widget.
+[ Security Fix ][ Call To Action ] Strengthened the restrictions on the content output by the CTA block.
+[ Security Fix ][ Child Page List ] Strengthened the restrictions on the content output by the child page list.
 
 = 9.123.1 =
 [ Other ] Changed the child page list widget to pass array arguments to `wp_list_pages()` for compatibility with future WordPress versions.
