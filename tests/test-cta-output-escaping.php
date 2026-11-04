@@ -327,26 +327,30 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 
 		// CTA 以外の投稿・公開されていない CTA の本文は出力されない。
 		// The content of a non-CTA post or an unpublished CTA is not output.
-		$secret         = 'secret-body-should-not-appear';
-		$not_cta_ids    = array(
-			'other post type' => self::factory()->post->create(
-				array(
-					'post_type'    => 'post',
-					'post_status'  => 'publish',
-					'post_content' => $secret,
-				)
+		$not_output_cases = array(
+			array(
+				'test_condition_name' => 'other post type',
+				'post_type'           => 'post',
+				'post_status'         => 'publish',
+				'not_expected'        => 'secret-body-of-other-post-type',
 			),
-			'draft cta'       => self::factory()->post->create(
-				array(
-					'post_type'    => 'cta',
-					'post_status'  => 'draft',
-					'post_content' => $secret,
-				)
+			array(
+				'test_condition_name' => 'draft cta',
+				'post_type'           => 'cta',
+				'post_status'         => 'draft',
+				'not_expected'        => 'secret-body-of-draft-cta',
 			),
 		);
-		foreach ( $not_cta_ids as $condition => $not_cta_id ) {
-			$actual = veu_cta_block_callback( array( 'postId' => $not_cta_id ), '' );
-			$this->assertStringNotContainsString( $secret, $actual, $condition );
+		foreach ( $not_output_cases as $case ) {
+			$not_cta_id = self::factory()->post->create(
+				array(
+					'post_type'    => $case['post_type'],
+					'post_status'  => $case['post_status'],
+					'post_content' => $case['not_expected'],
+				)
+			);
+			$actual     = veu_cta_block_callback( array( 'postId' => $not_cta_id ), '' );
+			$this->assertStringNotContainsString( $case['not_expected'], $actual, $case['test_condition_name'] );
 		}
 	}
 
