@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 9.123.1
+Stable tag: 9.124.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 == Changelog ==
 
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
+
+= 9.124.0 =
 [ New Feature ][ Article Structured Data ] Added the veu_article_structure_data_is_output and veu_article_structure_data filters to control the output and change the output data.
 [ Spec Change ] Update vektor-inc/vk-term-color from 0.7.1 to 0.7.4, adding a permission check to term color saving and fixing PHP warnings/fatal errors in a few edge cases
 [ Spec Change ][ Article Structured Data ] No longer output on product pages (post type: product) and attachment pages; post types to exclude can be chosen in ExUnit > Main Setting > Structured data - Article (uncheck product there to keep its output). If you had disabled this feature to avoid duplicate structured data, enable it again to resume the output on blog posts.
@@ -101,6 +103,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 [ Bug Fix ][ Related Posts ] Fixed post titles, links and the section heading in the related posts list not being escaped on output. Titles that contain HTML tags are now shown as plain text.
 [ Bug Fix ][ Article Structured Data ] Fixed the author type being output in lowercase (organization / person), which is not a valid schema.org type, so search engines did not recognize the author. It is now output as Organization / Person, and an empty sameAs is no longer output.
 [ Security Fix ][ New Posts Widget ] Properly escape the category/tag color, link, and name output for each term shown in the "New Posts" widget.
+[ Security Fix ][ Call To Action ] Strengthened the restrictions on the content output by the CTA block.
+[ Security Fix ][ Child Page List ] Strengthened the restrictions on the content output by the child page list.
 
 = 9.123.1 =
 [ Other ] Changed the child page list widget to pass array arguments to `wp_list_pages()` for compatibility with future WordPress versions.

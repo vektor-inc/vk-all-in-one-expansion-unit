@@ -186,7 +186,8 @@ function veu_cta_block_callback( $attributes, $content ) {
 			// Vk_Call_To_Action::cta_id_random() では該当する CTA がない場合 null が帰ってくる
 			// get_post( $id, $output, $filter ); は $id が null の場合は現在の投稿を返すのでそれを阻止する条件分岐
 			if ( $cta_id !== null ) {
-				$cta_post = get_post( $cta_id );
+				// CTA 用の投稿で公開済みのものだけを取得（他の投稿タイプ・下書き・非公開を表示しない）.
+				$cta_post = Vk_Call_To_Action::get_cta_post( $cta_id );
 				if ( ( empty( $cta_post ) && 'random' !== $attributes['postId'] ) ||
 					( ! empty( $cta_post ) && ( 'trash' === $cta_post->post_status ) )
 					) {
