@@ -76,12 +76,14 @@ class VEU_Title_Form_Helper {
 		$description_id   = $checkbox_id . '_description';
 		$og_title_note_id = $checkbox_id . '_og_title_description';
 
-		$form  = '<p>';
+		// Do not wrap with <p>: core forms.css ".wp-admin p label input[type=checkbox]" adds margin-top: -4px and lifts the checkbox above the text.
+		// <p> で包むと WP コアの forms.css「.wp-admin p label input[type=checkbox]」の margin-top: -4px でチェックボックスが文字より上にずれるため <div> にしている。
+		$form  = '<div>';
 		$form .= '<label for="' . esc_attr( $checkbox_id ) . '">';
 		$form .= '<input type="checkbox" id="' . esc_attr( $checkbox_id ) . '" name="' . esc_attr( $meta_key ) . '[reflect_heading]" value="1" aria-describedby="' . esc_attr( $description_id . ' ' . $og_title_note_id ) . '"' . $form_data['reflect_heading_checked'] . ' />';
 		$form .= esc_html__( 'Also reflect in the archive page heading', 'vk-all-in-one-expansion-unit' );
 		$form .= '</label>';
-		$form .= '</p>';
+		$form .= '</div>';
 
 		// The description is fixed text that holds for both ON and OFF, so it never contradicts an unsaved checkbox state.
 		// 保存前にチェックを操作しても表示と状態が食い違わないよう、ON/OFF どちらでも成り立つ固定の文にしている。

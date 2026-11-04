@@ -1077,7 +1077,10 @@ class WpTitleTest extends WP_UnitTestCase {
 			// 説明文の id が aria-describedby の参照先として存在すること
 			$this->assertStringContainsString( '<p id="veu_taxonomy_title_reflect_heading_description" class="description">', $html, $case['test_condition_name'] );
 			$this->assertStringContainsString( '<p id="veu_taxonomy_title_reflect_heading_og_title_description" class="description">', $html, $case['test_condition_name'] );
-			$this->assertStringContainsString( '<label for="veu_taxonomy_title_reflect_heading">', $html, $case['test_condition_name'] );
+			// The checkbox label must be wrapped in <div>, not <p> (core CSS shifts checkboxes inside <p> upward).
+			// チェックボックスの label は <p> ではなく <div> で包まれていること（<p> 内だとコア CSS で上にずれる）
+			$this->assertStringContainsString( '<div><label for="veu_taxonomy_title_reflect_heading">', $html, $case['test_condition_name'] );
+			$this->assertStringContainsString( 'Also reflect in the archive page heading</label></div>', $html, $case['test_condition_name'] );
 
 			// The og:title note must say it uses the entered text (a site name may be appended depending on the SNS settings).
 			// og:title の説明が「入力内容を使う」になっていること（SNS 設定によってサイト名が付くため「同じ」とは書かない）
