@@ -240,3 +240,52 @@ function vkExUnit_get_taxonomy_custom_title( $term ) {
 
 	return $title;
 }
+
+/**
+ * Replace the archive heading of a term archive with the term's Head Title when "Also reflect in the archive page heading" is ON.
+ * タームの「アーカイブページの見出しにも反映する」が ON のとき、そのタームのアーカイブ見出しを Head Title の入力値に置き換える
+ *
+ * The whole heading including the "Category:" prefix is replaced, and the separator and site title are never added.
+ * 「カテゴリー:」等の接頭辞を含めて丸ごと置き換え、セパレーターとサイトタイトルは付けない。
+ *
+ * @param string $title          Archive title from get_the_archive_title(). / get_the_archive_title() のタイトル.
+ * @param string $original_title Archive title without prefix (unused). / 接頭辞なしのタイトル（未使用）.
+ * @param string $prefix         Archive title prefix (unused). / タイトルの接頭辞（未使用）.
+ * @return string Escaped Head Title when the term opts in, otherwise $title unchanged. / 対象タームならエスケープ済みの Head Title、それ以外は $title をそのまま返す.
+ */
+function veu_filter_term_archive_title( $title, $original_title = '', $prefix = '' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Keeps the get_the_archive_title filter signature. / フィルターの引数に合わせている.
+	// Other plugins may call get_the_archive_title() in the admin (e.g. edit.php?cat=5 makes is_category() true) or in feeds.
+	// 管理画面（edit.php?cat=5 等では is_category() が true になる）やフィードで他プラグインが呼んでも変えない。
+	if ( is_admin() || is_feed() ) {
+		return $title;
+	}
+
+	// Only category / tag / custom taxonomy term archives.
+	// カテゴリー・タグ・カスタムタクソノミーのタームアーカイブのみ対象。
+	if ( ! ( is_category() || is_tag() || is_tax() ) ) {
+		return $title;
+	}
+	$term = get_queried_object();
+	if ( ! $term instanceof WP_Term ) {
+		return $title;
+	}
+
+	// Replace only when the title is entered and the opt-in flag is ON (data without the flag key is OFF).
+	// タイトルが入力済みかつフラグが ON のときだけ置き換える（フラグキーの無い既存データは OFF）。
+	$term_meta = get_term_meta( $term->term_id, 'veu_taxonomy_title', true );
+	if ( ! is_array( $term_meta ) || empty( $term_meta['title'] ) || empty( $term_meta['reflect_heading'] ) ) {
+		return $title;
+	}
+	// Guard against broken data (e.g. an array title) to avoid an "Array to string conversion" warning in esc_html().
+	// DB 破損等で title が文字列でない場合に esc_html() で Array to string conversion が出るのを防ぐ。
+	if ( ! is_string( $term_meta['title'] ) ) {
+		return $title;
+	}
+
+	// Some themes print the archive title without escaping.
+	// テーマによってはエスケープせずに出力するため、ここでエスケープする。
+	return esc_html( $term_meta['title'] );
+}
+// Lightning / X-T9 / Katawara rebuild the title at priority 10, so this must run after them.
+// Lightning / X-T9 / Katawara が優先度 10 でタイトルを作り直すため、それより後に実行する。
+add_filter( 'get_the_archive_title', 'veu_filter_term_archive_title', 20, 3 );

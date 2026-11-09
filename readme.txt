@@ -90,6 +90,8 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
+
 = 9.124.0 =
 [ New Feature ][ Article Structured Data ] Added the veu_article_structure_data_is_output and veu_article_structure_data filters to control the output and change the output data.
 [ Spec Change ] Update vektor-inc/vk-term-color from 0.7.1 to 0.7.4, adding a permission check to term color saving and fixing PHP warnings/fatal errors in a few edge cases

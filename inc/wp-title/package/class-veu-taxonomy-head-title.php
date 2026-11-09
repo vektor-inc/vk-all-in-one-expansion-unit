@@ -94,12 +94,16 @@ class VEU_Taxonomy_Head_Title {
 			$title_data = array(
 				// title サブキー未送信時の Undefined array key 警告と sanitize_text_field(null) の非推奨警告を防ぐ。
 				// Guard the title subkey to avoid an "Undefined array key" warning and the deprecated sanitize_text_field(null) call when it is not submitted.
-				'title'          => isset( $_POST[ $meta_key ]['title'] ) ? sanitize_text_field( wp_unslash( $_POST[ $meta_key ]['title'] ) ) : '',
-				'add_site_title' => isset( $_POST[ $meta_key ]['add_site_title'] ) ? 1 : 0,
+				'title'           => isset( $_POST[ $meta_key ]['title'] ) ? sanitize_text_field( wp_unslash( $_POST[ $meta_key ]['title'] ) ) : '',
+				'add_site_title'  => isset( $_POST[ $meta_key ]['add_site_title'] ) ? 1 : 0,
+				// An unchecked checkbox is not submitted, so presence alone decides 1 / 0.
+				// 未チェックのチェックボックスは送信されないため、有無で 1 / 0 を決める。
+				'reflect_heading' => isset( $_POST[ $meta_key ]['reflect_heading'] ) ? 1 : 0,
 			);
 
-			// 空の場合は削除
-			if ( empty( $title_data['title'] ) && empty( $title_data['add_site_title'] ) ) {
+			// Delete the meta when every value is empty.
+			// 全ての値が空の場合は削除
+			if ( empty( $title_data['title'] ) && empty( $title_data['add_site_title'] ) && empty( $title_data['reflect_heading'] ) ) {
 				delete_term_meta( $term_id, $meta_key );
 			} else {
 				update_term_meta( $term_id, $meta_key, $title_data );
