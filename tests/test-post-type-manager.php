@@ -11,13 +11,6 @@
 class PostTypeManagerTest extends WP_UnitTestCase {
 
 	/**
-	 * Absolute path to the target class file.
-	 *
-	 * @var string
-	 */
-	private $class_file_path;
-
-	/**
 	 * Test user ID.
 	 *
 	 * @var int
@@ -29,8 +22,6 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-
-		$this->class_file_path = realpath( dirname( __DIR__ ) . '/inc/post-type-manager/package/class.post-type-manager.php' );
 
 		$this->user_id = self::factory()->user->create(
 			array(
@@ -56,8 +47,7 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 	 * @return string
 	 */
 	private function create_post_type_manager_nonce() {
-		$action = wp_create_nonce( $this->class_file_path );
-		return wp_create_nonce( $action );
+		return wp_create_nonce( 'vk_post_type_manager' );
 	}
 
 	/**
@@ -146,6 +136,34 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 		$this->assertIsArray( $json, 'AJAX response should be valid JSON.' );
 
 		return $json;
+	}
+
+	/**
+	 * Author without edit_post on post_type_manage must not save settings.
+	 */
+	public function test_save_cf_value_without_edit_capability_does_not_update_meta() {
+		$post_id = $this->create_post_type_manage_post();
+		update_post_meta( $post_id, 'veu_post_type_id', 'event' );
+
+		$author_id = self::factory()->user->create(
+			array(
+				'role' => 'author',
+			)
+		);
+		wp_set_current_user( $author_id );
+
+		$_POST = array(
+			'noncename__post_type_manager' => $this->create_post_type_manager_nonce(),
+			'veu_post_type_id'             => 'event2',
+			'veu_post_type_items'          => array( 'title' => 'true' ),
+			'veu_menu_position'            => '10',
+			'veu_menu_icon'                => 'dashicons-admin-post',
+			'veu_post_type_export_to_api'  => 'true',
+		);
+
+		VK_Post_Type_Manager::save_cf_value( $post_id );
+
+		$this->assertSame( 'event', get_post_meta( $post_id, 'veu_post_type_id', true ) );
 	}
 
 	/**
