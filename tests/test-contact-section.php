@@ -5,11 +5,15 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+require_once __DIR__ . '/helpers/trait-veu-html-assertions.php';
+
 /**
  * お問い合わせセクション（VkExUnit_Contact）の描画テスト。
  * Test for the contact section ( VkExUnit_Contact ) rendering.
  */
 class ContactSectionTest extends WP_UnitTestCase {
+
+	use VEU_Test_Html_Assertions;
 
 	/**
 	 * render_contact_section_html のテスト。
@@ -79,8 +83,10 @@ class ContactSectionTest extends WP_UnitTestCase {
 				),
 				'expected_contains'   => array(
 					'alt="入力欄に設定した代替テキスト"',
-					'<img src="' . esc_url( $image_url_with_alt ) . '"',
 				),
+				// img タグの属性の並び順は WordPress のバージョンで変わるため、src の値はタグ単位で検証する。
+				// The attribute order of the img tag differs between WordPress versions, so verify the src value per tag.
+				'expected_img_src'    => $image_url_with_alt,
 				'expected_not'        => array(
 					'aria-label',
 				),
@@ -159,8 +165,8 @@ class ContactSectionTest extends WP_UnitTestCase {
 				'expected_contains'   => array(
 					'alt=""',
 					'aria-label="お問い合わせはこちら"',
-					'<img src="' . esc_url( $external_image_url ) . '"',
 				),
+				'expected_img_src'    => $external_image_url,
 				'expected_not'        => array(),
 			),
 		);
@@ -179,7 +185,13 @@ class ContactSectionTest extends WP_UnitTestCase {
 
 				// 期待する文字列が含まれる事を確認 / Check the expected strings are included.
 				foreach ( $case['expected_contains'] as $expected ) {
-					$this->assertStringContainsString( $expected, $html, $case['test_condition_name'] );
+					$this->assert_html_contains( $expected, $html, $case['test_condition_name'] );
+				}
+
+				// img タグの src が期待どおりである事を確認（属性の並び順には依存しない）。
+				// Check the src of the img tag is as expected ( independent of the attribute order ).
+				if ( isset( $case['expected_img_src'] ) ) {
+					$this->assert_html_tag_has_attributes( $html, 'img', array( 'src' => $case['expected_img_src'] ), $case['test_condition_name'] );
 				}
 
 				// 出力されてはいけない文字列が含まれない事を確認 / Check the strings that must not be output are absent.
@@ -209,11 +221,11 @@ class ContactSectionTest extends WP_UnitTestCase {
 
 				// 電話アイコン（保存値によらず組み立て直した <i>）に aria-hidden が付く事を確認。
 				// Check the phone icon ( the <i> rebuilt regardless of the saved value ) has aria-hidden.
-				$this->assertStringContainsString( $case['expected'], $html, $case['test_condition_name'] );
+				$this->assert_html_contains( $case['expected'], $html, $case['test_condition_name'] );
 				// ボタン前の封筒アイコンに aria-hidden が付く事を確認 / Check the envelope icon before the button has aria-hidden.
-				$this->assertStringContainsString( '<i class="fa-regular fa-envelope" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
+				$this->assert_html_contains( '<i class="fa-regular fa-envelope" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
 				// ボタン後の矢印アイコンに aria-hidden が付く事を確認 / Check the arrow icon after the button has aria-hidden.
-				$this->assertStringContainsString( '<i class="fa-regular fa-circle-right" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
+				$this->assert_html_contains( '<i class="fa-regular fa-circle-right" aria-hidden="true"></i>', $html, $case['test_condition_name'] );
 
 				// オプションをクリーンアップ / Clean up the option.
 				delete_option( 'vkExUnit_contact' );
