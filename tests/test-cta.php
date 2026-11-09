@@ -1160,6 +1160,9 @@ class CTATest extends WP_UnitTestCase {
 			$actual = Vk_Call_To_Action::render_cta_content( $test_posts['cta_post_id'] );
 			// print 'expected ::' . $value['expected'] . PHP_EOL;
 			// print 'actual ::::' . $actual . PHP_EOL;
+			// 期待値（wp_kses_post() から作ったもの）自体に <script が残っていない事を確認（期待値の自己検査）。
+			// Check the expected value itself ( built from wp_kses_post() ) contains no <script ( self-check of the expected value ).
+			$this->assertStringNotContainsString( '<script', $value['expected'], $key );
 			$this->assert_html_same( $value['expected'], $actual, $key );
 			$this->assertStringNotContainsString( '<script', $actual, $key );
 		}

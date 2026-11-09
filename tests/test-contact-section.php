@@ -81,12 +81,13 @@ class ContactSectionTest extends WP_UnitTestCase {
 					'contact_image_alt' => '入力欄に設定した代替テキスト',
 					'button_text'       => 'お問い合わせはこちら',
 				),
-				'expected_contains'   => array(
-					'alt="入力欄に設定した代替テキスト"',
+				'expected_contains'   => array(),
+				// img タグの属性の並び順は WordPress のバージョンで変わるため、src と alt は同じ img タグの属性としてタグ単位で検証する。
+				// The attribute order of the img tag differs between WordPress versions, so verify src and alt as attributes of the same img tag.
+				'expected_img'        => array(
+					'src' => $image_url_with_alt,
+					'alt' => '入力欄に設定した代替テキスト',
 				),
-				// img タグの属性の並び順は WordPress のバージョンで変わるため、src の値はタグ単位で検証する。
-				// The attribute order of the img tag differs between WordPress versions, so verify the src value per tag.
-				'expected_img_src'    => $image_url_with_alt,
 				'expected_not'        => array(
 					'aria-label',
 				),
@@ -163,10 +164,12 @@ class ContactSectionTest extends WP_UnitTestCase {
 					'button_text'       => 'お問い合わせはこちら',
 				),
 				'expected_contains'   => array(
-					'alt=""',
 					'aria-label="お問い合わせはこちら"',
 				),
-				'expected_img_src'    => $external_image_url,
+				'expected_img'        => array(
+					'src' => $external_image_url,
+					'alt' => '',
+				),
 				'expected_not'        => array(),
 			),
 		);
@@ -188,10 +191,10 @@ class ContactSectionTest extends WP_UnitTestCase {
 					$this->assert_html_contains( $expected, $html, $case['test_condition_name'] );
 				}
 
-				// img タグの src が期待どおりである事を確認（属性の並び順には依存しない）。
-				// Check the src of the img tag is as expected ( independent of the attribute order ).
-				if ( isset( $case['expected_img_src'] ) ) {
-					$this->assert_html_tag_has_attributes( $html, 'img', array( 'src' => $case['expected_img_src'] ), $case['test_condition_name'] );
+				// img タグの src と alt が期待どおりである事を確認（属性の並び順には依存しない）。
+				// Check the src and alt of the img tag are as expected ( independent of the attribute order ).
+				if ( isset( $case['expected_img'] ) ) {
+					$this->assert_html_tag_has_attributes( $html, 'img', $case['expected_img'], $case['test_condition_name'] );
 				}
 
 				// 出力されてはいけない文字列が含まれない事を確認 / Check the strings that must not be output are absent.

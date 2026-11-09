@@ -265,6 +265,9 @@ class RelatedPostsTest extends WP_UnitTestCase {
 
 					$html = veu_add_related_posts_html( '' );
 
+					// 期待値（wp_kses_post() から作ったもの）自体に <script が残っていない事を確認（期待値の自己検査）。
+					// Check the expected value itself ( built from wp_kses_post() ) contains no <script ( self-check of the expected value ).
+					$this->assertStringNotContainsString( '<script', $case['expected_heading'], $case['test_condition_name'] );
 					$this->assertStringContainsString( $case['expected_heading'], $html, $case['test_condition_name'] );
 					if ( isset( $case['also_expected'] ) ) {
 						$this->assertStringContainsString( $case['also_expected'], $html, $case['test_condition_name'] );
