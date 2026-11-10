@@ -532,11 +532,11 @@ function veu_get_packages( $is_block_theme = null ) {
 	);
 
 	/**
-	 * Disable Random Content Redirect.
+	 * Disable Random Redirect.
 	 */
 	$required_packages[] = array(
 		'name'        => 'disable_random_redirect',
-		'title'       => __( 'Disable Random Content Redirect', 'vk-all-in-one-expansion-unit' ),
+		'title'       => __( 'Disable Random Redirect', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Stop the feature added from WordPress 7.2 that redirects /random/ to a randomly chosen published post.', 'vk-all-in-one-expansion-unit' ) . '<br>' . sprintf(
 			/* translators: %s: link to the Permalink Settings screen. */
 			__( 'After changing this setting, save the %s screen once without changing anything to apply it.', 'vk-all-in-one-expansion-unit' ),
