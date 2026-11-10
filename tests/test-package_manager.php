@@ -147,8 +147,18 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 		global $vkExUnit_packages;
 
-		// 説明文にパーマリンク設定画面へのリンクがあること
+		// 7.2 未満では項目を出さない。
+		// The option is not registered before WordPress 7.2.
+		if ( ! function_exists( 'wp_is_random_content_redirect_enabled' ) ) {
+			$this->assertArrayNotHasKey( 'disable_random_redirect', $vkExUnit_packages );
+			return;
+		}
+
+		// 説明文にパーマリンク設定画面へのリンクがあること。7.2 未満では効かない、という文は出さない。
+		// The description links to the Permalink screen and does not say the option has no effect before 7.2.
+		$this->assertArrayHasKey( 'disable_random_redirect', $vkExUnit_packages );
 		$this->assertStringContainsString( 'options-permalink.php', $vkExUnit_packages['disable_random_redirect']['description'] );
+		$this->assertStringNotContainsString( 'earlier than 7.2', $vkExUnit_packages['disable_random_redirect']['description'] );
 
 		$include_file = VEU_DIRECTORY_PATH . '/inc/disable-random-redirect.php';
 

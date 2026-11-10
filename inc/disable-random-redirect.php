@@ -1,6 +1,10 @@
 <?php
 /**
+ * Disable the /random/ redirect added in WordPress 7.2.
  * WordPress 7.2 以降の /random/ 転送機能を無効化する。
+ *
+ * Included only when wp_is_random_content_redirect_enabled() exists.
+ * wp_is_random_content_redirect_enabled() があるときだけ読み込まれる。
  *
  * @package vk-all-in-one-expansion-unit
  */
@@ -10,9 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * /random/ への転送機能を無効にするフィルターを登録する。
- *
- * WordPress 7.2 未満にはこのフィルターが存在しないため、登録しても何も起きない。
+ * Register the filter that disables the /random/ redirect.
+ * /random/ への転送を止めるフィルターを登録する。
  *
  * @return void
  */

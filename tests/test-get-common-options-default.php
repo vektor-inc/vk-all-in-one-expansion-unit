@@ -125,6 +125,12 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 			$return  = veu_get_common_options_default( $test_value['is_block_theme'] );
 			$correct = $test_value['correct'];
 
+			// 7.2 未満では項目が無いので、初期値のキーも無い。
+			// Before WordPress 7.2 the option is absent, so the default key is absent too.
+			if ( ! function_exists( 'wp_is_random_content_redirect_enabled' ) ) {
+				unset( $correct['active_disable_random_redirect'] );
+			}
+
 			// print PHP_EOL;
 			// print 'correct :' . PHP_EOL;
 			// var_dump( $correct );

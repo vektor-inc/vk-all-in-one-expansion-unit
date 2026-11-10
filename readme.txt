@@ -90,7 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
-[ New Feature ] Added a "Disable Random Redirect" option to stop the /random/ redirect to a random post added in WordPress 7.2.
+[ New Feature ] Added a "Disable Random Redirect" option, shown only on WordPress 7.2 or later, to stop the /random/ redirect to a random post.
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
 
 = 9.124.0 =
