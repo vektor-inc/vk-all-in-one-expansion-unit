@@ -539,7 +539,7 @@ function veu_get_packages( $is_block_theme = null ) {
 		'title'       => __( 'Disable Random Content Redirect', 'vk-all-in-one-expansion-unit' ),
 		'description' => __( 'Stop the feature added from WordPress 7.2 that redirects /random/ to a randomly chosen published post.', 'vk-all-in-one-expansion-unit' ) . '<br>' . sprintf(
 			/* translators: %s: link to the Permalink Settings screen. */
-			__( 'After turning this on, save the %s screen once without changing anything to apply it.', 'vk-all-in-one-expansion-unit' ),
+			__( 'After changing this setting, save the %s screen once without changing anything to apply it.', 'vk-all-in-one-expansion-unit' ),
 			'<a href="' . esc_url( admin_url( 'options-permalink.php' ) ) . '">' . __( 'Permalink Settings', 'vk-all-in-one-expansion-unit' ) . '</a>'
 		) . '<br>' . __( 'This setting has no effect on WordPress versions earlier than 7.2.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,

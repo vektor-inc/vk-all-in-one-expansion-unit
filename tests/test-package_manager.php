@@ -139,28 +139,58 @@ class PackageManagerTest extends WP_UnitTestCase {
 	/**
 	 * /random/ 転送の無効化パッケージのテスト
 	 *
-	 * 初期値ではフィルターが登録されず、オンのときだけ転送が止まることを確認する。
+	 * 設定値ごとに veu_package_include() を実行し、フィルターが登録されるかを確認する。
+	 * veu_package_include() は require_once のため、同一プロセスで一度読み込まれると再実行されない。
+	 * そのため「読み込まれない条件」を先に、「読み込まれる条件」を最後に並べている。
 	 */
 	function test_veu_disable_random_content_redirect() {
 
-		// 初期値ではパッケージが無効で、フィルターも登録されていないこと
-		$this->assertFalse( veu_package_is_enable( 'disable_random_redirect' ) );
-		$this->assertFalse( has_filter( 'wp_enable_random_content_redirect', '__return_false' ) );
-		$this->assertTrue( apply_filters( 'wp_enable_random_content_redirect', true ) );
+		global $vkExUnit_packages;
 
 		// 説明文にパーマリンク設定画面へのリンクがあること
-		global $vkExUnit_packages;
 		$this->assertStringContainsString( 'options-permalink.php', $vkExUnit_packages['disable_random_redirect']['description'] );
 
-		// オンのときのパッケージ読み込み（フィルター登録）を実行
-		require_once VEU_DIRECTORY_PATH . '/inc/disable-random-redirect.php';
-		veu_disable_random_content_redirect();
+		$include_file = VEU_DIRECTORY_PATH . '/inc/disable-random-redirect.php';
 
-		// フィルターが登録され、転送が止まること
-		$this->assertNotFalse( has_filter( 'wp_enable_random_content_redirect', '__return_false' ) );
-		$this->assertFalse( apply_filters( 'wp_enable_random_content_redirect', true ) );
+		$test_array = array(
+			// 未保存（初期値）：無効のまま
+			array(
+				'options'  => false,
+				'correct'  => false,
+			),
+			// 明示的に無効
+			array(
+				'options'  => array( 'active_disable_random_redirect' => false ),
+				'correct'  => false,
+			),
+			// 有効：フィルターが登録され、転送が止まる
+			array(
+				'options'  => array( 'active_disable_random_redirect' => true ),
+				'correct'  => true,
+			),
+		);
+
+		foreach ( $test_array as $test_value ) {
+			remove_filter( 'wp_enable_random_content_redirect', '__return_false' );
+			if ( false === $test_value['options'] ) {
+				delete_option( 'vkExUnit_common_options' );
+			} else {
+				update_option( 'vkExUnit_common_options', $test_value['options'] );
+			}
+
+			// 他のテストで読み込み済みだと require_once が再実行されないため、検証できない
+			if ( $test_value['correct'] && in_array( realpath( $include_file ), get_included_files(), true ) ) {
+				$this->markTestSkipped( 'disable-random-redirect.php は読み込み済みのため、有効時の登録を検証できません。' );
+			}
+
+			veu_package_include();
+
+			$this->assertSame( $test_value['correct'], (bool) has_filter( 'wp_enable_random_content_redirect', '__return_false' ) );
+			$this->assertSame( ! $test_value['correct'], apply_filters( 'wp_enable_random_content_redirect', true ) );
+		}
 
 		// 後続テストへ影響しないよう後片付け
 		remove_filter( 'wp_enable_random_content_redirect', '__return_false' );
+		delete_option( 'vkExUnit_common_options' );
 	}
 }
