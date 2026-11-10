@@ -5,11 +5,15 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+require_once __DIR__ . '/helpers/trait-veu-html-assertions.php';
+
 /**
  * 関連記事の1件分HTML（veu_add_related_posts_item_html）のテスト。
  * Test for the single related-post item HTML ( veu_add_related_posts_item_html ).
  */
 class RelatedPostsTest extends WP_UnitTestCase {
+
+	use VEU_Test_Html_Assertions;
 
 	/**
 	 * 関連記事の1件分HTMLに必要なアクセシビリティ属性と出力エスケープのテスト。
@@ -217,14 +221,16 @@ class RelatedPostsTest extends WP_UnitTestCase {
 		// Combinations of the value returned by the heading filter and the expected result.
 		$test_cases = array(
 			array(
-				// wp_kses_post() は許可されないタグ（script）そのものは除去するが、タグ内のテキストノードは残す
-				// （スクリプト本文の実行可否はブラウザの話であり、HTMLサニタイズの責務ではないため）。
-				// wp_kses_post() strips a disallowed tag ( script ) itself, but keeps the text node inside it
-				// ( whether the script body executes is a browser concern, not something HTML sanitization is responsible for ).
-				'test_condition_name' => '見出しに許可タグとscriptタグが混在 => scriptタグは落ちるが許可タグとタグ内テキストは残る',
+				// wp_kses_post() は許可されないタグ（script）そのものを除去する。タグ内のテキストを残すかは WordPress のバージョンで異なる
+				// （7.2 以降は中身ごと除去される）ため、期待値は wp_kses_post() の出力から作り、許可タグが残る事と <script が出ない事は別に検証する。
+				// wp_kses_post() strips a disallowed tag ( script ) itself. Whether the text inside it remains differs between WordPress versions
+				// ( 7.2 and later strip the content too ), so build the expected value from wp_kses_post() and verify separately
+				// that the allowed tag remains and that <script is not output.
+				'test_condition_name' => '見出しに許可タグとscriptタグが混在 => scriptタグは落ちるが許可タグは残る',
 				'filtered_title'      => '<span>OK</span><script>x</script>',
-				'expected_heading'    => '<h1 class="mainSection-title relatedPosts_title"><span>OK</span>x</h1>',
-				'unexpected'          => array( '<script>' ),
+				'expected_heading'    => '<h1 class="mainSection-title relatedPosts_title">' . wp_kses_post( '<span>OK</span><script>x</script>' ) . '</h1>',
+				'also_expected'       => '<h1 class="mainSection-title relatedPosts_title"><span>OK</span>',
+				'unexpected'          => array( '<script' ),
 			),
 			array(
 				'test_condition_name' => '見出しが装飾タグのないプレーンテキスト => そのまま出力される',
@@ -259,7 +265,13 @@ class RelatedPostsTest extends WP_UnitTestCase {
 
 					$html = veu_add_related_posts_html( '' );
 
+					// 期待値（wp_kses_post() から作ったもの）自体に <script が残っていない事を確認（期待値の自己検査）。
+					// Check the expected value itself ( built from wp_kses_post() ) contains no <script ( self-check of the expected value ).
+					$this->assertStringNotContainsString( '<script', $case['expected_heading'], $case['test_condition_name'] );
 					$this->assertStringContainsString( $case['expected_heading'], $html, $case['test_condition_name'] );
+					if ( isset( $case['also_expected'] ) ) {
+						$this->assertStringContainsString( $case['also_expected'], $html, $case['test_condition_name'] );
+					}
 					foreach ( $case['unexpected'] as $unexpected ) {
 						$this->assertStringNotContainsString( $unexpected, $html, $case['test_condition_name'] );
 					}

@@ -5,10 +5,14 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+require_once __DIR__ . '/helpers/trait-veu-html-assertions.php';
+
 /**
  * CTA Test.
  */
 class CTATest extends WP_UnitTestCase {
+
+	use VEU_Test_Html_Assertions;
 
 	/**
 	 * Reset globals after each test.
@@ -838,10 +842,10 @@ class CTATest extends WP_UnitTestCase {
 			// If expected_contains is set, assert substrings; otherwise assert full equality.
 			if ( isset( $test_value['expected_contains'] ) ) {
 				foreach ( (array) $test_value['expected_contains'] as $needle ) {
-					$this->assertStringContainsString( $needle, $actual, $key );
+					$this->assert_html_contains( $needle, $actual, $key );
 				}
 			} else {
-				$this->assertEquals( $test_value['expected'], $actual );
+				$this->assert_html_same( $test_value['expected'], $actual, $key );
 			}
 		}
 	}
@@ -1091,8 +1095,10 @@ class CTATest extends WP_UnitTestCase {
 				'expected'    => '<div class="wp-block-group has-black-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><div class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"><h2 class="wp-block-heading has-text-align-center vkp-title-short-border--center is-style-vk-heading-plain vk_block-margin-0--margin-bottom vk_custom_css has-white-color has-text-color" style="font-size:2.2rem;letter-spacing:2px">テストタイトル</h2><div class="wp-block-vk-blocks-button vk_button vk_button-color-custom vk_button-align-center vkp_button-through-arrow vk_custom_css"><a href="https://demo.dev3.biz/architect/recruit/" class="vk_button_link btn has-text-color is-style-outline has-white-color btn-md" role="button" rel="noopener"><div class="vk_button_link_caption"><span class="vk_button_link_txt">ボタン</span></div></a></div></div></div>',
 			),
 			'post_content xss test'    => array(
+				// 除去した <script> の中身を残すかは WordPress のバージョンで異なるため、期待値は wp_kses_post() の出力から作る。
+				// Whether the text inside the stripped <script> remains differs between WordPress versions, so build the expected value from wp_kses_post().
 				'cta_content' => '"><script>alert(0)</script>',
-				'expected'    => '"&gt;alert(0)',
+				'expected'    => wp_kses_post( '"><script>alert(0)</script>' ),
 			),
 			'classic CTA test'         => array(
 				'cta_title'   => 'Classic Title',
@@ -1112,7 +1118,7 @@ class CTATest extends WP_UnitTestCase {
 					'vkExUnit_cta_button_text' => '"><script>alert(0)</script>',
 					'vkExUnit_cta_url'         => 'https://example.com',
 				),
-				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">"&gt;alert(0)</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">"&gt;alert(0)</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
+				'expected'    => '<section class="veu_cta" id="veu_cta-' . $test_posts['cta_post_id'] . '"><h1 class="cta_title">Classic Title</h1><div class="cta_body"><div class="cta_body_txt image_no">' . wp_kses_post( '"><script>alert(0)</script>' ) . '</div><div class="cta_body_link"><a href="https://example.com" class="btn btn-primary btn-block btn-lg" target="_blank">' . wp_kses_post( '"><script>alert(0)</script>' ) . '</a></div></div><!-- [ /.vkExUnit_cta_body ] --></section>',
 			),
 			// 前後アイコン付きの古典CTA：装飾アイコンの <i> に aria-hidden="true" が付く事を検証する。
 			// Classic CTA with before / after icons: verify the decorative icons' <i> get aria-hidden="true".
@@ -1154,7 +1160,11 @@ class CTATest extends WP_UnitTestCase {
 			$actual = Vk_Call_To_Action::render_cta_content( $test_posts['cta_post_id'] );
 			// print 'expected ::' . $value['expected'] . PHP_EOL;
 			// print 'actual ::::' . $actual . PHP_EOL;
-			$this->assertEquals( $value['expected'], $actual );
+			// 期待値（wp_kses_post() から作ったもの）自体に <script が残っていない事を確認（期待値の自己検査）。
+			// Check the expected value itself ( built from wp_kses_post() ) contains no <script ( self-check of the expected value ).
+			$this->assertStringNotContainsString( '<script', $value['expected'], $key );
+			$this->assert_html_same( $value['expected'], $actual, $key );
+			$this->assertStringNotContainsString( '<script', $actual, $key );
 		}
 	}
 
