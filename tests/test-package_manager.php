@@ -135,4 +135,28 @@ class PackageManagerTest extends WP_UnitTestCase {
 
 		$this->assertFalse( $result['active_metaDescription'] );
 	}
+
+	/**
+	 * /random/ 転送の無効化パッケージのテスト
+	 *
+	 * 初期値ではフィルターが登録されず、オンのときだけ転送が止まることを確認する。
+	 */
+	function test_veu_disable_random_content_redirect() {
+
+		// 初期値ではパッケージが無効で、フィルターも登録されていないこと
+		$this->assertFalse( veu_package_is_enable( 'disable_random_redirect' ) );
+		$this->assertFalse( has_filter( 'wp_enable_random_content_redirect', '__return_false' ) );
+		$this->assertTrue( apply_filters( 'wp_enable_random_content_redirect', true ) );
+
+		// オンのときのパッケージ読み込み（フィルター登録）を実行
+		require_once VEU_DIRECTORY_PATH . '/inc/disable-random-redirect.php';
+		veu_disable_random_content_redirect();
+
+		// フィルターが登録され、転送が止まること
+		$this->assertNotFalse( has_filter( 'wp_enable_random_content_redirect', '__return_false' ) );
+		$this->assertFalse( apply_filters( 'wp_enable_random_content_redirect', true ) );
+
+		// 後続テストへ影響しないよう後片付け
+		remove_filter( 'wp_enable_random_content_redirect', '__return_false' );
+	}
 }
