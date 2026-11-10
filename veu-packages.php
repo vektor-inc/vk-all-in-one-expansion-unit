@@ -537,7 +537,11 @@ function veu_get_packages( $is_block_theme = null ) {
 	$required_packages[] = array(
 		'name'        => 'disable_random_redirect',
 		'title'       => __( 'Disable Random Content Redirect', 'vk-all-in-one-expansion-unit' ),
-		'description' => __( 'Stop the feature added from WordPress 7.2 that redirects /random/ to a randomly chosen published post.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'If you turn this on, /random/ is no longer redirected and the field for the random URL prefix is hidden on the Permalink Settings screen.', 'vk-all-in-one-expansion-unit' ) . '<br>' . __( 'This setting has no effect on WordPress versions earlier than 7.2.', 'vk-all-in-one-expansion-unit' ),
+		'description' => __( 'Stop the feature added from WordPress 7.2 that redirects /random/ to a randomly chosen published post.', 'vk-all-in-one-expansion-unit' ) . '<br>' . sprintf(
+			/* translators: %s: link to the Permalink Settings screen. */
+			__( 'After turning this on, save the %s screen once without changing anything to apply it.', 'vk-all-in-one-expansion-unit' ),
+			'<a href="' . esc_url( admin_url( 'options-permalink.php' ) ) . '">' . __( 'Permalink Settings', 'vk-all-in-one-expansion-unit' ) . '</a>'
+		) . '<br>' . __( 'This setting has no effect on WordPress versions earlier than 7.2.', 'vk-all-in-one-expansion-unit' ),
 		'default'     => false,
 		'include'     => 'disable-random-redirect.php',
 	);

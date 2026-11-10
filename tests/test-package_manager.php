@@ -148,6 +148,10 @@ class PackageManagerTest extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'wp_enable_random_content_redirect', '__return_false' ) );
 		$this->assertTrue( apply_filters( 'wp_enable_random_content_redirect', true ) );
 
+		// 説明文にパーマリンク設定画面へのリンクがあること
+		global $vkExUnit_packages;
+		$this->assertStringContainsString( 'options-permalink.php', $vkExUnit_packages['disable_random_redirect']['description'] );
+
 		// オンのときのパッケージ読み込み（フィルター登録）を実行
 		require_once VEU_DIRECTORY_PATH . '/inc/disable-random-redirect.php';
 		veu_disable_random_content_redirect();
