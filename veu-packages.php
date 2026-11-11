@@ -531,6 +531,26 @@ function veu_get_packages( $is_block_theme = null ) {
 		'include'     => 'disable-xml-sitemap.php',
 	);
 
+	/**
+	 * Disable Random Redirect.
+	 *
+	 * 転送機能があるときだけ出す。version_compare で '7.2' と比較すると 7.2-beta が対象外になる。
+	 * Show the option only when the redirect exists. Comparing the version to '7.2' excludes 7.2 betas.
+	 */
+	if ( function_exists( 'wp_is_random_content_redirect_enabled' ) ) {
+		$required_packages[] = array(
+			'name'        => 'disable_random_redirect',
+			'title'       => __( 'Disable Random Redirect', 'vk-all-in-one-expansion-unit' ),
+			'description' => __( 'Stop the feature added from WordPress 7.2 that redirects /random/ to a randomly chosen published post.', 'vk-all-in-one-expansion-unit' ) . '<br>' . sprintf(
+				/* translators: %s: link to the Permalink Settings screen. */
+				__( 'After changing this setting, save the %s screen once without changing anything to apply it.', 'vk-all-in-one-expansion-unit' ),
+				'<a href="' . esc_url( admin_url( 'options-permalink.php' ) ) . '">' . __( 'Permalink Settings', 'vk-all-in-one-expansion-unit' ) . '</a>'
+			),
+			'default'     => false,
+			'include'     => 'disable-random-redirect.php',
+		);
+	}
+
 	/*
 		Related to other plugins
 	*/

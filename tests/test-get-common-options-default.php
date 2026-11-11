@@ -49,6 +49,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 					'active_disable_ping-back'             => false,
 					'active_disable_dashbord'              => false,
 					'active_disable_xml_sitemap'           => false,
+					'active_disable_random_redirect'       => false,
 					'active_disable_emoji'                 => false,
 					'active_admin_bar'                     => true,
 					'active_post_type_manager'             => true,
@@ -95,6 +96,7 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 						'active_disable_ping-back'         => false,
 						'active_disable_dashbord'          => false,
 						'active_disable_xml_sitemap'       => false,
+						'active_disable_random_redirect'   => false,
 						'active_disable_emoji'             => false,
 						'active_admin_bar'                 => true,
 						'active_post_type_manager'         => true,
@@ -122,6 +124,12 @@ class VeuGetCommonOptionsDefaultTest extends WP_UnitTestCase {
 		foreach ( $test_array as $key => $test_value ) {
 			$return  = veu_get_common_options_default( $test_value['is_block_theme'] );
 			$correct = $test_value['correct'];
+
+			// 7.2 未満では項目が無いので、初期値のキーも無い。
+			// Before WordPress 7.2 the option is absent, so the default key is absent too.
+			if ( ! function_exists( 'wp_is_random_content_redirect_enabled' ) ) {
+				unset( $correct['active_disable_random_redirect'] );
+			}
 
 			// print PHP_EOL;
 			// print 'correct :' . PHP_EOL;
