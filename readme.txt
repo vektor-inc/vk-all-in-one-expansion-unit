@@ -92,6 +92,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
 [ Security Fix ][ Post Type Manager ] Added a permission check when saving post type settings.
+[ Security Fix ][ Google Tag Manager ] Restricted the Google Tag Manager ID to alphanumeric characters and added a check when saving and when outputting it.
 
 = 9.124.0 =
 [ New Feature ][ Article Structured Data ] Added the veu_article_structure_data_is_output and veu_article_structure_data filters to control the output and change the output data.
