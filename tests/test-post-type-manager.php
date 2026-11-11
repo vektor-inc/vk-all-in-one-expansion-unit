@@ -23,6 +23,10 @@ class PostTypeManagerTest extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
+		// post_type_manage の編集権限は本番では admin_init で管理者に付与されるが、テストでは admin_init が走らないため、ここで付与する.
+		// In production these capabilities are granted to administrators on admin_init, which does not run in tests, so grant them here.
+		VK_Post_Type_Manager::add_cap_post_type_manage();
+
 		$this->user_id = self::factory()->user->create(
 			array(
 				'role' => 'administrator',
