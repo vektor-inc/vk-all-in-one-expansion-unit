@@ -5,9 +5,14 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+// Google Tag Manager のモジュールは標準では読み込まれないため、テスト対象のファイルを読み込む。
+// The Google Tag Manager module is not loaded by default, so load the files under test.
+require_once dirname( __DIR__ ) . '/inc/vk-google-tag-manager/package/class-vk-google-tag-manager.php';
+require_once dirname( __DIR__ ) . '/inc/vk-google-tag-manager/admin.php';
+
 /**
- * Test case for vk_gtm_sanitize_id(), vk_gtm_head() and vk_gtm_body().
- * vk_gtm_sanitize_id() / vk_gtm_head() / vk_gtm_body() のテスト。
+ * Test case for vk_gtm_sanitize_id(), veu_gtm_options_validate(), vk_gtm_head() and vk_gtm_body().
+ * vk_gtm_sanitize_id() / veu_gtm_options_validate() / vk_gtm_head() / vk_gtm_body() のテスト。
  */
 class VkGtmSanitizeIdTest extends WP_UnitTestCase {
 
@@ -50,6 +55,33 @@ class VkGtmSanitizeIdTest extends WP_UnitTestCase {
 		);
 		foreach ( $test_array as $value ) {
 			$this->assertSame( $value[1], vk_gtm_sanitize_id( $value[0] ) );
+		}
+	}
+
+	/**
+	 * Test the save handler of the main settings screen.
+	 * メイン設定画面の保存処理をテストする。
+	 *
+	 * @return void
+	 */
+	public function test_veu_gtm_options_validate() {
+		$test_array = array(
+			// 既存の保存値は変わらない。
+			// Existing saved values are not changed.
+			array( array( 'gtm_id' => 'ABC123' ), 'ABC123' ),
+			// 「GTM-」付きの値は接頭辞を取り除く ( 画面上の接頭辞が重複しない )。
+			// A value with "GTM-" has the prefix removed ( so the prefix shown on screen is not doubled ).
+			array( array( 'gtm_id' => 'GTM-ABC123' ), 'ABC123' ),
+			array( array( 'gtm_id' => "ABC123');alert(1);//" ), '' ),
+			array( array( 'gtm_id' => 'ABC-123' ), '' ),
+			array( array( 'gtm_id' => array( 'ABC123' ) ), '' ),
+			array( array(), '' ),
+			// 一括保存時に当該オプション群が無いと null が渡る。
+			// null is passed when this option group is absent during the bulk save.
+			array( null, '' ),
+		);
+		foreach ( $test_array as $value ) {
+			$this->assertSame( array( 'gtm_id' => $value[1] ), veu_gtm_options_validate( $value[0] ) );
 		}
 	}
 
