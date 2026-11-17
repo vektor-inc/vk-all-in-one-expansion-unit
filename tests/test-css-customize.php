@@ -14,6 +14,10 @@ class CssCustomizeTest extends WP_UnitTestCase {
 	 * カスタマイズCSSのテスト
 	 */
 	public function test_css_customize_get_the_css_min() {
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
 		$tests = array(
 			array(
 				'option'  => 'div > h1 { color:red;   }',
@@ -46,6 +50,165 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'option'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
 				'correct' => '@media (width > 1000px){p{color:red;}}',
 			),
+			// 範囲指定のメディアクエリと子セレクタが同じ CSS にある場合 ( issue #1556 )
+			// Media query range syntax and the child combinator in the same CSS ( issue #1556 ).
+			array(
+				'test_condition_name' => 'issue #1556 の報告どおり <= と子セレクタ > が同じ CSS にある場合 => 欠けずに出力',
+				'option'              => '@media (width <= 992px) {
+  .global-nav-list { flex-wrap: wrap; }
+  .global-nav-list > li { width: auto; }
+}',
+				'correct'             => '@media (width <= 992px){.global-nav-list{flex-wrap:wrap;}.global-nav-list > li{width:auto;}}',
+			),
+			array(
+				'test_condition_name' => '範囲指定 (400px < width < 800px) と子セレクタ > の場合 => 欠けずに出力',
+				'option'              => '@media (400px < width < 800px) { .a > li { color: red; } }',
+				'correct'             => '@media (400px < width < 800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '範囲指定 >= と空白なしの子セレクタ a>b の場合 => 欠けずに出力',
+				'option'              => '@media (width >= 992px) { a>b { color: red; } }',
+				'correct'             => '@media (width >= 992px){a>b{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '空白なしの範囲指定 (400px<width<800px) と子セレクタ > の場合 => 欠けずに出力',
+				'option'              => '@media (400px<width<800px) { .a > li { color: red; } }',
+				'correct'             => '@media (400px<width<800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'option'              => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'correct'             => '@media (400px<width ) and (width>800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px <width) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'option'              => '@media (400px <width) and (width>800px) { a { color: red; } }',
+				'correct'             => '@media (400px <width) and (width>800px){a{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width) と子セレクタ > の場合 => 欠けずに出力',
+				'option'              => '@media (400px<width) { .a > li { color: red; } }',
+				'correct'             => '@media (400px<width){.a > li{color:red;}}',
+			),
+			// HTML コメントは中身ごと除去する
+			// HTML comments are removed together with their content.
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールは出力',
+				'option'              => '<!-- ヘッダーの調整 -->
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の後の行にルールがある場合 => その行の末尾まで除去してルールは出力',
+				'option'              => '<!-- ヘッダーの調整
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
+			// 後方互換: <style> で囲んで貼り付けた場合はタグだけを除去し、中の CSS は残す
+			// Backward compatibility: a pasted <style> wrapper is removed, keeping the CSS inside.
+			array(
+				'test_condition_name' => '<style> で囲んで貼り付けた場合 => タグだけ除去して CSS は出力',
+				'option'              => '<style type="text/css">div > h1 { color:red; }</style>',
+				'correct'             => 'div > h1{color:red;}',
+			),
+			// XSS: <style> 要素を抜け出す文字列が出力に残らないこと
+			// XSS: nothing that escapes the <style> element may remain in the output.
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグと script を除去',
+				'option'              => 'div{color:red;}</style><script>alert(1)</script>',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => どちらも除去',
+				'option'              => 'div{color:red;}</STYLE ><img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			// HTML の要素名のタグは除去する。残すとブロックエディタで CSS 全体が捨てられ、前後のルールも効かなくなる
+			// Tags with an HTML element name are removed. Left in place, the block editor drops the
+			// whole CSS and the rules around the tag stop working.
+			array(
+				'test_condition_name' => 'ルールの後ろに img タグがある場合 => img タグを除去',
+				'option'              => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'ルールの間に br タグがある場合 => br を除去し、後ろのルールも出力',
+				'option'              => '.a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'p タグで囲まれている場合 => p タグを除去して CSS を出力',
+				'option'              => '<p>.a{color:red;}</p>',
+				'correct'             => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> と属性付きの <P class> の場合 => 大文字小文字を区別せず除去',
+				'option'              => '<P class="memo">.a{color:red;}<BR>.b{color:blue;}</P>',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '廃止済みの要素 <center> <font color=red> </font> の場合 => 除去',
+				'option'              => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'correct'             => 'div{color:red;}.a{color:blue;}',
+			),
+			// CSS の文字列とコメントの中のタグは残す（SVG のデータ URI・content を壊さない）
+			// Tags inside CSS strings and comments are kept ( SVG data URIs and content keep working ).
+			array(
+				'test_condition_name' => '「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残し、</ だけ無効化',
+				'option'              => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'correct'             => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}',
+			),
+			array(
+				'test_condition_name' => '「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去',
+				'option'              => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'correct'             => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去',
+				'option'              => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'correct'             => '.a::before{content:"<br>";}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に \' がある場合 => 文字列の開始とみなさず、後ろの <br> を除去',
+				'option'              => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
+				'option'              => 'div{color:red;}</style
+.a{color:blue;}',
+				'correct'             => 'div{color:red;}<\\/style.a{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'コメントで分断した </*x*//style の場合 => コメント除去後にできる </ も無効化',
+				'option'              => 'div{color:red;}</*x*//style><script>alert(1)</script>',
+				'correct'             => 'div{color:red;}<\\/style>',
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化',
+				'option'              => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'correct'             => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '「\'」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化',
+				'option'              => ".a{background:url('data:image/svg+xml,<svg>" . $long . "</svg>');}<br></style>.b{color:blue;}",
+				'correct'             => ".a{background:url('data:image/svg+xml,<svg>" . $long . "<\\/svg>');}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に 200,000 文字ある場合 => コメントを除去し、後ろのルールは残る',
+				'option'              => '/*' . $long . '<p>*/.a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に 3,000,000 文字ある場合 => 圧縮の正規表現の上限で消えず、コメントを除去して後ろのルールは残る',
+				'option'              => '/*' . str_repeat( 'x', 3000000 ) . '*/.a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\" の後ろに <br> がある場合 => 文字列の開始とみなさず <br> を除去',
+				'option'              => '.foo\\"{color:red;}<br>',
+				'correct'             => '.foo\\"{color:red;}',
+			),
 		);
 
 		print PHP_EOL;
@@ -60,7 +223,11 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			// print PHP_EOL;
 			// print 'return    :' . $return . PHP_EOL;
 			// print 'correct   :' . $test_value['correct'] . PHP_EOL;
-			$this->assertEquals( $test_value['correct'], $return );
+			$condition_name = isset( $test_value['test_condition_name'] ) ? $test_value['test_condition_name'] : $test_value['option'];
+			$this->assertEquals( $test_value['correct'], $return, $condition_name );
+			// どのケースでも <style> 要素を抜け出す </style が出力に残らないこと
+			// In every case, no </style ( which escapes the <style> element ) remains in the output.
+			$this->assertStringNotContainsStringIgnoringCase( '</style', $return, $condition_name );
 		} // foreach ( $tests as $key => $test_value ) {
 			$before_option = update_option( 'vkExUnit_css_customize', $before_option );
 	} // function test_css_customize_get_the_css_min() {
@@ -71,6 +238,10 @@ class CssCustomizeTest extends WP_UnitTestCase {
 	public function test_veu_get_the_custom_css_single() {
 
 		// 要件と期待する結果
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
 		$test_array = array(
 			array(
 				'post_title' => 'タイトル',
@@ -108,6 +279,175 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'post_meta'  => '<script></script>@media (width > 1000px) {p { color: red;}}',
 				'correct'    => '@media (width > 1000px){p{color:red;}}',
 			),
+			// 範囲指定のメディアクエリと子セレクタが同じ CSS にある場合 ( issue #1556 )
+			// Media query range syntax and the child combinator in the same CSS ( issue #1556 ).
+			array(
+				'test_condition_name' => 'issue #1556 の報告どおり <= と子セレクタ > が同じ CSS にある場合 => 欠けずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (width <= 992px) {
+  .global-nav-list { flex-wrap: wrap; }
+  .global-nav-list > li { width: auto; }
+}',
+				'correct'             => '@media (width <= 992px){.global-nav-list{flex-wrap:wrap;}.global-nav-list > li{width:auto;}}',
+			),
+			array(
+				'test_condition_name' => '範囲指定 (400px < width < 800px) と子セレクタ > の場合 => 欠けずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px < width < 800px) { .a > li { color: red; } }',
+				'correct'             => '@media (400px < width < 800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '範囲指定 >= と空白なしの子セレクタ a>b の場合 => 欠けずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (width >= 992px) { a>b { color: red; } }',
+				'correct'             => '@media (width >= 992px){a>b{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '空白なしの範囲指定 (400px<width<800px) と子セレクタ > の場合 => 欠けずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px<width<800px) { .a > li { color: red; } }',
+				'correct'             => '@media (400px<width<800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'correct'             => '@media (400px<width ) and (width>800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px <width) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px <width) and (width>800px) { a { color: red; } }',
+				'correct'             => '@media (400px <width) and (width>800px){a{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width) と子セレクタ > の場合 => 欠けずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px<width) { .a > li { color: red; } }',
+				'correct'             => '@media (400px<width){.a > li{color:red;}}',
+			),
+			// HTML コメントは中身ごと除去する
+			// HTML comments are removed together with their content.
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールは出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<!-- ヘッダーの調整 -->
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の後の行にルールがある場合 => その行の末尾まで除去してルールは出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<!-- ヘッダーの調整
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
+			// 後方互換: <style> で囲んで貼り付けた場合はタグだけを除去し、中の CSS は残す
+			// Backward compatibility: a pasted <style> wrapper is removed, keeping the CSS inside.
+			array(
+				'test_condition_name' => '<style> で囲んで貼り付けた場合 => タグだけ除去して CSS は出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<style type="text/css">div > h1 { color:red; }</style>',
+				'correct'             => 'div > h1{color:red;}',
+			),
+			// XSS: <style> 要素を抜け出す文字列が出力に残らないこと
+			// XSS: nothing that escapes the <style> element may remain in the output.
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグと script を除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}</style><script>alert(1)</script>',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => どちらも除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}</STYLE ><img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			// HTML の要素名のタグは除去する。残すとブロックエディタで CSS 全体が捨てられ、前後のルールも効かなくなる
+			// Tags with an HTML element name are removed. Left in place, the block editor drops the
+			// whole CSS and the rules around the tag stop working.
+			array(
+				'test_condition_name' => 'ルールの後ろに img タグがある場合 => img タグを除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'ルールの間に br タグがある場合 => br を除去し、後ろのルールも出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'p タグで囲まれている場合 => p タグを除去して CSS を出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<p>.a{color:red;}</p>',
+				'correct'             => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> と属性付きの <P class> の場合 => 大文字小文字を区別せず除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<P class="memo">.a{color:red;}<BR>.b{color:blue;}</P>',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '廃止済みの要素 <center> <font color=red> </font> の場合 => 除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'correct'             => 'div{color:red;}.a{color:blue;}',
+			),
+			// CSS の文字列とコメントの中のタグは残す（SVG のデータ URI・content を壊さない）
+			// Tags inside CSS strings and comments are kept ( SVG data URIs and content keep working ).
+			array(
+				'test_condition_name' => '「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残し、</ だけ無効化',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'correct'             => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}',
+			),
+			array(
+				'test_condition_name' => '「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'correct'             => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'correct'             => '.a::before{content:"<br>";}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に \' がある場合 => 文字列の開始とみなさず、後ろの <br> を除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}</style
+.a{color:blue;}',
+				'correct'             => 'div{color:red;}<\\/style.a{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'コメントで分断した </*x*//style の場合 => コメント除去後にできる </ も無効化',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}</*x*//style><script>alert(1)</script>',
+				'correct'             => 'div{color:red;}<\\/style>',
+			),
+			array(
+				'test_condition_name' => 'HTML エンティティで書いた &lt;/style&gt;&lt;script&gt; の場合 => デコード後に除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}&lt;/style&gt;&lt;script&gt;alert(1)&lt;/script&gt;',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'correct'             => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}',
+			),
 		);
 
 		print PHP_EOL;
@@ -138,7 +478,11 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			$return = veu_get_the_custom_css_single( $post );
 
 			// 返ってきた値と期待する結果が同じかどうかテスト
-			$this->assertEquals( $value['correct'], $return );
+			$condition_name = isset( $value['test_condition_name'] ) ? $value['test_condition_name'] : $value['post_meta'];
+			$this->assertEquals( $value['correct'], $return, $condition_name );
+			// どのケースでも <style> 要素を抜け出す </style が出力に残らないこと
+			// In every case, no </style ( which escapes the <style> element ) remains in the output.
+			$this->assertStringNotContainsStringIgnoringCase( '</style', $return, $condition_name );
 
 			// print 'return  :' . $return . PHP_EOL;
 			// print 'correct :' . $value['correct'] . PHP_EOL;
@@ -159,6 +503,10 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		// custom_css      : 投稿に設定するカスタムCSS（null = カスタムCSS未設定）
 		// input           : block_editor_settings_all に渡す既存の editor settings
 		// expected_styles : 期待する $settings['styles']（null = 'styles' が付与されず設定は未変更）
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
 		$test_cases = array(
 			array(
 				'test_condition_name' => 'ケース1: post コンテキストありのとき、圧縮済み CSS がエディタスタイルに追加される',
@@ -185,6 +533,136 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'custom_css'          => null,
 				'input'               => array(),
 				'expected_styles'     => null,
+			),
+			array(
+				'test_condition_name' => 'ケース5: 範囲指定 <= と子セレクタ > を含む CSS が欠けずにエディタスタイルに追加される ( issue #1556 )',
+				'with_post'           => true,
+				'custom_css'          => '@media (width <= 992px) { .global-nav-list > li { width: auto; } }',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '@media (width <= 992px){.global-nav-list > li{width:auto;}}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース6: </style><script> を含む CSS では style の終了タグと script が除去される',
+				'with_post'           => true,
+				'custom_css'          => 'div{color:red;}</style><script>alert(1)</script>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => 'div{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース7: (400px<width ) and (width>800px) を含む CSS が欠けずにエディタスタイルに追加される',
+				'with_post'           => true,
+				'custom_css'          => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '@media (400px<width ) and (width>800px){.a > li{color:red;}}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース8: HTML コメントの後の行のルールがエディタスタイルに追加される',
+				'with_post'           => true,
+				'custom_css'          => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.site-header{background:red;}' ),
+				),
+			),
+			// HTML の要素名のタグが styles に残ると、エディタ側の CSS 変換（PostCSS）が構文エラーで
+			// CSS 全体を捨てるため、styles に渡す CSS にタグが残らないこと
+			// A tag left in styles makes the editor's CSS transform ( PostCSS ) fail and drop
+			// the whole CSS, so no tag may remain in the CSS passed to styles.
+			array(
+				'test_condition_name' => 'ケース9: ルールの後ろに img タグがある場合 => img タグを除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => 'div{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース10: ルールの間に br タグがある場合 => br を除去し、後ろのルールもエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{color:red;}<br>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース11: p タグで囲まれている場合 => p タグを除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '<p>.a{color:red;}</p>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース12: 大文字の <BR> の場合 => 除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{color:red;}<BR>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース13: 廃止済みの要素 <center> <font color=red> </font> の場合 => 除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => 'div{color:red;}.a{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース14: 「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース15: 「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去',
+				'with_post'           => true,
+				'custom_css'          => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース16: content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去',
+				'with_post'           => true,
+				'custom_css'          => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a::before{content:"<br>";}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース17: CSS コメントの中に \' がある場合 => 後ろの <br> を除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース18: 「"」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}' ),
+				),
 			),
 			array(
 				'test_condition_name' => 'ケース4: カスタムCSS未設定の投稿では設定は未変更',
@@ -236,4 +714,805 @@ class CssCustomizeTest extends WP_UnitTestCase {
 			}
 		} // foreach ( $test_cases as $case ) {
 	} // function test_veu_css_customize_single_editor_styles() {
+
+	/**
+	 * CSS から HTML タグを除去する処理のテスト。
+	 * Tests for removing HTML tags from CSS.
+	 */
+	public function test_veu_strip_html_from_css() {
+
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => そのまま残る ( issue #1556 )',
+				'input'               => '@media (width <= 992px) { .a > li { width: auto; } }',
+				'expected'            => '@media (width <= 992px) { .a > li { width: auto; } }',
+			),
+			array(
+				'test_condition_name' => '空白なしの範囲指定 (400px<width<800px) と a>b の場合 => そのまま残る',
+				'input'               => '@media (400px<width<800px) { a>b { color: red; } }',
+				'expected'            => '@media (400px<width<800px) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '空白なしの範囲指定 (400px<width) と (width>800px) が並ぶ場合 => そのまま残る',
+				'input'               => '@media (400px<width) and (width>800px) { a { color: red; } }',
+				'expected'            => '@media (400px<width) and (width>800px) { a { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '<style type="text/css"> で囲んだ場合 => タグだけ除去して中の CSS は残る',
+				'input'               => '<style type="text/css">a { color: red; }</style>',
+				'expected'            => 'a { color: red; }',
+			),
+			array(
+				'test_condition_name' => '<script> 要素を含む場合 => 中身ごと除去',
+				'input'               => 'a { color: red; }<SCRIPT type="text/javascript">alert(1)</script >',
+				'expected'            => 'a { color: red; }',
+			),
+			array(
+				'test_condition_name' => '属性付きの img タグと br タグを含む場合 => HTML の要素名のタグとして除去',
+				'input'               => 'a { color: red; }<img src=x onerror=alert(1)><br/>',
+				'expected'            => 'a { color: red; }',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> と <P> の場合 => 大文字小文字を区別せず除去',
+				'input'               => '<P>.a { color: red; }<BR>.b { color: blue; }</P >',
+				'expected'            => '.a { color: red; }.b { color: blue; }',
+			),
+			array(
+				'test_condition_name' => '<width ...> のように HTML の要素名ではない名前の場合 => タグとみなさず残る',
+				'input'               => 'a{}<width foo><height/><color><bold><my-element>',
+				'expected'            => 'a{}<width foo><height/><color><bold><my-element>',
+			),
+			array(
+				'test_condition_name' => '要素名の前方一致 ( <scripting> <bx> <pointer> ) の場合 => 要素名の直後が空白・/・> ではないため残る',
+				'input'               => 'a{}<scripting><bx><pointer>',
+				'expected'            => 'a{}<scripting><bx><pointer>',
+			),
+			array(
+				'test_condition_name' => '要素名の後ろで > より前に { や } がある場合 => タグとみなさず残る',
+				'input'               => '@media (400px<p ) { a > b { color: red; } }',
+				'expected'            => '@media (400px<p ) { a > b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => 'メディア特性名 ( height / aspect-ratio / resolution / color ) の範囲指定の場合 => タグとみなさずそのまま残る',
+				'input'               => '@media (300px<height) and (aspect-ratio>1/1) and (1dppx<resolution) and (8<color) { a>b { color: red; } }',
+				'expected'            => '@media (300px<height) and (aspect-ratio>1/1) and (1dppx<resolution) and (8<color) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '廃止済みの要素 ( center / font / marquee / tt / image ) の場合 => 大文字小文字を区別せず除去',
+				'input'               => '<CENTER><font color=red>a{}</font><marquee>b{}</marquee><TT/><image src=x></center>',
+				'expected'            => 'a{}b{}',
+			),
+			array(
+				'test_condition_name' => '閉じていない「"」の文字列の場合 => その行の末尾までを文字列とみなし、次の行のタグは除去',
+				'input'               => ".a{content:\"<br>\n}<br>.b{color:blue;}",
+				'expected'            => ".a{content:\"<br>\n}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => '文字列の中にエスケープした「\\"」がある場合 => 文字列の終わりとみなさず、中のタグを残す',
+				'input'               => '.a{content:"\\" <br>"}<br>',
+				'expected'            => '.a{content:"\\" <br>"}',
+			),
+			array(
+				'test_condition_name' => '閉じていない CSS コメントの場合 => その前のタグは除去し、コメントの中は残す',
+				'input'               => '.a{}<br>/* <p> it\'s',
+				'expected'            => '.a{}/* <p> it\'s',
+			),
+			array(
+				'test_condition_name' => 'タグの属性値に \' がある場合 => タグごと除去し、後ろのタグも除去',
+				'input'               => '<p title="it\'s">.a{}</p>',
+				'expected'            => '.a{}',
+			),
+			array(
+				'test_condition_name' => '子セレクタ a > b と a>b の場合 => そのまま残る',
+				'input'               => 'a > b { color: red; } a>b { color: blue; }',
+				'expected'            => 'a > b { color: red; } a>b { color: blue; }',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => タグとみなさずそのまま残る',
+				'input'               => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected'            => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+			),
+			array(
+				'test_condition_name' => '(400px <width) and (width>800px) の場合 => タグとみなさずそのまま残る',
+				'input'               => '@media (400px <width) and (width>800px) { a { color: red; } }',
+				'expected'            => '@media (400px <width) and (width>800px) { a { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '複数行の HTML コメントを含む場合 => 中身ごと除去',
+				'input'               => "<!-- メモ\nメモ2 -->\n.a { color: red; }",
+				'expected'            => "\n.a { color: red; }",
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の場合 => その行の末尾まで除去し、次の行は残す',
+				'input'               => "<!-- メモ\n.a { color: red; }",
+				'expected'            => "\n.a { color: red; }",
+			),
+			array(
+				'test_condition_name' => '大文字の </STYLE> と </SCRIPT> の単独タグの場合 => タグを除去',
+				'input'               => '<STYLE>a { color: red; }</STYLE></SCRIPT>',
+				'expected'            => 'a { color: red; }',
+			),
+			array(
+				'test_condition_name' => '> で閉じない </style の場合 => タグとみなさず残る ( 無効化は別処理 )',
+				'input'               => "a { color: red; }</style\n.b { color: blue; }",
+				'expected'            => "a { color: red; }</style\n.b { color: blue; }",
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => 文字列は残し、外のタグを除去',
+				'input'               => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'expected'            => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '「\'」の文字列の中に 200,000 文字ある場合 => 文字列は残し、外のタグを除去',
+				'input'               => ".a{background:url('data:image/svg+xml,<svg>" . $long . "</svg>');}<br></style>.b{color:blue;}",
+				'expected'            => ".a{background:url('data:image/svg+xml,<svg>" . $long . "</svg>');}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に 200,000 文字ある場合 => コメントは残し、外のタグを除去',
+				'input'               => '/*' . $long . '<p>*/.a{}<br>',
+				'expected'            => '/*' . $long . '<p>*/.a{}',
+			),
+			array(
+				'test_condition_name' => '閉じていない CSS コメントの中に 200,000 文字ある場合 => 末尾までコメントとして残す',
+				'input'               => '.a{}<br>/*' . $long . '<p>',
+				'expected'            => '.a{}/*' . $long . '<p>',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントの中に 200,000 文字ある場合 => 中身ごと除去',
+				'input'               => '<!--' . $long . '-->.a{}<br>',
+				'expected'            => '.a{}',
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の後ろに 200,000 文字ある場合 => その行の末尾まで除去し、次の行は残す',
+				'input'               => '<!--' . $long . "\n.a{}<br>",
+				'expected'            => "\n.a{}",
+			),
+			array(
+				'test_condition_name' => '<script> 要素の中に 200,000 文字ある場合 => 中身ごと除去',
+				'input'               => '<script>' . $long . '</script >.a{}<br>',
+				'expected'            => '.a{}',
+			),
+			array(
+				'test_condition_name' => 'タグと子セレクタを含むルールが 20,000 個並ぶ場合 => タグだけ除去',
+				'input'               => str_repeat( '.a>b{color:red;}<br>', 20000 ),
+				'expected'            => str_repeat( '.a>b{color:red;}', 20000 ),
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\" の後ろに <br> がある場合 => 文字列の開始とみなさず <br> を除去',
+				'input'               => '.foo\\"{color:red;}<br>',
+				'expected'            => '.foo\\"{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\\' の後ろに <br> がある場合 => 文字列の開始とみなさず <br> を除去',
+				'input'               => '.foo\\\'{color:red;}<br>',
+				'expected'            => '.foo\\\'{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\< の場合 => タグの開始とみなさず残す',
+				'input'               => '.a\\<br> b{color:red;}',
+				'expected'            => '.a\\<br> b{color:red;}',
+			),
+			array(
+				'test_condition_name' => '文字列の外で \\ の直後が改行の場合 => エスケープとみなさず、次の行のタグを除去',
+				'input'               => ".a\\\n<br>{color:red;}",
+				'expected'            => ".a\\\n{color:red;}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が CRLF の場合 => 続き行として読み、文字列の中の <br> を残す',
+				'input'               => ".a{content:\"x\\\r\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\r\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が LF の場合 => 続き行として読み、文字列の中の <br> を残す',
+				'input'               => ".a{content:\"x\\\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が CR の場合 => 続き行として読み、文字列の中の <br> を残す',
+				'input'               => ".a{content:'x\\\r<br>';}<br>",
+				'expected'            => ".a{content:'x\\\r<br>';}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が FF の場合 => 続き行として読み、文字列の中の <br> を残す',
+				'input'               => ".a{content:\"x\\\f<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\f<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の 16 進のエスケープ \\41 の直後が LF の場合 => LF もエスケープに含め、文字列の中の <br> を残す',
+				'input'               => ".a{content:\"\\41\n<br>\";}<br>",
+				'expected'            => ".a{content:\"\\41\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の 16 進のエスケープ \\41 の直後が CRLF の場合 => CRLF もエスケープに含め、文字列の中の <br> を残す',
+				'input'               => ".a{content:\"\\41\r\n<br>\";}<br>",
+				'expected'            => ".a{content:\"\\41\r\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => 'エスケープしていない CRLF で終わる閉じていない文字列の場合 => 改行で文字列が終わり、次の行のタグを除去',
+				'input'               => ".a{content:\"x<br>\r\n}<br>.b{color:blue;}",
+				'expected'            => ".a{content:\"x<br>\r\n}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => 'エスケープしていない CR で終わる閉じていない文字列の場合 => 改行で文字列が終わり、次の行のタグを除去',
+				'input'               => ".a{content:'x<br>\r}<br>.b{color:blue;}",
+				'expected'            => ".a{content:'x<br>\r}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => 'エスケープしていない FF で終わる閉じていない文字列の場合 => FF で文字列が終わり、後ろのタグを除去',
+				'input'               => ".a{content:\"x<br>\f}<br>.b{color:blue;}",
+				'expected'            => ".a{content:\"x<br>\f}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ で CSS が終わる場合 => そのまま残す',
+				'input'               => '.a{}<br>.b{content:"x\\',
+				'expected'            => '.a{}.b{content:"x\\',
+			),
+			array(
+				'test_condition_name' => '文字列の外の \\ で CSS が終わる場合 => そのまま残す',
+				'input'               => '.a{}<br>\\',
+				'expected'            => '.a{}\\',
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => null,
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_strip_html_from_css( $case['input'] ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS から HTML コメントを除去する処理のテスト。
+	 * Tests for removing HTML comments from CSS.
+	 */
+	public function test_veu_remove_html_comments_from_css() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '閉じている HTML コメントが 2 つある場合 => 両方を中身ごと除去',
+				'input'               => '<!-- a -->.a{}<!-- b\nc -->.b{}',
+				'expected'            => '.a{}.b{}',
+			),
+			array(
+				'test_condition_name' => '<!--> の場合 => 閉じているとみなさず、その行の末尾まで除去',
+				'input'               => "<!-->.a{}\n.b{}",
+				'expected'            => "\n.b{}",
+			),
+			array(
+				'test_condition_name' => '閉じている HTML コメントの後ろに閉じていない <!-- がある場合 => 前者は中身ごと、後者はその行の末尾まで除去',
+				'input'               => "<!-- a -->.a{}<!-- b\r\n.b{}",
+				'expected'            => ".a{}\r\n.b{}",
+			),
+			array(
+				'test_condition_name' => 'HTML コメントの中に 3,000,000 文字ある場合 => 中身ごと除去',
+				'input'               => '<!--' . str_repeat( 'x', 3000000 ) . '-->.a{}',
+				'expected'            => '.a{}',
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => null,
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_remove_html_comments_from_css( $case['input'] ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS から <script> 要素を除去する処理のテスト。
+	 * Tests for removing <script> elements from CSS.
+	 */
+	public function test_veu_remove_script_elements_from_css() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '属性付きの <SCRIPT> と空白入りの終了タグの場合 => 中身ごと除去',
+				'input'               => ".a{}<SCRIPT type=\"text/javascript\">alert('x')</script\n>.b{}",
+				'expected'            => '.a{}.b{}',
+			),
+			array(
+				'test_condition_name' => '<scripting> の場合 => <script> 要素とみなさず残し、後ろの <script> 要素は除去',
+				'input'               => '<scripting>.a{}<script>x</script>',
+				'expected'            => '<scripting>.a{}',
+			),
+			array(
+				'test_condition_name' => '中身に > で閉じない </script がある場合 => 次の終了タグまで除去',
+				'input'               => '<script>a</script b</script>.a{}',
+				'expected'            => '.a{}',
+			),
+			array(
+				'test_condition_name' => '終了タグの無い <script> の場合 => そのまま残す',
+				'input'               => '.a{}<script>alert(1)',
+				'expected'            => '.a{}<script>alert(1)',
+			),
+			array(
+				'test_condition_name' => '<script> 要素の中に 3,000,000 文字ある場合 => 中身ごと除去',
+				'input'               => '<script>' . str_repeat( 'x', 3000000 ) . '</script>.a{}',
+				'expected'            => '.a{}',
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => 1,
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_remove_script_elements_from_css( $case['input'] ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS のエスケープの直後の位置を返す処理のテスト。
+	 * Tests for getting the position right after a CSS escape.
+	 */
+	public function test_veu_get_css_escape_end() {
+
+		// css: CSS 全体 / pos: バックスラッシュの直後の位置 / expected: エスケープの直後の位置
+		$test_cases = array(
+			array(
+				'test_condition_name' => '16 進数ではない 1 文字の場合 => その 1 文字の直後',
+				'css'                 => '\\"x',
+				'pos'                 => 1,
+				'expected'            => 2,
+			),
+			array(
+				'test_condition_name' => '16 進数 2 桁の直後が空白の場合 => 空白も含める',
+				'css'                 => '\\41 x',
+				'pos'                 => 1,
+				'expected'            => 4,
+			),
+			array(
+				'test_condition_name' => '16 進数の直後が CRLF の場合 => CRLF を 1 つとして含める',
+				'css'                 => "\\41\r\nx",
+				'pos'                 => 1,
+				'expected'            => 5,
+			),
+			array(
+				'test_condition_name' => '16 進数が 7 桁続く場合 => 6 桁まで',
+				'css'                 => '\\1234567',
+				'pos'                 => 1,
+				'expected'            => 7,
+			),
+			array(
+				'test_condition_name' => '16 進数で CSS が終わる場合 => CSS の末尾',
+				'css'                 => '\\41',
+				'pos'                 => 1,
+				'expected'            => 3,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_get_css_escape_end( $case['css'], $case['pos'], strlen( $case['css'] ) ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS の文字列の直後の位置を返す処理のテスト。
+	 * Tests for getting the position right after a CSS string.
+	 */
+	public function test_veu_get_css_string_end() {
+
+		// css: CSS 全体 / pos: 開始の引用符の直後の位置 / quote: 開始の引用符 / expected: 文字列の直後の位置
+		$test_cases = array(
+			array(
+				'test_condition_name' => '閉じている文字列の場合 => 閉じる引用符の直後',
+				'css'                 => '"ab"c',
+				'pos'                 => 1,
+				'quote'               => '"',
+				'expected'            => 4,
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中の \' の場合 => 文字列の終わりとみなさない',
+				'css'                 => '"a\'b"c',
+				'pos'                 => 1,
+				'quote'               => '"',
+				'expected'            => 5,
+			),
+			array(
+				'test_condition_name' => 'エスケープした引用符の場合 => 文字列の終わりとみなさない',
+				'css'                 => '"a\\"b"c',
+				'pos'                 => 1,
+				'quote'               => '"',
+				'expected'            => 6,
+			),
+			array(
+				'test_condition_name' => '\\ の直後が CRLF の場合 => 続き行として読む',
+				'css'                 => "'a\\\r\nb'c",
+				'pos'                 => 1,
+				'quote'               => "'",
+				'expected'            => 7,
+			),
+			array(
+				'test_condition_name' => 'エスケープしていない FF の場合 => FF の位置で終わる',
+				'css'                 => "'a\fb'",
+				'pos'                 => 1,
+				'quote'               => "'",
+				'expected'            => 2,
+			),
+			array(
+				'test_condition_name' => '閉じずに \\ で CSS が終わる場合 => CSS の末尾',
+				'css'                 => '"a\\',
+				'pos'                 => 1,
+				'quote'               => '"',
+				'expected'            => 3,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_get_css_string_end( $case['css'], $case['pos'], $case['quote'], strlen( $case['css'] ) ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS の「<」から始まる HTML のタグの直後の位置を返す処理のテスト。
+	 * Tests for getting the position right after an HTML tag in CSS.
+	 */
+	public function test_veu_get_html_tag_end_in_css() {
+
+		// css: CSS 全体 / pos: 「<」の位置 / expected: タグの直後の位置（タグでなければ false）
+		$test_cases = array(
+			array(
+				'test_condition_name' => '<br> の場合 => > の直後',
+				'css'                 => 'a<br>b',
+				'pos'                 => 1,
+				'expected'            => 5,
+			),
+			array(
+				'test_condition_name' => '大文字の終了タグ </P > の場合 => > の直後',
+				'css'                 => '</P >',
+				'pos'                 => 0,
+				'expected'            => 5,
+			),
+			array(
+				'test_condition_name' => '<h1 class="x"> の場合 => 数字を含む要素名として > の直後',
+				'css'                 => '<h1 class="x">',
+				'pos'                 => 0,
+				'expected'            => 14,
+			),
+			array(
+				'test_condition_name' => '<width> の場合 => HTML の要素名ではないため false',
+				'css'                 => '<width>',
+				'pos'                 => 0,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '<bx> の場合 => 要素名の直後が空白・/・> ではないため false',
+				'css'                 => '<bx>',
+				'pos'                 => 0,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '<p の後ろで > より前に { がある場合 => false',
+				'css'                 => '<p ){a>b}',
+				'pos'                 => 0,
+				'expected'            => false,
+			),
+			array(
+				'test_condition_name' => '<br で CSS が終わる場合 => false',
+				'css'                 => '<br',
+				'pos'                 => 0,
+				'expected'            => false,
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_get_html_tag_end_in_css( $case['css'], $case['pos'], strlen( $case['css'] ) ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS の文字列とコメントの外にある HTML のタグを除去する処理のテスト。
+	 * Tests for removing HTML tags outside CSS strings and comments.
+	 */
+	public function test_veu_remove_html_tags_from_css() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '文字列・コメントの中と外のタグがある場合 => 外のタグだけ除去',
+				'input'               => '<p>.a{content:"<br>"}/* <b> */<br>.b{content:\'<i>\'}',
+				'expected'            => '.a{content:"<br>"}/* <b> */.b{content:\'<i>\'}',
+			),
+			array(
+				'test_condition_name' => '日本語を含む場合 => 多バイト文字を壊さず、外のタグだけ除去',
+				'input'               => '.a::before{content:"見出し<br>"}<br>/* メモ */.b{}',
+				'expected'            => '.a::before{content:"見出し<br>"}/* メモ */.b{}',
+			),
+			array(
+				'test_condition_name' => '範囲指定と子セレクタの場合 => そのまま残る',
+				'input'               => '@media (400px<width) and (width>800px){a>b{}}',
+				'expected'            => '@media (400px<width) and (width>800px){a>b{}}',
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => null,
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_remove_html_tags_from_css( $case['input'] ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * 出力用に CSS を圧縮する処理のテスト。
+	 * Tests for minifying CSS for output.
+	 */
+	public function test_veu_minify_css() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '改行・タブ・連続する空白・コメントを含む場合 => 除去して圧縮',
+				'input'               => "/* x */\n.a > b {\n\tcolor : red ;\n}  /* y */ .c{}",
+				'expected'            => '.a > b{color:red;} .c{}',
+			),
+			array(
+				'test_condition_name' => '閉じていない CSS コメントの場合 => そのまま残す',
+				'input'               => '.a{}/* x',
+				'expected'            => '.a{}/* x',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に 3,000,000 文字ある場合 => 正規表現の上限で消えず、コメントだけ除去',
+				'input'               => '/*' . str_repeat( 'x', 3000000 ) . '*/.a { color: red; }',
+				'expected'            => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => false,
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_minify_css( $case['input'] ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * CSS を <style> 要素内へ出力できる形にする処理のテスト。
+	 * Tests for making CSS safe to output inside a <style> element.
+	 */
+	public function test_veu_escape_css_for_style_element() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > の場合 => そのまま',
+				'input'               => '@media (width <= 992px){.a > li{width:auto;}}',
+				'expected'            => '@media (width <= 992px){.a > li{width:auto;}}',
+			),
+			array(
+				'test_condition_name' => '</style> を含む場合 => </ を <\/ に置き換える',
+				'input'               => 'a{}</style><script>',
+				'expected'            => 'a{}<\\/style><script>',
+			),
+			array(
+				'test_condition_name' => '大文字の </STYLE と文字列内の </ を含む場合 => すべての </ を置き換える',
+				'input'               => 'a{content:"</b>"}</STYLE ',
+				'expected'            => 'a{content:"<\\/b>"}<\\/STYLE ',
+			),
+			array(
+				'test_condition_name' => '置き換え済みの <\/ の場合 => 変わらない（2 回通しても同じ）',
+				'input'               => 'a{}<\\/style>',
+				'expected'            => 'a{}<\\/style>',
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => false,
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$this->assertSame( $case['expected'], veu_escape_css_for_style_element( $case['input'] ), $case['test_condition_name'] );
+		}
+	}
+
+	/**
+	 * 投稿ごとのカスタムCSSの入力サニタイズのテスト（保存時・出力時に共通で通る処理）。
+	 * Tests for the per-post Custom CSS input sanitizer ( shared by saving and output ).
+	 */
+	public function test_veu_sanitize_custom_css_input() {
+
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => 改行・空白を含めてそのまま残る ( issue #1556 )',
+				'input'               => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+				'expected'            => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+			),
+			array(
+				'test_condition_name' => '範囲指定 (400px < width < 800px) と a>b の場合 => そのまま残る',
+				'input'               => '@media (400px < width < 800px) { a>b { color: red; } }',
+				'expected'            => '@media (400px < width < 800px) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '<style> で囲んだ場合 => タグだけ除去して CSS は残る',
+				'input'               => '<style>div { color: red; }</style>',
+				'expected'            => 'div { color: red; }',
+			),
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグと script を除去',
+				'input'               => 'div { color: red; }</style><script>alert(1)</script>',
+				'expected'            => 'div { color: red; }',
+			),
+			array(
+				'test_condition_name' => '> で閉じない </Style の場合 => </ を無効化',
+				'input'               => "div { color: red; }</Style\n.a { color: blue; }",
+				'expected'            => "div { color: red; }<\\/Style\n.a { color: blue; }",
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化',
+				'input'               => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'expected'            => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\" の後ろに <br> がある場合 => <br> を除去',
+				'input'               => '.foo\\"{color:red;}<br>',
+				'expected'            => '.foo\\"{color:red;}',
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が CRLF の場合 => 文字列の中の <br> を残す',
+				'input'               => ".a{content:\"x\\\r\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\r\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列以外が渡された場合 => 空文字',
+				'input'               => array( 'div{}' ),
+				'expected'            => '',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			$actual = veu_sanitize_custom_css_input( $case['input'] );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+			// 保存時と出力時の両方で通るため、2 回通しても結果が変わらないこと
+			// It runs both on save and on output, so a second pass must not change the result.
+			$this->assertSame( $actual, veu_sanitize_custom_css_input( $actual ), $case['test_condition_name'] . '（2 回目）' );
+		}
+	}
+
+	/**
+	 * 投稿ごとのカスタムCSSのフロント出力のテスト。
+	 * Tests for the front-end output of the per-post Custom CSS.
+	 */
+	public function test_veu_insert_custom_css() {
+
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => 欠けずに style 要素内へ出力 ( issue #1556 )',
+				'custom_css'          => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+				'expected_contains'   => '@media (width <= 992px){.global-nav-list > li{width:auto;}}</style>',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) を含む場合 => 欠けずに style 要素内へ出力',
+				'custom_css'          => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected_contains'   => '@media (400px<width ) and (width>800px){.a > li{color:red;}}</style>',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールを出力',
+				'custom_css'          => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'expected_contains'   => '*/.site-header{background:red;}</style>',
+			),
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグは出力の末尾の 1 つだけ',
+				'custom_css'          => 'div{color:red;}</style><script>alert(1)</script>',
+				'expected_contains'   => 'div{color:red;}</style>',
+			),
+			array(
+				'test_condition_name' => '大文字の </STYLE と改行入りの > と script を含む場合 => style の終了タグは出力の末尾の 1 つだけ',
+				'custom_css'          => "div{color:red;}</STYLE\n><script>alert(1)</script>",
+				'expected_contains'   => 'div{color:red;}</style>',
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えずに style 要素内へ出力',
+				'custom_css'          => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'expected_contains'   => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}</style>',
+			),
+		);
+
+		foreach ( $test_cases as $case ) {
+			// テスト用の投稿を作り、その個別ページへ移動する
+			// Create a test post and go to its singular page.
+			$post_id = self::factory()->post->create( array( 'post_status' => 'publish' ) );
+			update_post_meta( $post_id, '_veu_custom_css', $case['custom_css'] );
+			$this->go_to( get_permalink( $post_id ) );
+
+			// 出力を取得する
+			// Capture the output.
+			ob_start();
+			veu_insert_custom_css();
+			$actual = ob_get_clean();
+
+			// CSS が欠けずに出力され、style の終了タグは出力の末尾の 1 つだけであること
+			// The CSS is output intact, and the only style end tag is the one at the end.
+			$this->assertStringContainsString( $case['expected_contains'], $actual, $case['test_condition_name'] );
+			$this->assertSame( 1, substr_count( strtolower( $actual ), '</style' ), $case['test_condition_name'] );
+			$this->assertStringNotContainsStringIgnoringCase( '<script', $actual, $case['test_condition_name'] );
+
+			// テスト用データを削除する
+			// Delete the test data.
+			wp_delete_post( $post_id, true );
+		}
+	}
+
+	/**
+	 * 全体の CSS カスタマイズのフロント出力のテスト。
+	 * Tests for the front-end output of the site-wide CSS Customize.
+	 */
+	public function test_css_customize_push_css() {
+
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => 欠けずに style 要素内へ出力 ( issue #1556 )',
+				'option'              => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+				'expected_contains'   => '@media (width <= 992px){.global-nav-list > li{width:auto;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) を含む場合 => 欠けずに style 要素内へ出力',
+				'option'              => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected_contains'   => '@media (400px<width ) and (width>800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールを出力',
+				'option'              => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'expected_contains'   => '*/.site-header{background:red;}/*',
+			),
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグは出力の末尾の 1 つだけ',
+				'option'              => 'div{color:red;}</style><script>alert(1)</script>',
+				'expected_contains'   => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => '<style> で囲んで貼り付けた場合 => style の終了タグは出力の末尾の 1 つだけ',
+				'option'              => '<style>div{color:red;}</style>',
+				'expected_contains'   => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えずに style 要素内へ出力',
+				'option'              => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'expected_contains'   => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}',
+			),
+		);
+
+		$before_option = get_option( 'vkExUnit_css_customize' );
+
+		foreach ( $test_cases as $case ) {
+			update_option( 'vkExUnit_css_customize', $case['option'] );
+
+			// 出力を取得する
+			// Capture the output.
+			ob_start();
+			veu_css_customize::css_customize_push_css();
+			$actual = ob_get_clean();
+
+			// CSS が欠けずに出力され、style の終了タグは出力の末尾の 1 つだけであること
+			// The CSS is output intact, and the only style end tag is the one at the end.
+			$this->assertStringContainsString( $case['expected_contains'], $actual, $case['test_condition_name'] );
+			$this->assertSame( 1, substr_count( strtolower( $actual ), '</style' ), $case['test_condition_name'] );
+			$this->assertStringNotContainsStringIgnoringCase( '<script', $actual, $case['test_condition_name'] );
+		}
+
+		update_option( 'vkExUnit_css_customize', $before_option );
+	}
 }

@@ -208,6 +208,175 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * test_save_custom_field
+	 *
+	 * 寄稿者が保存した CSS について、範囲指定の < > や子セレクタ > が欠けずに保存され、
+	 * <style> 要素を抜け出す </style や script は保存されないことを検証する ( issue #1556 )。
+	 * Verify that CSS saved by a contributor keeps range-syntax < > and child combinator >
+	 * intact, while </style ( which escapes the <style> element ) and script are not saved
+	 * ( issue #1556 ).
+	 */
+	public function test_save_custom_field() {
+
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => そのまま保存される',
+				'input'               => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+				'expected'            => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+			),
+			array(
+				'test_condition_name' => '範囲指定 (400px < width < 800px) と >= と a>b を含む場合 => そのまま保存される',
+				'input'               => '@media (400px < width < 800px) and (height >= 300px) { a>b { color: red; } }',
+				'expected'            => '@media (400px < width < 800px) and (height >= 300px) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) を含む場合 => そのまま保存される',
+				'input'               => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected'            => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+			),
+			array(
+				'test_condition_name' => '(400px <width) と (400px<width) と (width>800px) を含む場合 => そのまま保存される',
+				'input'               => '@media (400px <width) and (width>800px) { a { color: red; } } @media (400px<width) { b { color: red; } }',
+				'expected'            => '@media (400px <width) and (width>800px) { a { color: red; } } @media (400px<width) { b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントを含む場合 => コメントを中身ごと除去して保存される',
+				'input'               => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'expected'            => '.site-header { background: red; }',
+			),
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグと script は保存されない',
+				'input'               => 'div { color: red; }</style><script>alert(1)</script>',
+				'expected'            => 'div { color: red; }',
+			),
+			array(
+				'test_condition_name' => 'ルールの後ろに img タグがある場合 => img タグを除去して保存される',
+				'input'               => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'expected'            => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'ルールの間に br タグがある場合 => br を除去して保存される',
+				'input'               => '.a{color:red;}<br>.b{color:blue;}',
+				'expected'            => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'p タグで囲まれている場合 => p タグを除去して保存される',
+				'input'               => '<p>.a{color:red;}</p>',
+				'expected'            => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> の場合 => 大文字小文字を区別せず除去して保存される',
+				'input'               => '.a{color:red;}<BR>.b{color:blue;}',
+				'expected'            => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '廃止済みの要素 <center> <font color=red> </font> の場合 => 除去して保存される',
+				'input'               => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'expected'            => 'div{color:red;}.a{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残し、</ だけ無効化して保存される',
+				'input'               => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'expected'            => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}',
+			),
+			array(
+				'test_condition_name' => '「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去して保存される',
+				'input'               => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'expected'            => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去して保存される',
+				'input'               => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'expected'            => '.a::before{content:"<br>";}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に \' がある場合 => 後ろの <br> を除去して保存される',
+				'input'               => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'expected'            => '/* it\'s <p> */ .a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'a > b と a>b を含む場合 => そのまま保存される',
+				'input'               => 'a > b { color: red; } a>b { color: blue; }',
+				'expected'            => 'a > b { color: red; } a>b { color: blue; }',
+			),
+			array(
+				'test_condition_name' => '> で閉じない </STYLE を含む場合 => </ を無効化して保存される',
+				'input'               => "div { color: red; }</STYLE\n.a { color: blue; }",
+				'expected'            => "div { color: red; }<\\/STYLE\n.a { color: blue; }",
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化して保存される',
+				'input'               => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'expected'            => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\" の後ろに <br> がある場合 => <br> を除去して保存される',
+				'input'               => '.foo\\"{color:red;}<br>',
+				'expected'            => '.foo\\"{color:red;}',
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が CRLF の場合 => 文字列の中の <br> を残して保存される',
+				'input'               => ".a{content:\"x\\\r\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\r\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が LF の場合 => 文字列の中の <br> を残して保存される',
+				'input'               => ".a{content:\"x\\\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が FF の場合 => 文字列の中の <br> を残して保存される',
+				'input'               => ".a{content:\"x\\\f<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\f<br>\";}",
+			),
+			array(
+				'test_condition_name' => 'エスケープしていない改行で終わる閉じていない文字列の場合 => 改行で文字列が終わり、次の行のタグを除去して保存される',
+				'input'               => ".a{content:\"x<br>\n}<br>.b{color:blue;}",
+				'expected'            => ".a{content:\"x<br>\n}.b{color:blue;}",
+			),
+		);
+
+		// edit_post 権限を持つ最も低いロール（寄稿者）で、自分の下書き投稿に保存する
+		// Save to the user's own draft as a contributor, the lowest role with edit_post.
+		$contributor_id = self::factory()->user->create( array( 'role' => 'contributor' ) );
+		wp_set_current_user( $contributor_id );
+
+		foreach ( $test_cases as $case ) {
+			// 投稿作成時の save_post で前周の値が保存されないよう、先に $_POST を空にする
+			// Clear $_POST first so save_post on post creation does not save the previous value.
+			$_POST = array();
+
+			$post_id = wp_insert_post(
+				array(
+					'post_title'  => 'Contributor Post',
+					'post_status' => 'draft',
+					'post_type'   => 'post',
+					'post_author' => $contributor_id,
+				)
+			);
+
+			// 実際の HTTP リクエストと同じく、スラッシュを付加した値で保存する
+			// Save a slashed value, as a real HTTP request does.
+			$metabox = new VEU_Metabox_CSS_Customize();
+			$this->set_post_data( $metabox, wp_slash( $case['input'] ) );
+			$metabox->save_custom_field( $post_id );
+
+			$actual = get_post_meta( $post_id, '_veu_custom_css', true );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+			$this->assertStringNotContainsStringIgnoringCase( '</style', $actual, $case['test_condition_name'] );
+
+			// テスト用データを削除する
+			// Delete the test data.
+			wp_delete_post( $post_id, true );
+			$_POST = array();
+		}
+	}
+
+	/**
 	 * test_save_custom_field_with_invalid_nonce
 	 *
 	 * nonce が不正な場合はカスタム CSS が保存されないことを検証する。
