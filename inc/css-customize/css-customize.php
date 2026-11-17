@@ -149,16 +149,9 @@ class veu_css_customize {
 			// Remove pasted HTML ( comments, <script> elements, tags with an HTML element name ) while keeping CSS "<" and ">" ( media query range syntax / child combinator ).
 			// CSS の「<」「>」（範囲指定のメディアクエリ・子セレクタ）を残したまま、貼り付けられた HTML（コメント・<script> 要素・HTML の要素名のタグ）を除去する。
 			$css_customize = veu_strip_html_from_css( $css_customize );
-			// Delete br
-			$css_customize = str_replace( PHP_EOL, '', $css_customize );
-			// Delete tab
-			$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
-			// Multi space convert to single space
-			$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
-			// Ensure proper spacing and remove extra spaces
-			$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
-			// Delete comment
-			$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
+			// Remove line breaks, extra whitespace and comments.
+			// 改行・余分な空白・コメントを除去する。
+			$css_customize = veu_minify_css( $css_customize );
 			// Neutralize "</" so the CSS cannot close the <style> element. Keep this after
 			// comment removal, which can join "<" and "/" into a new "</".
 			// <style> 要素を閉じられないよう「</」を無効化する。コメント除去で「<」と「/」が

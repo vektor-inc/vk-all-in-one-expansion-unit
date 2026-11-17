@@ -183,29 +183,381 @@ if ( ! function_exists( 'veu_get_html_element_names_for_css' ) ) {
 	}
 }
 
+if ( ! function_exists( 'veu_remove_html_comments_from_css' ) ) {
+	/**
+	 * Remove HTML comments ( <!-- ... --> ) from CSS together with their content.
+	 * CSS から HTML コメント（<!-- ... -->）を中身ごと除去する。
+	 *
+	 * Left in place, the text in a comment joins the next selector and that rule stops
+	 * working. An unclosed "<!--" is removed to the end of its line, so the CSS on the
+	 * following lines still works.
+	 * Uses strpos() instead of a regular expression, so a long comment never makes the
+	 * function fail ( PCRE JIT stack / backtrack limit ) and lose the CSS.
+	 * 残すとコメント内の文字が次のセレクタとつながり、そのルールが効かなくなるため。
+	 * 閉じていない「<!--」はその行の末尾まで除去し、次の行以降の CSS は効かせる。
+	 * 正規表現ではなく strpos() で探すため、長いコメントでも失敗（PCRE の JIT スタック・バックトラックの上限）して CSS が消えることはない。
+	 *
+	 * @param string $css CSS. / CSS.
+	 * @return string CSS without HTML comments. / HTML コメントを除去した CSS.
+	 */
+	function veu_remove_html_comments_from_css( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
+
+		// Remove closed comments first. Once no "-->" is left, no later "<!--" is closed either.
+		// 先に閉じているコメントを除去する。「-->」が見つからなくなれば、後ろの「<!--」も閉じていない。
+		$result = '';
+		$pos    = 0;
+		while ( true ) {
+			$start = strpos( $css, '<!--', $pos );
+			if ( false === $start ) {
+				break;
+			}
+			$end = strpos( $css, '-->', $start + 4 );
+			if ( false === $end ) {
+				break;
+			}
+			$result .= substr( $css, $pos, $start - $pos );
+			$pos     = $end + 3;
+		}
+		$css = $result . substr( $css, $pos );
+
+		// Remove each unclosed "<!--" to the end of its line.
+		// 閉じていない「<!--」をその行の末尾まで除去する。
+		$result = '';
+		$pos    = 0;
+		while ( true ) {
+			$start = strpos( $css, '<!--', $pos );
+			if ( false === $start ) {
+				break;
+			}
+			$result .= substr( $css, $pos, $start - $pos );
+			$pos     = $start + strcspn( $css, "\r\n", $start );
+		}
+		return $result . substr( $css, $pos );
+	}
+}
+
+if ( ! function_exists( 'veu_remove_script_elements_from_css' ) ) {
+	/**
+	 * Remove <script> elements from CSS together with their content.
+	 * CSS から <script> 要素を中身ごと除去する。
+	 *
+	 * A <script> element is "<script" ( case-insensitive ) not followed by a letter, digit
+	 * or "_", up to the first ">", then the content up to the first "</script" followed by
+	 * optional whitespace and ">". A <script> without its end tag is not removed here ( its
+	 * start tag is removed by veu_remove_html_tags_from_css() ).
+	 * Uses stripos() instead of a regular expression, so a long script never makes the
+	 * function fail and lose the CSS.
+	 * <script> 要素とは、「<script」（大文字小文字は区別しない）の直後が英数字・「_」でなく、最初の「>」まで続く開始タグと、
+	 * その後ろで最初に現れる「</script」＋空白（省略可）＋「>」までの中身。終了タグの無い <script> はここでは除去しない
+	 * （開始タグは veu_remove_html_tags_from_css() で除去する）。
+	 * 正規表現ではなく stripos() で探すため、長いスクリプトでも失敗して CSS が消えることはない。
+	 *
+	 * @param string $css CSS. / CSS.
+	 * @return string CSS without <script> elements. / <script> 要素を除去した CSS.
+	 */
+	function veu_remove_script_elements_from_css( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
+
+		$word_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_';
+		$whitespace = " \t\n\x0B\f\r";
+		$length     = strlen( $css );
+		$result     = '';
+		$pos        = 0;
+
+		while ( true ) {
+			$start = stripos( $css, '<script', $pos );
+			if ( false === $start ) {
+				break;
+			}
+			// "<scripting>" and the like are not a <script> start tag.
+			// 「<scripting>」などは <script> の開始タグではない。
+			$name_end = $start + 7;
+			if ( 0 < strspn( $css, $word_chars, $name_end, 1 ) ) {
+				$result .= substr( $css, $pos, $name_end - $pos );
+				$pos     = $name_end;
+				continue;
+			}
+
+			// Find the end of the start tag. Without it, no later <script> has one either.
+			// 開始タグの終わりを探す。無ければ後ろの <script> にも無い。
+			$open_end = strpos( $css, '>', $name_end );
+			if ( false === $open_end ) {
+				break;
+			}
+
+			// Find the first end tag ( "</script" + optional whitespace + ">" ) after the start tag.
+			// 開始タグの後ろで最初の終了タグ（「</script」＋空白（省略可）＋「>」）を探す。
+			$element_end = false;
+			$search_from = $open_end + 1;
+			while ( true ) {
+				$close = stripos( $css, '</script', $search_from );
+				if ( false === $close ) {
+					break;
+				}
+				$close_end = $close + 8;
+				$close_end = $close_end + strspn( $css, $whitespace, $close_end );
+				if ( $close_end < $length && '>' === $css[ $close_end ] ) {
+					$element_end = $close_end + 1;
+					break;
+				}
+				$search_from = $close + 1;
+			}
+			// Without an end tag, no later <script> has one either.
+			// 終了タグが無ければ、後ろの <script> にも無い。
+			if ( false === $element_end ) {
+				break;
+			}
+
+			$result .= substr( $css, $pos, $start - $pos );
+			$pos     = $element_end;
+		}
+
+		return $result . substr( $css, $pos );
+	}
+}
+
+if ( ! function_exists( 'veu_get_css_escape_end' ) ) {
+	/**
+	 * Get the position right after a CSS escape ( CSS Syntax Level 3, 4.3.7 ).
+	 * CSS のエスケープの直後の位置を返す（CSS Syntax Level 3 の 4.3.7）。
+	 *
+	 * Up to 6 hex digits plus one following whitespace ( CRLF counts as one ), or any other
+	 * single character. The caller handles a backslash followed by a newline or the end of
+	 * the CSS. A non-ASCII character is read as its first byte only: the remaining bytes
+	 * are not ASCII, so they are never taken for a delimiter.
+	 * 最大 6 桁の 16 進数と、その直後の空白 1 つ（CRLF は 1 つとみなす）。それ以外は 1 文字。
+	 * バックスラッシュの直後が改行や CSS の末尾のときの扱いは呼び出し側で行う。
+	 * ASCII 以外の文字は先頭の 1 バイトだけ読む。残りのバイトは ASCII ではないため、区切りの記号とみなされることはない。
+	 *
+	 * @param string $css    CSS. / CSS.
+	 * @param int    $pos    Position right after the backslash. / バックスラッシュの直後の位置.
+	 * @param int    $length Length of $css in bytes. / $css のバイト数.
+	 * @return int Position right after the escape. / エスケープの直後の位置.
+	 */
+	function veu_get_css_escape_end( $css, $pos, $length ) {
+		$hex_length = strspn( $css, '0123456789abcdefABCDEF', $pos, 6 );
+		if ( 0 === $hex_length ) {
+			return $pos + 1;
+		}
+		$pos += $hex_length;
+		if ( "\r\n" === substr( $css, $pos, 2 ) ) {
+			return $pos + 2;
+		}
+		if ( $pos < $length && false !== strpos( " \t\n\r\f", $css[ $pos ] ) ) {
+			return $pos + 1;
+		}
+		return $pos;
+	}
+}
+
+if ( ! function_exists( 'veu_get_css_string_end' ) ) {
+	/**
+	 * Get the position right after a CSS string ( CSS Syntax Level 3, 4.3.5 ).
+	 * CSS の文字列の直後の位置を返す（CSS Syntax Level 3 の 4.3.5）。
+	 *
+	 * The string ends at the matching quote ( included ), at an unescaped newline ( LF, CR
+	 * or FF; not included, it is read again outside the string ), or at the end of the CSS.
+	 * A backslash followed by a newline ( CRLF counts as one ) continues the string.
+	 * 文字列は、対応する引用符（含める）、エスケープされていない改行（LF・CR・FF。含めず、文字列の外として読み直す）、
+	 * CSS の末尾のいずれかで終わる。バックスラッシュの直後の改行（CRLF は 1 組）は続き行として読む。
+	 *
+	 * @param string $css    CSS. / CSS.
+	 * @param int    $pos    Position right after the opening quote. / 開始の引用符の直後の位置.
+	 * @param string $quote  The opening quote ( " or ' ). / 開始の引用符（" か '）.
+	 * @param int    $length Length of $css in bytes. / $css のバイト数.
+	 * @return int Position right after the string. / 文字列の直後の位置.
+	 */
+	function veu_get_css_string_end( $css, $pos, $quote, $length ) {
+		while ( $pos < $length ) {
+			// Skip to the next quote, backslash or newline.
+			// 次の引用符・バックスラッシュ・改行まで進む。
+			$pos += strcspn( $css, $quote . "\\\n\r\f", $pos );
+			if ( $pos >= $length ) {
+				return $length;
+			}
+			$char = $css[ $pos ];
+			if ( $quote === $char ) {
+				return $pos + 1;
+			}
+			if ( '\\' !== $char ) {
+				// An unescaped newline ends the string.
+				// エスケープされていない改行で文字列が終わる。
+				return $pos;
+			}
+
+			// Backslash: a following newline continues the string; otherwise read an escape.
+			// バックスラッシュ: 直後が改行なら続き行、それ以外はエスケープとして読む。
+			$next = $pos + 1;
+			if ( $next >= $length ) {
+				return $length;
+			}
+			if ( "\r\n" === substr( $css, $next, 2 ) ) {
+				$pos = $next + 2;
+			} elseif ( false !== strpos( "\n\r\f", $css[ $next ] ) ) {
+				$pos = $next + 1;
+			} else {
+				$pos = veu_get_css_escape_end( $css, $next, $length );
+			}
+		}
+		return $length;
+	}
+}
+
+if ( ! function_exists( 'veu_get_html_tag_end_in_css' ) ) {
+	/**
+	 * Get the position right after an HTML tag that starts at a "<" in CSS.
+	 * CSS の「<」から始まる HTML のタグの直後の位置を返す。
+	 *
+	 * A tag is "<" or "</", an element name from veu_get_html_element_names_for_css()
+	 * ( case-insensitive ), then whitespace, "/" or ">", closed by a ">" that comes before
+	 * any "<", "{" or "}". Element names are letters and digits only, so the name is the
+	 * longest run of letters and digits.
+	 * タグとは、「<」か「</」の直後に veu_get_html_element_names_for_css() の要素名（大文字小文字は区別しない）、
+	 * その直後が空白・「/」・「>」で、「<」「{」「}」より前の「>」で閉じているもの。
+	 * 要素名は英数字だけなので、英数字が続く範囲を要素名として読む。
+	 *
+	 * @param string $css    CSS. / CSS.
+	 * @param int    $pos    Position of the "<". / 「<」の位置.
+	 * @param int    $length Length of $css in bytes. / $css のバイト数.
+	 * @return int|false Position right after the tag, or false when it is not a tag. / タグの直後の位置。タグでなければ false.
+	 */
+	function veu_get_html_tag_end_in_css( $css, $pos, $length ) {
+		static $element_names = null;
+		if ( null === $element_names ) {
+			$element_names = array_flip( veu_get_html_element_names_for_css() );
+		}
+
+		// Read the element name.
+		// 要素名を読む。
+		$name_start = $pos + 1;
+		if ( $name_start < $length && '/' === $css[ $name_start ] ) {
+			++$name_start;
+		}
+		$name_length = strspn( $css, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', $name_start );
+		if ( 0 === $name_length ) {
+			return false;
+		}
+		$name_end = $name_start + $name_length;
+		if ( $name_end >= $length || false === strpos( " \t\n\x0B\f\r/>", $css[ $name_end ] ) ) {
+			return false;
+		}
+		if ( ! isset( $element_names[ strtolower( substr( $css, $name_start, $name_length ) ) ] ) ) {
+			return false;
+		}
+
+		// The tag must close with ">" before any "<", "{" or "}".
+		// 「<」「{」「}」より前の「>」で閉じていること。
+		$close = $name_end + strcspn( $css, '<>{}', $name_end );
+		if ( $close >= $length || '>' !== $css[ $close ] ) {
+			return false;
+		}
+		return $close + 1;
+	}
+}
+
+if ( ! function_exists( 'veu_remove_html_tags_from_css' ) ) {
+	/**
+	 * Remove tags with an HTML element name from CSS, outside CSS strings and comments.
+	 * CSS の文字列とコメントの外にある、HTML の要素名のタグを除去する。
+	 *
+	 * Reads the CSS once from the start, following the CSS Syntax Level 3 tokenizer
+	 * ( https://www.w3.org/TR/css-syntax-3/#tokenization ) only as far as needed to tell
+	 * strings ( "..." / '...' ), comments ( /* ... *\/ ) and escapes ( \ ) apart, and checks
+	 * for a tag only at a "<" outside them. Tags inside strings and comments are kept, so
+	 * SVG data URIs and content: "<br>" keep working, and an escaped quote ( .foo\" ) does
+	 * not start a string. No regular expression is used, so the time grows linearly with
+	 * the length of the CSS and a long string never makes the function fail and lose the CSS.
+	 * The CSS is read byte by byte: every delimiter is ASCII, and the bytes of a multibyte
+	 * UTF-8 character are never ASCII, so multibyte characters are kept intact.
+	 * CSS を先頭から 1 回だけ読み、CSS Syntax Level 3 の tokenizer に沿って文字列（"..." / '...'）・
+	 * コメント（/* ... *\/）・エスケープ（\）を見分け、その外の「<」でだけタグかどうかを判定する。
+	 * 文字列とコメントの中のタグは残すため、SVG のデータ URI や content: "<br>" は壊れず、
+	 * エスケープした引用符（.foo\"）を文字列の開始とみなすこともない。
+	 * 正規表現を使わないため、処理時間は CSS の長さに比例し、長い文字列で失敗して CSS が消えることはない。
+	 * バイト単位で読む。区切りの記号はすべて ASCII で、UTF-8 の多バイト文字のバイトは ASCII にならないため、多バイト文字は壊れない。
+	 *
+	 * @param string $css CSS. / CSS.
+	 * @return string CSS without the tags. / タグを除去した CSS.
+	 */
+	function veu_remove_html_tags_from_css( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
+
+		$length = strlen( $css );
+		$result = '';
+		// Start of the part not yet copied to $result. / まだ $result に写していない部分の先頭.
+		$copy_from = 0;
+		$pos       = 0;
+
+		while ( $pos < $length ) {
+			// Skip to the next character that can start a string, escape, comment or tag.
+			// 文字列・エスケープ・コメント・タグの開始になりうる次の文字まで進む。
+			$pos += strcspn( $css, "\"'\\/<", $pos );
+			if ( $pos >= $length ) {
+				break;
+			}
+			$char = $css[ $pos ];
+
+			if ( '"' === $char || "'" === $char ) {
+				// CSS string. / CSS の文字列.
+				$pos = veu_get_css_string_end( $css, $pos + 1, $char, $length );
+			} elseif ( '\\' === $char ) {
+				// Outside strings, a backslash escapes the next character unless it is a newline.
+				// 文字列の外では、バックスラッシュは次の文字（改行を除く）をエスケープする。
+				$next = $pos + 1;
+				if ( $next < $length && false === strpos( "\n\r\f", $css[ $next ] ) ) {
+					$pos = veu_get_css_escape_end( $css, $next, $length );
+				} else {
+					$pos = $next;
+				}
+			} elseif ( '/' === $char ) {
+				// CSS comment. An unclosed comment runs to the end of the CSS.
+				// CSS コメント。閉じていないコメントは CSS の末尾まで。
+				if ( $pos + 1 < $length && '*' === $css[ $pos + 1 ] ) {
+					$comment_end = strpos( $css, '*/', $pos + 2 );
+					$pos         = false === $comment_end ? $length : $comment_end + 2;
+				} else {
+					++$pos;
+				}
+			} else {
+				// "<": remove it with the rest of the tag when it starts a tag.
+				// 「<」: タグの開始ならタグごと除去する。
+				$tag_end = veu_get_html_tag_end_in_css( $css, $pos, $length );
+				if ( false === $tag_end ) {
+					++$pos;
+				} else {
+					$result   .= substr( $css, $copy_from, $pos - $copy_from );
+					$pos       = $tag_end;
+					$copy_from = $tag_end;
+				}
+			}
+		}
+
+		return $result . substr( $css, $copy_from );
+	}
+}
+
 if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 	/**
 	 * Remove the HTML that is commonly pasted into Custom CSS, keeping CSS "<" and ">" intact.
 	 * カスタムCSSによく貼り付けられる HTML を、CSS の「<」「>」を残したまま除去する。
 	 *
-	 * The following are removed.
-	 * - HTML comments ( <!-- ... --> ) together with their content. An unclosed "<!--"
-	 *   is removed to the end of its line.
-	 * - <script> elements together with their content.
-	 * - Tags with an HTML element name ( e.g. <br>, <p class="a">, </style> ), keeping the
-	 *   text between them. A tag is "<" or "</", an element name from
-	 *   veu_get_html_element_names_for_css() ( case-insensitive ), then whitespace, "/" or
-	 *   ">", closed by a ">" that comes before any "<", "{" or "}". Tags inside CSS strings
-	 *   ( "..." / '...' ) and CSS comments are kept, so SVG data URIs and content: "<br>"
-	 *   keep working.
-	 * 次を除去する。
-	 * - HTML コメント（<!-- ... -->）は中身ごと。閉じていない「<!--」はその行の末尾まで。
-	 * - <script> 要素は中身ごと。
-	 * - HTML の要素名のタグ（<br>、<p class="a">、</style> など）。タグの間の文字は残す。
-	 *   タグとみなすのは、「<」か「</」の直後に veu_get_html_element_names_for_css() の要素名
-	 *   （大文字小文字は区別しない）、その直後が空白・「/」・「>」で、「<」「{」「}」より前の「>」で
-	 *   閉じているもの。CSS の文字列（"..." / '...'）と CSS コメントの中のタグは残す。
-	 *   SVG のデータ URI や content: "<br>" を壊さないため。
+	 * The following are removed, in this order.
+	 * - HTML comments ( <!-- ... --> ) together with their content ( veu_remove_html_comments_from_css() ).
+	 * - <script> elements together with their content ( veu_remove_script_elements_from_css() ).
+	 * - Tags with an HTML element name ( e.g. <br>, <p class="a">, </style> ) outside CSS
+	 *   strings and comments, keeping the text between them ( veu_remove_html_tags_from_css() ).
+	 * 次の順に除去する。
+	 * - HTML コメント（<!-- ... -->）を中身ごと（veu_remove_html_comments_from_css()）。
+	 * - <script> 要素を中身ごと（veu_remove_script_elements_from_css()）。
+	 * - CSS の文字列とコメントの外にある HTML の要素名のタグ（<br>、<p class="a">、</style> など）。
+	 *   タグの間の文字は残す（veu_remove_html_tags_from_css()）。
 	 *
 	 * HTML comments and <script> elements are removed everywhere, including inside CSS
 	 * strings: their text often contains quotes ( "it's", alert('x') ), which would
@@ -216,8 +568,11 @@ if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 	 * Other "<" are left as they are, so CSS such as "( 400px<width ) and ( width>800px )"
 	 * survives. Tags must not be left in the CSS: the block editor parses the per-post CSS
 	 * ( PostCSS ) and drops all of it on a syntax error.
+	 * None of the steps uses a regular expression over the whole CSS, so a long CSS never
+	 * makes this return null or an empty string.
 	 * それ以外の「<」は残すため、「( 400px<width ) and ( width>800px )」のような CSS は消えない。
 	 * タグを残してはいけない。ブロックエディタは投稿ごとの CSS を解析（PostCSS）し、構文エラーがあると全体を捨てる。
+	 * どの処理も CSS 全体に正規表現を使わないため、長い CSS で null や空文字を返すことはない。
 	 *
 	 * This does not make the CSS safe to put inside a <style> element.
 	 * Use veu_escape_css_for_style_element() for that.
@@ -231,50 +586,69 @@ if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 			return '';
 		}
 
-		// Remove HTML comments with their content. Left in place, the text in a comment
-		// joins the next selector and that rule stops working.
-		// HTML コメントを中身ごと除去する。残すとコメント内の文字が次のセレクタとつながり、そのルールが効かなくなる。
-		$css = preg_replace( '#<!--.*?-->#s', '', $css );
-		// For an unclosed "<!--", remove it to the end of its line: the text on that line
-		// is treated as the comment, and the CSS on the following lines still works.
-		// 閉じていない「<!--」はその行の末尾まで除去する。同じ行の文字はコメントとみなし、次の行以降の CSS は効かせる。
-		$css = preg_replace( '#<!--[^\r\n]*#', '', $css );
+		$css = veu_remove_html_comments_from_css( $css );
+		$css = veu_remove_script_elements_from_css( $css );
+		return veu_remove_html_tags_from_css( $css );
+	}
+}
 
-		// Remove <script> elements together with their content.
-		// <script> 要素を中身ごと除去する。
-		$css = preg_replace( '#<script\b[^>]*>.*?</script\s*>#is', '', $css );
+if ( ! function_exists( 'veu_minify_css' ) ) {
+	/**
+	 * Minify CSS for output: remove line breaks and tabs, collapse whitespace, remove the
+	 * whitespace around "{", "}", ":" and ";", and remove CSS comments.
+	 * 出力用に CSS を圧縮する。改行とタブを除去し、連続する空白を 1 つにまとめ、「{」「}」「:」「;」の前後の空白と CSS コメントを除去する。
+	 *
+	 * A failed step ( e.g. the PCRE backtrack limit ) is skipped instead of returning null,
+	 * so a long CSS is never lost. Comments are removed with strpos(): a regular expression
+	 * failed on a CSS comment of about 2 MB.
+	 * 失敗した処理（PCRE のバックトラックの上限など）は null を返さずに飛ばすため、長い CSS が消えることはない。
+	 * コメントは strpos() で除去する。正規表現では 2 MB ほどの CSS コメントで失敗したため。
+	 *
+	 * This does not make the CSS safe to put inside a <style> element. Pass the result to
+	 * veu_escape_css_for_style_element(): removing comments can join "<" and "/" into a new "</".
+	 * <style> 要素に入れて安全にする処理ではない。コメントの除去で「<」と「/」がつながり新しい「</」ができうるため、
+	 * 結果は veu_escape_css_for_style_element() に通すこと。
+	 *
+	 * @param string $css CSS. / CSS.
+	 * @return string Minified CSS. / 圧縮した CSS.
+	 */
+	function veu_minify_css( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
 
-		// Remove the remaining tags with an HTML element name, keeping the text between them.
-		// CSS strings and CSS comments are matched by the same pattern and returned as they
-		// are, so tags inside them ( e.g. an SVG data URI ) are kept, and a quote inside a
-		// comment ( e.g. "it's" ) does not start a string. As in CSS, an unclosed string ends
-		// at the end of its line, and an unclosed comment runs to the end of the CSS.
-		// 残った HTML の要素名のタグを、間の文字は残して除去する。
-		// CSS の文字列と CSS コメントも同じパターンで拾ってそのまま返すため、その中のタグ（SVG のデータ URI など）は残り、
-		// コメント内の引用符（it's など）が文字列の開始とみなされることもない。
-		// CSS と同じく、閉じていない文字列はその行の末尾まで、閉じていないコメントは CSS の末尾までとする。
-		$element_names = implode( '|', veu_get_html_element_names_for_css() );
-		$pattern       = '#'
-			// "..." ( a backslash escapes the next character ). / 「"」の文字列（バックスラッシュは次の1文字をエスケープ）.
-			. '"(?:[^"\\\\\r\n]|\\\\[\s\S])*"?'
-			// '...' ( same as above ). / 「'」の文字列（同上）.
-			. '|\'(?:[^\'\\\\\r\n]|\\\\[\s\S])*\'?'
-			// CSS comment. / CSS コメント.
-			. '|/\*[\s\S]*?(?:\*/|\z)'
-			// Tag with an HTML element name. / HTML の要素名のタグ.
-			. '|</?(?:' . $element_names . ')(?=[\s/>])[^<>{}]*>'
-			. '#i';
-		$css = preg_replace_callback(
-			$pattern,
-			function ( $matches ) {
-				// Remove only tags; return CSS strings and comments as they are.
-				// タグだけを除去し、CSS の文字列とコメントはそのまま返す.
-				return '<' === $matches[0][0] ? '' : $matches[0];
-			},
-			$css
+		// Remove line breaks and tabs, then collapse whitespace.
+		// 改行とタブを除去し、連続する空白を 1 つにまとめる。
+		$css      = str_replace( PHP_EOL, '', $css );
+		$patterns = array(
+			'/[\n\r\t]/'       => '',
+			'/\s+/'            => ' ',
+			'/\s*([{}:;])\s*/' => '$1',
 		);
+		foreach ( $patterns as $pattern => $replacement ) {
+			$replaced = preg_replace( $pattern, $replacement, $css );
+			if ( null !== $replaced ) {
+				$css = $replaced;
+			}
+		}
 
-		return $css;
+		// Remove CSS comments. An unclosed comment is left as it is.
+		// CSS コメントを除去する。閉じていないコメントはそのまま残す。
+		$result = '';
+		$pos    = 0;
+		while ( true ) {
+			$start = strpos( $css, '/*', $pos );
+			if ( false === $start ) {
+				break;
+			}
+			$end = strpos( $css, '*/', $start + 2 );
+			if ( false === $end ) {
+				break;
+			}
+			$result .= substr( $css, $pos, $start - $pos );
+			$pos     = $end + 2;
+		}
+		return $result . substr( $css, $pos );
 	}
 }
 
@@ -407,16 +781,9 @@ function veu_get_the_custom_css_single( $post ) {
 	$css_customize = get_post_meta( $post->ID, '_veu_custom_css', true );
 	if ( $css_customize ) {
 		$css_customize = veu_sanitize_custom_css_input( $css_customize );
-		// Delete br
-		$css_customize = str_replace( PHP_EOL, '', $css_customize );
-		// Delete tab
-		$css_customize = preg_replace( '/[\n\r\t]/', '', $css_customize );
-		// Multi space convert to single space
-		$css_customize = preg_replace( '/\s+/', ' ', $css_customize );
-		// Ensure proper spacing and remove extra spaces
-		$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
-		// Delete Comment
-		$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
+		// Remove line breaks, extra whitespace and comments.
+		// 改行・余分な空白・コメントを除去する。
+		$css_customize = veu_minify_css( $css_customize );
 		// Comment removal can create a new "</", so neutralize it again as the last step.
 		// コメント除去で新しい「</」ができうるため、最後にもう一度無効化する。
 		$css_customize = veu_escape_css_for_style_element( $css_customize );

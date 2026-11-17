@@ -218,6 +218,10 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	 */
 	public function test_save_custom_field() {
 
+		// PCRE の上限（JIT スタック・バックトラック）を超える長さの文字列。大きな SVG のデータ URI を想定する
+		// A string longer than the PCRE limits ( JIT stack / backtracking ), like a large SVG data URI.
+		$long = str_repeat( 'x', 200000 );
+
 		$test_cases = array(
 			array(
 				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => そのまま保存される',
@@ -303,6 +307,36 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 				'test_condition_name' => '> で閉じない </STYLE を含む場合 => </ を無効化して保存される',
 				'input'               => "div { color: red; }</STYLE\n.a { color: blue; }",
 				'expected'            => "div { color: red; }<\\/STYLE\n.a { color: blue; }",
+			),
+			array(
+				'test_condition_name' => '「"」の文字列の中に 200,000 文字ある場合 => CSS が消えず、外のタグを除去し </ を無効化して保存される',
+				'input'               => '.a{background:url("data:image/svg+xml,<svg>' . $long . '</svg>");}<br></style>.b{color:blue;}',
+				'expected'            => '.a{background:url("data:image/svg+xml,<svg>' . $long . '<\\/svg>");}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'セレクタ内でエスケープした \\" の後ろに <br> がある場合 => <br> を除去して保存される',
+				'input'               => '.foo\\"{color:red;}<br>',
+				'expected'            => '.foo\\"{color:red;}',
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が CRLF の場合 => 文字列の中の <br> を残して保存される',
+				'input'               => ".a{content:\"x\\\r\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\r\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が LF の場合 => 文字列の中の <br> を残して保存される',
+				'input'               => ".a{content:\"x\\\n<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\n<br>\";}",
+			),
+			array(
+				'test_condition_name' => '文字列の中の \\ の直後が FF の場合 => 文字列の中の <br> を残して保存される',
+				'input'               => ".a{content:\"x\\\f<br>\";}<br>",
+				'expected'            => ".a{content:\"x\\\f<br>\";}",
+			),
+			array(
+				'test_condition_name' => 'エスケープしていない改行で終わる閉じていない文字列の場合 => 改行で文字列が終わり、次の行のタグを除去して保存される',
+				'input'               => ".a{content:\"x<br>\n}<br>.b{color:blue;}",
+				'expected'            => ".a{content:\"x<br>\n}.b{color:blue;}",
 			),
 		);
 
