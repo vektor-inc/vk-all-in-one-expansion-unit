@@ -13,42 +13,53 @@ function veu_css_customize_single_load() {
 }
 add_action( 'after_setup_theme', 'veu_css_customize_single_load', 11 );
 
-if ( ! function_exists( 'veu_strip_html_tags_from_css' ) ) {
+if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 	/**
-	 * Remove HTML tags pasted into Custom CSS while keeping CSS "<" and ">" intact.
-	 * カスタムCSSに貼り付けられた HTML タグを、CSS の「<」「>」を残したまま除去する。
+	 * Remove the HTML that is commonly pasted into Custom CSS, keeping CSS "<" and ">" intact.
+	 * カスタムCSSによく貼り付けられる HTML を、CSS の「<」「>」を残したまま除去する。
 	 *
-	 * - <script> elements are removed together with their content.
-	 * - Other tags ( e.g. a <style> wrapper ) are removed, but the text inside is kept.
-	 * - A tag is only "<" + tag name followed by whitespace, "/" or ">", closed by ">"
-	 *   before any "<", "{" or "}". So media query range syntax ( width <= 992px ),
-	 *   ( 400px<width<800px ) and the child combinator ( a > b ) are not treated as tags.
-	 * - <script> 要素は中身ごと除去する。
-	 * - それ以外のタグ（<style> での囲みなど）はタグだけ除去し、中の文字は残す。
-	 * - タグとみなすのは「<」+ タグ名 の直後が空白・「/」・「>」で、「<」「{」「}」より前に
-	 *   「>」で閉じているものだけ。そのため範囲指定のメディアクエリ（width <= 992px）、
-	 *   （400px<width<800px）や子セレクタ（a > b）はタグとみなさない。
+	 * Only the following are removed. Other tags are left as they are, because telling
+	 * an arbitrary tag from CSS such as "( 400px<width ) and ( width>800px )" needs a
+	 * CSS parser; a leftover tag inside a <style> element is inert text.
+	 * - HTML comments ( <!-- ... --> ) together with their content. An unclosed "<!--"
+	 *   is removed to the end of its line.
+	 * - <script> elements together with their content.
+	 * - <style> / <script> tags ( e.g. a pasted <style> wrapper ), keeping the CSS inside.
+	 * 除去するのは次だけ。任意のタグを「( 400px<width ) and ( width>800px )」のような CSS と
+	 * 見分けるには CSS の解析が必要なため、それ以外のタグは残す（<style> 要素内に残ったタグはただの文字）。
+	 * - HTML コメント（<!-- ... -->）は中身ごと。閉じていない「<!--」はその行の末尾まで。
+	 * - <script> 要素は中身ごと。
+	 * - <style> / <script> のタグ（<style> での囲みなど）はタグだけ除去し、中の CSS は残す。
 	 *
 	 * This is for backward compatibility only; it does not make the CSS safe to put
 	 * inside a <style> element. Use veu_escape_css_for_style_element() for that.
 	 * 後方互換のための処理で、<style> 要素に入れて安全にする処理ではない。
 	 * 安全化は veu_escape_css_for_style_element() で行う。
 	 *
-	 * @param string $css CSS that may contain HTML tags. / HTML タグを含みうる CSS.
-	 * @return string CSS without HTML tags. / HTML タグを除去した CSS.
+	 * @param string $css CSS that may contain HTML. / HTML を含みうる CSS.
+	 * @return string CSS without the HTML above. / 上記の HTML を除去した CSS.
 	 */
-	function veu_strip_html_tags_from_css( $css ) {
+	function veu_strip_html_from_css( $css ) {
 		if ( ! is_string( $css ) ) {
 			return '';
 		}
+
+		// Remove HTML comments with their content. Left in place, the text in a comment
+		// joins the next selector and that rule stops working.
+		// HTML コメントを中身ごと除去する。残すとコメント内の文字が次のセレクタとつながり、そのルールが効かなくなる。
+		$css = preg_replace( '#<!--.*?-->#s', '', $css );
+		// For an unclosed "<!--", remove it to the end of its line: the text on that line
+		// is treated as the comment, and the CSS on the following lines still works.
+		// 閉じていない「<!--」はその行の末尾まで除去する。同じ行の文字はコメントとみなし、次の行以降の CSS は効かせる。
+		$css = preg_replace( '#<!--[^\r\n]*#', '', $css );
 
 		// Remove <script> elements together with their content.
 		// <script> 要素を中身ごと除去する。
 		$css = preg_replace( '#<script\b[^>]*>.*?</script\s*>#is', '', $css );
 
-		// Remove the remaining HTML tags, keeping the text between them.
-		// 残りの HTML タグを、間の文字は残して除去する。
-		$css = preg_replace( '#</?[a-zA-Z][a-zA-Z0-9-]*(?=[\s/>])[^<>{}]*>#', '', $css );
+		// Remove the remaining <style> / <script> tags, keeping the CSS between them.
+		// 残った <style> / <script> のタグを、間の CSS は残して除去する。
+		$css = preg_replace( '#</?(?:style|script)(?=[\s/>])[^<>{}]*>#i', '', $css );
 
 		return $css;
 	}
@@ -83,10 +94,10 @@ if ( ! function_exists( 'veu_escape_css_for_style_element' ) ) {
 if ( ! function_exists( 'veu_sanitize_custom_css_input' ) ) {
 	/**
 	 * Basic sanitization for the Custom CSS meta field.
-	 * Removes HTML tags while keeping CSS-specific characters ( including "<" and ">" ) intact,
+	 * Removes pasted HTML while keeping CSS-specific characters ( including "<" and ">" ) intact,
 	 * and neutralizes "</" so the CSS cannot close the <style> element.
 	 * 投稿ごとのカスタムCSSの基本的なサニタイズ。
-	 * CSS で使う文字（「<」「>」を含む）を残したまま HTML タグを除去し、
+	 * CSS で使う文字（「<」「>」を含む）を残したまま貼り付けられた HTML を除去し、
 	 * <style> 要素を閉じられないよう「</」を無効化する。
 	 *
 	 * @param string $css Raw CSS provided by editors. / 編集者が入力した CSS.
@@ -103,7 +114,7 @@ if ( ! function_exists( 'veu_sanitize_custom_css_input' ) ) {
 		// CSS such as "<= 992px) { ... >" ( issue #1556 ), so use the CSS-aware stripper.
 		// wp_strip_all_tags() は「<」の直後が空白以外だとタグの開始とみなし、
 		// 「<= 992px) { ... >」のような CSS を消してしまうため（issue #1556）、CSS 用の除去処理を使う。
-		$css = veu_strip_html_tags_from_css( $css );
+		$css = veu_strip_html_from_css( $css );
 		$css = veu_escape_css_for_style_element( $css );
 		$css = trim( $css );
 

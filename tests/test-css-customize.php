@@ -71,6 +71,35 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'option'              => '@media (400px<width<800px) { .a > li { color: red; } }',
 				'correct'             => '@media (400px<width<800px){.a > li{color:red;}}',
 			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'option'              => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'correct'             => '@media (400px<width ) and (width>800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px <width) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'option'              => '@media (400px <width) and (width>800px) { a { color: red; } }',
+				'correct'             => '@media (400px <width) and (width>800px){a{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width) と子セレクタ > の場合 => 欠けずに出力',
+				'option'              => '@media (400px<width) { .a > li { color: red; } }',
+				'correct'             => '@media (400px<width){.a > li{color:red;}}',
+			),
+			// HTML コメントは中身ごと除去する
+			// HTML comments are removed together with their content.
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールは出力',
+				'option'              => '<!-- ヘッダーの調整 -->
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の後の行にルールがある場合 => その行の末尾まで除去してルールは出力',
+				'option'              => '<!-- ヘッダーの調整
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
 			// 後方互換: <style> で囲んで貼り付けた場合はタグだけを除去し、中の CSS は残す
 			// Backward compatibility: a pasted <style> wrapper is removed, keeping the CSS inside.
 			array(
@@ -86,9 +115,9 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'correct'             => 'div{color:red;}',
 			),
 			array(
-				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => どちらも除去',
+				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => </STYLE > は除去、img は style 要素内の文字として残る',
 				'option'              => 'div{color:red;}</STYLE ><img src=x onerror=alert(1)>',
-				'correct'             => 'div{color:red;}',
+				'correct'             => 'div{color:red;}<img src=x onerror=alert(1)>',
 			),
 			array(
 				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
@@ -196,6 +225,40 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'post_meta'           => '@media (400px<width<800px) { .a > li { color: red; } }',
 				'correct'             => '@media (400px<width<800px){.a > li{color:red;}}',
 			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'correct'             => '@media (400px<width ) and (width>800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px <width) and (width>800px) の場合 => < と > の間が消えずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px <width) and (width>800px) { a { color: red; } }',
+				'correct'             => '@media (400px <width) and (width>800px){a{color:red;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width) と子セレクタ > の場合 => 欠けずに出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '@media (400px<width) { .a > li { color: red; } }',
+				'correct'             => '@media (400px<width){.a > li{color:red;}}',
+			),
+			// HTML コメントは中身ごと除去する
+			// HTML comments are removed together with their content.
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールは出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<!-- ヘッダーの調整 -->
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の後の行にルールがある場合 => その行の末尾まで除去してルールは出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<!-- ヘッダーの調整
+.site-header { background: red; }',
+				'correct'             => '.site-header{background:red;}',
+			),
 			// 後方互換: <style> で囲んで貼り付けた場合はタグだけを除去し、中の CSS は残す
 			// Backward compatibility: a pasted <style> wrapper is removed, keeping the CSS inside.
 			array(
@@ -213,10 +276,10 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'correct'             => 'div{color:red;}',
 			),
 			array(
-				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => どちらも除去',
+				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => </STYLE > は除去、img は style 要素内の文字として残る',
 				'post_title'          => 'タイトル',
 				'post_meta'           => 'div{color:red;}</STYLE ><img src=x onerror=alert(1)>',
-				'correct'             => 'div{color:red;}',
+				'correct'             => 'div{color:red;}<img src=x onerror=alert(1)>',
 			),
 			array(
 				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
@@ -338,6 +401,24 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				),
 			),
 			array(
+				'test_condition_name' => 'ケース7: (400px<width ) and (width>800px) を含む CSS が欠けずにエディタスタイルに追加される',
+				'with_post'           => true,
+				'custom_css'          => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '@media (400px<width ) and (width>800px){.a > li{color:red;}}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース8: HTML コメントの後の行のルールがエディタスタイルに追加される',
+				'with_post'           => true,
+				'custom_css'          => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.site-header{background:red;}' ),
+				),
+			),
+			array(
 				'test_condition_name' => 'ケース4: カスタムCSS未設定の投稿では設定は未変更',
 				'with_post'           => true,
 				'custom_css'          => null,
@@ -392,7 +473,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 	 * CSS から HTML タグを除去する処理のテスト。
 	 * Tests for removing HTML tags from CSS.
 	 */
-	public function test_veu_strip_html_tags_from_css() {
+	public function test_veu_strip_html_from_css() {
 
 		$test_cases = array(
 			array(
@@ -421,8 +502,33 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'expected'            => 'a { color: red; }',
 			),
 			array(
-				'test_condition_name' => '属性付きの img タグと br タグを含む場合 => タグを除去',
+				'test_condition_name' => '属性付きの img タグと br タグを含む場合 => style / script 以外のタグは残す',
 				'input'               => 'a { color: red; }<img src=x onerror=alert(1)><br/>',
+				'expected'            => 'a { color: red; }<img src=x onerror=alert(1)><br/>',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => タグとみなさずそのまま残る',
+				'input'               => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected'            => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+			),
+			array(
+				'test_condition_name' => '(400px <width) and (width>800px) の場合 => タグとみなさずそのまま残る',
+				'input'               => '@media (400px <width) and (width>800px) { a { color: red; } }',
+				'expected'            => '@media (400px <width) and (width>800px) { a { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '複数行の HTML コメントを含む場合 => 中身ごと除去',
+				'input'               => "<!-- メモ\nメモ2 -->\n.a { color: red; }",
+				'expected'            => "\n.a { color: red; }",
+			),
+			array(
+				'test_condition_name' => '閉じていない <!-- の場合 => その行の末尾まで除去し、次の行は残す',
+				'input'               => "<!-- メモ\n.a { color: red; }",
+				'expected'            => "\n.a { color: red; }",
+			),
+			array(
+				'test_condition_name' => '大文字の </STYLE> と </SCRIPT> の単独タグの場合 => タグを除去',
+				'input'               => '<STYLE>a { color: red; }</STYLE></SCRIPT>',
 				'expected'            => 'a { color: red; }',
 			),
 			array(
@@ -438,7 +544,7 @@ class CssCustomizeTest extends WP_UnitTestCase {
 		);
 
 		foreach ( $test_cases as $case ) {
-			$this->assertSame( $case['expected'], veu_strip_html_tags_from_css( $case['input'] ), $case['test_condition_name'] );
+			$this->assertSame( $case['expected'], veu_strip_html_from_css( $case['input'] ), $case['test_condition_name'] );
 		}
 	}
 
@@ -542,6 +648,16 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'expected_contains'   => '@media (width <= 992px){.global-nav-list > li{width:auto;}}</style>',
 			),
 			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) を含む場合 => 欠けずに style 要素内へ出力',
+				'custom_css'          => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected_contains'   => '@media (400px<width ) and (width>800px){.a > li{color:red;}}</style>',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールを出力',
+				'custom_css'          => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'expected_contains'   => '*/.site-header{background:red;}</style>',
+			),
+			array(
 				'test_condition_name' => '</style><script> を含む場合 => style の終了タグは出力の末尾の 1 つだけ',
 				'custom_css'          => 'div{color:red;}</style><script>alert(1)</script>',
 				'expected_contains'   => 'div{color:red;}</style>',
@@ -589,6 +705,16 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => 欠けずに style 要素内へ出力 ( issue #1556 )',
 				'option'              => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
 				'expected_contains'   => '@media (width <= 992px){.global-nav-list > li{width:auto;}}',
+			),
+			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) を含む場合 => 欠けずに style 要素内へ出力',
+				'option'              => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected_contains'   => '@media (400px<width ) and (width>800px){.a > li{color:red;}}',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントの後の行にルールがある場合 => コメントを除去してルールを出力',
+				'option'              => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'expected_contains'   => '*/.site-header{background:red;}/*',
 			),
 			array(
 				'test_condition_name' => '</style><script> を含む場合 => style の終了タグは出力の末尾の 1 つだけ',

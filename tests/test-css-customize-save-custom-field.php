@@ -230,6 +230,21 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 				'expected'            => '@media (400px < width < 800px) and (height >= 300px) { a>b { color: red; } }',
 			),
 			array(
+				'test_condition_name' => '(400px<width ) and (width>800px) を含む場合 => そのまま保存される',
+				'input'               => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+				'expected'            => '@media (400px<width ) and (width>800px) { .a > li { color:red; } }',
+			),
+			array(
+				'test_condition_name' => '(400px <width) と (400px<width) と (width>800px) を含む場合 => そのまま保存される',
+				'input'               => '@media (400px <width) and (width>800px) { a { color: red; } } @media (400px<width) { b { color: red; } }',
+				'expected'            => '@media (400px <width) and (width>800px) { a { color: red; } } @media (400px<width) { b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => 'HTML コメントを含む場合 => コメントを中身ごと除去して保存される',
+				'input'               => "<!-- ヘッダーの調整 -->\n.site-header { background: red; }",
+				'expected'            => '.site-header { background: red; }',
+			),
+			array(
 				'test_condition_name' => '</style><script> を含む場合 => style の終了タグと script は保存されない',
 				'input'               => 'div { color: red; }</style><script>alert(1)</script>',
 				'expected'            => 'div { color: red; }',

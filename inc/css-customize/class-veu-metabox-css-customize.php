@@ -75,11 +75,11 @@ class VEU_Metabox_CSS_Customize extends VEU_Metabox {
 
 		// WordPress は magic quotes 互換のため $_POST の値にスラッシュを付加して渡してくるので、
 		// veu_sanitize_custom_css_input() へ渡す前に wp_unslash() で除去する。サニタイズ自体は
-		// veu_sanitize_custom_css_input()（HTML タグの除去・「</」の無効化）が行うが、phpcs の静的解析は
+		// veu_sanitize_custom_css_input()（HTML の除去・「</」の無効化）が行うが、phpcs の静的解析は
 		// 独自関数内のサニタイズを認識できないため、この行単体では未サニタイズと誤検知される。
 		// WordPress adds slashes to $_POST values for magic-quotes compatibility, so strip them
 		// with wp_unslash() before passing the value to veu_sanitize_custom_css_input(). The actual
-		// sanitization happens inside veu_sanitize_custom_css_input() ( HTML tag removal and "</" neutralization ),
+		// sanitization happens inside veu_sanitize_custom_css_input() ( HTML removal and "</" neutralization ),
 		// but phpcs's static analysis cannot see sanitization performed inside a custom function, so
 		// this line alone is flagged as a false positive.
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized by veu_sanitize_custom_css_input() on the next line ( custom sanitizer not recognized by static analysis ).
