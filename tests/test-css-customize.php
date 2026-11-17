@@ -143,6 +143,33 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'correct'             => '.a{color:red;}.b{color:blue;}',
 			),
 			array(
+				'test_condition_name' => '廃止済みの要素 <center> <font color=red> </font> の場合 => 除去',
+				'option'              => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'correct'             => 'div{color:red;}.a{color:blue;}',
+			),
+			// CSS の文字列とコメントの中のタグは残す（SVG のデータ URI・content を壊さない）
+			// Tags inside CSS strings and comments are kept ( SVG data URIs and content keep working ).
+			array(
+				'test_condition_name' => '「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残し、</ だけ無効化',
+				'option'              => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'correct'             => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}',
+			),
+			array(
+				'test_condition_name' => '「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去',
+				'option'              => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'correct'             => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去',
+				'option'              => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'correct'             => '.a::before{content:"<br>";}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に \' がある場合 => 文字列の開始とみなさず、後ろの <br> を除去',
+				'option'              => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
 				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
 				'option'              => 'div{color:red;}</style
 .a{color:blue;}',
@@ -332,6 +359,38 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'correct'             => '.a{color:red;}.b{color:blue;}',
 			),
 			array(
+				'test_condition_name' => '廃止済みの要素 <center> <font color=red> </font> の場合 => 除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'correct'             => 'div{color:red;}.a{color:blue;}',
+			),
+			// CSS の文字列とコメントの中のタグは残す（SVG のデータ URI・content を壊さない）
+			// Tags inside CSS strings and comments are kept ( SVG data URIs and content keep working ).
+			array(
+				'test_condition_name' => '「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残し、</ だけ無効化',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'correct'             => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}',
+			),
+			array(
+				'test_condition_name' => '「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'correct'             => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'correct'             => '.a::before{content:"<br>";}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に \' がある場合 => 文字列の開始とみなさず、後ろの <br> を除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
 				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
 				'post_title'          => 'タイトル',
 				'post_meta'           => 'div{color:red;}</style
@@ -509,6 +568,51 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				),
 			),
 			array(
+				'test_condition_name' => 'ケース13: 廃止済みの要素 <center> <font color=red> </font> の場合 => 除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => 'div{color:red;}.a{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース14: 「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース15: 「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去',
+				'with_post'           => true,
+				'custom_css'          => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース16: content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去',
+				'with_post'           => true,
+				'custom_css'          => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a::before{content:"<br>";}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース17: CSS コメントの中に \' がある場合 => 後ろの <br> を除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}.b{color:blue;}' ),
+				),
+			),
+			array(
 				'test_condition_name' => 'ケース4: カスタムCSS未設定の投稿では設定は未変更',
 				'with_post'           => true,
 				'custom_css'          => null,
@@ -620,6 +724,31 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'test_condition_name' => 'メディア特性名 ( height / aspect-ratio / resolution / color ) の範囲指定の場合 => タグとみなさずそのまま残る',
 				'input'               => '@media (300px<height) and (aspect-ratio>1/1) and (1dppx<resolution) and (8<color) { a>b { color: red; } }',
 				'expected'            => '@media (300px<height) and (aspect-ratio>1/1) and (1dppx<resolution) and (8<color) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '廃止済みの要素 ( center / font / marquee / tt / image ) の場合 => 大文字小文字を区別せず除去',
+				'input'               => '<CENTER><font color=red>a{}</font><marquee>b{}</marquee><TT/><image src=x></center>',
+				'expected'            => 'a{}b{}',
+			),
+			array(
+				'test_condition_name' => '閉じていない「"」の文字列の場合 => その行の末尾までを文字列とみなし、次の行のタグは除去',
+				'input'               => ".a{content:\"<br>\n}<br>.b{color:blue;}",
+				'expected'            => ".a{content:\"<br>\n}.b{color:blue;}",
+			),
+			array(
+				'test_condition_name' => '文字列の中にエスケープした「\\"」がある場合 => 文字列の終わりとみなさず、中のタグを残す',
+				'input'               => '.a{content:"\\" <br>"}<br>',
+				'expected'            => '.a{content:"\\" <br>"}',
+			),
+			array(
+				'test_condition_name' => '閉じていない CSS コメントの場合 => その前のタグは除去し、コメントの中は残す',
+				'input'               => '.a{}<br>/* <p> it\'s',
+				'expected'            => '.a{}/* <p> it\'s',
+			),
+			array(
+				'test_condition_name' => 'タグの属性値に \' がある場合 => タグごと除去し、後ろのタグも除去',
+				'input'               => '<p title="it\'s">.a{}</p>',
+				'expected'            => '.a{}',
 			),
 			array(
 				'test_condition_name' => '子セレクタ a > b と a>b の場合 => そのまま残る',

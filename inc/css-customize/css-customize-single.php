@@ -18,11 +18,16 @@ if ( ! function_exists( 'veu_get_html_element_names_for_css' ) ) {
 	 * HTML element names whose tags are removed from Custom CSS.
 	 * カスタムCSSからタグを除去する HTML の要素名。
 	 *
-	 * The element names of the HTML Living Standard ( https://html.spec.whatwg.org/multipage/indices.html#elements-3 ).
+	 * The element names of the HTML Living Standard ( https://html.spec.whatwg.org/multipage/indices.html#elements-3 ),
+	 * plus the obsolete elements that old HTML pasted into Custom CSS may contain
+	 * ( https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features , and "image",
+	 * which the HTML parser turns into "img" ).
 	 * None of them is a CSS media feature name ( width, height, aspect-ratio, resolution, color,
 	 * hover, pointer, prefers-* ... ), so "( 400px<width )" is never taken for a tag.
-	 * HTML Living Standard の要素名。CSS のメディア特性名（width, height, aspect-ratio, resolution,
-	 * color, hover, pointer, prefers-* など）とは重ならないため、「( 400px<width )」をタグとみなさない。
+	 * HTML Living Standard の要素名と、古い HTML の貼り付けに含まれうる廃止済みの要素名
+	 * （「Non-conforming features」の節に載っている要素と、HTML の解析で img に置き換えられる image）。
+	 * CSS のメディア特性名（width, height, aspect-ratio, resolution, color, hover, pointer, prefers-* など）
+	 * とは重ならないため、「( 400px<width )」をタグとみなさない。
 	 *
 	 * @return string[] Lowercase element names. / 小文字の要素名.
 	 */
@@ -143,6 +148,37 @@ if ( ! function_exists( 'veu_get_html_element_names_for_css' ) ) {
 			'var',
 			'video',
 			'wbr',
+			// Obsolete elements / 廃止済みの要素.
+			'acronym',
+			'applet',
+			'basefont',
+			'bgsound',
+			'big',
+			'blink',
+			'center',
+			'dir',
+			'font',
+			'frame',
+			'frameset',
+			'image',
+			'isindex',
+			'keygen',
+			'listing',
+			'marquee',
+			'menuitem',
+			'multicol',
+			'nextid',
+			'nobr',
+			'noembed',
+			'noframes',
+			'param',
+			'plaintext',
+			'rb',
+			'rtc',
+			'spacer',
+			'strike',
+			'tt',
+			'xmp',
 		);
 	}
 }
@@ -159,14 +195,23 @@ if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 	 * - Tags with an HTML element name ( e.g. <br>, <p class="a">, </style> ), keeping the
 	 *   text between them. A tag is "<" or "</", an element name from
 	 *   veu_get_html_element_names_for_css() ( case-insensitive ), then whitespace, "/" or
-	 *   ">", closed by a ">" that comes before any "<", "{" or "}".
+	 *   ">", closed by a ">" that comes before any "<", "{" or "}". Tags inside CSS strings
+	 *   ( "..." / '...' ) and CSS comments are kept, so SVG data URIs and content: "<br>"
+	 *   keep working.
 	 * 次を除去する。
 	 * - HTML コメント（<!-- ... -->）は中身ごと。閉じていない「<!--」はその行の末尾まで。
 	 * - <script> 要素は中身ごと。
 	 * - HTML の要素名のタグ（<br>、<p class="a">、</style> など）。タグの間の文字は残す。
 	 *   タグとみなすのは、「<」か「</」の直後に veu_get_html_element_names_for_css() の要素名
 	 *   （大文字小文字は区別しない）、その直後が空白・「/」・「>」で、「<」「{」「}」より前の「>」で
-	 *   閉じているもの。
+	 *   閉じているもの。CSS の文字列（"..." / '...'）と CSS コメントの中のタグは残す。
+	 *   SVG のデータ URI や content: "<br>" を壊さないため。
+	 *
+	 * HTML comments and <script> elements are removed everywhere, including inside CSS
+	 * strings: their text often contains quotes ( "it's", alert('x') ), which would
+	 * otherwise be read as the start of a CSS string and stop the tag removal after it.
+	 * HTML コメントと <script> 要素は CSS の文字列の中も含めて除去する。中の文字には引用符
+	 * （it's、alert('x') など）がよく入り、残すと CSS の文字列の開始とみなされて、後ろのタグが除去されなくなるため。
 	 *
 	 * Other "<" are left as they are, so CSS such as "( 400px<width ) and ( width>800px )"
 	 * survives. Tags must not be left in the CSS: the block editor parses the per-post CSS
@@ -200,9 +245,34 @@ if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 		$css = preg_replace( '#<script\b[^>]*>.*?</script\s*>#is', '', $css );
 
 		// Remove the remaining tags with an HTML element name, keeping the text between them.
+		// CSS strings and CSS comments are matched by the same pattern and returned as they
+		// are, so tags inside them ( e.g. an SVG data URI ) are kept, and a quote inside a
+		// comment ( e.g. "it's" ) does not start a string. As in CSS, an unclosed string ends
+		// at the end of its line, and an unclosed comment runs to the end of the CSS.
 		// 残った HTML の要素名のタグを、間の文字は残して除去する。
+		// CSS の文字列と CSS コメントも同じパターンで拾ってそのまま返すため、その中のタグ（SVG のデータ URI など）は残り、
+		// コメント内の引用符（it's など）が文字列の開始とみなされることもない。
+		// CSS と同じく、閉じていない文字列はその行の末尾まで、閉じていないコメントは CSS の末尾までとする。
 		$element_names = implode( '|', veu_get_html_element_names_for_css() );
-		$css           = preg_replace( '#</?(?:' . $element_names . ')(?=[\s/>])[^<>{}]*>#i', '', $css );
+		$pattern       = '#'
+			// "..." ( a backslash escapes the next character ). / 「"」の文字列（バックスラッシュは次の1文字をエスケープ）.
+			. '"(?:[^"\\\\\r\n]|\\\\[\s\S])*"?'
+			// '...' ( same as above ). / 「'」の文字列（同上）.
+			. '|\'(?:[^\'\\\\\r\n]|\\\\[\s\S])*\'?'
+			// CSS comment. / CSS コメント.
+			. '|/\*[\s\S]*?(?:\*/|\z)'
+			// Tag with an HTML element name. / HTML の要素名のタグ.
+			. '|</?(?:' . $element_names . ')(?=[\s/>])[^<>{}]*>'
+			. '#i';
+		$css = preg_replace_callback(
+			$pattern,
+			function ( $matches ) {
+				// Remove only tags; return CSS strings and comments as they are.
+				// タグだけを除去し、CSS の文字列とコメントはそのまま返す.
+				return '<' === $matches[0][0] ? '' : $matches[0];
+			},
+			$css
+		);
 
 		return $css;
 	}

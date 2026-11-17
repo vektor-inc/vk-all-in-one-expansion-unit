@@ -270,6 +270,31 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 				'expected'            => '.a{color:red;}.b{color:blue;}',
 			),
 			array(
+				'test_condition_name' => '廃止済みの要素 <center> <font color=red> </font> の場合 => 除去して保存される',
+				'input'               => 'div{color:red;}<center><font color=red>.a{color:blue;}</font></center>',
+				'expected'            => 'div{color:red;}.a{color:blue;}',
+			),
+			array(
+				'test_condition_name' => '「"」で囲んだ SVG のデータ URI の場合 => 中のタグを残し、</ だけ無効化して保存される',
+				'input'               => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/></svg>");}',
+				'expected'            => '.a{background:url("data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M0 0h10v10z\' fill=\'red\'/><\\/svg>");}',
+			),
+			array(
+				'test_condition_name' => '「\'」で囲んだ SVG のデータ URI と文字列の外の <br> の場合 => 文字列の中は残し、外の <br> は除去して保存される',
+				'input'               => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>\');}<br>.b{color:blue;}',
+				'expected'            => '.a{background:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/><\\/svg>\');}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'content:"<br>" と文字列の外の <p> の場合 => 文字列の中は残し、外の <p> は除去して保存される',
+				'input'               => '.a::before{content:"<br>";}<p>.b{color:blue;}</p>',
+				'expected'            => '.a::before{content:"<br>";}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'CSS コメントの中に \' がある場合 => 後ろの <br> を除去して保存される',
+				'input'               => '/* it\'s <p> */ .a{color:red;}<br>.b{color:blue;}',
+				'expected'            => '/* it\'s <p> */ .a{color:red;}.b{color:blue;}',
+			),
+			array(
 				'test_condition_name' => 'a > b と a>b を含む場合 => そのまま保存される',
 				'input'               => 'a > b { color: red; } a>b { color: blue; }',
 				'expected'            => 'a > b { color: red; } a>b { color: blue; }',
