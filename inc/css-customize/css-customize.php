@@ -146,8 +146,9 @@ class veu_css_customize {
 	public static function css_customize_get_css_min() {
 		$css_customize = get_option( 'vkExUnit_css_customize' );
 		if ( $css_customize ) {
-			// Remove HTML tags, but keep <style> and <media> tags
-			$css_customize = preg_replace( '/<(?!\/?style|\/?media\b)[^>]+>/', '', $css_customize );
+			// Remove HTML tags while keeping CSS "<" and ">" ( media query range syntax / child combinator ).
+			// CSS の「<」「>」（範囲指定のメディアクエリ・子セレクタ）を残したまま HTML タグを除去する。
+			$css_customize = veu_strip_html_tags_from_css( $css_customize );
 			// Delete br
 			$css_customize = str_replace( PHP_EOL, '', $css_customize );
 			// Delete tab
@@ -158,6 +159,11 @@ class veu_css_customize {
 			$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
 			// Delete comment
 			$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
+			// Neutralize "</" so the CSS cannot close the <style> element. Keep this after
+			// comment removal, which can join "<" and "/" into a new "</".
+			// <style> 要素を閉じられないよう「</」を無効化する。コメント除去で「<」と「/」が
+			// つながり新しい「</」ができるため、コメント除去より後に置くこと。
+			$css_customize = veu_escape_css_for_style_element( $css_customize );
 			// Trim leading and trailing spaces
 			$css_customize = trim( $css_customize );
 		}

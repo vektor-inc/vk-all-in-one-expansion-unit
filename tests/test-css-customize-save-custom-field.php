@@ -208,6 +208,76 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * test_save_custom_field
+	 *
+	 * 寄稿者が保存した CSS について、範囲指定の < > や子セレクタ > が欠けずに保存され、
+	 * <style> 要素を抜け出す </style や script は保存されないことを検証する ( issue #1556 )。
+	 * Verify that CSS saved by a contributor keeps range-syntax < > and child combinator >
+	 * intact, while </style ( which escapes the <style> element ) and script are not saved
+	 * ( issue #1556 ).
+	 */
+	public function test_save_custom_field() {
+
+		$test_cases = array(
+			array(
+				'test_condition_name' => '範囲指定 <= と子セレクタ > を含む場合 => そのまま保存される',
+				'input'               => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+				'expected'            => "@media (width <= 992px) {\n  .global-nav-list > li { width: auto; }\n}",
+			),
+			array(
+				'test_condition_name' => '範囲指定 (400px < width < 800px) と >= と a>b を含む場合 => そのまま保存される',
+				'input'               => '@media (400px < width < 800px) and (height >= 300px) { a>b { color: red; } }',
+				'expected'            => '@media (400px < width < 800px) and (height >= 300px) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '</style><script> を含む場合 => style の終了タグと script は保存されない',
+				'input'               => 'div { color: red; }</style><script>alert(1)</script>',
+				'expected'            => 'div { color: red; }',
+			),
+			array(
+				'test_condition_name' => '> で閉じない </STYLE を含む場合 => </ を無効化して保存される',
+				'input'               => "div { color: red; }</STYLE\n.a { color: blue; }",
+				'expected'            => "div { color: red; }<\\/STYLE\n.a { color: blue; }",
+			),
+		);
+
+		// edit_post 権限を持つ最も低いロール（寄稿者）で、自分の下書き投稿に保存する
+		// Save to the user's own draft as a contributor, the lowest role with edit_post.
+		$contributor_id = self::factory()->user->create( array( 'role' => 'contributor' ) );
+		wp_set_current_user( $contributor_id );
+
+		foreach ( $test_cases as $case ) {
+			// 投稿作成時の save_post で前周の値が保存されないよう、先に $_POST を空にする
+			// Clear $_POST first so save_post on post creation does not save the previous value.
+			$_POST = array();
+
+			$post_id = wp_insert_post(
+				array(
+					'post_title'  => 'Contributor Post',
+					'post_status' => 'draft',
+					'post_type'   => 'post',
+					'post_author' => $contributor_id,
+				)
+			);
+
+			// 実際の HTTP リクエストと同じく、スラッシュを付加した値で保存する
+			// Save a slashed value, as a real HTTP request does.
+			$metabox = new VEU_Metabox_CSS_Customize();
+			$this->set_post_data( $metabox, wp_slash( $case['input'] ) );
+			$metabox->save_custom_field( $post_id );
+
+			$actual = get_post_meta( $post_id, '_veu_custom_css', true );
+			$this->assertSame( $case['expected'], $actual, $case['test_condition_name'] );
+			$this->assertStringNotContainsStringIgnoringCase( '</style', $actual, $case['test_condition_name'] );
+
+			// テスト用データを削除する
+			// Delete the test data.
+			wp_delete_post( $post_id, true );
+			$_POST = array();
+		}
+	}
+
+	/**
 	 * test_save_custom_field_with_invalid_nonce
 	 *
 	 * nonce が不正な場合はカスタム CSS が保存されないことを検証する。

@@ -91,6 +91,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 == Changelog ==
 
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
+[ Bug Fix ][ Custom CSS ] Fixed part of the CSS being dropped from the output and breaking the layout when it contained both "<" (e.g. "@media (width <= 992px)") and ">" (e.g. the child combinator), in both the site-wide and per-post Custom CSS.
 [ Security Fix ][ Post Type Manager ] Added a permission check when saving post type settings.
 [ Security Fix ][ Google Tag Manager ] Restricted the Google Tag Manager ID to alphanumeric characters and added a check when saving and when outputting it.
 

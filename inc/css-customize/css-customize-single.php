@@ -13,13 +13,84 @@ function veu_css_customize_single_load() {
 }
 add_action( 'after_setup_theme', 'veu_css_customize_single_load', 11 );
 
+if ( ! function_exists( 'veu_strip_html_tags_from_css' ) ) {
+	/**
+	 * Remove HTML tags pasted into Custom CSS while keeping CSS "<" and ">" intact.
+	 * カスタムCSSに貼り付けられた HTML タグを、CSS の「<」「>」を残したまま除去する。
+	 *
+	 * - <script> elements are removed together with their content.
+	 * - Other tags ( e.g. a <style> wrapper ) are removed, but the text inside is kept.
+	 * - A tag is only "<" + tag name followed by whitespace, "/" or ">", closed by ">"
+	 *   before any "<", "{" or "}". So media query range syntax ( width <= 992px ),
+	 *   ( 400px<width<800px ) and the child combinator ( a > b ) are not treated as tags.
+	 * - <script> 要素は中身ごと除去する。
+	 * - それ以外のタグ（<style> での囲みなど）はタグだけ除去し、中の文字は残す。
+	 * - タグとみなすのは「<」+ タグ名 の直後が空白・「/」・「>」で、「<」「{」「}」より前に
+	 *   「>」で閉じているものだけ。そのため範囲指定のメディアクエリ（width <= 992px）、
+	 *   （400px<width<800px）や子セレクタ（a > b）はタグとみなさない。
+	 *
+	 * This is for backward compatibility only; it does not make the CSS safe to put
+	 * inside a <style> element. Use veu_escape_css_for_style_element() for that.
+	 * 後方互換のための処理で、<style> 要素に入れて安全にする処理ではない。
+	 * 安全化は veu_escape_css_for_style_element() で行う。
+	 *
+	 * @param string $css CSS that may contain HTML tags. / HTML タグを含みうる CSS.
+	 * @return string CSS without HTML tags. / HTML タグを除去した CSS.
+	 */
+	function veu_strip_html_tags_from_css( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
+
+		// Remove <script> elements together with their content.
+		// <script> 要素を中身ごと除去する。
+		$css = preg_replace( '#<script\b[^>]*>.*?</script\s*>#is', '', $css );
+
+		// Remove the remaining HTML tags, keeping the text between them.
+		// 残りの HTML タグを、間の文字は残して除去する。
+		$css = preg_replace( '#</?[a-zA-Z][a-zA-Z0-9-]*(?=[\s/>])[^<>{}]*>#', '', $css );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'veu_escape_css_for_style_element' ) ) {
+	/**
+	 * Make CSS safe to output inside a <style> element.
+	 * CSS を <style> 要素の中に出力しても安全な形にする。
+	 *
+	 * The only way to leave a <style> element is its end tag "</style", so every "</"
+	 * is turned into "<\/". "</" never appears in valid CSS outside strings and
+	 * comments, and inside a CSS string "<\/" means the same as "</".
+	 * <style> 要素を抜け出す手段は終了タグ「</style」だけなので、「</」をすべて「<\/」に置き換える。
+	 * 「</」は文字列とコメント以外の正しい CSS には現れず、CSS の文字列内では「<\/」は「</」と同じ意味になる。
+	 *
+	 * This must be the last step before output: removing comments or tags can join
+	 * "<" and "/" into a new "</" ( e.g. "</**\/style" ).
+	 * コメントやタグの除去で「<」と「/」がつながり新しい「</」ができるため、出力直前の最後に通すこと。
+	 *
+	 * @param string $css CSS to output. / 出力する CSS.
+	 * @return string CSS without "</". / 「</」を含まない CSS.
+	 */
+	function veu_escape_css_for_style_element( $css ) {
+		if ( ! is_string( $css ) ) {
+			return '';
+		}
+		return str_replace( '</', '<\\/', $css );
+	}
+}
+
 if ( ! function_exists( 'veu_sanitize_custom_css_input' ) ) {
 	/**
 	 * Basic sanitization for the Custom CSS meta field.
-	 * Removes HTML tags while keeping CSS-specific characters intact.
+	 * Removes HTML tags while keeping CSS-specific characters ( including "<" and ">" ) intact,
+	 * and neutralizes "</" so the CSS cannot close the <style> element.
+	 * 投稿ごとのカスタムCSSの基本的なサニタイズ。
+	 * CSS で使う文字（「<」「>」を含む）を残したまま HTML タグを除去し、
+	 * <style> 要素を閉じられないよう「</」を無効化する。
 	 *
-	 * @param string $css Raw CSS provided by editors.
-	 * @return string Sanitized CSS string.
+	 * @param string $css Raw CSS provided by editors. / 編集者が入力した CSS.
+	 * @return string Sanitized CSS string. / サニタイズ済みの CSS.
 	 */
 	function veu_sanitize_custom_css_input( $css ) {
 		if ( ! is_string( $css ) ) {
@@ -28,8 +99,12 @@ if ( ! function_exists( 'veu_sanitize_custom_css_input' ) ) {
 
 		$css = wp_check_invalid_utf8( $css );
 		$css = html_entity_decode( $css, ENT_QUOTES | ENT_HTML5 );
-		$css = wp_strip_all_tags( $css, false );
-		$css = preg_replace( '/<\/?style[^>]*>/i', '', $css );
+		// wp_strip_all_tags() treats "<" followed by a non-space as a tag start and drops
+		// CSS such as "<= 992px) { ... >" ( issue #1556 ), so use the CSS-aware stripper.
+		// wp_strip_all_tags() は「<」の直後が空白以外だとタグの開始とみなし、
+		// 「<= 992px) { ... >」のような CSS を消してしまうため（issue #1556）、CSS 用の除去処理を使う。
+		$css = veu_strip_html_tags_from_css( $css );
+		$css = veu_escape_css_for_style_element( $css );
 		$css = trim( $css );
 
 		return $css;
@@ -118,8 +193,9 @@ function veu_get_the_custom_css_single( $post ) {
 		$css_customize = preg_replace( '/\s*([{}:;])\s*/', '$1', $css_customize );
 		// Delete Comment
 		$css_customize = preg_replace( '/\/\*.*?\*\//', '', $css_customize );
-		// Delete HTML tags, but keep <style> and <media> tags
-		$css_customize = preg_replace( '/<(?!\/?style|\/?media\b)[^>]+>/', '', $css_customize );
+		// Comment removal can create a new "</", so neutralize it again as the last step.
+		// コメント除去で新しい「</」ができうるため、最後にもう一度無効化する。
+		$css_customize = veu_escape_css_for_style_element( $css_customize );
 		// Delete leading and trailing spaces
 		$css_customize = trim( $css_customize );
 	}
