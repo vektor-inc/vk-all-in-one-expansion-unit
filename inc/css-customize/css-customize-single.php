@@ -13,28 +13,170 @@ function veu_css_customize_single_load() {
 }
 add_action( 'after_setup_theme', 'veu_css_customize_single_load', 11 );
 
+if ( ! function_exists( 'veu_get_html_element_names_for_css' ) ) {
+	/**
+	 * HTML element names whose tags are removed from Custom CSS.
+	 * カスタムCSSからタグを除去する HTML の要素名。
+	 *
+	 * The element names of the HTML Living Standard ( https://html.spec.whatwg.org/multipage/indices.html#elements-3 ).
+	 * None of them is a CSS media feature name ( width, height, aspect-ratio, resolution, color,
+	 * hover, pointer, prefers-* ... ), so "( 400px<width )" is never taken for a tag.
+	 * HTML Living Standard の要素名。CSS のメディア特性名（width, height, aspect-ratio, resolution,
+	 * color, hover, pointer, prefers-* など）とは重ならないため、「( 400px<width )」をタグとみなさない。
+	 *
+	 * @return string[] Lowercase element names. / 小文字の要素名.
+	 */
+	function veu_get_html_element_names_for_css() {
+		return array(
+			'a',
+			'abbr',
+			'address',
+			'area',
+			'article',
+			'aside',
+			'audio',
+			'b',
+			'base',
+			'bdi',
+			'bdo',
+			'blockquote',
+			'body',
+			'br',
+			'button',
+			'canvas',
+			'caption',
+			'cite',
+			'code',
+			'col',
+			'colgroup',
+			'data',
+			'datalist',
+			'dd',
+			'del',
+			'details',
+			'dfn',
+			'dialog',
+			'div',
+			'dl',
+			'dt',
+			'em',
+			'embed',
+			'fieldset',
+			'figcaption',
+			'figure',
+			'footer',
+			'form',
+			'h1',
+			'h2',
+			'h3',
+			'h4',
+			'h5',
+			'h6',
+			'head',
+			'header',
+			'hgroup',
+			'hr',
+			'html',
+			'i',
+			'iframe',
+			'img',
+			'input',
+			'ins',
+			'kbd',
+			'label',
+			'legend',
+			'li',
+			'link',
+			'main',
+			'map',
+			'mark',
+			'math',
+			'menu',
+			'meta',
+			'meter',
+			'nav',
+			'noscript',
+			'object',
+			'ol',
+			'optgroup',
+			'option',
+			'output',
+			'p',
+			'picture',
+			'pre',
+			'progress',
+			'q',
+			'rp',
+			'rt',
+			'ruby',
+			's',
+			'samp',
+			'script',
+			'search',
+			'section',
+			'select',
+			'selectedcontent',
+			'slot',
+			'small',
+			'source',
+			'span',
+			'strong',
+			'style',
+			'sub',
+			'summary',
+			'sup',
+			'svg',
+			'table',
+			'tbody',
+			'td',
+			'template',
+			'textarea',
+			'tfoot',
+			'th',
+			'thead',
+			'time',
+			'title',
+			'tr',
+			'track',
+			'u',
+			'ul',
+			'var',
+			'video',
+			'wbr',
+		);
+	}
+}
+
 if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 	/**
 	 * Remove the HTML that is commonly pasted into Custom CSS, keeping CSS "<" and ">" intact.
 	 * カスタムCSSによく貼り付けられる HTML を、CSS の「<」「>」を残したまま除去する。
 	 *
-	 * Only the following are removed. Other tags are left as they are, because telling
-	 * an arbitrary tag from CSS such as "( 400px<width ) and ( width>800px )" needs a
-	 * CSS parser; a leftover tag inside a <style> element is inert text.
+	 * The following are removed.
 	 * - HTML comments ( <!-- ... --> ) together with their content. An unclosed "<!--"
 	 *   is removed to the end of its line.
 	 * - <script> elements together with their content.
-	 * - <style> / <script> tags ( e.g. a pasted <style> wrapper ), keeping the CSS inside.
-	 * 除去するのは次だけ。任意のタグを「( 400px<width ) and ( width>800px )」のような CSS と
-	 * 見分けるには CSS の解析が必要なため、それ以外のタグは残す（<style> 要素内に残ったタグはただの文字）。
+	 * - Tags with an HTML element name ( e.g. <br>, <p class="a">, </style> ), keeping the
+	 *   text between them. A tag is "<" or "</", an element name from
+	 *   veu_get_html_element_names_for_css() ( case-insensitive ), then whitespace, "/" or
+	 *   ">", closed by a ">" that comes before any "<", "{" or "}".
+	 * 次を除去する。
 	 * - HTML コメント（<!-- ... -->）は中身ごと。閉じていない「<!--」はその行の末尾まで。
 	 * - <script> 要素は中身ごと。
-	 * - <style> / <script> のタグ（<style> での囲みなど）はタグだけ除去し、中の CSS は残す。
+	 * - HTML の要素名のタグ（<br>、<p class="a">、</style> など）。タグの間の文字は残す。
+	 *   タグとみなすのは、「<」か「</」の直後に veu_get_html_element_names_for_css() の要素名
+	 *   （大文字小文字は区別しない）、その直後が空白・「/」・「>」で、「<」「{」「}」より前の「>」で
+	 *   閉じているもの。
 	 *
-	 * This is for backward compatibility only; it does not make the CSS safe to put
-	 * inside a <style> element. Use veu_escape_css_for_style_element() for that.
-	 * 後方互換のための処理で、<style> 要素に入れて安全にする処理ではない。
-	 * 安全化は veu_escape_css_for_style_element() で行う。
+	 * Other "<" are left as they are, so CSS such as "( 400px<width ) and ( width>800px )"
+	 * survives. Tags must not be left in the CSS: the block editor parses the per-post CSS
+	 * ( PostCSS ) and drops all of it on a syntax error.
+	 * それ以外の「<」は残すため、「( 400px<width ) and ( width>800px )」のような CSS は消えない。
+	 * タグを残してはいけない。ブロックエディタは投稿ごとの CSS を解析（PostCSS）し、構文エラーがあると全体を捨てる。
+	 *
+	 * This does not make the CSS safe to put inside a <style> element.
+	 * Use veu_escape_css_for_style_element() for that.
+	 * <style> 要素に入れて安全にする処理ではない。安全化は veu_escape_css_for_style_element() で行う。
 	 *
 	 * @param string $css CSS that may contain HTML. / HTML を含みうる CSS.
 	 * @return string CSS without the HTML above. / 上記の HTML を除去した CSS.
@@ -57,9 +199,10 @@ if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 		// <script> 要素を中身ごと除去する。
 		$css = preg_replace( '#<script\b[^>]*>.*?</script\s*>#is', '', $css );
 
-		// Remove the remaining <style> / <script> tags, keeping the CSS between them.
-		// 残った <style> / <script> のタグを、間の CSS は残して除去する。
-		$css = preg_replace( '#</?(?:style|script)(?=[\s/>])[^<>{}]*>#i', '', $css );
+		// Remove the remaining tags with an HTML element name, keeping the text between them.
+		// 残った HTML の要素名のタグを、間の文字は残して除去する。
+		$element_names = implode( '|', veu_get_html_element_names_for_css() );
+		$css           = preg_replace( '#</?(?:' . $element_names . ')(?=[\s/>])[^<>{}]*>#i', '', $css );
 
 		return $css;
 	}

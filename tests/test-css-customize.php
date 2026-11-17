@@ -115,9 +115,32 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'correct'             => 'div{color:red;}',
 			),
 			array(
-				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => </STYLE > は除去、img は style 要素内の文字として残る',
+				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => どちらも除去',
 				'option'              => 'div{color:red;}</STYLE ><img src=x onerror=alert(1)>',
-				'correct'             => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			// HTML の要素名のタグは除去する。残すとブロックエディタで CSS 全体が捨てられ、前後のルールも効かなくなる
+			// Tags with an HTML element name are removed. Left in place, the block editor drops the
+			// whole CSS and the rules around the tag stop working.
+			array(
+				'test_condition_name' => 'ルールの後ろに img タグがある場合 => img タグを除去',
+				'option'              => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'ルールの間に br タグがある場合 => br を除去し、後ろのルールも出力',
+				'option'              => '.a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'p タグで囲まれている場合 => p タグを除去して CSS を出力',
+				'option'              => '<p>.a{color:red;}</p>',
+				'correct'             => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> と属性付きの <P class> の場合 => 大文字小文字を区別せず除去',
+				'option'              => '<P class="memo">.a{color:red;}<BR>.b{color:blue;}</P>',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
 			),
 			array(
 				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
@@ -276,10 +299,37 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'correct'             => 'div{color:red;}',
 			),
 			array(
-				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => </STYLE > は除去、img は style 要素内の文字として残る',
+				'test_condition_name' => '大文字・空白入りの </STYLE > と img タグを含む場合 => どちらも除去',
 				'post_title'          => 'タイトル',
 				'post_meta'           => 'div{color:red;}</STYLE ><img src=x onerror=alert(1)>',
-				'correct'             => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			// HTML の要素名のタグは除去する。残すとブロックエディタで CSS 全体が捨てられ、前後のルールも効かなくなる
+			// Tags with an HTML element name are removed. Left in place, the block editor drops the
+			// whole CSS and the rules around the tag stop working.
+			array(
+				'test_condition_name' => 'ルールの後ろに img タグがある場合 => img タグを除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'correct'             => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'ルールの間に br タグがある場合 => br を除去し、後ろのルールも出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '.a{color:red;}<br>.b{color:blue;}',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'p タグで囲まれている場合 => p タグを除去して CSS を出力',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<p>.a{color:red;}</p>',
+				'correct'             => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> と属性付きの <P class> の場合 => 大文字小文字を区別せず除去',
+				'post_title'          => 'タイトル',
+				'post_meta'           => '<P class="memo">.a{color:red;}<BR>.b{color:blue;}</P>',
+				'correct'             => '.a{color:red;}.b{color:blue;}',
 			),
 			array(
 				'test_condition_name' => '> で閉じない </style の場合 => </ を無効化して出力',
@@ -418,6 +468,46 @@ class CssCustomizeTest extends WP_UnitTestCase {
 					array( 'css' => '.site-header{background:red;}' ),
 				),
 			),
+			// HTML の要素名のタグが styles に残ると、エディタ側の CSS 変換（PostCSS）が構文エラーで
+			// CSS 全体を捨てるため、styles に渡す CSS にタグが残らないこと
+			// A tag left in styles makes the editor's CSS transform ( PostCSS ) fail and drop
+			// the whole CSS, so no tag may remain in the CSS passed to styles.
+			array(
+				'test_condition_name' => 'ケース9: ルールの後ろに img タグがある場合 => img タグを除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => 'div{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース10: ルールの間に br タグがある場合 => br を除去し、後ろのルールもエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{color:red;}<br>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}.b{color:blue;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース11: p タグで囲まれている場合 => p タグを除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '<p>.a{color:red;}</p>',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}' ),
+				),
+			),
+			array(
+				'test_condition_name' => 'ケース12: 大文字の <BR> の場合 => 除去してエディタスタイルに追加',
+				'with_post'           => true,
+				'custom_css'          => '.a{color:red;}<BR>.b{color:blue;}',
+				'input'               => array(),
+				'expected_styles'     => array(
+					array( 'css' => '.a{color:red;}.b{color:blue;}' ),
+				),
+			),
 			array(
 				'test_condition_name' => 'ケース4: カスタムCSS未設定の投稿では設定は未変更',
 				'with_post'           => true,
@@ -502,9 +592,39 @@ class CssCustomizeTest extends WP_UnitTestCase {
 				'expected'            => 'a { color: red; }',
 			),
 			array(
-				'test_condition_name' => '属性付きの img タグと br タグを含む場合 => style / script 以外のタグは残す',
+				'test_condition_name' => '属性付きの img タグと br タグを含む場合 => HTML の要素名のタグとして除去',
 				'input'               => 'a { color: red; }<img src=x onerror=alert(1)><br/>',
-				'expected'            => 'a { color: red; }<img src=x onerror=alert(1)><br/>',
+				'expected'            => 'a { color: red; }',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> と <P> の場合 => 大文字小文字を区別せず除去',
+				'input'               => '<P>.a { color: red; }<BR>.b { color: blue; }</P >',
+				'expected'            => '.a { color: red; }.b { color: blue; }',
+			),
+			array(
+				'test_condition_name' => '<width ...> のように HTML の要素名ではない名前の場合 => タグとみなさず残る',
+				'input'               => 'a{}<width foo><height/><color><bold><my-element>',
+				'expected'            => 'a{}<width foo><height/><color><bold><my-element>',
+			),
+			array(
+				'test_condition_name' => '要素名の前方一致 ( <scripting> <bx> <pointer> ) の場合 => 要素名の直後が空白・/・> ではないため残る',
+				'input'               => 'a{}<scripting><bx><pointer>',
+				'expected'            => 'a{}<scripting><bx><pointer>',
+			),
+			array(
+				'test_condition_name' => '要素名の後ろで > より前に { や } がある場合 => タグとみなさず残る',
+				'input'               => '@media (400px<p ) { a > b { color: red; } }',
+				'expected'            => '@media (400px<p ) { a > b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => 'メディア特性名 ( height / aspect-ratio / resolution / color ) の範囲指定の場合 => タグとみなさずそのまま残る',
+				'input'               => '@media (300px<height) and (aspect-ratio>1/1) and (1dppx<resolution) and (8<color) { a>b { color: red; } }',
+				'expected'            => '@media (300px<height) and (aspect-ratio>1/1) and (1dppx<resolution) and (8<color) { a>b { color: red; } }',
+			),
+			array(
+				'test_condition_name' => '子セレクタ a > b と a>b の場合 => そのまま残る',
+				'input'               => 'a > b { color: red; } a>b { color: blue; }',
+				'expected'            => 'a > b { color: red; } a>b { color: blue; }',
 			),
 			array(
 				'test_condition_name' => '(400px<width ) and (width>800px) の場合 => タグとみなさずそのまま残る',

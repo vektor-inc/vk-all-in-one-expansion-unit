@@ -146,8 +146,8 @@ class veu_css_customize {
 	public static function css_customize_get_css_min() {
 		$css_customize = get_option( 'vkExUnit_css_customize' );
 		if ( $css_customize ) {
-			// Remove pasted HTML ( comments, <style> / <script> ) while keeping CSS "<" and ">" ( media query range syntax / child combinator ).
-			// CSS の「<」「>」（範囲指定のメディアクエリ・子セレクタ）を残したまま、貼り付けられた HTML（コメント・<style> / <script>）を除去する。
+			// Remove pasted HTML ( comments, <script> elements, tags with an HTML element name ) while keeping CSS "<" and ">" ( media query range syntax / child combinator ).
+			// CSS の「<」「>」（範囲指定のメディアクエリ・子セレクタ）を残したまま、貼り付けられた HTML（コメント・<script> 要素・HTML の要素名のタグ）を除去する。
 			$css_customize = veu_strip_html_from_css( $css_customize );
 			// Delete br
 			$css_customize = str_replace( PHP_EOL, '', $css_customize );

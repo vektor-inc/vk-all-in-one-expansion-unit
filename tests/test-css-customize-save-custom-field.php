@@ -250,6 +250,31 @@ class CssCustomizeSaveCustomFieldTest extends WP_UnitTestCase {
 				'expected'            => 'div { color: red; }',
 			),
 			array(
+				'test_condition_name' => 'ルールの後ろに img タグがある場合 => img タグを除去して保存される',
+				'input'               => 'div{color:red;}<img src=x onerror=alert(1)>',
+				'expected'            => 'div{color:red;}',
+			),
+			array(
+				'test_condition_name' => 'ルールの間に br タグがある場合 => br を除去して保存される',
+				'input'               => '.a{color:red;}<br>.b{color:blue;}',
+				'expected'            => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'p タグで囲まれている場合 => p タグを除去して保存される',
+				'input'               => '<p>.a{color:red;}</p>',
+				'expected'            => '.a{color:red;}',
+			),
+			array(
+				'test_condition_name' => '大文字の <BR> の場合 => 大文字小文字を区別せず除去して保存される',
+				'input'               => '.a{color:red;}<BR>.b{color:blue;}',
+				'expected'            => '.a{color:red;}.b{color:blue;}',
+			),
+			array(
+				'test_condition_name' => 'a > b と a>b を含む場合 => そのまま保存される',
+				'input'               => 'a > b { color: red; } a>b { color: blue; }',
+				'expected'            => 'a > b { color: red; } a>b { color: blue; }',
+			),
+			array(
 				'test_condition_name' => '> で閉じない </STYLE を含む場合 => </ を無効化して保存される',
 				'input'               => "div { color: red; }</STYLE\n.a { color: blue; }",
 				'expected'            => "div { color: red; }<\\/STYLE\n.a { color: blue; }",
