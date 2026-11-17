@@ -189,11 +189,15 @@ if ( ! function_exists( 'veu_remove_html_comments_from_css' ) ) {
 	 * CSS から HTML コメント（<!-- ... -->）を中身ごと除去する。
 	 *
 	 * Left in place, the text in a comment joins the next selector and that rule stops
-	 * working. An unclosed "<!--" is removed to the end of its line, so the CSS on the
-	 * following lines still works.
+	 * working. Comments inside CSS strings are removed too: their text often contains
+	 * quotes ( "it's" ), which would otherwise be read as the start of a CSS string and
+	 * stop the tag removal after it. An unclosed "<!--" is removed to the end of its line,
+	 * so the CSS on the following lines still works.
 	 * Uses strpos() instead of a regular expression, so a long comment never makes the
 	 * function fail ( PCRE JIT stack / backtrack limit ) and lose the CSS.
 	 * 残すとコメント内の文字が次のセレクタとつながり、そのルールが効かなくなるため。
+	 * CSS の文字列の中のコメントも除去する。中の文字には引用符（it's など）がよく入り、残すと CSS の文字列の開始とみなされて、
+	 * 後ろのタグが除去されなくなるため。
 	 * 閉じていない「<!--」はその行の末尾まで除去し、次の行以降の CSS は効かせる。
 	 * 正規表現ではなく strpos() で探すため、長いコメントでも失敗（PCRE の JIT スタック・バックトラックの上限）して CSS が消えることはない。
 	 *
@@ -248,11 +252,16 @@ if ( ! function_exists( 'veu_remove_script_elements_from_css' ) ) {
 	 * or "_", up to the first ">", then the content up to the first "</script" followed by
 	 * optional whitespace and ">". A <script> without its end tag is not removed here ( its
 	 * start tag is removed by veu_remove_html_tags_from_css() ).
+	 * Elements inside CSS strings are removed too: their content often contains quotes
+	 * ( alert('x') ), which would otherwise be read as the start of a CSS string and stop
+	 * the tag removal after it.
 	 * Uses stripos() instead of a regular expression, so a long script never makes the
 	 * function fail and lose the CSS.
 	 * <script> 要素とは、「<script」（大文字小文字は区別しない）の直後が英数字・「_」でなく、最初の「>」まで続く開始タグと、
 	 * その後ろで最初に現れる「</script」＋空白（省略可）＋「>」までの中身。終了タグの無い <script> はここでは除去しない
 	 * （開始タグは veu_remove_html_tags_from_css() で除去する）。
+	 * CSS の文字列の中の要素も除去する。中の文字には引用符（alert('x') など）がよく入り、残すと CSS の文字列の開始とみなされて、
+	 * 後ろのタグが除去されなくなるため。
 	 * 正規表現ではなく stripos() で探すため、長いスクリプトでも失敗して CSS が消えることはない。
 	 *
 	 * @param string $css CSS. / CSS.
@@ -474,12 +483,17 @@ if ( ! function_exists( 'veu_remove_html_tags_from_css' ) ) {
 	 * the length of the CSS and a long string never makes the function fail and lose the CSS.
 	 * The CSS is read byte by byte: every delimiter is ASCII, and the bytes of a multibyte
 	 * UTF-8 character are never ASCII, so multibyte characters are kept intact.
+	 * Other "<" are left as they are, so CSS such as "( 400px<width ) and ( width>800px )"
+	 * survives. Tags must not be left in the CSS: the block editor parses the per-post CSS
+	 * ( PostCSS ) and drops all of it on a syntax error.
 	 * CSS を先頭から 1 回だけ読み、CSS Syntax Level 3 の tokenizer に沿って文字列（"..." / '...'）・
 	 * コメント（/* ... *\/）・エスケープ（\）を見分け、その外の「<」でだけタグかどうかを判定する。
 	 * 文字列とコメントの中のタグは残すため、SVG のデータ URI や content: "<br>" は壊れず、
 	 * エスケープした引用符（.foo\"）を文字列の開始とみなすこともない。
 	 * 正規表現を使わないため、処理時間は CSS の長さに比例し、長い文字列で失敗して CSS が消えることはない。
 	 * バイト単位で読む。区切りの記号はすべて ASCII で、UTF-8 の多バイト文字のバイトは ASCII にならないため、多バイト文字は壊れない。
+	 * タグでない「<」は残すため、「( 400px<width ) and ( width>800px )」のような CSS は消えない。
+	 * タグを残してはいけない。ブロックエディタは投稿ごとの CSS を解析（PostCSS）し、構文エラーがあると全体を捨てる。
 	 *
 	 * @param string $css CSS. / CSS.
 	 * @return string CSS without the tags. / タグを除去した CSS.
@@ -548,31 +562,14 @@ if ( ! function_exists( 'veu_strip_html_from_css' ) ) {
 	 * Remove the HTML that is commonly pasted into Custom CSS, keeping CSS "<" and ">" intact.
 	 * カスタムCSSによく貼り付けられる HTML を、CSS の「<」「>」を残したまま除去する。
 	 *
-	 * The following are removed, in this order.
-	 * - HTML comments ( <!-- ... --> ) together with their content ( veu_remove_html_comments_from_css() ).
-	 * - <script> elements together with their content ( veu_remove_script_elements_from_css() ).
-	 * - Tags with an HTML element name ( e.g. <br>, <p class="a">, </style> ) outside CSS
-	 *   strings and comments, keeping the text between them ( veu_remove_html_tags_from_css() ).
+	 * Removes the following, in this order.
+	 * - HTML comments with their content ( veu_remove_html_comments_from_css() ).
+	 * - <script> elements with their content ( veu_remove_script_elements_from_css() ).
+	 * - Tags with an HTML element name outside CSS strings and comments ( veu_remove_html_tags_from_css() ).
 	 * 次の順に除去する。
-	 * - HTML コメント（<!-- ... -->）を中身ごと（veu_remove_html_comments_from_css()）。
+	 * - HTML コメントを中身ごと（veu_remove_html_comments_from_css()）。
 	 * - <script> 要素を中身ごと（veu_remove_script_elements_from_css()）。
-	 * - CSS の文字列とコメントの外にある HTML の要素名のタグ（<br>、<p class="a">、</style> など）。
-	 *   タグの間の文字は残す（veu_remove_html_tags_from_css()）。
-	 *
-	 * HTML comments and <script> elements are removed everywhere, including inside CSS
-	 * strings: their text often contains quotes ( "it's", alert('x') ), which would
-	 * otherwise be read as the start of a CSS string and stop the tag removal after it.
-	 * HTML コメントと <script> 要素は CSS の文字列の中も含めて除去する。中の文字には引用符
-	 * （it's、alert('x') など）がよく入り、残すと CSS の文字列の開始とみなされて、後ろのタグが除去されなくなるため。
-	 *
-	 * Other "<" are left as they are, so CSS such as "( 400px<width ) and ( width>800px )"
-	 * survives. Tags must not be left in the CSS: the block editor parses the per-post CSS
-	 * ( PostCSS ) and drops all of it on a syntax error.
-	 * None of the steps uses a regular expression over the whole CSS, so a long CSS never
-	 * makes this return null or an empty string.
-	 * それ以外の「<」は残すため、「( 400px<width ) and ( width>800px )」のような CSS は消えない。
-	 * タグを残してはいけない。ブロックエディタは投稿ごとの CSS を解析（PostCSS）し、構文エラーがあると全体を捨てる。
-	 * どの処理も CSS 全体に正規表現を使わないため、長い CSS で null や空文字を返すことはない。
+	 * - CSS の文字列とコメントの外にある HTML の要素名のタグ（veu_remove_html_tags_from_css()）。
 	 *
 	 * This does not make the CSS safe to put inside a <style> element.
 	 * Use veu_escape_css_for_style_element() for that.
