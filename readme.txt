@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 9.124.0
+Stable tag: 9.125.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+= 9.125.0 =
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
 [ Bug Fix ][ Custom CSS ] Fixed part of the CSS being dropped from the output and breaking the layout when it contained both "<" (e.g. "@media (width <= 992px)") and ">" (e.g. the child combinator), in both the site-wide and per-post Custom CSS.
 [ Security Fix ][ Post Type Manager ] Added a permission check when saving post type settings.
