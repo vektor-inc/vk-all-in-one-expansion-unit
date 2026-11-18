@@ -1080,6 +1080,33 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					),
 				),
 			),
+			// 境界値 : タイトルに文字参照で書いた < > を含む => タグとして消さず、文字の < > に戻した見出しになる
+			// タグを除く処理と文字参照を戻す処理の順番を入れ替えると、<b> と </b> が消えて A & B になり失敗する。
+			// Boundary case: the title contains < > written as character references -> they are not removed as tags, and the headline has them restored as < > characters.
+			// If the order of removing tags and restoring references were swapped, <b> and </b> would be removed and the result would be A & B, so this case fails.
+			array(
+				'test_condition_name' => 'タイトルに文字参照で書いた < > と & を含む場合 => headline はタグとして消さず < > と & に戻した文字列になる',
+				'post_data'           => array(
+					'post_title'   => '&lt;b&gt;A&lt;/b&gt; &amp; B',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Escaped Tag',
+					'post_author'  => $test_users['person_01']['user_id'],
+				),
+				'set_thumbnail'       => false,
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => '<b>A</b> & B',
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => 'Person',
+						'name'   => $test_users['person_01']['user_meta']['author_name'],
+						'url'    => $test_users['person_01']['user_meta']['author_url'],
+						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
+					),
+				),
+			),
 			// 個別の投稿ページじゃないページで空で返ってきてるか？
 			/**
 			 * get_author_structure_array()はとにかくそのページの著者の配列データ$author_arrayを作る
