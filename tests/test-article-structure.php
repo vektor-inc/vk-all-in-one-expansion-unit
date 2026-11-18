@@ -165,6 +165,23 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'url'   => 'https://vektor-inc.co.jp/?a=1&b=2',
 				),
 			),
+			// 正常系 : author_name に &apos; と &#039; を含む → どちらも同じ ' に戻した名前が返る（チェック対象 : name）
+			// Normal case: author_name contains &apos; and &#039; -> both are restored to the same ' in the name (target: name).
+			array(
+				'test_condition_name' => 'author_name に &apos; と &#039; を含む場合 => name はどちらも同じ \' に戻る',
+				'user_id'             => $user_id,
+				'author'              => array(
+					'author_type'   => 'person',
+					'author_name'   => 'Tom&apos;s &amp; Jerry&#039;s',
+					'author_url'    => 'https://vektor-inc.co.jp/',
+					'author_sameAs' => '',
+				),
+				'correct'             => array(
+					'@type' => 'Person',
+					'name'  => "Tom's & Jerry's",
+					'url'   => 'https://vektor-inc.co.jp/',
+				),
+			),
 			// 異常系 : 存在しないユーザーID → get_userdata() が false を返しても Warning を出さず name が空文字になるか
 			// 不具合: 修正前は false に対し $author->display_name へアクセスし Warning が発生していた。
 			// Abnormal case: a non-existent user ID -> even though get_userdata() returns false, no warning is raised and name becomes an empty string.
@@ -1107,6 +1124,85 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					),
 				),
 			),
+			// 境界値 : タイトルにタグの始まりにならない単独の < を含む => < 以降を消さず、そのままの見出しになる
+			// 不具合: 修正前は wp_strip_all_tags() が <5 をタグとみなして消し、Math x になっていた。
+			// Boundary case: the title contains a lone < that cannot start a tag -> the < and what follows it are kept in the headline.
+			// Bug: before the fix, wp_strip_all_tags() treated <5 as a tag and removed it, which made the headline Math x.
+			array(
+				'test_condition_name' => 'タイトルにタグの始まりにならない単独の < を含む場合 => headline は < 以降を消さない',
+				'post_data'           => array(
+					'post_title'   => 'Math x<5',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Lone Less Than',
+					'post_author'  => $test_users['person_01']['user_id'],
+				),
+				'unfiltered_html'     => true,
+				'set_thumbnail'       => false,
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => 'Math x<5',
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => 'Person',
+						'name'   => $test_users['person_01']['user_meta']['author_name'],
+						'url'    => $test_users['person_01']['user_meta']['author_url'],
+						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
+					),
+				),
+			),
+			// 境界値 : タイトルに装飾タグと単独の < を両方含む => 装飾タグだけを除き、単独の < は残した見出しになる
+			// Boundary case: the title contains both a decoration tag and a lone < -> only the decoration tag is removed and the lone < is kept in the headline.
+			array(
+				'test_condition_name' => 'タイトルに装飾タグと単独の < を両方含む場合 => headline は装飾タグだけを除き、単独の < は残す',
+				'post_data'           => array(
+					'post_title'   => '<em>Math</em> x<5 & a <= b',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Tag And Lone Less Than',
+					'post_author'  => $test_users['person_01']['user_id'],
+				),
+				'unfiltered_html'     => true,
+				'set_thumbnail'       => false,
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => 'Math x<5 & a <= b',
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => 'Person',
+						'name'   => $test_users['person_01']['user_meta']['author_name'],
+						'url'    => $test_users['person_01']['user_meta']['author_url'],
+						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
+					),
+				),
+			),
+			// 正常系 : タイトルに &apos; と &#039; を含む => どちらも同じ ' に戻した見出しになる
+			// Normal case: the title contains &apos; and &#039; -> both are restored to the same ' in the headline.
+			array(
+				'test_condition_name' => 'タイトルに &apos; と &#039; を含む場合 => headline はどちらも同じ \' に戻した文字列になる',
+				'post_data'           => array(
+					'post_title'   => 'Tom&apos;s &amp; Jerry&#039;s',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Apostrophe',
+					'post_author'  => $test_users['person_01']['user_id'],
+				),
+				'set_thumbnail'       => false,
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => "Tom's & Jerry's",
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => 'Person',
+						'name'   => $test_users['person_01']['user_meta']['author_name'],
+						'url'    => $test_users['person_01']['user_meta']['author_url'],
+						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
+					),
+				),
+			),
 			// 個別の投稿ページじゃないページで空で返ってきてるか？
 			/**
 			 * get_author_structure_array()はとにかくそのページの著者の配列データ$author_arrayを作る
@@ -1121,7 +1217,17 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		$attachment_ids = array();
 
 		foreach ( $test_data as $test_value ) {
+			// unfiltered_html が true のケースでは、管理者など unfiltered_html 権限を持つユーザーの保存を再現し、
+			// タイトルを kses で書き換えず（単独の < を &lt; にせず）そのまま保存する。保存後は元の状態に戻す。
+			// For cases with unfiltered_html true, reproduce saving by a user with the unfiltered_html capability (such as an administrator),
+			// so the title is saved as-is without being rewritten by kses (a lone < is not turned into &lt;). Restore the original state after saving.
+			if ( ! empty( $test_value['unfiltered_html'] ) ) {
+				kses_remove_filters();
+			}
 			$target_post_id = wp_insert_post( $test_value['post_data'] );
+			if ( ! empty( $test_value['unfiltered_html'] ) ) {
+				kses_init();
+			}
 
 			$test_value['correct']['datePublished'] = get_the_time( 'c', $target_post_id );
 			$test_value['correct']['dateModified']  = get_the_modified_time( 'c', $target_post_id );

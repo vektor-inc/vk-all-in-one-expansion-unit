@@ -51,7 +51,7 @@ class VK_WebSite_Srtuctured_Data {
 			'@type'    => 'WebSite',
 			// サイト名は保存時に & が &amp; などになるため、検索エンジンに文字参照のまま伝わらないよう元の文字に戻す。
 			// The site name is saved with & etc. turned into references such as &amp;, so turn them back into characters before they reach search engines.
-			'name'     => html_entity_decode( get_bloginfo( 'name' ), ENT_QUOTES, 'UTF-8' ),
+			'name'     => html_entity_decode( get_bloginfo( 'name' ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
 			'url'      => home_url(),
 		);
 

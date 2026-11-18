@@ -118,6 +118,21 @@ class Website_Structure_Test extends WP_UnitTestCase {
 				'target_url'          => home_url( '/' ),
 				'expected_payload'    => '{"@context":"https://schema.org/","@type":"WebSite","name":"1 \u003E 0","url":"' . home_url() . '"}',
 			),
+			// サイト名の保存処理は &apos; を &amp;apos; にするため、ほかのプラグインがフィルターで渡すサイト名を想定してフィルターで与える。
+			// Saving the site name turns &apos; into &amp;apos;, so the site name is given by a filter, assuming one passed by another plugin.
+			array(
+				'test_condition_name' => 'トップページでサイト名に &apos; と &#039; を含む => どちらも同じ \' に戻して出力される',
+				'conditions'          => array(
+					'options' => array( 'blogname' => 'Site name' ),
+					'filters' => array(
+						'option_blogname' => function () {
+							return 'Tom&apos;s &amp; Jerry&#039;s';
+						},
+					),
+				),
+				'target_url'          => home_url( '/' ),
+				'expected_payload'    => '{"@context":"https://schema.org/","@type":"WebSite","name":"Tom\'s & Jerry\'s","url":"' . home_url() . '"}',
+			),
 			array(
 				'test_condition_name' => '投稿の個別ページ => 出力されない',
 				'conditions'          => array(
@@ -151,11 +166,15 @@ class Website_Structure_Test extends WP_UnitTestCase {
 			preg_match( '#<script type="application/ld\+json">(.*?)</script>#s', $output, $matches );
 			$payload = isset( $matches[1] ) ? $matches[1] : null;
 
-			$this->assertSame( $case['expected_payload'], $payload, $case['test_condition_name'] );
+			if ( null === $case['expected_payload'] ) {
+				// 出力しないケースでは、script 要素だけでなく前後のコメントも含めて何も出力されないことを確かめる。
+				// For the cases without output, check that nothing is output at all, including the comments around the script element.
+				$this->assertSame( '', $output, $case['test_condition_name'] );
+			} else {
+				$this->assertSame( $case['expected_payload'], $payload, $case['test_condition_name'] );
 
-			// 出力したときは、JSON として読み直した値が出力元の配列と一致することも確かめる。
-			// When output, also check that the value decoded as JSON matches the source array.
-			if ( null !== $case['expected_payload'] ) {
+				// JSON として読み直した値が出力元の配列と一致することも確かめる。
+				// Also check that the value decoded as JSON matches the source array.
 				$this->assertSame( VK_WebSite_Srtuctured_Data::get_website_structure_array(), json_decode( (string) $payload, true ), $case['test_condition_name'] );
 			}
 
