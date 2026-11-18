@@ -23,6 +23,16 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		);
 		$user_id  = wp_insert_user( $userdata );
 
+		// 表示名に & を含むテスト用ユーザーを発行する（表示名は保存時に & が &amp; になる）。
+		// Create a test user whose display name contains & (the & becomes &amp; when the display name is saved).
+		$ampersand_user_id = wp_insert_user(
+			array(
+				'user_login'   => 'ampersandvektor',
+				'user_pass'    => 'user_pass',
+				'display_name' => 'Tom & Jerry',
+			)
+		);
+
 		// 存在しないユーザーID（十分に大きな値）。get_userdata() が false を返す異常系の検証に使う。
 		// A non-existent user ID (a sufficiently large value), used for the abnormal case where get_userdata() returns false.
 		$invalid_user_id = 999999;
@@ -119,6 +129,40 @@ class Article_Structure_Test extends WP_UnitTestCase {
 					'name'   => 'vekujirou',
 					'url'    => home_url( '/' ),
 					'sameAs' => 'https://twitter.com/vektor_inc',
+				),
+			),
+			// 正常系 : author_name 指定なしで表示名に & を含む → 保存時に &amp; になった & を戻した名前が返る（チェック対象 : name）
+			// Normal case: author_name not provided and the display name contains & -> the name has the & restored from the &amp; made on saving (target: name).
+			array(
+				'test_condition_name' => 'author_name 指定なしで表示名に & を含む場合 => name は &amp; ではなく & になる',
+				'user_id'             => $ampersand_user_id,
+				'author'              => array(
+					'author_type'   => 'organization',
+					'author_name'   => '',
+					'author_url'    => '',
+					'author_sameAs' => '',
+				),
+				'correct'             => array(
+					'@type' => 'Organization',
+					'name'  => 'Tom & Jerry',
+					'url'   => home_url( '/' ),
+				),
+			),
+			// 正常系 : author_name に & を含む → & のまま返る（チェック対象 : name）
+			// Normal case: author_name contains & -> it is returned as & (target: name).
+			array(
+				'test_condition_name' => 'author_name に & を含む場合 => name は & のまま返る',
+				'user_id'             => $user_id,
+				'author'              => array(
+					'author_type'   => 'person',
+					'author_name'   => 'A&B',
+					'author_url'    => 'https://vektor-inc.co.jp/?a=1&b=2',
+					'author_sameAs' => '',
+				),
+				'correct'             => array(
+					'@type' => 'Person',
+					'name'  => 'A&B',
+					'url'   => 'https://vektor-inc.co.jp/?a=1&b=2',
 				),
 			),
 			// 異常系 : 存在しないユーザーID → get_userdata() が false を返しても Warning を出さず name が空文字になるか
@@ -240,8 +284,9 @@ class Article_Structure_Test extends WP_UnitTestCase {
 		}
 
 		// テストで発行したユーザーを削除
-		// Delete the user created for the test.
+		// Delete the users created for the test.
 		wp_delete_user( $user_id );
+		wp_delete_user( $ampersand_user_id );
 	}
 
 	/**
@@ -982,6 +1027,56 @@ class Article_Structure_Test extends WP_UnitTestCase {
 						'name'   => $test_users['org_02']['user_meta']['author_name'],
 						'url'    => $test_users['org_02']['user_meta']['author_url'],
 						'sameAs' => $test_users['org_02']['user_meta']['author_sameAs'],
+					),
+				),
+			),
+			// 正常系 : タイトルに & を含む => 保存時・表示用の整形で文字参照（&amp; など）になった & を戻した見出しになる
+			// Normal case: the title contains & -> the headline has the & restored from the character reference (&amp; etc.) made on saving or display formatting.
+			array(
+				'test_condition_name' => 'タイトルに & を含む場合 => headline は &amp; ではなく & になる',
+				'post_data'           => array(
+					'post_title'   => 'Tom & Jerry',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Ampersand',
+					'post_author'  => $test_users['person_01']['user_id'],
+				),
+				'set_thumbnail'       => false,
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => 'Tom & Jerry',
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => 'Person',
+						'name'   => $test_users['person_01']['user_meta']['author_name'],
+						'url'    => $test_users['person_01']['user_meta']['author_url'],
+						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
+					),
+				),
+			),
+			// 正常系 : タイトルに HTML タグと & を含む => タグを除き、& を戻した見出しになる
+			// Normal case: the title contains HTML tags and & -> the headline has the tags removed and the & restored.
+			array(
+				'test_condition_name' => 'タイトルに HTML タグと & を含む場合 => headline はタグを除き、& を戻した文字列になる',
+				'post_data'           => array(
+					'post_title'   => 'Tom <strong>&</strong> Jerry',
+					'post_status'  => 'publish',
+					'post_content' => 'Post Test Tag',
+					'post_author'  => $test_users['person_01']['user_id'],
+				),
+				'set_thumbnail'       => false,
+				'correct'             => array(
+					'@context'      => 'https://schema.org/',
+					'@type'         => 'Article',
+					'headline'      => 'Tom & Jerry',
+					'datePublished' => 'ここは投稿作成してから上書きする',
+					'dateModified'  => 'ここは投稿作成してから上書きする',
+					'author'        => array(
+						'@type'  => 'Person',
+						'name'   => $test_users['person_01']['user_meta']['author_name'],
+						'url'    => $test_users['person_01']['user_meta']['author_url'],
+						'sameAs' => $test_users['person_01']['user_meta']['author_sameAs'],
 					),
 				),
 			),

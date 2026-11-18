@@ -113,6 +113,29 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 	 */
 	public function test_the_article_structure_data() {
 
+		// 出力される JSON の書き方を確かめるため、配列フィルターで差し替える配列。
+		// Arrays swapped in through the array filter, to check how the JSON is written out.
+		$ampersand_array = array(
+			'@context' => 'https://schema.org/',
+			'@type'    => 'Article',
+			'headline' => 'Tom & Jerry の見出し',
+			'author'   => array(
+				'@type' => 'Person',
+				'name'  => 'A&B',
+				'url'   => 'https://example.com/?a=1&b=2',
+			),
+		);
+		$tag_array       = array(
+			'@context' => 'https://schema.org/',
+			'@type'    => 'Article',
+			'headline' => '</script><script>alert(1)</script>',
+			'author'   => array(
+				'@type' => 'Person',
+				'name'  => '<!-- --> "引用" \\ &amp;',
+				'url'   => 'https://example.com/a/b/',
+			),
+		);
+
 		$test_cases = array(
 			// 正常系: 既存どおり出力される。
 			// Normal cases: output as before.
@@ -244,6 +267,36 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 				'target'              => 'post',
 				'expected'            => false,
 			),
+			// 出力する JSON の書き方。expected_payload は script 要素の中身そのもの。
+			// How the JSON is written out. expected_payload is the exact content of the script element.
+			array(
+				'test_condition_name' => '配列フィルターで & を含む見出し・著者名・URL を返す => & は &amp; にならずそのまま出力され、読み直すと元の配列',
+				'conditions'          => array(
+					'filters' => array(
+						'veu_article_structure_data' => function () use ( $ampersand_array ) {
+							return $ampersand_array;
+						},
+					),
+				),
+				'target'              => 'post',
+				'expected'            => true,
+				'expected_payload'    => '{"@context":"https://schema.org/","@type":"Article","headline":"Tom & Jerry の見出し","author":{"@type":"Person","name":"A&B","url":"https://example.com/?a=1&b=2"}}',
+				'expected_decoded'    => $ampersand_array,
+			),
+			array(
+				'test_condition_name' => '配列フィルターで </script> や HTML コメントを含む値を返す => < と > は \u003C と \u003E で出力されて script 要素を閉じず、読み直すと元の配列',
+				'conditions'          => array(
+					'filters' => array(
+						'veu_article_structure_data' => function () use ( $tag_array ) {
+							return $tag_array;
+						},
+					),
+				),
+				'target'              => 'post',
+				'expected'            => true,
+				'expected_payload'    => '{"@context":"https://schema.org/","@type":"Article","headline":"\u003C/script\u003E\u003Cscript\u003Ealert(1)\u003C/script\u003E","author":{"@type":"Person","name":"\u003C!-- --\u003E \"引用\" \\\\ &amp;","url":"https://example.com/a/b/"}}',
+				'expected_decoded'    => $tag_array,
+			),
 		);
 
 		foreach ( $test_cases as $case ) {
@@ -265,6 +318,17 @@ class Article_Structure_Output_Test extends WP_UnitTestCase {
 			$output = ob_get_clean();
 
 			$this->assertSame( $case['expected'], ( false !== strpos( $output, '"@type":"Article"' ) ), $case['test_condition_name'] );
+
+			// 書き方を指定したケースでは、script 要素の中身と、それを JSON として読み直した値を確かめる。
+			// 値の中の </script> で要素が途中で閉じると、中身が途中で切れて両方とも一致しなくなる。
+			// For cases that specify the format, check the content of the script element and the value decoded from it as JSON.
+			// If a </script> in a value closed the element early, the content would be cut off and neither would match.
+			if ( isset( $case['expected_payload'] ) ) {
+				preg_match( '#<script type="application/ld\+json">(.*?)</script>#s', $output, $matches );
+				$payload = isset( $matches[1] ) ? $matches[1] : null;
+				$this->assertSame( $case['expected_payload'], $payload, $case['test_condition_name'] );
+				$this->assertSame( $case['expected_decoded'], json_decode( (string) $payload, true ), $case['test_condition_name'] );
+			}
 
 			// 後続のケースへ影響させないよう後始末する。
 			// Clean up so that later cases are not affected.
