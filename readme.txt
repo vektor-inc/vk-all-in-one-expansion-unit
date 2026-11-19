@@ -90,6 +90,9 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ Bug Fix ][ Structured Data ] Fixed "&" and quotation marks in the site name, post title and author name being output as codes such as "&amp;" in the Article and WebSite structured data (JSON-LD). They are now output as the original characters.
+[ Bug Fix ][ Structured Data ] Fixed "&" in URLs being output as "&amp;" in the Article and WebSite structured data (JSON-LD), which search engines could read as a different URL.
+
 = 9.125.0 =
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
 [ Bug Fix ][ Custom CSS ] Fixed part of the CSS being dropped from the output and breaking the layout when it contained both "<" (e.g. "@media (width <= 992px)") and ">" (e.g. the child combinator), in both the site-wide and per-post Custom CSS.
