@@ -84,7 +84,7 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 					'default'           => '',
 					'type'              => 'option', // 保存先 option or theme_mod
 					'capability'        => 'edit_theme_options',
-					'sanitize_callback' => 'sanitize_text_field',
+					'sanitize_callback' => 'vk_gtm_sanitize_id',
 				)
 			);
 
@@ -153,13 +153,53 @@ if ( ! class_exists( 'Vk_Goole_Tag_Manager' ) ) {
 	$vk_mobile_fix_nav = new Vk_Goole_Tag_Manager();
 } // if ( ! class_exists('Vk_Goole_Tag_Manager') )  {
 
+/**
+ * Restrict the Google Tag Manager ID to alphanumeric characters ( allowlist ).
+ * Google Tag Manager の ID を英数字だけに絞る ( 許可リスト )。
+ *
+ * Used both as the sanitize_callback when saving and when outputting.
+ * The leading "GTM-" is removed because it is already displayed before the input field.
+ *
+ * 保存時の sanitize_callback と出力時の両方で使う。
+ * 先頭の「GTM-」は入力欄の前に表示されるため取り除く。
+ *
+ * @param mixed $value 入力値 / Input value.
+ * @return string 英数字だけの ID。許可されない文字を含む場合は空文字 / Alphanumeric ID, or an empty string if it contains characters that are not allowed.
+ */
+function vk_gtm_sanitize_id( $value ) {
+	if ( ! is_string( $value ) ) {
+		return '';
+	}
+	// 前後の空白と先頭の「GTM-」を除去する。
+	// Remove surrounding whitespace and the leading "GTM-".
+	$value = preg_replace( '/^GTM-/i', '', trim( $value ) );
+	// 英数字以外を含む値は破棄する。
+	// Discard values that contain anything other than alphanumeric characters.
+	if ( ! preg_match( '/^[A-Za-z0-9]+$/', $value ) ) {
+		return '';
+	}
+	return $value;
+}
+
 // head に読み込むコード
 add_action( 'wp_head', 'vk_gtm_head', 0 );
+/**
+ * Output the Google Tag Manager code for the head.
+ * Google Tag Manager の head 用コードを出力する。
+ *
+ * Nothing is output when the ID is not set or contains characters other than alphanumeric ones.
+ * ID が未設定、または英数字以外を含む場合は何も出力しない。
+ *
+ * @return void
+ */
 function vk_gtm_head() {
 
 	$options = get_option( 'vk_google_tag_manager_related_options' );
 	if ( isset( $options['gtm_id'] ) && $options['gtm_id'] ) {
-		$gtm_id = $options['gtm_id'];
+		$gtm_id = vk_gtm_sanitize_id( $options['gtm_id'] );
+		if ( ! $gtm_id ) {
+			return;
+		}
 
 		// GTM head コード
 		$gtm_head =
@@ -177,10 +217,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 // body に読み込むコード
 add_action( 'wp_body_open', 'vk_gtm_body', 0 );
+/**
+ * Output the Google Tag Manager code ( noscript ) for the body.
+ * Google Tag Manager の body 用コード ( noscript ) を出力する。
+ *
+ * Nothing is output when the ID is not set or contains characters other than alphanumeric ones.
+ * ID が未設定、または英数字以外を含む場合は何も出力しない。
+ *
+ * @return void
+ */
 function vk_gtm_body() {
 	$options = get_option( 'vk_google_tag_manager_related_options' );
 	if ( isset( $options['gtm_id'] ) && $options['gtm_id'] ) {
-		$gtm_id = $options['gtm_id'];
+		$gtm_id = vk_gtm_sanitize_id( $options['gtm_id'] );
+		if ( ! $gtm_id ) {
+			return;
+		}
 
 		// GTM body コード
 		$gtm_body =

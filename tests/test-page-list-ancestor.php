@@ -5,11 +5,15 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+require_once __DIR__ . '/helpers/trait-veu-html-assertions.php';
+
 /**
  * PageListAncestor test case.
  */
 
 class PageListAncestorTest extends WP_UnitTestCase {
+
+	use VEU_Test_Html_Assertions;
 
 	public function test_display_shortcode() {
 		$id = wp_insert_post(
@@ -193,7 +197,7 @@ class PageListAncestorTest extends WP_UnitTestCase {
 			// print $return . PHP_EOL;
 			// print 'correct------------------------------------' . PHP_EOL;
 			// print $correct . PHP_EOL;
-			$this->assertEquals( $correct, $return );
+			$this->assert_html_same( $correct, $return, $title );
 		}
 	}
 }

@@ -233,7 +233,9 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			};
 
 			// CSRF対策の設定（フォームにhiddenフィールドとして追加するためのnonceを「'noncename__post_type_manager」として設定）.
-			wp_nonce_field( wp_create_nonce( __FILE__ ), 'noncename__post_type_manager' );
+			// アクション名は save_cf_value() の wp_verify_nonce() と同じ固定文字列にすること.
+			// 時刻で変わる値をアクション名にすると、発行から 12 時間の区切りを跨いだ保存が通らなくなる.
+			wp_nonce_field( 'vk_post_type_manager', 'noncename__post_type_manager' );
 
 			// 通知メッセージを取得して表示.
 			echo wp_kses_post( self::add_post_type_get_help_notice() );
@@ -646,12 +648,17 @@ if ( ! class_exists( 'VK_Post_Type_Manager' ) ) {
 			$noncename__post_type_manager = isset( $_POST['noncename__post_type_manager'] ) ? sanitize_text_field( wp_unslash( $_POST['noncename__post_type_manager'] ) ) : '';
 
 			// nonce を確認し、値が書き換えられていれば、何もしない（CSRF対策）.
-			if ( ! wp_verify_nonce( $noncename__post_type_manager, wp_create_nonce( __FILE__ ) ) ) {
+			if ( ! wp_verify_nonce( $noncename__post_type_manager, 'vk_post_type_manager' ) ) {
 				return $post_id;
 			}
 
 			// 自動保存ルーチンかどうかチェック。そうだった場合は何もしない（記事の自動保存処理として呼び出された場合の対策）.
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+				return $post_id;
+			}
+
+			// 権限の確認（この投稿を編集できるユーザーだけが保存できる）.
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return $post_id;
 			}
 

@@ -5,6 +5,8 @@
  * @package Vk_All_In_One_Expansion_Unit
  */
 
+require_once __DIR__ . '/helpers/trait-veu-html-assertions.php';
+
 /**
  * CTA display path escaping test case.
  *
@@ -17,6 +19,8 @@
  * CTA タイトル ( 出力時のフィルタ ) を検証する。
  */
 class CTAOutputEscapingTest extends WP_UnitTestCase {
+
+	use VEU_Test_Html_Assertions;
 
 	/**
 	 * Stored XSS PoC value reported in issue #1434.
@@ -160,14 +164,19 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 			),
 			array(
 				// タイトルは wp_kses_post で出力するため、<br> は残しつつ <script> は除去される。
+				// 除去した <script> の中身を残すかは WordPress のバージョンで異なるため、期待値は wp_kses_post() の出力から作り、
+				// <br> が残る事と <script が出力されない事は別に検証する。
 				// esc_html だと <br> が文字として表示されてしまうため、その退行がない事も併せて検証する。
 				// The title is output through wp_kses_post, so <br> is kept while <script> is stripped.
+				// Whether the text inside the stripped <script> remains differs between WordPress versions, so build the expected value from wp_kses_post()
+				// and verify separately that <br> remains and that <script is not output.
 				// esc_html would render <br> as text, so this also guards against that regression.
 				'test_condition_name' => 'タイトルに <br> と <script> が含まれる場合 => <br> は残り <script> は除去される',
 				'image_position'      => 'right',
 				'post_title'          => 'CTA Title<br><script>alert(1)</script>',
-				'expected'            => '<h1 class="cta_title">CTA Title<br>alert(1)</h1>',
-				'not_expected'        => '<script>',
+				'expected'            => '<h1 class="cta_title">' . wp_kses_post( 'CTA Title<br><script>alert(1)</script>' ) . '</h1>',
+				'also_expected'       => '<h1 class="cta_title">CTA Title<br>',
+				'not_expected'        => '<script',
 			),
 			array(
 				'test_condition_name' => 'タイトルに on* 属性付きのタグが含まれる場合 => 属性が除去される',
@@ -285,6 +294,9 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 			$actual = Vk_Call_To_Action::render_cta_content( $cta_id );
 
 			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
+			if ( isset( $case['also_expected'] ) ) {
+				$this->assertStringContainsString( $case['also_expected'], $actual, $case['test_condition_name'] );
+			}
 			if ( isset( $case['not_expected'] ) ) {
 				$this->assertStringNotContainsString( $case['not_expected'], $actual, $case['test_condition_name'] );
 			}
@@ -320,6 +332,9 @@ class CTAOutputEscapingTest extends WP_UnitTestCase {
 			$actual = veu_cta_block_callback( array( 'postId' => $cta_id ), '' );
 
 			$this->assertStringContainsString( $case['expected'], $actual, $case['test_condition_name'] );
+			if ( isset( $case['also_expected'] ) ) {
+				$this->assertStringContainsString( $case['also_expected'], $actual, $case['test_condition_name'] );
+			}
 			if ( isset( $case['not_expected'] ) ) {
 				$this->assertStringNotContainsString( $case['not_expected'], $actual, $case['test_condition_name'] );
 			}

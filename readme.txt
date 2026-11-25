@@ -5,7 +5,7 @@ Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 9.124.0
+Stable tag: 9.125.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,7 +91,15 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 == Changelog ==
 
 [ New Feature ] Added a "Disable Random Redirect" option, shown only on WordPress 7.2 or later, to stop the /random/ redirect to a random post.
+[ Bug Fix ][ Structured Data ] Fixed "&" and quotation marks in the site name, post title and author name being output as codes such as "&amp;" in the Article and WebSite structured data (JSON-LD). They are now output as the original characters.
+[ Bug Fix ][ Structured Data ] Fixed "&" in URLs being output as "&amp;" in the Article and WebSite structured data (JSON-LD), which search engines could read as a different URL.
+[ Bug Fix ][ Breadcrumb ] Update vektor-inc/vk-breadcrumb from 0.2.9 to 0.2.11, fixing "&" being output as `&amp;` in the breadcrumb structured data (JSON-LD)
+
+= 9.125.0 =
 [ New Feature ][ Title Tag ] Added an "Also reflect in the archive page heading" option to the Head Title setting on category, tag and custom taxonomy edit screens. When enabled, the archive page heading and og:title are replaced with the entered text.
+[ Bug Fix ][ Custom CSS ] Fixed part of the CSS being dropped from the output and breaking the layout when it contained both "<" (e.g. "@media (width <= 992px)") and ">" (e.g. the child combinator), in both the site-wide and per-post Custom CSS.
+[ Security Fix ][ Post Type Manager ] Added a permission check when saving post type settings.
+[ Security Fix ][ Google Tag Manager ] Restricted the Google Tag Manager ID to alphanumeric characters and added a check when saving and when outputting it.
 
 = 9.124.0 =
 [ New Feature ][ Article Structured Data ] Added the veu_article_structure_data_is_output and veu_article_structure_data filters to control the output and change the output data.

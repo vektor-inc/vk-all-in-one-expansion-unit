@@ -475,7 +475,11 @@ class VK_Article_Srtuctured_Data {
 		}
 
 		echo '<!-- [ VK All in One Expansion Unit Article Structure Data ] -->';
-		echo '<script type="application/ld+json">' . wp_kses( json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), array() ) . '</script>';
+		// JSON-LD は HTML ではなく JSON として読まれるため、& を &amp; に変える wp_kses() は通さない。
+		// JSON_HEX_TAG を外さないこと。< と > を \u003C・\u003E にして、値の中の </script> や <!-- で script 要素が閉じたり壊れたりするのを防いでいる。
+		// JSON-LD is read as JSON, not as HTML, so it is not passed through wp_kses(), which turns & into &amp;.
+		// Do not remove JSON_HEX_TAG. It turns < and > into \u003C and \u003E, so a </script> or <!-- in a value cannot close or break the script element.
+		echo '<script type="application/ld+json">' . wp_json_encode( $article_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG ) . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON_HEX_TAG により < と > を含まない JSON を出力するため。
 		echo '<!-- [ / VK All in One Expansion Unit Article Structure Data ] -->';
 	}
 
@@ -484,8 +488,12 @@ class VK_Article_Srtuctured_Data {
 	 *
 	 * The array is passed through the veu_article_structure_data filter before being returned.
 	 * When the array cannot be built (no post or no author), an empty array is returned without applying the filter.
+	 * headline is a string with the tags removed and character references (such as &amp;) turned back into characters, and is not escaped for HTML.
+	 * The tag removal and the restoring of character references apply only to the default values built before the veu_article_structure_data filter, and the values returned by the filter are not processed again.
 	 * 返す前に veu_article_structure_data フィルターを通す。
 	 * 投稿や著者が無く配列を作れない場合は、フィルターを通さずに空配列を返す。
+	 * headline はタグを除き、文字参照（&amp; など）を元の文字に戻した文字列で、HTML 用にはエスケープしていない。
+	 * タグの除去と文字参照の復元は veu_article_structure_data フィルターの前に作る既定値にだけ行い、フィルターが返した値は処理し直さない。
 	 *
 	 * @param int|string   $author_id 著者のユーザー ID。空の場合は対象の投稿の著者を使う。 Author user ID. Uses the author of the target post when empty.
 	 * @param WP_Post|null $post      対象の投稿。省略時はグローバル $post を使う。 Target post. Uses the global $post when omitted.
@@ -521,8 +529,17 @@ class VK_Article_Srtuctured_Data {
 		// Initialize $post_title because the is_singular() block does not run on non-singular pages, which would leave it undefined.
 		$post_title = '';
 		if ( is_singular() ) {
-			$image      = self::get_article_image_object( $post );
-			$post_title = get_the_title( $post );
+			$image = self::get_article_image_object( $post );
+			// タグの始まりにならない単独の <（直後が英字・/・!・? 以外。例: x<5）は、タグを除く前に &lt; にしておく。
+			// そのままだと wp_strip_all_tags() が < 以降をタグとみなして消してしまう。
+			// Turn a lone < that cannot start a tag (not followed by a letter, /, ! or ?, e.g. x<5) into &lt; before removing the tags.
+			// Otherwise wp_strip_all_tags() treats the < and what follows it as a tag and removes them.
+			$post_title = preg_replace( '/<(?![a-zA-Z\/!?])/', '&lt;', get_the_title( $post ) );
+			// 見出しが文字参照（保存時の &amp; や表示用の整形でできる &#038; など）のまま検索エンジンに伝わらないよう、元の文字に戻す。
+			// タグを除いてから戻すこと（逆にすると、文字参照で書かれた < > までタグとして消える）。
+			// Turn character references (such as &amp; made on saving or &#038; made by display formatting) back into characters, so the headline does not reach search engines as references.
+			// Remove the tags before decoding (the other way round, a < > written as references would also be removed as a tag).
+			$post_title = html_entity_decode( wp_strip_all_tags( $post_title ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
 
 		$article_array = array(
@@ -634,9 +651,13 @@ class VK_Article_Srtuctured_Data {
 
 	/**
 	 * ユーザー設定ページに登録されている情報を元に著者情報を配列で返す
+	 * name は文字参照（&amp; など）を元の文字に戻した文字列で、HTML 用にはエスケープしていない。
 	 *
-	 * @param int $author_id
-	 * @return array $author_array
+	 * Return the author information as an array, based on the information registered on the user profile screen.
+	 * name is a string with character references (such as &amp;) turned back into characters, and is not escaped for HTML.
+	 *
+	 * @param int $author_id 著者のユーザー ID。 Author user ID.
+	 * @return array $author_array 著者情報の配列。 Author information array.
 	 */
 	public static function get_author_array( $author_id = '' ) {
 
@@ -680,7 +701,9 @@ class VK_Article_Srtuctured_Data {
 		// 配列など文字列以外が保存されていた場合に文字列変換の警告を出さないよう、is_string() で先に判定する。
 		// Check is_string() first so that a non-string value (e.g. an array) does not raise an "Array to string conversion" warning.
 		if ( is_string( $author_name ) && '' !== $author_name ) {
-			$author_array['name'] = $author_name;
+			// 表示名は保存時に & が &amp; になるため、検索エンジンに文字参照のまま伝わらないよう元の文字に戻す。
+			// The display name is saved with & turned into &amp;, so turn the references back into characters before they reach search engines.
+			$author_array['name'] = html_entity_decode( $author_name, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
 		$author_array['url'] = $author_url;
 		if ( is_string( $author_sameAs ) && '' !== $author_sameAs ) {

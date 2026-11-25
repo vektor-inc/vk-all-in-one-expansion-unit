@@ -5,10 +5,14 @@
  * @package VK All in One Expansion Unit
  */
 
+require_once __DIR__ . '/helpers/trait-veu-html-assertions.php';
+
 /**
  * Promotion Disclosure Test
  */
 class PromotionAlertTest extends WP_UnitTestCase {
+
+	use VEU_Test_Html_Assertions;
 
 	public function set_up() {
 		parent::set_up();
@@ -485,7 +489,7 @@ class PromotionAlertTest extends WP_UnitTestCase {
 			$return  = VEU_Promotion_Alert::get_alert_content();
 			$correct = $test_value['correct'];
 
-			$this->assertEquals( $correct, $return, $test_value['name'] );
+			$this->assert_html_same( $correct, $return, $test_value['name'] );
 
 			// print PHP_EOL;
 			// print 'correct ::::' . $correct . PHP_EOL;
