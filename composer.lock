@@ -60,16 +60,16 @@
         },
         {
             "name": "vektor-inc/vk-admin",
-            "version": "0.8.1",
+            "version": "0.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vektor-inc/vk-admin.git",
-                "reference": "8c0e1c6a19520a0565192eb79fbda3217e1f54bd"
+                "reference": "1f3016569fec08456ff261921794a7c521ccf766"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vektor-inc/vk-admin/zipball/8c0e1c6a19520a0565192eb79fbda3217e1f54bd",
-                "reference": "8c0e1c6a19520a0565192eb79fbda3217e1f54bd",
+                "url": "https://api.github.com/repos/vektor-inc/vk-admin/zipball/1f3016569fec08456ff261921794a7c521ccf766",
+                "reference": "1f3016569fec08456ff261921794a7c521ccf766",
                 "shasum": ""
             },
             "require-dev": {
@@ -102,9 +102,9 @@
             "description": "Vektor Admin Component",
             "support": {
                 "issues": "https://github.com/vektor-inc/vk-admin/issues",
-                "source": "https://github.com/vektor-inc/vk-admin/tree/0.8.1"
+                "source": "https://github.com/vektor-inc/vk-admin/tree/0.8.3"
             },
-            "time": "2026-06-17T02:06:40+00:00"
+            "time": "2026-11-26T01:52:26+00:00"
         },
         {
             "name": "vektor-inc/vk-breadcrumb",
