@@ -90,6 +90,7 @@ Full license texts are included in LICENSE-THIRD-PARTY.txt, bundled with this pl
 
 == Changelog ==
 
+[ New Feature ] Added a "Disable Random Redirect" option, shown only on WordPress 7.2 or later, to stop the /random/ redirect to a random post.
 [ Bug Fix ][ Structured Data ] Fixed "&" and quotation marks in the site name, post title and author name being output as codes such as "&amp;" in the Article and WebSite structured data (JSON-LD). They are now output as the original characters.
 [ Bug Fix ][ Structured Data ] Fixed "&" in URLs being output as "&amp;" in the Article and WebSite structured data (JSON-LD), which search engines could read as a different URL.
 [ Bug Fix ][ Breadcrumb ] Update vektor-inc/vk-breadcrumb from 0.2.9 to 0.2.11, fixing "&" being output as `&amp;` in the breadcrumb structured data (JSON-LD)
