@@ -663,7 +663,7 @@ class CTATest extends WP_UnitTestCase {
 	 * @return void
 	 */
 	function test_get_cta_post() {
-		$test_posts = self::create_cta();
+		$test_posts       = self::create_cta();
 		$password_post_id = wp_insert_post(
 			array(
 				'post_title'    => 'cta_password',
@@ -673,7 +673,7 @@ class CTATest extends WP_UnitTestCase {
 				'post_password' => 'password',
 			)
 		);
-		$test_array = array(
+		$test_array       = array(
 			// 公開.
 			array(
 				'post_id' => $test_posts['post_id'],
